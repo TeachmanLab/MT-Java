@@ -1,0 +1,8 @@
+server:
+  port: 9000
+management:
+  port: 9001
+logging:
+  file: target/log.out
+service:
+  message: Awesome Message
