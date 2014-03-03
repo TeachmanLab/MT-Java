@@ -1,0 +1,3 @@
+[submodule "PIPlayer"]
+	path = PIPlayer
+	url = git@github.com:danfunk/PIPlayer.git

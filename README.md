@@ -5,5 +5,12 @@ A Server for hosting PIPlayer Trials.  Provides:
 * Data Collection
 * Data Reporting
 
-Build on the Spring framework.
+Built in Java on the Spring framework.
+
+Getting Started
+===============
+This project includes the Project Implicit Player as a Git SubModule.  so you will need to initialize that submodule with the following
+commands:
+$ git submodule init
+$ git submodule update
 
