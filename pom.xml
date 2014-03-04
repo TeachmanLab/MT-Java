@@ -13,6 +13,94 @@
         <version>1.0.0.RC3</version>
     </parent>
 
+    <!-- this will cause the PIPlayer to be built and copied into the public/js directory if it doesn't exist -->
+    <profiles>
+        <profile>
+            <id>PIPlayer</id>
+            <activation>
+                <file>
+                    <missing>${basedir}/static/js</missing>
+                </file>
+            </activation>
+            <build>
+            <plugins>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.7</version>
+                <executions>
+                    <execution>
+
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <target name="building">
+                                <echo>
+                                    <!--  NPM INSTALL  -->
+                                </echo>
+                                <exec executable="cmd" dir="${project.basedir}/PIPlayer"
+                                      osfamily="windows" failonerror="true">
+                                    <arg line="/c npm config set color false"/>
+                                </exec>
+                                <exec executable="npm" dir="${project.basedir}/PIPlayer" failonerror="true">
+                                    <arg line="config set color false"/>
+                                </exec>
+                                <exec executable="cmd" dir="${project.basedir}/PIPlayer"
+                                      osfamily="windows" failonerror="true">
+                                    <arg line="/c npm install"/>
+                                </exec>
+                                <exec executable="npm" dir="${project.basedir}/PIPlayer" failonerror="true">
+                                    <arg value="install" />
+                                </exec>
+                                <echo>
+                                    <!-- GRUNT  -->
+                                </echo>
+                                <exec executable="cmd" dir="${project.basedir}/PIPlayer"
+                                      osfamily="windows" resultproperty="cmdresult">
+                                    <arg line="/c grunt --no-color > grunt.status "/>
+                                </exec>
+                                <exec executable="grunt" dir="${project.basedir}/PIPlayer"
+                                      osfamily="unix" resultproperty="cmdresult">
+                                    <arg line="build"/>
+                                </exec>
+                                <condition property="cmdsuccess">
+                                    <equals arg1="${cmdresult}" arg2="0"/>
+                                </condition>
+                                <fail unless="cmdsuccess"/>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+                <!-- This builds the PIPlayer using NPM / Grunt -->
+                <plugin>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>2.6</version>
+                    <executions>
+                        <execution>
+                            <id>copy-resources</id>
+                            <!-- here the phase you need -->
+                            <phase>validate</phase>
+                            <goals>
+                                <goal>copy-resources</goal>
+                            </goals>
+                            <configuration>
+                                <outputDirectory>${basedir}/static/js</outputDirectory>
+                                <resources>
+                                    <resource>
+                                        <directory>${project.basedir}/PIPlayer/dist/js</directory>
+                                    </resource>
+                                </resources>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+            </build>
+        </profile>
+    </profiles>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -71,4 +159,9 @@
             <snapshots><enabled>true</enabled></snapshots>
         </pluginRepository>
     </pluginRepositories>
+
+
+
+
+
 </project>
