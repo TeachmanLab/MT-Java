@@ -14,3 +14,8 @@ commands:
 $ git submodule init
 $ git submodule update
 
+Now you need to compile and build the project and start it up
+$ mvn package 
+$ java -jar target/pi-server-0.1.0.jar
+
+You can now visit the website at : http://localhost:8080/index.html
