@@ -1,0 +1,359 @@
+/*
+ * jQuery FlexSlider v2.0
+ * http://www.woothemes.com/flexslider/
+ *
+ * Copyright 2012 WooThemes
+ * Free to use under the GPLv2 license.
+ * http://www.gnu.org/licenses/gpl-2.0.html
+ *
+ * Contributing author: Tyler Smith (@mbmufffin)
+ */
+
+ 
+/* Browser Resets */
+.flex-container a:active, .flexslider a:active, .flex-container a:focus, .flexslider a:focus {
+	outline: none;
+}
+.slides, .flex-control-nav, .flex-direction-nav {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+/* FlexSlider Necessary Styles
+*********************************/ 
+.flexslider {
+	margin: 0;
+	padding: 0;
+}
+.flexslider .slides > li {
+	display: none;
+	-webkit-backface-visibility: hidden;
+} /* Hide the slides before the JS is loaded. Avoids image jumping */
+.flexslider .slides img {
+	width: 100%;
+	display: block;
+}
+.flex-pauseplay span {
+	text-transform: capitalize;
+}
+/* Clearfix for the .slides element */
+.slides:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+html[xmlns] .slides {
+	display: block;
+}
+* html .slides {
+	height: 1%;
+}
+/* No JavaScript Fallback */
+/* If you are not using another script, such as Modernizr, make sure you
+ * include js that eliminates this class on page load */
+.no-js .slides > li:first-child {
+	display: block;
+}
+/* FlexSlider Default Theme
+*********************************/
+.flexslider {
+	margin: 0;
+	background: none;
+	border: 0px;
+	position: relative;
+	zoom: 1;
+}
+.flex-viewport {
+	max-height: 2000px;
+	-webkit-transition: all 1s ease;
+	-moz-transition: all 1s ease;
+	transition: all 1s ease;
+}
+.loading .flex-viewport {
+	max-height: 300px;
+}
+.flexslider .slides {
+	zoom: 1;
+}
+.carousel li {
+	margin-right: 5px
+}
+/* Control Nav */
+.flex-control-nav {
+	width: 100%;
+	position: absolute;
+	bottom: -40px;
+	text-align: center;
+}
+.flex-control-nav li {
+	margin: 0 6px;
+	display: inline-block;
+	zoom: 1;
+*display: inline;
+}
+.flex-control-paging li a {
+	width: 11px;
+	height: 11px;
+	display: block;
+	background: #666;
+	background: rgba(0, 0, 0, 0.5);
+	cursor: pointer;
+	text-indent: -9999px;
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	-o-border-radius: 20px;
+	border-radius: 20px;
+	box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
+}
+.flex-control-paging li a:hover {
+	background: #333;
+	background: rgba(0, 0, 0, 0.7);
+}
+.flex-control-paging li a.flex-active {
+	background: #000;
+	background: rgba(0, 0, 0, 0.9);
+	cursor: default;
+}
+.flex-control-thumbs {
+	margin: 5px 0 0;
+	position: static;
+	overflow: hidden;
+}
+.flex-control-thumbs li {
+	width: 25%;
+	float: left;
+	margin: 0;
+}
+.flex-control-thumbs img {
+	width: 100%;
+	display: block;
+	opacity: .7;
+	cursor: pointer;
+}
+.flex-control-thumbs img:hover {
+	opacity: 1;
+}
+.flex-control-thumbs .flex-active {
+	opacity: 1;
+	cursor: default;
+}
+ @media screen and (max-width: 860px) {
+ .flex-direction-nav .flex-prev {
+opacity: 1;
+left: 0;
+}
+ .flex-direction-nav .flex-next {
+opacity: 1;
+right: 0;
+}
+}
+/*============================================================*/
+/*---------- Custom styles for grepfrut ----------*/
+/*============================================================*/
+/* Direction Nav */
+.flex-direction-nav {
+*height: 0;
+}
+.flex-direction-nav a {
+	background: url(../img/nav.png) no-repeat;
+	width: 27px;
+	height: 27px;
+	margin: -13px 0 0 0;
+	position: absolute;
+	top: 50%;
+	cursor: pointer;
+	text-indent: -9999px;
+	opacity: 0;
+	display: block;
+	-moz-transition: 0s;
+	-webkit-transition:  0s;
+	-o-transition:  0s;
+	transition:  0s;
+}
+.flex-direction-nav .flex-next {
+	background-position: -27px 0;
+	right: 10px;
+}
+.flex-direction-nav .flex-next:hover {
+	background: url(../img/nav.png) no-repeat -27px -27px;
+}
+.flex-direction-nav .flex-prev:hover {
+	background: url(../img/nav.png) no-repeat 0 -27px;
+}
+.flex-direction-nav .flex-prev {
+	background-position: 0 0;
+	left: 10px;
+}
+.flexslider:hover .flex-next {
+	opacity: 0.5;
+	right: 10px;
+}
+.flexslider:hover .flex-prev {
+	opacity: 0.5;
+	left: 10px;
+}
+.flexslider:hover .flex-next:hover, .flexslider:hover .flex-prev:hover {
+	opacity: 0.5;
+}
+/*============================================================*/
+/*---------- Thumbnail slider ----------*/
+/*============================================================*/
+#slider-bg {
+	background: url(../img/patterns/slider-background.jpg) no-repeat scroll center top;
+	width: 100%;
+	height: auto;
+	margin-bottom: 30px;
+	color: #a7a7a7;
+	text-shadow: 0px 1px 0px #000;
+}
+#slider h2 {
+	font-size: 38px;
+	color: #8eb943;
+	font-weight: 700;
+	line-height: 1.1em;
+	text-align: left;
+	margin-bottom: 20px;
+	margin-top: 10px;
+}
+/*slider thumbnails*/
+#thumb-slider .thumb-text {
+	padding: 5px;
+	font-size: 14px;
+	color: #fff;
+	font-weight: 600;
+	line-height: 1.2em;
+	text-shadow: 0px 1px 0px #000;
+	background:  rgba(0, 0, 0, 0.15);
+	-moz-transition: all 0.3s ease;
+	-webkit-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	cursor: pointer;
+}
+#thumb-slider .thumb-text:hover, #thumb-slider .flex-active-slide .thumb-text {
+	background:  rgba(0, 0, 0, 0.5);
+}
+#thumb-slider img {
+	width: 64px !important;
+	height: 64px !important;
+	margin-right: 5px;
+	float: left !important;
+	display: inline !important;
+}
+#thumb-slider .slides {
+	margin-left: -10px;
+	margin-top: 20px;
+}
+#thumb-slider li {
+	width: 180px;
+	margin-left: 10px;
+	display: inline-block;
+	float: left;
+}
+#thumb-slider p {
+	margin-top: 15px;
+	margin-bottom: 0px;
+}
+/*============================================================*/
+/*---------- Image slider ----------*/
+/*============================================================*/
+/*overlay-caption*/
+.overlay-caption {
+	background:  rgba(0, 0, 0, 0.9);
+	width: 470px;
+	height: 215px;
+	padding: 25px 30px 30px 30px;
+	margin-top: -135px; /*half of total height*/
+	margin-left: -265px; /*half of total width*/
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	color: #a7a7a7;
+	text-shadow: 0px 1px 0px #000;
+	text-align: center;
+}
+.overlay-caption p {
+	margin: 0;
+}
+/*============================================================*/
+/*----------  Media queries ----------*/
+/*============================================================*/
+/*----------------------------------------*/
+/*----- 3.1 Mobile (Portrait) / Design for a width of 320px -----*/
+/*----------------------------------------*/
+
+@media only screen and (max-width: 767px) {
+#slider h2 {
+font-size: 26px;
+margin-top: 0px;
+}
+/*slider thumbnails*/
+#thumb-slider {
+display: none;
+}
+.overlay-caption {
+ background:  rgba(0, 0, 0, 0.9);
+ width: 90%;
+ height: auto;
+ padding: 5%;
+ margin: 0 auto;
+ position: relative;
+ top: 100%;
+ left: 0;
+}
+.overlay-caption p {
+ margin: 0;
+}
+}
+/*----------------------------------------*/
+/*----- 3.2 Mobile (Landscape) / Design for a width of 480px -----*/
+/*----------------------------------------*/
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+}
+ 
+/*----------------------------------------*/
+/*----- 3.3 Tablet (Portrait) / Design for a width of 768px -----*/
+/*----------------------------------------*/
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+ #thumb-slider {
+display: none;
+}
+}
+
+
+/*============================================================*/
+/*---------- Browser fixes (IE) ----------*/
+/*============================================================*/
+@media \0screen {
+.overlay-caption {
+	background: #000;
+	filter:alpha(opacity=90);
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
+	-moz-opacity:0.9;
+	-khtml-opacity: 0.9;
+	opacity: 0.9;
+}
+#thumb-slider .thumb-text {
+	background: #000;
+	filter:alpha(opacity=25);
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=25)";
+	-moz-opacity:0.25;
+	-khtml-opacity: 0.25;
+	opacity: 0.25;
+	font-size: 12px;
+}
+#thumb-slider .thumb-text:hover, #thumb-slider .flex-active-slide .thumb-text {
+	background: #000;
+	filter:alpha(opacity=50);
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+	-moz-opacity:0.5;
+	-khtml-opacity: 0.5;
+	opacity: 0.5;
+}
+}

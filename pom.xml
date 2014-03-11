@@ -121,7 +121,7 @@
     </dependencies>
 
     <properties>
-        <start-class>hello.Application</start-class>
+        <start-class>edu.virginia.psyc.pi.Application</start-class>
     </properties>
 
     <build>

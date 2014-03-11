@@ -1,0 +1,490 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Grepfrut - Help Document</title>
+	<link rel="stylesheet" media="screen" href="css/reset.css"/>
+	<link rel="stylesheet" media="screen" href="css/style.css"/>
+	<link type="text/css" rel="stylesheet" media="all" href="assets/highlight.css" />
+	<script type="text/javascript" src="assets/jquery-1.6.2.min.js"></script>
+	<script type="text/javascript" src="assets/highlight.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('pre.code').highlight({source:1, zebra:1, indent:'space', list:'ol'});
+			
+		});
+	</script>
+	</head>
+
+	<body>
+<div id="header_wrapper">
+        <div id="header"> <img src="Images/tansh-logo.jpg" width="80" height="80" alt="logo" class="logo" />
+        <p>Grepfrut - Help document</p>
+    </div>
+        <div class="clear"></div>
+    </div>
+<div id="wrapper">
+        <div id="info_text">
+        <p>Thank you for purchasing my theme. If you have any questions that are beyond the scope of this help file, please feel free to email via my user page contact form <a href="http://themeforest.net/user/tansh" target="_blank">here</a>. </p>
+        <p>I'd be glad to help you if you have any questions relating to this theme. <br/>
+                No guarantees, but I'll do my best to assist.  Thanks so much!</p>
+    </div>
+        <div id="info">
+        <table>
+                <tr>
+                <td><strong>Theme Name </strong></td>
+                <td>:</td>
+                <td>Grepfrut</td>
+            </tr>
+                <tr>
+                <td><strong>Created By </strong></td>
+                <td>:</td>
+                <td><a href="http://themeforest.net/user/tansh" target="_blank">Tansh</a></td>
+            </tr>
+                <tr>
+                <td><strong>Theme Support </strong></td>
+                <td>:</td>
+                <td><a href="http://themeforest.net/user/tansh" target="_blank">http://themeforest.net/user/tansh</a></td>
+            </tr>
+                <tr>
+                <td><strong>Created</strong></td>
+                <td>:</td>
+                <td>14 - Oct - 2012</td>
+            </tr>
+                <tr>
+                <td><strong>Version</strong></td>
+                <td>:</td>
+                <td>1.08</td>
+            </tr>
+            </table>
+    </div>
+        <div class="content">
+        <h1>Find help for the topics listed below....</h1>
+        <p>Click to go directly for the particular point.</p>
+        <div class="first">
+                <h3>Elements related help</h3>
+                <ul>
+                <li><a href="#form">Contact form</a></li>
+                <li><a href="twitter.html" target="_blank">Twitter feed</a></li>
+                <li><a href="#flex">Flexslider</a></li>
+                <li><a href="#prettyphoto">prettyPhoto - large image on click</a></li>
+                <li><a href="#quicksand">Quicksand - filterable portfolio</a></li>
+                <li><a href="#equal">Equal height to features etc.</a></li>
+            </ul>
+            </div>
+        <div class="second">
+                <h3>Misc</h3>
+                <ul>
+                <li><a href="#purchase">Purchased theme - now what?</a></li>
+                <li><a href="#tips">Customization tips</a></li>
+                <li><a href="#credits">Credits and sources</a></li>
+            </ul>
+                <h3 style="margin-top: 20px;"> Update / Changelog</h3>
+                <p>For older version buyers</p>
+                <ul>
+                <li> <a href="#change">Update / Changelog</a> </li>
+                <li><a href="twitter-older-buyers.html" target="_blank">How to update twitter feed?</a></li>
+            </ul>
+            </div>
+    </div>
+        <div class="clear"></div>
+        <div id="form" class="content">
+        <h1>Contact form - <a href="#info">top</a></h1>
+        <ul>
+                <li>Needs...(attached in head section of page with contact form)
+                <ul>
+                        <li>jquery.validate.js</li>
+                        <li>jquery.form.js</li>
+                        <li>function (in custom.js)</li>
+                    </ul>
+            </li>
+                <li>You need to do / give following two things, <strong>to make form work</strong>....</li>
+                <ul style="list-style-type: none;">
+                <li style="list-style-type: none;"> <span style="font-size: 20px; margin-left: 20px; margin-right: 10px;">1.</span> Your email id in
+                        <ul>
+                        <li> <em><strong> 'submit-form.php'</strong></em> - For contact form </li>
+                    </ul>
+                    </li>
+                <li class="none">
+                        <pre class="code" lang="php">$youremail = 'yourname@mail.com';  </pre>
+                    </li>
+                <li style="list-style-type: none;"> <span style="font-size: 20px; margin-left: 20px; margin-right: 10px;">2.</span>Give path / url of php file <em><strong>in html</strong></em> as form action.
+                    <li>In default template provided, contact form php path / url / form action is given as ---- 'submit-form.php' as php is in root folder.</li>
+                <li>As php file is placed in root folder, <strong>no need to worry about form action, untill you are moving php to some sub folder.</strong></li>
+                <li class="none">
+                        <pre class="code" lang="html">  
+<form  id="contactform" method="post" action="submit-form.php">
+<fieldset>
+<p>
+<label>Full Name :</label>
+<input name="name"  type="text">
+</p>
+</fieldset>
+</form>
+    </pre>
+                    </li>
+            </ul>
+                <li> Upload all files. Form will work fine.</li>
+            </ul>
+        <h2>Other more info about contact form</h2>
+        <h3>How to change mail body?</h3>
+        <p class="beta">It can be changed in  form's php file.</p>
+        <pre class="code" lang="php">
+              
+ $body = "You have got new message from your website :
+        </pre>
+        <h3>How to change success message (message displayed after send process complete)?</h3>
+        <p>Message which displays as result on send process complete, can be changed in php file, right at the bottom.</p>
+        <h3>Why I'm getting error ..."There was an error sending your email. Please try again"</h3>
+        <p>Form do not work offline, you need to upload all necessary files first.</p>
+        <h3>How to add extra fields in contact form?</h3>
+        <ul>
+                <li>Add field html.</li>
+                <li>Add php for it, as it is added for other fields.</li>
+                <li>Choose suitable <strong>validation class</strong> for input field. Those are give in 'jquery.validate.js' approx. line no. 260 - 280.</li>
+            </ul>
+        <h1><a href="#info" class="padding_top">Take me to index</a></h1>
+    </div>
+        <div class="clear"></div>
+        <div id="flex" class="content">
+        <h1>Flexslider - <a href="#info">top</a></h1>
+        <ul>
+                <li>Needs...
+                <ul>
+                        <li>jquery.flexslider-min.js</li>
+                        <li>flexslider.css</li>
+                        <li>function</li>
+                    </ul>
+                <p>All these are attached in head section of page containing flexslider</p>
+            </li>
+                <li>
+                <h2>How to add more image slides / testimonials ?</h2>
+                <p>Slides are given as a list.</p>
+                <pre class="code" lang="html">  
+ <div class="flexslider image-slider">
+ <ul class="slides">
+ <!--first slide-->
+ <li>
+	Image / Content here
+ </li>
+ <!--second slide-->
+ <li>
+	Image / Content here
+ </li>
+  ...and so on..
+ </ul>
+ </div>
+        </pre>
+            </li>
+            </ul>
+        <h1><a href="#info" class="padding_top">Take me to index</a></h1>
+    </div>
+        <div class="clear"></div>
+        <div id="quicksand" class="content">
+        <h1>Quicksand - <a href="#info">top</a></h1>
+        <ul>
+                <li>Needs... (attached below footer in pages with filterable portfolio)
+                <ul>
+                        <li>jquery.quicksand.js</li>
+                    </ul>
+            </li>
+                <li>
+                <pre class="code" lang="html">
+<ul> 
+    <li data-id="id-5" data-type="cat1">
+        <div class="folio-thumb"><img src="img/preview/thumb-5.jpg" alt="image" /><a href="http://vimeo.com/7449107" data-rel="prettyPhoto[gallery1]" title="This is title of vimeo video" class="icon-zoom"></a></div>
+    </li>
+</ul>
+</pre>
+            </li>
+                <li>'<strong>data-id</strong>' - will range from 1 to number of lists / images in portfolio (as given in default template)</li>
+                <li>'<strong>data-type</strong>' - is the one on the basis of which images are filtered. 'Class' given in 'filter_nav' is given as data-type </li>
+                <li>'<strong>prettyPhoto</strong>' - is given to zoom icon</li>
+            </ul>
+    </div>
+        <div class="clear"></div>
+        <div id="prettyphoto" class="content">
+        <h1>prettyPhoto - <a href="#info">top</a></h1>
+        <ul>
+                <li>Needs... (attached in head section of pages using prettyphoto)
+                <ul>
+                        <li>prettyPhoto.css</li>
+                        <li>jquery.prettyPhoto.js</li>
+                        <li>function</li>
+                    </ul>
+            </li>
+                <li>You can choose theme of your choice, change animation speed etc. in function of prettyPhoto.</li>
+                </li>
+            </ul>
+    </div>
+        <div class="clear"></div>
+        <div id="equal" class="content">
+        <h1>Equal height - <a href="#info">top</a></h1>
+        <ul>
+                <li>In features list (like 'features-small'), text may be uneven, it may distort looks.</li>
+                <li>Bringing all lists to equal height will make it fine.</li>
+                <li>Needs function, you may place it in custom.js, in document ready. </li>
+                <pre class="code" lang="js">       
+function equalHeight(group) {
+tallest = 0;
+group.each(function() {
+thisHeight = $(this).height();
+if(thisHeight > tallest) {
+tallest = thisHeight;
+}
+});
+group.height(tallest);
+}
+equalHeight($(".equal_height li"));
+</pre>
+                <li>Specify class ".equal_height" to "ul" as shown below.</li>
+                <pre class="code" lang="html"> 
+<ul class="list-4col features-small equal_height">
+<li>...</li>
+<li>...</li>
+</ul> 
+ </pre>
+            </ul>
+    </div>
+        <div class="clear"></div>
+        <div id="purchase" class="content">
+        <h1>Get started - <a href="#info">top</a></h1>
+        <ul>
+                <li>Download the final zip file from your downloads page.</li>
+                <li>Unzip the final zip file; you should now have a final download folder.</li>
+                <li>Do NOT upload the final download folder. Open up the final download folder.</li>
+                <li>Browse the contents and find the actual themes folder (inside 'HTML and CSS' folder).</li>
+                <li>Upload ONLY the selected (color / variation) theme folder.</li>
+                <li>Regarding uploading theme to your hosting account - go through the help / support of your hosting service provider. Drop a ticket to them if any query :)</li>
+            </ul>
+        <h1><a href="#info" class="padding_top">Take me to index</a></h1>
+    </div>
+        <div class="clear"></div>
+        <div id="tips" class="content">
+        <h1>Customization tips - <a href="#info">top</a></h1>
+        <ul>
+                <li>
+                <h2>While removing any jquery library attached...</h2>
+                <p> If you are removing any jquery library attached, remember to remove its function form custom.js (if any), otherwise it will affect page display in many browsers esp. IE. If you need to attach some jquery element to particular page only, it is best practice to add its jquery, css, function etc. in head section of that page (as it is done for sliders, prettyphoto etc.)</p>
+                <p>Following jqueries are attached to all pages in template.</p>
+                <ul>
+                        <li>bootstrap.js</li>
+                        <li>ddsmoothmenu.js</li>
+                        <li>jquery.validate.js</li>
+                        <li>jquery.form.js</li>
+                        <li>jquery.easing.1.3.js</li>
+                        <li>custom.js</li>
+                    </ul>
+            </li>
+            </ul>
+        <h1><a href="#info" class="padding_top">Take me to index</a></h1>
+    </div>
+        <div class="clear"></div>
+        <div id="credits" class="content">
+        <h1>Credits and sources - <a href="#info">top</a></h1>
+        <ul>
+                <li>Jqueries used
+                <ul>
+                        <li>Jquery Flexslider - http://flex.madebymufffin.com/</li>
+                        <li>Jquery validation - http://bassistance.de/jquery-plugins/jquery-plugin-validation/</li>
+                        <li>http://fitvidsjs.com/</li>
+                        <li>Prettyphpto - http://www.no-margin-for-errors.com/projects/prettyphoto-jquery-lightbox-clone/</li>
+                        <li>Portfolio filter - http://razorjack.net/quicksand/</li>
+                        <li>Smooth Navigational Menu- http://www.dynamicdrive.com/dynamicindex1/ddsmoothmenu.htm</li>
+                        <li>elastislide carousel - http://tympanus.net/codrops/2011/09/12/elastislide-responsive-carousel/</li>
+                        <li>Twitter feed - http://tweet.seaofclouds.com/</li>
+                    </ul>
+            </li>
+                <li>Framework - http://twitter.github.com/bootstrap/ </li>
+                <li>Font used
+                <ul>
+                        <li>Raleway - google web font</li>
+                        <li>Arial</li>
+                        <li>Georgia</li>
+                    </ul>
+            </li>
+                <li>Patterns used from
+                <ul>
+                        <li>http://subtlepatterns.com/</li>
+                    </ul>
+            </li>
+                <li>Icons used
+                <ul>
+                        <li>Photos by http://www.flickr.com/photos/johanl</li>
+                        <li>People vector by http://www.vectorportal.com</li>
+                        <li>Icons by http://www.iconsweets.com</li>
+                    </ul>
+            </li>
+            </ul>
+        <h1><a href="#info" class="padding_top">Take me to index</a></h1>
+    </div>
+        <div class="clear"></div>
+        <div id="change" class="content">
+        <h1>Changelog - <a href="#info">top</a></h1>
+        <h2>Version 1.01 - 16 <sup>th</sup> Oct 2012</h2>
+        <ul>
+                <li>Addition of color styles / variations - cyan, green & yellow</li>
+            </ul>
+        <h2 style="margin-top: 30px;">Version 1.02 - 23 <sup>rd</sup> Oct 2012</h2>
+        <ul>
+                <li>Updated jquery for prettyPhoto "jquery.prettyPhoto.js". Just replace older jquery with new one. </li>
+            </ul>
+        <h2>Version 1.03 - 10 <sup>th</sup> Nov 2012</h2>
+        <ul>
+                <li>Addition of Tabs
+                <ul>
+                        <li> HTML as shown in shotrcodes page. </li>
+                        <li>Function to initiate tab in custom.js</li>
+                        <li>CSS in style.css (section 1.8)</li>
+                    </ul>
+            </li>
+            </ul>
+        <h2>Version 1.04 - 2 <sup>nd</sup> Dece 2012</h2>
+        <ul>
+                <li>Addition of Blog pages- single and multi-posts
+                <ul>
+                        <li>To update changes in css, just paste css provided <a href="style-1.04.txt" target="_blank">HERE</a> in style.css, right at the end of second section "2. TEMPLATE STRUCTURE" ( i.e. before media queries)</li>
+                        <li>Add following in media queries for mobile (in 3.1 Mobile (Portrait) / Design for a width of 320px).
+                        <pre class="code" lang="css">.list-comments li ul {
+ padding: 0px 0 0 20px;
+}
+</pre>
+                    </li>
+                        <li>Copy image for bullet list from any color variation's "img" folder (list-bullet-ace.png) and paste in your "img" folder</li>
+                    </ul>
+            </li>
+            </ul>
+        <h2>Version 1.05 - 12 <sup>th</sup> Feb 2013</h2>
+        <ul>
+                <li>Fix for slider (flex slider with thumbnail) in iphone4
+                <ul>
+                        <li>Just replace the function for slider (in head section) with the one in updated template.</li>
+                    </ul>
+            </li>
+            </ul>
+        <h2>Version 1.06 - 22 <sup>nd</sup> March 2013</h2>
+        <ul>
+                <li>Updated contact form
+                <ul>
+                        <li>Updated 'submit-form.php'</li>
+                        <li>Addition of new 'antispam' field in HTML
+                        <pre class="code" lang="css"><p class="antispam">Leave this empty: <br />
+<input name="url" />
+</p>
+</pre>
+                    </li>
+                        <li>Specified 'antispam' class in style.css
+                        <pre class="code" lang="css"> .antispam { display:none;}
+</pre>
+                    </li>
+                    </ul>
+            </li>
+                <li>Updated twitter jquery for timeago.
+                <ul>
+                        <li>Just replace 'twitter.js' with latest from updated template. Give your username as mentioned (above) in help for twitter feed.</li>
+                    </ul>
+            </li>
+            </ul>
+        <h2>Version 1.07 </h2>
+        <ul>
+                <li>Updated template for twitter feed (API v1.1) </li>
+            </ul>
+        <h2>Version 1.08 </h2>
+        <ul>
+                <li>Updated main jquery library to 'jquery-1.9.1.min.js'. Just copy it from updated folder and update path for it in HTML of all pages.</li>
+                <li>Updated 'twitter.js'. Just copy it from updated folder and replace older.</li>
+                <li>Fix for IE8 in relation to portfolio images. Refer browser fixes section of updated template.</li>
+                <li>Updated template for menu (dropdown nav for responsive)
+                <p>Refer updated template for better understanding of following.</p>
+                <ul>
+                        <li>
+                        <h6>Changes in HTML</h6>
+                        <ul>
+                                <li>Attach jquery for responsive nav <strong>'selectnav.js'</strong> in HTML of all pages as follows:
+                                <pre class="code" lang="html">
+&lt;script src="js/selectnav.js" type="text/javascript" &gt;&lt;/script&gt;
+</pre>
+                            </li>
+                                <li>Give id 'nav' to 'ul' of menu (in HTML of all pages)  as follows:
+                                <pre class="code" lang="html"><div id="smoothmenu" class="ddsmoothmenu">
+	<ul id="nav">
+		<li><a href="index.html" class="selected">Home</a></li>
+		<li><a href="about.html">About</a> </li> 
+	</ul>
+</div>  
+</pre>
+                            </li>
+                            </ul>
+                    </li>
+                        <li>
+                        <h6>Changes in 'custom.js'</h6>
+                        Place following function in 'custom.js' (remove previous function for responsive menu).
+                        <pre class="code" lang="js">
+selectnav('nav', {
+    label: '',
+    nested: true,
+    indent: '-'
+});
+</pre>
+                    </li>
+                        <li>
+                        <h6>Changes in 'style.css'</h6>
+                        <ul>
+                                <li> Place following in style.css - in section no. 2.11 Menu / Navigation
+                                <pre class="code" lang="css">
+/*Menu select - for responsive*/
+.selectnav {
+	display: none;
+}
+.js .selectnav {
+	display: none;
+	cursor: pointer !important;
+	color: #a7a7a7 !important;
+	outline: none;
+	border: 1px solid #767676;
+	width: 100%;
+	padding: 5px 10px;
+	background: #282828;
+	font-size: 12px;
+	height: auto;
+	margin: 0 auto;
+	text-shadow: 0px 1px 0px #000;
+}
+</pre>
+                            </li>
+                                <li> Place following in style.css - in section no. 3.1 Mobile (Portrait) / Design for a width of 320px
+                                <pre class="code" lang="css">
+.js #nav {
+display: none;
+}
+.js .selectnav {
+width: 100% !important;
+margin-top: 20px;
+float: left !important;
+display: block;
+}
+</pre>
+                            </li>
+                                <li> Place following in style.css - in section no. 3.3 Tablet (Portrait) / Design for a width of 768px
+                                <pre class="code" lang="css">
+.js #nav {
+display: none;
+}
+.js .selectnav {
+width: 100% !important;
+margin: 0;
+display: inline-block;
+float: left;
+}
+</pre>
+                            </li>
+                            </ul>
+                    </li>
+                    </ul>
+            </li>
+            </ul>
+    </div>
+        <div class="clear"></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,85 @@
+/* Elastislide Style */
+.es-carousel-wrapper {
+	position:relative;
+}
+.es-carousel {
+	overflow:hidden;
+}
+.es-carousel ul {
+	display: block;
+}
+.es-carousel ul li {
+	width: 100%;
+	float:left;
+	display:block;
+}
+.es-carousel ul li a {
+	border: none;
+}
+.es-carousel ul li a img {
+	display:block;
+	border:none;
+	max-height:100%;
+	max-width:100%;
+}
+.es-nav span {
+	background:transparent url(../img/nav.png) no-repeat 0 0;
+	position:absolute;
+	top: 82px;
+	width: 27px;
+	height: 27px;
+	text-indent:-9000px;
+	cursor:pointer;
+}
+.es-nav span.es-nav-next {
+	right:-13px;
+	left:auto;
+	background-position: -27px 0;
+	z-index: 99;
+}
+.es-nav span.es-nav-prev {
+	left:-13px;
+	right:auto;
+	background-position: 0 0;
+	z-index: 99;
+}
+.es-nav span.es-nav-next:hover {
+	background-position: -27px -27px;
+}
+.es-nav span.es-nav-prev:hover {
+	background-position: 0 -27px;
+}
+/*============================================================*/
+/*----------  Media queries ----------*/
+/*============================================================*/
+/*----------------------------------------*/
+/*----- 3.1 Mobile (Portrait) / Design for a width of 320px -----*/
+/*----------------------------------------*/
+
+@media only screen and (max-width: 767px) {
+.es-nav span.es-nav-next {
+	right: 5px;
+	left:auto;
+	background-position: -27px 0;
+	
+}
+.es-nav span.es-nav-prev {
+	left: 5px;
+	right:auto;
+	background-position: 0 0;
+	
+}
+}
+/*----------------------------------------*/
+/*----- 3.2 Mobile (Landscape) / Design for a width of 480px -----*/
+/*----------------------------------------*/
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+}
+ 
+/*----------------------------------------*/
+/*----- 3.3 Tablet (Portrait) / Design for a width of 768px -----*/
+/*----------------------------------------*/
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+
+}
+

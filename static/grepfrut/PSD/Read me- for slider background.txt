@@ -1,0 +1,22 @@
+
+
+Making image ready for slider background as shown in demo.
+
+
+1) Download and install pattern for photoshop from http://subtlepatterns.com/graphy/
+
+2) Open slider background.psd provided with this download.
+
+3) Double click on smart object.
+
+4) insert your image. (prefer dark one or you can use photoshop tools to make it dark)
+
+5) Close and save the document.
+
+6) You will see pattern and gaussian blur applied which you adjust to suit your requirements.
+
+6) GO to File > Save for web & devices optimize and save.
+
+6) You are done.
+
+ 

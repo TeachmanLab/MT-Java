@@ -27,8 +27,8 @@ define(['app/API','extensions/dscore/Scorer'], function(API,Scorer) {
 
 	// setting the way the logger works (how often we send data to the server and the url for the data)
 	API.addSettings('logger',{
-		pulse: 20,
-		url : '/implicit/PiPlayerApplet'
+		pulse: 1,
+		url : '/data'
 	});
 
 
