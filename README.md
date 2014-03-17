@@ -18,7 +18,7 @@ Requirements
 ---------------
 You must have the following applications installed in order to build and run the server.
 * Java 7
-* Maven 2 (Java Package Manager / Build Tool)
+* Maven 3 (Java Package Manager / Build Tool)
 * Node (Server side Javascript - for building the PIPlayer, see http://howtonode.org)
 * npm (Javascript Package Manager)
 

@@ -5,8 +5,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
- * This is a Spring based application, and will auto discover the controllers in this code base and
- * make them available as web endpoints.
+ * This is a Spring based application, and will auto discover the 
+ * controllers in this code base and make them available
+ *  as web endpoints.
  */
 @ComponentScan
 @EnableAutoConfiguration
