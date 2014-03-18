@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,7 +22,7 @@ import java.util.List;
  * Date: 3/11/14
  * Time: 11:01 AM
  *
- * Handles saving and retrieveing Trail objects
+ * Handles saving and retrieving Trail objects
  *
  */
 public class TrialDAO {
@@ -60,30 +61,40 @@ public class TrialDAO {
         for(String stimuli : trial.getStimuli()) {
             jdbcTemplate.update(stimuliSQL, trialId, stimuli);
         }
+
+        mediaSQL = "INSERT INTO TRIAL_MEDIA(TRIAL_ID, MEDIA) VALUES (?,?)";
+        for(String media : trial.getMedia()) {
+            jdbcTemplate.update(mediaSQL, trialId, media);
+        }
+
+        dataSQL = "INSERT INTO TRIAL_DATA(TRIAL_ID, NAME, VALUE) VALUES (?,?,?)";
+        for(String key : trial.getData().keySet()) {
+            jdbcTemplate.update(dataSQL, trialId, key, trial.getData().get(key));
+        }
+
     }
 
     public List<Trial> getTrials() {
-        ResultSet rs;
+        List<String> stimuli;
+        String selectTrial   = "select id, LOG_SERIAL, TRIAL_ID, NAME, RESPONSE_HANDLE, LATENCY from trial";
+        String selectStimuli = "select STIMULI from TRIAL_STIMULI where TRIAL_ID = ?";
+        String selectMedia   = "select MEDIA from TRIAL_MEDIA where TRIAL_ID = ?";
+        String selectData    = "select NAME,VALUE from TRIAL_DATA where TRIAL_ID = ?";
 
-        List<Trial> trials = jdbcTemplate.query(
-                "select id, LOG_SERIAL, TRIAL_ID, NAME, RESPONSE_HANDLE, LATENCY from trial",
-                new ProductMapper());
-/*
-        try {
-            for(Trial t : trials) {
-               rs = jdbcTemplate.query("select STIMULI from TRIAL_STIMULI where TRIAL_ID = ?", t.getId());
-               while(rs.next()) {
-                   t.addStimuli(rs.getString(0));
-               }
-             }
-        } catch (SQLException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        List<Trial> trials = jdbcTemplate.query(selectTrial, new TrialMapper());
+        for(Trial t : trials) {
+            t.setStimuli(jdbcTemplate.query(selectStimuli, new StringMapper("STIMULI"), t.getId()));
+            t.setMedia(jdbcTemplate.query(selectMedia, new StringMapper("MEDIA"), t.getId()));
+            List<Map<String,Object>> results = jdbcTemplate.queryForList(selectData, t.getId());
+            for (Map m : results) t.addData((String)m.get("NAME"), m.get("VALUE"));
         }
-*/
         return trials;
     }
-    
-    private static class ProductMapper implements ParameterizedRowMapper<Trial> {
+
+    /**
+     * Maps an SQL Result row back to a Trial.
+     */
+    private static class TrialMapper implements ParameterizedRowMapper<Trial> {
 
         public Trial mapRow(ResultSet rs, int rowNum) throws SQLException {
             Trial trial = new Trial();
@@ -97,4 +108,22 @@ public class TrialDAO {
             return trial;
         }
     }
+
+    /**
+     * Maps an SQL Result row back to a single string, looking for the given field name.
+     */
+    private static class StringMapper implements ParameterizedRowMapper<String> {
+        private String field;
+
+        public StringMapper(String field) {
+            super();
+            this.field = field;
+        }
+
+        public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+            return rs.getString(field);
+        }
+    }
+
+
 }

@@ -1,6 +1,8 @@
 package edu.virginia.psyc.pi;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -36,9 +38,9 @@ public class Trial {
     private String name;
     private String responseHandle;
     private int latency;
-    private Collection<String> stimuli;
-    private Collection<String> media;
-    private Map<String,Object> data;
+    private Collection<String> stimuli = new ArrayList<String>();
+    private Collection<String> media   = new ArrayList<String>();
+    private Map<String,Object> data    = new HashMap<String, Object>();
 
     @Override
     public String toString() {
@@ -101,10 +103,6 @@ public class Trial {
         this.stimuli = stimuli;
     }
 
-    public void addStimuli(String s) {
-        this.stimuli.add(s);
-    }
-
     public Collection<String> getMedia() {
         return media;
     }
@@ -128,4 +126,10 @@ public class Trial {
     public void setData(Map<String, Object> data) {
         this.data = data;
     }
+
+    public void addData(String key, Object value) {
+        System.out.println("Adding " + key + ":" + value);
+        this.data.put(key,value);
+    }
+
 }
