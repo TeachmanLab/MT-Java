@@ -9,10 +9,8 @@ Built in Java on the Spring framework.
 
 Getting Started
 ===============
-This project includes the Project Implicit Player as a Git SubModule.  so you will need to initialize that submodule with the following
-commands:
-$ git submodule init
-$ git submodule update
+This project depends on the Project Implicit Player.  You will need to initialize that code base inside this one.  Check the code out into PIPlayer directory as so:
+$ git clone git@github.com:ProjectImplicit/PIPlayer.git
 
 Requirements
 ---------------
