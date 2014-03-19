@@ -1,10 +1,12 @@
 package edu.virginia.psyc.pi.DAO;
 
+import edu.virginia.psyc.pi.Application;
 import edu.virginia.psyc.pi.Trial;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,16 +24,16 @@ import java.util.List;
  */
 @Transactional
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"/spring/business-config.xml"})
+@SpringApplicationConfiguration(classes = Application.class)
 public class TrialDAOTest {
+
     @Autowired
-    protected JdbcTemplate jdbcTemplate;
+    protected TrialDAOSql trialDAO;
 
     @Test
     @Transactional
     public void findTrials() {
         List<Trial> trials;
-        TrialDAO trialDAO = new TrialDAO(jdbcTemplate);
 
         Assert.assertTrue(true);
         trials = trialDAO.getTrials();

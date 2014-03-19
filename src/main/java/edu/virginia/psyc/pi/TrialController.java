@@ -5,11 +5,9 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.virginia.psyc.pi.DAO.TrialDAO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.sql.DataSource;
 import java.io.IOException;
 import java.util.List;
 
@@ -25,18 +23,15 @@ import java.util.List;
 @RequestMapping("/data")
 public class TrialController {
 
-    private JdbcTemplate jdbcTemplate;
-    private TrialDAO     trialDAO;
+    private TrialDAO trialDAO;
 
     /**
-     * Spring automatically configures this object to connect to a database.
-     * You can modify the location of this database by editing the application.yaml file.
-     * @param dataSource
+     * Spring automatically configures this object.
+     * You can modify the location of this database by editing the application.properties file.
      */
     @Autowired
-    public TrialController(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-        this.trialDAO     = new TrialDAO(jdbcTemplate);
+    public TrialController(TrialDAO dao) {
+        this.trialDAO     = dao;
     }
 
     /**
