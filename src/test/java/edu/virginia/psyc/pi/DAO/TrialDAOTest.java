@@ -1,19 +1,9 @@
 package edu.virginia.psyc.pi.DAO;
 
-import edu.virginia.psyc.pi.Application;
 import edu.virginia.psyc.pi.persistence.TrialDAO;
-import edu.virginia.psyc.pi.persistence.TrialRepository;
-import edu.virginia.psyc.pi.rest.TrialJson;
+import edu.virginia.psyc.pi.rest.json.TrialJson;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import java.util.List;
-import java.util.Map;
 
 
 /**

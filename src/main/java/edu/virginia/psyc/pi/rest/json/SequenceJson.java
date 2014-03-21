@@ -1,6 +1,4 @@
-package edu.virginia.psyc.pi.rest;
-
-import edu.virginia.psyc.pi.persistence.TrialDAO;
+package edu.virginia.psyc.pi.rest.json;
 
 import java.util.ArrayList;
 

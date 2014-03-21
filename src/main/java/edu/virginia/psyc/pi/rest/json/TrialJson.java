@@ -1,12 +1,5 @@
-package edu.virginia.psyc.pi.rest;
+package edu.virginia.psyc.pi.rest.json;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.virginia.psyc.pi.persistence.TrialDAO;
-
-import java.io.IOException;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 

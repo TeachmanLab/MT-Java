@@ -3,8 +3,7 @@ package edu.virginia.psyc.pi.DAO;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.virginia.psyc.pi.rest.SequenceJson;
-import edu.virginia.psyc.pi.rest.TrialJson;
+import edu.virginia.psyc.pi.rest.json.TrialJson;
 import junit.framework.Assert;
 import org.junit.Test;
 

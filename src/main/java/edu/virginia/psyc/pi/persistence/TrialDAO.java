@@ -1,6 +1,6 @@
 package edu.virginia.psyc.pi.persistence;
 
-import edu.virginia.psyc.pi.rest.TrialJson;
+import edu.virginia.psyc.pi.rest.json.TrialJson;
 
 import javax.persistence.*;
 import java.util.*;

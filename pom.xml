@@ -118,7 +118,6 @@
         </dependency>
 
         <!-- Security -->
-        <!--
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
@@ -127,7 +126,6 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-config</artifactId>
         </dependency>
-        -->
 
         <!-- Databases - Uses HSQL by default -->
         <!-- <dependency> <groupId>mysql</groupId> <artifactId>mysql-connector-java</artifactId> <version>${mysql.version}</version> </dependency> -->
