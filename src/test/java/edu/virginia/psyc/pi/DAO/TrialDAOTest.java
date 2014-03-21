@@ -1,18 +1,19 @@
 package edu.virginia.psyc.pi.DAO;
 
 import edu.virginia.psyc.pi.Application;
-import edu.virginia.psyc.pi.Trial;
+import edu.virginia.psyc.pi.persistence.TrialDAO;
+import edu.virginia.psyc.pi.persistence.TrialRepository;
+import edu.virginia.psyc.pi.rest.TrialJson;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -22,24 +23,27 @@ import java.util.List;
  * Time: 6:58 AM
  * Assure that Trials are correctly stored and retrieved from the database.
  */
-@Transactional
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
 public class TrialDAOTest {
 
-    @Autowired
-    protected TrialDAOSql trialDAO;
+    // Here is a typical Json string, as provided by the PiPlayer
+    public static final String JSON_STRING = "{\"log_serial\":22,\"trial_id\":24,\"name\":\"IAT\",\"responseHandle\":\"left\",\"latency\":897302,\"stimuli\":[\"Good Words\"],\"media\":[\"Happy\"],\"data\":{\"score\":0,\"block\":2,\"left1\":\"Good Words\",\"right1\":\"Bad Words\",\"condition\":\"Good Words/Bad Words\"}}";
 
-    @Test
-    @Transactional
-    public void findTrials() {
-        List<Trial> trials;
 
-        Assert.assertTrue(true);
-        trials = trialDAO.getTrials();
-        Assert.assertNotNull(trials);
+    public TrialJson getTrial() {
+        return(TrialJsonTest.fromJson(JSON_STRING));
     }
 
+    @Test
+    public void testCovertingTrailJson() {
+
+        TrialDAO trialDao = new TrialDAO(getTrial());
+        Assert.assertEquals(22, trialDao.getLog_serial());
+        Assert.assertEquals(897302, trialDao.getLatency());
+        Assert.assertEquals(1, trialDao.getStimuliAsList().size());
+        Assert.assertEquals("Good Words", trialDao.getStimuliAsList().get(0));
+        Assert.assertEquals(5, trialDao.getDataAsMap().size());
+        Assert.assertEquals("0", trialDao.getDataAsMap().get("score"));
+    }
 
 
 }
