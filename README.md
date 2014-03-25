@@ -16,14 +16,27 @@ Requirements
 ---------------
 You must have the following applications installed in order to build and run the server.
 * Java 7
-* Maven 3 (Java Package Manager / Build Tool)
+* Gradle
 * Node (Server side Javascript - for building the PIPlayer, see http://howtonode.org)
 * npm (Javascript Package Manager)
 
+Running
+--------
+You can start up the webserver in development mode (meaning hot swappable / auto reloading) with:
+$ gradle clean bootrun
 
-Now you need to compile and build the project and start it up
-$ mvn package 
-$ java -jar target/pi-server-0.1.0.jar
+You can now visit the website at : http://localhost:9000
 
-You can now visit the website at : http://localhost:8080/index.html
+Deploying
+--------
+You can generate a WAR file suitable for deployment in a web server with 
+$ gradle war
+
+Testing
+--------
+$ gradle test
+
+Test results can be found in  ...PIServer/build/reports/tests/index.html
+
+
 

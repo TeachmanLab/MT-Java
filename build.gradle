@@ -1,0 +1,52 @@
+buildscript {
+    repositories {
+        maven { url "http://repo.spring.io/libs-snapshot" }
+        mavenLocal()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.0.0.RC4")
+    }
+}
+
+apply plugin: 'java'
+//apply plugin: 'eclipse-wtp'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+apply plugin: 'war'
+
+war {
+    baseName = 'gs-convert-jar-to-war'
+    version =  '0.1.0'
+}
+
+repositories {
+    mavenCentral()
+    maven { url "http://repo.spring.io/libs-snapshot" }
+}
+
+configurations {
+    providedRuntime
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+    compile("org.springframework:spring-jdbc")
+    compile("com.fasterxml.jackson.core:jackson-databind")
+    compile("org.springframework.security:spring-security-web")
+    compile("org.springframework.security:spring-security-config")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile("org.hsqldb:hsqldb")
+//    compile("org.thymeleaf:thymeleaf-spring4")
+
+    // Deployment
+    providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+
+    // Tests
+    compile("org.springframework:spring-test")
+    testCompile("junit:junit")
+    testCompile("org.mockito:mockito-all:1.8.4")
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.11'
+}

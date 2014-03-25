@@ -1,5 +1,10 @@
 .idea
 target
 pi-server.iml
-static/js
 PIPlayer
+.classpath
+.gradle/
+.project
+.settings/
+PIServer.iml
+build/
