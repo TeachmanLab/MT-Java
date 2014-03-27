@@ -35,7 +35,9 @@ dependencies {
     compile("org.springframework.security:spring-security-web")
     compile("org.springframework.security:spring-security-config")
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
-    compile("org.hsqldb:hsqldb")
+//    compile("org.hsqldb:hsqldb")
+    compile("mysql:mysql-connector-java")
+    compile("org.mindrot:jbcrypt:0.3m");
 //    compile("org.thymeleaf:thymeleaf-spring4")
 
     // Deployment

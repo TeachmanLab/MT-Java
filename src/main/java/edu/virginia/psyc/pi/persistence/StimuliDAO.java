@@ -10,6 +10,7 @@ import javax.persistence.*;
  * A list of strings representing stimuli presented in a trialDAO.
  */
 @Entity
+@Table(name="stimuli")
 public class StimuliDAO {
 
     @Id

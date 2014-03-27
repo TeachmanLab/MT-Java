@@ -23,7 +23,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * To change this template use File | Settings | File Templates.
  */
 public class SiteControllerTest {
-
     private static final String FORWARDED_URL = "/home.html";
     private static final String VIEW = "home";
 

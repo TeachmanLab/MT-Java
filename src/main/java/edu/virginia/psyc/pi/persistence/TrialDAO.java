@@ -31,6 +31,7 @@ import java.util.*;
  * ]
  */
 @Entity
+@Table(name="trial")
 public class TrialDAO {
 
     @Id @GeneratedValue private long id;

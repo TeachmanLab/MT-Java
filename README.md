@@ -19,6 +19,18 @@ You must have the following applications installed in order to build and run the
 * Gradle
 * Node (Server side Javascript - for building the PIPlayer, see http://howtonode.org)
 * npm (Javascript Package Manager)
+* mysql
+
+Database Setup
+---------------
+Install MySQL, and execute the following commands to establish
+a user account.  You can use a different password if you change
+the datasource.password setting in src/main/resources/application.properties
+
+> CREATE database pi;
+> CREATE USER 'pi_user'@'localhost' IDENTIFIED BY 'pi_password';
+> GRANT ALL PRIVILEGES ON pi.* TO 'pi_user'@'localhost' IDENTIFIED BY 'pi_password' WITH GRANT OPTION;
+
 
 Running
 --------

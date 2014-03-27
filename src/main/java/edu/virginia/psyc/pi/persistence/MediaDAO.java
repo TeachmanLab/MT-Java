@@ -10,6 +10,7 @@ import javax.persistence.*;
  * Basically a list of strings representing media shown to the participant..
  */
 @Entity
+@Table(name="media")
 public class MediaDAO {
 
     @Id
