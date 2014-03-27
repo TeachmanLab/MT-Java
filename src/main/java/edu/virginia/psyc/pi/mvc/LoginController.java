@@ -42,7 +42,7 @@ public class LoginController {
         this.participantRepository   = repository;
     }
 
-    @RequestMapping(value="/welcome", method = RequestMethod.GET)
+    @RequestMapping(value="/", method = RequestMethod.GET)
     public String printWelcome(ModelMap model, Principal principal ) {
 
         String name = principal.getName();
@@ -64,7 +64,8 @@ public class LoginController {
                                       final BindingResult result,
                                       final SessionStatus status,
                                       final @RequestParam(value = "unencodedPassword", required = true) String password,
-                                      final @RequestParam(value = "unencodedPassword2", required = true) String password2) {
+                                      final @RequestParam(value = "unencodedPassword2", required = true) String password2,
+                                      ModelMap model) {
 
         LOG.info("Create New Participant Called.");
 
@@ -87,7 +88,8 @@ public class LoginController {
 
         LOG.info("Participant authenticated.");
 
-        return "redirect:/home";
+        model.addAttribute("created", "true");
+        return "redirect:login";
     }
 
 
