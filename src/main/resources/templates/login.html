@@ -60,7 +60,7 @@
                 <form name="f" th:action="@{/newParticipant}" method="post">
                 <fieldset>
                     <legend>Create Account:</legend>
-                    <div th:if="${param.error}" class="alert alert-error">
+                    <div th:if="${param.create_error}" class="alert alert-error">
                         There was an error creating your account.
                     </div>
                     <p>
@@ -107,38 +107,15 @@
 </section>
 
 
-<!-- footer starts
+<!-- footer
 ================================================== -->
 <footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
 
 
-<!-- footer ends
-================================================== -->
-
 <!-- copyright starts
 ================================================== -->
-<section id="copyright" class="clearfix">
-    <div class="container">
-        <div class="row">
-            <div class="span12">
-                <p> Â© Copyright 2014 by the Rector and Visitors of the University of Virginia</p>
+<footer id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
 
-                <!--copyright menu starts-->
-                <ul class="copyright-menu">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Features</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Company</a></li>
-                    <li><a href="#">Portfolio</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-
-                <!--copyright menu ends-->
-
-            </div>
-        </div>
-    </div>
-</section>
 <!-- copyright ends
 ================================================== -->
 
