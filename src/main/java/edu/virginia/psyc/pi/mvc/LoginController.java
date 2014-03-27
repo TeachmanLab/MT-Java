@@ -83,13 +83,11 @@ public class LoginController {
 
 
         // Log this new person in.
-        Authentication auth = new UsernamePasswordAuthenticationToken( participant.getEmail(), hashedPassword );
+        Authentication auth = new UsernamePasswordAuthenticationToken( participant.getEmail(), password);
         SecurityContextHolder.getContext().setAuthentication(auth);
 
         LOG.info("Participant authenticated.");
-
-        model.addAttribute("created", "true");
-        return "redirect:login";
+        return "redirect:/";
     }
 
 
