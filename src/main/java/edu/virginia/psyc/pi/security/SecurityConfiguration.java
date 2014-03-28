@@ -57,11 +57,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             @Override
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
                 List<ParticipantDAO> participants = participantRepository.findByEmail(username);
-                LOG.info("================================");
-                LOG.info("Searching for " + username);
-                LOG.info("Found Participant:" + participants);
-                LOG.info("================================");
-
                 if(participants.size() > 0) return participants.get(0);
                 else return null;
             }
