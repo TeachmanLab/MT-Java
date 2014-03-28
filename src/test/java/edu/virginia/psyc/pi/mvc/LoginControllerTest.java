@@ -67,7 +67,7 @@ public class LoginControllerTest {
                 .param("unencodedPassword2", "ereiamjh"))
                 .andDo(print())
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/home"));
+                .andExpect(view().name("redirect:/"));
 
         Assert.assertTrue(participantRepository.findByEmail("daniel.h.funk@gmail.com").size() > 0);
 
