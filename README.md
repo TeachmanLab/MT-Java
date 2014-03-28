@@ -16,7 +16,6 @@ Requirements
 ---------------
 You must have the following applications installed in order to build and run the server.
 * Java 7
-* Gradle
 * Node (Server side Javascript - for building the PIPlayer, see http://howtonode.org)
 * npm (Javascript Package Manager)
 * mysql
@@ -31,24 +30,27 @@ the datasource.password setting in src/main/resources/application.properties
 > CREATE USER 'pi_user'@'localhost' IDENTIFIED BY 'pi_password';
 > GRANT ALL PRIVILEGES ON pi.* TO 'pi_user'@'localhost' IDENTIFIED BY 'pi_password' WITH GRANT OPTION;
 
-
 Running
 --------
 You can start up the webserver in development mode (meaning hot swappable / auto reloading) with:
-$ gradle clean bootrun
+$ ./gradlew clean bootrun
+(on windows this is ./gradlew.bat clean bootrun)
 
 You can now visit the website at : http://localhost:9000
 
 Deploying
 --------
 You can generate a WAR file suitable for deployment in a web server with 
-$ gradle war
+$ ./gradlew war
 
 Testing
 --------
-$ gradle test
+$ ./gradlew test
 
 Test results can be found in  ...PIServer/build/reports/tests/index.html
 
+Security Overview
+==================
 
+* 
 
