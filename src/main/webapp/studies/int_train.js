@@ -28,9 +28,76 @@ define(['app/API'], function(API) {
 		url : '/implicit/PiPlayerApplet'
 	});
 
+    API.addStimulusSets({
+        // This Default stimulus is inherited by the other stimuli so that we can have a consistent appearance and change it from one place.
+        Default: [
+            {css:{color:'#0000FF','font-size':'2em'}}
+        ],
 
+        // This sets the appearance for the instructions.
+        Instructions: [
+            {css:{'font-size':'1.3em',color:'white', lineHeight:1.2},handle:'instructions'}
+        ],
 
-	// #### Create trial sequence
+        // #### The trial stimuli
+        // Each of the following stimulus set holds the stimuli for a specific trial state
+        // Each set hold stimuli both stimuli that display attribute1/category1 and stimuli that display attribute2/category2.
+        paragraph : [
+            {data:{letter:'f', handle:'fill_in_letter'}, inherit:'Default', media: {html:"<div>You are at a class that your company has sent you to. Your teacher asks each member of the group to stand up and introduce themselves. After your brief presentation, you guess the others thought you sounded <span style='white-space:nowrap'>con[ ]ident.</span></div>"}},
+            {data:{letter:'y', handle:'fill_in_letter'}, inherit:'Default', media: {html:"<div>You are at a class that your company has sent you to. Your teacher asks each member of the group to stand up and introduce themselves. After your brief presentation, you guess the others thought you sounded <span style='white-space:nowrap'>sh[ ].</span></div>"}},
+            {data:{letter:'s', handle:'fill_in_letter'}, inherit:'Default', media: {html:"<div>A friend suggests that you join an evening class on creative writing. The thought of other people looking at your writing makes you feel <span style='white-space:nowrap'>enthu[ ]iastic.</span></div>"}},
+            {data:{letter:'a', handle:'fill_in_letter'}, inherit:'Default', media: {html:"<div>A friend suggests that you join an evening class on creative writing. The thought of other people looking at your writing makes you feel <span style='white-space:nowrap'>embarr[ ]ssed.</div>"}}
+        ],
+
+        // This stimulus is used for giving feedback, in this case only an error notification
+        feedback : [
+            {handle:'error', location: {top: 80}, css:{color:'red','font-size':'4em'}, media: {word:'X'}, nolog:true}
+        ]
+
+    });
+
+    // #### Default trial
+    // This trial serves as the default for all IAT trials (excluding instructions)
+    API.addTrialSets('Default',{
+        input: [
+            {handle:'f',on:'keypressed', key:"f"},
+            {handle:'all_letters',on:'keypressed',key:['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']}
+        ],
+        stimuli: [
+            {inherit:{type:'random',set:'paragraph'}},
+            {inherit:{type:'random',set:'feedback'}}
+        ],
+        interactions: [
+            // This is an interaction (it has a condition and an action)
+            {
+                conditions: [{type:'begin'}],
+                actions: [
+                    {type:'showStim',handle:'fill_in_letter'}
+                ]
+            },
+            {
+                conditions: [
+                    {type:'inputEquals', value:'f'}
+                ],
+                actions: [
+                    {type:'hideStim', handle: 'All'},
+                    {type:'endTrial'}
+                ]
+            },
+            {
+                conditions: [
+                    {type:'inputEquals',value:'all_letters'},
+                    {type:'inputEquals', value:'f',negate:true}
+                ],
+                actions: [
+                    {type:'showStim',handle:'error'},
+                    {type:'setTrialAttr', setter:{score:1}}
+                ]
+            }
+        ]
+    });
+
+        // #### Create trial sequence
 	API.addSequence([
 		{
 
@@ -60,45 +127,18 @@ define(['app/API'], function(API) {
 				}
 			]
 		},
+
         {
-
-            input: [
-                {handle:'f',on:'keypressed', key:"f"},
-                {handle:'all_letters',on:'keypressed',key:['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']},
-            ],
-            layout: [
-                // This is a stimulus object
-                {
-                    media: {html:"<div>You are at a class that your company has sent you to. Your teacher asks each member of the group to stand up and introduce themselves. After your brief presentation, you guess the others thought you sounded <span style='white-space:nowrap'>con[ ]ident.</span></div>"},
-                    css:{fontSize:'1.2em',color:'#D7685A'}
-                }
-            ],
-            stimuli: [
-                {handle:'error', location: {top: 80}, css:{color:'red','font-size':'4em'}, media: {word:'X'}, nolog:true}
-            ],
-            interactions: [
-                // This is an interaction (it has a condition and an action)
-                {
-                    conditions: [
-                        {type:'inputEquals',value:'f'}
-                    ],
-                    actions: [
-                        {type:'endTrial'}
-                    ]
-                },
-                {
-                    conditions: [
-                        {type:'inputEquals',value:'all_letters'},
-                        {type:'inputEqualsStim', property:'letter',negate:true}
-                    ],
-                    actions: [
-                        {type:'showStim',handle:'error'},
-                        {type:'setTrialAttr', setter:{score:1}}
-                    ]
-                }
-            ]
+            mixer:'repeat',
+            times:10,
+            data: [
+            {
+                inherit:'Default',
+                stimuli: [{inherit:{type:'random',set:'paragraph'}},
+                    {inherit:{type:'random',set:'feedback'}}
+                ]
+            }]
         }
-
 	]);
 
 
