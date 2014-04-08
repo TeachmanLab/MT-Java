@@ -61,6 +61,9 @@ define(['app/API'], function(API) {
     API.addTrialSets('Default',{
         input: [
             {handle:'f',on:'keypressed', key:"f"},
+            {handle:'y',on:'keypressed', key:"y"},
+            {handle:'s',on:'keypressed', key:"s"},
+            {handle:'a',on:'keypressed', key:"a"},
             {handle:'all_letters',on:'keypressed',key:['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']}
         ],
         stimuli: [
@@ -77,23 +80,36 @@ define(['app/API'], function(API) {
             },
             {
                 conditions: [
-                    {type:'inputEquals', value:'f'}
+                    {type:'inputEqualsStim', handle:'letter'}
                 ],
                 actions: [
-                    {type:'hideStim', handle: 'All'},
-                    {type:'endTrial'}
+                    {type:'removeInput',handle:'All'},
+                    {type:'hideStim', handle: 'fill_in_letter'}
                 ]
             },
             {
                 conditions: [
                     {type:'inputEquals',value:'all_letters'},
-                    {type:'inputEquals', value:'f',negate:true}
+                    {type:'inputEqualsStim', handle:'letter',negate:true}
                 ],
                 actions: [
                     {type:'showStim',handle:'error'},
-                    {type:'setTrialAttr', setter:{score:1}}
+                    {type:'setTrialAttr', setter:{score:1}},
+                    {type:'setInput',input:{handle:'clear', on:'timeout',duration:250}}
+                ]
+            },
+            // ##### end after ITI
+            // This interaction is triggered by a timout after a correct response.
+            // It allows us to pad each trial with an interval.
+            {
+                // Trigger when input handle is "end".
+                conditions: [{type:'inputEquals',value:'clear'}],
+                actions: [
+                    {type:'hideStim',handle:'error'}
                 ]
             }
+
+
         ]
     });
 
