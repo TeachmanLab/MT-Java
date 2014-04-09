@@ -7,7 +7,8 @@ import javax.persistence.*;
  * User: dan
  * Date: 3/20/14
  * Time: 9:33 AM
- * Basically a list of strings representing media shown to the participant..
+ * Basically a list of strings representing media shown
+ * to the participant.
  */
 @Entity
 @Table(name="media")
@@ -20,6 +21,7 @@ public class MediaDAO {
     @ManyToOne
     private TrialDAO trialDAO;
 
+    @Lob
     private String value;
 
     public MediaDAO() {}

@@ -24,8 +24,8 @@ define(['app/API'], function(API) {
 
 	// setting the way the logger works (how often we send data to the server and the url for the data)
 	API.addSettings('logger',{
-		pulse: 20,
-		url : '/implicit/PiPlayerApplet'
+		pulse: 1,
+		url : '/data'
 	});
 
     API.addStimulusSets({
@@ -43,10 +43,18 @@ define(['app/API'], function(API) {
         // Each of the following stimulus set holds the stimuli for a specific trial state
         // Each set hold stimuli both stimuli that display attribute1/category1 and stimuli that display attribute2/category2.
         paragraph : [
-            {data:{letter:'f', handle:'fill_in_letter'}, inherit:'Default', media: {html:"<div>You are at a class that your company has sent you to. Your teacher asks each member of the group to stand up and introduce themselves. After your brief presentation, you guess the others thought you sounded <span style='white-space:nowrap'>con[ ]ident.</span></div>"}},
-            {data:{letter:'y', handle:'fill_in_letter'}, inherit:'Default', media: {html:"<div>You are at a class that your company has sent you to. Your teacher asks each member of the group to stand up and introduce themselves. After your brief presentation, you guess the others thought you sounded <span style='white-space:nowrap'>sh[ ].</span></div>"}},
-            {data:{letter:'s', handle:'fill_in_letter'}, inherit:'Default', media: {html:"<div>A friend suggests that you join an evening class on creative writing. The thought of other people looking at your writing makes you feel <span style='white-space:nowrap'>enthu[ ]iastic.</span></div>"}},
-            {data:{letter:'a', handle:'fill_in_letter'}, inherit:'Default', media: {html:"<div>A friend suggests that you join an evening class on creative writing. The thought of other people looking at your writing makes you feel <span style='white-space:nowrap'>embarr[ ]ssed.</div>"}}
+            {data:{letter:'f', handle:'fill_in_letter'}, inherit:'Default', media: {html:"<div>You are at a class that your company has sent you to. Your teacher asks each member of the group to stand up and introduce themselves. After your brief presentation, you guess the others thought you sounded <span class='incomplete' style='white-space:nowrap'>con[ ]ident.</span></div>"}},
+            {data:{letter:'y', handle:'fill_in_letter'}, inherit:'Default', media: {html:"<div>You are at a class that your company has sent you to. Your teacher asks each member of the group to stand up and introduce themselves. After your brief presentation, you guess the others thought you sounded <span class='incomplete' style='white-space:nowrap'>sh[ ].</span></div>"}},
+            {data:{letter:'s', handle:'fill_in_letter'}, inherit:'Default', media: {html:"<div>A friend suggests that you join an evening class on creative writing. The thought of other people looking at your writing makes you feel <span class='incomplete' style='white-space:nowrap'>enthu[ ]iastic.</span></div>"}},
+            {data:{letter:'a', handle:'fill_in_letter'}, inherit:'Default', media: {html:"<div>A friend suggests that you join an evening class on creative writing. The thought of other people looking at your writing makes you feel <span class='incomplete' style='white-space:nowrap'>embarr[ ]ssed.</div>"}},
+            {data:{letter:'i', handle:'fill_in_letter'}, inherit:'Default', media: {html:"<div>You join a tennis club and before long, you are asked to play in a doubles match. Afterwards you discuss your performance with your partner. Your partner thinks that you played <span class='incomplete' style='white-space:nowrap'>br[ ]lliantly.</span></div>"}},
+            {data:{letter:'b', handle:'fill_in_letter'}, inherit:'Default', media: {html:"<div>You join a tennis club and before long, you are asked to play in a doubles match. Afterwards you discuss your performance with your partner. Your partner thinks that you played <span class='incomplete' style='white-space:nowrap'>terri[ ]ly.</span></div>"}},
+            {data:{letter:'m', handle:'fill_in_letter'}, inherit:'Default', media: {html:"<div>Your orchestra asks you to play a solo at the next concert. You practice a few times until you feel ready to play it with the orchestra. At the first rehearsal you make one mistake. The conductor will think that your work is <span class='incomplete' style='white-space:nowrap'>pro[ ]ising.</span></div>"}},
+            {data:{letter:'u', handle:'fill_in_letter'}, inherit:'Default', media: {html:"<div>Your orchestra asks you to play a solo at the next concert. You practice a few times until you feel ready to play it with the orchestra. At the first rehearsal you make one mistake. The conductor will think that your work is <span class='incomplete' style='white-space:nowrap'>r[ ]shed.</span></div>"}},
+            {data:{letter:'e', handle:'fill_in_letter'}, inherit:'Default', media: {html:"<div>Your partner asks you to go to an anniversary dinner that his/her company is holding. You have not met any of his/her work colleagues before. Getting ready to go, you think that the new people you will meet will find you <span class='incomplete' style='white-space:nowrap'>fri[ ]ndly.</div>"}},
+            {data:{letter:'r', handle:'fill_in_letter'}, inherit:'Default', media: {html:"<div>Your partner asks you to go to an anniversary dinner that his/her company is holding. You have not met any of his/her work colleagues before. Getting ready to go, you think that the new people you will meet will find you <span class='incomplete' style='white-space:nowrap'>bo[ ]ing.</div>"}},
+            {data:{letter:'a', handle:'fill_in_letter'}, inherit:'Default', media: {html:"<div>You receive an essay back from your teacher and did not get the grade that you were expecting. She tells you that this is because on this occasion, your work was <span class='incomplete' style='white-space:nowrap'>outst[ ]nding.</span></div>"}},
+            {data:{letter:'n', handle:'fill_in_letter'}, inherit:'Default', media: {html:"<div>You receive an essay back from your teacher and did not get the grade that you were expecting. She tells you that this is because on this occasion, your work was <span class='incomplete' style='white-space:nowrap'>confusi[ ]g</span></div>"}}
         ],
 
         // This stimulus is used for giving feedback, in this case only an error notification
@@ -59,12 +67,35 @@ define(['app/API'], function(API) {
     // #### Default trial
     // This trial serves as the default for all IAT trials (excluding instructions)
     API.addTrialSets('Default',{
+        data: {score:0},
+
         input: [
-            {handle:'f',on:'keypressed', key:"f"},
-            {handle:'y',on:'keypressed', key:"y"},
-            {handle:'s',on:'keypressed', key:"s"},
             {handle:'a',on:'keypressed', key:"a"},
-            {handle:'all_letters',on:'keypressed',key:['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']}
+            {handle:'b',on:'keypressed', key:"b"},
+            {handle:'c',on:'keypressed', key:"c"},
+            {handle:'d',on:'keypressed', key:"d"},
+            {handle:'e',on:'keypressed', key:"e"},
+            {handle:'f',on:'keypressed', key:"f"},
+            {handle:'g',on:'keypressed', key:"g"},
+            {handle:'h',on:'keypressed', key:"h"},
+            {handle:'i',on:'keypressed', key:"i"},
+            {handle:'j',on:'keypressed', key:"j"},
+            {handle:'k',on:'keypressed', key:"k"},
+            {handle:'l',on:'keypressed', key:"l"},
+            {handle:'m',on:'keypressed', key:"m"},
+            {handle:'n',on:'keypressed', key:"n"},
+            {handle:'o',on:'keypressed', key:"o"},
+            {handle:'p',on:'keypressed', key:"p"},
+            {handle:'q',on:'keypressed', key:"q"},
+            {handle:'r',on:'keypressed', key:"r"},
+            {handle:'s',on:'keypressed', key:"s"},
+            {handle:'t',on:'keypressed', key:"t"},
+            {handle:'u',on:'keypressed', key:"u"},
+            {handle:'v',on:'keypressed', key:"v"},
+            {handle:'w',on:'keypressed', key:"w"},
+            {handle:'x',on:'keypressed', key:"x"},
+            {handle:'y',on:'keypressed', key:"y"},
+            {handle:'z',on:'keypressed', key:"z"}
         ],
         stimuli: [
             {inherit:{type:'random',set:'paragraph'}},
@@ -80,32 +111,51 @@ define(['app/API'], function(API) {
             },
             {
                 conditions: [
-                    {type:'inputEqualsStim', handle:'letter'}
+                    {type:'inputEqualsStim', property:'letter', handle:'fill_in_letter'}
                 ],
                 actions: [
-                    {type:'removeInput',handle:'All'},
-                    {type:'hideStim', handle: 'fill_in_letter'}
+                    {type:'log'},
+                    {type:'custom',fn:function(options,eventData){
+                        var span = $("span.incomplete");
+                        var text = span.text().replace(' ', eventData["handle"]);
+                        span.text(text);
+                    }},
+                    {type:'setInput',input:{handle:'end', on:'timeout',duration:500}}
                 ]
             },
             {
                 conditions: [
-                    {type:'inputEquals',value:'all_letters'},
-                    {type:'inputEqualsStim', handle:'letter',negate:true}
+                    {type:'inputEqualsStim', property:'letter', handle:'fill_in_letter',negate:true}
                 ],
                 actions: [
                     {type:'showStim',handle:'error'},
+                    {type:'custom',fn:function(options,eventData){
+                        console.log(eventData);
+                        console.log(options);
+                    }},
                     {type:'setTrialAttr', setter:{score:1}},
-                    {type:'setInput',input:{handle:'clear', on:'timeout',duration:250}}
+                    {type:'setInput',input:{handle:'clear', on:'timeout',duration:500}}
                 ]
             },
-            // ##### end after ITI
+            // This interaction is triggered by a timout after a INcorrect response.
+            // It allows us to delay the removal of the big red X.
+            {
+                // Trigger when input handle is "end".
+                conditions: [
+                     {type:'inputEquals',value:'clear'}],
+                actions: [
+                    {type:'removeInput',handle : 'clear'},
+                    {type:'hideStim',handle:'error'}
+                ]
+            },
             // This interaction is triggered by a timout after a correct response.
             // It allows us to pad each trial with an interval.
             {
                 // Trigger when input handle is "end".
-                conditions: [{type:'inputEquals',value:'clear'}],
+                conditions: [{type:'inputEquals',value:'end'}],
                 actions: [
-                    {type:'hideStim',handle:'error'}
+                    {type:'removeInput',handle : 'end'},
+                    {type:'endTrial'}
                 ]
             }
 
@@ -150,7 +200,7 @@ define(['app/API'], function(API) {
             data: [
             {
                 inherit:'Default',
-                stimuli: [{inherit:{type:'random',set:'paragraph'}},
+                stimuli: [{inherit:{type:'exRandom',set:'paragraph'}},
                     {inherit:{type:'random',set:'feedback'}}
                 ]
             }]
