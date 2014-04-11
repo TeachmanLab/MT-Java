@@ -40,11 +40,11 @@ define(['app/API'], function(API) {
             {handle:'space',on:'space'}
         ],
         interactions: [
-            // Show the statement.
+            // Show the paragraph with missing letters..
             {
                 conditions: [{type:'begin'}],
                 actions: [
-                    {type:'showStim',handle:'All'}
+                    {type:'showStim',handle:'paragraph'}
                 ]
             },
             { // Watch for correct answer of positive question
@@ -82,7 +82,18 @@ define(['app/API'], function(API) {
                         var text = span.text().replace(' ', eventData["handle"]);
                         span.text(text);
                     }},
-                    {type:'setInput',input:{handle:'end', on:'timeout',duration:500}}
+                    {type:'setInput',input:{handle:'askQuestion', on:'timeout',duration:500}}
+                ]
+            },
+            // After the statement is correctly completed, hide it, and show the question.
+            {
+                // Trigger when input handle is "end".
+                conditions: [{type:'inputEquals',value:'askQuestion'}],
+                actions: [
+                    {type:'removeInput',handle : 'askQuestion'},
+                    {type:'hideStim',handle : 'paragraph'},
+                    {type:'showStim',handle : 'question'},
+                    {type:'setInput',input:{handle:'end', on:'timeout',duration:2000}}
                 ]
             },
 
@@ -150,6 +161,7 @@ define(['app/API'], function(API) {
                     inherit:{set:'posneg', type:'random'},
                     stimuli: [
                         {
+                            handle: "paragraph",
                             data: {
                                positiveKey:'f',
                                negativeKey:'y',
@@ -159,22 +171,31 @@ define(['app/API'], function(API) {
                                 },
                             media:{inlineTemplate:"<div><%= stimulusData.statement %>" + "" +
                                 "<span><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"}
-                         }
+                         },
+                        {
+                            handle:"question",
+                            media:{inlineTemplate:"<div>Did you feel dissatisfied with your speech?</div>"}
+                        }
                     ]
                 },
                 {
                     inherit:{set:'posneg', type:'random'},
                     stimuli: [
                         {
+                            handle: "paragraph",
                             data: {
-                                positiveKey:'s',
                                 positiveWord:'enthu[ ]iastic',
-                                negativeKey:'a',
+                                positiveKey:'s',
                                 negativeWord:'embarr[ ]ssed',
+                                negativeKey:'a',
                                 statement:"A friend suggests that you join an evening class on creative writing. The thought of other people looking at your writing makes you feel "
                             },
                             media:{inlineTemplate:"<div><%= stimulusData.statement %>" + "" +
                                 "<span><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"}
+                        },
+                        {
+                            handle:"question",
+                            media:{inlineTemplate:"<div>Would you expect to feel uncomfortable if others look at your work?</div>"}
                         }
                     ]
                 }
