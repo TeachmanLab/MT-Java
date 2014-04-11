@@ -40,23 +40,63 @@ define(['app/API'], function(API) {
             {handle:'space',on:'space'}
         ],
         interactions: [
-            // This is an interaction (it has a condition and an action)
+            // Show the statement.
             {
                 conditions: [{type:'begin'}],
                 actions: [
                     {type:'showStim',handle:'All'}
                 ]
             },
-            {
-                conditions: [{type:'inputEquals',value:'space'}],
+            { // Watch for correct answer of positive question
+                conditions: [
+                    {type:'inputEqualsStim', property:'positiveKey'},
+                    {type:'trialEquals', property:'positive', value:true}
+                ],
                 actions: [
-                        {type:'endTrial'},
+                    {type:'setInput',input:{handle:'correct', on:'timeout',duration:10}}
+                ]
+            },
+            { // Watch for correct answer of a negative question
+                conditions: [
+                    {type:'inputEqualsStim', property:'negativeKey'},
+                    {type:'trialEquals', property:'positive', value:false}
+                ],
+                actions: [
+                    {type:'setInput',input:{handle:'correct', on:'timeout',duration:10}}
+                ]
+            },
+            {
+                // Trigger when the correct response is provided, as there are two interactions
+                // that can cause this, I've seperated it out into it's own section rather than
+                // duplicate the code.
+                conditions: [{type:'inputEquals',value:'correct'}],
+                actions: [
+                    {type:'removeInput',handle : 'correct'},
+                    {type:'log'},
                     {type:'custom',fn:function(options,eventData){
                         console.log(eventData);
                         console.log(options);
                     }},
+                    {type:'custom',fn:function(options,eventData){
+                        var span = $("span.incomplete");
+                        var text = span.text().replace(' ', eventData["handle"]);
+                        span.text(text);
+                    }},
+                    {type:'setInput',input:{handle:'end', on:'timeout',duration:500}}
+                ]
+            },
+
+            // This interaction is triggered by a timout after a correct response.
+            // It allows us to pad each trial with an interval.
+            {
+                // Trigger when input handle is "end".
+                conditions: [{type:'inputEquals',value:'end'}],
+                actions: [
+                    {type:'removeInput',handle : 'end'},
+                    {type:'endTrial'}
                 ]
             }
+
         ]
 
     }]);
@@ -67,10 +107,10 @@ define(['app/API'], function(API) {
      * if would then be a 75% positive, 25% negative split.
      */
     API.addTrialSets('posneg',[
-                    { inherit:'base', data: {positive:'true'}},
-                    { inherit:'base', data: {positive:'true'}},
-                    { inherit:'base', data: {positive:'true'}},
-                    { inherit:'base', data: {positive:'false'}}
+                    { inherit:'base', data: {positive:true}},
+                    { inherit:'base', data: {positive:true}},
+                    { inherit:'base', data: {positive:true}},
+                    { inherit:'base', data: {positive:false}}
                             ]);
 
     API.addSequence([
@@ -104,7 +144,7 @@ define(['app/API'], function(API) {
         },
         {
             mixer: 'repeat',
-            times: 10,
+            times: 2,  // The total number of randomly selected trials to run.
             data: [
                 {
                     inherit:{set:'posneg', type:'random'},
@@ -117,8 +157,25 @@ define(['app/API'], function(API) {
                                negativeWord:'sh[ ]',
                                statement:"You are at a class that your company has sent you to. Your teacher asks each member of the group to stand up and introduce themselves. After your brief presentation, you guess the others thought you sounded "
                                 },
-                            media:{inlineTemplate:"<span><%= trialData.positive %></span>"}
+                            media:{inlineTemplate:"<div><%= stimulusData.statement %>" + "" +
+                                "<span><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"}
                          }
+                    ]
+                },
+                {
+                    inherit:{set:'posneg', type:'random'},
+                    stimuli: [
+                        {
+                            data: {
+                                positiveKey:'s',
+                                positiveWord:'enthu[ ]iastic',
+                                negativeKey:'a',
+                                negativeWord:'embarr[ ]ssed',
+                                statement:"A friend suggests that you join an evening class on creative writing. The thought of other people looking at your writing makes you feel "
+                            },
+                            media:{inlineTemplate:"<div><%= stimulusData.statement %>" + "" +
+                                "<span><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"}
+                        }
                     ]
                 }
              ]
