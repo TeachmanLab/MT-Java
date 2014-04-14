@@ -40,48 +40,74 @@ define(['app/API'], function(API) {
             {handle:'space',on:'space'}
         ],
         interactions: [
-            // Show the paragraph with missing letters..
+            // Show the paragraph with missing letters as soon as the trial starts.
             {
                 conditions: [{type:'begin'}],
                 actions: [
                     {type:'showStim',handle:'paragraph'}
                 ]
             },
-            { // Watch for correct answer of positive question
+            { // Watch for correct answer for a positive missing letter.
                 conditions: [
                     {type:'inputEqualsStim', property:'positiveKey'},
                     {type:'trialEquals', property:'positive', value:true}
                 ],
                 actions: [
-                    {type:'setInput',input:{handle:'correct', on:'timeout',duration:10}}
-                ]
-            },
-            { // Watch for correct answer of a negative question
-                conditions: [
-                    {type:'inputEqualsStim', property:'negativeKey'},
-                    {type:'trialEquals', property:'positive', value:false}
-                ],
-                actions: [
-                    {type:'setInput',input:{handle:'correct', on:'timeout',duration:10}}
-                ]
-            },
-            {
-                // Trigger when the correct response is provided, as there are two interactions
-                // that can cause this, I've seperated it out into it's own section rather than
-                // duplicate the code.
-                conditions: [{type:'inputEquals',value:'correct'}],
-                actions: [
-                    {type:'removeInput',handle : 'correct'},
-                    {type:'log'},
-                    {type:'custom',fn:function(options,eventData){
-                        console.log(eventData);
-                        console.log(options);
-                    }},
                     {type:'custom',fn:function(options,eventData){
                         var span = $("span.incomplete");
                         var text = span.text().replace(' ', eventData["handle"]);
                         span.text(text);
                     }},
+                    {type:'setInput',input:{handle:'correct', on:'timeout',duration:10}}
+                ]
+            },
+            { // Watch for correct answer of a negative missing letter.
+                conditions: [
+                    {type:'inputEqualsStim', property:'negativeKey'},
+                    {type:'trialEquals', property:'positive', value:false}
+                ],
+                actions: [
+                    {type:'custom',fn:function(options,eventData){
+                        var span = $("span.incomplete");
+                        var text = span.text().replace(' ', eventData["handle"]);
+                        span.text(text);
+                    }},
+                    {type:'setInput',input:{handle:'correct', on:'timeout',duration:10}}
+                ]
+            },
+            { // Display a red X on incorrect input for positive responses.
+                conditions: [
+                    {type:'inputEqualsStim', property:'positiveKey', negate:'true'},
+                    {type:'trialEquals', property:'positive', value:true},
+                    {type:'inputEquals',value:'correct', negate:'true'},
+                    {type:'inputEquals',value:'askQuestion', negate:'true'}
+                ],
+                actions: [
+                    {type:'showStim',handle:'error'},
+                    {type:'setInput',input:{handle:'clear', on:'timeout',duration:500}}
+                ]
+            },
+            { // Display a red X on incorrect input for negative responses.
+                conditions: [
+                    {type:'inputEqualsStim', property:'negativeKey', negate:'true'},
+                    {type:'trialEquals', property:'positive', value:false},
+                    {type:'inputEquals',value:'correct', negate:'true'},
+                    {type:'inputEquals',value:'askQuestion', negate:'true'}
+                ],
+                actions: [
+                    {type:'showStim',handle:'error'},
+                    {type:'setInput',input:{handle:'clear', on:'timeout',duration:500}}
+                ]
+            },
+            {
+                // Trigger when the correct response is provided, as there are two interactions
+                // that can cause this, I've separated it out into it's own section rather than
+                // duplicate the code.
+                conditions: [{type:'inputEquals',value:'correct'}],
+                actions: [
+                    {type:'removeInput',handle : 'correct'},
+                    {type:'removeInput',handle : ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','v','w','x','y','z']},
+                    {type:'log'},
                     {type:'setInput',input:{handle:'askQuestion', on:'timeout',duration:500}}
                 ]
             },
@@ -91,9 +117,10 @@ define(['app/API'], function(API) {
                 conditions: [{type:'inputEquals',value:'askQuestion'}],
                 actions: [
                     {type:'removeInput',handle : 'askQuestion'},
+                    {type:'removeInput',handle : ['y','n']},
                     {type:'hideStim',handle : 'paragraph'},
                     {type:'showStim',handle : 'question'},
-                    {type:'setInput',input:{handle:'end', on:'timeout',duration:2000}}
+                    {type:'setTrialAttr',setter:{askingQuestion:true}}
                 ]
             },
 
@@ -106,7 +133,20 @@ define(['app/API'], function(API) {
                     {type:'removeInput',handle : 'end'},
                     {type:'endTrial'}
                 ]
+            },
+
+            // This interaction is triggered by a timeout after a incorrect response.
+            // It allows us to delay the removal of the big red X.
+            {
+                // Trigger when input handle is "end".
+                conditions: [
+                    {type:'inputEquals',value:'clear'}],
+                actions: [
+                    {type:'removeInput',handle : 'clear'},
+                    {type:'hideStim',handle:'error'}
+                ]
             }
+
 
         ]
 
@@ -160,6 +200,7 @@ define(['app/API'], function(API) {
                 {
                     inherit:{set:'posneg', type:'random'},
                     stimuli: [
+                        {inherit:{set:'error'}},
                         {
                             handle: "paragraph",
                             data: {
@@ -170,7 +211,7 @@ define(['app/API'], function(API) {
                                statement:"You are at a class that your company has sent you to. Your teacher asks each member of the group to stand up and introduce themselves. After your brief presentation, you guess the others thought you sounded "
                                 },
                             media:{inlineTemplate:"<div><%= stimulusData.statement %>" + "" +
-                                "<span><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"}
+                                "<span class='incomplete'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"}
                          },
                         {
                             handle:"question",
@@ -181,6 +222,7 @@ define(['app/API'], function(API) {
                 {
                     inherit:{set:'posneg', type:'random'},
                     stimuli: [
+                        {inherit:{set:'error'}},
                         {
                             handle: "paragraph",
                             data: {
@@ -191,7 +233,7 @@ define(['app/API'], function(API) {
                                 statement:"A friend suggests that you join an evening class on creative writing. The thought of other people looking at your writing makes you feel "
                             },
                             media:{inlineTemplate:"<div><%= stimulusData.statement %>" + "" +
-                                "<span><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"}
+                                "<span class='incomplete'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"}
                         },
                         {
                             handle:"question",
