@@ -15,7 +15,7 @@ public class TrialJson {
 
     private long id;
     private int log_serial;
-    private int trial_id;
+    private String trial_id;
     private String name;
     private String responseHandle;
     private int latency;
@@ -54,11 +54,11 @@ public class TrialJson {
         this.log_serial = log_serial;
     }
 
-    public int getTrial_id() {
+    public String getTrial_id() {
         return trial_id;
     }
 
-    public void setTrial_id(int trial_id) {
+    public void setTrial_id(String trial_id) {
         this.trial_id = trial_id;
     }
 

@@ -5,9 +5,39 @@ define(['app/API'], function(API) {
         textSize: 5
     });
 
-    API.addStimulusSets('error',[
+    // setting the way the logger works (how often we send data to the server and the url for the data)
+    API.addSettings('logger',{
+        pulse: 1,
+        url : '/data',
+        logger:
+            function(trialData, inputData, actionData,logStack){
+                var stimList = this._stimulus_collection.get_stimlist();
+                var mediaList = this._stimulus_collection.get_medialist();
+
+                console.log(this._stimulus_collection);
+                return {
+                    log_serial : logStack.length,
+                    trial_id: this._id,
+                    name: this.name(),
+                    responseHandle: inputData.handle,
+                    latency: Math.floor(inputData.latency),
+                    stimuli: stimList,
+                    media: mediaList,
+                    data: trialData
+
+                }
+            }
+    });
+
+    API.addStimulusSets({
+        error: [
         {handle:'error',media:'X', css:{fontSize:'2em',color:'#FF0000'}, location:{top:70}}
-    ]);
+               ],
+        yesno: [
+            {handle:'yesno',media:'Type "y" for Yes, and "n" for No.', css:{fontSize:'1em',color:'#999999'}, location:{top:70}}
+                ]
+    });
+
 
     API.addTrialSets('base',[{
         input: [
@@ -50,8 +80,7 @@ define(['app/API'], function(API) {
             { // Watch for correct answer for a positive missing letter.
                 conditions: [
                     {type:'inputEqualsStim', property:'positiveKey'},
-                    {type:'trialEquals', property:'positive', value:true}
-                ],
+                    {type:'trialEquals', property:'positive', value:true}],
                 actions: [
                     {type:'custom',fn:function(options,eventData){
                         var span = $("span.incomplete");
@@ -64,8 +93,7 @@ define(['app/API'], function(API) {
             { // Watch for correct answer of a negative missing letter.
                 conditions: [
                     {type:'inputEqualsStim', property:'negativeKey'},
-                    {type:'trialEquals', property:'positive', value:false}
-                ],
+                    {type:'trialEquals', property:'positive', value:false}],
                 actions: [
                     {type:'custom',fn:function(options,eventData){
                         var span = $("span.incomplete");
@@ -80,6 +108,7 @@ define(['app/API'], function(API) {
                     {type:'inputEqualsStim', property:'positiveKey', negate:'true'},
                     {type:'trialEquals', property:'positive', value:true},
                     {type:'inputEquals',value:'correct', negate:'true'},
+                    {type:'trialEquals', property:'askingQuestion', value:false},
                     {type:'inputEquals',value:'askQuestion', negate:'true'}
                 ],
                 actions: [
@@ -92,6 +121,7 @@ define(['app/API'], function(API) {
                     {type:'inputEqualsStim', property:'negativeKey', negate:'true'},
                     {type:'trialEquals', property:'positive', value:false},
                     {type:'inputEquals',value:'correct', negate:'true'},
+                    {type:'trialEquals', property:'askingQuestion', value:true},
                     {type:'inputEquals',value:'askQuestion', negate:'true'}
                 ],
                 actions: [
@@ -106,8 +136,8 @@ define(['app/API'], function(API) {
                 conditions: [{type:'inputEquals',value:'correct'}],
                 actions: [
                     {type:'removeInput',handle : 'correct'},
-                    {type:'removeInput',handle : ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','v','w','x','y','z']},
-                    {type:'log'},
+                    // Remove all keys but 'y' and 'n'
+                    {type:'removeInput',handle : ['a','b','c','d','e','f','g','h','i','j','k','l','m','o','p','q','r','s','t','u','v','v','w','x','z']},
                     {type:'setInput',input:{handle:'askQuestion', on:'timeout',duration:500}}
                 ]
             },
@@ -117,10 +147,40 @@ define(['app/API'], function(API) {
                 conditions: [{type:'inputEquals',value:'askQuestion'}],
                 actions: [
                     {type:'removeInput',handle : 'askQuestion'},
-                    {type:'removeInput',handle : ['y','n']},
                     {type:'hideStim',handle : 'paragraph'},
                     {type:'showStim',handle : 'question'},
+                    {type:'showStim',handle:'yesno'},
                     {type:'setTrialAttr',setter:{askingQuestion:true}}
+                ]
+            },
+            // Listen for a Yes response to the question
+            {
+                // Trigger when input handle is "end".
+                conditions: [{type:'inputEquals',value:'y'},
+                            {type:'trialEquals', property:'askingQuestion', value:true}
+                ],
+                actions: [
+                    {type:'custom',fn:function(options,eventData){
+                       console.log(eventData);
+                    }},
+                    {type:'removeInput',handle : ['y','n']},
+                    {type:'log'},
+                    {type:'setInput',input:{handle:'end', on:'timeout',duration:500}}
+                ]
+            },
+            // Listen for a No response to the question
+            {
+                // Trigger when input handle is "end".
+                conditions: [{type:'inputEquals',value:'n'},
+                             {type:'trialEquals', property:'askingQuestion', value:true}
+                ],
+                actions: [
+                    {type:'custom',fn:function(options,eventData){
+                        console.log(eventData);
+                    }},
+                    {type:'removeInput',handle : ['y','n']},
+                    {type:'log'},
+                    {type:'setInput',input:{handle:'end', on:'timeout',duration:500}}
                 ]
             },
 
@@ -201,6 +261,7 @@ define(['app/API'], function(API) {
                     inherit:{set:'posneg', type:'random'},
                     stimuli: [
                         {inherit:{set:'error'}},
+                        {inherit:{set:'yesno'}},
                         {
                             handle: "paragraph",
                             data: {
@@ -223,6 +284,7 @@ define(['app/API'], function(API) {
                     inherit:{set:'posneg', type:'random'},
                     stimuli: [
                         {inherit:{set:'error'}},
+                        {inherit:{set:'yesno'}},
                         {
                             handle: "paragraph",
                             data: {

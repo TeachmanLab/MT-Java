@@ -129,6 +129,7 @@ define(['app/API'], function(API) {
                 ],
                 actions: [
                     {type:'showStim',handle:'error'},
+                    {type:'setInput',input:{handle:'clear', on:'timeout',duration:500}}
                     {type:'custom',fn:function(options,eventData){
                         console.log(eventData);
                         console.log(options);
