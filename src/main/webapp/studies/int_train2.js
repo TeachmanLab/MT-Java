@@ -14,7 +14,12 @@ define(['app/API'], function(API) {
                 var stimList = this._stimulus_collection.get_stimlist();
                 var mediaList = this._stimulus_collection.get_medialist();
 
-                console.log(this._stimulus_collection);
+                console.log(stimList);
+                console.log(trialData);
+
+                var paragraph = this._stimulus_collection.trial.stimuli.find(function(obj){ return(obj.handle == "paragraph"); });
+                var data  = paragraph.data;
+
                 return {
                     log_serial : logStack.length,
                     trial_id: this._id,
@@ -74,26 +79,29 @@ define(['app/API'], function(API) {
             {
                 conditions: [{type:'begin'}],
                 actions: [
-                    {type:'showStim',handle:'paragraph'}
+                    {type:'showStim',handle:'paragraph'},
+                    {type:'setGlobalAttr',setter:{askingQuestion:false}}
                 ]
             },
             { // Watch for correct answer for a positive missing letter.
                 conditions: [
                     {type:'inputEqualsStim', property:'positiveKey'},
-                    {type:'trialEquals', property:'positive', value:true}],
+                    {type:'trialEquals', property:'positive', value:true},
+                    {type:'globalEquals', property:'askingQuestion', value:false}],
                 actions: [
                     {type:'custom',fn:function(options,eventData){
                         var span = $("span.incomplete");
                         var text = span.text().replace(' ', eventData["handle"]);
                         span.text(text);
                     }},
-                    {type:'setInput',input:{handle:'correct', on:'timeout',duration:10}}
-                ]
+                    {type:'setInput',input:{handle:'correct', on:'timeout',duration:10}},
+                        ]
             },
             { // Watch for correct answer of a negative missing letter.
                 conditions: [
                     {type:'inputEqualsStim', property:'negativeKey'},
-                    {type:'trialEquals', property:'positive', value:false}],
+                    {type:'trialEquals', property:'positive', value:false},
+                    {type:'globalEquals', property:'askingQuestion', value:false}],
                 actions: [
                     {type:'custom',fn:function(options,eventData){
                         var span = $("span.incomplete");
@@ -108,7 +116,7 @@ define(['app/API'], function(API) {
                     {type:'inputEqualsStim', property:'positiveKey', negate:'true'},
                     {type:'trialEquals', property:'positive', value:true},
                     {type:'inputEquals',value:'correct', negate:'true'},
-                    {type:'trialEquals', property:'askingQuestion', value:false},
+                    {type:'globalEquals', property:'askingQuestion', value:false},
                     {type:'inputEquals',value:'askQuestion', negate:'true'}
                 ],
                 actions: [
@@ -121,7 +129,7 @@ define(['app/API'], function(API) {
                     {type:'inputEqualsStim', property:'negativeKey', negate:'true'},
                     {type:'trialEquals', property:'positive', value:false},
                     {type:'inputEquals',value:'correct', negate:'true'},
-                    {type:'trialEquals', property:'askingQuestion', value:true},
+                    {type:'globalEquals', property:'askingQuestion', value:false},
                     {type:'inputEquals',value:'askQuestion', negate:'true'}
                 ],
                 actions: [
@@ -135,6 +143,10 @@ define(['app/API'], function(API) {
                 // duplicate the code.
                 conditions: [{type:'inputEquals',value:'correct'}],
                 actions: [
+                    // Preserve the question as completed, so that it will eventually be set back to the server.
+                    {type:'setTrialAttr',setter:function(trialData, eventData){
+                        trialData.paragraph = $("div[data-handle='paragraph']").text();
+                    }},
                     {type:'removeInput',handle : 'correct'},
                     // Remove all keys but 'y' and 'n'
                     {type:'removeInput',handle : ['a','b','c','d','e','f','g','h','i','j','k','l','m','o','p','q','r','s','t','u','v','v','w','x','z']},
@@ -150,35 +162,41 @@ define(['app/API'], function(API) {
                     {type:'hideStim',handle : 'paragraph'},
                     {type:'showStim',handle : 'question'},
                     {type:'showStim',handle:'yesno'},
-                    {type:'setTrialAttr',setter:{askingQuestion:true}}
+                    {type:'setGlobalAttr',setter:{askingQuestion:true}}
                 ]
             },
             // Listen for a Yes response to the question
             {
                 // Trigger when input handle is "end".
                 conditions: [{type:'inputEquals',value:'y'},
-                            {type:'trialEquals', property:'askingQuestion', value:true}
+                            {type:'globalEquals', property:'askingQuestion', value:true}
                 ],
                 actions: [
-                    {type:'custom',fn:function(options,eventData){
-                       console.log(eventData);
-                    }},
-                    {type:'removeInput',handle : ['y','n']},
-                    {type:'log'},
-                    {type:'setInput',input:{handle:'end', on:'timeout',duration:500}}
+                    {type:'setTrialAttr',setter:{questionResponse:"yes"}},
+                    {type:'setInput',input:{handle:'answered', on:'timeout',duration:10}}
                 ]
             },
             // Listen for a No response to the question
             {
                 // Trigger when input handle is "end".
                 conditions: [{type:'inputEquals',value:'n'},
-                             {type:'trialEquals', property:'askingQuestion', value:true}
+                             {type:'globalEquals', property:'askingQuestion', value:true}
                 ],
                 actions: [
-                    {type:'custom',fn:function(options,eventData){
-                        console.log(eventData);
-                    }},
+                    {type:'setTrialAttr',setter:{questionResponse:"no"}},
+                    {type:'setInput',input:{handle:'answered', on:'timeout',duration:10}}
+                ]
+            },
+            {
+                // Trigger when the correct response is provided, as there are two interactions
+                // that can cause this, I've separated it out into it's own section rather than
+                // duplicate the code.
+                conditions: [{type:'inputEquals',value:'answered'}],
+                actions: [
                     {type:'removeInput',handle : ['y','n']},
+                    {type:'setTrialAttr',setter:function(trialData, eventData){
+                        trialData.question = $("div[data-handle='question']").text();
+                    }},
                     {type:'log'},
                     {type:'setInput',input:{handle:'end', on:'timeout',duration:500}}
                 ]
@@ -272,11 +290,11 @@ define(['app/API'], function(API) {
                                statement:"You are at a class that your company has sent you to. Your teacher asks each member of the group to stand up and introduce themselves. After your brief presentation, you guess the others thought you sounded "
                                 },
                             media:{inlineTemplate:"<div><%= stimulusData.statement %>" + "" +
-                                "<span class='incomplete'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"}
+                                "<span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"}
                          },
                         {
                             handle:"question",
-                            media:{inlineTemplate:"<div>Did you feel dissatisfied with your speech?</div>"}
+                            media:{inlineTemplate:"<div class='question'>Did you feel dissatisfied with your speech?</div>"}
                         }
                     ]
                 },
@@ -295,7 +313,7 @@ define(['app/API'], function(API) {
                                 statement:"A friend suggests that you join an evening class on creative writing. The thought of other people looking at your writing makes you feel "
                             },
                             media:{inlineTemplate:"<div><%= stimulusData.statement %>" + "" +
-                                "<span class='incomplete'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"}
+                                "<span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"}
                         },
                         {
                             handle:"question",

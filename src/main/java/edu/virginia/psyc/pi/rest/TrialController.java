@@ -8,14 +8,15 @@ import edu.virginia.psyc.pi.persistence.TrialRepository;
 import edu.virginia.psyc.pi.rest.json.SequenceJson;
 import edu.virginia.psyc.pi.rest.json.TrialJson;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.security.Security;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -96,14 +97,36 @@ public class TrialController {
      * Returns the json data properly formatted.
      * @return
      */
-    @RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody List<TrialJson> getData () {
-        List<TrialJson> trialJson = new ArrayList<TrialJson>();
+    @RequestMapping(method = RequestMethod.GET, produces = "text/csv")
+    public
+    @ResponseBody
+    String getData() {
+        StringBuffer csv = new StringBuffer();
+        List<String> keys;
+        Map<String, String> reportData;
+        TrialJson trial;
         List<TrialDAO> trialData = trialRepository.findAll();
-        for(TrialDAO data : trialData) {
-            trialJson.add(data.toTrialJson());
+
+        // Write headers based on first trial.
+        keys = TrialJson.interpretationReportHeaders();
+        for (String k : keys) {
+            csv.append(k);
+            csv.append(",");
         }
-        return trialJson;
+        csv.append(("\n"));
+
+        // Write the data.
+        for (TrialDAO data : trialData) {
+            reportData = data.toTrialJson().toInterpretationReport();
+            for (String k : keys) {
+                csv.append("\"");
+                csv.append(reportData.get(k).replaceAll("\"", "\\\""));
+                csv.append("\"");
+                csv.append(",");
+            }
+            csv.append("\n");
+        }
+        return csv.toString();
     }
 
 }

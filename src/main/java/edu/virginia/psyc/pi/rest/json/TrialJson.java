@@ -1,5 +1,7 @@
 package edu.virginia.psyc.pi.rest.json;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,6 +37,48 @@ public class TrialJson {
                 ", media=" + media +
                 ", data=" + data +
                 '}';
+    }
+
+    /**
+     * Retruns the headers of an interpretation report in the order they
+     * should occur.
+     * @return
+     */
+    public static List<String> interpretationReportHeaders() {
+        List<String> headers = new ArrayList<String>();
+        headers.add("session");
+        headers.add("trial");
+        headers.add("positive");
+        headers.add("correct");
+        headers.add("paragraph");
+        headers.add("question");
+        return headers;
+    }
+
+    public Map<String,String> toInterpretationReport() {
+
+        Map<String,String> report = new HashMap<String, String>();
+
+        boolean isPositive = Boolean.valueOf(data.get("positive"));
+        boolean correct;
+        String  response = data.get("questionResponse");
+        correct = (isPositive && response.equals("yes")) ||
+                  (!isPositive && response.equals("no"));
+
+        String base = id + "," + log_serial + "," + trial_id + ","
+                        + data.get("questionResponse") + ","
+                        + data.get("positive") + ","
+                        + data.get("paragraph") + ","
+                        + data.get("question");
+
+        report.put("session",    log_serial+"");
+        report.put("trial",      trial_id);
+        report.put("positive",   data.get("positive"));
+        report.put("correct",    correct + "");
+        report.put("paragraph",  data.get("paragraph"));
+        report.put("question",   data.get("question"));
+
+        return report;
     }
 
 
@@ -109,4 +153,5 @@ public class TrialJson {
     public void setData(Map<String, String> data) {
         this.data = data;
     }
+
 }
