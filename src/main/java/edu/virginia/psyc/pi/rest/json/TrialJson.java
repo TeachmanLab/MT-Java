@@ -59,6 +59,9 @@ public class TrialJson {
 
         Map<String,String> report = new HashMap<String, String>();
 
+        // Return an empty row for invalid results.
+        if(!this.name.equals("posneg")) return report;
+
         boolean isPositive = Boolean.valueOf(data.get("positive"));
         boolean correct;
         String  response = data.get("questionResponse");
