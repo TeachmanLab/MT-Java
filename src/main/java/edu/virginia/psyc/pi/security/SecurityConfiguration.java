@@ -77,7 +77,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     /**
-     * Restruct access to admin endpoints to users with admin roles,
+     * Restrict access to admin endpoints to users with admin roles,
      * and restrict access to user detail endpoints to participants.
      */
     protected void configure(HttpSecurity http) throws Exception {
@@ -107,7 +107,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 **/
     /**
-     * Poke a whole completely through to allow posting to the data endpoint
+     * Poke a hole completely through to allow posting to the data endpoint
      * as we don't have security settings built into the PiPlayer and I'm not
      * certain their really need to be.
      * @param webSecurity

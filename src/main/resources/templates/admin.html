@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+    <head th:include="fragment/common :: headerFragment" />
+<body>
+    <section id="header" class="clearfix" th:include="fragment/common :: topFragment" />
+
+<!-- header-btm starts
+================================================== -->
+<section id="header-btm" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <h4 class="heading-icon clearfix"> <img src="img/icons/heading-icon-user.png" width="40" height="40" alt="icon" class="icon-small-bg"/>Administration</h4>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- header-btm ends
+================================================== -->
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+    <div class="container">
+
+
+        <!--spacer here-->
+        <div class="spacer-30px"></div>
+
+
+        <h1>Participants</h1>
+
+        <table class="table table-striped table-bordered">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Admin?</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr th:each="p : ${participants}" >
+                    <td th:text="${p.id}">0</td>
+                    <td th:text="${p.fullName}">Dan Funk</td>
+                    <td th:text="${p.email}">daniel.h.funk@gmail.com</td>
+                    <td th:text="${p.admin}? yes : no">yes</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!--divider here-->
+        <div class="spacer-40px"></div>
+
+        <!--spacer here-->
+        <div class="spacer-30px"></div>
+
+    </div>
+</section>
+
+
+    <!-- footer starts
+    ================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts" />
+
+</body>
+</html>

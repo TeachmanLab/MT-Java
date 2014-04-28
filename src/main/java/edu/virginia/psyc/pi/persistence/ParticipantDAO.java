@@ -32,6 +32,7 @@ public class ParticipantDAO implements UserDetails {
     private String fullName;
     private String email;
     private String password;
+    private boolean admin;
 
     public int getId() {
         return id;
@@ -45,6 +46,7 @@ public class ParticipantDAO implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> list = new ArrayList();
         list.add(new SimpleGrantedAuthority("USER"));
+        if(admin) list.add(new SimpleGrantedAuthority("ADMIN"));
         return list;
     }
 
@@ -96,4 +98,14 @@ public class ParticipantDAO implements UserDetails {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
+
+
 }

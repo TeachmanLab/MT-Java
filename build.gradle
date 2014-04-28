@@ -30,6 +30,7 @@ configurations {
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+    compile("org.thymeleaf.extras:thymeleaf-extras-springsecurity3")
     compile("org.springframework:spring-jdbc")
     compile("com.fasterxml.jackson.core:jackson-databind")
     compile("org.springframework.security:spring-security-web")
