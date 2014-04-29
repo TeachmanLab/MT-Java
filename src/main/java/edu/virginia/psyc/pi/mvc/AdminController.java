@@ -1,5 +1,6 @@
 package edu.virginia.psyc.pi.mvc;
 
+import edu.virginia.psyc.pi.mvc.model.Participant;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 import org.slf4j.Logger;
@@ -9,10 +10,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 
@@ -55,6 +59,37 @@ public class AdminController {
         model.addAttribute("participants", participants);
         return "admin";
 
+    }
+
+    @RequestMapping(value="/participant/{id}", method=RequestMethod.GET)
+    public String showForm(ModelMap model,
+                           @PathVariable("id") long id) {
+        ParticipantDAO p;
+        p = participantRepository.findOne(id);
+        model.addAttribute("participant", p);
+        return "participant_form";
+    }
+
+    @RequestMapping(value="/participant/{id}", method=RequestMethod.POST)
+    public String checkParticipantInfo(ModelMap model,
+                                       @PathVariable("id") long id,
+                                       @Valid Participant participant,
+                                       BindingResult bindingResult) {
+        ParticipantDAO dao;
+
+        dao = participantRepository.findOne(id);
+
+        if (bindingResult.hasErrors()) {
+            LOG.error("Invalid participant:" + bindingResult.getAllErrors());
+            model.addAttribute("participant", participant);
+            return "participant_form";
+        } else {
+            dao.setAdmin(participant.isAdmin());
+            dao.setEmail(participant.getEmail());
+            dao.setFullName(participant.getFullName());
+            participantRepository.save(dao);
+        }
+        return "redirect:/admin";
     }
 
 }

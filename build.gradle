@@ -41,6 +41,7 @@ dependencies {
     compile('net.sf.supercsv:super-csv-dozer:2.1.0');
 //    compile("org.hsqldb:hsqldb")
 //    compile("org.thymeleaf:thymeleaf-spring4")
+    compile("org.hibernate:hibernate-validator") // Form validation markup
 
     // Deployment
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")

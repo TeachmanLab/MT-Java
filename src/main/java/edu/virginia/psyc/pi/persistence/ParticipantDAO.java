@@ -29,18 +29,17 @@ public class ParticipantDAO implements UserDetails {
 
     @Id
     @GeneratedValue
-    private int id;
-    @Size(min=2, max=100)
+    private long id;
     private String fullName;
-    @Email
-    @NotNull
+
     @Column(unique=true)
     private String email;
-    @NotNull
+
     private String password;
+
     private boolean admin;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
