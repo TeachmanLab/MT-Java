@@ -69,7 +69,7 @@ public class LoginControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/"));
 
-        Assert.assertTrue(participantRepository.findByEmail("daniel.h.funk@gmail.com").size() > 0);
+        assert(participantRepository.findByEmail("daniel.h.funk@gmail.com").size() > 0);
 
     }
 

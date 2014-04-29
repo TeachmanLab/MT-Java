@@ -39,14 +39,6 @@ public class ParticipantDAO implements UserDetails {
 
     private boolean admin;
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> list = new ArrayList();
@@ -55,6 +47,25 @@ public class ParticipantDAO implements UserDetails {
         return list;
     }
 
+    // Default no-arg constructor
+    public ParticipantDAO() {}
+
+    // Utility to make testing easier.
+    public ParticipantDAO(int id, String fullName, String email, String password, boolean admin) {
+        this.id = id;
+        this.fullName = fullName;
+        this.email = email;
+        this.password = password;
+        this.admin = admin;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
 
     public String getPassword() {

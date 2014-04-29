@@ -47,7 +47,7 @@ public class AdminController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String listUsers(ModelMap model,
-                            final @RequestParam(value = "page", required = false, defaultValue = "1") String pageParam) {
+                            final @RequestParam(value = "page", required = false, defaultValue = "0") String pageParam) {
 
         Page<ParticipantDAO> participants;
         PageRequest pageRequest;
