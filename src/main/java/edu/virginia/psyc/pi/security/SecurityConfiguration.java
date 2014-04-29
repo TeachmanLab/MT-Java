@@ -44,11 +44,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private ParticipantRepository participantRepository;
 
-
-
     /**
-     * Presently just allows for two users, will add details here to look up
-     * credentials in the database.
+     * Checks database for user details
      */
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -57,8 +54,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             @Override
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
                 List<ParticipantDAO> participants = participantRepository.findByEmail(username);
-                if(participants.size() > 0) return participants.get(0);
-                else return null;
+                if(participants.size() > 0) {
+                    LOG.info("Participant Found:" + participants.get(0));
+                    return participants.get(0);
+                } else return null;
             }
         }).passwordEncoder(new StandardPasswordEncoder());
 
@@ -84,12 +83,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             http
                 .csrf().disable()
                 .authorizeRequests()
-                    .antMatchers("/css/**").permitAll()
-                    .antMatchers("/js/**").permitAll()
-                    .antMatchers("/design-js/**").permitAll()
-                    .antMatchers("/img/**").permitAll()
-                    .antMatchers("/newParticipant").permitAll()
-                    .anyRequest().authenticated()
+                    .antMatchers(
+                            "/css/**",
+                            "/js/**",
+                            "/grepfrut_js/**",
+                            "/design-js/**",
+                            "/img/**",
+                            "/newParticipant/**"
+                    ).permitAll()
+                    .antMatchers("/admin", "/admin/**").hasRole("ADMIN")
+                    .antMatchers("/*").hasRole("USER")
                     .and()
                 .formLogin()
                     .loginPage("/login")
@@ -102,7 +105,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     http
                 .authorizeRequests()
                 .antMatchers("/**").permitAll()
-                .antMatchers("/admin/**").hasRole("ADMIN")
+
                 .antMatchers("/user/**").hasRole("USER");
     }
 **/
