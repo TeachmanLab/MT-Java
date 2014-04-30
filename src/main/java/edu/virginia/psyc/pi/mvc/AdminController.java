@@ -47,6 +47,7 @@ public class AdminController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String listUsers(ModelMap model,
+                            final @RequestParam(value = "search", required = false, defaultValue = "") String search,
                             final @RequestParam(value = "page", required = false, defaultValue = "0") String pageParam) {
 
         Page<ParticipantDAO> participants;
@@ -55,8 +56,14 @@ public class AdminController {
 
         pageRequest = new PageRequest(page, PER_PAGE);
 
-        participants = participantRepository.findAll(pageRequest);
+        if(search.isEmpty()) {
+            participants = participantRepository.findAll(pageRequest);
+        } else {
+            participants = participantRepository.search(search, pageRequest);
+        }
+
         model.addAttribute("participants", participants);
+        model.addAttribute("search", search);
         return "admin";
 
     }
