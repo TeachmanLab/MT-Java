@@ -14,12 +14,6 @@ define(['app/API'], function(API) {
                 var stimList = this._stimulus_collection.get_stimlist();
                 var mediaList = this._stimulus_collection.get_medialist();
 
-                console.log(stimList);
-                console.log(trialData);
-
-                var paragraph = this._stimulus_collection.trial.stimuli.find(function(obj){ return(obj.handle == "paragraph"); });
-                var data  = paragraph.data;
-
                 return {
                     log_serial : logStack.length,
                     trial_id: this._id,
@@ -36,7 +30,7 @@ define(['app/API'], function(API) {
 
     API.addStimulusSets({
         error: [
-        {handle:'error',media:'X', css:{fontSize:'2em',color:'#FF0000'}, location:{top:70}}
+        {handle:'error',media:'X', css:{fontSize:'2em',color:'#FF0000'}, location:{top:70}, nolog:true}
                ],
         yesno: [
             {handle:'yesno',media:'Type "y" for Yes, and "n" for No.', css:{fontSize:'1em',color:'#999999'}, location:{top:70}}
@@ -94,7 +88,7 @@ define(['app/API'], function(API) {
                         var text = span.text().replace(' ', eventData["handle"]);
                         span.text(text);
                     }},
-                    {type:'setInput',input:{handle:'correct', on:'timeout',duration:10}},
+                    {type:'trigger',handle : 'correct'}
                         ]
             },
             { // Watch for correct answer of a negative missing letter.
@@ -108,7 +102,7 @@ define(['app/API'], function(API) {
                         var text = span.text().replace(' ', eventData["handle"]);
                         span.text(text);
                     }},
-                    {type:'setInput',input:{handle:'correct', on:'timeout',duration:10}}
+                    {type:'trigger',handle : 'correct'}
                 ]
             },
             { // Display a red X on incorrect input for positive responses.
@@ -146,8 +140,8 @@ define(['app/API'], function(API) {
                     // Preserve the question as completed, so that it will eventually be set back to the server.
                     {type:'setTrialAttr',setter:function(trialData, eventData){
                         trialData.paragraph = $("div[data-handle='paragraph']").text();
+                        trialData.latency   = eventData.latency;
                     }},
-                    {type:'removeInput',handle : 'correct'},
                     // Remove all keys but 'y' and 'n'
                     {type:'removeInput',handle : ['a','b','c','d','e','f','g','h','i','j','k','l','m','o','p','q','r','s','t','u','v','v','w','x','z']},
                     {type:'setInput',input:{handle:'askQuestion', on:'timeout',duration:500}}
@@ -158,7 +152,6 @@ define(['app/API'], function(API) {
                 // Trigger when input handle is "end".
                 conditions: [{type:'inputEquals',value:'askQuestion'}],
                 actions: [
-                    {type:'removeInput',handle : 'askQuestion'},
                     {type:'hideStim',handle : 'paragraph'},
                     {type:'showStim',handle : 'question'},
                     {type:'showStim',handle:'yesno'},
@@ -173,7 +166,9 @@ define(['app/API'], function(API) {
                 ],
                 actions: [
                     {type:'setTrialAttr',setter:{questionResponse:"yes"}},
-                    {type:'setInput',input:{handle:'answered', on:'timeout',duration:10}}
+                    {type:'hideStim',handle : 'question'},
+                    {type:'hideStim',handle:'yesno'},
+                    {type:'trigger',handle : 'answered', duration:500}
                 ]
             },
             // Listen for a No response to the question
@@ -184,7 +179,9 @@ define(['app/API'], function(API) {
                 ],
                 actions: [
                     {type:'setTrialAttr',setter:{questionResponse:"no"}},
-                    {type:'setInput',input:{handle:'answered', on:'timeout',duration:10}}
+                    {type:'hideStim',handle : 'question'},
+                    {type:'hideStim',handle:'yesno'},
+                    {type:'trigger',handle : 'answered', duration:500}
                 ]
             },
             {
@@ -198,17 +195,6 @@ define(['app/API'], function(API) {
                         trialData.question = $("div[data-handle='question']").text();
                     }},
                     {type:'log'},
-                    {type:'setInput',input:{handle:'end', on:'timeout',duration:500}}
-                ]
-            },
-
-            // This interaction is triggered by a timout after a correct response.
-            // It allows us to pad each trial with an interval.
-            {
-                // Trigger when input handle is "end".
-                conditions: [{type:'inputEquals',value:'end'}],
-                actions: [
-                    {type:'removeInput',handle : 'end'},
                     {type:'endTrial'}
                 ]
             },
@@ -244,11 +230,6 @@ define(['app/API'], function(API) {
 
     API.addSequence([
         {
-
-            data: {
-                myProperty: 'information',
-                myOtherProperty: 'more information'
-            },
             input: [
                 {handle:'space',on:'space'}
             ],
