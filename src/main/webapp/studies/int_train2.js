@@ -275,7 +275,7 @@ define(['app/API'], function(API) {
                          },
                         {
                             handle:"question",
-                            media:{inlineTemplate:"<div class='question'>Did you feel dissatisfied with your speech?</div>"}
+                            media:{inlineTemplate:"<div>Did you feel dissatisfied with your speech?</div>"}
                         }
                     ]
                 },

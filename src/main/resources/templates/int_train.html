@@ -18,7 +18,7 @@
 				window.log = function(){};
 			}
 		</script>
-		<script src="js/libs/require.js"></script>
+		<script src="../../webapp/js/libs/require.js"></script>
 
 		<script type="text/javascript">
 			function getParameterByName(name) {
@@ -28,7 +28,7 @@
 				return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 			}
 
-			require(['js/config'], function() {
+			require(['../../webapp/js/config'], function() {
 				require([getParameterByName('url') || 'studies/int_train2.js']);
 			});
 		</script>
