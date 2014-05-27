@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="/fragment/common :: headerFragment" />
+<body>
+<section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
+
+<!-- header-btm starts
+================================================== -->
+<section id="header-btm" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <h4 class="heading-icon clearfix"> <img th:src="@{/img/icons/heading-icon-user.png}" width="40" height="40" alt="icon" class="icon-small-bg"/>Depression, Anxiety, Stress Scales-Short Form: Anxiety Subscale </h4>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- header-btm ends
+================================================== -->
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+    <div class="container">
+
+        <!--spacer here-->
+        <div class="spacer-30px"></div>
+
+        <!--features starts-->
+        <div class="row">
+            <div class="span12">
+                <form id="wizard" th:action="@{/questions/DASS21_AS}" method="POST">
+                    <fieldset>
+                        <legend>Instructions</legend>
+                        <p>Please read each statement and select an option that indicates how much the statement applied to you over the past week. There are no right or wrong answers.  Do not spend too much time on any statement.</p>
+                        <p>The rating scale is as follows:</p>
+                        <table class="table table-striped table-bordered">
+                            <tr>
+                                <td>0</td>
+                                <td>Did not apply to me at all</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Applied to me to some degree, or some of the time</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Applied to me to a considerable degree, or a good part of time</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Applied to me very much, or most of the time</td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Questions</legend>
+                        <table class="table table-striped table-bordered">
+                            <tr>
+                                <th>Question</th>
+                                <th>None</th>
+                                <th>Some</th>
+                                <th>Often</th>
+                                <th>Most</th>
+                            </tr>
+                            <tr>
+                                <td>I was aware of dryness of my mouth.</td>
+                                <td><input type="radio" name="dryness" class="form-control" value="0" required="true"/></td>
+                                <td><input type="radio" name="dryness" class="form-control" value="1" /></td>
+                                <td><input type="radio" name="dryness" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="dryness" class="form-control" value="3" /></td>
+                            </tr>
+                            <tr>
+                                <td>I experienced breathing difficulty (e.g,, excessively rapid breathing,
+                                    breathlessness in the absence of physical exertion).</td>
+                                <td><input type="radio" name="breathing" class="form-control" value="0" required="true"/></td>
+                                <td><input type="radio" name="breathing" class="form-control" value="1"/></td>
+                                <td><input type="radio" name="breathing" class="form-control" value="2"/></td>
+                                <td><input type="radio" name="breathing" class="form-control" value="3"/></td>
+                            </tr>
+                            <tr>
+                                <td>I experienced trembling (e.g., in the hands).</td>
+                                <td><input type="radio" name="trembling" class="form-control" value="0" required="true"/></td>
+                                <td><input type="radio" name="trembling" class="form-control" value="1"/></td>
+                                <td><input type="radio" name="trembling" class="form-control" value="2"/></td>
+                                <td><input type="radio" name="trembling" class="form-control" value="3"/></td>
+                            </tr>
+                            <tr>
+                                <td>I was worried about situations in which I might panic and make
+                                    a fool of myself.</td>
+                                <td><input type="radio" name="worry" class="form-control" value="0" required="true"/></td>
+                                <td><input type="radio" name="worry" class="form-control" value="1"/></td>
+                                <td><input type="radio" name="worry" class="form-control" value="2"/></td>
+                                <td><input type="radio" name="worry" class="form-control" value="3"/></td>
+                            </tr>
+                            <tr>
+                                <td>I felt I was close to panic.</td>
+                                <td><input type="radio" name="panic" class="form-control" value="0" required="true"/></td>
+                                <td><input type="radio" name="panic" class="form-control" value="1"/></td>
+                                <td><input type="radio" name="panic" class="form-control" value="2"/></td>
+                                <td><input type="radio" name="panic" class="form-control" value="3"/></td>
+                            </tr>
+                            <tr>
+                                <td>I was aware of the action of my heart in the absence of physical
+                                    exertion (e.g., sense of heart rate increase, heart missing a beat).</td>
+                                <td><input type="radio" name="heart" class="form-control" value="0" required="true"/></td>
+                                <td><input type="radio" name="heart" class="form-control" value="1"/></td>
+                                <td><input type="radio" name="heart" class="form-control" value="2"/></td>
+                                <td><input type="radio" name="heart" class="form-control" value="3"/></td>
+                            </tr>
+                            <tr>
+                                <td>I felt scared without any good reason.</td>
+                                <td><input type="radio" name="scared" class="form-control" value="0" required="true"/></td>
+                                <td><input type="radio" name="scared" class="form-control" value="1"/></td>
+                                <td><input type="radio" name="scared" class="form-control" value="2"/></td>
+                                <td><input type="radio" name="scared" class="form-control" value="3"/></td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                </form>
+                <script>
+                    jQuery("#wizard").jWizard();
+                </script>
+            </div>
+        </div>
+        <!--features ends-->
+
+        <!--divider here-->
+        <div class="spacer-40px"></div>
+
+    </div>
+</section>
+
+
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts" />
+
+</body>
+</html>
+
+<!--
+Depression, Anxiety, Stress Scales-Short Form: Anxiety Subscale (DASS21-AS)
+Lovibond & Lovibond (1995; [9])
+
+[Initial assessment instructions:]  Please read each statement and circle a number 0, 1, 2 or 3 that indicates how much the statement applied to you over the past week. There are no right or wrong answers.  Do not spend too much time on any statement.
+
+[Instructions for assessments completed following training sessions:] Please read each statement and circle a number 0, 1, 2 or 3 that indicates how much the statement applied to you since your last session (or over the past week if your last session was more than a week ago). There are no right or wrong answers.  Do not spend too much time on any statement.
+The rating scale is as follows:
+0  Did not apply to me at all
+1  Applied to me to some degree, or some of the time
+2  Applied to me to a considerable degree, or a good part of time
+3  Applied to me very much, or most of the time
+
+1
+I was aware of dryness of my mouth.
+0      1      2      3
+2
+I experienced breathing difficulty (e.g,, excessively rapid breathing,
+breathlessness in the absence of physical exertion).
+0      1      2      3
+3
+I experienced trembling (e.g., in the hands).
+0      1      2      3
+4
+I was worried about situations in which I might panic and make
+a fool of myself.
+0      1      2      3
+5
+I felt I was close to panic.
+0      1      2      3
+6
+I was aware of the action of my heart in the absence of physical
+exertion (e.g., sense of heart rate increase, heart missing a beat).
+0      1      2      3
+7
+I felt scared without any good reason.
+0      1      2      3
+-->
+
