@@ -28,6 +28,7 @@ public class QuestionController {
 
     private DASS21_ASRepository   dass21_asRepository;
     private CredibilityRepository credibilityRepository;
+    private DemographicRepository demographicRepository;
 
     private static final Logger LOG = LoggerFactory.getLogger(QuestionController.class);
 
@@ -37,9 +38,11 @@ public class QuestionController {
      */
     @Autowired
     public QuestionController(DASS21_ASRepository dass21_asRepository,
-                              CredibilityRepository credibilityRepository) {
+                              CredibilityRepository credibilityRepository,
+                              DemographicRepository demographicRepository) {
         this.dass21_asRepository = dass21_asRepository;
         this.credibilityRepository = credibilityRepository;
+        this.demographicRepository = demographicRepository;
     }
 
     private void prepareQuestionnaireData(QuestionnaireData data) {
@@ -80,5 +83,23 @@ public class QuestionController {
         return "/home";
     }
 
+    /** Demographics
+     * ---------**/
+    @RequestMapping(value="demographics", method=RequestMethod.GET)
+    public String showDemographics() {
+        return "/questions/demographics";
+    }
+
+    @RequestMapping(value="demographics", method = RequestMethod.POST)
+    String handleDemographics(@ModelAttribute("demographics") Demographic demographic,
+                             BindingResult result) {
+
+        prepareQuestionnaireData(demographic);
+        demographicRepository.save(demographic);
+        return "/home";
+    }
+
 
 }
+
+
