@@ -20,13 +20,26 @@
 		</script>
 		<script src="../../webapp/js/libs/require.js"></script>
 
-		<script type="text/javascript">
+        <script>
+            require(['../../webapp/js/config'], function() {
+                require([ 'app/API','<%= script %>'], function(API){
+                    API.addMediaSets([
+                        // whatever
+                    ]);
+                    API.play();
+                });
+            });
+
+
+            <script type="text/javascript">
 			function getParameterByName(name) {
 				name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
 				var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
 					results = regex.exec(location.search);
 				return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 			}
+
+        </script>
 
 			require(['../../webapp/js/config'], function() {
 				require([getParameterByName('url') || 'studies/int_train2.js']);
