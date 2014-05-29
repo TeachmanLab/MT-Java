@@ -2,9 +2,8 @@ package edu.virginia.psyc.pi.mvc;
 
 import edu.virginia.psyc.pi.mvc.model.Participant;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
-import edu.virginia.psyc.pi.persistence.Questionnaire.DASS21_AS;
+import edu.virginia.psyc.pi.persistence.Questionnaire.*;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
-import edu.virginia.psyc.pi.persistence.Questionnaire.DASS21_ASRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,9 @@ import java.util.Date;
 @RequestMapping("/questions")
 public class QuestionController {
 
-    private DASS21_ASRepository dass21_asRepository;
+    private DASS21_ASRepository   dass21_asRepository;
+    private CredibilityRepository credibilityRepository;
+
     private static final Logger LOG = LoggerFactory.getLogger(QuestionController.class);
 
     /**
@@ -35,8 +36,16 @@ public class QuestionController {
      * You can modify the location of this database by editing the application.properties file.
      */
     @Autowired
-    public QuestionController(DASS21_ASRepository dass21_asRepository) {
+    public QuestionController(DASS21_ASRepository dass21_asRepository,
+                              CredibilityRepository credibilityRepository) {
         this.dass21_asRepository = dass21_asRepository;
+        this.credibilityRepository = credibilityRepository;
+    }
+
+    private void prepareQuestionnaireData(QuestionnaireData data) {
+        ParticipantDAO participant = (ParticipantDAO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        data.setParticipantDAO(participant);
+        data.setDate(new Date());
     }
 
     /** DASS 21
@@ -51,12 +60,25 @@ public class QuestionController {
                         BindingResult result) {
 
         ParticipantDAO participant = (ParticipantDAO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        dass21.setParticipantDAO(participant);
-        dass21.setDate(new Date());
-        LOG.info("Received form from pariticipant " + participant.getFullName() + " Dryness is " + dass21.getDryness());
         dass21_asRepository.save(dass21);
         return "/home";
     }
+
+    /** Credibility
+     * ---------**/
+    @RequestMapping(value="credibility", method=RequestMethod.GET)
+    public ModelAndView showCredibility() {
+        return new ModelAndView("questions/credibility", "credibility", new DASS21_AS());
+    }
+
+    @RequestMapping(value="credibility", method = RequestMethod.POST)
+    String handleCredibility(@ModelAttribute("credibility") Credibility credibility,
+                        BindingResult result) {
+
+        prepareQuestionnaireData(credibility);
+        credibilityRepository.save(credibility);
+        return "/home";
+    }
+
 
 }
