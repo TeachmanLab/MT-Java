@@ -1,5 +1,6 @@
 package edu.virginia.psyc.pi.persistence;
 
+import edu.virginia.psyc.pi.domain.Participant;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -14,7 +15,7 @@ import java.util.List;
  * User: dan
  * Date: 3/19/14
  * Time: 4:42 PM
- * This causes Spring to automatically create CRUD opperations for the
+ * This causes Spring to automatically create CRUD operations for the
  * participant object:
  *    delete(T entity) which deletes the entity given as a parameter.
  *    findAll() which returns a list of entities.
@@ -23,7 +24,7 @@ import java.util.List;
  * Additional methods will be provided automatically by following a standard
  * naming convention, as is the case with findByEmailAddress
  */
-public interface ParticipantRepository extends JpaRepository<ParticipantDAO, Long> {
+public interface ParticipantRepository extends JpaRepository<ParticipantDAO, Long>, ParticipantRepositoryCustom {
 
     List<ParticipantDAO> findByEmail(String email);
 

@@ -1,6 +1,6 @@
 package edu.virginia.psyc.pi.mvc;
 
-import edu.virginia.psyc.pi.mvc.model.Participant;
+import edu.virginia.psyc.pi.domain.Participant;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 import org.slf4j.Logger;
@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import java.security.Principal;
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.

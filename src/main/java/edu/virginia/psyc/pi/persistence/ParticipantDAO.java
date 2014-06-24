@@ -1,5 +1,6 @@
 package edu.virginia.psyc.pi.persistence;
 
+import edu.virginia.psyc.pi.domain.Session;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,9 +20,7 @@ import java.util.Collection;
  * This is where the login information for participants is stored.
  * By implementing the UserDetails interface we are able to use this directly
  * to lookup and authenticate users.
- * This class is getting a bit convoluted and may need to get split up into
- * multple beans.  This is now a UserDetails object, a Form validator, and a
- * Data access object.
+ *
  */
 @Entity
 @Table(name="participant")
@@ -38,6 +37,11 @@ public class ParticipantDAO implements UserDetails {
     private String password;
 
     private boolean admin;
+
+    @Enumerated(EnumType.STRING)
+    private Session.NAME currentSession = Session.NAME.ELIGIBLE;
+
+    private String currentTask;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -125,6 +129,21 @@ public class ParticipantDAO implements UserDetails {
         this.admin = admin;
     }
 
+    public Session.NAME getCurrentSession() {
+        return currentSession;
+    }
+
+    public void setCurrentSession(Session.NAME currentSession) {
+        this.currentSession = currentSession;
+    }
+
+    public String getCurrentTask() {
+        return currentTask;
+    }
+
+    public void setCurrentTask(String currentTask) {
+        this.currentTask = currentTask;
+    }
 
     @Override
     public String toString() {
@@ -133,7 +152,8 @@ public class ParticipantDAO implements UserDetails {
                 ", fullName='" + fullName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", authorities=" + getAuthorities().toString() +
+                ", admin=" + admin +
+                ", currentSession=" + currentSession +
                 '}';
     }
 }
