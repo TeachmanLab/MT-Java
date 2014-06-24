@@ -1,5 +1,6 @@
 package edu.virginia.psyc.pi.mvc;
 
+import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,12 +44,7 @@ public class LoginController {
 
     @RequestMapping(value="/", method = RequestMethod.GET)
     public String printWelcome(ModelMap model, Principal principal ) {
-
-        String name = principal.getName();
-        model.addAttribute("username", name);
-        model.addAttribute("message", "Spring Security Custom Form example");
-        return "home";
-
+        return "redirect:/session";
     }
 
     @RequestMapping(value="/login", method = RequestMethod.GET)
@@ -86,7 +82,7 @@ public class LoginController {
         SecurityContextHolder.getContext().setAuthentication(auth);
 
         LOG.info("Participant authenticated.");
-        return "redirect:/";
+        return "redirect:/session";
     }
 
 

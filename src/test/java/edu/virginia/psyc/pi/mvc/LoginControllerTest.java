@@ -5,6 +5,7 @@ import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.persistence.TrialRepository;
 import junit.framework.Assert;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -58,18 +59,25 @@ public class LoginControllerTest {
                 .addFilters(this.springSecurityFilterChain).build();
     }
 
+    @After
+    public void teardown() {
+        ParticipantDAO p = participantRepository.findByEmail("some_crazy2@email.com").get(0);
+        participantRepository.delete(p);
+        participantRepository.flush();
+    }
+
     @Test
     public void testCreateAccountController() throws Exception {
         this.mockMvc.perform(post("/newParticipant")
                 .param("fullName", "Dan Funk")
-                .param("email", "daniel.h.funk@gmail.com")
+                .param("email", "some_crazy2@email.com")
                 .param("unencodedPassword", "ereiamjh")
                 .param("unencodedPassword2", "ereiamjh"))
                 .andDo(print())
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/"));
+                .andExpect(view().name("redirect:/session"));
 
-        assert(participantRepository.findByEmail("daniel.h.funk@gmail.com").size() > 0);
+        assert(participantRepository.findByEmail("some_crazy2@email.com").size() > 0);
 
     }
 
@@ -80,7 +88,7 @@ public class LoginControllerTest {
         testCreateAccountController();
 
         this.mockMvc.perform(post("/login")
-                .param("username", "daniel.h.funk@gmail.com")
+                .param("username", "some_crazy2@email.com")
                 .param("password", "ereiamjh"))
                 .andDo(print())
                 .andExpect(status().is3xxRedirection());
