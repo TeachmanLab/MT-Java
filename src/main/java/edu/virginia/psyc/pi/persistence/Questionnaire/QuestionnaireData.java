@@ -1,5 +1,6 @@
 package edu.virginia.psyc.pi.persistence.Questionnaire;
 
+import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 
 import java.util.Date;
@@ -25,5 +26,8 @@ public interface QuestionnaireData {
 
     public void setDate(Date date);
 
+    public Session.NAME getSession();
+
+    public void setSession(Session.NAME session);
 
 }

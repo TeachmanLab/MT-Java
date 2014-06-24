@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.security.web.FilterChainProxy;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -24,6 +25,7 @@ import java.util.Arrays;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
@@ -38,9 +40,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebAppConfiguration
 public class QuestionControllerTest {
 
-
     @Autowired
-    private QuestionController questionController;
+    private FilterChainProxy springSecurityFilterChain;
 
     private MockMvc mockMvc;
 
@@ -58,8 +59,8 @@ public class QuestionControllerTest {
         // Process mock annotations
         MockitoAnnotations.initMocks(this);
 
-        // Setup Spring test in webapp-mode (same config as spring-boot)
-        this.mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac)
+                .addFilters(this.springSecurityFilterChain).build();
     }
 
     @Test
@@ -67,7 +68,7 @@ public class QuestionControllerTest {
         ParticipantDAO p1 = new ParticipantDAO(1, "Dan Funk", "daniel.h.funk@gmail.com", "bla", false);
 
         MvcResult result = mockMvc.perform(post("/questions/DASS21_AS"))
-                            .andExpect((status().isOk()))
+                            .andExpect((status().is3xxRedirection()))
                             .andReturn();
 
     }

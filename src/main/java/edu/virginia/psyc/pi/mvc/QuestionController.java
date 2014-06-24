@@ -1,9 +1,7 @@
 package edu.virginia.psyc.pi.mvc;
 
-import edu.virginia.psyc.pi.mvc.model.Participant;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.Questionnaire.*;
-import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +47,7 @@ public class QuestionController {
         ParticipantDAO participant = (ParticipantDAO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         data.setParticipantDAO(participant);
         data.setDate(new Date());
+        data.setSession(participant.getCurrentSession());
     }
 
     /** DASS 21
@@ -62,7 +61,7 @@ public class QuestionController {
     String handleDASS21(@ModelAttribute("DASS21_AS") DASS21_AS dass21,
                         BindingResult result) {
 
-        ParticipantDAO participant = (ParticipantDAO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        prepareQuestionnaireData(dass21);
         dass21_asRepository.save(dass21);
         return "/home";
     }

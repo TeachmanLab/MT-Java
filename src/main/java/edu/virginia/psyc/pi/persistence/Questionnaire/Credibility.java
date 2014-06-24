@@ -1,5 +1,6 @@
 package edu.virginia.psyc.pi.persistence.Questionnaire;
 
+import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 
 import javax.persistence.*;
@@ -23,6 +24,8 @@ public class Credibility implements QuestionnaireData {
     @ManyToOne
     private ParticipantDAO participantDAO;
     private Date date;
+    @Enumerated(EnumType.STRING)
+    private Session.NAME session = Session.NAME.ELIGIBLE;
 
     private int logical;
     private int successful;
@@ -75,5 +78,13 @@ public class Credibility implements QuestionnaireData {
 
     public void setRecommendable(int recommendable) {
         this.recommendable = recommendable;
+    }
+
+    public Session.NAME getSession() {
+        return session;
+    }
+
+    public void setSession(Session.NAME session) {
+        this.session = session;
     }
 }

@@ -15,7 +15,7 @@
     <div class="container">
         <div class="row">
             <div class="span12">
-                <h4 class="heading-icon clearfix"> <img src="img/icons/heading-icon-user.png" width="40" height="40" alt="icon" class="icon-small-bg"/>Alpha Development Release -- Sprint 6</h4>
+                <h4 class="heading-icon clearfix"> <img src="img/icons/heading-icon-user.png" width="40" height="40" alt="icon" class="icon-small-bg"/>Alpha Development Release -- Sprint 8</h4>
             </div>
         </div>
     </div>
@@ -35,29 +35,37 @@
         <!--features starts-->
         <div class="row">
             <div class="span12">
-                <h1>Working Examples:</h1>
+                <h1 th:text="'Welcome Back ' + ${name}"></h1>
                 <ul class="list-3col">
                     <li>
-                        <h4>Questionnaires</h4>
-                        <p>Below are a list of completed Questionnaires.  You can find detailed instructions on how to create your own Questionnaires in the README for this <a href="https://github.com/danfunk/PIServer">GitHub project</a></p>
-                        <ul>
-                            <li><a th:href="@{/questions/credibility.html}">Credibility</a></li>
-                            <li><a th:href="@{/questions/DASS21_AS.html}">DASS21 AS</a></li>
-                            <li><a th:href="@{/questions/demographics.html}">Demographics</a></li>
-                        </ul>
+                        <img th:src="@{/img/people/1.jpg}"/>
                     </li>
                     <li>
-                        <h4>Interpretation Training</h4>
-                        <p>This is the second build of an Interpretation Training module.  This is based on the CBM-I Threat Scenerio data provided by Sam and built from scratch using the PIPlayer.</p>
-                        <a href="int_train.html">Begin the Interpretation Training Module. &raquo;</a></li>
-                    <li>
-                        <h4>View Data</h4>
-                        <p>Here you can view the Interpretation data we collected when executing the study as a spreadsheet.</p>
-                        <a href="/data">View Data</a></li>
+                        <table id="progress">
+                            <tr>
+                                <th>Pre</th>
+                                <th colspan="2">Week 1</th>
+                                <th colspan="2">Week 2</th>
+                                <th colspan="2">Week 3</th>
+                                <th colspan="2">Week 4</th>
+                                <th>Post</th>
+                            </tr>
+                            <tr class="progress_boxes">
+                                <td th:each="s : ${sessions}" th:class="${s.current}? 'current' : ${s.group}" th:text="${s.complete}? '✓'"/>
+                            </tr>
+                        </table>
+                        <!--spacer here-->
+                        <div class="spacer-30px"></div>
+
+                        <p>Welcome to the study!  To get the most out of this, you should try to complete two sessions each week.
+                            Click the button below to complete the pre-assessment.  This will involve a series of questionnaires and should take about 5 minutes to complete.</p>
+                        <a href="int_train.html">Get Started!</a>
+                    </li>
                 </ul>
             </div>
         </div>
         <!--features ends-->
+
 
         <!--divider here-->
         <div class="spacer-40px"></div>

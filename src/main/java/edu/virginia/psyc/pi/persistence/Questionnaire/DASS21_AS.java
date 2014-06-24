@@ -1,5 +1,6 @@
 package edu.virginia.psyc.pi.persistence.Questionnaire;
 
+import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 
 import javax.persistence.*;
@@ -22,6 +23,8 @@ public class DASS21_AS implements QuestionnaireData {
     @ManyToOne
     private ParticipantDAO participantDAO;
     private Date date;
+    @Enumerated(EnumType.STRING)
+    private Session.NAME session = Session.NAME.ELIGIBLE;
 
     private int dryness;
     private int breathing;
@@ -110,5 +113,13 @@ public class DASS21_AS implements QuestionnaireData {
 
     public void setScared(int scared) {
         this.scared = scared;
+    }
+
+    public Session.NAME getSession() {
+        return session;
+    }
+
+    public void setSession(Session.NAME session) {
+        this.session = session;
     }
 }

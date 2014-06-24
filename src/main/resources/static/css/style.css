@@ -1350,3 +1350,49 @@ left: 0;
 .jw-widget .jw-footer{padding:0.5em;}
 .jw-widget .jw-footer .jw-buttons .jw-button-next,.jw-widget .jw-footer .jw-buttons .jw-button-finish{float:right;}
 
+/*============================================================*/
+/*---------- 6. Progress Bar ----------*/
+/*============================================================*/
+tr.progress_boxes td {
+    width:30px;
+    height: 20px;
+    border: 1px solid black;
+}
+
+#progress th {
+    text-align: center;
+    font-weight: normal;
+    border-left: 1px solid #222;
+    border-right: 1px solid #222;
+}
+
+td.current {
+    background:lightgreen;
+}
+
+td.pre {
+    background:#eee;
+}
+
+td.week1 {
+    background:#CCC;
+}
+
+td.week2 {
+    background:#AAA;
+}
+
+td.week3 {
+    background:#888;
+}
+
+td.week4 {
+    background:#666;
+}
+
+.post {
+    background:#444;
+}
+
+
+
