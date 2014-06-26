@@ -5,6 +5,8 @@ import org.hibernate.validator.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: dan
@@ -26,7 +28,17 @@ public class Participant {
     @NotNull
     private boolean admin;
 
-    private Session.NAME currentSession;
+    private List<Session> sessions;
+    private int           taskIndex;
+
+    public Participant() { }
+
+    public Participant(long id, String fullName, String email, boolean admin) {
+        this.id = id;
+        this.fullName = fullName;
+        this.email = email;
+        this.admin = admin;
+    }
 
     /**
      * Returns true if the session is completed, false otherwise.
@@ -34,10 +46,11 @@ public class Participant {
      * @return
      */
     public boolean completed(Session.NAME session) {
-        if(session == currentSession) return false;
+        Session currentSession = getCurrentSession();
+        if(session == currentSession.getName()) return false;
         for(Session.NAME s : Session.NAME.values()) {
             if (s.equals(session)) return true;
-            if (s.equals(currentSession)) return false;
+            if (s.equals(currentSession.getName())) return false;
         }
         // You can't really get here, since we have looped through all
         // the possible values of session.
@@ -45,10 +58,24 @@ public class Participant {
     }
 
     public boolean current(Session.NAME session) {
-        if(session == currentSession) return true;
+        if(session == getCurrentSession().getName()) return true;
         return false;
     }
 
+    public void completeCurrentTask() {
+        Session.NAME sessionName;
+
+        // If this is the last task in a session, then we move to the next session.
+        if(getTaskIndex() +1 == getCurrentSession().getTasks().size()) {
+            this.taskIndex = 0;
+            sessionName    = Session.nextSession(getCurrentSession().getName());
+        } else { // otherwise we just increment the task index.
+            this.taskIndex = taskIndex + 1;
+            sessionName    = getCurrentSession().getName();
+        }
+        // Rebuid the session list, based on the now current session.
+        this.sessions = Session.createListView(sessionName, taskIndex);
+    }
 
     public long getId() {
         return id;
@@ -82,11 +109,28 @@ public class Participant {
         this.admin = admin;
     }
 
-    public Session.NAME getCurrentSession() {
-        return currentSession;
+    public Session getCurrentSession() {
+        for(Session s  : sessions) {
+            if (s.isCurrent()) {
+                return s;
+            }
+        }
+        return null;
     }
 
-    public void setCurrentSession(Session.NAME currentSession) {
-        this.currentSession = currentSession;
+    public List<Session> getSessions() {
+        return sessions;
+    }
+
+    public void setSessions(List<Session> sessions) {
+        this.sessions = sessions;
+    }
+
+    public int getTaskIndex() {
+        return taskIndex;
+    }
+
+    public void setTaskIndex(int taskIndex) {
+        this.taskIndex = taskIndex;
     }
 }

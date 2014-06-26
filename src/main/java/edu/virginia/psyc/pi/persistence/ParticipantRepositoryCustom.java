@@ -15,4 +15,6 @@ public interface ParticipantRepositoryCustom {
 
     public Participant entityToDomain(ParticipantDAO dao);
 
+    public void domainToEntity(Participant p , ParticipantDAO dao);
+
 }

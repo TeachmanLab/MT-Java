@@ -41,7 +41,7 @@ public class ParticipantDAO implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Session.NAME currentSession = Session.NAME.ELIGIBLE;
 
-    private String currentTask;
+    private int taskIndex = 0;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -67,7 +67,7 @@ public class ParticipantDAO implements UserDetails {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -137,12 +137,12 @@ public class ParticipantDAO implements UserDetails {
         this.currentSession = currentSession;
     }
 
-    public String getCurrentTask() {
-        return currentTask;
+    public int getTaskIndex() {
+        return taskIndex;
     }
 
-    public void setCurrentTask(String currentTask) {
-        this.currentTask = currentTask;
+    public void setTaskIndex(int taskIndex) {
+        this.taskIndex = taskIndex;
     }
 
     @Override
@@ -154,6 +154,7 @@ public class ParticipantDAO implements UserDetails {
                 ", password='" + password + '\'' +
                 ", admin=" + admin +
                 ", currentSession=" + currentSession +
+                ", taskIndex=" + taskIndex +
                 '}';
     }
 }
