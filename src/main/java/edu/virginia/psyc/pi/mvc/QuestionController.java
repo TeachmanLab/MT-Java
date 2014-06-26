@@ -1,6 +1,8 @@
 package edu.virginia.psyc.pi.mvc;
 
+import edu.virginia.psyc.pi.domain.Participant;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
+import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.persistence.Questionnaire.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Date;
 
@@ -27,6 +30,7 @@ public class QuestionController {
     private DASS21_ASRepository   dass21_asRepository;
     private CredibilityRepository credibilityRepository;
     private DemographicRepository demographicRepository;
+    private ParticipantRepository participantRepository;
 
     private static final Logger LOG = LoggerFactory.getLogger(QuestionController.class);
 
@@ -37,33 +41,55 @@ public class QuestionController {
     @Autowired
     public QuestionController(DASS21_ASRepository dass21_asRepository,
                               CredibilityRepository credibilityRepository,
-                              DemographicRepository demographicRepository) {
+                              DemographicRepository demographicRepository,
+                              ParticipantRepository participantRepository) {
         this.dass21_asRepository = dass21_asRepository;
         this.credibilityRepository = credibilityRepository;
         this.demographicRepository = demographicRepository;
+        this.participantRepository = participantRepository;
     }
 
-    private void prepareQuestionnaireData(QuestionnaireData data) {
-        ParticipantDAO participant = (ParticipantDAO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        data.setParticipantDAO(participant);
+    /**
+     * Does some tasks common to all forms:
+     *  - Adds the current session name to the data being recorded
+     *  - Marks this "task" as complete, and moves the participant on to the next session
+     *  - Connects the data to the participant who completed it.
+     * @param data
+     */
+    private void recordSessionProgress(QuestionnaireData data) {
+
+        ParticipantDAO dao      = (ParticipantDAO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Participant participant = participantRepository.entityToDomain(dao);
+
+        // Record the session for which this questionnaire was completed.
+        data.setSession(participant.getCurrentSession().getName());
+
+        LOG.info("******************* RECORD SESSION PROGRESS CALLED");
+
+        // Update the participant's session status, and save back to the database.
+        participant.completeCurrentTask();
+        participantRepository.domainToEntity(participant, dao);
+        participantRepository.save(dao);
+
+        // Connect the participant to the data being recorded.
+        data.setParticipantDAO(dao);
         data.setDate(new Date());
-        data.setSession(participant.getCurrentSession());
     }
 
     /** DASS 21
      * ---------**/
     @RequestMapping(value="DASS21_AS", method=RequestMethod.GET)
-    public ModelAndView showContacts() {
+    public ModelAndView showDASS21() {
         return new ModelAndView("questions/DASS21_AS", "DASS21_AS", new DASS21_AS());
     }
 
     @RequestMapping(value="DASS21_AS", method = RequestMethod.POST)
-    String handleDASS21(@ModelAttribute("DASS21_AS") DASS21_AS dass21,
+    RedirectView handleDASS21(@ModelAttribute("DASS21_AS") DASS21_AS dass21,
                         BindingResult result) {
 
-        prepareQuestionnaireData(dass21);
+        recordSessionProgress(dass21);
         dass21_asRepository.save(dass21);
-        return "/home";
+        return new RedirectView("/session");
     }
 
     /** Credibility
@@ -74,12 +100,12 @@ public class QuestionController {
     }
 
     @RequestMapping(value="credibility", method = RequestMethod.POST)
-    String handleCredibility(@ModelAttribute("credibility") Credibility credibility,
+    RedirectView handleCredibility(@ModelAttribute("credibility") Credibility credibility,
                         BindingResult result) {
 
-        prepareQuestionnaireData(credibility);
+        recordSessionProgress(credibility);
         credibilityRepository.save(credibility);
-        return "/home";
+        return new RedirectView("/session");
     }
 
     /** Demographics
@@ -90,12 +116,12 @@ public class QuestionController {
     }
 
     @RequestMapping(value="demographics", method = RequestMethod.POST)
-    String handleDemographics(@ModelAttribute("demographics") Demographic demographic,
+    RedirectView handleDemographics(@ModelAttribute("demographics") Demographic demographic,
                              BindingResult result) {
 
-        prepareQuestionnaireData(demographic);
+        recordSessionProgress(demographic);
         demographicRepository.save(demographic);
-        return "/home";
+        return new RedirectView("/session");
     }
 
 

@@ -1353,46 +1353,45 @@ left: 0;
 /*============================================================*/
 /*---------- 6. Progress Bar ----------*/
 /*============================================================*/
-tr.progress_boxes td {
-    width:30px;
-    height: 20px;
-    border: 1px solid black;
+
+div#progress {
+    width: 310px;
 }
 
-#progress th {
-    text-align: center;
-    font-weight: normal;
-    border-left: 1px solid #222;
-    border-right: 1px solid #222;
+div#progress img {
+    padding-left: 10px;
 }
 
-td.current {
-    background:lightgreen;
+div.progress_boxes {
+    width: 300px;
+    height: 24px;
 }
 
-td.pre {
-    background:#eee;
+div.progress_boxes div {
+    width:27px;
+    height: 24px;
+    margin-left: 3px;
+    float:left;
 }
 
-td.week1 {
-    background:#CCC;
+div.progress_boxes div.CURRENT {
+    background: transparent url("../img/session/current.png") no-repeat scroll left top;
 }
 
-td.week2 {
-    background:#AAA;
+div.progress_boxes div.COMPLETE {
+    background: transparent url("../img/session/complete.png") no-repeat scroll left top;
 }
 
-td.week3 {
-    background:#888;
+div.progress_boxes div.INCOMPLETE {
+    background: transparent url("../img/session/incomplete.png") no-repeat scroll left top;
 }
 
-td.week4 {
-    background:#666;
+ul#tasks {
+  list-style-image: url('../img/session/task.png');
 }
 
-.post {
-    background:#444;
+ul#tasks li.COMPLETE {
+    list-style-image: url('../img/session/task_completed.png');
 }
-
 
 

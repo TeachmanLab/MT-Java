@@ -1,7 +1,6 @@
 package edu.virginia.psyc.pi.mvc;
 
 import edu.virginia.psyc.pi.domain.Participant;
-import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 import org.slf4j.Logger;
@@ -35,14 +34,28 @@ public class SessionController {
         return(p);
     }
 
+    private void saveParticipant(Participant participant) {
+        ParticipantDAO dao;
+
+        if(participant.getId() > 0) {
+            dao = participantRepository.findOne(participant.getId());
+        } else {
+            dao = new ParticipantDAO();
+        }
+
+        participantRepository.domainToEntity(participant, dao);
+        participantRepository.save(dao);
+    }
+
     @RequestMapping("")
-    public String printWelcome(ModelMap model, Principal principal) {
+    public String sessionHome(ModelMap model, Principal principal) {
 
         Participant p = getParticipant(principal);
-        List<Session> sessions = Session.createListView(p.getCurrentSession());
 
         model.addAttribute("name", p.getFullName());
-        model.addAttribute("sessions", sessions);
+        model.addAttribute("participant", p);
+        model.addAttribute("currentSession", p.getCurrentSession());
+        model.addAttribute("currentTask", p.getCurrentSession().getCurrentTask());
 
         return "home";
     }
@@ -50,9 +63,9 @@ public class SessionController {
     @RequestMapping("/next")
     public String nextStepInSession(ModelMap model, Principal principal) {
         Participant p = getParticipant(principal);
-
-        p.getCurrentSession();
-        return "/";
+        p.setTaskIndex(p.getTaskIndex() + 1);
+        saveParticipant(p);
+        return sessionHome(model, principal);
     }
 
     /**

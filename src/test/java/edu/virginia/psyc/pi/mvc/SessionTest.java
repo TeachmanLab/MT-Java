@@ -1,11 +1,13 @@
 package edu.virginia.psyc.pi.mvc;
 
 import edu.virginia.psyc.pi.domain.Session;
+import edu.virginia.psyc.pi.domain.Task;
 import org.junit.Test;
 
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -24,7 +26,7 @@ public class SessionTest {
 
         List<Session> sessionList;
 
-        sessionList = Session.createListView(Session.NAME.WEEK1A);
+        sessionList = Session.createListView(Session.NAME.SESSION1, 0);
 
         assertEquals(10, sessionList.size());  // Should be one less, since not all are displayable.
         assertEquals("incorrect order.", Session.NAME.PRE, sessionList.get(0).getName());
@@ -46,14 +48,33 @@ public class SessionTest {
         assertFalse(sessionList.get(4).isCurrent());
         assertFalse(sessionList.get(5).isCurrent());
 
-        // Groups are correctly set
-        assertEquals("pre", sessionList.get(0).getGroup());
-        assertEquals("week1", sessionList.get(1).getGroup());
-        assertEquals("week1", sessionList.get(2).getGroup());
-        assertEquals("week2", sessionList.get(3).getGroup());
-        assertEquals("week2", sessionList.get(4).getGroup());
-        assertEquals("week3", sessionList.get(5).getGroup());
     }
 
+    /**
+     * A session should have a list of associated tasks.
+     */
+    @Test
+    public void testGetTasksForSession() {
+
+        List<Task> tasks;
+
+        tasks = Session.getTasks(Session.NAME.PRE, 1);
+
+        assertNotNull(tasks);
+        assertTrue("Pre should have two tasks.", tasks.size() == 2);
+        assertEquals("Unique name for the task should be DASS_21", "DASS21_AS", tasks.get(0).getName());
+        assertEquals("First task should be named Status Questionnaire", "Status Questionnaire", tasks.get(0).getDisplayName());
+        assertEquals("First task should point to the DASS21 questionniare", Task.TYPE.questions, tasks.get(0).getType());
+        assertEquals("First task should point to the DASS21 questionniare","questions/DASS21_AS", tasks.get(0).getRequestMapping());
+        assertTrue("First task should be completed",tasks.get(0).isComplete());
+        assertFalse("First task should not be current",tasks.get(0).isCurrent());
+        assertFalse("Second task should not be completed",tasks.get(1).isComplete());
+        assertTrue("Second task should be current",tasks.get(1).isCurrent());
+
+        Session s = new Session();
+        s.setTasks(tasks);
+        assertEquals("Second task is returned when current requested", tasks.get(1), s.getCurrentTask());
+
+    }
 
 }

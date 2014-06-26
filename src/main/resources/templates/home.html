@@ -41,25 +41,28 @@
                         <img th:src="@{/img/people/1.jpg}"/>
                     </li>
                     <li>
-                        <table id="progress">
-                            <tr>
-                                <th>Pre</th>
-                                <th colspan="2">Week 1</th>
-                                <th colspan="2">Week 2</th>
-                                <th colspan="2">Week 3</th>
-                                <th colspan="2">Week 4</th>
-                                <th>Post</th>
-                            </tr>
-                            <tr class="progress_boxes">
-                                <td th:each="s : ${sessions}" th:class="${s.current}? 'current' : ${s.group}" th:text="${s.complete}? '✓'"/>
-                            </tr>
-                        </table>
+                        <div id="progress">
+                            <div><img th:src="@{/img/session/session_titles.png}" width="300"/></div>
+                            <div class="progress_boxes">
+                                <div th:each="s : ${participant.sessions}" th:class="${s.state}"/>
+                            </div>
+                        </div>
                         <!--spacer here-->
-                        <div class="spacer-30px"></div>
 
-                        <p>Welcome to the study!  To get the most out of this, you should try to complete two sessions each week.
-                            Click the button below to complete the pre-assessment.  This will involve a series of questionnaires and should take about 5 minutes to complete.</p>
-                        <a href="int_train.html">Get Started!</a>
+                        <div class="spacer-30px"></div>
+                        <div th:switch="${currentSession.name.toString()}">
+                        <p th:case='ELGIIBLE'>We need you to complete a few questionnaires to determine if you are eligible to participate in this study. </p>
+                        <p th:case='PRE'>Before you begin the first session, we need to develop a more detailed assessment of your current state.</p>
+                        <p th:case='SESSION1'>This is Session 1.  You should try and complete both Session 1 and Session 2 this week.  Please press the "Next" button below to get started.</p>
+                        </div>
+
+                        <ul id="tasks">
+                            <li th:each="task : ${currentSession.tasks}" th:class="${task.state}" th:text="${task.displayName}"/>
+                        </ul>
+
+                        <p> Please press the next button when you are ready to continue.</p>
+                        <a th:href="${currentTask.requestMapping}"><div class="mybtn">Next</div></a>
+
                     </li>
                 </ul>
             </div>
