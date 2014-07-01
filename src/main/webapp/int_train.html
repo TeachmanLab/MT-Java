@@ -18,10 +18,10 @@
 				window.log = function(){};
 			}
 		</script>
-		<script src="../../webapp/js/libs/require.js"></script>
+		<script src="js/libs/require.js"></script>
 
         <script>
-            require(['../../webapp/js/config'], function() {
+            require(['js/config'], function() {
                 require([ 'app/API','<%= script %>'], function(API){
                     API.addMediaSets([
                         // whatever
@@ -31,7 +31,6 @@
             });
 
 
-            <script type="text/javascript">
 			function getParameterByName(name) {
 				name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
 				var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
@@ -39,10 +38,9 @@
 				return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 			}
 
-        </script>
 
-			require(['../../webapp/js/config'], function() {
-				require([getParameterByName('url') || 'studies/int_train2.js']);
+			require(['js/config'], function() {
+				require([getParameterByName('url') || 'studies/int_train.js']);
 			});
 		</script>
 	</head>

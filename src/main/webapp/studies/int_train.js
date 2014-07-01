@@ -1,74 +1,44 @@
 /* The script wrapper */
 define(['app/API'], function(API) {
 
-
-    // ### Port of Shari's Original Interpretation training 
-    
-    // ### Settings
-    /*
-      Settings
-      ***********************************************************
-      */
-    
-	// set the canvas size
-	API.addSettings('canvas',{
-		maxWidth: 800,
-		proportions : 0.8
-	});
-
-	// setting the base urls for images and templates
-	API.addSettings('base_url',{
-		image : '../studies/INT_TRAIN/images',
-		template : '../studies/INT_TRAIN/'
-	});
-
-	// setting the way the logger works (how often we send data to the server and the url for the data)
-	API.addSettings('logger',{
-		pulse: 1,
-		url : '/data'
-	});
-
-    API.addStimulusSets({
-        // This Default stimulus is inherited by the other stimuli so that we can have a consistent appearance and change it from one place.
-        Default: [
-            {css:{color:'#0000FF','font-size':'2em'}}
-        ],
-
-        // This sets the appearance for the instructions.
-        Instructions: [
-            {css:{'font-size':'1.3em',color:'white', lineHeight:1.2},handle:'instructions'}
-        ],
-
-        // #### The trial stimuli
-        // Each of the following stimulus set holds the stimuli for a specific trial state
-        // Each set hold stimuli both stimuli that display attribute1/category1 and stimuli that display attribute2/category2.
-        paragraph : [
-            {data:{letter:'f', handle:'fill_in_letter'}, inherit:'Default', media: {html:"<div>You are at a class that your company has sent you to. Your teacher asks each member of the group to stand up and introduce themselves. After your brief presentation, you guess the others thought you sounded <span class='incomplete' style='white-space:nowrap'>con[ ]ident.</span></div>"}},
-            {data:{letter:'y', handle:'fill_in_letter'}, inherit:'Default', media: {html:"<div>You are at a class that your company has sent you to. Your teacher asks each member of the group to stand up and introduce themselves. After your brief presentation, you guess the others thought you sounded <span class='incomplete' style='white-space:nowrap'>sh[ ].</span></div>"}},
-            {data:{letter:'s', handle:'fill_in_letter'}, inherit:'Default', media: {html:"<div>A friend suggests that you join an evening class on creative writing. The thought of other people looking at your writing makes you feel <span class='incomplete' style='white-space:nowrap'>enthu[ ]iastic.</span></div>"}},
-            {data:{letter:'a', handle:'fill_in_letter'}, inherit:'Default', media: {html:"<div>A friend suggests that you join an evening class on creative writing. The thought of other people looking at your writing makes you feel <span class='incomplete' style='white-space:nowrap'>embarr[ ]ssed.</div>"}},
-            {data:{letter:'i', handle:'fill_in_letter'}, inherit:'Default', media: {html:"<div>You join a tennis club and before long, you are asked to play in a doubles match. Afterwards you discuss your performance with your partner. Your partner thinks that you played <span class='incomplete' style='white-space:nowrap'>br[ ]lliantly.</span></div>"}},
-            {data:{letter:'b', handle:'fill_in_letter'}, inherit:'Default', media: {html:"<div>You join a tennis club and before long, you are asked to play in a doubles match. Afterwards you discuss your performance with your partner. Your partner thinks that you played <span class='incomplete' style='white-space:nowrap'>terri[ ]ly.</span></div>"}},
-            {data:{letter:'m', handle:'fill_in_letter'}, inherit:'Default', media: {html:"<div>Your orchestra asks you to play a solo at the next concert. You practice a few times until you feel ready to play it with the orchestra. At the first rehearsal you make one mistake. The conductor will think that your work is <span class='incomplete' style='white-space:nowrap'>pro[ ]ising.</span></div>"}},
-            {data:{letter:'u', handle:'fill_in_letter'}, inherit:'Default', media: {html:"<div>Your orchestra asks you to play a solo at the next concert. You practice a few times until you feel ready to play it with the orchestra. At the first rehearsal you make one mistake. The conductor will think that your work is <span class='incomplete' style='white-space:nowrap'>r[ ]shed.</span></div>"}},
-            {data:{letter:'e', handle:'fill_in_letter'}, inherit:'Default', media: {html:"<div>Your partner asks you to go to an anniversary dinner that his/her company is holding. You have not met any of his/her work colleagues before. Getting ready to go, you think that the new people you will meet will find you <span class='incomplete' style='white-space:nowrap'>fri[ ]ndly.</div>"}},
-            {data:{letter:'r', handle:'fill_in_letter'}, inherit:'Default', media: {html:"<div>Your partner asks you to go to an anniversary dinner that his/her company is holding. You have not met any of his/her work colleagues before. Getting ready to go, you think that the new people you will meet will find you <span class='incomplete' style='white-space:nowrap'>bo[ ]ing.</div>"}},
-            {data:{letter:'a', handle:'fill_in_letter'}, inherit:'Default', media: {html:"<div>You receive an essay back from your teacher and did not get the grade that you were expecting. She tells you that this is because on this occasion, your work was <span class='incomplete' style='white-space:nowrap'>outst[ ]nding.</span></div>"}},
-            {data:{letter:'n', handle:'fill_in_letter'}, inherit:'Default', media: {html:"<div>You receive an essay back from your teacher and did not get the grade that you were expecting. She tells you that this is because on this occasion, your work was <span class='incomplete' style='white-space:nowrap'>confusi[ ]g</span></div>"}}
-        ],
-
-        // This stimulus is used for giving feedback, in this case only an error notification
-        feedback : [
-            {handle:'error', location: {top: 80}, css:{color:'red','font-size':'4em'}, media: {word:'X'}, nolog:true}
-        ]
-
+    API.addSettings('canvas',{
+        textSize: 5
     });
 
-    // #### Default trial
-    // This trial serves as the default for all IAT trials (excluding instructions)
-    API.addTrialSets('Default',{
-        data: {score:0},
+    // setting the way the logger works (how often we send data to the server and the url for the data)
+    API.addSettings('logger',{
+        pulse: 1,
+        url : '/data',
+        logger:
+            function(trialData, inputData, actionData,logStack){
+                var stimList = this._stimulus_collection.get_stimlist();
+                var mediaList = this._stimulus_collection.get_medialist();
 
+                return {
+                    log_serial : logStack.length,
+                    trial_id: this._id,
+                    name: this.name(),
+                    responseHandle: inputData.handle,
+                    latency: Math.floor(inputData.latency),
+                    stimuli: stimList,
+                    media: mediaList,
+                    data: trialData
+
+                }
+            }
+    });
+
+    API.addStimulusSets({
+        error: [
+        {handle:'error',media:'X', css:{fontSize:'2em',color:'#FF0000'}, location:{top:70}, nolog:true}
+               ],
+        yesno: [
+            {handle:'yesno',media:'Type "y" for Yes, and "n" for No.', css:{fontSize:'1em',color:'#999999'}, location:{top:70}}
+                ]
+    });
+
+
+    API.addTrialSets('base',[{
         input: [
             {handle:'a',on:'keypressed', key:"a"},
             {handle:'b',on:'keypressed', key:"b"},
@@ -95,123 +65,249 @@ define(['app/API'], function(API) {
             {handle:'w',on:'keypressed', key:"w"},
             {handle:'x',on:'keypressed', key:"x"},
             {handle:'y',on:'keypressed', key:"y"},
-            {handle:'z',on:'keypressed', key:"z"}
-        ],
-        stimuli: [
-            {inherit:{type:'random',set:'paragraph'}},
-            {inherit:{type:'random',set:'feedback'}}
+            {handle:'z',on:'keypressed', key:"z"},
+            {handle:'space',on:'space'}
         ],
         interactions: [
-            // This is an interaction (it has a condition and an action)
+            // Show the paragraph with missing letters as soon as the trial starts.
             {
                 conditions: [{type:'begin'}],
                 actions: [
-                    {type:'showStim',handle:'fill_in_letter'}
+                    {type:'showStim',handle:'paragraph'},
+                    {type:'setGlobalAttr',setter:{askingQuestion:false}}
                 ]
             },
-            {
+            { // Watch for correct answer for a positive missing letter.
                 conditions: [
-                    {type:'inputEqualsStim', property:'letter', handle:'fill_in_letter'}
-                ],
+                    {type:'inputEqualsStim', property:'positiveKey'},
+                    {type:'trialEquals', property:'positive', value:true},
+                    {type:'globalEquals', property:'askingQuestion', value:false}],
                 actions: [
-                    {type:'log'},
                     {type:'custom',fn:function(options,eventData){
                         var span = $("span.incomplete");
                         var text = span.text().replace(' ', eventData["handle"]);
                         span.text(text);
                     }},
-                    {type:'setInput',input:{handle:'end', on:'timeout',duration:500}}
+                    {type:'trigger',handle : 'correct'}
+                        ]
+            },
+            { // Watch for correct answer of a negative missing letter.
+                conditions: [
+                    {type:'inputEqualsStim', property:'negativeKey'},
+                    {type:'trialEquals', property:'positive', value:false},
+                    {type:'globalEquals', property:'askingQuestion', value:false}],
+                actions: [
+                    {type:'custom',fn:function(options,eventData){
+                        var span = $("span.incomplete");
+                        var text = span.text().replace(' ', eventData["handle"]);
+                        span.text(text);
+                    }},
+                    {type:'trigger',handle : 'correct'}
                 ]
             },
-            {
+            { // Display a red X on incorrect input for positive responses.
                 conditions: [
-                    {type:'inputEqualsStim', property:'letter', handle:'fill_in_letter',negate:true}
+                    {type:'inputEqualsStim', property:'positiveKey', negate:'true'},
+                    {type:'trialEquals', property:'positive', value:true},
+                    {type:'inputEquals',value:'correct', negate:'true'},
+                    {type:'globalEquals', property:'askingQuestion', value:false},
+                    {type:'inputEquals',value:'askQuestion', negate:'true'}
                 ],
                 actions: [
                     {type:'showStim',handle:'error'},
                     {type:'setInput',input:{handle:'clear', on:'timeout',duration:500}}
-                    {type:'custom',fn:function(options,eventData){
-                        console.log(eventData);
-                        console.log(options);
-                    }},
-                    {type:'setTrialAttr', setter:{score:1}},
+                ]
+            },
+            { // Display a red X on incorrect input for negative responses.
+                conditions: [
+                    {type:'inputEqualsStim', property:'negativeKey', negate:'true'},
+                    {type:'trialEquals', property:'positive', value:false},
+                    {type:'inputEquals',value:'correct', negate:'true'},
+                    {type:'globalEquals', property:'askingQuestion', value:false},
+                    {type:'inputEquals',value:'askQuestion', negate:'true'}
+                ],
+                actions: [
+                    {type:'showStim',handle:'error'},
                     {type:'setInput',input:{handle:'clear', on:'timeout',duration:500}}
                 ]
             },
-            // This interaction is triggered by a timout after a INcorrect response.
+            {
+                // Trigger when the correct response is provided, as there are two interactions
+                // that can cause this, I've separated it out into it's own section rather than
+                // duplicate the code.
+                conditions: [{type:'inputEquals',value:'correct'}],
+                actions: [
+                    // Preserve the question as completed, so that it will eventually be set back to the server.
+                    {type:'setTrialAttr',setter:function(trialData, eventData){
+                        trialData.paragraph = $("div[data-handle='paragraph']").text();
+                        trialData.latency   = eventData.latency;
+                    }},
+                    // Remove all keys but 'y' and 'n'
+                    {type:'removeInput',handle : ['a','b','c','d','e','f','g','h','i','j','k','l','m','o','p','q','r','s','t','u','v','v','w','x','z']},
+                    {type:'setInput',input:{handle:'askQuestion', on:'timeout',duration:500}}
+                ]
+            },
+            // After the statement is correctly completed, hide it, and show the question.
+            {
+                // Trigger when input handle is "end".
+                conditions: [{type:'inputEquals',value:'askQuestion'}],
+                actions: [
+                    {type:'hideStim',handle : 'paragraph'},
+                    {type:'showStim',handle : 'question'},
+                    {type:'showStim',handle:'yesno'},
+                    {type:'setGlobalAttr',setter:{askingQuestion:true}}
+                ]
+            },
+            // Listen for a Yes response to the question
+            {
+                // Trigger when input handle is "end".
+                conditions: [{type:'inputEquals',value:'y'},
+                            {type:'globalEquals', property:'askingQuestion', value:true}
+                ],
+                actions: [
+                    {type:'setTrialAttr',setter:{questionResponse:"yes"}},
+                    {type:'hideStim',handle : 'question'},
+                    {type:'hideStim',handle:'yesno'},
+                    {type:'trigger',handle : 'answered', duration:500}
+                ]
+            },
+            // Listen for a No response to the question
+            {
+                // Trigger when input handle is "end".
+                conditions: [{type:'inputEquals',value:'n'},
+                             {type:'globalEquals', property:'askingQuestion', value:true}
+                ],
+                actions: [
+                    {type:'setTrialAttr',setter:{questionResponse:"no"}},
+                    {type:'hideStim',handle : 'question'},
+                    {type:'hideStim',handle:'yesno'},
+                    {type:'trigger',handle : 'answered', duration:500}
+                ]
+            },
+            {
+                // Trigger when the correct response is provided, as there are two interactions
+                // that can cause this, I've separated it out into it's own section rather than
+                // duplicate the code.
+                conditions: [{type:'inputEquals',value:'answered'}],
+                actions: [
+                    {type:'removeInput',handle : ['y','n']},
+                    {type:'setTrialAttr',setter:function(trialData, eventData){
+                        trialData.question = $("div[data-handle='question']").text();
+                    }},
+                    {type:'log'},
+                    {type:'endTrial'}
+                ]
+            },
+
+            // This interaction is triggered by a timeout after a incorrect response.
             // It allows us to delay the removal of the big red X.
             {
                 // Trigger when input handle is "end".
                 conditions: [
-                     {type:'inputEquals',value:'clear'}],
+                    {type:'inputEquals',value:'clear'}],
                 actions: [
                     {type:'removeInput',handle : 'clear'},
                     {type:'hideStim',handle:'error'}
-                ]
-            },
-            // This interaction is triggered by a timout after a correct response.
-            // It allows us to pad each trial with an interval.
-            {
-                // Trigger when input handle is "end".
-                conditions: [{type:'inputEquals',value:'end'}],
-                actions: [
-                    {type:'removeInput',handle : 'end'},
-                    {type:'endTrial'}
                 ]
             }
 
 
         ]
-    });
 
-        // #### Create trial sequence
-	API.addSequence([
-		{
+    }]);
 
-		    data: {
-			myProperty: 'information',
-			myOtherProperty: 'more information'
-		    },
-		    input: [
-				{handle:'space',on:'space'}
-			],
-			layout: [
-				// This is a stimulus object
-				{
-				    media :{template:'inst1.jst'},
-				    css:{fontSize:'1.2em',color:'#D7685A'}
-				}
-			],
-			interactions: [
-				// This is an interaction (it has a condition and an action)
-				{
-					conditions: [
-						{type:'inputEquals',value:'space'}
-					],
-					actions: [
-						{type:'endTrial'}
-					]
-				}
-			]
-		},
+    /**
+     * This sets the ratio of positive to negative statements.  if there is one
+     * true, and one false, it will be a 50/50 split.  If it is 3 true, and 1 false
+     * if would then be a 75% positive, 25% negative split.
+     */
+    API.addTrialSets('posneg',[
+                    { inherit:'base', data: {positive:true}},
+                    { inherit:'base', data: {positive:true}},
+                    { inherit:'base', data: {positive:true}},
+                    { inherit:'base', data: {positive:false}}
+                            ]);
 
+    API.addSequence([
         {
-            mixer:'repeat',
-            times:10,
+            input: [
+                {handle:'space',on:'space'}
+            ],
+            layout: [
+                // This is a stimulus object
+                {
+                    media :"These are your instructions.",
+                    css:{fontSize:'1.2em',color:'#D7685A'}
+                }
+            ],
+            interactions: [
+                // This is an interaction (it has a condition and an action)
+                {
+                    conditions: [
+                        {type:'inputEquals',value:'space'}
+                    ],
+                    actions: [
+                        {type:'endTrial'}
+                    ]
+                }
+            ]
+        },
+        {
+            mixer: 'repeat',
+            times: 2,  // The total number of randomly selected trials to run.
             data: [
-            {
-                inherit:'Default',
-                stimuli: [{inherit:{type:'exRandom',set:'paragraph'}},
-                    {inherit:{type:'random',set:'feedback'}}
-                ]
-            }]
+                {
+                    inherit:{set:'posneg', type:'random'},
+                    stimuli: [
+                        {inherit:{set:'error'}},
+                        {inherit:{set:'yesno'}},
+                        {
+                            handle: "paragraph",
+                            data: {
+                               positiveKey:'f',
+                               negativeKey:'y',
+                               positiveWord:'con[ ]ident',
+                               negativeWord:'sh[ ]',
+                               statement:"You are at a class that your company has sent you to. Your teacher asks each member of the group to stand up and introduce themselves. After your brief presentation, you guess the others thought you sounded "
+                                },
+                            media:{inlineTemplate:"<div><%= stimulusData.statement %>" + "" +
+                                "<span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"}
+                         },
+                        {
+                            handle:"question",
+                            media:{inlineTemplate:"<div>Did you feel dissatisfied with your speech?</div>"}
+                        }
+                    ]
+                },
+                {
+                    inherit:{set:'posneg', type:'random'},
+                    stimuli: [
+                        {inherit:{set:'error'}},
+                        {inherit:{set:'yesno'}},
+                        {
+                            handle: "paragraph",
+                            data: {
+                                positiveWord:'enthu[ ]iastic',
+                                positiveKey:'s',
+                                negativeWord:'embarr[ ]ssed',
+                                negativeKey:'a',
+                                statement:"A friend suggests that you join an evening class on creative writing. The thought of other people looking at your writing makes you feel "
+                            },
+                            media:{inlineTemplate:"<div><%= stimulusData.statement %>" + "" +
+                                "<span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"}
+                        },
+                        {
+                            handle:"question",
+                            media:{inlineTemplate:"<div>Would you expect to feel uncomfortable if others look at your work?</div>"}
+                        }
+                    ]
+                }
+             ]
         }
-	]);
 
+    ]);
 
-
-
-	// #### Activate the player
-	API.play();
+    // #### Activate the player
+    API.play();
 });
 /* don't forget to close the define wrapper */
