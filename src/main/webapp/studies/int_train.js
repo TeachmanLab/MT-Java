@@ -158,30 +158,54 @@ define(['app/API'], function(API) {
                     {type:'setGlobalAttr',setter:{askingQuestion:true}}
                 ]
             },
-            // Listen for a Yes response to the question
+            // Listen for a correct response to a positive question
             {
-                // Trigger when input handle is "end".
-                conditions: [{type:'inputEquals',value:'y'},
-                            {type:'globalEquals', property:'askingQuestion', value:true}
+                conditions: [{type:'inputEqualsStim', property:'positiveAnswer'},
+                             {type:'trialEquals', property:'positive', value:true},
+                             {type:'globalEquals', property:'askingQuestion', value:true}
                 ],
                 actions: [
-                    {type:'setTrialAttr',setter:{questionResponse:"yes"}},
+                    {type:'setTrialAttr',setter:{correctOnQuestion:"true"}},
                     {type:'hideStim',handle : 'question'},
                     {type:'hideStim',handle:'yesno'},
                     {type:'trigger',handle : 'answered', duration:500}
                 ]
             },
-            // Listen for a No response to the question
+            // Listen for a correct response to a negative question
             {
-                // Trigger when input handle is "end".
-                conditions: [{type:'inputEquals',value:'n'},
+                conditions: [{type:'inputEqualsStim', property:'negativeAnswer'},
+                             {type:'trialEquals', property:'positive', value:false},
                              {type:'globalEquals', property:'askingQuestion', value:true}
                 ],
                 actions: [
-                    {type:'setTrialAttr',setter:{questionResponse:"no"}},
+                    {type:'setTrialAttr',setter:{correctOnQuestion:"true"}},
                     {type:'hideStim',handle : 'question'},
                     {type:'hideStim',handle:'yesno'},
                     {type:'trigger',handle : 'answered', duration:500}
+                ]
+            },
+            // Listen for an incorrect response to a positive question
+            {
+                conditions: [{type:'inputEqualsStim', property:'positiveAnswer'},
+                    {type:'trialEquals', property:'positive', value:false},
+                    {type:'globalEquals', property:'askingQuestion', value:true}
+                ],
+                actions: [
+                    {type:'setTrialAttr',setter:{correctOnQuestion:"false"}},
+                    {type:'showStim',handle:'error'},
+                    {type:'setInput',input:{handle:'clear', on:'timeout',duration:500}}
+                ]
+            },
+            // Listen for a incorrect response to a negative question
+            {
+                conditions: [{type:'inputEqualsStim', property:'negativeAnswer'},
+                    {type:'trialEquals', property:'positive', value:true},
+                    {type:'globalEquals', property:'askingQuestion', value:true}
+                ],
+                actions: [
+                    {type:'setTrialAttr',setter:{correctOnQuestion:"false"}},
+                    {type:'showStim',handle:'error'},
+                    {type:'setInput',input:{handle:'clear', on:'timeout',duration:500}}
                 ]
             },
             {
@@ -275,6 +299,10 @@ define(['app/API'], function(API) {
                          },
                         {
                             handle:"question",
+                            data: {
+                              positiveAnswer:"n",
+                              negativeAnswer:"y"
+                            },
                             media:{inlineTemplate:"<div>Did you feel dissatisfied with your speech?</div>"}
                         }
                     ]
@@ -291,14 +319,18 @@ define(['app/API'], function(API) {
                                 positiveKey:'s',
                                 negativeWord:'embarr[ ]ssed',
                                 negativeKey:'a',
-                                statement:"A friend suggests that you join an evening class on creative writing. The thought of other people looking at your writing makes you feel "
+                                statement:"A friend suggests that you join an evening class on creative writing. The thought of other people looking at your writing makes you feel ",
                             },
                             media:{inlineTemplate:"<div><%= stimulusData.statement %>" + "" +
                                 "<span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"}
                         },
                         {
                             handle:"question",
-                            media:{inlineTemplate:"<div>Would you expect to feel uncomfortable if others look at your work?</div>"}
+                            data: {
+                                positiveAnswer:"y",
+                                negativeAnswer:"n"
+                            },
+                            media:{inlineTemplate:"<div>Would you expect to feel comfortable if others look at your work?</div>"}
                         }
                     ]
                 }
