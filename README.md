@@ -1,24 +1,28 @@
 
-A Server for hosting PIPlayer Trials.  Provides:
+About 
+=========
+
+A Server for hosting PIPlayer Trials.  Please see (https://github.com/ProjectImplicit/PIPlayer)
+This server provides:
+
 * User Authentication
 * Participant Assignments
 * Data Collection
 * Data Reporting
+* Session management
 
-Built in Java on the Spring framework.
+It is built in Java using the Spring Framework.
 
 Getting Started
 ===============
-This project depends on the Project Implicit Player.  You will need to initialize that code base inside this one.  Check the code out into PIPlayer directory as so:
-$ git clone git@github.com:ProjectImplicit/PIPlayer.git
 
 Requirements
 ---------------
 You must have the following applications installed in order to build and run the server.
-* Java 7
+* Java 7 JDK - (http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html)
 * Node (Server side Javascript - for building the PIPlayer, see http://howtonode.org)
-* npm (Javascript Package Manager)
-* mysql
+* Bower (Javascript package management tool - just run "npm install bower -global")
+* Mysql (Relational Database - http://dev.mysql.com/doc/refman/5.1/en/installing.html)
 
 Database Setup
 ---------------
@@ -29,6 +33,11 @@ the datasource.password setting in src/main/resources/application.properties
 > CREATE database pi;
 > CREATE USER 'pi_user'@'localhost' IDENTIFIED BY 'pi_password';
 > GRANT ALL PRIVILEGES ON pi.* TO 'pi_user'@'localhost' IDENTIFIED BY 'pi_password' WITH GRANT OPTION;
+
+Installing Javascript Dependencies
+-------------------
+Javascript dependencies, including the PIPlayer are installed using Bower, just run `bower install`
+
 
 Running
 --------

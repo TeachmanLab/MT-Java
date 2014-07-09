@@ -15,7 +15,7 @@
     <div class="container">
         <div class="row">
             <div class="span12">
-                <h4 class="heading-icon clearfix"> <img src="img/icons/heading-icon-user.png" width="40" height="40" alt="icon" class="icon-small-bg"/>Alpha Development Release -- Sprint 8</h4>
+                <h4 class="heading-icon clearfix"> <img src="/grepfrut/img/icons/heading-icon-user.png" width="40" height="40" alt="icon" class="icon-small-bg"/>Alpha Development Release -- Sprint 8</h4>
             </div>
         </div>
     </div>
@@ -38,11 +38,11 @@
                 <h1 th:text="'Welcome Back ' + ${name}"></h1>
                 <ul class="list-3col">
                     <li>
-                        <img th:src="@{/img/people/1.jpg}"/>
+                        <img th:src="@{/grepfrut/img/people/1.jpg}"/>
                     </li>
                     <li>
                         <div id="progress">
-                            <div><img th:src="@{/img/session/session_titles.png}" width="300"/></div>
+                            <div><img th:src="@{/grepfrut/img/session/session_titles.png}" width="300"/></div>
                             <div class="progress_boxes">
                                 <div th:each="s : ${participant.sessions}" th:class="${s.state}"/>
                             </div>
@@ -61,7 +61,7 @@
                         </ul>
 
                         <p> Please press the next button when you are ready to continue.</p>
-                        <a th:href="${currentTask.requestMapping}"><div class="mybtn">Next</div></a>
+                        <a th:href="${currentTask.requestMapping}" th:if="${currentTask}"><div class="mybtn">Next</div></a>
 
                     </li>
                 </ul>
@@ -78,12 +78,30 @@
 
         <!--box starts-->
         <div class="row">
+
             <div class="span12">
-                <div class="dark-box">
-                    <h1>And that's it <span class="color">folks</span>! </h1>
-                    <p>but I hope to have more to show soon.</p>
-                </div>
+                <h1>Working Examples:</h1>
+                <ul class="list-3col">
+                    <li>
+                        <h4>Questionnaires</h4>
+                        <p>Below are a list of completed Questionnaires.  You can find detailed instructions on how to create your own Questionnaires in the README for this <a href="https://github.com/danfunk/PIServer">GitHub project</a></p>
+                        <ul>
+                            <li><a th:href="@{/questions/credibility.html}">Credibility</a></li>
+                            <li><a th:href="@{/questions/DASS21_AS.html}">DASS21 AS</a></li>
+                            <li><a th:href="@{/questions/demographics.html}">Demographics</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <h4>Interpretation Training</h4>
+                        <p>This is the second build of an Interpretation Training module.  This is based on the CBM-I Threat Scenerio data provided by Sam and built from scratch using the PIPlayer.</p>
+                        <a href="int_train.html">Begin the Interpretation Training Module. &raquo;</a></li>
+                    <li>
+                        <h4>View Data</h4>
+                        <p>Here you can view the Interpretation data we collected when executing the study as a spreadsheet.</p>
+                        <a href="/data">View Data</a></li>
+                </ul>
             </div>
+
         </div>
         <!--box ends-->
 

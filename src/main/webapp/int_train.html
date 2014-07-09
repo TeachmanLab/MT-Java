@@ -5,8 +5,8 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1" />
 
-        <link type="text/css" rel="Stylesheet" href="css/reset.css"/>
-        <link type="text/css" rel="Stylesheet" href="css/styles.css"/>
+        <link type="text/css" rel="Stylesheet" href="PIPlayer/dist/css/reset.css"/>
+        <link type="text/css" rel="Stylesheet" href="PIPlayer/dist/css/styles.css"/>
 
 		<script>
 			// create log as a shortcut to console.log if possible, note that this is a global function!
@@ -18,29 +18,11 @@
 				window.log = function(){};
 			}
 		</script>
-		<script src="js/libs/require.js"></script>
+		<script src="PIPlayer/dist/js/libs/require.js"></script>
 
         <script>
-            require(['js/config'], function() {
-                require([ 'app/API','<%= script %>'], function(API){
-                    API.addMediaSets([
-                        // whatever
-                    ]);
-                    API.play();
-                });
-            });
-
-
-			function getParameterByName(name) {
-				name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
-				var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-					results = regex.exec(location.search);
-				return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-			}
-
-
-			require(['js/config'], function() {
-				require([getParameterByName('url') || 'studies/int_train.js']);
+			require(['PIPlayer/dist/js/config'], function() {
+				require(['studies/int_train.js']);
 			});
 		</script>
 	</head>

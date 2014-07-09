@@ -8,3 +8,4 @@ PIPlayer
 .settings/
 PIServer.iml
 build/
+src/main/resources/static/PIPlayer

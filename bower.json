@@ -1,0 +1,14 @@
+{
+  "name": "PIServer",
+  "version": "0.0.1",
+  "homepage": "https://github.com/danfunk/PIServer",
+  "authors": [
+    "Dan Funk <daniel.h.funk@gmail.com>"
+  ],
+  "description": "Project Implicit Server suitable to running studies with the PIPlayer, gathering form data and managing participants.",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+  		  "PIPlayer":"v0.1.4"
+  }
+}
