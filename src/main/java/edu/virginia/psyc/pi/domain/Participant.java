@@ -115,7 +115,10 @@ public class Participant {
                 return s;
             }
         }
-        return null;
+        // FIXME: This needs a better test
+        // If there is no current session, return the first session.
+        sessions.get(0).setCurrent(true);
+        return sessions.get(0);
     }
 
     public List<Session> getSessions() {
