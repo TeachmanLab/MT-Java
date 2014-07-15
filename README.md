@@ -51,6 +51,8 @@ Deploying
 --------
 You can generate a WAR file suitable for deployment in a web server with 
 $ ./gradlew war
+Then you will find the war file in ./build/lib/piServer-0.1.0.war
+
 
 Testing
 --------
