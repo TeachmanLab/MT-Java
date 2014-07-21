@@ -8,20 +8,11 @@
         <link type="text/css" rel="Stylesheet" href="PIPlayer/dist/css/reset.css"/>
         <link type="text/css" rel="Stylesheet" href="PIPlayer/dist/css/styles.css"/>
 
-		<script>
-			// create log as a shortcut to console.log if possible, note that this is a global function!
-			try {
-				window.log = console.log;
-				window.log('Verify console.log');
-			}
-			catch(e) {
-				window.log = function(){};
-			}
-		</script>
 		<script src="PIPlayer/dist/js/libs/require.js"></script>
 
         <script>
 			require(['PIPlayer/dist/js/config'], function() {
+				require.config({baseURL:'PIPlayer/dist/js'});
 				require(['studies/int_train.js']);
 			});
 		</script>
