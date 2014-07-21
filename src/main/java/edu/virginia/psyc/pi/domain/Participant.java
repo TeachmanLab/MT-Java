@@ -127,6 +127,8 @@ public class Participant {
 
     public void setSessions(List<Session> sessions) {
         this.sessions = sessions;
+        Session s = getCurrentSession();
+        this.setTaskIndex(s.getCurrentTaskIndex());
     }
 
     public int getTaskIndex() {

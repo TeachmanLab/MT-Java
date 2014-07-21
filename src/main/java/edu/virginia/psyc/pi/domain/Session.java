@@ -108,6 +108,20 @@ public class Session {
         return null;
     }
 
+    /**
+     * Returns the index of the current task in the list of tasks in this session.
+     * This is a 0-based index.
+     * @return
+     */
+    public int getCurrentTaskIndex() {
+        int counter = 0;
+        for(Task t : tasks) {
+            if (t.isCurrent()) return counter;
+            counter ++;
+        }
+        return 0;
+    }
+
     public Session() {}
 
     public Session(NAME name, boolean complete, boolean current) {
