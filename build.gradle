@@ -39,6 +39,7 @@ dependencies {
     compile("org.mindrot:jbcrypt:0.3m");
     compile('net.sf.supercsv:super-csv-dozer:2.1.0');
     compile("org.hibernate:hibernate-validator") // Form validation markup
+    compile("javax.mail:mail:1.4.7")
 
     // Deployment
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")

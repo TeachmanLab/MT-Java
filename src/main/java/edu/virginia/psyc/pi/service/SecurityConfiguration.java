@@ -1,4 +1,4 @@
-package edu.virginia.psyc.pi.security;
+package edu.virginia.psyc.pi.service;
 
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
