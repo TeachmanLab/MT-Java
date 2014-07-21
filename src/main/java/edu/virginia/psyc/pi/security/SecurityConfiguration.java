@@ -17,11 +17,8 @@ import org.springframework.security.config.annotation.web.servlet.configuration.
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
-import org.springframework.security.provisioning.UserDetailsManager;
 
-import javax.sql.DataSource;
 import java.util.List;
 
 /**
@@ -86,7 +83,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .antMatchers(
                             "/css/**",
                             "/js/**",
-                            "/grepfrut_js/**",
+                            "/grepfrut/**",
                             "/design-js/**",
                             "/img/**",
                             "/newParticipant/**"
