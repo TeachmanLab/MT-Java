@@ -1,4 +1,4 @@
-package edu.virginia.psyc.pi.mvc;
+package edu.virginia.psyc.pi.controller;
 
 import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.domain.Task;

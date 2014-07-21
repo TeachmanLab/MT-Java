@@ -1,6 +1,5 @@
-package edu.virginia.psyc.pi.mvc;
+package edu.virginia.psyc.pi.controller;
 
-import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

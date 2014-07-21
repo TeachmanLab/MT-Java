@@ -1,4 +1,4 @@
-package edu.virginia.psyc.pi.rest.json;
+package edu.virginia.psyc.pi.domain.json;
 
 import java.util.ArrayList;
 import java.util.HashMap;

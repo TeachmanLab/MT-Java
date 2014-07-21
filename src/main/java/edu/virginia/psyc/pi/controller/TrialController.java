@@ -1,4 +1,4 @@
-package edu.virginia.psyc.pi.rest;
+package edu.virginia.psyc.pi.controller;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;

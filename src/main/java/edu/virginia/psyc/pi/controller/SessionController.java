@@ -1,4 +1,4 @@
-package edu.virginia.psyc.pi.mvc;
+package edu.virginia.psyc.pi.controller;
 
 import edu.virginia.psyc.pi.domain.Participant;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.security.Principal;
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
