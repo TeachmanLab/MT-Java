@@ -4,12 +4,11 @@ buildscript {
         mavenLocal()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.0.2.RELEASE")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.1.4.RELEASE")
     }
 }
 
 apply plugin: 'java'
-//apply plugin: 'eclipse-wtp'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
 apply plugin: 'war'
@@ -39,8 +38,6 @@ dependencies {
     compile("mysql:mysql-connector-java")
     compile("org.mindrot:jbcrypt:0.3m");
     compile('net.sf.supercsv:super-csv-dozer:2.1.0');
-//    compile("org.hsqldb:hsqldb")
-//    compile("org.thymeleaf:thymeleaf-spring4")
     compile("org.hibernate:hibernate-validator") // Form validation markup
 
     // Deployment
