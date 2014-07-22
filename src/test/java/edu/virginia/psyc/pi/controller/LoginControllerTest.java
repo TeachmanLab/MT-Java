@@ -53,9 +53,14 @@ public class LoginControllerTest {
 
     @After
     public void teardown() {
-        ParticipantDAO p = participantRepository.findByEmail("some_crazy2@email.com").get(0);
-        participantRepository.delete(p);
-        participantRepository.flush();
+        try {
+            ParticipantDAO p = participantRepository.findByEmail("some_crazy2@email.com").get(0);
+            participantRepository.delete(p);
+            participantRepository.flush();
+        } catch (IndexOutOfBoundsException ioe) {
+            // participant doesn't exist, but that isn't an actual error.
+        }
+
     }
 
     @Test
