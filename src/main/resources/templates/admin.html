@@ -63,12 +63,13 @@
                     </tr>
                     </tbody>
                 </table>
-        <span th:if="${!participants.firstPage}">
-            <a class="mybtn-small" th:href="@{/admin(page=${participants.number - 1}, search=${search})}">Previous</a>
-        </span>
-        <span th:if="${!participants.lastPage}" style="float:right">
-            <a class="mybtn-small" th:href="@{/admin(page=${participants.number + 1}, search=${search})}">Next</a>
-        </span>
+                <span th:if="${!participants.firstPage}">
+                    <a class="mybtn-small"
+                    th:href="@{/admin(page=${participants.number - 1}, search=${search})}">Previous</a>
+                </span>
+                <span th:if="${!participants.lastPage}" style="float:right">
+                    <a class="mybtn-small" th:href="@{/admin(page=${participants.number + 1}, search=${search})}">Next</a>
+                </span>
             </div>
 
             <div class="sidebar span4">
@@ -81,8 +82,10 @@
                     <input type="submit" value="search"/>
                 </form>
             </div>
-
         </div>
+
+        <h1>Emails</h1>
+            <a href="admin/sendTestEmail">Send Basic Email</a>
 
         <!--divider here-->
         <div class="spacer-40px"></div>

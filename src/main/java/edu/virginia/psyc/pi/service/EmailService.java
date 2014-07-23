@@ -2,6 +2,7 @@ package edu.virginia.psyc.pi.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -36,17 +37,22 @@ public class EmailService {
     @Autowired
     private TemplateEngine templateEngine;
 
+    @Value("${email.imageServerUrl}")
+    private String siteUrl;
+
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
     @Scheduled(fixedRate = 5000) // every 5 seconds
     public void test() {
         System.out.println("The time is now " + dateFormat.format(new Date()));
+        /*
         try {
             sendSimpleMail("dan", "daniel.h.funk@gmail.com");
         } catch (MessagingException me) {
             System.out.println("Failed to send message:" + me.getMessage());
         }
+        */
     }
 
     @Scheduled(cron="0 0 2 * * *")  // schedules task for 2:00am every day.
@@ -65,8 +71,7 @@ public class EmailService {
         // Prepare the evaluation context
         final Context ctx = new Context();
         ctx.setVariable("name", recipientName);
-        ctx.setVariable("subscriptionDate", new Date());
-        ctx.setVariable("hobbies", Arrays.asList("Cinema", "Sports", "Music"));
+        ctx.setVariable("url", this.siteUrl);
 
         // Prepare message using a Spring helper
         final MimeMessage mimeMessage = this.mailSender.createMimeMessage();

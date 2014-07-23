@@ -46,5 +46,11 @@ public class PageController {
         return "faq";
     }
 
+    @RequestMapping("email")
+    public String showEmail(ModelMap model, Principal principal) {
+        Participant p = getParticipant(principal);
+        model.addAttribute("participant", p);
+        return "tempEmail";
+    }
 
 }
