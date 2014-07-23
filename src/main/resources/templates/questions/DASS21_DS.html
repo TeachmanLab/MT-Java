@@ -15,7 +15,7 @@
     <div class="container">
         <div class="row">
             <div class="span12">
-                <h4 class="heading-icon clearfix"> <img th:src="@{/grepfrut/img/icons/heading-icon-user.png}" width="40" height="40" alt="icon" class="icon-small-bg"/> </h4>
+                <h4 class="heading-icon clearfix"> <img th:src="@{/grepfrut/img/icons/heading-icon-user.png}" width="40" height="40" alt="icon" class="icon-small-bg"/></h4>
             </div>
         </div>
     </div>
@@ -34,7 +34,7 @@
         <!--features starts-->
         <div class="row">
             <div class="span12">
-                <form id="wizard" th:action="@{/questions/DASS21_AS}" method="POST">
+                <form id="wizard" th:action="@{/questions/DASS21_DS}" method="POST">
                     <fieldset>
                         <legend>Instructions</legend>
                         <!--TODO CHANGE INSTRUCTIONS BASED ON INITIAL OR DURING TRAINING-->
@@ -70,56 +70,53 @@
                                 <th>Most</th>
                             </tr>
                             <tr>
-                                <td>I was aware of dryness of my mouth.</td>
-                                <td><input type="radio" name="dryness" class="form-control" value="0" required="true"/></td>
-                                <td><input type="radio" name="dryness" class="form-control" value="1" /></td>
-                                <td><input type="radio" name="dryness" class="form-control" value="2" /></td>
-                                <td><input type="radio" name="dryness" class="form-control" value="3" /></td>
+                                <td>I couldn’t seem to experience any positive feeling at all.</td>
+                                <td><input type="radio" name="nopositive" class="form-control" value="0" required="true"/></td>
+                                <td><input type="radio" name="nopositive" class="form-control" value="1" /></td>
+                                <td><input type="radio" name="nopositive" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="nopositive" class="form-control" value="3" /></td>
                             </tr>
                             <tr>
-                                <td>I experienced breathing difficulty (e.g,, excessively rapid breathing,
-                                    breathlessness in the absence of physical exertion).</td>
-                                <td><input type="radio" name="breathing" class="form-control" value="0" required="true"/></td>
-                                <td><input type="radio" name="breathing" class="form-control" value="1"/></td>
-                                <td><input type="radio" name="breathing" class="form-control" value="2"/></td>
-                                <td><input type="radio" name="breathing" class="form-control" value="3"/></td>
+                                <td>I found it difficult to work up the initiative to do things.</td>
+                                <td><input type="radio" name="difficult" class="form-control" value="0" required="true"/></td>
+                                <td><input type="radio" name="difficult" class="form-control" value="1"/></td>
+                                <td><input type="radio" name="difficult" class="form-control" value="2"/></td>
+                                <td><input type="radio" name="difficult" class="form-control" value="3"/></td>
                             </tr>
                             <tr>
-                                <td>I experienced trembling (e.g., in the hands).</td>
-                                <td><input type="radio" name="trembling" class="form-control" value="0" required="true"/></td>
-                                <td><input type="radio" name="trembling" class="form-control" value="1"/></td>
-                                <td><input type="radio" name="trembling" class="form-control" value="2"/></td>
-                                <td><input type="radio" name="trembling" class="form-control" value="3"/></td>
+                                <td>I felt that I was using a lot of nervous energy.</td>
+                                <td><input type="radio" name="nervous" class="form-control" value="0" required="true"/></td>
+                                <td><input type="radio" name="nervous" class="form-control" value="1"/></td>
+                                <td><input type="radio" name="nervous" class="form-control" value="2"/></td>
+                                <td><input type="radio" name="nervous" class="form-control" value="3"/></td>
                             </tr>
                             <tr>
-                                <td>I was worried about situations in which I might panic and make
-                                    a fool of myself.</td>
-                                <td><input type="radio" name="worry" class="form-control" value="0" required="true"/></td>
-                                <td><input type="radio" name="worry" class="form-control" value="1"/></td>
-                                <td><input type="radio" name="worry" class="form-control" value="2"/></td>
-                                <td><input type="radio" name="worry" class="form-control" value="3"/></td>
+                                <td>I felt down-hearted and blue.</td>
+                                <td><input type="radio" name="blue" class="form-control" value="0" required="true"/></td>
+                                <td><input type="radio" name="blue" class="form-control" value="1"/></td>
+                                <td><input type="radio" name="blue" class="form-control" value="2"/></td>
+                                <td><input type="radio" name="blue" class="form-control" value="3"/></td>
                             </tr>
                             <tr>
-                                <td>I felt I was close to panic.</td>
-                                <td><input type="radio" name="panic" class="form-control" value="0" required="true"/></td>
-                                <td><input type="radio" name="panic" class="form-control" value="1"/></td>
-                                <td><input type="radio" name="panic" class="form-control" value="2"/></td>
-                                <td><input type="radio" name="panic" class="form-control" value="3"/></td>
+                                <td>I was unable to become enthusiastic about anything.</td>
+                                <td><input type="radio" name="noenthusiastic" class="form-control" value="0" required="true"/></td>
+                                <td><input type="radio" name="noenthusiastic" class="form-control" value="1"/></td>
+                                <td><input type="radio" name="noenthusiastic" class="form-control" value="2"/></td>
+                                <td><input type="radio" name="noenthusiastic" class="form-control" value="3"/></td>
                             </tr>
                             <tr>
-                                <td>I was aware of the action of my heart in the absence of physical
-                                    exertion (e.g., sense of heart rate increase, heart missing a beat).</td>
-                                <td><input type="radio" name="heart" class="form-control" value="0" required="true"/></td>
-                                <td><input type="radio" name="heart" class="form-control" value="1"/></td>
-                                <td><input type="radio" name="heart" class="form-control" value="2"/></td>
-                                <td><input type="radio" name="heart" class="form-control" value="3"/></td>
+                                <td>I felt I wasn’t worth much as a person.</td>
+                                <td><input type="radio" name="noworth" class="form-control" value="0" required="true"/></td>
+                                <td><input type="radio" name="noworth" class="form-control" value="1"/></td>
+                                <td><input type="radio" name="noworth" class="form-control" value="2"/></td>
+                                <td><input type="radio" name="noworth" class="form-control" value="3"/></td>
                             </tr>
                             <tr>
-                                <td>I felt scared without any good reason.</td>
-                                <td><input type="radio" name="scared" class="form-control" value="0" required="true"/></td>
-                                <td><input type="radio" name="scared" class="form-control" value="1"/></td>
-                                <td><input type="radio" name="scared" class="form-control" value="2"/></td>
-                                <td><input type="radio" name="scared" class="form-control" value="3"/></td>
+                                <td>I felt that life was meaningless.</td>
+                                <td><input type="radio" name="meaningless" class="form-control" value="0" required="true"/></td>
+                                <td><input type="radio" name="meaningless" class="form-control" value="1"/></td>
+                                <td><input type="radio" name="meaningless" class="form-control" value="2"/></td>
+                                <td><input type="radio" name="meaningless" class="form-control" value="3"/></td>
                             </tr>
                         </table>
                     </fieldset>
@@ -167,28 +164,28 @@ The rating scale is as follows:
 3  Applied to me very much, or most of the time
 
 1
-I was aware of dryness of my mouth.
+I was aware of nopositive of my mouth.
 0      1      2      3
 2
-I experienced breathing difficulty (e.g,, excessively rapid breathing,
+I experienced difficult difficulty (e.g,, excessively rapid difficult,
 breathlessness in the absence of physical exertion).
 0      1      2      3
 3
-I experienced trembling (e.g., in the hands).
+I experienced nervous (e.g., in the hands).
 0      1      2      3
 4
-I was worried about situations in which I might panic and make
+I was worried about situations in which I might noenthusiastic and make
 a fool of myself.
 0      1      2      3
 5
-I felt I was close to panic.
+I felt I was close to noenthusiastic.
 0      1      2      3
 6
-I was aware of the action of my heart in the absence of physical
-exertion (e.g., sense of heart rate increase, heart missing a beat).
+I was aware of the action of my noworth in the absence of physical
+exertion (e.g., sense of noworth rate increase, noworth missing a beat).
 0      1      2      3
 7
-I felt scared without any good reason.
+I felt meaningless without any good reason.
 0      1      2      3
 -->
 

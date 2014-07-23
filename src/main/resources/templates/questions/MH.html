@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<!--<![endif]-->
+<head th:include="/fragment/common :: headerFragment" />
+<body>
+<section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
+
+<!-- header-btm starts
+================================================== -->
+<section id="header-btm" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <h4 class="heading-icon clearfix"> <img th:src="@{/grepfrut/img/icons/heading-icon-user.png}" width="40" height="40" alt="icon" class="icon-small-bg"/></h4>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- header-btm ends
+================================================== -->
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+    <div class="container">
+
+        <!--spacer here-->
+        <div class="spacer-30px"></div>
+
+        <!--features starts-->
+        <div class="row">
+            <div class="span12">
+                <form id="wizard" th:action="@{/questions/mentalhealthHxTx}" method="POST">
+                    <fieldset>
+                        <h4>Please provide as much information as possible.</h4>
+                        <p>
+                            <label>Do you currently have an anxiety disorder diagnosis (i.e., diagnosed by a health professional, such as a social worker, psychologist, psychiatrist, or a general practitioner)?</label>
+                            <select name="medication_tx">
+                                <option value=""></option>
+                                <option>Yes</option>
+                                <option>No</option>
+                            </select>
+                        </p>
+                        <p>
+                            <label>If yes, which disorders? Select all that apply</label>
+                            <select name="disorders" multiple>
+                                <option value=""></option>
+                                <option value="GAD">Generalized Anxiety Disorder (GAD)</option>
+                                <option value="OCD">Obsessive-Compulsive Disorder (OCD)</option>
+                                <option value="Panic">Panic Disorder</option>
+                                <option value="Agor">Agoraphobia</option>
+                                <option value="PSTD">Posttraumatic Stress Disorder</option>
+                                <option value="SAD">Social Anxiety Disorder</option>
+                                <option value="Phobias">Specific phobia(s)</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            If other, please specficy
+                            <input type="text" name="OtherDesc">
+                            <p>Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</p>
+                        </p>
+                        <p>
+                            <label>Do you currently have a diagnosis for a mental disorder other than anxiety? </label>
+                            <select name="medication_tx">
+                                <option value=""></option>
+                                <option>Yes</option>
+                                <option>No</option>
+                            </select>
+                        </p>
+                        <p>
+                            <label>If yes, which disorders? Select all that apply</label>
+                            <select name="not_anx_disorders" multiple>
+                                <option value=""></option>
+                                <option value="dem">Dementia or other cognitive disorder</option>
+                                <option value="subst">Substance-related disorder</option>
+                                <option value="schiz">Schizophrenia or other related disorder</option>
+                                <option value="depression">Depression or depressive disorder</option>
+                                <option value="bipolar">Bipolar disorder</option>
+                                <option value="eating">Eating disorder</option>
+                                <option value="personality">Personality disorder</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            If other, please specficy
+                            <input type="text" name="OtherDesc">
+                        <p>Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</p>
+                        </select>
+                        </p>
+                        <p>
+                            <label>Have you been diagnosed with an anxiety disorder in the past that you no longer have?</label>
+                            <select name="medication_tx">
+                                <option value=""></option>
+                                <option>Yes</option>
+                                <option>No</option>
+                            </select>
+                        </p>
+                        <p>
+                            <label>If yes, which disorders? Select all that apply</label>
+                            <select name="disorders" multiple>
+                                <option value=""></option>
+                                <option value="GAD">Generalized Anxiety Disorder (GAD)</option>
+                                <option value="OCD">Obsessive-Compulsive Disorder (OCD)</option>
+                                <option value="Panic">Panic Disorder</option>
+                                <option value="Agor">Agoraphobia</option>
+                                <option value="PSTD">Posttraumatic Stress Disorder</option>
+                                <option value="SAD">Social Anxiety Disorder</option>
+                                <option value="Phobias">Specific phobia(s)</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            If other, please specficy
+                            <input type="text" name="OtherDesc">
+                        <p>Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</p>
+                        </p>
+                        <p>
+                            <label>Have you been diagnosed with another mental disorder (other than anxiety) in the past that you no longer have?</label>
+                            <select name="medication_tx">
+                                <option value=""></option>
+                                <option>Yes</option>
+                                <option>No</option>
+                            </select>
+                        </p>
+                        <p>
+                            <label>If yes, which disorders? Select all that apply</label>
+                            <select name="not_anx_disorders" multiple>
+                                <option value=""></option>
+                                <option value="dem">Dementia or other cognitive disorder</option>
+                                <option value="subst">Substance-related disorder</option>
+                                <option value="schiz">Schizophrenia or other related disorder</option>
+                                <option value="depression">Depression or depressive disorder</option>
+                                <option value="bipolar">Bipolar disorder</option>
+                                <option value="eating">Eating disorder</option>
+                                <option value="personality">Personality disorder</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            If other, please specficy
+                            <input type="text" name="OtherDesc">
+                        <p>Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</p>
+                        </p>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        <!--features ends-->
+
+        <!--divider here-->
+        <div class="spacer-40px"></div>
+
+    </div>
+</section>
+
+
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts" />
+
+</body>
+</html>
+
+<!--TODO NEED TO FINISH THIS. REQUIRES SOME PROGRAMMING.-->
+<!--5.	Are you currently seeking help for anxiety or other mental or emotional difficulties from any of the following? Please select all that apply, or select “I am not receiving help.”-->
+<!--	Psychiatrist-->
+<!--	Psychologist-->
+<!--	School counselor-->
+<!--	Licensed mental health practitioner (LMHC)-->
+<!--	General practitioner (e.g. family doctor)-->
+<!--	Teacher-->
+<!--	Family member-->
+<!--	Friend-->
+<!--	Religious Leader-->
+<!--	Coach-->
+<!--	Self-help book-->
+<!--	Prescription medication-->
+<!--	Online treatment-->
+<!--	Other ___________________________________-->
+<!--	I am not receiving help-->
+<!--[After selecting all responses, for each response selected, individuals will see this question:] On a scale from 1 (not helpful at all) to 7 (extremely helpful), to what extent has this form of treatment been helpful for your anxiety?-->
+<!--Not at all helpful						Extremely helpful-->
+<!--1	2	3	4	5	6	7-->
+
+
+<!--6.	Have you sought help for mental or emotional difficulties for anxiety or other mental or emotional difficulties from any of the following in the past? Please select all that apply, or select “I have not gotten help.”-->
+<!--	Psychiatrist-->
+<!--	Psychologist-->
+<!--	School counselor-->
+<!--	Licensed mental health practitioner (LMHC)-->
+<!--	General practitioner (e.g. family doctor)-->
+<!--	Teacher-->
+<!--	Family member-->
+<!--	Friend-->
+<!--	Religious Leader-->
+<!--	Coach-->
+<!--	Self-help book-->
+<!--	Prescription medication-->
+<!--	Non-prescription medication-->
+<!--	Online treatment-->
+<!--	Other-->
+<!--	I have not gotten help-->
+<!--[After selecting all responses, for each response selected, individuals will see this question:] On a scale from 1 (not helpful at all) to 7 (extremely helpful), to what extent has this form of treatment been helpful for your anxiety?-->
+<!--7.	 [Display for only individuals that selected “I am not receiving help” on 5] There are lots of reasons people choose not to seek treatment.  Please let us know why you have not pursued treatment for your anxiety symptoms in the past.-->
+<!--Check all that apply-->
+<!--	I don’t think a prescription medication would help my anxiety-->
+<!--	I don’t like the idea of taking prescription medication-->
+<!--	I can’t afford to pay for prescription medication-->
+<!--	I don’t want to talk to a mental health professional (e.g., a therapist)-->
+<!--	I don’t think that a mental health professional can help me-->
+<!--	I don’t want to be asked to face my fears (e.g., not wanting to interact with a spider for a person with spider fear)-->
+<!--	I can’t afford to pay for therapy-->
+<!--	Going to therapy is too inconvenient-->
+<!--	I am embarrassed to seek treatment-->
+<!--	I think people might think less of me if I sought treatment-->
+<!--	I don’t have time to seek treatment-->
+<!--	Other (please describe: _____________)-->
+
+
+
+
+
