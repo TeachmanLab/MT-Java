@@ -67,24 +67,29 @@
 <body style="background:#767676; min-height:1000px; color:#000;font-family:Arial, Helvetica, sans-serif; font-size:12px"
       alink="#FF0000" link="#FF0000" bgcolor="#000000" text="#FFFFFF" yahoo="fix">
 
-    <a href="http://projectImplicit" target="_blank" th:fragment="logoFragment">
-    <img src="grepfrut/img/pimh_logo.png"  th:src="${url} + '/grepfrut/img/pimh_logo.png'" alt="Project Implicit Mental Health" title="PIMH"
-         style="display:block"  border="0"/>
-        <p th:text="${url} + '/grepfrut/img/pimh_logo.png'">what is it man?!?!?</p>
-        <p th:text="${url}">what is it man?!?!?</p>
-        <p th:text="'/grepfrut/img/pimh_logo.png'">what is it man?!?!?</p>
-    </a>
-
-    <table width="150" cellspacing="3" cellpadding="0" border="1px solid black" th:fragment="footerFragment">
+    <table cellpadding="0" cellspacing="0" width="400" align="center" style="margin-top:20px" th:fragment="logoFragment">
         <tr>
-            <td width="150" height="35" align="center" background="http://www.emailonacid.com/emails/response_emails/
-              button_back.gif" style="background-repeat:repeat-x; background-position:top left; background-color:#3c96e2;
-              border:1px solid #666666; color:#FFFFFF; font-weight:bold; white-space:nowrap; height:35px;">
-                <a href="http://www.emailonacid.com/email-preview/online_demo/C7" target="_blank" style="color:#FFFFFF;
-              cursor:pointer; font-size:13px; text-align:center; text-decoration:none; vertical-align:baseline; font-weight:bold;">
-                    <span style="padding:10px 10px; color:#FFF">Online Demo ››</span></a></td>
+            <td width="300"></td>
+            <td width="100">
+                <a href="http://projectImplicit" target="_blank" >
+                <img src="/img/pimh_logo.png"  th:src="${url} + '/img/pimh_logo.png'" alt="Project Implicit Mental Health" title="PIMH"
+                 style="display:block"  border="0"/>
+               </a>
+            </td>
         </tr>
     </table>
+
+    <div id="footer" class="clearfix" th:fragment="footerFragment">
+        <p style="margin-top:20px">Best,</p>
+        <p style="margin-top:5px">Bethany Teachman</p>
+        <p style="margin-top:0; font-style:italic">PhD (Project Director)</p>
+        <p style="margin-top:0; font-style:italic">and the Project Implicit Mental Health training team</p>
+
+        <p style="margin-top:40px"><b>P.S.</b> As a reminder, there are 8 sessions of training total, and each one is a little different.
+            After sessions 3, 6, and 8, we will ask you to complete a brief set of surveys and tasks so we can keep track of your progress.</p>
+
+        <p style="margin-top:0px; font-weight:bold">[You will receive a $5 gift card for completing the surveys.]</p>
+    </div>
 
 
 </body>

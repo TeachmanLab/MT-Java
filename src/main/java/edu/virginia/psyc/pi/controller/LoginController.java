@@ -95,9 +95,13 @@ public class LoginController {
 
     @RequestMapping(value="/logout", method = RequestMethod.GET)
     public String logout(ModelMap model) {
-
         return "login";
-
     }
+
+    @RequestMapping(value="/optout/{code}", method = RequestMethod.GET)
+    public String optout(ModelMap model) {
+        return "optout";
+    }
+
 
 }

@@ -103,18 +103,13 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-
-    private Participant getParticipant(Principal principal) {
-        Participant p;
-        p = participantRepository.entityToDomain(participantRepository.findByEmail(principal.getName()).get(0));
-        return(p);
-    }
-    @RequestMapping(value="/sendTestEmail")
-    public String sendTestEmail(ModelMap model, Principal principal) throws Exception {
+    @RequestMapping(value="/sendEmail/{type}")
+    public String sendEmail(ModelMap model, Principal principal,
+                            @PathVariable("type") EmailService.TYPE type) throws Exception {
         Participant p;
         p = participantRepository.entityToDomain(participantRepository.findByEmail(principal.getName()).get(0));
 
-        this.emailService.sendSimpleMail(p.getFullName(), p.getEmail());
+        this.emailService.sendSimpleMail(p, type);
         return "redirect:/admin";
     }
 
