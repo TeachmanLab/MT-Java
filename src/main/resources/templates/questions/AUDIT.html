@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<!--<![endif]-->
+<head th:include="/fragment/common :: headerFragment" />
+<body>
+<section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
+
+<!-- header-btm starts
+================================================== -->
+<section id="header-btm" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <h4 class="heading-icon clearfix"> <img th:src="@{/grepfrut/img/icons/heading-icon-user.png}" width="40" height="40" alt="icon" class="icon-small-bg"/></h4>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- header-btm ends
+================================================== -->
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+    <div class="container">
+
+        <!--spacer here-->
+        <div class="spacer-30px"></div>
+
+        <!--features starts-->
+        <div class="row">
+            <div class="span12">
+                <form id="wizard" th:action="@{/questions/audit}" method="POST">
+                    <fieldset>
+                        <h4>Please provide as much information as possible.</h4>
+                        <p>
+                            <label>How often do you have a drink containing alcohol</label>
+                            <select name="drink_alc">
+                                <option value=""></option>
+                                <option>Never</option>
+                                <option>Monthly</option>
+                                <option>2-4 times a month</option>
+                                <option>2-3 times a week</option>
+                                <option>4 or more times a week</option>
+                            </select>
+                        </p>
+                        <p>
+                            <label>How many drinks containing alcohol do you have on a typical day when you are drinking?</label>
+                            <select name="drinks_freq">
+                                <option value=""></option>
+                                <option>1 or 2</option>
+                                <option>3 or 4</option>
+                                <option>5 or 6</option>
+                                <option>7 to 9</option>
+                                <option>10 or more</option>
+                            </select>
+                        </p>
+                        <p>
+                            <label>How often do you have six or more drinks on one occasion?</label>
+                            <select name="binge">
+                                <option value=""></option>
+                                <option>Never</option>
+                                <option>Less than monthly</option>
+                                <option>Monthly</option>
+                                <option>Weekly</option>
+                                <option>Daily or almost daily</option>
+                            </select>
+                        </p>
+                        <p>
+                            <label>How often during the last year have you found that you were not able to stop drinking once you had started?</label>
+                            <select name="cant_stop">
+                                <option value=""></option>
+                                <option>Never</option>
+                                <option>Less than monthly</option>
+                                <option>Monthly</option>
+                                <option>Weekly</option>
+                                <option>Daily or almost daily</option>
+                            </select>
+                        </p>
+                        <p>
+                            <label>How often during the last year have you failed to do what was normally expected of you because of drinking?</label>
+                            <select name="fail">
+                                <option value=""></option>
+                                <option>Never</option>
+                                <option>Less than monthly</option>
+                                <option>Monthly</option>
+                                <option>Weekly</option>
+                                <option>Daily or almost daily</option>
+                            </select>
+                        </p>
+                        <p>
+                            <label>How often during the last year have you needed a first drink in the morning to get yourself going after a heavy drinking session?</label>
+                            <select name="drink_morning">
+                                <option value=""></option>
+                                <option>Never</option>
+                                <option>Less than monthly</option>
+                                <option>Monthly</option>
+                                <option>Weekly</option>
+                                <option>Daily or almost daily</option>
+                            </select>
+                        </p>
+                        </fieldset>
+                        <fieldset>
+                        <p>
+                            <label>How often during the last year have you had a feeling of guilt or remorse after drinking?</label>
+                            <select name="guilt">
+                                <option value=""></option>
+                                <option>Never</option>
+                                <option>Less than monthly</option>
+                                <option>Monthly</option>
+                                <option>Weekly</option>
+                                <option>Daily or almost daily</option>
+                            </select>
+                        </p>
+                        <p>
+                            <label>How often during the last year have you been unable to remember what happened the night before because of your drinking?</label>
+                            <select name="remember">
+                                <option value=""></option>
+                                <option>Never</option>
+                                <option>Less than monthly</option>
+                                <option>Monthly</option>
+                                <option>Weekly</option>
+                                <option>Daily or almost daily</option>
+                            </select>
+                        </p>
+                        </fieldset>
+                        <fieldset>
+                        <p>
+                            <label>Have you or someone else been injured because of your drinking?</label>
+                            <select name="injured">
+                                <option value=""></option>
+                                <option>No</option>
+                                <option>Yes, but not in the last year</option>
+                                <option>Yes, during the last year</option>
+                            </select>
+                        </p>
+                        <p>
+                            <label>Has a relative, friend, doctor, or other health care worker been concerned about your drinking or suggested you cut down?</label>
+                            <select name="friend">
+                                <option value=""></option>
+                                <option>No</option>
+                                <option>Yes, but not in the last year</option>
+                                <option>Yes, during the last year</option>
+                            </select>
+                        </p>
+                    </fieldset>
+                 </form>
+            </div>
+        </div>
+        <!--features ends-->
+
+        <!--divider here-->
+        <div class="spacer-40px"></div>
+
+    </div>
+</section>
+
+
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts" />
+
+</body>
+</html>

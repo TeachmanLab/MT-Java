@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="fragment/common :: headerFragment" />
+<body>
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment" />
+
+<!-- header-btm starts
+================================================== -->
+<section id="header-btm" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <h4 class="heading-icon clearfix"> <img src="/grepfrut/img/icons/heading-icon-user.png" width="40" height="40" alt="icon" class="icon-small-bg"/>Alpha Development Release -- Sprint 8</h4>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- header-btm ends
+================================================== -->
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <h4> Privacy Protection Plan </h4>
+
+                <p> Project Implicit uses the same secure hypertext transfer protocol (HTTPS), that banks and other commercial websites use to transfer credit card information in an encrypted format. This provides strong security for data transfer to and from our website.</p>
+
+                <p> Project Implicit uses transient or "session" cookies to track progress through individual studies. These session tags disappear once a web browser is closed. No permanent cookies will be stored on participant machines.</p>
+
+                <p> Email addresses provided by the user may be used to track participation at the research website over time. However, research data collected at the website is associated with an anonymous user number and stored separately from email addresses and demographic information. Email addresses are never directly connected to any of the research data ensuring the privacy of individual data. Please remember that we cannot guarantee the confidentiality of information sent by e-mail.</p>
+
+                <p> Email addresses will never be used without explicit permission from the participant and will never be disclosed or shared with any third-party.</p>
+
+                <p> If you have any concerns regarding our policy please email us at implicit@wjh.harvard.edu </p>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts" />
+
+</body>
+</html>

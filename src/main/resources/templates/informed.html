@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="fragment/common :: headerFragment" />
+<body>
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment" />
+
+<!-- header-btm starts
+================================================== -->
+<section id="header-btm" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <h4 class="heading-icon clearfix"> <img src="/grepfrut/img/icons/heading-icon-user.png" width="40" height="40" alt="icon" class="icon-small-bg"/>Alpha Development Release -- Sprint 8</h4>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- header-btm ends
+================================================== -->
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <h4> Informed Consent Agreement </h4>
+
+                <p> The purpose of the study is to investigate a new, experimental anxiety reduction training program. It includes eight 20 minute training sessions, as well as four 20 minute assessment sessions.</p>
+                <p> You may be presented with an experimental anxiety reduction training program. Alternatively, you may be asked to complete a “control” task, which is similar to the anxiety reduction training program, but not designed to reduce anxiety. You will be asked to complete questionnaires in which you describe your thoughts and mood, and a task that requires you to read brief stories, answer questions, and complete words that have missing letters. For some participants, being asked questions about their thoughts and mood can be temporarily distressing.</p>
+                <p> At the end of the study, you will receive more detail about the reasoning for the study and its design. You will also receive feedback about the progress you made during the training program (e.g., how much your anxiety symptoms changed during the program).</p>
+                <p> There are no direct benefits to you.  Depending on your study condition, you may complete procedures that we expect can help reduce anxiety symptoms, but this is an experimental program. If you are assigned to a control condition, you will be given the option to complete the anxiety reduction training program for free after the study.</p>
+                <p> Remember that participation in this study is voluntary, and you may end your individual session participation at any time by closing the study window. Contact Bethany Teachman at pimhintervention@projectimplicit.net if you have any questions about the study or to withdraw completely from the study.</p>
+                <p> Project Implicit Mental Health does not provide specific diagnostic or medical advice on our website. Project Implicit Mental Health is limited in how we can respond to the information you provide. Your responses will be anonymous, except for your email address, and your full name and physical location are not required for this study.</p>
+                <p> All data collected through the Project Implicit Mental Health website are confidential and are only accessible by the research team.</p>
+                <!--TODO GET THE LINK-->
+                <p> Project Implicit Mental Health's standard privacy policy applies to this study. Project Implicit uses the same secure hypertext transfer protocol (HTTPS) that banks and other commercial websites use to transfer credit card information in an encrypted format. This provides strong security for data transfer to and from our website. To view the entire privacy policy in a separate pop up window, please click here.</p>
+                <p> Project Implicit Mental Health is not able to offer financial compensation nor to absorb the costs of treatment should you feel you have been injured as a result of participating in the Project Implicit Mental Health research study.</p>
+                <p> <b> Who to contact about your rights in the study: </b></p>
+                <p> Tonya Moon, Chair, Institutional Review Board for the Social and Behavioral Sciences , One Morton Dr Suite 500 University of Virginia, P.O. Box 800392, Charlottesville, VA 22908-0392</p>
+                <p> Telephone: (434) 924-5999; Email: irbsbshelp@virginia.edu; Website: www.virginia.edu/vprgs/irb</p>
+                <p> By clicking the button below you are indicating that you have read the informed consent statement above and agree to participate</p>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts" />
+
+</body>
+</html>
