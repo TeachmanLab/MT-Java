@@ -39,7 +39,7 @@
                         <h4>Please provide as much information as possible.</h4>
                         <p>
                             <label>Do you currently have an anxiety disorder diagnosis (i.e., diagnosed by a health professional, such as a social worker, psychologist, psychiatrist, or a general practitioner)?</label>
-                            <select name="medication_tx">
+                            <select name="anx_dis">
                                 <option value=""></option>
                                 <option>Yes</option>
                                 <option>No</option>
@@ -64,7 +64,7 @@
                         </p>
                         <p>
                             <label>Do you currently have a diagnosis for a mental disorder other than anxiety? </label>
-                            <select name="medication_tx">
+                            <select name="not_anx_dis">
                                 <option value=""></option>
                                 <option>Yes</option>
                                 <option>No</option>
@@ -84,13 +84,13 @@
                                 <option value="Other">Other</option>
                             </select>
                             If other, please specficy
-                            <input type="text" name="OtherDesc">
+                            <input type="text" name="NotOtherDesc">
                         <p>Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</p>
                         </select>
                         </p>
                         <p>
                             <label>Have you been diagnosed with an anxiety disorder in the past that you no longer have?</label>
-                            <select name="medication_tx">
+                            <select name="disorder_no">
                                 <option value=""></option>
                                 <option>Yes</option>
                                 <option>No</option>
@@ -98,7 +98,7 @@
                         </p>
                         <p>
                             <label>If yes, which disorders? Select all that apply</label>
-                            <select name="disorders" multiple>
+                            <select name="disorders_no" multiple>
                                 <option value=""></option>
                                 <option value="GAD">Generalized Anxiety Disorder (GAD)</option>
                                 <option value="OCD">Obsessive-Compulsive Disorder (OCD)</option>
@@ -110,12 +110,12 @@
                                 <option value="Other">Other</option>
                             </select>
                             If other, please specficy
-                            <input type="text" name="OtherDesc">
+                            <input type="text" name="OtherDescNo">
                         <p>Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</p>
                         </p>
                         <p>
                             <label>Have you been diagnosed with another mental disorder (other than anxiety) in the past that you no longer have?</label>
-                            <select name="medication_tx">
+                            <select name="not_anx_no">
                                 <option value=""></option>
                                 <option>Yes</option>
                                 <option>No</option>
@@ -123,7 +123,7 @@
                         </p>
                         <p>
                             <label>If yes, which disorders? Select all that apply</label>
-                            <select name="not_anx_disorders" multiple>
+                            <select name="not_anx_disorders_no" multiple>
                                 <option value=""></option>
                                 <option value="dem">Dementia or other cognitive disorder</option>
                                 <option value="subst">Substance-related disorder</option>
@@ -135,7 +135,7 @@
                                 <option value="Other">Other</option>
                             </select>
                             If other, please specficy
-                            <input type="text" name="OtherDesc">
+                            <input type="text" name="OtherDescNo">
                         <p>Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</p>
                         </p>
                     </fieldset>

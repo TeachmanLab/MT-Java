@@ -199,12 +199,12 @@
                         </p>
                         <p>
                             <label>This training program was 8 sessions. How many sessions do you think would have been ideal?</label>
-                            <input type="text" name="ideal">
-                            <p>
-                                <label>Why is that number ideal?</label>
-                                <textarea name="describe">
-                                </textarea>
-                            </p>
+                            <input type="text" name="ideal"/>
+                        </p>
+                        <p>
+                            <label>Why is that number ideal?</label>
+                            <textarea name="describe">
+                            </textarea>
                         </p>
                         <p>
                             <label> How tiring did you find the training sessions? </label>
@@ -261,16 +261,18 @@
                             <label>If you were to experience moderate to severe anxiety in the future, does this program make you more or less likely to consider other forms of therapy (e.g., medications, therapy)?</label>
                             <select name="other_therapy">
                                 <option value=""></option>
-                                <option value="1">Much more likely/option>
+                                <option value="1">Much more likely </option>
                                 <option value="2">A little more likely</option>
                                 <option value="3">Not sure</option>
                                 <option value="4">Yes, I probably would</option>
                                 <option value="5">N/A (e.g., I’m currently undergoing another form of treatment)</option>
                             </select>
                         </p>
+                        </fieldset>
+                        <fieldset>
                         <p>
                             <label>Where did you complete the training sessions? Select all that apply</label>
-                            <select name="where" multiple>
+                            <select multiple="multiple" name="where">
                                 <option value=""></option>
                                 <option value="home">At home</option>
                                 <option value="work">At work</option>
@@ -279,9 +281,11 @@
                                 <option value="vacation">On Vacation</option>
                                 <option value="other">Other</option>
                             </select>
-                            If other, please specficy
-                            <input type="text" name="OtherDesc">
+                        </p>
                         <p>Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</p>
+                        <p>
+                            <label> If other, please specficy </label>
+                            <input type="text" name="OtherDesc"/>
                         </p>
                         <p>
                             <label>Did you think you were in the active training condition (designed to change your anxious thinking) or the “control” condition (not designed to change your anxious thinking)?</label>

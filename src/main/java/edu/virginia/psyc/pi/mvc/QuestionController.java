@@ -33,6 +33,9 @@ public class QuestionController {
     private AUDIT_Repository audit_Repository;
     private FollowUp_ChangeInTreatment_Repository followup_Repository;
     private ImpactAnxiousImagery_Repository impact_Repository;
+    private MentalHealthHxTxRepository mh_Repository;
+    private MultiUserExperienceRepository mue_Repository;
+    private PilotUserExperienceRepository pue_Repository;
     private CredibilityRepository credibilityRepository;
     private DemographicRepository demographicRepository;
     private ParticipantRepository participantRepository;
@@ -46,6 +49,13 @@ public class QuestionController {
      */
     @Autowired
     public QuestionController(DASS21_ASRepository dass21_asRepository,
+                              DASS21_DSRepository dass21_dsRepository,
+                              QOLRepository qol_Repository,
+                              ImpactAnxiousImagery_Repository impact_Repository,
+                              MentalHealthHxTxRepository mh_Repository,
+                              MultiUserExperienceRepository mue_Repository,
+                              PilotUserExperienceRepository pue_Repository,
+                              AUDIT_Repository audit_Repository,
                               CredibilityRepository credibilityRepository,
                               DemographicRepository demographicRepository,
                               ParticipantRepository participantRepository) {
@@ -53,7 +63,14 @@ public class QuestionController {
         this.credibilityRepository = credibilityRepository;
         this.demographicRepository = demographicRepository;
         this.participantRepository = participantRepository;
-//        QOL REPOSITORY
+        this.audit_Repository = audit_Repository;
+        this.dass21_dsRepository = dass21_dsRepository;
+        this.qol_Repository = qol_Repository;
+        this.impact_Repository = impact_Repository;
+        this.mh_Repository = mh_Repository;
+        this.mue_Repository = mue_Repository;
+        this.pue_Repository = pue_Repository;
+
     }
 
     /**
@@ -179,6 +196,60 @@ public class QuestionController {
         followup_Repository.save(followup);
         return new RedirectView("/session");
     }
+
+    /** MentalHealthHxTx
+     * ---------**/
+
+    @RequestMapping(value="MH", method=RequestMethod.GET)
+    public ModelAndView showMentalHealthHxTx() {
+        return new ModelAndView("questions/MH", "MH", new MentalHealthHxTx());
+    }
+
+    @RequestMapping(value="MH", method = RequestMethod.POST)
+    RedirectView handleMentalHealthHxTx(@ModelAttribute("MH") MentalHealthHxTx mh,
+                                BindingResult result) {
+
+        recordSessionProgress(mh);
+        mh_Repository.save(mh);
+        return new RedirectView("/session");
+    }
+
+
+    /** MultiUserExperience
+     * ---------**/
+
+    @RequestMapping(value="MUE", method=RequestMethod.GET)
+    public ModelAndView showMultiUserExperience() {
+        return new ModelAndView("questions/MUE", "MUE", new MultiUserExperience());
+    }
+
+    @RequestMapping(value="MUE", method = RequestMethod.POST)
+    RedirectView handleMultiUserExperience(@ModelAttribute("MUE") MultiUserExperience mue,
+                                BindingResult result) {
+
+        recordSessionProgress(mue);
+        mue_Repository.save(mue);
+        return new RedirectView("/session");
+    }
+
+
+    /** PilotUserExperience
+     * ---------**/
+
+    @RequestMapping(value="PUE", method=RequestMethod.GET)
+    public ModelAndView showPilotUserExperience() {
+        return new ModelAndView("questions/PUE", "PUE", new PilotUserExperience());
+    }
+
+    @RequestMapping(value="PUE", method = RequestMethod.POST)
+    RedirectView handleMultiUserExperience(@ModelAttribute("PUE") PilotUserExperience pue,
+                                           BindingResult result) {
+
+        recordSessionProgress(pue);
+        pue_Repository.save(pue);
+        return new RedirectView("/session");
+    }
+
 
     /** ImpactAnxiousImagery
      * ---------**/
