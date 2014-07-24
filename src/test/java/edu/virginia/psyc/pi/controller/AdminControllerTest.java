@@ -62,9 +62,9 @@ public class AdminControllerTest {
     @Test
     public void testAdminListUsers() throws Exception {
 
-        ParticipantDAO p1 = new ParticipantDAO(1, "Dan Funk", "daniel.h.funk@gmail.com", "bla", false);
-        ParticipantDAO p2 = new ParticipantDAO(1, "John Smith", "john.h.funk@gmail.com", "bla2", false);
-        ParticipantDAO p3 = new ParticipantDAO(1, "Frank Jones", "frank.h.funk@gmail.com", "bla3", false);
+        ParticipantDAO p1 = new ParticipantDAO( "Dan Funk", "daniel.h.funk@gmail.com", "bla", false);
+        ParticipantDAO p2 = new ParticipantDAO( "John Smith", "john.h.funk@gmail.com", "bla2", false);
+        ParticipantDAO p3 = new ParticipantDAO( "Frank Jones", "frank.h.funk@gmail.com", "bla3", false);
 
         when(participantRepository.findAll()).thenReturn(Arrays.asList(p1,p2,p3));
 

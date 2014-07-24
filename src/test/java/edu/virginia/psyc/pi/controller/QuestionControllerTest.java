@@ -59,7 +59,7 @@ public class QuestionControllerTest {
 
     @Test
     public void testCreateForm() throws Exception {
-        ParticipantDAO p1 = new ParticipantDAO(1, "Dan Funk", "daniel.h.funk@gmail.com", "bla", false);
+        ParticipantDAO p1 = new ParticipantDAO("Dan Funk", "daniel.h.funk@gmail.com", "bla", false);
 
         MvcResult result = mockMvc.perform(post("/questions/DASS21_AS"))
                             .andExpect((status().is3xxRedirection()))

@@ -1,5 +1,6 @@
 package edu.virginia.psyc.pi.domain;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.hibernate.validator.constraints.Email;
 
 import javax.validation.constraints.NotNull;
@@ -31,7 +32,11 @@ public class Participant {
     private List<Session> sessions;
     private int           taskIndex;
 
-    public Participant() { }
+    private boolean       emailOptout = false;  // User required to receive no more emails.
+
+    private List<EmailLog> emailLogs;
+
+    public Participant() {}
 
     public Participant(long id, String fullName, String email, boolean admin) {
         this.id = id;
@@ -115,7 +120,6 @@ public class Participant {
                 return s;
             }
         }
-        // FIXME: This needs a better test
         // If there is no current session, return the first session.
         sessions.get(0).setCurrent(true);
         return sessions.get(0);
@@ -137,5 +141,21 @@ public class Participant {
 
     public void setTaskIndex(int taskIndex) {
         this.taskIndex = taskIndex;
+    }
+
+    public boolean isEmailOptout() {
+        return emailOptout;
+    }
+
+    public void setEmailOptout(boolean emailOptout) {
+        this.emailOptout = emailOptout;
+    }
+
+    public List<EmailLog> getEmailLogs() {
+        return emailLogs;
+    }
+
+    public void setEmailLogs(List<EmailLog> emailLogs) {
+        this.emailLogs = emailLogs;
     }
 }

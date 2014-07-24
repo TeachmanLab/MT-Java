@@ -41,6 +41,7 @@ dependencies {
     compile("org.hibernate:hibernate-validator") // Form validation markup
     compile("org.springframework:spring-context-support") //  Email
     compile("javax.mail:mail:1.4.7") // also Email
+    compile('org.apache.commons:commons-lang3')  // Lots of useful code, used for random number generation.
 
     // Deployment
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")

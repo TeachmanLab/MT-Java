@@ -1,6 +1,11 @@
 package edu.virginia.psyc.pi.service;
 
 import edu.virginia.psyc.pi.domain.Participant;
+import edu.virginia.psyc.pi.persistence.EmailLogDAO;
+import edu.virginia.psyc.pi.persistence.ParticipantDAO;
+import edu.virginia.psyc.pi.persistence.ParticipantRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -11,7 +16,6 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -28,7 +32,11 @@ import javax.mail.internet.MimeMessage;
  */
 @Service
 public class EmailService {
+    private static final Logger LOG = LoggerFactory.getLogger(EmailService.class);
 
+    /**
+     * Each of these types should have a coresponding template in resources/templates/email
+     */
     public enum TYPE {day2, day4, day7, day11, day15, day18, followup, followup2, followup3}
 
     @Autowired
@@ -36,6 +44,9 @@ public class EmailService {
 
     @Autowired
     private TemplateEngine templateEngine;
+
+    @Autowired
+    private ParticipantRepository participantRepository;
 
     @Value("${email.imageServerUrl}")
     private String siteUrl;
@@ -60,25 +71,6 @@ public class EmailService {
             default        : return "";
         }
     }
-
-
-    @Scheduled(fixedRate = 5000) // every 5 seconds
-    public void test() {
-        //System.out.println("The time is now " + dateFormat.format(new Date()));
-        /*
-        try {
-            sendSimpleMail("dan", "daniel.h.funk@gmail.com");
-        } catch (MessagingException me) {
-            System.out.println("Failed to send message:" + me.getMessage());
-        }
-        */
-    }
-
-    @Scheduled(cron="0 0 2 * * *")  // schedules task for 2:00am every day.
-    public void sendEmailReminder() {
-        // Do something intelligent here.
-    }
-
 
     /*
   * Send HTML mail (simple)
@@ -105,6 +97,43 @@ public class EmailService {
 
         // Send email
         this.mailSender.send(mimeMessage);
+
+        // Log that the email was sent.
+        logEmail(participant.getId(), type);
+    }
+
+    /**
+     * Records the sending of an email.
+     * @param id
+     * @param type
+     */
+    private void logEmail(long id, TYPE type) {
+        ParticipantDAO participantDAO;
+        EmailLogDAO    logDAO;
+
+        LOG.info("Sent an email to participant #" + id + " of type " + type);
+        participantDAO = participantRepository.findOne(id);
+        logDAO         = new EmailLogDAO(participantDAO, EmailService.TYPE.day2);
+        participantDAO.addLog(logDAO);
+        participantRepository.save(participantDAO);
+        LOG.info("Participant updated.");
+    }
+
+    @Scheduled(fixedRate = 5000) // every 5 seconds
+    public void test() {
+        //System.out.println("The time is now " + dateFormat.format(new Date()));
+        /*
+        try {
+            sendSimpleMail("dan", "daniel.h.funk@gmail.com");
+        } catch (MessagingException me) {
+            System.out.println("Failed to send message:" + me.getMessage());
+        }
+        */
+    }
+
+    @Scheduled(cron="0 0 2 * * *")  // schedules task for 2:00am every day.
+    public void sendEmailReminder() {
+        // Do something intelligent here.
     }
 
 
