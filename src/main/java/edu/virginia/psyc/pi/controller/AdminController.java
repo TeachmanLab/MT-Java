@@ -1,8 +1,9 @@
-package edu.virginia.psyc.pi.mvc;
+package edu.virginia.psyc.pi.controller;
 
 import edu.virginia.psyc.pi.domain.Participant;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
+import edu.virginia.psyc.pi.service.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 /**
  * Created with IntelliJ IDEA.
@@ -33,6 +35,10 @@ public class AdminController {
     private static final Logger LOG = LoggerFactory.getLogger(AdminController.class);
 
     private static final int PER_PAGE=2;
+
+    @Autowired
+    private EmailService emailService;
+
 
     /**
      * Spring automatically configures this object.
@@ -94,6 +100,16 @@ public class AdminController {
             dao.setFullName(participant.getFullName());
             participantRepository.save(dao);
         }
+        return "redirect:/admin";
+    }
+
+    @RequestMapping(value="/sendEmail/{type}")
+    public String sendEmail(ModelMap model, Principal principal,
+                            @PathVariable("type") EmailService.TYPE type) throws Exception {
+        Participant p;
+        p = participantRepository.entityToDomain(participantRepository.findByEmail(principal.getName()).get(0));
+
+        this.emailService.sendSimpleMail(p, type);
         return "redirect:/admin";
     }
 

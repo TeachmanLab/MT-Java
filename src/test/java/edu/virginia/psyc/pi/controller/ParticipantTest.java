@@ -1,10 +1,12 @@
-package edu.virginia.psyc.pi.mvc;
+package edu.virginia.psyc.pi.controller;
 
 import edu.virginia.psyc.pi.domain.Participant;
 import edu.virginia.psyc.pi.domain.Session;
 import org.junit.Test;
 
+import static junit.framework.Assert.assertNotNull;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 /**
  * Created with IntelliJ IDEA.
@@ -36,5 +38,6 @@ public class ParticipantTest {
         assertEquals("DASS21_AS", p.getCurrentSession().getCurrentTask().getName());
 
     }
+
 
 }

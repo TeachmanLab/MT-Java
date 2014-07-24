@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+    <head th:include="fragment/email :: headerFragment"/>
+
+    <body style="background:#eee; min-height:1000px; color:#000;font-family:Arial, Helvetica, sans-serif; font-size:12px"
+          alink="#FF0000" link="#FF0000" bgcolor="#767676" text="#FFFFFF" yahoo="fix" >
+
+    <div id="body_style" style="padding:15px" border="5px solid #767676">
+
+        <table cellpadding="0" cellspacing="0" width="400" align="center" th:include="fragment/email :: logoFragment"/>
+
+        <table cellpadding="0" cellspacing="0" width="400" align="center" style="margin-top:20px">
+            <tr>
+                <td width="400">
+                    <p th:text="'Hi ' +  ${name} + ','" style="margin-top:0; margin-bottom:10px">
+                        Hi Fred,
+                    </p>
+                    <p style="margin-top:5px">We haven’t heard from you for over 2 weeks, so we have now closed your account in the study.</p>
+
+                    <p style="margin-top:5px">Thank you for your participation in the study.  Please click on this link to learn more about the study, and what we were investigating:  [link to debriefing form]</p>
+
+                    <p style="margin-top:5px">It helps us a great deal to learn why someone chooses not to complete the study. Please complete this brief survey to let us know why you’re ending your participation: [link to reasons for ending questionnaire]</p>
+
+                    <p style="margin-top:5px">As always, please let us know if you have any concerns about your participation that we can address.  You can contact the study team at <a th:href="'mailto:' + ${respondTo} + '?Subject=PIMH%20Email%20Response'" target="_top" th:text="${respondTo}"/></p>
+
+                    <p style="margin-top:5px">Thank you again for your support of this research.</p>
+
+                    <div id="footer" th:include="fragment/email :: footerFragment"/>
+
+                </td>
+            </tr>
+        </table>
+
+        <p style="margin-top:0"></p>
+
+
+
+    </div>
+
+    </body>
+</html>

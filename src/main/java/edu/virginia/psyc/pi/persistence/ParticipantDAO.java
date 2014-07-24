@@ -1,14 +1,11 @@
 package edu.virginia.psyc.pi.persistence;
 
 import edu.virginia.psyc.pi.domain.Session;
-import org.hibernate.validator.constraints.Email;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -19,7 +16,7 @@ import java.util.Collection;
  * Time: 10:41 PM
  * This is where the login information for participants is stored.
  * By implementing the UserDetails interface we are able to use this directly
- * to lookup and authenticate users.
+ * to lookup and authenticate users within the Spring Security Framework.
  *
  */
 @Entity
@@ -38,10 +35,15 @@ public class ParticipantDAO implements UserDetails {
 
     private boolean admin;
 
+    private boolean emailOptout;
+
     @Enumerated(EnumType.STRING)
     private Session.NAME currentSession = Session.NAME.ELIGIBLE;
 
     private int taskIndex = 0;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private Collection<EmailLogDAO> emailLogDAOs = new ArrayList<EmailLogDAO>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -55,8 +57,7 @@ public class ParticipantDAO implements UserDetails {
     public ParticipantDAO() {}
 
     // Utility to make testing easier.
-    public ParticipantDAO(int id, String fullName, String email, String password, boolean admin) {
-        this.id = id;
+    public ParticipantDAO(String fullName, String email, String password, boolean admin) {
         this.fullName = fullName;
         this.email = email;
         this.password = password;
@@ -145,6 +146,27 @@ public class ParticipantDAO implements UserDetails {
         this.taskIndex = taskIndex;
     }
 
+    public boolean isEmailOptout() {
+        return emailOptout;
+    }
+
+    public void setEmailOptout(boolean emailOptout) {
+        this.emailOptout = emailOptout;
+    }
+
+    public Collection<EmailLogDAO> getEmailLogDAOs() {
+        return emailLogDAOs;
+    }
+
+    public void setEmailLogDAOs(Collection<EmailLogDAO> emailLogDAOs) {
+        this.emailLogDAOs = emailLogDAOs;
+    }
+
+    public void addLog(EmailLogDAO log) {
+        if(this.emailLogDAOs == null) this.emailLogDAOs = new ArrayList<EmailLogDAO>();
+        this.emailLogDAOs.add(log);
+    }
+
     @Override
     public String toString() {
         return "ParticipantDAO{" +
@@ -153,6 +175,7 @@ public class ParticipantDAO implements UserDetails {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", admin=" + admin +
+                ", emailOptout=" + emailOptout +
                 ", currentSession=" + currentSession +
                 ", taskIndex=" + taskIndex +
                 '}';

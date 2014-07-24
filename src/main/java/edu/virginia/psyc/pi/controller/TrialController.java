@@ -1,22 +1,19 @@
-package edu.virginia.psyc.pi.rest;
+package edu.virginia.psyc.pi.controller;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.virginia.psyc.pi.persistence.TrialDAO;
 import edu.virginia.psyc.pi.persistence.TrialRepository;
-import edu.virginia.psyc.pi.rest.json.SequenceJson;
-import edu.virginia.psyc.pi.rest.json.TrialJson;
+import edu.virginia.psyc.pi.domain.json.SequenceJson;
+import edu.virginia.psyc.pi.domain.json.TrialJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.

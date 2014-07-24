@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+    <head th:include="fragment/email :: headerFragment"/>
+
+    <body style="background:#eee; min-height:1000px; color:#000;font-family:Arial, Helvetica, sans-serif; font-size:12px"
+          alink="#FF0000" link="#FF0000" bgcolor="#767676" text="#FFFFFF" yahoo="fix" >
+
+    <div id="body_style" style="padding:15px" border="5px solid #767676">
+
+        <table cellpadding="0" cellspacing="0" width="400" align="center" th:include="fragment/email :: logoFragment"/>
+
+        <table cellpadding="0" cellspacing="0" width="400" align="center" style="margin-top:20px">
+            <tr>
+                <td width="400">
+                    <p th:text="'Hi ' +  ${name} + ','" style="margin-top:0; margin-bottom:10px">
+                        Hi Fred,
+                    </p>
+                    <p style="margin-top:5px">We haven’t heard from you for 2 weeks, so we are assuming you are no longer interested in participating in the study and we will close your account in the next 3 days.</p>
+
+                    <p style="margin-top:5px">If, however, you do want to continue your participation, you will need to login and complete your session in the next 2 days.  <a href="/session" th:href="${url} + '/session'" style="color: #637580ff; text-decoration: none; font-weight: bold"> Please click here to login and complete your session.</a></p>
+
+                    <p style="margin-top:5px">Please let us know if you have any concerns about your participation that we can address.  You can contact the study team at <a th:href="'mailto:' + ${respondTo} + '?Subject=PIMH%20Email%20Response'" target="_top" th:text="${respondTo}"/></p>
+
+                    <p style="margin-top:5px">Thanks for your participation in the study and we hope you’re having a good week.</p>
+
+                    <div id="footer" th:include="fragment/email :: footerFragment"/>
+
+                </td>
+            </tr>
+        </table>
+
+        <p style="margin-top:0"></p>
+
+
+
+    </div>
+
+    </body>
+</html>

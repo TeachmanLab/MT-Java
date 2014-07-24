@@ -1,7 +1,7 @@
 package edu.virginia.psyc.pi.DAO;
 
 import edu.virginia.psyc.pi.persistence.TrialDAO;
-import edu.virginia.psyc.pi.rest.json.TrialJson;
+import edu.virginia.psyc.pi.domain.json.TrialJson;
 import org.junit.Assert;
 import org.junit.Test;
 

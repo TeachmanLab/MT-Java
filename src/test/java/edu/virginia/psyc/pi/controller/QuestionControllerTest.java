@@ -1,9 +1,7 @@
-package edu.virginia.psyc.pi.mvc;
+package edu.virginia.psyc.pi.controller;
 
 import edu.virginia.psyc.pi.Application;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
-import edu.virginia.psyc.pi.persistence.ParticipantRepository;
-import edu.virginia.psyc.pi.persistence.Questionnaire.DASS21_AS;
 import edu.virginia.psyc.pi.persistence.Questionnaire.DASS21_ASRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,12 +18,8 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.util.Arrays;
-
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
@@ -65,7 +59,7 @@ public class QuestionControllerTest {
 
     @Test
     public void testCreateForm() throws Exception {
-        ParticipantDAO p1 = new ParticipantDAO(1, "Dan Funk", "daniel.h.funk@gmail.com", "bla", false);
+        ParticipantDAO p1 = new ParticipantDAO("Dan Funk", "daniel.h.funk@gmail.com", "bla", false);
 
         MvcResult result = mockMvc.perform(post("/questions/DASS21_AS"))
                             .andExpect((status().is3xxRedirection()))

@@ -1,8 +1,10 @@
 package edu.virginia.psyc.pi.persistence;
 
+import edu.virginia.psyc.pi.domain.EmailLog;
 import edu.virginia.psyc.pi.domain.Participant;
 import edu.virginia.psyc.pi.domain.Session;
 
+import java.util.ArrayList;
 import java.util.List;
 /**
  * Created with IntelliJ IDEA.
@@ -25,6 +27,13 @@ public class ParticipantRepositoryImpl implements ParticipantRepositoryCustom {
         p.setAdmin(dao.isAdmin());
         p.setSessions(sessionList);
         p.setTaskIndex(dao.getTaskIndex());
+
+        List<EmailLog> emailLogs = new ArrayList<EmailLog>();
+
+        for(EmailLogDAO log : dao.getEmailLogDAOs()) {
+            emailLogs.add(new EmailLog(log.getEmailType(), log.getDateSent()));
+        }
+        p.setEmailLogs(emailLogs);
 
         return p;
     }

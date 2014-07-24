@@ -1,4 +1,4 @@
-package edu.virginia.psyc.pi.security;
+package edu.virginia.psyc.pi.configuration;
 
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
@@ -84,7 +84,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                             "/css/**",
                             "/js/**",
                             "/grepfrut/**",
-                            "/design-js/**",
                             "/img/**",
                             "/newParticipant/**"
                     ).permitAll()

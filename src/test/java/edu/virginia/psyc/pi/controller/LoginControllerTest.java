@@ -1,33 +1,25 @@
-package edu.virginia.psyc.pi.mvc;
+package edu.virginia.psyc.pi.controller;
 
 import edu.virginia.psyc.pi.Application;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
-import edu.virginia.psyc.pi.persistence.TrialRepository;
-import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.security.web.FilterChainProxy;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 /**
  * Created with IntelliJ IDEA.
@@ -61,9 +53,14 @@ public class LoginControllerTest {
 
     @After
     public void teardown() {
-        ParticipantDAO p = participantRepository.findByEmail("some_crazy2@email.com").get(0);
-        participantRepository.delete(p);
-        participantRepository.flush();
+        try {
+            ParticipantDAO p = participantRepository.findByEmail("some_crazy2@email.com").get(0);
+            participantRepository.delete(p);
+            participantRepository.flush();
+        } catch (IndexOutOfBoundsException ioe) {
+            // participant doesn't exist, but that isn't an actual error.
+        }
+
     }
 
     @Test
