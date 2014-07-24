@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="/fragment/common :: headerFragment" />
+<body>
+<section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
+
+<!-- header-btm starts
+================================================== -->
+<section id="header-btm" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <h4 class="heading-icon clearfix"> <img th:src="@{/grepfrut/img/icons/heading-icon-user.png}" width="40" height="40" alt="icon" class="icon-small-bg"/></h4>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- header-btm ends
+================================================== -->
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+    <div class="container">
+
+        <!--spacer here-->
+        <div class="spacer-30px"></div>
+
+        <!--features starts-->
+        <div class="row">
+            <div class="span12">
+                <form id="wizard" th:action="@{/questions/qol}" method="POST">
+                    <fieldset>
+                        <legend>Instructions</legend>
+                        <p>Please read each item and circle the number that best describes how satisfied you are at this time. Please answer each item even if you do not currently participate in an activity or have a relationship. You can be satisfied or dissatisfied with not doing the activity or having the relationship.</p>
+                        <p>The rating scale is as follows:</p>
+                        <table class="table table-striped table-bordered">
+                            <tr>
+                                <td>1</td>
+                                <td>Delighted</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Mostly pleased</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Satisfied</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>Mixed</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>Dissatisfied</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>Mostly Unhappy</td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td>Terrible</td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Questions</legend>
+                        <table class="table table-striped table-bordered">
+                            <tr>
+                                <th>Question</th>
+                                <th>Delighted</th>
+                                <th>Mostly Pleased</th>
+                                <th>Satisfied</th>
+                                <th>Mixed</th>
+                                <th>Dissatisifed</th>
+                                <th>Mostly Unhapy</th>
+                                <th>Terrible</th>
+                            </tr>
+                            <tr>
+                                <td>Material comforts home, food, conveniences,
+                                    financial security
+                                </td>
+                                <td><input type="radio" name="material" class="form-control" value="1" required="true"/></td>
+                                <td><input type="radio" name="material" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="material" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="material" class="form-control" value="4" /></td>
+                                <td><input type="radio" name="material" class="form-control" value="5" /></td>
+                                <td><input type="radio" name="material" class="form-control" value="6" /></td>
+                                <td><input type="radio" name="material" class="form-control" value="7" /></td>
+                            </tr>
+                            <tr>
+                                <td>Health - being physically fit and vigorous
+                                </td>
+                                <td><input type="radio" name="health" class="form-control" value="1" required="true"/></td>
+                                <td><input type="radio" name="health" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="health" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="health" class="form-control" value="4" /></td>
+                                <td><input type="radio" name="health" class="form-control" value="5" /></td>
+                                <td><input type="radio" name="health" class="form-control" value="6" /></td>
+                                <td><input type="radio" name="health" class="form-control" value="7" /></td>
+                            </tr>
+                            <tr>
+                                <td>Relationships with parents, siblings and other
+                                    relatives –  communicating, visiting, helping
+                                </td>
+                                <td><input type="radio" name="relationships" class="form-control" value="1" required="true"/></td>
+                                <td><input type="radio" name="relationships" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="relationships" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="relationships" class="form-control" value="4" /></td>
+                                <td><input type="radio" name="relationships" class="form-control" value="5" /></td>
+                                <td><input type="radio" name="relationships" class="form-control" value="6" /></td>
+                                <td><input type="radio" name="relationships" class="form-control" value="7" /></td>
+                            </tr>
+                            <tr>
+                                <td>Having and rearing children
+                                </td>
+                                <td><input type="radio" name="children" class="form-control" value="1" required="true"/></td>
+                                <td><input type="radio" name="children" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="children" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="children" class="form-control" value="4" /></td>
+                                <td><input type="radio" name="children" class="form-control" value="5" /></td>
+                                <td><input type="radio" name="children" class="form-control" value="6" /></td>
+                                <td><input type="radio" name="children" class="form-control" value="7" /></td>
+                            </tr>
+                            <tr>
+                                <td>Close relationships with spouse or
+                                    significant other
+                                </td>
+                                <td><input type="radio" name="spouse" class="form-control" value="1" required="true"/></td>
+                                <td><input type="radio" name="spouse" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="spouse" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="spouse" class="form-control" value="4" /></td>
+                                <td><input type="radio" name="spouse" class="form-control" value="5" /></td>
+                                <td><input type="radio" name="spouse" class="form-control" value="6" /></td>
+                                <td><input type="radio" name="spouse" class="form-control" value="7" /></td>
+                            </tr>
+                            <tr>
+                                <td>Close friend
+                                </td>
+                                <td><input type="radio" name="friend" class="form-control" value="1" required="true"/></td>
+                                <td><input type="radio" name="friend" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="friend" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="friend" class="form-control" value="4" /></td>
+                                <td><input type="radio" name="friend" class="form-control" value="5" /></td>
+                                <td><input type="radio" name="friend" class="form-control" value="6" /></td>
+                                <td><input type="radio" name="friend" class="form-control" value="7" /></td>
+                            </tr>
+                            <tr>
+                                <td>Helping and encouraging others,
+                                    volunteering, giving advice
+                                </td>
+                                <td><input type="radio" name="helping" class="form-control" value="1" required="true"/></td>
+                                <td><input type="radio" name="helping" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="helping" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="helping" class="form-control" value="4" /></td>
+                                <td><input type="radio" name="helping" class="form-control" value="5" /></td>
+                                <td><input type="radio" name="helping" class="form-control" value="6" /></td>
+                                <td><input type="radio" name="helping" class="form-control" value="7" /></td>
+                            </tr>
+                            <tr>
+                                <td>Participating in organizations and
+                                    public affairs
+                                </td>
+                                <td><input type="radio" name="participating" class="form-control" value="1" required="true"/></td>
+                                <td><input type="radio" name="participating" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="participating" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="participating" class="form-control" value="4" /></td>
+                                <td><input type="radio" name="participating" class="form-control" value="5" /></td>
+                                <td><input type="radio" name="participating" class="form-control" value="6" /></td>
+                                <td><input type="radio" name="participating" class="form-control" value="7" /></td>
+                            </tr>
+                            <tr>
+                                <td>Learning- attending school, improving
+                                    understanding, getting additional knowledge
+                                </td>
+                                <td><input type="radio" name="learning" class="form-control" value="1" required="true"/></td>
+                                <td><input type="radio" name="learning" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="learning" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="learning" class="form-control" value="4" /></td>
+                                <td><input type="radio" name="learning" class="form-control" value="5" /></td>
+                                <td><input type="radio" name="learning" class="form-control" value="6" /></td>
+                                <td><input type="radio" name="learning" class="form-control" value="7" /></td>
+                            </tr>
+                            <tr>
+                                <td>Understanding yourself - knowing your assets
+                                    and limitations - knowing what life is about
+                                </td>
+                                <td><input type="radio" name="understanding" class="form-control" value="1" required="true"/></td>
+                                <td><input type="radio" name="understanding" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="understanding" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="understanding" class="form-control" value="4" /></td>
+                                <td><input type="radio" name="understanding" class="form-control" value="5" /></td>
+                                <td><input type="radio" name="understanding" class="form-control" value="6" /></td>
+                                <td><input type="radio" name="understanding" class="form-control" value="7" /></td>
+                            </tr>
+                            <tr>
+                                <td>Work - job or in home
+                                </td>
+                                <td><input type="radio" name="work" class="form-control" value="1" required="true"/></td>
+                                <td><input type="radio" name="work" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="work" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="work" class="form-control" value="4" /></td>
+                                <td><input type="radio" name="work" class="form-control" value="5" /></td>
+                                <td><input type="radio" name="work" class="form-control" value="6" /></td>
+                                <td><input type="radio" name="work" class="form-control" value="7" /></td>
+                            </tr>
+                            <tr>
+                                <td>Expressing yourself creatively
+                                </td>
+                                <td><input type="radio" name="expression" class="form-control" value="1" required="true"/></td>
+                                <td><input type="radio" name="expression" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="expression" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="expression" class="form-control" value="4" /></td>
+                                <td><input type="radio" name="expression" class="form-control" value="5" /></td>
+                                <td><input type="radio" name="expression" class="form-control" value="6" /></td>
+                                <td><input type="radio" name="expression" class="form-control" value="7" /></td>
+                            </tr>
+                            <tr>
+                                <td>Socializing - meeting other people,
+                                    doing things, parties, etc
+                                </td>
+                                <td><input type="radio" name="socializing" class="form-control" value="1" required="true"/></td>
+                                <td><input type="radio" name="socializing" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="socializing" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="socializing" class="form-control" value="4" /></td>
+                                <td><input type="radio" name="socializing" class="form-control" value="5" /></td>
+                                <td><input type="radio" name="socializing" class="form-control" value="6" /></td>
+                                <td><input type="radio" name="socializing" class="form-control" value="7" /></td>
+                            </tr>
+                            <tr>
+                                <td>Reading, listening to music, or observing
+                                    entertainment
+                                </td>
+                                <td><input type="radio" name="reading" class="form-control" value="1" required="true"/></td>
+                                <td><input type="radio" name="reading" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="reading" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="reading" class="form-control" value="4" /></td>
+                                <td><input type="radio" name="reading" class="form-control" value="5" /></td>
+                                <td><input type="radio" name="reading" class="form-control" value="6" /></td>
+                                <td><input type="radio" name="reading" class="form-control" value="7" /></td>
+                            </tr>
+                            <tr>
+                                <td>Participating in active recreation
+                                </td>
+                                <td><input type="radio" name="recreation" class="form-control" value="1" required="true"/></td>
+                                <td><input type="radio" name="recreation" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="recreation" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="recreation" class="form-control" value="4" /></td>
+                                <td><input type="radio" name="recreation" class="form-control" value="5" /></td>
+                                <td><input type="radio" name="recreation" class="form-control" value="6" /></td>
+                                <td><input type="radio" name="recreation" class="form-control" value="7" /></td>
+                            </tr>
+                            <tr>
+                                <td>Independence, doing for yourself
+                                </td>
+                                <td><input type="radio" name="independence" class="form-control" value="1" required="true"/></td>
+                                <td><input type="radio" name="independence" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="independence" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="independence" class="form-control" value="4" /></td>
+                                <td><input type="radio" name="independence" class="form-control" value="5" /></td>
+                                <td><input type="radio" name="independence" class="form-control" value="6" /></td>
+                                <td><input type="radio" name="independence" class="form-control" value="7" /></td>
+                            </tr>
+                            
+                        </table>
+                    </fieldset>
+                </form>
+                <script>
+                    jQuery("#wizard").jWizard();
+                </script>
+            </div>
+        </div>
+        <!--features ends-->
+
+        <!--divider here-->
+        <div class="spacer-40px"></div>
+
+    </div>
+</section>
+
+
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts" />
+
+</body>
+</html>
+
+<!--Please read each item and circle the number that best describes how satisfied you are at this time. Please answer each item even if you do not currently participate in an activity or have a relationship. You can be satisfied or dissatisfied with not doing the activity or having the relationship.-->
+
+<!--Mostly 	           Mostly-->
+<!--Delighted    Pleased    Satisfied    Mixed    Dissatisfied    Unhappy    Terrible-->
+<!--1. Material comforts home, food, conveniences,-->
+<!--financial security . . . . . . . . . . . . . . . . . . . . . . . 	    7            6            5          4            3              2             1-->
+
+<!--2. Health - being physically fit and vigorous . . . 	    7            6            5          4            3              2             1-->
+
+<!--3. Relationships with parents, siblings & other-->
+<!--relatives –  communicating, visiting, helping . . . 	    7            6            5          4            3              2             1-->
+
+<!--4. Having and rearing children . . . . . . . . . . . . . . .    	    7            6            5          4            3              2             1-->
+
+<!--5. Close relationships with spouse or-->
+<!--significant other . . . . . . . . . . . . . . . . . . . . . . . . 	    7            6            5          4            3              2             1-->
+
+<!--6. Close friends . . . . . . . . . . . . . . . . . . . . . . . . . .         7            6            5          4            3              2             1-->
+
+<!--7. Helping and encouraging others,-->
+<!--volunteering, giving advice . . . . . . . . . . . . . . . . 	    7            6            5          4            3              2             1-->
+
+<!--8. Participating in organizations and-->
+<!--public affairs . . . . . . . . . . . . . . . . . . . . . . . . . . 	    7            6            5          4            3              2             1-->
+
+<!--9. Learning- attending school, improving-->
+<!--understanding, getting additional knowledge . . 	    7            6            5          4            3              2             1-->
+
+<!--10. Understanding yourself - knowing your assets-->
+<!--and limitations - knowing what life is about . . 	    7            6            5          4            3              2             1-->
+
+<!--11. Work - job or in home . . . . . . . . . . . . . . . . . . .        7            6            5          4            3              2             1-->
+
+<!--12. Expressing yourself creatively . . . . . . . . . . . .         7            6            5          4            3              2             1-->
+
+<!--13. Socializing - meeting other people,-->
+<!--doing things, parties, etc . . . . . . . . . . . . . . . . . 	    7            6            5          4            3              2             1-->
+
+<!--14. Reading, listening to music, or observing-->
+<!--entertainment . . . . . . . . . . . . . . . . . . . . . . . . . . 	    7            6            5          4            3              2             1-->
+
+<!--15. Participating in active recreation . . . . . . . . . . .       7            6            5          4            3              2             1-->
+
+<!--16. Independence, doing for yourself . . . . . . . . . .        7            6            5          4            3              2             1-->
+

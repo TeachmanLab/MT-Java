@@ -53,4 +53,48 @@ public class PageController {
         return "tempEmail";
     }
 
+    @RequestMapping("about")
+    public String showAbout(ModelMap model, Principal principal) {
+        Participant p = getParticipant(principal);
+        model.addAttribute("participant", p);
+        return "about";
+    }
+
+    @RequestMapping("informed")
+    public String showInformed(ModelMap model, Principal principal) {
+        Participant p = getParticipant(principal);
+        model.addAttribute("participant", p);
+        return "informed";
+    }
+
+    @RequestMapping("debriefing")
+    public String showDebriefing(ModelMap model, Principal principal) {
+        Participant p = getParticipant(principal);
+        model.addAttribute("participant", p);
+        return "debriefing";
+    }
+
+    @RequestMapping("rationale")
+    public String showRationale(ModelMap model, Principal principal) {
+        Participant p = getParticipant(principal);
+        model.addAttribute("participant", p);
+        return "rationale";
+    }
+
+    @RequestMapping("invitation")
+    public String showInvitation(ModelMap model, Principal principal) {
+        Participant p = getParticipant(principal);
+        model.addAttribute("participant", p);
+        return "invitation";
+    }
+
+    @RequestMapping("privacy")
+    public String showPrivacy(ModelMap model, Principal principal) {
+        Participant p = getParticipant(principal);
+        model.addAttribute("participant", p);
+        return "privacy";
+    }
+
+
+
 }

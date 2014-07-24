@@ -28,9 +28,18 @@ import java.util.Date;
 public class QuestionController {
 
     private DASS21_ASRepository   dass21_asRepository;
+    private DASS21_DSRepository   dass21_dsRepository;
+    private QOLRepository qol_Repository;
+    private AUDIT_Repository audit_Repository;
+    private FollowUp_ChangeInTreatment_Repository followup_Repository;
+    private ImpactAnxiousImagery_Repository impact_Repository;
+    private MentalHealthHxTxRepository mh_Repository;
+    private MultiUserExperienceRepository mue_Repository;
+    private PilotUserExperienceRepository pue_Repository;
     private CredibilityRepository credibilityRepository;
     private DemographicRepository demographicRepository;
     private ParticipantRepository participantRepository;
+//    QOL REPOSITORY
 
     private static final Logger LOG = LoggerFactory.getLogger(QuestionController.class);
 
@@ -40,6 +49,13 @@ public class QuestionController {
      */
     @Autowired
     public QuestionController(DASS21_ASRepository dass21_asRepository,
+                              DASS21_DSRepository dass21_dsRepository,
+                              QOLRepository qol_Repository,
+                              ImpactAnxiousImagery_Repository impact_Repository,
+                              MentalHealthHxTxRepository mh_Repository,
+                              MultiUserExperienceRepository mue_Repository,
+                              PilotUserExperienceRepository pue_Repository,
+                              AUDIT_Repository audit_Repository,
                               CredibilityRepository credibilityRepository,
                               DemographicRepository demographicRepository,
                               ParticipantRepository participantRepository) {
@@ -47,6 +63,14 @@ public class QuestionController {
         this.credibilityRepository = credibilityRepository;
         this.demographicRepository = demographicRepository;
         this.participantRepository = participantRepository;
+        this.audit_Repository = audit_Repository;
+        this.dass21_dsRepository = dass21_dsRepository;
+        this.qol_Repository = qol_Repository;
+        this.impact_Repository = impact_Repository;
+        this.mh_Repository = mh_Repository;
+        this.mue_Repository = mue_Repository;
+        this.pue_Repository = pue_Repository;
+
     }
 
     /**
@@ -76,19 +100,67 @@ public class QuestionController {
         data.setDate(new Date());
     }
 
-    /** DASS 21
+    /** DASS 21 AS
      * ---------**/
     @RequestMapping(value="DASS21_AS", method=RequestMethod.GET)
-    public ModelAndView showDASS21() {
+    public ModelAndView showDASS21_AS() {
         return new ModelAndView("questions/DASS21_AS", "DASS21_AS", new DASS21_AS());
     }
 
     @RequestMapping(value="DASS21_AS", method = RequestMethod.POST)
-    RedirectView handleDASS21(@ModelAttribute("DASS21_AS") DASS21_AS dass21,
+    RedirectView handleDASS21_AS(@ModelAttribute("DASS21_AS") DASS21_AS dass21_as,
                         BindingResult result) {
 
-        recordSessionProgress(dass21);
-        dass21_asRepository.save(dass21);
+        recordSessionProgress(dass21_as);
+        dass21_asRepository.save(dass21_as);
+        return new RedirectView("/session");
+    }
+
+    /** DASS 21 DS
+     * ---------**/
+    @RequestMapping(value="DASS21_DS", method=RequestMethod.GET)
+    public ModelAndView showDASS21_DS() {
+        return new ModelAndView("questions/DASS21_DS", "DASS21_DS", new DASS21_DS());
+    }
+
+    @RequestMapping(value="DASS21_DS", method = RequestMethod.POST)
+    RedirectView handleDASS21_DS(@ModelAttribute("DASS21_DS") DASS21_DS dass21_ds,
+                              BindingResult result) {
+
+        recordSessionProgress(dass21_ds);
+        dass21_dsRepository.save(dass21_ds);
+        return new RedirectView("/session");
+    }
+
+    /**QOL
+     * ---------**/
+    @RequestMapping(value="qol", method=RequestMethod.GET)
+    public ModelAndView showqol() {
+        return new ModelAndView("questions/qol", "qol", new QOL());
+    }
+
+    @RequestMapping(value="qol", method = RequestMethod.POST)
+    RedirectView handleqol(@ModelAttribute("qol") QOL qol,
+                                 BindingResult result) {
+
+        recordSessionProgress(qol);
+        qol_Repository.save(qol);
+        return new RedirectView("/session");
+    }
+
+    /**AUDIT
+     * ---------**/
+    @RequestMapping(value="audit", method=RequestMethod.GET)
+    public ModelAndView showaudit() {
+        return new ModelAndView("questions/audit", "aduit", new AUDIT());
+    }
+
+    @RequestMapping(value="aduit", method = RequestMethod.POST)
+    RedirectView handleaudit(@ModelAttribute("audit") AUDIT audit,
+                           BindingResult result) {
+
+        recordSessionProgress(audit);
+        audit_Repository.save(audit);
         return new RedirectView("/session");
     }
 
@@ -96,7 +168,7 @@ public class QuestionController {
      * ---------**/
     @RequestMapping(value="credibility", method=RequestMethod.GET)
     public ModelAndView showCredibility() {
-        return new ModelAndView("questions/credibility", "credibility", new DASS21_AS());
+        return new ModelAndView("questions/credibility", "credibility", new Credibility());
     }
 
     @RequestMapping(value="credibility", method = RequestMethod.POST)
@@ -105,6 +177,94 @@ public class QuestionController {
 
         recordSessionProgress(credibility);
         credibilityRepository.save(credibility);
+        return new RedirectView("/session");
+    }
+
+    /** FollowUp_ChangeInTreatment
+     * ---------**/
+
+    @RequestMapping(value="FU", method=RequestMethod.GET)
+    public ModelAndView showFollowUp() {
+        return new ModelAndView("questions/FU", "FU", new FollowUp_ChangeInTreatment());
+    }
+
+    @RequestMapping(value="FU", method = RequestMethod.POST)
+    RedirectView handleFollowUp(@ModelAttribute("FU") FollowUp_ChangeInTreatment followup,
+                                   BindingResult result) {
+
+        recordSessionProgress(followup);
+        followup_Repository.save(followup);
+        return new RedirectView("/session");
+    }
+
+    /** MentalHealthHxTx
+     * ---------**/
+
+    @RequestMapping(value="MH", method=RequestMethod.GET)
+    public ModelAndView showMentalHealthHxTx() {
+        return new ModelAndView("questions/MH", "MH", new MentalHealthHxTx());
+    }
+
+    @RequestMapping(value="MH", method = RequestMethod.POST)
+    RedirectView handleMentalHealthHxTx(@ModelAttribute("MH") MentalHealthHxTx mh,
+                                BindingResult result) {
+
+        recordSessionProgress(mh);
+        mh_Repository.save(mh);
+        return new RedirectView("/session");
+    }
+
+
+    /** MultiUserExperience
+     * ---------**/
+
+    @RequestMapping(value="MUE", method=RequestMethod.GET)
+    public ModelAndView showMultiUserExperience() {
+        return new ModelAndView("questions/MUE", "MUE", new MultiUserExperience());
+    }
+
+    @RequestMapping(value="MUE", method = RequestMethod.POST)
+    RedirectView handleMultiUserExperience(@ModelAttribute("MUE") MultiUserExperience mue,
+                                BindingResult result) {
+
+        recordSessionProgress(mue);
+        mue_Repository.save(mue);
+        return new RedirectView("/session");
+    }
+
+
+    /** PilotUserExperience
+     * ---------**/
+
+    @RequestMapping(value="PUE", method=RequestMethod.GET)
+    public ModelAndView showPilotUserExperience() {
+        return new ModelAndView("questions/PUE", "PUE", new PilotUserExperience());
+    }
+
+    @RequestMapping(value="PUE", method = RequestMethod.POST)
+    RedirectView handleMultiUserExperience(@ModelAttribute("PUE") PilotUserExperience pue,
+                                           BindingResult result) {
+
+        recordSessionProgress(pue);
+        pue_Repository.save(pue);
+        return new RedirectView("/session");
+    }
+
+
+    /** ImpactAnxiousImagery
+     * ---------**/
+
+    @RequestMapping(value="impact", method=RequestMethod.GET)
+    public ModelAndView showImpact() {
+        return new ModelAndView("questions/impact", "impact", new ImpactAnxiousImagery());
+    }
+
+    @RequestMapping(value="impact", method = RequestMethod.POST)
+    RedirectView handleImpact(@ModelAttribute("impact") ImpactAnxiousImagery impact,
+                                BindingResult result) {
+
+        recordSessionProgress(impact);
+        impact_Repository.save(impact);
         return new RedirectView("/session");
     }
 
@@ -123,6 +283,9 @@ public class QuestionController {
         demographicRepository.save(demographic);
         return new RedirectView("/session");
     }
+
+    /** QOL
+     * ---------**/
 
 
 }
