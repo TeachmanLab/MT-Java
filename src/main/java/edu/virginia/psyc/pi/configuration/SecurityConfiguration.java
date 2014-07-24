@@ -84,7 +84,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                             "/css/**",
                             "/js/**",
                             "/grepfrut/**",
-                            "/design-js/**",
                             "/img/**",
                             "/newParticipant/**"
                     ).permitAll()
