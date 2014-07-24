@@ -10,7 +10,3 @@ files, and placing them in separate css file.
 
 PIPlayer should Only be managed by bower, from the root directory. Nothing in
 that directory should get checked in to the repository.
-
-HOWEVER - currently the file PIPlayer/dist/js/config.js MUST be manually edited
-after running bower install, the baseURL must be changed from "js" to "PIPlayer/dist/js"
-I'd love to find a way to correct for this.

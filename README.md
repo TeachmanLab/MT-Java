@@ -11,7 +11,9 @@ This server provides:
 * Data Reporting
 * Session management
 
-It is built in Java using the Spring Framework.
+It is built in Java using the Spring Framework and Spring Boot.  There is exceptional documentation
+on these technologies here:  http://spring.io/guides#gs
+
 
 Getting Started
 ===============

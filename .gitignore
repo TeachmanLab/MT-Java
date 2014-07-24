@@ -9,3 +9,4 @@ PIPlayer
 PIServer.iml
 build/
 src/main/resources/static/PIPlayer
+out
