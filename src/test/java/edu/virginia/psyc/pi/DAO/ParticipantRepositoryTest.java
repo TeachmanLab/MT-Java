@@ -49,6 +49,7 @@ public class ParticipantRepositoryTest {
         dao = new ParticipantDAO("Dan Funk", "dan@sartography.com", "password", false);
         dao.setCurrentSession(Session.NAME.SESSION1);
         dao.setTaskIndex(1);
+        dao.setEmailOptout(true);
 
         p = repository.entityToDomain(dao);
 
