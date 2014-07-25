@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,7 +30,7 @@ public class Participant {
     @NotNull
     private boolean admin;
 
-    private List<Session> sessions;
+    private List<Session> sessions  = Session.defaultList();
     private int           taskIndex;
 
     private boolean       emailOptout = false;  // User required to receive no more emails.

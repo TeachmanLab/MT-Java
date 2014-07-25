@@ -28,6 +28,10 @@ public class Session {
     private List<Task> tasks;
 
 
+    public static List<Session> defaultList() {
+        return createListView(NAME.values()[0], 0);
+    }
+
     /**
      * Generates a list of sessions suitable for display, based on the current session, and index of the
      * current task within that Session.

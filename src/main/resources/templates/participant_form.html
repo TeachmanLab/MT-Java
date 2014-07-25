@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
-<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
-<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!-->
 <html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
 <!--<![endif]-->
-    <head th:include="fragment/common :: headerFragment" />
+<head th:include="fragment/common :: headerFragment"/>
 <body>
-    <section id="header" class="clearfix" th:include="fragment/common :: topFragment" />
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
 
 <!-- header-btm starts
 ================================================== -->
@@ -15,7 +18,8 @@
     <div class="container">
         <div class="row">
             <div class="span12">
-                <h4 class="heading-icon clearfix"> <img src="img/icons/heading-icon-user.png" width="40" height="40" alt="icon" class="icon-small-bg"/>Administration</h4>
+                <h4 class="heading-icon clearfix"><img src="img/icons/heading-icon-user.png" width="40" height="40"
+                                                       alt="icon" class="icon-small-bg"/>Administration</h4>
             </div>
         </div>
     </div>
@@ -31,55 +35,80 @@
 
         <!--spacer here-->
         <div class="spacer-30px"></div>
+        <div class="row">
+
+            <div class="main-content span8">
 
 
-        <h1>Edit Participant</h1>
+                <h1>Edit Participant</h1>
 
-        <form action="#" th:action="@{'/admin/participant/'+${participant.id}}" th:object="${participant}" method="post">
+                <form action="#" th:action="@{'/admin/participant/'+${participant.id}}" th:object="${participant}"
+                      method="post">
 
+                    <table>
+                        <tr>
+                            <td>Full Name:</td>
+                            <td width="70%"><input type="text" th:field="*{fullName}" /></td>
+                            <td th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">Name Error</td>
+                        </tr>
+                        <tr>
+                            <td>Email Address:</td>
+                            <td><input type="text" th:field="*{email}"/></td>
+                            <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</td>
+                        </tr>
+                        <tr>
+                            <td>Is Admin:</td>
+                            <td><input type="checkbox" th:field="*{admin}"/></td>
+                            <td th:if="${#fields.hasErrors('admin')}" th:errors="*{admin}">Admin Error</td>
+                        </tr>
+                        <tr>
+                            <td>Opt out of emails?:</td>
+                            <td><input type="checkbox" th:field="*{emailOptout}"/></td>
+                            <td th:if="${#fields.hasErrors('emailOptout')}" th:errors="*{emailOptout}">Optout Error</td>
+                        </tr>
+
+                    </table>
+                    <button type="submit">Submit</button>
+                </form>
+
+            </div>
+
+            <div class="sidebar span4">
+            <h4>Emails sent:</h4>
             <table>
                 <tr>
-                    <td>Full Name:</td>
-                    <td><input type="text" th:field="*{fullName}"/></td>
-                    <td th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">Name Error</td>
+                    <th>Type</th>
+                    <th>Date</th>
                 </tr>
-                <tr>
-                    <td>Email Address:</td>
-                    <td><input type="text" th:field="*{email}"/></td>
-                    <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</td>
-                </tr>
-                <tr>
-                    <td>Is Admin:</td>
-                    <td><input type="checkbox" th:field="*{admin}"/></td>
-                    <td th:if="${#fields.hasErrors('admin')}" th:errors="*{admin}">Admin Error</td>
+                <tr th:each="log : ${participant.emailLogs}">
+                    <td style="width:50px;" th:text="${log.type}"/>
+                    <td th:text="${log.date}"/>
                 </tr>
             </table>
-            <button type="submit">Submit</button>
-        </form>
+            </div>
+        </div>
 
+                <!--divider here-->
+                <div class="spacer-40px"></div>
 
+                <!--spacer here-->
+                <div class="spacer-30px"></div>
 
-        <!--divider here-->
-        <div class="spacer-40px"></div>
-
-        <!--spacer here-->
-        <div class="spacer-30px"></div>
-
-    </div>
+            </div>
 </section>
 
 
-    <!-- footer starts
-    ================================================== -->
-<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
 
 <!-- copyright starts
 ================================================== -->
-<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
 
 <!--Javascript
 ================================================== -->
-<div th:include="fragment/common :: scripts" />
+<div th:include="fragment/common :: scripts"/>
 
 </body>
 </html>

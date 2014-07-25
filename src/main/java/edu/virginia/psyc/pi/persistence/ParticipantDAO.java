@@ -38,7 +38,7 @@ public class ParticipantDAO implements UserDetails {
     private boolean emailOptout;
 
     @Enumerated(EnumType.STRING)
-    private Session.NAME currentSession = Session.NAME.ELIGIBLE;
+    private Session.NAME currentSession = Session.NAME.values()[0]; // set to first session by default
 
     private int taskIndex = 0;
 

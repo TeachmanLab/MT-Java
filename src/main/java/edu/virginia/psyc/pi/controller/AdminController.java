@@ -75,8 +75,9 @@ public class AdminController {
     @RequestMapping(value="/participant/{id}", method=RequestMethod.GET)
     public String showForm(ModelMap model,
                            @PathVariable("id") long id) {
-        ParticipantDAO p;
-        p = participantRepository.findOne(id);
+        Participant p;
+        p = participantRepository.entityToDomain(participantRepository.findOne(id));
+
         model.addAttribute("participant", p);
         return "participant_form";
     }
@@ -95,9 +96,7 @@ public class AdminController {
             model.addAttribute("participant", participant);
             return "participant_form";
         } else {
-            dao.setAdmin(participant.isAdmin());
-            dao.setEmail(participant.getEmail());
-            dao.setFullName(participant.getFullName());
+            participantRepository.domainToEntity(participant, dao);
             participantRepository.save(dao);
         }
         return "redirect:/admin";
