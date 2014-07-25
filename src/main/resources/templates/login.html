@@ -57,27 +57,32 @@
                         </div>
                     </fieldset>
                 </form>
-                <form name="f" th:action="@{/newParticipant}" method="post">
+                <form name="f" th:action="@{/newParticipant}" method="post" th:object="${participant}">
                 <fieldset>
                     <legend>Create Account:</legend>
-                    <div th:if="${param.create_error}" class="alert alert-error">
-                        There was an error creating your account.
+
+                    <div class="formErrors">
+                        <ul class="errors">
+                            <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
+                        </ul>
+                        <div class="spacer-20px"></div>
                     </div>
+
                     <p>
-                        <label for="fullName">Full Name</label>
-                        <input type="text" id="fullName" name="fullName"/>
+                        <label for="fullName" th:field="*{fullName}">Full Name</label>
+                        <input type="text" id="fullName" name="fullName"  th:errorclass="error"/>
                     </p>
                     <p>
-                        <label for="email">Email</label>
-                        <input type="text" id="email2" name="email"/>
+                        <label for="email" th:field="*{email}">Email</label>
+                        <input type="text" id="email2" name="email" th:errorclass="error"/>
                     </p>
                     <p>
-                        <label for="unencodedPassword">Password</label>
-                        <input type="password" id="unencodedPassword" name="unencodedPassword"/>
+                        <label for="password" th:field="*{password}">Password</label>
+                        <input type="password" id="password2" name="password"  th:errorclass="error"/>
                     </p>
                     <p>
-                        <label for="unencodedPassword2">Password (again)</label>
-                        <input type="password" id="unencodedPassword2" name="unencodedPassword2"/>
+                        <label for="passwordAgain" th:field="*{passwordAgain}">Password (again)</label>
+                        <input type="password" id="passwordAgain" name="passwordAgain"/>
                     </p>
                     <div class="form-actions">
                         <button type="submit" class="btn">Create Account</button>

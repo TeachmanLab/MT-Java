@@ -14,13 +14,15 @@ import java.util.List;
  * User: dan
  * Date: 4/29/14
  * Time: 4:50 PM
- * This is used to create a new participant in the MVC login controller.
+ * This is used to create a new participant in the MVC login controller, and
+ * for modifying participants in the admin interface.  And will be used to
+ * reset passwords when that get's implemented.
  */
 public class Participant {
 
     private long id;
 
-    @Size(min=2, max=100)
+    @Size(min=2, max=100, message="Please specify your full name.")
     private String fullName;
 
     @Email
@@ -30,12 +32,19 @@ public class Participant {
     @NotNull
     private boolean admin;
 
+    @NotNull
+    private String        password;
+    @NotNull
+    private String        passwordAgain;
+
+
     private List<Session> sessions  = Session.defaultList();
     private int           taskIndex;
 
     private boolean       emailOptout = false;  // User required to receive no more emails.
 
     private boolean       active = true;
+
 
     private List<EmailLog> emailLogs;
 
@@ -168,5 +177,21 @@ public class Participant {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPasswordAgain() {
+        return passwordAgain;
+    }
+
+    public void setPasswordAgain(String passwordAgain) {
+        this.passwordAgain = passwordAgain;
     }
 }
