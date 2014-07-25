@@ -65,6 +65,7 @@
                         <th>Email</th>
                         <th>Session</th>
                         <th>send reminders?</th>
+                        <th>Active?</th>
                         <th>Admin?</th>
                         <th></th>
                     </tr>
@@ -76,6 +77,7 @@
                         <td th:text="${p.email}">daniel.h.funk@gmail.com</td>
                         <td th:text="${p.currentSession}">Session1</td>
                         <td th:text="${p.emailOptout}? no : yes">yes</td>
+                        <td th:text="${p.active}? yes : no">yes</td>
                         <td th:text="${p.admin}? yes : no">yes</td>
                         <td>
                             <a th:href="@{'/admin/participant/'+${p.id}}">Edit</a>

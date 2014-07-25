@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="fragment/common :: headerFragment" />
+<body>
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment" />
+
+<!-- header-btm starts
+================================================== -->
+<section id="header-btm" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <h4 class="heading-icon clearfix"> <img src="/grepfrut/img/icons/heading-icon-user.png" width="40" height="40" alt="icon" class="icon-small-bg"/>Account Settings</h4>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- header-btm ends
+================================================== -->
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span8">
+                <h4> Contact Preferences </h4>
+
+                <form action="#" th:action="@{'/pages/account/update'}" method="post">
+                        <p><input type="checkbox" value="${sendEmails}"/> Send me reminder emails so I know when to return for the next session.*</p>
+                </form>
+
+                <div class="note">
+                    * Please note, you will still receive
+                    a few messages from us as you enter
+                    new phases in the study or if you are
+                    dropped from the Study due to
+                    inactivity.
+                    You may also choose to <button id="opener">exit the study.</button>
+                </div>
+
+                <script>
+                    $(function() {
+                        $( "#dialog" ).dialog({
+                            autoOpen: false,
+                            show: {
+                                effect: "blind",
+                                duration: 1000
+                            },
+                            hide: {
+                                effect: "blind",
+                                duration: 1000
+                            }
+                        });
+                        $( "#opener" ).click(function() {
+                            $( "#dialog" ).dialog( "open" );
+                        });
+                    });
+                </script>
+
+                <div id="dialog"  title="Will you please stay?">
+                    <p>Sessions only take 15 to 20 minutes to complete,
+                    and your participation can help make a substantial
+                    impact in the lives and well being of others. Will you
+                    please stay and complete a session?</p>
+                    <a th:href="@{'/session'}"><button>Yes, Let's go!</button></a>
+                    <a th:href="@{'/pages/exitStudy'}"><button>No, remove me now.</button></a>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts" />
+
+</body>
+</html>

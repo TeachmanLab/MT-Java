@@ -50,6 +50,7 @@ public class ParticipantRepositoryTest {
         dao.setCurrentSession(Session.NAME.SESSION1);
         dao.setTaskIndex(1);
         dao.setEmailOptout(true);
+        dao.setActive(false);
 
         p = repository.entityToDomain(dao);
 
@@ -60,6 +61,7 @@ public class ParticipantRepositoryTest {
         assertEquals(Session.NAME.SESSION1, p.getCurrentSession().getName());
         assertEquals(p.getCurrentSession().getName(), dao.getCurrentSession());
         assertEquals(p.isEmailOptout(), dao.isEmailOptout());
+        assertEquals(p.isActive(), dao.isActive());
         assertEquals(1, p.getTaskIndex());
         assertNotNull(p.getCurrentSession());
 
@@ -82,6 +84,7 @@ public class ParticipantRepositoryTest {
         assertEquals(p.getEmail(), dao.getEmail());
         assertEquals(p.isAdmin(), dao.isAdmin());
         assertEquals(p.getCurrentSession().getName(), dao.getCurrentSession());
+        assertEquals(p.isActive(), dao.isActive());
         assertEquals(1, dao.getTaskIndex());
 
     }

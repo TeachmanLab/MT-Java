@@ -35,6 +35,8 @@ public class Participant {
 
     private boolean       emailOptout = false;  // User required to receive no more emails.
 
+    private boolean       active = true;
+
     private List<EmailLog> emailLogs;
 
     public Participant() {}
@@ -158,5 +160,13 @@ public class Participant {
 
     public void setEmailLogs(List<EmailLog> emailLogs) {
         this.emailLogs = emailLogs;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
