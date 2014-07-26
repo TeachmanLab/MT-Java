@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      xmlns="http://www.w3.org/1999/html">
+<!--<![endif]-->
+<head th:include="/fragment/common :: headerFragment" />
+<body>
+<section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
+
+<!-- header-btm starts
+================================================== -->
+<section id="header-btm" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <h4 class="heading-icon clearfix"> <img th:src="@{/grepfrut/img/icons/heading-icon-user.png}" width="40" height="40" alt="icon" class="icon-small-bg"/></h4>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- header-btm ends
+================================================== -->
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+    <div class="container">
+
+        <!--spacer here-->
+        <div class="spacer-30px"></div>
+
+        <!--features starts-->
+        <div class="row">
+            <div class="span12">
+                <div id="first">
+                        <p>
+                            Please think of an upcoming situation that you expect will make you feel anxious, worried, or scared. For instance, the situation could involve public speaking (e.g., in class or at work), talking to someone in a position of authority (e.g., a boss or teacher), meeting new people, extreme worries about a situation tied to your health, work, relationships, or finances, or fears about entering a situation or encountering an object that frightens you (e.g., seeing a spider or snake, flying in an airplane, or being up high). Pick a situation that you worry might go badly, or that you expect will evoke symptoms related to anxiety (e.g., racing heart, sweating). Any situation that will make you feel anxious or scared will work. If no specific situation is upcoming, then just select a situation that you expect would make you feel anxious or scared IF you were to be in that situation.
+                        </p>
+                        <button id="click_first">
+                            Click here once you have thought of a situation.
+                        </button>
+                </div>
+                <form id="wizard" th:action="@{/questions/AIP}" method="POST">
+                    <fieldset>
+                        <p>
+                        <label>Please note (in just a few words) what type of situation this involves (e.g., speaking in public, driving, feeling caught in a crowd, worry about an upcoming trip):</label>
+                        <textarea name="situation" rows="1"/>
+                        </p>
+                    </fieldset>
+                    <fieldset>
+                    <div id="second">
+                        <p>
+                            Please generate an image of the situation that is as vivid as possible (i.e., that feels very real). Try to imagine you are actually in the situation. Play out the specific parts of the situation in your head.
+                        </p>
+                        <button id="click_second">
+                            Click here once you have finished imagining the situation in your head.
+                        </button>
+                    </div>
+                    <div id="third">
+                        <p>
+                            Please think of at least three things you would see in the situation.
+                        </p>
+                        <button id="click_third">
+                            Click HERE once you have thought about three things you would see.
+                        </button>
+                    </div>
+                    <div id="fourth">
+                        <p>
+                            Please think of at least three things you would hear in the situation.
+                        </p>
+                        <button id="click_fourth">
+                            Click HERE once you have thought about three things you would hear.
+                        </button>
+                    </div>
+                    <p>
+                        <label>Please think of at least three things you would likely think or feel in the situation. Write down a few words to note 3 of the things you would think or feel (e.g., I feel embarrassed, I look stupid, think I want to leave)</label>
+                        <textarea name="think_feel" rows="3"/>
+                    </p>
+                    </fieldset>
+                    <fieldset>
+                        <p>
+                            Please play this upcoming situation in your head for the next 20 seconds, remembering all of the things you see, hear, think, and feel. We will tell you when the 20 seconds are up.
+                            <label>How vividly did you imagine the situation on a scale of 0 (not at all) to 100 (a very vivid image of the situation)?</label>
+                            <input name="vivid"/>
+                        </p>
+                    </fieldset>
+                </form>
+                <script>
+                    jQuery("#wizard").jWizard();
+                    $( "#click_first" ).click(function() {
+                      $( "#first" ).hide();
+                      $( "#second").show();
+                      });
+                    $( "#click_second" ).click(function() {
+                      $( "#second" ).hide();
+                      $( "#third").show();
+                      });
+                    $( "#click_third" ).click(function() {
+                      $( "#third" ).hide();
+                      $( "#fourth").show();
+                      });
+                    $( "#click_fourth" ).click(function() {
+                      $( "#fourth" ).hide();
+                      });
+                   $("#second").hide();
+                   $("#third").hide();
+                   $("#fourth").hide();
+
+                </script>
+            </div>
+        </div>
+        <!--features ends-->
+
+        <!--divider here-->
+        <div class="spacer-40px"></div>
+
+    </div>
+</section>
+
+
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts" />
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
