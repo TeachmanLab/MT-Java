@@ -39,7 +39,7 @@ public class QuestionController {
     private CredibilityRepository credibilityRepository;
     private DemographicRepository demographicRepository;
     private ParticipantRepository participantRepository;
-//    QOL REPOSITORY
+    private AnxiousImageryPrime_Repository anxiousImageryPrime_Repository;
 
     private static final Logger LOG = LoggerFactory.getLogger(QuestionController.class);
 
@@ -58,7 +58,8 @@ public class QuestionController {
                               AUDIT_Repository audit_Repository,
                               CredibilityRepository credibilityRepository,
                               DemographicRepository demographicRepository,
-                              ParticipantRepository participantRepository) {
+                              ParticipantRepository participantRepository,
+                              AnxiousImageryPrime_Repository anxiousImageryPrime_Repository) {
         this.dass21_asRepository = dass21_asRepository;
         this.credibilityRepository = credibilityRepository;
         this.demographicRepository = demographicRepository;
@@ -70,7 +71,7 @@ public class QuestionController {
         this.mh_Repository = mh_Repository;
         this.mue_Repository = mue_Repository;
         this.pue_Repository = pue_Repository;
-
+        this.anxiousImageryPrime_Repository = anxiousImageryPrime_Repository;
     }
 
     /**
@@ -109,7 +110,7 @@ public class QuestionController {
 
     @RequestMapping(value="DASS21_AS", method = RequestMethod.POST)
     RedirectView handleDASS21_AS(@ModelAttribute("DASS21_AS") DASS21_AS dass21_as,
-                        BindingResult result) {
+                                 BindingResult result) {
 
         recordSessionProgress(dass21_as);
         dass21_asRepository.save(dass21_as);
@@ -125,7 +126,7 @@ public class QuestionController {
 
     @RequestMapping(value="DASS21_DS", method = RequestMethod.POST)
     RedirectView handleDASS21_DS(@ModelAttribute("DASS21_DS") DASS21_DS dass21_ds,
-                              BindingResult result) {
+                                 BindingResult result) {
 
         recordSessionProgress(dass21_ds);
         dass21_dsRepository.save(dass21_ds);
@@ -141,7 +142,7 @@ public class QuestionController {
 
     @RequestMapping(value="qol", method = RequestMethod.POST)
     RedirectView handleqol(@ModelAttribute("qol") QOL qol,
-                                 BindingResult result) {
+                           BindingResult result) {
 
         recordSessionProgress(qol);
         qol_Repository.save(qol);
@@ -157,7 +158,7 @@ public class QuestionController {
 
     @RequestMapping(value="aduit", method = RequestMethod.POST)
     RedirectView handleaudit(@ModelAttribute("audit") AUDIT audit,
-                           BindingResult result) {
+                             BindingResult result) {
 
         recordSessionProgress(audit);
         audit_Repository.save(audit);
@@ -173,7 +174,7 @@ public class QuestionController {
 
     @RequestMapping(value="credibility", method = RequestMethod.POST)
     RedirectView handleCredibility(@ModelAttribute("credibility") Credibility credibility,
-                        BindingResult result) {
+                                   BindingResult result) {
 
         recordSessionProgress(credibility);
         credibilityRepository.save(credibility);
@@ -190,7 +191,7 @@ public class QuestionController {
 
     @RequestMapping(value="FU", method = RequestMethod.POST)
     RedirectView handleFollowUp(@ModelAttribute("FU") FollowUp_ChangeInTreatment followup,
-                                   BindingResult result) {
+                                BindingResult result) {
 
         recordSessionProgress(followup);
         followup_Repository.save(followup);
@@ -207,7 +208,7 @@ public class QuestionController {
 
     @RequestMapping(value="MH", method = RequestMethod.POST)
     RedirectView handleMentalHealthHxTx(@ModelAttribute("MH") MentalHealthHxTx mh,
-                                BindingResult result) {
+                                        BindingResult result) {
 
         recordSessionProgress(mh);
         mh_Repository.save(mh);
@@ -225,7 +226,7 @@ public class QuestionController {
 
     @RequestMapping(value="MUE", method = RequestMethod.POST)
     RedirectView handleMultiUserExperience(@ModelAttribute("MUE") MultiUserExperience mue,
-                                BindingResult result) {
+                                           BindingResult result) {
 
         recordSessionProgress(mue);
         mue_Repository.save(mue);
@@ -261,10 +262,28 @@ public class QuestionController {
 
     @RequestMapping(value="impact", method = RequestMethod.POST)
     RedirectView handleImpact(@ModelAttribute("impact") ImpactAnxiousImagery impact,
-                                BindingResult result) {
+                              BindingResult result) {
 
         recordSessionProgress(impact);
         impact_Repository.save(impact);
+        return new RedirectView("/session");
+    }
+
+
+    /** AnxiousImageryPrime
+     * ---------**/
+
+    @RequestMapping(value="AIP", method=RequestMethod.GET)
+    public ModelAndView showAIP() {
+        return new ModelAndView("questions/AIP", "AIP", new AnxiousImageryPrime());
+    }
+
+    @RequestMapping(value="AIP", method = RequestMethod.POST)
+    RedirectView handleImpact(@ModelAttribute("AIP") AnxiousImageryPrime prime,
+                              BindingResult result) {
+
+        recordSessionProgress(prime);
+        anxiousImageryPrime_Repository.save(prime);
         return new RedirectView("/session");
     }
 
@@ -277,7 +296,7 @@ public class QuestionController {
 
     @RequestMapping(value="demographics", method = RequestMethod.POST)
     RedirectView handleDemographics(@ModelAttribute("demographics") Demographic demographic,
-                             BindingResult result) {
+                                    BindingResult result) {
 
         recordSessionProgress(demographic);
         demographicRepository.save(demographic);
