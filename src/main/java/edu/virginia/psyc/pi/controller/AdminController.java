@@ -34,7 +34,7 @@ public class AdminController {
     private ParticipantRepository participantRepository;
     private static final Logger LOG = LoggerFactory.getLogger(AdminController.class);
 
-    private static final int PER_PAGE=2;
+    private static final int PER_PAGE=10; // Number of users to display per page.
 
     @Autowired
     private EmailService emailService;

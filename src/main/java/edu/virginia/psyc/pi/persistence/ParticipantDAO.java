@@ -37,6 +37,8 @@ public class ParticipantDAO implements UserDetails {
 
     private boolean emailOptout;
 
+    private boolean active;
+
     @Enumerated(EnumType.STRING)
     private Session.NAME currentSession = Session.NAME.values()[0]; // set to first session by default
 
@@ -167,6 +169,14 @@ public class ParticipantDAO implements UserDetails {
         this.emailLogDAOs.add(log);
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
     @Override
     public String toString() {
         return "ParticipantDAO{" +
@@ -178,6 +188,7 @@ public class ParticipantDAO implements UserDetails {
                 ", emailOptout=" + emailOptout +
                 ", currentSession=" + currentSession +
                 ", taskIndex=" + taskIndex +
+                ", active=" + active +
                 '}';
     }
 }

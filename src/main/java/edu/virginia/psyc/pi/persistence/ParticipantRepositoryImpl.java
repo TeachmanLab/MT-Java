@@ -28,6 +28,7 @@ public class ParticipantRepositoryImpl implements ParticipantRepositoryCustom {
         p.setSessions(sessionList);
         p.setTaskIndex(dao.getTaskIndex());
         p.setEmailOptout(dao.isEmailOptout());
+        p.setActive(dao.isActive());
 
         List<EmailLog> emailLogs = new ArrayList<EmailLog>();
 
@@ -48,6 +49,7 @@ public class ParticipantRepositoryImpl implements ParticipantRepositoryCustom {
         dao.setTaskIndex(p.getTaskIndex());
         dao.setCurrentSession(p.getCurrentSession().getName());
         dao.setEmailOptout(p.isEmailOptout());
+        dao.setActive(p.isActive());
     }
 
 

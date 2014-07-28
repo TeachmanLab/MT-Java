@@ -1,6 +1,7 @@
 package edu.virginia.psyc.pi.controller;
 
 import edu.virginia.psyc.pi.domain.Participant;
+import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +45,24 @@ public class PageController {
         Participant p = getParticipant(principal);
         model.addAttribute("participant", p);
         return "faq";
+    }
+
+    @RequestMapping("account")
+    public String showAccount(ModelMap model, Principal principal) {
+        Participant p = getParticipant(principal);
+        model.addAttribute("participant", p);
+        return "account";
+    }
+
+    @RequestMapping("exitStudy")
+    public String exitStudy(ModelMap model, Principal principal) {
+        Participant p      = getParticipant(principal);
+        ParticipantDAO dao = participantRepository.findByEmail(principal.getName()).get(0);
+        p.setActive(false);
+        participantRepository.domainToEntity(p, dao);
+        participantRepository.save(dao);
+        model.addAttribute("participant", p);
+        return "debriefing";
     }
 
     @RequestMapping("email")
