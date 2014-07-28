@@ -36,8 +36,12 @@
 <div class="span12">
 <form id="wizard" th:action="@{/questions/pilotuser}" method="POST">
 <fieldset>
-<h4>Instructions. Thank you for taking the time to go through our program! We are interested in your feedback and reactions to the training programs, assessments, and other aspects of the website. Please answer the following questions openly and honestly. Your feedback will help us improve the program.
+<legend>Instructions. </legend>
+<h4>Thank you for taking the time to go through our program! We are interested in your feedback and reactions to the training programs, assessments, and other aspects of the website. Please answer the following questions openly and honestly. Your feedback will help us improve the program.
 </h4>
+</fieldset>
+<fieldset>
+<legend>Questions</legend>
 <p>
     <label>How easy was the web program to use?</label>
     <select name="ease">
@@ -134,8 +138,8 @@
         <option value="555">Decline to answer</option>
     </select>
 </p>
-</fieldset>
-<fieldset>
+<br/>
+<br/>
 <p>
     <label>Would you use a website like this one to treat your anxiety?</label>
     <select name="treat_anx">
@@ -160,6 +164,8 @@
         <option value="555">Decline to answer</option>
     </select>
 </p>
+<br/>
+<br/>
 <p>
     <label> How tiring did you find the training program? </label>
     <select name="tiring_training">
@@ -198,6 +204,9 @@
 </p>
 </fieldset>
 </form>
+<script>
+   $('#wizard').jWizard();
+</script>
 </div>
 </div>
 <!--features ends-->
