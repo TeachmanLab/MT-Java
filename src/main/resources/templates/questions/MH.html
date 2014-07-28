@@ -36,7 +36,11 @@
             <div class="span12">
                 <form id="wizard" th:action="@{/questions/mentalhealthHxTx}" method="POST">
                     <fieldset>
+                        <legend>Instructions</legend>
                         <h4>Please provide as much information as possible.</h4>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Questions</legend>
                         <p>
                             <label>Do you currently have an anxiety disorder diagnosis (i.e., diagnosed by a health professional, such as a social worker, psychologist, psychiatrist, or a general practitioner)?</label>
                             <select name="anx_dis">
@@ -45,9 +49,12 @@
                                 <option>No</option>
                             </select>
                         </p>
+                        <br/>
+                        <br/>
+                        <br/>
                         <p>
                             <label>If yes, which disorders? Select all that apply</label>
-                            <select name="disorders" multiple>
+                            <select multiple="multiple" name="disorders">
                                 <option value=""></option>
                                 <option value="GAD">Generalized Anxiety Disorder (GAD)</option>
                                 <option value="OCD">Obsessive-Compulsive Disorder (OCD)</option>
@@ -58,9 +65,12 @@
                                 <option value="Phobias">Specific phobia(s)</option>
                                 <option value="Other">Other</option>
                             </select>
-                            If other, please specficy
-                            <input type="text" name="OtherDesc">
-                            <p>Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</p>
+                        </p>
+                        <p>
+                            <label>If other, please specficy</label>
+                            <input type="text" name="OtherDesc"/>
+                            <br/>
+                            Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.
                         </p>
                         <p>
                             <label>Do you currently have a diagnosis for a mental disorder other than anxiety? </label>
@@ -72,7 +82,7 @@
                         </p>
                         <p>
                             <label>If yes, which disorders? Select all that apply</label>
-                            <select name="not_anx_disorders" multiple>
+                            <select multiple="multiple"  name="not_anx_disorders">
                                 <option value=""></option>
                                 <option value="dem">Dementia or other cognitive disorder</option>
                                 <option value="subst">Substance-related disorder</option>
@@ -83,11 +93,10 @@
                                 <option value="personality">Personality disorder</option>
                                 <option value="Other">Other</option>
                             </select>
-                            If other, please specficy
-                            <input type="text" name="NotOtherDesc">
-                        <p>Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</p>
-                        </select>
                         </p>
+                            <label> If other, please specficy </label>
+                            <input type="text" name="NotOtherDesc"/>
+                        <p>Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</p>
                         <p>
                             <label>Have you been diagnosed with an anxiety disorder in the past that you no longer have?</label>
                             <select name="disorder_no">
@@ -98,7 +107,7 @@
                         </p>
                         <p>
                             <label>If yes, which disorders? Select all that apply</label>
-                            <select name="disorders_no" multiple>
+                            <select multiple="multiple" name="disorders_no">
                                 <option value=""></option>
                                 <option value="GAD">Generalized Anxiety Disorder (GAD)</option>
                                 <option value="OCD">Obsessive-Compulsive Disorder (OCD)</option>
@@ -109,10 +118,10 @@
                                 <option value="Phobias">Specific phobia(s)</option>
                                 <option value="Other">Other</option>
                             </select>
-                            If other, please specficy
-                            <input type="text" name="OtherDescNo">
-                        <p>Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</p>
                         </p>
+                            <label> If other, please specficy </label>
+                            <input type="text" name="OtherDescNo"/>
+                        <p>Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</p>
                         <p>
                             <label>Have you been diagnosed with another mental disorder (other than anxiety) in the past that you no longer have?</label>
                             <select name="not_anx_no">
@@ -121,9 +130,12 @@
                                 <option>No</option>
                             </select>
                         </p>
+                        <br/>
+                        <br/>
+
                         <p>
                             <label>If yes, which disorders? Select all that apply</label>
-                            <select name="not_anx_disorders_no" multiple>
+                            <select multiple="multiple" name="not_anx_disorders_no">
                                 <option value=""></option>
                                 <option value="dem">Dementia or other cognitive disorder</option>
                                 <option value="subst">Substance-related disorder</option>
@@ -134,12 +146,15 @@
                                 <option value="personality">Personality disorder</option>
                                 <option value="Other">Other</option>
                             </select>
-                            If other, please specficy
-                            <input type="text" name="OtherDescNo">
-                        <p>Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</p>
                         </p>
+                            <label> If other, please specficy </label>
+                            <input type="text" name="OtherDescNo"/>
+                        <p>Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</p>
                     </fieldset>
                 </form>
+                <script>
+                   $('#wizard').jWizard();
+                </script>
             </div>
         </div>
         <!--features ends-->

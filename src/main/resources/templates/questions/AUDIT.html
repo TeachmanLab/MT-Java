@@ -36,7 +36,11 @@
             <div class="span12">
                 <form id="wizard" th:action="@{/questions/audit}" method="POST">
                     <fieldset>
+                        <legend>Instructions</legend>
                         <h4>Please provide as much information as possible.</h4>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Questions</legend>
                         <p>
                             <label>How often do you have a drink containing alcohol</label>
                             <select name="drink_alc">
@@ -59,6 +63,7 @@
                                 <option>10 or more</option>
                             </select>
                         </p>
+                        <br/>
                         <p>
                             <label>How often do you have six or more drinks on one occasion?</label>
                             <select name="binge">
@@ -70,6 +75,7 @@
                                 <option>Daily or almost daily</option>
                             </select>
                         </p>
+                        <br/>
                         <p>
                             <label>How often during the last year have you found that you were not able to stop drinking once you had started?</label>
                             <select name="cant_stop">
@@ -81,6 +87,7 @@
                                 <option>Daily or almost daily</option>
                             </select>
                         </p>
+                        <br/>
                         <p>
                             <label>How often during the last year have you failed to do what was normally expected of you because of drinking?</label>
                             <select name="fail">
@@ -92,6 +99,7 @@
                                 <option>Daily or almost daily</option>
                             </select>
                         </p>
+                        <br/>
                         <p>
                             <label>How often during the last year have you needed a first drink in the morning to get yourself going after a heavy drinking session?</label>
                             <select name="drink_morning">
@@ -103,8 +111,8 @@
                                 <option>Daily or almost daily</option>
                             </select>
                         </p>
-                        </fieldset>
-                        <fieldset>
+                        <br/>
+                        <br/>
                         <p>
                             <label>How often during the last year have you had a feeling of guilt or remorse after drinking?</label>
                             <select name="guilt">
@@ -127,8 +135,8 @@
                                 <option>Daily or almost daily</option>
                             </select>
                         </p>
-                        </fieldset>
-                        <fieldset>
+                        <br/>
+                        <br/>
                         <p>
                             <label>Have you or someone else been injured because of your drinking?</label>
                             <select name="injured">
@@ -149,6 +157,9 @@
                         </p>
                     </fieldset>
                  </form>
+                <script>
+                   $('#wizard').jWizard();
+                </script>
             </div>
         </div>
         <!--features ends-->
