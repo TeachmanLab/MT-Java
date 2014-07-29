@@ -135,12 +135,12 @@ public class QuestionController {
 
     /**QOL
      * ---------**/
-    @RequestMapping(value="qol", method=RequestMethod.GET)
+    @RequestMapping(value="QOL", method=RequestMethod.GET)
     public ModelAndView showqol() {
-        return new ModelAndView("questions/qol", "qol", new QOL());
+        return new ModelAndView("questions/QOL", "QOL", new QOL());
     }
 
-    @RequestMapping(value="qol", method = RequestMethod.POST)
+    @RequestMapping(value="QOL", method = RequestMethod.POST)
     RedirectView handleqol(@ModelAttribute("qol") QOL qol,
                            BindingResult result) {
 

@@ -11,7 +11,7 @@ package edu.virginia.psyc.pi.domain;
  */
 public class Task {
 
-    public enum TYPE {questions, training};
+    public enum TYPE {questions, playerScript};
     public enum STATE {COMPLETE,CURRENT,INCOMPLETE}
 
     private String     name;
@@ -19,6 +19,15 @@ public class Task {
     private TYPE       type;
     private boolean    complete;
     private boolean    current;
+
+
+    public Task(String name, String displayName, TYPE type) {
+        this.name = name;
+        this.displayName = displayName;
+        this.type = type;
+        this.complete = false;
+        this.current = false;
+    }
 
 
     public Task(String name, String displayName, TYPE type, boolean complete, boolean current) {
