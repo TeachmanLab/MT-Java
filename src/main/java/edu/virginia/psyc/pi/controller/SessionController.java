@@ -44,6 +44,7 @@ public class SessionController extends BaseController {
         model.addAttribute("participant", p);
         model.addAttribute("currentSession", p.getCurrentSession());
         model.addAttribute("currentTask", p.getCurrentSession().getCurrentTask());
+        model.addAttribute("sessionState", p.sessionState().toString());
 
         return "home";
     }
@@ -55,59 +56,6 @@ public class SessionController extends BaseController {
         saveParticipant(p);
         return sessionHome(model, principal);
     }
-
-    /** Pre-Assessment
-     Pre-Treatment
-     •	DASS-21-AS (if more than 2 days after eligibility screening)
-     •	Credibility Scale
-     •	Mental Health History
-     •	State Anxiety Assessment
-     •	Interpretation bias measures (Lexical Decision Task & Recognition Ratings)
-     •	Quality of Life Scale
-     •	Comorbid symptom measures (DASS-21-depression, AUDIT)
-     * ---------**/
-    @RequestMapping(value="pre", method=RequestMethod.GET)
-    public String pre(ModelMap model, Principal principal) {
-        Participant p = getParticipant(principal);
-        return "/questions/demographics";
-    }
-
-    /** Week 1
-     * ---------**/
-    @RequestMapping(value="week1", method=RequestMethod.GET)
-    public String week1() {
-        return "/questions/demographics";
-    }
-
-    /** Week 2
-     * ---------**/
-    @RequestMapping(value="week2", method=RequestMethod.GET)
-    public String week2() {
-        return "/questions/demographics";
-    }
-
-    /** Week 3
-     * ---------**/
-    @RequestMapping(value="week3", method=RequestMethod.GET)
-    public String week3() {
-        return "/questions/demographics";
-    }
-
-    /** Week 4
-     * ---------**/
-    @RequestMapping(value="week4", method=RequestMethod.GET)
-    public String week4() {
-        return "/questions/demographics";
-    }
-
-    /** Post-Assessment
-     * ---------**/
-    @RequestMapping(value="post", method=RequestMethod.GET)
-    public String post() {
-        return "/questions/demographics";
-    }
-
-
 
 }
 

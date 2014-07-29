@@ -2,6 +2,8 @@ package edu.virginia.psyc.pi.domain;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.hibernate.validator.constraints.Email;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -26,6 +28,8 @@ public class Participant {
 
     private long id;
 
+    public enum SESSION_STATE {NOT_ELIGIBLE, READY, WAIT_A_DAY, WAIT_FOR_FOLLOWUP, ALL_DONE}
+
     @Size(min=2, max=100, message="Please specify your full name.")
     private String fullName;
 
@@ -40,7 +44,6 @@ public class Participant {
     private String        password;
     @NotNull
     private String        passwordAgain;
-
 
     private List<Session> sessions  = Session.defaultList();
     private int           taskIndex;
@@ -101,6 +104,30 @@ public class Participant {
         // Rebuid the session list, based on the now current session.
         this.sessions = Session.createListView(sessionName, taskIndex);
     }
+
+    /**
+     * @return Number of days since the last completed session.
+     * Returns -1 if no sessions where ever completed.
+     */
+    public int daysSinceLastSession() {
+        DateTime last;
+        DateTime now;
+
+        last = new DateTime(this.lastSessionDate);
+        now  = new DateTime();
+        return Days.daysBetween(last, now).getDays();
+    }
+
+    /**
+     * Returns the state of the participant, in regards to the Session.  Can
+     * be
+     * @return
+     */
+    public SESSION_STATE sessionState() {
+        if(daysSinceLastSession() == 0) return SESSION_STATE.WAIT_A_DAY;
+        return SESSION_STATE.READY;
+    }
+
 
     public long getId() {
         return id;

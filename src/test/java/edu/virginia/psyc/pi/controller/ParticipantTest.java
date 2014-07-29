@@ -2,6 +2,8 @@ package edu.virginia.psyc.pi.controller;
 
 import edu.virginia.psyc.pi.domain.Participant;
 import edu.virginia.psyc.pi.domain.Session;
+import org.joda.time.DateTime;
+import org.joda.time.Period;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertNotNull;
@@ -51,5 +53,23 @@ public class ParticipantTest {
 
     }
 
+    @Test
+    public void testParticipantKnowsDaysSinceLastSession() {
+
+        DateTime dateTime;
+
+        Participant p;
+        p = new Participant(1, "Dan Funk", "daniel.h.funk@gmail.com", false);
+
+        dateTime = new DateTime().minus(Period.days(3));
+        p.setLastSessionDate(dateTime.toDate());
+        assertEquals(3,p.daysSinceLastSession());
+
+        /*
+        DateTime dt = new DateTime(2005, 3, 26, 12, 0, 0, 0);
+        DateTime plusPeriod = dt.plus(Period.days(1));
+        DateTime plusDuration = dt.plus(new Duration(24L*60L*60L*1000L));
+        */
+    }
 
 }
