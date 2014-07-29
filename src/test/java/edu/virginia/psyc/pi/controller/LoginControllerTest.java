@@ -68,8 +68,8 @@ public class LoginControllerTest {
         this.mockMvc.perform(post("/newParticipant")
                 .param("fullName", "Dan Funk")
                 .param("email", "some_crazy2@email.com")
-                .param("unencodedPassword", "ereiamjh")
-                .param("unencodedPassword2", "ereiamjh"))
+                .param("password", "ereiamjh")
+                .param("passwordAgain", "ereiamjh"))
                 .andDo(print())
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/session"));
@@ -86,7 +86,8 @@ public class LoginControllerTest {
 
         this.mockMvc.perform(post("/login")
                 .param("username", "some_crazy2@email.com")
-                .param("password", "ereiamjh"))
+                .param("password", "ereiamjh")
+                .param("passwordAgain", "ereiamjh"))
                 .andDo(print())
                 .andExpect(status().is3xxRedirection());
     }
