@@ -24,6 +24,8 @@ public class ReasonEnding implements QuestionnaireData {
     @Enumerated(EnumType.STRING)
     private Session.NAME session = Session.NAME.ELIGIBLE;
 
+
+
     public int getId() {
         return id;
     }

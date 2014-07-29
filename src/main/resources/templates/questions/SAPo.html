@@ -34,7 +34,7 @@
         <!--features starts-->
         <div class="row">
             <div class="span12">
-                <form id="wizard" th:action="@{/questions/AIP}" method="POST">
+                <form id="wizard" th:action="@{/questions/SAPo}" method="POST">
                     <fieldset>
                         <legend>Step 1</legend>
                         <p>
@@ -46,7 +46,7 @@
                         <legend>Step 2</legend>
                         <p>
                             <label>Please note (in just a few words) what type of situation this involves (e.g., speaking in public, driving, feeling caught in a crowd, worry about an upcoming trip):</label>
-                            <textarea name="situation" rows="1"></textarea>
+                            <textarea name="situation_desc" rows="1"></textarea>
                         </p>
                         <br/>
                         <br/>
@@ -121,7 +121,7 @@
                         <p>
                             <label>How terrible would it be if this situation did turn out badly?
                             </label>
-                            <select name="badly">
+                            <select name="terrible">
                                 <option value=""></option>
                                 <option>Not At All Terrible</option>
                                 <option>A little Terrible</option>
