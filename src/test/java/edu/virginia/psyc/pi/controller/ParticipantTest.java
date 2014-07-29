@@ -34,8 +34,8 @@ public class ParticipantTest {
 
         p.completeCurrentTask();
 
-        assertEquals(Session.NAME.SESSION1, p.getCurrentSession().getName());
-        assertEquals("DASS21_AS", p.getCurrentSession().getCurrentTask().getName());
+        assertEquals(Session.NAME.PRE, p.getCurrentSession().getName());
+        assertEquals("MH", p.getCurrentSession().getCurrentTask().getName());
 
     }
 
