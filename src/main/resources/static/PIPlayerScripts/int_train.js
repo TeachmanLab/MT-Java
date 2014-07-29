@@ -4,7 +4,7 @@ define(['app/API'], function(API) {
     API.addSettings('canvas',{
         textSize: 5
     });
-
+//    This was added to redirect back
     API.addSettings('redirect', "../playerScript/completed/int_train");
 
     // setting the way the logger works (how often we send data to the server and the url for the data)
