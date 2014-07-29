@@ -44,7 +44,7 @@ public class ParticipantDAO implements UserDetails {
 
     private int taskIndex = 0;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Collection<EmailLogDAO> emailLogDAOs = new ArrayList<EmailLogDAO>();
 
     @Override
