@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,6 +18,9 @@ import java.util.List;
  * This is used to create a new participant in the MVC login controller, and
  * for modifying participants in the admin interface.  And will be used to
  * reset passwords when that get's implemented.
+ *
+ * This is also used for displaying details about the Participant, and for housing
+ * general business logic specific to the Participant.
  */
 public class Participant {
 
@@ -45,6 +49,9 @@ public class Participant {
 
     private boolean       active = true;
 
+    private Date          lastLoginDate;
+
+    private Date          lastSessionDate;
 
     private List<EmailLog> emailLogs;
 
@@ -85,6 +92,7 @@ public class Participant {
         // If this is the last task in a session, then we move to the next session.
         if(getTaskIndex() +1 == getCurrentSession().getTasks().size()) {
             this.taskIndex = 0;
+            this.lastSessionDate = new Date();
             sessionName    = Session.nextSession(getCurrentSession().getName());
         } else { // otherwise we just increment the task index.
             this.taskIndex = taskIndex + 1;
@@ -193,5 +201,21 @@ public class Participant {
 
     public void setPasswordAgain(String passwordAgain) {
         this.passwordAgain = passwordAgain;
+    }
+
+    public Date getLastLoginDate() {
+        return lastLoginDate;
+    }
+
+    public void setLastLoginDate(Date lastLoginDate) {
+        this.lastLoginDate = lastLoginDate;
+    }
+
+    public Date getLastSessionDate() {
+        return lastSessionDate;
+    }
+
+    public void setLastSessionDate(Date lastSessionDate) {
+        this.lastSessionDate = lastSessionDate;
     }
 }

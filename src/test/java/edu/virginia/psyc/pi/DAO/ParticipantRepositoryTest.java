@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import static junit.framework.Assert.assertNotNull;
 import static org.junit.Assert.assertEquals;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -51,6 +52,8 @@ public class ParticipantRepositoryTest {
         dao.setTaskIndex(1);
         dao.setEmailOptout(true);
         dao.setActive(false);
+        dao.setLastLoginDate(new Date());
+        dao.setLastSessionDate(new Date());
 
         p = repository.entityToDomain(dao);
 
@@ -64,6 +67,8 @@ public class ParticipantRepositoryTest {
         assertEquals(p.isActive(), dao.isActive());
         assertEquals(1, p.getTaskIndex());
         assertNotNull(p.getCurrentSession());
+        assertEquals(p.getLastLoginDate(), dao.getLastLoginDate());
+        assertEquals(p.getLastSessionDate(), dao.getLastSessionDate());
 
     }
 
@@ -76,6 +81,8 @@ public class ParticipantRepositoryTest {
 
         p = new Participant(1, "Dan Funk", "daniel.h.funk@gmail.com", false);
         p.setSessions(sessions);
+        p.setLastLoginDate(new Date());
+        p.setLastSessionDate(new Date());
 
         repository.domainToEntity(p, dao);
 
@@ -86,6 +93,8 @@ public class ParticipantRepositoryTest {
         assertEquals(p.getCurrentSession().getName(), dao.getCurrentSession());
         assertEquals(p.isActive(), dao.isActive());
         assertEquals(1, dao.getTaskIndex());
+        assertEquals(p.getLastLoginDate(), dao.getLastLoginDate());
+        assertEquals(p.getLastSessionDate(), dao.getLastSessionDate());
 
     }
 

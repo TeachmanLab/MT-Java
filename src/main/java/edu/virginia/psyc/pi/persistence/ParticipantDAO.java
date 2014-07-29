@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.
@@ -38,6 +39,10 @@ public class ParticipantDAO implements UserDetails {
     private boolean emailOptout;
 
     private boolean active;
+
+    private Date          lastLoginDate;
+
+    private Date          lastSessionDate;
 
     @Enumerated(EnumType.STRING)
     private Session.NAME currentSession = Session.NAME.values()[0]; // set to first session by default
@@ -175,6 +180,22 @@ public class ParticipantDAO implements UserDetails {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public Date getLastLoginDate() {
+        return lastLoginDate;
+    }
+
+    public void setLastLoginDate(Date lastLoginDate) {
+        this.lastLoginDate = lastLoginDate;
+    }
+
+    public Date getLastSessionDate() {
+        return lastSessionDate;
+    }
+
+    public void setLastSessionDate(Date lastSessionDate) {
+        this.lastSessionDate = lastSessionDate;
     }
 
     @Override

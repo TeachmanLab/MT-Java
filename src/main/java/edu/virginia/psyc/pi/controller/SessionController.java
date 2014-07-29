@@ -22,28 +22,17 @@ import java.security.Principal;
  */
 @Controller
 @RequestMapping("/session")
-public class SessionController {
+public class SessionController extends BaseController {
 
-    private ParticipantRepository participantRepository;
     private static final Logger LOG = LoggerFactory.getLogger(SessionController.class);
 
-    private Participant getParticipant(Principal principal) {
-        Participant p;
-        p = participantRepository.entityToDomain(participantRepository.findByEmail(principal.getName()).get(0));
-        return(p);
-    }
-
-    private void saveParticipant(Participant participant) {
-        ParticipantDAO dao;
-
-        if(participant.getId() > 0) {
-            dao = participantRepository.findOne(participant.getId());
-        } else {
-            dao = new ParticipantDAO();
-        }
-
-        participantRepository.domainToEntity(participant, dao);
-        participantRepository.save(dao);
+    /**
+     * Spring automatically configures this object.
+     * You can modify the location of this database by editing the application.properties file.
+     */
+    @Autowired
+    public SessionController(ParticipantRepository participantRepository) {
+        this.participantRepository = participantRepository;
     }
 
     @RequestMapping("")
@@ -65,15 +54,6 @@ public class SessionController {
         p.setTaskIndex(p.getTaskIndex() + 1);
         saveParticipant(p);
         return sessionHome(model, principal);
-    }
-
-    /**
-     * Spring automatically configures this object.
-     * You can modify the location of this database by editing the application.properties file.
-     */
-    @Autowired
-    public SessionController(ParticipantRepository participantRepository) {
-        this.participantRepository = participantRepository;
     }
 
     /** Pre-Assessment

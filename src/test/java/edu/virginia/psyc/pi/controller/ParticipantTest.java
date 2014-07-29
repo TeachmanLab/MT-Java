@@ -5,6 +5,7 @@ import edu.virginia.psyc.pi.domain.Session;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
@@ -36,6 +37,17 @@ public class ParticipantTest {
 
         assertEquals(Session.NAME.PRE, p.getCurrentSession().getName());
         assertEquals("MH", p.getCurrentSession().getCurrentTask().getName());
+
+        assertNull(p.getLastSessionDate());
+
+        // Move past all the tasks in Session 1
+        p.completeCurrentTask();
+        p.completeCurrentTask();
+        p.completeCurrentTask();
+        p.completeCurrentTask();
+
+        assertEquals(Session.NAME.SESSION1, p.getCurrentSession().getName());
+        assertNotNull("The last session date should get updated when completing a session.", p.getLastSessionDate());
 
     }
 

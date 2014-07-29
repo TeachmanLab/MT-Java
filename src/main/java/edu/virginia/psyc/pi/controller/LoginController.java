@@ -19,6 +19,7 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,9 +29,8 @@ import java.security.Principal;
  * To change this template use File | Settings | File Templates.
  */
 @Controller
-public class LoginController {
+public class LoginController extends BaseController {
 
-    private ParticipantRepository participantRepository;
     private static final Logger LOG = LoggerFactory.getLogger(LoginController.class);
 
     /**
@@ -44,6 +44,9 @@ public class LoginController {
 
     @RequestMapping(value="/", method = RequestMethod.GET)
     public String printWelcome(ModelMap model, Principal principal ) {
+        Participant participant = getParticipant(principal);
+        participant.setLastLoginDate(new Date()); // Update the last login date.
+        saveParticipant(participant);
         return "redirect:/session";
     }
 
@@ -79,9 +82,11 @@ public class LoginController {
         } else {
             StandardPasswordEncoder encoder = new StandardPasswordEncoder();
             String hashedPassword = encoder.encode(participant.getPassword());
+            participant.setLastLoginDate(new Date()); // Update the last login date.
 
             ParticipantDAO dao = new ParticipantDAO();
             participantRepository.domainToEntity(participant, dao);
+
             dao.setPassword(hashedPassword);
             participantRepository.save(dao);
             participantRepository.flush();
