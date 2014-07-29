@@ -72,15 +72,81 @@ public class Session {
         List<Task> tasks = new ArrayList<Task>();
         switch(name) {
             case PRE:
-                tasks.add(new Task("DASS21_AS", "Status Questionnaire", Task.TYPE.questions, 0 < taskIndex, 0 == taskIndex));
-                tasks.add(new Task("credibility", "Credibility Assessment", Task.TYPE.questions, 1 < taskIndex, 1 == taskIndex));
+                tasks.add(new Task("DASS21_AS", "Status Questionnaire", Task.TYPE.questions));
+                tasks.add(new Task("credibility", "Credibility Assessment", Task.TYPE.questions));
+                tasks.add(new Task("MH", "Mental Health History", Task.TYPE.questions));
+                // State Anxiety is Incomplete
+                // tasks.add(new Task("SA", "State Anxiety", Task.TYPE.questions));
+                tasks.add(new Task("int_train", "Interpretation Training", Task.TYPE.playerScript));
+                tasks.add(new Task("QOL", "Quality of Life Scale", Task.TYPE.questions));
+                tasks.add(new Task("DASS21_DS", "Symptom Measures", Task.TYPE.questions));
                 break;
             case SESSION1:
-                tasks.add(new Task("DASS21_AS", "Status Questionnaire", Task.TYPE.questions, 0 < taskIndex, 0 == taskIndex));
-                tasks.add(new Task("xxx", "player", Task.TYPE.training, 1 < taskIndex, 1 == taskIndex));
+                tasks.add(new Task("AIP", "Imagery Prime", Task.TYPE.questions));
+                tasks.add(new Task("DASS21_AS", "Status Questionnaire", Task.TYPE.questions));
                 break;
+            case SESSION2:
+                tasks.add(new Task("DASS21_AS", "Status Questionnaire", Task.TYPE.questions));
+                break;
+            case SESSION3:
+                tasks.add(new Task("AIP", "Imagery Prime", Task.TYPE.questions));
+                tasks.add(new Task("DASS21_AS", "Status Questionnaire", Task.TYPE.questions));
+                // State Anxiety is Incomplete
+                //   tasks.add(new Task("SA", "State Anxiety", Task.TYPE.questions));
+                tasks.add(new Task("int_train", "Interpretation Training", Task.TYPE.playerScript));
+                break;
+            case SESSION4:
+                tasks.add(new Task("DASS21_AS", "Status Questionnaire", Task.TYPE.questions));
+                tasks.add(new Task("QOL", "Quality of Life Scale", Task.TYPE.questions));
+                tasks.add(new Task("DASS21_DS", "Symptom Measures", Task.TYPE.questions));
+                break;
+            case SESSION5:
+                tasks.add(new Task("DASS21_AS", "Status Questionnaire", Task.TYPE.questions));
+                break;
+            case SESSION6:
+                tasks.add(new Task("AIP", "Imagery Prime", Task.TYPE.questions));
+                tasks.add(new Task("DASS21_AS", "Status Questionnaire", Task.TYPE.questions));
+                // State Anxiety is Incomplete
+                // tasks.add(new Task("SA", "State Anxiety", Task.TYPE.questions));
+                tasks.add(new Task("int_train", "Interpretation Training", Task.TYPE.playerScript));
+                break;
+            case SESSION7:
+                tasks.add(new Task("DASS21_AS", "Status Questionnaire", Task.TYPE.questions));
+                break;
+            case SESSION8:
+                tasks.add(new Task("AIP", "Imagery Prime", Task.TYPE.questions));
+                tasks.add(new Task("DASS21_AS", "Status Questionnaire", Task.TYPE.questions));
+                // State Anxiety is Incomplete
+                // tasks.add(new Task("SA", "State Anxiety", Task.TYPE.questions));
+                tasks.add(new Task("int_train", "Interpretation Training", Task.TYPE.playerScript));
+                tasks.add(new Task("QOL", "Quality of Life Scale", Task.TYPE.questions));
+                tasks.add(new Task("DASS21_DS", "Symptom Measures", Task.TYPE.questions));
+                break;
+            case POST:
+                tasks.add(new Task("MUE", "User Experience", Task.TYPE.questions));
+                tasks.add(new Task("DASS21_AS", "Status Questionnaire", Task.TYPE.questions));
+                // State Anxiety is Incomplete
+                // tasks.add(new Task("SA", "State Anxiety", Task.TYPE.questions));
+                tasks.add(new Task("int_train", "Interpretation Training", Task.TYPE.playerScript));
+                tasks.add(new Task("QOL", "Quality of Life Scale", Task.TYPE.questions));
+                tasks.add(new Task("DASS21_DS", "Symptom Measures", Task.TYPE.questions));
         }
+        setTaskStates(tasks, taskIndex);
         return tasks;
+    }
+
+    /**
+     * This method churns through the list of tasks, setting the "current" and "complete" flags based on the
+     * current task index.
+     */
+    private static void setTaskStates(List<Task> tasks, int taskIndex) {
+        int index = 0;
+        for(Task t : tasks) {
+            t.setCurrent(taskIndex == index);
+            t.setComplete(taskIndex > index);
+            index ++;
+        }
+
     }
 
     /**
