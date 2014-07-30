@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="fragment/common :: headerFragment"/>
+<body>
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
+
+<!-- header-btm starts
+================================================== -->
+<section id="header-btm" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <h4 class="heading-icon clearfix"><img src="img/icons/heading-icon-user.png" width="40" height="40"
+                                                       alt="icon" class="icon-small-bg"/>Administration</h4>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- header-btm ends
+================================================== -->
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+    <div class="container">
+
+        <!--spacer here-->
+        <div class="spacer-30px"></div>
+
+        <h1>Sessions</h1>
+        <p>Here are all the sessions recorded in the system, with links into all the content within each session.</p>
+            <ul class="list-4col team">
+                <li th:each="session : ${sessions}">
+                    <h5 th:text="${session.name}"></h5>
+                    <ul>
+                        <li th:each="task : ${session.tasks}">
+                          <a th:href="@{${'/' + task.requestMapping}}" th:text="${task.displayName}"></a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+        <!--divider here-->
+        <div class="spacer-40px"></div>
+
+        <!--spacer here-->
+        <div class="spacer-30px"></div>
+
+    </div>
+</section>
+
+
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>

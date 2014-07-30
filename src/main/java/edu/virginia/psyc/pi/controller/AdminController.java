@@ -118,4 +118,13 @@ public class AdminController extends BaseController {
         return "redirect:/admin";
     }
 
+    @RequestMapping(value="/listSessions", method=RequestMethod.GET)
+    public String listSessions(ModelMap model, Principal principal) {
+        Participant p = getParticipant(principal);
+        model.addAttribute("participant", p);
+        model.addAttribute("sessions", p.getSessions());
+        return "admin/listSessions";
+    }
+
+
 }
