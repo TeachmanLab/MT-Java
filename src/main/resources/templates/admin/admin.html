@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="fragment/common :: headerFragment"/>
+<body>
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
+
+<!-- header-btm starts
+================================================== -->
+<section id="header-btm" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <h4 class="heading-icon clearfix"><img src="img/icons/heading-icon-user.png" width="40" height="40"
+                                                       alt="icon" class="icon-small-bg"/>Administration</h4>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- header-btm ends
+================================================== -->
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+    <div class="container">
+
+
+        <!--spacer here-->
+        <div class="spacer-30px"></div>
+
+
+        <h1>Participants</h1>
+
+        <div class="row">
+            <div class="main-content span8">
+                <form action="#" th:action="@{/admin}" method="get">
+                    <input type="text" name="search" th:value="${search}"/>
+                    <input type="submit" value="search"/>
+                </form>
+            </div>
+            <div class="sidebar span4">
+                <p>Found <span th:text="${participants.totalElements}"> 100</span> participants. Showing page <span
+                        th:text="${participants.number + 1}">1</span> of <span
+                        th:text="${participants.totalPages}">10</span></p>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="main-content span12">
+
+                <table class="table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Session</th>
+                        <th>send reminders?</th>
+                        <th>Active?</th>
+                        <th>Admin?</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="p : ${participants.content}">
+                        <td th:text="${p.id}">0</td>
+                        <td th:text="${p.fullName}">Dan Funk</td>
+                        <td th:text="${p.email}">daniel.h.funk@gmail.com</td>
+                        <td th:text="${p.currentSession}">Session1</td>
+                        <td th:text="${p.emailOptout}? no : yes">yes</td>
+                        <td th:text="${p.active}? yes : no">yes</td>
+                        <td th:text="${p.admin}? yes : no">yes</td>
+                        <td>
+                            <a th:href="@{'/admin/participant/'+${p.id}}">Edit</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <span th:if="${!participants.firstPage}">
+                    <a class="mybtn-small"
+                    th:href="@{/admin(page=${participants.number - 1}, search=${search})}">Previous</a>
+                </span>
+                <span th:if="${!participants.lastPage}" style="float:right">
+                    <a class="mybtn-small" th:href="@{/admin(page=${participants.number + 1}, search=${search})}">Next</a>
+                </span>
+            </div>
+
+        </div>
+
+        <!--spacer here-->
+        <div class="spacer-30px"></div>
+
+    </div>
+</section>
+
+
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>

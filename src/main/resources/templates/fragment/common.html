@@ -156,8 +156,12 @@
             <!--column two starts-->
             <div class="span4" sec:authorize="hasRole('ROLE_ADMIN')">
                 <h5>Administration Tools</h5>
-                <p>This section is only visible to you because you have been granted administrative access.
-                    <a href="/admin">User Administration</a>: provides a way to view all accounts created on the system.</p>
+                <p>This section is only visible to you because you have been granted administrative access.</p>
+                    <ul class="list-info">
+                        <li><a href="/admin">User Administration</a>: provides a way to view all accounts created on the system.</li>
+                        <li><a href="/admin/listEmails">Email Messages</a>: allows you to send yourself a copy of all email messages coming from the system.</li>
+                    </ul>
+
             </div>
             <!--column two ends-->
 

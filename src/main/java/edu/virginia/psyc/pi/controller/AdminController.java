@@ -29,9 +29,8 @@ import java.security.Principal;
  */
 @Controller
 @RequestMapping("/admin")
-public class AdminController {
+public class AdminController extends BaseController {
 
-    private ParticipantRepository participantRepository;
     private static final Logger LOG = LoggerFactory.getLogger(AdminController.class);
 
     private static final int PER_PAGE=10; // Number of users to display per page.
@@ -68,7 +67,7 @@ public class AdminController {
 
         model.addAttribute("participants", participants);
         model.addAttribute("search", search);
-        return "admin";
+        return "admin/admin";
 
     }
 
@@ -79,7 +78,7 @@ public class AdminController {
         p = participantRepository.entityToDomain(participantRepository.findOne(id));
 
         model.addAttribute("participant", p);
-        return "participant_form";
+        return "admin/participant_form";
     }
 
     @RequestMapping(value="/participant/{id}", method=RequestMethod.POST)
@@ -94,12 +93,19 @@ public class AdminController {
         if (bindingResult.hasErrors()) {
             LOG.error("Invalid participant:" + bindingResult.getAllErrors());
             model.addAttribute("participant", participant);
-            return "participant_form";
+            return "admin/participant_form";
         } else {
             participantRepository.domainToEntity(participant, dao);
             participantRepository.save(dao);
         }
         return "redirect:/admin";
+    }
+
+    @RequestMapping(value="/listEmails", method=RequestMethod.GET)
+    public String listEmails(ModelMap model, Principal principal) {
+        Participant p = getParticipant(principal);
+        model.addAttribute("participant", p);
+        return "admin/listEmails";
     }
 
     @RequestMapping(value="/sendEmail/{type}")
