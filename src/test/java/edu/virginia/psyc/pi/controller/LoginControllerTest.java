@@ -36,6 +36,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebAppConfiguration
 public class LoginControllerTest {
 
+    private static String PASSWD = "1234!@#$qwerQWER";
+
     @Autowired
     private FilterChainProxy springSecurityFilterChain;
 
@@ -73,8 +75,8 @@ public class LoginControllerTest {
         this.mockMvc.perform(post("/newParticipant")
                 .param("fullName", "Dan Funk")
                 .param("email", "some_crazy2@email.com")
-                .param("password", "ereiamjh")
-                .param("passwordAgain", "ereiamjh"))
+                .param("password", PASSWD)
+                .param("passwordAgain", PASSWD))
                 .andDo(print())
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/session"));
@@ -98,8 +100,8 @@ public class LoginControllerTest {
 
         this.mockMvc.perform(post("/login")
                 .param("username", "some_crazy2@email.com")
-                .param("password", "ereiamjh")
-                .param("passwordAgain", "ereiamjh"))
+                .param("password", PASSWD)
+                .param("passwordAgain", PASSWD))
                 .andDo(print())
                 .andExpect(status().is3xxRedirection());
 

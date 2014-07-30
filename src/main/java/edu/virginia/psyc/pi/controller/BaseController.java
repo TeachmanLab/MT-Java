@@ -5,6 +5,7 @@ import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 
 import java.security.Principal;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,6 +22,14 @@ public class BaseController {
         Participant p;
         p = participantRepository.entityToDomain(participantRepository.findByEmail(principal.getName()).get(0));
         return(p);
+    }
+
+    Participant getParticipant(String email) {
+        Participant p;
+        List<ParticipantDAO> list;
+        list = participantRepository.findByEmail(email);
+        if(list.size() > 0) return(participantRepository.entityToDomain(list.get(0)));
+        return null;
     }
 
     void saveParticipant(Participant participant) {

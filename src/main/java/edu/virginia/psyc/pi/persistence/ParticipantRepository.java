@@ -34,4 +34,10 @@ public interface ParticipantRepository extends JpaRepository<ParticipantDAO, Lon
             " order by lower(p.fullName)")
     Page<ParticipantDAO> search(@Param("search") String search, Pageable pageable);
 
+
+    @Query("SELECT p FROM ParticipantDAO as p LEFT JOIN p.passwordTokenDAO t \n" +
+            "            where t.token = :token")
+    ParticipantDAO findByToken(@Param("token") String token);
+
+
 }

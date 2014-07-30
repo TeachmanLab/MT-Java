@@ -3,22 +3,23 @@ package edu.virginia.psyc.pi.DAO;
 import edu.virginia.psyc.pi.Application;
 import edu.virginia.psyc.pi.domain.EmailLog;
 import edu.virginia.psyc.pi.domain.Participant;
+import edu.virginia.psyc.pi.domain.PasswordToken;
 import edu.virginia.psyc.pi.domain.Session;
-import edu.virginia.psyc.pi.persistence.EmailLogDAO;
-import edu.virginia.psyc.pi.persistence.ParticipantDAO;
-import edu.virginia.psyc.pi.persistence.ParticipantRepository;
-import edu.virginia.psyc.pi.persistence.ParticipantRepositoryImpl;
+import edu.virginia.psyc.pi.persistence.*;
 import edu.virginia.psyc.pi.service.EmailService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertNull;
 import static org.junit.Assert.assertEquals;
+import static org.springframework.test.util.AssertionErrors.assertTrue;
 
 import java.util.Date;
 import java.util.List;
@@ -54,6 +55,7 @@ public class ParticipantRepositoryTest {
         dao.setActive(false);
         dao.setLastLoginDate(new Date());
         dao.setLastSessionDate(new Date());
+        dao.setPasswordTokenDAO(new PasswordTokenDAO(dao, new Date(), "1234"));
 
         p = repository.entityToDomain(dao);
 
@@ -69,6 +71,66 @@ public class ParticipantRepositoryTest {
         assertNotNull(p.getCurrentSession());
         assertEquals(p.getLastLoginDate(), dao.getLastLoginDate());
         assertEquals(p.getLastSessionDate(), dao.getLastSessionDate());
+        assertNull("Password should not come back from the database.", p.getPassword());
+    }
+
+    @Test
+    public void testPasswordTokenIsTransferedToDomain() {
+        ParticipantDAO dao;
+        Participant p;
+        ParticipantRepositoryImpl repository = new ParticipantRepositoryImpl();
+
+        dao = new ParticipantDAO("Dan Funk", "dan@sartography.com", "password", false);
+        dao.setPasswordTokenDAO(new PasswordTokenDAO(dao, new Date(), "1234"));
+
+        p = repository.entityToDomain(dao);
+
+        assertNotNull(p.getPasswordToken());
+        assertEquals("1234", p.getPasswordToken().getToken());
+        assertTrue("Newly created token is considered valid", p.getPasswordToken().valid());
+    }
+
+    @Test
+    public void testPasswordTokenIsTransferedToEntity() {
+        Participant p;
+        ParticipantDAO dao = new ParticipantDAO();
+        ParticipantRepositoryImpl repository = new ParticipantRepositoryImpl();
+
+        p = new Participant(1, "Dan Funk", "daniel.h.funk@gmail.com", false);
+        p.setPasswordToken(new PasswordToken());
+
+        repository.domainToEntity(p, dao);
+
+        assertNotNull(dao.getPasswordTokenDAO());
+        assertNotNull(dao.getPasswordTokenDAO().getToken());
+        assertEquals(20, dao.getPasswordTokenDAO().getToken().length());
+    }
+
+    @Test
+    public void testPasswordIsEncryptedWhenStored() {
+        Participant p;
+        ParticipantDAO dao = new ParticipantDAO();
+        ParticipantRepositoryImpl repository = new ParticipantRepositoryImpl();
+        String password = "Abcdefg1#";
+
+        StandardPasswordEncoder encoder = new StandardPasswordEncoder();
+
+        p = new Participant(1, "Dan Funk", "daniel.h.funk@gmail.com", false);
+        p.setPassword(password);
+
+        repository.domainToEntity(p, dao);
+
+        Assert.assertNotNull(dao.getPassword());
+        Assert.assertNotSame(password, dao.getPassword());
+        Assert.assertTrue(encoder.matches(password, dao.getPassword()));
+
+        // If the password isn't set, it doesn't overwrite the DAO.
+        p.setPassword(null);
+        repository.domainToEntity(p, dao);
+
+        Assert.assertNotNull(dao.getPassword());
+        Assert.assertNotSame(password, dao.getPassword());
+        Assert.assertTrue(encoder.matches(password, dao.getPassword()));
 
     }
 
@@ -138,5 +200,31 @@ public class ParticipantRepositoryTest {
 
     }
 
+    @Test
+    @Transactional
+    public void testFindByToken() {
+        ParticipantDAO participantDAO;
+        Participant p, p2;
+        PasswordTokenDAO token;
+        String tokenString = "abcfedf";
+
+        // Create a participant
+        participantDAO = new ParticipantDAO("John", "john@x.com", "12341234", false);
+
+        // Create a token DAO object
+        token = new PasswordTokenDAO(participantDAO, new Date(), tokenString);
+
+        // Connect the two and save.
+        participantDAO.setPasswordTokenDAO(token);
+        participantRepository.save(participantDAO);
+        participantRepository.flush();
+
+        // Find the participant by the token.
+        participantDAO = participantRepository.findByToken(tokenString);
+
+        Assert.assertNotNull(participantDAO);
+        Assert.assertEquals(tokenString, participantDAO.getPasswordTokenDAO().getToken());
+        Assert.assertEquals("john@x.com", participantDAO.getEmail());
+    }
 
 }

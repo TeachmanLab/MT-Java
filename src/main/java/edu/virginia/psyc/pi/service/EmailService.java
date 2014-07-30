@@ -37,7 +37,7 @@ public class EmailService {
     /**
      * Each of these types should have a coresponding template in resources/templates/email
      */
-    public enum TYPE {day2, day4, day7, day11, day15, day18, followup, followup2, followup3}
+    public enum TYPE {day2, day4, day7, day11, day15, day18, followup, followup2, followup3, resetPass}
 
     @Autowired
     private JavaMailSender mailSender;
@@ -68,6 +68,7 @@ public class EmailService {
             case followup  : return "Follow-up from the Project Implicit Mental Health training team";
             case followup2 : return "Follow-up reminder from the Project Implicit Mental Health training team";
             case followup3 : return "Final reminder from the Project Implicit Mental Health training team";
+            case resetPass : return "Project Implicit Mental Health - Account Request";
             default        : return "";
         }
     }
@@ -75,11 +76,10 @@ public class EmailService {
     /*
   * Send HTML mail (simple)
   */
-    public void sendSimpleMail(Participant participant, TYPE type)
+    private void sendMail(Participant participant, TYPE type, Context ctx)
             throws MessagingException {
 
         // Prepare the evaluation context
-        final Context ctx = new Context();
         ctx.setVariable("name", participant.getFullName());
         ctx.setVariable("url", this.siteUrl);
         ctx.setVariable("respondTo", this.respondTo);
@@ -101,6 +101,22 @@ public class EmailService {
         // Log that the email was sent.
         logEmail(participant.getId(), type);
     }
+
+    public void sendPasswordReset(Participant participant) throws MessagingException {
+        // Prepare the evaluation context
+        final Context ctx = new Context();
+        ctx.setVariable("token", participant.getPasswordToken().getToken());
+
+        sendMail(participant, TYPE.resetPass, ctx);
+    }
+
+    public void sendSimpleMail(Participant participant, TYPE type) throws MessagingException {
+        // Prepare the evaluation context
+        final Context ctx = new Context();
+        sendMail(participant, type, ctx);
+
+    }
+
 
     /**
      * Records the sending of an email.

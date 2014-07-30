@@ -44,6 +44,9 @@
                         <div th:if="${param.created}" class="alert alert-success">
                             Account created.  Please log in.
                         </div>
+                        <div th:if="${invalidCode}" class="alert alert-success">
+                            The password reset code you provided is not valid.
+                        </div>
                         <p>
                         <label for="email">Email</label>
                         <input type="text" id="email" name="username"/>
@@ -54,7 +57,7 @@
                         </p>
                         <div class="form-actions">
                             <button type="submit" class="btn">Log in</button>
-                            <a th:href="@{resetPass}">Fogot your password?</a>
+                            <a th:href="@{/resetPass}">Fogot your password?</a>
                         </div>
                     </fieldset>
                 </form>
@@ -64,7 +67,7 @@
 
                     <div class="formErrors">
                         <ul class="errors">
-                            <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
+                            <li th:each="err : ${#fields.errors('*')}" th:text="${err}" class="alert alert-error">Input is incorrect</li>
                         </ul>
                         <div class="spacer-20px"></div>
                     </div>

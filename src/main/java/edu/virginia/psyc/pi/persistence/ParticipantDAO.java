@@ -44,6 +44,11 @@ public class ParticipantDAO implements UserDetails {
 
     private Date          lastSessionDate;
 
+    private String        randomToken;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private PasswordTokenDAO  passwordTokenDAO;
+
     @Enumerated(EnumType.STRING)
     private Session.NAME currentSession = Session.NAME.values()[0]; // set to first session by default
 
@@ -196,6 +201,14 @@ public class ParticipantDAO implements UserDetails {
 
     public void setLastSessionDate(Date lastSessionDate) {
         this.lastSessionDate = lastSessionDate;
+    }
+
+    public PasswordTokenDAO getPasswordTokenDAO() {
+        return passwordTokenDAO;
+    }
+
+    public void setPasswordTokenDAO(PasswordTokenDAO passwordTokenDAO) {
+        this.passwordTokenDAO = passwordTokenDAO;
     }
 
     @Override

@@ -1,14 +1,15 @@
 package edu.virginia.psyc.pi.domain;
 
-import org.apache.commons.lang3.RandomStringUtils;
+import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import org.hibernate.validator.constraints.Email;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -30,6 +31,9 @@ public class Participant {
 
     public enum SESSION_STATE {NOT_ELIGIBLE, READY, WAIT_A_DAY, WAIT_FOR_FOLLOWUP, ALL_DONE}
 
+    public static final String PASSWORD_REGEX = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
+    public static final String PASSWORD_MESSAGE = "Password must be 8 digits long.  It must contain one digit, a lower case letter, an upper case letter, and a special character.";
+
     @Size(min=2, max=100, message="Please specify your full name.")
     private String fullName;
 
@@ -41,6 +45,7 @@ public class Participant {
     private boolean admin;
 
     @NotNull
+    @Pattern(regexp=PASSWORD_REGEX, message = PASSWORD_MESSAGE)
     private String        password;
     @NotNull
     private String        passwordAgain;
@@ -58,6 +63,8 @@ public class Participant {
 
     private List<EmailLog> emailLogs;
 
+    private PasswordToken  passwordToken;
+
     public Participant() {}
 
     public Participant(long id, String fullName, String email, boolean admin) {
@@ -65,6 +72,16 @@ public class Participant {
         this.fullName = fullName;
         this.email = email;
         this.admin = admin;
+    }
+
+
+    /**
+     * Checks to see if the given password matches some standard criteria:
+     * @param password
+     * @return
+     */
+    public static boolean validPassword(String password) {
+        return password.matches(PASSWORD_REGEX);
     }
 
     /**
@@ -244,5 +261,13 @@ public class Participant {
 
     public void setLastSessionDate(Date lastSessionDate) {
         this.lastSessionDate = lastSessionDate;
+    }
+
+    public PasswordToken getPasswordToken() {
+        return passwordToken;
+    }
+
+    public void setPasswordToken(PasswordToken passwordToken) {
+        this.passwordToken = passwordToken;
     }
 }
