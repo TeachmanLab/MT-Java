@@ -40,8 +40,9 @@ public class QuestionController {
     private DemographicRepository demographicRepository;
     private ParticipantRepository participantRepository;
     private AnxiousImageryPrime_Repository anxiousImageryPrime_Repository;
+    private NeutralImageryPrime_Repository neutralImageryPrime_Repository;
     private StateAnxietyRepository stateAnxiety_Repository;
-    private StateAnxietyPreRepository stateAnxietyPre_Repository;
+//    private StateAnxietyPreRepository stateAnxietyPre_Repository;
     private StateAnxietyPostRepository stateAnxietyPost_Repository;
     private static final Logger LOG = LoggerFactory.getLogger(QuestionController.class);
 
@@ -62,8 +63,9 @@ public class QuestionController {
                               DemographicRepository demographicRepository,
                               ParticipantRepository participantRepository,
                               AnxiousImageryPrime_Repository anxiousImageryPrime_Repository,
+                              NeutralImageryPrime_Repository neutralImageryPrime_Repository,
                               StateAnxietyRepository stateAnxiety_Repository,
-                              StateAnxietyPreRepository stateAnxietyPre_Repository,
+//                              StateAnxietyPreRepository stateAnxietyPre_Repository,
                               StateAnxietyPostRepository stateAnxietyPost_Repository) {
         this.dass21_asRepository = dass21_asRepository;
         this.credibilityRepository = credibilityRepository;
@@ -77,8 +79,9 @@ public class QuestionController {
         this.mue_Repository = mue_Repository;
         this.pue_Repository = pue_Repository;
         this.anxiousImageryPrime_Repository = anxiousImageryPrime_Repository;
+        this.neutralImageryPrime_Repository = neutralImageryPrime_Repository;
         this.stateAnxiety_Repository = stateAnxiety_Repository;
-        this.stateAnxietyPre_Repository = stateAnxietyPre_Repository;
+//        this.stateAnxietyPre_Repository = stateAnxietyPre_Repository;
         this.stateAnxietyPost_Repository = stateAnxietyPost_Repository;
     }
 
@@ -310,13 +313,33 @@ public class QuestionController {
     }
 
     @RequestMapping(value = "AIP", method = RequestMethod.POST)
-    RedirectView handleImpact(@ModelAttribute("AIP") AnxiousImageryPrime prime,
+    RedirectView handleAIP(@ModelAttribute("AIP") AnxiousImageryPrime prime,
                               BindingResult result) {
 
         recordSessionProgress(prime);
         anxiousImageryPrime_Repository.save(prime);
         return new RedirectView("/session");
     }
+
+    /**
+     * NeutralImageryPrime
+     * ---------*
+     */
+
+    @RequestMapping(value = "NIP", method = RequestMethod.GET)
+    public ModelAndView showNIP() {
+        return new ModelAndView("questions/NIP", "NIP", new NeutralImageryPrime());
+    }
+
+    @RequestMapping(value = "NIP", method = RequestMethod.POST)
+    RedirectView handleNIP(@ModelAttribute("NIP") NeutralImageryPrime prime,
+                              BindingResult result) {
+
+        recordSessionProgress(prime);
+        neutralImageryPrime_Repository.save(prime);
+        return new RedirectView("/session");
+    }
+
 
     /**
      * Demographics
@@ -355,24 +378,24 @@ public class QuestionController {
 
     }
 
-    /**
-     * StateAnxietyPreRepository
-     * ---------*
-     */
-    @RequestMapping(value = "SAPr", method = RequestMethod.GET)
-    public ModelAndView showSAPr() {
-        return new ModelAndView("questions/SAPr", "SAPr", new StateAnxiety());
-    }
-
-    @RequestMapping(value = "SAPr", method = RequestMethod.POST)
-    RedirectView handleSAPr(@ModelAttribute("SAPr") StateAnxietyPre SAPre,
-                              BindingResult result) {
-
-        recordSessionProgress(SAPre);
-        stateAnxietyPre_Repository.save(SAPre);
-        return new RedirectView("/session");
-
-    }
+//    /**
+//     * StateAnxietyPreRepository
+//     * ---------*
+//     */
+//    @RequestMapping(value = "SAPr", method = RequestMethod.GET)
+//    public ModelAndView showSAPr() {
+//        return new ModelAndView("questions/SAPr", "SAPr", new StateAnxiety());
+//    }
+//
+//    @RequestMapping(value = "SAPr", method = RequestMethod.POST)
+//    RedirectView handleSAPr(@ModelAttribute("SAPr") StateAnxietyPre SAPre,
+//                              BindingResult result) {
+//
+//        recordSessionProgress(SAPre);
+//        stateAnxietyPre_Repository.save(SAPre);
+//        return new RedirectView("/session");
+//
+//    }
 
     /**
      * StateAnxietypostRepository
