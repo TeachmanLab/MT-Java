@@ -1,10 +1,190 @@
 <!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="/fragment/common :: headerFragment" />
 <body>
+<section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
+
+<!-- header-btm starts
+================================================== -->
+<section id="header-btm" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <h4 class="heading-icon clearfix"> <img th:src="@{/grepfrut/img/icons/heading-icon-user.png}" width="40" height="40" alt="icon" class="icon-small-bg"/> </h4>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- header-btm ends
+================================================== -->
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+    <div class="container">
+
+        <!--spacer here-->
+        <div class="spacer-30px"></div>
+
+        <!--features starts-->
+        <div class="row">
+            <div class="span12">
+                <form id="wizard" th:action="@{/questions/AIP}" method="POST">
+                    <fieldset>
+                        <legend>Step 1</legend>
+                        <p>
+                            <label>Please select the two situations from the list below that routinely cause you the most anxiety
+                            </label>
+                            <select multiple="multiple" name="situations">
+                                <option value=""></option>
+                                <option value="finances">Worry about finances/money</option>
+                                <option value="career">Worry about work/career/school</option>
+                                <option value="relationships">Worry about relationships (e.g., romantic, family, friends)</option>
+                                <option value="health"> Worry about my or others’ health </option>
+                                <option value="thoughts">Anxiety about upsetting thoughts that keep coming into my head </option>
+                                <option value="rituals">Anxiety about rituals or activities I feel I have to do over and over again (e.g., checking things or washing my hands)</option>
+                                <option value="bodily">Fear about changes in my bodily sensations (e.g., feeling dizzy, short of breath or rapid heart beat) </option>
+                                <option value="crazy">Fear that I’m going crazy or losing my mind</option>
+                                <option value="afraid">Fear that I will become afraid and not be able to leave a situation (e.g., at a movie theater) </option>
+                                <option value="social"> Anxiety at social gatherings (e.g., parties) </option>
+                                <option value="authority">Anxiety when talking to an authority figure (e.g., boss, teacher) </option>
+                                <option value="new_people"> Anxiety meeting new people </option>
+                                <option value="dating">Anxiety about dating or interacting with someone I am attracted to </option>
+                                <option value="other">Other</option>
+                            </select>
+                        </p>
+                        <label> If other anxiety-provoking situation, please specficy </label>
+                        <input type="text" name="other_anxiety"/>
+                        <p>Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</p>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Step 2</legend>
+                        <p>
+                            <label>Please note (in just a few words) what type of situation this involves (e.g., speaking in public, driving, feeling caught in a crowd, worry about an upcoming trip):</label>
+                            <textarea name="situation_desc" rows="1"></textarea>
+                        </p>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <p>
+                            Please generate an image of the situation that is as vivid as possible (i.e., that feels very real). Try to imagine you are actually in the situation. Play out the specific parts of the situation in your head.
+                        </p>
+
+                    </fieldset>
+                    <fieldset>
+                        <legend>Step 3</legend>
+                        <p>
+                            Please think of at least three things you would see in the situation.
+                        </p>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Step 4</legend>
+                        <p>
+                            Please think of at least three things you would hear in the situation.
+                        </p>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Step 5</legend>
+                        <p>
+                            <label>Please think of at least three things you would likely think or feel in the situation. Write down a few words to note 3 of the things you would think or feel (e.g., I feel embarrassed, I look stupid, think I want to leave)</label>
+                            <textarea name="think_feel" rows="3"></textarea>
+                        </p>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <p>
+                            Please play this upcoming situation in your head for the next 20 seconds, remembering all of the things you see, hear, think, and feel. We will tell you when the 20 seconds are up.
+                        </p>
+                        <p>
+                            <label>How anxious do you think you would be in this situation</label>
+                            <select name="anxious">
+                                <option value=""></option>
+                                <option>Extremely Calm</option>
+                                <option>Calm</option>
+                                <option>Somewhat Calm</option>
+                                <option>Neutral</option>
+                                <option>Somewhat anxious </option>
+                                <option>Anxious</option>
+                                <option>Extremely anxious </option>
+                                <option>Prefer not to answer</option>
+                            </select>
+                        </p>
+                        <p>
+                            <!--FIXME could not go to 7-->
+                            <label>How would you rate your desire to avoid or escape from this situation?</label>
+                            <select name="avoid">
+                                <option value=""></option>
+                                <option>No Desire To Avoid</option>
+                                <option>Neutral</option>
+                                <option>Desired to Avoid</option>
+                                <option>Prefer not to answer</option>
+                            </select>
+                        </p>
+                        <p>
+                            <label>How likely is it that this situation will turn out badly?
+                            </label>
+                            <select name="badly">
+                                <option value=""></option>
+                                <option>Extremely Unlikely</option>
+                                <option>Unlikely</option>
+                                <option>Somewhat Unlikely</option>
+                                <option>Neither Likely Nor Unlikely</option>
+                                <option>Somewhat likely </option>
+                                <option>Likely </option>
+                                <option>Extremely Likely </option>
+                                <option>Prefer not to answer</option>
+                            </select>
+                        </p>
+                        <!--FIXME could not go to 7-->
+                        <p>
+                            <label>How terrible would it be if this situation did turn out badly?
+                            </label>
+                            <select name="terrible">
+                                <option value=""></option>
+                                <option>Not At All Terrible</option>
+                                <option>A little Terrible</option>
+                                <option>Somewhat Terrible</option>
+                                <option>Terrible</option>
+                                <option>Extremely Terrible</option>
+                                <option>Prefer not to answer</option>
+                            </select>
+                        </p>
+                    </fieldset>
+                </form>
+                <script>
+                   $('#wizard').jWizard();
+                </script>
+            </div>
+        </div>
+        <!--features ends-->
+
+        <!--divider here-->
+        <div class="spacer-40px"></div>
+
+    </div>
+</section>
+
+
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts" />
 
 </body>
 </html>
+
+
+
+

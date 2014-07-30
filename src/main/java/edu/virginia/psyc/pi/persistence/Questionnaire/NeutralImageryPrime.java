@@ -7,24 +7,26 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
- * Created by samportnow on 7/23/14.
+ * Created by samportnow on 7/21/14.
  */
 @Entity
-@Table(name="ReasonsEnding")
-public class ReasonEnding implements QuestionnaireData {
+@Table(name="AnxiousImageryPrime")
+public class NeutralImageryPrime implements QuestionnaireData{
+
 
     @Id
     @GeneratedValue
     private int id;
-
     @ManyToOne
     private ParticipantDAO participantDAO;
     private Date date;
-
     @Enumerated(EnumType.STRING)
     private Session.NAME session = Session.NAME.ELIGIBLE;
 
 
+    private String situation;
+    private String think_feel;
+    private int vivid;
 
     public int getId() {
         return id;
@@ -56,5 +58,29 @@ public class ReasonEnding implements QuestionnaireData {
 
     public void setSession(Session.NAME session) {
         this.session = session;
+    }
+
+    public String getSituation() {
+        return situation;
+    }
+
+    public void setSituation(String situation) {
+        this.situation = situation;
+    }
+
+    public String getThink_feel() {
+        return think_feel;
+    }
+
+    public void setThink_feel(String think_feel) {
+        this.think_feel = think_feel;
+    }
+
+    public int getVivid() {
+        return vivid;
+    }
+
+    public void setVivid(int vivid) {
+        this.vivid = vivid;
     }
 }

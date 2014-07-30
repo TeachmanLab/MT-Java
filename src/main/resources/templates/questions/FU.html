@@ -36,6 +36,7 @@
             <div class="span12">
                 <form id="wizard" th:action="@{/questions/followup}" method="POST">
                     <fieldset>
+                        <legend>Questions</legend>
                         <h4>Please provide as much information as possible.</h4>
                         <p>
                             <label>Over the course of this program, did you start/stop/change a dose of medication, therapy, or other intervention to help your anxiety difficulties?  (If you are on the same dose of medication or same appointment schedule for therapy or intervention as you were when you began this program, please choose “no.”)</label>
@@ -43,6 +44,7 @@
                                 <option value=""></option>
                                 <option>Yes</option>
                                 <option>No</option>
+                                <option>Prefer not to answer</option>
                             </select>
                         </p>
                         <p>
@@ -52,6 +54,9 @@
                         </p>
                     </fieldset>
                 </form>
+                <script>
+                    jQuery("#wizard").jWizard();
+                </script>
             </div>
         </div>
         <!--features ends-->
