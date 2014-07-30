@@ -15,7 +15,7 @@
     <div class="container">
         <div class="row">
             <div class="span12">
-                <h4 class="heading-icon clearfix"> <img src="/grepfrut/img/icons/heading-icon-user.png" width="40" height="40" alt="icon" class="icon-small-bg"/>Alpha Development Release -- Sprint 8</h4>
+                <h4 class="heading-icon clearfix"> <img src="/grepfrut/img/icons/heading-icon-blocks.png" width="40" height="40" alt="icon" class="icon-small-bg"/>Session Progress</h4>
             </div>
         </div>
     </div>
@@ -48,20 +48,42 @@
                             </div>
                         </div>
                         <!--spacer here-->
-
                         <div class="spacer-30px"></div>
-                        <div th:switch="${currentSession.name.toString()}">
-                        <p th:case='ELGIIBLE'>We need you to complete a few questionnaires to determine if you are eligible to participate in this study. </p>
-                        <p th:case='PRE'>Before you begin the first session, we need to develop a more detailed assessment of your current state.</p>
-                        <p th:case='SESSION1'>This is Session 1.  You should try and complete both Session 1 and Session 2 this week.  Please press the "Next" button below to get started.</p>
+
+                        <div th:if="${sessionState == 'READY'}">
+                            <div th:switch="${currentSession.name.toString()}">
+                                <p th:case='ELGIIBLE'>We need you to complete a few questionnaires to determine if you are eligible to participate in this study. </p>
+                                <p th:case='PRE'>Before you begin the first session, we need to develop a more detailed assessment of your current state.</p>
+                                <p th:case='SESSION1'>This is Session 1.  You should try and complete both Session 1 and Session 2 this week.  Please press the "Next" button below to get started.</p>
+                            </div>
+
+                            <ul id="tasks">
+                                <li th:each="task : ${currentSession.tasks}" th:class="${task.state}" th:text="${task.displayName}"/>
+                            </ul>
+
+                            <p> Please press the next button when you are ready to continue.</p>
+                            <a th:href="${currentTask.requestMapping}" th:if="${currentTask}"><div class="mybtn">Next</div></a>
+
                         </div>
 
-                        <ul id="tasks">
-                            <li th:each="task : ${currentSession.tasks}" th:class="${task.state}" th:text="${task.displayName}"/>
-                        </ul>
+                        <div th:if="${sessionState == 'WAIT_A_DAY'}">
+                            Great work!  Please come back within the next few days to complete the next session.
+                        </div>
 
-                        <p> Please press the next button when you are ready to continue.</p>
-                        <a th:href="${currentTask.requestMapping}" th:if="${currentTask}"><div class="mybtn">Next</div></a>
+                        <div th:if="${sessionState == 'NOT_ELIGIBLE'}">
+                            Based on the answers you provided in the initial review, we cannot accept you into the study at this time.
+                        </div>
+
+                        <div th:if="${sessionState == 'WAIT_FOR_FOLLOWUP'}">
+                            We will email you in a few months, when it is time to complete the follow up session.  Thank you.
+                        </div>
+
+                        <div th:if="${sessionState == 'ALL_DONE'}">
+                            You are all finished!  Thank you very much for participating in the study.
+                        </div>
+
+
+
 
                     </li>
                 </ul>
@@ -69,41 +91,8 @@
         </div>
         <!--features ends-->
 
-
         <!--divider here-->
         <div class="spacer-40px"></div>
-
-        <!--spacer here-->
-        <div class="spacer-30px"></div>
-
-        <!--box starts-->
-        <div class="row">
-
-            <div class="span12">
-                <h1>Working Examples:</h1>
-                <ul class="list-3col">
-                    <li>
-                        <h4>Questionnaires</h4>
-                        <p>Below are a list of completed Questionnaires.  You can find detailed instructions on how to create your own Questionnaires in the README for this <a href="https://github.com/danfunk/PIServer">GitHub project</a></p>
-                        <ul>
-                            <li><a th:href="@{/questions/credibility.html}">Credibility</a></li>
-                            <li><a th:href="@{/questions/DASS21_AS.html}">DASS21 AS</a></li>
-                            <li><a th:href="@{/questions/demographics.html}">Demographics</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <h4>Interpretation Training</h4>
-                        <p>This is the second build of an Interpretation Training module.  This is based on the CBM-I Threat Scenerio data provided by Sam and built from scratch using the PIPlayer.</p>
-                        <a href="int_train.html">Begin the Interpretation Training Module. &raquo;</a></li>
-                    <li>
-                        <h4>View Data</h4>
-                        <p>Here you can view the Interpretation data we collected when executing the study as a spreadsheet.</p>
-                        <a href="/data">View Data</a></li>
-                </ul>
-            </div>
-
-        </div>
-        <!--box ends-->
 
     </div>
 </section>

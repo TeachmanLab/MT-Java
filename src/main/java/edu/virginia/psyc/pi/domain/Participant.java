@@ -1,12 +1,16 @@
 package edu.virginia.psyc.pi.domain;
 
-import org.apache.commons.lang3.RandomStringUtils;
+import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import org.hibernate.validator.constraints.Email;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,10 +21,18 @@ import java.util.List;
  * This is used to create a new participant in the MVC login controller, and
  * for modifying participants in the admin interface.  And will be used to
  * reset passwords when that get's implemented.
+ *
+ * This is also used for displaying details about the Participant, and for housing
+ * general business logic specific to the Participant.
  */
 public class Participant {
 
     private long id;
+
+    public enum SESSION_STATE {NOT_ELIGIBLE, READY, WAIT_A_DAY, WAIT_FOR_FOLLOWUP, ALL_DONE}
+
+    public static final String PASSWORD_REGEX = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
+    public static final String PASSWORD_MESSAGE = "Password must be 8 digits long.  It must contain one digit, a lower case letter, an upper case letter, and a special character.";
 
     @Size(min=2, max=100, message="Please specify your full name.")
     private String fullName;
@@ -33,10 +45,10 @@ public class Participant {
     private boolean admin;
 
     @NotNull
+    @Pattern(regexp=PASSWORD_REGEX, message = PASSWORD_MESSAGE)
     private String        password;
     @NotNull
     private String        passwordAgain;
-
 
     private List<Session> sessions  = Session.defaultList();
     private int           taskIndex;
@@ -45,8 +57,13 @@ public class Participant {
 
     private boolean       active = true;
 
+    private Date          lastLoginDate;
+
+    private Date          lastSessionDate;
 
     private List<EmailLog> emailLogs;
+
+    private PasswordToken  passwordToken;
 
     public Participant() {}
 
@@ -55,6 +72,16 @@ public class Participant {
         this.fullName = fullName;
         this.email = email;
         this.admin = admin;
+    }
+
+
+    /**
+     * Checks to see if the given password matches some standard criteria:
+     * @param password
+     * @return
+     */
+    public static boolean validPassword(String password) {
+        return password.matches(PASSWORD_REGEX);
     }
 
     /**
@@ -85,6 +112,7 @@ public class Participant {
         // If this is the last task in a session, then we move to the next session.
         if(getTaskIndex() +1 == getCurrentSession().getTasks().size()) {
             this.taskIndex = 0;
+            this.lastSessionDate = new Date();
             sessionName    = Session.nextSession(getCurrentSession().getName());
         } else { // otherwise we just increment the task index.
             this.taskIndex = taskIndex + 1;
@@ -93,6 +121,30 @@ public class Participant {
         // Rebuid the session list, based on the now current session.
         this.sessions = Session.createListView(sessionName, taskIndex);
     }
+
+    /**
+     * @return Number of days since the last completed session.
+     * Returns -1 if no sessions where ever completed.
+     */
+    public int daysSinceLastSession() {
+        DateTime last;
+        DateTime now;
+
+        last = new DateTime(this.lastSessionDate);
+        now  = new DateTime();
+        return Days.daysBetween(last, now).getDays();
+    }
+
+    /**
+     * Returns the state of the participant, in regards to the Session.  Can
+     * be
+     * @return
+     */
+    public SESSION_STATE sessionState() {
+        if(daysSinceLastSession() == 0) return SESSION_STATE.WAIT_A_DAY;
+        return SESSION_STATE.READY;
+    }
+
 
     public long getId() {
         return id;
@@ -193,5 +245,29 @@ public class Participant {
 
     public void setPasswordAgain(String passwordAgain) {
         this.passwordAgain = passwordAgain;
+    }
+
+    public Date getLastLoginDate() {
+        return lastLoginDate;
+    }
+
+    public void setLastLoginDate(Date lastLoginDate) {
+        this.lastLoginDate = lastLoginDate;
+    }
+
+    public Date getLastSessionDate() {
+        return lastSessionDate;
+    }
+
+    public void setLastSessionDate(Date lastSessionDate) {
+        this.lastSessionDate = lastSessionDate;
+    }
+
+    public PasswordToken getPasswordToken() {
+        return passwordToken;
+    }
+
+    public void setPasswordToken(PasswordToken passwordToken) {
+        this.passwordToken = passwordToken;
     }
 }

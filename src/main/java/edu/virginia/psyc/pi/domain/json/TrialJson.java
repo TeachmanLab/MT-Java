@@ -64,9 +64,6 @@ public class TrialJson {
 
         boolean isPositive = Boolean.valueOf(data.get("positive"));
         boolean correct;
-        String  response = data.get("questionResponse");
-        correct = (isPositive && response.equals("yes")) ||
-                  (!isPositive && response.equals("no"));
 
         String base = id + "," + log_serial + "," + trial_id + ","
                         + data.get("questionResponse") + ","
@@ -77,7 +74,7 @@ public class TrialJson {
         report.put("session",    log_serial+"");
         report.put("trial",      trial_id);
         report.put("positive",   data.get("positive"));
-        report.put("correct",    correct + "");
+        report.put("correct",    data.get("correctOnQuestion"));
         report.put("paragraph",  data.get("paragraph"));
         report.put("question",   data.get("question"));
 

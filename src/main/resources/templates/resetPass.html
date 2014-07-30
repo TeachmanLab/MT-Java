@@ -15,7 +15,7 @@
     <div class="container">
         <div class="row">
             <div class="span12">
-                <h4 class="heading-icon clearfix"> <img src="/grepfrut/img/icons/heading-icon-user.png" width="40" height="40" alt="icon" class="icon-small-bg"/>Intervention Rationale</h4>
+                <h4 class="heading-icon clearfix"> <img src="/grepfrut/img/icons/heading-icon-user.png" width="40" height="40" alt="icon" class="icon-small-bg"/>Account Settings</h4>
             </div>
         </div>
     </div>
@@ -28,8 +28,17 @@
 <section id="content" class="clearfix">
     <div class="container">
         <div class="row">
-            <div class="span12">
-                <p> In this study, we are going to focus on the way you think, and how that may affect your anxiety. Specifically, we will focus on the way you interpret or make sense of information. It’s not always clear why anxiety persists over time, but one reason anxiety tends to persist is because of the way people think about the things they are anxious about (e.g., people may think they are more likely to be negatively judged by others than they actually are, or people may think that they will not be able to cope with being in scary situations). Past studies have shown that changing the way we think can affect our anxiety. In fact, studies have shown that practice thinking about things in new ways may reduce anxiety symptoms. In this part of the study, you will complete computer programs that will describe different situations, and encourage you to think about them in particular ways.  We have people trying different computer programs for this study – we think some of these computer programs will reduce anxiety by changing the way people interpret situations.</p>
+            <div class="span8">
+                <h4> Reset your Password </h4>
+                <div th:if="${invalidEmail}" class="alert alert-error">
+                    Sorry, we have no account with that email address in our system.
+                </div>
+                <p>Enter your email address below and we will email you a link that you can follow to reset your password.</p>
+                <form action="#" th:action="@{'/resetPass'}" method="post">
+                        <p>Email address:<input type="text" name="email"/></p>
+                        <input type="submit"/>
+                </form>
+
             </div>
         </div>
 

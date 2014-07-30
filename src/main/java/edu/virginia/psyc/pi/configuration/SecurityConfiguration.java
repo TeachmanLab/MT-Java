@@ -41,6 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private ParticipantRepository participantRepository;
 
+
     /**
      * Checks database for user details
      */
@@ -85,7 +86,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                             "/js/**",
                             "/grepfrut/**",
                             "/img/**",
-                            "/newParticipant/**"
+                            "/newParticipant/**",
+                            "/resetPass",
+                            "/resetPassStep2/**",
+                            "/changePassword/**"
                     ).permitAll()
                     .antMatchers("/admin", "/admin/**").hasRole("ADMIN")
                     .antMatchers("/**").hasRole("USER")

@@ -75,16 +75,6 @@ public static TrialJson fromJson(String text) throws IllegalArgumentException {
         Assert.assertTrue(report.keySet().contains("paragraph"));
         Assert.assertTrue(report.keySet().contains("question"));
 
-        Assert.assertEquals("true", report.get("correct"));
-
-        trial.getData().put("questionResponse", "no");
-        report = trial.toInterpretationReport();
-        Assert.assertEquals("false", report.get("correct"));
-
-        trial.getData().put("positive", "false");
-        report = trial.toInterpretationReport();
-        Assert.assertEquals("true", report.get("correct"));
-
 
     }
 

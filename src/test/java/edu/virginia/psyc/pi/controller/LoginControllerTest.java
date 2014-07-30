@@ -16,6 +16,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.Date;
+
+import static junit.framework.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -32,6 +35,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 public class LoginControllerTest {
+
+    private static String PASSWD = "1234!@#$qwerQWER";
 
     @Autowired
     private FilterChainProxy springSecurityFilterChain;
@@ -65,30 +70,45 @@ public class LoginControllerTest {
 
     @Test
     public void testCreateAccountController() throws Exception {
+        ParticipantDAO p;
+
         this.mockMvc.perform(post("/newParticipant")
                 .param("fullName", "Dan Funk")
                 .param("email", "some_crazy2@email.com")
-                .param("unencodedPassword", "ereiamjh")
-                .param("unencodedPassword2", "ereiamjh"))
+                .param("password", PASSWD)
+                .param("passwordAgain", PASSWD))
                 .andDo(print())
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/session"));
 
         assert(participantRepository.findByEmail("some_crazy2@email.com").size() > 0);
+        p = participantRepository.findByEmail("some_crazy2@email.com").get(0);
+        assertNotNull(p.getLastLoginDate());
 
     }
 
     @Test
     public void testLoginPostController() throws Exception {
 
+        ParticipantDAO p;
+        Date orig;
+
         // This will create the user.
         testCreateAccountController();
+        p = participantRepository.findByEmail("some_crazy2@email.com").get(0);
+        orig = p.getLastLoginDate();
 
         this.mockMvc.perform(post("/login")
                 .param("username", "some_crazy2@email.com")
-                .param("password", "ereiamjh"))
+                .param("password", PASSWD)
+                .param("passwordAgain", PASSWD))
                 .andDo(print())
                 .andExpect(status().is3xxRedirection());
+
+        // logging in should update the lastLoginDate
+        p = participantRepository.findByEmail("some_crazy2@email.com").get(0);
+        assertNotSame(orig, p.getLastLoginDate());
+
     }
 
 
