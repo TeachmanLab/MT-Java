@@ -34,6 +34,43 @@ public class DASS21_AS implements QuestionnaireData {
     private int heart;
     private int scared;
 
+    public DASS21_AS() {}
+
+    public DASS21_AS(int dryness, int breathing, int trembling, int worry, int panic, int heart, int scared) {
+        this.dryness = dryness;
+        this.breathing = breathing;
+        this.trembling = trembling;
+        this.worry = worry;
+        this.panic = panic;
+        this.heart = heart;
+        this.scared = scared;
+    }
+
+    /**
+     * Calculates the eligibility of a participant to be in a particular study
+     * You take the average of the 7 item scores, and then multiply by 14
+     * (we take the average, rather than the sum to account for missing data).
+     * If the resulting # is 10 or higher, they are eligible to participate.
+     * NOTE:  a "-1" indicates the question was not answered.
+     */
+
+    public boolean eligibleScore() {
+        int    sum   = 0;
+        double total = 0.0;
+
+        if(dryness    >= 0) { sum += dryness; total++; }
+        if(breathing  >= 0) { sum += breathing; total++; }
+        if(trembling  >= 0) { sum += trembling; total++; }
+        if(worry      >= 0) { sum += worry; total++; }
+        if(panic      >= 0) { sum += panic; total++; }
+        if(heart      >= 0) { sum += heart; total++; }
+        if(scared     >= 0) { sum += scared; total++; }
+        if(total == 0) return false; // Avoid division by 0, no questions were answered.
+        System.out.println(sum + " / " + total + " * 14.0 = " + (sum / total) * 14.0);
+        return((sum / total) * 14.0 > 10);
+    }
+
+
     /** Auto Generated methods follow */
     public int getId() {
         return id;
