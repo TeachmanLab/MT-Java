@@ -26,7 +26,7 @@ import java.util.List;
  */
 public interface ParticipantRepository extends JpaRepository<ParticipantDAO, Long>, ParticipantRepositoryCustom {
 
-    List<ParticipantDAO> findByEmail(String email);
+    ParticipantDAO findByEmail(String email);
 
     @Query(" select p from ParticipantDAO as p" +
             " where lower(p.fullName) like '%' || lower(:search) || '%'" +

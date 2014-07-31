@@ -20,15 +20,15 @@ public class BaseController {
 
     Participant getParticipant(Principal principal) {
         Participant p;
-        p = participantRepository.entityToDomain(participantRepository.findByEmail(principal.getName()).get(0));
+        p = participantRepository.entityToDomain(participantRepository.findByEmail(principal.getName()));
         return(p);
     }
 
     Participant getParticipant(String email) {
         Participant p;
-        List<ParticipantDAO> list;
-        list = participantRepository.findByEmail(email);
-        if(list.size() > 0) return(participantRepository.entityToDomain(list.get(0)));
+        ParticipantDAO dao;
+        dao = participantRepository.findByEmail(email);
+        if(dao != null) return(participantRepository.entityToDomain(dao));
         return null;
     }
 

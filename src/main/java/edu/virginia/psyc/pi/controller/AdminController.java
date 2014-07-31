@@ -112,7 +112,7 @@ public class AdminController extends BaseController {
     public String sendEmail(ModelMap model, Principal principal,
                             @PathVariable("type") EmailService.TYPE type) throws Exception {
         Participant p;
-        p = participantRepository.entityToDomain(participantRepository.findByEmail(principal.getName()).get(0));
+        p = participantRepository.entityToDomain(participantRepository.findByEmail(principal.getName()));
 
         this.emailService.sendSimpleMail(p, type);
         return "redirect:/admin";

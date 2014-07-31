@@ -101,8 +101,6 @@ public class QuestionController {
         // Record the session for which this questionnaire was completed.
         data.setSession(participant.getCurrentSession().getName());
 
-        LOG.info("******************* RECORD SESSION PROGRESS CALLED");
-
         // Update the participant's session status, and save back to the database.
         participant.completeCurrentTask();
         participantRepository.domainToEntity(participant, dao);

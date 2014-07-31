@@ -2,9 +2,11 @@ package edu.virginia.psyc.pi.controller;
 
 import edu.virginia.psyc.pi.domain.Participant;
 import edu.virginia.psyc.pi.domain.PasswordToken;
+import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.persistence.Questionnaire.DASS21_AS;
+import edu.virginia.psyc.pi.persistence.Questionnaire.DASS21_ASRepository;
 import edu.virginia.psyc.pi.service.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.ArrayList;
@@ -38,8 +41,14 @@ public class LoginController extends BaseController {
 
     private static final Logger LOG = LoggerFactory.getLogger(LoginController.class);
 
+    // Eligibility form is saved to the session for retrieval when the user it found.
+    private static final String DASS21_SESSION = "dass21";
+
     @Autowired
     private EmailService emailService;
+
+    @Autowired
+    private DASS21_ASRepository dass21_asRepository;
 
     /**
      * Spring automatically configures this object.
@@ -87,9 +96,13 @@ public class LoginController extends BaseController {
 
     @RequestMapping(value="public/eligibilityCheck", method = RequestMethod.POST)
     public String checkEligibility(@ModelAttribute("DASS21_AS") DASS21_AS dass21_as,
-                                   ModelMap model) {
+                                   ModelMap model,
+                                   HttpSession session) {
 
         if(dass21_as.eligibleScore()) {
+            // Save the DASS21_AS object in the session, so we can grab it when the
+            // user is logged in.
+            session.setAttribute("dass21", dass21_as);
             model.addAttribute("participant", new Participant());
             return "invitation";
         } else {
@@ -127,13 +140,13 @@ public class LoginController extends BaseController {
     public String createNewParticipant(ModelMap model,
                                        @Valid Participant participant,
                                        final BindingResult bindingResult,
-                                       final SessionStatus status
+                                       final SessionStatus status,
+                                       HttpSession session
                                        ) {
-
 
         model.addAttribute("participant", participant);
 
-        if(participantRepository.findByEmail(participant.getEmail()).size() > 0) {
+        if(participantRepository.findByEmail(participant.getEmail()) != null) {
             bindingResult.addError(new ObjectError("email", "This email already exists."));
         }
 
@@ -145,17 +158,40 @@ public class LoginController extends BaseController {
             LOG.error("Invalid participant:" + bindingResult.getAllErrors());
 
             return "invitation";
-        } else {
-            participant.setLastLoginDate(new Date()); // Set the last login date.
-            saveParticipant(participant);
         }
+
+        participant.setLastLoginDate(new Date()); // Set the last login date.
+        saveParticipant(participant);
 
         // Log this new person in.
         Authentication auth = new UsernamePasswordAuthenticationToken( participant.getEmail(), participant.getPassword());
         SecurityContextHolder.getContext().setAuthentication(auth);
 
+        // Save the Eligibility form
+        saveEligibilityForm(participant, session);
+
         LOG.info("Participant authenticated.");
         return "redirect:/session";
+    }
+
+    /**
+     * Users have to complete an eligibility form to create an account, but you can't
+     * save the form till the account exists.  So the results of the form are stored
+     * in the session until the user creates an account, at which point
+     * they are recorded to the database.
+     * @param participant
+     * @param session
+     */
+    private void saveEligibilityForm(Participant participant, HttpSession session) {
+        DASS21_AS dass21_as;
+        ParticipantDAO   participantDAO = participantRepository.findByEmail(participant.getEmail());
+
+        // Save their dass21 score to the Database
+        dass21_as = (DASS21_AS)session.getAttribute(DASS21_SESSION);
+        dass21_as.setParticipantDAO(participantDAO);
+        dass21_as.setDate(new Date());
+        dass21_as.setSession(Session.NAME.ELIGIBLE);
+        dass21_asRepository.save(dass21_as);
     }
 
     @RequestMapping(value="/resetPass", method = RequestMethod.GET)

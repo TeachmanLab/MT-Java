@@ -51,10 +51,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(new UserDetailsService() {
             @Override
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-                List<ParticipantDAO> participants = participantRepository.findByEmail(username);
-                if(participants.size() > 0) {
-                    LOG.info("Participant Found:" + participants.get(0));
-                    return participants.get(0);
+                ParticipantDAO participant = participantRepository.findByEmail(username);
+                if(participant != null) {
+                    LOG.info("Participant Found:" + participant);
+                    return participant;
                 } else return null;
             }
         }).passwordEncoder(new StandardPasswordEncoder());

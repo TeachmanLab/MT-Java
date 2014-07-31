@@ -28,7 +28,7 @@ public class AccountController {
 
     private Participant getParticipant(Principal principal) {
         Participant p;
-        p = participantRepository.entityToDomain(participantRepository.findByEmail(principal.getName()).get(0));
+        p = participantRepository.entityToDomain(participantRepository.findByEmail(principal.getName()));
         return(p);
     }
     /**
@@ -50,7 +50,7 @@ public class AccountController {
     @RequestMapping("exitStudy")
     public String exitStudy(ModelMap model, Principal principal) {
         Participant p      = getParticipant(principal);
-        ParticipantDAO dao = participantRepository.findByEmail(principal.getName()).get(0);
+        ParticipantDAO dao = participantRepository.findByEmail(principal.getName());
         p.setActive(false);
         participantRepository.domainToEntity(p, dao);
         participantRepository.save(dao);
