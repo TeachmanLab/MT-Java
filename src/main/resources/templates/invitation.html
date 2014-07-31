@@ -15,7 +15,7 @@
     <div class="container">
         <div class="row">
             <div class="span12">
-                <h4 class="heading-icon clearfix"> <img src="/grepfrut/img/icons/heading-icon-user.png" width="40" height="40" alt="icon" class="icon-small-bg"/>Alpha Development Release -- Sprint 8</h4>
+                <h4 class="heading-icon clearfix"> <img src="/grepfrut/img/icons/heading-icon-user.png" width="40" height="40" alt="icon" class="icon-small-bg"/>Invitation to Participant</h4>
             </div>
         </div>
     </div>
@@ -28,14 +28,13 @@
 <section id="content" class="clearfix">
     <div class="container">
         <div class="row">
-            <div class="span12">
-                <h4> Invitation to Participate </h4>
+            <div class="span6">
 
-                Thank you for completing our anxiety questionnaire!
-                <br>
-                We noticed that you reported experiencing some anxiety.
-                <br>
-                As a result, you are eligible to participate in a study testing a new, Internet-based experimental program designed to reduce anxiety.
+                <h4>Thank you for completing our anxiety questionnaire!</h4>
+
+                <p>We noticed that you reported experiencing some anxiety.</p>
+
+                <p>As a result, you are eligible to participate in a study testing a new, Internet-based experimental program designed to reduce anxiety.</p>
 
                 <p> This is an experimental program so it is still in the testing phase, but prior research says it may be able to reduce anxiety as effectively as therapy. Also, this program is free, doesn’t take a lot of your time, and can be completed without ever leaving your desk! </p>
 
@@ -44,8 +43,41 @@
                 <p> If you are not interested, you can also click HERE if you would like more information about treatment and resources for dealing with your anxiety. </p>
 
             </div>
-        </div>
+           <div class="span6">
+            <form name="f" th:action="@{/newParticipant}" method="post" th:object="${participant}">
+                <fieldset>
+                    <legend>Create Account:</legend>
 
+                    <div class="formErrors">
+                        <ul class="errors">
+                            <li th:each="err : ${#fields.errors('*')}" th:text="${err}" class="alert alert-error">Input is incorrect</li>
+                        </ul>
+                        <div class="spacer-20px"></div>
+                    </div>
+
+                    <p>
+                        <label for="fullName" th:field="*{fullName}">Full Name</label>
+                        <input type="text" id="fullName" name="fullName"  th:errorclass="error"/>
+                    </p>
+                    <p>
+                        <label for="email" th:field="*{email}">Email</label>
+                        <input type="text" id="email" name="email" th:errorclass="error"/>
+                    </p>
+                    <p>
+                        <label for="password" th:field="*{password}">Password</label>
+                        <input type="password" id="password" name="password"  th:errorclass="error"/>
+                    </p>
+                    <p>
+                        <label for="passwordAgain" th:field="*{passwordAgain}">Password (again)</label>
+                        <input type="password" id="passwordAgain" name="passwordAgain"/>
+                    </p>
+                    <div class="form-actions">
+                        <button type="submit" class="btn">Create Account</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        </div>
     </div>
 </section>
 

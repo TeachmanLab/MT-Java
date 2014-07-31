@@ -4,6 +4,7 @@ import edu.virginia.psyc.pi.domain.Participant;
 import edu.virginia.psyc.pi.domain.PasswordToken;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
+import edu.virginia.psyc.pi.persistence.Questionnaire.DASS21_AS;
 import edu.virginia.psyc.pi.service.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,18 +51,76 @@ public class LoginController extends BaseController {
     }
 
     @RequestMapping(value="/", method = RequestMethod.GET)
-    public String printWelcome(ModelMap model, Principal principal ) {
-        Participant participant = getParticipant(principal);
-        participant.setLastLoginDate(new Date()); // Update the last login date.
-        saveParticipant(participant);
-        return "redirect:/session";
+    public String printWelcome(ModelMap model, Principal principal) {
+        Authentication auth = (Authentication) principal;
+        // Show the Rationale / Login page if the user is not logged in
+        // otherwise redirect them to the session page.
+        if(auth == null || !auth.isAuthenticated())
+            return "rationale";
+        else
+            return "redirect:/session";
     }
 
     @RequestMapping(value="/login", method = RequestMethod.GET)
-    public String login(ModelMap model) {
-        model.addAttribute("participant", new Participant());
-        return "login";
+    public String showLogin() {
+        return "rationale";
+    }
 
+    @RequestMapping(value="/loginfailed", method = RequestMethod.GET)
+    public String loginerror(ModelMap model) {
+        model.addAttribute("error", "true");
+        return "/";
+    }
+
+    @RequestMapping(value="/logout", method = RequestMethod.GET)
+    public String logout(ModelMap model) {
+        return "/";
+    }
+
+
+    @RequestMapping("public/eligibility")
+    public String showEligibility(ModelMap model) {
+        // Template will set a difference form action if this variable is set to true.
+        model.addAttribute("eligibility",true);
+        return "questions/DASS21_AS";
+    }
+
+    @RequestMapping(value="public/eligibilityCheck", method = RequestMethod.POST)
+    public String checkEligibility(@ModelAttribute("DASS21_AS") DASS21_AS dass21_as,
+                                   ModelMap model) {
+
+        if(dass21_as.eligibleScore()) {
+            model.addAttribute("participant", new Participant());
+            return "invitation";
+        } else {
+            return "ineligible";
+        }
+    }
+
+    @RequestMapping("public/faq")
+    public String showFaq(ModelMap model, Principal principal) {
+        return "faq";
+    }
+
+    @RequestMapping("public/about")
+    public String showAbout(ModelMap model, Principal principal) {
+        return "about";
+    }
+
+    @RequestMapping("informed")
+    public String showInformed(ModelMap model, Principal principal) {
+        return "informed";
+    }
+
+
+    @RequestMapping("invitation")
+    public String showInvitation(ModelMap model, Principal principal) {
+        return "invitation";
+    }
+
+    @RequestMapping("public/privacy")
+    public String showPrivacy(ModelMap model, Principal principal) {
+        return "privacy";
     }
 
     @RequestMapping(value = "/newParticipant", method = RequestMethod.POST)
@@ -85,7 +144,7 @@ public class LoginController extends BaseController {
         if (bindingResult.hasErrors()) {
             LOG.error("Invalid participant:" + bindingResult.getAllErrors());
 
-            return "login";
+            return "invitation";
         } else {
             participant.setLastLoginDate(new Date()); // Set the last login date.
             saveParticipant(participant);
@@ -97,20 +156,6 @@ public class LoginController extends BaseController {
 
         LOG.info("Participant authenticated.");
         return "redirect:/session";
-    }
-
-
-    @RequestMapping(value="/loginfailed", method = RequestMethod.GET)
-    public String loginerror(ModelMap model) {
-
-        model.addAttribute("error", "true");
-        return "login";
-
-    }
-
-    @RequestMapping(value="/logout", method = RequestMethod.GET)
-    public String logout(ModelMap model) {
-        return "login";
     }
 
     @RequestMapping(value="/resetPass", method = RequestMethod.GET)

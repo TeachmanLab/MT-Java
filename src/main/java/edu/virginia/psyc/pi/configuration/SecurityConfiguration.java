@@ -86,6 +86,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                             "/js/**",
                             "/grepfrut/**",
                             "/img/**",
+                            "/",
+                            "/public/**",
                             "/newParticipant/**",
                             "/resetPass",
                             "/resetPassStep2/**",
@@ -95,11 +97,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .antMatchers("/**").hasRole("USER")
                     .and()
                 .formLogin()
+                    .defaultSuccessUrl("/session")
                     .loginPage("/login")
-                .permitAll()
+                    .permitAll()
                     .and()
                 .logout()
-                    .permitAll();
+                    .permitAll()
+                    .and()
+                .rememberMe();
     }
    /**
     http

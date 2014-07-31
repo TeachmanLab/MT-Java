@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+    <head th:include="fragment/common :: headerFragment" />
+<body>
+    <section id="header" class="clearfix" th:include="fragment/common :: topFragment" />
+
+<!-- header-btm starts
+================================================== -->
+<section id="header-btm" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <h4 class="heading-icon clearfix"> <img src="grepfrut/img/icons/heading-icon-user.png" width="40" height="40" alt="icon" class="icon-small-bg"/>Not Eligible</h4>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- header-btm ends
+================================================== -->
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+    <div class="container">
+
+      <div class="row">
+        <!--sidebar starts-->
+        <div class="span 6">
+            <h4>Not eligible for the study</h4>
+            <p>The is a message to explain why you would not be eligible for this study, and where you should go from here.</p>
+        </div>
+        <!--sidebar ends-->
+      </div>
+    </div>
+</section>
+
+
+<!-- footer
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+
+
+<!-- copyright starts
+================================================== -->
+<footer id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts" />
+
+</body>
+</html>

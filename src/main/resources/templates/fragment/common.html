@@ -58,11 +58,16 @@
                 <!--menu starts-->
                 <div id="smoothmenu" class="ddsmoothmenu">
                     <ul id="nav">
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/logout">Log out</a> </li>
-                        <li><a href="/pages/about">ABOUT</a> </li>
-                        <li><a href="/pages/faq">FAQ</a> </li>
-                        <li><a href="/pages/account">SETTINGS</a> </li>
+                        <li th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
+                            <a href="/session">Session Home</a></li>
+                        <li><a href="/public/about">ABOUT</a> </li>
+                        <li><a href="/public/faq">FAQ</a> </li>
+                        <li th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
+                            <a href="/account">SETTINGS</a> </li>
+                        <li th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
+                            <a href="/logout">Log out</a> </li>
+                        <li th:unless="${#authorization.expression('hasRole(''ROLE_USER'')')}">
+                            <a href="/">Log in</a> </li>
                     </ul>
                 </div>
                 <!--menu ends-->
@@ -149,7 +154,7 @@
                     <li>Copyright 2014</li>
                     <li>All rights reserved</li>
                     <li><a href="https://www.projectimplicit.net/disclaimer.html">Disclaimer</a></li>
-                    <li><a th:href="@{/pages/privacy}">Privacy Policy</a></li>
+                    <li><a th:href="@{/public/privacy}">Privacy Policy</a></li>
                 </ul>
             </div>
 

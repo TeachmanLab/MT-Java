@@ -20,11 +20,11 @@ import java.security.Principal;
  * To change this template use File | Settings | File Templates.
  */
 @Controller
-@RequestMapping("/pages")
-public class PageController {
+@RequestMapping("/account")
+public class AccountController {
 
     private ParticipantRepository participantRepository;
-    private static final Logger LOG = LoggerFactory.getLogger(PageController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AccountController.class);
 
     private Participant getParticipant(Principal principal) {
         Participant p;
@@ -36,18 +36,11 @@ public class PageController {
      * You can modify the location of this database by editing the application.properties file.
      */
     @Autowired
-    public PageController(ParticipantRepository repository) {
+    public AccountController(ParticipantRepository repository) {
         this.participantRepository   = repository;
     }
 
-    @RequestMapping("faq")
-    public String showFaq(ModelMap model, Principal principal) {
-        Participant p = getParticipant(principal);
-        model.addAttribute("participant", p);
-        return "faq";
-    }
-
-    @RequestMapping("account")
+    @RequestMapping("/")
     public String showAccount(ModelMap model, Principal principal) {
         Participant p = getParticipant(principal);
         model.addAttribute("participant", p);
@@ -65,55 +58,12 @@ public class PageController {
         return "debriefing";
     }
 
-    @RequestMapping("email")
-    public String showEmail(ModelMap model, Principal principal) {
-        Participant p = getParticipant(principal);
-        model.addAttribute("participant", p);
-        return "tempEmail";
-    }
-
-    @RequestMapping("about")
-    public String showAbout(ModelMap model, Principal principal) {
-        Participant p = getParticipant(principal);
-        model.addAttribute("participant", p);
-        return "about";
-    }
-
-    @RequestMapping("informed")
-    public String showInformed(ModelMap model, Principal principal) {
-        Participant p = getParticipant(principal);
-        model.addAttribute("participant", p);
-        return "informed";
-    }
-
     @RequestMapping("debriefing")
     public String showDebriefing(ModelMap model, Principal principal) {
         Participant p = getParticipant(principal);
         model.addAttribute("participant", p);
         return "debriefing";
     }
-
-    @RequestMapping("rationale")
-    public String showRationale(ModelMap model, Principal principal) {
-        Participant p = getParticipant(principal);
-        model.addAttribute("participant", p);
-        return "rationale";
-    }
-
-    @RequestMapping("invitation")
-    public String showInvitation(ModelMap model, Principal principal) {
-        Participant p = getParticipant(principal);
-        model.addAttribute("participant", p);
-        return "invitation";
-    }
-
-    @RequestMapping("privacy")
-    public String showPrivacy(ModelMap model, Principal principal) {
-        Participant p = getParticipant(principal);
-        model.addAttribute("participant", p);
-        return "privacy";
-    }
-
 
 
 }
