@@ -77,11 +77,15 @@ public class Session {
                 tasks.add(new Task("MH", "Mental Health History", Task.TYPE.questions));
                 // State Anxiety is Incomplete
                 // tasks.add(new Task("SA", "State Anxiety", Task.TYPE.questions));
-                tasks.add(new Task("int_train", "Interpretation Training", Task.TYPE.playerScript));
+                tasks.add(new Task("FirstSessionComplete", "First Session", Task.TYPE.playerScript));
+                tasks.add(new Task("SecondSessionComplete", "Second Session", Task.TYPE.playerScript));
+                tasks.add(new Task("ThirdSessionComplete", "Third Session", Task.TYPE.playerScript));
+                tasks.add(new Task("FourthSessionComplete", "Fourth Session", Task.TYPE.playerScript));
                 tasks.add(new Task("QOL", "Quality of Life Scale", Task.TYPE.questions));
                 tasks.add(new Task("DASS21_DS", "Symptom Measures", Task.TYPE.questions));
                 break;
             case SESSION1:
+                tasks.add(new Task("int_train", "Interpretation Training", Task.TYPE.playerScript));
                 tasks.add(new Task("AIP", "Imagery Prime", Task.TYPE.questions));
                 tasks.add(new Task("DASS21_AS", "Status Questionnaire", Task.TYPE.questions));
                 break;
