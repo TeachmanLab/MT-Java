@@ -31,8 +31,14 @@ public class Participant {
 
     public enum SESSION_STATE {NOT_ELIGIBLE, READY, WAIT_A_DAY, WAIT_FOR_FOLLOWUP, ALL_DONE}
 
+    /**
+    NOTE:  Recommend using stronger password security settings, like these:
+    ------------------
     public static final String PASSWORD_REGEX = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
     public static final String PASSWORD_MESSAGE = "Password must be 8 digits long.  It must contain one digit, a lower case letter, an upper case letter, and a special character.";
+    **/
+    public static final String PASSWORD_REGEX = "^.{8,}$";
+    public static final String PASSWORD_MESSAGE = "Password must be at least 8 digits long.";
 
     @Size(min=2, max=100, message="Please specify your full name.")
     private String fullName;
