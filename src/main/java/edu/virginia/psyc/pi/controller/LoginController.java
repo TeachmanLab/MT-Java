@@ -188,6 +188,7 @@ public class LoginController extends BaseController {
 
         // Save their dass21 score to the Database
         dass21_as = (DASS21_AS)session.getAttribute(DASS21_SESSION);
+        if(dass21_as == null) return;   // No eligiblity form exists in the session.
         dass21_as.setParticipantDAO(participantDAO);
         dass21_as.setDate(new Date());
         dass21_as.setSession(Session.NAME.ELIGIBLE);

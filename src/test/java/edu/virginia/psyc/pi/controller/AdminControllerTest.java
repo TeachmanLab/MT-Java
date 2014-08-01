@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.security.web.FilterChainProxy;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -47,6 +48,8 @@ public class AdminControllerTest {
     @Mock
     private ParticipantRepository participantRepository;
 
+    @Autowired
+    private FilterChainProxy springSecurityFilterChain;
 
 
     @Before
@@ -56,7 +59,8 @@ public class AdminControllerTest {
         MockitoAnnotations.initMocks(this);
 
         // Setup Spring test in webapp-mode (same config as spring-boot)
-        this.mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac)
+                .addFilters(this.springSecurityFilterChain).build();
     }
 
     @Test
@@ -68,16 +72,18 @@ public class AdminControllerTest {
 
         when(participantRepository.findAll()).thenReturn(Arrays.asList(p1,p2,p3));
 
+        // Assure we get redirected if we aren't an admin
         MvcResult result = mockMvc.perform(get("/admin"))
-                                .andExpect((status().isOk()))
+                                .andExpect((status().is3xxRedirection()))
                                 .andReturn();
 
-        String content = result.getResponse().getContentAsString();
+        // TODO:  re-request as an admin user, and verify content
 
-        assert(content.contains("daniel.h.funk@gmail.com"));
+//        String content = result.getResponse().getContentAsString();
+
+//        assert(content.contains("daniel.h.funk@gmail.com"));
 
     }
-
 
 
 }
