@@ -260,7 +260,7 @@ define(['app/API'], function(API) {
             layout: [
                 // This is a stimulus object
                 {
-                    media :"These are your instructions.",
+                    media :"You will be presented with a statement where a word in the statement is missing a letter.  Type the letter on the keyboard, then answer the followup question. Please press the spacebar to continue.",
                     css:{fontSize:'1.2em',color:'#D7685A'}
                 }
             ],
