@@ -29,7 +29,7 @@ public class Participant {
 
     private long id;
 
-    public enum SESSION_STATE {NOT_ELIGIBLE, READY, WAIT_A_DAY, WAIT_FOR_FOLLOWUP, ALL_DONE}
+    public enum SESSION_STATE {READY, WAIT_A_DAY, WAIT_FOR_FOLLOWUP, ALL_DONE}
 
     /**
     NOTE:  Recommend using stronger password security settings, like these:
@@ -117,15 +117,21 @@ public class Participant {
 
         // If this is the last task in a session, then we move to the next session.
         if(getTaskIndex() +1 == getCurrentSession().getTasks().size()) {
-            this.taskIndex = 0;
-            this.lastSessionDate = new Date();
-            sessionName    = Session.nextSession(getCurrentSession().getName());
+            completeSession();
         } else { // otherwise we just increment the task index.
             this.taskIndex = taskIndex + 1;
             sessionName    = getCurrentSession().getName();
+            this.sessions = Session.createListView(sessionName, taskIndex);
         }
+    }
+
+    void completeSession() {
+        Session.NAME sessionName;
+        this.lastSessionDate = new Date();
+        sessionName    = Session.nextSession(getCurrentSession().getName());
         // Rebuid the session list, based on the now current session.
-        this.sessions = Session.createListView(sessionName, taskIndex);
+        this.taskIndex = 0;
+        this.sessions = Session.createListView(sessionName, 0);
     }
 
     /**
@@ -147,6 +153,13 @@ public class Participant {
      * @return
      */
     public SESSION_STATE sessionState() {
+        // Pre Assessment and Session 1 can be completed immediately.
+        if(getCurrentSession().getName().equals(Session.NAME.PRE) ||
+           getCurrentSession().getName().equals(Session.NAME.SESSION1))
+            return SESSION_STATE.READY;
+
+        // Otherwise, you must wait at least one day before starting the next
+        // session.
         if(daysSinceLastSession() == 0) return SESSION_STATE.WAIT_A_DAY;
         return SESSION_STATE.READY;
     }

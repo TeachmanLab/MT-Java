@@ -52,7 +52,7 @@ public class SessionController extends BaseController {
     @RequestMapping("/next")
     public String nextStepInSession(ModelMap model, Principal principal) {
         Participant p = getParticipant(principal);
-        p.setTaskIndex(p.getTaskIndex() + 1);
+        p.completeCurrentTask();
         saveParticipant(p);
         return sessionHome(model, principal);
     }

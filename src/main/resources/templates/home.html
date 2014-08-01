@@ -35,7 +35,8 @@
         <!--features starts-->
         <div class="row">
             <div class="span12">
-                <h1 th:text="'Welcome Back ' + ${name}"></h1>
+                <h1 th:if="${currentSession.name.toString() == 'PRE'}" th:text="'Welcome ' + ${name} + '!'"></h1>
+                <h1 th:if="${currentSession.name.toString() == 'SESSION1'}" th:text="'Thanks ' + ${name} + ', Now complete your first Session...'"></h1>
                 <ul class="list-3col">
                     <li>
                         <img th:src="@{/grepfrut/img/people/1.jpg}"/>
@@ -52,7 +53,6 @@
 
                         <div th:if="${sessionState == 'READY'}">
                             <div th:switch="${currentSession.name.toString()}">
-                                <p th:case='ELGIIBLE'>We need you to complete a few questionnaires to determine if you are eligible to participate in this study. </p>
                                 <p th:case='PRE'>Before you begin the first session, we need to develop a more detailed assessment of your current state.</p>
                                 <p th:case='SESSION1'>This is Session 1.  You should try and complete both Session 1 and Session 2 this week.  Please press the "Next" button below to get started.</p>
                             </div>

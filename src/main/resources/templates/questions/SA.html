@@ -40,7 +40,7 @@
                         <p>
                             <label>Please select the two situations from the list below that routinely cause you the most anxiety
                             </label>
-                            <select multiple="multiple" name="situations">
+                            <select multiple="multiple" name="situations" size="15" class="full">
                                 <option value=""></option>
                                 <option value="finances">Worry about finances/money</option>
                                 <option value="career">Worry about work/career/school</option>
@@ -58,9 +58,9 @@
                                 <option value="other">Other</option>
                             </select>
                         </p>
-                        <label> If other anxiety-provoking situation, please specficy </label>
-                        <input type="text" name="other_anxiety"/>
                         <p>Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</p>
+                        <label> If other anxiety-provoking situation, please specify </label>
+                        <input type="text" name="other_anxiety"/>
                     </fieldset>
                     <fieldset>
                         <legend>Step 2</legend>
@@ -102,7 +102,7 @@
                         </p>
                         <p>
                             <label>How anxious do you think you would be in this situation</label>
-                            <select name="anxious">
+                            <select name="anxious"  size="9">
                                 <option value=""></option>
                                 <option>Extremely Calm</option>
                                 <option>Calm</option>
@@ -117,7 +117,7 @@
                         <p>
                             <!--FIXME could not go to 7-->
                             <label>How would you rate your desire to avoid or escape from this situation?</label>
-                            <select name="avoid">
+                            <select name="avoid" size="5">
                                 <option value=""></option>
                                 <option>No Desire To Avoid</option>
                                 <option>Neutral</option>
@@ -128,7 +128,7 @@
                         <p>
                             <label>How likely is it that this situation will turn out badly?
                             </label>
-                            <select name="badly">
+                            <select name="badly" size="9">
                                 <option value=""></option>
                                 <option>Extremely Unlikely</option>
                                 <option>Unlikely</option>
@@ -144,7 +144,7 @@
                         <p>
                             <label>How terrible would it be if this situation did turn out badly?
                             </label>
-                            <select name="terrible">
+                            <select name="terrible" size="7">
                                 <option value=""></option>
                                 <option>Not At All Terrible</option>
                                 <option>A little Terrible</option>

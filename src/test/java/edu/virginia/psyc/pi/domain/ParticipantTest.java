@@ -1,7 +1,8 @@
-package edu.virginia.psyc.pi.controller;
+package edu.virginia.psyc.pi.domain;
 
 import edu.virginia.psyc.pi.domain.Participant;
 import edu.virginia.psyc.pi.domain.Session;
+import junit.framework.Assert;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.junit.Test;
@@ -51,6 +52,8 @@ public class ParticipantTest {
         assertEquals(Session.NAME.SESSION1, p.getCurrentSession().getName());
         assertNotNull("The last session date should get updated when completing a session.", p.getLastSessionDate());
 
+        assertEquals("Task index is set to 0 when a completeing a session.", 0, p.getTaskIndex());
+        assertEquals("Task index is set to 0 when a completeing a session.", 0, p.getCurrentSession().getCurrentTaskIndex());
     }
 
     @Test
@@ -70,6 +73,38 @@ public class ParticipantTest {
         DateTime plusPeriod = dt.plus(Period.days(1));
         DateTime plusDuration = dt.plus(new Duration(24L*60L*60L*1000L));
         */
+    }
+
+    @Test
+    public void testSessionState() {
+
+        Participant p;
+        p = new Participant(1, "Dan Funk", "daniel.h.funk@gmail.com", false);
+
+        // By default the session state should be ready
+        assertEquals(Participant.SESSION_STATE.READY, p.sessionState());
+
+        // Complete the pre assessment
+        p.completeSession();
+
+        // State should still be ready ...
+        assertEquals(Participant.SESSION_STATE.READY, p.sessionState());
+
+        // Complete the first session
+        p.completeSession();
+
+        // State should still be now be wait a day ...
+        assertEquals(Participant.SESSION_STATE.WAIT_A_DAY, p.sessionState());
+
+        // If we modify the last session date to be one day ago, session
+        // state should now be ready ...
+        DateTime dt = new DateTime();
+        DateTime yesterday = dt.minus(Period.days(1));
+        p.setLastSessionDate(yesterday.toDate());
+
+        // State should still be now be ready ...
+        assertEquals(Participant.SESSION_STATE.READY, p.sessionState());
+
     }
 
 }

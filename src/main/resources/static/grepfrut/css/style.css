@@ -851,6 +851,7 @@ input[type="text"], select, textarea, .auto-selector {
 	padding: 5px;
 	margin: 0;
 	display: inline-block;
+    resize: horizontal;
 }
 textarea {
 	width: 50% !important;
@@ -1393,5 +1394,26 @@ ul#tasks {
 ul#tasks li.COMPLETE {
     list-style-image: url('../img/session/task_completed.png');
 }
+
+select.full {
+    width: 100% !important;
+    padding: 5px;
+    margin: 0;
+    display: inline-block;
+    resize: horizontal;
+}
+
+label.radioBox {
+    height:40px;
+    width:40px;
+    display: inline-block;
+    text-align:center;
+}
+
+label.radioBox:hover {
+    cursor:pointer;
+}
+
+
 
 
