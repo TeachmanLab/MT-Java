@@ -59,7 +59,7 @@ public class LoginControllerTest {
     @After
     public void teardown() {
         try {
-            ParticipantDAO p = participantRepository.findByEmail("some_crazy2@email.com").get(0);
+            ParticipantDAO p = participantRepository.findByEmail("some_crazy2@email.com");
             participantRepository.delete(p);
             participantRepository.flush();
         } catch (IndexOutOfBoundsException ioe) {
@@ -81,8 +81,8 @@ public class LoginControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/session"));
 
-        assert(participantRepository.findByEmail("some_crazy2@email.com").size() > 0);
-        p = participantRepository.findByEmail("some_crazy2@email.com").get(0);
+        p = participantRepository.findByEmail("some_crazy2@email.com");
+        assert(p != null);
         assertNotNull(p.getLastLoginDate());
 
     }
@@ -95,7 +95,7 @@ public class LoginControllerTest {
 
         // This will create the user.
         testCreateAccountController();
-        p = participantRepository.findByEmail("some_crazy2@email.com").get(0);
+        p = participantRepository.findByEmail("some_crazy2@email.com");
         orig = p.getLastLoginDate();
 
         this.mockMvc.perform(post("/login")
@@ -106,7 +106,7 @@ public class LoginControllerTest {
                 .andExpect(status().is3xxRedirection());
 
         // logging in should update the lastLoginDate
-        p = participantRepository.findByEmail("some_crazy2@email.com").get(0);
+        p = participantRepository.findByEmail("some_crazy2@email.com");
         assertNotSame(orig, p.getLastLoginDate());
 
     }
