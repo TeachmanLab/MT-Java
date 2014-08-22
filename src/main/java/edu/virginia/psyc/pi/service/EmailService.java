@@ -1,6 +1,7 @@
 package edu.virginia.psyc.pi.service;
 
 import edu.virginia.psyc.pi.domain.Participant;
+import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.persistence.EmailLogDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
@@ -16,6 +17,7 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -37,7 +39,9 @@ public class EmailService {
     /**
      * Each of these types should have a coresponding template in resources/templates/email
      */
-    public enum TYPE {day2, day4, day7, day11, day15, day18, followup, followup2, followup3, resetPass}
+    public enum TYPE {
+        day2, day4, day7, day11, day15, day18, followup, followup2, followup3, resetPass
+    }
 
     @Autowired
     private JavaMailSender mailSender;
@@ -59,17 +63,28 @@ public class EmailService {
     private String getSubject(TYPE type) {
 
         switch (type) {
-            case day2      : return "Update from the Project Implicit Mental Health training team";
-            case day4      : return "Update from the Project Implicit Mental Health training team";
-            case day7      : return "Important reminder from the Project Implicit Mental Health training team";
-            case day11     : return "Continuation in the Project Implicit Mental Health training study";
-            case day15     : return "Final reminder re. continuation in the Project Implicit Mental Health training study";
-            case day18     : return "Closure of account in Project Implicit Mental Health training study";
-            case followup  : return "Follow-up from the Project Implicit Mental Health training team";
-            case followup2 : return "Follow-up reminder from the Project Implicit Mental Health training team";
-            case followup3 : return "Final reminder from the Project Implicit Mental Health training team";
-            case resetPass : return "Project Implicit Mental Health - Account Request";
-            default        : return "";
+            case day2:
+                return "Update from the Project Implicit Mental Health training team";
+            case day4:
+                return "Update from the Project Implicit Mental Health training team";
+            case day7:
+                return "Important reminder from the Project Implicit Mental Health training team";
+            case day11:
+                return "Continuation in the Project Implicit Mental Health training study";
+            case day15:
+                return "Final reminder re. continuation in the Project Implicit Mental Health training study";
+            case day18:
+                return "Closure of account in Project Implicit Mental Health training study";
+            case followup:
+                return "Follow-up from the Project Implicit Mental Health training team";
+            case followup2:
+                return "Follow-up reminder from the Project Implicit Mental Health training team";
+            case followup3:
+                return "Final reminder from the Project Implicit Mental Health training team";
+            case resetPass:
+                return "Project Implicit Mental Health - Account Request";
+            default:
+                return "";
         }
     }
 
@@ -120,38 +135,109 @@ public class EmailService {
 
     /**
      * Records the sending of an email.
+     *
      * @param id
      * @param type
      */
     private void logEmail(long id, TYPE type) {
         ParticipantDAO participantDAO;
-        EmailLogDAO    logDAO;
+        EmailLogDAO logDAO;
 
         LOG.info("Sent an email to participant #" + id + " of type " + type);
         participantDAO = participantRepository.findOne(id);
-        logDAO         = new EmailLogDAO(participantDAO, EmailService.TYPE.day2);
+        logDAO = new EmailLogDAO(participantDAO, EmailService.TYPE.day2);
         participantDAO.addLog(logDAO);
         participantRepository.save(participantDAO);
         LOG.info("Participant updated.");
     }
 
-    @Scheduled(fixedRate = 5000) // every 5 seconds
-    public void test() {
-        //System.out.println("The time is now " + dateFormat.format(new Date()));
-        /*
-        try {
-            sendSimpleMail("dan", "daniel.h.funk@gmail.com");
-        } catch (MessagingException me) {
-            System.out.println("Failed to send message:" + me.getMessage());
+    @Scheduled(cron = "0 0 2 * * *")  // schedules task for 2:00am every day.
+    public void sendEmailReminder() throws MessagingException {
+        List<ParticipantDAO> participants;
+        Participant participant;
+
+        participants = participantRepository.findAll();
+        TYPE type;
+
+        for(ParticipantDAO dao : participants) {
+            participant = participantRepository.entityToDomain(dao);
+            type = getEmailToSend(participant);
+            if(type != null) sendSimpleMail(participant, type);
         }
-        */
     }
 
-    @Scheduled(cron="0 0 2 * * *")  // schedules task for 2:00am every day.
-    public void sendEmailReminder() {
-        // Do something intelligent here.
-    }
+    /**
+     * Given a participant, determines which email to send that
+     * participant.  In no email should be sent at this time, then
+     * it returns null.  In the future we should consider abstracting
+     * out individual emails into classes and have those classes
+     * determine if an email should be sent or not.  But the logic
+     * here is still pretty simple, so I'm consolidating that code here.
+     *
+     * @param p
+     * @return
+     */
+    public TYPE getEmailToSend(Participant p) {
+        TYPE type = null;
 
+        // Never send more than one email a day.
+        if (p.daysSinceLastEmail() < 2) return null;
+
+        // Never send email to an inactive participant;
+        if (!p.isActive()) return null;
+
+        int days = p.daysSinceLastMilestone();
+
+        // Remind people between sessions until they complete session 8.
+        if (!p.completed(Session.NAME.SESSION8)) {
+            switch (days) {
+                case 1: // noop;
+                    break;
+                case 2:
+                    type = TYPE.day2;
+                    break;
+                case 4:
+                    type = TYPE.day4;
+                    break;
+                case 7:
+                    type = TYPE.day7;
+                    break;
+                case 11:
+                    type = TYPE.day11;
+                    break;
+                case 15:
+                    type = TYPE.day15;
+                    break;
+                case 18:
+                    type = TYPE.day18;
+                    break;
+            }
+        }
+
+        // Follow up emails should only be send if session 8 was completed, and
+        // the POST Session was not yet completed.
+        if (p.completed(Session.NAME.SESSION8) && !p.completed(Session.NAME.POST)) {
+            switch (days) {
+                case 60:
+                    type = TYPE.followup;
+                    break;
+                case 63:
+                    type = TYPE.followup2;
+                    break;
+                case 67:
+                    type = TYPE.followup2;
+                    break;
+                case 70:
+                    type = TYPE.followup2;
+                    break;
+                case 75:
+                    type = TYPE.followup3;
+                    break;
+            }
+        }
+
+        return type;
+    }
 
 
 }

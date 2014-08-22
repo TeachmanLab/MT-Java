@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -80,7 +81,6 @@ public class Participant {
         this.admin = admin;
     }
 
-
     /**
      * Checks to see if the given password matches some standard criteria:
      * @param password
@@ -135,8 +135,22 @@ public class Participant {
     }
 
     /**
+     * @return Number of days since the last completed session or if
+     * no session was completed, the days since the last login.
+     * Returns -1 if the user never logged in or completed a session.
+     */
+    public int daysSinceLastMilestone() {
+        DateTime last;
+        DateTime now;
+
+        last = new DateTime(this.lastMilestone());
+        now  = new DateTime();
+        return Days.daysBetween(last, now).getDays();
+    }
+
+    /**
      * @return Number of days since the last completed session.
-     * Returns -1 if no sessions where ever completed.
+     * Returns 99 if the user never logged in or completed a session.
      */
     public int daysSinceLastSession() {
         DateTime last;
@@ -146,6 +160,37 @@ public class Participant {
         now  = new DateTime();
         return Days.daysBetween(last, now).getDays();
     }
+
+
+
+    public int daysSinceLastEmail() {
+        DateTime last = null;
+        DateTime each = null;
+        DateTime now  = new DateTime();
+
+        if(null == this.emailLogs || this.emailLogs.size() == 0) return 99;
+
+        for(EmailLog log : this.emailLogs) {
+            each = new DateTime(log.getDate());
+            if(null == last || last.isBefore(each)) {
+                last = each;
+            }
+        }
+
+        return Days.daysBetween(last, now).getDays();
+    }
+
+    /**
+     * Returns the date of a last completed activity - this is the last login
+     * date if no sessions were ever completed.  It is the last session
+     * completed date otherwise.  This is used as the basis for when to send
+     * email messages.
+     */
+    public Date lastMilestone() {
+        if(this.lastSessionDate != null) return lastSessionDate;
+        return this.lastLoginDate;
+    }
+
 
     /**
      * Returns the state of the participant, in regards to the Session.  Can
@@ -240,6 +285,11 @@ public class Participant {
 
     public void setEmailLogs(List<EmailLog> emailLogs) {
         this.emailLogs = emailLogs;
+    }
+
+    public void addEmailLog(EmailLog log) {
+        if (this.emailLogs == null) emailLogs = new ArrayList<EmailLog>();
+        emailLogs.add(log);
     }
 
     public boolean isActive() {
