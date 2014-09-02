@@ -46,10 +46,13 @@
                     <input type="submit" value="search"/>
                 </form>
             </div>
+
             <div class="sidebar span4">
                 <p>Found <span th:text="${participants.totalElements}"> 100</span> participants. Showing page <span
                         th:text="${participants.number + 1}">1</span> of <span
-                        th:text="${participants.totalPages}">10</span></p>
+                        th:text="${participants.totalPages}">10</span><br/>
+                    <a th:href="@{/admin/new_participant}">New Participant</a>
+                </p>
             </div>
         </div>
 

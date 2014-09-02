@@ -9,9 +9,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.
@@ -100,6 +105,43 @@ public class AdminController extends BaseController {
  //       }
         return "redirect:/admin";
     }
+
+    @RequestMapping(value="/new_participant", method=RequestMethod.GET)
+    public String showNewForm(ModelMap model) {
+        Participant p;
+        p = new Participant();
+        model.addAttribute("participant", p);
+        return "admin/new_participant";
+    }
+
+
+    @RequestMapping(value="/participant/", method=RequestMethod.POST)
+    public String createParticipant(ModelMap model,
+                                       @Valid Participant participant,
+                                       BindingResult bindingResult) {
+
+        ParticipantDAO dao;
+
+        if(participantRepository.findByEmail(participant.getEmail()) != null) {
+            bindingResult.addError(new ObjectError("email", "This email already exists."));
+        }
+
+        if(!participant.getPassword().equals(participant.getPasswordAgain())) {
+            bindingResult.addError(new ObjectError("password", "Passwords do not match."));
+        }
+
+        if (bindingResult.hasErrors()) {
+            LOG.error("Invalid participant:" + bindingResult.getAllErrors());
+            return "admin/new_participant";
+        }
+
+        participant.setLastLoginDate(new Date()); // Set the last login date.
+        saveParticipant(participant);
+
+        LOG.info("Participant created.");
+        return "redirect:/admin";
+    }
+
 
     @RequestMapping(value="/listEmails", method=RequestMethod.GET)
     public String listEmails(ModelMap model, Principal principal) {
