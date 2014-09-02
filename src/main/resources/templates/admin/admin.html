@@ -67,6 +67,8 @@
                         <th>send reminders?</th>
                         <th>Active?</th>
                         <th>Admin?</th>
+                        <th>Prime</th>
+                        <th>CBM Condition</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -79,6 +81,8 @@
                         <td th:text="${p.emailOptout}? no : yes">yes</td>
                         <td th:text="${p.active}? yes : no">yes</td>
                         <td th:text="${p.admin}? yes : no">yes</td>
+                        <td th:text="${p.prime}">Neutral</td>
+                        <td th:text="${p.cbmCondition}">50/50</td>
                         <td>
                             <a th:href="@{'/admin/participant/'+${p.id}}">Edit</a>
                         </td>

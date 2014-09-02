@@ -10,9 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -31,6 +29,10 @@ public class Participant {
     private long id;
 
     public enum SESSION_STATE {READY, WAIT_A_DAY, WAIT_FOR_FOLLOWUP, ALL_DONE}
+    public enum CBM_CONDITION {FITFY_FIFTY, POSITIVE, NEUTRAL}
+    public enum PRIME {NEUTRAL, ANXIETY}
+    private static final Random RANDOM = new Random();  // For generating random CBM and Prime values.
+
 
     /**
     NOTE:  Recommend using stronger password security settings, like these:
@@ -40,6 +42,7 @@ public class Participant {
     **/
     public static final String PASSWORD_REGEX = "^.{8,}$";
     public static final String PASSWORD_MESSAGE = "Password must be at least 8 digits long.";
+
 
     @Size(min=2, max=100, message="Please specify your full name.")
     private String fullName;
@@ -53,33 +56,62 @@ public class Participant {
 
     @NotNull
     @Pattern(regexp=PASSWORD_REGEX, message = PASSWORD_MESSAGE)
-    private String        password;
+    private String         password;
     @NotNull
-    private String        passwordAgain;
+    private String         passwordAgain;
 
-    private List<Session> sessions  = Session.defaultList();
-    private int           taskIndex;
+    private List<Session>  sessions  = Session.defaultList();
+    private int            taskIndex;
 
-    private boolean       emailOptout = false;  // User required to receive no more emails.
+    private boolean        emailOptout = false;  // User required to receive no more emails.
 
-    private boolean       active = true;
+    private boolean        active = true;
 
-    private Date          lastLoginDate;
+    private Date           lastLoginDate;
 
-    private Date          lastSessionDate;
+    private Date           lastSessionDate;
 
     private List<EmailLog> emailLogs;
 
     private PasswordToken  passwordToken;
 
-    public Participant() {}
+    private CBM_CONDITION  cbmCondition;
+
+    private PRIME          prime;
+
+
+    public Participant() {
+        cbmCondition = randomCondition();
+        prime        = randomPrime();
+    }
 
     public Participant(long id, String fullName, String email, boolean admin) {
         this.id = id;
         this.fullName = fullName;
         this.email = email;
         this.admin = admin;
+        cbmCondition = randomCondition();
+        prime        = randomPrime();
     }
+
+    /**
+     * Generates a Random CBM Condition from the list of conditions.
+     */
+    public static CBM_CONDITION randomCondition()  {
+        List<CBM_CONDITION> values =
+                Collections.unmodifiableList(Arrays.asList(CBM_CONDITION.values()));
+        return values.get(RANDOM.nextInt(values.size()));
+    }
+
+    /**
+     * Generates a Random Prime setting from the list of possible prime values.
+     */
+    public static PRIME randomPrime()  {
+        List<PRIME> values =
+                Collections.unmodifiableList(Arrays.asList(PRIME.values()));
+        return values.get(RANDOM.nextInt(values.size()));
+    }
+
 
     /**
      * Checks to see if the given password matches some standard criteria:
@@ -338,5 +370,21 @@ public class Participant {
 
     public void setPasswordToken(PasswordToken passwordToken) {
         this.passwordToken = passwordToken;
+    }
+
+    public CBM_CONDITION getCbmCondition() {
+        return cbmCondition;
+    }
+
+    public void setCbmCondition(CBM_CONDITION cbmCondition) {
+        this.cbmCondition = cbmCondition;
+    }
+
+    public PRIME getPrime() {
+        return prime;
+    }
+
+    public void setPrime(PRIME prime) {
+        this.prime = prime;
     }
 }

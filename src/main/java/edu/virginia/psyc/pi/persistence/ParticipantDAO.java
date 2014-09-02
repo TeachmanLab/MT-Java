@@ -1,5 +1,6 @@
 package edu.virginia.psyc.pi.persistence;
 
+import edu.virginia.psyc.pi.domain.Participant;
 import edu.virginia.psyc.pi.domain.Session;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -46,11 +47,19 @@ public class ParticipantDAO implements UserDetails {
 
     private String        randomToken;
 
+
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private PasswordTokenDAO  passwordTokenDAO;
 
     @Enumerated(EnumType.STRING)
+    private Participant.PRIME prime;
+
+    @Enumerated(EnumType.STRING)
+    private Participant.CBM_CONDITION cbmCondition;
+
+    @Enumerated(EnumType.STRING)
     private Session.NAME currentSession = Session.NAME.values()[0]; // set to first session by default
+
 
     private int taskIndex = 0;
 
@@ -209,6 +218,22 @@ public class ParticipantDAO implements UserDetails {
 
     public void setPasswordTokenDAO(PasswordTokenDAO passwordTokenDAO) {
         this.passwordTokenDAO = passwordTokenDAO;
+    }
+
+    public Participant.PRIME getPrime() {
+        return prime;
+    }
+
+    public void setPrime(Participant.PRIME prime) {
+        this.prime = prime;
+    }
+
+    public Participant.CBM_CONDITION getCbmCondition() {
+        return cbmCondition;
+    }
+
+    public void setCbmCondition(Participant.CBM_CONDITION cbmCondition) {
+        this.cbmCondition = cbmCondition;
     }
 
     @Override

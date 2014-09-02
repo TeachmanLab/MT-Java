@@ -72,6 +72,8 @@ public class ParticipantRepositoryTest {
         assertEquals(p.getLastLoginDate(), dao.getLastLoginDate());
         assertEquals(p.getLastSessionDate(), dao.getLastSessionDate());
         assertNull("Password should not come back from the database.", p.getPassword());
+        assertEquals(p.getCbmCondition(), dao.getCbmCondition());
+        assertEquals(p.getPrime(), dao.getPrime());
     }
 
     @Test
@@ -157,6 +159,8 @@ public class ParticipantRepositoryTest {
         assertEquals(1, dao.getTaskIndex());
         assertEquals(p.getLastLoginDate(), dao.getLastLoginDate());
         assertEquals(p.getLastSessionDate(), dao.getLastSessionDate());
+        assertEquals(p.getCbmCondition(), dao.getCbmCondition());
+        assertEquals(p.getPrime(), dao.getPrime());
 
     }
 

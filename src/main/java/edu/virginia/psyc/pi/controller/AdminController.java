@@ -90,14 +90,14 @@ public class AdminController extends BaseController {
 
         dao = participantRepository.findOne(id);
 
-        if (bindingResult.hasErrors()) {
-            LOG.error("Invalid participant:" + bindingResult.getAllErrors());
-            model.addAttribute("participant", participant);
-            return "admin/participant_form";
-        } else {
+//        if (bindingResult.hasErrors()) {
+//            LOG.error("Invalid participant:" + bindingResult.getAllErrors());
+//            model.addAttribute("participant", participant);
+//            return "admin/participant_form";
+ //       } else {
             participantRepository.domainToEntity(participant, dao);
             participantRepository.save(dao);
-        }
+ //       }
         return "redirect:/admin";
     }
 
