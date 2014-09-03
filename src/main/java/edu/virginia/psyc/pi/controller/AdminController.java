@@ -35,7 +35,7 @@ public class AdminController extends BaseController {
 
     private static final Logger LOG = LoggerFactory.getLogger(AdminController.class);
 
-    private static final int PER_PAGE=10; // Number of users to display per page.
+    private static final int PER_PAGE=20; // Number of users to display per page.
 
     @Autowired
     private EmailService emailService;
