@@ -54,7 +54,14 @@
                         <div th:if="${sessionState == 'READY'}">
                             <div th:switch="${currentSession.name.toString()}">
                                 <p th:case='PRE'>Before you begin the first session, we'd like to get some more information about you.</p>
-                                <p th:case='SESSION1'>This is Session 1.  You should try and complete both Session 1 and Session 2 this week.  Please press the "Next" button below to get started.</p>
+                                <p th:case='SESSION1'>Please press the "Next" button below to get started.</p>
+                                <p th:case='SESSION2'>Please press the "Next" button below to get started.</p>
+                                <p th:case='SESSION3'>Please press the "Next" button below to get started.</p>
+                                <p th:case='SESSION4'>Please press the "Next" button below to get started.</p>
+                                <p th:case='SESSION5'>Please press the "Next" button below to get started.</p>
+                                <p th:case='SESSION6'>Please press the "Next" button below to get started.</p>
+                                <p th:case='SESSION7'>Please press the "Next" button below to get started.</p>
+                                <p th:case='SESSION8'>Please press the "Next" button below to get started.</p>
                             </div>
 
                             <!--<ul id="tasks">-->
