@@ -64,9 +64,9 @@
                                 <p th:case='SESSION8'>Please press the "Next" button below to get started.</p>
                             </div>
 
-                            <!--<ul id="tasks">-->
-                                <!--<li th:each="task : ${currentSession.tasks}" th:class="${task.state}" th:text="${task.displayName}"/>-->
-                            <!--</ul>-->
+                            <ul id="tasks">
+                                <li th:each="task, iterStat : ${currentSession.tasks}" th:class="${task.state}" th:text="${'Task ' + iterStat.count}"/>
+                            </ul>
 
                             <p> Please press the next button when you are ready to continue.</p>
                             <a th:href="${currentTask.requestMapping}" th:if="${currentTask}"><div class="mybtn">Next</div></a>
