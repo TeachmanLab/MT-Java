@@ -53,13 +53,13 @@
 
                         <div th:if="${sessionState == 'READY'}">
                             <div th:switch="${currentSession.name.toString()}">
-                                <p th:case='PRE'>Before you begin the first session, we need to develop a more detailed assessment of your current state.</p>
+                                <p th:case='PRE'>Before you begin the first session, we'd like to get some more information about you.</p>
                                 <p th:case='SESSION1'>This is Session 1.  You should try and complete both Session 1 and Session 2 this week.  Please press the "Next" button below to get started.</p>
                             </div>
 
-                            <ul id="tasks">
-                                <li th:each="task : ${currentSession.tasks}" th:class="${task.state}" th:text="${task.displayName}"/>
-                            </ul>
+                            <!--<ul id="tasks">-->
+                                <!--<li th:each="task : ${currentSession.tasks}" th:class="${task.state}" th:text="${task.displayName}"/>-->
+                            <!--</ul>-->
 
                             <p> Please press the next button when you are ready to continue.</p>
                             <a th:href="${currentTask.requestMapping}" th:if="${currentTask}"><div class="mybtn">Next</div></a>
