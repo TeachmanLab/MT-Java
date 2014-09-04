@@ -271,7 +271,7 @@ public class QuestionController {
     }
 
     @RequestMapping(value = "PUE", method = RequestMethod.POST)
-    RedirectView handleMultiUserExperience(@ModelAttribute("PUE") PilotUserExperience pue,
+    RedirectView handlePilotUserExperience(@ModelAttribute("PUE") PilotUserExperience pue,
                                            BindingResult result) {
 
         recordSessionProgress(pue);
@@ -386,11 +386,11 @@ public class QuestionController {
 //    }
 //
 //    @RequestMapping(value = "SAPr", method = RequestMethod.POST)
-//    RedirectView handleSAPr(@ModelAttribute("SAPr") StateAnxietyPre SAPre,
+//    RedirectView handleSAPr(@ModelAttribute("SAPr") StateAnxietyPre SAPr,
 //                              BindingResult result) {
 //
-//        recordSessionProgress(SAPre);
-//        stateAnxietyPre_Repository.save(SAPre);
+//        recordSessionProgress(SAPr);
+//        stateAnxietyPre_Repository.save(SAPr);
 //        return new RedirectView("/session");
 //
 //    }
