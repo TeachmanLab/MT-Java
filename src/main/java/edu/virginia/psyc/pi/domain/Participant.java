@@ -237,9 +237,11 @@ public class Participant {
            getCurrentSession().getName().equals(Session.NAME.SESSION1))
             return SESSION_STATE.READY;
 
+        // If
+
         // Otherwise, you must wait at least one day before starting the next
         // session.
-        if(daysSinceLastSession() == 0) return SESSION_STATE.WAIT_A_DAY;
+        if(daysSinceLastSession() == 0 && lastSessionDate != null) return SESSION_STATE.WAIT_A_DAY;
         return SESSION_STATE.READY;
     }
 
