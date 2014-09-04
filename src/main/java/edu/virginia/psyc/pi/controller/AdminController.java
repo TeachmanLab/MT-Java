@@ -1,6 +1,8 @@
 package edu.virginia.psyc.pi.controller;
 
 import edu.virginia.psyc.pi.domain.Participant;
+import edu.virginia.psyc.pi.domain.ParticipantForm;
+import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.service.EmailService;
@@ -9,21 +11,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -38,7 +35,7 @@ public class AdminController extends BaseController {
 
     private static final Logger LOG = LoggerFactory.getLogger(AdminController.class);
 
-    private static final int PER_PAGE=10; // Number of users to display per page.
+    private static final int PER_PAGE=20; // Number of users to display per page.
 
     @Autowired
     private EmailService emailService;
@@ -58,20 +55,29 @@ public class AdminController extends BaseController {
                             final @RequestParam(value = "search", required = false, defaultValue = "") String search,
                             final @RequestParam(value = "page", required = false, defaultValue = "0") String pageParam) {
 
-        Page<ParticipantDAO> participants;
+        ParticipantForm form;
+        Page<ParticipantDAO> daoList;
         PageRequest pageRequest;
+
         int page = Integer.parseInt(pageParam);
 
         pageRequest = new PageRequest(page, PER_PAGE);
 
         if(search.isEmpty()) {
-            participants = participantRepository.findAll(pageRequest);
+            daoList = participantRepository.findAll(pageRequest);
         } else {
-            participants = participantRepository.search(search, pageRequest);
+            daoList = participantRepository.search(search, pageRequest);
         }
 
-        model.addAttribute("participants", participants);
+        form = new ParticipantForm();
+        for(ParticipantDAO dao : daoList) {
+            form.add(participantRepository.entityToDomain(dao));
+            form.add(dao.getCurrentSession());
+        }
+
+        model.addAttribute("participantForm", form);
         model.addAttribute("search", search);
+        model.addAttribute("paging", daoList);
         return "admin/admin";
 
     }
@@ -84,6 +90,32 @@ public class AdminController extends BaseController {
 
         model.addAttribute("participant", p);
         return "admin/participant_form";
+    }
+
+    @RequestMapping(value="/updateParticipants", method=RequestMethod.POST)
+    public String updateParticipants(ModelMap model,
+                                     @ModelAttribute("participants") ParticipantForm participantForm) {
+
+        List<Participant> participants = participantForm.getParticipants();
+        List<Session.NAME> sessions = participantForm.getSessionNames();
+        Session session;
+        int     index;
+        ParticipantDAO dao;
+
+        if(null != participants && participants.size() > 0) {
+            for (Participant p : participants) {
+                index = participants.indexOf(p);
+                // Only if the session was change in the ui, update the session
+                // current session for the participant, and reset their progress.
+                if(p.getCurrentSession().getName() != sessions.get(index)) {
+                    p.setSessions(Session.createListView(sessions.get(index), 0));
+                }
+                dao = participantRepository.findOne(p.getId());
+                participantRepository.domainToEntity(p, dao);
+                participantRepository.save(dao);
+            }
+        }
+        return "redirect:/admin";
     }
 
     @RequestMapping(value="/participant/{id}", method=RequestMethod.POST)

@@ -1414,6 +1414,13 @@ label.radioBox:hover {
     cursor:pointer;
 }
 
+/*============================================================*/
+/*---------- 7. Admin editor ----------*/
+/*============================================================*/
 
+table.participantList select {
+    width: 100% !important;
+    font-size: .8em;
+}
 
 
