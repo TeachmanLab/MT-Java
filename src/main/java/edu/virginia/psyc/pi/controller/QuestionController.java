@@ -96,6 +96,7 @@ public class QuestionController {
     private void recordSessionProgress(QuestionnaireData data) {
 
         ParticipantDAO dao = (ParticipantDAO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        dao = participantRepository.findByEmail(dao.getEmail()); // Refresh session object from database.
         Participant participant = participantRepository.entityToDomain(dao);
 
         // Record the session for which this questionnaire was completed.
