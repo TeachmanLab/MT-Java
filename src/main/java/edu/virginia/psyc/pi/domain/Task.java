@@ -47,7 +47,7 @@ public class Task {
      * @return
      */
     public String getRequestMapping() {
-        return type + "/" + name;
+        return "/" + type + "/" + name;
     }
 
 
