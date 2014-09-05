@@ -40,6 +40,10 @@ Installing Javascript Dependencies
 -------------------
 Javascript dependencies, including the PIPlayer are installed using Bower, just run `bower install`
 
+Please Note:  if you run into problems with PI Player scripts not executing you might try editing the file
+/PIServer/src/main/resources/static/PIPlayer/dist/js/config.js
+Set the baseUrl:'../PIPlayer/dist/js',
+
 
 Running
 --------
