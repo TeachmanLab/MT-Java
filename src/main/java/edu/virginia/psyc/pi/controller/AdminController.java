@@ -98,20 +98,28 @@ public class AdminController extends BaseController {
 
         List<Participant> participants = participantForm.getParticipants();
         List<Session.NAME> sessions = participantForm.getSessionNames();
-        Session session;
         int     index;
         ParticipantDAO dao;
 
+        // We only want to update a very limited set of fields on the participant
+        // data model.
         if(null != participants && participants.size() > 0) {
             for (Participant p : participants) {
                 index = participants.indexOf(p);
+                dao = participantRepository.findOne(p.getId());
+                dao.setActive(p.isActive());
+                dao.setAdmin(p.isAdmin());
+                dao.setPrime(p.getPrime());
+                dao.setCbmCondition(p.getCbmCondition());
                 // Only if the session was change in the ui, update the session
                 // current session for the participant, and reset their progress.
+                // set the last session date to null so they don't get a timeout
+                // message.
                 if(p.getCurrentSession().getName() != sessions.get(index)) {
-                    p.setSessions(Session.createListView(sessions.get(index), 0));
+                    dao.setCurrentSession(sessions.get(index));
+                    dao.setTaskIndex(0);
+                    dao.setLastSessionDate(null);
                 }
-                dao = participantRepository.findOne(p.getId());
-                participantRepository.domainToEntity(p, dao);
                 participantRepository.save(dao);
             }
         }

@@ -231,4 +231,55 @@ public class ParticipantRepositoryTest {
         Assert.assertEquals("john@x.com", participantDAO.getEmail());
     }
 
+
+    @Test
+    public void bugWhereParticipantSessionIsWonky() {
+
+        ParticipantDAO dao;
+        Participant p;
+        String email = "john@x.com";
+
+        // Create a participant
+        p = new Participant(1000000, email, "23452354", false);
+        p.setSessions(Session.createListView(Session.NAME.PRE,0));
+
+        // Save that participant
+        dao = new ParticipantDAO();
+        participantRepository.domainToEntity(p, dao);
+
+        // Get that participant back.
+        p   = participantRepository.entityToDomain(dao);
+
+        // Assure that the participant's current session is pre
+        assertEquals(Session.NAME.PRE, p.getCurrentSession().getName());
+
+        // Change the participant's session.
+        dao.setCurrentSession(Session.NAME.SESSION5);
+
+        // Get that participant back.
+        p   = participantRepository.entityToDomain(dao);
+
+        // Assure that the participant's current session is session 5
+        assertEquals(Session.NAME.SESSION5, p.getCurrentSession().getName());
+
+        // Increment the current task.
+        p.completeCurrentTask();
+        assertEquals(1, p.getTaskIndex());
+        p.completeCurrentTask();
+        assertEquals(0, p.getTaskIndex());
+        assertEquals(Session.NAME.SESSION6, p.getCurrentSession().getName());
+
+        // Change the participant's session back to Session1.
+        dao.setCurrentSession(Session.NAME.SESSION1);
+        p   = participantRepository.entityToDomain(dao);
+        assertEquals(Session.NAME.SESSION1, p.getCurrentSession().getName());
+        p.completeCurrentTask();
+        assertEquals(Session.NAME.SESSION1, p.getCurrentSession().getName());
+
+
+
+
+    }
+
+
 }

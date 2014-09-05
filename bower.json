@@ -9,6 +9,6 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-  		  "PIPlayer":"v0.1.4"
+  		  "PIPlayer":"v0.2.2"
   }
 }

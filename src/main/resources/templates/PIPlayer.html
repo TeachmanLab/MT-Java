@@ -8,8 +8,7 @@
         <link type="text/css" rel="Stylesheet" href="../PIPlayer/dist/css/reset.css"/>
         <link type="text/css" rel="Stylesheet" href="../PIPlayer/dist/css/styles.css"/>
 
-		<script src="../PIPlayer/dist/js/libs/require.js"></script>
-
+		<script src="../PIPlayer/bower_components/requirejs/require.js"></script>
         <script th:inline="javascript">
             /*<![CDATA[*/
             var scriptName = /*[[${script}]]*/ int_train.js;
@@ -18,6 +17,7 @@
                 require.config({baseURL:'../PIPlayer/dist/js'});
                 require(["/PIPlayerScripts/" + scriptName + ".js"]);
             });
+
             /*]]>*/
         </script>
 	</head>
