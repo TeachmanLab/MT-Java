@@ -278,7 +278,7 @@ define(['app/API'], function(API) {
         },
         {
             mixer: 'repeat',
-            times: 50,  // The total number of randomly selected trials to run.
+            times: 1,  // The total number of randomly selected trials to run.
             data: [
     {
         "inherit": {
