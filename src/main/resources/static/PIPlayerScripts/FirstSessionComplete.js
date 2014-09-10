@@ -548,7 +548,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "wei[ ]d",
                     "positiveKey": "e",
                     "positiveWord": "op[ ]n",
-                    "statement": " You are sitting on the couch and watching television with a friend. Your friend asks you a personal question. You answer honestly, and you think your friend judges you to be"
+                    "statement": " You are sitting on the couch and watching television with a friend. Your friend asks you a personal question. You answer honestly, and you think your friend judges you to be "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -913,7 +913,7 @@ define(['app/API'], function(API) {
             },
             {
                 "data": {
-                    "negativeKey": "o",
+                    "negativeKey": "i",
                     "negativeWord": "anx[ ]ous",
                     "positiveKey": "l",
                     "positiveWord": "ca[ ]m",
@@ -1122,7 +1122,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "lea[ ]e",
                     "positiveKey": "y",
                     "positiveWord": "sta[ ]",
-                    "statement": " You arrive at a large party, and quickly realize that there are a lot of people you do not know there. You feel anxious, and consider going home. After thinking bout it, you decide to"
+                    "statement": " You arrive at a large party, and quickly realize that there are a lot of people you do not know there. You feel anxious, and consider going home. After thinking about it, you decide to "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -1163,7 +1163,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "an[ ]ious",
                     "positiveKey": "n",
                     "positiveWord": "fi[ ]e",
-                    "statement": " You are at a class that your company has sent you to. Your teacher asks each member of the group to stand up and introduce himself or herself. During your brief presentation you momentarily forget what you play to say, but quickly recover; you guess that others thought you sounded"
+                    "statement": " You are at a class that your company has sent you to. Your teacher asks each member of the group to stand up and introduce himself or herself. During your brief presentation you momentarily forget what you play to say, but quickly recover; you guess that others thought you sounded "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -1656,7 +1656,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "lar[ ]e",
                     "positiveKey": "n",
                     "positiveWord": "mi[ ]imal",
-                    "statement": " Your friend enjoys ice-skating and persuades you to try it out. At the rink you put on the skates and step on the ice. You glide forward, slowly at first, then faster, and think your chances of getting injured are"
+                    "statement": " Your friend enjoys ice-skating and persuades you to try it out. At the rink you put on the skates and step on the ice. You glide forward, slowly at first, then faster, and think your chances of getting injured are "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -2232,7 +2232,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "i[ ]tolerable",
                     "positiveKey": "b",
                     "positiveWord": "tolera[ ]le",
-                    "statement": " You have not been feeling great recently, so you try to schedule a doctor\u00e2\u20ac\u2122s appointment. The soonest appointment you can get is a few days away, which makes you feel anxious. You know that your anxiety as you wait for the appointment is"
+                    "statement": " You have not been feeling great recently, so you try to schedule a doctor\u00e2\u20ac\u2122s appointment. The soonest appointment you can get is a few days away, which makes you feel anxious. You know that your anxiety as you wait for the appointment is "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -2287,7 +2287,7 @@ define(['app/API'], function(API) {
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div> Will you get sick from your friend\u00e2\u20ac\u2122s new baby?</div>"
+                    "inlineTemplate": "<div> Will you get sick from your friend's new baby?</div>"
                 }
             }
         ]
@@ -2314,7 +2314,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "unhe[ ]lthy",
                     "positiveKey": "l",
                     "positiveWord": "hea[ ]thy",
-                    "statement": " At your routine doctor\u00e2\u20ac\u2122s appointment, your doctor decides to run a few tests to evaluate your health. The doctor tells you that she will get you your results within a week. While you wait for your results, you think you are likely "
+                    "statement": " At your routine doctor's appointment, your doctor decides to run a few tests to evaluate your health. The doctor tells you that she will get you your results within a week. While you wait for your results, you think you are likely "
                 },
                 "handle": "paragraph",
                 "media": {

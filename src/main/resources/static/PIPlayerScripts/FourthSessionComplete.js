@@ -630,7 +630,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "bo[ ]ed",
                     "positiveKey": "c",
                     "positiveWord": "ex[ ]ited",
-                    "statement": " You are put in charge of your office\u2019s fundraising efforts and quickly realize that your coworkers are not very interested in the fundraising. At a meeting, you give a presentation about the importance of helping with the fundraising, during which your coworkers are queiet. After your presentation you think you coworkers seem more"
+                    "statement": " You are put in charge of your office\u2019s fundraising efforts and quickly realize that your coworkers are not very interested in the fundraising. At a meeting, you give a presentation about the importance of helping with the fundraising, during which your coworkers are quiet. After your presentation you think you coworkers seem more "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -1040,7 +1040,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "l[ ]ing",
                     "positiveKey": "c",
                     "positiveWord": "sin[ ]ere",
-                    "statement": " You are working on a project with a coworker in a coffee shop and you accidentally spill your coffee on her papers. As you clean up the mess, your coworkers says that she is not up'set' with you because of the spill. You think that she is "
+                    "statement": " You are working on a project with a coworker in a coffee shop and you accidentally spill your coffee on her papers. As you clean up the mess, your coworkers says that she is not upset with you because of the spill. You think that she is "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -1779,7 +1779,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "dis[ ]atisfied",
                     "positiveKey": "t",
                     "positiveWord": "con[ ]ent",
-                    "statement": " You have spent several weeks perfecting a project. When you turn it in, there are a few very minor adjustments you wish you had time to make. As you think about your work, you feel"
+                    "statement": " You have spent several weeks perfecting a project. When you turn it in, there are a few very minor adjustments you wish you had time to make. As you think about your work, you feel "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -2273,7 +2273,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "can[ ]er",
                     "positiveKey": "l",
                     "positiveWord": "meaning[ ]ess",
-                    "statement": " You notice that you have a mole on your arm that you haven\u00e2\u20ac\u2122t noticed before. You schedule a doctor\u00e2\u20ac\u2122s appointment to have it examined. As you wait for your appointment, you think the mole is likely "
+                    "statement": " You notice that you have a mole on your arm that you haven't noticed before. You schedule a doctor's appointment to have it examined. As you wait for your appointment, you think the mole is likely "
                 },
                 "handle": "paragraph",
                 "media": {

@@ -2026,7 +2026,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "dis[ ]atisfied",
                     "positiveKey": "t",
                     "positiveWord": "con[ ]ent",
-                    "statement": " You have spent several weeks perfecting a project. When you turn it in, there are a few very minor adjustments you wish you had time to make. As you think about your work, you feel"
+                    "statement": " You have spent several weeks perfecting a project. When you turn it in, there are a few very minor adjustments you wish you had time to make. As you think about your work, you feel "
                 },
                 "handle": "paragraph",
                 "media": {

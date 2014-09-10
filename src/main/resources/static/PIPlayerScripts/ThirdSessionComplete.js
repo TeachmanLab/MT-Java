@@ -463,10 +463,10 @@ define(['app/API'], function(API) {
             {
                 "data": {
                     "negativeKey": "w",
-                    "negativeWord": "awk[ ]ared",
+                    "negativeWord": "awk[ ]ard",
                     "positiveKey": "n",
                     "positiveWord": "pleasa[ ]t",
-                    "statement": " You best friend arranges a blind date for you. As you sit in the bar waiting to meet your date for the first time, you wonder how it will go. You feel that your date will think you are"
+                    "statement": " You best friend arranges a blind date for you. As you sit in the bar waiting to meet your date for the first time, you wonder how it will go. You feel that your date will think you are "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -999,7 +999,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "disastro[ ]s",
                     "positiveKey": "t",
                     "positiveWord": "enter[ ]aining",
-                    "statement": " You invite work colleagues to your house for a dinner party, although you know they don\u2019t always get along. At the dinner party, your guests talk a lot, despite not always agreeing. As you are clearing up afterwards, you think your guests found your party to be "
+                    "statement": " You invite work colleagues to your house for a dinner party, although you know they don't always get along. At the dinner party, your guests talk a lot, despite not always agreeing. As you are clearing up afterwards, you think your guests found your party to be "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -2107,7 +2107,7 @@ define(['app/API'], function(API) {
                 "data": {
                     "negativeKey": "g",
                     "negativeWord": "hi[ ]h",
-                    "positiveKey": "n",
+                    "positiveKey": "m",
                     "positiveWord": "mini[ ]al",
                     "statement": " You have a meeting with a co-worker, and notice that he repeatedly sniffles and wipes his nose with a tissue. After the meeting, you wash your hands. The chances that you will get sick from your coworker are "
                 },
