@@ -25,6 +25,7 @@ public class PilotUserExperience implements QuestionnaireData{
 
     private int ease;
     private int interest;
+    @Column(name="like_value") // 'like' is a reserved word in the database syntax and can't be used as name.
     private int like;
     private int look;
     private int privacy;

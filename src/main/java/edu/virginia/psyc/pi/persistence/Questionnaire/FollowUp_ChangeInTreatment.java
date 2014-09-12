@@ -25,6 +25,7 @@ public class FollowUp_ChangeInTreatment implements QuestionnaireData {
 
 
     private int medication_tx;
+    @Column(name="description")  // describe is a reserved word, and not a valid column name.
     private String describe;
 
     public int getId() {

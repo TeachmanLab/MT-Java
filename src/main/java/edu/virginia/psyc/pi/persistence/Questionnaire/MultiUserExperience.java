@@ -31,6 +31,7 @@ public class MultiUserExperience implements QuestionnaireData{
     private int recommend;
     private int ease;
     private int interest;
+    @Column(name="like_value") // 'like' is a reserved word in the database syntax and can't be used as name.
     private int like;
     private int look;
     private int privacy;
@@ -43,6 +44,7 @@ public class MultiUserExperience implements QuestionnaireData{
     private int distracted;
     private int similar_program;
     private int other_therapy;
+    @Column(name="where_value") // 'where' is a reserved word in the database syntax and can't be used as name.
     private int where;
     private String OtherDesc;
     private String cntrl_tx;
