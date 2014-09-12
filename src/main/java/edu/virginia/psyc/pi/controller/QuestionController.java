@@ -561,6 +561,7 @@ public class QuestionController {
         Method[] methods = o.getClass().getMethods();
         ParticipantDAO participantDAO;
         Session.NAME session;
+        List list;
         String data;
 
         for(Method method : methods){
@@ -572,6 +573,14 @@ public class QuestionController {
                         data = method.invoke(o).toString();
                     } else if (String.class.equals(method.getReturnType())) {
                         data = method.invoke(o).toString();
+                    } else if (List.class.equals(method.getReturnType())) {
+                        StringBuffer values = new StringBuffer();
+                        list = (List)method.invoke(o);
+                        for(int i = 0; i < list.size(); i++) {
+                            values.append(list.get(i).toString());
+                            if (i < list.size() -1) values.append("; ");
+                        }
+                        data = values.toString();
                     } else if (Date.class.equals(method.getReturnType())) {
                         data = method.invoke(o).toString();
                     } else if (ParticipantDAO.class.equals(method.getReturnType())) {
