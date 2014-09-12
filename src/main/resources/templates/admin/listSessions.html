@@ -42,7 +42,7 @@
                     <h5 th:text="${session.name}"></h5>
                     <ul>
                         <li th:each="task : ${session.tasks}">
-                          <a th:href="@{${'/' + task.requestMapping}}" th:text="${task.displayName}"></a>
+                          <a th:href="@{${task.requestMapping}}" th:text="${task.displayName}"></a>
                         </li>
                     </ul>
                 </li>
