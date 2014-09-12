@@ -3,8 +3,10 @@ package edu.virginia.psyc.pi.controller;
 import edu.virginia.psyc.pi.domain.Participant;
 import edu.virginia.psyc.pi.domain.ParticipantForm;
 import edu.virginia.psyc.pi.domain.Session;
+import edu.virginia.psyc.pi.domain.json.TrialJson;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
+import edu.virginia.psyc.pi.persistence.TrialDAO;
 import edu.virginia.psyc.pi.service.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +23,7 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -207,6 +210,16 @@ public class AdminController extends BaseController {
         model.addAttribute("sessions", p.getSessions());
         return "admin/listSessions";
     }
+
+    @RequestMapping(value="/listDownloads", method=RequestMethod.GET)
+    public String listDownloads(ModelMap model, Principal principal) {
+        Participant p = getParticipant(principal);
+        model.addAttribute("participant", p);
+        model.addAttribute("sessions", p.getSessions());
+        return "admin/listDownloads";
+    }
+
+
 
 
 }

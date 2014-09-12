@@ -91,7 +91,7 @@ public class TrialController {
     }
 
     /**
-     * Returns the json data properly formatted.
+     * Returns the json data of a PIPlayer script as a text/csv content
      * @return
      */
     @RequestMapping(method = RequestMethod.GET, produces = "text/csv")

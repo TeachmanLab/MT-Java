@@ -93,7 +93,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                             "/resetPassStep2/**",
                             "/changePassword/**"
                     ).permitAll()
-                    .antMatchers("/admin", "/admin/**").hasRole("ADMIN")
+                    .antMatchers("/admin", "/admin/**", "/questions/*/export").hasRole("ADMIN")
                     .antMatchers("/**").hasRole("USER")
                     .and()
                 .formLogin()
