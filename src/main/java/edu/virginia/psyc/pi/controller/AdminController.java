@@ -248,7 +248,11 @@ public class AdminController extends BaseController {
             reportData = data.toTrialJson().toInterpretationReport();
             for (String k : keys) {
                 csv.append("\"");
-                csv.append(reportData.get(k).replaceAll("\"", "\\\""));
+                if(null == reportData.get(k)) {
+                    csv.append("");
+                } else {
+                    csv.append(reportData.get(k).replaceAll("\"", "\\\""));
+                }
                 csv.append("\"");
                 csv.append(",");
             }
