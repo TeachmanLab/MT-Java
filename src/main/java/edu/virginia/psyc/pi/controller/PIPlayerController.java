@@ -38,9 +38,8 @@ import java.util.Date;
  */
 @Controller
 @RequestMapping("/playerScript")
-public class PIPlayerController {
+public class PIPlayerController extends BaseController {
 
-    private ParticipantRepository participantRepository;
 
     @Autowired
     public PIPlayerController(ParticipantRepository participantRepository) {
@@ -49,15 +48,19 @@ public class PIPlayerController {
 
     @RequestMapping(value="{scriptName}", method=RequestMethod.GET)
     public String showPlayer(ModelMap model, Principal principal, @PathVariable String scriptName) {
+
+        Participant p = getParticipant(principal);
         model.addAttribute("script", scriptName);
+        model.addAttribute("sessionName", p.getCurrentSession().getName().toString());
+        model.addAttribute("participantId", p.getId());
         return "PIPlayer";
     }
 
     @RequestMapping("/completed/{scriptName}")
     public RedirectView markComplete(Principal principal, @PathVariable String scriptName) {
 
-        ParticipantDAO dao      = (ParticipantDAO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Participant participant = participantRepository.entityToDomain(dao);
+        Participant participant = getParticipant(principal);
+        ParticipantDAO dao = participantRepository.findByEmail(participant.getEmail());
 
         participant.completeCurrentTask();
         participantRepository.domainToEntity(participant, dao);

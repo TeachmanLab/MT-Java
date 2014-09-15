@@ -15,6 +15,7 @@ define(['app/API'], function(API) {
             function(trialData, inputData, actionData,logStack){
                 var stimList = this._stimulus_collection.get_stimlist();
                 var mediaList = this._stimulus_collection.get_medialist();
+                var global = API.getGlobal();
 
                 return {
                     log_serial : logStack.length,
@@ -24,8 +25,10 @@ define(['app/API'], function(API) {
                     latency: Math.floor(inputData.latency),
                     stimuli: stimList,
                     media: mediaList,
-                    data: trialData
-
+                    data: trialData,
+                    script: global["script"],
+                    session: global["session"],
+                    participant: global["participant"]
                 }
             }
     });
@@ -2342,6 +2345,6 @@ define(['app/API'], function(API) {
     ]);
 
     // #### Activate the player
-    API.play();
+    // API.play();
 });
 /* don't forget to close the define wrapper */

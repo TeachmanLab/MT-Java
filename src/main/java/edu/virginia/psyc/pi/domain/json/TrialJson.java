@@ -24,18 +24,26 @@ public class TrialJson {
     private List<String> stimuli;
     private List<String> media;
     private Map<String,String> data;
+    private String script;
+    private String session;
+    private int participant;
 
 
     @Override
     public String toString() {
         return "TrialJson{" +
-                "log_serial=" + log_serial +
-                ", trial_id=" + trial_id +
+                "id=" + id +
+                ", log_serial=" + log_serial +
+                ", trial_id='" + trial_id + '\'' +
                 ", name='" + name + '\'' +
                 ", responseHandle='" + responseHandle + '\'' +
+                ", latency=" + latency +
                 ", stimuli=" + stimuli +
                 ", media=" + media +
                 ", data=" + data +
+                ", script='" + script + '\'' +
+                ", session='" + session + '\'' +
+                ", participant=" + participant +
                 '}';
     }
 
@@ -46,6 +54,9 @@ public class TrialJson {
      */
     public static List<String> interpretationReportHeaders() {
         List<String> headers = new ArrayList<String>();
+        headers.add("participant");
+        headers.add("sessionName");
+        headers.add("scriptName");
         headers.add("session");
         headers.add("trial");
         headers.add("positive");
@@ -62,15 +73,9 @@ public class TrialJson {
         // Return an empty row for invalid results.
         if(!this.name.equals("posneg")) return report;
 
-        boolean isPositive = Boolean.valueOf(data.get("positive"));
-        boolean correct;
-
-        String base = id + "," + log_serial + "," + trial_id + ","
-                        + data.get("questionResponse") + ","
-                        + data.get("positive") + ","
-                        + data.get("paragraph") + ","
-                        + data.get("question");
-
+        report.put("participant", participant+"");
+        report.put("sessionName", session);
+        report.put("scriptName", script);
         report.put("session",    log_serial+"");
         report.put("trial",      trial_id);
         report.put("positive",   data.get("positive"));
@@ -154,4 +159,27 @@ public class TrialJson {
         this.data = data;
     }
 
+    public String getScript() {
+        return script;
+    }
+
+    public void setScript(String script) {
+        this.script = script;
+    }
+
+    public String getSession() {
+        return session;
+    }
+
+    public void setSession(String session) {
+        this.session = session;
+    }
+
+    public int getParticipant() {
+        return participant;
+    }
+
+    public void setParticipant(int participant) {
+        this.participant = participant;
+    }
 }
