@@ -23,6 +23,7 @@ public class DataDAO {
     @Column(name="myKey")
     private String key;
 
+    @Lob
     private String value;
 
     public DataDAO() {}
