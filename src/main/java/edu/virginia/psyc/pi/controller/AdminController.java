@@ -7,6 +7,7 @@ import edu.virginia.psyc.pi.domain.json.TrialJson;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.persistence.TrialDAO;
+import edu.virginia.psyc.pi.persistence.TrialRepository;
 import edu.virginia.psyc.pi.service.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,6 +44,8 @@ public class AdminController extends BaseController {
     @Autowired
     private EmailService emailService;
 
+    @Autowired
+    private TrialRepository trialRepository;
 
     /**
      * Spring automatically configures this object.
@@ -219,6 +222,40 @@ public class AdminController extends BaseController {
         return "admin/listDownloads";
     }
 
+    /**
+     * Returns the json data of a PIPlayer script as a text/csv content
+     * @return
+     */
+    @RequestMapping(value="/playerData", method = RequestMethod.GET, produces = "text/csv")
+    @ResponseBody
+    public String getData() {
+        StringBuffer csv = new StringBuffer();
+        List<String> keys;
+        Map<String, String> reportData;
+        TrialJson trial;
+        List<TrialDAO> trialData = trialRepository.findAll();
+
+        // Write headers based on first trial.
+        keys = TrialJson.interpretationReportHeaders();
+        for (String k : keys) {
+            csv.append(k);
+            csv.append(",");
+        }
+        csv.append(("\n"));
+
+        // Write the data.
+        for (TrialDAO data : trialData) {
+            reportData = data.toTrialJson().toInterpretationReport();
+            for (String k : keys) {
+                csv.append("\"");
+                csv.append(reportData.get(k).replaceAll("\"", "\\\""));
+                csv.append("\"");
+                csv.append(",");
+            }
+            csv.append("\n");
+        }
+        return csv.toString();
+    }
 
 
 
