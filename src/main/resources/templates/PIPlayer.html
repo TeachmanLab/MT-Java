@@ -11,13 +11,21 @@
 		<script src="../PIPlayer/bower_components/requirejs/require.js"></script>
         <script th:inline="javascript">
             /*<![CDATA[*/
-            var scriptName = /*[[${script}]]*/ int_train.js;
+            var scriptName  = /*[[${script}]]*/ int_train.js;
+            var session     = /*[[${sessionName}]]*/ PRE;
+            var participant = /*[[${participantId}]]*/ 1;
 
             require(['../PIPlayer/dist/js/config'], function() {
                 require.config({baseURL:'../PIPlayer/dist/js'});
-                require(["/PIPlayerScripts/" + scriptName + ".js"]);
+                require(['app/API', "/PIPlayerScripts/" + scriptName + ".js"], function(API) {
+                    API.addGlobal({
+                        script : scriptName,
+                        session : session,
+                        participant : participant
+                    });
+                    API.play();
+                });
             });
-
             /*]]>*/
         </script>
 	</head>

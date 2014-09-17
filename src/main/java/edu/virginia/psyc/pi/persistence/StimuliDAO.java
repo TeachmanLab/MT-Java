@@ -20,6 +20,7 @@ public class StimuliDAO {
     @ManyToOne
     private TrialDAO trialDAO;
 
+    @Lob
     private String value;
 
     public StimuliDAO() {}

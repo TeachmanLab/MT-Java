@@ -15,28 +15,31 @@ define(['app/API'], function(API) {
             function(trialData, inputData, actionData,logStack){
                 var stimList = this._stimulus_collection.get_stimlist();
                 var mediaList = this._stimulus_collection.get_medialist();
+                var global = API.getGlobal();
 
                 return {
                     log_serial : logStack.length,
                     trial_id: this._id,
                     name: this.name(),
                     responseHandle: inputData.handle,
-                    latency: Math.floor(inputData.latency),
+                    latency: Math.floor(trialData.letter_latency),
                     stimuli: stimList,
                     media: mediaList,
-                    data: trialData
-
+                    data: trialData,
+                    script: global["script"],
+                    session: global["session"],
+                    participant: global["participant"]
                 }
             }
     });
 
     API.addStimulusSets({
         error: [
-        {handle:'error',media:'X', css:{fontSize:'2em',color:'#FF0000'}, location:{top:70}, nolog:true}
-               ],
+            {handle:'error',media:'X', css:{fontSize:'2em',color:'#FF0000'}, location:{top:70}, nolog:true}
+        ],
         yesno: [
             {handle:'yesno',media:'Type "y" for Yes, and "n" for No.', css:{fontSize:'1em',color:'#999999'}, location:{top:70}}
-                ]
+        ]
     });
 
 
@@ -76,7 +79,9 @@ define(['app/API'], function(API) {
                 conditions: [{type:'begin'}],
                 actions: [
                     {type:'showStim',handle:'paragraph'},
-                    {type:'setGlobalAttr',setter:{askingQuestion:false}}
+                    {type:'setGlobalAttr',setter:{askingQuestion:false}},
+                    {type:'setTrialAttr',setter:{correctOnLetter:"true"}}  // set to true - will get set to false later if incorrectly answered.
+
                 ]
             },
             { // Watch for correct answer for a positive missing letter.
@@ -91,7 +96,7 @@ define(['app/API'], function(API) {
                         span.text(text);
                     }},
                     {type:'trigger',handle : 'correct'}
-                        ]
+                ]
             },
             { // Watch for correct answer of a negative missing letter.
                 conditions: [
@@ -117,6 +122,7 @@ define(['app/API'], function(API) {
                 ],
                 actions: [
                     {type:'showStim',handle:'error'},
+                    {type:'setTrialAttr',setter:{correctOnLetter:"false"}},
                     {type:'setInput',input:{handle:'clear', on:'timeout',duration:500}}
                 ]
             },
@@ -130,6 +136,7 @@ define(['app/API'], function(API) {
                 ],
                 actions: [
                     {type:'showStim',handle:'error'},
+                    {type:'setTrialAttr',setter:{correctOnLetter:"false"}},
                     {type:'setInput',input:{handle:'clear', on:'timeout',duration:500}}
                 ]
             },
@@ -142,8 +149,9 @@ define(['app/API'], function(API) {
                     // Preserve the question as completed, so that it will eventually be set back to the server.
                     {type:'setTrialAttr',setter:function(trialData, eventData){
                         trialData.paragraph = $("div[data-handle='paragraph']").text();
-                        trialData.latency   = eventData.latency;
+                        trialData.letter_latency  = Math.floor(eventData.latency);
                     }},
+                    {type:'resetTimer'}, // Reset timer so that we can also collect the latency on the y/n respose
                     // Remove all keys but 'y' and 'n'
                     {type:'removeInput',handle : ['a','b','c','d','e','f','g','h','i','j','k','l','m','o','p','q','r','s','t','u','v','v','w','x','z']},
                     {type:'setInput',input:{handle:'askQuestion', on:'timeout',duration:500}}
@@ -157,17 +165,17 @@ define(['app/API'], function(API) {
                     {type:'hideStim',handle : 'paragraph'},
                     {type:'showStim',handle : 'question'},
                     {type:'showStim',handle:'yesno'},
+                    {type:'setTrialAttr',setter:{correctOnQuestion:"true"}},  // set to true - will get set to false later if incorrectly answered.
                     {type:'setGlobalAttr',setter:{askingQuestion:true}}
                 ]
             },
             // Listen for a correct response to a positive question
             {
                 conditions: [{type:'inputEqualsStim', property:'positiveAnswer'},
-                             {type:'trialEquals', property:'positive', value:true},
-                             {type:'globalEquals', property:'askingQuestion', value:true}
+                    {type:'trialEquals', property:'positive', value:true},
+                    {type:'globalEquals', property:'askingQuestion', value:true}
                 ],
                 actions: [
-                    {type:'setTrialAttr',setter:{correctOnQuestion:"true"}},
                     {type:'hideStim',handle : 'question'},
                     {type:'hideStim',handle:'yesno'},
                     {type:'trigger',handle : 'answered', duration:500}
@@ -176,11 +184,10 @@ define(['app/API'], function(API) {
             // Listen for a correct response to a negative question
             {
                 conditions: [{type:'inputEqualsStim', property:'negativeAnswer'},
-                             {type:'trialEquals', property:'positive', value:false},
-                             {type:'globalEquals', property:'askingQuestion', value:true}
+                    {type:'trialEquals', property:'positive', value:false},
+                    {type:'globalEquals', property:'askingQuestion', value:true}
                 ],
                 actions: [
-                    {type:'setTrialAttr',setter:{correctOnQuestion:"true"}},
                     {type:'hideStim',handle : 'question'},
                     {type:'hideStim',handle:'yesno'},
                     {type:'trigger',handle : 'answered', duration:500}
@@ -219,6 +226,7 @@ define(['app/API'], function(API) {
                     {type:'removeInput',handle : ['y','n']},
                     {type:'setTrialAttr',setter:function(trialData, eventData){
                         trialData.question = $("div[data-handle='question']").text();
+                        trialData.question_latency  = Math.floor(eventData.latency);
                     }},
                     {type:'log'},
                     {type:'endTrial'}
@@ -2342,6 +2350,6 @@ define(['app/API'], function(API) {
     ]);
 
     // #### Activate the player
-    API.play();
+    // API.play();
 });
 /* don't forget to close the define wrapper */

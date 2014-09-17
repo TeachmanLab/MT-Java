@@ -35,21 +35,30 @@
         <!--spacer here-->
         <div class="spacer-30px"></div>
 
-        <h1>Sessions</h1>
-        <p>Here are all the sessions recorded in the system, with links into all the content within each session.</p>
-            <ul class="list-4col team">
-                <li th:each="session : ${sessions}">
-                    <h5 th:text="${session.name}"></h5>
-                    <ul>
-                        <li th:each="task : ${session.tasks}">
-                          <a th:href="@{${task.requestMapping}}" th:text="${task.displayName}"></a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-
+        <h1>Questionnaire Downloads</h1>
+        <p>Here is a list of all questionnaires, click a link to download a spreadsheet of all data from a questionnaire: </p>
+        <ul>
+            <li><a th:href="@{'/questions/DASS21_AS/export'}">Status Questionnaire</a></li>
+            <li><a th:href="@{'/questions/credibility/export'}">Credibility Assessment</a></li>
+            <li><a th:href="@{'/questions/MH/export'}">Mental Health History</a></li>
+            <li><a th:href="@{'/questions/SA/export'}">State Anxiety</a></li>
+            <li><a th:href="@{'/questions/SAPo/export'}">State Anxiety (Post)</a></li>
+            <li><a th:href="@{'/questions/QOL/export'}">Quality of Life Scale</a></li>
+            <li><a th:href="@{'/questions/DASS21_DS/export'}">Symptom Measures</a></li>
+            <li><a th:href="@{'/questions/AIP/export'}">Imagery Prime</a></li>
+            <li><a th:href="@{'/questions/impact/export'}">Impact Anxious Imagery Prime</a></li>
+            <li><a th:href="@{'/questions/NIP/export'}">Neutral Imagery Prime</a></li>
+            <li><a th:href="@{'/questions/MUE/export'}">User Experience</a></li>
+            <li><a th:href="@{'/questions/audit/export'}">Audit</a></li>
+            <li><a th:href="@{'/questions/FU/export'}">Followup</a></li>
+            <li><a th:href="@{'/questions/PUE/export'}">Pilot User Experience</a></li>
+            <li><a th:href="@{'/questions/demographics/export'}">Demographics</a></li>
+        </ul>
         <!--divider here-->
         <div class="spacer-40px"></div>
+        <h1>PIPlayer Download</h1>
+        <p>All PIPlayer data is stored in one large table. <a th:href="@{'/admin/playerData'}">Download PIPlayer Data.</a> </p>
+
 
         <!--spacer here-->
         <div class="spacer-30px"></div>

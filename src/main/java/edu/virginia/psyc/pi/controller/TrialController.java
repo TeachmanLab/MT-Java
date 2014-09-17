@@ -59,9 +59,7 @@ public class TrialController {
     @RequestMapping(method = RequestMethod.POST,
             headers = "content-type=application/x-www-form-urlencoded")
     public@ResponseBody String createDataFromForm(@RequestParam("json") String json) {
-        System.out.println("Recieved json:" + json);
         SequenceJson sequenceJson = toSequence(json);
-        System.out.println("Recieved sequenceJson:" + sequenceJson);
         for(TrialJson trialJson: sequenceJson) {
             System.out.println("Recieved Data:" + trialJson);
             this.trialRepository.save(new TrialDAO(trialJson));
@@ -88,42 +86,6 @@ public class TrialController {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
         return sequenceJson;
-    }
-
-    /**
-     * Returns the json data properly formatted.
-     * @return
-     */
-    @RequestMapping(method = RequestMethod.GET, produces = "text/csv")
-    public
-    @ResponseBody
-    String getData() {
-        StringBuffer csv = new StringBuffer();
-        List<String> keys;
-        Map<String, String> reportData;
-        TrialJson trial;
-        List<TrialDAO> trialData = trialRepository.findAll();
-
-        // Write headers based on first trial.
-        keys = TrialJson.interpretationReportHeaders();
-        for (String k : keys) {
-            csv.append(k);
-            csv.append(",");
-        }
-        csv.append(("\n"));
-
-        // Write the data.
-        for (TrialDAO data : trialData) {
-            reportData = data.toTrialJson().toInterpretationReport();
-            for (String k : keys) {
-                csv.append("\"");
-                csv.append(reportData.get(k).replaceAll("\"", "\\\""));
-                csv.append("\"");
-                csv.append(",");
-            }
-            csv.append("\n");
-        }
-        return csv.toString();
     }
 
 }

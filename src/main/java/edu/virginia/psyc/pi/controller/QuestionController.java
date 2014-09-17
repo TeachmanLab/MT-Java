@@ -1,6 +1,7 @@
 package edu.virginia.psyc.pi.controller;
 
 import edu.virginia.psyc.pi.domain.Participant;
+import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.persistence.Questionnaire.*;
@@ -14,7 +15,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -66,6 +70,7 @@ public class QuestionController {
                               NeutralImageryPrime_Repository neutralImageryPrime_Repository,
                               StateAnxietyRepository stateAnxiety_Repository,
 //                              StateAnxietyPreRepository stateAnxietyPre_Repository,
+                              FollowUp_ChangeInTreatment_Repository followup_Repository,
                               StateAnxietyPostRepository stateAnxietyPost_Repository) {
         this.dass21_asRepository = dass21_asRepository;
         this.credibilityRepository = credibilityRepository;
@@ -83,6 +88,7 @@ public class QuestionController {
         this.stateAnxiety_Repository = stateAnxiety_Repository;
 //        this.stateAnxietyPre_Repository = stateAnxietyPre_Repository;
         this.stateAnxietyPost_Repository = stateAnxietyPost_Repository;
+        this.followup_Repository = followup_Repository;
     }
 
     /**
@@ -130,6 +136,13 @@ public class QuestionController {
         return new RedirectView("/session");
     }
 
+    @RequestMapping(value = "DASS21_AS/export", method = RequestMethod.GET, produces = "text/csv")
+    @ResponseBody // Return the string directly, the return value is not a template name.
+    String exportDASS21_AS() {
+        return(objectListToCSV(dass21_asRepository.findAll()));
+    }
+
+
     /**
      * DASS 21 DS
      * ---------*
@@ -147,6 +160,14 @@ public class QuestionController {
         dass21_dsRepository.save(dass21_ds);
         return new RedirectView("/session");
     }
+
+    @RequestMapping(value = "DASS21_DS/export", method = RequestMethod.GET, produces = "text/csv")
+    @ResponseBody // Return the string directly, the return value is not a template name.
+    String exportDASS21_DS() {
+        return(objectListToCSV(dass21_dsRepository.findAll()));
+    }
+
+
 
     /**
      * QOL
@@ -166,6 +187,13 @@ public class QuestionController {
         return new RedirectView("/session");
     }
 
+    @RequestMapping(value = "QOL/export", method = RequestMethod.GET, produces = "text/csv")
+    @ResponseBody // Return the string directly, the return value is not a template name.
+    String exportQOL() {
+        return(objectListToCSV(qol_Repository.findAll()));
+    }
+
+
     /**
      * AUDIT
      * ---------*
@@ -184,6 +212,13 @@ public class QuestionController {
         return new RedirectView("/session");
     }
 
+    @RequestMapping(value = "audit/export", method = RequestMethod.GET, produces = "text/csv")
+    @ResponseBody // Return the string directly, the return value is not a template name.
+    String exportAudit() {
+        return(objectListToCSV(audit_Repository.findAll()));
+    }
+
+
     /**
      * Credibility
      * ---------*
@@ -201,6 +236,13 @@ public class QuestionController {
         credibilityRepository.save(credibility);
         return new RedirectView("/session");
     }
+
+    @RequestMapping(value = "credibility/export", method = RequestMethod.GET, produces = "text/csv")
+    @ResponseBody // Return the string directly, the return value is not a template name.
+    String exportCredibility() {
+        return(objectListToCSV(credibilityRepository.findAll()));
+    }
+
 
     /**
      * FollowUp_ChangeInTreatment
@@ -221,6 +263,12 @@ public class QuestionController {
         return new RedirectView("/session");
     }
 
+    @RequestMapping(value = "FU/export", method = RequestMethod.GET, produces = "text/csv")
+    @ResponseBody // Return the string directly, the return value is not a template name.
+    String exportFu() {
+        return(objectListToCSV(followup_Repository.findAll()));
+    }
+
     /**
      * MentalHealthHxTx
      * ---------*
@@ -238,6 +286,12 @@ public class QuestionController {
         recordSessionProgress(mh);
         mh_Repository.save(mh);
         return new RedirectView("/session");
+    }
+
+    @RequestMapping(value = "MH/export", method = RequestMethod.GET, produces = "text/csv")
+    @ResponseBody // Return the string directly, the return value is not a template name.
+    String exportHealthHxTx() {
+        return(objectListToCSV(mh_Repository.findAll()));
     }
 
 
@@ -260,6 +314,12 @@ public class QuestionController {
         return new RedirectView("/session");
     }
 
+    @RequestMapping(value = "MUE/export", method = RequestMethod.GET, produces = "text/csv")
+    @ResponseBody // Return the string directly, the return value is not a template name.
+    String exportMUE() {
+        return(objectListToCSV(mue_Repository.findAll()));
+    }
+
 
     /**
      * PilotUserExperience
@@ -278,6 +338,12 @@ public class QuestionController {
         recordSessionProgress(pue);
         pue_Repository.save(pue);
         return new RedirectView("/session");
+    }
+
+    @RequestMapping(value = "PUE/export", method = RequestMethod.GET, produces = "text/csv")
+    @ResponseBody // Return the string directly, the return value is not a template name.
+    String exportPUE() {
+        return(objectListToCSV(pue_Repository.findAll()));
     }
 
 
@@ -300,6 +366,12 @@ public class QuestionController {
         return new RedirectView("/session");
     }
 
+    @RequestMapping(value = "impact/export", method = RequestMethod.GET, produces = "text/csv")
+    @ResponseBody // Return the string directly, the return value is not a template name.
+    String exportImplact() {
+        return(objectListToCSV(impact_Repository.findAll()));
+    }
+
 
     /**
      * AnxiousImageryPrime
@@ -320,6 +392,13 @@ public class QuestionController {
         return new RedirectView("/session");
     }
 
+    @RequestMapping(value = "AIP/export", method = RequestMethod.GET, produces = "text/csv")
+    @ResponseBody // Return the string directly, the return value is not a template name.
+    String exportAIP() {
+        return(objectListToCSV(anxiousImageryPrime_Repository.findAll()));
+    }
+
+
     /**
      * NeutralImageryPrime
      * ---------*
@@ -337,6 +416,12 @@ public class QuestionController {
         recordSessionProgress(prime);
         neutralImageryPrime_Repository.save(prime);
         return new RedirectView("/session");
+    }
+
+    @RequestMapping(value = "NIP/export", method = RequestMethod.GET, produces = "text/csv")
+    @ResponseBody // Return the string directly, the return value is not a template name.
+    String exportNIP() {
+        return(objectListToCSV(neutralImageryPrime_Repository.findAll()));
     }
 
 
@@ -358,6 +443,13 @@ public class QuestionController {
         return new RedirectView("/session");
     }
 
+    @RequestMapping(value = "demographics/export", method = RequestMethod.GET, produces = "text/csv")
+    @ResponseBody // Return the string directly, the return value is not a template name.
+    String exportDemographics() {
+        return(objectListToCSV(demographicRepository.findAll()));
+    }
+
+
     /**
      * StateAnxietyRepository
      * ---------*
@@ -376,6 +468,13 @@ public class QuestionController {
         return new RedirectView("/session");
 
     }
+
+    @RequestMapping(value = "SA/export", method = RequestMethod.GET, produces = "text/csv")
+    @ResponseBody // Return the string directly, the return value is not a template name.
+    String exportSAP() {
+        return(objectListToCSV(stateAnxiety_Repository.findAll()));
+    }
+
 
 //    /**
 //     * AnxietyPreRepository
@@ -414,5 +513,110 @@ public class QuestionController {
         return new RedirectView("/session");
 
     }
+
+    @RequestMapping(value = "SAPo/export", method = RequestMethod.GET, produces = "text/csv")
+    @ResponseBody // Return the string directly, the return value is not a template name.
+    String exportSAPo() {
+        return(objectListToCSV(stateAnxietyPost_Repository.findAll()));
+    }
+
+
+
+    /** ==============================================================
+     *       Some utilility methods for exporting csv data from the forms
+     *  ==============================================================
+     */
+
+    /**
+     * Converts a list of objects into a string suitable for returning
+     * as a csv.
+     * @param objects
+     * @return
+     */
+    public static String objectListToCSV(List objects) {
+        StringBuffer csv = new StringBuffer();
+
+        if(objects.size() < 1) return "";
+
+        Method[] methods = objects.get(0).getClass().getMethods();
+
+        // Add in headers.
+        for(Method method : methods){
+            if(isGetter(method)) {
+                csv.append("\"");
+                csv.append(method.getName().substring(3));
+                csv.append("\"");
+                csv.append(",");
+            }
+        }
+        csv.append("\n");
+        for(Object o : objects) {
+            appendObjectToCSV(o, csv);
+            csv.append("\n");
+        }
+        return csv.toString();
+    }
+
+    private static void appendObjectToCSV(Object o, StringBuffer csv) {
+        Method[] methods = o.getClass().getMethods();
+        ParticipantDAO participantDAO;
+        Session.NAME session;
+        List list;
+        String data;
+
+        for(Method method : methods){
+            if(isGetter(method)) {
+                try {
+                    if(null == method.invoke(o)) {
+                        data = "";
+                    } else if(method.getReturnType().isPrimitive()) {
+                        data = method.invoke(o).toString();
+                    } else if (String.class.equals(method.getReturnType())) {
+                        data = method.invoke(o).toString();
+                    } else if (List.class.equals(method.getReturnType())) {
+                        StringBuffer values = new StringBuffer();
+                        list = (List)method.invoke(o);
+                        for(int i = 0; i < list.size(); i++) {
+                            values.append(list.get(i).toString());
+                            if (i < list.size() -1) values.append("; ");
+                        }
+                        data = values.toString();
+                    } else if (Date.class.equals(method.getReturnType())) {
+                        data = method.invoke(o).toString();
+                    } else if (ParticipantDAO.class.equals(method.getReturnType())) {
+                        participantDAO = (ParticipantDAO)method.invoke(o);
+                        data = "" + participantDAO.getId();
+                    } else if (Session.NAME.class.equals(method.getReturnType())) {
+                        session  = (Session.NAME)method.invoke(o);
+                        data = session.toString();
+                    } else if (Class.class.equals(method.getReturnType())) {
+                        data = ((Class)method.invoke(o)).getSimpleName();
+                    } else {
+                        data = method.getReturnType().getName();
+                    }
+                    csv.append("\"");
+                    csv.append(data.replaceAll("\"", "\\\""));
+                    csv.append("\"");
+                    csv.append(",");
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                }
+            }
+        }
+
+    }
+
+    public static boolean isGetter(Method method){
+        if(!method.getName().startsWith("get"))       return false;
+        if(method.getParameterTypes().length != 0)    return false;
+        if(void.class.equals(method.getReturnType())) return false;
+        return true;
+    }
+
+
+
+
 }
 

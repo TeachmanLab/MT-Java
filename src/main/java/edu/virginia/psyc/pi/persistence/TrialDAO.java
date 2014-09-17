@@ -39,6 +39,9 @@ public class TrialDAO {
     private String trial_id;
     private String name;
     private String responseHandle;
+    private String script;
+    private String session;
+    private int participantId;
     private int latency;
     @OneToMany(cascade = CascadeType.ALL)
     private Collection<StimuliDAO> stimuliDAO;
@@ -72,6 +75,9 @@ public class TrialDAO {
         this. setStimuli(j.getStimuli());
         this. setMedia(j.getMedia());
         this. setData(j.getData());
+        this.setParticipantId(j.getParticipant());
+        this.setSession(j.getSession());
+        this.setScript(j.getScript());
     }
 
     public TrialJson toTrialJson() {
@@ -85,10 +91,12 @@ public class TrialDAO {
         t.setStimuli(getStimuliAsList());
         t.setMedia(getMediaAsList());
         t.setData(getDataAsMap());
+        t.setParticipant(participantId);
+        t.setSession(session);
+        t.setScript(script);
+
         return t;
     }
-
-
 
 
     public long getId() {
@@ -97,6 +105,30 @@ public class TrialDAO {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getScript() {
+        return script;
+    }
+
+    public void setScript(String script) {
+        this.script = script;
+    }
+
+    public String getSession() {
+        return session;
+    }
+
+    public void setSession(String session) {
+        this.session = session;
+    }
+
+    public int getParticipantId() {
+        return participantId;
+    }
+
+    public void setParticipantId(int participantId) {
+        this.participantId = participantId;
     }
 
     public int getLog_serial() {
@@ -142,6 +174,7 @@ public class TrialDAO {
     public Collection<StimuliDAO> getStimuliDAO() {
         return stimuliDAO;
     }
+
 
     public List<String> getStimuliAsList() {
         List l = new ArrayList<String>();
