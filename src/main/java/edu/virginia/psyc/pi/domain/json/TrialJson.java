@@ -60,10 +60,13 @@ public class TrialJson {
         headers.add("session");
         headers.add("trial");
         headers.add("positive");
-        headers.add("correct");
-        headers.add("paragraph");
-        headers.add("question");
+//        headers.add("paragraph");
+//        headers.add("question");
+        headers.add("letter latency");
+        headers.add("letter correct");
         headers.add("question latency");
+        headers.add("question correct");
+
         return headers;
     }
 
@@ -80,10 +83,12 @@ public class TrialJson {
         report.put("session",    log_serial+"");
         report.put("trial",      trial_id);
         report.put("positive",   data.get("positive"));
-        report.put("correct",    data.get("correctOnQuestion"));
-        report.put("paragraph",  data.get("paragraph"));
-        report.put("question",   data.get("question"));
-        report.put("question latency",   data.get("latency"));
+//        report.put("paragraph",  data.get("paragraph"));
+//        report.put("question",   data.get("question"));
+        report.put("letter latency",   data.get("letter_latency"));
+        report.put("letter correct",   data.get("correctOnLetter"));
+        report.put("question latency",   data.get("question_latency"));
+        report.put("question correct",   data.get("correctOnQuestion"));
 
         return report;
     }

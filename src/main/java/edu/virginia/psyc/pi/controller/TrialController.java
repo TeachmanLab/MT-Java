@@ -59,9 +59,7 @@ public class TrialController {
     @RequestMapping(method = RequestMethod.POST,
             headers = "content-type=application/x-www-form-urlencoded")
     public@ResponseBody String createDataFromForm(@RequestParam("json") String json) {
-        System.out.println("Recieved json:" + json);
         SequenceJson sequenceJson = toSequence(json);
-        System.out.println("Recieved sequenceJson:" + sequenceJson);
         for(TrialJson trialJson: sequenceJson) {
             System.out.println("Recieved Data:" + trialJson);
             this.trialRepository.save(new TrialDAO(trialJson));
