@@ -63,6 +63,7 @@ public class TrialJson {
         headers.add("correct");
         headers.add("paragraph");
         headers.add("question");
+        headers.add("question latency");
         return headers;
     }
 
@@ -82,6 +83,7 @@ public class TrialJson {
         report.put("correct",    data.get("correctOnQuestion"));
         report.put("paragraph",  data.get("paragraph"));
         report.put("question",   data.get("question"));
+        report.put("question latency",   data.get("latency"));
 
         return report;
     }
