@@ -121,6 +121,11 @@ define(['app/API'], function(API) {
                     {type:'inputEquals',value:'askQuestion', negate:'true'}
                 ],
                 actions: [
+                    {type:'setTrialAttr',setter:function(trialData, eventData){
+                        if(trialData.first_letter_latency == null) {
+                            trialData.first_letter_latency = Math.floor(eventData.latency);
+                        }
+                    }},
                     {type:'showStim',handle:'error'},
                     {type:'setTrialAttr',setter:{correctOnLetter:"false"}},
                     {type:'setInput',input:{handle:'clear', on:'timeout',duration:500}}
@@ -135,6 +140,11 @@ define(['app/API'], function(API) {
                     {type:'inputEquals',value:'askQuestion', negate:'true'}
                 ],
                 actions: [
+                    {type:'setTrialAttr',setter:function(trialData, eventData){
+                        if(trialData.first_letter_latency == null) {
+                            trialData.first_letter_latency = Math.floor(eventData.latency);
+                        }
+                    }},
                     {type:'showStim',handle:'error'},
                     {type:'setTrialAttr',setter:{correctOnLetter:"false"}},
                     {type:'setInput',input:{handle:'clear', on:'timeout',duration:500}}
@@ -150,6 +160,9 @@ define(['app/API'], function(API) {
                     {type:'setTrialAttr',setter:function(trialData, eventData){
                         trialData.paragraph = $("div[data-handle='paragraph']").text();
                         trialData.letter_latency  = Math.floor(eventData.latency);
+                        if(trialData.first_letter_latency == null) {
+                            trialData.first_letter_latency = Math.floor(eventData.latency);
+                        }
                     }},
                     {type:'resetTimer'}, // Reset timer so that we can also collect the latency on the y/n respose
                     // Remove all keys but 'y' and 'n'
@@ -200,6 +213,11 @@ define(['app/API'], function(API) {
                     {type:'globalEquals', property:'askingQuestion', value:true}
                 ],
                 actions: [
+                    {type:'setTrialAttr',setter:function(trialData, eventData){
+                        if(trialData.first_question_latency == null) {
+                            trialData.first_question_latency = Math.floor(eventData.latency);
+                        }
+                    }},
                     {type:'setTrialAttr',setter:{correctOnQuestion:"false"}},
                     {type:'showStim',handle:'error'},
                     {type:'setInput',input:{handle:'clear', on:'timeout',duration:500}}
@@ -212,6 +230,11 @@ define(['app/API'], function(API) {
                     {type:'globalEquals', property:'askingQuestion', value:true}
                 ],
                 actions: [
+                    {type:'setTrialAttr',setter:function(trialData, eventData){
+                        if(trialData.first_question_latency == null) {
+                            trialData.first_question_latency = Math.floor(eventData.latency);
+                        }
+                    }},
                     {type:'setTrialAttr',setter:{correctOnQuestion:"false"}},
                     {type:'showStim',handle:'error'},
                     {type:'setInput',input:{handle:'clear', on:'timeout',duration:500}}
@@ -227,6 +250,9 @@ define(['app/API'], function(API) {
                     {type:'setTrialAttr',setter:function(trialData, eventData){
                         trialData.question = $("div[data-handle='question']").text();
                         trialData.question_latency  = Math.floor(eventData.latency);
+                        if(trialData.first_question_latency == null) {
+                            trialData.first_question_latency = Math.floor(eventData.latency);
+                        }
                     }},
                     {type:'log'},
                     {type:'endTrial'}
@@ -249,6 +275,7 @@ define(['app/API'], function(API) {
         ]
 
     }]);
+
 
     /**
      * This sets the ratio of positive to negative statements.  if there is one
