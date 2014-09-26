@@ -267,7 +267,30 @@ define(['app/API'], function(API) {
             layout: [
                 // This is a stimulus object
                 {
-                    media :"You will be presented with a statement where a word in the statement is missing a letter.  Type the letter on the keyboard, then answer the followup question. Please press the spacebar to continue.",
+                    media :"Now the training will begin. Please press the spacebar to continue.",
+                    css:{fontSize:'1.2em',color:'#D7685A'}
+                }
+            ],
+            interactions: [
+                // This is an interaction (it has a condition and an action)
+                {
+                    conditions: [
+                        {type:'inputEquals',value:'space'}
+                    ],
+                    actions: [
+                        {type:'endTrial'}
+                    ]
+                }
+            ]
+        },
+        {
+            input: [
+                {handle:'space',on:'space'}
+            ],
+            layout: [
+                // This is a stimulus object
+                {
+                    media :"In this task, you will see a series of paragraphs and questions. Please read each paragraph carefully, and imagine yourself in the situations described. At the end of each paragraph, there will be a word fragment (an incomplete word) for you to complete. To complete the word fragment, press the key that corresponds to the missing letter. Once you type in the correct letter, you will move onto the next question. After completing the word fragment, you will be asked to answer a question about the situation in which you imagined yourself. Please use only the information from the situation to answer the question. Once you have the correct answer, you will move onto the next situation. If you are unsure about an item, please make your best guess. Please press the spacebar to continue.",
                     css:{fontSize:'1.2em',color:'#D7685A'}
                 }
             ],

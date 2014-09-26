@@ -36,13 +36,13 @@
             <div class="span12">
                 <form id="wizard" th:action="@{/questions/NIP}" method="POST">
                     <fieldset>
-                        <legend>Step 1</legend>
+                        <legend>Step 1 - Use your imagination</legend>
                         <p>
                             Please think of an upcoming situation that is routine (i.e., that happens regularly) and does not particularly concern you or make you feel especially happy, worried, sad, etc. For instance, the situation could involve brushing your teeth, taking a shower, surfing the web, watching TV, getting dressed, or checking your email. Pick a situation that you won’t worry or get excited about; the situation should be so mundane and routine you will hardly give it any thought. Any situation that you have no strong feelings toward will work. If no specific situation is upcoming, then just select a situation that you expect would generate little emotion IF you were in that situation.
                         </p>
                     </fieldset>
                     <fieldset>
-                        <legend>Step 2</legend>
+                        <legend>Step 2 - Note the situation</legend>
                         <p>
                             <label>Please note (in just a few words) what type of situation this involves (e.g., tying your shoes, taking out the trash, buying groceries):</label>
                             <textarea name="situation" rows="1"></textarea>
@@ -57,19 +57,19 @@
 
                     </fieldset>
                     <fieldset>
-                        <legend>Step 3</legend>
+                        <legend>Step 3 - Things you would see</legend>
                         <p>
                             Please think of at least three things you would see in the situation.
                         </p>
                     </fieldset>
                     <fieldset>
-                        <legend>Step 4</legend>
+                        <legend>Step 4 - Things you would hear</legend>
                         <p>
                             Please think of at least three things you would hear in the situation.
                         </p>
                     </fieldset>
                     <fieldset>
-                        <legend>Step 5</legend>
+                        <legend>Step 5 - Things you would think or feel</legend>
                         <p>
                             <label>Please think of at least three things you would likely think or feel in the situation. Write down a few words to note 3 of the things you would think or feel (e.g., I feel embarrassed, I look stupid, think I want to leave)</label>
                             <textarea name="think_feel" rows="3"></textarea>
@@ -81,8 +81,18 @@
                             Please play this upcoming situation in your head for the next 20 seconds, remembering all of the things you see, hear, think, and feel. We will tell you when the 20 seconds are up.
                         </p>
                         <p>
-                            <label>How vividly did you imagine the situation on a scale of 0 (not at all) to 100 (a very vivid image of the situation)?</label>
-                            <input name="vivid"/>
+                            <label>How vividly did you imagine the situation on a scale of 1 (not at all) to 7 (a very vivid image of the situation)?</label>
+                            <select name="vivid">
+                                <option value="">Please select one</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6/option>
+                                <option value="7">7/option>
+                                <option value="555">NA</option>
+                            </select>
                         </p>
                     </fieldset>
                 </form>

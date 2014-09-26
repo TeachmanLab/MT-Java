@@ -36,13 +36,13 @@
             <div class="span12">
                 <form id="wizard" th:action="@{/questions/AIP}" method="POST">
                     <fieldset>
-                        <legend>Step 1</legend>
+                        <legend>Step 1 - Use your imagination</legend>
                         <p>
                                     Please think of an upcoming situation that you expect will make you feel anxious, worried, or scared. For instance, the situation could involve public speaking (e.g., in class or at work), talking to someone in a position of authority (e.g., a boss or teacher), meeting new people, extreme worries about a situation tied to your health, work, relationships, or finances, or fears about entering a situation or encountering an object that frightens you (e.g., seeing a spider or snake, flying in an airplane, or being up high). Pick a situation that you worry might go badly, or that you expect will evoke symptoms related to anxiety (e.g., racing heart, sweating). Any situation that will make you feel anxious or scared will work. If no specific situation is upcoming, then just select a situation that you expect would make you feel anxious or scared IF you were to be in that situation.
                         </p>
                     </fieldset>
                     <fieldset>
-                        <legend>Step 2</legend>
+                        <legend>Step 2 - Note the situation</legend>
                                 <p>
                                 <label>Please note (in just a few words) what type of situation this involves (e.g., speaking in public, driving, feeling caught in a crowd, worry about an upcoming trip):</label>
                                 <textarea name="situation" rows="1"></textarea>
@@ -57,19 +57,19 @@
 
                     </fieldset>
                     <fieldset>
-                        <legend>Step 3</legend>
+                        <legend>Step 3 - Things you would see</legend>
                         <p>
                             Please think of at least three things you would see in the situation.
                         </p>
                     </fieldset>
                     <fieldset>
-                        <legend>Step 4</legend>
+                        <legend>Step 4 - Things you would hear</legend>
                         <p>
                             Please think of at least three things you would hear in the situation.
                         </p>
                     </fieldset>
                     <fieldset>
-                        <legend>Step 5</legend>
+                        <legend>Step 5 - Things you would think or feel</legend>
                         <p>
                             <label>Please think of at least three things you would likely think or feel in the situation. Write down a few words to note 3 of the things you would think or feel (e.g., I feel embarrassed, I look stupid, think I want to leave)</label>
                             <textarea name="think_feel" rows="3"></textarea>
@@ -81,8 +81,18 @@
                             Please play this upcoming situation in your head for the next 20 seconds, remembering all of the things you see, hear, think, and feel. We will tell you when the 20 seconds are up.
                         </p>
                         <p>
-                            <label>How vividly did you imagine the situation on a scale of 0 (not at all) to 100 (a very vivid image of the situation)?</label>
-                            <input name="vivid"/>
+                            <label>How vividly did you imagine the situation on a scale of 1 (not at all) to 7 (a very vivid image of the situation)?</label>
+                            <select name="vivid">
+                                <option value="">Please select one</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6/option>
+                                <option value="7">7/option>
+                                <option value="555">NA</option>
+                            </select>
                         </p>
                     </fieldset>
                 </form>
