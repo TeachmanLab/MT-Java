@@ -40,19 +40,19 @@
                         <h4>Please provide as much information as possible.</h4>
                         <p>
                             <label>Using a 0-100 scale, where 0 means you have absolutely no anxiety, and 100 means you are the most anxious you could imagine being, like panic, what was your highest level of anxiety as you competed the imagery task?</label>
-                            <input type="text" name="anxiety"/>
+                            <input type="text" name="anxiety" required="true"/>
                         </p>
                         </fieldset>
                         <fieldset>
                         <p>
                             <label>While you were doing that task, how vivid (in the sense of being intense or seeming real) was the picture in your mind, on a scale from 0 (not at all) to 100 (an extremely vivid image)?</label>
-                            <input type="text" name="vivid"/>
+                            <input type="text" name="vivid" required="true"/>
                         </p>
                         <br/>
                         <br/>
                         <p>
                             <label>How likely is it that this situation or task will turn out badly (i.e., not go well)?</label>
-                            <select name="badly">
+                            <select name="badly" required="true">
                                 <option value="">Please select one</option>
                                 <option>Extremely Unlikely</option>
                                 <option>Unlikely</option>
@@ -66,7 +66,7 @@
                         </p>
                         <p>
                             <label>How terrible would it be if this situation or task did turn out badly (i.e., if it did not go well)?</label>
-                            <select name="terrible">
+                            <select name="terrible" required="true">
                                 <option value="">Please select one</option>
                                 <option>Not At All Terrible</option>
                                 <option>A little Terrible</option>

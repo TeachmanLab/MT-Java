@@ -36,17 +36,17 @@
             <div class="span12">
                 <form id="wizard" th:action="@{/questions/SAPo}" method="POST">
                     <fieldset>
-                        <legend>Step 1</legend>
+                        <legend>Step 1 - Use your imagination</legend>
                         <p>
                             <label>Please remember the XXX situation we asked you to imagine yourself in earlier. We would like you to imagine yourself in the situation again.
                             </label>
                         </p>
                     </fieldset>
-                    <fieldset>
-                        <legend>Step 2</legend>
+                    <fieldset class="req">
+                        <legend>Step 2 - Note the situation</legend>
                         <p>
                             <label>Please note (in just a few words) what type of situation this involves (e.g., speaking in public, driving, feeling caught in a crowd, worry about an upcoming trip):</label>
-                            <textarea name="situation_desc" rows="1"></textarea>
+                            <textarea name="situation_desc" rows="1" required="true"></textarea>
                         </p>
                         <br/>
                         <br/>
@@ -57,22 +57,22 @@
 
                     </fieldset>
                     <fieldset>
-                        <legend>Step 3</legend>
+                        <legend>Step 3 - Things you would see</legend>
                         <p>
                             Please think of at least three things you would see in the situation.
                         </p>
                     </fieldset>
                     <fieldset>
-                        <legend>Step 4</legend>
+                        <legend>Step 4 - Things you would hear</legend>
                         <p>
                             Please think of at least three things you would hear in the situation.
                         </p>
                     </fieldset>
-                    <fieldset>
-                        <legend>Step 5</legend>
+                    <fieldset class="req" id="step_five">
+                        <legend>Step 5 - Things you would think or feel</legend>
                         <p>
                             <label>Please think of at least three things you would likely think or feel in the situation. Write down a few words to note 3 of the things you would think or feel (e.g., I feel embarrassed, I look stupid, think I want to leave)</label>
-                            <textarea name="think_feel" rows="3"></textarea>
+                            <textarea name="think_feel" rows="3" required="true"></textarea>
                         </p>
                         <br/>
                         <br/>
@@ -82,7 +82,7 @@
                         </p>
                         <p>
                             <label>How anxious do you think you would be in this situation</label>
-                            <select name="anxious">
+                            <select name="anxious" required="true">
                                 <option value="">Please select one</option>
                                 <option>Extremely Calm</option>
                                 <option>Calm</option>
@@ -97,7 +97,7 @@
                         <p>
                             <!--FIXME could not go to 7-->
                             <label>How would you rate your desire to avoid or escape from this situation?</label>
-                            <select name="avoid">
+                            <select name="avoid" required="true">
                                 <option value="">Please select one</option>
                                 <option>No Desire To Avoid</option>
                                 <option>Neutral</option>
@@ -108,7 +108,7 @@
                         <p>
                             <label>How likely is it that this situation will turn out badly?
                             </label>
-                            <select name="badly">
+                            <select name="badly" required="true">
                                 <option value="">Please select one</option>
                                 <option>Extremely Unlikely</option>
                                 <option>Unlikely</option>
@@ -124,7 +124,7 @@
                         <p>
                             <label>How terrible would it be if this situation did turn out badly?
                             </label>
-                            <select name="terrible">
+                            <select name="terrible" required="true">
                                 <option value="">Please select one</option>
                                 <option>Not At All Terrible</option>
                                 <option>A little Terrible</option>
@@ -137,7 +137,11 @@
                     </fieldset>
                 </form>
                 <script>
-                   $('#wizard').jWizard();
+                    $('#wizard').jWizard();
+                    $("#wizard")
+                    .on("stepshown", "#step_five", function () {
+                        setTimeout(function() { alert("20 Seconds Are Over!"); }, 20000);
+                    }).jWizard();
                 </script>
             </div>
         </div>

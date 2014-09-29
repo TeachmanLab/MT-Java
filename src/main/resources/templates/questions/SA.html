@@ -40,7 +40,7 @@
                         <p>
                             <label>Please select the two situations from the list below that routinely cause you the most anxiety
                             </label>
-                            <select multiple="multiple" name="situations" size="15" class="full">
+                            <select multiple="multiple" name="situations" size="15" class="full" required="true">
                                 <option value="">Please select one</option>
                                 <option value="finances">Worry about finances/money</option>
                                 <option value="career">Worry about work/career/school</option>
@@ -66,7 +66,7 @@
                         <legend>Step 2</legend>
                         <p>
                             <label>Please note (in just a few words) what type of situation this involves (e.g., speaking in public, driving, feeling caught in a crowd, worry about an upcoming trip):</label>
-                            <textarea name="situation_desc" rows="1"></textarea>
+                            <textarea name="situation_desc" rows="1" required="true"></textarea>
                         </p>
                         <br/>
                         <br/>
@@ -88,11 +88,11 @@
                             Please think of at least three things you would hear in the situation.
                         </p>
                     </fieldset>
-                    <fieldset>
+                    <fieldset id="step_five">
                         <legend>Step 5</legend>
                         <p>
                             <label>Please think of at least three things you would likely think or feel in the situation. Write down a few words to note 3 of the things you would think or feel (e.g., I feel embarrassed, I look stupid, think I want to leave)</label>
-                            <textarea name="think_feel" rows="3"></textarea>
+                            <textarea name="think_feel" rows="3" required="true"></textarea>
                         </p>
                         <br/>
                         <br/>
@@ -102,7 +102,7 @@
                         </p>
                         <p>
                             <label>How anxious do you think you would be in this situation</label>
-                            <select name="anxious"  size="9">
+                            <select name="anxious"  size="9" required="true">
                                 <option value="">Please select one</option>
                                 <option>Extremely Calm</option>
                                 <option>Calm</option>
@@ -117,7 +117,7 @@
                         <p>
                             <!--FIXME could not go to 7-->
                             <label>How would you rate your desire to avoid or escape from this situation?</label>
-                            <select name="avoid" size="5">
+                            <select name="avoid" size="5" required="true">
                                 <option value="">Please select one</option>
                                 <option>No Desire To Avoid</option>
                                 <option>Neutral</option>
@@ -128,7 +128,7 @@
                         <p>
                             <label>How likely is it that this situation will turn out badly?
                             </label>
-                            <select name="badly" size="9">
+                            <select name="badly" size="9" required="true">
                                 <option value="">Please select one</option>
                                 <option>Extremely Unlikely</option>
                                 <option>Unlikely</option>
@@ -144,7 +144,7 @@
                         <p>
                             <label>How terrible would it be if this situation did turn out badly?
                             </label>
-                            <select name="terrible" size="7">
+                            <select name="terrible" size="7" required="true">
                                 <option value="">Please select one</option>
                                 <option>Not At All Terrible</option>
                                 <option>A little Terrible</option>
@@ -157,7 +157,11 @@
                     </fieldset>
                 </form>
                 <script>
-                   $('#wizard').jWizard();
+                    $('#wizard').jWizard();
+                    $("#wizard")
+                    .on("stepshown", "#step_five", function () {
+                        setTimeout(function() { alert("20 Seconds Are Over!"); }, 20000);
+                    }).jWizard();
                 </script>
             </div>
         </div>

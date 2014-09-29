@@ -68,11 +68,11 @@
                             Please think of at least three things you would hear in the situation.
                         </p>
                     </fieldset>
-                    <fieldset>
+                    <fieldset id="step_five">
                         <legend>Step 5 - Things you would think or feel</legend>
                         <p>
                             <label>Please think of at least three things you would likely think or feel in the situation. Write down a few words to note 3 of the things you would think or feel (e.g., I feel embarrassed, I look stupid, think I want to leave)</label>
-                            <textarea name="think_feel" rows="3"></textarea>
+                            <textarea name="think_feel" rows="3" required/></textarea>
                         </p>
                         <br/>
                         <br/>
@@ -82,7 +82,7 @@
                         </p>
                         <p>
                             <label>How vividly did you imagine the situation on a scale of 1 (not at all) to 7 (a very vivid image of the situation)?</label>
-                            <select name="vivid">
+                            <select name="vivid" required="true">
                                 <option value="">Please select one</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -97,7 +97,11 @@
                     </fieldset>
                 </form>
                 <script>
-                   $('#wizard').jWizard();
+                    $('#wizard').jWizard();
+                    $("#wizard")
+                    .on("stepshown", "#step_five", function () {
+                        setTimeout(function() { alert("20 Seconds Are Over!"); }, 20000);
+                    }).jWizard();
                 </script>
             </div>
         </div>
