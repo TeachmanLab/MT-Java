@@ -39,7 +39,7 @@
                         <legend>Step 1 - Use your imagination</legend>
                         <p>
                                     Please think of an upcoming situation that you expect will make you feel anxious, worried, or scared. For instance, the situation could involve public speaking (e.g., in class or at work), talking to someone in a position of authority (e.g., a boss or teacher), meeting new people, extreme worries about a situation tied to your health, work, relationships, or finances, or fears about entering a situation or encountering an object that frightens you (e.g., seeing a spider or snake, flying in an airplane, or being up high). Pick a situation that you worry might go badly, or that you expect will evoke symptoms related to anxiety (e.g., racing heart, sweating). Any situation that will make you feel anxious or scared will work. If no specific situation is upcoming, then just select a situation that you expect would make you feel anxious or scared IF you were to be in that situation.
-                                    Press click "NEXT" one you have thought of a situation.
+                                    Please click "NEXT" one you have thought of a situation.
                         </p>
                     </fieldset>
                     <fieldset>
@@ -103,10 +103,24 @@
                     </fieldset>
                 </form>
                 <script>
-                    $('#wizard').jWizard();
-                    $("#wizard")
-                    .on("stepshown", "#step_five", function () {
-                        setTimeout(function() { alert("20 Seconds Are Over!"); }, 20000);
+                    var mNext = false;
+                    var mVisit = false;
+                    $("#wizard").on("stepshown", "#step_five", function () {
+                        console.log('here now');
+                        if (! mVisit)
+                        {
+                            mVisit = true;
+                            setTimeout(function() { alert("20 Seconds Are Over!");
+                                                    mNext = true;
+                                                  }, 20000);
+                        }
+
+                    }).on("stephide", "#step_five", function () {
+                        if (! mNext)
+                        {
+                            console.log('bye');
+                            return false;
+                        }
                     }).jWizard();
                 </script>
             </div>
