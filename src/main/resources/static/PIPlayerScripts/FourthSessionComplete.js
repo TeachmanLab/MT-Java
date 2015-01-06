@@ -2098,7 +2098,7 @@ define(['app/API'], function(API) {
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div> Do you think you will be poor after helping your daughted pay for the wedding? </div>"
+                    "inlineTemplate": "<div> Do you think you will be poor after helping your daughter pay for the wedding? </div>"
                 }
             }
         ]

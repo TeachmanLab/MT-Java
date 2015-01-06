@@ -579,7 +579,7 @@ define(['app/API'], function(API) {
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Was the tutor please with the quality of work on your paper? </div>"
+                    "inlineTemplate": "<div>Was the tutor pleased with the quality of work on your paper? </div>"
                 }
             }
         ]
@@ -770,7 +770,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "wea[ ]ness",
                     "positiveKey": "p",
                     "positiveWord": "com[ ]etence",
-                    "statement": " At your computer class you finish your work early and so the teacher gives you a new task to do. You read through it and cannot think how to start so you ask for advice. Your teacher probably sees you asking for help as a sign of  "
+                    "statement": " At your computer class you finish your work early and so the teacher gives you a new task to do. You read through it and cannot think how to start, so you ask for advice. Your teacher probably sees you asking for help as a sign of  "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -851,7 +851,7 @@ define(['app/API'], function(API) {
                     "negativeKey": "k",
                     "negativeWord": "aw[ ]ward",
                     "positiveKey": "s",
-                    "positiveWord": "inter[ ]ting",
+                    "positiveWord": "intere[ ]ting",
                     "statement": " You are required to go to a conference in Scotland for your firm. Your coworker who is supposed to go on the trip falls ill a few days before you leave, so your boss asks someone you don\u2019t know to go in his/her place. As you think about spending time with the person you do not know, you think he/she will think you are "
                 },
                 "handle": "paragraph",
@@ -1135,7 +1135,7 @@ define(['app/API'], function(API) {
             },
             {
                 "data": {
-                    "negativeKey": "p",
+                    "negativeKey": "a",
                     "negativeWord": "dis[ ]ppointing",
                     "positiveKey": "a",
                     "positiveWord": "valu[ ]ble",
@@ -1221,7 +1221,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "he[ ]itant",
                     "positiveKey": "f",
                     "positiveWord": "con[ ]ident",
-                    "statement": " Your new supervisor calls a meeting to find out who everyone is and asks each of your in turn to present yourself and your area of expertise. When it is your turn to speak your pause frequently. As you reflect on the meeting later in the day, you feel that the supervisor thought you sounded "
+                    "statement": " Your new supervisor calls a meeting to find out who everyone is and asks each of you in turn to present yourself and your area of expertise. When it is your turn to speak your pause frequently. As you reflect on the meeting later in the day, you feel that the supervisor thought you sounded "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -1632,7 +1632,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "fa[ ]lure",
                     "positiveKey": "c",
                     "positiveWord": "suc[ ]ess",
-                    "statement": " You are driving hope after a soccer game where your team won. As your mind wanders, you think about the one goal that you missed. Overall, you consider your performance a "
+                    "statement": " You are driving home after a soccer game where your team won. As your mind wanders, you think about the one goal that you missed. Overall, you consider your performance a "
                 },
                 "handle": "paragraph",
                 "media": {

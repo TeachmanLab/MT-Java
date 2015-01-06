@@ -106,7 +106,6 @@
                     var mNext = false;
                     var mVisit = false;
                     $("#wizard").on("stepshown", "#step_five", function () {
-                        console.log('here now');
                         if (! mVisit)
                         {
                             mVisit = true;
@@ -118,7 +117,6 @@
                     }).on("stephide", "#step_five", function () {
                         if (! mNext)
                         {
-                            console.log('bye');
                             return false;
                         }
                     }).jWizard();

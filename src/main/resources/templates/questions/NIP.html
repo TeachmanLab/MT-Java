@@ -104,21 +104,21 @@
                 </form>
                 <script>
                     var mNext = false;
-                    $("#wizard").on("stephide", "#step_five", function () {
-                        console.log(mNext);
-                        console.log('hi');
-                        if (mNext)
+                    var mVisit = false;
+                    $("#wizard").on("stepshown", "#step_five", function () {
+                        if (! mVisit)
                         {
-                            return true;
+                            mVisit = true;
+                            setTimeout(function() { alert("20 Seconds Are Over!");
+                                                    mNext = true;
+                                                  }, 20000);
                         }
-                        else
+
+                    }).on("stephide", "#step_five", function () {
+                        if (! mNext)
                         {
                             return false;
                         }
-                    }).on("stepshown", "#step_five", function () {
-                        setTimeout(function() { alert("20 Seconds Are Over!");
-                                                mNext = true;
-                                              }, 20000);
                     }).jWizard();
                 </script>
             </div>

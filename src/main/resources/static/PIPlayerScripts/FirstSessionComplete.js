@@ -415,7 +415,7 @@ define(['app/API'], function(API) {
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Did the person you met at dance class think you were obnoxious? </div>"
+                    "inlineTemplate": "<div>Did the person you met at dance class think you were anxious? </div>"
                 }
             }
         ]
@@ -852,7 +852,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "p[ ]or",
                     "positiveKey": "m",
                     "positiveWord": "ad[ ]irable",
-                    "statement": " You are persuaded to join a trivia team in a tournament. You are told that most of the questions will be asked to individuals, in different rounds. The first round is hard and you fell that the others found your efforts particularly "
+                    "statement": " You are persuaded to join a trivia team in a tournament. You are told that most of the questions will be asked to individuals, in different rounds. The first round is hard and you feel that the others found your efforts particularly "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -893,7 +893,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "d[ ]ll",
                     "positiveKey": "b",
                     "positiveWord": "likea[ ]le",
-                    "statement": " You have just moved to a new area and your neighbor asks if you would like to go to your local bar that evening. When you arrive, she is not there yet. Reflecting on your early conversation, she probably thought you were "
+                    "statement": " You have just moved to a new area and your neighbor asks if you would like to go to your local bar that evening. When you arrive, she is not there yet. Reflecting on your earlier conversation, she probably thought you were "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -1098,7 +1098,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "ig[ ]orant",
                     "positiveKey": "g",
                     "positiveWord": "knowled[ ]eable",
-                    "statement": " You are in the car with your mother-in-law, and put on the radio. As you discuss which station to listen to, you realize that you and your mother-in-law like different 'type's of music. After having an in-depth discussion about the pros and cons of different music styles, your mother-in-law judges you as "
+                    "statement": " You are in the car with your mother-in-law, and put on the radio. As you discuss which station to listen to, you realize that you and your mother-in-law like different types of music. After having an in-depth discussion about the pros and cons of different music styles, your mother-in-law judges you as "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -1139,7 +1139,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "ig[ ]orant",
                     "positiveKey": "p",
                     "positiveWord": "hel[ ]ful",
-                    "statement": " A friend is having problems with her toddler and calls you to discuss the situation. You explain the methods that worked for you when your children were that age. You friend notes that your methods are quite different from her methods, and as a result, she thinks you are "
+                    "statement": " A friend is having problems with her toddler and calls you to discuss the situation. You explain the methods that worked for you when your children were that age. Your friend notes that your methods are quite different from her methods, and as a result, she thinks you are "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -1221,7 +1221,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "an[ ]ious",
                     "positiveKey": "n",
                     "positiveWord": "fi[ ]e",
-                    "statement": " You are at a class that your company has sent you to. Your teacher asks each member of the group to stand up and introduce himself or herself. During your brief presentation you momentarily forget what you play to say, but quickly recover; you guess that others thought you sounded "
+                    "statement": " You are at a class that your company has sent you to. Your teacher asks each member of the group to stand up and introduce himself or herself. During your brief presentation you momentarily forget what you plan to say, but quickly recover; you guess that others thought you sounded "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -1262,7 +1262,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "d[ ]ll",
                     "positiveKey": "l",
                     "positiveWord": "intel[ ]igent",
-                    "statement": " A new teacher is hired for our history class and you hear that he is very disciplined and hard-working. When you meet him for the first time to discuss your work and interests, you think that he found you to be "
+                    "statement": " A new teacher is hired for your history class and you hear that he is very disciplined and hard-working. When you meet him for the first time to discuss your work and interests, you think that he found you to be "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -1646,7 +1646,7 @@ define(['app/API'], function(API) {
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div> Do you think you will be poor after helping your daughted pay for the wedding? </div>"
+                    "inlineTemplate": "<div> Do you think you will be poor after helping your daughter pay for the wedding? </div>"
                 }
             }
         ]
@@ -1837,7 +1837,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "i[ ]possible",
                     "positiveKey": "s",
                     "positiveWord": "pos[ ]ible",
-                    "statement": " You heard in the news that a lot of businesses are currently downsizing. You think about what will happen if you lose yur job. You decide that finding another job will be "
+                    "statement": " You heard in the news that a lot of businesses are currently downsizing. You think about what will happen if you lose your job. You decide that finding another job will be "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -1851,7 +1851,7 @@ define(['app/API'], function(API) {
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div> Do you think it will be hard to find a new job? </div>"
+                    "inlineTemplate": "<div> Do you think it will be impossible to find a new job? </div>"
                 }
             }
         ]
@@ -2290,7 +2290,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "i[ ]tolerable",
                     "positiveKey": "b",
                     "positiveWord": "tolera[ ]le",
-                    "statement": " You have not been feeling great recently, so you try to schedule a doctor's appointment. The soonest appointment you can get is a few days away, which makes you feel anxious. You know that your anxiety as you wait for the appointment is "
+                    "statement": " You have not been feeling great recently, so you try to schedule a doctor\u2019s appointment. The soonest appointment you can get is a few days away, which makes you feel anxious. You know that your anxiety as you wait for the appointment is "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -2304,7 +2304,7 @@ define(['app/API'], function(API) {
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Do you think you will be able to handle your anxiety as you wait for the doctor's appointment? </div>"
+                    "inlineTemplate": "<div>Do you think you will be able to handle your anxiety as you wait for the doctor\u2019s appointment? </div>"
                 }
             }
         ]

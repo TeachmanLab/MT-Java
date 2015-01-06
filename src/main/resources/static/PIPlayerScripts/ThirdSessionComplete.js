@@ -1097,7 +1097,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "ter[ ]ible",
                     "positiveKey": "e",
                     "positiveWord": "gr[ ]at",
-                    "statement": " You write a short story to enter in a competition and need someone to proof read it. You ask you friend to proofread it, and he gives you a few suggestions on how to improve the story. Your friend probably thinks your work is "
+                    "statement": " You write a short story to enter in a competition and need someone to proof read it. You ask your friend to proofread it, and he gives you a few suggestions on how to improve the story. Your friend probably thinks your work is "
                 },
                 "handle": "paragraph",
                 "media": {

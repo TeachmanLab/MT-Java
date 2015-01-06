@@ -68,7 +68,7 @@
                             Please think of at least three things you would hear in the situation.
                         </p>
                     </fieldset>
-                    <fieldset id=#step_five>
+                    <fieldset id="step_five">
                         <legend>Step 5</legend>
                         <p>
                             <label>Please think of at least three things you would likely think or feel in the situation. Write down a few words to note 3 of the things you would think or feel (e.g., I feel embarrassed, I look stupid, think I want to leave)</label>
@@ -77,9 +77,15 @@
                         <br/>
                         <br/>
                         <br/>
+                    </fieldset>
+                    <fieldset id="step_six">
+                        <legend>Step 6</legend>
                         <p>
                             Please play this upcoming situation in your head for the next 20 seconds, remembering all of the things you see, hear, think, and feel. We will tell you when the 20 seconds are up.
                         </p>
+                    </fieldset>
+                    <fieldset id="step_seven">
+                        <legend>Step 7</legend>
                         <p>
                             <label>How anxious do you think you would be in this situation</label>
                             <select name="anxious" required="true">
@@ -134,10 +140,22 @@
                     </fieldset>
                 </form>
                 <script>
-                    $('#wizard').jWizard();
-                    $("#wizard")
-                    .on("stepshown", "#step_five", function () {
-                        setTimeout(function() { alert("20 Seconds Are Over!"); }, 20000);
+                    var mNext = false;
+                    var mVisit = false;
+                    $("#wizard").on("stepshown", "#step_six", function () {
+                        if (! mVisit)
+                        {
+                            mVisit = true;
+                            setTimeout(function() { alert("20 Seconds Are Over!");
+                                                    mNext = true;
+                                                  }, 20000);
+                        }
+
+                    }).on("stephide", "#step_five", function () {
+                        if (! mNext)
+                        {
+                            return false;
+                        }
                     }).jWizard();
                 </script>
             </div>
