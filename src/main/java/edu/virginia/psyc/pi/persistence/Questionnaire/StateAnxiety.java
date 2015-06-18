@@ -31,6 +31,12 @@ public class StateAnxiety implements QuestionnaireData{
     private int badly;
     private int terrible;
 
+    private String situation_desc_2;
+    private int think_feel_2;
+    private int anxious_2;
+    private int badly_2;
+    private int terrible_2;
+
     @ElementCollection
     @CollectionTable(name="situations", joinColumns=@JoinColumn(name="id"))
     @Column(name="situations")
@@ -107,6 +113,46 @@ public class StateAnxiety implements QuestionnaireData{
 
     public void setTerrible(int terrible) {
         this.terrible = terrible;
+    }
+
+    public String getSituation_desc_2() {
+        return situation_desc_2;
+    }
+
+    public void setSituation_desc_2(String situation_desc_2) {
+        this.situation_desc_2 = situation_desc_2;
+    }
+
+    public int getThink_feel_2() {
+        return think_feel_2;
+    }
+
+    public void setThink_feel_2(int think_feel_2) {
+        this.think_feel_2 = think_feel_2;
+    }
+
+    public int getAnxious_2() {
+        return anxious_2;
+    }
+
+    public void setAnxious_2(int anxious_2) {
+        this.anxious_2 = anxious_2;
+    }
+
+    public int getBadly_2() {
+        return badly_2;
+    }
+
+    public void setBadly_2(int badly_2) {
+        this.badly_2 = badly_2;
+    }
+
+    public int getTerrible_2() {
+        return terrible_2;
+    }
+
+    public void setTerrible_2(int terrible_2) {
+        this.terrible_2 = terrible_2;
     }
 
     public List<String> getSituations() {

@@ -41,7 +41,7 @@
                             <!--TODO change back to two-->
                             <label>Please select the two situations from the list below that routinely cause you the most anxiety
                             </label>
-                            <select multiple="multiple" name="situations" size="15" class="full" required="true">
+                            <select multiple="multiple" name="situations" id="situations" size="15" class="full" required="true">
                                 <option value="">Please select one</option>
                                 <option value="finances">Worry about finances/money</option>
                                 <option value="career">Worry about work/career/school</option>
@@ -66,7 +66,7 @@
                     <fieldset>
                         <legend>Step 2</legend>
                         <p>
-                            <label>Please note (in just a few words) what type of situation this involves (e.g., speaking in public, driving, feeling caught in a crowd, worry about an upcoming trip):</label>
+                            <label id="note1">For , please note (in just a few words) what type of situation this involves (e.g., speaking in public, driving, feeling caught in a crowd, worry about an upcoming trip):</label>
                             <textarea name="situation_desc" rows="1" required="true"></textarea>
                         </p>
                         <br/>
@@ -164,8 +164,127 @@
                             </select>
                         </p>
                     </fieldset>
+                    <fieldset>
+                        <legend>Step 8</legend>
+                        <p>
+                            <label id="note2">For , please note (in just a few words) what type of situation this involves (e.g., speaking in public, driving, feeling caught in a crowd, worry about an upcoming trip):</label>
+                            <textarea name="situation_desc_2" rows="1" required="true"></textarea>
+                        </p>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <p>
+                            Please generate an image of the situation that is as vivid as possible (i.e., that feels very real). Try to imagine you are actually in the situation. Play out the specific parts of the situation in your head.
+                        </p>
+
+                    </fieldset>
+                    <fieldset>
+                        <legend>Step 9</legend>
+                        <p>
+                            Please think of at least three things you would see in the situation.
+                        </p>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Step 10</legend>
+                        <p>
+                            Please think of at least three things you would hear in the situation.
+                        </p>
+                    </fieldset>
+                    <fieldset id="step_eleven">
+                        <legend>Step 11</legend>
+                        <p>
+                            <label>Please think of at least three things you would likely think or feel in the situation. Write down a few words to note 3 of the things you would think or feel (e.g., I feel embarrassed, I look stupid, think I want to leave)</label>
+                            <textarea name="think_feel2_1" rows="1" required="true"></textarea>
+                            <textarea name="think_feel2_2" rows="1" required="true"></textarea>
+                            <textarea name="think_feel2_3" rows="1" required="true"></textarea>
+                        </p>
+                        <br/>
+                        <br/>
+                        <br/>
+                    </fieldset>
+                    <fieldset id="step_twelve">
+                        <legend>Step 12</legend>
+                        <p id="think2">
+                            Please play this upcoming situation in your head for the next 20 seconds, remembering all of the things you see, hear, think, and feel. We will tell you when the 20 seconds are up.
+                        </p>
+                    </fieldset>
+                    <fieldset id="step_thirteen">
+                        <legend>Step 13</legend>
+                        <p>
+                            <label>How anxious do you think you would be in this situation</label>
+                            <select name="anxious2"  size="9" required="true">
+                                <option value="">Please select one</option>
+                                <option>Extremely Calm</option>
+                                <option>Calm</option>
+                                <option>Somewhat Calm</option>
+                                <option>Neutral</option>
+                                <option>Somewhat anxious </option>
+                                <option>Anxious</option>
+                                <option>Extremely anxious </option>
+                                <option>Prefer not to answer</option>
+                            </select>
+                        </p>
+                        <p>
+                            <!--FIXME could not go to 7-->
+                            <label>How would you rate your desire to avoid or escape from this situation?</label>
+                            <select name="avoid2" size="5" required="true">
+                                <option value="">Please select one</option>
+                                <option>No Desire To Avoid</option>
+                                <option>Neutral</option>
+                                <option>Desire to Avoid</option>
+                                <option>Prefer not to answer</option>
+                            </select>
+                        </p>
+                        <p>
+                            <label>How likely is it that this situation will turn out badly?
+                            </label>
+                            <select name="badly2" size="9" required="true">
+                                <option value="">Please select one</option>
+                                <option>Extremely Unlikely</option>
+                                <option>Unlikely</option>
+                                <option>Somewhat Unlikely</option>
+                                <option>Neither Likely Nor Unlikely</option>
+                                <option>Somewhat likely </option>
+                                <option>Likely </option>
+                                <option>Extremely Likely </option>
+                                <option>Prefer not to answer</option>
+                            </select>
+                        </p>
+                        <!--FIXME could not go to 7-->
+                        <p>
+                            <label>How terrible would it be if this situation did turn out badly?
+                            </label>
+                            <select name="terrible2" size="7" required="true">
+                                <option value="">Please select one</option>
+                                <option>Not At All Terrible</option>
+                                <option>A little Terrible</option>
+                                <option>Somewhat Terrible</option>
+                                <option>Terrible</option>
+                                <option>Extremely Terrible</option>
+                                <option>Prefer not to answer</option>
+                            </select>
+                        </p>
+                    </fieldset>
                 </form>
-                <script>
+                <script type="text/javascript">
+
+                    var sitDrop = document.getElementById('situations');
+                    var situations = [];
+                    for (var i = 0; i < sitDrop.options.length; i++) {
+                      if (sitDrop.options[i].selected) {
+                        situations.push(sitDrop.options[i].value);
+                      }
+                    }
+                    String.prototype.splice = function( idx, rem, s ) {
+                        return (this.slice(0,idx) + s + this.slice(idx + Math.abs(rem)));
+                    };
+
+                    var text1 = document.getElementById('note1').innerText;
+                    var note1 = text.splice( 4, 0, situations[0] + " ");
+                    var text2 = document.getElementById('note2').innerText;
+                    var note2 = text.splice( 4, 0, situations[1] + " ");
+
+
                     var mNext = false;
                     var mVisit = false;
                     $("#wizard").on("stepshown", "#step_six", function () {
@@ -179,6 +298,25 @@
 
                     }).on("stephide", "#step_five", function () {
                         if (! mNext)
+                        {
+                            return false;
+                        }
+                    }).jWizard();
+
+
+                    var mNext2 = false;
+                    var mVisit2 = false;
+                    $("#wizard").on("stepshown", "#step_twelve", function () {
+                        if (! mVisit2)
+                        {
+                            mVisit2 = true;
+                            setTimeout(function() { alert("20 Seconds Are Over!");
+                                                    mNext2 = true;
+                                                  }, 20000);
+                        }
+
+                    }).on("stephide", "#step_twelve", function () {
+                        if (! mNext2)
                         {
                             return false;
                         }

@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<!--<![endif]-->
+<head th:include="/fragment/common :: headerFragment" />
+<body>
+<section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
+
+<!-- header-btm starts
+================================================== -->
+<section id="header-btm" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <h4 class="heading-icon clearfix"> <img th:src="@{/grepfrut/img/icons/heading-icon-user.png}" width="40" height="40" alt="icon" class="icon-small-bg"/></h4>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- header-btm ends
+================================================== -->
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+    <div class="container">
+
+        <!--spacer here-->
+        <div class="spacer-30px"></div>
+
+        <!--features starts-->
+        <div class="row">
+            <div class="span12">
+                <form id="wizard" th:action="@{/questions/RR}" method="POST">
+                    <fieldset>
+                        <legend>Instructions</legend>
+                        <h4>Here is a form with some questions for you to answer.  In this task, you will see the title of 10 scenarios in which you have previously imagined yourself.  None of the four sentences underneath the title are worded identically to the sentences in the paragraph read.  Please rate each sentence for its similarity in meaning to what you believe to be the meaning of the paragraph you read.  To rate the sentences use a scale of 1-4, where 1 is very different in meaning and 4 is very similar in meaning.  Also, please rate each sentence independently of all others.  </h4>
+                        <p>The rating scale is as follows:</p>
+                        <table class="table table-striped table-bordered">
+                            <tr>
+                                <td>1</td>
+                                <td>very different in meaning</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>different in meaning</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>similar in meaning</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>very similar in meaning</td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                    <fieldset>
+                        <legend>THE YELLOW LIGHT</legend>
+                        <p>
+                            You are in your car, on your way to see a friend for lunch. Because you are running late, you are not as careful as you usually are and speed through a yellow light. As you pass through the intersection, you think about the likelihood of causing an accident.
+                            As you passed through the intersection, were you thinking about your friend?
+                            As you pass through the intersection…
+                        </p>
+                        <table class="table table-striped table-bordered table-radio">
+                            <tr>
+                                <th>Question</th>
+                                <th>very different in meaning</th>
+                                <th>different in meaning</th>
+                                <th>similar in meaning</th>
+                                <th>very similar in meaning</th>
+                                <th>Prefer not to answer</th>
+                            </tr>
+                            <tr>
+                                <td>you think that you will probably not cause an accident.</td>
+                                <td><label class="radioBox"><input type="radio" name="yellow_light1" class="form-control" value="0" required="true"/></label></td>
+                                <td><label class="radioBox"><input type="radio" name="yellow_light1" class="form-control" value="1" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="yellow_light1" class="form-control" value="2" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="yellow_light1" class="form-control" value="3" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="yellow_light1" class="form-control" value="-1" /></label></td>
+                            </tr>
+                            <tr>
+                                <td>you think that you will likely cause an accident.</td>
+                                <td><label class="radioBox"><input type="radio" name="yellow_light2" class="form-control" value="0" required="true"/></label></td>
+                                <td><label class="radioBox"><input type="radio" name="yellow_light2" class="form-control" value="1" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="yellow_light2" class="form-control" value="2" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="yellow_light2" class="form-control" value="3" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="yellow_light2" class="form-control" value="-1" /></label></td>
+                            </tr>
+                            <tr>
+                                <td>you think about the great lunch you are about to eat.</td>
+                                <td><label class="radioBox"><input type="radio" name="yellow_light3" class="form-control" value="0" required="true"/></label></td>
+                                <td><label class="radioBox"><input type="radio" name="yellow_light3" class="form-control" value="1" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="yellow_light3" class="form-control" value="2" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="yellow_light3" class="form-control" value="3" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="yellow_light3" class="form-control" value="-1" /></label></td>
+                            </tr>
+                            <tr>
+                                <td>you think about feeling guilty that you are running late.</td>
+                                <td><label class="radioBox"><input type="radio" name="yellow_light4" class="form-control" value="0" required="true"/></label></td>
+                                <td><label class="radioBox"><input type="radio" name="yellow_light4" class="form-control" value="1" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="yellow_light4" class="form-control" value="2" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="yellow_light4" class="form-control" value="3" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="yellow_light4" class="form-control" value="-1" /></label></td>
+                            </tr>
+                     </table>
+                     </fieldset>
+                    <fieldset>
+                        <legend>THE COFFEE POT</legend>
+                        <p>
+                            You are running late on your way to work. In the car, you realize that you forgot to check if you turned off the coffee pot. When you get to work, you think about what would happen if you did leave the coffee pot on.
+                            Are you thinking about the coffee pot when you arrive to work?
+                            When you get to work…
+
+                        </p>
+                        <table class="table table-striped table-bordered table-radio">
+                            <tr>
+                                <th>Question</th>
+                                <th>very different in meaning</th>
+                                <th>different in meaning</th>
+                                <th>similar in meaning</th>
+                                <th>very similar in meaning</th>
+                                <th>Prefer not to answer</th>
+                            </tr>
+                            <tr>
+                                <td>you decide not to worry about whether you left the coffee pot on.</td>
+                                <td><label class="radioBox"><input type="radio" name="coffee1" class="form-control" value="0" required="true"/></label></td>
+                                <td><label class="radioBox"><input type="radio" name="coffee1" class="form-control" value="1" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="coffee1" class="form-control" value="2" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="coffee1" class="form-control" value="3" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="coffee1" class="form-control" value="-1" /></label></td>
+                            </tr>
+                            <tr>
+                                <td>you worry that your kitchen will catch fire if the coffee pot was left on.</td>
+                                <td><label class="radioBox"><input type="radio" name="coffee2" class="form-control" value="0" required="true"/></label></td>
+                                <td><label class="radioBox"><input type="radio" name="coffee2" class="form-control" value="1" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="coffee2" class="form-control" value="2" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="coffee2" class="form-control" value="3" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="coffee2" class="form-control" value="-1" /></label></td>
+                            </tr>
+                            <tr>
+                                <td>you think about your delicious cup of coffee.</td>
+                                <td><label class="radioBox"><input type="radio" name="coffee3" class="form-control" value="0" required="true"/></label></td>
+                                <td><label class="radioBox"><input type="radio" name="coffee3" class="form-control" value="1" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="coffee3" class="form-control" value="2" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="coffee3" class="form-control" value="3" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="coffee3" class="form-control" value="-1" /></label></td>
+                            </tr>
+                            <tr>
+                                <td>you remember that you ran out of creamer this morning.</td>
+                                <td><label class="radioBox"><input type="radio" name="coffee4" class="form-control" value="0" required="true"/></label></td>
+                                <td><label class="radioBox"><input type="radio" name="coffee4" class="form-control" value="1" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="coffee4" class="form-control" value="2" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="coffee4" class="form-control" value="3" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="coffee4" class="form-control" value="-1" /></label></td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                    <fieldset>
+                        <legend>THE ELEVATOR</legend>
+                        <p>
+                            You are in the lobby of your friend’s new apartment building and press the button to the elevator to go up. The building looks old, and as you get on the elevator, your think about its safety.
+                            Did you think about the elevator’s safety?
+                            The building looks old, and as you get on the elevator…
+
+                        </p>
+                        <table class="table table-striped table-bordered table-radio">
+                            <tr>
+                                <th>Question</th>
+                                <th>very different in meaning</th>
+                                <th>different in meaning</th>
+                                <th>similar in meaning</th>
+                                <th>very similar in meaning</th>
+                                <th>Prefer not to answer</th>
+                            </tr>
+                            <tr>
+                                <td>you think that riding the elevator will be safe.</td>
+                                <td><label class="radioBox"><input type="radio" name="elevator1" class="form-control" value="0" required="true"/></label></td>
+                                <td><label class="radioBox"><input type="radio" name="elevator1" class="form-control" value="1" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="elevator1" class="form-control" value="2" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="elevator1" class="form-control" value="3" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="elevator1" class="form-control" value="-1" /></label></td>
+                            </tr>
+                            <tr>
+                                <td>you think that the elevator will probably break down while you are on it.</td>
+                                <td><label class="radioBox"><input type="radio" name="elevator2" class="form-control" value="0" required="true"/></label></td>
+                                <td><label class="radioBox"><input type="radio" name="elevator2" class="form-control" value="1" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="elevator2" class="form-control" value="2" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="elevator2" class="form-control" value="3" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="elevator2" class="form-control" value="-1" /></label></td>
+                            </tr>
+                            <tr>
+                                <td>you think that you are going to like your friend’s new apartment.</td>
+                                <td><label class="radioBox"><input type="radio" name="elevator3" class="form-control" value="0" required="true"/></label></td>
+                                <td><label class="radioBox"><input type="radio" name="elevator3" class="form-control" value="1" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="elevator3" class="form-control" value="2" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="elevator3" class="form-control" value="3" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="elevator3" class="form-control" value="-1" /></label></td>
+                            </tr>
+                            <tr>
+                                <td>you think about how smelly the lobby is.</td>
+                                <td><label class="radioBox"><input type="radio" name="elevator4" class="form-control" value="0" required="true"/></label></td>
+                                <td><label class="radioBox"><input type="radio" name="elevator4" class="form-control" value="1" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="elevator4" class="form-control" value="2" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="elevator4" class="form-control" value="3" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="elevator4" class="form-control" value="-1" /></label></td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                    <fieldset>
+                        <legend>THE FLIGHT: </legend>
+                        <p>
+                            You are on a long flight with your partner going to an exotic location for your vacation. The airplane pilot gets on the intercom, and says there is going to be some turbulence. As you wait for the turbulence, you feel a little anxious.
+                            Are you going on vacation?
+                            As you wait for the turbulence…
+
+                        </p>
+                        <table class="table table-striped table-bordered table-radio">
+                            <tr>
+                                <th>Question</th>
+                                <th>very different in meaning</th>
+                                <th>different in meaning</th>
+                                <th>similar in meaning</th>
+                                <th>very similar in meaning</th>
+                                <th>Prefer not to answer</th>
+                            </tr>
+                            <tr>
+                                <td>You feel anxious, and you worry you will not be able to control your anxiety.</td>
+                                <td><label class="radioBox"><input type="radio" name="flight1" class="form-control" value="0" required="true"/></label></td>
+                                <td><label class="radioBox"><input type="radio" name="flight1" class="form-control" value="1" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="flight1" class="form-control" value="2" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="flight1" class="form-control" value="3" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="flight1" class="form-control" value="-1" /></label></td>
+                            </tr>
+                            <tr>
+                                <td>You feel anxious, but you know that everything will be ok.</td>
+                                <td><label class="radioBox"><input type="radio" name="flight2" class="form-control" value="0" required="true"/></label></td>
+                                <td><label class="radioBox"><input type="radio" name="flight2" class="form-control" value="1" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="flight2" class="form-control" value="2" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="flight2" class="form-control" value="3" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="flight2" class="form-control" value="-1" /></label></td>
+                            </tr>
+                            <tr>
+                                <td>You think about how great your vacation is going to be.</td>
+                                <td><label class="radioBox"><input type="radio" name="flight3" class="form-control" value="0" required="true"/></label></td>
+                                <td><label class="radioBox"><input type="radio" name="flight3" class="form-control" value="1" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="flight3" class="form-control" value="2" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="flight3" class="form-control" value="3" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="flight3" class="form-control" value="-1" /></label></td>
+                            </tr>
+                            <tr>
+                                <td>You think about how the airplane seat is uncomfortable.</td>
+                                <td><label class="radioBox"><input type="radio" name="flight4" class="form-control" value="0" required="true"/></label></td>
+                                <td><label class="radioBox"><input type="radio" name="flight4" class="form-control" value="1" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="flight4" class="form-control" value="2" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="flight4" class="form-control" value="3" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="flight4" class="form-control" value="-1" /></label></td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                    <fieldset>
+                        <legend>THE JOB: </legend>
+                        <p>
+                            You are currently working as a contractor for a company. Once this job is finished, you will be without employment until you can find your next job. You think about not having an income for a few weeks and about your future finances.
+                            Will you be without an income soon?
+                            You think about not having an income for a few weeks…
+
+                        </p>
+                        <table class="table table-striped table-bordered table-radio">
+                            <tr>
+                                <th>Question</th>
+                                <th>very different in meaning</th>
+                                <th>different in meaning</th>
+                                <th>similar in meaning</th>
+                                <th>very similar in meaning</th>
+                                <th>Prefer not to answer</th>
+                            </tr>
+                            <tr>
+                                <td>and know that you can rely on your savings.</td>
+                                <td><label class="radioBox"><input type="radio" name="job1" class="form-control" value="0" required="true"/></label></td>
+                                <td><label class="radioBox"><input type="radio" name="job1" class="form-control" value="1" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="job1" class="form-control" value="2" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="job1" class="form-control" value="3" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="job1" class="form-control" value="-1" /></label></td>
+                            </tr>
+                            <tr>
+                                <td>and worry about becoming broke.</td>
+                                <td><label class="radioBox"><input type="radio" name="job2" class="form-control" value="0" required="true"/></label></td>
+                                <td><label class="radioBox"><input type="radio" name="job2" class="form-control" value="1" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="job2" class="form-control" value="2" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="job2" class="form-control" value="3" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="job2" class="form-control" value="-1" /></label></td>
+                            </tr>
+                            <tr>
+                                <td>and are excited about not having to set an alarm.</td>
+                                <td><label class="radioBox"><input type="radio" name="job3" class="form-control" value="0" required="true"/></label></td>
+                                <td><label class="radioBox"><input type="radio" name="job3" class="form-control" value="1" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="job3" class="form-control" value="2" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="job3" class="form-control" value="3" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="job3" class="form-control" value="-1" /></label></td>
+                            </tr>
+                            <tr>
+                                <td>and are sad about leaving your current coworkers.</td>
+                                <td><label class="radioBox"><input type="radio" name="job4" class="form-control" value="0" required="true"/></label></td>
+                                <td><label class="radioBox"><input type="radio" name="job4" class="form-control" value="1" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="job4" class="form-control" value="2" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="job4" class="form-control" value="3" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="job4" class="form-control" value="-1" /></label></td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                    <fieldset>
+                        <legend>THE LOUD NOISE</legend>
+                        <p>
+                            You are woken up in the middle of the night by a loud noise. You are not sure what caused the noise and leave your bedroom to see what happened. You walk downstairs.
+                            Have you been woken up in the middle of the night?
+                            As you walk downstairs...
+                        </p>
+                        <table class="table table-striped table-bordered table-radio">
+                            <tr>
+                                <th>Question</th>
+                                <th>very different in meaning</th>
+                                <th>different in meaning</th>
+                                <th>similar in meaning</th>
+                                <th>very similar in meaning</th>
+                                <th>Prefer not to answer</th>
+                            </tr>
+                            <tr>
+                                <td>you feel afraid, and worry that you cannot handle the fear.</td>
+                                <td><label class="radioBox"><input type="radio" name="noise1" class="form-control" value="0" required="true"/></label></td>
+                                <td><label class="radioBox"><input type="radio" name="noise1" class="form-control" value="1" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="noise1" class="form-control" value="2" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="noise1" class="form-control" value="3" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="noise1" class="form-control" value="-1" /></label></td>
+                            </tr>
+                            <tr>
+                                <td>you feel afraid, but you know that you can tolerate the feeling.</td>
+                                <td><label class="radioBox"><input type="radio" name="noise2" class="form-control" value="0" required="true"/></label></td>
+                                <td><label class="radioBox"><input type="radio" name="noise2" class="form-control" value="1" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="noise2" class="form-control" value="2" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="noise2" class="form-control" value="3" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="noise2" class="form-control" value="-1" /></label></td>
+                            </tr>
+                            <tr>
+                                <td>you feel happy, and think about how lovely your house is.</td>
+                                <td><label class="radioBox"><input type="radio" name="noise3" class="form-control" value="0" required="true"/></label></td>
+                                <td><label class="radioBox"><input type="radio" name="noise3" class="form-control" value="1" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="noise3" class="form-control" value="2" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="noise3" class="form-control" value="3" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="noise3" class="form-control" value="-1" /></label></td>
+                            </tr>
+                            <tr>
+                                <td>you feel cold, and think about how the house needs better heating.</td>
+                                <td><label class="radioBox"><input type="radio" name="noise4" class="form-control" value="0" required="true"/></label></td>
+                                <td><label class="radioBox"><input type="radio" name="noise4" class="form-control" value="1" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="noise4" class="form-control" value="2" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="noise4" class="form-control" value="3" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="noise4" class="form-control" value="-1" /></label></td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                    <fieldset>
+                        <legend>THE RESTAURANT</legend>
+                        <p>
+                            You are at a restaurant with a group of friends for dinner. Everyone at the table shares an appetizer. After you eat the appetizer, you remember that you did not ask the waiter if the food is cooked in peanut oil, to which you are allergic.
+                            Are you at dinner with your family?
+                            After you eat the appetizer...
+                        </p>
+                        <table class="table table-striped table-bordered table-radio">
+                            <tr>
+                                <th>Question</th>
+                                <th>very different in meaning</th>
+                                <th>different in meaning</th>
+                                <th>similar in meaning</th>
+                                <th>very similar in meaning</th>
+                                <th>Prefer not to answer</th>
+                            </tr>
+                            <tr>
+                                <td>You worry that you will soon break out in hives.</td>
+                                <td><label class="radioBox"><input type="radio" name="restaurant1" class="form-control" value="0" required="true"/></label></td>
+                                <td><label class="radioBox"><input type="radio" name="restaurant1" class="form-control" value="1" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="restaurant1" class="form-control" value="2" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="restaurant1" class="form-control" value="3" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="restaurant1" class="form-control" value="-1" /></label></td>
+                            </tr>
+                            <tr>
+                                <td>You think you are probably going to be ok and not have an allergic reaction.</td>
+                                <td><label class="radioBox"><input type="radio" name="restaurant2" class="form-control" value="0" required="true"/></label></td>
+                                <td><label class="radioBox"><input type="radio" name="restaurant2" class="form-control" value="1" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="restaurant2" class="form-control" value="2" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="restaurant2" class="form-control" value="3" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="restaurant2" class="form-control" value="-1" /></label></td>
+                            </tr>
+                            <tr>
+                                <td>You laugh at your friends’ jokes.</td>
+                                <td><label class="radioBox"><input type="radio" name="restaurant3" class="form-control" value="0" required="true"/></label></td>
+                                <td><label class="radioBox"><input type="radio" name="restaurant3" class="form-control" value="1" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="restaurant3" class="form-control" value="2" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="restaurant3" class="form-control" value="3" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="restaurant3" class="form-control" value="-1" /></label></td>
+                            </tr>
+                            <tr>
+                                <td>You get in an argument with one of your friends.</td>
+                                <td><label class="radioBox"><input type="radio" name="restaurant4" class="form-control" value="0" required="true"/></label></td>
+                                <td><label class="radioBox"><input type="radio" name="restaurant4" class="form-control" value="1" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="restaurant4" class="form-control" value="2" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="restaurant4" class="form-control" value="3" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="restaurant4" class="form-control" value="-1" /></label></td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                </form>
+                <script>
+                    jQuery("#wizard").jWizard();
+                </script>
+            </div>
+        </div>
+        <!--features ends-->
+
+        <!--divider here-->
+        <div class="spacer-40px"></div>
+
+    </div>
+</section>
+
+
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts" />
+
+</body>
+</html>
+
+
+
+<!--Over the course of this program, did you start/stop/change a dose of medication, therapy, or other intervention to help your anxiety difficulties?  (If you are on the same dose of medication or same appointment schedule for therapy or intervention as you were when you began this program, please choose “no.”)-->
+<!--	Yes-->
+<!--	No-->
+<!--If yes: Please describe: ________________-->
