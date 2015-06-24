@@ -35,7 +35,7 @@
         <div class="row">
             <div class="span12">
                 <form id="wizard" th:action="@{/questions/SA}" method="POST">
-                    <fieldset>
+                    <fieldset id="step_one">
                         <legend>Step 1</legend>
                         <p>
                             <!--TODO change back to two-->
@@ -63,7 +63,7 @@
                         <label> If other anxiety-provoking situation, please specify </label>
                         <input type="text" name="other_anxiety"/>
                     </fieldset>
-                    <fieldset>
+                    <fieldset id="step_two">
                         <legend>Step 2</legend>
                         <p>
                             <label id="note1">For , please note (in just a few words) what type of situation this involves (e.g., speaking in public, driving, feeling caught in a crowd, worry about an upcoming trip):</label>
@@ -164,7 +164,7 @@
                             </select>
                         </p>
                     </fieldset>
-                    <fieldset>
+                    <fieldset id="step_eight">
                         <legend>Step 8</legend>
                         <p>
                             <label id="note2">For , please note (in just a few words) what type of situation this involves (e.g., speaking in public, driving, feeling caught in a crowd, worry about an upcoming trip):</label>
@@ -266,28 +266,41 @@
                         </p>
                     </fieldset>
                 </form>
+
                 <script type="text/javascript">
 
-                    var sitDrop = document.getElementById('situations');
-                    var situations = [];
-                    for (var i = 0; i < sitDrop.options.length; i++) {
-                      if (sitDrop.options[i].selected) {
-                        situations.push(sitDrop.options[i].value);
-                      }
-                    }
                     String.prototype.splice = function( idx, rem, s ) {
                         return (this.slice(0,idx) + s + this.slice(idx + Math.abs(rem)));
                     };
 
-                    var text1 = document.getElementById('note1').innerText;
-                    var note1 = text.splice( 4, 0, situations[0] + " ");
-                    var text2 = document.getElementById('note2').innerText;
-                    var note2 = text.splice( 4, 0, situations[1] + " ");
+                    var situations = [];
 
+                //<![CDATA[
+
+                    $("#situations").on("click", "option", function()
+                    {
+                        if (2 <= $(this).siblings(":selected").length)
+                        {
+                            $(this).removeAttr("selected");
+                        }
+                        situations = $('select#situations').val();
+
+                    });
+
+                //]]>
 
                     var mNext = false;
                     var mVisit = false;
-                    $("#wizard").on("stepshown", "#step_six", function () {
+                    var mNext2 = false;
+                    var mVisit2 = false;
+
+                    $("#wizard").on("stepshown", "#step_two", function()
+                    {
+                        var text1 = document.getElementById('note1').innerText;
+                        var note1 = text1.splice( 4, 0, situations[0] + " ");
+                        document.getElementById('note1').innerText =  note1;
+                    }).on("stepshown", "#step_six", function ()
+                    {
                         if (! mVisit)
                         {
                             mVisit = true;
@@ -296,17 +309,18 @@
                                                   }, 20000);
                         }
 
-                    }).on("stephide", "#step_five", function () {
+                    }).on("stephide", "#step_six", function ()
+                    {
                         if (! mNext)
                         {
                             return false;
                         }
-                    }).jWizard();
-
-
-                    var mNext2 = false;
-                    var mVisit2 = false;
-                    $("#wizard").on("stepshown", "#step_twelve", function () {
+                    }).on("stepshown", "#step_eight", function()
+                    {
+                        var text2 = document.getElementById('note2').innerText;
+                        var note2 = text2.splice( 4, 0, situations[1] + " ");
+                        document.getElementById('note2').innerText = note2;
+                    }).on("stepshown", "#step_twelve", function () {
                         if (! mVisit2)
                         {
                             mVisit2 = true;
