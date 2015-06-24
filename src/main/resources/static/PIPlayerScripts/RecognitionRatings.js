@@ -227,7 +227,7 @@ define(['app/API'], function(API) {
             layout: [
                 // This is a stimulus object
                 {
-                    media :"In this task, you will read about a series of situations. Please read each paragraph carefully, and imagine yourself in the situations described. Each situation has a title. Please pay attention to the title, these titles will be referenced in the next task. At the end of each paragraph, there will be a word fragment (an incomplete word) for you to complete. To complete the word fragment, move the cursor to where a letter is missing, press the keys that correspond to the missing letters, and then click 'Next' twice. Once you type in the correct letter, you will move on to the next question. (If you are really stuck, you can type an incorrect letter three times in a row and you will also move to the next question.) After completing the word fragment, you will be asked to answer a question about the situation in which you imagined yourself. Please use only the information from the situation to answer the question. Once you have the correct answer, you will move on to the next situation. If you are unsure about an item, please make your best guess. For example, if you saw the following scenario: 'You are waiting in line with your friend to buy food for lunch. Your stomach growls. You plan to order pasta with alfredo sa_ce,' you would fill in the 'u' that is missing from 'sauce.' After reading each situation, you will be asked a question about the situation. After you have read about all the situations, you will be asked more questions about them. Please press the spacebar to continue.",
+                    media :"In this task, you will read about a series of situations. Please read each paragraph carefully, and imagine yourself in the situations described. Each situation has a title. Please pay attention to the title, these titles will be referenced in the next task. At the end of each paragraph, there will be a word fragment (an incomplete word) for you to complete. To complete the word fragment, move the cursor to where a letter is missing, press the keys that correspond to the missing letters, and then click 'Next' twice. Once you type in the correct letter, you will move on to the next question. (If you are really stuck, you can type an incorrect letter three times in a row and you will also move to the next question.) After completing the word fragment, you will be asked to answer a question about the situation in which you imagined yourself. Please press the spacebar to continue.",
                     css:{fontSize:'.8em',color:'#D7685A'}
                 }
             ],
@@ -243,6 +243,29 @@ define(['app/API'], function(API) {
                 }
             ]
         },
+                {
+                    input: [
+                        {handle:'space',on:'space'}
+                    ],
+                    layout: [
+                        // This is a stimulus object
+                        {
+                            media:"Please use only the information from the situation to answer the question. Once you have the correct answer, you will move on to the next situation. If you are unsure about an item, please make your best guess. For example, if you saw the following scenario: 'You are waiting in line with your friend to buy food for lunch. Your stomach growls. You plan to order pasta with alfredo sa_ce,' you would fill in the 'u' that is missing from 'sauce.' After reading each situation, you will be asked a question about the situation. After you have read about all the situations, you will be asked more questions about them.",
+                            css:{fontSize:'.8em',color:'#D7685A'}
+                        }
+                    ],
+                    interactions: [
+                        // This is an interaction (it has a condition and an action)
+                        {
+                            conditions: [
+                                {type:'inputEquals',value:'space'}
+                            ],
+                            actions: [
+                                {type:'endTrial'}
+                            ]
+                        }
+                    ]
+                },
         {
             mixer: 'random',
             //n: 50,  // The total number of randomly selected trials to run.
@@ -267,11 +290,11 @@ define(['app/API'], function(API) {
                 "data": {
                     "positiveKey": "i",
                     "positiveWord": "acc[ ]dent",
-                    "statement": " THE YELLOW LIGHT: You are in your car, on your way to see a friend for lunch. Because you are running late, you are not as careful as you usually are and speed through a yellow light. As you pass through the intersection, you think about the likelihood of causing an . "
+                    "statement": " THE YELLOW LIGHT: You are in your car, on your way to see a friend for lunch. Because you are running late, you are not as careful as you usually are and speed through a yellow light. As you pass through the intersection, you think about the likelihood of causing an "
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord%></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>" 
                 }
             },
             {
@@ -306,11 +329,11 @@ define(['app/API'], function(API) {
                 "data": {
                     "positiveKey": "o",
                     "positiveWord": "[ ]n",
-                    "statement": "  THE COFFEE POT: You are running late on your way to work. In the car, you realize that you forgot to check if you turned off the coffee pot. When you get to work, you think about what would happen if you did leave the coffee pot . "
+                    "statement": "  THE COFFEE POT: You are running late on your way to work. In the car, you realize that you forgot to check if you turned off the coffee pot. When you get to work, you think about what would happen if you did leave the coffee pot "
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord%></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>" 
                 }
             },
             {
@@ -345,11 +368,11 @@ define(['app/API'], function(API) {
                 "data": {
                     "positiveKey": "a",
                     "positiveWord": "s[ ]fety",
-                    "statement": " THE ELEVATOR: You are in the lobby of your friend’s new apartment building and press the button to the elevator to go up. The building looks old, and as you get on the elevator, your think about its . "
+                    "statement": " THE ELEVATOR: You are in the lobby of your friend’s new apartment building and press the button to the elevator to go up. The building looks old, and as you get on the elevator, your think about its "
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord%></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>" 
                 }
             },
             {
@@ -384,11 +407,11 @@ define(['app/API'], function(API) {
                 "data": {
                     "positiveKey": "i",
                     "positiveWord": "c[ ]ty",
-                    "statement": " THE FIELD TRIP: Your young daughter is going on a class field trip to the city. You think about how sometimes she is not careful when crossing the street. As you think about your daughter, you hope the teachers keep an eye on her as they walk around the . "
+                    "statement": " THE FIELD TRIP: Your young daughter is going on a class field trip to the city. You think about how sometimes she is not careful when crossing the street. As you think about your daughter, you hope the teachers keep an eye on her as they walk around the "
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord%></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>" 
                 }
             },
             {
@@ -423,11 +446,11 @@ define(['app/API'], function(API) {
                 "data": {
                     "positiveKey": "x",
                     "positiveWord": "an[ ]ious",
-                    "statement": " THE FLIGHT: You are on a long flight with your partner going to an exotic location for your vacation. The airplane pilot gets on the intercom, and says there is going to be some turbulence. As you wait for the turbulence, you feel a little . "
+                    "statement": " THE FLIGHT: You are on a long flight with your partner going to an exotic location for your vacation. The airplane pilot gets on the intercom, and says there is going to be some turbulence. As you wait for the turbulence, you feel a little "
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord%></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>" 
                 }
             },
             {
@@ -462,11 +485,11 @@ define(['app/API'], function(API) {
                 "data": {
                     "positiveKey": "a",
                     "positiveWord": "fin[ ]nces",
-                    "statement": " THE JOB: You are currently working as a contractor for a company. Once this job is finished, you will be without employment until you can find your next job. You think about not having an income for a few weeks and about your future . "
+                    "statement": " THE JOB: You are currently working as a contractor for a company. Once this job is finished, you will be without employment until you can find your next job. You think about not having an income for a few weeks and about your future "
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord%></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>" 
                 }
             },
             {
@@ -501,11 +524,11 @@ define(['app/API'], function(API) {
                 "data": {
                     "positiveKey": "t",
                     "positiveWord": "downs[ ]airs",
-                    "statement": "  THE LOUD NOISE: You are woken up in the middle of the night by a loud noise. You are not sure what caused the noise and leave your bedroom to see what happened. You walk . "
+                    "statement": "  THE LOUD NOISE: You are woken up in the middle of the night by a loud noise. You are not sure what caused the noise and leave your bedroom to see what happened. You walk "
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord%></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>" 
                 }
             },
             {
@@ -540,11 +563,11 @@ define(['app/API'], function(API) {
                 "data": {
                     "positiveKey": "e",
                     "positiveWord": "all[ ]rgic",
-                    "statement": " THE RESTAURANT: You are at a restaurant with a group of friends for dinner. Everyone at the table shares an appetizer. After you eat the appetizer, you remember that you did not ask the waiter if the food is cooked in peanut oil, to which you are . "
+                    "statement": " THE RESTAURANT: You are at a restaurant with a group of friends for dinner. Everyone at the table shares an appetizer. After you eat the appetizer, you remember that you did not ask the waiter if the food is cooked in peanut oil, to which you are "
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord%></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>" 
                 }
             },
             {
