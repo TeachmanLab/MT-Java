@@ -4,7 +4,7 @@ buildscript {
         mavenLocal()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.1.4.RELEASE")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.4.RELEASE")
     }
 }
 
@@ -43,6 +43,7 @@ dependencies {
     compile("javax.mail:mail:1.4.7") // also Email
     compile('org.apache.commons:commons-lang3')  // Lots of useful code, used for random number generation.
     compile('joda-time:joda-time:2.3') // For some very handy date/time utilities.
+
     // Deployment
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
 
