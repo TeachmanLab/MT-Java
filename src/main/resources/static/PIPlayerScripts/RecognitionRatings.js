@@ -227,7 +227,7 @@ define(['app/API'], function(API) {
             layout: [
                 // This is a stimulus object
                 {
-                    media :"In this task, you will read about a series of situations. Please read each paragraph carefully, and imagine yourself in the situations described. Each situation has a title. Please pay attention to the title, these titles will be referenced in the next task. At the end of each paragraph, there will be a word fragment (an incomplete word) for you to complete. To complete the word fragment, move the cursor to where a letter is missing, press the keys that correspond to the missing letters, and then click 'Next' twice. Once you type in the correct letter, you will move on to the next question. (If you are really stuck, you can type an incorrect letter three times in a row and you will also move to the next question.) After completing the word fragment, you will be asked to answer a question about the situation in which you imagined yourself. Please press the spacebar to continue.",
+                    media :"In this task, you will read about a series of situations. Please read each paragraph carefully, and imagine yourself in the situations described. Each situation has a title. Please pay attention to the title, these titles will be referenced in the next task. At the end of each paragraph, there will be a word fragment (an incomplete word) for you to complete. To complete the word fragment, press the key that corresponds to the missing letter. Once you type in the correct letter, you will move on to the next question. After completing the word fragment, you will be asked to answer a question about the situation in which you imagined yourself. Please press the spacebar to continue.",
                     css:{fontSize:'.8em',color:'#D7685A'}
                 }
             ],
@@ -382,45 +382,6 @@ define(['app/API'], function(API) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Did you think about the elevator’s safety?</div>"
-                }
-            }
-        ]
-    },
-// NEXT
-        {
-        "inherit": {
-            "set": "all",
-            "type": "random"
-        },
-        "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "data": {
-                    "positiveKey": "i",
-                    "positiveWord": "c[ ]ty",
-                    "statement": " THE FIELD TRIP: Your young daughter is going on a class field trip to the city. You think about how sometimes she is not careful when crossing the street. As you think about your daughter, you hope the teachers keep an eye on her as they walk around the "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>" 
-                }
-            },
-            {
-                "handle": "question",
-                data: {
-                	positiveAnswer:"y"
-                },
-                "media": {
-                    "inlineTemplate": "<div>Is your daughter young?</div>"
                 }
             }
         ]

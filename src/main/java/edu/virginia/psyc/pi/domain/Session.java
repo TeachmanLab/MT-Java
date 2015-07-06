@@ -76,8 +76,8 @@ public class Session {
                 tasks.add(new Task("credibility", "Credibility Assessment", Task.TYPE.questions));
                 tasks.add(new Task("MH", "Mental Health History", Task.TYPE.questions));
                 tasks.add(new Task("SA", "State Anxiety", Task.TYPE.questions));
-                tasks.add(new Task("RecognitionRatings", "RR", Task.TYPE.playerScript));
-                tasks.add(new Task("RR", "RR", Task.TYPE.questions));
+                tasks.add(new Task("RecognitionRatings", "RecogRatings", Task.TYPE.playerScript));
+                tasks.add(new Task("RR", "RecognitionRatings", Task.TYPE.questions));
                 tasks.add(new Task("QOL", "Quality of Life Scale", Task.TYPE.questions));
                 tasks.add(new Task("DASS21_DS", "Symptom Measures", Task.TYPE.questions));
                 break;

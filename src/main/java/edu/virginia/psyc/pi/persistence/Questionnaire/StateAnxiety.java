@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Created by samportnow on 7/23/14.
  */
 @Entity
-@Table(name="StateAnxiety")
+@Table(name="SA")
 public class StateAnxiety implements QuestionnaireData{
 
     @Id
@@ -37,10 +37,10 @@ public class StateAnxiety implements QuestionnaireData{
     private int badly_2;
     private int terrible_2;
 
-    @ElementCollection
-    @CollectionTable(name="situations", joinColumns=@JoinColumn(name="id"))
-    @Column(name="situations")
-    private List<String> situations;
+//    @ElementCollection
+//    @CollectionTable(name="situations", joinColumns=@JoinColumn(name="id"))
+//    @Column(name="situations")
+//    private List<String> situations;
 
 
     public int getId() {
@@ -155,13 +155,13 @@ public class StateAnxiety implements QuestionnaireData{
         this.terrible_2 = terrible_2;
     }
 
-    public List<String> getSituations() {
-        return situations;
-    }
-
-    public void setSituations(List<String> situations) {
-        this.situations = situations;
-    }
+//    public List<String> getSituations() {
+//        return situations;
+//    }
+//
+//    public void setSituations(List<String> situations) {
+//        this.situations = situations;
+//    }
 
 
 

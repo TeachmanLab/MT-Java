@@ -46,6 +46,7 @@ public class QuestionController {
     private AnxiousImageryPrime_Repository anxiousImageryPrime_Repository;
     private NeutralImageryPrime_Repository neutralImageryPrime_Repository;
     private StateAnxietyRepository stateAnxiety_Repository;
+    private RR_Repository rr_repository;
 //    private StateAnxietyPreRepository stateAnxietyPre_Repository;
     private StateAnxietyPostRepository stateAnxietyPost_Repository;
     private static final Logger LOG = LoggerFactory.getLogger(QuestionController.class);
@@ -69,6 +70,7 @@ public class QuestionController {
                               AnxiousImageryPrime_Repository anxiousImageryPrime_Repository,
                               NeutralImageryPrime_Repository neutralImageryPrime_Repository,
                               StateAnxietyRepository stateAnxiety_Repository,
+                              RR_Repository rr_repository,
 //                              StateAnxietyPreRepository stateAnxietyPre_Repository,
                               FollowUp_ChangeInTreatment_Repository followup_Repository,
                               StateAnxietyPostRepository stateAnxietyPost_Repository) {
@@ -86,6 +88,7 @@ public class QuestionController {
         this.anxiousImageryPrime_Repository = anxiousImageryPrime_Repository;
         this.neutralImageryPrime_Repository = neutralImageryPrime_Repository;
         this.stateAnxiety_Repository = stateAnxiety_Repository;
+        this.rr_repository = rr_repository;
 //        this.stateAnxietyPre_Repository = stateAnxietyPre_Repository;
         this.stateAnxietyPost_Repository = stateAnxietyPost_Repository;
         this.followup_Repository = followup_Repository;
@@ -474,6 +477,33 @@ public class QuestionController {
     String exportSAP() {
         return(objectListToCSV(stateAnxiety_Repository.findAll()));
     }
+
+
+    /**
+     * RR
+     * ---------*
+     */
+    @RequestMapping(value = "RR", method = RequestMethod.GET)
+    public ModelAndView showRR() {
+        return new ModelAndView("/questions/RR", "RR", new DASS21_DS());
+    }
+
+    @RequestMapping(value = "RR", method = RequestMethod.POST)
+    RedirectView handleRR(@ModelAttribute("RR") RR rr,
+                                 BindingResult result) {
+
+        recordSessionProgress(rr);
+        rr_repository.save(rr);
+        return new RedirectView("/session");
+    }
+
+    @RequestMapping(value = "RR/export", method = RequestMethod.GET, produces = "text/csv")
+    @ResponseBody // Return the string directly, the return value is not a template name.
+    String exportRR() {
+        return(objectListToCSV(rr_repository.findAll()));
+    }
+
+
 
 
 //    /**
