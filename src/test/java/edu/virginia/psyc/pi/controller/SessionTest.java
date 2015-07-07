@@ -40,7 +40,7 @@ public class SessionTest {
         assertFalse(sessionList.get(4).isComplete());
         assertFalse(sessionList.get(5).isComplete());
 
-        // current is clrrectly identified and set.
+        // current is correctly identified and set.
         assertTrue(sessionList.get(1).isCurrent());
         assertFalse(sessionList.get(0).isCurrent());
         assertFalse(sessionList.get(2).isCurrent());
@@ -54,7 +54,7 @@ public class SessionTest {
      * A session should have a list of associated tasks.
      */
     @Test
-    public void testGetTasksForSession() {
+    public void     testGetTasksForSession() {
 
         List<Task> tasks;
 
@@ -65,9 +65,9 @@ public class SessionTest {
         assertEquals("Unique name for the task should be DASS_21", "DASS21_AS", tasks.get(0).getName());
         assertEquals("First task should be named Status Questionnaire", "Status Questionnaire", tasks.get(0).getDisplayName());
         assertEquals("First task should point to the DASS21 questionniare", Task.TYPE.questions, tasks.get(0).getType());
-        assertEquals("First task should point to the DASS21 questionniare","questions/DASS21_AS", tasks.get(0).getRequestMapping());
-        assertTrue("First task should be completed",tasks.get(0).isComplete());
-        assertFalse("First task should not be current",tasks.get(0).isCurrent());
+        assertEquals("First task should point to the DASS21 questionniare","/questions/DASS21_AS", tasks.get(0).getRequestMapping());
+        assertTrue("First task should not be completed",tasks.get(0).isComplete());
+        assertFalse("First task should  be current", tasks.get(0).isCurrent());
         assertFalse("Second task should not be completed",tasks.get(1).isComplete());
         assertTrue("Second task should be current",tasks.get(1).isCurrent());
 

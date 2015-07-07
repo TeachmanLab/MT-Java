@@ -46,6 +46,7 @@ public class DASS21_AS implements QuestionnaireData {
         this.scared = scared;
     }
 
+
     /**
      * Calculates the eligibility of a participant to be in a particular study
      * You take the average of the 7 item scores, and then multiply by 14
@@ -53,8 +54,7 @@ public class DASS21_AS implements QuestionnaireData {
      * If the resulting # is 10 or higher, they are eligible to participate.
      * NOTE:  a "-1" indicates the question was not answered.
      */
-
-    public boolean eligibleScore() {
+    public double score() {
         int    sum   = 0;
         double total = 0.0;
 
@@ -65,11 +65,17 @@ public class DASS21_AS implements QuestionnaireData {
         if(panic      >= 0) { sum += panic; total++; }
         if(heart      >= 0) { sum += heart; total++; }
         if(scared     >= 0) { sum += scared; total++; }
-        if(total == 0) return false; // Avoid division by 0, no questions were answered.
-        System.out.println(sum + " / " + total + " * 14.0 = " + (sum / total) * 14.0);
-        return((sum / total) * 14.0 > 10);
+        if(total == 0) return 0; // Avoid division by 0, the user has a 0 score.
+        return((sum / total) * 14.0);
     }
 
+    public boolean eligibleScore() {
+        return(this.score() > 10);
+    }
+
+    public boolean atRisk(DASS21_AS original) {
+        return (score() / original.score()) > 1.3;
+    }
 
     /** Auto Generated methods follow */
     public int getId() {
