@@ -203,7 +203,7 @@ public class AdminController extends BaseController {
         p = participantRepository.entityToDomain(participantRepository.findByEmail(principal.getName()));
 
         this.emailService.sendSimpleMail(p, type);
-        return "redirect:/admin";
+        return "redirect:/admin/listEmails";
     }
 
     @RequestMapping(value="/listSessions", method=RequestMethod.GET)
