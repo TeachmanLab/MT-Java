@@ -40,7 +40,7 @@ public class AccountController {
         this.participantRepository   = repository;
     }
 
-    @RequestMapping("/")
+    @RequestMapping
     public String showAccount(ModelMap model, Principal principal) {
         Participant p = getParticipant(principal);
         model.addAttribute("participant", p);
@@ -64,6 +64,8 @@ public class AccountController {
         model.addAttribute("participant", p);
         return "debriefing";
     }
+
+
 
 
 }
