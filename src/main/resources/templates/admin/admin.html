@@ -111,11 +111,11 @@
                 </table>
                 <button type="submit">Update All</button>
 
-                <span th:if="${!paging.firstPage}">
+                <span th:if="${!paging.first}">
                     <a class="mybtn-small"
                     th:href="@{/admin(page=${paging.number - 1}, search=${search})}">Previous</a>
                 </span>
-                <span th:if="${!paging.lastPage}" style="float:right">
+                <span th:if="${!paging.last}" style="float:right">
                     <a class="mybtn-small" th:href="@{/admin(page=${paging.number + 1}, search=${search})}">Next</a>
                 </span>
             </form>
