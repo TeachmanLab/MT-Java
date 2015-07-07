@@ -73,6 +73,8 @@ public class Session {
         switch(name) {
             case PRE:
                 tasks.add(new Task("DASS21_AS", "Status Questionnaire", Task.TYPE.questions));
+                tasks.add(new Task("OA", "OASIS", Task.TYPE.questions));
+                tasks.add(new Task("ReRu", "ReadinessRuler", Task.TYPE.questions));
                 tasks.add(new Task("credibility", "Credibility Assessment", Task.TYPE.questions));
                 tasks.add(new Task("MH", "Mental Health History", Task.TYPE.questions));
                 tasks.add(new Task("SA", "State Anxiety", Task.TYPE.questions));
@@ -84,22 +86,26 @@ public class Session {
             case SESSION1:
                 tasks.add(new Task("AIP", "Imagery Prime", Task.TYPE.questions));
                 tasks.add(new Task("FirstSessionComplete", "First Session", Task.TYPE.playerScript));
+                tasks.add(new Task("CC", "CompareContrast", Task.TYPE.questions));
                 tasks.add(new Task("DASS21_AS", "Status Questionnaire", Task.TYPE.questions));
                 break;
             case SESSION2:
                 tasks.add(new Task("AIP", "Imagery Prime", Task.TYPE.questions));
                 tasks.add(new Task("SecondSessionComplete", "Second Session", Task.TYPE.playerScript));
+                tasks.add(new Task("CC", "CompareContrast", Task.TYPE.questions));
                 tasks.add(new Task("DASS21_AS", "Status Questionnaire", Task.TYPE.questions));
                 break;
             case SESSION3:
                 tasks.add(new Task("AIP", "Imagery Prime", Task.TYPE.questions));
                 tasks.add(new Task("ThirdSessionComplete", "Third Session", Task.TYPE.playerScript));
+                tasks.add(new Task("CC", "CompareContrast", Task.TYPE.questions));
                 tasks.add(new Task("DASS21_AS", "Status Questionnaire", Task.TYPE.questions));
                 tasks.add(new Task("SAPo", "State Anxiety", Task.TYPE.questions));
                 break;
             case SESSION4:
                 tasks.add(new Task("AIP", "Imagery Prime", Task.TYPE.questions));
                 tasks.add(new Task("FourthSessionComplete", "Fourth Session", Task.TYPE.playerScript));
+                tasks.add(new Task("CC", "CompareContrast", Task.TYPE.questions));
                 tasks.add(new Task("DASS21_AS", "Status Questionnaire", Task.TYPE.questions));
                 tasks.add(new Task("QOL", "Quality of Life Scale", Task.TYPE.questions));
                 tasks.add(new Task("DASS21_DS", "Symptom Measures", Task.TYPE.questions));
@@ -107,22 +113,26 @@ public class Session {
             case SESSION5:
                 tasks.add(new Task("AIP", "Imagery Prime", Task.TYPE.questions));
                 tasks.add(new Task("FirstSessionComplete", "First Session", Task.TYPE.playerScript));
+                tasks.add(new Task("CC", "CompareContrast", Task.TYPE.questions));
                 tasks.add(new Task("DASS21_AS", "Status Questionnaire", Task.TYPE.questions));
                 break;
             case SESSION6:
                 tasks.add(new Task("AIP", "Imagery Prime", Task.TYPE.questions));
                 tasks.add(new Task("SecondSessionComplete", "Second Session", Task.TYPE.playerScript));
+                tasks.add(new Task("CC", "CompareContrast", Task.TYPE.questions));
                 tasks.add(new Task("DASS21_AS", "Status Questionnaire", Task.TYPE.questions));
                 tasks.add(new Task("SAPo", "State Anxiety", Task.TYPE.questions));
                 break;
             case SESSION7:
                 tasks.add(new Task("AIP", "Imagery Prime", Task.TYPE.questions));
                 tasks.add(new Task("ThirdSessionComplete", "Third Session", Task.TYPE.playerScript));
+                tasks.add(new Task("CC", "CompareContrast", Task.TYPE.questions));
                 tasks.add(new Task("DASS21_AS", "Status Questionnaire", Task.TYPE.questions));
                 break;
             case SESSION8:
                 tasks.add(new Task("AIP", "Imagery Prime", Task.TYPE.questions));
                 tasks.add(new Task("FourthSessionComplete", "Fourth Session", Task.TYPE.playerScript));
+                tasks.add(new Task("CC", "CompareContrast", Task.TYPE.questions));
                 tasks.add(new Task("DASS21_AS", "Status Questionnaire", Task.TYPE.questions));
                 tasks.add(new Task("SAPo", "State Anxiety", Task.TYPE.questions));
                 tasks.add(new Task("QOL", "Quality of Life Scale", Task.TYPE.questions));

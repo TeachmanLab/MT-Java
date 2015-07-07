@@ -108,6 +108,13 @@
                     </fieldset>
                     <fieldset id="step_seven">
                         <legend>Step 7</legend>
+                        <p id="vivid">
+                            How vividly did you imagine the situation on a scale of 0 (not at all) to 100 (a vivid image of the situation)?
+                        </p>
+                        <textarea name="vivid_resp" rows="1" required="true"></textarea>
+                    </fieldset>
+                    <fieldset id="step_eight">
+                        <legend>Step 8</legend>
                         <p>
                             <label>How anxious do you think you would be in this situation</label>
                             <select name="anxious"  size="9" required="true">
@@ -163,8 +170,8 @@
                             </select>
                         </p>
                     </fieldset>
-                    <fieldset id="step_eight">
-                        <legend>Step 8</legend>
+                    <fieldset id="step_nine">
+                        <legend>Step 9</legend>
                         <p>
                             <label id="note2">For , please note (in just a few words) what type of situation this involves (e.g., speaking in public, driving, feeling caught in a crowd, worry about an upcoming trip):</label>
                             <textarea name="situation_desc_2" rows="1" required="true"></textarea>
@@ -178,19 +185,19 @@
 
                     </fieldset>
                     <fieldset>
-                        <legend>Step 9</legend>
+                        <legend>Step 10</legend>
                         <p>
                             Please think of at least three things you would see in the situation.
                         </p>
                     </fieldset>
                     <fieldset>
-                        <legend>Step 10</legend>
+                        <legend>Step 11</legend>
                         <p>
                             Please think of at least three things you would hear in the situation.
                         </p>
                     </fieldset>
-                    <fieldset id="step_eleven">
-                        <legend>Step 11</legend>
+                    <fieldset id="step_twelve">
+                        <legend>Step 12</legend>
                         <p>
                             <label>Please think of at least three things you would likely think or feel in the situation. Write down a few words to note 3 of the things you would think or feel (e.g., I feel embarrassed, I look stupid, think I want to leave)</label>
                             <textarea name="think_feel2_1" rows="1" required="true"></textarea>
@@ -201,14 +208,21 @@
                         <br/>
                         <br/>
                     </fieldset>
-                    <fieldset id="step_twelve">
-                        <legend>Step 12</legend>
+                    <fieldset id="step_thirteen">
+                        <legend>Step 13</legend>
                         <p id="think2">
                             Please play this upcoming situation in your head for the next 20 seconds, remembering all of the things you see, hear, think, and feel. We will tell you when the 20 seconds are up.
                         </p>
                     </fieldset>
-                    <fieldset id="step_thirteen">
-                        <legend>Step 13</legend>
+                    <fieldset id="step_fourteen">
+                        <legend>Step 14</legend>
+                        <p id="vivid2">
+                            How vividly did you imagine the situation on a scale of 0 (not at all) to 100 (a vivid image of the situation)?
+                        </p>
+                        <textarea name="vivid_resp2" rows="1" required="true"></textarea>
+                    </fieldset>
+                    <fieldset id="step_fifteen">
+                        <legend>Step 15</legend>
                         <p>
                             <label>How anxious do you think you would be in this situation</label>
                             <select name="anxious2"  size="9" required="true">
@@ -314,12 +328,12 @@
                         {
                             return false;
                         }
-                    }).on("stepshown", "#step_eight", function()
+                    }).on("stepshown", "#step_nine", function()
                     {
                         var text2 = document.getElementById('note2').innerText;
                         var note2 = text2.splice( 4, 0, situations[1] + " ");
                         document.getElementById('note2').innerText = note2;
-                    }).on("stepshown", "#step_twelve", function () {
+                    }).on("stepshown", "#step_thirteen", function () {
                         if (! mVisit2)
                         {
                             mVisit2 = true;
@@ -328,7 +342,7 @@
                                                   }, 20000);
                         }
 
-                    }).on("stephide", "#step_twelve", function () {
+                    }).on("stephide", "#step_thirteen", function () {
                         if (! mNext2)
                         {
                             return false;

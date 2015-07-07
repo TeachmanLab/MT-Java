@@ -30,13 +30,30 @@ public class StateAnxiety implements QuestionnaireData{
     private int anxious;
     private int badly;
     private int terrible;
+    private int vivid;
 
     private String situation_desc_2;
     private int think_feel_2;
     private int anxious_2;
     private int badly_2;
     private int terrible_2;
+    private int vivid2;
 
+    public int getVivid() {
+        return vivid;
+    }
+
+    public void setVivid(int vivid) {
+        this.vivid = vivid;
+    }
+
+    public int getVivid2() {
+        return vivid2;
+    }
+
+    public void setVivid2(int vivid2) {
+        this.vivid2 = vivid2;
+    }
 //    @ElementCollection
 //    @CollectionTable(name="situations", joinColumns=@JoinColumn(name="id"))
 //    @Column(name="situations")
