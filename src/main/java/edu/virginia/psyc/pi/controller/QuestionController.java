@@ -135,7 +135,7 @@ public class QuestionController extends BaseController {
      */
     @RequestMapping(value = "DASS21_AS", method = RequestMethod.GET)
     public ModelAndView showDASS21_AS() {
-        return new ModelAndView("questions/DASS21_AS", "DASS21_AS", new DASS21_AS());
+        return new ModelAndView("/questions/DASS21_AS", "DASS21_AS", new DASS21_AS());
     }
 
     @RequestMapping(value = "DASS21_AS", method = RequestMethod.POST)
@@ -178,7 +178,7 @@ public class QuestionController extends BaseController {
      */
     @RequestMapping(value = "DASS21_DS", method = RequestMethod.GET)
     public ModelAndView showDASS21_DS() {
-        return new ModelAndView("questions/DASS21_DS", "DASS21_DS", new DASS21_DS());
+        return new ModelAndView("/questions/DASS21_DS", "DASS21_DS", new DASS21_DS());
     }
 
     @RequestMapping(value = "DASS21_DS", method = RequestMethod.POST)
@@ -229,7 +229,7 @@ public class QuestionController extends BaseController {
      */
     @RequestMapping(value = "audit", method = RequestMethod.GET)
     public ModelAndView showaudit() {
-        return new ModelAndView("questions/audit", "aduit", new AUDIT());
+        return new ModelAndView("/questions/audit", "aduit", new AUDIT());
     }
 
     @RequestMapping(value = "aduit", method = RequestMethod.POST)
@@ -254,7 +254,7 @@ public class QuestionController extends BaseController {
      */
     @RequestMapping(value = "credibility", method = RequestMethod.GET)
     public ModelAndView showCredibility() {
-        return new ModelAndView("questions/credibility", "credibility", new Credibility());
+        return new ModelAndView("/questions/credibility", "credibility", new Credibility());
     }
 
     @RequestMapping(value = "credibility", method = RequestMethod.POST)
@@ -280,7 +280,7 @@ public class QuestionController extends BaseController {
 
     @RequestMapping(value = "FU", method = RequestMethod.GET)
     public ModelAndView showFollowUp() {
-        return new ModelAndView("questions/FU", "FU", new FollowUp_ChangeInTreatment());
+        return new ModelAndView("/questions/FU", "FU", new FollowUp_ChangeInTreatment());
     }
 
     @RequestMapping(value = "FU", method = RequestMethod.POST)
@@ -305,7 +305,7 @@ public class QuestionController extends BaseController {
 
     @RequestMapping(value = "MH", method = RequestMethod.GET)
     public ModelAndView showMentalHealthHxTx() {
-        return new ModelAndView("questions/MH", "MH", new MentalHealthHxTx());
+        return new ModelAndView("/questions/MH", "MH", new MentalHealthHxTx());
     }
 
     @RequestMapping(value = "MH", method = RequestMethod.POST)
@@ -331,7 +331,7 @@ public class QuestionController extends BaseController {
 
     @RequestMapping(value = "MUE", method = RequestMethod.GET)
     public ModelAndView showMultiUserExperience() {
-        return new ModelAndView("questions/MUE", "MUE", new MultiUserExperience());
+        return new ModelAndView("/questions/MUE", "MUE", new MultiUserExperience());
     }
 
     @RequestMapping(value = "MUE", method = RequestMethod.POST)
@@ -361,7 +361,7 @@ public class QuestionController extends BaseController {
     }
 
     @RequestMapping(value = "PUE", method = RequestMethod.POST)
-    RedirectView handleMultiUserExperience(@ModelAttribute("PUE") PilotUserExperience pue,
+    RedirectView handlePilotUserExperience(@ModelAttribute("PUE") PilotUserExperience pue,
                                            BindingResult result) {
 
         recordSessionProgress(pue);
@@ -383,7 +383,7 @@ public class QuestionController extends BaseController {
 
     @RequestMapping(value = "impact", method = RequestMethod.GET)
     public ModelAndView showImpact() {
-        return new ModelAndView("questions/impact", "impact", new ImpactAnxiousImagery());
+        return new ModelAndView("/questions/impact", "impact", new ImpactAnxiousImagery());
     }
 
     @RequestMapping(value = "impact", method = RequestMethod.POST)
@@ -409,7 +409,7 @@ public class QuestionController extends BaseController {
 
     @RequestMapping(value = "AIP", method = RequestMethod.GET)
     public ModelAndView showAIP() {
-        return new ModelAndView("questions/AIP", "AIP", new AnxiousImageryPrime());
+        return new ModelAndView("/questions/AIP", "AIP", new AnxiousImageryPrime());
     }
 
     @RequestMapping(value = "AIP", method = RequestMethod.POST)
@@ -435,7 +435,7 @@ public class QuestionController extends BaseController {
 
     @RequestMapping(value = "NIP", method = RequestMethod.GET)
     public ModelAndView showNIP() {
-        return new ModelAndView("questions/NIP", "NIP", new NeutralImageryPrime());
+        return new ModelAndView("/questions/NIP", "NIP", new NeutralImageryPrime());
     }
 
     @RequestMapping(value = "NIP", method = RequestMethod.POST)
@@ -485,7 +485,7 @@ public class QuestionController extends BaseController {
      */
     @RequestMapping(value = "SA", method = RequestMethod.GET)
     public ModelAndView showSAP() {
-        return new ModelAndView("questions/SA", "SA", new StateAnxiety());
+        return new ModelAndView("/questions/SA", "SA", new StateAnxiety());
     }
 
     @RequestMapping(value = "SA", method = RequestMethod.POST)
@@ -506,7 +506,7 @@ public class QuestionController extends BaseController {
 
 
 //    /**
-//     * StateAnxietyPreRepository
+//     * AnxietyPreRepository
 //     * ---------*
 //     */
 //    @RequestMapping(value = "SAPr", method = RequestMethod.GET)
@@ -515,11 +515,11 @@ public class QuestionController extends BaseController {
 //    }
 //
 //    @RequestMapping(value = "SAPr", method = RequestMethod.POST)
-//    RedirectView handleSAPr(@ModelAttribute("SAPr") StateAnxietyPre SAPre,
+//    RedirectView handleSAPr(@ModelAttribute("SAPr") StateAnxietyPre SAPr,
 //                              BindingResult result) {
 //
-//        recordSessionProgress(SAPre);
-//        stateAnxietyPre_Repository.save(SAPre);
+//        recordSessionProgress(SAPr);
+//        stateAnxietyPre_Repository.save(SAPr);
 //        return new RedirectView("/session");
 //
 //    }
@@ -530,7 +530,7 @@ public class QuestionController extends BaseController {
      */
     @RequestMapping(value = "SAPo", method = RequestMethod.GET)
     public ModelAndView showSAPo() {
-        return new ModelAndView("questions/SAPo", "SAPo", new StateAnxiety());
+        return new ModelAndView("/questions/SAPo", "SAPo", new StateAnxiety());
     }
 
     @RequestMapping(value = "SAPo", method = RequestMethod.POST)

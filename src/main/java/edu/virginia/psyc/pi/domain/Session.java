@@ -85,6 +85,7 @@ public class Session {
                 tasks.add(new Task("DASS21_AS", "Status Questionnaire", Task.TYPE.questions));
                 break;
             case SESSION2:
+                tasks.add(new Task("AIP", "Imagery Prime", Task.TYPE.questions));
                 tasks.add(new Task("SecondSessionComplete", "Second Session", Task.TYPE.playerScript));
                 tasks.add(new Task("DASS21_AS", "Status Questionnaire", Task.TYPE.questions));
                 break;
@@ -95,12 +96,14 @@ public class Session {
                 tasks.add(new Task("SAPo", "State Anxiety", Task.TYPE.questions));
                 break;
             case SESSION4:
+                tasks.add(new Task("AIP", "Imagery Prime", Task.TYPE.questions));
                 tasks.add(new Task("FourthSessionComplete", "Fourth Session", Task.TYPE.playerScript));
                 tasks.add(new Task("DASS21_AS", "Status Questionnaire", Task.TYPE.questions));
                 tasks.add(new Task("QOL", "Quality of Life Scale", Task.TYPE.questions));
                 tasks.add(new Task("DASS21_DS", "Symptom Measures", Task.TYPE.questions));
                 break;
             case SESSION5:
+                tasks.add(new Task("AIP", "Imagery Prime", Task.TYPE.questions));
                 tasks.add(new Task("FirstSessionComplete", "First Session", Task.TYPE.playerScript));
                 tasks.add(new Task("DASS21_AS", "Status Questionnaire", Task.TYPE.questions));
                 break;
@@ -111,8 +114,9 @@ public class Session {
                 tasks.add(new Task("SAPo", "State Anxiety", Task.TYPE.questions));
                 break;
             case SESSION7:
-                tasks.add(new Task("DASS21_AS", "Status Questionnaire", Task.TYPE.questions));
+                tasks.add(new Task("AIP", "Imagery Prime", Task.TYPE.questions));
                 tasks.add(new Task("ThirdSessionComplete", "Third Session", Task.TYPE.playerScript));
+                tasks.add(new Task("DASS21_AS", "Status Questionnaire", Task.TYPE.questions));
                 break;
             case SESSION8:
                 tasks.add(new Task("AIP", "Imagery Prime", Task.TYPE.questions));
