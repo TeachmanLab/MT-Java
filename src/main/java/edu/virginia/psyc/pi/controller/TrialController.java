@@ -20,8 +20,7 @@ import java.util.Map;
  * User: dan
  * Date: 2/27/14
  * Time: 11:21 AM
- * This provides the web interface for accepting data from PI Player and returning the results
- * as JSON from the database.
+ * This provides the web interface for accepting data from PI Player.
  */
 @Controller
 @RequestMapping("/data")

@@ -5,6 +5,7 @@ import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.persistence.EmailLogDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
+import edu.virginia.psyc.pi.persistence.Questionnaire.DASS21_AS;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,7 @@ public class EmailService {
      * Each of these types should have a coresponding template in resources/templates/email
      */
     public enum TYPE {
-        day2, day4, day7, day11, day15, day18, followup, followup2, followup3, resetPass
+        day2, day4, day7, day11, day15, day18, followup, followup2, followup3, resetPass, dass21Alert, dass21AlertParticipant
     }
 
     @Autowired
@@ -57,6 +58,9 @@ public class EmailService {
 
     @Value("${email.respondTo}")
     private String respondTo;
+
+    @Value("${email.alertsTo}")
+    private String alertsTo;
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
@@ -83,6 +87,8 @@ public class EmailService {
                 return "Final reminder from the Project Implicit Mental Health training team";
             case resetPass:
                 return "Project Implicit Mental Health - Account Request";
+            case dass21AlertParticipant:
+                return "Project Implicit Mental Health - Alert, your score is dropping.";
             default:
                 return "";
         }
@@ -125,6 +131,37 @@ public class EmailService {
         sendMail(participant, TYPE.resetPass, ctx);
     }
 
+    public void sendAtRiskAdminEmail(Participant participant, DASS21_AS firstEntry, DASS21_AS currentEntry) throws MessagingException {
+
+        // Prepare the evaluation context
+        final Context ctx = new Context();
+
+        ctx.setVariable("name", "PIMH-CBM Administrator");
+        ctx.setVariable("url", this.siteUrl);
+        ctx.setVariable("respondTo", this.respondTo);
+        ctx.setVariable("participant", participant);
+        ctx.setVariable("orig", firstEntry);
+        ctx.setVariable("latest", currentEntry);
+
+        // Prepare message using a Spring helper
+        final MimeMessage mimeMessage = this.mailSender.createMimeMessage();
+        final MimeMessageHelper message = new MimeMessageHelper(mimeMessage, "UTF-8");
+        message.setSubject("User at Risk");
+        message.setFrom(this.respondTo);
+        message.setTo(this.alertsTo);
+
+        // Create the HTML body using Thymeleaf
+        final String htmlContent = this.templateEngine.process("email/" + TYPE.dass21Alert, ctx);
+        message.setText(htmlContent, true /* isHtml */);
+
+        // Send email
+        this.mailSender.send(mimeMessage);
+
+        // Log that the email was sent.
+        logEmail(participant.getId(), TYPE.dass21Alert);
+
+    }
+
     public void sendSimpleMail(Participant participant, TYPE type) throws MessagingException {
         // Prepare the evaluation context
         final Context ctx = new Context();
@@ -145,10 +182,9 @@ public class EmailService {
 
         LOG.info("Sent an email to participant #" + id + " of type " + type);
         participantDAO = participantRepository.findOne(id);
-        logDAO = new EmailLogDAO(participantDAO, EmailService.TYPE.day2);
+        logDAO = new EmailLogDAO(participantDAO, type);
         participantDAO.addLog(logDAO);
         participantRepository.save(participantDAO);
-        LOG.info("Participant updated.");
     }
 
     @Scheduled(cron = "0 0 2 * * *")  // schedules task for 2:00am every day.

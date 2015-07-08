@@ -39,4 +39,12 @@ public class EmailLog {
     public void setDate(Date date) {
         this.date = date;
     }
+
+    @Override
+    public String toString() {
+        return "EmailLog{" +
+                "type=" + type +
+                ", date=" + date +
+                '}';
+    }
 }

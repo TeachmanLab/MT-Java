@@ -25,6 +25,10 @@ public class EmailConfiguration {
     @Value("${email.password}")
     private String password;
 
+    @Value("${email.alertsTo}")
+    private String alertsTo;
+
+
 
     @Bean
     public JavaMailSender javaMailService() {

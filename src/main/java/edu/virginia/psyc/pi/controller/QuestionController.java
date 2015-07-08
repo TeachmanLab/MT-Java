@@ -5,6 +5,7 @@ import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.persistence.Questionnaire.*;
+import edu.virginia.psyc.pi.service.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.mail.MessagingException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.security.Principal;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -29,7 +34,8 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/questions")
-public class QuestionController {
+public class QuestionController extends BaseController {
+
 
     private DASS21_ASRepository dass21_asRepository;
     private DASS21_DSRepository dass21_dsRepository;
@@ -42,7 +48,6 @@ public class QuestionController {
     private PilotUserExperienceRepository pue_Repository;
     private CredibilityRepository credibilityRepository;
     private DemographicRepository demographicRepository;
-    private ParticipantRepository participantRepository;
     private AnxiousImageryPrime_Repository anxiousImageryPrime_Repository;
     private NeutralImageryPrime_Repository neutralImageryPrime_Repository;
     private StateAnxietyRepository stateAnxiety_Repository;
@@ -54,12 +59,18 @@ public class QuestionController {
     private StateAnxietyPostRepository stateAnxietyPost_Repository;
     private static final Logger LOG = LoggerFactory.getLogger(QuestionController.class);
 
+    @Autowired
+    private EmailService emailService;
+
+
+
     /**
      * Spring automatically configures this object.
      * You can modify the location of this database by editing the application.properties file.
      */
     @Autowired
-    public QuestionController(DASS21_ASRepository dass21_asRepository,
+    public QuestionController(ParticipantRepository participantRepository,
+                              DASS21_ASRepository dass21_asRepository,
                               DASS21_DSRepository dass21_dsRepository,
                               QOLRepository qol_Repository,
                               ImpactAnxiousImagery_Repository impact_Repository,
@@ -69,7 +80,6 @@ public class QuestionController {
                               AUDIT_Repository audit_Repository,
                               CredibilityRepository credibilityRepository,
                               DemographicRepository demographicRepository,
-                              ParticipantRepository participantRepository,
                               AnxiousImageryPrime_Repository anxiousImageryPrime_Repository,
                               NeutralImageryPrime_Repository neutralImageryPrime_Repository,
                               StateAnxietyRepository stateAnxiety_Repository,
@@ -80,10 +90,10 @@ public class QuestionController {
 //                              StateAnxietyPreRepository stateAnxietyPre_Repository,
                               FollowUp_ChangeInTreatment_Repository followup_Repository,
                               StateAnxietyPostRepository stateAnxietyPost_Repository) {
+        this.participantRepository = participantRepository;
         this.dass21_asRepository = dass21_asRepository;
         this.credibilityRepository = credibilityRepository;
         this.demographicRepository = demographicRepository;
-        this.participantRepository = participantRepository;
         this.audit_Repository = audit_Repository;
         this.dass21_dsRepository = dass21_dsRepository;
         this.qol_Repository = qol_Repository;
@@ -102,6 +112,7 @@ public class QuestionController {
         this.stateAnxietyPost_Repository = stateAnxietyPost_Repository;
         this.followup_Repository = followup_Repository;
     }
+
 
     /**
      * Does some tasks common to all forms:
@@ -141,10 +152,28 @@ public class QuestionController {
 
     @RequestMapping(value = "DASS21_AS", method = RequestMethod.POST)
     RedirectView handleDASS21_AS(@ModelAttribute("DASS21_AS") DASS21_AS dass21_as,
-                                 BindingResult result) {
+                                 BindingResult result, Principal principal) throws MessagingException {
 
         recordSessionProgress(dass21_as);
         dass21_asRepository.save(dass21_as);
+
+        // If the users score differs from there original score and places the user
+        // "at-risk", then send a message to the administrator.
+        List<DASS21_AS> previous = dass21_asRepository.findByParticipantDAO(dass21_as.getParticipantDAO());
+        DASS21_AS firstEntry = Collections.min(previous, new Comparator<DASS21_AS>() {
+            public int compare(DASS21_AS x, DASS21_AS y) {
+                return x.getDate().compareTo(y.getDate());
+            }
+        });
+        if(dass21_as.atRisk(firstEntry)) {
+            Participant participant = getParticipant(principal);
+            if (!participant.previouslySent(EmailService.TYPE.dass21AlertParticipant)) {
+                emailService.sendAtRiskAdminEmail(participant, firstEntry, dass21_as);
+                emailService.sendSimpleMail(participant, EmailService.TYPE.dass21AlertParticipant);
+            } else {
+                LOG.info("User #" + participant.getId() + " continues to score poorly on assessment, but we've already notified everyone.");
+            }
+        }
         return new RedirectView("/session");
     }
 
