@@ -40,8 +40,8 @@
                         <p>
                             <label>Please select the two situations from the list below that routinely cause you the most anxiety
                             </label>
-                            <select multiple="multiple" name="situations" id="situations" size="15" class="full" required="true">
-                                <option value="">Please select one</option>
+                            <select multiple="multiple" name="situations" id="situations" size="15" class="full" >
+                                <option value=""></option>
                                 <option value="finances">Worry about finances/money</option>
                                 <option value="career">Worry about work/career/school</option>
                                 <option value="relationships">Worry about relationships (e.g., romantic, family, friends)</option>
@@ -65,8 +65,8 @@
                     <fieldset id="step_two">
                         <legend>Step 2</legend>
                         <p>
-                            <label id="note1">For , please note (in just a few words) what type of situation this involves (e.g., speaking in public, driving, feeling caught in a crowd, worry about an upcoming trip):</label>
-                            <textarea name="situation_desc" rows="1" required="true"></textarea>
+                            <label id="note1">For , please note (in just a few words) what type of situation this involves:</label>
+                            <textarea name="situation_desc" rows="1" ></textarea>
                         </p>
                         <br/>
                         <br/>
@@ -92,9 +92,9 @@
                         <legend>Step 5</legend>
                         <p>
                             <label>Please think of at least three things you would likely think or feel in the situation. Write down a few words to note 3 of the things you would think or feel (e.g., I feel embarrassed, I look stupid, think I want to leave)</label>
-                            <textarea name="think_feel_1" rows="1" required="true"></textarea>
-                            <textarea name="think_feel_2" rows="1" required="true"></textarea>
-                            <textarea name="think_feel_3" rows="1" required="true"></textarea>
+                            <textarea name="think_feel_1" rows="1" ></textarea>
+                            <textarea name="think_feel_2" rows="1" ></textarea>
+                            <textarea name="think_feel_3" rows="1" ></textarea>
                         </p>
                         <br/>
                         <br/>
@@ -111,47 +111,55 @@
                         <p id="vivid">
                             How vividly did you imagine the situation on a scale of 0 (not at all) to 100 (a vivid image of the situation)?
                         </p>
-                        <textarea name="vivid_resp" rows="1" required="true"></textarea>
+                        <select name="vivid_resp" required="true">
+                            <option value="">Please select one</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="555">NA</option>
+                        </select>
                     </fieldset>
                     <fieldset id="step_eight">
                         <legend>Step 8</legend>
                         <p>
                             <label>How anxious do you think you would be in this situation</label>
-                            <select name="anxious"  size="9" required="true">
-                                <option value="">Please select one</option>
-                                <option>Extremely Calm</option>
+                            <select name="anxious"  size="7" >
+                                <option value=""></option>
                                 <option>Calm</option>
                                 <option>Somewhat Calm</option>
                                 <option>Neutral</option>
                                 <option>Somewhat anxious </option>
                                 <option>Anxious</option>
-                                <option>Extremely anxious </option>
                                 <option>Prefer not to answer</option>
                             </select>
                         </p>
                         <p>
                             <!--FIXME could not go to 7-->
                             <label>How would you rate your desire to avoid or escape from this situation?</label>
-                            <select name="avoid" size="5" required="true">
-                                <option value="">Please select one</option>
+                            <select name="avoid" size="7" >
+                                <option value=""></option>
                                 <option>No Desire To Avoid</option>
-                                <option>Neutral</option>
+                                <option>Slight Desire to Avoid</option>
+                                <option>Moderate desire to Avoid</option>
                                 <option>Desire to Avoid</option>
+                                <option>Strong Desire to Avoid</option>
                                 <option>Prefer not to answer</option>
                             </select>
                         </p>
                         <p>
                             <label>How likely is it that this situation will turn out badly?
                             </label>
-                            <select name="badly" size="9" required="true">
-                                <option value="">Please select one</option>
-                                <option>Extremely Unlikely</option>
+                            <select name="badly" size="7" >
+                                <option value=""></option>
                                 <option>Unlikely</option>
                                 <option>Somewhat Unlikely</option>
                                 <option>Neither Likely Nor Unlikely</option>
                                 <option>Somewhat likely </option>
                                 <option>Likely </option>
-                                <option>Extremely Likely </option>
                                 <option>Prefer not to answer</option>
                             </select>
                         </p>
@@ -159,8 +167,8 @@
                         <p>
                             <label>How terrible would it be if this situation did turn out badly?
                             </label>
-                            <select name="terrible" size="7" required="true">
-                                <option value="">Please select one</option>
+                            <select name="terrible" size="7" >
+                                <option value=""></option>
                                 <option>Not At All Terrible</option>
                                 <option>A little Terrible</option>
                                 <option>Somewhat Terrible</option>
@@ -173,8 +181,8 @@
                     <fieldset id="step_nine">
                         <legend>Step 9</legend>
                         <p>
-                            <label id="note2">For , please note (in just a few words) what type of situation this involves (e.g., speaking in public, driving, feeling caught in a crowd, worry about an upcoming trip):</label>
-                            <textarea name="situation_desc_2" rows="1" required="true"></textarea>
+                            <label id="note2">For , please note (in just a few words) what type of situation this involves:</label>
+                            <textarea name="situation_desc_2" rows="1" ></textarea>
                         </p>
                         <br/>
                         <br/>
@@ -200,9 +208,9 @@
                         <legend>Step 12</legend>
                         <p>
                             <label>Please think of at least three things you would likely think or feel in the situation. Write down a few words to note 3 of the things you would think or feel (e.g., I feel embarrassed, I look stupid, think I want to leave)</label>
-                            <textarea name="think_feel2_1" rows="1" required="true"></textarea>
-                            <textarea name="think_feel2_2" rows="1" required="true"></textarea>
-                            <textarea name="think_feel2_3" rows="1" required="true"></textarea>
+                            <textarea name="think_feel2_1" rows="1" ></textarea>
+                            <textarea name="think_feel2_2" rows="1" ></textarea>
+                            <textarea name="think_feel2_3" rows="1" ></textarea>
                         </p>
                         <br/>
                         <br/>
@@ -219,47 +227,54 @@
                         <p id="vivid2">
                             How vividly did you imagine the situation on a scale of 0 (not at all) to 100 (a vivid image of the situation)?
                         </p>
-                        <textarea name="vivid_resp2" rows="1" required="true"></textarea>
+                        <select name="vivid_resp2" required="true">
+                            <option value="">Please select one</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="555">NA</option>
+                        </select>
                     </fieldset>
                     <fieldset id="step_fifteen">
                         <legend>Step 15</legend>
                         <p>
                             <label>How anxious do you think you would be in this situation</label>
-                            <select name="anxious2"  size="9" required="true">
-                                <option value="">Please select one</option>
-                                <option>Extremely Calm</option>
+                            <select name="anxious2"  size="7" >
+                                <option value=""></option>
                                 <option>Calm</option>
                                 <option>Somewhat Calm</option>
                                 <option>Neutral</option>
                                 <option>Somewhat anxious </option>
                                 <option>Anxious</option>
-                                <option>Extremely anxious </option>
                                 <option>Prefer not to answer</option>
                             </select>
                         </p>
                         <p>
                             <!--FIXME could not go to 7-->
                             <label>How would you rate your desire to avoid or escape from this situation?</label>
-                            <select name="avoid2" size="5" required="true">
-                                <option value="">Please select one</option>
+                            <select name="avoid2" size="7" >
+                                <option value=""></option>
                                 <option>No Desire To Avoid</option>
-                                <option>Neutral</option>
+                                <option>Slight Desire to Avoid</option>
+                                <option>Moderate desire to Avoid</option>
                                 <option>Desire to Avoid</option>
-                                <option>Prefer not to answer</option>
+                                <option>Strong Desire to Avoid</option>
                             </select>
                         </p>
                         <p>
                             <label>How likely is it that this situation will turn out badly?
                             </label>
-                            <select name="badly2" size="9" required="true">
-                                <option value="">Please select one</option>
-                                <option>Extremely Unlikely</option>
+                            <select name="badly2" size="7" >
+                                <option value=""></option>
                                 <option>Unlikely</option>
                                 <option>Somewhat Unlikely</option>
                                 <option>Neither Likely Nor Unlikely</option>
                                 <option>Somewhat likely </option>
                                 <option>Likely </option>
-                                <option>Extremely Likely </option>
                                 <option>Prefer not to answer</option>
                             </select>
                         </p>
@@ -267,8 +282,8 @@
                         <p>
                             <label>How terrible would it be if this situation did turn out badly?
                             </label>
-                            <select name="terrible2" size="7" required="true">
-                                <option value="">Please select one</option>
+                            <select name="terrible2" size="7" >
+                                <option value=""></option>
                                 <option>Not At All Terrible</option>
                                 <option>A little Terrible</option>
                                 <option>Somewhat Terrible</option>
