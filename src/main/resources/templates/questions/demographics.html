@@ -15,7 +15,7 @@
     <div class="container">
         <div class="row">
             <div class="span12">
-                <h4 class="heading-icon clearfix"> <img th:src="@{/grepfrut/img/icons/heading-icon-user.png}" width="40" height="40" alt="icon" class="icon-small-bg"/>Demographics</h4>
+                <h4 class="heading-icon clearfix"> <img th:src="@{/grepfrut/img/icons/heading-icon-user.png}" width="40" height="40" alt="icon" class="icon-small-bg"/></h4>
             </div>
         </div>
     </div>
@@ -40,8 +40,8 @@
                         <p>Please provide as much information as possible.</p>
                         <p>
                         <label>Please indicate your gender.</label>
-                        <select name="gender">
-                            <option value=""></option>
+                        <select name="gender" required="true">
+                            <option value="">Please select one</option>
                             <option>Female</option>
                             <option>Male</option>
                             <option>Prefer not to answer</option>
@@ -53,8 +53,8 @@
                         </p>
                         <p>
                         <label>Please indicate your race:</label>
-                        <select name="race">
-                            <option value=""></option>
+                        <select name="race" required="true">
+                            <option value="">Please select one</option>
                             <option>American Indian/Alaska Native</option>
                             <option>East Asian</option>
                             <option>South Asian</option>
@@ -68,8 +68,8 @@
                         </p>
                         <p>
                         <label>Please indicate your ethinicity:</label>
-                        <select name="ethnicity">
-                            <option value=""></option>
+                        <select name="ethnicity" required="true">
+                            <option value="">Please select one</option>
                             <option>Hispanic or Latino</option>
                             <option>Not Hispanic or Latino</option>
                             <option>Unknown</option>
@@ -81,8 +81,8 @@
                         <legend>Location</legend>
                         <p>
                         <label>Please indicate the country of your primary citizenship.</label>
-                        <select class="auto-selector" placeholder="Type your country of citizenship" name="citizenship"  autofocus="autofocus" autocorrect="off" autocomplete="off">
-                        <option value="" selected="selected"></option>
+                        <select class="auto-selector" placeholder="Type your country of citizenship" name="citizenship"  autofocus="autofocus" autocorrect="off" autocomplete="off" required="true">
+                        <option value="" selected="selected">Please select one</option>
                         <option value="Afghanistan" data-alternative-spellings="AF">Afghanistan</option>
                         <option value="Åland Islands" data-alternative-spellings="AX Aaland Aland" data-relevancy-booster="0.5">Åland Islands</option>
                         <option value="Albania" data-alternative-spellings="AL">Albania</option>
@@ -655,7 +655,7 @@
                         <p>
                             <label>Please indicate your highest educational attainment.</label>
                             <select name="education">
-                                <option value=""></option>
+                                <option value="">Please select one</option>
                                 <option>Elementary School</option>
                                 <option>Junior High</option>
                                 <option>Some High School</option>
@@ -676,7 +676,7 @@
                         <p>
                             <label>Please indicate the major field of study for your most advanced degree.</label>
                             <select name="fieldOfStudy">
-                                <option value=""></option>
+                                <option value="">Please select one</option>
                                 <option>Biological Sciences/Life Sciences</option>
                                 <option>Business</option>
                                 <option>Communications</option>
@@ -700,7 +700,7 @@
                         <p>
                         <label>Please indicate your religious affiliation.</label>
                         <select class="auto-selector" name="religion" placeholder="Type your religion"  autofocus="autofocus" autocorrect="off" autocomplete="off">
-                            <option></option>
+                            <option>Please select one</option>
                             <option>Judaism-Conservative Jew</option>
                             <option>Judaism - Orthodox Jew</option>
                             <option>Judaism - Reconstructionist Jew</option>
@@ -783,7 +783,7 @@
                         <p>
                             <label>Please indicate the degree of your religiosity.</label>
                             <select name="religiosity">
-                                <option value=""></option>
+                                <option value="">Please select one</option>
                                 <option>I  am very religious</option>
                                 <option>I am moderately religious</option>
                                 <option>I am somewhat religious</option>
@@ -794,7 +794,7 @@
                         <p>
                             <label>Please indicate your political identity on social issues (e.g., abortion, gun control, gay rights).</label>
                             <select name="socialIssues">
-                                <option value=""></option>
+                                <option value="">Please select one</option>
                                 <option>I am moderately liberal on social issues</option>
                                 <option>I am strongly liberal on social issues</option>
                                 <option>I am slightly liberal on social issues</option>
@@ -808,7 +808,7 @@
                         <p>
                             <label>Please indicate your political identity on economic issues (e.g., taxation, government spending).</label>
                             <select name="politicalIssues">
-                                <option value=""></option>
+                                <option value="">Please select one</option>
                                 <option>I am moderately liberal on economic issues</option>
                                 <option>I am strongly liberal on economic issues</option>
                                 <option>I am slightly liberal on economic issues</option>
@@ -825,7 +825,7 @@
                         <p>
                             <label>What is your marital status?</label>
                             <select name="maritalStatus">
-                                <option value=""></option>
+                                <option value="">Please select one</option>
                                 <option>Single</option>
                                 <option>Single, but casually dating</option>
                                 <option>Single, but currently engaged to be married</option>
@@ -842,7 +842,7 @@
                         <p>
                         <label>What is your household annual income (before taxes and other deductions)?</label>
                         <select name="income">
-                            <option value=""></option>
+                            <option value="">Please select one</option>
                             <option>Less than $5,000</option>
                             <option>$5,000 through $11,999</option>
                             <option>$12,000 through $15,999</option>
@@ -862,7 +862,7 @@
                         <p>
                             <label>What is your employment status?</label>
                             <select name="employmentStatus">
-                                <option value=""></option>
+                                <option value="">Please select one</option>
                                 <option>Working full-time</option>
                                 <option>Working part-time</option>
                                 <option>Unemployed or laid off</option>
@@ -939,7 +939,7 @@ The rating scale is as follows:
 I was aware of dryness of my mouth.
 0      1      2      3
 2
-I experienced breathing difficulty (e.g,, excessively rapid breathing,
+I experienced breathing difficulty (e.g., excessively rapid breathing,
 breathlessness in the absence of physical exertion).
 0      1      2      3
 3

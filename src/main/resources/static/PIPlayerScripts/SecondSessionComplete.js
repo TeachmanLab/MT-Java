@@ -295,7 +295,7 @@ define(['app/API'], function(API) {
             layout: [
                 // This is a stimulus object
                 {
-                    media :"You will be presented with a statement where a word in the statement is missing a letter.  Type the letter on the keyboard, then answer the followup question. Please press the spacebar to continue.",
+                    media :"Now the training will begin. Please press the spacebar to continue.",
                     css:{fontSize:'1.2em',color:'#D7685A'}
                 }
             ],
@@ -312,8 +312,31 @@ define(['app/API'], function(API) {
             ]
         },
         {
-            mixer: 'choose',
-            n: 50,  // The total number of randomly selected trials to run.
+            input: [
+                {handle:'space',on:'space'}
+            ],
+            layout: [
+                // This is a stimulus object
+                {
+                    media :"In this task, you will see a series of paragraphs and questions. Please read each paragraph carefully, and imagine yourself in the situations described. At the end of each paragraph, there will be a word fragment (an incomplete word) for you to complete. To complete the word fragment, press the key that corresponds to the missing letter. Once you type in the correct letter, you will move onto the next question. After completing the word fragment, you will be asked to answer a question about the situation in which you imagined yourself. Please use only the information from the situation to answer the question. Once you have the correct answer, you will move onto the next situation. If you are unsure about an item, please make your best guess. Please press the spacebar to continue.",
+                    css:{fontSize:'.8em',color:'#D7685A'}
+                }
+            ],
+            interactions: [
+                // This is an interaction (it has a condition and an action)
+                {
+                    conditions: [
+                        {type:'inputEquals',value:'space'}
+                    ],
+                    actions: [
+                        {type:'endTrial'}
+                    ]
+                }
+            ]
+        },
+        {
+            mixer: 'random',
+            //n: 50,  // The total number of randomly selected trials to run.
             data: [
     {
         "inherit": {
@@ -556,7 +579,7 @@ define(['app/API'], function(API) {
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Was the tutor please with the quality of work on your paper? </div>"
+                    "inlineTemplate": "<div>Was the tutor pleased with the quality of work on your paper? </div>"
                 }
             }
         ]
@@ -747,7 +770,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "wea[ ]ness",
                     "positiveKey": "p",
                     "positiveWord": "com[ ]etence",
-                    "statement": " At your computer class you finish your work early and so the teacher gives you a new task to do. You read through it and cannot think how to start so you ask for advice. Your teacher probably sees you asking for help as a sign of  "
+                    "statement": " At your computer class you finish your work early and so the teacher gives you a new task to do. You read through it and cannot think how to start, so you ask for advice. Your teacher probably sees you asking for help as a sign of  "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -828,7 +851,7 @@ define(['app/API'], function(API) {
                     "negativeKey": "k",
                     "negativeWord": "aw[ ]ward",
                     "positiveKey": "s",
-                    "positiveWord": "inter[ ]ting",
+                    "positiveWord": "intere[ ]ting",
                     "statement": " You are required to go to a conference in Scotland for your firm. Your coworker who is supposed to go on the trip falls ill a few days before you leave, so your boss asks someone you don\u2019t know to go in his/her place. As you think about spending time with the person you do not know, you think he/she will think you are "
                 },
                 "handle": "paragraph",
@@ -1112,7 +1135,7 @@ define(['app/API'], function(API) {
             },
             {
                 "data": {
-                    "negativeKey": "p",
+                    "negativeKey": "a",
                     "negativeWord": "dis[ ]ppointing",
                     "positiveKey": "a",
                     "positiveWord": "valu[ ]ble",
@@ -1198,7 +1221,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "he[ ]itant",
                     "positiveKey": "f",
                     "positiveWord": "con[ ]ident",
-                    "statement": " Your new supervisor calls a meeting to find out who everyone is and asks each of your in turn to present yourself and your area of expertise. When it is your turn to speak your pause frequently. As you reflect on the meeting later in the day, you feel that the supervisor thought you sounded "
+                    "statement": " Your new supervisor calls a meeting to find out who everyone is and asks each of you in turn to present yourself and your area of expertise. When it is your turn to speak your pause frequently. As you reflect on the meeting later in the day, you feel that the supervisor thought you sounded "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -1609,7 +1632,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "fa[ ]lure",
                     "positiveKey": "c",
                     "positiveWord": "suc[ ]ess",
-                    "statement": " You are driving hope after a soccer game where your team won. As your mind wanders, you think about the one goal that you missed. Overall, you consider your performance a "
+                    "statement": " You are driving home after a soccer game where your team won. As your mind wanders, you think about the one goal that you missed. Overall, you consider your performance a "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -2061,7 +2084,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "dis[ ]atisfied",
                     "positiveKey": "t",
                     "positiveWord": "con[ ]ent",
-                    "statement": " You have spent several weeks perfecting a project. When you turn it in, there are a few very minor adjustments you wish you had time to make. As you think about your work, you feel"
+                    "statement": " You have spent several weeks perfecting a project. When you turn it in, there are a few very minor adjustments you wish you had time to make. As you think about your work, you feel "
                 },
                 "handle": "paragraph",
                 "media": {

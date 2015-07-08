@@ -3,7 +3,7 @@
 <!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
 <!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!-->
-<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
 <!--<![endif]-->
 <head th:include="/fragment/common :: headerFragment" />
 <body>
@@ -34,28 +34,43 @@
         <!--features starts-->
         <div class="row">
             <div class="span12">
-                <form id="wizard" th:action="@{/questions/FU}" method="POST">
+                <form id="wizard" th:action="@{/questions/CC}" method="POST">
                     <fieldset>
-                        <legend>Questions</legend>
-                        <h4>Please provide as much information as possible.</h4>
+                    <div>
+                    <p>While reading the descriptions, to what extent did you feel the scenarios fit with versus contrasted with your idea of how you might respond in those situations?</p>
+                          <p id="fit" class="slider"></p>
+                          <table class="table table-striped table-bordered">
+                              <tr>
+                                  <td>Completely contrasted with my idea of myself</td>
+                                  <td></td>
+                                  <td>Neither fit nor contrasted with my idea of myself</td>
+                                  <td></td>
+                                  <td>Completely fit with my idea of myself</td>
+                              </tr>
+                          </table>
+                    </div>
+                    <div>
                         <p>
-                            <label>Over the course of this program, did you start/stop/change a dose of medication, therapy, or other intervention to help your anxiety difficulties?  (If you are on the same dose of medication or same appointment schedule for therapy or intervention as you were when you began this program, please choose “no.”)</label>
-                            <select name="medication_tx" required="true">
-                                <option value="">Please select one</option>
-                                <option>Yes</option>
-                                <option>No</option>
-                                <option>Prefer not to answer</option>
-                            </select>
+                        While reading the descriptions, to what extent did you compare yourself to the actions described in the scenarios in a positive (self-enhancing) versus a negative (self-devaluing) way?
                         </p>
-                        <p>
-                            <label>If yes, please describe</label>
-                            <textarea name="describe" required="true">
-                            </textarea>
-                        </p>
+                        <p id="compare" class="slider"></p>
+                        <table class="table table-striped table-bordered">
+                            <tr>
+                                <td>Compared myself negatively to the scenarios</td>
+                                <td></td>
+                                <td>Compared myself neither positively nor negatively to the scenarios</td>
+                                <td></td>
+                                <td>Compared myself positively to the scenarios</td>
+                            </tr>
+                        </table>
+                    </div>
                     </fieldset>
+                    <input type="submit" value="Finish"/>
                 </form>
                 <script>
-                    jQuery("#wizard").jWizard();
+                    $(function() {
+                        $( ".slider" ).slider();
+                    });
                 </script>
             </div>
         </div>
@@ -82,10 +97,3 @@
 
 </body>
 </html>
-
-
-
-<!--Over the course of this program, did you start/stop/change a dose of medication, therapy, or other intervention to help your anxiety difficulties?  (If you are on the same dose of medication or same appointment schedule for therapy or intervention as you were when you began this program, please choose “no.”)-->
-<!--	Yes-->
-<!--	No-->
-<!--If yes: Please describe: ________________-->
