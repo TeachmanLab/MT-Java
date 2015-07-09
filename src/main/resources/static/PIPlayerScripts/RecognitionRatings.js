@@ -289,7 +289,7 @@ define(['app/API'], function(API) {
             {
                 "data": {
                     "positiveKey": "i",
-                    "positiveWord": "acc[ ]dent",
+                    "positiveWord": "acc[ ]dent.",
                     "statement": " THE YELLOW LIGHT: You are in your car, on your way to see a friend for lunch. Because you are running late, you are not as careful as you usually are and speed through a yellow light. As you pass through the intersection, you think about the likelihood of causing an "
                 },
                 "handle": "paragraph",
@@ -328,7 +328,7 @@ define(['app/API'], function(API) {
             {
                 "data": {
                     "positiveKey": "o",
-                    "positiveWord": "[ ]n",
+                    "positiveWord": "[ ]n.",
                     "statement": "  THE COFFEE POT: You are running late on your way to work. In the car, you realize that you forgot to check if you turned off the coffee pot. When you get to work, you think about what would happen if you did leave the coffee pot "
                 },
                 "handle": "paragraph",
@@ -367,7 +367,7 @@ define(['app/API'], function(API) {
             {
                 "data": {
                     "positiveKey": "a",
-                    "positiveWord": "s[ ]fety",
+                    "positiveWord": "s[ ]fety.",
                     "statement": " THE ELEVATOR: You are in the lobby of your friend’s new apartment building and press the button to the elevator to go up. The building looks old, and as you get on the elevator, your think about its "
                 },
                 "handle": "paragraph",
@@ -406,7 +406,7 @@ define(['app/API'], function(API) {
             {
                 "data": {
                     "positiveKey": "x",
-                    "positiveWord": "an[ ]ious",
+                    "positiveWord": "an[ ]ious.",
                     "statement": " THE FLIGHT: You are on a long flight with your partner going to an exotic location for your vacation. The airplane pilot gets on the intercom, and says there is going to be some turbulence. As you wait for the turbulence, you feel a little "
                 },
                 "handle": "paragraph",
@@ -445,7 +445,7 @@ define(['app/API'], function(API) {
             {
                 "data": {
                     "positiveKey": "a",
-                    "positiveWord": "fin[ ]nces",
+                    "positiveWord": "fin[ ]nces.",
                     "statement": " THE JOB: You are currently working as a contractor for a company. Once this job is finished, you will be without employment until you can find your next job. You think about not having an income for a few weeks and about your future "
                 },
                 "handle": "paragraph",
@@ -484,7 +484,7 @@ define(['app/API'], function(API) {
             {
                 "data": {
                     "positiveKey": "t",
-                    "positiveWord": "downs[ ]airs",
+                    "positiveWord": "downs[ ]airs.",
                     "statement": "  THE LOUD NOISE: You are woken up in the middle of the night by a loud noise. You are not sure what caused the noise and leave your bedroom to see what happened. You walk "
                 },
                 "handle": "paragraph",
@@ -523,7 +523,7 @@ define(['app/API'], function(API) {
             {
                 "data": {
                     "positiveKey": "e",
-                    "positiveWord": "all[ ]rgic",
+                    "positiveWord": "all[ ]rgic.",
                     "statement": " THE RESTAURANT: You are at a restaurant with a group of friends for dinner. Everyone at the table shares an appetizer. After you eat the appetizer, you remember that you did not ask the waiter if the food is cooked in peanut oil, to which you are "
                 },
                 "handle": "paragraph",
