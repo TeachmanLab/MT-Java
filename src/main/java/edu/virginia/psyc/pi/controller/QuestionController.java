@@ -5,6 +5,7 @@ import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.persistence.Questionnaire.*;
+import edu.virginia.psyc.pi.service.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.mail.MessagingException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.security.Principal;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -29,7 +34,8 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/questions")
-public class QuestionController {
+public class QuestionController extends BaseController {
+
 
     private DASS21_ASRepository dass21_asRepository;
     private DASS21_DSRepository dass21_dsRepository;
@@ -42,20 +48,29 @@ public class QuestionController {
     private PilotUserExperienceRepository pue_Repository;
     private CredibilityRepository credibilityRepository;
     private DemographicRepository demographicRepository;
-    private ParticipantRepository participantRepository;
     private AnxiousImageryPrime_Repository anxiousImageryPrime_Repository;
     private NeutralImageryPrime_Repository neutralImageryPrime_Repository;
     private StateAnxietyRepository stateAnxiety_Repository;
+    private RR_Repository rr_repository;
+    private CCRepository cc_repository;
+    private OARepository oa_repository;
+    private ReRuRepository reru_repository;
 //    private StateAnxietyPreRepository stateAnxietyPre_Repository;
     private StateAnxietyPostRepository stateAnxietyPost_Repository;
     private static final Logger LOG = LoggerFactory.getLogger(QuestionController.class);
+
+    @Autowired
+    private EmailService emailService;
+
+
 
     /**
      * Spring automatically configures this object.
      * You can modify the location of this database by editing the application.properties file.
      */
     @Autowired
-    public QuestionController(DASS21_ASRepository dass21_asRepository,
+    public QuestionController(ParticipantRepository participantRepository,
+                              DASS21_ASRepository dass21_asRepository,
                               DASS21_DSRepository dass21_dsRepository,
                               QOLRepository qol_Repository,
                               ImpactAnxiousImagery_Repository impact_Repository,
@@ -65,17 +80,20 @@ public class QuestionController {
                               AUDIT_Repository audit_Repository,
                               CredibilityRepository credibilityRepository,
                               DemographicRepository demographicRepository,
-                              ParticipantRepository participantRepository,
                               AnxiousImageryPrime_Repository anxiousImageryPrime_Repository,
                               NeutralImageryPrime_Repository neutralImageryPrime_Repository,
                               StateAnxietyRepository stateAnxiety_Repository,
+                              RR_Repository rr_repository,
+                              CCRepository cc_repository,
+                              OARepository oa_repository,
+                              ReRuRepository reru_repository,
 //                              StateAnxietyPreRepository stateAnxietyPre_Repository,
                               FollowUp_ChangeInTreatment_Repository followup_Repository,
                               StateAnxietyPostRepository stateAnxietyPost_Repository) {
+        this.participantRepository = participantRepository;
         this.dass21_asRepository = dass21_asRepository;
         this.credibilityRepository = credibilityRepository;
         this.demographicRepository = demographicRepository;
-        this.participantRepository = participantRepository;
         this.audit_Repository = audit_Repository;
         this.dass21_dsRepository = dass21_dsRepository;
         this.qol_Repository = qol_Repository;
@@ -86,10 +104,15 @@ public class QuestionController {
         this.anxiousImageryPrime_Repository = anxiousImageryPrime_Repository;
         this.neutralImageryPrime_Repository = neutralImageryPrime_Repository;
         this.stateAnxiety_Repository = stateAnxiety_Repository;
+        this.rr_repository = rr_repository;
+        this.cc_repository = cc_repository;
+        this.oa_repository = oa_repository;
+        this.reru_repository = reru_repository;
 //        this.stateAnxietyPre_Repository = stateAnxietyPre_Repository;
         this.stateAnxietyPost_Repository = stateAnxietyPost_Repository;
         this.followup_Repository = followup_Repository;
     }
+
 
     /**
      * Does some tasks common to all forms:
@@ -124,15 +147,33 @@ public class QuestionController {
      */
     @RequestMapping(value = "DASS21_AS", method = RequestMethod.GET)
     public ModelAndView showDASS21_AS() {
-        return new ModelAndView("questions/DASS21_AS", "DASS21_AS", new DASS21_AS());
+        return new ModelAndView("/questions/DASS21_AS", "DASS21_AS", new DASS21_AS());
     }
 
     @RequestMapping(value = "DASS21_AS", method = RequestMethod.POST)
     RedirectView handleDASS21_AS(@ModelAttribute("DASS21_AS") DASS21_AS dass21_as,
-                                 BindingResult result) {
+                                 BindingResult result, Principal principal) throws MessagingException {
 
         recordSessionProgress(dass21_as);
         dass21_asRepository.save(dass21_as);
+
+        // If the users score differs from there original score and places the user
+        // "at-risk", then send a message to the administrator.
+        List<DASS21_AS> previous = dass21_asRepository.findByParticipantDAO(dass21_as.getParticipantDAO());
+        DASS21_AS firstEntry = Collections.min(previous, new Comparator<DASS21_AS>() {
+            public int compare(DASS21_AS x, DASS21_AS y) {
+                return x.getDate().compareTo(y.getDate());
+            }
+        });
+        if(dass21_as.atRisk(firstEntry)) {
+            Participant participant = getParticipant(principal);
+            if (!participant.previouslySent(EmailService.TYPE.dass21AlertParticipant)) {
+                emailService.sendAtRiskAdminEmail(participant, firstEntry, dass21_as);
+                emailService.sendSimpleMail(participant, EmailService.TYPE.dass21AlertParticipant);
+            } else {
+                LOG.info("User #" + participant.getId() + " continues to score poorly on assessment, but we've already notified everyone.");
+            }
+        }
         return new RedirectView("/session");
     }
 
@@ -149,7 +190,7 @@ public class QuestionController {
      */
     @RequestMapping(value = "DASS21_DS", method = RequestMethod.GET)
     public ModelAndView showDASS21_DS() {
-        return new ModelAndView("questions/DASS21_DS", "DASS21_DS", new DASS21_DS());
+        return new ModelAndView("/questions/DASS21_DS", "DASS21_DS", new DASS21_DS());
     }
 
     @RequestMapping(value = "DASS21_DS", method = RequestMethod.POST)
@@ -200,7 +241,7 @@ public class QuestionController {
      */
     @RequestMapping(value = "audit", method = RequestMethod.GET)
     public ModelAndView showaudit() {
-        return new ModelAndView("questions/audit", "aduit", new AUDIT());
+        return new ModelAndView("/questions/audit", "aduit", new AUDIT());
     }
 
     @RequestMapping(value = "aduit", method = RequestMethod.POST)
@@ -225,7 +266,7 @@ public class QuestionController {
      */
     @RequestMapping(value = "credibility", method = RequestMethod.GET)
     public ModelAndView showCredibility() {
-        return new ModelAndView("questions/credibility", "credibility", new Credibility());
+        return new ModelAndView("/questions/credibility", "credibility", new Credibility());
     }
 
     @RequestMapping(value = "credibility", method = RequestMethod.POST)
@@ -251,7 +292,7 @@ public class QuestionController {
 
     @RequestMapping(value = "FU", method = RequestMethod.GET)
     public ModelAndView showFollowUp() {
-        return new ModelAndView("questions/FU", "FU", new FollowUp_ChangeInTreatment());
+        return new ModelAndView("/questions/FU", "FU", new FollowUp_ChangeInTreatment());
     }
 
     @RequestMapping(value = "FU", method = RequestMethod.POST)
@@ -276,7 +317,7 @@ public class QuestionController {
 
     @RequestMapping(value = "MH", method = RequestMethod.GET)
     public ModelAndView showMentalHealthHxTx() {
-        return new ModelAndView("questions/MH", "MH", new MentalHealthHxTx());
+        return new ModelAndView("/questions/MH", "MH", new MentalHealthHxTx());
     }
 
     @RequestMapping(value = "MH", method = RequestMethod.POST)
@@ -302,7 +343,7 @@ public class QuestionController {
 
     @RequestMapping(value = "MUE", method = RequestMethod.GET)
     public ModelAndView showMultiUserExperience() {
-        return new ModelAndView("questions/MUE", "MUE", new MultiUserExperience());
+        return new ModelAndView("/questions/MUE", "MUE", new MultiUserExperience());
     }
 
     @RequestMapping(value = "MUE", method = RequestMethod.POST)
@@ -332,7 +373,7 @@ public class QuestionController {
     }
 
     @RequestMapping(value = "PUE", method = RequestMethod.POST)
-    RedirectView handleMultiUserExperience(@ModelAttribute("PUE") PilotUserExperience pue,
+    RedirectView handlePilotUserExperience(@ModelAttribute("PUE") PilotUserExperience pue,
                                            BindingResult result) {
 
         recordSessionProgress(pue);
@@ -354,7 +395,7 @@ public class QuestionController {
 
     @RequestMapping(value = "impact", method = RequestMethod.GET)
     public ModelAndView showImpact() {
-        return new ModelAndView("questions/impact", "impact", new ImpactAnxiousImagery());
+        return new ModelAndView("/questions/impact", "impact", new ImpactAnxiousImagery());
     }
 
     @RequestMapping(value = "impact", method = RequestMethod.POST)
@@ -380,7 +421,7 @@ public class QuestionController {
 
     @RequestMapping(value = "AIP", method = RequestMethod.GET)
     public ModelAndView showAIP() {
-        return new ModelAndView("questions/AIP", "AIP", new AnxiousImageryPrime());
+        return new ModelAndView("/questions/AIP", "AIP", new AnxiousImageryPrime());
     }
 
     @RequestMapping(value = "AIP", method = RequestMethod.POST)
@@ -406,7 +447,7 @@ public class QuestionController {
 
     @RequestMapping(value = "NIP", method = RequestMethod.GET)
     public ModelAndView showNIP() {
-        return new ModelAndView("questions/NIP", "NIP", new NeutralImageryPrime());
+        return new ModelAndView("/questions/NIP", "NIP", new NeutralImageryPrime());
     }
 
     @RequestMapping(value = "NIP", method = RequestMethod.POST)
@@ -456,7 +497,7 @@ public class QuestionController {
      */
     @RequestMapping(value = "SA", method = RequestMethod.GET)
     public ModelAndView showSAP() {
-        return new ModelAndView("questions/SA", "SA", new StateAnxiety());
+        return new ModelAndView("/questions/SA", "SA", new StateAnxiety());
     }
 
     @RequestMapping(value = "SA", method = RequestMethod.POST)
@@ -476,8 +517,107 @@ public class QuestionController {
     }
 
 
+    /**
+     * RR
+     * ---------*
+     */
+    @RequestMapping(value = "RR", method = RequestMethod.GET)
+    public ModelAndView showRR() {
+        return new ModelAndView("/questions/RR", "RR", new RR());
+    }
+
+    @RequestMapping(value = "RR", method = RequestMethod.POST)
+    RedirectView handleRR(@ModelAttribute("RR") RR rr,
+                                 BindingResult result) {
+
+        recordSessionProgress(rr);
+        rr_repository.save(rr);
+        return new RedirectView("/session");
+    }
+
+    @RequestMapping(value = "RR/export", method = RequestMethod.GET, produces = "text/csv")
+    @ResponseBody // Return the string directly, the return value is not a template name.
+    String exportRR() {
+        return(objectListToCSV(rr_repository.findAll()));
+    }
+
+
+    /**
+     * CC
+     * ---------*
+     */
+    @RequestMapping(value = "CC", method = RequestMethod.GET)
+    public ModelAndView showCC() {
+        return new ModelAndView("/questions/CC", "CC", new CC());
+    }
+
+    @RequestMapping(value = "CC", method = RequestMethod.POST)
+    RedirectView handleRR(@ModelAttribute("CC") CC cc,
+                          BindingResult result) {
+
+        recordSessionProgress(cc);
+        cc_repository.save(cc);
+        return new RedirectView("/session");
+    }
+
+    @RequestMapping(value = "CC/export", method = RequestMethod.GET, produces = "text/csv")
+    @ResponseBody // Return the string directly, the return value is not a template name.
+    String exportCC() {
+        return(objectListToCSV(cc_repository.findAll()));
+    }
+
+
+    /**
+     * OA
+     * ---------*
+     */
+    @RequestMapping(value = "OA", method = RequestMethod.GET)
+    public ModelAndView showOA() {
+        return new ModelAndView("/questions/OA", "OA", new OA());
+    }
+
+    @RequestMapping(value = "OA", method = RequestMethod.POST)
+    RedirectView handleRR(@ModelAttribute("OA") OA oa,
+                          BindingResult result) {
+
+        recordSessionProgress(oa);
+        oa_repository.save(oa);
+        return new RedirectView("/session");
+    }
+
+    @RequestMapping(value = "OA/export", method = RequestMethod.GET, produces = "text/csv")
+    @ResponseBody // Return the string directly, the return value is not a template name.
+    String exportOA() {
+        return(objectListToCSV(oa_repository.findAll()));
+    }
+
+
+    /**
+     * ReRu
+     * ---------*
+     */
+    @RequestMapping(value = "ReRu", method = RequestMethod.GET)
+    public ModelAndView showReRu() {
+        return new ModelAndView("/questions/ReRu", "ReRu", new ReRu());
+    }
+
+    @RequestMapping(value = "ReRu", method = RequestMethod.POST)
+    RedirectView handleRR(@ModelAttribute("ReRu") ReRu reru,
+                          BindingResult result) {
+
+        recordSessionProgress(reru);
+        reru_repository.save(reru);
+        return new RedirectView("/session");
+    }
+
+    @RequestMapping(value = "ReRu/export", method = RequestMethod.GET, produces = "text/csv")
+    @ResponseBody // Return the string directly, the return value is not a template name.
+    String exportReRu() {
+        return(objectListToCSV(reru_repository.findAll()));
+    }
+
 //    /**
-//     * StateAnxietyPreRepository
+//     * AnxietyPreRepository
 //     * ---------*
 //     */
 //    @RequestMapping(value = "SAPr", method = RequestMethod.GET)
@@ -486,11 +626,11 @@ public class QuestionController {
 //    }
 //
 //    @RequestMapping(value = "SAPr", method = RequestMethod.POST)
-//    RedirectView handleSAPr(@ModelAttribute("SAPr") StateAnxietyPre SAPre,
+//    RedirectView handleSAPr(@ModelAttribute("SAPr") StateAnxietyPre SAPr,
 //                              BindingResult result) {
 //
-//        recordSessionProgress(SAPre);
-//        stateAnxietyPre_Repository.save(SAPre);
+//        recordSessionProgress(SAPr);
+//        stateAnxietyPre_Repository.save(SAPr);
 //        return new RedirectView("/session");
 //
 //    }
@@ -501,7 +641,7 @@ public class QuestionController {
      */
     @RequestMapping(value = "SAPo", method = RequestMethod.GET)
     public ModelAndView showSAPo() {
-        return new ModelAndView("questions/SAPo", "SAPo", new StateAnxiety());
+        return new ModelAndView("/questions/SAPo", "SAPo", new StateAnxiety());
     }
 
     @RequestMapping(value = "SAPo", method = RequestMethod.POST)

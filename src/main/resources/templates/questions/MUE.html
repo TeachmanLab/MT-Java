@@ -34,7 +34,7 @@
         <!--features starts-->
         <div class="row">
             <div class="span12">
-                <form id="wizard" th:action="@{/questions/multiuser}" method="POST">
+                <form id="wizard" th:action="@{/questions/MUE}" method="POST">
                 <fieldset>
                     <legend>Instructions</legend>
                     <h4> Thank you for taking the time to go through our program! We are interested in your feedback and reactions to the training programs, assessments, and other aspects of the website. Please answer the following questions openly and honestly. Your feedback will help us improve the program.
@@ -47,8 +47,8 @@
                 <legend>Questions</legend>
                        <p>
                             <label>How helpful did you find the web program for reducing your anxiety?</label>
-                            <select name="helpful">
-                                <option value=""></option>
+                            <select name="helpful" required="true">
+                                <option value="">Please select one</option>
                                 <option value="1">Not at all</option>
                                 <option value="2">Slightly</option>
                                 <option value="3">Somewhat</option>
@@ -59,8 +59,8 @@
                         </p>
                         <p>
                             <label>How much did the web program improve your overall quality of life?</label>
-                            <select name="qol">
-                                <option value=""></option>
+                            <select name="qol" required="true">
+                                <option value="">Please select one</option>
                                 <option value="1">Not at all</option>
                                 <option value="2">Slightly</option>
                                 <option value="3">Somewhat</option>
@@ -71,8 +71,8 @@
                         </p>
                         <p>
                             <label>How much did the web program help improve your overall mood (e.g., feeling happier)?</label>
-                            <select name="mood">
-                                <option value=""></option>
+                            <select name="mood" required="true">
+                                <option value="">Please select one</option>
                                 <option value="1">Not at all</option>
                                 <option value="2">Slightly</option>
                                 <option value="3">Somewhat</option>
@@ -85,8 +85,8 @@
                         <br/>
                         <p>
                             <label>How likely would you be to recommend this web program to others with similar anxiety difficulties?</label>
-                            <select name="recommend">
-                                <option value=""></option>
+                            <select name="recommend" required="true">
+                                <option value="">Please select one</option>
                                 <option value="1">Not at all</option>
                                 <option value="2">Slightly</option>
                                 <option value="3">Somewhat</option>
@@ -98,8 +98,8 @@
                         <br/>
                         <p>
                             <label>How easy was the web program to use?</label>
-                            <select name="ease">
-                                <option value=""></option>
+                            <select name="ease" required="true">
+                                <option value="">Please select one</option>
                                 <option value="1">Not at all</option>
                                 <option value="2">Slightly</option>
                                 <option value="3">Somewhat</option>
@@ -110,8 +110,8 @@
                         </p>
                         <p>
                             <label>How much did the web program keep your interest and attention?</label>
-                            <select name="interest">
-                                <option value=""></option>
+                            <select name="interest" required="true">
+                                <option value="">Please select one</option>
                                 <option value="1">Not at all</option>
                                 <option value="2">Slightly</option>
                                 <option value="3">Somewhat</option>
@@ -122,8 +122,8 @@
                         </p>
                         <p>
                             <label>How much did you like the web program in general?</label>
-                            <select name="like">
-                                <option value=""></option>
+                            <select name="like" required="true">
+                                <option value="">Please select one</option>
                                 <option value="1">Not at all</option>
                                 <option value="2">Slightly</option>
                                 <option value="3">Somewhat</option>
@@ -134,8 +134,8 @@
                         </p>
                         <p>
                             <label>How much did you like the way the web program looked?</label>
-                            <select name="look">
-                                <option value=""></option>
+                            <select name="look" required="true">
+                                <option value="">Please select one</option>
                                 <option value="1">Not at all</option>
                                 <option value="2">Slightly</option>
                                 <option value="3">Somewhat</option>
@@ -146,8 +146,8 @@
                         </p>
                         <p>
                             <label>How worried were you about your privacy in using this web program?</label>
-                            <select name="privacy">
-                                <option value=""></option>
+                            <select name="privacy" required="true">
+                                <option value="">Please select one</option>
                                 <option value="1">Not at all</option>
                                 <option value="2">Slightly</option>
                                 <option value="3">Somewhat</option>
@@ -158,8 +158,8 @@
                         </p>
                         <p>
                             <label>	How easy were the assessments to understand?</label>
-                            <select name="understand">
-                                <option value=""></option>
+                            <select name="understand" required="true">
+                                <option value="">Please select one</option>
                                 <option value="1">Not at all</option>
                                 <option value="2">Slightly</option>
                                 <option value="3">Somewhat</option>
@@ -170,8 +170,8 @@
                         </p>
                         <p>
                             <label>How easy was the training program (including instructions and materials) to understand?</label>
-                            <select name="training_ease">
-                                <option value=""></option>
+                            <select name="training_ease" required="true">
+                                <option value="">Please select one</option>
                                 <option value="1">Not at all</option>
                                 <option value="2">Slightly</option>
                                 <option value="3">Somewhat</option>
@@ -183,8 +183,8 @@
                         <br/>
                         <p>
                             <label>	How much did you feel you could trust the information?</label>
-                            <select name="trust">
-                                <option value=""></option>
+                            <select name="trust" required="true">
+                                <option value="">Please select one</option>
                                 <option value="1">Not at all</option>
                                 <option value="2">Slightly</option>
                                 <option value="3">Somewhat</option>
@@ -195,8 +195,8 @@
                         </p>
                         <p>
                             <label>	To what extent did Internet or computer problems affect your use of the web program?</label>
-                            <select name="internet">
-                                <option value=""></option>
+                            <select name="internet" required="true">
+                                <option value="">Please select one</option>
                                 <option value="1">Not at all</option>
                                 <option value="2">Slightly</option>
                                 <option value="3">Somewhat</option>
@@ -208,7 +208,7 @@
                         <br/>
                         <p>
                             <label>This training program was 8 sessions. How many sessions do you think would have been ideal?</label>
-                            <input type="text" name="ideal"/>
+                            <input type="text" name="ideal" required="true"/>
                         </p>
                         <br/>
                         <p>
@@ -218,8 +218,8 @@
                         </p>
                         <p>
                             <label> How tiring did you find the training sessions? </label>
-                            <select name="tiring_training">
-                                <option value=""></option>
+                            <select name="tiring_training" required="true">
+                                <option value="">Please select one</option>
                                 <option value="1">Not at all</option>
                                 <option value="2">Slightly</option>
                                 <option value="3">Somewhat</option>
@@ -230,8 +230,8 @@
                         </p>
                         <p>
                             <label> How tiring did you find the assessments? </label>
-                            <select name="tiring_assessments">
-                                <option value=""></option>
+                            <select name="tiring_assessments" required="true">
+                                <option value="">Please select one</option>
                                 <option value="1">Not at all</option>
                                 <option value="2">Slightly</option>
                                 <option value="3">Somewhat</option>
@@ -242,8 +242,8 @@
                         </p>
                         <p>
                             <label>On average, while you were completing the training sessions, how focused or distracted were you? </label>
-                            <select name="distracted">
-                                <option value=""></option>
+                            <select name="distracted" required="true">
+                                <option value="">Please select one</option>
                                 <option value="1">Extremely Distracted</option>
                                 <option value="2">Distracted</option>
                                 <option value="3">Somewhat Distracted</option>
@@ -257,8 +257,8 @@
                         <br/>
                         <p>
                             <label>If you were to seek help for your anxiety again, would you seek a similar program?</label>
-                            <select name="similar_program">
-                                <option value=""></option>
+                            <select name="similar_program" required="true">
+                                <option value="">Please select one</option>
                                 <option value="1">No, definitely not</option>
                                 <option value="2">No, probably not</option>
                                 <option value="3">Not sure</option>
@@ -270,8 +270,8 @@
 
                         <p>
                             <label>If you were to experience moderate to severe anxiety in the future, does this program make you more or less likely to consider other forms of therapy (e.g., medications, therapy)?</label>
-                            <select name="other_therapy">
-                                <option value=""></option>
+                            <select name="other_therapy" required="true">
+                                <option value="">Please select one</option>
                                 <option value="1">Much more likely </option>
                                 <option value="2">A little more likely</option>
                                 <option value="3">Not sure</option>
@@ -285,8 +285,8 @@
                         <br/>
                         <p>
                             <label>Where did you complete the training sessions? Select all that apply</label>
-                            <select multiple="multiple" name="where">
-                                <option value=""></option>
+                            <select multiple="multiple" name="where" required="true">
+                                <option value="">Please select one</option>
                                 <option value="home">At home</option>
                                 <option value="work">At work</option>
                                 <option value="public">At a public space, such as a library, coffee shop, or restaurant</option>
@@ -303,8 +303,8 @@
                         </p>
                         <p>
                             <label>Did you think you were in the active training condition (designed to change your anxious thinking) or the “control” condition (not designed to change your anxious thinking)?</label>
-                            <select name="cntrl_tx">
-                                <option value=""></option>
+                            <select name="cntrl_tx" required="true">
+                                <option value="">Please select one</option>
                                 <option value="active_training">activing training condition</option>
                                 <option value="control">control condition</option>
                                 <option value="555">Prefer not to answer</option>

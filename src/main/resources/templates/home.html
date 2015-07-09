@@ -36,7 +36,7 @@
         <div class="row">
             <div class="span12">
                 <h1 th:if="${currentSession.name.toString() == 'PRE'}" th:text="'Welcome ' + ${name} + '!'"></h1>
-                <h1 th:if="${currentSession.name.toString() == 'SESSION1'}" th:text="'Thanks ' + ${name} + ', Now complete your first Session...'"></h1>
+                <h1 th:if="${currentSession.name.toString() == 'SESSION1'}" th:text="'Thanks ' + ${name} + '! Now please complete your first Session.'"></h1>
                 <ul class="list-3col">
                     <li>
                         <img th:src="@{/grepfrut/img/people/1.jpg}"/>
@@ -64,8 +64,10 @@
                                 <p th:case='SESSION8'>Please press the "Next" button below to get started.</p>
                             </div>
 
-                            <ul id="tasks">
-                                <li th:each="task, iterStat : ${currentSession.tasks}" th:class="${task.state}" th:text="${'Task ' + iterStat.count}"/>
+                            <ul id="tasks" th:each="task, iterStat : ${currentSession.tasks}">
+                                <li th:if="${task.state.toString() == 'COMPLETE'}" th:class="${task.state}" th:text="${'Task ' + iterStat.count + ' Thanks!'}"/>
+                                <li th:if="${task.state.toString() != 'COMPLETE'}" th:class="${task.state}" th:text="${'Task ' + iterStat.count}"/>
+
                             </ul>
 
                             <p> Please press the next button when you are ready to continue.</p>

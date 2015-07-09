@@ -3,6 +3,8 @@ package edu.virginia.psyc.pi.controller;
 import edu.virginia.psyc.pi.domain.Participant;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.security.Principal;
 import java.util.List;
@@ -17,6 +19,7 @@ import java.util.List;
 public class BaseController {
 
     protected ParticipantRepository participantRepository;
+    private static final Logger LOG = LoggerFactory.getLogger(BaseController.class);
 
     Participant getParticipant(Principal principal) {
         Participant p;

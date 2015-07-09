@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="/fragment/common :: headerFragment" />
+<body>
+<section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
+
+<!-- header-btm starts
+================================================== -->
+<section id="header-btm" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <h4 class="heading-icon clearfix"> <img th:src="@{/grepfrut/img/icons/heading-icon-user.png}" width="40" height="40" alt="icon" class="icon-small-bg"/> </h4>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- header-btm ends
+================================================== -->
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+    <div class="container">
+
+        <!--spacer here-->
+        <div class="spacer-30px"></div>
+
+        <!--features starts-->
+        <div class="row">
+            <div class="span12">
+                <form id="wizard" th:action="@{/questions/OA}" method="POST">
+                    <fieldset>
+                        <legend>Instructions</legend>
+                        <!--TODO CHANGE INSTRUCTIONS BASED ON INITIAL OR DURING TRAINING-->
+                        <p>
+                            The following items ask about anxiety and fear. For each item, circle the number for the answer that best describes your experience over the past week.
+                        </p>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Questions</legend>
+                        <p>
+                            1. In the past week, how often have you felt anxious?
+                        </p>
+                        <table class="table table-striped table-bordered">
+                        <tr>
+                            <td>
+                                <input type="radio" name="anxious_freq" class="form-control" value="0" required="true"/> No anxiety in the past week.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="radio" name="anxious_freq" class="form-control" value="0" required="true"/> Infrequent anxiety. Felt anxious a few times.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="radio" name="anxious_freq" class="form-control" value="0" required="true"/> Occasional anxiety. Felt anxious as much of the time as not. It was hard to relax.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="radio" name="anxious_freq" class="form-control" value="0" required="true"/> Frequent anxiety. Felt anxious most of the time. It was very difficult to relax.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="radio" name="anxious_freq" class="form-control" value="0" required="true"/> Constant anxiety. Felt anxious all of the time and never really relaxed.
+                            </td>
+                        </tr>
+                        </table>
+                        <p>
+                            2. In the past week, when you have felt anxious, how intense or severe was your anxiety?
+                        </p>
+                        <table class="table table-striped table-bordered">
+                            <tr>
+                                <td>
+                                    <input type="radio" name="anxious_sev" class="form-control" value="0" required="true"/> Little or None: Anxiety was absent or barely noticeable.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="radio" name="anxious_sev" class="form-control" value="0" required="true"/> Mild: Anxiety was at a low level. It was possible to relax when I tried. Physical symptoms were only slightly uncomfortable.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="radio" name="anxious_sev" class="form-control" value="0" required="true"/> Moderate: Anxiety was distressing at times. It was hard to relax or concentrate, but I could do it if I tried.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="radio" name="anxious_sev" class="form-control" value="0" required="true"/> Severe: Anxiety was intense much of the time. It was very difficult to relax or focus on anything else. Physical symptoms were extremely uncomfortable.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="radio" name="anxious_sev" class="form-control" value="0" required="true"/> Extreme: Anxiety was overwhelming. It was impossible to relax at all. Physical symptoms were unbearable.
+                                </td>
+                            </tr>
+                        </table>
+
+                        <p>3. In the past week, how often did you avoid situations, places, objects, or activities because of anxiety or fear?</p>
+                        <table class="table table-striped table-bordered">
+                            <tr>
+                                <td>
+                                    <input type="radio" name="avoid" class="form-control" value="0" required="true"/> None: I do not avoid places, situations, activities, or things because of fear.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="radio" name="avoid" class="form-control" value="0" required="true"/> Infrequent: I avoid something once in a while, but will usually face the situation or confront the object. My lifestyle is not affected.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="radio" name="avoid" class="form-control" value="0" required="true"/> Occasional: I have some fear of certain situations, places, or objects, but it is still manageable. My lifestyle has only changed in minor ways. I always or almost always avoid the things I fear when I’m alone, but can handle them if someone comes with me.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="radio" name="anxious_freq" class="form-control" value="0" required="true"/> Frequent: I have considerable fear and really try to avoid the things that frighten me. I have made significant changes in my life style to avoid the object, situation, activity, or place.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="radio" name="avoid" class="form-control" value="0" required="true"/> All the Time: Avoiding objects, situations, activities, or places has taken over my life. My lifestyle has been extensively affected and I no longer do things that I used to enjoy.
+                                </td>
+                            </tr>
+                        </table>
+                        <p>4. In the past week, how much did your anxiety interfere with your ability to do the things you needed to do at work, at school, or at home?</p>
+                        <table class="table table-striped table-bordered">
+                            <tr>
+                                <td>
+                                    <input type="radio" name="interfere" class="form-control" value="0" required="true"/> None: No interference at work/home/school from anxiety
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="radio" name="interfere" class="form-control" value="0" required="true"/> Mild: My anxiety has caused some interference at work/home/school. Things are more difficult, but everything that needs to be done is still getting done.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="radio" name="interfere" class="form-control" value="0" required="true"/> Moderate: My anxiety definitely interferes with tasks. Most things are still getting done, but few things are being done as well as in the past.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="radio" name="interfere" class="form-control" value="0" required="true"/> Severe: My anxiety has really changed my ability to get things done. Some tasks are still being done, but many things are not. My performance has definitely suffered.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="radio" name="interfere" class="form-control" value="0" required="true"/> Extreme: My anxiety has become incapacitating. I am unable to complete tasks and have had to leave school, have quit or been fired from my job, or have been unable to complete tasks at home and have faced consequences like bill collectors, eviction, etc.
+                                </td>
+                            </tr>
+                        </table>
+                        <p>5. In the past week, how much has anxiety interfered with your social life and relationships?</p>
+                        <table class="table table-striped table-bordered">
+                            <tr>
+                                <td>
+                                    <input type="radio" name="interfere_social" class="form-control" value="0" required="true"/> None: My anxiety doesn’t affect my relationships.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="radio" name="interfere_social" class="form-control" value="0" required="true"/> Mild: My anxiety slightly interferes with my relationships. Some of my friendships and other relationships have suffered, but, overall, my social life is still fulfilling.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="radio" name="interfere_social" class="form-control" value="0" required="true"/> Moderate: I have experienced some interference with my social life, but I still have a few close relationships. I don’t spend as much time with others as in the past, but I still socialize sometimes.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="radio" name="interfere_social" class="form-control" value="0" required="true"/> Severe: My friendships and other relationships have suffered a lot because of anxiety. I do not enjoy social activities. I socialize very little.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="radio" name="interfere_social" class="form-control" value="0" required="true"/> Extreme: My anxiety has completely disrupted my social activities. All of my relationships have suffered or ended. My family life is extremely strained.
+                                </td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                </form>
+                <script>
+                    jQuery("#wizard").jWizard();
+                </script>
+            </div>
+        </div>
+        <!--features ends-->
+
+        <!--divider here-->
+        <div class="spacer-40px"></div>
+
+    </div>
+</section>
+
+
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts" />
+
+</body>
+</html>
+
+
+

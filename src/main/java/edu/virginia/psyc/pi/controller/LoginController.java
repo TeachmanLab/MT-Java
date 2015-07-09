@@ -1,5 +1,8 @@
 package edu.virginia.psyc.pi.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.virginia.psyc.pi.domain.Participant;
 import edu.virginia.psyc.pi.domain.PasswordToken;
 import edu.virginia.psyc.pi.domain.Session;
@@ -24,6 +27,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -99,6 +103,24 @@ public class LoginController extends BaseController {
                                    ModelMap model,
                                    HttpSession session) {
 
+        if(dass21_as.eligibleScore()) {
+            // Save the DASS21_AS object in the session, so we can grab it when the
+            // user is logged in.
+            session.setAttribute("dass21", dass21_as);
+            model.addAttribute("participant", new Participant());
+            return "invitation";
+        } else {
+            return "ineligible";
+        }
+    }
+
+    // An external endpoint that bypasses the eligibility form, in the case
+    // where the form is filled out on a remote site, and it's results are
+    // added here.
+    @RequestMapping(value="public/eligible", method = RequestMethod.POST)
+    public String eligable(@RequestBody DASS21_AS dass21_as,
+                                   ModelMap model,
+                                   HttpSession session) {
         if(dass21_as.eligibleScore()) {
             // Save the DASS21_AS object in the session, so we can grab it when the
             // user is logged in.

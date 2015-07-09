@@ -13,6 +13,7 @@ import java.util.Date;
 
 import static junit.framework.Assert.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 
 /**
@@ -207,6 +208,17 @@ public class ParticipantTest {
 
         assertTrue("after 100 iterations, ANXIETY should have occurred at least once", isAnxious);
         assertTrue("after 100 iterations, Neutral should have occurred at least once", isNeutral);
+
+    }
+
+    @Test
+    public void testParticipantKnowsIfEmailOfTypeSentPreviously() {
+        Participant p;
+
+        p = new Participant(1, "Dan Funk", "daniel.h.funk@gmail.com", false);
+        assertFalse(p.previouslySent(EmailService.TYPE.dass21AlertParticipant));
+        p.addEmailLog(new EmailLog(EmailService.TYPE.dass21AlertParticipant, new Date()));
+        assertTrue(p.previouslySent(EmailService.TYPE.dass21AlertParticipant));
 
     }
 

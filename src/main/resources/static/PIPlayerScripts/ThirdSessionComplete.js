@@ -294,7 +294,7 @@ define(['app/API'], function(API) {
             layout: [
                 // This is a stimulus object
                 {
-                    media :"You will be presented with a statement where a word in the statement is missing a letter.  Type the letter on the keyboard, then answer the followup question. Please press the spacebar to continue.",
+                    media :"Now the training will begin. Please press the spacebar to continue.",
                     css:{fontSize:'1.2em',color:'#D7685A'}
                 }
             ],
@@ -311,8 +311,31 @@ define(['app/API'], function(API) {
             ]
         },
         {
-            mixer: 'choose',
-            n: 50,  // The total number of randomly selected trials to run.
+            input: [
+                {handle:'space',on:'space'}
+            ],
+            layout: [
+                // This is a stimulus object
+                {
+                    media :"In this task, you will see a series of paragraphs and questions. Please read each paragraph carefully, and imagine yourself in the situations described. At the end of each paragraph, there will be a word fragment (an incomplete word) for you to complete. To complete the word fragment, press the key that corresponds to the missing letter. Once you type in the correct letter, you will move onto the next question. After completing the word fragment, you will be asked to answer a question about the situation in which you imagined yourself. Please use only the information from the situation to answer the question. Once you have the correct answer, you will move onto the next situation. If you are unsure about an item, please make your best guess. Please press the spacebar to continue.",
+                    css:{fontSize:'.8em',color:'#D7685A'}
+                }
+            ],
+            interactions: [
+                // This is an interaction (it has a condition and an action)
+                {
+                    conditions: [
+                        {type:'inputEquals',value:'space'}
+                    ],
+                    actions: [
+                        {type:'endTrial'}
+                    ]
+                }
+            ]
+        },
+        {
+            mixer: 'random',
+            //n: 50,  // The total number of randomly selected trials to run.
             data: [
     {
         "inherit": {
@@ -497,10 +520,10 @@ define(['app/API'], function(API) {
             {
                 "data": {
                     "negativeKey": "w",
-                    "negativeWord": "awk[ ]ared",
+                    "negativeWord": "awk[ ]ard",
                     "positiveKey": "n",
                     "positiveWord": "pleasa[ ]t",
-                    "statement": " You best friend arranges a blind date for you. As you sit in the bar waiting to meet your date for the first time, you wonder how it will go. You feel that your date will think you are"
+                    "statement": " You best friend arranges a blind date for you. As you sit in the bar waiting to meet your date for the first time, you wonder how it will go. You feel that your date will think you are "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -1033,7 +1056,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "disastro[ ]s",
                     "positiveKey": "t",
                     "positiveWord": "enter[ ]aining",
-                    "statement": " You invite work colleagues to your house for a dinner party, although you know they don\u2019t always get along. At the dinner party, your guests talk a lot, despite not always agreeing. As you are clearing up afterwards, you think your guests found your party to be "
+                    "statement": " You invite work colleagues to your house for a dinner party, although you know they don't always get along. At the dinner party, your guests talk a lot, despite not always agreeing. As you are clearing up afterwards, you think your guests found your party to be "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -1074,7 +1097,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "ter[ ]ible",
                     "positiveKey": "e",
                     "positiveWord": "gr[ ]at",
-                    "statement": " You write a short story to enter in a competition and need someone to proof read it. You ask you friend to proofread it, and he gives you a few suggestions on how to improve the story. Your friend probably thinks your work is "
+                    "statement": " You write a short story to enter in a competition and need someone to proof read it. You ask your friend to proofread it, and he gives you a few suggestions on how to improve the story. Your friend probably thinks your work is "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -2141,7 +2164,7 @@ define(['app/API'], function(API) {
                 "data": {
                     "negativeKey": "g",
                     "negativeWord": "hi[ ]h",
-                    "positiveKey": "n",
+                    "positiveKey": "m",
                     "positiveWord": "mini[ ]al",
                     "statement": " You have a meeting with a co-worker, and notice that he repeatedly sniffles and wipes his nose with a tissue. After the meeting, you wash your hands. The chances that you will get sick from your coworker are "
                 },

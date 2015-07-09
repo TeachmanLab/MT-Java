@@ -34,56 +34,20 @@
         <!--features starts-->
         <div class="row">
             <div class="span12">
-                <form id="wizard" th:action="@{/questions/credibility}" method="POST">
+                <form id="wizard" th:action="@{/questions/ReRu}" method="POST">
                     <fieldset>
-                        <p>Please rate each of the following items using the scale below:</p>
+                        <p>Please rate each the following item using the scale below:</p>
                         <pre>
 0-----1-----2-----3-----4-----5-----6-----7-----8-----9-----10
-Not at all                Somewhat                   Extremely</pre>
+Not at all                Somewhat                        Very</pre>
                         <table class="table table-striped table-bordered">
                             <tr>
                                 <th>Question</th>
                                 <th>Response</th>
                             </tr>
                             <tr>
-                                <td>How logical does this type of training program seem to you?</td>
-                                <td><select name="logical" required="true">
-                                    <option>0</option>
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                    <option>6</option>
-                                    <option>7</option>
-                                    <option>8</option>
-                                    <option>9</option>
-                                    <option>10</option>
-                                    <option>Prefer not to answer</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>How confident are you that this training program will be successful in eliminating your anxiety? </td>
-                                <td><select name="successful" required="true">
-                                    <option>0</option>
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                    <option>6</option>
-                                    <option>7</option>
-                                    <option>8</option>
-                                    <option>9</option>
-                                    <option>10</option>
-                                    <option>Prefer not to answer</option>
-                                </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>How confident would you be in recommending this training program to a friend who was extremely anxious? </td>
-                                <td><select name="recommendable" required="true">
+                                <td>How important is reducing your anxiety to you right now?</td>
+                                <td><select name="important" required="true">
                                     <option>0</option>
                                     <option>1</option>
                                     <option>2</option>
@@ -103,6 +67,8 @@ Not at all                Somewhat                   Extremely</pre>
                     </fieldset>
                     <input type="submit" value="Finish"/>
                 </form>
+                <script>
+                </script>
             </div>
         </div>
         <!--features ends-->
@@ -128,3 +94,5 @@ Not at all                Somewhat                   Extremely</pre>
 
 </body>
 </html>
+
+

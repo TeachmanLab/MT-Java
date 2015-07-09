@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Created by samportnow on 7/23/14.
  */
 @Entity
-@Table(name="StateAnxiety")
+@Table(name="StateAnxietyPost")
 public class StateAnxietyPost implements QuestionnaireData{
 
     @Id

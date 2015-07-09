@@ -74,4 +74,32 @@ public class DASS21Test {
 
     }
 
+    @Test
+    public void testScore() {
+        DASS21_AS data1, data2, data3, data4;
+        data1 = new DASS21_AS(1,1,1,1,1,1,1);
+        data2 = new DASS21_AS(4,4,4,4,4,4,4);
+        data3 = new DASS21_AS(0,0,0,0,0,0,0);
+
+        assertEquals(data1.score(), 14, 0);
+        assertEquals(data2.score(), 56, 0);
+        assertEquals(data3.score(), 0, 0);
+    }
+
+    /**
+     * Given a recent test scores, and original test score, and determines
+     * if the users score is degrading enough to merit an email to
+     * an administrator. (Score increases by 30%)
+     */
+    @Test
+    public void testAtRisk() {
+        DASS21_AS dataOrig, dataLatest;
+        dataOrig = new DASS21_AS(1,1,1,1,1,1,0); // score of 12 (increase of 30% is 15.6)
+        dataLatest = new DASS21_AS(1,1,1,1,1,1,1); // score of 14
+        assertFalse(dataLatest.atRisk(dataOrig));
+        dataLatest = new DASS21_AS(1,1,1,1,1,1,2); // score of 16
+        assertTrue(dataLatest.atRisk(dataOrig));
+    }
+
+
 }

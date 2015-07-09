@@ -295,7 +295,7 @@ define(['app/API'], function(API) {
             layout: [
                 // This is a stimulus object
                 {
-                    media :"You will be presented with a statement where a word in the statement is missing a letter.  Type the letter on the keyboard, then answer the followup question. Please press the spacebar to continue.",
+                    media :"Now the training will begin. Please press the spacebar to continue.",
                     css:{fontSize:'1.2em',color:'#D7685A'}
                 }
             ],
@@ -312,10 +312,33 @@ define(['app/API'], function(API) {
             ]
         },
         {
-            mixer: 'choose',
-            n: 50,  // The total number of randomly selected trials to run.
+            input: [
+                {handle:'space',on:'space'}
+            ],
+            layout: [
+                // This is a stimulus object
+                {
+                    media :"In this task, you will see a series of paragraphs and questions. Please read each paragraph carefully, and imagine yourself in the situations described. At the end of each paragraph, there will be a word fragment (an incomplete word) for you to complete. To complete the word fragment, press the key that corresponds to the missing letter. Once you type in the correct letter, you will move onto the next question. After completing the word fragment, you will be asked to answer a question about the situation in which you imagined yourself. Please use only the information from the situation to answer the question. Once you have the correct answer, you will move onto the next situation. If you are unsure about an item, please make your best guess. Please press the spacebar to continue.",
+                    css:{fontSize:'.8em',color:'#D7685A'}
+                }
+            ],
+            interactions: [
+                // This is an interaction (it has a condition and an action)
+                {
+                    conditions: [
+                        {type:'inputEquals',value:'space'}
+                    ],
+                    actions: [
+                        {type:'endTrial'}
+                    ]
+                }
+            ]
+        },
+        {
+            mixer: 'random',
+            //n: 50,  // The total number of randomly selected trials to run.
             data: [
-    {
+        {
         "inherit": {
             "set": "posneg",
             "type": "random"
@@ -392,7 +415,7 @@ define(['app/API'], function(API) {
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Did the person you met at dance class think you were obnoxious? </div>"
+                    "inlineTemplate": "<div>Did the person you met at dance class think you were anxious? </div>"
                 }
             }
         ]
@@ -583,7 +606,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "wei[ ]d",
                     "positiveKey": "e",
                     "positiveWord": "op[ ]n",
-                    "statement": " You are sitting on the couch and watching television with a friend. Your friend asks you a personal question. You answer honestly, and you think your friend judges you to be"
+                    "statement": " You are sitting on the couch and watching television with a friend. Your friend asks you a personal question. You answer honestly, and you think your friend judges you to be "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -829,7 +852,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "p[ ]or",
                     "positiveKey": "m",
                     "positiveWord": "ad[ ]irable",
-                    "statement": " You are persuaded to join a trivia team in a tournament. You are told that most of the questions will be asked to individuals, in different rounds. The first round is hard and you fell that the others found your efforts particularly "
+                    "statement": " You are persuaded to join a trivia team in a tournament. You are told that most of the questions will be asked to individuals, in different rounds. The first round is hard and you feel that the others found your efforts particularly "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -870,7 +893,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "d[ ]ll",
                     "positiveKey": "b",
                     "positiveWord": "likea[ ]le",
-                    "statement": " You have just moved to a new area and your neighbor asks if you would like to go to your local bar that evening. When you arrive, she is not there yet. Reflecting on your early conversation, she probably thought you were "
+                    "statement": " You have just moved to a new area and your neighbor asks if you would like to go to your local bar that evening. When you arrive, she is not there yet. Reflecting on your earlier conversation, she probably thought you were "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -948,7 +971,7 @@ define(['app/API'], function(API) {
             },
             {
                 "data": {
-                    "negativeKey": "o",
+                    "negativeKey": "i",
                     "negativeWord": "anx[ ]ous",
                     "positiveKey": "l",
                     "positiveWord": "ca[ ]m",
@@ -1075,7 +1098,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "ig[ ]orant",
                     "positiveKey": "g",
                     "positiveWord": "knowled[ ]eable",
-                    "statement": " You are in the car with your mother-in-law, and put on the radio. As you discuss which station to listen to, you realize that you and your mother-in-law like different 'type's of music. After having an in-depth discussion about the pros and cons of different music styles, your mother-in-law judges you as "
+                    "statement": " You are in the car with your mother-in-law, and put on the radio. As you discuss which station to listen to, you realize that you and your mother-in-law like different types of music. After having an in-depth discussion about the pros and cons of different music styles, your mother-in-law judges you as "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -1116,7 +1139,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "ig[ ]orant",
                     "positiveKey": "p",
                     "positiveWord": "hel[ ]ful",
-                    "statement": " A friend is having problems with her toddler and calls you to discuss the situation. You explain the methods that worked for you when your children were that age. You friend notes that your methods are quite different from her methods, and as a result, she thinks you are "
+                    "statement": " A friend is having problems with her toddler and calls you to discuss the situation. You explain the methods that worked for you when your children were that age. Your friend notes that your methods are quite different from her methods, and as a result, she thinks you are "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -1157,7 +1180,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "lea[ ]e",
                     "positiveKey": "y",
                     "positiveWord": "sta[ ]",
-                    "statement": " You arrive at a large party, and quickly realize that there are a lot of people you do not know there. You feel anxious, and consider going home. After thinking bout it, you decide to"
+                    "statement": " You arrive at a large party, and quickly realize that there are a lot of people you do not know there. You feel anxious, and consider going home. After thinking about it, you decide to "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -1198,7 +1221,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "an[ ]ious",
                     "positiveKey": "n",
                     "positiveWord": "fi[ ]e",
-                    "statement": " You are at a class that your company has sent you to. Your teacher asks each member of the group to stand up and introduce himself or herself. During your brief presentation you momentarily forget what you play to say, but quickly recover; you guess that others thought you sounded"
+                    "statement": " You are at a class that your company has sent you to. Your teacher asks each member of the group to stand up and introduce himself or herself. During your brief presentation you momentarily forget what you plan to say, but quickly recover; you guess that others thought you sounded "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -1239,7 +1262,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "d[ ]ll",
                     "positiveKey": "l",
                     "positiveWord": "intel[ ]igent",
-                    "statement": " A new teacher is hired for our history class and you hear that he is very disciplined and hard-working. When you meet him for the first time to discuss your work and interests, you think that he found you to be "
+                    "statement": " A new teacher is hired for your history class and you hear that he is very disciplined and hard-working. When you meet him for the first time to discuss your work and interests, you think that he found you to be "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -1623,7 +1646,7 @@ define(['app/API'], function(API) {
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div> Do you think you will be poor after helping your daughted pay for the wedding? </div>"
+                    "inlineTemplate": "<div> Do you think you will be poor after helping your daughter pay for the wedding? </div>"
                 }
             }
         ]
@@ -1691,7 +1714,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "lar[ ]e",
                     "positiveKey": "n",
                     "positiveWord": "mi[ ]imal",
-                    "statement": " Your friend enjoys ice-skating and persuades you to try it out. At the rink you put on the skates and step on the ice. You glide forward, slowly at first, then faster, and think your chances of getting injured are"
+                    "statement": " Your friend enjoys ice-skating and persuades you to try it out. At the rink you put on the skates and step on the ice. You glide forward, slowly at first, then faster, and think your chances of getting injured are "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -1814,7 +1837,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "i[ ]possible",
                     "positiveKey": "s",
                     "positiveWord": "pos[ ]ible",
-                    "statement": " You heard in the news that a lot of businesses are currently downsizing. You think about what will happen if you lose yur job. You decide that finding another job will be "
+                    "statement": " You heard in the news that a lot of businesses are currently downsizing. You think about what will happen if you lose your job. You decide that finding another job will be "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -1828,7 +1851,7 @@ define(['app/API'], function(API) {
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div> Do you think it will be hard to find a new job? </div>"
+                    "inlineTemplate": "<div> Do you think it will be impossible to find a new job? </div>"
                 }
             }
         ]
@@ -2267,7 +2290,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "i[ ]tolerable",
                     "positiveKey": "b",
                     "positiveWord": "tolera[ ]le",
-                    "statement": " You have not been feeling great recently, so you try to schedule a doctor\u00e2\u20ac\u2122s appointment. The soonest appointment you can get is a few days away, which makes you feel anxious. You know that your anxiety as you wait for the appointment is"
+                    "statement": " You have not been feeling great recently, so you try to schedule a doctor\u2019s appointment. The soonest appointment you can get is a few days away, which makes you feel anxious. You know that your anxiety as you wait for the appointment is "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -2281,7 +2304,7 @@ define(['app/API'], function(API) {
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Do you think you will be able to handle your anxiety as you wait for the doctors appointment? </div>"
+                    "inlineTemplate": "<div>Do you think you will be able to handle your anxiety as you wait for the doctor\u2019s appointment? </div>"
                 }
             }
         ]
@@ -2322,7 +2345,7 @@ define(['app/API'], function(API) {
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div> Will you get sick from your friend\u00e2\u20ac\u2122s new baby?</div>"
+                    "inlineTemplate": "<div> Will you get sick from your friend's new baby?</div>"
                 }
             }
         ]
@@ -2349,7 +2372,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "unhe[ ]lthy",
                     "positiveKey": "l",
                     "positiveWord": "hea[ ]thy",
-                    "statement": " At your routine doctor\u00e2\u20ac\u2122s appointment, your doctor decides to run a few tests to evaluate your health. The doctor tells you that she will get you your results within a week. While you wait for your results, you think you are likely "
+                    "statement": " At your routine doctor's appointment, your doctor decides to run a few tests to evaluate your health. The doctor tells you that she will get you your results within a week. While you wait for your results, you think you are likely "
                 },
                 "handle": "paragraph",
                 "media": {

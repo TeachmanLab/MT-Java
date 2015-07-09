@@ -1,10 +1,11 @@
 package edu.virginia.psyc.pi.domain;
 
-import edu.virginia.psyc.pi.persistence.ParticipantDAO;
+import edu.virginia.psyc.pi.service.EmailService;
 import org.hibernate.validator.constraints.Email;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
-import org.springframework.security.crypto.password.StandardPasswordEncoder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -32,6 +33,7 @@ public class Participant {
     public enum CBM_CONDITION {FITFY_FIFTY, POSITIVE, NEUTRAL}
     public enum PRIME {NEUTRAL, ANXIETY}
     private static final Random RANDOM = new Random();  // For generating random CBM and Prime values.
+    private static final Logger LOG = LoggerFactory.getLogger(Participant.class);
 
 
     /**
@@ -71,7 +73,7 @@ public class Participant {
 
     private Date           lastSessionDate;
 
-    private List<EmailLog> emailLogs;
+    private List<EmailLog> emailLogs = new ArrayList<>();
 
     private PasswordToken  passwordToken;
 
@@ -326,6 +328,16 @@ public class Participant {
     public void addEmailLog(EmailLog log) {
         if (this.emailLogs == null) emailLogs = new ArrayList<EmailLog>();
         emailLogs.add(log);
+    }
+
+    /**
+     * Checks to see if this type of email was already sent to the user.
+     */
+    public boolean previouslySent(EmailService.TYPE type) {
+        for(EmailLog log : getEmailLogs()) {
+            if (log.getType().equals(type)) return true;
+        }
+        return false;
     }
 
     public boolean isActive() {
