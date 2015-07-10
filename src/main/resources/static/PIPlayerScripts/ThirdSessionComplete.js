@@ -482,7 +482,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "terri[ ]le",
                     "positiveKey": "e",
                     "positiveWord": "excell[ ]nt",
-                    "statement": " The morning of your first evaluation with your new boss, she tells youthat she has strong views about your work. You think that she likely finds your work "
+                    "statement": " The morning of your first evaluation with your new boss, she tells you that she has strong views about your work. You think that she likely finds your work "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -646,7 +646,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "po[ ]rly",
                     "positiveKey": "e",
                     "positiveWord": "w[ ]ll",
-                    "statement": " Your first is taking part in a recruitment campaign, and you are asked to go along and speak to local teenages about the work you do. During the presentation, you feel slightly awkward, and after, other colleagues tell you that you spoke "
+                    "statement": " Your first is taking part in a recruitment campaign, and you are asked to go along and speak to local teenagers about the work you do. During the presentation, you feel slightly awkward, and after, other colleagues tell you that you spoke "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -1467,7 +1467,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "h[ ]gh",
                     "positiveKey": "w",
                     "positiveWord": "lo[ ]",
-                    "statement": " You are driving the speed limit, although it is raining. You know that you should probably slow down to the safe., but you remain the speed limit. The chance of you getting into an accident is "
+                    "statement": " You are driving the speed limit, although it is raining. You know that you should probably slow down to be safe, but you remain at the speed limit. The chance of you getting into an accident is "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -2042,7 +2042,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "ina[ ]equate",
                     "positiveKey": "c",
                     "positiveWord": "suc[ ]essful",
-                    "statement": " You are applying to a prestigious internship program. As you prepare your resume, you reflect upon everything you have accomplished thus far. You record is strng, but not perfect, which makes you feel "
+                    "statement": " You are applying to a prestigious internship program. As you prepare your resume, you reflect upon everything you have accomplished thus far. Your record is strong, but not perfect, which makes you feel "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -2207,7 +2207,7 @@ define(['app/API'], function(API) {
                     "negativeWord": "miser[ ]ble",
                     "positiveKey": "y",
                     "positiveWord": "enjo[ ]able",
-                    "statement": " While on a hike you realize that you forgot to put sunscreen on. You didn\u00e2\u20ac\u2122t bring sunscreen with you and you begin to worry about skin cancer. You try not to focus on this and the rest of the hike is "
+                    "statement": " While on a hike you realize that you forgot to put sunscreen on. You did not bring sunscreen with you and you begin to worry about skin cancer. You try not to focus on this and the rest of the hike is "
                 },
                 "handle": "paragraph",
                 "media": {

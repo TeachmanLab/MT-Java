@@ -3,7 +3,7 @@
 
     <head th:include="fragment/email :: headerFragment"/>
 
-    <body style="background:#eee; min-height:1000px; color:#000;font-family:Arial, Helvetica, sans-serif; font-size:12px"
+    <body style="background:#eee; min-height:600px; color:#000;font-family:Arial, Helvetica, sans-serif; font-size:12px"
           alink="#FF0000" link="#FF0000" bgcolor="#767676" text="#FFFFFF" yahoo="fix" >
 
     <div id="body_style" style="padding:15px" border="5px solid #767676">
@@ -13,16 +13,25 @@
         <table cellpadding="0" cellspacing="0" width="400" align="center" style="margin-top:20px">
             <tr>
                 <td width="400">
-                    <p th:text="'Hello ' +  ${name} + ','" style="margin-top:0; margin-bottom:10px">
-                        Hi Fred,
+                    <p th:text="'Dear ' +  ${name} + ','" style="margin-top:0; margin-bottom:10px">
+                        Dear
                     </p>
-                    <p style="margin-top:5px">This is a message about your declining results. Better copy is forthcoming.</p>
+                    <br/>
+                    <p style="margin-top:5px">We are writing about your participation in the online computer program that is designed to change how people think about different situations. We want to let you know that your score on the anxiety symptom measure that you complete each session is showing an increase in symptoms, compared to your score when you started the program.</p>
+                    <br/>
+                    <p style="margin-top:5px">We are sorry that you are experiencing increased anxiety, and like to make sure our study participants are aware if their scores increase by 30% or more, and know how to access other resources if they wish.</p>
+                    <br/>
+                    <p style="margin-top:5px">You are welcome to continue your participation in our program, and we also want to direct you to the following list of <a href="https://implicit.harvard.edu/implicit/user/pimh/linkinfo.html">Mental Health Resources</a>. Further, while we do not endorse any particular organization or provider (see <a href="https://implicit.harvard.edu/implicit/user/pimh/disclaimer.html">Disclaimer</a>), you may contact us via email at <a href="mailto:pimhintervention@projectimplicit.net">pimhintervention@projectimplicit.net</a> if you want help in determining how to find nearby referrals for in-person treatment.</p>
+                    <br/>
+                    <p style="margin-top:5px">Thank you for your participation in this program.</p>
+                    <br/>
+                    <br/>
+                    <p style="margin-top:5px">Sincerely,</p>
+                    <p style="margin-top:5px">Bethany Teachman, PhD (Project Director) and the Project Implicit Mental Health training team</p>
+
                 </td>
             </tr>
         </table>
-
-        <p style="margin-top:0"></p>
-
 
 
     </div>

@@ -88,7 +88,7 @@ public class EmailService {
             case resetPass:
                 return "Project Implicit Mental Health - Account Request";
             case dass21AlertParticipant:
-                return "Project Implicit Mental Health - Alert, your score is dropping.";
+                return "Information about change in scores from the Project Implicit Mental Health training team";
             default:
                 return "";
         }
