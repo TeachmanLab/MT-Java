@@ -63,7 +63,7 @@
                             </tr>
                         </table>
                     </fieldset>
-                    <fieldset>
+                    <fieldset id="questions">
                         <legend>Questions</legend>
                         <table class="table table-striped table-bordered table-radio">
                             <tr>
@@ -137,9 +137,26 @@
                     </fieldset>
                 </form>
                 <script>
-                    jQuery("#wizard").jWizard();
+                    var mQuestions = false;
+                    $("#wizard").on("wizardfinish", function() {
+                            console.log('hiding');
+                            if (!$(this).find(":input").valid()) {
+                                if (  mQuestions)
+                                {
+                                  $(this).find(":input").removeAttr('required');
+
+                                }
+                                if (! mQuestions)
+                                {
+                                    mQuestions = true;
+                                    return false;
+                                }
+
+                            }
+                        }).jWizard().validate();
                     // clicking anywhere in a cell should check the radio button
                     $(this).find('input:radio').attr('checked',true);
+
                 </script>
             </div>
         </div>
