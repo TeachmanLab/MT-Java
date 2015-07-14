@@ -1,5 +1,6 @@
 package edu.virginia.psyc.pi.service;
 
+import edu.virginia.psyc.pi.Application;
 import edu.virginia.psyc.pi.domain.Participant;
 import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.domain.tango.Account;
@@ -7,12 +8,14 @@ import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Date;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNull;
-import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,20 +24,23 @@ import static junit.framework.Assert.assertTrue;
  * Time: 2:20 PM
  * To change this template use File | Settings | File Templates.
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringApplicationConfiguration(classes = Application.class)
 public class TangoServiceTest {
 
     Participant participant;
-    TangoGiftService service;
+
+    @Autowired
+    private TangoGiftService service;
 
     @Before
     public void setup() {
         participant = new Participant(1, "Dan Funk", "daniel.h.funk@gmail.com", false);
-        service     = new TangoGiftService();
     }
 
     @Test
     public void testGetAccountInformation() {
-        System.out.println("The URL is: " + service.getUrl());
+        assertNotNull("The url of the service object should be auto-populated.", service.getUrl());
         Account account = service.getAccountInfo();
         assertTrue("Test accounts should have some money in it.", account.getAvailable_balance() > 0);
     }
