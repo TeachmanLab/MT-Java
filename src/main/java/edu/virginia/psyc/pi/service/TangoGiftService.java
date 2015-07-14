@@ -2,6 +2,7 @@ package edu.virginia.psyc.pi.service;
 
 import edu.virginia.psyc.pi.domain.Participant;
 import edu.virginia.psyc.pi.domain.tango.Account;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.RestTemplate;
 
@@ -10,6 +11,7 @@ import java.net.URI;
 /**
  * Used to award a gift certificates to eindividuals
  */
+@Data
 public class TangoGiftService {
 
     private static final String EMAIL_SUBJECT="Project Implicit Mental Health - Gift Certificate";

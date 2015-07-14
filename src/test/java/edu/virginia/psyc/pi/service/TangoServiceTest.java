@@ -34,6 +34,7 @@ public class TangoServiceTest {
 
     @Test
     public void testGetAccountInformation() {
+        System.out.println("The URL is: " + service.getUrl());
         Account account = service.getAccountInfo();
         assertTrue("Test accounts should have some money in it.", account.getAvailable_balance() > 0);
     }
