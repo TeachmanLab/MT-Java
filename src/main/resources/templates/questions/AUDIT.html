@@ -166,7 +166,11 @@
                     </fieldset>
                  </form>
                 <script>
-                   $('#wizard').jWizard();
+                    $("#wizard").on("wizardfinish", function() {
+                            if (!$(this).find(":input").valid()) {
+                                    return false;
+                            }
+                        }).jWizard().validate();
                 </script>
             </div>
         </div>

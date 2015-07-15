@@ -137,21 +137,9 @@
                     </fieldset>
                 </form>
                 <script>
-                    var mQuestions = false;
                     $("#wizard").on("wizardfinish", function() {
-                            console.log('hiding');
                             if (!$(this).find(":input").valid()) {
-                                if (  mQuestions)
-                                {
-                                  $(this).find(":input").removeAttr('required');
-
-                                }
-                                if (! mQuestions)
-                                {
-                                    mQuestions = true;
                                     return false;
-                                }
-
                             }
                         }).jWizard().validate();
                     // clicking anywhere in a cell should check the radio button
