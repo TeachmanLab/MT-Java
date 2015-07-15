@@ -35,14 +35,13 @@ public class TangoServiceTest {
 
     @Before
     public void setup() {
-        participant = new Participant(1, "Dan Funk", "daniel.h.funk@gmail.com", false);
+
     }
 
     @Test
     public void testGetAccountInformation() {
-        assertNotNull("The url of the service object should be auto-populated.", service.getUrl());
         Account account = service.getAccountInfo();
-        assertTrue("Test accounts should have some money in it.", account.getAvailable_balance() > 0);
+        assertTrue("Test accounts should have some money in it:" + account.toString(), account.getAvailable_balance() > 0);
     }
 
 }
