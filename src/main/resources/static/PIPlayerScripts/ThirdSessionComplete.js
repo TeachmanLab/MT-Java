@@ -1709,15 +1709,16 @@ define(['app/API'], function(API) {
             },
             {
                 "data": {
-                    "negativeKey": "d",
-                    "negativeWord": "an acci[ ]ent",
-                    "positiveKey": "f",
-                    "positiveWord": "traf[ ]ic",
-                    "statement": " You are meeting your parents for dinner. You arrive at the restaurant, and they are not there yet, which is strange because they are typically on time. They are probably late due to "
+                    "negativeKey": "a",
+                    "negativeWord": "cr[ ]sh",
+                    "positiveKey": "e",
+                    "positiveWord": "d[ ]tour",
+                    "statement": " You are meeting your parents for dinner. You arrive at the restaurant, and they are not there yet, which is strange because they are typically on time. They are probably late due to a"
                 },
                 "handle": "paragraph",
                 "media": {
                     "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+
                 }
             },
             {
@@ -1727,7 +1728,7 @@ define(['app/API'], function(API) {
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Did your parents probably get into a car accident? </div>"
+                    "inlineTemplate": "<div>Did your parents probably get into a car crash? </div>"
                 }
             }
         ]
