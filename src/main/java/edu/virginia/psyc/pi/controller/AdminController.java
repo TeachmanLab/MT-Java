@@ -6,6 +6,7 @@ import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.domain.json.TrialJson;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
+import edu.virginia.psyc.pi.persistence.Questionnaire.ReasonEnding;
 import edu.virginia.psyc.pi.persistence.TrialDAO;
 import edu.virginia.psyc.pi.persistence.TrialRepository;
 import edu.virginia.psyc.pi.service.EmailService;
@@ -261,6 +262,11 @@ public class AdminController extends BaseController {
         return csv.toString();
     }
 
+    // New Testing by Diheng, Just a hello world
+    @RequestMapping(value="/hello",method = RequestMethod.POST)
+    public String hello(ModelMap model) {
+        return "admin/hello.html";
+    }
 
 
 }
