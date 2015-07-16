@@ -61,7 +61,7 @@ public class SessionTest {
         tasks = Session.getTasks(Session.NAME.PRE, 1);
 
         assertNotNull(tasks);
-        assertEquals("Pre should have six tasks.", 6, tasks.size());
+        assertEquals("Pre should have six tasks.", 10, tasks.size());
         assertEquals("Unique name for the task should be DASS_21", "DASS21_AS", tasks.get(0).getName());
         assertEquals("First task should be named Status Questionnaire", "Status Questionnaire", tasks.get(0).getDisplayName());
         assertEquals("First task should point to the DASS21 questionniare", Task.TYPE.questions, tasks.get(0).getType());

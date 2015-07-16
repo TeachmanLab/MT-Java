@@ -43,7 +43,7 @@ dependencies {
     compile("javax.mail:mail:1.4.7") // also Email
     compile('org.apache.commons:commons-lang3')  // Lots of useful code, used for random number generation.
     compile('joda-time:joda-time:2.3') // For some very handy date/time utilities.
-
+    compile("org.projectlombok:lombok:1.16.4")  // avoid boiler plate constructors, getter/setter, hash, toString
     // Deployment
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
 

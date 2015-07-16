@@ -1,5 +1,6 @@
 package edu.virginia.psyc.pi.domain;
 
+import antlr.collections.impl.IntRange;
 import edu.virginia.psyc.pi.domain.Participant;
 import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.service.EmailService;
@@ -38,21 +39,19 @@ public class ParticipantTest {
         p.completeCurrentTask();
 
         assertEquals(Session.NAME.PRE, p.getCurrentSession().getName());
-        assertEquals("credibility", p.getCurrentSession().getCurrentTask().getName());
+        assertEquals("OA", p.getCurrentSession().getCurrentTask().getName());
 
         p.completeCurrentTask();
 
         assertEquals(Session.NAME.PRE, p.getCurrentSession().getName());
-        assertEquals("MH", p.getCurrentSession().getCurrentTask().getName());
+        assertEquals("ReRu", p.getCurrentSession().getCurrentTask().getName());
 
         assertNull(p.getLastSessionDate());
 
         // Move past all the tasks in Session 1
-        p.completeCurrentTask();
-        p.completeCurrentTask();
-        p.completeCurrentTask();
-        p.completeCurrentTask();
-
+        for(int i =0; i<8; i++) {
+            p.completeCurrentTask();
+        }
         assertEquals(Session.NAME.SESSION1, p.getCurrentSession().getName());
         assertNotNull("The last session date should get updated when completing a session.", p.getLastSessionDate());
 

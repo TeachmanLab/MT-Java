@@ -266,6 +266,8 @@ public class ParticipantRepositoryTest {
         p.completeCurrentTask();
         assertEquals(1, p.getTaskIndex());
         p.completeCurrentTask();
+        p.completeCurrentTask();
+        p.completeCurrentTask();
         assertEquals(0, p.getTaskIndex());
         assertEquals(Session.NAME.SESSION6, p.getCurrentSession().getName());
 
@@ -275,9 +277,6 @@ public class ParticipantRepositoryTest {
         assertEquals(Session.NAME.SESSION1, p.getCurrentSession().getName());
         p.completeCurrentTask();
         assertEquals(Session.NAME.SESSION1, p.getCurrentSession().getName());
-
-
-
 
     }
 
