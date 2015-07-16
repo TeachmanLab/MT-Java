@@ -2,18 +2,14 @@ package edu.virginia.psyc.pi.service;
 
 import edu.virginia.psyc.pi.Application;
 import edu.virginia.psyc.pi.domain.Participant;
-import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.domain.tango.Account;
-import org.joda.time.DateTime;
-import org.joda.time.Period;
+import edu.virginia.psyc.pi.domain.tango.Reward;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import java.util.Date;
 
 import static junit.framework.Assert.*;
 
@@ -31,7 +27,7 @@ public class TangoServiceTest {
     Participant participant;
 
     @Autowired
-    private TangoGiftService service;
+    private TangoService service;
 
     @Before
     public void setup() {
@@ -42,6 +38,14 @@ public class TangoServiceTest {
     public void testGetAccountInformation() {
         Account account = service.getAccountInfo();
         assertTrue("Test accounts should have some money in it:" + account.toString(), account.getAvailable_balance() > 0);
+    }
+
+    @Test
+    public void giveParticipantAGift() {
+        participant = new Participant(1,"Dan", "daniel.h.funk@gmail.com", true);
+        Reward reward = service.createGiftCard(participant);
+        assertNotNull("A reward is returned.", reward);
+        assertNotNull("The reward has a token", reward.getToken());
     }
 
 }

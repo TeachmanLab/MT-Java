@@ -1,21 +1,18 @@
 package edu.virginia.psyc.pi.service;
 
 import edu.virginia.psyc.pi.domain.Participant;
-import edu.virginia.psyc.pi.domain.tango.Account;
-import edu.virginia.psyc.pi.domain.tango.AccountResponse;
+import edu.virginia.psyc.pi.domain.tango.*;
 import lombok.Data;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
-import java.util.Arrays;
 
 /**
  * Used to award a gift certificates to participants.
@@ -30,13 +27,9 @@ import java.util.Arrays;
  */
 @Data
 @Service
-public class TangoGiftService {
+public class TangoService {
 
-    private static final String EMAIL_SUBJECT = "Project Implicit Mental Health - Gift Certificate";
-    private static final String EMAIL_MESSAGE = "Thank you for your participation in our Study, please follow the directions below to receive your gift.";
-    private static final String TANGO_SKU = "TNGO-E-V-STD";
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(TangoGiftService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TangoService.class);
 
     @Value("${tango.id}")
     private String id;
@@ -50,9 +43,14 @@ public class TangoGiftService {
     @Value("${email.respondTo}")
     private String from;
 
-    @Value("${tango.accountEmail}")
+    @Value("${tango.accountId}")
     private String accountId;
 
+    @Value("${tango.tangoCardSku}")
+    private String tangoCardSku;
+
+    @Value("${tango.cardValueCents}")
+    private int cardValueCents;
 
     /**
      * HTTP Basic Authentication is required to connect to Tango.
@@ -73,6 +71,7 @@ public class TangoGiftService {
 
     /**
      * May not be necessary.
+     *
      * @return
      */
     public Account createAccount() {
@@ -97,13 +96,36 @@ public class TangoGiftService {
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<String> request = new HttpEntity<String>(headers());
         URI uri = URI.create(url + "/accounts/" + id + "/" + accountId);
+        LOGGER.info("Calling url:" + uri.toString());
         ResponseEntity<AccountResponse> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, request, AccountResponse.class);
         AccountResponse response = responseEntity.getBody();
         return response.getAccount();
     }
 
-
-
+    /**
+     * Places an order with Tango.  Returns Gift Card details that we can later use
+     * to notify Participant.
+     */
+    public Reward createGiftCard(Participant participant) {
+        Recipient recipient = new Recipient(participant.getFullName(), participant.getEmail());
+        Order order = new Order(id, accountId, tangoCardSku, cardValueCents, false);
+        order.setRecipient(recipient);
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = headers();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<Order> entity = new HttpEntity<>(order, headers);
+        URI uri = URI.create(url + "/orders");
+        try {
+            ResponseEntity<OrderResponse> response = restTemplate.exchange(uri, HttpMethod.POST, entity, OrderResponse.class);
+            return response.getBody().getOrder().getReward();
+        } catch (HttpClientErrorException e) {
+            LOGGER.info("Failed to create a gift card.");
+            LOGGER.info("Response code is: " + e.getStatusCode());
+            LOGGER.info("Response body is: " + e.getResponseBodyAsString());
+            LOGGER.info("Error is : " + e.getMessage());
+            throw e;
+        }
+    }
 
 
 }
