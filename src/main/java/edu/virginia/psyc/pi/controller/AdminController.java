@@ -4,11 +4,14 @@ import edu.virginia.psyc.pi.domain.Participant;
 import edu.virginia.psyc.pi.domain.ParticipantForm;
 import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.domain.json.TrialJson;
+import edu.virginia.psyc.pi.domain.tango.Reward;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
+import edu.virginia.psyc.pi.persistence.Questionnaire.DASS21_AS;
 import edu.virginia.psyc.pi.persistence.TrialDAO;
 import edu.virginia.psyc.pi.persistence.TrialRepository;
 import edu.virginia.psyc.pi.service.EmailService;
+import edu.virginia.psyc.pi.service.TangoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +49,10 @@ public class AdminController extends BaseController {
 
     @Autowired
     private TrialRepository trialRepository;
+
+    @Autowired
+    private TangoService tangoService;
+
 
     /**
      * Spring automatically configures this object.
@@ -202,7 +209,18 @@ public class AdminController extends BaseController {
         Participant p;
         p = participantRepository.entityToDomain(participantRepository.findByEmail(principal.getName()));
 
-        this.emailService.sendSimpleMail(p, type);
+        if(type.equals(EmailService.TYPE.giftCard)) {
+            // Reward reward = tangoService.createGiftCard(p);  This would actually award a gift card, if you need to do some testing.
+            Reward reward = new Reward("111-111-111-111", "1234-2345-2345", "123", "https://www.google.com", "12345");
+            this.emailService.sendGiftCardEmail(p, reward);
+        } else if(type.equals(EmailService.TYPE.dass21Alert)) {
+            DASS21_AS d1 = new DASS21_AS(1,1,3,1,3,1,3);
+            DASS21_AS d2 = new DASS21_AS(4,4,4,4,4,4,4);
+            this.emailService.sendAtRiskAdminEmail(p, d1, d2);
+        } else {
+            this.emailService.sendSimpleMail(p, type);
+        }
+
         return "redirect:/admin/listEmails";
     }
 
