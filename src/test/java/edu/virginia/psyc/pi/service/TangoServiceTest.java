@@ -3,6 +3,7 @@ package edu.virginia.psyc.pi.service;
 import edu.virginia.psyc.pi.Application;
 import edu.virginia.psyc.pi.domain.Participant;
 import edu.virginia.psyc.pi.domain.tango.Account;
+import edu.virginia.psyc.pi.domain.tango.Order;
 import edu.virginia.psyc.pi.domain.tango.Reward;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
@@ -44,6 +45,9 @@ public class TangoServiceTest {
         participantRepository.domainToEntity(participant, dao);
         participantRepository.save(dao);
         participantRepository.flush();
+
+        // Be sure there is money in the test account
+        service.fundTestAccount();
     }
 
     @Test
@@ -59,7 +63,20 @@ public class TangoServiceTest {
         assertNotNull("The reward has a token", reward.getToken());
 
         // Make sure the gift is logged in the database.
-        Assert.assertTrue(participantRepository.findByEmail(participant.getEmail()).getGiftLogDAOs().size() > 0);
+        assertTrue(participantRepository.findByEmail(participant.getEmail()).getGiftLogDAOs().size() > 0);
+    }
+
+    @Test
+    public void getGiftDetails() {
+        // Send a reward
+        Reward reward = service.createGiftCard(participant);
+
+        // Now Get the details of that reward form the API.
+        Order order = service.getOrderInfo(reward.getOrder_id());
+
+        assertEquals("Gift card should be sent to pariticipant", participant.getEmail(), order.getRecipient().getEmail());
+        assertEquals("Gift award should be $5 (measured in cents)", 500, order.getAmount());
+
     }
 
 }

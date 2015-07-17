@@ -92,13 +92,32 @@ public class TangoService {
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<Account> entity = new HttpEntity<>(account, headers);
         URI uri = URI.create(url + "/accounts/");
-        ResponseEntity<Account> response = restTemplate.exchange(uri, HttpMethod.POST, entity, Account.class);
-        return response.getBody();
+        try {
+            ResponseEntity<Account> response = restTemplate.exchange(uri, HttpMethod.POST, entity, Account.class);
+            return response.getBody();
+        } catch (HttpClientErrorException e) { throw new TangoError(e); }
+    }
+
+    /**
+     * Just in case you need to fund the test account.
+     *
+     * @return
+     */
+    public void fundTestAccount() {
+        FundAccount fundAccount = new FundAccount(this.id, this.accountId, 1000, "192.168.1.1", "123", "32733202");
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = headers();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<FundAccount> entity = new HttpEntity<>(fundAccount, headers);
+        URI uri = URI.create(url + "/cc_fund");
+        try {
+            restTemplate.exchange(uri, HttpMethod.POST, entity, String.class);
+        } catch (HttpClientErrorException e) { throw new TangoError(e); }
     }
 
 
     /**
-     * Returns account info.  If the account does not exist, creates it.
+     * Returns account info.
      */
     public Account getAccountInfo() {
         RestTemplate restTemplate = new RestTemplate();
@@ -106,8 +125,24 @@ public class TangoService {
         URI uri = URI.create(url + "/accounts/" + id + "/" + accountId);
         LOGGER.info("Calling url:" + uri.toString());
         ResponseEntity<AccountResponse> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, request, AccountResponse.class);
-        AccountResponse response = responseEntity.getBody();
-        return response.getAccount();
+        try {
+            AccountResponse response = responseEntity.getBody();
+            return response.getAccount();
+        } catch (HttpClientErrorException e) { throw new TangoError(e); }
+    }
+
+    /**
+     * Returns order / gift info.
+     */
+    public Order getOrderInfo(String orderId) {
+        RestTemplate restTemplate = new RestTemplate();
+        HttpEntity<String> request = new HttpEntity<String>(headers());
+        URI uri = URI.create(url + "/orders/" + orderId);
+        try {
+            ResponseEntity<OrderResponse> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, request, OrderResponse.class);
+            OrderResponse response = responseEntity.getBody();
+            return response.getOrder();
+        } catch (HttpClientErrorException e) { throw new TangoError(e); }
     }
 
     /**
@@ -126,13 +161,11 @@ public class TangoService {
         try {
             ResponseEntity<OrderResponse> response = restTemplate.exchange(uri, HttpMethod.POST, entity, OrderResponse.class);
             logGift(participant.getId(), response.getBody().getOrder().getOrder_id());
+            Reward r = response.getBody().getOrder().getReward();
+            r.setOrder_id(response.getBody().getOrder().getOrder_id());
             return response.getBody().getOrder().getReward();
         } catch (HttpClientErrorException e) {
-            LOGGER.info("Failed to create a gift card.");
-            LOGGER.info("Response code is: " + e.getStatusCode());
-            LOGGER.info("Response body is: " + e.getResponseBodyAsString());
-            LOGGER.info("Error is : " + e.getMessage());
-            throw e;
+            throw new TangoError(e);
         }
     }
 
