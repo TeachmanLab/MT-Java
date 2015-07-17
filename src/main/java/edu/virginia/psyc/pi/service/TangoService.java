@@ -2,10 +2,14 @@ package edu.virginia.psyc.pi.service;
 
 import edu.virginia.psyc.pi.domain.Participant;
 import edu.virginia.psyc.pi.domain.tango.*;
+import edu.virginia.psyc.pi.persistence.GiftLogDAO;
+import edu.virginia.psyc.pi.persistence.ParticipantDAO;
+import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 import lombok.Data;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -51,6 +55,10 @@ public class TangoService {
 
     @Value("${tango.cardValueCents}")
     private int cardValueCents;
+
+    @Autowired
+    private ParticipantRepository participantRepository;
+
 
     /**
      * HTTP Basic Authentication is required to connect to Tango.
@@ -117,6 +125,7 @@ public class TangoService {
         URI uri = URI.create(url + "/orders");
         try {
             ResponseEntity<OrderResponse> response = restTemplate.exchange(uri, HttpMethod.POST, entity, OrderResponse.class);
+            logGift(participant.getId(), response.getBody().getOrder().getOrder_id());
             return response.getBody().getOrder().getReward();
         } catch (HttpClientErrorException e) {
             LOGGER.info("Failed to create a gift card.");
@@ -125,6 +134,23 @@ public class TangoService {
             LOGGER.info("Error is : " + e.getMessage());
             throw e;
         }
+    }
+
+    /**
+     * Records the awarding of a gift.
+     *
+     * @param id
+     * @param type
+     */
+    private void logGift(long id, String orderId) {
+        ParticipantDAO participantDAO;
+        GiftLogDAO logDAO;
+
+        LOGGER.info("Awarded a gift to participant #" + id );
+        participantDAO = participantRepository.findOne(id);
+        logDAO = new GiftLogDAO(participantDAO, orderId);
+        participantDAO.addLog(logDAO);
+        participantRepository.save(participantDAO);
     }
 
 

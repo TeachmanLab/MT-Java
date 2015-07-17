@@ -1,13 +1,17 @@
 package edu.virginia.psyc.pi.domain;
 
+import edu.virginia.psyc.pi.service.EmailService;
+import lombok.Data;
+
 import java.util.Date;
 
 /**
- * Created by dan on 7/9/15.
- * Gift codes are awarded to participants at certain times during their progress
+ * For recording a gift.  This is very minimal because we can request all the additional details from the
+ * the Tango API, so we don't need to store them locally (and risk someone abusing the data).
  */
+@Data
 public class GiftLog {
-
-    Date    dateAwarded;
-
+    private final String orderId;
+    private final Date date;
 }
+

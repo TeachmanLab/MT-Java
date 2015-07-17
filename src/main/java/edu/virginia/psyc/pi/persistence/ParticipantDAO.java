@@ -66,6 +66,10 @@ public class ParticipantDAO implements UserDetails {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Collection<EmailLogDAO> emailLogDAOs = new ArrayList<EmailLogDAO>();
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Collection<GiftLogDAO> giftLogDAOs = new ArrayList<>();
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> list = new ArrayList();
@@ -186,6 +190,19 @@ public class ParticipantDAO implements UserDetails {
     public void addLog(EmailLogDAO log) {
         if(this.emailLogDAOs == null) this.emailLogDAOs = new ArrayList<EmailLogDAO>();
         this.emailLogDAOs.add(log);
+    }
+
+    public Collection<GiftLogDAO> getGiftLogDAOs() {
+        return giftLogDAOs;
+    }
+
+    public void setGiftLogDAOs(Collection<GiftLogDAO> giftLogDAOs) {
+        this.giftLogDAOs = giftLogDAOs;
+    }
+
+    public void addLog(GiftLogDAO log) {
+        if(this.giftLogDAOs == null) this.giftLogDAOs = new ArrayList<GiftLogDAO>();
+        this.giftLogDAOs.add(log);
     }
 
     public boolean isActive() {

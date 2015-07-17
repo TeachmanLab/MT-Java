@@ -75,6 +75,8 @@ public class Participant {
 
     private List<EmailLog> emailLogs = new ArrayList<>();
 
+    private List<GiftLog>  giftLogs = new ArrayList<>();
+
     private PasswordToken  passwordToken;
 
     private CBM_CONDITION  cbmCondition;
@@ -329,6 +331,16 @@ public class Participant {
         if (this.emailLogs == null) emailLogs = new ArrayList<EmailLog>();
         emailLogs.add(log);
     }
+
+    public List<GiftLog> getGiftLogs() { return giftLogs; }
+
+    public void setGiftLogs(List<GiftLog> giftLogs) { this.giftLogs = giftLogs; }
+
+    public void addGiftLog(GiftLog log) {
+        if (this.giftLogs == null) giftLogs = new ArrayList<GiftLog>();
+        giftLogs.add(log);
+    }
+
 
     /**
      * Checks to see if this type of email was already sent to the user.
