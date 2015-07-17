@@ -27,24 +27,48 @@
 <!-- header-btm ends
 ================================================== -->
 
+
 <!-- content starts
 ================================================== -->
+
+
 <section id="content" class="clearfix">
     <div class="container">
 
 
         <!--spacer here-->
         <div class="spacer-30px"></div>
+        <div class="row">
+
+            <div class="main-content span8">
+
+                <h1>Tango Account Information</h1>
+                <table style="width:100%">
+                    <tr>
+                        <td>Tango Account:</td>
+                        <td th:text="${tango.accountID}"> whatever </td>
+                    </tr>
+                    <tr>
+                        <td>Tango Email:</td>
+                        <td th:text="${tango.accountEmail}"> soandso </td>
+                    </tr>
+                    <tr>
+                        <td>Tango Account Balance:</td>
+                        <td th:text="${balance}"> 0 </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
 
 
-        <h1>Hello World!</h1>
 
+        <!--divider here-->
+        <div class="spacer-40px"></div>
 
         <!--spacer here-->
         <div class="spacer-30px"></div>
 
     </div>
-</section>
 
 
 <!-- footer starts

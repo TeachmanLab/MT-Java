@@ -10,6 +10,9 @@ import edu.virginia.psyc.pi.persistence.Questionnaire.ReasonEnding;
 import edu.virginia.psyc.pi.persistence.TrialDAO;
 import edu.virginia.psyc.pi.persistence.TrialRepository;
 import edu.virginia.psyc.pi.service.EmailService;
+import edu.virginia.psyc.pi.domain.tango.Account;
+import edu.virginia.psyc.pi.domain.tango.AccountResponse;
+import edu.virginia.psyc.pi.service.TangoGiftService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -262,11 +265,14 @@ public class AdminController extends BaseController {
         return csv.toString();
     }
 
-    // New Testing by Diheng, Just a hello world
-    @RequestMapping(value="/hello",method = RequestMethod.POST)
-    public String hello(ModelMap model) {
-        return "admin/hello.html";
+
+    // Trying to write a methods to get Tango Account information. By Diheng
+
+    @RequestMapping(value="/checkFunds",method = RequestMethod.GET)
+    public String checkFunds(ModelMap model, Principal principal){
+        Account a = getAccountInfo();
+        int b = a.available_balance();
+        model.addAttribute("balance",b);
+        return "admin/checkFunds";
     }
-
-
 }
