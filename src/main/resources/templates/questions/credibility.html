@@ -36,18 +36,34 @@
             <div class="span12">
                 <form id="wizard" th:action="@{/questions/credibility}" method="POST">
                     <fieldset>
-                        <legend>Instructions</legend>
+                        <legend>Questions</legend>
                         <p>Please rate each of the following items using the scale below:</p>
                         <pre>
 0-----1-----2-----3-----4-----5-----6-----7-----8-----9-----10
 Not at all                Somewhat                   Extremely</pre>
-                   </fieldset>
-                   <fieldset>
-                        <legend>Questions</legend>
                         <table class="table table-striped table-bordered">
                             <tr>
                                 <th>Question</th>
                                 <th>Response</th>
+                            </tr>
+                            <tr>
+                                <td>How important is reducing your anxiety to you right now?</td>
+                                <td><select name="important" required="true">
+                                    <option value=""></option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option vaue="10">10</option>
+                                    <option value="555">Prefer not to answer</option>
+                                </select>
+                                </td>
                             </tr>
                             <tr>
                                 <td>How confident are you that an online training program will be successful in eliminating your anxiety?</td>
