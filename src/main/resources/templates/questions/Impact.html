@@ -39,13 +39,13 @@
                         <legend>Questions</legend>
                         <h4>Please provide as much information as possible.</h4>
                         <p>
-                            <label>Using a 0-100 scale, where 0 means you have absolutely no anxiety, and 100 means you are the most anxious you could imagine being, like panic, what was your highest level of anxiety as you competed the imagery task?</label>
+                            <label>Using a 0-100 scale, where 0 means you have absolutely no anxiety, and 100 means you are the most anxious you could imagine being, like panic, what was your highest level of anxiety as you competed the imagery task? Type NA if you prefer not to answer</label>
                             <input type="text" name="anxiety" required="true"/>
                         </p>
                         </fieldset>
                         <fieldset>
                         <p>
-                            <label>While you were doing that task, how vivid (in the sense of being intense or seeming real) was the picture in your mind, on a scale from 0 (not at all) to 100 (an extremely vivid image)?</label>
+                            <label>While you were doing that task, how vivid (in the sense of being intense or seeming real) was the picture in your mind, on a scale from 0 (not at all) to 100 (an extremely vivid image)? Type NA if you prefer not to answer?</label>
                             <input type="text" name="vivid" required="true"/>
                         </p>
                         <br/>
@@ -79,7 +79,11 @@
                     </fieldset>
                 </form>
                 <script>
-                    jQuery("#wizard").jWizard();
+                    $("#wizard").on("wizardfinish", function() {
+                            if (!$(this).find(":input").valid()) {
+                                    return false;
+                            }
+                        }).jWizard().validate();
                 </script>
             </div>
         </div>
