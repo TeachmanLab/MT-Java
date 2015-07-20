@@ -290,4 +290,15 @@ public class AdminController extends BaseController {
         model.addAttribute("tango",a);
         return "admin/checkFunds";
     }
+
+    // Added by Diheng, try to send gift card to participants;
+
+    @RequestMapping(value="/participant/giftCard")
+    public String giftCard(ModelMap model, Principal principal) throws Exception {
+        Participant p = participantRepository.entityToDomain(participantRepository.findByEmail(principal.getName()));
+        Reward r = tangoService.createGiftCard(p);
+        this.emailService.sendGiftCardEmail(p, r);
+        model.addAttribute("participant",p);
+        return "/admin/participant_form";
+    }
 }
