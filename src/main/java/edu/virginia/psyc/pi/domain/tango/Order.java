@@ -22,6 +22,7 @@ public class Order {
     private String reward_subject;
     private String reward_from;
     private Reward reward;
+    private String delivered_at;
 
     // Required by Jacson to deserialize this class.
     public Order() {}

@@ -38,15 +38,17 @@
 
         <!--spacer here-->
         <div class="spacer-30px"></div>
-        <div class="row">
 
-            <div class="main-content span8">
 
                 <h1>Order Information</h1>
                 <table style="width:100%">
                     <tr>
                         <td>Order ID:</td>
-                        <td th:text="${order.orderId}"> blablabla </td>
+                        <td th:text="${order.order_id}"> blablabla </td>
+                    </tr>
+                    <tr>
+                        <td>Identifier:</td>
+                        <td th:text="${order.account_identifier}"> XXX </td>
                     </tr>
                     <tr>
                         <td>Customer:</td>
@@ -54,7 +56,7 @@
                     </tr>
                     <tr>
                         <td>Amount:</td>
-                        <td th:text="${order.amount}"> soandso </td>
+                        <td th:text="${order.amount}+' Cents'"> soandso </td>
                     </tr>
                     <tr>
                         <td>Delivered At:</td>
@@ -81,8 +83,6 @@
                         <td th:text="${order.reward.redemption_url}"> www.fallingstone.net </td>
                     </tr>
                 </table>
-            </div>
-        </div>
 
 
 
