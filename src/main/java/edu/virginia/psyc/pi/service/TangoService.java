@@ -183,7 +183,7 @@ public class TangoService {
         LOGGER.info("Awarded a gift to participant #" + id );
         participantDAO = participantRepository.findOne(id);
         logDAO = new GiftLogDAO(participantDAO, orderId);
-        participantDAO.addLog(logDAO);
+        participantDAO.addGiftLog(logDAO);
         participantRepository.save(participantDAO);
     }
 

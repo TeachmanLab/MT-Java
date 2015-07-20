@@ -13,14 +13,11 @@ import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.TransactionScoped;
-
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertNull;
 import static org.junit.Assert.assertEquals;
 import static org.springframework.test.util.AssertionErrors.assertTrue;
 
-import java.lang.reflect.Field;
 import java.util.Date;
 import java.util.List;
 
@@ -176,7 +173,7 @@ public class ParticipantRepositoryTest {
         // Create a participant
         participantDAO = new ParticipantDAO("John", "john@x.com", "12341234", false);
         log            = new EmailLogDAO(participantDAO, EmailService.TYPE.day2);
-        participantDAO.addLog(log);
+        participantDAO.addEmailLog(log);
         participantRepository.save(participantDAO);
         participantRepository.flush();
 
@@ -214,7 +211,7 @@ public class ParticipantRepositoryTest {
 
         participantDAO = new ParticipantDAO("Dan", "Smith@x.com", "1234", false);
         logDao = new GiftLogDAO(participantDAO, "code123");
-        participantDAO.addLog(logDao);
+        participantDAO.addGiftLog(logDao);
         participantRepository.save(participantDAO);
         participantRepository.flush();
 

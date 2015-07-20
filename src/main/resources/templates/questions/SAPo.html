@@ -42,59 +42,31 @@
                             </label>
                         </p>
                     </fieldset>
-                    <fieldset class="req">
+                    <fieldset>
                         <legend>Step 2 - Note the situation</legend>
                         <p>
-                            <label>Please note (in just a few words) what type of situation this involves (e.g., speaking in public, driving, feeling caught in a crowd, worry about an upcoming trip):</label>
-                            <textarea name="situation_desc" rows="1" required="true"></textarea>
+                            <label>Please note (in just a few words) what type of situation this involves (e.g., speaking in public, driving, feeling caught in a crowd, worry about an upcoming trip). </label>
+                            <textarea name="situation" rows="1" required="true"></textarea>
                         </p>
-                        <br/>
-                        <br/>
-                        <br/>
                         <p>
-                            Please generate an image of the situation that is as vivid as possible (i.e., that feels very real). Try to imagine you are actually in the situation. Play out the specific parts of the situation in your head.
+                            Please click "NEXT" once you have noted the type of situation
                         </p>
+                        <br/>
+                        <br/>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Step 3 - Imagine the situation</legend>
+                        <p>
 
-                    </fieldset>
-                    <fieldset>
-                        <legend>Step 3 - Things you would see</legend>
-                        <p>
-                            Please think of at least three things you would see in the situation.
+                            Please generate an image of the situation that is as vivid as possible (i.e., that feels very real). Try to imagine you are actually in the situation. Play out the specific parts of the situation in your head.
+
+                            Try to imagine using all your senses while you think about this situation. Think about the things you would <b>see</b>, <b>hear</b>, and <b>smell</b> if you were really in that situation. Think about the kinds of things you would <b>think</b> or <b>feel</b> if you were actually there.
+
+                            Please click "NEXT" once you have finished imagining the situation in your head.
                         </p>
                     </fieldset>
-                    <fieldset>
-                        <legend>Step 4 - Things you would hear</legend>
-                        <p>
-                            Please think of at least three things you would hear in the situation.
-                        </p>
-                    </fieldset>
-                    <fieldset class="req" id="step_five">
-                        <legend>Step 5 - Things you would think or feel</legend>
-                        <p>
-                            <label>Please think of at least three things you would likely think or feel in the situation. Write down a few words to note 3 of the things you would think or feel (e.g., I feel embarrassed, I look stupid, think I want to leave)</label>
-                            <textarea name="think_feel_1" rows="1" required="true"></textarea>
-                            <textarea name="think_feel_2" rows="1" required="true"></textarea>
-                            <textarea name="think_feel_3" rows="1" required="true"></textarea>
-                        </p>
-                        <br/>
-                        <br/>
-                        <br/>
-                    </fieldset>
-                    <fieldset id="step_six">
-                        <legend>Step 6</legend>
-                        <p>
-                            Please play this upcoming situation in your head for the next 20 seconds, remembering all of the things you see, hear, think, and feel. We will tell you when the 20 seconds are up.
-                        </p>
-                    </fieldset>
-                    <fieldset id="step_seven">
-                        <legend>Step 7</legend>
-                        <p id="vivid">
-                            How vividly did you imagine the situation on a scale of 0 (not at all) to 100 (a vivid image of the situation)?
-                        </p>
-                        <textarea name="vivid_resp" rows="1" required="true"></textarea>
-                    </fieldset>
-                    <fieldset id="step_eight">
-                        <legend>Step 8</legend>
+                    <fieldset id="step_four">
+                        <legend>Step 4 - Some Questions</legend>
                         <p>
                             <label>How anxious do you think you would be in this situation</label>
                             <select name="anxious" required="true">
@@ -154,7 +126,7 @@
                 <script>
                     var mNext = false;
                     var mVisit = false;
-                    $("#wizard").on("stepshown", "#step_six", function () {
+                    $("#wizard").on("stepshown", "#step_five", function () {
                         if (! mVisit)
                         {
                             mVisit = true;
@@ -163,12 +135,16 @@
                                                   }, 20000);
                         }
 
-                    }).on("stephide", "#step_six", function () {
+                    }).on("stephide", "#step_five", function () {
                         if (! mNext)
                         {
                             return false;
                         }
-                    }).jWizard();
+                    }).on("wizardfinish", function() {
+                    if (!$(this).find(":input").valid()) {
+                        return false;
+                    }
+                }).jWizard().validate();
                 </script>
             </div>
         </div>

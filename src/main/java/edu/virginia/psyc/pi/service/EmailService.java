@@ -187,7 +187,7 @@ public class EmailService {
         LOG.info("Sent an email to participant #" + id + " of type " + type);
         participantDAO = participantRepository.findOne(id);
         logDAO = new EmailLogDAO(participantDAO, type);
-        participantDAO.addLog(logDAO);
+        participantDAO.addEmailLog(logDAO);
         participantRepository.save(participantDAO);
     }
 
