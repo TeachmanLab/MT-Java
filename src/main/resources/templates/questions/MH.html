@@ -6,6 +6,12 @@
 <html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <!--<![endif]-->
 <head th:include="/fragment/common :: headerFragment" />
+<style>
+    form label.error
+    {
+    font-size: 16px;
+    }
+</style>
 <body>
 <section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
 
@@ -35,7 +41,7 @@
         <div class="row">
             <div class="span12">
                 <form id="wizard" th:action="@{/questions/MH}" method="POST">
-                    <fieldset>
+                    <fieldset id="anxiety">
                         <legend>Anxiety</legend>
                         <p>
                             <label>Do you currently have an anxiety disorder diagnosis (i.e., diagnosed by a health professional, such as a social worker, psychologist, psychiatrist, or a general practitioner)?</label>
@@ -70,7 +76,7 @@
                             Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.
                         </p>
                         </fieldset>
-                        <fieldset>
+                        <fieldset id="other">
                            <legend>Other Diagnosis</legend>
                         <p>
                             <label>Do you currently have a diagnosis for a mental disorder other than anxiety? </label>
@@ -99,7 +105,7 @@
                             <input type="text" name="NotOtherDesc"/>
                         <p>Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</p>
                         </fieldset>
-                    <fieldset>
+                    <fieldset id="history">
                         <legend>History</legend>
                         <p>
                             <label>Have you been diagnosed with an anxiety disorder in the past that you no longer have?</label>
@@ -128,7 +134,7 @@
                             <input type="text" name="OtherDescNo"/>
                         <p>Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</p>
                     </fieldset>
-                    <fieldset>
+                    <fieldset id="history_2">
                         <legend>History, Part 2</legend>
                         <p>
                             <label>Have you been diagnosed with another mental disorder (other than anxiety) in the past that you no longer have?</label>
@@ -161,8 +167,14 @@
                         <p>Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</p>
                     </fieldset>
                 </form>
+                <script src="http://cdn.jsdelivr.net/jquery.validation/1.14.0/jquery.validate.min.js">
+                </script>
                 <script>
-                   $('#wizard').jWizard();
+                    $("#wizard").on("stephide", "fieldset", function () {
+                        if (!$(this).find(":input").valid()) {
+                            return false;
+                            }
+                        }).jWizard().validate();
                 </script>
             </div>
         </div>
