@@ -99,7 +99,8 @@ public class TangoService {
     }
 
     /**
-     * Just in case you need to fund the test account.
+     * Just in case you need to fund the test account.  Good starting point if we later decide to allow the system
+     * to make payments from a credit card.
      *
      * @return
      */
