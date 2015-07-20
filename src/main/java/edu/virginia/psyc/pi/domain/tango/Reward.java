@@ -14,7 +14,7 @@ public class Reward {
     private String pin; // The rewards card pin.
     private String redemption_url; // link to provide to the user.
     private String event_number; // Not terrifically sure.
-
+    private String order_id;  // Not a part of the reward object from Tango, but sueful to have on here.
 
     public Reward() {};
     public Reward(String token, String number, String pin, String redemption_url, String event_number) {

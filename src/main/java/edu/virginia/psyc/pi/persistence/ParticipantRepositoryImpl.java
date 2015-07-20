@@ -1,9 +1,6 @@
 package edu.virginia.psyc.pi.persistence;
 
-import edu.virginia.psyc.pi.domain.EmailLog;
-import edu.virginia.psyc.pi.domain.Participant;
-import edu.virginia.psyc.pi.domain.PasswordToken;
-import edu.virginia.psyc.pi.domain.Session;
+import edu.virginia.psyc.pi.domain.*;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
 import java.util.ArrayList;
@@ -49,6 +46,13 @@ public class ParticipantRepositoryImpl implements ParticipantRepositoryCustom {
             emailLogs.add(new EmailLog(log.getEmailType(), log.getDateSent()));
         }
         p.setEmailLogs(emailLogs);
+
+        // Gift Logs
+        List<GiftLog> giftLogs = new ArrayList<GiftLog>();
+        for(GiftLogDAO log : dao.getGiftLogDAOs()) {
+            giftLogs.add(new GiftLog(log.getOrderId(), log.getDateSent()));
+        }
+        p.setGiftLogs(giftLogs);
 
         return p;
     }
