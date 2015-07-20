@@ -1,10 +1,7 @@
 package edu.virginia.psyc.pi.DAO;
 
 import edu.virginia.psyc.pi.Application;
-import edu.virginia.psyc.pi.domain.EmailLog;
-import edu.virginia.psyc.pi.domain.Participant;
-import edu.virginia.psyc.pi.domain.PasswordToken;
-import edu.virginia.psyc.pi.domain.Session;
+import edu.virginia.psyc.pi.domain.*;
 import edu.virginia.psyc.pi.persistence.*;
 import edu.virginia.psyc.pi.service.EmailService;
 import org.junit.Assert;
@@ -16,11 +13,14 @@ import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.transaction.TransactionScoped;
+
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertNull;
 import static org.junit.Assert.assertEquals;
 import static org.springframework.test.util.AssertionErrors.assertTrue;
 
+import java.lang.reflect.Field;
 import java.util.Date;
 import java.util.List;
 
@@ -206,6 +206,39 @@ public class ParticipantRepositoryTest {
 
     @Test
     @Transactional
+    public void giftLogSurfacesInReturnedParticipant() {
+        ParticipantDAO participantDAO;
+        Participant p;
+        GiftLogDAO logDao;
+        GiftLog log;
+
+        participantDAO = new ParticipantDAO("Dan", "Smith@x.com", "1234", false);
+        logDao = new GiftLogDAO(participantDAO, "code123");
+        participantDAO.addLog(logDao);
+        participantRepository.save(participantDAO);
+        participantRepository.flush();
+
+        Assert.assertNotNull(participantDAO.getId());
+
+        Assert.assertNotNull(participantDAO);
+        Assert.assertNotNull(participantDAO.getGiftLogDAOs());
+        Assert.assertEquals(1, participantDAO.getGiftLogDAOs().size());
+        logDao = participantDAO.getGiftLogDAOs().iterator().next();
+        Assert.assertEquals("code123", logDao.getOrderId());
+        Assert.assertNotNull(logDao.getDateSent());
+
+        p = participantRepository.entityToDomain(participantDAO);
+
+        Assert.assertNotNull(p.getGiftLogs());
+        Assert.assertEquals(1, p.getGiftLogs().size());
+
+        log = p.getGiftLogs().get(0);
+        Assert.assertEquals("code123", log.getOrderId());
+        Assert.assertNotNull(log.getDate());
+    }
+
+    @Test
+    @Transactional
     public void testFindByToken() {
         ParticipantDAO participantDAO;
         Participant p, p2;
@@ -266,6 +299,8 @@ public class ParticipantRepositoryTest {
         p.completeCurrentTask();
         assertEquals(1, p.getTaskIndex());
         p.completeCurrentTask();
+        p.completeCurrentTask();
+        p.completeCurrentTask();
         assertEquals(0, p.getTaskIndex());
         assertEquals(Session.NAME.SESSION6, p.getCurrentSession().getName());
 
@@ -275,9 +310,6 @@ public class ParticipantRepositoryTest {
         assertEquals(Session.NAME.SESSION1, p.getCurrentSession().getName());
         p.completeCurrentTask();
         assertEquals(Session.NAME.SESSION1, p.getCurrentSession().getName());
-
-
-
 
     }
 

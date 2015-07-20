@@ -2,6 +2,7 @@ package edu.virginia.psyc.pi.service;
 
 import edu.virginia.psyc.pi.domain.Participant;
 import edu.virginia.psyc.pi.domain.Session;
+import edu.virginia.psyc.pi.domain.tango.Reward;
 import edu.virginia.psyc.pi.persistence.EmailLogDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
@@ -41,7 +42,9 @@ public class EmailService {
      * Each of these types should have a coresponding template in resources/templates/email
      */
     public enum TYPE {
-        day2, day4, day7, day11, day15, day18, followup, followup2, followup3, resetPass, dass21Alert, dass21AlertParticipant
+        day2, day4, day7, day11, day15, day18,
+        followup, followup2, followup3,
+        resetPass, dass21Alert, dass21AlertParticipant, giftCard
     }
 
     @Autowired
@@ -87,14 +90,37 @@ public class EmailService {
                 return "Final reminder from the Project Implicit Mental Health training team";
             case resetPass:
                 return "Project Implicit Mental Health - Account Request";
+            case dass21Alert:
+                return "PIMH Alert! a participants score is Dropping";
             case dass21AlertParticipant:
                 return "Information about change in scores from the Project Implicit Mental Health training team";
+            case giftCard:
+                return "Project Implicit Mental Health - Your $5 gift card!";
             default:
                 return "";
         }
     }
 
-    /*
+  /*
+  * Send HTML mail using a template named according to Type.
+  */
+    private void sendMail(String email, Long id, TYPE type, Context ctx) throws MessagingException{
+        // Prepare message using a Spring helper
+        final MimeMessage mimeMessage = this.mailSender.createMimeMessage();
+        final MimeMessageHelper message = new MimeMessageHelper(mimeMessage, "UTF-8");
+        message.setSubject(getSubject(type));
+        message.setFrom(this.respondTo);
+        message.setTo(email);
+        // Create the HTML body using Thymeleaf
+        final String htmlContent = this.templateEngine.process("email/" + type.toString(), ctx);
+        message.setText(htmlContent, true /* isHtml */);
+        // Send email
+        this.mailSender.send(mimeMessage);
+        // Log that the email was sent.
+        logEmail(id, type);
+    }
+
+  /*
   * Send HTML mail (simple)
   */
     private void sendMail(Participant participant, TYPE type, Context ctx)
@@ -105,22 +131,7 @@ public class EmailService {
         ctx.setVariable("url", this.siteUrl);
         ctx.setVariable("respondTo", this.respondTo);
 
-        // Prepare message using a Spring helper
-        final MimeMessage mimeMessage = this.mailSender.createMimeMessage();
-        final MimeMessageHelper message = new MimeMessageHelper(mimeMessage, "UTF-8");
-        message.setSubject(getSubject(type));
-        message.setFrom(this.respondTo);
-        message.setTo(participant.getEmail());
-
-        // Create the HTML body using Thymeleaf
-        final String htmlContent = this.templateEngine.process("email/" + type.toString(), ctx);
-        message.setText(htmlContent, true /* isHtml */);
-
-        // Send email
-        this.mailSender.send(mimeMessage);
-
-        // Log that the email was sent.
-        logEmail(participant.getId(), type);
+        sendMail(participant.getEmail(), participant.getId(), type, ctx);
     }
 
     public void sendPasswordReset(Participant participant) throws MessagingException {
@@ -143,24 +154,17 @@ public class EmailService {
         ctx.setVariable("orig", firstEntry);
         ctx.setVariable("latest", currentEntry);
 
-        // Prepare message using a Spring helper
-        final MimeMessage mimeMessage = this.mailSender.createMimeMessage();
-        final MimeMessageHelper message = new MimeMessageHelper(mimeMessage, "UTF-8");
-        message.setSubject("User at Risk");
-        message.setFrom(this.respondTo);
-        message.setTo(this.alertsTo);
-
-        // Create the HTML body using Thymeleaf
-        final String htmlContent = this.templateEngine.process("email/" + TYPE.dass21Alert, ctx);
-        message.setText(htmlContent, true /* isHtml */);
-
-        // Send email
-        this.mailSender.send(mimeMessage);
-
-        // Log that the email was sent.
-        logEmail(participant.getId(), TYPE.dass21Alert);
-
+        sendMail(this.alertsTo, participant.getId(), TYPE.dass21Alert, ctx);
     }
+
+    public void sendGiftCardEmail(Participant participant, Reward reward) throws MessagingException {
+        // Prepare the evaluation context
+        final Context ctx = new Context();
+
+        ctx.setVariable("reward", reward);
+        sendMail(participant, TYPE.giftCard, ctx);
+    }
+
 
     public void sendSimpleMail(Participant participant, TYPE type) throws MessagingException {
         // Prepare the evaluation context
