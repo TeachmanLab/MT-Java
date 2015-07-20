@@ -110,6 +110,22 @@
                 </tr>
             </table>
             </div>
+
+            <div class="sidebar span8">
+                <h4>Gift Cards Awarded:</h4>
+                <table>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Date</th>
+                    </tr>
+                    <tr th:each="log : ${participant.giftLogs}">
+                        <td style="width:100px;" th:text="${log.orderId}"/>
+                        <td th:text="${log.date}"/>
+                    </tr>
+                </table>
+            </div>
+
+
         </div>
 
                 <!--divider here-->
