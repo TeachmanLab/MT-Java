@@ -60,6 +60,13 @@ $ ./gradlew war
 Then you will find the war file in ./build/lib/piServer-0.1.0.war
 
 
+If you need to modify the default configuration for production (and you most likely will) then you should edit
+the file WEB-INF/classes/application.properties that exists within the WAR file (just edit the file in place)
+There are three major areas to configure for a production installation:
+1. You will need create/update/modify permissions on a database. Preferably
+1. You will need an account with Tango (a service to automate the giving of gift cards.)
+
+
 Testing
 --------
 $ ./gradlew test

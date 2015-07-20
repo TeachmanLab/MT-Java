@@ -72,9 +72,7 @@ public class Session {
         List<Task> tasks = new ArrayList<Task>();
         switch(name) {
             case PRE:
-                tasks.add(new Task("DASS21_AS", "Status Questionnaire", Task.TYPE.questions));
                 tasks.add(new Task("OA", "OASIS", Task.TYPE.questions));
-                tasks.add(new Task("ReRu", "ReadinessRuler", Task.TYPE.questions));
                 tasks.add(new Task("credibility", "Credibility Assessment", Task.TYPE.questions));
                 tasks.add(new Task("MH", "Mental Health History", Task.TYPE.questions));
                 tasks.add(new Task("SA", "State Anxiety", Task.TYPE.questions));

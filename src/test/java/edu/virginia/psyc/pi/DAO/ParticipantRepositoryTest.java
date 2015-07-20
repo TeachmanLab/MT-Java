@@ -1,10 +1,7 @@
 package edu.virginia.psyc.pi.DAO;
 
 import edu.virginia.psyc.pi.Application;
-import edu.virginia.psyc.pi.domain.EmailLog;
-import edu.virginia.psyc.pi.domain.Participant;
-import edu.virginia.psyc.pi.domain.PasswordToken;
-import edu.virginia.psyc.pi.domain.Session;
+import edu.virginia.psyc.pi.domain.*;
 import edu.virginia.psyc.pi.persistence.*;
 import edu.virginia.psyc.pi.service.EmailService;
 import org.junit.Assert;
@@ -176,7 +173,7 @@ public class ParticipantRepositoryTest {
         // Create a participant
         participantDAO = new ParticipantDAO("John", "john@x.com", "12341234", false);
         log            = new EmailLogDAO(participantDAO, EmailService.TYPE.day2);
-        participantDAO.addLog(log);
+        participantDAO.addEmailLog(log);
         participantRepository.save(participantDAO);
         participantRepository.flush();
 
@@ -202,6 +199,39 @@ public class ParticipantRepositoryTest {
         Assert.assertEquals(EmailService.TYPE.day2, log2.getType());
         Assert.assertNotNull(log2.getDate());
 
+    }
+
+    @Test
+    @Transactional
+    public void giftLogSurfacesInReturnedParticipant() {
+        ParticipantDAO participantDAO;
+        Participant p;
+        GiftLogDAO logDao;
+        GiftLog log;
+
+        participantDAO = new ParticipantDAO("Dan", "Smith@x.com", "1234", false);
+        logDao = new GiftLogDAO(participantDAO, "code123");
+        participantDAO.addGiftLog(logDao);
+        participantRepository.save(participantDAO);
+        participantRepository.flush();
+
+        Assert.assertNotNull(participantDAO.getId());
+
+        Assert.assertNotNull(participantDAO);
+        Assert.assertNotNull(participantDAO.getGiftLogDAOs());
+        Assert.assertEquals(1, participantDAO.getGiftLogDAOs().size());
+        logDao = participantDAO.getGiftLogDAOs().iterator().next();
+        Assert.assertEquals("code123", logDao.getOrderId());
+        Assert.assertNotNull(logDao.getDateSent());
+
+        p = participantRepository.entityToDomain(participantDAO);
+
+        Assert.assertNotNull(p.getGiftLogs());
+        Assert.assertEquals(1, p.getGiftLogs().size());
+
+        log = p.getGiftLogs().get(0);
+        Assert.assertEquals("code123", log.getOrderId());
+        Assert.assertNotNull(log.getDate());
     }
 
     @Test
@@ -266,6 +296,8 @@ public class ParticipantRepositoryTest {
         p.completeCurrentTask();
         assertEquals(1, p.getTaskIndex());
         p.completeCurrentTask();
+        p.completeCurrentTask();
+        p.completeCurrentTask();
         assertEquals(0, p.getTaskIndex());
         assertEquals(Session.NAME.SESSION6, p.getCurrentSession().getName());
 
@@ -275,9 +307,6 @@ public class ParticipantRepositoryTest {
         assertEquals(Session.NAME.SESSION1, p.getCurrentSession().getName());
         p.completeCurrentTask();
         assertEquals(Session.NAME.SESSION1, p.getCurrentSession().getName());
-
-
-
 
     }
 

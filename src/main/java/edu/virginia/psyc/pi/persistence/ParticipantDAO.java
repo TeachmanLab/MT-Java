@@ -2,6 +2,8 @@ package edu.virginia.psyc.pi.persistence;
 
 import edu.virginia.psyc.pi.domain.Participant;
 import edu.virginia.psyc.pi.domain.Session;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,6 +26,8 @@ import java.util.Date;
 @Entity
 @Table(name="participant")
 public class ParticipantDAO implements UserDetails {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ParticipantDAO.class);
 
     @Id
     @GeneratedValue
@@ -48,7 +52,7 @@ public class ParticipantDAO implements UserDetails {
     private String        randomToken;
 
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private PasswordTokenDAO  passwordTokenDAO;
 
     @Enumerated(EnumType.STRING)
@@ -63,8 +67,12 @@ public class ParticipantDAO implements UserDetails {
 
     private int taskIndex = 0;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Collection<EmailLogDAO> emailLogDAOs = new ArrayList<EmailLogDAO>();
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Collection<GiftLogDAO> giftLogDAOs = new ArrayList<>();
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -183,9 +191,22 @@ public class ParticipantDAO implements UserDetails {
         this.emailLogDAOs = emailLogDAOs;
     }
 
-    public void addLog(EmailLogDAO log) {
+    public void addEmailLog(EmailLogDAO log) {
         if(this.emailLogDAOs == null) this.emailLogDAOs = new ArrayList<EmailLogDAO>();
         this.emailLogDAOs.add(log);
+    }
+
+    public Collection<GiftLogDAO> getGiftLogDAOs() {
+        return giftLogDAOs;
+    }
+
+    public void setGiftLogDAOs(Collection<GiftLogDAO> giftLogDAOs) {
+        this.giftLogDAOs = giftLogDAOs;
+    }
+
+    public void addGiftLog(GiftLogDAO log) {
+        if(this.giftLogDAOs == null) this.giftLogDAOs = new ArrayList<GiftLogDAO>();
+        this.giftLogDAOs.add(log);
     }
 
     public boolean isActive() {

@@ -270,11 +270,13 @@
                         </table>
                     </fieldset>
                 </form>
+                <script>
                 $("#wizard").on("wizardfinish", function() {
                     if (!$(this).find(":input").valid()) {
                         return false;
                     }
                 }).jWizard().validate();
+                </script>
             </div>
         </div>
         <!--features ends-->

@@ -27,31 +27,45 @@
 <!-- header-btm ends
 ================================================== -->
 
+
 <!-- content starts
 ================================================== -->
+
+
 <section id="content" class="clearfix">
     <div class="container">
 
+
         <!--spacer here-->
         <div class="spacer-30px"></div>
+        <div class="row">
 
-        <h1>Emails</h1>
-        <p>Here are the major reminder emails sent by the system.  Clicking on any of these
-        will cause the reminder email to be sent to your email address: <span th:text="${participant.email}"> dan@sartography.com</span></p>
-        <ul>
-            <li><a th:href="@{/admin/sendEmail/day2}">2 Day - reminder</a></li>
-            <li><a th:href="@{/admin/sendEmail/day4}">4 Day - reminder</a></li>
-            <li><a th:href="@{/admin/sendEmail/day7}">7 Day - reminder</a></li>
-            <li><a th:href="@{/admin/sendEmail/day11}">11 Day - reminder</a></li>
-            <li><a th:href="@{/admin/sendEmail/day15}">15 Day - reminder</a></li>
-            <li><a th:href="@{/admin/sendEmail/day18}">18 Day - reminder</a></li>
-            <li><a th:href="@{/admin/sendEmail/followup}">Followup Email (60 days after session 8 was completed)</a></li>
-            <li><a th:href="@{/admin/sendEmail/followup2}">Followup Email (63, 67, 70 days after session 8, if not completed)</a></li>
-            <li><a th:href="@{/admin/sendEmail/followup3}">Followup Email (75 days after session 8)</a></li>
-            <li><a th:href="@{/admin/sendEmail/dass21Alert}">Alert Administrator that a participant has a rising score.</a> (always goes to our admin address)</li>
-            <li><a th:href="@{/admin/sendEmail/dass21AlertParticipant}">Alert Participant that their anxiety score is rising.</a></li>
-            <li><a th:href="@{/admin/sendEmail/giftCard}">Gift Card</a><em> (Generates a fake gift card.)</em></li>
-        </ul>
+            <div class="main-content span8">
+
+                <h1>Tango Account Information</h1>
+                <table style="width:100%">
+                    <tr>
+                        <td>Tango Identifier</td>
+                        <td th:text="${tango.identifier}"> blablabla </td>
+                    </tr>
+                    <tr>
+                        <td>Tango Account:</td>
+                        <td th:text="${tango.customer}"> whatever </td>
+                    </tr>
+                    <tr>
+                        <td>Tango Email:</td>
+                        <td th:text="${tango.email}"> soandso </td>
+                    </tr>
+                    <tr>
+                        <td>Tango Account Balance:</td>
+                        <td th:text="${tango.available_balance}"> 0 </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+
+
         <!--divider here-->
         <div class="spacer-40px"></div>
 
@@ -59,8 +73,8 @@
         <div class="spacer-30px"></div>
 
     </div>
-</section>
 
+    </section>
 
 <!-- footer starts
 ================================================== -->
