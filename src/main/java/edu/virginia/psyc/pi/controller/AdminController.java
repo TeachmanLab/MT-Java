@@ -1,17 +1,13 @@
 package edu.virginia.psyc.pi.controller;
 
+import edu.virginia.psyc.pi.domain.GiftLog;
 import edu.virginia.psyc.pi.domain.Participant;
 import edu.virginia.psyc.pi.domain.ParticipantForm;
 import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.domain.json.TrialJson;
-import edu.virginia.psyc.pi.domain.tango.Reward;
-import edu.virginia.psyc.pi.persistence.ParticipantDAO;
-import edu.virginia.psyc.pi.persistence.ParticipantRepository;
-import edu.virginia.psyc.pi.persistence.TrialDAO;
-import edu.virginia.psyc.pi.persistence.TrialRepository;
+import edu.virginia.psyc.pi.domain.tango.*;
+import edu.virginia.psyc.pi.persistence.*;
 import edu.virginia.psyc.pi.service.EmailService;
-import edu.virginia.psyc.pi.domain.tango.Account;
-import edu.virginia.psyc.pi.domain.tango.AccountResponse;
 import edu.virginia.psyc.pi.service.TangoService;
 import edu.virginia.psyc.pi.persistence.Questionnaire.DASS21_AS;
 import org.slf4j.Logger;
@@ -301,4 +297,15 @@ public class AdminController extends BaseController {
         model.addAttribute("participant",p);
         return "/admin/participant_form";
     }
+
+
+    // Added by Diheng, try to recall reward information by order ID;
+    @RequestMapping(value="/rewardInfo/{orderId}", method = RequestMethod.GET)
+    public String checkRewardInfo(ModelMap model, Principal principal, @PathVariable ("orderId") String orderId) {
+        Order order = tangoService.getOrderInfo(orderId);
+        model.addAttribute("order",order);
+        return "admin/rewardInfo";
+    }
+
+
 }

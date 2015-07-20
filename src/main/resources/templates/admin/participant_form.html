@@ -119,7 +119,7 @@
                         <th>Date</th>
                     </tr>
                     <tr th:each="log : ${participant.giftLogs}">
-                        <td style="width:100px;" th:text="${log.orderId}"/>
+                        <td style="width:100px;"> <a th:href="@{'/admin/rewardInfo/'+${log.orderId}}" th:text="${log.orderId}" /> </td>
                         <td th:text="${log.date}"/>
                     </tr>
                 </table>
