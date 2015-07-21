@@ -75,6 +75,7 @@ public class Session {
                 tasks.add(new Task("OA", "OASIS", Task.TYPE.questions));
                 tasks.add(new Task("credibility", "Credibility Assessment", Task.TYPE.questions));
                 tasks.add(new Task("MH", "Mental Health History", Task.TYPE.questions));
+                tasks.add(new Task("demographics", "Demographics", Task.TYPE.questions));
                 tasks.add(new Task("SA", "State Anxiety", Task.TYPE.questions));
                 tasks.add(new Task("RecognitionRatings", "RecogRatings", Task.TYPE.playerScript));
                 tasks.add(new Task("RR", "RecognitionRatings", Task.TYPE.questions));
