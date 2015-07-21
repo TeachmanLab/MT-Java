@@ -93,7 +93,7 @@ public class EmailService {
             case dass21Alert:
                 return "PIMH Alert! a participants score is Dropping";
             case dass21AlertParticipant:
-                return "Information about change in scores from the Project Implicit Mental Health training team";
+                return "Project Implicit Mental Health - Alert, your score is dropping.";
             case giftCard:
                 return "Project Implicit Mental Health - Your $5 gift card!";
             default:

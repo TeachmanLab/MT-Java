@@ -1,9 +1,12 @@
 package edu.virginia.psyc.pi.controller;
 
+import edu.virginia.psyc.pi.domain.GiftLog;
 import edu.virginia.psyc.pi.domain.Participant;
 import edu.virginia.psyc.pi.domain.ParticipantForm;
 import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.domain.json.TrialJson;
+import edu.virginia.psyc.pi.domain.tango.*;
+import edu.virginia.psyc.pi.persistence.*;
 import edu.virginia.psyc.pi.domain.tango.Reward;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
@@ -301,4 +304,34 @@ public class AdminController extends BaseController {
         model.addAttribute("participant",p);
         return "/admin/participant_form";
     }
+
+
+    // Added by Diheng, try to recall reward information by order ID;
+    @RequestMapping(value="/rewardInfo/{orderId}", method = RequestMethod.GET)
+    public String showRewardInfo(ModelMap model, Principal principal, @PathVariable ("orderId") String orderId) {
+        Order order = tangoService.getOrderInfo(orderId);
+        model.addAttribute("order",order);
+        return "admin/rewardInfo";
+    }
+
+
+//    @RequestMapping(value="/rewardInfo/{orderId}", method=RequestMethod.POST)
+//    public String checkRewardInfo(ModelMap model,
+//                                       @PathVariable("orderId") String orderId,
+//                                       @Valid Participant participant,
+//                                       BindingResult bindingResult) {
+//        GiftLogDAO dao;
+
+//        dao = ;
+
+//        if (bindingResult.hasErrors()) {
+//            LOG.error("Invalid participant:" + bindingResult.getAllErrors());
+//            model.addAttribute("participant", participant);
+//            return "admin/participant_form";
+        //       } else {
+//        participantRepository.domainToEntity(participant, dao);
+//        participantRepository.save(dao);
+        //       }
+//        return "redirect:/admin";
+
 }
