@@ -76,8 +76,14 @@ public class LoginController extends BaseController {
 
     @RequestMapping(value="/login", method = RequestMethod.GET)
     public String showLogin() {
-        return "rationale";
+        return "login";
     }
+
+    // Added by Diheng, linking to login page
+   // @RequestMapping(value = "/loginPage", method = RequestMethod.GET)
+   // public String goLoginPage(){
+   //     return "loginPage";
+   // }
 
     @RequestMapping(value="/loginfailed", method = RequestMethod.GET)
     public String loginerror(ModelMap model) {
