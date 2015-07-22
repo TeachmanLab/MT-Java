@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="fragment/common :: headerFragment" />
+<body>
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment" />
+
+<!-- header-btm starts
+================================================== -->
+<section id="header-btm" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <h2 class="heading-icon clearfix"> <img src="/grepfrut/img/icons/heading-icon-user.png" width="40" height="40" alt="icon" class="icon-small-bg"/>Welcome!</h2>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- header-btm ends
+================================================== -->
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="form-actions">
+                <h4>Log In:</h4>
+                <form name="f" th:action="@{/login}" method="post">
+                    <fieldset>
+                        <div th:if="${param.error}" class="alert alert-error">
+                            Invalid username and password.
+                        </div>
+                        <div th:if="${param.logout}" class="alert alert-success">
+                            You have been logged out.
+                        </div>
+                        <div th:if="${param.created}" class="alert alert-success">
+                            Account created.  Please log in.
+                        </div>
+                        <div th:if="${invalidCode}" class="alert alert-success">
+                            The password reset code you provided is not valid.
+                        </div>
+                        <p>
+                            <label for="email">User ID(Email)</label>
+                            <input type="text" id="email" name="username"/>
+                        </p>
+                        <p>
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password"/>
+                        </p>
+                        <p>
+                            <a th:href="@{/resetPass}">Forgot your password?</a>
+                        </p>
+                        <p>
+                            <input type='checkbox' name='_spring_security_remember_me'/> Remember me on this computer.
+                        </p>
+                        <p>
+                            <button type="submit" class="btn">Log in</button>
+                        </p>
+
+                    </fieldset>
+                </form>
+
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts" />
+
+</body>
+</html>
