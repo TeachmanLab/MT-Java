@@ -1,5 +1,6 @@
 package edu.virginia.psyc.pi.controller;
 
+import edu.virginia.psyc.pi.domain.CBMStudy;
 import edu.virginia.psyc.pi.domain.Participant;
 import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
@@ -116,7 +117,7 @@ public class QuestionController extends BaseController {
 
     /**
      * Does some tasks common to all forms:
-     * - Adds the current session name to the data being recorded
+     * - Adds the current CBMStudy.NAME to the data being recorded
      * - Marks this "task" as complete, and moves the participant on to the next session
      * - Connects the data to the participant who completed it.
      *
@@ -129,10 +130,10 @@ public class QuestionController extends BaseController {
         Participant participant = participantRepository.entityToDomain(dao);
 
         // Record the session for which this questionnaire was completed.
-        data.setSession(participant.getCurrentSession().getName());
+        data.setSession(participant.getStudy().getCurrentSession().getName());
 
         // Update the participant's session status, and save back to the database.
-        participant.completeCurrentTask();
+        participant.getStudy().completeCurrentTask();
         participantRepository.domainToEntity(participant, dao);
         participantRepository.save(dao);
 
@@ -700,7 +701,7 @@ public class QuestionController extends BaseController {
     private static void appendObjectToCSV(Object o, StringBuffer csv) {
         Method[] methods = o.getClass().getMethods();
         ParticipantDAO participantDAO;
-        Session.NAME session;
+        CBMStudy.NAME session;
         List list;
         String data;
 
@@ -726,8 +727,8 @@ public class QuestionController extends BaseController {
                     } else if (ParticipantDAO.class.equals(method.getReturnType())) {
                         participantDAO = (ParticipantDAO)method.invoke(o);
                         data = "" + participantDAO.getId();
-                    } else if (Session.NAME.class.equals(method.getReturnType())) {
-                        session  = (Session.NAME)method.invoke(o);
+                    } else if (CBMStudy.NAME.class.equals(method.getReturnType())) {
+                        session  = (CBMStudy.NAME)method.invoke(o);
                         data = session.toString();
                     } else if (Class.class.equals(method.getReturnType())) {
                         data = ((Class)method.invoke(o)).getSimpleName();

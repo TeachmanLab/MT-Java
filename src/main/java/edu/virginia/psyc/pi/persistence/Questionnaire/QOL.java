@@ -22,8 +22,7 @@ public class QOL implements QuestionnaireData {
     private ParticipantDAO participantDAO;
     private Date date;
 
-    @Enumerated(EnumType.STRING)
-    private Session.NAME session = Session.NAME.ELIGIBLE;
+    private String session;
 
     // 1. Define your form fields here using appropriate types.
     //    These should match exactly the "name" attribute on the
@@ -71,13 +70,9 @@ public class QOL implements QuestionnaireData {
         this.date = date;
     }
 
-    public Session.NAME getSession() {
-        return session;
-    }
+   public String getSession() { return session; }
 
-    public void setSession(Session.NAME session) {
-        this.session = session;
-    }
+    public void setSession(String session) {this.session = session;}
 
     public int getMaterial() {
         return material;

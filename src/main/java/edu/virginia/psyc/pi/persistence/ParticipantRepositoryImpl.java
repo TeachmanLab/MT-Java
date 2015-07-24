@@ -18,19 +18,17 @@ public class ParticipantRepositoryImpl implements ParticipantRepositoryCustom {
 
     @Override
     public Participant entityToDomain(ParticipantDAO dao) {
-        Participant p = new Participant();
-        List<Session> sessionList =  Session.createListView(dao.getCurrentSession(), dao.getTaskIndex());
+        Participant p     = new Participant();
+        Study       study = new CBMStudy(dao.getCurrentSession(), dao.getTaskIndex(), dao.getLastSessionDate());
 
         p.setId(dao.getId());
         p.setFullName(dao.getFullName());
         p.setEmail(dao.getEmail());
         p.setAdmin(dao.isAdmin());
-        p.setSessions(sessionList);
-        p.setTaskIndex(dao.getTaskIndex());
+        p.setStudy(study);
         p.setEmailOptout(dao.isEmailOptout());
         p.setActive(dao.isActive());
         p.setLastLoginDate(dao.getLastLoginDate());
-        p.setLastSessionDate(dao.getLastSessionDate());
         p.setCbmCondition(dao.getCbmCondition());
         p.setPrime(dao.getPrime());
 
@@ -65,12 +63,12 @@ public class ParticipantRepositoryImpl implements ParticipantRepositoryCustom {
         dao.setFullName(p.getFullName());
         dao.setEmail(p.getEmail());
         dao.setAdmin(p.isAdmin());
-        dao.setTaskIndex(p.getTaskIndex());
-        dao.setCurrentSession(p.getCurrentSession().getName());
+        dao.setTaskIndex(p.getStudy().getCurrentTaskIndex());
+        dao.setCurrentSession(p.getStudy().getCurrentSession().getName());
         dao.setEmailOptout(p.isEmailOptout());
         dao.setActive(p.isActive());
         dao.setLastLoginDate(p.getLastLoginDate());
-        dao.setLastSessionDate(p.getLastSessionDate());
+        dao.setLastSessionDate(p.getStudy().getLastSessionDate());
         dao.setCbmCondition(p.getCbmCondition());
         dao.setPrime(p.getPrime());
 

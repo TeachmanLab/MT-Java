@@ -51,7 +51,7 @@ public class PIPlayerController extends BaseController {
 
         Participant p = getParticipant(principal);
         model.addAttribute("script", scriptName);
-        model.addAttribute("sessionName", p.getCurrentSession().getName().toString());
+        model.addAttribute("sessionName", p.getStudy().getCurrentSession().getName());
         model.addAttribute("participantId", p.getId());
         return "PIPlayer";
     }
@@ -62,7 +62,7 @@ public class PIPlayerController extends BaseController {
         Participant participant = getParticipant(principal);
         ParticipantDAO dao = participantRepository.findByEmail(participant.getEmail());
 
-        participant.completeCurrentTask();
+        participant.getStudy().completeCurrentTask();
         participantRepository.domainToEntity(participant, dao);
         participantRepository.save(dao);
 

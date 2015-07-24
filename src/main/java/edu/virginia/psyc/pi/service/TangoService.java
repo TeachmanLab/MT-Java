@@ -180,12 +180,14 @@ public class TangoService {
         ParticipantDAO participantDAO;
         GiftLogDAO logDAO;
 
-        LOGGER.info("Awarded a gift to participant #" + id );
+        LOGGER.info("Awarded a gift to participant #" + id);
         participantDAO = participantRepository.findOne(id);
-        logDAO = new GiftLogDAO(participantDAO, orderId);
-        participantDAO.addGiftLog(logDAO);
-        participantRepository.save(participantDAO);
+        if (participantDAO != null) {
+            logDAO = new GiftLogDAO(participantDAO, orderId);
+            participantDAO.addGiftLog(logDAO);
+            participantRepository.save(participantDAO);
+        } else {
+            LOGGER.error("Error logging gift with order Id #" + orderId + ".  The Participant (" + id + ") is not in the database.");
+        }
     }
-
-
 }
