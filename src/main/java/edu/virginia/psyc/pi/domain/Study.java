@@ -8,7 +8,7 @@ import java.util.List;
  */
 public interface Study {
 
-    public enum STUDY_STATE {READY, WAIT_A_DAY, WAIT_FOR_FOLLOWUP, ALL_DONE}
+    public enum STUDY_STATE {READY, IN_PROGRESS, WAIT_A_DAY, WAIT_FOR_FOLLOWUP, ALL_DONE}
 
     public List<Session> getSessions();  // Returns all sessions, including the participants progress.
 

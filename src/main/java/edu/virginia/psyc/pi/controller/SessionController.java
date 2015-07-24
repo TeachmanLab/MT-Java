@@ -16,6 +16,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
 
@@ -66,12 +68,16 @@ public class SessionController extends BaseController {
     }
 
     @RequestMapping("/next")
-    public String nextStepInSession(ModelMap model, Principal principal) {
+    public View nextStepInSession(ModelMap model, Principal principal) {
         Participant p = getParticipant(principal);
         Study study = p.getStudy();
-        study.completeCurrentTask();
-        saveParticipant(p);
-        return sessionHome(model, principal);
+
+        // Re-direct to the next step the current session is in progress.
+        if(study.getState() == Study.STUDY_STATE.IN_PROGRESS) {
+            return new RedirectView(study.getCurrentSession().getCurrentTask().getRequestMapping());
+        } else {
+            return new RedirectView("/session");
+        }
     }
 
 }

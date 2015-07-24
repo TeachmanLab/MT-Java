@@ -175,7 +175,7 @@ public class QuestionController extends BaseController {
                 LOG.info("User #" + participant.getId() + " continues to score poorly on assessment, but we've already notified everyone.");
             }
         }
-        return new RedirectView("/session");
+        return new RedirectView("/session/next");
     }
 
     @RequestMapping(value = "DASS21_AS/export", method = RequestMethod.GET, produces = "text/csv")
@@ -200,7 +200,7 @@ public class QuestionController extends BaseController {
 
         recordSessionProgress(dass21_ds);
         dass21_dsRepository.save(dass21_ds);
-        return new RedirectView("/session");
+        return new RedirectView("/session/next");
     }
 
     @RequestMapping(value = "DASS21_DS/export", method = RequestMethod.GET, produces = "text/csv")
@@ -226,7 +226,7 @@ public class QuestionController extends BaseController {
 
         recordSessionProgress(qol);
         qol_Repository.save(qol);
-        return new RedirectView("/session");
+        return new RedirectView("/session/next");
     }
 
     @RequestMapping(value = "QOL/export", method = RequestMethod.GET, produces = "text/csv")
@@ -251,7 +251,7 @@ public class QuestionController extends BaseController {
 
         recordSessionProgress(audit);
         audit_Repository.save(audit);
-        return new RedirectView("/session");
+        return new RedirectView("/session/next");
     }
 
     @RequestMapping(value = "audit/export", method = RequestMethod.GET, produces = "text/csv")
@@ -276,7 +276,7 @@ public class QuestionController extends BaseController {
 
         recordSessionProgress(credibility);
         credibilityRepository.save(credibility);
-        return new RedirectView("/session");
+        return new RedirectView("/session/next");
     }
 
     @RequestMapping(value = "credibility/export", method = RequestMethod.GET, produces = "text/csv")
@@ -302,7 +302,7 @@ public class QuestionController extends BaseController {
 
         recordSessionProgress(followup);
         followup_Repository.save(followup);
-        return new RedirectView("/session");
+        return new RedirectView("/session/next");
     }
 
     @RequestMapping(value = "FU/export", method = RequestMethod.GET, produces = "text/csv")
@@ -327,7 +327,7 @@ public class QuestionController extends BaseController {
 
         recordSessionProgress(mh);
         mh_Repository.save(mh);
-        return new RedirectView("/session");
+        return new RedirectView("/session/next");
     }
 
     @RequestMapping(value = "MH/export", method = RequestMethod.GET, produces = "text/csv")
@@ -353,7 +353,7 @@ public class QuestionController extends BaseController {
 
         recordSessionProgress(mue);
         mue_Repository.save(mue);
-        return new RedirectView("/session");
+        return new RedirectView("/session/next");
     }
 
     @RequestMapping(value = "MUE/export", method = RequestMethod.GET, produces = "text/csv")
@@ -379,7 +379,7 @@ public class QuestionController extends BaseController {
 
         recordSessionProgress(pue);
         pue_Repository.save(pue);
-        return new RedirectView("/session");
+        return new RedirectView("/session/next");
     }
 
     @RequestMapping(value = "PUE/export", method = RequestMethod.GET, produces = "text/csv")
@@ -405,7 +405,7 @@ public class QuestionController extends BaseController {
 
         recordSessionProgress(impact);
         impact_Repository.save(impact);
-        return new RedirectView("/session");
+        return new RedirectView("/session/next");
     }
 
     @RequestMapping(value = "impact/export", method = RequestMethod.GET, produces = "text/csv")
@@ -431,7 +431,7 @@ public class QuestionController extends BaseController {
 
         recordSessionProgress(prime);
         anxiousImageryPrime_Repository.save(prime);
-        return new RedirectView("/session");
+        return new RedirectView("/session/next");
     }
 
     @RequestMapping(value = "AIP/export", method = RequestMethod.GET, produces = "text/csv")
@@ -457,7 +457,7 @@ public class QuestionController extends BaseController {
 
         recordSessionProgress(prime);
         neutralImageryPrime_Repository.save(prime);
-        return new RedirectView("/session");
+        return new RedirectView("/session/next");
     }
 
     @RequestMapping(value = "NIP/export", method = RequestMethod.GET, produces = "text/csv")
@@ -482,7 +482,7 @@ public class QuestionController extends BaseController {
 
         recordSessionProgress(demographic);
         demographicRepository.save(demographic);
-        return new RedirectView("/session");
+        return new RedirectView("/session/next");
     }
 
     @RequestMapping(value = "demographics/export", method = RequestMethod.GET, produces = "text/csv")
@@ -507,7 +507,7 @@ public class QuestionController extends BaseController {
 
         recordSessionProgress(sa);
         stateAnxiety_Repository.save(sa);
-        return new RedirectView("/session");
+        return new RedirectView("/session/next");
 
     }
 
@@ -533,7 +533,7 @@ public class QuestionController extends BaseController {
 
         recordSessionProgress(rr);
         rr_repository.save(rr);
-        return new RedirectView("/session");
+        return new RedirectView("/session/next");
     }
 
     @RequestMapping(value = "RR/export", method = RequestMethod.GET, produces = "text/csv")
@@ -558,7 +558,7 @@ public class QuestionController extends BaseController {
 
         recordSessionProgress(cc);
         cc_repository.save(cc);
-        return new RedirectView("/session");
+        return new RedirectView("/session/next");
     }
 
     @RequestMapping(value = "CC/export", method = RequestMethod.GET, produces = "text/csv")
@@ -583,7 +583,7 @@ public class QuestionController extends BaseController {
 
         recordSessionProgress(oa);
         oa_repository.save(oa);
-        return new RedirectView("/session");
+        return new RedirectView("/session/next");
     }
 
     @RequestMapping(value = "OA/export", method = RequestMethod.GET, produces = "text/csv")
@@ -608,7 +608,7 @@ public class QuestionController extends BaseController {
 
         recordSessionProgress(reru);
         reru_repository.save(reru);
-        return new RedirectView("/session");
+        return new RedirectView("/session/next");
     }
 
     @RequestMapping(value = "ReRu/export", method = RequestMethod.GET, produces = "text/csv")
@@ -632,7 +632,7 @@ public class QuestionController extends BaseController {
 //
 //        recordSessionProgress(SAPr);
 //        stateAnxietyPre_Repository.save(SAPr);
-//        return new RedirectView("/session");
+//        return new RedirectView("/session/next");
 //
 //    }
 
@@ -651,7 +651,7 @@ public class QuestionController extends BaseController {
 
         recordSessionProgress(SAPost);
         stateAnxietyPost_Repository.save(SAPost);
-        return new RedirectView("/session");
+        return new RedirectView("/session/next");
 
     }
 

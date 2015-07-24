@@ -98,7 +98,7 @@ public class CBMStudy implements Study {
                 break;
             case SESSION1:
                 tasks.add(new Task("AIP", "Imagery Prime", Task.TYPE.questions));
-                tasks.add(new Task("FirstSessionComplete", "First Session", Task.TYPE.playerScript));
+ //               tasks.add(new Task("FirstSessionComplete", "First Session", Task.TYPE.playerScript));
                 tasks.add(new Task("CC", "CompareContrast", Task.TYPE.questions));
                 tasks.add(new Task("DASS21_AS", "Status Questionnaire", Task.TYPE.questions));
                 break;
@@ -283,6 +283,9 @@ public class CBMStudy implements Study {
 
     @Override
     public STUDY_STATE getState() {
+
+            if (taskIndex != 0) return STUDY_STATE.IN_PROGRESS;
+
             // Pre Assessment and Session 1 can be completed immediately.
             if(getCurrentSession().getName().equals(NAME.PRE.toString()) ||
                     getCurrentSession().getName().equals(NAME.SESSION1.toString()))
