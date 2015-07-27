@@ -280,7 +280,7 @@
 
 
                     <br />
-                    <input type="checkbox" id="ageBox" name="age" /> I am 18 years old or older.<br />
+                    <input type="checkbox" name="isOver18" /> I am 18 years old or older.<br />
 
                     <br />
                     <div align="center">
@@ -312,12 +312,6 @@
 
 <!--Javascript
 ================================================== -->
-<script language="JavaScript">
-    function check() {
-    var isOver18 = document.getElementById("ageBox").checked;
-
-    }
-</script>
 
 <div th:include="fragment/common :: scripts" />
 

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="fragment/common :: headerFragment" />
+<body>
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment" />
+
+<!-- header-btm starts
+================================================== -->
+<section id="header-btm" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <h4 class="heading-icon clearfix"> <img src="/grepfrut/img/icons/heading-icon-user.png" width="40" height="40" alt="icon" class="icon-small-bg"/>Invitation to Participant</h4>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- header-btm ends
+================================================== -->
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+
+
+<div class="span6">
+    <form name="f" th:action="@{/newParticipant}" method="post" th:object="${participant}">
+        <fieldset>
+            <legend>Create Account:</legend>
+
+            <div class="formErrors">
+                <ul class="error">
+                    <li th:each="err : ${#fields.errors('*')}" th:text="${err}" class="alert alert-error">Input is incorrect</li>
+                </ul>
+                <div class="spacer-20px"></div>
+            </div>
+
+            <p>
+                <label for="fullName" th:field="*{fullName}">Full Name</label>
+                <input type="text" id="fullName" name="fullName"  th:errorclass="error"/>
+            </p>
+            <p>
+                <label for="email" th:field="*{email}">Email</label>
+                <input type="text" id="email" name="email" th:errorclass="error"/>
+            </p>
+            <p>
+                <label for="password" th:field="*{password}">Password</label>
+                <input type="password" id="password" name="password"  th:errorclass="error"/>
+            </p>
+            <p>
+                <label for="passwordAgain" th:field="*{passwordAgain}">Password (again)</label>
+                <input type="password" id="passwordAgain" name="passwordAgain"/>
+            </p>
+            <div class="form-actions">
+                <button type="submit" class="btn">Create Account</button>
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts" />
+
+</body>
+</html>

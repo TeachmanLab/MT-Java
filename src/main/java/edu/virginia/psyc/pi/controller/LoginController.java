@@ -109,7 +109,7 @@ public class LoginController extends BaseController {
                                    ModelMap model,
                                    HttpSession session) {
 
-        if(dass21_as.eligibleScore()) {
+        if(dass21_as.eligibleScore() && dass21_as.isOver18()) {
             // Save the DASS21_AS object in the session, so we can grab it when the
             // user is logged in.
             session.setAttribute("dass21", dass21_as);
@@ -156,7 +156,13 @@ public class LoginController extends BaseController {
 
     @RequestMapping("invitation")
     public String showInvitation(ModelMap model, Principal principal) {
+
         return "invitation";
+    }
+
+    @RequestMapping("public/consent")
+    public String showConsent (ModelMap model, Principal principal) {
+        return "consent";
     }
 
     @RequestMapping("public/privacy")
