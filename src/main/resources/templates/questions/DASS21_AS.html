@@ -6,8 +6,55 @@
 <html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
 <!--<![endif]-->
 <head th:include="/fragment/common :: headerFragment" />
+<head>
+    <style TYPE="text/css">
+        body {
+        background: #FFFFCC;
+        color: #000 }
+        div.section {
+        padding: 20px;
+        width: 900px;
+        height: 150px;
+        border-radius: 15px;
+        border: 1px solid black;
+        background: #FFF;
+        }
+        div.option {
+        font-size: .8em;
+        float: left;
+        width: 175px;
+        font-size: 1.0em;
+        align-content: center;
+        text-align: center;
+        }
+        div.desc1 {
+        height: 40px;
+        }
+        div.desc {
+        float: center;
+        height: 40px;
+        }
+        div.question {
+        height: 60px;
+        width: 700px;
+        }
+        div.optionLast {
+        border-right: solid #757878;
+        font-size: .8em;
+        float: left;
+        width: 175px;
+        font-size: 1.0em;
+        align-content: center;
+        text-align: center;
+        }
+    </style>
+</head>
+
 <body>
 <section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
+
+
+
 
 <!-- header-btm starts
 ================================================== -->
@@ -34,118 +81,254 @@
         <!--features starts-->
         <div class="row">
             <div class="span12">
-                <form id="wizard" th:action="${eligibility}? @{/public/eligibilityCheck} : @{/questions/DASS21_AS}" method="POST">
+                <h2 class="heading-icon clearfix">Eligibility Questionnaire</h2>
+                <p>Please read each statement and select an option that indicates how much the statement applied to you over the <b>past week</b>. There are no right or wrong answers.  Do not spend too much time on any statement.</p>
+                <form th:action="${eligibility}? @{/public/eligibilityCheck} : @{/questions/DASS21_AS}" method="POST">
                     <fieldset>
-                        <legend>Instructions</legend>
                         <!--TODO CHANGE INSTRUCTIONS BASED ON INITIAL OR DURING TRAINING-->
-                        <p>Please read each statement and select an option that indicates how much the statement applied to you over the past week. There are no right or wrong answers.  Do not spend too much time on any statement.</p>
-                        <p>The rating scale is as follows:</p>
-                        <table class="table table-striped table-bordered">
-                            <tr>
-                                <td>0</td>
-                                <td>Did not apply to me at all</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>Applied to me to some degree, or some of the time</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Applied to me to a considerable degree, or a good part of time</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Applied to me very much, or most of the time</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>Prefer not to answer</td>
-                            </tr>
-                        </table>
+                        <div class="section">
+                            <div class="title" align="center"><h4>SCALE</h4></div>
+                            <div class="option">
+                                <div class="desc1">Did not apply to me at all</div>
+                                <div class="desc2">1</div>
+                            </div>
+                            <div class="option">
+                                <div class="desc1">Applied to me to some degree</div>
+                                <div class="desc2">2</div>
+                            </div>
+                            <div class="option">
+                                <div class="desc1">Applied to me to a considerable degree</div>
+                                <div class="desc2">3</div>
+                            </div>
+                            <div class="optionLast">
+                                <div class="desc1">Applied to me very much</div>
+                                <div class="desc2">4</div>
+                            </div>
+                            <div class="option">
+                                <div class="desc">Prefer not to answer</div>
+                            </div>
+                        </div>
                     </fieldset>
+
                     <fieldset id="questions">
-                        <legend>Questions</legend>
-                        <table class="table table-striped table-bordered table-radio">
-                            <tr>
-                                <th>Question</th>
-                                <th>None</th>
-                                <th>Some</th>
-                                <th>Often</th>
-                                <th>Most</th>
-                                <th>Prefer not to answer</th>
-                            </tr>
-                            <tr>
-                                <td>I was aware of dryness of my mouth.</td>
-                                <td><label class="radioBox"><input type="radio" name="dryness" class="form-control" value="0" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="dryness" class="form-control" value="1" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="dryness" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="dryness" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="dryness" class="form-control" value="-1" /></label></td>
-                            </tr>
-                            <tr>
-                                <td>I experienced breathing difficulty (e.g., excessively rapid breathing,
-                                    breathlessness in the absence of physical exertion).</td>
-                                <td><label class="radioBox"><input type="radio" name="breathing" class="form-control" value="0" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="breathing" class="form-control" value="1"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="breathing" class="form-control" value="2"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="breathing" class="form-control" value="3"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="breathing" class="form-control" value="-1" /></label></td>
-                            </tr>
-                            <tr>
-                                <td>I experienced trembling (e.g., in the hands).</td>
-                                <td><label class="radioBox"><input type="radio" name="trembling" class="form-control" value="0" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="trembling" class="form-control" value="1"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="trembling" class="form-control" value="2"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="trembling" class="form-control" value="3"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="trembling" class="form-control" value="-1" /></label></td>
-                            </tr>
-                            <tr>
-                                <td>I was worried about situations in which I might panic and make
-                                    a fool of myself.</td>
-                                <td><label class="radioBox"><input type="radio" name="worry" class="form-control" value="0" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="worry" class="form-control" value="1"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="worry" class="form-control" value="2"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="worry" class="form-control" value="3"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="worry" class="form-control" value="-1" /></label></td>
-                            </tr>
-                            <tr>
-                                <td>I felt I was close to panic.</td>
-                                <td><label class="radioBox"><input type="radio" name="panic" class="form-control" value="0" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="panic" class="form-control" value="1"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="panic" class="form-control" value="2"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="panic" class="form-control" value="3"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="panic" class="form-control" value="-1" /></label></td>
-                            </tr>
-                            <tr>
-                                <td>I was aware of the action of my heart in the absence of physical
-                                    exertion (e.g., sense of heart rate increase, heart missing a beat).</td>
-                                <td><label class="radioBox"><input type="radio" name="heart" class="form-control" value="0" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="heart" class="form-control" value="1"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="heart" class="form-control" value="2"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="heart" class="form-control" value="3"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="heart" class="form-control" value="-1" /></label></td>
-                            </tr>
-                            <tr>
-                                <td>I felt scared without any good reason.</td>
-                                <td><label class="radioBox"><input type="radio" name="scared" class="form-control" value="0" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="scared" class="form-control" value="1"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="scared" class="form-control" value="2"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="scared" class="form-control" value="3"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="scared" class="form-control" value="-1" /></label></td>
-                            </tr>
-                        </table>
+                        <br />
+                        <div class="section">
+                            <div class="question"><h4>I was aware of dryness of my mouth.</h4></div>
+                                <div class="option">
+                                    <div class="desc1">Did not apply to me at all</div>
+                                    <input type="radio" name="dryness" class="form-control" value="0" required="true"/>
+                                    <div class="desc2">1</div>
+                                </div>
+                                <div class="option">
+                                    <div class="desc1">Applied to me to some degree</div>
+                                    <input type="radio" name="dryness" class="form-control" value="1" />
+                                    <div class="desc2">2</div>
+                                </div>
+                                <div class="option">
+                                    <div class="desc1">Applied to me to a considerable degree</div>
+                                    <input type="radio" name="dryness" class="form-control" value="2" />
+                                    <div class="desc2">3</div>
+                                </div>
+                                <div class="optionLast" >
+                                    <div class="desc1">Applied to me very much</div>
+                                    <input type="radio" name="dryness" class="form-control" value="3" />
+                                    <div class="desc2">4</div>
+                                </div>
+                                <div class="option">
+                                    <div class="desc1">Prefer not to answer</div>
+                                    <input type="radio" name="dryness" class="form-control" value="-1" />
+                                    <div class="desc2"> </div>
+                                </div>
+                        </div>
+                        <br />
+                        <div class="section">
+                            <div class="question"><h4>I experienced breathing difficulty (e.g., excessively rapid breathing,
+                                breathlessness in the absence of physical exertion).</h4></div>
+                            <div class="option">
+                                <div class="desc1">Did not apply to me at all</div>
+                                <input type="radio" name="breathing" class="form-control" value="0" required="true"/>
+                                <div class="desc2">1</div>
+                            </div>
+                            <div class="option">
+                                <div class="desc1">Applied to me to some degree</div>
+                                <input type="radio" name="breathing" class="form-control" value="1" />
+                                <div class="desc2">2</div>
+                            </div>
+                            <div class="option">
+                                <div class="desc1">Applied to me to a considerable degree</div>
+                                <input type="radio" name="breathing" class="form-control" value="2" />
+                                <div class="desc2">3</div>
+                            </div>
+                            <div class="optionLast">
+                                <div class="desc1">Applied to me very much</div>
+                                <input type="radio" name="breathing" class="form-control" value="3" />
+                                <div class="desc2">4</div>
+                            </div>
+                            <div class="option">
+                                <div class="desc1">Prefer not to answer</div>
+                                <input type="radio" name="breathing" class="form-control" value="-1" />
+                                <div class="desc2"> </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="section">
+                            <div class="question"><h4>I experienced trembling (e.g., in the hands).</h4></div>
+                            <div class="option">
+                                <div class="desc1">Did not apply to me at all</div>
+                                <input type="radio" name="trembling" class="form-control" value="0" required="true"/>
+                                <div class="desc2">1</div>
+                            </div>
+                            <div class="option">
+                                <div class="desc1">Applied to me to some degree</div>
+                                <input type="radio" name="trembling" class="form-control" value="1" />
+                                <div class="desc2">2</div>
+                            </div>
+                            <div class="option">
+                                <div class="desc1">Applied to me to a considerable degree</div>
+                                <input type="radio" name="trembling" class="form-control" value="2" />
+                                <div class="desc2">3</div>
+                            </div>
+                            <div class="optionLast">
+                                <div class="desc1">Applied to me very much</div>
+                                <input type="radio" name="trembling" class="form-control" value="3" />
+                                <div class="desc2">4</div>
+                            </div>
+                            <div class="option">
+                                <div class="desc1">Prefer not to answer</div>
+                                <input type="radio" name="trembling" class="form-control" value="-1" />
+                                <div class="desc2"> </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="section">
+                            <div class="question"><h4>I was worried about situations in which I might panic and make
+                                a fool of myself.</h4></div>
+                            <div class="option">
+                                <div class="desc1">Did not apply to me at all</div>
+                                <input type="radio" name="worry" class="form-control" value="0" required="true"/>
+                                <div class="desc2">1</div>
+                            </div>
+                            <div class="option">
+                                <div class="desc1">Applied to me to some degree</div>
+                                <input type="radio" name="worry" class="form-control" value="1" />
+                                <div class="desc2">2</div>
+                            </div>
+                            <div class="option">
+                                <div class="desc1">Applied to me to a considerable degree</div>
+                                <input type="radio" name="worry" class="form-control" value="2" />
+                                <div class="desc2">3</div>
+                            </div>
+                            <div class="optionLast">
+                                <div class="desc1">Applied to me very much</div>
+                                <input type="radio" name="worry" class="form-control" value="3" />
+                                <div class="desc2">4</div>
+                            </div>
+                            <div class="option">
+                                <div class="desc1">Prefer not to answer</div>
+                                <input type="radio" name="worry" class="form-control" value="-1" />
+                                <div class="desc2"> </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="section">
+                            <div class="question"><h4>I felt I was close to panic.</h4></div>
+                            <div class="option">
+                                <div class="desc1">Did not apply to me at all</div>
+                                <input type="radio" name="panic" class="form-control" value="0" required="true"/>
+                                <div class="desc2">1</div>
+                            </div>
+                            <div class="option">
+                                <div class="desc1">Applied to me to some degree</div>
+                                <input type="radio" name="panic" class="form-control" value="1" />
+                                <div class="desc2">2</div>
+                            </div>
+                            <div class="option">
+                                <div class="desc1">Applied to me to a considerable degree</div>
+                                <input type="radio" name="panic" class="form-control" value="2" />
+                                <div class="desc2">3</div>
+                            </div>
+                            <div class="optionLast">
+                                <div class="desc1">Applied to me very much</div>
+                                <input type="radio" name="panic" class="form-control" value="3" />
+                                <div class="desc2">4</div>
+                            </div>
+                            <div class="option">
+                                <div class="desc1">Prefer not to answer</div>
+                                <input type="radio" name="panic" class="form-control" value="-1" />
+                                <div class="desc2"> </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="section">
+                            <div class="question"><h4>I was aware of the action of my heart in the absence of physical
+                                exertion (e.g., sense of heart rate increase, heart missing a beat).</h4></div>
+                            <div class="option">
+                                <div class="desc1">Did not apply to me at all</div>
+                                <input type="radio" name="heart" class="form-control" value="0" required="true"/>
+                                <div class="desc2">1</div>
+                            </div>
+                            <div class="option">
+                                <div class="desc1">Applied to me to some degree</div>
+                                <input type="radio" name="heart" class="form-control" value="1" />
+                                <div class="desc2">2</div>
+                            </div>
+                            <div class="option">
+                                <div class="desc1">Applied to me to a considerable degree</div>
+                                <input type="radio" name="heart" class="form-control" value="2" />
+                                <div class="desc2">3</div>
+                            </div>
+                            <div class="optionLast">
+                                <div class="desc1">Applied to me very much</div>
+                                <input type="radio" name="heart" class="form-control" value="3" />
+                                <div class="desc2">4</div>
+                            </div>
+                            <div class="option">
+                                <div class="desc1">Prefer not to answer</div>
+                                <input type="radio" name="heart" class="form-control" value="-1" />
+                                <div class="desc2"> </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="section">
+                            <div class="question"><h4>I felt scared without any good reason..</h4></div>
+                            <div class="option">
+                                <div class="desc1">Did not apply to me at all</div>
+                                <input type="radio" name="scared" class="form-control" value="0" required="true"/>
+                                <div class="desc2">1</div>
+                            </div>
+                            <div class="option">
+                                <div class="desc1">Applied to me to some degree</div>
+                                <input type="radio" name="scared" class="form-control" value="1" />
+                                <div class="desc2">2</div>
+                            </div>
+                            <div class="option">
+                                <div class="desc1">Applied to me to a considerable degree</div>
+                                <input type="radio" name="scared" class="form-control" value="2" />
+                                <div class="desc2">3</div>
+                            </div>
+                            <div class="optionLast">
+                                <div class="desc1">Applied to me very much</div>
+                                <input type="radio" name="scared" class="form-control" value="3" />
+                                <div class="desc2">4</div>
+                            </div>
+                            <div class="option">
+                                <div class="desc1">Prefer not to answer</div>
+                                <input type="radio" name="scared" class="form-control" value="-1" />
+                                <div class="desc2"> </div>
+                            </div>
+                        </div>
+
+
+                    <br />
+                    <input type="checkbox" name="age" value="Yes" /> I am 18 years old or older.<br />
+                    <br />
+                    <div align="center">
+                        <input style="background-color:#0099FF;" type="submit" value="Submit" />
+                    </div>
+
                     </fieldset>
                 </form>
-                <script>
-                    $("#wizard").on("wizardfinish", function() {
-                            if (!$(this).find(":input").valid()) {
-                                    return false;
-                            }
-                        }).jWizard().validate();
-                    // clicking anywhere in a cell should check the radio button
-                    $(this).find('input:radio').attr('checked',true);
 
-                </script>
             </div>
         </div>
         <!--features ends-->
