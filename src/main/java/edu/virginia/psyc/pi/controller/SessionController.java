@@ -67,6 +67,17 @@ public class SessionController extends BaseController {
         return "home";
     }
 
+    @RequestMapping("/overview")
+    public String overview(ModelMap model, Principal principal) {
+        Participant p = getParticipant(principal);
+        Study study  = p.getStudy();
+
+        model.addAttribute("participant", p);
+        model.addAttribute("study", study);
+
+        return "overview";
+    }
+
     @RequestMapping("/next")
     public View nextStepInSession(ModelMap model, Principal principal) {
         Participant p = getParticipant(principal);

@@ -89,13 +89,14 @@
 
         <div th:if="${sessionState == 'IN_PROGRESS'}">
             <h1>Welcome back <span th:text="${participant.fullName}">Jim</span>.</h1>
-            <p>You are part way through the <span th:text="${lastSession.displayName}"/>. You can now pick back up where you left off.</p>
+            <p>You are part way through the <span th:text="${currentSession.displayName}"/>. You can now pick back up where you left off.</p>
             <a th:href="${currentTask.requestMapping}" th:if="${currentTask}"><div class="mybtn">Start</div></a>
         </div>
 
         <div th:if="${sessionState == 'WAIT_A_DAY'}">
             <h1>Good work, <span th:text="${participant.fullName}">Jim</span>.<br/>You have completed the <span th:text="${lastSession.displayName}"/>. </h1>
             <p>UP NEXT: For best results, plan to begin the <span th:text="${currentSession.displayName}"/> between <span class="dateRange" th:text="${dateRange}">July 7 - July 10, 2015</span></p>
+            <a href="/session/overview"><div class="mybtn">Program Overview</div></a>
         </div>
 
         <div th:if="${sessionState == 'NOT_ELIGIBLE'}">
