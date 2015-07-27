@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+    <head th:include="fragment/common :: headerFragment" />
+<body>
+    <section id="header" class="clearfix" th:include="fragment/common :: topFragment" />
+
+<!-- header-btm starts
+================================================== -->
+<section id="header-btm" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <h4 class="heading-icon clearfix"> <img src="/grepfrut/img/icons/heading-icon-blocks.png" width="40" height="40" alt="icon" class="icon-small-bg"/>Session Progress</h4>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- header-btm ends
+================================================== -->
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+    <div class="container">
+        <h1>Overview for <span th:text="${participant.fullName}"/></h1>
+        <p>You can access this overview page at any time using the "My Progress" link in the navigation
+        bar above.  This page provides an overview of everything you will be doing as a participant in
+        this Study.  Come back often to see how you are doing!</p>
+
+        <div class="sessionGrouping" th:each="session : ${study.sessions}">
+        <div class="sessionOverview">
+            <table>
+                <tr>
+                    <td th:text="${session.displayName}">Session Title</td>
+                    <td>Duration</td>
+                    <td>Date Completed</td>
+                </tr>
+                <tr th:each="task : ${session.tasks}">
+                    <td th:text="${task.displayName}">Session Title</td>
+                    <td th:text="${task.duration + ' min'}">Row 1</td>
+                    <td>Row 1</td>
+                </tr>
+            </table>
+        </div>
+        <p>Allow 2 to 3 days between each session.</p>
+        </div>
+
+
+    </div>
+</section>
+
+
+    <!-- footer starts
+    ================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts" />
+
+</body>
+</html>

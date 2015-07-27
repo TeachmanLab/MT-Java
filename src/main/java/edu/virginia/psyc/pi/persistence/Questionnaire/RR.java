@@ -23,8 +23,7 @@ public class RR implements QuestionnaireData {
     @ManyToOne
     private ParticipantDAO participantDAO;
     private Date date;
-    @Enumerated(EnumType.STRING)
-    private Session.NAME session = Session.NAME.ELIGIBLE;
+    private String session;
 
     private int yellow1;
     private int yellow2;
@@ -310,13 +309,9 @@ public class RR implements QuestionnaireData {
         this.date = date;
     }
 
-    public Session.NAME getSession() {
-        return session;
-    }
+   public String getSession() { return session; }
 
-    public void setSession(Session.NAME session) {
-        this.session = session;
-    }
+    public void setSession(String session) {this.session = session;}
 
 
 }

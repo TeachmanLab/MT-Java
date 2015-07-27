@@ -115,7 +115,7 @@ public class AdminController extends BaseController {
                                      @ModelAttribute("participants") ParticipantForm participantForm) {
 
         List<Participant> participants = participantForm.getParticipants();
-        List<Session.NAME> sessions = participantForm.getSessionNames();
+        List<String> sessions = participantForm.getSessionNames();
         int     index;
         ParticipantDAO dao;
 
@@ -133,7 +133,7 @@ public class AdminController extends BaseController {
                 // current session for the participant, and reset their progress.
                 // set the last session date to null so they don't get a timeout
                 // message.
-                if(p.getCurrentSession().getName() != sessions.get(index)) {
+                if(p.getStudy().getCurrentSession().getName() != sessions.get(index)) {
                     dao.setCurrentSession(sessions.get(index));
                     dao.setTaskIndex(0);
                     dao.setLastSessionDate(null);
@@ -233,7 +233,7 @@ public class AdminController extends BaseController {
     public String listSessions(ModelMap model, Principal principal) {
         Participant p = getParticipant(principal);
         model.addAttribute("participant", p);
-        model.addAttribute("sessions", p.getSessions());
+        model.addAttribute("sessions", p.getStudy().getSessions());
         return "admin/listSessions";
     }
 
@@ -241,7 +241,7 @@ public class AdminController extends BaseController {
     public String listDownloads(ModelMap model, Principal principal) {
         Participant p = getParticipant(principal);
         model.addAttribute("participant", p);
-        model.addAttribute("sessions", p.getSessions());
+        model.addAttribute("sessions", p.getStudy().getSessions());
         return "admin/listDownloads";
     }
 

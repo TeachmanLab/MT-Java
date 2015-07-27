@@ -61,9 +61,7 @@ public class ParticipantDAO implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Participant.CBM_CONDITION cbmCondition;
 
-    @Enumerated(EnumType.STRING)
-    private Session.NAME currentSession = Session.NAME.values()[0]; // set to first session by default
-
+    private String currentSession; // set to first session by default
 
     private int taskIndex = 0;
 
@@ -159,11 +157,11 @@ public class ParticipantDAO implements UserDetails {
         this.admin = admin;
     }
 
-    public Session.NAME getCurrentSession() {
+    public String getCurrentSession() {
         return currentSession;
     }
 
-    public void setCurrentSession(Session.NAME currentSession) {
+    public void setCurrentSession(String currentSession) {
         this.currentSession = currentSession;
     }
 

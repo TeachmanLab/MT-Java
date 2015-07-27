@@ -23,8 +23,7 @@ public class DASS21_DS implements QuestionnaireData {
     @ManyToOne
     private ParticipantDAO participantDAO;
     private Date date;
-    @Enumerated(EnumType.STRING)
-    private Session.NAME session = Session.NAME.ELIGIBLE;
+    private String session;
 
     private int nopositive;
     private int difficult;
@@ -58,11 +57,11 @@ public class DASS21_DS implements QuestionnaireData {
         this.date = date;
     }
 
-    public Session.NAME getSession() {
+    public String getSession() {
         return session;
     }
 
-    public void setSession(Session.NAME session) {
+    public void setSession(String session) {
         this.session = session;
     }
 

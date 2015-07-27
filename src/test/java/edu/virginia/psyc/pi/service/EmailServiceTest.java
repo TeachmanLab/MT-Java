@@ -1,7 +1,9 @@
 package edu.virginia.psyc.pi.service;
 
+import edu.virginia.psyc.pi.domain.CBMStudy;
 import edu.virginia.psyc.pi.domain.Participant;
 import edu.virginia.psyc.pi.domain.Session;
+import edu.virginia.psyc.pi.domain.Study;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.junit.Before;
@@ -30,6 +32,7 @@ public class EmailServiceTest {
         service     = new EmailService();
     }
 
+
     /**
      * Returns a date from i number of days ago.
      * @param i
@@ -57,75 +60,77 @@ public class EmailServiceTest {
 
         // Don't send an email two days after login, if a session was completed.
         participant.setLastLoginDate(xDaysAgo(2));
-        participant.setLastSessionDate(xDaysAgo(1));
+        participant.getStudy().setLastSessionDate(xDaysAgo(1));
         assertNull(service.getEmailToSend(participant));
     }
 
     @Test
     public void testShouldSendEmailAfter3_7_11_15_and_18() {
 
+        Study study = participant.getStudy();
+
         // Send emails on the correct days, but not on any other days.
-        participant.setLastSessionDate(xDaysAgo(1));
+        study.setLastSessionDate(xDaysAgo(1));
         assertNull(service.getEmailToSend(participant));
 
-        participant.setLastSessionDate(xDaysAgo(2));
+        study.setLastSessionDate(xDaysAgo(2));
         assertEquals(EmailService.TYPE.day2, service.getEmailToSend(participant));
 
-        participant.setLastSessionDate(xDaysAgo(3));
+        study.setLastSessionDate(xDaysAgo(3));
         assertNull(service.getEmailToSend(participant));
 
-        participant.setLastSessionDate(xDaysAgo(4));
+        study.setLastSessionDate(xDaysAgo(4));
         assertEquals(EmailService.TYPE.day4, service.getEmailToSend(participant));
 
-        participant.setLastSessionDate(xDaysAgo(5));
+        study.setLastSessionDate(xDaysAgo(5));
         assertNull(service.getEmailToSend(participant));
 
-        participant.setLastSessionDate(xDaysAgo(6));
+        study.setLastSessionDate(xDaysAgo(6));
         assertNull(service.getEmailToSend(participant));
 
-        participant.setLastSessionDate(xDaysAgo(7));
+        study.setLastSessionDate(xDaysAgo(7));
         assertEquals(EmailService.TYPE.day7, service.getEmailToSend(participant));
 
-        participant.setLastSessionDate(xDaysAgo(8));
+        study.setLastSessionDate(xDaysAgo(8));
         assertNull(service.getEmailToSend(participant));
 
-        participant.setLastSessionDate(xDaysAgo(9));
+        study.setLastSessionDate(xDaysAgo(9));
         assertNull(service.getEmailToSend(participant));
 
-        participant.setLastSessionDate(xDaysAgo(10));
+        study.setLastSessionDate(xDaysAgo(10));
         assertNull(service.getEmailToSend(participant));
 
-        participant.setLastSessionDate(xDaysAgo(11));
+        study.setLastSessionDate(xDaysAgo(11));
         assertEquals(EmailService.TYPE.day11, service.getEmailToSend(participant));
 
-        participant.setLastSessionDate(xDaysAgo(12));
+        study.setLastSessionDate(xDaysAgo(12));
         assertNull(service.getEmailToSend(participant));
 
-        participant.setLastSessionDate(xDaysAgo(13));
+        study.setLastSessionDate(xDaysAgo(13));
         assertNull(service.getEmailToSend(participant));
 
-        participant.setLastSessionDate(xDaysAgo(14));
+        study.setLastSessionDate(xDaysAgo(14));
         assertNull(service.getEmailToSend(participant));
 
-        participant.setLastSessionDate(xDaysAgo(15));
+        study.setLastSessionDate(xDaysAgo(15));
         assertEquals(EmailService.TYPE.day15, service.getEmailToSend(participant));
 
-        participant.setLastSessionDate(xDaysAgo(16));
+        study.setLastSessionDate(xDaysAgo(16));
         assertNull(service.getEmailToSend(participant));
 
-        participant.setLastSessionDate(xDaysAgo(17));
+        study.setLastSessionDate(xDaysAgo(17));
         assertNull(service.getEmailToSend(participant));
 
-        participant.setLastSessionDate(xDaysAgo(18));
+        study.setLastSessionDate(xDaysAgo(18));
         assertEquals(EmailService.TYPE.day18, service.getEmailToSend(participant));
 
-        participant.setLastSessionDate(xDaysAgo(19));
+        study.setLastSessionDate(xDaysAgo(19));
         assertNull(service.getEmailToSend(participant));
 
-        participant.setLastSessionDate(xDaysAgo(20));
+        study.setLastSessionDate(xDaysAgo(20));
         assertNull(service.getEmailToSend(participant));
 
-        participant.setLastSessionDate(xDaysAgo(100));
+        study.setLastSessionDate(xDaysAgo(100));
         assertNull(service.getEmailToSend(participant));
 
     }
@@ -135,18 +140,20 @@ public class EmailServiceTest {
     public void testShouldNotSendEmailAfter3_7_11_15_and_18_postSession8() {
 
         // Set up the sessions so we are past Session 8, but not finished with the Post session.
-        participant.setSessions(Session.createListView(Session.NAME.POST, 0));
-        participant.setLastSessionDate(xDaysAgo(2));
+        Study study = new CBMStudy(CBMStudy.NAME.POST.toString(), 0, new Date());
+        participant.setStudy(study);
+
+        study.setLastSessionDate(xDaysAgo(2));
         assertNull(service.getEmailToSend(participant));
-        participant.setLastSessionDate(xDaysAgo(4));
+        study.setLastSessionDate(xDaysAgo(4));
         assertNull(service.getEmailToSend(participant));
-        participant.setLastSessionDate(xDaysAgo(7));
+        study.setLastSessionDate(xDaysAgo(7));
         assertNull(service.getEmailToSend(participant));
-        participant.setLastSessionDate(xDaysAgo(11));
+        study.setLastSessionDate(xDaysAgo(11));
         assertNull(service.getEmailToSend(participant));
-        participant.setLastSessionDate(xDaysAgo(15));
+        study.setLastSessionDate(xDaysAgo(15));
         assertNull(service.getEmailToSend(participant));
-        participant.setLastSessionDate(xDaysAgo(18));
+        study.setLastSessionDate(xDaysAgo(18));
         assertNull(service.getEmailToSend(participant));
 
     }
@@ -154,21 +161,24 @@ public class EmailServiceTest {
     @Test
     public void testShouldSendEmailAfter60_63_67_75_onSession8() {
         // Set up the sessions so we are past Session 8, but not finished with the Post session.
-        participant.setSessions(Session.createListView(Session.NAME.POST, 0));
+        // Set up the sessions so we are past Session 8, but not finished with the Post session.
 
-        participant.setLastSessionDate(xDaysAgo(60));
+        Study study = new CBMStudy(CBMStudy.NAME.POST.toString(), 0, new Date());
+        participant.setStudy(study);
+
+        study.setLastSessionDate(xDaysAgo(60));
         assertEquals(EmailService.TYPE.followup, service.getEmailToSend(participant));
 
-        participant.setLastSessionDate(xDaysAgo(63));
+        study.setLastSessionDate(xDaysAgo(63));
         assertEquals(EmailService.TYPE.followup2, service.getEmailToSend(participant));
 
-        participant.setLastSessionDate(xDaysAgo(67));
+        study.setLastSessionDate(xDaysAgo(67));
         assertEquals(EmailService.TYPE.followup2, service.getEmailToSend(participant));
 
-        participant.setLastSessionDate(xDaysAgo(70));
+        study.setLastSessionDate(xDaysAgo(70));
         assertEquals(EmailService.TYPE.followup2, service.getEmailToSend(participant));
 
-        participant.setLastSessionDate(xDaysAgo(75));
+        study.setLastSessionDate(xDaysAgo(75));
         assertEquals(EmailService.TYPE.followup3, service.getEmailToSend(participant));
 
     }

@@ -46,7 +46,7 @@ public class ParticipantRepositoryTest {
         ParticipantRepositoryImpl repository = new ParticipantRepositoryImpl();
 
         dao = new ParticipantDAO("Dan Funk", "dan@sartography.com", "password", false);
-        dao.setCurrentSession(Session.NAME.SESSION1);
+        dao.setCurrentSession(CBMStudy.NAME.SESSION1.toString());
         dao.setTaskIndex(1);
         dao.setEmailOptout(true);
         dao.setActive(false);
@@ -60,14 +60,14 @@ public class ParticipantRepositoryTest {
         assertEquals(p.getFullName(), dao.getFullName());
         assertEquals(p.getEmail(), dao.getEmail());
         assertEquals(p.isAdmin(), dao.isAdmin());
-        assertEquals(Session.NAME.SESSION1, p.getCurrentSession().getName());
-        assertEquals(p.getCurrentSession().getName(), dao.getCurrentSession());
+        assertEquals(CBMStudy.NAME.SESSION1, CBMStudy.NAME.valueOf(p.getStudy().getCurrentSession().getName()));
+        assertEquals(p.getStudy().getCurrentSession().getName(), dao.getCurrentSession());
         assertEquals(p.isEmailOptout(), dao.isEmailOptout());
         assertEquals(p.isActive(), dao.isActive());
-        assertEquals(1, p.getTaskIndex());
-        assertNotNull(p.getCurrentSession());
+        assertEquals(1, p.getStudy().getCurrentTaskIndex());
+        assertNotNull(p.getStudy().getCurrentSession());
         assertEquals(p.getLastLoginDate(), dao.getLastLoginDate());
-        assertEquals(p.getLastSessionDate(), dao.getLastSessionDate());
+        assertEquals(p.getStudy().getLastSessionDate(), dao.getLastSessionDate());
         assertNull("Password should not come back from the database.", p.getPassword());
         assertEquals(p.getCbmCondition(), dao.getCbmCondition());
         assertEquals(p.getPrime(), dao.getPrime());
@@ -138,12 +138,11 @@ public class ParticipantRepositoryTest {
         Participant p;
         ParticipantDAO dao = new ParticipantDAO();
         ParticipantRepositoryImpl repository = new ParticipantRepositoryImpl();
-        List<Session> sessions = Session.createListView(Session.NAME.SESSION1, 1);
+        Study study = new CBMStudy(CBMStudy.NAME.SESSION1.toString(), 1, new Date());
 
         p = new Participant(1, "Dan Funk", "daniel.h.funk@gmail.com", false);
-        p.setSessions(sessions);
+        p.setStudy(study);
         p.setLastLoginDate(new Date());
-        p.setLastSessionDate(new Date());
 
         repository.domainToEntity(p, dao);
 
@@ -151,11 +150,11 @@ public class ParticipantRepositoryTest {
         assertEquals(p.getFullName(), dao.getFullName());
         assertEquals(p.getEmail(), dao.getEmail());
         assertEquals(p.isAdmin(), dao.isAdmin());
-        assertEquals(p.getCurrentSession().getName(), dao.getCurrentSession());
+        assertEquals(CBMStudy.NAME.SESSION1.toString(), dao.getCurrentSession());
         assertEquals(p.isActive(), dao.isActive());
         assertEquals(1, dao.getTaskIndex());
         assertEquals(p.getLastLoginDate(), dao.getLastLoginDate());
-        assertEquals(p.getLastSessionDate(), dao.getLastSessionDate());
+        assertEquals(p.getStudy().getLastSessionDate(), dao.getLastSessionDate());
         assertEquals(p.getCbmCondition(), dao.getCbmCondition());
         assertEquals(p.getPrime(), dao.getPrime());
 
@@ -261,17 +260,18 @@ public class ParticipantRepositoryTest {
         Assert.assertEquals("john@x.com", participantDAO.getEmail());
     }
 
-
     @Test
     public void bugWhereParticipantSessionIsWonky() {
 
         ParticipantDAO dao;
         Participant p;
+        Study study;
         String email = "john@x.com";
 
         // Create a participant
         p = new Participant(1000000, email, "23452354", false);
-        p.setSessions(Session.createListView(Session.NAME.PRE,0));
+        study = new CBMStudy(CBMStudy.NAME.PRE.toString(), 0, new Date());
+        p.setStudy(study);
 
         // Save that participant
         dao = new ParticipantDAO();
@@ -281,32 +281,32 @@ public class ParticipantRepositoryTest {
         p   = participantRepository.entityToDomain(dao);
 
         // Assure that the participant's current session is pre
-        assertEquals(Session.NAME.PRE, p.getCurrentSession().getName());
+        assertEquals(CBMStudy.NAME.PRE.toString(), p.getStudy().getCurrentSession().getName());
 
         // Change the participant's session.
-        dao.setCurrentSession(Session.NAME.SESSION5);
+        dao.setCurrentSession(CBMStudy.NAME.SESSION5.toString());
 
         // Get that participant back.
         p   = participantRepository.entityToDomain(dao);
 
         // Assure that the participant's current session is session 5
-        assertEquals(Session.NAME.SESSION5, p.getCurrentSession().getName());
+        assertEquals(CBMStudy.NAME.SESSION5.toString(), p.getStudy().getCurrentSession().getName());
 
         // Increment the current task.
-        p.completeCurrentTask();
-        assertEquals(1, p.getTaskIndex());
-        p.completeCurrentTask();
-        p.completeCurrentTask();
-        p.completeCurrentTask();
-        assertEquals(0, p.getTaskIndex());
-        assertEquals(Session.NAME.SESSION6, p.getCurrentSession().getName());
+        p.getStudy().completeCurrentTask();
+        assertEquals(1, p.getStudy().getCurrentTaskIndex());
+        p.getStudy().completeCurrentTask();
+        p.getStudy().completeCurrentTask();
+        p.getStudy().completeCurrentTask();
+        assertEquals(0, p.getStudy().getCurrentTaskIndex());
+        assertEquals(CBMStudy.NAME.SESSION6.toString(), p.getStudy().getCurrentSession().getName());
 
         // Change the participant's session back to Session1.
-        dao.setCurrentSession(Session.NAME.SESSION1);
+        dao.setCurrentSession(CBMStudy.NAME.SESSION1.toString());
         p   = participantRepository.entityToDomain(dao);
-        assertEquals(Session.NAME.SESSION1, p.getCurrentSession().getName());
-        p.completeCurrentTask();
-        assertEquals(Session.NAME.SESSION1, p.getCurrentSession().getName());
+        assertEquals(CBMStudy.NAME.SESSION1.toString(), p.getStudy().getCurrentSession().getName());
+        p.getStudy().completeCurrentTask();
+        assertEquals(CBMStudy.NAME.SESSION1.toString(), p.getStudy().getCurrentSession().getName());
 
     }
 

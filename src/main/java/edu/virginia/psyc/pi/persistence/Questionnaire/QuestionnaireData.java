@@ -26,8 +26,8 @@ public interface QuestionnaireData {
 
     public void setDate(Date date);
 
-    public Session.NAME getSession();
+    public String getSession();
 
-    public void setSession(Session.NAME session);
+    public void setSession(String session);
 
 }
