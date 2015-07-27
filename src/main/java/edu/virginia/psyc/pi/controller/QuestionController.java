@@ -3,9 +3,11 @@ package edu.virginia.psyc.pi.controller;
 import edu.virginia.psyc.pi.domain.CBMStudy;
 import edu.virginia.psyc.pi.domain.Participant;
 import edu.virginia.psyc.pi.domain.Session;
+import edu.virginia.psyc.pi.persistence.GiftLogDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.persistence.Questionnaire.*;
+import edu.virginia.psyc.pi.persistence.TaskLogDAO;
 import edu.virginia.psyc.pi.service.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -131,6 +133,11 @@ public class QuestionController extends BaseController {
 
         // Record the session for which this questionnaire was completed.
         data.setSession(participant.getStudy().getCurrentSession().getName());
+
+        // Log the completion of the task
+        TaskLogDAO taskDao = new TaskLogDAO(dao, participant.getStudy().getCurrentSession().getName(),
+                                            participant.getStudy().getCurrentSession().getCurrentTask().getName());
+        dao.addTaskLog(taskDao);
 
         // Update the participant's session status, and save back to the database.
         participant.getStudy().completeCurrentTask();

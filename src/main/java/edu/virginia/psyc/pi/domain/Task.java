@@ -3,6 +3,8 @@ package edu.virginia.psyc.pi.domain;
 
 import lombok.Data;
 
+import java.util.Date;
+
 /**
  * Created with IntelliJ IDEA.
  * User: dan
@@ -23,6 +25,7 @@ public class Task {
     private boolean    complete;
     private boolean    current;
     private int        duration;  // the estimated time it takes to complete this task.
+    private Date       dateCompleted;
 
     public Task(String name, String displayName, TYPE type, int duration) {
         this.name = name;
@@ -31,15 +34,18 @@ public class Task {
         this.complete = false;
         this.current = false;
         this.duration = duration;
+        this.dateCompleted = null;
     }
 
 
-    public Task(String name, String displayName, TYPE type, boolean complete, boolean current) {
+    public Task(String name, String displayName, TYPE type, int duration, boolean complete, boolean current, Date dateCompleted) {
         this.name = name;
         this.displayName = displayName;
         this.type = type;
         this.complete = complete;
         this.current = current;
+        this.duration = duration;
+        this.dateCompleted = dateCompleted;
     }
 
     /**

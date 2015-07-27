@@ -19,13 +19,11 @@ public class ParticipantRepositoryImpl implements ParticipantRepositoryCustom {
     @Override
     public Participant entityToDomain(ParticipantDAO dao) {
         Participant p     = new Participant();
-        Study       study = new CBMStudy(dao.getCurrentSession(), dao.getTaskIndex(), dao.getLastSessionDate());
 
         p.setId(dao.getId());
         p.setFullName(dao.getFullName());
         p.setEmail(dao.getEmail());
         p.setAdmin(dao.isAdmin());
-        p.setStudy(study);
         p.setEmailOptout(dao.isEmailOptout());
         p.setActive(dao.isActive());
         p.setLastLoginDate(dao.getLastLoginDate());
@@ -51,6 +49,18 @@ public class ParticipantRepositoryImpl implements ParticipantRepositoryCustom {
             giftLogs.add(new GiftLog(log.getOrderId(), log.getDateSent()));
         }
         p.setGiftLogs(giftLogs);
+
+        // Task Logs
+        List<TaskLog> taskLogs = new ArrayList<TaskLog>();
+        for(TaskLogDAO log : dao.getTaskLogDAOs()) {
+            taskLogs.add(new TaskLog(log.getSessionName(), log.getTaskName(), log.getDateCompleted()));
+        }
+        p.setTaskLogs(taskLogs);
+
+        // Setup the Study (after the task logs are converted)
+        Study       study = new CBMStudy(dao.getCurrentSession(), dao.getTaskIndex(), dao.getLastSessionDate(), p.getTaskLogs());
+        p.setStudy(study);
+
 
         return p;
     }

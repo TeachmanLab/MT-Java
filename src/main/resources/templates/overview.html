@@ -36,14 +36,12 @@
         <div class="sessionOverview">
             <table>
                 <tr>
-                    <td th:text="${session.displayName}">Session Title</td>
-                    <td>Duration</td>
-                    <td>Date Completed</td>
+                    <td th:text="${session.displayName}" colspan="2">Session Title</td>
                 </tr>
                 <tr th:each="task : ${session.tasks}">
                     <td th:text="${task.displayName}">Session Title</td>
-                    <td th:text="${task.duration + ' min'}">Row 1</td>
-                    <td>Row 1</td>
+                    <td th:if="${task.dateCompleted}" th:text="${#calendars.format(task.dateCompleted,'MMM d, YYYY')}">10/05/2015</td>
+                    <td th:unless="${task.dateCompleted}" th:text="'Est ' + ${task.duration} + ' min. duration'"></td>
                 </tr>
             </table>
         </div>

@@ -18,6 +18,7 @@ import static junit.framework.Assert.assertNull;
 import static org.junit.Assert.assertEquals;
 import static org.springframework.test.util.AssertionErrors.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -138,7 +139,7 @@ public class ParticipantRepositoryTest {
         Participant p;
         ParticipantDAO dao = new ParticipantDAO();
         ParticipantRepositoryImpl repository = new ParticipantRepositoryImpl();
-        Study study = new CBMStudy(CBMStudy.NAME.SESSION1.toString(), 1, new Date());
+        Study study = new CBMStudy(CBMStudy.NAME.SESSION1.toString(), 1, new Date(), new ArrayList<TaskLog>());
 
         p = new Participant(1, "Dan Funk", "daniel.h.funk@gmail.com", false);
         p.setStudy(study);
@@ -270,7 +271,7 @@ public class ParticipantRepositoryTest {
 
         // Create a participant
         p = new Participant(1000000, email, "23452354", false);
-        study = new CBMStudy(CBMStudy.NAME.PRE.toString(), 0, new Date());
+        study = new CBMStudy(CBMStudy.NAME.PRE.toString(), 0, new Date(), p.getTaskLogs());
         p.setStudy(study);
 
         // Save that participant

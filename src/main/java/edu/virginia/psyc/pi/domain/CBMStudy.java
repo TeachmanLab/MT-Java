@@ -1,11 +1,15 @@
 package edu.virginia.psyc.pi.domain;
 
+import edu.virginia.psyc.pi.persistence.GiftLogDAO;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+import org.slf4j.LoggerFactory;
 
+import javax.xml.datatype.Duration;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,6 +23,9 @@ public class CBMStudy implements Study {
     private String currentName;
     private int taskIndex;
     private Date lastSessionDate;
+    private List<TaskLog> taskLogs;
+
+    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(CBMStudy.class);
 
     /**
      * This is an ordered enumeration, and is used that way.
@@ -29,10 +36,11 @@ public class CBMStudy implements Study {
         ELIGIBLE, PRE, SESSION1, SESSION2, SESSION3, SESSION4, SESSION5, SESSION6, SESSION7, SESSION8, POST, COMPLETE
     }
 
-    public CBMStudy(String currentName, int taskIndex, Date lastSessionDate) {
+    public CBMStudy(String currentName, int taskIndex, Date lastSessionDate, List<TaskLog> taskLogs) {
         this.currentName = currentName;
         this.taskIndex = taskIndex;
         this.lastSessionDate = lastSessionDate;
+        this.taskLogs = taskLogs;
     }
 
     public List<Session> getSessions() {
@@ -81,7 +89,7 @@ public class CBMStudy implements Study {
      * @param name The Name of a given session.
      * @return
      */
-    private static List<Task> getTasks(NAME name, int taskIndex) {
+    private List<Task> getTasks(NAME name, int taskIndex) {
 
         List<Task> tasks = new ArrayList<Task>();
         switch (name) {
@@ -158,7 +166,7 @@ public class CBMStudy implements Study {
                 tasks.add(new Task("QOL", "Quality of Life Scale", Task.TYPE.questions, 2));
                 tasks.add(new Task("DASS21_DS", "Symptom Measures", Task.TYPE.questions, 1));
         }
-        setTaskStates(tasks, taskIndex);
+        setTaskStates(name, tasks, taskIndex);
         return tasks;
     }
 
@@ -194,15 +202,6 @@ public class CBMStudy implements Study {
         return null;
     }
 
-    public static Session nextSession(Session current) {
-        NAME name = nextSessionName(NAME.valueOf(current.getName()));
-        if (name != null) {
-            return new Session(name.toString(), calculateDisplayName(name), false, false, getTasks(name,0));
-        } else {
-            throw new RuntimeException("No more sessions.  You have reached the end of the trial.");
-        }
-    }
-
     public Session getLastSession() {
         NAME last = NAME.ELIGIBLE;
 
@@ -215,13 +214,19 @@ public class CBMStudy implements Study {
 
     /**
      * This method churns through the list of tasks, setting the "current" and "complete" flags based on the
-     * current task index.
+     * current task index. It also uses the task logs to determine the completion date.
      */
-    private static void setTaskStates(List<Task> tasks, int taskIndex) {
+    private void setTaskStates(NAME sessionName, List<Task> tasks, int taskIndex) {
         int index = 0;
         for (Task t : tasks) {
             t.setCurrent(taskIndex == index);
             t.setComplete(taskIndex > index);
+            for(TaskLog log : taskLogs) {
+                if (log.getSessionName().equals(sessionName.toString()) && log.getTaskName().equals(t.getName())) {
+                    t.setDateCompleted(log.getDateCompleted());
+                    break;
+                }
+            }
             index++;
         }
     }
@@ -257,6 +262,8 @@ public class CBMStudy implements Study {
     }
 
     public void completeCurrentTask() {
+
+
         // If this is the last task in a session, then we move to the next session.
         if(taskIndex +1 >= getCurrentSession().getTasks().size()) {
             completeSession();

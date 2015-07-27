@@ -4,6 +4,7 @@ import edu.virginia.psyc.pi.domain.Participant;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.persistence.Questionnaire.*;
+import edu.virginia.psyc.pi.persistence.TaskLogDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +62,11 @@ public class PIPlayerController extends BaseController {
 
         Participant participant = getParticipant(principal);
         ParticipantDAO dao = participantRepository.findByEmail(participant.getEmail());
+
+        // Log the completion of the task
+        TaskLogDAO taskDao = new TaskLogDAO(dao, participant.getStudy().getCurrentSession().getName(),
+                participant.getStudy().getCurrentSession().getCurrentTask().getName());
+        dao.addTaskLog(taskDao);
 
         participant.getStudy().completeCurrentTask();
         participantRepository.domainToEntity(participant, dao);

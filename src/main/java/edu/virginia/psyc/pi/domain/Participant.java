@@ -70,6 +70,8 @@ public class Participant {
 
     private List<GiftLog>  giftLogs = new ArrayList<>();
 
+    private List<TaskLog>  taskLogs = new ArrayList<>();
+
     private PasswordToken  passwordToken;
 
     private CBM_CONDITION  cbmCondition;
@@ -82,7 +84,7 @@ public class Participant {
     public Participant() {
         cbmCondition = randomCondition();
         prime        = randomPrime();
-        this.study = new CBMStudy(CBMStudy.NAME.ELIGIBLE.toString(), 0, null);
+        this.study = new CBMStudy(CBMStudy.NAME.ELIGIBLE.toString(), 0, null, new ArrayList<TaskLog>());
     }
 
     public Participant(long id, String fullName, String email, boolean admin) {
@@ -92,7 +94,7 @@ public class Participant {
         this.admin = admin;
         cbmCondition = randomCondition();
         prime        = randomPrime();
-       this.study = new CBMStudy(CBMStudy.NAME.ELIGIBLE.toString(), 0, null);
+       this.study = new CBMStudy(CBMStudy.NAME.ELIGIBLE.toString(), 0, null, new ArrayList<TaskLog>());
     }
 
     /**
@@ -229,6 +231,14 @@ public class Participant {
         giftLogs.add(log);
     }
 
+    public List<TaskLog> getTaskLogs() { return taskLogs; }
+
+    public void setTaskLogs(List<TaskLog> taskLogs) { this.taskLogs = taskLogs; }
+
+    public void addTaskLog(TaskLog log) {
+        if (this.taskLogs == null) taskLogs = new ArrayList<TaskLog>();
+        taskLogs.add(log);
+    }
 
     /**
      * Checks to see if this type of email was already sent to the user.
