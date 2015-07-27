@@ -33,10 +33,13 @@ public class DASS21_AS implements QuestionnaireData {
     private int panic;
     private int heart;
     private int scared;
+    private boolean isOver18;
+
+
 
     public DASS21_AS() {}
 
-    public DASS21_AS(int dryness, int breathing, int trembling, int worry, int panic, int heart, int scared) {
+    public DASS21_AS(int dryness, int breathing, int trembling, int worry, int panic, int heart, int scared, int isOver18) {
         this.dryness = dryness;
         this.breathing = breathing;
         this.trembling = trembling;
@@ -44,6 +47,7 @@ public class DASS21_AS implements QuestionnaireData {
         this.panic = panic;
         this.heart = heart;
         this.scared = scared;
+        this.isOver18 = (isOver18 == 1);
     }
 
 
@@ -70,7 +74,7 @@ public class DASS21_AS implements QuestionnaireData {
     }
 
     public boolean eligibleScore() {
-        return(this.score() > 10);
+        return(this.score() > 10 && this.isOver18);
     }
 
     public boolean atRisk(DASS21_AS original) {

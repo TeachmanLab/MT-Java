@@ -7,47 +7,7 @@
 <!--<![endif]-->
 <head th:include="/fragment/common :: headerFragment" />
 <head>
-    <style TYPE="text/css">
-        body {
-        background: #FFFFCC;
-        color: #000 }
-        div.section {
-        padding: 20px;
-        width: 900px;
-        height: 150px;
-        border-radius: 15px;
-        border: 1px solid black;
-        background: #FFF;
-        }
-        div.option {
-        font-size: .8em;
-        float: left;
-        width: 175px;
-        font-size: 1.0em;
-        align-content: center;
-        text-align: center;
-        }
-        div.desc1 {
-        height: 40px;
-        }
-        div.desc {
-        float: center;
-        height: 40px;
-        }
-        div.question {
-        height: 60px;
-        width: 700px;
-        }
-        div.optionLast {
-        border-right: solid #757878;
-        font-size: .8em;
-        float: left;
-        width: 175px;
-        font-size: 1.0em;
-        align-content: center;
-        text-align: center;
-        }
-    </style>
+<link rel="stylesheet" type="text/css" href="/css/style.css"  />
 </head>
 
 <body>
@@ -320,7 +280,8 @@
 
 
                     <br />
-                    <input type="checkbox" name="age" value="Yes" /> I am 18 years old or older.<br />
+                    <input type="checkbox" id="ageBox" name="age" /> I am 18 years old or older.<br />
+
                     <br />
                     <div align="center">
                         <input style="background-color:#0099FF;" type="submit" value="Submit" />
@@ -340,6 +301,7 @@
 </section>
 
 
+
 <!-- footer starts
 ================================================== -->
 <footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
@@ -350,6 +312,13 @@
 
 <!--Javascript
 ================================================== -->
+<script language="JavaScript">
+    function check() {
+    var isOver18 = document.getElementById("ageBox").checked;
+
+    }
+</script>
+
 <div th:include="fragment/common :: scripts" />
 
 </body>
