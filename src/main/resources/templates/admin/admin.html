@@ -87,7 +87,7 @@
                         <td th:text="*{participants[__${status.index}__].email}">daniel.h.funk@gmail.com</td>
                         <td>
                             <select th:field="*{sessionNames[__${status.index}__]}">
-                                <option th:each="elem: ${T(edu.virginia.psyc.pi.domain.Session.NAME).values()}" th:value="${elem.name()}" th:text="${elem.name()}" value="BAZ" width="20">BAZ</option>
+                                <option th:each="elem: ${T(edu.virginia.psyc.pi.domain.CBMStudy.NAME).values()}" th:value="${elem.name()}" th:text="${elem.name()}" value="BAZ" width="20">BAZ</option>
                             </select>
                         </td>
                         <td><input type="checkbox"  th:field="*{participants[__${status.index}__].emailOptout}" /></td>
