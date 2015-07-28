@@ -32,9 +32,20 @@ public class CBMStudy implements Study {
      * Changing the order here will impact the order in which
      * sessions occur in the interface and in their progression.
      */
-    public enum NAME {
+    public static enum NAME {
         ELIGIBLE, PRE, SESSION1, SESSION2, SESSION3, SESSION4, SESSION5, SESSION6, SESSION7, SESSION8, POST, COMPLETE
     }
+
+    /** This specifies which Sessions should receive a gift after completion.
+     */
+    private static List<NAME> giftSessions = new ArrayList<NAME>() {
+        {
+            add(NAME.PRE);
+            add(NAME.SESSION3);
+            add(NAME.SESSION6);
+        }
+    };
+
 
     public CBMStudy(String currentName, int taskIndex, Date lastSessionDate, List<TaskLog> taskLogs) {
         this.currentName = currentName;
@@ -47,6 +58,7 @@ public class CBMStudy implements Study {
         List<Session> sessions = new ArrayList<Session>();
         boolean completed = true;
         boolean current = false;
+        boolean gift;
         Session session;
         NAME  curName = NAME.valueOf(currentName);
 
@@ -55,8 +67,10 @@ public class CBMStudy implements Study {
                 completed = false;
                 current = true;
             }
+            gift = false;
+            if(giftSessions.contains(name)) gift = true;
             if (!name.equals(NAME.ELIGIBLE) && !name.equals(NAME.COMPLETE)) {
-                session = new Session(name.toString(), calculateDisplayName(name), completed, current,getTasks(name, taskIndex));
+                session = new Session(name.toString(), calculateDisplayName(name), completed, current, gift, getTasks(name, taskIndex));
                 sessions.add(session);
             }
             current = false;  // only one can be current.
@@ -85,6 +99,9 @@ public class CBMStudy implements Study {
      * seems clean to me, as they will naturally depend on certain code and paths
      * existing.  So here is how sessions and tasks are defined, until requirements,
      * or common sense dictate a more complex solution.
+     *
+     * Note:  Arguments to Task are:  unique name, display name, type, and
+     * approximate time it takes to complete in minutes.
      *
      * @param name The Name of a given session.
      * @return
@@ -209,7 +226,7 @@ public class CBMStudy implements Study {
             if (name == NAME.valueOf(currentName)) break;
             last = name;
         }
-        return new Session(last.toString(), calculateDisplayName(last), true, false, getTasks(last,0));
+        return new Session(last.toString(), calculateDisplayName(last), true, false, giftSessions.contains(last), getTasks(last,0));
     }
 
     /**

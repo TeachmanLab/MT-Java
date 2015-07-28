@@ -45,10 +45,9 @@
                 </tr>
             </table>
         </div>
-        <p>Allow 2 to 3 days between each session.</p>
+            <div th:if="${session.awardGift}" class="gift">$5 Gift Card!</div>
+            <p th:if="${session.name != 'POST'}"> Allow 2 to 3 days between each session.</p>
         </div>
-
-
     </div>
 </section>
 

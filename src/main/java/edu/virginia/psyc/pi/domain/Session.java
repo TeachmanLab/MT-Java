@@ -23,16 +23,18 @@ public class Session {
     private String displayName;
     private boolean complete;
     private boolean current;
+    private boolean awardGift;
     private List<Task> tasks = new ArrayList<Task>();
 
     public Session() {
     }
 
-    public Session(String name, String displayName, boolean complete, boolean current, List<Task> tasks) {
+    public Session(String name, String displayName, boolean complete, boolean current, boolean gift, List<Task> tasks) {
         this.name = name;
         this.complete = complete;
         this.current = current;
         this.displayName = displayName;
+        this.awardGift = gift;
         this.tasks = tasks;
     }
 

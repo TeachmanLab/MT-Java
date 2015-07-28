@@ -52,10 +52,12 @@ public class SessionController extends BaseController {
         Session session = study.getCurrentSession();
 
         // Provide dates for next visit.
-        DateTime startDate = new DateTime(p.getLastLoginDate()).plusDays(2);
-        DateTime endDate = new DateTime(p.getLastLoginDate()).plusDays(5);
+        DateTime startDate = new DateTime(p.lastMilestone()).plusDays(2);
+        DateTime endDate = new DateTime(p.lastMilestone()).plusDays(5);
+        DateTime completeBy = new DateTime(p.lastMilestone()).plusDays(2);
         DateTimeFormatter startFormat = DateTimeFormat.forPattern("MMMM d -");
         DateTimeFormatter endFormat = DateTimeFormat.forPattern("MMMM d, YYYY");
+
 
         model.addAttribute("participant", p);
         model.addAttribute("lastSession", study.getLastSession());
@@ -63,6 +65,7 @@ public class SessionController extends BaseController {
         model.addAttribute("currentTask", session.getCurrentTask());
         model.addAttribute("sessionState", study.getState().toString());
         model.addAttribute("dateRange", startFormat.print(startDate) + endFormat.print(endDate));
+        model.addAttribute("completeBy", endFormat.print(completeBy));
 
         return "home";
     }

@@ -9,7 +9,7 @@
 .sessionOverview {
     margin:0px;
     padding:0px;
-    width:100%;
+    width:800px;
     border:1px solid #939393;
 
     -moz-border-radius-bottomleft:5px;
@@ -27,6 +27,10 @@
     -moz-border-radius-topleft:5px;
     -webkit-border-top-left-radius:5px;
     border-top-left-radius:5px;
+}
+
+.gift {
+    float: right;
 }
 
 .sessionOverview table{
