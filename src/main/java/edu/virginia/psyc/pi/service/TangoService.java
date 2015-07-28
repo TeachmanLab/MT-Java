@@ -150,7 +150,7 @@ public class TangoService {
      * Places an order with Tango.  Returns Gift Card details that we can later use
      * to notify Participant.
      */
-    public Reward createGiftCard(Participant participant) {
+    public Reward createGiftCard(Participant participant, String sessionName) {
         Recipient recipient = new Recipient(participant.getFullName(), participant.getEmail());
         Order order = new Order(id, accountId, tangoCardSku, cardValueCents, false);
         order.setRecipient(recipient);
@@ -161,7 +161,7 @@ public class TangoService {
         URI uri = URI.create(url + "/orders");
         try {
             ResponseEntity<OrderResponse> response = restTemplate.exchange(uri, HttpMethod.POST, entity, OrderResponse.class);
-            logGift(participant.getId(), response.getBody().getOrder().getOrder_id());
+            logGift(participant.getId(), response.getBody().getOrder().getOrder_id(), sessionName);
             Reward r = response.getBody().getOrder().getReward();
             r.setOrder_id(response.getBody().getOrder().getOrder_id());
             return response.getBody().getOrder().getReward();
@@ -173,17 +173,15 @@ public class TangoService {
     /**
      * Records the awarding of a gift.
      *
-     * @param id
-     * @param type
      */
-    private void logGift(long id, String orderId) {
+    private void logGift(long id, String orderId, String sessionName) {
         ParticipantDAO participantDAO;
         GiftLogDAO logDAO;
 
         LOGGER.info("Awarded a gift to participant #" + id);
         participantDAO = participantRepository.findOne(id);
         if (participantDAO != null) {
-            logDAO = new GiftLogDAO(participantDAO, orderId);
+            logDAO = new GiftLogDAO(participantDAO, orderId, sessionName);
             participantDAO.addGiftLog(logDAO);
             participantRepository.save(participantDAO);
         } else {

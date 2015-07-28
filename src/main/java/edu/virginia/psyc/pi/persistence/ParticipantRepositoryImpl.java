@@ -46,7 +46,7 @@ public class ParticipantRepositoryImpl implements ParticipantRepositoryCustom {
         // Gift Logs
         List<GiftLog> giftLogs = new ArrayList<GiftLog>();
         for(GiftLogDAO log : dao.getGiftLogDAOs()) {
-            giftLogs.add(new GiftLog(log.getOrderId(), log.getDateSent()));
+            giftLogs.add(new GiftLog(log.getOrderId(), log.getDateSent(), log.getSessionName()));
         }
         p.setGiftLogs(giftLogs);
 

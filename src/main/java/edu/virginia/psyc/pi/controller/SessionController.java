@@ -4,8 +4,11 @@ import edu.virginia.psyc.pi.domain.CBMStudy;
 import edu.virginia.psyc.pi.domain.Participant;
 import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.domain.Study;
+import edu.virginia.psyc.pi.domain.tango.Reward;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
+import edu.virginia.psyc.pi.service.EmailService;
+import edu.virginia.psyc.pi.service.TangoService;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -34,6 +37,12 @@ public class SessionController extends BaseController {
 
     private static final Logger LOG = LoggerFactory.getLogger(SessionController.class);
 
+    @Autowired
+    private TangoService tangoService;
+
+    @Autowired
+    private EmailService emailService;
+
 
     /**
      * Spring automatically configures this object.
@@ -45,11 +54,12 @@ public class SessionController extends BaseController {
     }
 
     @RequestMapping("")
-    public String sessionHome(ModelMap model, Principal principal) {
+    public String sessionHome(ModelMap model, Principal principal) throws Exception {
 
         Participant p = getParticipant(principal);
         Study study  = p.getStudy();
         Session session = study.getCurrentSession();
+        Session last    = study.getLastSession();
 
         // Provide dates for next visit.
         DateTime startDate = new DateTime(p.lastMilestone()).plusDays(2);
@@ -58,6 +68,12 @@ public class SessionController extends BaseController {
         DateTimeFormatter startFormat = DateTimeFormat.forPattern("MMMM d -");
         DateTimeFormatter endFormat = DateTimeFormat.forPattern("MMMM d, YYYY");
 
+        // Determine if a gift should be awarded, and award it.
+        if(last.isAwardGift() && !p.giftAwardedForSession(last)) {
+            Reward reward = tangoService.createGiftCard(p, last.getName());
+            this.emailService.sendGiftCardEmail(p, reward);
+            model.addAttribute("giftAwarded", true);
+        }
 
         model.addAttribute("participant", p);
         model.addAttribute("lastSession", study.getLastSession());

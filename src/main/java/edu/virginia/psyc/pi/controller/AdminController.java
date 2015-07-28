@@ -299,7 +299,7 @@ public class AdminController extends BaseController {
     @RequestMapping(value="/participant/giftCard")
     public String giftCard(ModelMap model, Principal principal) throws Exception {
         Participant p = participantRepository.entityToDomain(participantRepository.findByEmail(principal.getName()));
-        Reward r = tangoService.createGiftCard(p);
+        Reward r = tangoService.createGiftCard(p, "AdminAwarded");
         this.emailService.sendGiftCardEmail(p, r);
         model.addAttribute("participant",p);
         return "/admin/participant_form";
