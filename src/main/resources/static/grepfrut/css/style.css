@@ -840,7 +840,7 @@ form input.error, form textarea.error {
 	text-shadow: 0px 1px 0px #fff;
 }
 label {
-	width: 40%; /*increase width of label if longer label text, simuyltaneusoly decrease that of input & textarea*/
+	/* width: 40%; increase width of label if longer label text, simuyltaneusoly decrease that of input & textarea*/
 	padding-right: 1%;
 	float: left;
 	height: auto;
