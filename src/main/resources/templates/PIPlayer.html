@@ -16,7 +16,7 @@
             var participant = /*[[${participantId}]]*/ 1;
 
             require(['../PIPlayer/dist/js/config'], function() {
-                require.config({baseURL:'../PIPlayer/dist/js'});
+                require.config({baseURL:'../bower/PIPlayer/dist/js'});
                 require(['app/API', "/PIPlayerScripts/" + scriptName + ".js"], function(API) {
                     API.addGlobal({
                         script : scriptName,
