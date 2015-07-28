@@ -160,9 +160,11 @@ public class LoginController extends BaseController {
         return "invitation";
     }
 
-    @RequestMapping("public/consent")
+    @RequestMapping(value="/consent", method = RequestMethod.POST)
     public String showConsent (ModelMap model, Principal principal) {
+        model.addAttribute("participant", new Participant());
         return "consent";
+
     }
 
     @RequestMapping("public/privacy")
@@ -191,7 +193,7 @@ public class LoginController extends BaseController {
         if (bindingResult.hasErrors()) {
             LOG.error("Invalid participant:" + bindingResult.getAllErrors());
 
-            return "invitation";
+            return "consent";
         }
 
         participant.setLastLoginDate(new Date()); // Set the last login date.

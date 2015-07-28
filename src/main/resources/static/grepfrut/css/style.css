@@ -832,7 +832,7 @@ form input.error, form textarea.error {
 	border-color: #b94a48 !important;
 	box-shadow: none;
 }
-label, input, button, select, textarea, input[type="text"] {
+ label, input, button, select, textarea, input[type="text"] {
 	font-size: 14px;
 	color: #767676;
 	font-weight: 400;

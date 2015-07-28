@@ -9,6 +9,7 @@ body {
             border: 1px solid black;
             background: #FFF;
             }
+
             div.option {
             font-size: .8em;
             float: left;
@@ -17,17 +18,21 @@ body {
             align-content: center;
             text-align: center;
             }
+
             div.desc1 {
             height: 40px;
             }
+
             div.desc {
             float: center;
             height: 40px;
             }
+
             div.question {
             height: 60px;
             width: 700px;
             }
+
             div.optionLast {
             border-right: solid #757878;
             font-size: .8em;
@@ -36,4 +41,12 @@ body {
             font-size: 1.0em;
             align-content: center;
             text-align: center;
+            }
+
+            div.longSection{
+            padding: 20px;
+            width: 900px;
+            border-radius: 15px;
+            border: 1px solid black;
+            background: #FFF;
             }
