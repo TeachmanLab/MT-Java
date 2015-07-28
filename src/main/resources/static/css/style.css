@@ -1,7 +1,24 @@
-
-.sessionGrouping p {
-    padding: 15px 0 0 90px;
-    margin: 0px 0 0 0;
+body {
+    background: #FFFFCC;
+    color: #000 }
+    div.section {
+    padding: 20px;
+    width: 500px;
+    height: 120px;
+    border-radius: 15px;
+    border: 1px solid black;
+    background: #FFF;
+    }
+    div.option {
+    font-size: .8em;
+    float: left;
+    border: 1px solid #008000;
+    width: 90px;
+    font-size: 0.8em;
+    align-content: center;
+    text-align: center;
+    }
+    div.desc {
     height: 40px;
     vertical-align: middle;
 }
@@ -124,3 +141,4 @@
 .sessionOverview tr:first-child td:last-child{
     border-width:0px 0px 1px 1px;
 }
+
