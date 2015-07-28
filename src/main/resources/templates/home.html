@@ -97,7 +97,7 @@
                 <p>A 10-minute assessment</p>
             </div>
             <a th:href="${currentTask.requestMapping}" th:if="${currentTask}"><div class="mybtn">Start</div></a>
-            <p>For best results, <complete></complete> <span th:text="${currentSession.displayName}"/> by <span class="dateRange" th:text="${completeBy}">July 10, 2015</span></p>
+            <p>For best results, complete <span th:text="${currentSession.displayName}"/> by <span class="dateRange" th:text="${completeBy}">July 10, 2015</span></p>
             <a href="/session/overview">Program Overview</a>
         </div>
 
