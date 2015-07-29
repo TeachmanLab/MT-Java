@@ -1,25 +1,28 @@
 <!DOCTYPE html>
-<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
-<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
-<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!-->
 <html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
 <!--<![endif]-->
-<head th:include="fragment/common :: headerFragment" />
+<head th:include="fragment/common :: headerFragment"/>
 <body>
-<section id="header" class="clearfix" th:include="fragment/common :: topFragment" />
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
 
 <!-- header-btm starts
 ================================================== -->
 <section id="header-btm" class="clearfix">
     <div class="container">
         <div class="row">
-            <div class="span12">
-                <h4 class="heading-icon clearfix"> <img src="/grepfrut/img/icons/heading-icon-support.png" width="40" height="40" alt="icon" class="icon-small-bg"/>FAQ</h4>
-            </div>
+            <h2 class="page-title heading-icon clearfix"><img th:src="@{/images/map-arrow-orange.png}" alt="icon"
+                                                              class="icon-small-bg"/><br/>FAQ</h2>
         </div>
     </div>
 </section>
+
 <!-- header-btm ends
 ================================================== -->
 
@@ -27,135 +30,113 @@
 ================================================== -->
 <section id="content" class="clearfix">
     <div class="container">
-        <h4> General questions </h4>
         <div class="row">
-            <ol>
-                <li class="span12">
-                    1. How can I make sure I get the real training program (and not the control condition)?
-                    <ol>
-                        <li class="span12">
-                            a. Everyone will be randomly assigned to either an active training or a control condition—you cannot choose which condition you are assigned to. This is necessary so the researchers can scientifically test how well the program works. At the end of the study, you will be notified of your condition. If you were assigned to a control condition, you will then have the opportunity to complete the active training program.
-                        </li>
-                    </ol>
-                </li>
-                <!---->
-                <li class="span12">
-                    2.	I’ve completed a few sessions and am still feeling anxious. Is the program not working for me?
-                    <ol>
-                        <li class="span12">
-                            a.	Don’t give up! Individuals assigned to the active training condition may not notice changes right away. People in the control condition may also not notice any changes, though this varies by person. It is important to keep completing the sessions as assigned and to honestly and accurately report your feelings throughout the program. You are helping us learn what works.
-                        </li>
-                    </ol>
-                </li>
-                <!---->
-                <li class="span12">
-                    3.	What if I miss a session? Can I do three the following week?
-                    <ol>
-                        <li class="span12">
-                            a.	Try to complete the sessions based on the schedule we give you. We will send you email reminders to help you remember when you should complete your next session. If you miss a session, complete it as soon as you have time (though we ask you to always leave at least one day between sessions).
-                        </li>
-                    </ol>
-                </li>
-                <!---->
-                <li class="span12">
-                    4.	Where and when can I do the sessions?
-                    <ol>
-                        <li class="span12">
-                            a.	You can complete this program wherever and whenever you would like, as long as you have access to a computer and Internet connection. We strongly recommend that you complete the tasks when you are in a reasonably quiet place and able to devote your full attention to them.
-                        </li>
-                    </ol>
-                </li>
-                <!---->
-                <li class="span12">
-                    5.	I have limited computer skills. Can I still use this program?
-                    <ol>
-                        <li class="span12">
-                            a.	Yes. Anyone with access to the Internet and an email address is welcome to use this site. Assessments (questionnaires) are simple and easy to complete; most are point-and-click. Other tasks will ask you to type letters on your keyboard. Throughout the study, we will send you emails to update you on your progress and to remind you of upcoming tasks. You can also email us if you have any questions. Email: pimhintervention@projectimplicit.net
-                        </li>
-                    </ol>
-                </li>
-                <!---->
-                <li class="span12">
-                    6.	Who created this program?
-                    <ol>
-                        <li class="span12">
-                            a.	Researchers from the University of Virginia created these programs, but they were adapted from evidence-based computer tasks that have typically been tested in research laboratories [1]. As clinical scientists, we are interested in evaluating how well the programs work outside of the research lab. Additionally, we are interested in creating a cost-effective and accessible mental health treatment.
-                        </li>
-                    </ol>
-                </li>
-                <!---->
-                <li class="span12">
-                    7.	Is this really going to work for my anxiety?
-                    <ol>
-                        <li class="span12">
-                            a.	This is an experimental program so it is still in the testing phase, but some prior research says it may be able to reduce anxiety as effectively as therapy. If you get assigned to a control condition (one that is not designed to change your anxiety), you will be given the opportunity to complete a real training program after you finish the study.
-                        </li>
-                    </ol>
-                </li>
-                <!---->
-                <li class="span12">
-                    8.	I’m already receiving treatment for my anxiety (e.g., prescriptions or seeing a therapist). Can I still use this program?
-                    <ol>
-                        <li class="span12">
-                            a.	Yes; anyone that qualifies is welcome to use this program. Before you begin, you will be asked a series of questions about your mental health. Please let us know that you are already receiving treatment, but you can still participate in this study.
-                        </li>
-                    </ol>
-                </li>
-                <!---->
-                <li class="span12">
-                    9.	Can I do the program from my phone or tablet?
-                    <ol>
-                        <li class="span12">
-                            a.	No. The program is not optimized for use on a smartphone, tablet, or PDA (e.g., using mobile operating systems such as Android or iOS). Please complete all sessions from a desktop, laptop, or netbook computer. The following browsers are supported: Internet Explorer, Safari, Chrome, and Firefox.
-                        </li>
-                    </ol>
-                </li>
-                <!---->
-                <li class="span12">
-                    10.	What if I will be out of town, and without access to a computer, during the study?
-                    <ol>
-                        <li class="span12">
-                            a.	If you miss a session, complete it as soon as you have time. Also, please let us know if you will be away for more than a week, or we may assume you are no longer interested in participating in the study.
-                        </li>
-                    </ol>
-                </li>
-            </ol>
-            <h4>Specific training program questions</h4>
-            <ol>
-                <li class="span12">
-                    1.	When answering questions (following each of the brief stories), the program keeps telling me that my answer is incorrect.
-                    <ol>
-                        <li class="span12">
-                            a.	Please answer the questions based only on information given to you in the brief stories.
-                        </li>
-                    </ol>
-                </li>
-                <li class="span12">
-                    2.	When trying to complete word fragments at the end of the brief stories, the program keeps telling me my answer is incorrect.
-                    <ol>
-                        <li class="span12">
-                            a.	Please complete the word fragments based only on information given to you in the brief stories.
-                        </li>
-                    </ol>
-                </li>
-            </ol>
-        </div>
+            <div class="col-md-8">
 
-    </div>
+                <h2> General questions </h2>
+                    <h3>1. How can I make sure I get the real training program (and not the control condition)?</h3>
+
+                    <p>a. Everyone will be randomly assigned to either an active training or a control condition—you
+                        cannot choose which condition you are assigned to. This is necessary so the researchers can
+                        scientifically test how well the program works. At the end of the study, you will be notified of
+                        your condition. If you were assigned to a control condition, you will then have the opportunity
+                        to complete the active training program.</p>
+                    <!---->
+                    <h3>2. I’ve completed a few sessions and am still feeling anxious. Is the program not working for
+                        me?</h3>
+
+                    <p>a. Don’t give up! Individuals assigned to the active training condition may not notice changes
+                        right away. People in the control condition may also not notice any changes, though this varies
+                        by person. It is important to keep completing the sessions as assigned and to honestly and
+                        accurately report your feelings throughout the program. You are helping us learn what works.</p>
+
+                    <h3>3. What if I miss a session? Can I do three the following week?</h3>
+
+                    <p>a. Try to complete the sessions based on the schedule we give you. We will send you email
+                        reminders to help you remember when you should complete your next session. If you miss a
+                        session, complete it as soon as you have time (though we ask you to always leave at least one
+                        day between sessions).</p>
+
+                    <h3>4. Where and when can I do the sessions?</h3>
+
+                    <p>a. You can complete this program wherever and whenever you would like, as long as you have access
+                        to a computer and Internet connection. We strongly recommend that you complete the tasks when
+                        you are in a reasonably quiet place and able to devote your full attention to them.</p>
+
+                    <!---->
+                    <h3>5. I have limited computer skills. Can I still use this program?</h3>
+
+                    <p>a. Yes. Anyone with access to the Internet and an email address is welcome to use this site.
+                        Assessments (questionnaires) are simple and easy to complete; most are point-and-click. Other
+                        tasks will ask you to type letters on your keyboard. Throughout the study, we will send you
+                        emails to update you on your progress and to remind you of upcoming tasks. You can also email us
+                        if you have any questions. Email: <a href="mailto:pimhintervention@projectimplicit.net">
+                                                             pimhintervention@projectimplicit.net</a></p>
+
+                    <h3>6. Who created this program?</h3>
+
+                    <p>a. Researchers from the University of Virginia created these programs, but they were adapted from
+                        evidence-based computer tasks that have typically been tested in research laboratories [1]. As
+                        clinical scientists, we are interested in evaluating how well the programs work outside of the
+                        research lab. Additionally, we are interested in creating a cost-effective and accessible mental
+                        health treatment.</p>
+
+                    <h3>7. Is this really going to work for my anxiety?</h3>
+
+                    <p>a. This is an experimental program so it is still in the testing phase, but some prior research
+                        says it may be able to reduce anxiety as effectively as therapy. If you get assigned to a
+                        control condition (one that is not designed to change your anxiety), you will be given the
+                        opportunity to complete a real training program after you finish the study.</p>
+
+                    <h3>8. I’m already receiving treatment for my anxiety (e.g., prescriptions or seeing a therapist).
+                        Can I still use this program?</h3>
+
+                    <p>a. Yes; anyone that qualifies is welcome to use this program. Before you begin, you will be asked
+                        a series of questions about your mental health. Please let us know that you are already
+                        receiving treatment, but you can still participate in this study.</p>
+
+                    <h3>9. Can I do the program from my phone or tablet?</h3>
+
+                    <p>a. No. The program is not optimized for use on a smartphone, tablet, or PDA (e.g., using mobile
+                        operating systems such as Android or iOS). Please complete all sessions from a desktop, laptop,
+                        or netbook computer. The following browsers are supported: Internet Explorer, Safari, Chrome,
+                        and Firefox.</p>
+
+                    <h3>10. What if I will be out of town, and without access to a computer, during the study?</h3>
+
+                    <p>a. If you miss a session, complete it as soon as you have time. Also, please let us know if you
+                        will be away for more than a week, or we may assume you are no longer interested in
+                        participating in the study.</p>
+
+                    <h2>Specific training program questions</h2>
+
+                    <h3>1. When answering questions (following each of the brief stories), the program keeps telling me
+                        that my answer is incorrect.</h3>
+
+                    <p>a. Please answer the questions based only on information given to you in the brief stories.</p>
+
+                    <h3>2. When trying to complete word fragments at the end of the brief stories, the program keeps
+                        telling me my answer is incorrect.</h3>
+
+                    <p>a. Please complete the word fragments based only on information given to you in the brief
+                        stories.</p>
+                </div>
+            </div>
+        </div>
 </section>
 
 
 <!-- footer starts
 ================================================== -->
-<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
 
 <!-- copyright starts
 ================================================== -->
-<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
 
 <!--Javascript
 ================================================== -->
-<div th:include="fragment/common :: scripts" />
+<div th:include="fragment/common :: scripts"/>
 
 </body>
 </html>

@@ -8,6 +8,8 @@ body {font-family: 'Source Sans Pro', sans-serif; font-size:20px; box-sizing:bor
 
 p, ul {margin-bottom: 25px;}
 
+h3 { font-size:100%; font-weight: 700}
+
 button {  -webkit-border-radius: 5;
   -moz-border-radius: 5;
   border-radius: 5px;
