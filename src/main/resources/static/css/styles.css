@@ -6,6 +6,8 @@
 body {font-family: 'Source Sans Pro', sans-serif; font-size:20px; box-sizing:border-box;}
 .clear-both {clear:both;}
 
+p, ul {margin-bottom: 25px;}
+
 button {  -webkit-border-radius: 5;
   -moz-border-radius: 5;
   border-radius: 5px;
@@ -28,11 +30,11 @@ button {  -webkit-border-radius: 5;
 .user-theme-purple button { background:#C98ABB; border-top:#D4A4CA; border-left:#D4A4CA; border-bottom:#9A7490; border-right:#9A7490;}
 .user-theme-gold button { background:#ECB800; border-top:#F1C657; border-left:#F1C657; border-bottom:#AF8A00; border-right:#AF8A00;}
 
-#header {background:url(/images/bg-header.png) top left repeat-x; width:100%;}
-.logo {background:url(/images/header-logo.png) top left no-repeat; width:365px; height:135px; float:left;}
+#header {background:url(/images/bg-header.png) top left repeat-x; }
+.logo {background:url(/images/header-logo.png) top left no-repeat; width:365px; height:135px; float:left; margin-left:-175px;}
 .logo a {height:135px; width:365px; display:block;}
 
-#nav {float:right; font-size:0.6em; list-style:none; padding:15px;}
+#nav {float:right; font-size:0.6em; list-style:none; padding:15px 0 15px 0;}
 #nav li {float:left; padding:0px 10px;}
 #nav a {color:#5ECCDE; text-decoration:none; font-weight: 700}
 .user-theme-orange #nav a { color:#F99A65;}

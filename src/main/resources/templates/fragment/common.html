@@ -30,34 +30,32 @@
 <body class="user-theme-orange">
 <section id="header" class="clearfix" th:fragment="topFragment">
     <div class="container">
-        <div class="row">
+        <!--logo starts-->
+        <div class="span4 logo"><a href="#"></a></div>
+        <!--logo ends-->
 
-            <!--logo starts-->
-            <div class="span4 logo"><a href="#"></a></div>
-            <!--logo ends-->
+        <div class="span8 clearfix">
 
-            <div class="span8 clearfix">
+            <!--menu starts-->
+                <ul id="nav">
+                    <li th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
+                        <a href="/session">Session Home</a></li>
+                    <li><a href="/public/about">ABOUT</a></li>
+                    <li><a href="/public/faq">FAQ</a></li>
+                </ul>
+            <!--menu ends-->
 
-                <!--menu starts-->
-                <div id="smoothmenu" class="ddsmoothmenu">
-                    <ul id="nav">
-                        <li th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
-                            <a href="/session">Session Home</a></li>
-                        <li><a href="/public/about">ABOUT</a> </li>
-                        <li><a href="/public/faq">FAQ</a> </li>
-                    </ul>
-                </div>
-                <!--menu ends-->
-
-            </div>
         </div>
     </div>
     <div class="account-bar">
         <div class="container" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
-            Logged in as ( <span th:text="${participant.name}"/> ) | <a href="/session/overview">My Progress</a> | <a href="/account">Settings</a> | <a href="/logout">Log out</a>
+            Logged in as ( <span th:text="${participant.name}"/> ) | <a href="/session/overview">My Progress</a> | <a
+                href="/account">Settings</a> | <a href="/logout">Log out</a>
         </div>
-        <div class="login" th:unless="${#authorization.expression('hasRole(''ROLE_USER'')')}">
-                Already Participating? <a href="/"><button>Log In</button></a>
+        <div class="container login" th:unless="${#authorization.expression('hasRole(''ROLE_USER'')')}">
+            Already Participating? <a href="/">
+            <button>Log In</button>
+        </a>
         </div>
     </div>
     <div class="clear-both"></div>
