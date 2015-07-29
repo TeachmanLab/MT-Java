@@ -1,0 +1,68 @@
+@charset "UTF-8";
+/* CSS Document */
+
+* {box-sizing:border-box;}
+
+body {font-family: 'Source Sans Pro', sans-serif; font-size:20px; box-sizing:border-box;}
+.clear-both {clear:both;}
+
+button {  -webkit-border-radius: 5;
+  -moz-border-radius: 5;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 1px 3px #666;
+  -moz-box-shadow: 0px 1px 3px #666;
+  box-shadow: 0px 1px 3px #666;
+  border-top:1px solid #5FBCEA;
+  border-left:1px solid #5FBCEA;
+  border-bottom:1px solid #0084AE;
+  border-right:1px solid #0084AE;
+  color: #ffffff;
+  background: #00ACE4;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  font-size:20px;
+  margin:10px 0px;}
+
+.user-theme-orange button { background:#F77D38; border-top:#F99A65; border-left:#F99A65; border-bottom:#B36B42; border-right:#B36B42;}
+.user-theme-green button { background:#77B46D; border-top:#99C38D; border-left:#99C38D; border-bottom:#698D63; border-right:#698D63;}
+.user-theme-purple button { background:#C98ABB; border-top:#D4A4CA; border-left:#D4A4CA; border-bottom:#9A7490; border-right:#9A7490;}
+.user-theme-gold button { background:#ECB800; border-top:#F1C657; border-left:#F1C657; border-bottom:#AF8A00; border-right:#AF8A00;}
+
+#header {background:url(/images/bg-header.png) top left repeat-x; width:100%;}
+.logo {background:url(/images/header-logo.png) top left no-repeat; width:365px; height:135px; float:left;}
+.logo a {height:135px; width:365px; display:block;}
+
+#nav {float:right; font-size:0.6em; list-style:none; padding:15px;}
+#nav li {float:left; padding:0px 10px;}
+#nav a {color:#5ECCDE; text-decoration:none; font-weight: 700}
+.user-theme-orange #nav a { color:#F99A65;}
+.user-theme-green #nav a { color:#99C38D; }
+.user-theme-purple #nav a { color:#D4A4CA; }
+.user-theme-gold #nav a { color:#F1C657;}
+
+.account-bar {clear:both; width:100%; background: #00ACE4; font-size:.66em; text-align:right; padding:0px 20px;}
+.user-theme-orange .account-bar { background:#F77D38; }
+.user-theme-green .account-bar { background:#77B46D; }
+.user-theme-purple .account-bar { background:#C98ABB; }
+.user-theme-gold .account-bar { background:#ECB800; }
+.account-bar a {color:#000000; padding-left:20px; font-weight:700}
+.account-bar .login {}
+.page-title {font-size:1.45em; color:#00ACE4; font-weight:bold; margin-top:-40px}
+.page-title img {margin-bottom:20px;}
+.user-theme-orange .page-title { color:#F77D38; }
+.user-theme-green .page-title { color:#77B46D; }
+.user-theme-purple .page-title { color:#C98ABB; }
+.user-theme-gold .page-title { color:#ECB800; }
+
+#footer {background:#21336B; font-size:0.5em;}
+.footer-logo { float:left;}
+
+.footer-links {float:right; list-style:none; padding:15px;}
+.footer-links li {float:left; padding:0px 10px;}
+.footer-links a {color:#5ECCDE; text-decoration:none; font-weight:700}
+.user-theme-orange .footer-links a { color:#F99A65;}
+.user-theme-green .footer-links a { color:#99C38D; }
+.user-theme-purple .footer-links a { color:#D4A4CA; }
+.user-theme-gold .footer-links a { color:#F1C657;}
+
+.copyright {width:100%; padding:15px; text-align:center; background:#FFFFFF;}

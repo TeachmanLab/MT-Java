@@ -7,42 +7,33 @@
 <!--<![endif]-->
 <head id="headerFragment" th:fragment="headerFragment">
     <meta charset="utf-8"/>
-    <meta name="description" content="Project Implicit Mental Health" />
-    <meta name="keywords" content="virginia psychology implicit"/>
+    <meta name="description" content="Mind Trails - a Project Implicit Mental Health Study" />
+    <meta name="keywords" content="virginia psychology implicit mind trails"/>
     <meta name="author" content="virginia.edu" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-    <title>Project Implicit - Mental Health</title>
-    <!--Fav and touch icons-->
-    <link rel="shortcut icon" href="../../webapp/img/icons/favicon.ico"/>
-    <link rel="apple-touch-icon" href="../../webapp/img/icons/apple-touch-icon.png"/>
-    <link rel="apple-touch-icon" sizes="72x72" href="img/icons/apple-touch-icon-72x72.png"/>
-    <link rel="apple-touch-icon" sizes="114x114" href="img/icons/apple-touch-icon-114x114.png"/>
+    <title>Mind Trails</title>
 
-    <!--google web font-->
-    <link href='http://fonts.googleapis.com/css?family=Raleway:400,600,700' rel='stylesheet' type='text/css'/>
+    <!--Google Font-->
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,700,700italic,600' rel='stylesheet' type='text/css'/>
 
     <!--style sheet-->
-    <link rel="stylesheet" media="screen" th:href="@{/css/style.css}" />
-
     <link rel="stylesheet" media="screen" th:href="@{/bower/bootstrap/dist/css/bootstrap.min.css}" />
-    <link rel="stylesheet" media="screen" th:href="@{/css/style.css}" />
     <link rel="stylesheet" media="screen" th:href="@{/css/jquery-ui.min.css}" />
+    <link rel="stylesheet" media="screen" th:href="@{/css/styles.css}" />
 
     <script type="text/javascript" th:src="@{/bower/jquery/dist/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/bower/jqueryui/jquery-ui.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/jquery.jWizard.min.js}"></script>
-
     <script type="text/javascript" th:src="@{/js/jquery.validate.js}"></script>
     <script type="text/javascript" th:src="@{/js/jquery.select-to-autocomplete.min.js}"></script>
-
 </head>
-<body>
-<section id="topFragment" class="clearfix" th:fragment="topFragment">
+<body class="user-theme-orange">
+<section id="header" class="clearfix" th:fragment="topFragment">
     <div class="container">
         <div class="row">
 
             <!--logo starts-->
-            <div class="span4 logo"><a href="#"><img th:src="@{/img/pimh_logo_dark.png}" alt="logo"/></a></div>
+            <div class="span4 logo"><a href="#"></a></div>
             <!--logo ends-->
 
             <div class="span8 clearfix">
@@ -54,12 +45,6 @@
                             <a href="/session">Session Home</a></li>
                         <li><a href="/public/about">ABOUT</a> </li>
                         <li><a href="/public/faq">FAQ</a> </li>
-                        <li th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
-                            <a href="/account">SETTINGS</a> </li>
-                        <li th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
-                            <a href="/logout">Log out</a> </li>
-                        <li th:unless="${#authorization.expression('hasRole(''ROLE_USER'')')}">
-                            <a href="/">Log in</a> </li>
                     </ul>
                 </div>
                 <!--menu ends-->
@@ -67,6 +52,16 @@
             </div>
         </div>
     </div>
+    <div class="account-bar">
+        <div class="container" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
+            Logged in as ( <span th:text="${participant.name}"/> ) | <a href="/session/overview">My Progress</a> | <a href="/account">Settings</a> | <a href="/logout">Log out</a>
+        </div>
+        <div class="login" th:unless="${#authorization.expression('hasRole(''ROLE_USER'')')}">
+                Already Participating? <a href="/"><button>Log In</button></a>
+        </div>
+    </div>
+    <div class="clear-both"></div>
+
 </section>
 <!-- header ends
 ================================================== -->
@@ -77,7 +72,7 @@
     <div class="container">
         <div class="row">
             <div class="span12">
-                <h4 class="heading-icon clearfix"> <img th:src="@{/grepfrut/img/icons/heading-icon-user.png}" width="40" height="40" alt="icon" class="icon-small-bg"/>Alpha Development Release -- Sprint 2</h4>
+                <h2 class="page-title heading-icon clearfix"> <img th:src="@{/images/map-arrow-orange.png}" width="40" height="40" alt="icon" class="icon-small-bg"/><br/>Welcome!</h2>
             </div>
         </div>
     </div>
@@ -130,42 +125,61 @@
 
 <!-- footer starts
 ================================================== -->
-<footer id="footerFragment" class="clearfix" th:fragment="footerFragment">
+<footer id="footer" class="clearfix" th:fragment="footerFragment">
     <div class="container">
 
         <!--row starts-->
         <div class="row">
 
 
-
             <!--column one starts-->
-            <div class="span4">
-                <img th:src="@{/img/logo-footer.png}" width="121" height="36" alt="logo"/>
-                <div class="spacer-30px"></div>
-                <ul class="list-info">
-                    <li>Copyright 2014</li>
-                    <li>All rights reserved</li>
-                    <li><a href="https://www.projectimplicit.net/disclaimer.html">Disclaimer</a></li>
-                    <li><a th:href="@{/public/privacy}">Privacy Policy</a></li>
-                </ul>
+            <div class="footer-logo">
+                <img width="121" height="36" alt="logo" src="/img/logo-footer.png"/>
             </div>
-
-            <!--column two starts-->
-            <div class="span4" sec:authorize="hasRole('ROLE_ADMIN')">
-                <h5>Administration Tools</h5>
-                <p>This section is only visible to you because you have been granted administrative access.</p>
-                    <ul class="list-info">
-                        <li><a href="/admin">User Administration</a>: provides a way to view all accounts created on the system.</li>
-                        <li><a href="/admin/listEmails">Email Messages</a>: allows you to send yourself a copy of all email messages coming from the system.</li>
-                        <li><a href="/admin/listSessions">Sessions</a>: allows you to view all available sessions, and jump into any content within a session.</li>
-                        <li><a href="/admin/listDownloads">Downloads</a>: allows you to download data for questionnaires and training sessions.</li>
-                        <li><a href="/admin/checkFunds">Gift Cards Account</a>: allows you to check information about the gift card account for your study.</li>
-                    </ul>
-
-            </div>
-            <!--column two ends-->
 
             <!--column three starts-->
+            <ul class="footer-links">
+                <li><a href="https://www.projectimplicit.net/disclaimer.html">Disclaimer</a></li>
+                <li><a th:href="@{/public/privacy}">Privacy Policy</a></li>
+                <li><a href="https://implicit.harvard.edu/implicit/user/pimh/index.jsp">Project Implicit Mental
+                    Health</a></li>
+                <li><a href="#">Mental Health Resources</a></li>
+            </ul>
+
+            <div class="clear-both"></div>
+        </div>
+
+    </div>
+
+    <!--column two starts-->
+    <div class="span4" sec:authorize="hasRole('ROLE_ADMIN')">
+        <h5>Administration Tools</h5>
+
+        <p>This section is only visible to you because you have been granted administrative access.</p>
+        <ul class="list-info">
+            <li><a href="/admin">User Administration</a>: provides a way to view all accounts created on the system.
+            </li>
+            <li><a href="/admin/listEmails">Email Messages</a>: allows you to send yourself a copy of all email messages
+                coming from the system.
+            </li>
+            <li><a href="/admin/listSessions">Sessions</a>: allows you to view all available sessions, and jump into any
+                content within a session.
+            </li>
+            <li><a href="/admin/listDownloads">Downloads</a>: allows you to download data for questionnaires and
+                training sessions.
+            </li>
+            <li><a href="/admin/checkFunds">Gift Cards Account</a>: allows you to check information about the gift card
+                account for your study.
+            </li>
+        </ul>
+    </div>
+    <div class="copyright">&copy; Copyright 2014 &bull; All rights reserved</div>
+</footer>
+
+<!--column two ends-->
+
+            <!--column three starts-->
+            <!--  SHOULD BE MOVED TO CONTACT US PAGE
             <div class="span4">
                 <h5>Get in touch</h5>
                 <ul class="list-info">
@@ -190,25 +204,15 @@
                     </li>
                 </ul>
             </div>
-            <!--column three ends-->
+-->            <!--column three ends-->
 
-        </div>
         <!--row ends-->
 
-    </div>
-</footer>
 
 
 <!-- footer ends
 ================================================== -->
 
-<!-- copyright starts
-================================================== -->
-<section id="copyright" class="clearfix" th:fragment="copyright">
-</section>
-
-<!-- copyright ends
-================================================== -->
 
 <!--other jqueries required-->
 <div id="scripts"  th:fragment="scripts">
