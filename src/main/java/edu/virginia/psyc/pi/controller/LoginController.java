@@ -168,6 +168,7 @@ public class LoginController extends BaseController {
 
     }
 
+
     @RequestMapping("public/privacy")
     public String showPrivacy(ModelMap model, Principal principal) {
         return "privacy";
@@ -208,7 +209,7 @@ public class LoginController extends BaseController {
         saveEligibilityForm(participant, session);
 
         LOG.info("Participant authenticated.");
-        return "redirect:/session";
+        return "/questions/credibility";
     }
 
     /**
