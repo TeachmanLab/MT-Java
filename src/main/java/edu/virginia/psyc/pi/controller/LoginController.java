@@ -161,7 +161,7 @@ public class LoginController extends BaseController {
         return "invitation";
     }
 
-    @RequestMapping(value="/consent", method = RequestMethod.POST)
+    @RequestMapping(value="/consent", method = RequestMethod.GET)
     public String showConsent (ModelMap model, Principal principal) {
         model.addAttribute("participant", new Participant());
         return "consent";
