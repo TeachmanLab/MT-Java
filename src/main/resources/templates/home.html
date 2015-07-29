@@ -28,77 +28,113 @@
 <section id="content" class="clearfix">
     <div class="container">
 
-
-        <!--spacer here-->
-        <div class="spacer-30px"></div>
-
-        <!--features starts-->
-        <div class="row">
-            <div class="span12">
-                <h1 th:if="${currentSession.name.toString() == 'PRE'}" th:text="'Welcome ' + ${name} + '!'"></h1>
-                <h1 th:if="${currentSession.name.toString() == 'SESSION1'}" th:text="'Thanks ' + ${name} + '! Now please complete your first Session.'"></h1>
-                <ul class="list-3col">
-                    <li>
-                        <img th:src="@{/grepfrut/img/people/1.jpg}"/>
-                    </li>
-                    <li>
-                        <div id="progress">
-                            <div><img th:src="@{/grepfrut/img/session/session_titles.png}" width="300"/></div>
-                            <div class="progress_boxes">
-                                <div th:each="s : ${participant.sessions}" th:class="${s.state}"/>
-                            </div>
-                        </div>
-                        <!--spacer here-->
-                        <div class="spacer-30px"></div>
-
-                        <div th:if="${sessionState == 'READY'}">
-                            <div th:switch="${currentSession.name.toString()}">
-                                <p th:case='PRE'>Before you begin the first session, we'd like to get some more information about you.</p>
-                                <p th:case='SESSION1'>Please press the "Next" button below to get started.</p>
-                                <p th:case='SESSION2'>Please press the "Next" button below to get started.</p>
-                                <p th:case='SESSION3'>Please press the "Next" button below to get started.</p>
-                                <p th:case='SESSION4'>Please press the "Next" button below to get started.</p>
-                                <p th:case='SESSION5'>Please press the "Next" button below to get started.</p>
-                                <p th:case='SESSION6'>Please press the "Next" button below to get started.</p>
-                                <p th:case='SESSION7'>Please press the "Next" button below to get started.</p>
-                                <p th:case='SESSION8'>Please press the "Next" button below to get started.</p>
-                            </div>
-
-                            <ul id="tasks" th:each="task, iterStat : ${currentSession.tasks}">
-                                <li th:if="${task.state.toString() == 'COMPLETE'}" th:class="${task.state}" th:text="${'Task ' + iterStat.count + ' Thanks!'}"/>
-                                <li th:if="${task.state.toString() != 'COMPLETE'}" th:class="${task.state}" th:text="${'Task ' + iterStat.count}"/>
-
-                            </ul>
-
-                            <p> Please press the next button when you are ready to continue.</p>
-                            <a th:href="${currentTask.requestMapping}" th:if="${currentTask}"><div class="mybtn">Next</div></a>
-
-                        </div>
-
-                        <div th:if="${sessionState == 'WAIT_A_DAY'}">
-                            Great work!  Please come back within the next few days to complete the next session.
-                        </div>
-
-                        <div th:if="${sessionState == 'NOT_ELIGIBLE'}">
-                            Based on the answers you provided in the initial review, we cannot accept you into the study at this time.
-                        </div>
-
-                        <div th:if="${sessionState == 'WAIT_FOR_FOLLOWUP'}">
-                            We will email you in a few months, when it is time to complete the follow up session.  Thank you.
-                        </div>
-
-                        <div th:if="${sessionState == 'ALL_DONE'}">
-                            You are all finished!  Thank you very much for participating in the study.
-                        </div>
-
-
-
-
-                    </li>
-                </ul>
+        <div th:if="${sessionState == 'READY'}">
+            <div  th:if="${currentSession.name =='PRE'}">
+                <h1><span th:text="${participant.fullName}">Jim</span>, you're ready to begin your initial assessment.</h1>
+                <p>This is a four part information gathering session that will take approximately 30 minutes to complete.</p>
             </div>
+            <div  th:if="${currentSession.name == 'SESSION1'}">
+                <h1>Good work, <span th:text="${participant.fullName}">Jim</span>. You have Completed the initial assessment.</h1>
+                <p>You are ready to begin <span th:text="${currentSession.displayName}"/></p>
+                <p>This includes ...</p>
+                <p>A 20-minute Training</p>
+                <p>A Brief Followup</p>
+            </div>
+            <div  th:if="${currentSession.name == 'SESSION2'}">
+                <h1>Welcome Back <span th:text="${participant.fullName}">Jim</span>.</h1>
+                You're ready to begin the <span th:text="${currentSession.displayName}"/>
+                <p>This includes ...</p>
+                <p>A 20-minute training session</p>
+                <p>A brief 2-minute review</p>
+            </div>
+            <div  th:if="${currentSession.name == 'SESSION3'}">
+                <h1>Welcome Back <span th:text="${participant.fullName}">Jim</span>.</h1>
+                You're ready to begin the <span th:text="${currentSession.displayName}"/>
+                <p>This includes ...</p>
+                <p>A 20-minute training session</p>
+                <p>A brief 2-minute review</p>
+            </div>
+            <div  th:if="${currentSession.name == 'SESSION4'}">
+                <h1>Welcome Back <span th:text="${participant.fullName}">Jim</span>.</h1>
+                You're ready to begin the <span th:text="${currentSession.displayName}"/>
+                <p>This includes ...</p>
+                <p>A 20-minute training session</p>
+                <p>A 10-minute assessment</p>
+            </div>
+            <div  th:if="${currentSession.name == 'SESSION5'}">
+                <h1>Welcome Back <span th:text="${participant.fullName}">Jim</span>.</h1>
+                You're ready to begin the <span th:text="${currentSession.displayName}"/>
+                <p>This includes ...</p>
+                <p>A 20-minute training session</p>
+                <p>A 10-minute assessment</p>
+            </div>
+            <div  th:if="${currentSession.name == 'SESSION6'}">
+                <h1>Welcome Back <span th:text="${participant.fullName}">Jim</span>.</h1>
+                You're ready to begin the <span th:text="${currentSession.displayName}"/>
+                <p>This includes ...</p>
+                <p>A 20-minute training session</p>
+                <p>A brief 2-minute review</p>
+            </div>
+            <div  th:if="${currentSession.name == 'SESSION7'}">
+                <h1>Welcome Back <span th:text="${participant.fullName}">Jim</span>.</h1>
+                You're ready to begin the <span th:text="${currentSession.displayName}"/>
+                <p>This includes ...</p>
+                <p>A 20-minute training session</p>
+                <p>A brief 2-minute assessment</p>
+            </div>
+            <div  th:if="${currentSession.name == 'SESSION8'}">
+                <h1>Welcome Back <span th:text="${participant.fullName}">Jim</span>.</h1>
+                You're ready to begin the <span th:text="${currentSession.displayName}"/>
+                <p>This includes ...</p>
+                <p>A 20-minute training session</p>
+                <p>A 10-minute assessment</p>
+            </div>
+            <div  th:if="${currentSession.name == 'POST'}">
+                <h1>Welcome Back <span th:text="${participant.fullName}">Jim</span>.</h1>
+                You're ready to begin the <span th:text="${currentSession.displayName}"/>
+                <p>This includes ...</p>
+                <p>A 20-minute training session</p>
+                <p>A 10-minute assessment</p>
+            </div>
+            <div th:if="${giftAwarded}">
+                <h3>Congratulations! You have earned a $5 gift card.</h3> Please check your email for information on how to redeem it.
+            </div>
+            <a th:href="${currentTask.requestMapping}" th:if="${currentTask}"><div class="mybtn">Start</div></a>
+            <p>For best results, complete <span th:text="${currentSession.displayName}"/> by <span class="dateRange" th:text="${completeBy}">July 10, 2015</span></p>
+            <a href="/session/overview">Program Overview</a>
         </div>
-        <!--features ends-->
+
+        <div th:if="${sessionState == 'IN_PROGRESS'}">
+            <h1>Welcome back <span th:text="${participant.fullName}">Jim</span>.</h1>
+            <p>You are part way through the <span th:text="${currentSession.displayName}"/>. You can now pick back up where you left off.</p>
+            <a th:href="${currentTask.requestMapping}" th:if="${currentTask}"><div class="mybtn">Start</div></a>
+        </div>
+
+        <div th:if="${sessionState == 'WAIT_A_DAY'}">
+            <h1>Good work, <span th:text="${participant.fullName}">Jim</span>.<br/>You have completed the <span th:text="${lastSession.displayName}"/>. </h1>
+            <p>UP NEXT: For best results, plan to begin the <span th:text="${currentSession.displayName}"/> between <span class="dateRange" th:text="${dateRange}">July 7 - July 10, 2015</span></p>
+            <div th:if="${giftAwarded}">
+                <h3>Congratulations! You have earned a $5 gift card.</h3> Please check your email for information on how to redeem it.
+            </div>
+            <p>Your next gift card will be available when you complete <span th:text="${nextGiftSession}"/></p>
+            <a href="/session/overview">Program Overview</a>
+        </div>
+
+        <div th:if="${sessionState == 'NOT_ELIGIBLE'}">
+            Based on the answers you provided in the initial review, we cannot accept you into the study at this time.
+        </div>
+
+        <div th:if="${sessionState == 'WAIT_FOR_FOLLOWUP'}">
+            <h1>Great Job, <span th:text="${participant.fullName}">Jim</span>.<br/>You have completed the <span th:text="${lastSession.displayName}"/>. </h1>
+            You have completed all the Sessions!  We will email you in a few months, when it is time to complete the follow up and get your T-Shirt.
+        </div>
+
+        <div th:if="${sessionState == 'ALL_DONE'}">
+            <h1>Thank you <span th:text="${participant.fullName}">Jim</span>!<br/> you have reached the end of the Study.</h1>
+            You are all finished!  We will send an email shortly with details on how to get your t-shirt.
+        </div>
+
+
 
         <!--divider here-->
         <div class="spacer-40px"></div>

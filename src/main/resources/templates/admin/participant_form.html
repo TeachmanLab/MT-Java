@@ -18,7 +18,7 @@
     <div class="container">
         <div class="row">
             <div class="span12">
-                <h4 class="heading-icon clearfix"><img src="img/icons/heading-icon-user.png" width="40" height="40"
+                <h4 class="heading-icon clearfix"><img src="/grepfrut/img/icons/heading-icon-support.png" width="40" height="40"
                                                        alt="icon" class="icon-small-bg"/>Administration</h4>
             </div>
         </div>
@@ -99,9 +99,9 @@
 
             <div class="sidebar span4">
             <h4>Emails sent:</h4>
-            <table>
+                <table width="400px" cellpadding="2px">
                 <tr>
-                    <th>Type</th>
+                    <th width="120px">Type</th>
                     <th>Date</th>
                 </tr>
                 <tr th:each="log : ${participant.emailLogs}">
@@ -109,17 +109,15 @@
                     <td th:text="${log.date}"/>
                 </tr>
             </table>
-            </div>
-
-            <div class="sidebar span8">
+            <br/><br/>
                 <h4>Gift Cards Awarded:</h4>
-                <table>
+                <table width="400px" cellpadding="2px">
                     <tr>
                         <th>Order ID</th>
                         <th>Date</th>
                     </tr>
                     <tr th:each="log : ${participant.giftLogs}">
-                        <td style="width:100px;" th:text="${log.orderId}"/>
+                        <td style="width:100px;"> <a th:href="@{'/admin/rewardInfo/'+${log.orderId}}" th:text="${log.orderId}" /> </td>
                         <td th:text="${log.date}"/>
                     </tr>
                 </table>

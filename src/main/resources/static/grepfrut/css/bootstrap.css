@@ -1143,9 +1143,9 @@ input.search-query {
 	/* IE7-8 doesn't have border-radius, so don't indent the padding */
 
   margin-bottom: 0;
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	border-radius: 4px;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
 }
 /* Allow for input prepend/append in search forms */
 
@@ -1244,14 +1244,12 @@ legend + .control-group {
 	padding-left: 180px;
 }
 table {
-	border-radius:15px;
 	max-width: 100%;
 	background-color: transparent;
 	border-collapse: collapse;
 	border-spacing: 0;
 }
 .table {
-	border-radius:15px;
 	width: 100%;
 	margin-bottom: 20px;
 }
@@ -1282,9 +1280,9 @@ table {
 	border-collapse: separate;
  *border-collapse: collapse;
 	border-left: 0;
-	-webkit-border-radius: 15px;
-	-moz-border-radius: 15px;
-	border-radius: 15px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
 }
 .table-bordered th, .table-bordered td {
 	border-left: 1px solid #dddddd;
@@ -1293,37 +1291,37 @@ table {
 	border-top: 0;
 }
 .table-bordered thead:first-child tr:first-child th:first-child, .table-bordered tbody:first-child tr:first-child td:first-child {
-	-webkit-border-top-left-radius: 15px;
-	border-top-left-radius: 15px;
-	-moz-border-radius-topleft: 15px;
+	-webkit-border-top-left-radius: 4px;
+	border-top-left-radius: 4px;
+	-moz-border-radius-topleft: 4px;
 }
 .table-bordered thead:first-child tr:first-child th:last-child, .table-bordered tbody:first-child tr:first-child td:last-child {
-	-webkit-border-top-right-radius: 15px;
-	border-top-right-radius: 15px;
-	-moz-border-radius-topright: 15px;
+	-webkit-border-top-right-radius: 4px;
+	border-top-right-radius: 4px;
+	-moz-border-radius-topright: 4px;
 }
 .table-bordered thead:last-child tr:last-child th:first-child, .table-bordered tbody:last-child tr:last-child td:first-child, .table-bordered tfoot:last-child tr:last-child td:first-child {
-	-webkit-border-radius: 0 0 0 15px;
-	-moz-border-radius: 0 0 0 15px;
-	border-radius: 0 0 0 15px;
-	-webkit-border-bottom-left-radius: 15px;
-	border-bottom-left-radius: 15px;
-	-moz-border-radius-bottomleft: 15px;
+	-webkit-border-radius: 0 0 0 4px;
+	-moz-border-radius: 0 0 0 4px;
+	border-radius: 0 0 0 4px;
+	-webkit-border-bottom-left-radius: 4px;
+	border-bottom-left-radius: 4px;
+	-moz-border-radius-bottomleft: 4px;
 }
 .table-bordered thead:last-child tr:last-child th:last-child, .table-bordered tbody:last-child tr:last-child td:last-child, .table-bordered tfoot:last-child tr:last-child td:last-child {
-	-webkit-border-bottom-right-radius: 15px;
-	border-bottom-right-radius: 15px;
-	-moz-border-radius-bottomright: 15px;
+	-webkit-border-bottom-right-radius: 4px;
+	border-bottom-right-radius: 4px;
+	-moz-border-radius-bottomright: 4px;
 }
 .table-bordered caption + thead tr:first-child th:first-child, .table-bordered caption + tbody tr:first-child td:first-child, .table-bordered colgroup + thead tr:first-child th:first-child, .table-bordered colgroup + tbody tr:first-child td:first-child {
-	-webkit-border-top-left-radius: 15px;
-	border-top-left-radius: 15px;
-	-moz-border-radius-topleft: 15px;
+	-webkit-border-top-left-radius: 4px;
+	border-top-left-radius: 4px;
+	-moz-border-radius-topleft: 4px;
 }
 .table-bordered caption + thead tr:first-child th:last-child, .table-bordered caption + tbody tr:first-child td:last-child, .table-bordered colgroup + thead tr:first-child th:last-child, .table-bordered colgroup + tbody tr:first-child td:last-child {
-	-webkit-border-top-right-radius: 15px;
-	border-top-right-radius: 15px;
-	-moz-border-radius-topleft: 15px;
+	-webkit-border-top-right-radius: 4px;
+	border-top-right-radius: 4px;
+	-moz-border-radius-topleft: 4px;
 }
  .table-striped tbody tr:nth-child(odd) td, .table-striped tbody tr:nth-child(odd) th {
  background-color: #f9f9f9;
@@ -3145,9 +3143,9 @@ button.btn.btn-mini, input[type="submit"].btn.btn-mini {
 	font-size: 13px;
 	font-weight: normal;
 	line-height: 1;
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	border-radius: 4px;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
 }
 .navbar-static-top {
 	position: static;

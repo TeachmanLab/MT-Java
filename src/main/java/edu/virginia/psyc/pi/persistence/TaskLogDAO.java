@@ -1,7 +1,5 @@
 package edu.virginia.psyc.pi.persistence;
 
-import edu.virginia.psyc.pi.service.EmailService;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -9,11 +7,11 @@ import java.util.Date;
  * User: dan
  * Date: 7/24/14
  * Time: 9:33 AM
- * Logs the date and time a particular gift card was awarded.
+ * Logs the date and time a particular task was completed by the user
  */
 @Entity
-@Table(name="gift_log")
-public class GiftLogDAO {
+@Table(name="task_log")
+public class TaskLogDAO {
 
     @Id
     @GeneratedValue
@@ -22,18 +20,17 @@ public class GiftLogDAO {
     @ManyToOne
     private ParticipantDAO participantDAO;
 
-    private String orderId;
     private String sessionName;
-    private Date dateSent;
+    private String taskName;
+    private Date dateCompleted;
 
+    public TaskLogDAO() {};
 
-    public GiftLogDAO() {};
-
-    public GiftLogDAO(ParticipantDAO participantDAO, String orderId, String sessionName) {
+    public TaskLogDAO(ParticipantDAO participantDAO, String sessionName, String taskName) {
         this.participantDAO = participantDAO;
-        this.orderId = orderId;
         this.sessionName = sessionName;
-        this.dateSent = new Date();
+        this.taskName = taskName;
+        this.dateCompleted = new Date();
     }
 
     /****************************************
@@ -56,23 +53,27 @@ public class GiftLogDAO {
         this.participantDAO = participantDAO;
     }
 
-    public String getOrderId() {
-        return orderId;
+    public String getSessionName() {
+        return sessionName;
     }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
+    public void setSessionName(String sessionName) {
+        this.sessionName = sessionName;
     }
 
-    public Date getDateSent() {
-        return dateSent;
+    public String getTaskName() {
+        return taskName;
     }
 
-    public void setDateSent(Date dateSent) {
-        this.dateSent = dateSent;
+    public void setTaskName(String taskName) {
+        this.taskName = taskName;
     }
 
-    public String getSessionName() { return sessionName; }
+    public Date getDateCompleted() {
+        return dateCompleted;
+    }
 
-    public void setSessionName(String sessionName) { this.sessionName = sessionName; }
+    public void setDateCompleted(Date dateCompleted) {
+        this.dateCompleted = dateCompleted;
+    }
 }

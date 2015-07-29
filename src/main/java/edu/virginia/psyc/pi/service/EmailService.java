@@ -1,7 +1,9 @@
 package edu.virginia.psyc.pi.service;
 
+import edu.virginia.psyc.pi.domain.CBMStudy;
 import edu.virginia.psyc.pi.domain.Participant;
 import edu.virginia.psyc.pi.domain.Session;
+import edu.virginia.psyc.pi.domain.Study;
 import edu.virginia.psyc.pi.domain.tango.Reward;
 import edu.virginia.psyc.pi.persistence.EmailLogDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
@@ -93,7 +95,7 @@ public class EmailService {
             case dass21Alert:
                 return "PIMH Alert! a participants score is Dropping";
             case dass21AlertParticipant:
-                return "Information about change in scores from the Project Implicit Mental Health training team";
+                return "Project Implicit Mental Health - Alert, your score is dropping.";
             case giftCard:
                 return "Project Implicit Mental Health - Your $5 gift card!";
             default:
@@ -228,9 +230,11 @@ public class EmailService {
 
         int days = p.daysSinceLastMilestone();
 
+        Study s = p.getStudy();
+
         // Remind people between sessions until they complete session 8.
-        if (!p.completed(Session.NAME.SESSION8)) {
-            switch (days) {
+        if (!s.completed(CBMStudy.NAME.SESSION8.toString())) {
+           switch (days) {
                 case 1: // noop;
                     break;
                 case 2:
@@ -256,7 +260,7 @@ public class EmailService {
 
         // Follow up emails should only be send if session 8 was completed, and
         // the POST Session was not yet completed.
-        if (p.completed(Session.NAME.SESSION8) && !p.completed(Session.NAME.POST)) {
+        if (s.completed(CBMStudy.NAME.SESSION8.toString()) && !s.completed(CBMStudy.NAME.POST.toString())) {
             switch (days) {
                 case 60:
                     type = TYPE.followup;

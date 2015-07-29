@@ -4,6 +4,7 @@ import edu.virginia.psyc.pi.domain.Participant;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.persistence.Questionnaire.*;
+import edu.virginia.psyc.pi.persistence.TaskLogDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +52,7 @@ public class PIPlayerController extends BaseController {
 
         Participant p = getParticipant(principal);
         model.addAttribute("script", scriptName);
-        model.addAttribute("sessionName", p.getCurrentSession().getName().toString());
+        model.addAttribute("sessionName", p.getStudy().getCurrentSession().getName());
         model.addAttribute("participantId", p.getId());
         return "PIPlayer";
     }
@@ -62,7 +63,12 @@ public class PIPlayerController extends BaseController {
         Participant participant = getParticipant(principal);
         ParticipantDAO dao = participantRepository.findByEmail(participant.getEmail());
 
-        participant.completeCurrentTask();
+        // Log the completion of the task
+        TaskLogDAO taskDao = new TaskLogDAO(dao, participant.getStudy().getCurrentSession().getName(),
+                participant.getStudy().getCurrentSession().getCurrentTask().getName());
+        dao.addTaskLog(taskDao);
+
+        participant.getStudy().completeCurrentTask();
         participantRepository.domainToEntity(participant, dao);
         participantRepository.save(dao);
 

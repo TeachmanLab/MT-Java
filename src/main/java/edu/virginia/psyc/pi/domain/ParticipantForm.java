@@ -15,7 +15,7 @@ public class ParticipantForm {
 
     private List<Participant> participants;
 
-    private List<Session.NAME> sessionNames;
+    private List<String> sessionNames;
 
     public List<Participant> getParticipants() {
         return participants;
@@ -30,16 +30,16 @@ public class ParticipantForm {
         this.participants.add(p);
     }
 
-    public List<Session.NAME> getSessionNames() {
+    public List<String> getSessionNames() {
         return sessionNames;
     }
 
-    public void setSessionNames(List<Session.NAME> sessionNames) {
+    public void setSessionNames(List<String> sessionNames) {
         this.sessionNames = sessionNames;
     }
 
-    public void add(Session.NAME name) {
-        if(null == this.sessionNames) this.sessionNames= new ArrayList<Session.NAME>();
+    public void add(String name) {
+        if(null == this.sessionNames) this.sessionNames= new ArrayList<String>();
         this.sessionNames.add(name);
     }
 

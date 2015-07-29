@@ -61,9 +61,7 @@ public class ParticipantDAO implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Participant.CBM_CONDITION cbmCondition;
 
-    @Enumerated(EnumType.STRING)
-    private Session.NAME currentSession = Session.NAME.values()[0]; // set to first session by default
-
+    private String currentSession; // set to first session by default
 
     private int taskIndex = 0;
 
@@ -72,6 +70,9 @@ public class ParticipantDAO implements UserDetails {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Collection<GiftLogDAO> giftLogDAOs = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Collection<TaskLogDAO> taskLogDAOs = new ArrayList<>();
 
 
     @Override
@@ -159,11 +160,11 @@ public class ParticipantDAO implements UserDetails {
         this.admin = admin;
     }
 
-    public Session.NAME getCurrentSession() {
+    public String getCurrentSession() {
         return currentSession;
     }
 
-    public void setCurrentSession(Session.NAME currentSession) {
+    public void setCurrentSession(String currentSession) {
         this.currentSession = currentSession;
     }
 
@@ -207,6 +208,19 @@ public class ParticipantDAO implements UserDetails {
     public void addGiftLog(GiftLogDAO log) {
         if(this.giftLogDAOs == null) this.giftLogDAOs = new ArrayList<GiftLogDAO>();
         this.giftLogDAOs.add(log);
+    }
+
+    public Collection<TaskLogDAO> getTaskLogDAOs() {
+        return taskLogDAOs;
+    }
+
+    public void setTaskLogDAOs(Collection<TaskLogDAO> taskLogDAOs) {
+        this.taskLogDAOs = taskLogDAOs;
+    }
+
+    public void addTaskLog(TaskLogDAO log) {
+        if(this.taskLogDAOs == null) this.taskLogDAOs = new ArrayList<TaskLogDAO>();
+        this.taskLogDAOs.add(log);
     }
 
     public boolean isActive() {

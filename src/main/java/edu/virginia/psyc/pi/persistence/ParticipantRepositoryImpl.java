@@ -18,19 +18,15 @@ public class ParticipantRepositoryImpl implements ParticipantRepositoryCustom {
 
     @Override
     public Participant entityToDomain(ParticipantDAO dao) {
-        Participant p = new Participant();
-        List<Session> sessionList =  Session.createListView(dao.getCurrentSession(), dao.getTaskIndex());
+        Participant p     = new Participant();
 
         p.setId(dao.getId());
         p.setFullName(dao.getFullName());
         p.setEmail(dao.getEmail());
         p.setAdmin(dao.isAdmin());
-        p.setSessions(sessionList);
-        p.setTaskIndex(dao.getTaskIndex());
         p.setEmailOptout(dao.isEmailOptout());
         p.setActive(dao.isActive());
         p.setLastLoginDate(dao.getLastLoginDate());
-        p.setLastSessionDate(dao.getLastSessionDate());
         p.setCbmCondition(dao.getCbmCondition());
         p.setPrime(dao.getPrime());
 
@@ -50,9 +46,21 @@ public class ParticipantRepositoryImpl implements ParticipantRepositoryCustom {
         // Gift Logs
         List<GiftLog> giftLogs = new ArrayList<GiftLog>();
         for(GiftLogDAO log : dao.getGiftLogDAOs()) {
-            giftLogs.add(new GiftLog(log.getOrderId(), log.getDateSent()));
+            giftLogs.add(new GiftLog(log.getOrderId(), log.getDateSent(), log.getSessionName()));
         }
         p.setGiftLogs(giftLogs);
+
+        // Task Logs
+        List<TaskLog> taskLogs = new ArrayList<TaskLog>();
+        for(TaskLogDAO log : dao.getTaskLogDAOs()) {
+            taskLogs.add(new TaskLog(log.getSessionName(), log.getTaskName(), log.getDateCompleted()));
+        }
+        p.setTaskLogs(taskLogs);
+
+        // Setup the Study (after the task logs are converted)
+        Study       study = new CBMStudy(dao.getCurrentSession(), dao.getTaskIndex(), dao.getLastSessionDate(), p.getTaskLogs());
+        p.setStudy(study);
+
 
         return p;
     }
@@ -65,12 +73,12 @@ public class ParticipantRepositoryImpl implements ParticipantRepositoryCustom {
         dao.setFullName(p.getFullName());
         dao.setEmail(p.getEmail());
         dao.setAdmin(p.isAdmin());
-        dao.setTaskIndex(p.getTaskIndex());
-        dao.setCurrentSession(p.getCurrentSession().getName());
+        dao.setTaskIndex(p.getStudy().getCurrentTaskIndex());
+        dao.setCurrentSession(p.getStudy().getCurrentSession().getName());
         dao.setEmailOptout(p.isEmailOptout());
         dao.setActive(p.isActive());
         dao.setLastLoginDate(p.getLastLoginDate());
-        dao.setLastSessionDate(p.getLastSessionDate());
+        dao.setLastSessionDate(p.getStudy().getLastSessionDate());
         dao.setCbmCondition(p.getCbmCondition());
         dao.setPrime(p.getPrime());
 

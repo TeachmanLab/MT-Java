@@ -1,6 +1,7 @@
 package edu.virginia.psyc.pi.controller;
 
 import edu.virginia.psyc.pi.Application;
+import edu.virginia.psyc.pi.domain.CBMStudy;
 import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.Questionnaire.DASS21_AS;
@@ -44,7 +45,7 @@ public class QuestionControllerStaticTest {
         p = new ParticipantDAO("Dan", "daniel.h.funk@gmail.com", "passwd", true);
         dass21 = new DASS21_AS(1,2,3,4,5,6,7);
         dass21.setParticipantDAO(p);
-        dass21.setSession(Session.NAME.SESSION1);
+        dass21.setSession(CBMStudy.NAME.SESSION1.toString());
         list = new ArrayList<DASS21_AS>();
         list.add(dass21);
 

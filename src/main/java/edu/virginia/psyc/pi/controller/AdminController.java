@@ -1,9 +1,12 @@
 package edu.virginia.psyc.pi.controller;
 
+import edu.virginia.psyc.pi.domain.GiftLog;
 import edu.virginia.psyc.pi.domain.Participant;
 import edu.virginia.psyc.pi.domain.ParticipantForm;
 import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.domain.json.TrialJson;
+import edu.virginia.psyc.pi.domain.tango.*;
+import edu.virginia.psyc.pi.persistence.*;
 import edu.virginia.psyc.pi.domain.tango.Reward;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
@@ -112,7 +115,7 @@ public class AdminController extends BaseController {
                                      @ModelAttribute("participants") ParticipantForm participantForm) {
 
         List<Participant> participants = participantForm.getParticipants();
-        List<Session.NAME> sessions = participantForm.getSessionNames();
+        List<String> sessions = participantForm.getSessionNames();
         int     index;
         ParticipantDAO dao;
 
@@ -130,7 +133,7 @@ public class AdminController extends BaseController {
                 // current session for the participant, and reset their progress.
                 // set the last session date to null so they don't get a timeout
                 // message.
-                if(p.getCurrentSession().getName() != sessions.get(index)) {
+                if(p.getStudy().getCurrentSession().getName() != sessions.get(index)) {
                     dao.setCurrentSession(sessions.get(index));
                     dao.setTaskIndex(0);
                     dao.setLastSessionDate(null);
@@ -230,7 +233,7 @@ public class AdminController extends BaseController {
     public String listSessions(ModelMap model, Principal principal) {
         Participant p = getParticipant(principal);
         model.addAttribute("participant", p);
-        model.addAttribute("sessions", p.getSessions());
+        model.addAttribute("sessions", p.getStudy().getSessions());
         return "admin/listSessions";
     }
 
@@ -238,7 +241,7 @@ public class AdminController extends BaseController {
     public String listDownloads(ModelMap model, Principal principal) {
         Participant p = getParticipant(principal);
         model.addAttribute("participant", p);
-        model.addAttribute("sessions", p.getSessions());
+        model.addAttribute("sessions", p.getStudy().getSessions());
         return "admin/listDownloads";
     }
 
@@ -296,9 +299,39 @@ public class AdminController extends BaseController {
     @RequestMapping(value="/participant/giftCard")
     public String giftCard(ModelMap model, Principal principal) throws Exception {
         Participant p = participantRepository.entityToDomain(participantRepository.findByEmail(principal.getName()));
-        Reward r = tangoService.createGiftCard(p);
+        Reward r = tangoService.createGiftCard(p, "AdminAwarded");
         this.emailService.sendGiftCardEmail(p, r);
         model.addAttribute("participant",p);
         return "/admin/participant_form";
     }
+
+
+    // Added by Diheng, try to recall reward information by order ID;
+    @RequestMapping(value="/rewardInfo/{orderId}", method = RequestMethod.GET)
+    public String showRewardInfo(ModelMap model, Principal principal, @PathVariable ("orderId") String orderId) {
+        Order order = tangoService.getOrderInfo(orderId);
+        model.addAttribute("order",order);
+        return "admin/rewardInfo";
+    }
+
+
+//    @RequestMapping(value="/rewardInfo/{orderId}", method=RequestMethod.POST)
+//    public String checkRewardInfo(ModelMap model,
+//                                       @PathVariable("orderId") String orderId,
+//                                       @Valid Participant participant,
+//                                       BindingResult bindingResult) {
+//        GiftLogDAO dao;
+
+//        dao = ;
+
+//        if (bindingResult.hasErrors()) {
+//            LOG.error("Invalid participant:" + bindingResult.getAllErrors());
+//            model.addAttribute("participant", participant);
+//            return "admin/participant_form";
+        //       } else {
+//        participantRepository.domainToEntity(participant, dao);
+//        participantRepository.save(dao);
+        //       }
+//        return "redirect:/admin";
+
 }

@@ -1,6 +1,10 @@
 package edu.virginia.psyc.pi.domain;
 
 
+import lombok.Data;
+
+import java.util.Date;
+
 /**
  * Created with IntelliJ IDEA.
  * User: dan
@@ -9,6 +13,7 @@ package edu.virginia.psyc.pi.domain;
  * A Session is made of an ordered series of Tasks.  Tasks can be either questionniares or
  * PIPlayer scenerios.  A participant completes a session by completing all of it's tasks.
  */
+@Data
 public class Task {
 
     public enum TYPE {questions, playerScript};
@@ -19,23 +24,28 @@ public class Task {
     private TYPE       type;
     private boolean    complete;
     private boolean    current;
+    private int        duration;  // the estimated time it takes to complete this task.
+    private Date       dateCompleted;
 
-
-    public Task(String name, String displayName, TYPE type) {
+    public Task(String name, String displayName, TYPE type, int duration) {
         this.name = name;
         this.displayName = displayName;
         this.type = type;
         this.complete = false;
         this.current = false;
+        this.duration = duration;
+        this.dateCompleted = null;
     }
 
 
-    public Task(String name, String displayName, TYPE type, boolean complete, boolean current) {
+    public Task(String name, String displayName, TYPE type, int duration, boolean complete, boolean current, Date dateCompleted) {
         this.name = name;
         this.displayName = displayName;
         this.type = type;
         this.complete = complete;
         this.current = current;
+        this.duration = duration;
+        this.dateCompleted = dateCompleted;
     }
 
     /**
@@ -48,48 +58,6 @@ public class Task {
      */
     public String getRequestMapping() {
         return "/" + type + "/" + name;
-    }
-
-
-    public String getDisplayName() {
-        return displayName;
-    }
-
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
-    }
-
-
-    public TYPE getType() {
-        return type;
-    }
-
-    public void setType(TYPE type) {
-        this.type = type;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public boolean isComplete() {
-        return complete;
-    }
-
-    public void setComplete(boolean complete) {
-        this.complete = complete;
-    }
-
-    public boolean isCurrent() {
-        return current;
-    }
-
-    public void setCurrent(boolean current) {
-        this.current = current;
     }
 
     public STATE getState() {

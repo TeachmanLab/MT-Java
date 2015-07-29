@@ -19,8 +19,6 @@ hgroup, nav, section {
   font: inherit;
   vertical-align: baseline;
 }
-
-
 article, aside, details, figcaption, figure, dialog,
 footer, header, hgroup, menu, nav, section {
     display:block;
@@ -31,7 +29,6 @@ body {
   color: white;
 }
 table {
-  border-radius:15px;
   border-collapse: separate;
   border-spacing: 0;
 }

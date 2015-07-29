@@ -3,6 +3,7 @@ package edu.virginia.psyc.pi.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.virginia.psyc.pi.domain.CBMStudy;
 import edu.virginia.psyc.pi.domain.Participant;
 import edu.virginia.psyc.pi.domain.PasswordToken;
 import edu.virginia.psyc.pi.domain.Session;
@@ -227,7 +228,7 @@ public class LoginController extends BaseController {
         if(dass21_as == null) return;   // No eligiblity form exists in the session.
         dass21_as.setParticipantDAO(participantDAO);
         dass21_as.setDate(new Date());
-        dass21_as.setSession(Session.NAME.ELIGIBLE);
+        dass21_as.setSession(CBMStudy.NAME.ELIGIBLE.toString());
         dass21_asRepository.save(dass21_as);
     }
 

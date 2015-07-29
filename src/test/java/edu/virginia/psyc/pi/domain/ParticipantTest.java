@@ -26,38 +26,6 @@ import static org.junit.Assert.assertNotEquals;
  */
 public class ParticipantTest {
 
-    @Test
-    public void testCompleteCurrentTask() {
-
-        Participant p;
-        p = new Participant(1, "Dan Funk", "daniel.h.funk@gmail.com", false);
-        p.setSessions(Session.createListView(Session.NAME.PRE, 0));
-
-        assertEquals(Session.NAME.PRE, p.getCurrentSession().getName());
-        assertEquals("DASS21_AS", p.getCurrentSession().getCurrentTask().getName());
-
-        p.completeCurrentTask();
-
-        assertEquals(Session.NAME.PRE, p.getCurrentSession().getName());
-        assertEquals("OA", p.getCurrentSession().getCurrentTask().getName());
-
-        p.completeCurrentTask();
-
-        assertEquals(Session.NAME.PRE, p.getCurrentSession().getName());
-        assertEquals("ReRu", p.getCurrentSession().getCurrentTask().getName());
-
-        assertNull(p.getLastSessionDate());
-
-        // Move past all the tasks in Session 1
-        for(int i =0; i<8; i++) {
-            p.completeCurrentTask();
-        }
-        assertEquals(Session.NAME.SESSION1, p.getCurrentSession().getName());
-        assertNotNull("The last session date should get updated when completing a session.", p.getLastSessionDate());
-
-        assertEquals("Task index is set to 0 when a completing a session.", 0, p.getTaskIndex());
-        assertEquals("Task index is set to 0 when a completing a session.", 0, p.getCurrentSession().getCurrentTaskIndex());
-    }
 
     @Test
     public void testParticipantKnowsDaysSinceLastMilestone() {
@@ -66,9 +34,9 @@ public class ParticipantTest {
 
         Participant p;
         p = new Participant(1, "Dan Funk", "daniel.h.funk@gmail.com", false);
-
         dateTime = new DateTime().minus(Period.days(3));
-        p.setLastSessionDate(dateTime.toDate());
+        p.setStudy(new CBMStudy(CBMStudy.NAME.PRE.toString(), 0, dateTime.toDate()));
+
         assertEquals(3,p.daysSinceLastMilestone());
 
         /*
@@ -123,44 +91,13 @@ public class ParticipantTest {
         assertNotNull(p.lastMilestone());
 
         dateTime = new DateTime().minus(Period.days(3));
-        p.setLastSessionDate(dateTime.toDate());
+        p.setStudy(new CBMStudy(CBMStudy.NAME.PRE.toString(), 0, dateTime.toDate()));
 
         assertNotSame(p.lastMilestone(), loginDate);
 
     }
 
 
-    @Test
-    public void testSessionState() {
-
-        Participant p;
-        p = new Participant(1, "Dan Funk", "daniel.h.funk@gmail.com", false);
-
-        // By default the session state should be ready
-        assertEquals(Participant.SESSION_STATE.READY, p.sessionState());
-
-        // Complete the pre assessment
-        p.completeSession();
-
-        // State should still be ready ...
-        assertEquals(Participant.SESSION_STATE.READY, p.sessionState());
-
-        // Complete the first session
-        p.completeSession();
-
-        // State should still be now be wait a day ...
-        assertEquals(Participant.SESSION_STATE.WAIT_A_DAY, p.sessionState());
-
-        // If we modify the last session date to be one day ago, session
-        // state should now be ready ...
-        DateTime dt = new DateTime();
-        DateTime yesterday = dt.minus(Period.days(1));
-        p.setLastSessionDate(yesterday.toDate());
-
-        // State should still be now be ready ...
-        assertEquals(Participant.SESSION_STATE.READY, p.sessionState());
-
-    }
 
     @Test
     public void testNewParticipantGetsRandomCBMCondition() {

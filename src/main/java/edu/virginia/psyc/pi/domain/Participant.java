@@ -29,12 +29,10 @@ public class Participant {
 
     private long id;
 
-    public enum SESSION_STATE {READY, WAIT_A_DAY, WAIT_FOR_FOLLOWUP, ALL_DONE}
     public enum CBM_CONDITION {FITFY_FIFTY, POSITIVE, NEUTRAL}
     public enum PRIME {NEUTRAL, ANXIETY}
     private static final Random RANDOM = new Random();  // For generating random CBM and Prime values.
     private static final Logger LOG = LoggerFactory.getLogger(Participant.class);
-
 
     /**
     NOTE:  Recommend using stronger password security settings, like these:
@@ -62,20 +60,17 @@ public class Participant {
     @NotNull
     private String         passwordAgain;
 
-    private List<Session>  sessions  = Session.defaultList();
-    private int            taskIndex;
-
     private boolean        emailOptout = false;  // User required to receive no more emails.
 
     private boolean        active = true;
 
     private Date           lastLoginDate;
 
-    private Date           lastSessionDate;
-
     private List<EmailLog> emailLogs = new ArrayList<>();
 
     private List<GiftLog>  giftLogs = new ArrayList<>();
+
+    private List<TaskLog>  taskLogs = new ArrayList<>();
 
     private PasswordToken  passwordToken;
 
@@ -83,10 +78,13 @@ public class Participant {
 
     private PRIME          prime;
 
+    private Study          study;
+
 
     public Participant() {
         cbmCondition = randomCondition();
         prime        = randomPrime();
+        this.study = new CBMStudy(CBMStudy.NAME.ELIGIBLE.toString(), 0, null, new ArrayList<TaskLog>());
     }
 
     public Participant(long id, String fullName, String email, boolean admin) {
@@ -96,6 +94,7 @@ public class Participant {
         this.admin = admin;
         cbmCondition = randomCondition();
         prime        = randomPrime();
+       this.study = new CBMStudy(CBMStudy.NAME.ELIGIBLE.toString(), 0, null, new ArrayList<TaskLog>());
     }
 
     /**
@@ -127,52 +126,6 @@ public class Participant {
     }
 
     /**
-     * Returns true if the session is completed, false otherwise.
-     * @param session
-     * @return
-     */
-    public boolean completed(Session.NAME session) {
-        Session currentSession = getCurrentSession();
-        if(session == currentSession.getName()) return false;
-        for(Session.NAME s : Session.NAME.values()) {
-            if (s.equals(session)) return true;
-            if (s.equals(currentSession.getName())) return false;
-        }
-        // You can't really get here, since we have looped through all
-        // the possible values of session.
-        return false;
-    }
-
-    public boolean current(Session.NAME session) {
-        if(session == getCurrentSession().getName()) return true;
-        return false;
-    }
-
-
-
-    public void completeCurrentTask() {
-        Session.NAME sessionName;
-
-        // If this is the last task in a session, then we move to the next session.
-        if(getTaskIndex() +1 == getCurrentSession().getTasks().size()) {
-            completeSession();
-        } else { // otherwise we just increment the task index.
-            this.taskIndex = taskIndex + 1;
-            sessionName    = getCurrentSession().getName();
-            this.sessions = Session.createListView(sessionName, taskIndex);
-        }
-    }
-
-    void completeSession() {
-        Session.NAME sessionName;
-        this.lastSessionDate = new Date();
-        sessionName    = Session.nextSession(getCurrentSession().getName());
-        // Rebuid the session list, based on the now current session.
-        this.taskIndex = 0;
-        this.sessions = Session.createListView(sessionName, 0);
-    }
-
-    /**
      * @return Number of days since the last completed session or if
      * no session was completed, the days since the last login.
      * Returns -1 if the user never logged in or completed a session.
@@ -185,20 +138,6 @@ public class Participant {
         now  = new DateTime();
         return Days.daysBetween(last, now).getDays();
     }
-
-    /**
-     * @return Number of days since the last completed session.
-     * Returns 99 if the user never logged in or completed a session.
-     */
-    public int daysSinceLastSession() {
-        DateTime last;
-        DateTime now;
-
-        last = new DateTime(this.lastSessionDate);
-        now  = new DateTime();
-        return Days.daysBetween(last, now).getDays();
-    }
-
 
 
     public int daysSinceLastEmail() {
@@ -225,28 +164,8 @@ public class Participant {
      * email messages.
      */
     public Date lastMilestone() {
-        if(this.lastSessionDate != null) return lastSessionDate;
+        if(this.study.getLastSessionDate() != null) return this.study.getLastSessionDate();
         return this.lastLoginDate;
-    }
-
-
-    /**
-     * Returns the state of the participant, in regards to the Session.  Can
-     * be
-     * @return
-     */
-    public SESSION_STATE sessionState() {
-        // Pre Assessment and Session 1 can be completed immediately.
-        if(getCurrentSession().getName().equals(Session.NAME.PRE) ||
-           getCurrentSession().getName().equals(Session.NAME.SESSION1))
-            return SESSION_STATE.READY;
-
-        // If
-
-        // Otherwise, you must wait at least one day before starting the next
-        // session.
-        if(daysSinceLastSession() == 0 && lastSessionDate != null) return SESSION_STATE.WAIT_A_DAY;
-        return SESSION_STATE.READY;
     }
 
 
@@ -282,35 +201,6 @@ public class Participant {
         this.admin = admin;
     }
 
-    public Session getCurrentSession() {
-        for(Session s  : sessions) {
-            if (s.isCurrent()) {
-                return s;
-            }
-        }
-        // If there is no current session, return the first session.
-        sessions.get(0).setCurrent(true);
-        return sessions.get(0);
-    }
-
-    public List<Session> getSessions() {
-        return sessions;
-    }
-
-    public void setSessions(List<Session> sessions) {
-        this.sessions = sessions;
-        Session s = getCurrentSession();
-        this.setTaskIndex(s.getCurrentTaskIndex());
-    }
-
-    public int getTaskIndex() {
-        return taskIndex;
-    }
-
-    public void setTaskIndex(int taskIndex) {
-        this.taskIndex = taskIndex;
-    }
-
     public boolean isEmailOptout() {
         return emailOptout;
     }
@@ -341,6 +231,23 @@ public class Participant {
         giftLogs.add(log);
     }
 
+    public boolean giftAwardedForSession(Session s) {
+        for(GiftLog log : giftLogs) {
+            if (log.getSessionName().equals(s.getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public List<TaskLog> getTaskLogs() { return taskLogs; }
+
+    public void setTaskLogs(List<TaskLog> taskLogs) { this.taskLogs = taskLogs; }
+
+    public void addTaskLog(TaskLog log) {
+        if (this.taskLogs == null) taskLogs = new ArrayList<TaskLog>();
+        taskLogs.add(log);
+    }
 
     /**
      * Checks to see if this type of email was already sent to the user.
@@ -384,14 +291,6 @@ public class Participant {
         this.lastLoginDate = lastLoginDate;
     }
 
-    public Date getLastSessionDate() {
-        return lastSessionDate;
-    }
-
-    public void setLastSessionDate(Date lastSessionDate) {
-        this.lastSessionDate = lastSessionDate;
-    }
-
     public PasswordToken getPasswordToken() {
         return passwordToken;
     }
@@ -415,4 +314,8 @@ public class Participant {
     public void setPrime(PRIME prime) {
         this.prime = prime;
     }
+
+    public Study getStudy() {  return study;  }
+
+    public void setStudy(Study study) { this.study = study;  }
 }

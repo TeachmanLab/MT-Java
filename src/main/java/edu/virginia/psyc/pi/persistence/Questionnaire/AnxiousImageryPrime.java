@@ -1,5 +1,6 @@
 package edu.virginia.psyc.pi.persistence.Questionnaire;
 
+import edu.virginia.psyc.pi.domain.CBMStudy;
 import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 
@@ -20,8 +21,7 @@ public class AnxiousImageryPrime implements QuestionnaireData{
     @ManyToOne
     private ParticipantDAO participantDAO;
     private Date date;
-    @Enumerated(EnumType.STRING)
-    private Session.NAME session = Session.NAME.ELIGIBLE;
+    private String session;
 
 
     private String situation;
@@ -52,11 +52,11 @@ public class AnxiousImageryPrime implements QuestionnaireData{
         this.date = date;
     }
 
-    public Session.NAME getSession() {
+    public String getSession() {
         return session;
     }
 
-    public void setSession(Session.NAME session) {
+    public void setSession(String session) {
         this.session = session;
     }
 

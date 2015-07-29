@@ -13,5 +13,6 @@ import java.util.Date;
 public class GiftLog {
     private final String orderId;
     private final Date date;
+    private final String sessionName;
 }
 
