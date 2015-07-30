@@ -1,8 +1,26 @@
 /* The script wrapper */
 define(['app/API'], function(API) {
 
+	var scorer =
+	{
+		count : 0
+	};
+
+	function increase_count(){
+		scorer.count = scorer.count+1;
+		return scorer.count;
+	}
+
     API.addSettings('canvas',{
-        textSize: 5
+    	background:'#FFDBB8',
+        canvasBackground:'white',
+        css:{color:'black',
+        'font-family': "'Source Sans Pro', Arial, Helvetica, sans-serif",
+        'box-sizing':'border-box',
+     	 'border-radius': '25px',
+    	 'padding': '20px',
+    	 'width': '200px',
+    	 'height': '150px'}
     });
 //    This was added to redirect back
     API.addSettings('redirect', "../playerScript/completed/int_train");
@@ -35,10 +53,10 @@ define(['app/API'], function(API) {
 
     API.addStimulusSets({
         error: [
-            {handle:'error',media:'X', css:{fontSize:'2em',color:'#FF0000'}, location:{top:70}, nolog:true}
+            {handle:'error',media:'X', css:{fontSize:'20px',color:'#FF0000'}, location:{top:70}, nolog:true}
         ],
         yesno: [
-            {handle:'yesno',media:'Type "y" for Yes, and "n" for No.', css:{fontSize:'1em',color:'#999999'}, location:{top:70}}
+            {handle:'yesno',media:'Type "y" for Yes, and "n" for No.', css:{fontSize:'20px'}, location:{top:70}}
         ]
     });
 
@@ -296,7 +314,7 @@ define(['app/API'], function(API) {
                 // This is a stimulus object
                 {
                     media :"Now the training will begin. Please press the spacebar to continue.",
-                    css:{fontSize:'1.2em',color:'#D7685A'}
+                    css:{fontSize:'20px'}
                 }
             ],
             interactions: [
@@ -319,7 +337,7 @@ define(['app/API'], function(API) {
                 // This is a stimulus object
                 {
                     media :"In this task, you will see a series of paragraphs and questions. Please read each paragraph carefully, and imagine yourself in the situations described. At the end of each paragraph, there will be a word fragment (an incomplete word) for you to complete. To complete the word fragment, press the key that corresponds to the missing letter. Once you type in the correct letter, you will move onto the next question. After completing the word fragment, you will be asked to answer a question about the situation in which you imagined yourself. Please use only the information from the situation to answer the question. Once you have the correct answer, you will move onto the next situation. If you are unsure about an item, please make your best guess. Please press the spacebar to continue.",
-                    css:{fontSize:'.8em',color:'#D7685A'}
+                    css:{fontSize:'20px'}
                 }
             ],
             interactions: [
@@ -356,6 +374,7 @@ define(['app/API'], function(API) {
             },
             {
                 "data": {
+                    "count" : increase_count() + " of 50",
                     "negativeKey": "r",
                     "negativeWord": "ter[ ]ible",
                     "positiveKey": "l",
@@ -364,17 +383,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                 data: {
+                   "count" : increase_count() + " of 50",
                 	positiveAnswer:"y",
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Is it fun to experience a little uncertainty on a date? </div>"
+                    "inlineTemplate": "<div>Is it fun to experience a little uncertainty on a date? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -397,6 +417,7 @@ define(['app/API'], function(API) {
             },
             {
                 "data": {
+                    "count" : increase_count() + " of 50",
                     "negativeKey": "e",
                     "negativeWord": "anxi[ ]ty",
                     "positiveKey": "c",
@@ -405,17 +426,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                   "count" : increase_count() + " of 50",
                 	positiveAnswer:"n",
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Did the person you met at dance class think you were anxious? </div>"
+                    "inlineTemplate": "<div>Did the person you met at dance class think you were anxious? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -438,6 +460,7 @@ define(['app/API'], function(API) {
             },
             {
                 "data": {
+                    "count" : increase_count() + " of 50",
                     "negativeKey": "f",
                     "negativeWord": "aw[ ]ul",
                     "positiveKey": "n",
@@ -446,17 +469,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"y",
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Will the rest of the date be OK, even though you spill water? </div>"
+                    "inlineTemplate": "<div>Will the rest of the date be OK, even though you spill water? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -479,6 +503,7 @@ define(['app/API'], function(API) {
             },
             {
                 "data": {
+                    "count" : increase_count() + " of 50",
                     "negativeKey": "r",
                     "negativeWord": "ne[ ]vous",
                     "positiveKey": "m",
@@ -487,17 +512,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"n",
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Does the date think that you are anxious? </div>"
+                    "inlineTemplate": "<div>Does the date think that you are anxious? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -520,6 +546,7 @@ define(['app/API'], function(API) {
             },
             {
                 "data": {
+                    "count" : increase_count() + " of 50",
                     "negativeKey": "x",
                     "negativeWord": "e[ ]cluded",
                     "positiveKey": "l",
@@ -528,17 +555,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"y",
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Do you expect that others will want to talk with you about the issue in the future? </div>"
+                    "inlineTemplate": "<div>Do you expect that others will want to talk with you about the issue in the future? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -560,7 +588,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+				"count" : increase_count() + " of 50",
                     "negativeKey": "a",
                     "negativeWord": "embarr[ ]ssed",
                     "positiveKey": "s",
@@ -569,17 +598,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"n",
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Would you expect to feel uncomfortable if others look at your work? </div>"
+                    "inlineTemplate": "<div>Would you expect to feel uncomfortable if others look at your work? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -601,7 +631,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "r",
                     "negativeWord": "wei[ ]d",
                     "positiveKey": "e",
@@ -610,17 +641,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"n",
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Does your friend have a more negative opinion of you after you share personal information? </div>"
+                    "inlineTemplate": "<div>Does your friend have a more negative opinion of you after you share personal information? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -642,7 +674,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "r",
                     "negativeWord": "sa[ ]castic",
                     "positiveKey": "c",
@@ -651,17 +684,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"y",
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Does your friend think you look nice? </div>"
+                    "inlineTemplate": "<div>Does your friend think you look nice? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -683,7 +717,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "g",
                     "negativeWord": "ne[ ]atively",
                     "positiveKey": "v",
@@ -692,17 +727,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"y",
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Will your classmates grade your presentation advantageously? </div>"
+                    "inlineTemplate": "<div>Will your classmates grade your presentation advantageously? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -724,7 +760,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "r",
                     "negativeWord": "ter[ ]ible",
                     "positiveKey": "e",
@@ -733,17 +770,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"y",
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Are you happy that you signed up for the interesting evening class? </div>"
+                    "inlineTemplate": "<div>Are you happy that you signed up for the interesting evening class? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -765,7 +803,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "k",
                     "negativeWord": "lac[ ]ing",
                     "positiveKey": "m",
@@ -774,17 +813,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"n",
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Do you feel that your neighbor disapproves of you? </div>"
+                    "inlineTemplate": "<div>Do you feel that your neighbor disapproves of you? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -806,7 +846,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "i",
                     "negativeWord": "fustrat[ ]ng",
                     "positiveKey": "t",
@@ -815,17 +856,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"n",
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Do you think the sales assistant felt you were annoying? </div>"
+                    "inlineTemplate": "<div>Do you think the sales assistant felt you were annoying? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -847,7 +889,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "o",
                     "negativeWord": "p[ ]or",
                     "positiveKey": "m",
@@ -856,17 +899,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"y",
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Did your teammates feel positive about your efforts in the tournament? </div>"
+                    "inlineTemplate": "<div>Did your teammates feel positive about your efforts in the tournament? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -888,7 +932,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "u",
                     "negativeWord": "d[ ]ll",
                     "positiveKey": "b",
@@ -897,17 +942,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"n",
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Did you make a bad impression on your new neighbor? </div>"
+                    "inlineTemplate": "<div>Did you make a bad impression on your new neighbor? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -929,7 +975,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "s",
                     "negativeWord": "embara[ ]sing",
                     "positiveKey": "m",
@@ -938,17 +985,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"n",
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Is it bad to be flushed and sweaty in front of others? </div>"
+                    "inlineTemplate": "<div>Is it bad to be flushed and sweaty in front of others? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -970,7 +1018,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "i",
                     "negativeWord": "anx[ ]ous",
                     "positiveKey": "l",
@@ -979,17 +1028,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"n",
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Do you appear nervous when you speak with your boss? </div>"
+                    "inlineTemplate": "<div>Do you appear nervous when you speak with your boss? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -1011,7 +1061,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "w",
                     "negativeWord": "fro[ ]ning",
                     "positiveKey": "m",
@@ -1020,17 +1071,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"n",
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Is the show owner mad at you for knocking over the picture frames? </div>"
+                    "inlineTemplate": "<div>Is the show owner mad at you for knocking over the picture frames? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -1052,7 +1104,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "u",
                     "negativeWord": "d[ ]ll",
                     "positiveKey": "n",
@@ -1061,17 +1114,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"y",
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Did the person from the party accept your invitation for getting together again? </div>"
+                    "inlineTemplate": "<div>Did the person from the party accept your invitation for getting together again? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -1093,7 +1147,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "n",
                     "negativeWord": "ig[ ]orant",
                     "positiveKey": "g",
@@ -1102,17 +1157,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"n",
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Does your mother-in-law decide that you do not know anything about music? </div>"
+                    "inlineTemplate": "<div>Does your mother-in-law decide that you do not know anything about music? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -1134,7 +1190,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "n",
                     "negativeWord": "ig[ ]orant",
                     "positiveKey": "p",
@@ -1143,17 +1200,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"y",
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Did your friend find your advice constructive? </div>"
+                    "inlineTemplate": "<div>Did your friend find your advice constructive? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -1175,7 +1233,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "v",
                     "negativeWord": "lea[ ]e",
                     "positiveKey": "y",
@@ -1184,17 +1243,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"y",
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Do you remain at the party, even though you are feeling anxious? </div>"
+                    "inlineTemplate": "<div>Do you remain at the party, even though you are feeling anxious? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -1216,7 +1276,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "x",
                     "negativeWord": "an[ ]ious",
                     "positiveKey": "n",
@@ -1225,17 +1286,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"n",
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Did the other people in the workshop think you sounded nervous while you spoke? </div>"
+                    "inlineTemplate": "<div>Did the other people in the workshop think you sounded nervous while you spoke? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -1257,7 +1319,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "u",
                     "negativeWord": "d[ ]ll",
                     "positiveKey": "l",
@@ -1266,17 +1329,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"y",
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Does your new teacher have a good opinion of you? </div>"
+                    "inlineTemplate": "<div>Does your new teacher have a good opinion of you? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -1298,7 +1362,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "w",
                     "negativeWord": "a[ ]ful",
                     "positiveKey": "y",
@@ -1307,17 +1372,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"y",
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Did everyone at the party like your new outfit? </div>"
+                    "inlineTemplate": "<div>Did everyone at the party like your new outfit? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -1339,7 +1405,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "n",
                     "negativeWord": "u[ ]interesting",
                     "positiveKey": "t",
@@ -1348,17 +1415,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"y",
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Was your date interested in you after your last conversation? </div>"
+                    "inlineTemplate": "<div>Was your date interested in you after your last conversation? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -1381,7 +1449,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "n",
                     "negativeWord": "ba[ ]krupt",
                     "positiveKey": "a",
@@ -1390,17 +1459,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"n",
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Are you likely to go broke in the future? </div>"
+                    "inlineTemplate": "<div>Are you likely to go broke in the future? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -1422,7 +1492,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "x",
                     "negativeWord": "an[ ]ious",
                     "positiveKey": "f",
@@ -1431,17 +1502,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"n",
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Are you uneasy about your answer? </div>"
+                    "inlineTemplate": "<div>Are you uneasy about your answer? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -1463,7 +1535,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "j",
                     "negativeWord": "unen[ ]oyable",
                     "positiveKey": "y",
@@ -1472,17 +1545,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"y",
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Will you still be able to enjoy the weekend, even if you are wondering about the lock? </div>"
+                    "inlineTemplate": "<div>Will you still be able to enjoy the weekend, even if you are wondering about the lock? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -1504,7 +1578,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "r",
                     "negativeWord": "wor[ ]isome",
                     "positiveKey": "x",
@@ -1513,17 +1588,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"y",
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Do you enjoy thinking about your future? </div>"
+                    "inlineTemplate": "<div>Do you enjoy thinking about your future? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -1545,7 +1621,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "i",
                     "negativeWord": "worr[ ]ed",
                     "positiveKey": "l",
@@ -1554,17 +1631,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"n",
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Are you anxious about your decision? </div>"
+                    "inlineTemplate": "<div>Are you anxious about your decision? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -1586,7 +1664,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "n",
                     "negativeWord": "u[ ]manageable",
                     "positiveKey": "g",
@@ -1595,17 +1674,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"y",
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Are you able to manage your worries about your son? </div>"
+                    "inlineTemplate": "<div>Are you able to manage your worries about your son? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -1627,7 +1707,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "o",
                     "negativeWord": "po[ ]r",
                     "positiveKey": "n",
@@ -1636,17 +1717,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"n",
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div> Do you think you will be poor after helping your daughter pay for the wedding? </div>"
+                    "inlineTemplate": "<div> Do you think you will be poor after helping your daughter pay for the wedding? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -1668,7 +1750,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "k",
                     "negativeWord": "ris[ ]y",
                     "positiveKey": "f",
@@ -1677,17 +1760,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"n",
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Is going to a park in a different neighborhood dangerous? </div>"
+                    "inlineTemplate": "<div>Is going to a park in a different neighborhood dangerous? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -1709,7 +1793,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "g",
                     "negativeWord": "lar[ ]e",
                     "positiveKey": "n",
@@ -1718,17 +1803,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"n",
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Do you think you will get hurt when ice skating? </div>"
+                    "inlineTemplate": "<div>Do you think you will get hurt when ice skating? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -1750,7 +1836,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "n",
                     "negativeWord": "u[ ]enjoyable",
                     "positiveKey": "j",
@@ -1759,17 +1846,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"y",
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Will you still be able to enjoy your vacation, even if you are wondering about your stove? </div>"
+                    "inlineTemplate": "<div>Will you still be able to enjoy your vacation, even if you are wondering about your stove? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -1791,7 +1879,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "b",
                     "negativeWord": "rob[ ]ed",
                     "positiveKey": "n",
@@ -1800,17 +1889,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"n",
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Will your neighbor\u2019s house probably be robbed? </div>"
+                    "inlineTemplate": "<div>Will your neighbor\u2019s house probably be robbed? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -1832,7 +1922,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "m",
                     "negativeWord": "i[ ]possible",
                     "positiveKey": "s",
@@ -1841,17 +1932,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"n",
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div> Do you think it will be impossible to find a new job? </div>"
+                    "inlineTemplate": "<div> Do you think it will be impossible to find a new job? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -1874,7 +1966,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "c",
                     "negativeWord": "si[ ]k",
                     "positiveKey": "i",
@@ -1883,17 +1976,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"n",
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Has your elderly neighbor likely been sick? </div>"
+                    "inlineTemplate": "<div>Has your elderly neighbor likely been sick? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -1915,7 +2009,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "x",
                     "negativeWord": "an[ ]ious",
                     "positiveKey": "l",
@@ -1924,17 +2019,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"y",
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div> Are you able to stay calm, despite being unsure whether you remembered to lock your door? </div>"
+                    "inlineTemplate": "<div> Are you able to stay calm, despite being unsure whether you remembered to lock your door? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -1956,7 +2052,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "n",
                     "negativeWord": "u[ ]manageable",
                     "positiveKey": "g",
@@ -1965,17 +2062,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"y",
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Are you able to manage your worries about your son? </div>"
+                    "inlineTemplate": "<div>Are you able to manage your worries about your son? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -1997,7 +2095,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "r",
                     "negativeWord": "wor[ ]ied",
                     "positiveKey": "c",
@@ -2006,17 +2105,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"y",
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Are you feeling calm as you leave for vacation, despite not double checking the appliances? </div>"
+                    "inlineTemplate": "<div>Are you feeling calm as you leave for vacation, despite not double checking the appliances? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -2038,7 +2138,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "n",
                     "negativeWord": "u[ ]successfully",
                     "positiveKey": "c",
@@ -2047,17 +2148,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"y",
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Are you able to successfully manage your nervousness? </div>"
+                    "inlineTemplate": "<div>Are you able to successfully manage your nervousness? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -2079,7 +2181,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "b",
                     "negativeWord": "rob[ ]ers",
                     "positiveKey": "n",
@@ -2088,17 +2191,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"n",
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div> Should you be frightened when you hear a noise at night? </div>"
+                    "inlineTemplate": "<div> Should you be frightened when you hear a noise at night? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -2121,7 +2225,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "g",
                     "negativeWord": "hi[ ]h",
                     "positiveKey": "o",
@@ -2130,17 +2235,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"n",
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Is it likely that you will become sick? </div>"
+                    "inlineTemplate": "<div>Is it likely that you will become sick? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -2162,7 +2268,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "o",
                     "negativeWord": "seri[ ]us",
                     "positiveKey": "n",
@@ -2171,17 +2278,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"y",
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Will your burned finger be okay? </div>"
+                    "inlineTemplate": "<div>Will your burned finger be okay? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -2203,7 +2311,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "i",
                     "negativeWord": "s[ ]ck",
                     "positiveKey": "s",
@@ -2212,17 +2321,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"y",
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Will drinking water make your throat feel better? </div>"
+                    "inlineTemplate": "<div>Will drinking water make your throat feel better? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -2244,7 +2354,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "n",
                     "negativeWord": "u[ ]nmanageable",
                     "positiveKey": "a",
@@ -2253,17 +2364,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"y",
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div> Can you manage your anxiety about potentially getting sick from your friend?</div>"
+                    "inlineTemplate": "<div> Can you manage your anxiety about potentially getting sick from your friend?</div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -2285,7 +2397,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "n",
                     "negativeWord": "i[ ]tolerable",
                     "positiveKey": "b",
@@ -2294,12 +2407,13 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"y",
                 	negativeAnswer:"n"
                 },
@@ -2326,7 +2440,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "c",
                     "negativeWord": "si[ ]k",
                     "positiveKey": "i",
@@ -2335,17 +2450,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"n",
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div> Will you get sick from your friend's new baby?</div>"
+                    "inlineTemplate": "<div> Will you get sick from your friend's new baby?</div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
@@ -2367,7 +2483,8 @@ define(['app/API'], function(API) {
                 }
             },
             {
-                "data": {
+                data: {
+					"count" : increase_count() + " of 50",
                     "negativeKey": "a",
                     "negativeWord": "unhe[ ]lthy",
                     "positiveKey": "l",
@@ -2376,17 +2493,18 @@ define(['app/API'], function(API) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div><div><%= stimulusData.count %></div>"
                 }
             },
             {
                 "handle": "question",
                  data: {
+                    "count" : increase_count() + " of 50",
                 	positiveAnswer:"y",
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Do you think that you are healthy? </div>"
+                    "inlineTemplate": "<div>Do you think that you are healthy? </div><div><%= stimulusData.count %></div>"
                 }
             }
         ]
