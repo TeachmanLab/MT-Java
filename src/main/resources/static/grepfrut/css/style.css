@@ -832,7 +832,7 @@ form input.error, form textarea.error {
 	border-color: #b94a48 !important;
 	box-shadow: none;
 }
-label, input, button, select, textarea, input[type="text"] {
+ label, input, button, select, textarea, input[type="text"] {
 	font-size: 14px;
 	color: #767676;
 	font-weight: 400;
@@ -840,7 +840,7 @@ label, input, button, select, textarea, input[type="text"] {
 	text-shadow: 0px 1px 0px #fff;
 }
 label {
-	width: 40%; /*increase width of label if longer label text, simuyltaneusoly decrease that of input & textarea*/
+	/* width: 40%; increase width of label if longer label text, simuyltaneusoly decrease that of input & textarea*/
 	padding-right: 1%;
 	float: left;
 	height: auto;

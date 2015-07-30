@@ -25,7 +25,51 @@
 
 <!-- content starts
 ================================================== -->
+
 <section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <h4> About MindTrails</h4>
+
+                <p> MindTrails includes 8 sessions that are spread out over the course of 4 weeks. You’ll complete 2 sessions
+                    each week, and each session takes about 20 minutes to complete. You'll also complete some assessments as
+                    part of our research study so that we can evaluate how well the program works. You'll receive gift cards
+                    to thank you for completing the assessments, and a t-shirt after completing the full study. You can do
+                    the sessions anywhere, so long as you have access to a quiet place and a computer with Internet. This
+                    program is free and can be completed without ever leaving your desk.</p>
+
+                <p> <b> So, how does MindTrails work? </b> </p>
+
+
+                <p> In our program, we are attempting to change the way you make sense of information in order to reduce your
+                    anxiety. During each session, you will be asked to read brief stories and complete word fragments, by filling
+                    in one or more missing letters in a word. The task is not meant to be tricky or too difficult. It is not a
+                    puzzle to try to solve.</p>
+
+                <p>These exercises are designed to change the way you make sense of information by
+                    giving you lots of practice responding to situations in different ways. The program
+                    can feel a little repetitive, but the repetition is important so you develop a new
+                    interpretation style.</p>
+
+                <p>Don’t worry if you don’t use computers much—the tasks are not designed to be
+                    difficult and you can always email us with questions at <a href="mailto:staff@mindtrails.org">staff@mindtrails.org</a> </p>
+
+                <p>This is an experimental program so it is still in the testing phase, but prior research
+                    says this program may be able to reduce anxiety as effectively as therapy for some
+                    people. We want to learn if it can be helpful for you.</p>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+
+
+
+<section id="content2" class="clearfix">
     <div class="container">
 
         <!--spacer here-->
@@ -34,92 +78,133 @@
         <!--features starts-->
         <div class="row">
             <div class="span12">
+                <p><b>Before proceeding, please answer the following questions:</b></p>
                 <form id="wizard" th:action="@{/questions/credibility}" method="POST">
                     <fieldset>
-                        <legend>Instructions</legend>
-                        <p>Please rate each of the following items using the scale below:</p>
-                        <pre>
-0-----1-----2-----3-----4-----5-----6-----7-----8-----9-----10
-Not at all                Somewhat                   Extremely</pre>
+                        <div class="section">
+                            <div class="question"><h4>How important is reducing your anxiety to you right now?</h4></div>
+                            <label style="cursor:pointer;">
+                                <div class="option">
+                                    <div class="desc1">Not at all</div>
+                                    <input type="radio" name="important" class="form-control" value="0" required="true"/>
+                                    <div class="desc2">1</div>
+                                </div>
+                            </label>
+                            <label style="cursor:pointer;">
+                                <div class="option">
+                                    <div class="desc1"> </div>
+                                    <input type="radio" name="important" class="form-control" value="1" />
+                                    <div class="desc2">2</div>
+                                </div>
+                            </label>
+                            <label style="cursor:pointer;">
+                                <div class="option">
+                                    <div class="desc1">Somewhat</div>
+                                    <input type="radio" name="important" class="form-control" value="2" />
+                                    <div class="desc2">3</div>
+                                </div>
+                            </label>
+                            <label style="cursor:pointer;">
+                                <div class="option" >
+                                    <div class="desc1"> </div>
+                                    <input type="radio" name="important" class="form-control" value="3" />
+                                    <div class="desc2">4</div>
+                                </div>
+                            </label>
+                            <label style="cursor:pointer;">
+                                <div class="option">
+                                    <div class="desc1">Extremely</div>
+                                    <input type="radio" name="important" class="form-control" value="5" />
+                                    <div class="desc2">5</div>
+                                </div>
+                            </label>
+                        </div>
+                        <br />
+                        <div class="section">
+                            <div class="question"><h4>How confident are you that an online training program will be successful in reducing your anxiety?</h4></div>
+                            <label style="cursor:pointer;">
+                                <div class="option">
+                                    <div class="desc1">Not at all</div>
+                                    <input type="radio" name="logical" class="form-control" value="0" required="true"/>
+                                    <div class="desc2">1</div>
+                                </div>
+                            </label>
+                            <label style="cursor:pointer;">
+                                <div class="option">
+                                    <div class="desc1"> </div>
+                                    <input type="radio" name="logical" class="form-control" value="1" />
+                                    <div class="desc2">2</div>
+                                </div>
+                            </label>
+                            <label style="cursor:pointer;">
+                                <div class="option">
+                                    <div class="desc1">Somewhat</div>
+                                    <input type="radio" name="logical" class="form-control" value="2" />
+                                    <div class="desc2">3</div>
+                                </div>
+                            </label>
+                            <label style="cursor:pointer;">
+                                <div class="option" >
+                                    <div class="desc1"> </div>
+                                    <input type="radio" name="logical" class="form-control" value="3" />
+                                    <div class="desc2">4</div>
+                                </div>
+                            </label>
+                            <label style="cursor:pointer;">
+                                <div class="option">
+                                    <div class="desc1">Extremely</div>
+                                    <input type="radio" name="logical" class="form-control" value="5" />
+                                    <div class="desc2">5</div>
+                                </div>
+                            </label>
+                        </div>
+                        <br />
+                        <div class="section">
+                        <div class="question"><h4>How confident are you that an online training program that is designed to change how you think about situations will be successful in reducing your anxiety?</h4></div>
+                        <label style="cursor:pointer;">
+                            <div class="option">
+                                <div class="desc1">Not at all</div>
+                                <input type="radio" name="recommendable" class="form-control" value="0" required="true"/>
+                                <div class="desc2">1</div>
+                            </div>
+                        </label>
+                        <label style="cursor:pointer;">
+                            <div class="option">
+                                <div class="desc1"> </div>
+                                <input type="radio" name="recommendable" class="form-control" value="1" />
+                                <div class="desc2">2</div>
+                            </div>
+                        </label>
+                        <label style="cursor:pointer;">
+                            <div class="option">
+                                <div class="desc1">Somewhat</div>
+                                <input type="radio" name="recommendable" class="form-control" value="2" />
+                                <div class="desc2">3</div>
+                            </div>
+                        </label>
+                        <label style="cursor:pointer;">
+                            <div class="option" >
+                                <div class="desc1"> </div>
+                                <input type="radio" name="recommendable" class="form-control" value="3" />
+                                <div class="desc2">4</div>
+                            </div>
+                        </label>
+                        <label style="cursor:pointer;">
+                            <div class="option">
+                                <div class="desc1">Extremely</div>
+                                <input type="radio" name="recommendable" class="form-control" value="5" />
+                                <div class="desc2">5</div>
+                            </div>
+                        </label>
+                        </div>
+
                     </fieldset>
-                    <fieldset>
-                        <legend>Questions</legend>
-                        <p>Please rate each of the following items using the scale below:</p>
-                        <pre>
-0-----1-----2-----3-----4-----5-----6-----7-----8-----9-----10
-Not at all                Somewhat                   Extremely</pre>
-                        <table class="table table-striped table-bordered">
-                            <tr>
-                                <th>Question</th>
-                                <th>Response</th>
-                            </tr>
-                            <tr>
-                                <td>How important is reducing your anxiety to you right now?</td>
-                                <td><select name="important" required="true">
-                                    <option value=""></option>
-                                    <option value="0">0</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option vaue="10">10</option>
-                                    <option value="555">Prefer not to answer</option>
-                                </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>How confident are you that an online training program will be successful in reducing your anxiety?</td>
-                                <td><select name="logical" required="true">
-                                    <option value=""></option>
-                                    <option value="0">0</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option vaue="10">10</option>
-                                    <option value="555">Prefer not to answer</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>How confident are you that an online training program that is designed to change how you think about situations (like this program) will be successful in reducing your anxiety?</td>
-                                <td><select name="recommendable" required="true">
-                                    <option value=""></option>
-                                    <option value="0">0</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option vaue="10">10</option>
-                                    <option value="555">Prefer not to answer</option>
-                                </select>
-                                </td>
-                            </tr>
-                        </table>
-                    </fieldset>
+                    <br />
+                    <div style="text-align:center">
+                    <a th:href="@{demographics}"><button type="submit">Next</button></a>
+                    </div>
                 </form>
-                <script>
-                    $("#wizard").on("wizardfinish", function() {
-                            if (!$(this).find(":input").valid()) {
-                                    return false;
-                            }
-                        }).jWizard().validate();
-                </script>
+
             </div>
         </div>
         <!--features ends-->

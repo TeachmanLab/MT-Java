@@ -110,7 +110,7 @@ public class LoginController extends BaseController {
                                    ModelMap model,
                                    HttpSession session) {
 
-        if(dass21_as.eligibleScore()) {
+        if(dass21_as.eligibleScore() && dass21_as.isOver18()) {
             // Save the DASS21_AS object in the session, so we can grab it when the
             // user is logged in.
             session.setAttribute("dass21", dass21_as);
@@ -157,8 +157,17 @@ public class LoginController extends BaseController {
 
     @RequestMapping("invitation")
     public String showInvitation(ModelMap model, Principal principal) {
+
         return "invitation";
     }
+
+    @RequestMapping(value="/consent", method = RequestMethod.GET)
+    public String showConsent (ModelMap model, Principal principal) {
+        model.addAttribute("participant", new Participant());
+        return "consent";
+
+    }
+
 
     @RequestMapping("public/privacy")
     public String showPrivacy(ModelMap model, Principal principal) {
@@ -186,7 +195,7 @@ public class LoginController extends BaseController {
         if (bindingResult.hasErrors()) {
             LOG.error("Invalid participant:" + bindingResult.getAllErrors());
 
-            return "invitation";
+            return "consent";
         }
 
         participant.setLastLoginDate(new Date()); // Set the last login date.
@@ -200,7 +209,7 @@ public class LoginController extends BaseController {
         saveEligibilityForm(participant, session);
 
         LOG.info("Participant authenticated.");
-        return "redirect:/session";
+        return "/questions/credibility";
     }
 
     /**

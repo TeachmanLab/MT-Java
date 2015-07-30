@@ -23,13 +23,16 @@ public class GiftLogDAO {
     private ParticipantDAO participantDAO;
 
     private String orderId;
+    private String sessionName;
     private Date dateSent;
+
 
     public GiftLogDAO() {};
 
-    public GiftLogDAO(ParticipantDAO participantDAO, String orderId) {
+    public GiftLogDAO(ParticipantDAO participantDAO, String orderId, String sessionName) {
         this.participantDAO = participantDAO;
         this.orderId = orderId;
+        this.sessionName = sessionName;
         this.dateSent = new Date();
     }
 
@@ -68,4 +71,8 @@ public class GiftLogDAO {
     public void setDateSent(Date dateSent) {
         this.dateSent = dateSent;
     }
+
+    public String getSessionName() { return sessionName; }
+
+    public void setSessionName(String sessionName) { this.sessionName = sessionName; }
 }
