@@ -29,10 +29,67 @@
     <div class="container">
         <div class="row">
             <div class="span8">
-                <h4> Contact Preferences </h4>
 
-                <form action="#" th:action="@{'/pages/account/update'}" method="post">
-                        <p><input type="checkbox" value="${sendEmails}"/> Send me reminder emails so I know when to return for the next session.*</p>
+                <p><b>Name and Password</b></p>
+                <form action="#" th:action="@{'/admin/participant/'+${participant.id}}" th:object="${participant}"
+                      method="post">
+                <table>
+                    <tr>
+                        <td width="30%">Name / Nickname</td>
+                        <td width="30%" th:text="*{fullName}" >adam</td>
+                        <td>(<a href=" ">Edit</a>)</td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td th:text="*{email}">daniel.h.funk@gmail.com</td>
+                    </tr>
+                    <tr>
+                        <td>Password</td>
+                        <td>********</td>
+                        <td>(<a href=" ">Change Password</a>)</td>
+                    </tr>
+                </table>
+
+                <p><b>Select a Theme</b></p>
+                <p>To customize the appearance of MindTrails select one of the options below. You can change your theme at any time.</p>
+                    <fieldset>
+                    <div class="longSection">
+                        <div class="optionTheme">
+                            <div class="optionThemeSub">
+                                <input style="width: 20px;" type="radio" th:field="*{theme}" value="orange" required="true" />
+                            </div>
+                            <div class="optionThemeSub"><img src="" height="" width=""/></div>
+                        </div>
+                        <div class="optionTheme">
+                            <div class="optionThemeSub">
+                                <input type="radio" th:field="*{theme}"   value="green"  />
+                            </div>
+                            <div class="optionThemeSub"><img src="" /></div>
+                        </div>
+                        <div class="optionTheme">
+                            <div class="optionThemeSub">
+                                <input type="radio" th:field="*{theme}"   value="purple"  />
+                            </div>
+                            <div class="optionThemeSub"><img src="" /></div>
+                        </div>
+                        <div class="optionTheme">
+                            <div class="optionThemeSub">
+                                <input type="radio" th:field="*{theme}"  value="gold" />
+                            </div>
+                            <div class="optionThemeSub"><img src="" /></div>
+                        </div>
+                        <div class="optionTheme">
+                            <div class="optionThemeSub">
+                                <input type="radio" th:field="*{theme}" value="blue"  />
+                            </div>
+                            <div class="optionThemeSub"><img src="" /></div>
+                        </div>
+                    </div>
+                    </fieldset>
+                    <div style="text-align: center;">
+                        <a th:href="@{/session}" type="submit" class="btn" style="color:#3399FF;">Done</a>
+                    </div>
+
                 </form>
 
                 <div class="note">

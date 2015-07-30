@@ -107,7 +107,7 @@ public class AdminController extends BaseController {
         p = participantRepository.entityToDomain(participantRepository.findOne(id));
 
         model.addAttribute("participant", p);
-        return "admin/participant_form";
+        return "account";
     }
 
     @RequestMapping(value="/updateParticipants", method=RequestMethod.POST)
