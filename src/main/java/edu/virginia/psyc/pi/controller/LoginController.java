@@ -65,7 +65,7 @@ public class LoginController extends BaseController {
     }
 
     @RequestMapping(value="/", method = RequestMethod.GET)
-    public String printWelcome(ModelMap model, Principal principal) {
+    public String printWelcome(Principal principal) {
         Authentication auth = (Authentication) principal;
         // Show the Rationale / Login page if the user is not logged in
         // otherwise redirect them to the session page.
@@ -76,7 +76,8 @@ public class LoginController extends BaseController {
     }
 
     @RequestMapping(value="/login", method = RequestMethod.GET)
-    public String showLogin() {
+    public String showLogin(ModelMap model) {
+        model.addAttribute("hideAccountBar", true);
         return "login";
     }
 
@@ -89,6 +90,7 @@ public class LoginController extends BaseController {
     @RequestMapping(value="/loginfailed", method = RequestMethod.GET)
     public String loginerror(ModelMap model) {
         model.addAttribute("error", "true");
+        model.addAttribute("hideAccountBar", true);
         return "/";
     }
 
@@ -128,6 +130,7 @@ public class LoginController extends BaseController {
     public String eligable(@RequestBody DASS21_AS dass21_as,
                                    ModelMap model,
                                    HttpSession session) {
+        model.addAttribute("hideAccountBar", true);
         if(dass21_as.eligibleScore()) {
             // Save the DASS21_AS object in the session, so we can grab it when the
             // user is logged in.
@@ -157,16 +160,18 @@ public class LoginController extends BaseController {
 
     @RequestMapping("invitation")
     public String showInvitation(ModelMap model, Principal principal) {
-
+        model.addAttribute("hideAccountBar", true);
         return "invitation";
     }
 
-    @RequestMapping(value="/consent", method = RequestMethod.POST)
+    @RequestMapping(value="/consent", method = RequestMethod.GET)
     public String showConsent (ModelMap model, Principal principal) {
         model.addAttribute("participant", new Participant());
+        model.addAttribute("hideAccountBar", true);
         return "consent";
 
     }
+
 
     @RequestMapping("public/privacy")
     public String showPrivacy(ModelMap model, Principal principal) {
@@ -182,6 +187,7 @@ public class LoginController extends BaseController {
                                        ) {
 
         model.addAttribute("participant", participant);
+        model.addAttribute("hideAccountBar", true);
 
         if(participantRepository.findByEmail(participant.getEmail()) != null) {
             bindingResult.addError(new ObjectError("email", "This email already exists."));
@@ -208,7 +214,7 @@ public class LoginController extends BaseController {
         saveEligibilityForm(participant, session);
 
         LOG.info("Participant authenticated.");
-        return "redirect:/session";
+        return "/questions/credibility";
     }
 
     /**
@@ -261,6 +267,7 @@ public class LoginController extends BaseController {
 
         Participant    participant;
         participant =  getParticipantByToken(token);
+        model.addAttribute("hideAccountBar", true);
 
         if(participant != null) {
             model.addAttribute("participant", participant);

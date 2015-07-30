@@ -47,14 +47,14 @@
 
         </div>
     </div>
-    <div class="account-bar">
+    <div class="account-bar" th:unless="${hideAccountBar}">
         <div class="container" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
-            Logged in as ( <span th:text="${participant.name}"/> ) | <a href="/session/overview">My Progress</a> | <a
+            Logged in as ( <span th:text="${participant.fullName}"/> ) | <a href="/session/overview">My Progress</a> | <a
                 href="/account">Settings</a> | <a href="/logout">Log out</a>
         </div>
         <div class="container login" th:unless="${#authorization.expression('hasRole(''ROLE_USER'')')}">
             Already Participating? <a href="/">
-            <button>Log In</button>
+            <a th:href="@{/login}"><button>Log In</button></a>
         </a>
         </div>
     </div>

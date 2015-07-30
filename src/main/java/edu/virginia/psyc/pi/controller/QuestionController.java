@@ -23,10 +23,7 @@ import javax.mail.MessagingException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.security.Principal;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -149,13 +146,20 @@ public class QuestionController extends BaseController {
         data.setDate(new Date());
     }
 
+    private ModelAndView modelAndView(Principal principal, String url, String name, Object model) {
+           Map<String,Object> models = new HashMap<>();
+           models.put("participant", getParticipant(principal));
+           models.put(name, model);
+           return new ModelAndView(url, models);
+    }
+
     /**
      * DASS 21 AS
      * ---------*
      */
     @RequestMapping(value = "DASS21_AS", method = RequestMethod.GET)
-    public ModelAndView showDASS21_AS() {
-        return new ModelAndView("/questions/DASS21_AS", "DASS21_AS", new DASS21_AS());
+    public ModelAndView showDASS21_AS(Principal principal) {
+        return modelAndView(principal, "/questions/DASS21_AS", "DASS21_AS", new DASS21_AS());
     }
 
     @RequestMapping(value = "DASS21_AS", method = RequestMethod.POST)
@@ -197,8 +201,8 @@ public class QuestionController extends BaseController {
      * ---------*
      */
     @RequestMapping(value = "DASS21_DS", method = RequestMethod.GET)
-    public ModelAndView showDASS21_DS() {
-        return new ModelAndView("/questions/DASS21_DS", "DASS21_DS", new DASS21_DS());
+    public ModelAndView showDASS21_DS(Principal principal) {
+        return modelAndView(principal, "/questions/DASS21_DS", "DASS21_DS", new DASS21_DS());
     }
 
     @RequestMapping(value = "DASS21_DS", method = RequestMethod.POST)
@@ -223,8 +227,8 @@ public class QuestionController extends BaseController {
      * ---------*
      */
     @RequestMapping(value = "QOL", method = RequestMethod.GET)
-    public ModelAndView showqol() {
-        return new ModelAndView("questions/QOL", "QOL", new QOL());
+    public ModelAndView showqol(Principal principal) {
+        return modelAndView(principal, "questions/QOL", "QOL", new QOL());
     }
 
     @RequestMapping(value = "QOL", method = RequestMethod.POST)
@@ -248,8 +252,8 @@ public class QuestionController extends BaseController {
      * ---------*
      */
     @RequestMapping(value = "audit", method = RequestMethod.GET)
-    public ModelAndView showaudit() {
-        return new ModelAndView("/questions/audit", "aduit", new AUDIT());
+    public ModelAndView showaudit(Principal principal) {
+        return modelAndView(principal, "/questions/audit", "aduit", new AUDIT());
     }
 
     @RequestMapping(value = "aduit", method = RequestMethod.POST)
@@ -272,12 +276,12 @@ public class QuestionController extends BaseController {
      * Credibility
      * ---------*
      */
-    @RequestMapping(value = "credibility", method = RequestMethod.GET)
-    public ModelAndView showCredibility() {
-        return new ModelAndView("/questions/credibility", "credibility", new Credibility());
+    @RequestMapping(value = "/credibility", method = RequestMethod.GET)
+    public ModelAndView showCredibility(Principal principal) {
+        return modelAndView(principal, "/questions/credibility", "credibility", new Credibility());
     }
 
-    @RequestMapping(value = "credibility", method = RequestMethod.POST)
+    @RequestMapping(value = "/credibility", method = RequestMethod.POST)
     RedirectView handleCredibility(@ModelAttribute("credibility") Credibility credibility,
                                    BindingResult result) {
 
@@ -299,8 +303,8 @@ public class QuestionController extends BaseController {
      */
 
     @RequestMapping(value = "FU", method = RequestMethod.GET)
-    public ModelAndView showFollowUp() {
-        return new ModelAndView("/questions/FU", "FU", new FollowUp_ChangeInTreatment());
+    public ModelAndView showFollowUp(Principal principal) {
+        return modelAndView(principal, "/questions/FU", "FU", new FollowUp_ChangeInTreatment());
     }
 
     @RequestMapping(value = "FU", method = RequestMethod.POST)
@@ -324,8 +328,8 @@ public class QuestionController extends BaseController {
      */
 
     @RequestMapping(value = "MH", method = RequestMethod.GET)
-    public ModelAndView showMentalHealthHxTx() {
-        return new ModelAndView("/questions/MH", "MH", new MentalHealthHxTx());
+    public ModelAndView showMentalHealthHxTx(Principal principal) {
+        return modelAndView(principal, "/questions/MH", "MH", new MentalHealthHxTx());
     }
 
     @RequestMapping(value = "MH", method = RequestMethod.POST)
@@ -350,8 +354,8 @@ public class QuestionController extends BaseController {
      */
 
     @RequestMapping(value = "MUE", method = RequestMethod.GET)
-    public ModelAndView showMultiUserExperience() {
-        return new ModelAndView("/questions/MUE", "MUE", new MultiUserExperience());
+    public ModelAndView showMultiUserExperience(Principal principal) {
+        return modelAndView(principal, "/questions/MUE", "MUE", new MultiUserExperience());
     }
 
     @RequestMapping(value = "MUE", method = RequestMethod.POST)
@@ -376,8 +380,8 @@ public class QuestionController extends BaseController {
      */
 
     @RequestMapping(value = "PUE", method = RequestMethod.GET)
-    public ModelAndView showPilotUserExperience() {
-        return new ModelAndView("questions/PUE", "PUE", new PilotUserExperience());
+    public ModelAndView showPilotUserExperience(Principal principal) {
+        return modelAndView(principal, "questions/PUE", "PUE", new PilotUserExperience());
     }
 
     @RequestMapping(value = "PUE", method = RequestMethod.POST)
@@ -402,8 +406,8 @@ public class QuestionController extends BaseController {
      */
 
     @RequestMapping(value = "impact", method = RequestMethod.GET)
-    public ModelAndView showImpact() {
-        return new ModelAndView("/questions/impact", "impact", new ImpactAnxiousImagery());
+    public ModelAndView showImpact(Principal principal) {
+        return modelAndView(principal, "/questions/impact", "impact", new ImpactAnxiousImagery());
     }
 
     @RequestMapping(value = "impact", method = RequestMethod.POST)
@@ -428,8 +432,8 @@ public class QuestionController extends BaseController {
      */
 
     @RequestMapping(value = "AIP", method = RequestMethod.GET)
-    public ModelAndView showAIP() {
-        return new ModelAndView("/questions/AIP", "AIP", new AnxiousImageryPrime());
+    public ModelAndView showAIP(Principal principal) {
+        return modelAndView(principal, "/questions/AIP", "AIP", new AnxiousImageryPrime());
     }
 
     @RequestMapping(value = "AIP", method = RequestMethod.POST)
@@ -454,8 +458,8 @@ public class QuestionController extends BaseController {
      */
 
     @RequestMapping(value = "NIP", method = RequestMethod.GET)
-    public ModelAndView showNIP() {
-        return new ModelAndView("/questions/NIP", "NIP", new NeutralImageryPrime());
+    public ModelAndView showNIP(Principal principal) {
+        return modelAndView(principal, "/questions/NIP", "NIP", new NeutralImageryPrime());
     }
 
     @RequestMapping(value = "NIP", method = RequestMethod.POST)
@@ -479,8 +483,8 @@ public class QuestionController extends BaseController {
      * ---------*
      */
     @RequestMapping(value = "demographics", method = RequestMethod.GET)
-    public String showDemographics() {
-        return "/questions/demographics";
+    public ModelAndView showDemographics(Principal principal) {
+        return modelAndView(principal, "/questions/demographics", "demographics", new Demographic());
     }
 
     @RequestMapping(value = "demographics", method = RequestMethod.POST)
@@ -504,8 +508,8 @@ public class QuestionController extends BaseController {
      * ---------*
      */
     @RequestMapping(value = "SA", method = RequestMethod.GET)
-    public ModelAndView showSAP() {
-        return new ModelAndView("/questions/SA", "SA", new StateAnxiety());
+    public ModelAndView showSAP(Principal principal) {
+        return modelAndView(principal, "/questions/SA", "SA", new StateAnxiety());
     }
 
     @RequestMapping(value = "SA", method = RequestMethod.POST)
@@ -530,8 +534,8 @@ public class QuestionController extends BaseController {
      * ---------*
      */
     @RequestMapping(value = "RR", method = RequestMethod.GET)
-    public ModelAndView showRR() {
-        return new ModelAndView("/questions/RR", "RR", new RR());
+    public ModelAndView showRR(Principal principal) {
+        return modelAndView(principal, "/questions/RR", "RR", new RR());
     }
 
     @RequestMapping(value = "RR", method = RequestMethod.POST)
@@ -555,8 +559,8 @@ public class QuestionController extends BaseController {
      * ---------*
      */
     @RequestMapping(value = "CC", method = RequestMethod.GET)
-    public ModelAndView showCC() {
-        return new ModelAndView("/questions/CC", "CC", new CC());
+    public ModelAndView showCC(Principal principal) {
+        return modelAndView(principal, "/questions/CC", "CC", new CC());
     }
 
     @RequestMapping(value = "CC", method = RequestMethod.POST)
@@ -580,8 +584,8 @@ public class QuestionController extends BaseController {
      * ---------*
      */
     @RequestMapping(value = "OA", method = RequestMethod.GET)
-    public ModelAndView showOA() {
-        return new ModelAndView("/questions/OA", "OA", new OA());
+    public ModelAndView showOA(Principal principal) {
+        return modelAndView(principal, "/questions/OA", "OA", new OA());
     }
 
     @RequestMapping(value = "OA", method = RequestMethod.POST)
@@ -605,8 +609,8 @@ public class QuestionController extends BaseController {
      * ---------*
      */
     @RequestMapping(value = "ReRu", method = RequestMethod.GET)
-    public ModelAndView showReRu() {
-        return new ModelAndView("/questions/ReRu", "ReRu", new ReRu());
+    public ModelAndView showReRu(Principal principal) {
+        return modelAndView(principal, "/questions/ReRu", "ReRu", new ReRu());
     }
 
     @RequestMapping(value = "ReRu", method = RequestMethod.POST)
@@ -630,7 +634,7 @@ public class QuestionController extends BaseController {
 //     */
 //    @RequestMapping(value = "SAPr", method = RequestMethod.GET)
 //    public ModelAndView showSAPr() {
-//        return new ModelAndView("questions/SAPr", "SAPr", new StateAnxiety());
+//        return modelAndView(principal, "questions/SAPr", "SAPr", new StateAnxiety());
 //    }
 //
 //    @RequestMapping(value = "SAPr", method = RequestMethod.POST)
@@ -648,8 +652,8 @@ public class QuestionController extends BaseController {
      * ---------*
      */
     @RequestMapping(value = "SAPo", method = RequestMethod.GET)
-    public ModelAndView showSAPo() {
-        return new ModelAndView("/questions/SAPo", "SAPo", new StateAnxiety());
+    public ModelAndView showSAPo(Principal principal) {
+        return modelAndView(principal, "/questions/SAPo", "SAPo", new StateAnxiety());
     }
 
     @RequestMapping(value = "SAPo", method = RequestMethod.POST)

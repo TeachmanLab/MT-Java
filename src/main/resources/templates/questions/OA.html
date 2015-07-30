@@ -9,31 +9,15 @@
 <body>
 <section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
 
-<!-- header-btm starts
-================================================== -->
-<section id="header-btm" class="clearfix">
-    <div class="container">
-        <div class="row">
-            <div class="span12">
-                <h4 class="heading-icon clearfix"> <img th:src="@{/grepfrut/img/icons/heading-icon-user.png}" width="40" height="40" alt="icon" class="icon-small-bg"/> </h4>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- header-btm ends
-================================================== -->
 
 <!-- content starts
 ================================================== -->
 <section id="content" class="clearfix">
     <div class="container">
 
-        <!--spacer here-->
-        <div class="spacer-30px"></div>
-
         <!--features starts-->
         <div class="row">
-            <div class="span12">
+            <div class="col-md-12">
                 <form id="wizard" th:action="@{/questions/OA}" method="POST">
                     <fieldset>
                         <legend>Instructions</legend>

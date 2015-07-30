@@ -3,12 +3,15 @@
 
 * {box-sizing:border-box;}
 
-body {font-family: 'Source Sans Pro', sans-serif; font-size:20px; box-sizing:border-box;}
+body {font-family: 'Source Sans Pro', sans-serif; font-size:20px; box-sizing:border-box; background-color: #f6f5ea}
 .clear-both {clear:both;}
 
 p, ul {margin-bottom: 25px;}
 
-h3 { font-size:100%; font-weight: 700}
+h3 { font-size:100%; font-weight: 700 }
+.longSection h3 {font-size:92%;  color:#3399FF}
+
+.fineprint p { font-size: 75%; margin: 0 }
 
 button {  -webkit-border-radius: 5;
   -moz-border-radius: 5;
@@ -25,7 +28,10 @@ button {  -webkit-border-radius: 5;
   padding: 10px 20px 10px 20px;
   text-decoration: none;
   font-size:20px;
-  margin:10px 0px;}
+  margin:10px 0px;
+    min-width: 120px;
+    font-weight: 700;
+}
 
 .user-theme-orange button { background:#F77D38; border-top:#F99A65; border-left:#F99A65; border-bottom:#B36B42; border-right:#B36B42;}
 .user-theme-green button { background:#77B46D; border-top:#99C38D; border-left:#99C38D; border-bottom:#698D63; border-right:#698D63;}
@@ -51,12 +57,14 @@ button {  -webkit-border-radius: 5;
 .user-theme-gold .account-bar { background:#ECB800; }
 .account-bar a {color:#000000; padding-left:20px; font-weight:700}
 .account-bar .login {}
-.page-title {font-size:1.45em; color:#00ACE4; font-weight:bold; margin-top:-40px}
+.page-title {font-size:1.45em; color:#00ACE4; font-weight:bold}
 .page-title img {margin-bottom:20px;}
 .user-theme-orange .page-title { color:#F77D38; }
 .user-theme-green .page-title { color:#77B46D; }
 .user-theme-purple .page-title { color:#C98ABB; }
 .user-theme-gold .page-title { color:#ECB800; }
+.heading-icon {margin-top:-40px;}
+
 
 #footer {background:#21336B; font-size:0.5em;}
 .footer-logo { float:left;}
@@ -72,8 +80,48 @@ button {  -webkit-border-radius: 5;
 .copyright {width:100%; padding:15px; text-align:center; background:#FFFFFF;}
 
 /**
+  Mainly used for all-in-one forms, such as the login form, reset password, etc...
+**/
+div.longSection, div.sessionSection {
+    margin: 40px auto;
+    padding: 20px 90px 20px 90px;
+    max-width: 900px;
+    border-radius: 15px;
+    border: 1px solid #BBB;
+    background: #FFF;
+}
+
+/**
+  For the main landing page for participants
+**/
+div.sessionSection{  padding: 20px 0px; align-content: center }
+div.sessionSection .col-md-4 { padding: 0 0 0 100px; }
+div.sessionSection .col-md-8 { padding: 0 100px 0 100px; }
+
+/**
+Session Home / Status Page
+**/
+div.session {text-align: center}
+div.session h2 {font-size:1.45em; color:#00ACE4; font-weight:bold }
+div.session p { font-size: 1.16em; }
+div.session p.session-note {
+    border-top: 2px solid #5f5f5f;
+    width:100%;
+    padding: 30px 0 0 0;
+    margin: 20px 0 0 0;
+    font-size: 1em;
+}
+div.session .date { color:#00ACE4; font-weight: 600 }
+
+/**
 Forms
 **/
+
+label {
+    min-width: 170px;
+    font-weight: 400;
+}
+
 div.section, div.scale {
     padding: 0px;
     width: 900px;
@@ -135,13 +183,6 @@ div.question {
     font-width: 600;
 }
 
-div.longSection{
-    padding: 20px;
-    width: 900px;
-    border-radius: 15px;
-    border: 1px solid black;
-    background: #FFF;
-}
 
 div#submit {
     width: 900px;
