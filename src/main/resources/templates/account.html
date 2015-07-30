@@ -36,8 +36,9 @@
                 <table>
                     <tr>
                         <td width="30%">Name / Nickname</td>
-                        <td width="30%" th:text="*{fullName}" >adam</td>
-                        <td>(<a href=" ">Edit</a>)</td>
+                        <td width="30%"><input id="name" style="background-color: #F0F0F0;" disabled="disabled" type="text" th:field="*{fullName}" /></td>
+                        <td>(<a href="javascript:void(0)" onclick="enableEdit()">Edit</a>)</td>
+                        <td th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">Name Error</td>
                     </tr>
                     <tr>
                         <td>Email</td>
@@ -147,6 +148,12 @@
 
 <!--Javascript
 ================================================== -->
+<script language="JavaScript">
+    function enableEdit() {
+    document.getElementById("name").disabled=false;
+    document.getElementById("name").style.backgroundColor="#FFFFFF";
+    }
+</script>
 <div th:include="fragment/common :: scripts" />
 
 </body>
