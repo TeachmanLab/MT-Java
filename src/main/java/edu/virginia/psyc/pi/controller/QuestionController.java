@@ -272,12 +272,12 @@ public class QuestionController extends BaseController {
      * Credibility
      * ---------*
      */
-    @RequestMapping(value = "credibility", method = RequestMethod.GET)
+    @RequestMapping(value = "/credibility", method = RequestMethod.GET)
     public ModelAndView showCredibility() {
         return new ModelAndView("/questions/credibility", "credibility", new Credibility());
     }
 
-    @RequestMapping(value = "credibility", method = RequestMethod.POST)
+    @RequestMapping(value = "/credibility", method = RequestMethod.POST)
     RedirectView handleCredibility(@ModelAttribute("credibility") Credibility credibility,
                                    BindingResult result) {
 

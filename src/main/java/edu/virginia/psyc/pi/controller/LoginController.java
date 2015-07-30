@@ -161,12 +161,13 @@ public class LoginController extends BaseController {
         return "invitation";
     }
 
-    @RequestMapping(value="/consent", method = RequestMethod.POST)
+    @RequestMapping(value="/consent", method = RequestMethod.GET)
     public String showConsent (ModelMap model, Principal principal) {
         model.addAttribute("participant", new Participant());
         return "consent";
 
     }
+
 
     @RequestMapping("public/privacy")
     public String showPrivacy(ModelMap model, Principal principal) {
@@ -208,7 +209,7 @@ public class LoginController extends BaseController {
         saveEligibilityForm(participant, session);
 
         LOG.info("Participant authenticated.");
-        return "redirect:/session";
+        return "/questions/credibility";
     }
 
     /**
