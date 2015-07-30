@@ -50,12 +50,12 @@ button {  -webkit-border-radius: 5;
 .user-theme-purple #nav a { color:#D4A4CA; }
 .user-theme-gold #nav a { color:#F1C657;}
 
-.account-bar {clear:both; width:100%; background: #00ACE4; font-size:.66em; text-align:right; padding:0px 20px;}
+.account-bar {clear:both; width:100%; background: #00ACE4; font-size:.66em; text-align:right; padding:0px 20px; line-height: 25px}
 .user-theme-orange .account-bar { background:#F77D38; }
 .user-theme-green .account-bar { background:#77B46D; }
 .user-theme-purple .account-bar { background:#C98ABB; }
 .user-theme-gold .account-bar { background:#ECB800; }
-.account-bar a {color:#000000; padding-left:20px; font-weight:700}
+.account-bar a, .account-bar span.item {color:#000000; padding: 0 10px 0 10px; font-weight:400}
 .account-bar .login {}
 .page-title {font-size:1.45em; color:#00ACE4; font-weight:bold}
 .page-title img {margin-bottom:20px;}
