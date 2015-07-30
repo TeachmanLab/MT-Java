@@ -72,7 +72,7 @@ public class PIPlayerController extends BaseController {
         participantRepository.domainToEntity(participant, dao);
         participantRepository.save(dao);
 
-        return new RedirectView("/session");
+        return new RedirectView("/session/next");
     }
 
 }
