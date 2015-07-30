@@ -30,53 +30,27 @@
         <div class="row">
             <div class="span6">
 
-                <h4>Thank you for completing our anxiety questionnaire!</h4>
+                <h4>You are Eligible to Participate!</h4>
 
-                <p>We noticed that you reported experiencing some anxiety.</p>
+                <p>You reported experiencing some anxiety. As a result, you are eligible to participate in the MindTrails study, a new internet-based program designed to reduce anxiety.</p>
 
-                <p>As a result, you are eligible to participate in a study testing a new, Internet-based experimental program designed to reduce anxiety.</p>
+                <p> This is an experimental program so it is still in the testing phase, but there are many good reasons for you to participate.</p>
 
-                <p> This is an experimental program so it is still in the testing phase, but prior research says it may be able to reduce anxiety as effectively as therapy. Also, this program is free, doesn’t take a lot of your time, and can be completed without ever leaving your desk! </p>
+                <ul>
+                    <p><b>Reasons to participate:</b></p>
+                    <li>Prior research says it may be able to reduce anxiety as effectively as therapy for some people.</li>
+                    <li>It's FREE.</li>
+                    <li>It will not require a lot of your time.</li>
+                    <li>It can be completed without leaving your desk.</li>
+                </ul>
 
-                <p> If you are interested in participating in our program, please click “About the Program” to learn more and get started! </p>
+                <p> If you would like to participate, click the “Get Started” button below.</p>
 
-                <p> If you are not interested, you can also click HERE if you would like more information about treatment and resources for dealing with your anxiety. </p>
+                <p> If you do not wish to participate, consider reviewing these <a href="">for dealing with your anxiety.</a> </p>
+                <p><a th:href="@{/consent}"><button>Get Started</button></a></p>
 
             </div>
-           <div class="span6">
-            <form name="f" th:action="@{/newParticipant}" method="post" th:object="${participant}">
-                <fieldset>
-                    <legend>Create Account:</legend>
 
-                    <div class="formErrors">
-                        <ul class="errors">
-                            <li th:each="err : ${#fields.errors('*')}" th:text="${err}" class="alert alert-error">Input is incorrect</li>
-                        </ul>
-                        <div class="spacer-20px"></div>
-                    </div>
-
-                    <p>
-                        <label for="fullName" th:field="*{fullName}">Full Name</label>
-                        <input type="text" id="fullName" name="fullName"  th:errorclass="error"/>
-                    </p>
-                    <p>
-                        <label for="email" th:field="*{email}">Email</label>
-                        <input type="text" id="email" name="email" th:errorclass="error"/>
-                    </p>
-                    <p>
-                        <label for="password" th:field="*{password}">Password</label>
-                        <input type="password" id="password" name="password"  th:errorclass="error"/>
-                    </p>
-                    <p>
-                        <label for="passwordAgain" th:field="*{passwordAgain}">Password (again)</label>
-                        <input type="password" id="passwordAgain" name="passwordAgain"/>
-                    </p>
-                    <div class="form-actions">
-                        <button type="submit" class="btn">Create Account</button>
-                    </div>
-                </fieldset>
-            </form>
-        </div>
         </div>
     </div>
 </section>

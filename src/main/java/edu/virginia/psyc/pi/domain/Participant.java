@@ -231,6 +231,15 @@ public class Participant {
         giftLogs.add(log);
     }
 
+    public boolean giftAwardedForSession(Session s) {
+        for(GiftLog log : giftLogs) {
+            if (log.getSessionName().equals(s.getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public List<TaskLog> getTaskLogs() { return taskLogs; }
 
     public void setTaskLogs(List<TaskLog> taskLogs) { this.taskLogs = taskLogs; }

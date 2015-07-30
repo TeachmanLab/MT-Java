@@ -96,6 +96,9 @@
                 <p>A 20-minute training session</p>
                 <p>A 10-minute assessment</p>
             </div>
+            <div th:if="${giftAwarded}">
+                <h3>Congratulations! You have earned a $5 gift card.</h3> Please check your email for information on how to redeem it.
+            </div>
             <a th:href="${currentTask.requestMapping}" th:if="${currentTask}"><div class="mybtn">Start</div></a>
             <p>For best results, complete <span th:text="${currentSession.displayName}"/> by <span class="dateRange" th:text="${completeBy}">July 10, 2015</span></p>
             <a href="/session/overview">Program Overview</a>

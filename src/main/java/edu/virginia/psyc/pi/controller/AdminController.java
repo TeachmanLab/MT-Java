@@ -219,8 +219,8 @@ public class AdminController extends BaseController {
             Reward reward = new Reward("111-111-111-111", "1234-2345-2345", "123", "https://www.google.com", "12345");
             this.emailService.sendGiftCardEmail(p, reward);
         } else if(type.equals(EmailService.TYPE.dass21Alert)) {
-            DASS21_AS d1 = new DASS21_AS(1,1,3,1,3,1,3);
-            DASS21_AS d2 = new DASS21_AS(4,4,4,4,4,4,4);
+            DASS21_AS d1 = new DASS21_AS(1,1,3,1,3,1,3,true);
+            DASS21_AS d2 = new DASS21_AS(4,4,4,4,4,4,4,true);
             this.emailService.sendAtRiskAdminEmail(p, d1, d2);
         } else {
             this.emailService.sendSimpleMail(p, type);
@@ -299,7 +299,7 @@ public class AdminController extends BaseController {
     @RequestMapping(value="/participant/giftCard")
     public String giftCard(ModelMap model, Principal principal) throws Exception {
         Participant p = participantRepository.entityToDomain(participantRepository.findByEmail(principal.getName()));
-        Reward r = tangoService.createGiftCard(p);
+        Reward r = tangoService.createGiftCard(p, "AdminAwarded");
         this.emailService.sendGiftCardEmail(p, r);
         model.addAttribute("participant",p);
         return "/admin/participant_form";
