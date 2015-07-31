@@ -51,6 +51,9 @@ public class ParticipantDAO implements UserDetails {
 
     private String        randomToken;
 
+    private String theme;
+
+
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private PasswordTokenDAO  passwordTokenDAO;
@@ -87,11 +90,12 @@ public class ParticipantDAO implements UserDetails {
     public ParticipantDAO() {}
 
     // Utility to make testing easier.
-    public ParticipantDAO(String fullName, String email, String password, boolean admin) {
+    public ParticipantDAO(String fullName, String email, String password, boolean admin, String theme) {
         this.fullName = fullName;
         this.email = email;
         this.password = password;
         this.admin = admin;
+        this.theme = theme;
     }
 
     public long getId() {
@@ -270,6 +274,18 @@ public class ParticipantDAO implements UserDetails {
     public void setCbmCondition(Participant.CBM_CONDITION cbmCondition) {
         this.cbmCondition = cbmCondition;
     }
+
+
+    public String getTheme() {
+        return theme;
+    }
+
+    public void setTheme(String theme) {
+        this.theme = theme;
+    }
+
+
+
 
     @Override
     public String toString() {
