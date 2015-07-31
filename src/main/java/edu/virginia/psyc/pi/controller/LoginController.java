@@ -214,7 +214,7 @@ public class LoginController extends BaseController {
         saveEligibilityForm(participant, session);
 
         LOG.info("Participant authenticated.");
-        return "/questions/credibility";
+        return "redirect:/session";
     }
 
     /**

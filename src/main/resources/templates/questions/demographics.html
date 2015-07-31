@@ -15,7 +15,7 @@
     <div class="container">
         <div class="row">
             <div class="span12">
-                <h4 class="heading-icon clearfix"> <img th:src="@{/grepfrut/img/icons/heading-icon-user.png}" width="40" height="40" alt="icon" class="icon-small-bg"/></h4>
+                <h4 class="heading-icon clearfix"> <img th:src="@{/images/map-arrow-blue.png}" alt="icon" class="icon-small-bg"/></h4>
             </div>
         </div>
     </div>
@@ -35,8 +35,9 @@
         <div class="row">
             <div class="span12">
                 <form id="wizard" th:action="@{/questions/demographics}" method="POST">
-                        <legend>Basic Demographics</legend>
-                        <p>Please provide as much information as possible. This data helps us improve the MindTrails Program. </p>
+                        <legend><h2 class="page-title">Demographics</h2></legend>
+                        <p style="margin-left:135px;">Please provide as much information as possible. This data helps us improve the MindTrails Program. </p>
+                        <div class="longSection">
                         <p>
                         <label>Gender</label>
                         <select name="gender" required="true">
@@ -405,7 +406,10 @@
                             <option>Prefer not to answer</option>
                         </select>
                         </p>
+                        </div>
+                    <div style="text-align:center">
                     <a th:href="@{/account}"><button type="submit">Done</button></a>
+                    </div>
                 </form>
                 <script>
                     jQuery("#datepicker").datepicker({
