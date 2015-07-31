@@ -111,15 +111,15 @@ public class CBMStudy implements Study {
         List<Task> tasks = new ArrayList<Task>();
         switch (name) {
             case PRE:
-                tasks.add(new Task("OA", "OASIS", Task.TYPE.questions, 1));
                 tasks.add(new Task("credibility", "Credibility Assessment", Task.TYPE.questions, 1));
-                tasks.add(new Task("MH", "Mental Health History", Task.TYPE.questions, 1));
                 tasks.add(new Task("demographics", "Demographics", Task.TYPE.questions, 2));
-                tasks.add(new Task("SA", "Anxiety Assessment", Task.TYPE.questions, 2));
-                tasks.add(new Task("RecognitionRatings", "Recognition Training", Task.TYPE.playerScript, 20));
-                tasks.add(new Task("RR", "Recognition Ratings", Task.TYPE.questions, 4));
+                tasks.add(new Task("MH", "Mental Health History", Task.TYPE.questions, 1));
                 tasks.add(new Task("QOL", "Quality of Life Scale", Task.TYPE.questions, 2));
+                tasks.add(new Task("RecognitionRatings", "Recognition Training", Task.TYPE.playerScript, 20));
                 tasks.add(new Task("DASS21_DS", "Symptom Measures", Task.TYPE.questions, 1));
+                tasks.add(new Task("RR", "Recognition Ratings", Task.TYPE.questions, 4));
+                tasks.add(new Task("OA", "OASIS", Task.TYPE.questions, 1));
+//                tasks.add(new Task("SA", "Anxiety Assessment", Task.TYPE.questions, 2));
                 break;
             case SESSION1:
                 tasks.add(new Task("AIP", "Use Your Imagination", Task.TYPE.questions,5));

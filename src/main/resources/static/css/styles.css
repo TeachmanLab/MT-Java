@@ -39,7 +39,7 @@ button {  -webkit-border-radius: 5;
 .user-theme-gold button { background:#ECB800; border-top:#F1C657; border-left:#F1C657; border-bottom:#AF8A00; border-right:#AF8A00;}
 
 #header {background:url(/images/bg-header.png) top left repeat-x; }
-.logo {background:url(/images/header-logo.png) top left no-repeat; width:365px; height:135px; float:left; margin-left:-175px;}
+.logo {background:url(/images/header-logo.png) top left no-repeat; width:365px; height:135px; float:left; margin-left:-35px;}
 .logo a {height:135px; width:365px; display:block;}
 
 #nav {float:right; font-size:0.6em; list-style:none; padding:15px 0 15px 0;}
@@ -57,13 +57,13 @@ button {  -webkit-border-radius: 5;
 .user-theme-gold .account-bar { background:#ECB800; }
 .account-bar a, .account-bar span.item {color:#000000; padding: 0 10px 0 10px; font-weight:400}
 .account-bar .login {}
-.page-title {font-size:1.45em; color:#00ACE4; font-weight:bold}
+.page-title {font-size:1.45em; color:#00ACE4; font-weight:bold; margin-left: 135px;}
 .page-title img {margin-bottom:20px;}
 .user-theme-orange .page-title { color:#F77D38; }
 .user-theme-green .page-title { color:#77B46D; }
 .user-theme-purple .page-title { color:#C98ABB; }
 .user-theme-gold .page-title { color:#ECB800; }
-.heading-icon {margin-top:-40px;}
+.heading-icon {margin-top:-10px; margin-left:135px;}
 
 
 #footer {background:#21336B; font-size:0.5em;}
