@@ -9,8 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.mail.MessagingException;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,16 +27,10 @@ import java.security.Principal;
  */
 @Controller
 @RequestMapping("/account")
-public class AccountController {
+public class AccountController extends BaseController {
 
-    private ParticipantRepository participantRepository;
     private static final Logger LOG = LoggerFactory.getLogger(AccountController.class);
 
-    private Participant getParticipant(Principal principal) {
-        Participant p;
-        p = participantRepository.entityToDomain(participantRepository.findByEmail(principal.getName()));
-        return(p);
-    }
     /**
      * Spring automatically configures this object.
      * You can modify the location of this database by editing the application.properties file.
@@ -65,6 +65,49 @@ public class AccountController {
         return "debriefing";
     }
 
+    @RequestMapping("changePass")
+    public String changePassword(ModelMap model, Principal principal) {
+        Participant p = getParticipant(principal);
+        model.addAttribute("participant", p);
+        return "changePassword";
+    }
+
+    @RequestMapping(value="/changePassword", method = RequestMethod.POST)
+    public String changePassword(ModelMap model, Principal principal,
+                                 @RequestParam int id,
+                                 @RequestParam String token,
+                                 @RequestParam String password,
+                                 @RequestParam String passwordAgain) throws MessagingException {
+
+        Participant participant;
+        List<String> errors;
+
+        participant =  getParticipant(principal);
+        errors      = new ArrayList<String>();
+
+        if (!password.equals(passwordAgain)) {
+            errors.add("Passwords do not match.");
+        }
+        if(!Participant.validPassword(password)) {
+            errors.add(Participant.PASSWORD_MESSAGE);
+        }
+
+        if(errors.size() > 0) {
+            model.addAttribute("errors", errors);
+            model.addAttribute("participant", participant);
+            model.addAttribute("token", token);
+            return "changePassword";
+        }
+
+        participant.setPassword(password); // save the password.
+        participant.setPasswordToken(null);  // clear out hte token so it can't be used again.
+        participant.setLastLoginDate(new Date()); // Set the last login date, as we will auto-login.
+        saveParticipant(participant);
+        participantRepository.flush();
+        model.addAttribute("participant", participant);
+        model.addAttribute("updated", true);
+        return "account";
+    }
 
 
 
