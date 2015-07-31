@@ -50,3 +50,13 @@ div.longSection{
     border: 1px solid black;
     background: #FFF;
 }
+
+div.optionTheme{
+    font-size: .8em;
+    float: left;
+    width: 100%;
+}
+
+div.optionThemeSub {
+    display: inline-block;
+}

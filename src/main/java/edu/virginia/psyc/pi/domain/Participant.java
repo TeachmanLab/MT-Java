@@ -80,6 +80,9 @@ public class Participant {
 
     private Study          study;
 
+    private String theme;
+
+
 
     public Participant() {
         cbmCondition = randomCondition();
@@ -318,4 +321,12 @@ public class Participant {
     public Study getStudy() {  return study;  }
 
     public void setStudy(Study study) { this.study = study;  }
+
+    public String getTheme() {
+        return theme;
+    }
+
+    public void setTheme(String theme) {
+        this.theme = theme;
+    }
 }
