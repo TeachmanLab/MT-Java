@@ -44,6 +44,11 @@ Please Note:  if you run into problems with PI Player scripts not executing you 
 /PIServer/src/main/resources/static/PIPlayer/dist/js/config.js
 Set the baseUrl:'../PIPlayer/dist/js',
 
+Because of the way the PIPlayer script is currently designed, you will need to install the PIPlayer dependencies
+manually,  you can do this by:
+
+> cd src/main/resources/static/bower/PIPlayer
+> bower install
 
 Running
 --------

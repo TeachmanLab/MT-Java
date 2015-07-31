@@ -1,5 +1,8 @@
 /* The script wrapper */
-define(['app/API'], function(API) {
+define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
+
+    var API = new APIConstructor();
+    var scorer = new Scorer();
 
     API.addSettings('canvas',{
         textSize: 5
@@ -2398,7 +2401,7 @@ define(['app/API'], function(API) {
         }
 
     ]);
-
+    return API.script;
     // #### Activate the player
     //API.play();
 });
