@@ -21,7 +21,8 @@ define(['app/API'], function(API) {
      	 'border-radius': '25px',
     	 'padding': '20px',
     	 'width': '200px',
-    	 'height': '150px'}
+    	 'height': '150px',
+}
     });
 //    This was added to redirect back
     API.addSettings('redirect', "../playerScript/completed/int_train");
