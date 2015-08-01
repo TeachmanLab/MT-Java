@@ -6,9 +6,6 @@
 <html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
 <!--<![endif]-->
 <head th:include="/fragment/common :: headerFragment" />
-<head>
-<link rel="stylesheet" type="text/css" href="/css/style.css"  />
-</head>
 
 <body>
 <section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
@@ -21,12 +18,11 @@
 <section id="header-btm" class="clearfix">
     <div class="container">
         <div class="row">
-            <div class="span12">
-                <h4 class="heading-icon clearfix"> <img th:src="@{/grepfrut/img/icons/heading-icon-user.png}" width="40" height="40" alt="icon" class="icon-small-bg"/> </h4>
-            </div>
+            <h2 class="page-title heading-icon clearfix"> <img th:src="@{/images/map-arrow-orange.png}" alt="icon" class="icon-small-bg" /><br/>Eligibility Questionnaire</h2>
         </div>
     </div>
 </section>
+
 <!-- header-btm ends
 ================================================== -->
 
@@ -41,13 +37,12 @@
         <!--features starts-->
         <div class="row">
             <div class="span12">
-                <h2 class="heading-icon clearfix">Eligibility Questionnaire</h2>
                 <p>Please read each statement and select an option that indicates how much the statement applied to you over the <b>past week</b>. There are no right or wrong answers.  Do not spend too much time on any statement.</p>
                 <form th:action="${eligibility}? @{/public/eligibilityCheck} : @{/questions/DASS21_AS}" method="POST">
                     <fieldset>
                         <!--TODO CHANGE INSTRUCTIONS BASED ON INITIAL OR DURING TRAINING-->
-                        <div class="section">
-                            <div class="title" align="center"><h4>SCALE</h4></div>
+                        <div class="scale">
+                            <div class="title" align="center">SCALE</div>
                             <label>
                             <div class="option">
                                 <div class="desc1">Did not apply to me at all</div>
@@ -83,31 +78,31 @@
                     <fieldset id="questions">
                         <br />
                         <div class="section">
-                            <div class="question"><h4>I was aware of dryness of my mouth.</h4></div>
+                            <div class="question">I was aware of dryness of my mouth.</div>
                             <label style="cursor:pointer;">
                             <div class="option">
-                                        <div class="desc1">Did not apply to me at all</div>
+                                        <div class="desc1">Did not apply</div>
                                         <input type="radio" name="dryness" class="form-control" value="0" required="true"/>
                                         <div class="desc2">1</div>
                             </div>
                             </label>
                             <label style="cursor:pointer;">
                                 <div class="option">
-                                    <div class="desc1">Applied to me to some degree</div>
+                                    <div class="desc1">Some degree</div>
                                     <input type="radio" name="dryness" class="form-control" value="1" />
                                     <div class="desc2">2</div>
                                 </div>
                             </label>
                             <label style="cursor:pointer;">
                                 <div class="option">
-                                    <div class="desc1">Applied to me to a considerable degree</div>
+                                    <div class="desc1">A considerable degree</div>
                                     <input type="radio" name="dryness" class="form-control" value="2" />
                                     <div class="desc2">3</div>
                                 </div>
                             </label>
                             <label style="cursor:pointer;">
                                 <div class="optionLast" >
-                                    <div class="desc1">Applied to me very much</div>
+                                    <div class="desc1">Applied very much</div>
                                     <input type="radio" name="dryness" class="form-control" value="3" />
                                     <div class="desc2">4</div>
                                 </div>
@@ -126,28 +121,28 @@
                                 breathlessness in the absence of physical exertion).</h4></div>
                             <label style="cursor:pointer;">
                             <div class="option">
-                                <div class="desc1">Did not apply to me at all</div>
+                                <div class="desc1">Did not apply</div>
                                 <input type="radio" name="breathing" class="form-control" value="0" required="true"/>
                                 <div class="desc2">1</div>
                             </div>
                             </label>
                             <label style="cursor:pointer;">
                             <div class="option">
-                                <div class="desc1">Applied to me to some degree</div>
+                                <div class="desc1">Some degree</div>
                                 <input type="radio" name="breathing" class="form-control" value="1" />
                                 <div class="desc2">2</div>
                             </div>
                             </label>
                             <label style="cursor:pointer;">
                             <div class="option">
-                                <div class="desc1">Applied to me to a considerable degree</div>
+                                <div class="desc1">A considerable degree</div>
                                 <input type="radio" name="breathing" class="form-control" value="2" />
                                 <div class="desc2">3</div>
                             </div>
                             </label>
                             <label style="cursor:pointer;">
                             <div class="optionLast">
-                                <div class="desc1">Applied to me very much</div>
+                                <div class="desc1">Applied very much</div>
                                 <input type="radio" name="breathing" class="form-control" value="3" />
                                 <div class="desc2">4</div>
                             </div>
@@ -165,28 +160,28 @@
                             <div class="question"><h4>I experienced trembling (e.g., in the hands).</h4></div>
                             <label style="cursor:pointer;">
                             <div class="option">
-                                <div class="desc1">Did not apply to me at all</div>
+                                <div class="desc1">Did not apply</div>
                                 <input type="radio" name="trembling" class="form-control" value="0" required="true"/>
                                 <div class="desc2">1</div>
                             </div>
                             </label>
                             <label style="cursor:pointer;">
                             <div class="option">
-                                <div class="desc1">Applied to me to some degree</div>
+                                <div class="desc1">Some degree</div>
                                 <input type="radio" name="trembling" class="form-control" value="1" />
                                 <div class="desc2">2</div>
                             </div>
                             </label>
                             <label style="cursor:pointer;">
                             <div class="option">
-                                <div class="desc1">Applied to me to a considerable degree</div>
+                                <div class="desc1">A considerable degree</div>
                                 <input type="radio" name="trembling" class="form-control" value="2" />
                                 <div class="desc2">3</div>
                             </div>
                             </label>
                             <label style="cursor:pointer;">
                             <div class="optionLast">
-                                <div class="desc1">Applied to me very much</div>
+                                <div class="desc1">Applied very much</div>
                                 <input type="radio" name="trembling" class="form-control" value="3" />
                                 <div class="desc2">4</div>
                             </div>
@@ -205,28 +200,28 @@
                                 a fool of myself.</h4></div>
                             <label style="cursor:pointer;">
                             <div class="option">
-                                <div class="desc1">Did not apply to me at all</div>
+                                <div class="desc1">Did not apply</div>
                                 <input type="radio" name="worry" class="form-control" value="0" required="true"/>
                                 <div class="desc2">1</div>
                             </div>
                             </label>
                             <label style="cursor:pointer;">
                             <div class="option">
-                                <div class="desc1">Applied to me to some degree</div>
+                                <div class="desc1">Some degree</div>
                                 <input type="radio" name="worry" class="form-control" value="1" />
                                 <div class="desc2">2</div>
                             </div>
                             </label>
                             <label style="cursor:pointer;">
                             <div class="option">
-                                <div class="desc1">Applied to me to a considerable degree</div>
+                                <div class="desc1">A considerable degree</div>
                                 <input type="radio" name="worry" class="form-control" value="2" />
                                 <div class="desc2">3</div>
                             </div>
                             </label>
                             <label style="cursor:pointer;">
                             <div class="optionLast">
-                                <div class="desc1">Applied to me very much</div>
+                                <div class="desc1">Applied very much</div>
                                 <input type="radio" name="worry" class="form-control" value="3" />
                                 <div class="desc2">4</div>
                             </div>
@@ -244,28 +239,28 @@
                             <div class="question"><h4>I felt I was close to panic.</h4></div>
                             <label style="cursor:pointer;">
                             <div class="option">
-                                <div class="desc1">Did not apply to me at all</div>
+                                <div class="desc1">Did not apply</div>
                                 <input type="radio" name="panic" class="form-control" value="0" required="true"/>
                                 <div class="desc2">1</div>
                             </div>
                             </label>
                             <label style="cursor:pointer;">
                             <div class="option">
-                                <div class="desc1">Applied to me to some degree</div>
+                                <div class="desc1">Some degree</div>
                                 <input type="radio" name="panic" class="form-control" value="1" />
                                 <div class="desc2">2</div>
                             </div>
                             </label>
                             <label style="cursor:pointer;">
                             <div class="option">
-                                <div class="desc1">Applied to me to a considerable degree</div>
+                                <div class="desc1">A considerable degree</div>
                                 <input type="radio" name="panic" class="form-control" value="2" />
                                 <div class="desc2">3</div>
                             </div>
                             </label>
                             <label style="cursor:pointer;">
                             <div class="optionLast">
-                                <div class="desc1">Applied to me very much</div>
+                                <div class="desc1">Applied very much</div>
                                 <input type="radio" name="panic" class="form-control" value="3" />
                                 <div class="desc2">4</div>
                             </div>
@@ -284,28 +279,28 @@
                                 exertion (e.g., sense of heart rate increase, heart missing a beat).</h4></div>
                             <label style="cursor:pointer;">
                             <div class="option">
-                                <div class="desc1">Did not apply to me at all</div>
+                                <div class="desc1">Did not apply</div>
                                 <input type="radio" name="heart" class="form-control" value="0" required="true"/>
                                 <div class="desc2">1</div>
                             </div>
                             </label>
                             <label style="cursor:pointer;">
                             <div class="option">
-                                <div class="desc1">Applied to me to some degree</div>
+                                <div class="desc1">Some degree</div>
                                 <input type="radio" name="heart" class="form-control" value="1" />
                                 <div class="desc2">2</div>
                             </div>
                             </label>
                             <label style="cursor:pointer;">
                             <div class="option">
-                                <div class="desc1">Applied to me to a considerable degree</div>
+                                <div class="desc1">A considerable degree</div>
                                 <input type="radio" name="heart" class="form-control" value="2" />
                                 <div class="desc2">3</div>
                             </div>
                             </label>
                             <label style="cursor:pointer;">
                             <div class="optionLast">
-                                <div class="desc1">Applied to me very much</div>
+                                <div class="desc1">Applied very much</div>
                                 <input type="radio" name="heart" class="form-control" value="3" />
                                 <div class="desc2">4</div>
                             </div>
@@ -323,28 +318,28 @@
                             <div class="question"><h4>I felt scared without any good reason..</h4></div>
                             <label style="cursor:pointer;">
                             <div class="option">
-                                <div class="desc1">Did not apply to me at all</div>
+                                <div class="desc1">Did not apply</div>
                                 <input type="radio" name="scared" class="form-control" value="0" required="true"/>
                                 <div class="desc2">1</div>
                             </div>
                             </label>
                             <label style="cursor:pointer;">
                             <div class="option">
-                                <div class="desc1">Applied to me to some degree</div>
+                                <div class="desc1">Some degree</div>
                                 <input type="radio" name="scared" class="form-control" value="1" />
                                 <div class="desc2">2</div>
                             </div>
                             </label>
                             <label style="cursor:pointer;">
                             <div class="option">
-                                <div class="desc1">Applied to me to a considerable degree</div>
+                                <div class="desc1">A considerable degree</div>
                                 <input type="radio" name="scared" class="form-control" value="2" />
                                 <div class="desc2">3</div>
                             </div>
                             </label>
                             <label style="cursor:pointer;">
                             <div class="optionLast">
-                                <div class="desc1">Applied to me very much</div>
+                                <div class="desc1">Applied very much</div>
                                 <input type="radio" name="scared" class="form-control" value="3" />
                                 <div class="desc2">4</div>
                             </div>
@@ -357,15 +352,13 @@
                             </div>
                             </label>
                         </div>
-
-
+                        <br />
                     <br />
-                    <div th:if="${eligibility}">
-                    <input type="checkbox" name="isOver18" /> I am 18 years old or older.<br />
-                    </div>
-                    <br />
-                    <div align="center">
-                        <input style="background-color:#0099FF;" type="submit" value="Submit" />
+                    <div id="submit">
+                        <span th:if="${eligibility}">
+                        <input type="checkbox" id="over18" name="isOver18" /> I am 18 years old or older.<br />
+                        </span>
+                        <button>Submit</button>
                     </div>
 
                     </fieldset>

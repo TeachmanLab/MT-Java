@@ -1,5 +1,8 @@
 /* The script wrapper */
-define(['app/API'], function(API) {
+define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
+
+    var API = new APIConstructor();
+    var scorer = new Scorer();
 
     API.addSettings('canvas',{
         textSize: 5
@@ -72,6 +75,7 @@ define(['app/API'], function(API) {
             {handle:'y',on:'keypressed', key:"y"},
             {handle:'z',on:'keypressed', key:"z"},
             {handle:'space',on:'space'}
+
         ],
         interactions: [
             // Show the paragraph with missing letters as soon as the trial starts.
@@ -2398,7 +2402,7 @@ define(['app/API'], function(API) {
         }
 
     ]);
-
+    return API.script;
     // #### Activate the player
     // API.play();
 });

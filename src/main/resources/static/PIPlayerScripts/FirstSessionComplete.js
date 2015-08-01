@@ -1,5 +1,8 @@
 /* The script wrapper */
-define(['app/API'], function(API) {
+define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
+
+    var API = new APIConstructor();
+    var scorer = new Scorer();
 
 	var scorer =
 	{
@@ -2911,8 +2914,6 @@ define(['app/API'], function(API) {
         }
 
     ]);
-
-    // #### Activate the player
-    // API.play();
+    return API.script;
 });
 /* don't forget to close the define wrapper */

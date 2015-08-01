@@ -9,6 +9,8 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-  		  "PIPlayer":"v0.2.2"
+  		  "PIPlayer":"v0.3.15",
+                  "bootstrap":"v3.3.5",
+                  "jqueryui":"v1.11"
   }
 }

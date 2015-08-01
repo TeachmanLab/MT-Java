@@ -5,27 +5,23 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1" />
 
-        <link type="text/css" rel="Stylesheet" href="../PIPlayer/dist/css/reset.css"/>
-        <link type="text/css" rel="Stylesheet" href="../PIPlayer/dist/css/styles.css"/>
+        <link type="text/css" rel="Stylesheet" th:href="@{/bower/PIPlayer/dist/css/main.css}"/>
 
-		<script src="../PIPlayer/bower_components/requirejs/require.js"></script>
+		<script th:src="@{/bower/PIPlayer/bower_components/requirejs/require.js}"></script>
         <script th:inline="javascript">
             /*<![CDATA[*/
-            var scriptName  = /*[[${script}]]*/ int_train.js;
-            var session     = /*[[${sessionName}]]*/ PRE;
-            var participant = /*[[${participantId}]]*/ 1;
+            var scriptName = /*[[${script}]]*/ int_train.js;
+            var piGlobal = { // create the global object
+                script : /*[[${script}]]*/ int_train.js,
+                session : /*[[${sessionName}]]*/ PRE,
+                participant : /*[[${participantId}]]*/ 1
+            }
 
-            require(['../PIPlayer/dist/js/config'], function() {
-                require.config({baseURL:'../PIPlayer/dist/js'});
-                require(['app/API', "/PIPlayerScripts/" + scriptName + ".js"], function(API) {
-                    API.addGlobal({
-                        script : scriptName,
-                        session : session,
-                        participant : participant
-                    });
-                    API.play();
+            require(['/bower/PIPlayer/dist/js/config.js'], function() {
+                require(['activatePIP',"/PIPlayerScripts/" + scriptName + ".js"], function(activatePIP, script) {
+                    activatePIP(script);
+                })
                 });
-            });
             /*]]>*/
         </script>
 	</head>

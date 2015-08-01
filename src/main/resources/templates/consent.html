@@ -1,169 +1,206 @@
 <!DOCTYPE html>
-<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
-<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
-<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!-->
 <html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
 <!--<![endif]-->
-<head th:include="fragment/common :: headerFragment" />
-
-
-<!-- This is for rounded corner -->
-<head>
-    <link rel="stylesheet" type="text/css" href="/css/style.css"  />
-</head>
-
-
+<head th:include="fragment/common :: headerFragment"/>
 
 <body>
-<section id="header" class="clearfix" th:include="fragment/common :: topFragment" />
-
-<!-- header-btm starts
-================================================== -->
-<section id="header-btm" class="clearfix">
-    <div class="container">
-        <div class="row">
-            <div class="span12">
-                <h4 class="heading-icon clearfix"> <img src="/grepfrut/img/icons/heading-icon-user.png" width="40" height="40" alt="icon" class="icon-small-bg"/>Invitation to Participant</h4>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- header-btm ends
-================================================== -->
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
 
 <!-- content starts
 ================================================== -->
-<section id="content" class="clearfix">
-    <div class="container">
-        <div class="row">
-<div class="longSection">
-    <form name="f" th:action="@{/newParticipant}" method="post" th:object="${participant}">
-        <fieldset>
-            <legend style="color:#3399FF"><b>Create an Account</b></legend>
+<form name="f" th:action="@{/newParticipant}" method="post" th:object="${participant}">
+    <section id="content" class="clearfix">
+        <div class="container longSection">
+            <div class="row">
+                <div class="col-md-4 heading-icon">
+                    <img th:src="@{/images/map-arrow-blue.png}" alt="icon" class="icon-small-bg"/>
+                </div>
+                <div class="col-md-8">
+                    <fieldset>
+                        <h2 class="page-title">Create an Account</h2>
 
-            <div class="formErrors">
-                <ul class="errors">
-                    <li th:each="err : ${#fields.errors('*')}" th:text="${err}" class="alert alert-error">Input is incorrect</li>
-                </ul>
-                <div class="spacer-20px"></div>
+                        <div class="formErrors">
+                            <ul class="errors">
+                                <li th:each="err : ${#fields.errors('*')}" th:text="${err}" class="alert alert-error">
+                                    Input is incorrect
+                                </li>
+                            </ul>
+                            <div class="spacer-20px"></div>
+                        </div>
+
+                        <p>
+                            <label for="fullName" th:field="*{fullName}">Name / Nickname</label>
+                            <input type="name" id="fullName" name="fullName" th:errorclass="error"/>
+                        </p>
+
+                        <p>
+                            <label for="email" th:field="*{email}">Email</label>
+                            <input type="email" id="email" name="email" th:errorclass="error"/>
+                        </p>
+
+                        <p>
+                            <label for="password" th:field="*{password}">Password</label>
+                            <input type="password" id="password" name="password" th:errorclass="error"/>
+                        </p>
+
+                        <p>
+                            <label for="passwordAgain" th:field="*{passwordAgain}">Confirm Password</label>
+                            <input type="password" id="passwordAgain" name="passwordAgain"/>
+                        </p>
+                    </fieldset>
+                </div>
             </div>
+            <div class="row">
+                <div class="col-md-12 fineprint">
+                    <h3>Consent</h3>
 
-            <p>
-                <label for="fullName" th:field="*{fullName}">Name / Nickname</label>
-                <input type="name" id="fullName" name="fullName"  th:errorclass="error"/>
-            </p>
-            <p>
-                <label for="email" th:field="*{email}">Email</label>
-                <input type="email" id="email" name="email" th:errorclass="error"/>
-            </p>
-            <p>
-                <label for="password" th:field="*{password}">Password</label>
-                <input type="password" id="password" name="password"  th:errorclass="error"/>
-            </p>
-            <p>
-                <label for="passwordAgain" th:field="*{passwordAgain}">Confirm Password</label>
-                <input type="password" id="passwordAgain" name="passwordAgain"/>
-            </p>
-            <button id="realButton" type="submit" class="btn" style="color:#3399FF; background: transparent; border: none !important; font-size: 0;">Give Consent and Create Account</button>
-        </fieldset>
-    </form>
-    <h4 style="color:#3399FF">Consent</h4>
-    <p>The purpose of this study is to investigate a new, experimental anxiety reduction program. It includes
-        eight 20-minute training sessions, over the course of 3-4 weeks (2-3 sessions per week), and five
-        20-minute assessment sessions.</p>
-    <br />
-    <p>You may be presented with one of the experimental anxiety reduction programs. Alternatively, you
-        may be asked to complete “control” programs, which are tasks that are similar to the experimental
-        anxiety reduction programs, but not designed to reduce anxiety. This is to test whether or not the
-        experimental programs are really working. If you get assigned to a control program, you will be given
-        the opportunity to complete a real experimental program after you finish the study. In other words,
-        EVERYBODY gets a chance to try our program eventually.</p>
-    <br />
-    <p>You will be asked to complete a 20-minute assessment before your 1st training session, after your 3rd
-        training session, after your 6th training session, after your 8th training session, and 2 months after
-        your 8th training session. The assessments will help us track your progress and determine if this new
-        program is effective.</p>
-    <br />
-    <p>You will be compensated with a $5 gift card for each 20-minute assessment (via email from Tango
-        where you can choose from top name-brands like Amazon.com, Starbucks, iTunes, Target and
-        many more, or you can donate the value to a charity). You can receive a total of $25 in gift cards by
-        completing all five assessments. If you complete the final assessment, you’ll also receive a T-shirt.</p>
-    <br />
-    <p>You will be asked to complete questionnaires in which you describe your thoughts and mood, describe
-        your background and personal mental health history, and a task in which you read brief stories,
-        answer questions, and complete word fragments. For some participants, being asked questions about
-        their thoughts and mood can be temporarily distressing.</p>
-    <br />
-    <p>At the end of the study, you will receive more detail about the study’s rationale and design. You will
-        also receive feedback about the progress you made during the program.</p>
-    <br />
-    <p>There may be no direct benefits to you. Depending on your randomly assigned condition, you may
-        complete procedures that may help reduce symptoms of anxiety. If you are assigned to a control
-        condition, you will be given the option to complete one of the experimental anxiety reduction
-        conditions after the study is complete.</p>
-    <br />
-    <p>Remember that participation in this study is voluntary, and you may end your individual session
-        participation at any time by closing the study window. Contact <a href="mailto:staff@mindtrails.org">staff@mindtrails.org</a> if you have
-        any questions about the study, to withdraw completely from the study, or to receive payment after
-        withdrawing.</p>
-    <br />
-    <p>Please note that MindTrails does not provide specific diagnostic or medical advice on our website, and
-        we are limited in how we can respond to your responses.</p>
-    <br />
-    <p><b>Your responses will be confidential.</b> We ask you to provide your email address and a user name
-        (this can be your first name or any other name you choose), but your last name and address are not
-        required for this study.</p>
-    <br />
-    <p>Data collected through the MindTrails website are treated as confidential and are only accessible
-        by the research team. The only exceptions to this guideline are if we learn of possible child abuse
-        or neglect, or danger to self or others. In these instances, confidentiality would be limited given
-        mandated reporting requirements (e.g., to report the information to the police, or to child protective
-        services).</p>
-    <br />
-    <p><b>Privacy Policy.</b> MindTrails uses the same secure hypertext transfer protocol (HTTPS) that banks
-        and other commercial websites use to transfer credit card information in an encrypted format. This
-        provides strong security for data transfer to and from our website, though privacy is necessarily limited
-        by the security of the technology that is being used. To view the entire privacy policy in a separate pop
-        up window, please click here.</p>
-    <br />
-    <p>MindTrails is not able to offer financial compensation nor to absorb the costs of treatment should you
-        feel you have been injured as a result of participating in the MindTrails research study.</p>
-    <br />
-    <p><b>Who to contact about your rights in the study:</b></p>
-    <p>Tonya Moon, Chair, Institutional Review Board for the Social and Behavioral Sciences, One Morton Dr.
-        Suite 500 University of Virginia, P.O. Box 800392, Charlottesville, VA 22908-0392. Telephone: (434) 924-
-        5999; Email:<a href="mailto:irbsbshelp@virginia.edu">irbsbshelp@virgnia.edu</a> Website:<a href="www.virginia.edu/vprgs/irb">www.virginia.edu/vprgs/irb</a></p>
-    <br />
-    <p><b>By clicking the button below you are indicating that you have read the informed consent
-        statement above and agree to participate.</b></p>
-</div>
-            <br />
-            <div style="text-align: center;">
-            <button id="fakeButton" onclick="trick()" type="submit" class="btn" style="color:#3399FF;">Give Consent and Create Account</button>
+                    <p>The purpose of this study is to investigate a new, experimental anxiety reduction program. It
+                        includes
+                        eight 20-minute training sessions, over the course of 3-4 weeks (2-3 sessions per week), and
+                        five
+                        20-minute assessment sessions.</p>
+                    <br/>
 
-</div>
+                    <p>You may be presented with one of the experimental anxiety reduction programs. Alternatively, you
+                        may be asked to complete “control” programs, which are tasks that are similar to the
+                        experimental
+                        anxiety reduction programs, but not designed to reduce anxiety. This is to test whether or not
+                        the
+                        experimental programs are really working. If you get assigned to a control program, you will be
+                        given
+                        the opportunity to complete a real experimental program after you finish the study. In other
+                        words,
+                        EVERYBODY gets a chance to try our program eventually.</p>
+                    <br/>
+
+                    <p>You will be asked to complete a 20-minute assessment before your 1st training session, after your
+                        3rd
+                        training session, after your 6th training session, after your 8th training session, and 2 months
+                        after
+                        your 8th training session. The assessments will help us track your progress and determine if
+                        this new
+                        program is effective.</p>
+                    <br/>
+
+                    <p>You will be compensated with a $5 gift card for each 20-minute assessment (via email from Tango
+                        where you can choose from top name-brands like Amazon.com, Starbucks, iTunes, Target and
+                        many more, or you can donate the value to a charity). You can receive a total of $25 in gift
+                        cards by
+                        completing all five assessments. If you complete the final assessment, you’ll also receive a
+                        T-shirt.</p>
+                    <br/>
+
+                    <p>You will be asked to complete questionnaires in which you describe your thoughts and mood,
+                        describe
+                        your background and personal mental health history, and a task in which you read brief stories,
+                        answer questions, and complete word fragments. For some participants, being asked questions
+                        about
+                        their thoughts and mood can be temporarily distressing.</p>
+                    <br/>
+
+                    <p>At the end of the study, you will receive more detail about the study’s rationale and design. You
+                        will
+                        also receive feedback about the progress you made during the program.</p>
+                    <br/>
+
+                    <p>There may be no direct benefits to you. Depending on your randomly assigned condition, you may
+                        complete procedures that may help reduce symptoms of anxiety. If you are assigned to a control
+                        condition, you will be given the option to complete one of the experimental anxiety reduction
+                        conditions after the study is complete.</p>
+                    <br/>
+
+                    <p>Remember that participation in this study is voluntary, and you may end your individual session
+                        participation at any time by closing the study window. Contact <a
+                                href="mailto:staff@mindtrails.org">staff@mindtrails.org</a> if you have
+                        any questions about the study, to withdraw completely from the study, or to receive payment
+                        after
+                        withdrawing.</p>
+                    <br/>
+
+                    <p>Please note that MindTrails does not provide specific diagnostic or medical advice on our
+                        website, and
+                        we are limited in how we can respond to your responses.</p>
+                    <br/>
+
+                    <p><b>Your responses will be confidential.</b> We ask you to provide your email address and a user
+                        name
+                        (this can be your first name or any other name you choose), but your last name and address are
+                        not
+                        required for this study.</p>
+                    <br/>
+
+                    <p>Data collected through the MindTrails website are treated as confidential and are only accessible
+                        by the research team. The only exceptions to this guideline are if we learn of possible child
+                        abuse
+                        or neglect, or danger to self or others. In these instances, confidentiality would be limited
+                        given
+                        mandated reporting requirements (e.g., to report the information to the police, or to child
+                        protective
+                        services).</p>
+                    <br/>
+
+                    <p><b>Privacy Policy.</b> MindTrails uses the same secure hypertext transfer protocol (HTTPS) that
+                        banks
+                        and other commercial websites use to transfer credit card information in an encrypted format.
+                        This
+                        provides strong security for data transfer to and from our website, though privacy is
+                        necessarily limited
+                        by the security of the technology that is being used. To view the entire privacy policy in a
+                        separate pop
+                        up window, please click here.</p>
+                    <br/>
+
+                    <p>MindTrails is not able to offer financial compensation nor to absorb the costs of treatment
+                        should you
+                        feel you have been injured as a result of participating in the MindTrails research study.</p>
+                    <br/>
+
+                    <p><b>Who to contact about your rights in the study:</b></p>
+
+                    <p>Tonya Moon, Chair, Institutional Review Board for the Social and Behavioral Sciences, One Morton
+                        Dr.
+                        Suite 500 University of Virginia, P.O. Box 800392, Charlottesville, VA 22908-0392. Telephone:
+                        (434) 924-
+                        5999; Email:<a href="mailto:irbsbshelp@virginia.edu">irbsbshelp@virgnia.edu</a> Website:<a
+                                href="www.virginia.edu/vprgs/irb">www.virginia.edu/vprgs/irb</a></p>
+                    <br/>
+
+                    <p><b>By clicking the button below you are indicating that you have read the informed consent
+                        statement above and agree to participate.</b></p>
+                    <br/>
+                </div>
+            </div>
         </div>
+    </section>
+    <div style="text-align: center;">
+        <button>Give Consent and Create Account</button>
     </div>
-</section>
+</form>
 
 
 <!-- footer starts
 ================================================== -->
-<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
 
 <!-- copyright starts
 ================================================== -->
-<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
 
 <!--Javascript
 ================================================== -->
-<div th:include="fragment/common :: scripts" />
+<div th:include="fragment/common :: scripts"/>
 
 <!-- Fake - Real Button linking -->
 <script language="JavaScript">
     function trick() {
-    document.getElementById("realButton").click();
+        document.getElementById("realButton").click();
     }
 </script>
 
