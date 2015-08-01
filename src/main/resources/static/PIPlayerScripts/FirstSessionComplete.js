@@ -61,7 +61,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {handle:'error',media:'X', css:{fontSize:'20px',color:'#FF0000'}, location:{top:70}, nolog:true}
         ],
         yesno: [
-            {handle:'yesno',media:'Type "y" for Yes, and "n" for No.', css:{fontSize:'20px'}, location:{top:70}}
+            {handle:'yesno',media:'Y = Yes N = No', css:{fontSize:'20px'}, location:{top:70}}
         ],
     });
 

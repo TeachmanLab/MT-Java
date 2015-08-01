@@ -19,7 +19,7 @@
         <div class="row">
             <div class="span12">
                             <h2 class="page-title heading-icon clearfix"> <img th:src="@{/images/map-arrow-orange.png}" alt="icon" class="icon-small-bg" /><br/></h2>
-                                                       alt="icon" class="icon-small-bg"/>Administration</h4>
+                                                      <h4> alt="icon" class="icon-small-bg"/>Administration</h4>
             </div>
         </div>
     </div>
@@ -80,7 +80,7 @@
 
                     <tr th:each="p,status : *{participants}">
                         <input type="hidden" th:field="*{participants[__${status.index}__].id}"/>
-                        <input type="hidden" th:field="*{participants[__${status.index}__].fullName}"/>
+                        <!--<input type="hidden" th:field="*{participants[__${status.index}__].fullName}"/>-->
                         <input type="hidden" th:field="*{participants[__${status.index}__].email}"/>
                         <td th:text="*{participants[__${status.index}__].id}">0</td>
                         <td th:text="*{participants[__${status.index}__].fullName}">Dan Funk</td>

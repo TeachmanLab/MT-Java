@@ -4,8 +4,28 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
     var API = new APIConstructor();
     var scorer = new Scorer();
 
+	var scorer =
+	{
+		count : 1
+	};
+
+	function increase_count(){
+		scorer.count = scorer.count+1;
+		console.log('hello');
+		return scorer.count;
+	}
+
     API.addSettings('canvas',{
-        textSize: 5
+    	background:'#FFDBB8',
+        canvasBackground:'white',
+        css:{color:'black',
+        'font-family': "'Source Sans Pro', Arial, Helvetica, sans-serif",
+        'box-sizing':'border-box',
+     	 'border-radius': '25px',
+    	 'padding': '20px',
+    	 'width': '200px',
+    	 'height': '150px',
+}
     });
 //    This was added to redirect back
     API.addSettings('redirect', "../playerScript/completed/int_train");
@@ -38,10 +58,10 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
 
     API.addStimulusSets({
         error: [
-            {handle:'error',media:'X', css:{fontSize:'2em',color:'#FF0000'}, location:{top:70}, nolog:true}
+            {handle:'error',media:'X', css:{fontSize:'20px',color:'#FF0000'}, location:{top:70}, nolog:true}
         ],
         yesno: [
-            {handle:'yesno',media:'Type "y" for Yes, and "n" for No.', css:{fontSize:'1em',color:'#999999'}, location:{top:70}}
+            {handle:'yesno',media:'Y = Yes N = No', css:{fontSize:'20px',color:'black'}, location:{top:70}}
         ]
     });
 
@@ -81,6 +101,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {
                 conditions: [{type:'begin'}],
                 actions: [
+                    {type:'showStim', handle: 'counter'},
                     {type:'showStim',handle:'paragraph'},
                     {type:'setGlobalAttr',setter:{askingQuestion:false}},
                     {type:'setTrialAttr',setter:{correctOnLetter:"true"}}  // set to true - will get set to false later if incorrectly answered.
@@ -159,6 +180,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     {type:'globalEquals', property:'askingQuestion', value:true}
                 ],
                 actions: [
+                    {type:'hideStim', handle: 'counter'},
                     {type:'hideStim',handle : 'question'},
                     {type:'hideStim',handle:'yesno'},
                     {type:'trigger',handle : 'answered', duration:500}
@@ -187,6 +209,9 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 // duplicate the code.
                 conditions: [{type:'inputEquals',value:'answered'}],
                 actions: [
+                    {type:'setGlobalAttr',setter:function(){
+                        increase_count();
+                    }},
                     {type:'removeInput',handle : ['y','n']},
                     {type:'setTrialAttr',setter:function(trialData, eventData){
                         trialData.question = $("div[data-handle='question']").text();
@@ -231,7 +256,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 // This is a stimulus object
                 {
                     media :"In this task, you will read about a series of situations. Please read each paragraph carefully, and imagine yourself in the situations described. Each situation has a title. Please pay attention to the title, these titles will be referenced in the next task. At the end of each paragraph, there will be a word fragment (an incomplete word) for you to complete. To complete the word fragment, press the key that corresponds to the missing letter. Once you type in the correct letter, you will move on to the next question. After completing the word fragment, you will be asked to answer a question about the situation in which you imagined yourself. Please press the spacebar to continue.",
-                    css:{fontSize:'.8em',color:'#D7685A'}
+                    css:{fontSize:'20px',color:'black'}
                 }
             ],
             interactions: [
@@ -254,7 +279,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                         // This is a stimulus object
                         {
                             media:"Please use only the information from the situation to answer the question. Once you have the correct answer, you will move on to the next situation. If you are unsure about an item, please make your best guess. For example, if you saw the following scenario: 'You are waiting in line with your friend to buy food for lunch. Your stomach growls. You plan to order pasta with alfredo sa_ce,' you would fill in the 'u' that is missing from 'sauce.' After reading each situation, you will be asked a question about the situation. After you have read about all the situations, you will be asked more questions about them.",
-                            css:{fontSize:'.8em',color:'#D7685A'}
+                            css:{fontSize:'20px',color:'black'}
                         }
                     ],
                     interactions: [
@@ -301,6 +326,14 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
+                'handle': 'counter',
+                customize: function(){
+                    this.media = scorer.count + ' of 50';
+                },
+                 css:{fontSize:'20px'},
+                 location:{top:90}
+            },
+            {
                 "handle": "question",
                 data: {
                 	positiveAnswer:"n"
@@ -338,6 +371,14 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 "media": {
                     "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>" 
                 }
+            },
+            {
+                'handle': 'counter',
+                customize: function(){
+                    this.media = scorer.count + ' of 50';
+                },
+                 css:{fontSize:'20px'},
+                 location:{top:90}
             },
             {
                 "handle": "question",
@@ -379,6 +420,14 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
+                'handle': 'counter',
+                customize: function(){
+                    this.media = scorer.count + ' of 50';
+                },
+                 css:{fontSize:'20px'},
+                 location:{top:90}
+            },
+            {
                 "handle": "question",
                 data: {
                 	positiveAnswer:"y"
@@ -416,6 +465,14 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 "media": {
                     "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>" 
                 }
+            },
+            {
+                'handle': 'counter',
+                customize: function(){
+                    this.media = scorer.count + ' of 50';
+                },
+                 css:{fontSize:'20px'},
+                 location:{top:90}
             },
             {
                 "handle": "question",
@@ -457,6 +514,14 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
+                'handle': 'counter',
+                customize: function(){
+                    this.media = scorer.count + ' of 50';
+                },
+                 css:{fontSize:'20px'},
+                 location:{top:90}
+            },
+            {
                 "handle": "question",
                 data: {
                 	positiveAnswer:"y"
@@ -496,6 +561,14 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
+                'handle': 'counter',
+                customize: function(){
+                    this.media = scorer.count + ' of 50';
+                },
+                 css:{fontSize:'20px'},
+                 location:{top:90}
+            },
+            {
                 "handle": "question",
                 data: {
                 	positiveAnswer:"y"
@@ -522,6 +595,14 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 "inherit": {
                     "set": "yesno"
                 }
+            },
+            {
+                'handle': 'counter',
+                customize: function(){
+                    this.media = scorer.count + ' of 50';
+                },
+                 css:{fontSize:'20px'},
+                 location:{top:90}
             },
             {
                 "data": {
