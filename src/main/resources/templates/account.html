@@ -44,24 +44,39 @@
                 <p><b>Name and Password</b></p>
 
                 <form action="#" th:action="@{/account/update}" th:object="${participant}" method="post">
-                        <p>
+                    <p>
                         <label for="name">Name / Nickname</label>
                         <input id="name" type="text" th:field="*{fullName}"/>
-                            <span th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">Name Error</span>
-                        </p>
-                        <p>
+                        <span th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">Name Error</span>
+                    </p>
+
+                    <p>
                         <label for="email">Email</label>
-                            <input id="email" type="text" th:field="*{email}"/>
-                            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</span>
-                        </p>
-                        <label for="optOut">Receive emails?:</label>
-                        <input id="optOut" type="checkbox" th:field="*{emailOptout}"/>
-                        <span th:if="${#fields.hasErrors('emailOptout')}" th:errors="*{emailOptout}">Optout Error</span>
-                        <p>
+                        <input id="email" type="text" th:field="*{email}"/>
+                        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</span>
+                    </p>
+
+                    <p>
                         <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Name Error</span>
                         <label>Password</label>
                         <span>******** (<a th:href="@{/account/changePass}">Change Password</a>)</span>
-                        </p>
+                    </p>
+
+                    <p>
+                        <label for="optOut">Receive emails?:</label>
+                        <input id="optOut" type="checkbox" th:field="*{emailOptout}"/>
+                        <span th:if="${#fields.hasErrors('emailOptout')}" th:errors="*{emailOptout}">Optout Error</span>
+
+                    <span class="form-note">
+                        Please note, you will still receive
+                        a few messages from us as you enter
+                        new phases in the study or if you are
+                        dropped from the Study due to
+                        inactivity.
+                        You may also choose to
+                        <a href="#" id="opener">exit the study.</a>
+                    </span>
+                    </p>
 
                     <h3>Select a Theme</h3>
 
@@ -70,53 +85,44 @@
                     <fieldset>
                         <div class="themeSection orange">
                             <input type="radio" th:field="*{theme}" value="orange" required="true"/>
+
                             <div class="themeOption">
-                               <img th:src="@{/images/settings-orange.png}"/>
+                                <img th:src="@{/images/settings-orange.png}"/>
                                 <label>Orange</label>
                             </div>
                         </div>
                         <div class="themeSection green">
                             <input type="radio" th:field="*{theme}" value="green"/>
+
                             <div class="themeOption">
-                            <img th:src="@{/images/settings-green.png}"/>
-                            <label>Green</label>
+                                <img th:src="@{/images/settings-green.png}"/>
+                                <label>Green</label>
                             </div>
                         </div>
                         <div class="themeSection purple">
                             <input type="radio" th:field="*{theme}" value="purple"/>
+
                             <div class="themeOption">
-                            <img th:src="@{/images/settings-purple.png}"/>
-                            <label>Purple</label>
+                                <img th:src="@{/images/settings-purple.png}"/>
+                                <label>Purple</label>
                             </div>
                         </div>
                         <div class="themeSection gold">
                             <input type="radio" th:field="*{theme}" value="gold"/>
+
                             <div class="themeOption">
-                            <img th:src="@{/images/settings-gold.png}"/>
-                            <label>Gold</label>
+                                <img th:src="@{/images/settings-gold.png}"/>
+                                <label>Gold</label>
                             </div>
                         </div>
                     </fieldset>
                     <button>Update Account</button>
                 </form>
 
-
-
-
-
-                <div class="note">
-                    * Please note, you will still receive
-                    a few messages from us as you enter
-                    new phases in the study or if you are
-                    dropped from the Study due to
-                    inactivity.
-                    You may also choose to
-                    <a href="#" id="opener">exit the study.</a>
-                </div>
-
                 <script>
                     $(function () {
                         $("#dialog").dialog({
+                            minWidth: 500,
                             autoOpen: false,
                             show: {
                                 effect: "blind",
@@ -141,7 +147,7 @@
                     <a th:href="@{'/session'}">
                         <button>Yes, Let's go!</button>
                     </a>
-                    <a th:href="@{'/pages/exitStudy'}">
+                    <a th:href="@{'/account/exitStudy'}">
                         <button>No, remove me now.</button>
                     </a>
 

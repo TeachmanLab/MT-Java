@@ -29,7 +29,6 @@ button {  -webkit-border-radius: 5;
   text-decoration: none;
   font-size:20px;
   margin:10px 0px;
-    min-width: 120px;
     font-weight: 700;
 }
 
@@ -250,4 +249,10 @@ div.gold  {
 div.adminTools {
     background-color: #fff;
     font-size: 1.2em;
+}
+
+span.form-note {
+    display: block;
+    margin-left: 170px;
+    font-style: italic;
 }
