@@ -1,14 +1,12 @@
 package edu.virginia.psyc.pi.service;
 
-import edu.virginia.psyc.pi.domain.CBMStudy;
-import edu.virginia.psyc.pi.domain.Participant;
-import edu.virginia.psyc.pi.domain.Session;
-import edu.virginia.psyc.pi.domain.Study;
+import edu.virginia.psyc.pi.domain.*;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import static junit.framework.Assert.assertEquals;
@@ -140,7 +138,7 @@ public class EmailServiceTest {
     public void testShouldNotSendEmailAfter3_7_11_15_and_18_postSession8() {
 
         // Set up the sessions so we are past Session 8, but not finished with the Post session.
-        Study study = new CBMStudy(CBMStudy.NAME.POST.toString(), 0, new Date());
+        Study study = new CBMStudy(CBMStudy.NAME.POST.toString(), 0, new Date(), new ArrayList<TaskLog>());
         participant.setStudy(study);
 
         study.setLastSessionDate(xDaysAgo(2));
@@ -163,7 +161,7 @@ public class EmailServiceTest {
         // Set up the sessions so we are past Session 8, but not finished with the Post session.
         // Set up the sessions so we are past Session 8, but not finished with the Post session.
 
-        Study study = new CBMStudy(CBMStudy.NAME.POST.toString(), 0, new Date());
+        Study study = new CBMStudy(CBMStudy.NAME.POST.toString(), 0, new Date(), new ArrayList<TaskLog>());
         participant.setStudy(study);
 
         study.setLastSessionDate(xDaysAgo(60));

@@ -7,6 +7,7 @@ import org.joda.time.Period;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class CBMStudyTest {
 
     @Before
     public void setup() {
-        study = new CBMStudy(CBMStudy.NAME.SESSION1.toString(), 0, new Date());
+        study = new CBMStudy(CBMStudy.NAME.SESSION1.toString(), 0, new Date(), new ArrayList<TaskLog>());
         sessionList = study.getSessions();
     }
 
@@ -41,7 +42,7 @@ public class CBMStudyTest {
         CBMStudy study;
         List<Session> sessionList;
 
-        study = new CBMStudy(CBMStudy.NAME.SESSION1.toString(), 0, new Date());
+        study = new CBMStudy(CBMStudy.NAME.SESSION1.toString(), 0, new Date(), new ArrayList<TaskLog>());
         sessionList = study.getSessions();
 
         assertEquals(10, sessionList.size());  // Should be one less, since not all are displayable.
@@ -74,7 +75,7 @@ public class CBMStudyTest {
 
         List<Task> tasks;
 
-        study = new CBMStudy(CBMStudy.NAME.PRE.toString(), 1, new Date());
+        study = new CBMStudy(CBMStudy.NAME.PRE.toString(), 1, new Date(), new ArrayList<TaskLog>());
         tasks = study.getCurrentSession().getTasks();
 
         assertNotNull(tasks);
@@ -97,7 +98,7 @@ public class CBMStudyTest {
     @Test
     public void testCompleteCurrentTask() {
 
-        study = new CBMStudy(CBMStudy.NAME.PRE.toString(), 0, null);
+        study = new CBMStudy(CBMStudy.NAME.PRE.toString(), 0, null, new ArrayList<TaskLog>());
 
         assertEquals(CBMStudy.NAME.PRE.toString(), study.getCurrentSession().getName());
         assertEquals("OA", study.getCurrentSession().getCurrentTask().getName());
@@ -128,7 +129,7 @@ public class CBMStudyTest {
     @Test
     public void testSessionState() {
 
-        study = new CBMStudy(CBMStudy.NAME.PRE.toString(), 0, new Date());
+        study = new CBMStudy(CBMStudy.NAME.PRE.toString(), 0, new Date(), new ArrayList<TaskLog>());
 
         // By default the session state should be ready
         assertEquals(Study.STUDY_STATE.READY, study.getState());

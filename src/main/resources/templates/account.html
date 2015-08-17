@@ -1,20 +1,24 @@
 <!DOCTYPE html>
-<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
-<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
-<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!-->
 <html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
 <!--<![endif]-->
-<head th:include="fragment/common :: headerFragment" />
-<body>
-<section id="header" class="clearfix" th:include="fragment/common :: topFragment" />
+<head th:include="fragment/common :: headerFragment"/>
+<body th:class="|user-theme-${participant.theme}|">
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
 
 <!-- header-btm starts
 ================================================== -->
 <section id="header-btm" class="clearfix">
     <div class="container">
         <div class="row">
-            <h2 class="page-title heading-icon clearfix"> <img th:src="@{/images/map-arrow-orange.png}" alt="icon" class="icon-small-bg" /><br/>Account Settings</h2>
+            <h2 class="page-title heading-icon clearfix"><img th:src="@{/images/map-arrow-orange.png}" alt="icon"
+                                                              class="icon-small-bg"/><br/>Account Settings</h2>
         </div>
     </div>
 </section>
@@ -27,82 +31,98 @@
     <div class="container">
         <div class="row">
             <div class="span8">
-
-                <p><b>Name and Password</b></p>
-                <form action="#" th:action="@{'/admin/participant/'+${participant.id}}" th:object="${participant}"
-                      method="post">
-                <table>
-                    <tr>
-                        <td width="30%">Name / Nickname</td>
-                        <td width="30%"><input id="name" style="background-color: #F0F0F0;" disabled="disabled" type="text" th:field="*{fullName}" /></td>
-                        <td>(<a href="javascript:void(0)" onclick="enableEdit()">Edit</a>)</td>
-                        <td th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">Name Error</td>
-                    </tr>
-                    <tr>
-                        <td>Email</td>
-                        <td th:text="*{email}">daniel.h.funk@gmail.com</td>
-                    </tr>
-                    <tr>
-                        <td>Password</td>
-                        <td>********</td>
-                        <td>(<a th:href="@{resetPass}" >Change Password</a>)</td>
-                    </tr>
-                </table>
-
-                <p><b>Select a Theme</b></p>
-                <p>To customize the appearance of MindTrails select one of the options below. You can change your theme at any time.</p>
-                    <fieldset>
-                    <div class="longSection">
-                        <div class="optionTheme">
-                            <div class="optionThemeSub">
-                                <input style="width: 20px;" type="radio" th:field="*{theme}" value="orange" required="true" />
-                            </div>
-                            <div class="optionThemeSub"><img src="" height="" width=""/></div>
-                        </div>
-                        <div class="optionTheme">
-                            <div class="optionThemeSub">
-                                <input type="radio" th:field="*{theme}"   value="green"  />
-                            </div>
-                            <div class="optionThemeSub"><img src="" /></div>
-                        </div>
-                        <div class="optionTheme">
-                            <div class="optionThemeSub">
-                                <input type="radio" th:field="*{theme}"   value="purple"  />
-                            </div>
-                            <div class="optionThemeSub"><img src="" /></div>
-                        </div>
-                        <div class="optionTheme">
-                            <div class="optionThemeSub">
-                                <input type="radio" th:field="*{theme}"  value="gold" />
-                            </div>
-                            <div class="optionThemeSub"><img src="" /></div>
-                        </div>
-                        <div class="optionTheme">
-                            <div class="optionThemeSub">
-                                <input type="radio" th:field="*{theme}" value="blue"  />
-                            </div>
-                            <div class="optionThemeSub"><img src="" /></div>
-                        </div>
-                    </div>
-                    </fieldset>
-                    <div style="text-align: center;">
-                        <a th:href="@{/session}" type="submit" class="btn" style="color:#3399FF;">Done</a>
-                    </div>
-
-                </form>
-
-                <div class="note">
-                    * Please note, you will still receive
-                    a few messages from us as you enter
-                    new phases in the study or if you are
-                    dropped from the Study due to
-                    inactivity.
-                    You may also choose to <button id="opener">exit the study.</button>
+                <div th:if="${updated}" class="alert alert-error">
+                    Your Account information is updated.
+                </div>
+                <div class="formErrors">
+                    <ul class="errors">
+                        <li th:each="err : ${errors}" th:text="${err}" class="alert alert-error">Input is incorrect</li>
+                    </ul>
+                    <div class="spacer-20px"></div>
                 </div>
 
+                <p><b>Name and Password</b></p>
+
+                <form action="#" th:action="@{/account/update}" th:object="${participant}" method="post">
+                    <p>
+                        <label for="name">Name / Nickname</label>
+                        <input id="name" type="text" th:field="*{fullName}"/>
+                        <span th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">Name Error</span>
+                    </p>
+
+                    <p>
+                        <label for="email">Email</label>
+                        <input id="email" type="text" th:field="*{email}"/>
+                        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</span>
+                    </p>
+
+                    <p>
+                        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Name Error</span>
+                        <label>Password</label>
+                        <span>******** (<a th:href="@{/account/changePass}">Change Password</a>)</span>
+                    </p>
+
+                    <p>
+                        <label for="optOut">Receive emails?:</label>
+                        <input id="optOut" type="checkbox" th:field="*{emailOptout}"/>
+                        <span th:if="${#fields.hasErrors('emailOptout')}" th:errors="*{emailOptout}">Optout Error</span>
+
+                    <span class="form-note">
+                        Please note, you will still receive
+                        a few messages from us as you enter
+                        new phases in the study or if you are
+                        dropped from the Study due to
+                        inactivity.
+                        You may also choose to
+                        <a href="#" id="opener">exit the study.</a>
+                    </span>
+                    </p>
+
+                    <h3>Select a Theme</h3>
+
+                    <p>To customize the appearance of MindTrails select one of the options below. You can change your
+                        theme at any time.</p>
+                    <fieldset>
+                        <div class="themeSection orange">
+                            <input type="radio" th:field="*{theme}" value="orange" required="true"/>
+
+                            <div class="themeOption">
+                                <img th:src="@{/images/settings-orange.png}"/>
+                                <label>Orange</label>
+                            </div>
+                        </div>
+                        <div class="themeSection green">
+                            <input type="radio" th:field="*{theme}" value="green"/>
+
+                            <div class="themeOption">
+                                <img th:src="@{/images/settings-green.png}"/>
+                                <label>Green</label>
+                            </div>
+                        </div>
+                        <div class="themeSection purple">
+                            <input type="radio" th:field="*{theme}" value="purple"/>
+
+                            <div class="themeOption">
+                                <img th:src="@{/images/settings-purple.png}"/>
+                                <label>Purple</label>
+                            </div>
+                        </div>
+                        <div class="themeSection gold">
+                            <input type="radio" th:field="*{theme}" value="gold"/>
+
+                            <div class="themeOption">
+                                <img th:src="@{/images/settings-gold.png}"/>
+                                <label>Gold</label>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <button>Update Account</button>
+                </form>
+
                 <script>
-                    $(function() {
-                        $( "#dialog" ).dialog({
+                    $(function () {
+                        $("#dialog").dialog({
+                            minWidth: 500,
                             autoOpen: false,
                             show: {
                                 effect: "blind",
@@ -113,19 +133,23 @@
                                 duration: 1000
                             }
                         });
-                        $( "#opener" ).click(function() {
-                            $( "#dialog" ).dialog( "open" );
+                        $("#opener").click(function () {
+                            $("#dialog").dialog("open");
                         });
                     });
                 </script>
 
-                <div id="dialog"  title="Will you please stay?">
+                <div id="dialog" title="Will you please stay?">
                     <p>Sessions only take 15 to 20 minutes to complete,
-                    and your participation can help make a substantial
-                    impact in the lives and well being of others. Will you
-                    please stay and complete a session?</p>
-                    <a th:href="@{'/session'}"><button>Yes, Let's go!</button></a>
-                    <a th:href="@{'/pages/exitStudy'}"><button>No, remove me now.</button></a>
+                        and your participation can help make a substantial
+                        impact in the lives and well being of others. Will you
+                        please stay and complete a session?</p>
+                    <a th:href="@{'/session'}">
+                        <button>Yes, Let's go!</button>
+                    </a>
+                    <a th:href="@{'/account/exitStudy'}">
+                        <button>No, remove me now.</button>
+                    </a>
 
                 </div>
 
@@ -138,21 +162,21 @@
 
 <!-- footer starts
 ================================================== -->
-<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
 
 <!-- copyright starts
 ================================================== -->
-<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
 
 <!--Javascript
 ================================================== -->
 <script language="JavaScript">
     function enableEdit() {
-    document.getElementById("name").disabled=false;
-    document.getElementById("name").style.backgroundColor="#FFFFFF";
+        document.getElementById("name").disabled = false;
+        document.getElementById("name").style.backgroundColor = "#FFFFFF";
     }
 </script>
-<div th:include="fragment/common :: scripts" />
+<div th:include="fragment/common :: scripts"/>
 
 </body>
 </html>

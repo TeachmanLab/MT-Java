@@ -12,7 +12,7 @@
     font-size: 16px;
     }
 </style>
-<body>
+<body th:class="|user-theme-${participant.theme}|">
 <section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
 
 <!-- header-btm starts

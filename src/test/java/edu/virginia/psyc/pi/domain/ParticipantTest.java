@@ -35,7 +35,7 @@ public class ParticipantTest {
         Participant p;
         p = new Participant(1, "Dan Funk", "daniel.h.funk@gmail.com", false);
         dateTime = new DateTime().minus(Period.days(3));
-        p.setStudy(new CBMStudy(CBMStudy.NAME.PRE.toString(), 0, dateTime.toDate()));
+        p.setStudy(new CBMStudy(CBMStudy.NAME.PRE.toString(), 0, dateTime.toDate(), new ArrayList<TaskLog>()));
 
         assertEquals(3,p.daysSinceLastMilestone());
 
@@ -91,7 +91,7 @@ public class ParticipantTest {
         assertNotNull(p.lastMilestone());
 
         dateTime = new DateTime().minus(Period.days(3));
-        p.setStudy(new CBMStudy(CBMStudy.NAME.PRE.toString(), 0, dateTime.toDate()));
+        p.setStudy(new CBMStudy(CBMStudy.NAME.PRE.toString(), 0, dateTime.toDate(), new ArrayList<TaskLog>()));
 
         assertNotSame(p.lastMilestone(), loginDate);
 

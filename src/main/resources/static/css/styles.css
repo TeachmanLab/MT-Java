@@ -29,7 +29,6 @@ button {  -webkit-border-radius: 5;
   text-decoration: none;
   font-size:20px;
   margin:10px 0px;
-    min-width: 120px;
     font-weight: 700;
 }
 
@@ -82,7 +81,7 @@ button {  -webkit-border-radius: 5;
 /**
   Mainly used for all-in-one forms, such as the login form, reset password, etc...
 **/
-div.longSection, div.sessionSection {
+div.longSection, div.sessionSection{
     margin: 40px auto;
     padding: 20px 90px 20px 90px;
     max-width: 900px;
@@ -195,16 +194,65 @@ div#submit {
 }
 
 /**
-PIPlayer style
+Account Theme Section
 **/
 
-
-div.optionTheme{
-    font-size: .8em;
-    float: left;
-    width: 100%;
+div.themeSection {
+    max-width: 900px;
+    border-bottom-left-radius: 15px;
+    border-top-left-radius: 15px;
+    border: 1px solid #BBB;
+    background: #FFF;
+    height: 200px;
+    min-width:924px;
 }
 
-div.optionThemeSub {
-    display: inline-block;
+div.themeSection img {
+    float:right;
+}
+
+div.themeSection input {
+    margin: 20px 0 0 20px;
+}
+
+div.themeSection label {
+    float:right;
+    margin:0px;
+    min-width: 100px;
+    font-weight: 700;
+
+}
+
+div.themeSection div.themeOption {
+    float:right;
+    background: #ffffff;
+    height: 200px;
+    min-width:824px;
+    margin-left: 20px;
+    border-bottom: 1px solid #BBB;
+    padding: 10px 20px 0 20px;
+}
+
+div.orange  {
+    background-color: #ef7b40;
+}
+div.green {
+    background-color: #7bb76f;
+}
+div.purple  {
+    background-color: #c686ba;
+}
+div.gold  {
+    background-color: #e6ba21;
+}
+
+div.adminTools {
+    background-color: #fff;
+    font-size: 1.2em;
+}
+
+span.form-note {
+    display: block;
+    margin-left: 170px;
+    font-style: italic;
 }

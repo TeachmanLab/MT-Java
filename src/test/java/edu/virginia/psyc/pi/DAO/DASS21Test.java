@@ -18,58 +18,58 @@ public class DASS21Test {
     public void testEligibility() {
         DASS21_AS data;
 
-        data = new DASS21_AS(0,0,0,0,0,0,0);
+        data = new DASS21_AS(0,0,0,0,0,0,0, true);
         assertFalse(data.eligibleScore());
 
-        data = new DASS21_AS(1,1,0,0,0,0,0);
+        data = new DASS21_AS(1,1,0,0,0,0,0, true);
         assertFalse(data.eligibleScore());
 
-        data = new DASS21_AS(1,1,1,0,0,0,0);
+        data = new DASS21_AS(1,1,1,0,0,0,0, true);
         assertFalse(data.eligibleScore());
 
-        data = new DASS21_AS(1,1,1,1,0,0,0);
+        data = new DASS21_AS(1,1,1,1,0,0,0, true);
         assertFalse(data.eligibleScore());
 
-        data = new DASS21_AS(1,1,1,1,1,0,0);
+        data = new DASS21_AS(1,1,1,1,1,0,0, true);
         assertFalse(data.eligibleScore());
 
-        data = new DASS21_AS(1,1,1,1,1,1,0);
+        data = new DASS21_AS(1,1,1,1,1,1,0, true);
         assertTrue(data.eligibleScore());
 
-        data = new DASS21_AS(1,1,1,1,1,1,1);
+        data = new DASS21_AS(1,1,1,1,1,1,1, true);
         assertTrue(data.eligibleScore());
 
-        data = new DASS21_AS(0,0,2,0,0,0,0);
+        data = new DASS21_AS(0,0,2,0,0,0,0, true);
         assertFalse(data.eligibleScore());
 
-        data = new DASS21_AS(0,2,2,0,0,0,0);
+        data = new DASS21_AS(0,2,2,0,0,0,0, true);
         assertFalse(data.eligibleScore());
 
-        data = new DASS21_AS(2,2,2,0,0,0,0);
+        data = new DASS21_AS(2,2,2,0,0,0,0, true);
         assertTrue(data.eligibleScore());
 
-        data = new DASS21_AS(0,0,3,0,0,0,0);
+        data = new DASS21_AS(0,0,3,0,0,0,0, true);
         assertFalse(data.eligibleScore());
 
-        data = new DASS21_AS(0,3,3,0,0,0,0);
+        data = new DASS21_AS(0,3,3,0,0,0,0, true);
         assertTrue(data.eligibleScore());
 
-        data = new DASS21_AS(3,3,3,0,0,0,0);
+        data = new DASS21_AS(3,3,3,0,0,0,0, true);
         assertTrue(data.eligibleScore());
 
-        data = new DASS21_AS(-1,-1,-1,-1,-1,-1,-1);
+        data = new DASS21_AS(-1,-1,-1,-1,-1,-1,-1, true);
         assertFalse(data.eligibleScore());
 
-        data = new DASS21_AS(-1,-1,-1,-1,-1,-1,-1);
+        data = new DASS21_AS(-1,-1,-1,-1,-1,-1,-1, true);
         assertFalse(data.eligibleScore());
 
-        data = new DASS21_AS(0,-1,-1,-1,-1,-1,-1);
+        data = new DASS21_AS(0,-1,-1,-1,-1,-1,-1, true);
         assertFalse(data.eligibleScore());
 
-        data = new DASS21_AS(1,-1,-1,-1,-1,-1,-1);
+        data = new DASS21_AS(1,-1,-1,-1,-1,-1,-1, true);
         assertTrue(data.eligibleScore());
 
-        data = new DASS21_AS(1,1,-1,-1,-1,-1,-1);
+        data = new DASS21_AS(1,1,-1,-1,-1,-1,-1, true);
         assertTrue(data.eligibleScore());
 
     }
@@ -77,9 +77,9 @@ public class DASS21Test {
     @Test
     public void testScore() {
         DASS21_AS data1, data2, data3, data4;
-        data1 = new DASS21_AS(1,1,1,1,1,1,1);
-        data2 = new DASS21_AS(4,4,4,4,4,4,4);
-        data3 = new DASS21_AS(0,0,0,0,0,0,0);
+        data1 = new DASS21_AS(1,1,1,1,1,1,1, true);
+        data2 = new DASS21_AS(4,4,4,4,4,4,4, true);
+        data3 = new DASS21_AS(0,0,0,0,0,0,0, true);
 
         assertEquals(data1.score(), 14, 0);
         assertEquals(data2.score(), 56, 0);
@@ -94,10 +94,10 @@ public class DASS21Test {
     @Test
     public void testAtRisk() {
         DASS21_AS dataOrig, dataLatest;
-        dataOrig = new DASS21_AS(1,1,1,1,1,1,0); // score of 12 (increase of 30% is 15.6)
-        dataLatest = new DASS21_AS(1,1,1,1,1,1,1); // score of 14
+        dataOrig = new DASS21_AS(1,1,1,1,1,1,0, true); // score of 12 (increase of 30% is 15.6)
+        dataLatest = new DASS21_AS(1,1,1,1,1,1,1, true); // score of 14
         assertFalse(dataLatest.atRisk(dataOrig));
-        dataLatest = new DASS21_AS(1,1,1,1,1,1,2); // score of 16
+        dataLatest = new DASS21_AS(1,1,1,1,1,1,2, true); // score of 16
         assertTrue(dataLatest.atRisk(dataOrig));
     }
 
