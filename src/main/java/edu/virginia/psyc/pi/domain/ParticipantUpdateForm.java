@@ -1,5 +1,11 @@
 package edu.virginia.psyc.pi.domain;
 
+import lombok.Data;
+import org.hibernate.validator.constraints.Email;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,40 +14,20 @@ import java.util.List;
  * User: dan
  * Date: 9/2/14
  * Time: 3:50 PM
- * Just your basic everyday list of Participants.
- * (This helps us edit a whole set of participants all at once)
+ * For updating a participant.
  */
+@Data
 public class ParticipantUpdateForm {
 
-    private List<Participant> participants;
+    @Size(min=2, max=100, message="Please provide a name of at least 3 characters.")
+    private String fullName;
 
-    private List<String> sessionNames;
+    @Email
+    @NotNull
+    private String email;
 
-    public List<Participant> getParticipants() {
-        return participants;
-    }
+    private boolean        emailOptout = false;  // User required to receive no more emails.
 
-    public void setParticipants(List<Participant> participants) {
-        this.participants = participants;
-    }
-
-    public void add(Participant p) {
-        if(null == this.participants) this.participants = new ArrayList<Participant>();
-        this.participants.add(p);
-    }
-
-    public List<String> getSessionNames() {
-        return sessionNames;
-    }
-
-    public void setSessionNames(List<String> sessionNames) {
-        this.sessionNames = sessionNames;
-    }
-
-    public void add(String name) {
-        if(null == this.sessionNames) this.sessionNames= new ArrayList<String>();
-        this.sessionNames.add(name);
-    }
-
+    private String theme;
 
 }

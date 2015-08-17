@@ -246,3 +246,8 @@ div.purple  {
 div.gold  {
     background-color: #e6ba21;
 }
+
+div.adminTools {
+    background-color: #fff;
+    font-size: 1.2em;
+}

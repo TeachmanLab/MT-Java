@@ -9,7 +9,7 @@
 <html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
 <!--<![endif]-->
 <head th:include="fragment/common :: headerFragment"/>
-<body>
+<body th:class="|user-theme-${participant.theme}|">
 <section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
 
 <!-- header-btm starts
@@ -34,20 +34,29 @@
                 <div th:if="${updated}" class="alert alert-error">
                     Your Account information is updated.
                 </div>
+                <div class="formErrors">
+                    <ul class="errors">
+                        <li th:each="err : ${errors}" th:text="${err}" class="alert alert-error">Input is incorrect</li>
+                    </ul>
+                    <div class="spacer-20px"></div>
+                </div>
 
                 <p><b>Name and Password</b></p>
 
-                <form action="#" th:action="@{'/admin/participant/'+${participant.id}}" th:object="${participant}"
-                      method="post">
+                <form action="#" th:action="@{/account/update}" th:object="${participant}" method="post">
                         <p>
-                        <label>Name / Nickname</label>
+                        <label for="name">Name / Nickname</label>
                         <input id="name" type="text" th:field="*{fullName}"/>
                             <span th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">Name Error</span>
                         </p>
                         <p>
-                        <label>Email</label>
-                        <input id="email" name="email" type="text" th:field="*{email}"/>
+                        <label for="email">Email</label>
+                            <input id="email" type="text" th:field="*{email}"/>
+                            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</span>
                         </p>
+                        <label for="optOut">Receive emails?:</label>
+                        <input id="optOut" type="checkbox" th:field="*{emailOptout}"/>
+                        <span th:if="${#fields.hasErrors('emailOptout')}" th:errors="*{emailOptout}">Optout Error</span>
                         <p>
                         <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Name Error</span>
                         <label>Password</label>
@@ -88,11 +97,12 @@
                             </div>
                         </div>
                     </fieldset>
-                    <div style="text-align: center;">
-                        <a th:href="@{/session}" type="submit" class="btn" style="color:#3399FF;">Done</a>
-                    </div>
-
+                    <button>Update Account</button>
                 </form>
+
+
+
+
 
                 <div class="note">
                     * Please note, you will still receive
@@ -101,7 +111,7 @@
                     dropped from the Study due to
                     inactivity.
                     You may also choose to
-                    <button id="opener">exit the study.</button>
+                    <a href="#" id="opener">exit the study.</a>
                 </div>
 
                 <script>

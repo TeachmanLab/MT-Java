@@ -29,7 +29,7 @@ public class ParticipantRepositoryImpl implements ParticipantRepositoryCustom {
         p.setLastLoginDate(dao.getLastLoginDate());
         p.setCbmCondition(dao.getCbmCondition());
         p.setPrime(dao.getPrime());
-
+        p.setTheme(dao.getTheme());
 
         // Password Tokens
         if(dao.getPasswordTokenDAO() != null) {
@@ -81,6 +81,7 @@ public class ParticipantRepositoryImpl implements ParticipantRepositoryCustom {
         dao.setLastSessionDate(p.getStudy().getLastSessionDate());
         dao.setCbmCondition(p.getCbmCondition());
         dao.setPrime(p.getPrime());
+        dao.setTheme(p.getTheme());
 
         // Encrypt Password if it is set.
         if(p.getPassword() != null) {

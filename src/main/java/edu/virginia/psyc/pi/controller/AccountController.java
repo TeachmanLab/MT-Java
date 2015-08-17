@@ -1,6 +1,8 @@
 package edu.virginia.psyc.pi.controller;
 
 import edu.virginia.psyc.pi.domain.Participant;
+import edu.virginia.psyc.pi.domain.ParticipantForm;
+import edu.virginia.psyc.pi.domain.ParticipantUpdateForm;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 import org.slf4j.Logger;
@@ -8,15 +10,19 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.mail.MessagingException;
+import javax.validation.*;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -63,6 +69,25 @@ public class AccountController extends BaseController {
         Participant p = getParticipant(principal);
         model.addAttribute("participant", p);
         return "debriefing";
+    }
+
+    @RequestMapping(value="update", method = RequestMethod.POST)
+    public String update(ModelMap model, Principal principal,
+                         @Valid ParticipantUpdateForm form,
+                         BindingResult bindingResult) {
+
+
+            Participant p = getParticipant(principal);
+            ParticipantDAO dao = participantRepository.findOne(p.getId());
+            p.setEmail(form.getEmail());
+            p.setFullName(form.getFullName());
+            p.setEmailOptout(form.isEmailOptout());
+            p.setTheme(form.getTheme());
+            participantRepository.domainToEntity(p, dao);
+            participantRepository.save(dao);
+            model.addAttribute("updated", true);
+            model.addAttribute("participant", p);
+        return "/account";
     }
 
     @RequestMapping("changePass")
