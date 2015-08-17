@@ -42,8 +42,8 @@ public class QuestionControllerStaticTest {
         ArrayList<DASS21_AS> list;
         ParticipantDAO p;
 
-        p = new ParticipantDAO("Dan", "daniel.h.funk@gmail.com", "passwd", true);
-        dass21 = new DASS21_AS(1,2,3,4,5,6,7);
+        p = new ParticipantDAO("Dan", "daniel.h.funk@gmail.com", "passwd", true, "green");
+        dass21 = new DASS21_AS(1,2,3,4,5,6,7, true);
         dass21.setParticipantDAO(p);
         dass21.setSession(CBMStudy.NAME.SESSION1.toString());
         list = new ArrayList<DASS21_AS>();
