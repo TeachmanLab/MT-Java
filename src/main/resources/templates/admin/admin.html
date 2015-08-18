@@ -79,7 +79,7 @@
 
                     <tr th:each="p,status : *{participants}">
                         <input type="hidden" th:field="*{participants[__${status.index}__].id}"/>
-                        <input type="hidden" th:field="*{participants[__${status.index}__].fullName}"/>
+                        <!--<input type="hidden" th:field="*{participants[__${status.index}__].fullName}"/>-->
                         <input type="hidden" th:field="*{participants[__${status.index}__].email}"/>
                         <td th:text="*{participants[__${status.index}__].id}">0</td>
                         <td th:text="*{participants[__${status.index}__].fullName}">Dan Funk</td>
