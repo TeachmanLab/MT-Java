@@ -81,7 +81,7 @@ button {  -webkit-border-radius: 5;
 /**
   Mainly used for all-in-one forms, such as the login form, reset password, etc...
 **/
-div.longSection, div.sessionSection{
+div.longSection, div.sessionSection, div.sessionOverview {
     margin: 40px auto;
     padding: 20px 90px 20px 90px;
     max-width: 900px;
@@ -255,4 +255,28 @@ span.form-note {
     display: block;
     margin-left: 170px;
     font-style: italic;
+}
+
+
+/**
+Session Overview
+**/
+
+img.sessionMarker {
+    margin: 20px;
+}
+
+div.sessionGrouping {
+}
+
+div.sessionOverview {
+    float:right;
+}
+
+div.gift {
+    float:right;
+}
+
+br.clear {
+    clear:both;
 }

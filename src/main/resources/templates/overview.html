@@ -26,11 +26,12 @@
 <section id="content" class="clearfix">
     <div class="container">
         <h1>Overview for <span th:text="${participant.fullName}"/></h1>
-        <p>You can access this overview page at any time using the "My Progress" link in the navigation
-        bar above.  This page provides an overview of everything you will be doing as a participant in
-        this Study.  Come back often to see how you are doing!</p>
+        <p>This is your progress through the MindTrails Training Program.  You must wait a minimum of 24 hours
+        between each session.  We encourage you to begin a new session within three days of completing the previous
+        session.</p>
 
-        <div class="sessionGrouping" th:each="session : ${study.sessions}">
+        <div class="sessionGrouping" th:each="session,iterStat : ${study.sessions}">
+        <img class="sessionMarker" th:src="|/images/marker-${iterStat.index}-${participant.theme}.png|"/>
         <div class="sessionOverview">
             <table>
                 <tr>
@@ -43,6 +44,7 @@
                 </tr>
             </table>
         </div>
+            <br class="clear"/>
             <div th:if="${session.awardGift}" class="gift">$5 Gift Card!</div>
             <p th:if="${session.name != 'POST'}"> Allow 2 to 3 days between each session.</p>
         </div>
