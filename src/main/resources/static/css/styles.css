@@ -263,20 +263,67 @@ Session Overview
 **/
 
 img.sessionMarker {
+    position:absolute;
+    left: 20px;
     margin: 20px;
 }
 
 div.sessionGrouping {
+    width: 850px;
+    clear:both;
+    margin: 50px 0 0 0;
+    position:relative;
 }
 
 div.sessionOverview {
-    float:right;
+    left: 120px;
+    background:#21336B;
+    margin: 0 0 0 120px;
+    padding: 0;
+    width: 600px;
+}
+
+div.sessionOverview h3 {
+    color: white;
+    font-size: 92%;
+    margin: 5px 20px;
+}
+
+div.sessionOverview span.date {
+    margin-left: 10px;
 }
 
 div.gift {
-    float:right;
+    position:absolute;
+    width: 100px;
+    bottom:0px;
+    right:0px;
+    text-align: center;
 }
+
+div.gift img {
+    margin-left:-20px;
+}
+
 
 br.clear {
     clear:both;
+}
+
+div.sessionOverview table {
+    background-color: white;
+    min-width: 598px;
+}
+
+div.sessionOverview table td {
+    background-color: white;
+    border: 1px solid #BBB;
+    padding-left: 20px;
+    height: 40px;
+}
+
+.allow2days {
+    color: #5f5f5f;
+    font-size: 83%;
+    margin: 0 0 0 175px;
 }
