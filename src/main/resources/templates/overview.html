@@ -9,42 +9,32 @@
 <body th:class="|user-theme-${participant.theme}|">
     <section id="header" class="clearfix" th:include="fragment/common :: topFragment" />
 
-<!-- header-btm starts
-================================================== -->
-    <section id="header-btm" class="clearfix">
-        <div class="container">
-            <div class="row">
-                <h2 class="page-title heading-icon clearfix"><img th:src="@{/images/map-arrow-orange.png}"/><br/>Session Progress</h2>
-            </div>
-        </div>
-    </section>
-<!-- header-btm ends
-================================================== -->
 
 <!-- content starts
 ================================================== -->
 <section id="content" class="clearfix">
     <div class="container">
         <h1>Overview for <span th:text="${participant.fullName}"/></h1>
-        <p>You can access this overview page at any time using the "My Progress" link in the navigation
-        bar above.  This page provides an overview of everything you will be doing as a participant in
-        this Study.  Come back often to see how you are doing!</p>
+        <p>This is your progress through the MindTrails Training Program.  You must wait a minimum of 24 hours
+        between each session.  We encourage you to begin a new session within three days of completing the previous
+        session.</p>
 
-        <div class="sessionGrouping" th:each="session : ${study.sessions}">
+        <div class="sessionGrouping" th:each="session,iterStat : ${study.sessions}">
+        <img class="sessionMarker" th:src="|/images/marker-${iterStat.index}-${participant.theme}.png|"/>
+        <div class="gift"><div th:if="${session.awardGift}">$5 Gift Card!<img th:src="@{/images/gift_card.png}"/></div></div>
         <div class="sessionOverview">
+            <h3 th:text="${session.displayName}">Session Title</h3>
             <table>
-                <tr>
-                    <td th:text="${session.displayName}" colspan="2">Session Title</td>
-                </tr>
                 <tr th:each="task : ${session.tasks}">
                     <td th:text="${task.displayName}">Session Title</td>
-                    <td th:if="${task.dateCompleted}" th:text="${#calendars.format(task.dateCompleted,'MMM d, YYYY')}">10/05/2015</td>
+                    <td th:if="${task.dateCompleted}"><img th:src="|/images/check-${participant.theme}.png|"/>
+                        <span class="date" th:text="${#calendars.format(task.dateCompleted,'MMM d, YYYY')}">10/05/2015</span>
+                    </td>
                     <td th:unless="${task.dateCompleted}" th:text="'Est ' + ${task.duration} + ' min. duration'"></td>
                 </tr>
             </table>
         </div>
-            <div th:if="${session.awardGift}" class="gift">$5 Gift Card!</div>
-            <p th:if="${session.name != 'POST'}"> Allow 2 to 3 days between each session.</p>
+            <p class="allow2days" th:if="${session.name != 'POST'}"> Allow 2 to 3 days between each session.</p>
         </div>
     </div>
 </section>
