@@ -21,7 +21,7 @@
     <div class="container">
         <div class="row">
             <div class="span12">
-                <h4 class="heading-icon clearfix"> <img th:src="@{/grepfrut/img/icons/heading-icon-user.png}" width="40" height="40" alt="icon" class="icon-small-bg"/></h4>
+   <!--             <h4 class="heading-icon clearfix"> <img th:src="@{/grepfrut/img/icons/heading-icon-user.png}" width="40" height="40" alt="icon" class="icon-small-bg"/></h4> -->
             </div>
         </div>
     </div>
@@ -40,132 +40,89 @@
         <!--features starts-->
         <div class="row">
             <div class="span12">
+                <h2 class="page-title">Initial Assessment</h2>
                 <form id="wizard" th:action="@{/questions/MH}" method="POST">
-                    <fieldset id="anxiety">
-                        <legend>Anxiety</legend>
-                        <p>
-                            <label>Do you currently have an anxiety disorder diagnosis (i.e., diagnosed by a health professional, such as a social worker, psychologist, psychiatrist, or a general practitioner)?</label>
-                            <select name="anx_dis" required="true">
-                                <option value="">Please select one</option>
-                                <option>Yes</option>
-                                <option>No</option>
-                                <option>Prefer not to answer</option>
-                            </select>
-                        </p>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <p>
-                            <label>If yes, which disorders? Select all that apply</label>
-                            <select multiple="multiple" name="disorders" size="9">
-                                <option value=""></option>
-                                <option value="GAD">Generalized Anxiety Disorder (GAD)</option>
-                                <option value="OCD">Obsessive-Compulsive Disorder (OCD)</option>
-                                <option value="Panic">Panic Disorder</option>
-                                <option value="Agor">Agoraphobia</option>
-                                <option value="PSTD">Posttraumatic Stress Disorder</option>
-                                <option value="SAD">Social Anxiety Disorder</option>
-                                <option value="Phobias">Specific phobia(s)</option>
-                                <option value="Other">Other</option>
-                            </select>
-                        </p>
-                        <p>
-                            <label>If other, please specify</label>
-                            <input type="text" name="OtherDesc"/>
-                            <br/>
-                            Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.
-                        </p>
-                        </fieldset>
-                        <fieldset id="other">
-                           <legend>Other Diagnosis</legend>
-                        <p>
-                            <label>Do you currently have a diagnosis for a mental disorder other than anxiety? </label>
-                            <select name="not_anx_dis" required="true">
-                                <option value="">Please select one</option>
-                                <option>Yes</option>
-                                <option>No</option>
-                                <option>Prefer not to answer</option>
-                            </select>
-                        </p>
-                        <p>
-                            <label>If yes, which disorders? Select all that apply</label>
-                            <select multiple="multiple"  name="not_anx_disorders" size="9">
-                                <option value=""></option>
-                                <option value="dem">Dementia or other cognitive disorder</option>
-                                <option value="subst">Substance-related disorder</option>
-                                <option value="schiz">Schizophrenia or other related disorder</option>
-                                <option value="depression">Depression or depressive disorder</option>
-                                <option value="bipolar">Bipolar disorder</option>
-                                <option value="eating">Eating disorder</option>
-                                <option value="personality">Personality disorder</option>
-                                <option value="Other">Other</option>
-                            </select>
-                        </p>
-                            <label> If other, please specify </label>
-                            <input type="text" name="NotOtherDesc"/>
-                        <p>Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</p>
-                        </fieldset>
-                    <fieldset id="history">
-                        <legend>History</legend>
-                        <p>
-                            <label>Have you been diagnosed with an anxiety disorder in the past that you no longer have?</label>
-                            <select name="disorder_no" required="true">
-                                <option value="">Please select one</option>
-                                <option>Yes</option>
-                                <option>No</option>
-                                <option>Prefer not to answer</option>
-                            </select>
-                        </p>
-                        <p>
-                            <label>If yes, which disorders? Select all that apply</label>
-                            <select multiple="multiple" name="disorders_no" size="9">
-                                <option value=""></option>
-                                <option value="GAD">Generalized Anxiety Disorder (GAD)</option>
-                                <option value="OCD">Obsessive-Compulsive Disorder (OCD)</option>
-                                <option value="Panic">Panic Disorder</option>
-                                <option value="Agor">Agoraphobia</option>
-                                <option value="PSTD">Posttraumatic Stress Disorder</option>
-                                <option value="SAD">Social Anxiety Disorder</option>
-                                <option value="Phobias">Specific phobia(s)</option>
-                                <option value="Other">Other</option>
-                            </select>
-                        </p>
-                            <label> If other, please specify </label>
-                            <input type="text" name="OtherDescNo"/>
-                        <p>Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</p>
-                    </fieldset>
-                    <fieldset id="history_2">
-                        <legend>History, Part 2</legend>
-                        <p>
-                            <label>Have you been diagnosed with another mental disorder (other than anxiety) in the past that you no longer have?</label>
-                            <select name="not_anx_no" required="true">
-                                <option value="">Please select one</option>
-                                <option>Yes</option>
-                                <option>No</option>
-                                <option>Prefer not to answer</option>
-                            </select>
-                        </p>
-                        <br/>
-                        <br/>
+                    <h3>Part 1 of 4 - History</h3>
+                    <div class="longSection">
 
                         <p>
-                            <label>If yes, which disorders? Select all that apply</label>
-                            <select multiple="multiple" name="not_anx_disorders_no" size="8">
-                                <option value=""></option>
-                                <option value="dem">Dementia or other cognitive disorder</option>
-                                <option value="subst">Substance-related disorder</option>
-                                <option value="schiz">Schizophrenia or other related disorder</option>
-                                <option value="depression">Depression or depressive disorder</option>
-                                <option value="bipolar">Bipolar disorder</option>
-                                <option value="eating">Eating disorder</option>
-                                <option value="personality">Personality disorder</option>
-                                <option value="Other">Other</option>
-                            </select>
+                            <label>Do you <b>CURRENTLY</b> have a disorder diagnosis (i.e., diagnosed by a health
+                                professional, such as a social worker, psychologist, psychiatrist, or a general practitioner)?
+                                for any of the following disorders? (Check all that apply)</label>
+
                         </p>
-                            <label> If other, please specify </label>
-                            <input type="text" name="OtherDescNo"/>
-                        <p>Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</p>
-                    </fieldset>
+                        <br/>
+                        <div class="row">
+                            <table>
+                            <td><div  style="padding:0; margin:0; border-right: solid 2px #bbb; width: 550px ">
+                                <ul style="list-style-type: none;">
+
+                                <li><input type="checkbox" name="disorders[ ]" value="GAD">Generalized Anxiety Disorder (GAD)</input></li>
+                                <li><input type="checkbox" name="disorders[ ]" value="OCD">Obsessive-Compulsive Disorder (OCD)</input></li>
+                                <li><input type="checkbox" name="disorders[ ]" value="Panic">Panic Disorder</input></li>
+                                <li><input type="checkbox" name="disorders[ ]" value="Agor">Agoraphobia</input></li>
+                                <li><input type="checkbox" name="disorders[ ]" value="PSTD">Posttraumatic Stress Disorder</input></li>
+                                <li><input type="checkbox" name="disorders[ ]" value="SAD">Social Anxiety Disorder</input></li>
+                                <li><input type="checkbox" name="disorders[ ]" value="Phobias">Specific phobia(s)</input></li>
+                                    <li><input type="checkbox" name="disorders[ ]" value="dem">Dementia or other cognitive disorder</input></li>
+                                    <li><input type="checkbox" name="disorders[ ]" value="subst">Substance-related disorder</input></li>
+                                    <li><input type="checkbox" name="disorders[ ]" value="schiz">Schizophrenia or other related disorder</input></li>
+                                    <li><input type="checkbox" name="disorders[ ]" value="depression">Depression or depressive disorder</input></li>
+                                    <li><input type="checkbox" name="disorders[ ]" value="bipolar">Bipolar disorder</input></li>
+                                    <li><input type="checkbox" name="disorders[ ]" value="eating">Eating disorder</input></li>
+                                    <li><input type="checkbox" name="disorders[ ]" value="personality">Personality disorder</input></li>
+                                    <br />
+                                <li><input type="checkbox" name="disorders[ ]" value="Other">Other</input>  (Please specify)<input type="text" name="OtherDesc" /></li>
+                                    </ul>
+                            </div>
+                            </td>
+                                <td>
+                            <div style="width:150px; text-align:center">
+                                <p>Prefer not to answer</p>
+                                <input type="checkbox" name="disorders[ ]" value="Notanswer" />
+                            </div>
+                                </td>
+                            </table>
+                        </div>
+</div>
+                        <div class="longSection">
+                        <p>
+                            Have you been diagnosed with an anxiety disorder <b>IN THE PAST</b> that you no longer have?(Check all that apply)
+                        </p>
+                            <div class="row">
+                                <table>
+                                    <td><div  style="padding:0; margin:0; border-right: solid 2px #bbb; width: 550px ">
+                                        <ul style="list-style-type: none;">
+
+                                            <li><input type="checkbox" name="disorders_no[ ]" value="GAD">Generalized Anxiety Disorder (GAD)</input></li>
+                                            <li><input type="checkbox" name="disorders_no[ ]" value="OCD">Obsessive-Compulsive Disorder (OCD)</input></li>
+                                            <li><input type="checkbox" name="disorders_no[ ]" value="Panic">Panic Disorder</input></li>
+                                            <li><input type="checkbox" name="disorders_no[ ]" value="Agor">Agoraphobia</input></li>
+                                            <li><input type="checkbox" name="disorders_no[ ]" value="PSTD">Posttraumatic Stress Disorder</input></li>
+                                            <li><input type="checkbox" name="disorders_no[ ]" value="SAD">Social Anxiety Disorder</input></li>
+                                            <li><input type="checkbox" name="disorders_no[ ]" value="Phobias">Specific phobia(s)</input></li>
+                                            <li><input type="checkbox" name="disorders_no[ ]" value="dem">Dementia or other cognitive disorder</input></li>
+                                            <li><input type="checkbox" name="disorders_no[ ]" value="subst">Substance-related disorder</input></li>
+                                            <li><input type="checkbox" name="disorders_no[ ]" value="schiz">Schizophrenia or other related disorder</input></li>
+                                            <li><input type="checkbox" name="disorders_no[ ]" value="depression">Depression or depressive disorder</input></li>
+                                            <li><input type="checkbox" name="disorders_no[ ]" value="bipolar">Bipolar disorder</input></li>
+                                            <li><input type="checkbox" name="disorders_no[ ]" value="eating">Eating disorder</input></li>
+                                            <li><input type="checkbox" name="disorders_no[ ]" value="personality">Personality disorder</input></li>
+                                            <br />
+                                            <li><input type="checkbox" name="disorders_no[ ]" value="Other">Other</input>  (Please specify)<input type="text" name="OtherDescNo" /></li>
+                                        </ul>
+                                    </div>
+                                    </td>
+                                    <td>
+                                        <div style="width:150px; text-align:center">
+                                            <p>Prefer not to answer</p>
+                                            <input type="checkbox" name="disorders_no[ ]" value="Notanswer" />
+                                        </div>
+                                    </td>
+                                </table>
+                            </div>
+
+                    </div>
                 </form>
                 <script src="http://cdn.jsdelivr.net/jquery.validation/1.14.0/jquery.validate.min.js">
                 </script>
@@ -174,7 +131,7 @@
                         if (!$(this).find(":input").valid()) {
                             return false;
                             }
-                        }).jWizard().validate();
+                        }).jWizard({menu:false;title:false}).validate();
                 </script>
             </div>
         </div>
