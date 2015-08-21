@@ -343,7 +343,7 @@ label.radioList {
     width:100%;
 }
 
-label.radioList input[type="radio"] {
+label.radioList input[type="radio"], label.radioList input[type="checkbox"] {
     margin-right: 10px;
 }
 

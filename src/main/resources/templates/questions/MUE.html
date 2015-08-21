@@ -9,19 +9,6 @@
 <body th:class="|user-theme-${participant.theme}|">
 <section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
 
-<!-- header-btm starts
-================================================== -->
-<section id="header-btm" class="clearfix">
-    <div class="container">
-        <div class="row">
-            <div class="span12">
-                <h4 class="heading-icon clearfix"> <img th:src="@{/grepfrut/img/icons/heading-icon-user.png}" width="40" height="40" alt="icon" class="icon-small-bg"/></h4>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- header-btm ends
-================================================== -->
 
 <!-- content starts
 ================================================== -->
@@ -34,17 +21,17 @@
         <!--features starts-->
         <div class="row">
             <div class="span12">
-                <form id="wizard" th:action="@{/questions/MUE}" method="POST">
-                <fieldset>
+                <form th:action="@{/questions/MUE}" method="POST">
+                    <div class="longSection">
                     <legend>Instructions</legend>
-                    <h4> Thank you for taking the time to go through our program! We are interested in your feedback and reactions to the training programs, assessments, and other aspects of the website. Please answer the following questions openly and honestly. Your feedback will help us improve the program.
-                    </h4>
+                    <p> Thank you for taking the time to go through our program! We are interested in your feedback and reactions to the training programs, assessments, and other aspects of the website. Please answer the following questions openly and honestly. Your feedback will help us improve the program.
+                    </p>
                     <p>
                     *Note that assessment sessions were sessions in which you completed questionnaires about your feelings and thoughts. Training sessions were sessions in which you either completed words at the end of sentences OR saw two words on the screen and then a letter that you had to identify by pressing a button on the keyboard.
                     </p>
-                </fieldset>
-                <fieldset>
-                <legend>Questions</legend>
+                    </div>
+                    <div class="longSection">
+                     <legend>Questions</legend>
                        <p>
                             <label>How helpful did you find the web program for reducing your anxiety?</label>
                             <select name="helpful" required="true">
@@ -81,9 +68,9 @@
                                 <option value="555">Prefer not to answer</option>
                             </select>
                         </p>
-                        <br/>
-                        <br/>
-                        <p>
+                    </div>
+                    <div class="longSection">
+                    <p>
                             <label>How likely would you be to recommend this web program to others with similar anxiety difficulties?</label>
                             <select name="recommend" required="true">
                                 <option value="">Please select one</option>
@@ -95,9 +82,10 @@
                                 <option value="555">Prefer not to answer</option>
                             </select>
                         </p>
-                        <br/>
+                    </div>
+                    <div class="longSection">
                         <p>
-                            <label>How easy was the web program to use?</label>
+                            <label>How easy was the web program to use?</label><br/>
                             <select name="ease" required="true">
                                 <option value="">Please select one</option>
                                 <option value="1">Not at all</option>
@@ -121,7 +109,7 @@
                             </select>
                         </p>
                         <p>
-                            <label>How much did you like the web program in general?</label>
+                            <label>How much did you like the web program in general?</label><br/>
                             <select name="like" required="true">
                                 <option value="">Please select one</option>
                                 <option value="1">Not at all</option>
@@ -133,7 +121,7 @@
                             </select>
                         </p>
                         <p>
-                            <label>How much did you like the way the web program looked?</label>
+                            <label>How much did you like the way the web program looked?</label><br/>
                             <select name="look" required="true">
                                 <option value="">Please select one</option>
                                 <option value="1">Not at all</option>
@@ -145,7 +133,7 @@
                             </select>
                         </p>
                         <p>
-                            <label>How worried were you about your privacy in using this web program?</label>
+                            <label>How worried were you about your privacy in using this web program?</label><br/>
                             <select name="privacy" required="true">
                                 <option value="">Please select one</option>
                                 <option value="1">Not at all</option>
@@ -157,7 +145,7 @@
                             </select>
                         </p>
                         <p>
-                            <label>	How easy were the assessments to understand?</label>
+                            <label>	How easy were the assessments to understand?</label><br/>
                             <select name="understand" required="true">
                                 <option value="">Please select one</option>
                                 <option value="1">Not at all</option>
@@ -169,7 +157,7 @@
                             </select>
                         </p>
                         <p>
-                            <label>How easy was the training program (including instructions and materials) to understand?</label>
+                            <label>How easy was the training program (including instructions and materials) to understand?</label><br/>
                             <select name="training_ease" required="true">
                                 <option value="">Please select one</option>
                                 <option value="1">Not at all</option>
@@ -180,9 +168,10 @@
                                 <option value="555">Prefer not to answer</option>
                             </select>
                         </p>
-                        <br/>
+                    </div>
+                    <div class="longSection">
                         <p>
-                            <label>	How much did you feel you could trust the information?</label>
+                            <label>	How much did you feel you could trust the information?</label><br/>
                             <select name="trust" required="true">
                                 <option value="">Please select one</option>
                                 <option value="1">Not at all</option>
@@ -205,19 +194,18 @@
                                 <option value="555">Prefer not to answer</option>
                             </select>
                         </p>
-                        <br/>
+                    </div>
+                    <div class="longSection">
                         <p>
                             <label>This training program was 8 sessions. How many sessions do you think would have been ideal?</label>
                             <input type="text" name="ideal" required="true"/>
                         </p>
-                        <br/>
                         <p>
                             <label>Why is that number ideal?</label>
-                            <textarea name="describe">
-                            </textarea>
+                            <input type="text" name="describe" required="true"/>
                         </p>
                         <p>
-                            <label> How tiring did you find the training sessions? </label>
+                            <label> How tiring did you find the training sessions? </label><br/>
                             <select name="tiring_training" required="true">
                                 <option value="">Please select one</option>
                                 <option value="1">Not at all</option>
@@ -229,7 +217,7 @@
                             </select>
                         </p>
                         <p>
-                            <label> How tiring did you find the assessments? </label>
+                            <label> How tiring did you find the assessments? </label><br/>
                             <select name="tiring_assessments" required="true">
                                 <option value="">Please select one</option>
                                 <option value="1">Not at all</option>
@@ -254,7 +242,8 @@
                                 <option value="555">Prefer not to answer</option>
                             </select>
                         </p>
-                        <br/>
+                    </div>
+                    <div class="longSection">
                         <p>
                             <label>If you were to seek help for your anxiety again, would you seek a similar program?</label>
                             <select name="similar_program" required="true">
@@ -280,23 +269,18 @@
                                 <option value="555">Prefer not to answer</option>
                             </select>
                         </p>
-                        <br/>
-                        <br/>
-                        <br/>
+                    </div>
+                    <div class="longSection">
                         <p>
                             <label>Where did you complete the training sessions? Select all that apply</label>
-                            <select multiple="multiple" name="where" required="true">
-                                <option value="">Please select one</option>
-                                <option value="home">At home</option>
-                                <option value="work">At work</option>
-                                <option value="public">At a public space, such as a library, coffee shop, or restaurant</option>
-                                <option value="commuting">While commuting/travelling (e.g., on the train to work)</option>
-                                <option value="vacation">On Vacation</option>
-                                <option value="other">Other</option>
-                                <option value="555">Prefer not to answer</option>
-                            </select>
+                            <label class="radioList"><input name="where" type="checkbox" value="home"/>At home</label>
+                            <label class="radioList"><input name="where" type="checkbox" value="work"/>At work</label>
+                            <label class="radioList"><input name="where" type="checkbox" value="public"/>At a public space, such as a library, coffee shop, or restaurant</label>
+                            <label class="radioList"><input name="where" type="checkbox" value="commuting"/>While commuting/travelling (e.g., on the train to work)</label>
+                            <label class="radioList"><input name="where" type="checkbox" value="vacation"/>On Vacation</label>
+                            <label class="radioList"><input name="where" type="checkbox" value="other"/>Other</label>
+                            <label class="radioList"><input name="where" type="checkbox" value="555"/>Prefer not to answer</label>
                         </p>
-                        <p>Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</p>
                         <p>
                             <label> If other, please specficy </label>
                             <input type="text" name="OtherDesc"/>
@@ -310,25 +294,15 @@
                                 <option value="555">Prefer not to answer</option>
                             </select>
                         </p>
-                    </fieldset>
+                    </div>
+                    <button>Next</button>
                 </form>
-                <script>
-                    $("#wizard").on("wizardfinish", function() {
-                            if (!$(this).find(":input").valid()) {
-                                    return false;
-                            }
-                        }).jWizard({
-                        progress: false
-                    }).validate();
-                </script>
             </div>
         </div>
         <!--features ends-->
-
         <!--divider here-->
         <div class="spacer-40px"></div>
-
-    </div>
+        </div>
 </section>
 
 
