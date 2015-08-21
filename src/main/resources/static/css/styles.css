@@ -333,11 +333,42 @@ label.radioBox5 {
     min-width: 18%;
 }
 
+label.radioList {
+    cursor: pointer;
+    text-indent: -25px;
+    font-size: 85%;
+    margin: 0 0 0 20px;
+    padding: 0 200px 0 25px;
+    display: block;
+    width:100%;
+}
+
+label.radioList input[type="radio"] {
+    margin-right: 10px;
+}
+
+label.radioListNoAnswer {
+    position: absolute;
+    height: 75%;
+    width: 150px;
+    right:0;
+    font-size: 85%;
+    display: block;
+    padding: 15px;
+    border-left: 1px solid #BBB;
+    text-align: center;
+}
+
+label.radioList b {
+    font-weight: 600;
+}
+
 div.wide {
     width:900px;
 }
 
 div.section, div.scale, form#wizard{
+    position: relative;
     padding: 0px;
     border-radius: 15px;
     border: 1px solid #bbb;
@@ -396,8 +427,8 @@ div.desc {
 
 div.question {
     font-size: 92%;
-    padding: 5px 0 0 15px;
-    font-width: 600;
+    padding: 5px 0 10px 15px;
+    font-weight: 600;
 }
 
 
