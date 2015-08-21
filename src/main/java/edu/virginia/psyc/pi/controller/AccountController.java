@@ -53,6 +53,24 @@ public class AccountController extends BaseController {
         return "account";
     }
 
+    @RequestMapping("theme")
+    public String showTheme(ModelMap model, Principal principal) {
+        Participant p = getParticipant(principal);
+        model.addAttribute("participant", p);
+        return "theme";
+    }
+
+    @RequestMapping(value="updateTheme", method = RequestMethod.POST)
+    public String updateTheme(ModelMap model, String theme, Principal principal) {
+        Participant p = getParticipant(principal);
+        p.setTheme(theme);
+        ParticipantDAO dao = participantRepository.findOne(p.getId());
+        participantRepository.domainToEntity(p, dao);
+        participantRepository.save(dao);
+        model.addAttribute("participant", p);
+        return "redirect:/session/next";
+    }
+
     @RequestMapping("exitStudy")
     public String exitStudy(ModelMap model, Principal principal) {
         Participant p      = getParticipant(principal);

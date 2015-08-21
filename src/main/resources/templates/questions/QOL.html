@@ -9,19 +9,6 @@
 <body th:class="|user-theme-${participant.theme}|">
 <section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
 
-<!-- header-btm starts
-================================================== -->
-<section id="header-btm" class="clearfix">
-    <div class="container">
-        <div class="row">
-            <div class="span12">
-                <h4 class="heading-icon clearfix"> <img th:src="@{/grepfrut/img/icons/heading-icon-user.png}" width="40" height="40" alt="icon" class="icon-small-bg"/></h4>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- header-btm ends
-================================================== -->
 
 <!-- content starts
 ================================================== -->
@@ -33,242 +20,216 @@
 
         <!--features starts-->
         <div class="row">
-            <div class="span12">
-                <form id="wizard" th:action="@{/questions/QOL}" method="POST">
+            <div class="longSection">
+                <form th:action="@{/questions/QOL}" method="POST">
                     <fieldset>
                         <legend>Instructions</legend>
                         <p>Please read each item and check the number that best describes how satisfied you are at this time. Please answer each item even if you do not currently participate in an activity or have a relationship. You can be satisfied or dissatisfied with not doing the activity or having the relationship.</p>
                     </fieldset>
                      <fieldset>
                         <legend>Questions</legend>
-                        <table class="table table-striped table-bordered">
+                        <table class="questionnaire">
                             <tr>
                                 <th></th>
-                                <th>1</th>
-                                <th>2</th>
-                                <th>3</th>
-                                <th>4</th>
-                                <th>5</th>
-                                <th>6</th>
-                                <th>7</th>
-                                <th>8</th>
-                            </tr>
-                            <tr>
-                                <th>Question</th>
-                                <th>Delighted</th>
-                                <th>Mostly Pleased</th>
-                                <th>Satisfied</th>
+                                <th>Completely unsatisfied</th>
+                                <th>Somewhat unsatisfied</th>
                                 <th>Mixed</th>
-                                <th>Mostly Dissatisfied</th>
-                                <th>Unhappy</th>
-                                <th>Terrible</th>
+                                <th>Somewhat satisfied</th>
+                                <th>Completely satisfied</th>
                                 <th>Prefer not to answer</th>
                             </tr>
                             <tr>
-                                <td>Material comforts home, food, conveniences,
+                                <td class="statement">Material comforts home, food, conveniences,
                                     financial security
                                 </td>
-                                <td><label class="radioBox"><input type="radio" name="material" class="form-control" value="1" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="material" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="material" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="material" class="form-control" value="4" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="material" class="form-control" value="5" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="material" class="form-control" value="6" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="material" class="form-control" value="7" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="material" class="form-control" value="1" required="true"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="material" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="material" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="material" class="form-control" value="4" />4</label></td>
+                                <td><label class="radioBox"><input type="radio" name="material" class="form-control" value="5" />5</label></td>
                                 <td><label class="radioBox"><input type="radio" name="material" class="form-control" value="555" /></label></td>
 
                             </tr>
                             <tr>
-                                <td>Health - being physically fit and vigorous
+                                <td class="statement">Health - being physically fit and vigorous
                                 </td>
-                                <td><label class="radioBox"><input type="radio" name="health" class="form-control" value="1" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="health" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="health" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="health" class="form-control" value="4" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="health" class="form-control" value="5" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="health" class="form-control" value="6" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="health" class="form-control" value="7" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="health" class="form-control" value="1" required="true"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="health" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="health" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="health" class="form-control" value="4" />4</label></td>
+                                <td><label class="radioBox"><input type="radio" name="health" class="form-control" value="5" />5</label></td>
                                 <td><label class="radioBox"><input type="radio" name="health" class="form-control" value="555" /></label></td>
                             </tr>
                             <tr>
-                                <td>Relationships with parents, siblings and other
+                                <td class="statement">Relationships with parents, siblings and other
                                     relatives –  communicating, visiting, helping
                                 </td>
-                                <td><label class="radioBox"><input type="radio" name="relationships" class="form-control" value="1" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="relationships" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="relationships" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="relationships" class="form-control" value="4" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="relationships" class="form-control" value="5" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="relationships" class="form-control" value="6" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="relationships" class="form-control" value="7" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="relationships" class="form-control" value="1" required="true"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="relationships" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="relationships" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="relationships" class="form-control" value="4" />4</label></td>
+                                <td><label class="radioBox"><input type="radio" name="relationships" class="form-control" value="5" />5</label></td>
                                 <td><label class="radioBox"><input type="radio" name="relationships" class="form-control" value="555" /></label></td>
                             </tr>
                             <tr>
-                                <td>Having and rearing children
+                                <td class="statement">Having and rearing children
                                 </td>
-                                <td><label class="radioBox"><input type="radio" name="children" class="form-control" value="1" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="children" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="children" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="children" class="form-control" value="4" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="children" class="form-control" value="5" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="children" class="form-control" value="6" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="children" class="form-control" value="7" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="children" class="form-control" value="1" required="true"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="children" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="children" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="children" class="form-control" value="4" />4</label></td>
+                                <td><label class="radioBox"><input type="radio" name="children" class="form-control" value="5" />5</label></td>
                                 <td><label class="radioBox"><input type="radio" name="children" class="form-control" value="555" /></label></td>
                             </tr>
                             <tr>
-                                <td>Close relationships with spouse or
+                                <td class="statement">Close relationships with spouse or
                                     significant other
                                 </td>
-                                <td><label class="radioBox"><input type="radio" name="spouse" class="form-control" value="1" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="spouse" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="spouse" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="spouse" class="form-control" value="4" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="spouse" class="form-control" value="5" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="spouse" class="form-control" value="6" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="spouse" class="form-control" value="7" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="spouse" class="form-control" value="1" required="true"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="spouse" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="spouse" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="spouse" class="form-control" value="4" />4</label></td>
+                                <td><label class="radioBox"><input type="radio" name="spouse" class="form-control" value="5" />5</label></td>
                                 <td><label class="radioBox"><input type="radio" name="spouse" class="form-control" value="555" /></label></td>
                             </tr>
                             <tr>
-                                <td>Close friend
+                                <th></th>
+                                <th>Completely unsatisfied</th>
+                                <th>Somewhat unsatisfied</th>
+                                <th>Mixed</th>
+                                <th>Somewhat satisfied</th>
+                                <th>Completely satisfied</th>
+                                <th>Prefer not to answer</th>
+                            </tr>
+                            <tr>
+                                <td class="statement">Close friend
                                 </td>
-                                <td><label class="radioBox"><input type="radio" name="friend" class="form-control" value="1" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="friend" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="friend" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="friend" class="form-control" value="4" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="friend" class="form-control" value="5" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="friend" class="form-control" value="6" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="friend" class="form-control" value="7" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="friend" class="form-control" value="1" required="true"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="friend" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="friend" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="friend" class="form-control" value="4" />4</label></td>
+                                <td><label class="radioBox"><input type="radio" name="friend" class="form-control" value="5" />5</label></td>
                                 <td><label class="radioBox"><input type="radio" name="friend" class="form-control" value="555" /></label></td>
                             </tr>
                             <tr>
-                                <td>Helping and encouraging others,
+                                <td class="statement">Helping and encouraging others,
                                     volunteering, giving advice
                                 </td>
-                                <td><label class="radioBox"><input type="radio" name="helping" class="form-control" value="1" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="helping" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="helping" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="helping" class="form-control" value="4" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="helping" class="form-control" value="5" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="helping" class="form-control" value="6" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="helping" class="form-control" value="7" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="helping" class="form-control" value="1" required="true"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="helping" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="helping" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="helping" class="form-control" value="4" />4</label></td>
+                                <td><label class="radioBox"><input type="radio" name="helping" class="form-control" value="5" />5</label></td>
                                 <td><label class="radioBox"><input type="radio" name="helping" class="form-control" value="555" /></label></td>
                             </tr>
                             <tr>
-                                <td>Participating in organizations and
+                                <td class="statement">Participating in organizations and
                                     public affairs
                                 </td>
-                                <td><label class="radioBox"><input type="radio" name="participating" class="form-control" value="1" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="participating" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="participating" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="participating" class="form-control" value="4" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="participating" class="form-control" value="5" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="participating" class="form-control" value="6" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="participating" class="form-control" value="7" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="participating" class="form-control" value="1" required="true"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="participating" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="participating" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="participating" class="form-control" value="4" />4</label></td>
+                                <td><label class="radioBox"><input type="radio" name="participating" class="form-control" value="5" />5</label></td>
                                 <td><label class="radioBox"><input type="radio" name="participating" class="form-control" value="555" /></label></td>
                             </tr>
                             <tr>
-                                <td>Learning- attending school, improving
+                                <td class="statement">Learning- attending school, improving
                                     understanding, getting additional knowledge
                                 </td>
-                                <td><label class="radioBox"><input type="radio" name="learning" class="form-control" value="1" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="learning" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="learning" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="learning" class="form-control" value="4" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="learning" class="form-control" value="5" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="learning" class="form-control" value="6" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="learning" class="form-control" value="7" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="learning" class="form-control" value="1" required="true"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="learning" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="learning" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="learning" class="form-control" value="4" />4</label></td>
+                                <td><label class="radioBox"><input type="radio" name="learning" class="form-control" value="5" />5</label></td>
                                 <td><label class="radioBox"><input type="radio" name="learning" class="form-control" value="555" /></label></td>
                             </tr>
                             <tr>
-                                <td>Understanding yourself - knowing your assets
+                                <td class="statement">Understanding yourself - knowing your assets
                                     and limitations - knowing what life is about
                                 </td>
-                                <td><label class="radioBox"><input type="radio" name="understanding" class="form-control" value="1" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="understanding" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="understanding" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="understanding" class="form-control" value="4" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="understanding" class="form-control" value="5" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="understanding" class="form-control" value="6" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="understanding" class="form-control" value="7" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="understanding" class="form-control" value="1" required="true"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="understanding" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="understanding" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="understanding" class="form-control" value="4" />4</label></td>
+                                <td><label class="radioBox"><input type="radio" name="understanding" class="form-control" value="5" />5</label></td>
                                 <td><label class="radioBox"><input type="radio" name="understanding" class="form-control" value="555" /></label></td>
                             </tr>
                             <tr>
-                                <td>Work - job or in home
+                                <th></th>
+                                <th>Completely unsatisfied</th>
+                                <th>Somewhat unsatisfied</th>
+                                <th>Mixed</th>
+                                <th>Somewhat satisfied</th>
+                                <th>Completely satisfied</th>
+                                <th>Prefer not to answer</th>
+                            </tr>
+                            <tr>
+                                <td class="statement">Work - job or in home
                                 </td>
-                                <td><label class="radioBox"><input type="radio" name="work" class="form-control" value="1" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="work" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="work" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="work" class="form-control" value="4" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="work" class="form-control" value="5" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="work" class="form-control" value="6" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="work" class="form-control" value="7" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="work" class="form-control" value="1" required="true"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="work" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="work" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="work" class="form-control" value="4" />4</label></td>
+                                <td><label class="radioBox"><input type="radio" name="work" class="form-control" value="5" />5</label></td>
                                 <td><label class="radioBox"><input type="radio" name="work" class="form-control" value="555" /></label></td>
                             </tr>
                             <tr>
-                                <td>Expressing yourself creatively
+                                <td class="statement">Expressing yourself creatively
                                 </td>
-                                <td><label class="radioBox"><input type="radio" name="expression" class="form-control" value="1" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="expression" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="expression" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="expression" class="form-control" value="4" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="expression" class="form-control" value="5" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="expression" class="form-control" value="6" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="expression" class="form-control" value="7" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="expression" class="form-control" value="1" required="true"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="expression" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="expression" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="expression" class="form-control" value="4" />4</label></td>
+                                <td><label class="radioBox"><input type="radio" name="expression" class="form-control" value="5" />5</label></td>
                                 <td><label class="radioBox"><input type="radio" name="expression" class="form-control" value="555" /></label></td>
                             </tr>
                             <tr>
-                                <td>Socializing - meeting other people,
+                                <td class="statement">Socializing - meeting other people,
                                     doing things, parties, etc
                                 </td>
-                                <td><label class="radioBox"><input type="radio" name="socializing" class="form-control" value="1" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="socializing" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="socializing" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="socializing" class="form-control" value="4" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="socializing" class="form-control" value="5" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="socializing" class="form-control" value="6" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="socializing" class="form-control" value="7" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="socializing" class="form-control" value="1" required="true"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="socializing" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="socializing" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="socializing" class="form-control" value="4" />4</label></td>
+                                <td><label class="radioBox"><input type="radio" name="socializing" class="form-control" value="5" />5</label></td>
                                 <td><label class="radioBox"><input type="radio" name="socializing" class="form-control" value="555" /></label></td>
                             </tr>
                             <tr>
-                                <td>Reading, listening to music, or observing
+                                <td class="statement">Reading, listening to music, or observing
                                     entertainment
                                 </td>
-                                <td><label class="radioBox"><input type="radio" name="reading" class="form-control" value="1" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="reading" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="reading" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="reading" class="form-control" value="4" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="reading" class="form-control" value="5" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="reading" class="form-control" value="6" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="reading" class="form-control" value="7" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="reading" class="form-control" value="1" required="true"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="reading" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="reading" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="reading" class="form-control" value="4" />4</label></td>
+                                <td><label class="radioBox"><input type="radio" name="reading" class="form-control" value="5" />5</label></td>
                                 <td><label class="radioBox"><input type="radio" name="reading" class="form-control" value="555" /></label></td>
                             </tr>
                             <tr>
-                                <td>Participating in active recreation
+                                <td class="statement">Participating in active recreation
                                 </td>
-                                <td><label class="radioBox"><input type="radio" name="recreation" class="form-control" value="1" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="recreation" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="recreation" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="recreation" class="form-control" value="4" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="recreation" class="form-control" value="5" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="recreation" class="form-control" value="6" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="recreation" class="form-control" value="7" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="recreation" class="form-control" value="1" required="true"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="recreation" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="recreation" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="recreation" class="form-control" value="4" />4</label></td>
+                                <td><label class="radioBox"><input type="radio" name="recreation" class="form-control" value="5" />5</label></td>
                                 <td><label class="radioBox"><input type="radio" name="recreation" class="form-control" value="555" /></label></td>
                             </tr>
                             <tr>
-                                <td>Independence, doing for yourself
+                                <td class="statement">Independence, doing for yourself
                                 </td>
-                                <td><label class="radioBox"><input type="radio" name="independence" class="form-control" value="1" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="independence" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="independence" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="independence" class="form-control" value="4" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="independence" class="form-control" value="5" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="independence" class="form-control" value="6" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="independence" class="form-control" value="7" /></label></td>
+                                <td><label class="radioBox"><input type="radio" name="independence" class="form-control" value="1" required="true"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="independence" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="independence" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="independence" class="form-control" value="4" />4</label></td>
+                                <td><label class="radioBox"><input type="radio" name="independence" class="form-control" value="5" />5</label></td>
                                 <td><label class="radioBox"><input type="radio" name="independence" class="form-control" value="555" /></label></td>
                             </tr>
                             
                         </table>
                     </fieldset>
+                    <button>Continue</button>
                 </form>
                 <script>
                 $("#wizard").on("wizardfinish", function() {

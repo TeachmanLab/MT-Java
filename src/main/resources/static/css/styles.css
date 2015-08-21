@@ -13,8 +13,8 @@ h3 { font-size:100%; font-weight: 700 }
 
 .fineprint p { font-size: 75%; margin: 0 }
 
-button {  -webkit-border-radius: 5;
-  -moz-border-radius: 5;
+button {  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
   border-radius: 5px;
   -webkit-box-shadow: 0px 1px 3px #666;
   -moz-box-shadow: 0px 1px 3px #666;
@@ -56,13 +56,13 @@ button {  -webkit-border-radius: 5;
 .user-theme-gold .account-bar { background:#ECB800; }
 .account-bar a, .account-bar span.item {color:#000000; padding: 0 10px 0 10px; font-weight:400}
 .account-bar .login {}
-.page-title {font-size:1.45em; color:#00ACE4; font-weight:bold; margin-left: 135px;}
+.page-title {font-size:1.45em; color:#00ACE4; font-weight:bold; }
 .page-title img {margin-bottom:20px;}
 .user-theme-orange .page-title { color:#F77D38; }
 .user-theme-green .page-title { color:#77B46D; }
 .user-theme-purple .page-title { color:#C98ABB; }
 .user-theme-gold .page-title { color:#ECB800; }
-.heading-icon {margin-top:-10px; margin-left:135px;}
+.heading-icon {margin-top:-10px; }
 
 
 #footer {background:#21336B; font-size:0.5em;}
@@ -83,7 +83,7 @@ button {  -webkit-border-radius: 5;
 **/
 div.longSection, div.sessionSection, div.sessionOverview {
     margin: 40px auto;
-    padding: 20px 90px 20px 90px;
+    padding: 20px 20px 20px 20px;
     max-width: 900px;
     border-radius: 15px;
     border: 1px solid #BBB;
@@ -111,87 +111,6 @@ div.session p.session-note {
     font-size: 1em;
 }
 div.session .date { color:#00ACE4; font-weight: 600 }
-
-/**
-Forms
-**/
-
-label {
-    min-width: 170px;
-    font-weight: 400;
-}
-
-div.section, div.scale {
-    padding: 0px;
-    width: 900px;
-    border-radius: 15px;
-    border: 1px solid #bbb;
-    background: #FFF;
-    font-weight:400;
-}
-
-
-div.scale .title {
-    background-color:#00ACE4;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    font-size:92%;
-    color: #fff;
-    padding: 5px 0 5px 0;
-}
-
-div.scale div.option, div.scale div.optionLast {
-    font-weight:600;
-}
-
-div.option, div.optionLast {
-    font-size: 75%;
-    float: left;
-    width: 175px;
-    padding: 10px 28px 0 25px;
-    align-content: center;
-    text-align: center;
-    line-height: 1.1em;
-    color: #5f5f5f;
-}
-
-div.option, div.optionLast {
-    font-weight: 400;
-}
-
-div.optionLast {
-    border-right: solid 2px #bbb;
-}
-
-div.section div.desc1 {
-    height: 30px;
-}
-
-div.scale div.desc1 {
-    height: 70px;
-}
-
-div.scale div.desc2 {
-    font-weight: 700;
-}
-
-div.desc {
-    height: 70px;
-}
-
-div.question {
-    font-size: 92%;
-    padding: 5px 0 0 15px;
-    font-width: 600;
-}
-
-
-div#submit {
-    width: 900px;
-    padding: 0;
-    text-align: center;
-    align-content: center;
-}
 
 /**
 Account Theme Section
@@ -265,21 +184,36 @@ div.piPlayerHeader {
 }
 
 div#canvas {
+    position: relative;
     color:black;
-    font-family: "Source Sans Pro, Arial, Helvetica, sans-serif";
     background: white;
     box-sizing:border-box;
     border-radius: 25px;
-    padding: 20px 100px;
+    padding: 20px 50px;
     width: 200px;
     margin: 40px auto;
     border: 1px solid #bbb;
 }
 
 div.stimulus {
-    font-size: 20px;
+    font-size: 25px;
     text-align: center;
     padding-bottom: 20px;
+}
+
+div.piIntro {
+    text-align:left;
+}
+
+div.piIntro img {
+    float:left;
+}
+
+div.piIntro p, div.piIntro h3, div.piIntro ul {
+    margin-left: 200px;
+    font-size: 20px;
+}
+
 
 /**
 Session Overview
@@ -350,3 +284,141 @@ div.sessionOverview table td {
     font-size: 83%;
     margin: 0 0 0 175px;
 }
+
+
+/**
+Questionnaires
+**/
+
+table.questionnaire {
+    max-width:100%;
+    font-size: 75%;
+}
+
+table.questionnaire th {
+    font-weight: 400;
+    text-align: center;
+    width: 120px;
+    background-color: #ddd;
+}
+
+table.questionnaire td {
+  text-align: center;
+}
+
+table.questionnaire td.statement {
+    text-align: left;
+    min-width: 200px;
+    padding-bottom: 20px;
+}
+
+label {
+    min-width: 170px;
+    font-weight: 400;
+    vertical-align: middle;
+}
+
+input.radioBox {
+    cursor: pointer;
+}
+
+label.radioBox {
+    min-width: 50px;
+    min-height: 50px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+label.radioBox5 {
+    min-width: 18%;
+}
+
+div.wide {
+    width:900px;
+}
+
+div.section, div.scale, form#wizard{
+    padding: 0px;
+    border-radius: 15px;
+    border: 1px solid #bbb;
+    background: #FFF;
+    font-weight:400;
+}
+
+
+div.scale .title {
+    background-color:#00ACE4;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    font-size:92%;
+    color: #fff;
+    padding: 5px 0 5px 0;
+}
+
+div.scale div.option, div.scale div.optionLast {
+    font-weight:600;
+}
+
+div.option, div.optionLast {
+    font-size: 75%;
+    padding: 10px 28px 0 25px;
+    align-content: center;
+    text-align: center;
+    line-height: 1.1em;
+    color: #5f5f5f;
+}
+
+div.option, div.optionLast {
+    font-weight: 400;
+}
+
+div.optionLast {
+    border-right: solid 2px #bbb;
+}
+
+div.section div.desc1, div.scale div.desc1 {
+    height: 40px;
+    width: 120px;
+}
+
+
+div.scale div.desc1 {
+    height: 50px;
+}
+
+div.scale div.desc2 {
+    font-weight: 700;
+}
+
+div.desc {
+    height: 70px;
+}
+
+div.question {
+    font-size: 92%;
+    padding: 5px 0 0 15px;
+    font-width: 600;
+}
+
+
+div#submit {
+    width: 900px;
+    padding: 0;
+    text-align: center;
+    align-content: center;
+}
+
+
+/**
+Wizards
+**/
+form#wizard {
+    font-size: 75%;
+    margin: 20px 0px;
+    padding: 20px;
+}
+
+#wizard th {
+    text-align: center;
+}
+

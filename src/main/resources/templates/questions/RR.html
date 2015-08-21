@@ -9,19 +9,6 @@
 <body th:class="|user-theme-${participant.theme}|">
 <section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
 
-<!-- header-btm starts
-================================================== -->
-<section id="header-btm" class="clearfix">
-    <div class="container">
-        <div class="row">
-            <div class="span12">
-                <h4 class="heading-icon clearfix"> <img th:src="@{/grepfrut/img/icons/heading-icon-user.png}" width="40" height="40" alt="icon" class="icon-small-bg"/></h4>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- header-btm ends
-================================================== -->
 
 <!-- content starts
 ================================================== -->
@@ -66,43 +53,43 @@
                         <table class="table table-striped table-bordered table-radio">
                             <tr>
                                 <th>Question</th>
-                                <th>very different in meaning</th>
-                                <th>different in meaning</th>
-                                <th>similar in meaning</th>
-                                <th>very similar in meaning</th>
+                                <th>very different</th>
+                                <th>different</th>
+                                <th>similar</th>
+                                <th>very similar</th>
                                 <th>Prefer not to answer</th>
                             </tr>
                             <tr>
                                 <td>you think that you will probably not cause an accident.</td>
-                                <td><label class="radioBox"><input type="radio" name="yellow_light1" class="form-control" value="0" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="yellow_light1" class="form-control" value="1" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="yellow_light1" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="yellow_light1" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="yellow_light1" class="form-control" value="-1" /></label></td>
+                                <td><input type="radio" name="yellow_light1" class="form-control" value="0" required="true"/></td>
+                                <td><input type="radio" name="yellow_light1" class="form-control" value="1" /></td>
+                                <td><input type="radio" name="yellow_light1" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="yellow_light1" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="yellow_light1" class="form-control" value="-1" /></td>
                             </tr>
                             <tr>
                                 <td>you think that you will likely cause an accident.</td>
-                                <td><label class="radioBox"><input type="radio" name="yellow_light2" class="form-control" value="0" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="yellow_light2" class="form-control" value="1" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="yellow_light2" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="yellow_light2" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="yellow_light2" class="form-control" value="-1" /></label></td>
+                                <td><input type="radio" name="yellow_light2" class="form-control" value="0" required="true"/></td>
+                                <td><input type="radio" name="yellow_light2" class="form-control" value="1" /></td>
+                                <td><input type="radio" name="yellow_light2" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="yellow_light2" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="yellow_light2" class="form-control" value="-1" /></td>
                             </tr>
                             <tr>
                                 <td>you think about the great lunch you are about to eat.</td>
-                                <td><label class="radioBox"><input type="radio" name="yellow_light3" class="form-control" value="0" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="yellow_light3" class="form-control" value="1" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="yellow_light3" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="yellow_light3" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="yellow_light3" class="form-control" value="-1" /></label></td>
+                                <td><input type="radio" name="yellow_light3" class="form-control" value="0" required="true"/></td>
+                                <td><input type="radio" name="yellow_light3" class="form-control" value="1" /></td>
+                                <td><input type="radio" name="yellow_light3" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="yellow_light3" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="yellow_light3" class="form-control" value="-1" /></td>
                             </tr>
                             <tr>
                                 <td>you think about feeling guilty that you are running late.</td>
-                                <td><label class="radioBox"><input type="radio" name="yellow_light4" class="form-control" value="0" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="yellow_light4" class="form-control" value="1" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="yellow_light4" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="yellow_light4" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="yellow_light4" class="form-control" value="-1" /></label></td>
+                                <td><input type="radio" name="yellow_light4" class="form-control" value="0" required="true"/></td>
+                                <td><input type="radio" name="yellow_light4" class="form-control" value="1" /></td>
+                                <td><input type="radio" name="yellow_light4" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="yellow_light4" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="yellow_light4" class="form-control" value="-1" /></td>
                             </tr>
                      </table>
                      </fieldset>
@@ -123,35 +110,35 @@
                             </tr>
                             <tr>
                                 <td>you decide not to worry about whether you left the coffee pot on.</td>
-                                <td><label class="radioBox"><input type="radio" name="coffee1" class="form-control" value="0" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="coffee1" class="form-control" value="1" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="coffee1" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="coffee1" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="coffee1" class="form-control" value="-1" /></label></td>
+                                <td><input type="radio" name="coffee1" class="form-control" value="0" required="true"/></td>
+                                <td><input type="radio" name="coffee1" class="form-control" value="1" /></td>
+                                <td><input type="radio" name="coffee1" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="coffee1" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="coffee1" class="form-control" value="-1" /></td>
                             </tr>
                             <tr>
                                 <td>you worry that your kitchen will catch fire if the coffee pot was left on.</td>
-                                <td><label class="radioBox"><input type="radio" name="coffee2" class="form-control" value="0" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="coffee2" class="form-control" value="1" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="coffee2" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="coffee2" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="coffee2" class="form-control" value="-1" /></label></td>
+                                <td><input type="radio" name="coffee2" class="form-control" value="0" required="true"/></td>
+                                <td><input type="radio" name="coffee2" class="form-control" value="1" /></td>
+                                <td><input type="radio" name="coffee2" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="coffee2" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="coffee2" class="form-control" value="-1" /></td>
                             </tr>
                             <tr>
                                 <td>you think about your delicious cup of coffee.</td>
-                                <td><label class="radioBox"><input type="radio" name="coffee3" class="form-control" value="0" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="coffee3" class="form-control" value="1" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="coffee3" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="coffee3" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="coffee3" class="form-control" value="-1" /></label></td>
+                                <td><input type="radio" name="coffee3" class="form-control" value="0" required="true"/></td>
+                                <td><input type="radio" name="coffee3" class="form-control" value="1" /></td>
+                                <td><input type="radio" name="coffee3" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="coffee3" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="coffee3" class="form-control" value="-1" /></td>
                             </tr>
                             <tr>
                                 <td>you remember that you ran out of creamer this morning.</td>
-                                <td><label class="radioBox"><input type="radio" name="coffee4" class="form-control" value="0" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="coffee4" class="form-control" value="1" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="coffee4" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="coffee4" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="coffee4" class="form-control" value="-1" /></label></td>
+                                <td><input type="radio" name="coffee4" class="form-control" value="0" required="true"/></td>
+                                <td><input type="radio" name="coffee4" class="form-control" value="1" /></td>
+                                <td><input type="radio" name="coffee4" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="coffee4" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="coffee4" class="form-control" value="-1" /></td>
                             </tr>
                         </table>
                     </fieldset>
@@ -172,35 +159,35 @@
                             </tr>
                             <tr>
                                 <td>you think that riding the elevator will be safe.</td>
-                                <td><label class="radioBox"><input type="radio" name="elevator1" class="form-control" value="0" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="elevator1" class="form-control" value="1" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="elevator1" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="elevator1" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="elevator1" class="form-control" value="-1" /></label></td>
+                                <td><input type="radio" name="elevator1" class="form-control" value="0" required="true"/></td>
+                                <td><input type="radio" name="elevator1" class="form-control" value="1" /></td>
+                                <td><input type="radio" name="elevator1" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="elevator1" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="elevator1" class="form-control" value="-1" /></td>
                             </tr>
                             <tr>
                                 <td>you think that the elevator will probably break down while you are on it.</td>
-                                <td><label class="radioBox"><input type="radio" name="elevator2" class="form-control" value="0" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="elevator2" class="form-control" value="1" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="elevator2" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="elevator2" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="elevator2" class="form-control" value="-1" /></label></td>
+                                <td><input type="radio" name="elevator2" class="form-control" value="0" required="true"/></td>
+                                <td><input type="radio" name="elevator2" class="form-control" value="1" /></td>
+                                <td><input type="radio" name="elevator2" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="elevator2" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="elevator2" class="form-control" value="-1" /></td>
                             </tr>
                             <tr>
                                 <td>you think that you are going to like your friend’s new apartment.</td>
-                                <td><label class="radioBox"><input type="radio" name="elevator3" class="form-control" value="0" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="elevator3" class="form-control" value="1" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="elevator3" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="elevator3" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="elevator3" class="form-control" value="-1" /></label></td>
+                                <td><input type="radio" name="elevator3" class="form-control" value="0" required="true"/></td>
+                                <td><input type="radio" name="elevator3" class="form-control" value="1" /></td>
+                                <td><input type="radio" name="elevator3" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="elevator3" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="elevator3" class="form-control" value="-1" /></td>
                             </tr>
                             <tr>
                                 <td>you think about how smelly the lobby is.</td>
-                                <td><label class="radioBox"><input type="radio" name="elevator4" class="form-control" value="0" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="elevator4" class="form-control" value="1" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="elevator4" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="elevator4" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="elevator4" class="form-control" value="-1" /></label></td>
+                                <td><input type="radio" name="elevator4" class="form-control" value="0" required="true"/></td>
+                                <td><input type="radio" name="elevator4" class="form-control" value="1" /></td>
+                                <td><input type="radio" name="elevator4" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="elevator4" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="elevator4" class="form-control" value="-1" /></td>
                             </tr>
                         </table>
                     </fieldset>
@@ -221,35 +208,35 @@
                             </tr>
                             <tr>
                                 <td>you feel anxious, and you worry you will not be able to control your anxiety.</td>
-                                <td><label class="radioBox"><input type="radio" name="flight1" class="form-control" value="0" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="flight1" class="form-control" value="1" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="flight1" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="flight1" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="flight1" class="form-control" value="-1" /></label></td>
+                                <td><input type="radio" name="flight1" class="form-control" value="0" required="true"/></td>
+                                <td><input type="radio" name="flight1" class="form-control" value="1" /></td>
+                                <td><input type="radio" name="flight1" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="flight1" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="flight1" class="form-control" value="-1" /></td>
                             </tr>
                             <tr>
                                 <td>you feel anxious, but you know that everything will be ok.</td>
-                                <td><label class="radioBox"><input type="radio" name="flight2" class="form-control" value="0" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="flight2" class="form-control" value="1" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="flight2" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="flight2" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="flight2" class="form-control" value="-1" /></label></td>
+                                <td><input type="radio" name="flight2" class="form-control" value="0" required="true"/></td>
+                                <td><input type="radio" name="flight2" class="form-control" value="1" /></td>
+                                <td><input type="radio" name="flight2" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="flight2" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="flight2" class="form-control" value="-1" /></td>
                             </tr>
                             <tr>
                                 <td>you think about how great your vacation is going to be.</td>
-                                <td><label class="radioBox"><input type="radio" name="flight3" class="form-control" value="0" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="flight3" class="form-control" value="1" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="flight3" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="flight3" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="flight3" class="form-control" value="-1" /></label></td>
+                                <td><input type="radio" name="flight3" class="form-control" value="0" required="true"/></td>
+                                <td><input type="radio" name="flight3" class="form-control" value="1" /></td>
+                                <td><input type="radio" name="flight3" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="flight3" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="flight3" class="form-control" value="-1" /></td>
                             </tr>
                             <tr>
                                 <td>you think about how the airplane seat is uncomfortable.</td>
-                                <td><label class="radioBox"><input type="radio" name="flight4" class="form-control" value="0" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="flight4" class="form-control" value="1" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="flight4" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="flight4" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="flight4" class="form-control" value="-1" /></label></td>
+                                <td><input type="radio" name="flight4" class="form-control" value="0" required="true"/></td>
+                                <td><input type="radio" name="flight4" class="form-control" value="1" /></td>
+                                <td><input type="radio" name="flight4" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="flight4" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="flight4" class="form-control" value="-1" /></td>
                             </tr>
                         </table>
                     </fieldset>
@@ -270,35 +257,35 @@
                             </tr>
                             <tr>
                                 <td>and know that you can rely on your savings.</td>
-                                <td><label class="radioBox"><input type="radio" name="job1" class="form-control" value="0" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="job1" class="form-control" value="1" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="job1" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="job1" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="job1" class="form-control" value="-1" /></label></td>
+                                <td><input type="radio" name="job1" class="form-control" value="0" required="true"/></td>
+                                <td><input type="radio" name="job1" class="form-control" value="1" /></td>
+                                <td><input type="radio" name="job1" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="job1" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="job1" class="form-control" value="-1" /></td>
                             </tr>
                             <tr>
                                 <td>and worry about becoming broke.</td>
-                                <td><label class="radioBox"><input type="radio" name="job2" class="form-control" value="0" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="job2" class="form-control" value="1" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="job2" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="job2" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="job2" class="form-control" value="-1" /></label></td>
+                                <td><input type="radio" name="job2" class="form-control" value="0" required="true"/></td>
+                                <td><input type="radio" name="job2" class="form-control" value="1" /></td>
+                                <td><input type="radio" name="job2" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="job2" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="job2" class="form-control" value="-1" /></td>
                             </tr>
                             <tr>
                                 <td>and are excited about not having to set an alarm.</td>
-                                <td><label class="radioBox"><input type="radio" name="job3" class="form-control" value="0" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="job3" class="form-control" value="1" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="job3" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="job3" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="job3" class="form-control" value="-1" /></label></td>
+                                <td><input type="radio" name="job3" class="form-control" value="0" required="true"/></td>
+                                <td><input type="radio" name="job3" class="form-control" value="1" /></td>
+                                <td><input type="radio" name="job3" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="job3" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="job3" class="form-control" value="-1" /></td>
                             </tr>
                             <tr>
                                 <td>and are sad about leaving your current coworkers.</td>
-                                <td><label class="radioBox"><input type="radio" name="job4" class="form-control" value="0" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="job4" class="form-control" value="1" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="job4" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="job4" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="job4" class="form-control" value="-1" /></label></td>
+                                <td><input type="radio" name="job4" class="form-control" value="0" required="true"/></td>
+                                <td><input type="radio" name="job4" class="form-control" value="1" /></td>
+                                <td><input type="radio" name="job4" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="job4" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="job4" class="form-control" value="-1" /></td>
                             </tr>
                         </table>
                     </fieldset>
@@ -318,35 +305,35 @@
                             </tr>
                             <tr>
                                 <td>you feel afraid, and worry that you cannot handle the fear.</td>
-                                <td><label class="radioBox"><input type="radio" name="noise1" class="form-control" value="0" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="noise1" class="form-control" value="1" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="noise1" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="noise1" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="noise1" class="form-control" value="-1" /></label></td>
+                                <td><input type="radio" name="noise1" class="form-control" value="0" required="true"/></td>
+                                <td><input type="radio" name="noise1" class="form-control" value="1" /></td>
+                                <td><input type="radio" name="noise1" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="noise1" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="noise1" class="form-control" value="-1" /></td>
                             </tr>
                             <tr>
                                 <td>you feel afraid, but you know that you can tolerate the feeling.</td>
-                                <td><label class="radioBox"><input type="radio" name="noise2" class="form-control" value="0" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="noise2" class="form-control" value="1" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="noise2" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="noise2" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="noise2" class="form-control" value="-1" /></label></td>
+                                <td><input type="radio" name="noise2" class="form-control" value="0" required="true"/></td>
+                                <td><input type="radio" name="noise2" class="form-control" value="1" /></td>
+                                <td><input type="radio" name="noise2" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="noise2" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="noise2" class="form-control" value="-1" /></td>
                             </tr>
                             <tr>
                                 <td>you feel happy, and think about how lovely your house is.</td>
-                                <td><label class="radioBox"><input type="radio" name="noise3" class="form-control" value="0" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="noise3" class="form-control" value="1" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="noise3" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="noise3" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="noise3" class="form-control" value="-1" /></label></td>
+                                <td><input type="radio" name="noise3" class="form-control" value="0" required="true"/></td>
+                                <td><input type="radio" name="noise3" class="form-control" value="1" /></td>
+                                <td><input type="radio" name="noise3" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="noise3" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="noise3" class="form-control" value="-1" /></td>
                             </tr>
                             <tr>
                                 <td>you feel cold, and think about how the house needs better heating.</td>
-                                <td><label class="radioBox"><input type="radio" name="noise4" class="form-control" value="0" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="noise4" class="form-control" value="1" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="noise4" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="noise4" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="noise4" class="form-control" value="-1" /></label></td>
+                                <td><input type="radio" name="noise4" class="form-control" value="0" required="true"/></td>
+                                <td><input type="radio" name="noise4" class="form-control" value="1" /></td>
+                                <td><input type="radio" name="noise4" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="noise4" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="noise4" class="form-control" value="-1" /></td>
                             </tr>
                         </table>
                     </fieldset>
@@ -366,35 +353,35 @@
                             </tr>
                             <tr>
                                 <td>You worry that you will soon break out in hives.</td>
-                                <td><label class="radioBox"><input type="radio" name="restaurant1" class="form-control" value="0" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="restaurant1" class="form-control" value="1" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="restaurant1" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="restaurant1" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="restaurant1" class="form-control" value="-1" /></label></td>
+                                <td><input type="radio" name="restaurant1" class="form-control" value="0" required="true"/></td>
+                                <td><input type="radio" name="restaurant1" class="form-control" value="1" /></td>
+                                <td><input type="radio" name="restaurant1" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="restaurant1" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="restaurant1" class="form-control" value="-1" /></td>
                             </tr>
                             <tr>
                                 <td>You think you are probably going to be ok and not have an allergic reaction.</td>
-                                <td><label class="radioBox"><input type="radio" name="restaurant2" class="form-control" value="0" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="restaurant2" class="form-control" value="1" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="restaurant2" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="restaurant2" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="restaurant2" class="form-control" value="-1" /></label></td>
+                                <td><input type="radio" name="restaurant2" class="form-control" value="0" required="true"/></td>
+                                <td><input type="radio" name="restaurant2" class="form-control" value="1" /></td>
+                                <td><input type="radio" name="restaurant2" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="restaurant2" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="restaurant2" class="form-control" value="-1" /></td>
                             </tr>
                             <tr>
                                 <td>You laugh at your friends’ jokes.</td>
-                                <td><label class="radioBox"><input type="radio" name="restaurant3" class="form-control" value="0" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="restaurant3" class="form-control" value="1" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="restaurant3" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="restaurant3" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="restaurant3" class="form-control" value="-1" /></label></td>
+                                <td><input type="radio" name="restaurant3" class="form-control" value="0" required="true"/></td>
+                                <td><input type="radio" name="restaurant3" class="form-control" value="1" /></td>
+                                <td><input type="radio" name="restaurant3" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="restaurant3" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="restaurant3" class="form-control" value="-1" /></td>
                             </tr>
                             <tr>
                                 <td>You get in an argument with one of your friends.</td>
-                                <td><label class="radioBox"><input type="radio" name="restaurant4" class="form-control" value="0" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="restaurant4" class="form-control" value="1" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="restaurant4" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="restaurant4" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="restaurant4" class="form-control" value="-1" /></label></td>
+                                <td><input type="radio" name="restaurant4" class="form-control" value="0" required="true"/></td>
+                                <td><input type="radio" name="restaurant4" class="form-control" value="1" /></td>
+                                <td><input type="radio" name="restaurant4" class="form-control" value="2" /></td>
+                                <td><input type="radio" name="restaurant4" class="form-control" value="3" /></td>
+                                <td><input type="radio" name="restaurant4" class="form-control" value="-1" /></td>
                             </tr>
                         </table>
                     </fieldset>
@@ -403,14 +390,18 @@
                 </script>
                 <script>
                 jQuery.extend(jQuery.validator.messages, {
-                required: "Required",
+                required: "Required"
                 });
 
                 $("#wizard").on("stephide", ".recog_rating", function () {
                     if (!$(this).find(":input").valid()) {
                         return false;
                         }
-                    }).jWizard().validate();
+                    }).jWizard({
+                    progress: false,
+                    title: false,
+                    menu: false
+                }).validate();
                 </script>
             </div>
         </div>

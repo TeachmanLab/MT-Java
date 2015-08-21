@@ -24,20 +24,8 @@ public class MentalHealthHxTx implements QuestionnaireData{
     private Date date;
     private String session;
 
-    private int anx_dis;
     private String OtherDesc;
-    private int not_anx_dis;
-    private String NotOtherDesc;
-    private int disorder_no;
     private String OtherDescNo;
-    private int not_anx_disorder_no;
-
-
-    @ElementCollection
-    @CollectionTable(name="Not_anx_Disorders_no", joinColumns=@JoinColumn(name="id"))
-    @Column(name="Not_anx_Disorder_no")
-    private List<String> not_anx_disorders_no;
-
 
     @ElementCollection
     @CollectionTable(name="disorders", joinColumns=@JoinColumn(name="id"))
@@ -51,19 +39,6 @@ public class MentalHealthHxTx implements QuestionnaireData{
     private List<String> disorders_no;
 
 
-    @ElementCollection
-    @CollectionTable(name="Not_anx_Disorders", joinColumns=@JoinColumn(name="id"))
-    @Column(name="Not_anx_Disorder")
-    private List<String> not_anx_disorders;
-
-
-    public String getNotAnxOtherDescNo() {
-        return NotAnxOtherDescNo;
-    }
-
-    public void setNotAnxOtherDescNo(String notAnxOtherDescNo) {
-        NotAnxOtherDescNo = notAnxOtherDescNo;
-    }
 
     public int getId() {
         return id;
@@ -97,14 +72,6 @@ public class MentalHealthHxTx implements QuestionnaireData{
         this.session = session;
     }
 
-    public int getAnx_dis() {
-        return anx_dis;
-    }
-
-    public void setAnx_dis(int anx_dis) {
-        this.anx_dis = anx_dis;
-    }
-
     public List<String> getDisorders() {
         return disorders;
     }
@@ -119,38 +86,6 @@ public class MentalHealthHxTx implements QuestionnaireData{
 
     public void setOtherDesc(String otherDesc) {
         OtherDesc = otherDesc;
-    }
-
-    public int getNot_anx_dis() {
-        return not_anx_dis;
-    }
-
-    public void setNot_anx_dis(int not_anx_dis) {
-        this.not_anx_dis = not_anx_dis;
-    }
-
-    public List<String> getNot_anx_disorders() {
-        return not_anx_disorders;
-    }
-
-    public void setNot_anx_disorders(List<String> not_anx_disorders) {
-        this.not_anx_disorders = not_anx_disorders;
-    }
-
-    public String getNotOtherDesc() {
-        return NotOtherDesc;
-    }
-
-    public void setNotOtherDesc(String notOtherDesc) {
-        NotOtherDesc = notOtherDesc;
-    }
-
-    public int getDisorder_no() {
-        return disorder_no;
-    }
-
-    public void setDisorder_no(int disorder_no) {
-        this.disorder_no = disorder_no;
     }
 
     public List<String> getDisorders_no() {
@@ -169,22 +104,5 @@ public class MentalHealthHxTx implements QuestionnaireData{
         OtherDescNo = otherDescNo;
     }
 
-    public int getNot_anx_disorder_no() {
-        return not_anx_disorder_no;
-    }
-
-    public void setNot_anx_disorder_no(int not_anx_disorder_no) {
-        this.not_anx_disorder_no = not_anx_disorder_no;
-    }
-
-    public List<String> getNot_anx_disorders_no() {
-        return not_anx_disorders_no;
-    }
-
-    public void setNot_anx_disorders_no(List<String> not_anx_disorders_no) {
-        this.not_anx_disorders_no = not_anx_disorders_no;
-    }
-
-    private String NotAnxOtherDescNo;
 }
 

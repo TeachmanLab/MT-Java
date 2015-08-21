@@ -63,7 +63,7 @@
                     </p>
 
                     <p>
-                        <label for="optOut">Receive emails?:</label>
+                        <label for="optOut">No emails reinders?:</label>
                         <input id="optOut" type="checkbox" th:field="*{emailOptout}"/>
                         <span th:if="${#fields.hasErrors('emailOptout')}" th:errors="*{emailOptout}">Optout Error</span>
 
@@ -77,46 +77,7 @@
                         <a href="#" id="opener">exit the study.</a>
                     </span>
                     </p>
-
-                    <h3>Select a Theme</h3>
-
-                    <p>To customize the appearance of MindTrails select one of the options below. You can change your
-                        theme at any time.</p>
-                    <fieldset>
-                        <div class="themeSection orange">
-                            <input type="radio" th:field="*{theme}" value="orange" required="true"/>
-
-                            <div class="themeOption">
-                                <img th:src="@{/images/settings-orange.png}"/>
-                                <label>Orange</label>
-                            </div>
-                        </div>
-                        <div class="themeSection green">
-                            <input type="radio" th:field="*{theme}" value="green"/>
-
-                            <div class="themeOption">
-                                <img th:src="@{/images/settings-green.png}"/>
-                                <label>Green</label>
-                            </div>
-                        </div>
-                        <div class="themeSection purple">
-                            <input type="radio" th:field="*{theme}" value="purple"/>
-
-                            <div class="themeOption">
-                                <img th:src="@{/images/settings-purple.png}"/>
-                                <label>Purple</label>
-                            </div>
-                        </div>
-                        <div class="themeSection gold">
-                            <input type="radio" th:field="*{theme}" value="gold"/>
-
-                            <div class="themeOption">
-                                <img th:src="@{/images/settings-gold.png}"/>
-                                <label>Gold</label>
-                            </div>
-                        </div>
-                    </fieldset>
-                    <button>Update Account</button>
+                    <section id="theme" class="clearfix" th:include="fragment/theme :: themeSelection"/>
                 </form>
 
                 <script>

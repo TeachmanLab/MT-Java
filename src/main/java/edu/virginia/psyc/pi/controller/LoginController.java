@@ -104,6 +104,10 @@ public class LoginController extends BaseController {
     public String showEligibility(ModelMap model) {
         // Template will set a difference form action if this variable is set to true.
         model.addAttribute("eligibility",true);
+        Participant p = new Participant();
+        p.setTheme("blue");
+        model.addAttribute("participant",p);
+
         return "questions/DASS21_AS";
     }
 
@@ -213,7 +217,7 @@ public class LoginController extends BaseController {
         saveEligibilityForm(participant, session);
 
         LOG.info("Participant authenticated.");
-        return "redirect:/account";
+        return "redirect:/account/theme";
     }
 
     /**

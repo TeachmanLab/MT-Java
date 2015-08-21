@@ -9,19 +9,6 @@
 <body th:class="|user-theme-${participant.theme}|">
 <section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
 
-<!-- header-btm starts
-================================================== -->
-<section id="header-btm" class="clearfix">
-    <div class="container">
-        <div class="row">
-            <div class="span12">
-                <h4 class="heading-icon clearfix"> <img th:src="@{/grepfrut/img/icons/heading-icon-user.png}" width="40" height="40" alt="icon" class="icon-small-bg"/> </h4>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- header-btm ends
-================================================== -->
 
 <!-- content starts
 ================================================== -->
@@ -119,7 +106,11 @@
                         {
                             return false;
                         }
-                    }).jWizard();
+                    }).jWizard({
+                        progress: false,
+                        menu: false,
+                        title: false
+                    });
                 </script>
             </div>
         </div>
