@@ -322,7 +322,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             layout: [
                 // This is a stimulus object
                 {
-                    media : {template:"/PIPlayerScripts/intro.html"},
+                    media : {template:"/PIPlayerScripts/intro.html"}
                 }
             ],
             interactions: [
@@ -347,11 +347,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "r",
@@ -376,16 +372,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Is it fun to experience a little uncertainty on a date? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -394,11 +382,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     
@@ -424,16 +408,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Did the person you met at dance class think you were anxious? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -442,11 +418,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     
@@ -471,16 +443,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Will the rest of the date be OK, even though you spill water? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -489,11 +453,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     
@@ -519,16 +479,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Does the date think that you are anxious? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -537,11 +489,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     
@@ -567,16 +515,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Do you expect that others will want to talk with you about the issue in the future? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -585,11 +525,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 				
@@ -615,16 +551,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Would you expect to feel uncomfortable if others look at your work? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -633,11 +561,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -663,16 +587,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Does your friend have a more negative opinion of you after you share personal information? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -681,11 +597,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -711,16 +623,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Does your friend think you look nice? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -729,11 +633,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -759,16 +659,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Will your classmates grade your presentation advantageously? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -777,11 +669,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -807,16 +695,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Are you happy that you signed up for the interesting evening class? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -825,11 +705,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -855,16 +731,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Do you feel that your neighbor disapproves of you? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -873,11 +741,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -903,16 +767,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Do you think the sales assistant felt you were annoying? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -921,11 +777,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -951,16 +803,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Did your teammates feel positive about your efforts in the tournament? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -969,11 +813,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -999,16 +839,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Did you make a bad impression on your new neighbor? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -1017,11 +849,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -1047,16 +875,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Is it bad to be flushed and sweaty in front of others? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -1065,11 +885,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -1095,16 +911,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Do you appear nervous when you speak with your boss? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -1113,11 +921,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -1143,16 +947,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Is the show owner mad at you for knocking over the picture frames? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -1161,11 +957,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -1191,16 +983,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Did the person from the party accept your invitation for getting together again? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -1209,11 +993,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -1239,16 +1019,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Does your mother-in-law decide that you do not know anything about music? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -1257,11 +1029,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -1287,16 +1055,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Did your friend find your advice constructive? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -1305,11 +1065,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -1335,16 +1091,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Do you remain at the party, even though you are feeling anxious? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -1353,11 +1101,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -1383,16 +1127,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Did the other people in the workshop think you sounded nervous while you spoke? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -1401,11 +1137,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -1431,16 +1163,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Does your new teacher have a good opinion of you? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -1449,11 +1173,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -1479,16 +1199,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Did everyone at the party like your new outfit? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -1497,11 +1209,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -1527,16 +1235,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Was your date interested in you after your last conversation? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
 
@@ -1546,11 +1246,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -1576,16 +1272,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Are you likely to go broke in the future? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -1594,11 +1282,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -1624,16 +1308,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Are you uneasy about your answer? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -1642,11 +1318,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -1672,16 +1344,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Will you still be able to enjoy the weekend, even if you are wondering about the lock? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -1690,11 +1354,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -1720,16 +1380,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Do you enjoy thinking about your future? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -1738,11 +1390,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -1768,16 +1416,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Are you anxious about your decision? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -1786,11 +1426,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -1816,16 +1452,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Are you able to manage your worries about your son? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -1834,11 +1462,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -1864,16 +1488,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div> Do you think you will be poor after helping your daughter pay for the wedding? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -1882,11 +1498,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -1912,16 +1524,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Is going to a park in a different neighborhood dangerous? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -1930,11 +1534,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -1960,16 +1560,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Do you think you will get hurt when ice skating? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -1978,11 +1570,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -2008,16 +1596,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Will you still be able to enjoy your vacation, even if you are wondering about your stove? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -2026,11 +1606,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -2056,16 +1632,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Will your neighbor\u2019s house probably be robbed? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -2074,11 +1642,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -2104,16 +1668,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div> Do you think it will be impossible to find a new job? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
 
@@ -2123,11 +1679,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -2153,16 +1705,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Has your elderly neighbor likely been sick? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -2171,11 +1715,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -2201,16 +1741,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div> Are you able to stay calm, despite being unsure whether you remembered to lock your door? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -2219,11 +1751,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -2249,16 +1777,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Are you able to manage your worries about your son? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -2267,11 +1787,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -2297,16 +1813,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Are you feeling calm as you leave for vacation, despite not double checking the appliances? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -2315,11 +1823,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -2345,16 +1849,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Are you able to successfully manage your nervousness? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -2363,11 +1859,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -2393,16 +1885,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div> Should you be frightened when you hear a noise at night? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
 
@@ -2412,11 +1896,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -2442,16 +1922,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Is it likely that you will become sick? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -2460,11 +1932,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -2490,16 +1958,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Will your burned finger be okay? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -2508,11 +1968,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -2538,16 +1994,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Will drinking water make your throat feel better? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -2556,11 +2004,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -2586,16 +2030,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div> Can you manage your anxiety about potentially getting sick from your friend?</div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -2604,11 +2040,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -2634,16 +2066,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Do you think you will be able to handle your anxiety as you wait for the doctor\u2019s appointment? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -2652,11 +2076,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -2682,16 +2102,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div> Will you get sick from your friend's new baby?</div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -2700,11 +2112,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 data: {
 					
@@ -2730,16 +2138,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "inlineTemplate": "<div>Do you think that you are healthy? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     }
 ]
