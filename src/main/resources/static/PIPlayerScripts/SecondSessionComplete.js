@@ -347,8 +347,54 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             layout: [
                 // This is a stimulus object
                 {
-                    media :"In this task, you will see a series of paragraphs and questions. Please read each paragraph carefully, and imagine yourself in the situations described. At the end of each paragraph, there will be a word fragment (an incomplete word) for you to complete. To complete the word fragment, press the key that corresponds to the missing letter. Once you type in the correct letter, you will move onto the next question. After completing the word fragment, you will be asked to answer a question about the situation in which you imagined yourself. Please use only the information from the situation to answer the question. Once you have the correct answer, you will move onto the next situation. If you are unsure about an item, please make your best guess. Please press the spacebar to continue.",
-                    css:{fontSize:'20px',color:'black'}
+                    media :"In this task, you will see a series of paragraphs and questions. Please read each paragraph carefully, and imagine yourself in the situations described. Some of these situations may be different from your usual experiences, or may describe you doing things you wouldn’t typically do. That’s OK. We want you to really try to imagine yourself in these situations and trying out these different ways of reacting. Please press the spacebar to continue.",
+                    css:{fontSize:'20px'}
+                }
+            ],
+            interactions: [
+                // This is an interaction (it has a condition and an action)
+                {
+                    conditions: [
+                        {type:'inputEquals',value:'space'}
+                    ],
+                    actions: [
+                        {type:'endTrial'}
+                    ]
+                }
+            ]
+        },
+        {
+            input: [
+                {handle:'space',on:'space'}
+            ],
+            layout: [
+                // This is a stimulus object
+                {
+                    media :"At the end of each paragraph, there will be a word fragment (an incomplete word) for you to complete. To complete the word fragment, move the cursor to where a letter is missing, press the keys that correspond to the missing letters, and then click "Next" twice. Once you type in the correct letter, you will move on to the next question. (If you are really stuck, you can type an incorrect letter three times in a row and you will also move to the next question.) After completing the word fragment, you will be asked to answer a question about the situation in which you imagined yourself. Please use only the information from the situation to answer the question. Once you have the correct answer, you will move on to the next situation. If you are unsure about an item, please make your best guess. Please press the spacebar to continue.",
+                    css:{fontSize:'20px'}
+                }
+            ],
+            interactions: [
+                // This is an interaction (it has a condition and an action)
+                {
+                    conditions: [
+                        {type:'inputEquals',value:'space'}
+                    ],
+                    actions: [
+                        {type:'endTrial'}
+                    ]
+                }
+            ]
+        },
+        {
+            input: [
+                {handle:'space',on:'space'}
+            ],
+            layout: [
+                // This is a stimulus object
+                {
+                    media :"For example, if you saw the following scenario: 'You are going apple picking with a friend. You hope that they are having a good time. You pick twenty ap_les,' you would fill in the 'p' that is missing from 'apples.' Please press the spacebar to begin.",
+                    css:{fontSize:'20px'}
                 }
             ],
             interactions: [
