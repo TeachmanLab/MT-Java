@@ -9,20 +9,6 @@
 <body>
 <section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
 
-<!-- header-btm starts
-================================================== -->
-<section id="header-btm" class="clearfix">
-    <div class="container">
-        <div class="row">
-            <div class="span12">
-                <h4 class="heading-icon clearfix"> <img th:src="@{/grepfrut/img/icons/heading-icon-user.png}" width="40" height="40" alt="icon" class="icon-small-bg"/></h4>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- header-btm ends
-================================================== -->
-
 <!-- content starts
 ================================================== -->
 <section id="content" class="clearfix">
@@ -32,13 +18,11 @@
         <div class="spacer-30px"></div>
 
         <!--features starts-->
-        <div class="row">
-            <div class="span12">
-                <form id="wizard" th:action="@{/questions/audit}" method="POST">
-                    <fieldset>
-                        <div>
-                            This section asks you to report on <b>your</b> drinking over the <b>past week</b>
-                        </div>
+                <form th:action="@{/questions/DD_FU}" method="POST">
+                    <div class="longSection">
+                        <p>
+                            This section asks you to report on <b>your</b> drinking over the <b>past three months.</b>
+                        </p>
                         <div>
                             For all questions, <b>one drink equals</b>:
                             <ul>
@@ -46,98 +30,91 @@
                                 <li> 12oz. wine cooler</li>
                                 <li> 12oz. beer (10oz. of Microbrew; 8-9 oz. Malt Liquor, Canadian Beer or Ice Beer)</li>
                                 <li> 6oz. Ice Malt Liquor</li>
-                                <li> 1 Cocktail with 1 oz. of 100 proof liquor or 1.5 oz. (single jigger) of 80 proof liquor </li>
+                                <li> 1 Cocktail with 1 oz. of 100 proof liquor or 1.5 oz. (single jigger) of 80 proof liquor
+                                </li>
                             </ul>
                         </div>
-                        <div>
-                            <ol>
-                                <li>
-                                    Consider the prior week.  How much alcohol (measured in number of drinks), did you drink on each day of the past week?
-                                    <table>
-                                        <tr>
-                                            <td>Monday</td>
-                                            <td>Tuesday</td>
-                                            <td>Wednesday</td>
-                                            <td>Thursday</td>
-                                            <td>Friday</td>
-                                            <td>Saturday</td>
-                                            <td>Sunday</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <input type="text" name="week_hours" class="form-control" />
-                                            </td>
-                                            <td>
-                                                <input type="text" name="week_hours" class="form-control" />
-                                            </td>
-                                            <td>
-                                                <input type="text" name="week_hours" class="form-control" />
-                                            </td>
-                                            <td>
-                                                <input type="text" name="week_hours" class="form-control" />
-                                            </td>
-                                            <td>
-                                                <input type="text" name="week_hours" class="form-control" />
-                                            </td>
-                                            <td>
-                                                <input type="text" name="week_hours" class="form-control" />
-                                            </td>
-                                            <td>
-                                                <input type="text" name="week_hours" class="form-control" />
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </li>
-                                <li>
-                                    Consider the prior week.  Over how many hours did you drink the above number of drinks?
-                                    <table>
-                                        <tr>
-                                            <td>Monday</td>
-                                            <td>Tuesday</td>
-                                            <td>Wednesday</td>
-                                            <td>Thursday</td>
-                                            <td>Friday</td>
-                                            <td>Saturday</td>
-                                            <td>Sunday</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <input type="text" name="week_hours" class="form-control" />
-                                            </td>
-                                            <td>
-                                                <input type="text" name="week_hours" class="form-control" />
-                                            </td>
-                                            <td>
-                                                <input type="text" name="week_hours" class="form-control" />
-                                            </td>
-                                            <td>
-                                                <input type="text" name="week_hours" class="form-control" />
-                                            </td>
-                                            <td>
-                                                <input type="text" name="week_hours" class="form-control" />
-                                            </td>
-                                            <td>
-                                                <input type="text" name="week_hours" class="form-control" />
-                                            </td>
-                                            <td>
-                                                <input type="text" name="week_hours" class="form-control" />
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </li>
-                            </ol>
+                    </div>
+
+                    <div class="section">
+                        <div class="question">Consider the prior week.  How much alcohol (measured in number
+                             of drinks), did you drink on each day of the past week?</div>
+                        <table class="daysOfWeek">
+                            <tr>
+                                <th>Mon</th>
+                                <th>Tues</th>
+                                <th>Wed</th>
+                                <th>Thur</th>
+                                <th>Fri</th>
+                                <th>Sat</th>
+                                <th>Sun</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="number" min="0" max="100" required="required"  name="monday_count" class="form-control"/>
+                                </td>
+                                <td>
+                                    <input type="number" min="0" max="100" required="required"  name="tuesday_count" class="form-control"/>
+                                </td>
+                                <td>
+                                    <input type="number" min="0" max="100" required="required"  name="wednesday_count" class="form-control"/>
+                                </td>
+                                <td>
+                                    <input type="number" min="0" max="100" required="required"  name="thursday_count" class="form-control"/>
+                                </td>
+                                <td>
+                                    <input type="number" min="0" max="100" required="required"  name="friday_count" class="form-control"/>
+                                </td>
+                                <td>
+                                    <input type="number" min="0" max="100" required="required"  name="saturday_count" class="form-control"/>
+                                </td>
+                                <td>
+                                    <input type="number" min="0" max="100" required="required"  name="sunday_count" class="form-control"/>
+                                </td>
+                            </tr>
+</table>
                         </div>
-                    </fieldset>
+                    <br/>
+                    <div class="section">
+                        <div class="question">Consider the prior week.  Over how many hours did you drink the above number of drinks?</div>
+                        <table class="daysOfWeek">
+                            <tr>
+                                <th>Mon</th>
+                                <th>Tues</th>
+                                <th>Wed</th>
+                                <th>Thur</th>
+                                <th>Fri</th>
+                                <th>Sat</th>
+                                <th>Sun</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="number" min="0" max="100" required="required"  name="monday_hours" class="form-control"/>
+                                </td>
+                                <td>
+                                    <input type="number" min="0" max="100" required="required"  name="tuesday_hours" class="form-control"/>
+                                </td>
+                                <td>
+                                    <input type="number" min="0" max="100" required="required"  name="wednesday_hours" class="form-control"/>
+                                </td>
+                                <td>
+                                    <input type="number" min="0" max="100" required="required"  name="thursday_hours" class="form-control"/>
+                                </td>
+                                <td>
+                                    <input type="number" min="0" max="100" required="required"  name="friday_hours" class="form-control"/>
+                                </td>
+                                <td>
+                                    <input type="number" min="0" max="100" required="required"  name="saturday_hours" class="form-control"/>
+                                </td>
+                                <td>
+                                    <input type="number" min="0" max="100" required="required"  name="sunday_hours" class="form-control"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <br/>
+                    <button>Next</button>
                 </form>
-                <script>
-                    $("#wizard").on("wizardfinish", function() {
-                            if (!$(this).find(":input").valid()) {
-                                    return false;
-                            }
-                        }).jWizard().validate();
-                </script>
-            </div>
-        </div>
         <!--features ends-->
 
         <!--divider here-->

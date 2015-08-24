@@ -439,6 +439,22 @@ div#submit {
     align-content: center;
 }
 
+table.daysOfWeek {
+    width: 90%;
+    font-size: 85%;
+    margin: 10px auto;
+
+}
+
+table.daysOfWeek td {
+    width: 40px;
+}
+
+table.daysOfWeek th {
+    width: 40px;
+    font-weight: 400;
+}
+
 
 /**
 Wizards
