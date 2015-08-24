@@ -15,18 +15,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
 		return scorer.count;
 	}
 
-    API.addSettings('canvas',{
-    	background:'#FFDBB8',
-        canvasBackground:'white',
-        css:{color:'black',
-        'font-family': "'Source Sans Pro', Arial, Helvetica, sans-serif",
-        'box-sizing':'border-box',
-     	 'border-radius': '25px',
-    	 'padding': '20px',
-    	 'width': '200px',
-    	 'height': '150px',
-}
-    });
 //    This was added to redirect back
     API.addSettings('redirect', "../playerScript/completed/int_train");
 
@@ -61,8 +49,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {handle:'error',media:'X', css:{fontSize:'20px',color:'#FF0000'}, location:{top:70}, nolog:true}
         ],
         yesno: [
-            {handle:'yesno',media:'Y = Yes N = No', css:{fontSize:'20px',color:'black'}, location:{top:70}}
+            {handle:'yesno',media:{html:"<div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>"}, css:{fontSize:'20px',color:'black', 'text-align':'center'}, location:{top:70}}
+        ],
+        counter: [
+            {
+                'handle': 'counter',
+                customize: function () {
+                    this.media = scorer.count + ' of 50';
+                },
+                css: {fontSize: '12px', 'text-align': 'center'},
+                location:{bottom:'200px'}
+            }
         ]
+
     });
 
 
@@ -324,77 +323,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             layout: [
                 // This is a stimulus object
                 {
-                    media :"Now the training will begin. Please press the spacebar to continue.",
-                    css:{fontSize:'20px',color:'black'}
-                }
-            ],
-            interactions: [
-                // This is an interaction (it has a condition and an action)
-                {
-                    conditions: [
-                        {type:'inputEquals',value:'space'}
-                    ],
-                    actions: [
-                        {type:'endTrial'}
-                    ]
-                }
-            ]
-        },
-        {
-            input: [
-                {handle:'space',on:'space'}
-            ],
-            layout: [
-                // This is a stimulus object
-                {
-                    media :"In this task, you will see a series of paragraphs and questions. Please read each paragraph carefully, and imagine yourself in the situations described. Some of these situations may be different from your usual experiences, or may describe you doing things you wouldn’t typically do. That’s OK. We want you to really try to imagine yourself in these situations and trying out these different ways of reacting. Please press the spacebar to continue.",
-                    css:{fontSize:'20px'}
-                }
-            ],
-            interactions: [
-                // This is an interaction (it has a condition and an action)
-                {
-                    conditions: [
-                        {type:'inputEquals',value:'space'}
-                    ],
-                    actions: [
-                        {type:'endTrial'}
-                    ]
-                }
-            ]
-        },
-        {
-            input: [
-                {handle:'space',on:'space'}
-            ],
-            layout: [
-                // This is a stimulus object
-                {
-                    media :"At the end of each paragraph, there will be a word fragment (an incomplete word) for you to complete. To complete the word fragment, move the cursor to where a letter is missing, press the keys that correspond to the missing letters, and then click "Next" twice. Once you type in the correct letter, you will move on to the next question. (If you are really stuck, you can type an incorrect letter three times in a row and you will also move to the next question.) After completing the word fragment, you will be asked to answer a question about the situation in which you imagined yourself. Please use only the information from the situation to answer the question. Once you have the correct answer, you will move on to the next situation. If you are unsure about an item, please make your best guess. Please press the spacebar to continue.",
-                    css:{fontSize:'20px'}
-                }
-            ],
-            interactions: [
-                // This is an interaction (it has a condition and an action)
-                {
-                    conditions: [
-                        {type:'inputEquals',value:'space'}
-                    ],
-                    actions: [
-                        {type:'endTrial'}
-                    ]
-                }
-            ]
-        },
-        {
-            input: [
-                {handle:'space',on:'space'}
-            ],
-            layout: [
-                // This is a stimulus object
-                {
-                    media :"For example, if you saw the following scenario: 'You are going apple picking with a friend. You hope that they are having a good time. You pick twenty ap_les,' you would fill in the 'p' that is missing from 'apples.' Please press the spacebar to begin.",
-                    css:{fontSize:'20px'}
+                    media : {template:"/PIPlayerScripts/intro.html"}
                 }
             ],
             interactions: [
@@ -419,16 +348,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "l",
@@ -443,14 +363,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"y",
@@ -458,26 +370,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Was your new boss pleased with your performance? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "s",
@@ -492,14 +397,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"n",
@@ -507,26 +404,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Does your friend judge you negatively? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "a",
@@ -541,14 +431,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"y",
@@ -556,26 +438,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Do you expect your supervisor to have a positive opinion of you after reading your report? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "r",
@@ -590,14 +465,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"y",
@@ -605,26 +472,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Did you colleagues enjoy your presentation? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "r",
@@ -639,14 +499,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"y",
@@ -654,26 +506,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Do you think your teammate likes you? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "f",
@@ -688,14 +533,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"y",
@@ -703,26 +540,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Will your teacher judge your efforts as adequate? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "v",
@@ -737,14 +567,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"y",
@@ -752,26 +574,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Do you take your acquaintance\u2019s call to meet for coffee? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "c",
@@ -786,14 +601,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"n",
@@ -801,26 +608,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Do you cancel the date? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "r",
@@ -835,14 +635,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"n",
@@ -850,26 +642,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Do your coworkers seem bored after your presentation? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "r",
@@ -884,14 +669,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"n",
@@ -899,26 +676,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Do you think your committee members thought you were a bad speaker? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "o",
@@ -933,14 +703,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"y",
@@ -948,26 +710,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Do others think you seem intelligent when presenting? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "r",
@@ -982,14 +737,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"n",
@@ -997,26 +744,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Will you be disliked by your new acquaintances? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "r",
@@ -1031,14 +771,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"y",
@@ -1046,26 +778,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Is it tolerable to feel nervous before your date? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "h",
@@ -1080,14 +805,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"n",
@@ -1095,26 +812,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Is the conductor disappointed with your performance? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "l",
@@ -1129,14 +839,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"n",
@@ -1144,26 +846,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Do your friends have a negative opinion of you as a host? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "b",
@@ -1178,14 +873,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"n",
@@ -1193,26 +880,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Do you expect to feel uncomfortable if others look at your work? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "b",
@@ -1227,14 +907,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"n",
@@ -1242,26 +914,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Do your coworkers judge you negatively while you write on the board? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "t",
@@ -1276,14 +941,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"y",
@@ -1291,26 +948,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Do your classmates think you are prepared for the practical test? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "y",
@@ -1325,14 +975,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"n",
@@ -1340,26 +982,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Is your coworker mad at you for spilling coffee on her papers? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "d",
@@ -1374,14 +1009,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"n",
@@ -1389,26 +1016,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Do your coworkers find you strange? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "c",
@@ -1423,14 +1043,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"y",
@@ -1438,26 +1050,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Do you think your boss likes your writing? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "r",
@@ -1472,14 +1077,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"y",
@@ -1487,26 +1084,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Are you looking forward to others seeing your picture in the paper? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "p",
@@ -1521,14 +1111,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"n",
@@ -1536,26 +1118,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Does your boss\u2019s neutral expression mean that she is disappointed in your speech? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "u",
@@ -1570,14 +1145,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"n",
@@ -1585,26 +1152,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Did you make a mistake by asking for advice on the new project? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "n",
@@ -1619,14 +1179,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"y",
@@ -1634,10 +1186,12 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Are you able to tolerate your anxiety? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
 
     {
         "inherit": {
@@ -1645,16 +1199,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "g",
@@ -1669,14 +1214,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"n",
@@ -1684,26 +1221,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Are you likely to get trapped inside of the cave? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "e",
@@ -1718,14 +1248,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"y",
@@ -1733,26 +1255,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Is it safe to try skiing? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "l",
@@ -1767,14 +1282,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"y",
@@ -1782,26 +1289,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div> Can you tolerate your nervousness as you wait to find out your grade? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "n",
@@ -1816,14 +1316,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"y",
@@ -1831,26 +1323,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Is the spontaneity of your trip going to be tolerable? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "p",
@@ -1865,14 +1350,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"y",
@@ -1880,26 +1357,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Is your son doing ok at college? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "d",
@@ -1914,14 +1384,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"y",
@@ -1929,26 +1391,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Are you pleased with your record? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "r",
@@ -1963,14 +1418,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"y",
@@ -1978,26 +1425,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div> Is it exhilarating to be so high up? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "s",
@@ -2012,14 +1452,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"y",
@@ -2027,26 +1459,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Is your daughter okay? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "i",
@@ -2061,14 +1486,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"y",
@@ -2076,26 +1493,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Are you going to get a passing grade on the paper? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "j",
@@ -2110,14 +1520,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"n",
@@ -2125,26 +1527,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Are you likely to get hurt whole on the trampoline? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "n",
@@ -2159,14 +1554,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"y",
@@ -2174,26 +1561,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Is the blood bank harmless? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "s",
@@ -2208,14 +1588,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"n",
@@ -2223,10 +1595,12 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Are you disappointed with the outcome of the project? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
 
     {
         "inherit": {
@@ -2234,16 +1608,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "u",
@@ -2258,14 +1623,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"n",
@@ -2273,26 +1630,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Will you be unsuccessful at dealing with your anxiety? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "i",
@@ -2307,14 +1657,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"n",
@@ -2322,26 +1664,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Will you become broke once you go back to school? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "o",
@@ -2356,14 +1691,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"y",
@@ -2371,26 +1698,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div> Do you feel good about the audition? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "b",
@@ -2405,14 +1725,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"n",
@@ -2420,26 +1732,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Will your neighbor\u2019s house probably be robbed? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "n",
@@ -2454,14 +1759,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"y",
@@ -2469,26 +1766,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Will you still be able to enjoy your vacation, even if you are wondering about your stove? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "o",
@@ -2510,26 +1800,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div> Do you think you will be poor after helping your daughter pay for the wedding? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "g",
@@ -2544,14 +1827,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"n",
@@ -2559,10 +1834,12 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Will your space heater cause a fire? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
 
     {
         "inherit": {
@@ -2570,16 +1847,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "a",
@@ -2594,14 +1862,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"y",
@@ -2609,26 +1869,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Are you able to tolerate the anxiety while waiting to see your doctor? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "g",
@@ -2643,41 +1896,32 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"n",
                 	negativeAnswer:"y"
                 },
                 "media": {
+<<<<<<< HEAD
                     "inlineTemplate": "<div>Are you likely to get sick from the cake? </div>"
                 }
             }
+=======
+                    "inlineTemplate": "<div>Are you likely to get sick from the man behind the deli counter? </div>"
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
+>>>>>>> master
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "r",
@@ -2692,14 +1936,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"y",
@@ -2707,26 +1943,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Are you able to manage your anxious feelings while waiting for your test results? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "b",
@@ -2741,14 +1970,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"y",
@@ -2756,26 +1977,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Will you remain healthy after eating the cake? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "c",
@@ -2790,14 +2004,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"n",
@@ -2805,26 +2011,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Is the new mole a sign of cancer? </div>"
-                }
-            }
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
-    },
+    },           
     {
         "inherit": {
             "set": "posneg",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "negativeKey": "c",
@@ -2837,14 +2036,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 "media": {
                     "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
-            },
-            {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
             },
             {
                 "handle": "question",

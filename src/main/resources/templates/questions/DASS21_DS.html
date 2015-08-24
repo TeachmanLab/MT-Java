@@ -6,7 +6,7 @@
 <html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
 <!--<![endif]-->
 <head th:include="/fragment/common :: headerFragment" />
-<body>
+<body th:class="|user-theme-${participant.theme}|">
 <section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
 
 <!-- header-btm starts
@@ -14,14 +14,14 @@
 <section id="header-btm" class="clearfix">
     <div class="container">
         <div class="row">
-            <div class="span12">
-                <h4 class="heading-icon clearfix"> <img th:src="@{/grepfrut/img/icons/heading-icon-user.png}" width="40" height="40" alt="icon" class="icon-small-bg"/></h4>
-            </div>
+            <h2 class="page-title">Anxiety Assessment</h2>
         </div>
     </div>
 </section>
+
 <!-- header-btm ends
 ================================================== -->
+
 
 <!-- content starts
 ================================================== -->
@@ -33,116 +33,318 @@
 
         <!--features starts-->
         <div class="row">
-            <div class="span12">
-                <form id="wizard" th:action="@{/questions/DASS21_DS}" method="POST">
-                    <fieldset>
-                        <legend>Instructions</legend>
+            <div class="span12 wide">
+                <p>Please read each statement and select a number that indicates how much the statement applied to you since your last session (or over the past week if your last session was more than a week ago). There are no right or wrong answers.  Do not spend too much time on any statement.</p>
+                <form th:action="@{/questions/DASS21_DS}" method="POST">
                         <!--TODO CHANGE INSTRUCTIONS BASED ON INITIAL OR DURING TRAINING-->
-                        <p>Please read each statement and select an option that indicates how much the statement applied to you over the past week. There are no right or wrong answers.  Do not spend too much time on any statement.</p>
-                        <p>The rating scale is as follows:</p>
-                        <table class="table table-striped table-bordered">
-                            <tr>
-                                <td>0</td>
-                                <td>Did not apply to me at all</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>Applied to me to some degree, or some of the time</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Applied to me to a considerable degree, or a good part of time</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Applied to me very much, or most of the time</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>Prefer not to answer</td>
-                            </tr>
-                        </table>
-                    </fieldset>
-                    <fieldset>
-                        <legend>Questions</legend>
-                        <table class="table table-striped table-bordered">
-                            <tr>
-                                <th>Question</th>
-                                <th>None</th>
-                                <th>Some</th>
-                                <th>Often</th>
-                                <th>Most</th>
-                                <th>Prefer not to answer</th>
-                            </tr>
-                            <tr>
-                                <td>I couldn’t seem to experience any positive feeling at all.</td>
-                                <td><label class="radioBox"><input type="radio" name="nopositive" class="form-control" value="0" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="nopositive" class="form-control" value="1" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="nopositive" class="form-control" value="2" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="nopositive" class="form-control" value="3" /></label></td>
-                                <td><label class="radioBox"><input type="radio" name="nopositive" class="form-control" value="555" /></label></td>
-                            </tr>
-                            <tr>
-                                <td>I found it difficult to work up the initiative to do things.</td>
-                                <td><label class="radioBox"><input type="radio" name="difficult" class="form-control" value="0" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="difficult" class="form-control" value="1"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="difficult" class="form-control" value="2"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="difficult" class="form-control" value="3"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="difficult" class="form-control" value="555" /></label></td>
-                            </tr>
-                            <tr>
-                                <td>I felt that I was using a lot of nervous energy.</td>
-                                <td><label class="radioBox"><input type="radio" name="nervous" class="form-control" value="0" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="nervous" class="form-control" value="1"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="nervous" class="form-control" value="2"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="nervous" class="form-control" value="3"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="nervous" class="form-control" value="555" /></label></td>
-                            </tr>
-                            <tr>
-                                <td>I felt down-hearted and blue.</td>
-                                <td><label class="radioBox"><input type="radio" name="blue" class="form-control" value="0" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="blue" class="form-control" value="1"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="blue" class="form-control" value="2"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="blue" class="form-control" value="3"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="blue" class="form-control" value="555" /></label></td>
-                            </tr>
-                            <tr>
-                                <td>I was unable to become enthusiastic about anything.</td>
-                                <td><label class="radioBox"><input type="radio" name="noenthusiastic" class="form-control" value="0" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="noenthusiastic" class="form-control" value="1"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="noenthusiastic" class="form-control" value="2"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="noenthusiastic" class="form-control" value="3"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="noenthusiastic" class="form-control" value="555" /></label></td>
-                            </tr>
-                            <tr>
-                                <td>I felt I wasn’t worth much as a person.</td>
-                                <td><label class="radioBox"><input type="radio" name="noworth" class="form-control" value="0" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="noworth" class="form-control" value="1"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="noworth" class="form-control" value="2"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="noworth" class="form-control" value="3"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="noworth" class="form-control" value="555"/></label></td>
-                            </tr>
-                            <tr>
-                                <td>I felt that life was meaningless.</td>
-                                <td><label class="radioBox"><input type="radio" name="meaningless" class="form-control" value="0" required="true"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="meaningless" class="form-control" value="1"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="meaningless" class="form-control" value="2"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="meaningless" class="form-control" value="3"/></label></td>
-                                <td><label class="radioBox"><input type="radio" name="meaningless" class="form-control" value="555"/></label></td>
-                            </tr>
-                        </table>
-                    </fieldset>
+                        <div class="scale">
+                            <div class="title" align="center">SCALE</div>
+                            <label class="radioBox">
+                                <div class="option">
+                                    <div class="desc1">Did not apply to me at all</div>
+                                    <div class="desc2">0</div>
+                                </div>
+                            </label>
+                            <label class="radioBox">
+                                <div class="option">
+                                    <div class="desc1">Applied to me to some degree</div>
+                                    <div class="desc2">1</div>
+                                </div>
+                            </label>
+                            <label class="radioBox">
+                                <div class="option">
+                                    <div class="desc1">Applied to me to a considerable degree</div>
+                                    <div class="desc2">2</div>
+                                </div>
+                            </label>
+                            <label class="radioBox">
+                                <div class="optionLast">
+                                    <div class="desc1">Applied to me very much</div>
+                                    <div class="desc2">3</div>
+                                </div>
+                            </label>
+                            <label class="radioBox">
+                                <div class="option">
+                                    <div class="desc">Prefer not to answer</div>
+                                </div>
+                            </label>
+                        </div>
+                    <br/>
+                        <div class="section">
+                            <div class="question">I couldn’t seem to experience any positive feeling at all.</div>
+                            <label class="radioBox">
+                                <div class="option">
+                                    <div class="desc1">Did not apply</div>
+                                    <input type="radio" name="nopositive" class="form-control" value="0" required="true"/>
+                                    <div class="desc2">0</div>
+                                </div>
+                            </label>
+                            <label class="radioBox">
+                                <div class="option">
+                                    <div class="desc1">Some degree</div>
+                                    <input type="radio" name="nopositive" class="form-control" value="1" />
+                                    <div class="desc2">1</div>
+                                </div>
+                            </label>
+                            <label class="radioBox">
+                                <div class="option">
+                                    <div class="desc1">A considerable degree</div>
+                                    <input type="radio" name="nopositive" class="form-control" value="2" />
+                                    <div class="desc2">2</div>
+                                </div>
+                            </label>
+                            <label class="radioBox">
+                                <div class="optionLast" >
+                                    <div class="desc1">Applied very much</div>
+                                    <input type="radio" name="nopositive" class="form-control" value="3" />
+                                    <div class="desc2">3</div>
+                                </div>
+                            </label>
+                            <label class="radioBox">
+                                <div class="option">
+                                    <div class="desc1">Prefer not to answer</div>
+                                    <input type="radio" name="nopositive" class="form-control" value="-1" />
+                                    <div class="desc2"></div>
+                                </div>
+                            </label>
+                        </div>
+                        <br />
+                        <div class="section">
+                            <div class="question">I found it difficult to work up the initiative to do things.</div>
+                            <label class="radioBox">
+                                <div class="option">
+                                    <div class="desc1">Did not apply</div>
+                                    <input type="radio" name="difficult" class="form-control" value="0" required="true"/>
+                                    <div class="desc2">0</div>
+                                </div>
+                            </label>
+                            <label class="radioBox">
+                                <div class="option">
+                                    <div class="desc1">Some degree</div>
+                                    <input type="radio" name="difficult" class="form-control" value="1" />
+                                    <div class="desc2">1</div>
+                                </div>
+                            </label>
+                            <label class="radioBox">
+                                <div class="option">
+                                    <div class="desc1">A considerable degree</div>
+                                    <input type="radio" name="difficult" class="form-control" value="2" />
+                                    <div class="desc2">2</div>
+                                </div>
+                            </label>
+                            <label class="radioBox">
+                                <div class="optionLast" >
+                                    <div class="desc1">Applied very much</div>
+                                    <input type="radio" name="difficult" class="form-control" value="3" />
+                                    <div class="desc2">3</div>
+                                </div>
+                            </label>
+                            <label class="radioBox">
+                                <div class="option">
+                                    <div class="desc1">Prefer not to answer</div>
+                                    <input type="radio" name="difficult" class="form-control" value="-1" />
+                                    <div class="desc2"></div>
+                                </div>
+                            </label>
+                        </div>
+                        <br />
+                        <div class="section">
+                            <div class="question">I felt that I was using a lot of nervous energy.</div>
+                            <label class="radioBox">
+                                <div class="option">
+                                    <div class="desc1">Did not apply</div>
+                                    <input type="radio" name="nervous" class="form-control" value="0" required="true"/>
+                                    <div class="desc2">0</div>
+                                </div>
+                            </label>
+                            <label class="radioBox">
+                                <div class="option">
+                                    <div class="desc1">Some degree</div>
+                                    <input type="radio" name="nervous" class="form-control" value="1" />
+                                    <div class="desc2">1</div>
+                                </div>
+                            </label>
+                            <label class="radioBox">
+                                <div class="option">
+                                    <div class="desc1">A considerable degree</div>
+                                    <input type="radio" name="nervous" class="form-control" value="2" />
+                                    <div class="desc2">2</div>
+                                </div>
+                            </label>
+                            <label class="radioBox">
+                                <div class="optionLast" >
+                                    <div class="desc1">Applied very much</div>
+                                    <input type="radio" name="nervous" class="form-control" value="3" />
+                                    <div class="desc2">3</div>
+                                </div>
+                            </label>
+                            <label class="radioBox">
+                                <div class="option">
+                                    <div class="desc1">Prefer not to answer</div>
+                                    <input type="radio" name="nervous" class="form-control" value="-1" />
+                                    <div class="desc2"></div>
+                                </div>
+                            </label>
+                        </div>
+                        <br />
+                        <div class="section">
+                            <div class="question">I felt down-hearted and blue.</div>
+                            <label class="radioBox">
+                                <div class="option">
+                                    <div class="desc1">Did not apply</div>
+                                    <input type="radio" name="blue" class="form-control" value="0" required="true"/>
+                                    <div class="desc2">0</div>
+                                </div>
+                            </label>
+                            <label class="radioBox">
+                                <div class="option">
+                                    <div class="desc1">Some degree</div>
+                                    <input type="radio" name="blue" class="form-control" value="1" />
+                                    <div class="desc2">1</div>
+                                </div>
+                            </label>
+                            <label class="radioBox">
+                                <div class="option">
+                                    <div class="desc1">A considerable degree</div>
+                                    <input type="radio" name="blue" class="form-control" value="2" />
+                                    <div class="desc2">2</div>
+                                </div>
+                            </label>
+                            <label class="radioBox">
+                                <div class="optionLast" >
+                                    <div class="desc1">Applied very much</div>
+                                    <input type="radio" name="blue" class="form-control" value="3" />
+                                    <div class="desc2">3</div>
+                                </div>
+                            </label>
+                            <label class="radioBox">
+                                <div class="option">
+                                    <div class="desc1">Prefer not to answer</div>
+                                    <input type="radio" name="blue" class="form-control" value="-1" />
+                                    <div class="desc2"></div>
+                                </div>
+                            </label>
+                        </div>
+                        <br />
+                        <div class="section">
+                            <div class="question">I was unable to become enthusiastic about anything.</div>
+                            <label class="radioBox">
+                                <div class="option">
+                                    <div class="desc1">Did not apply</div>
+                                    <input type="radio" name="noenthusiastic" class="form-control" value="0" required="true"/>
+                                    <div class="desc2">0</div>
+                                </div>
+                            </label>
+                            <label class="radioBox">
+                                <div class="option">
+                                    <div class="desc1">Some degree</div>
+                                    <input type="radio" name="noenthusiastic" class="form-control" value="1" />
+                                    <div class="desc2">1</div>
+                                </div>
+                            </label>
+                            <label class="radioBox">
+                                <div class="option">
+                                    <div class="desc1">A considerable degree</div>
+                                    <input type="radio" name="noenthusiastic" class="form-control" value="2" />
+                                    <div class="desc2">2</div>
+                                </div>
+                            </label>
+                            <label class="radioBox">
+                                <div class="optionLast" >
+                                    <div class="desc1">Applied very much</div>
+                                    <input type="radio" name="noenthusiastic" class="form-control" value="3" />
+                                    <div class="desc2">3</div>
+                                </div>
+                            </label>
+                            <label class="radioBox">
+                                <div class="option">
+                                    <div class="desc1">Prefer not to answer</div>
+                                    <input type="radio" name="noenthusiastic" class="form-control" value="-1" />
+                                    <div class="desc2"></div>
+                                </div>
+                            </label>
+                        </div>
+                        <br />
+                        <div class="section">
+                            <div class="question">I felt I wasn’t worth much as a person.</div>
+                            <label class="radioBox">
+                                <div class="option">
+                                    <div class="desc1">Did not apply</div>
+                                    <input type="radio" name="noworth" class="form-control" value="0" required="true"/>
+                                    <div class="desc2">0</div>
+                                </div>
+                            </label>
+                            <label class="radioBox">
+                                <div class="option">
+                                    <div class="desc1">Some degree</div>
+                                    <input type="radio" name="noworth" class="form-control" value="1" />
+                                    <div class="desc2">1</div>
+                                </div>
+                            </label>
+                            <label class="radioBox">
+                                <div class="option">
+                                    <div class="desc1">A considerable degree</div>
+                                    <input type="radio" name="noworth" class="form-control" value="2" />
+                                    <div class="desc2">2</div>
+                                </div>
+                            </label>
+                            <label class="radioBox">
+                                <div class="optionLast" >
+                                    <div class="desc1">Applied very much</div>
+                                    <input type="radio" name="noworth" class="form-control" value="3" />
+                                    <div class="desc2">3</div>
+                                </div>
+                            </label>
+                            <label class="radioBox">
+                                <div class="option">
+                                    <div class="desc1">Prefer not to answer</div>
+                                    <input type="radio" name="noworth" class="form-control" value="-1" />
+                                    <div class="desc2"></div>
+                                </div>
+                            </label>
+                        </div>
+                        <br />
+                        <div class="section">
+                            <div class="question">I felt that life was meaningless.</div>
+                            <label class="radioBox">
+                                <div class="option">
+                                    <div class="desc1">Did not apply</div>
+                                    <input type="radio" name="meaningless" class="form-control" value="0" required="true"/>
+                                    <div class="desc2">0</div>
+                                </div>
+                            </label>
+                            <label class="radioBox">
+                                <div class="option">
+                                    <div class="desc1">Some degree</div>
+                                    <input type="radio" name="meaningless" class="form-control" value="1" />
+                                    <div class="desc2">1</div>
+                                </div>
+                            </label>
+                            <label class="radioBox">
+                                <div class="option">
+                                    <div class="desc1">A considerable degree</div>
+                                    <input type="radio" name="meaningless" class="form-control" value="2" />
+                                    <div class="desc2">2</div>
+                                </div>
+                            </label>
+                            <label class="radioBox">
+                                <div class="optionLast" >
+                                    <div class="desc1">Applied very much</div>
+                                    <input type="radio" name="meaningless" class="form-control" value="3" />
+                                    <div class="desc2">3</div>
+                                </div>
+                            </label>
+                            <label class="radioBox">
+                                <div class="option">
+                                    <div class="desc1">Prefer not to answer</div>
+                                    <input type="radio" name="meaningless" class="form-control" value="-1" />
+                                    <div class="desc2"></div>
+                                </div>
+                            </label>
+                        </div>
+                        <br />
+                        <button>Submit</button>
                 </form>
-                <script>
-                    $("#wizard").on("wizardfinish", function() {
-                            if (!$(this).find(":input").valid()) {
-                                    return false;
-                            }
-                        }).jWizard().validate();
-                    // clicking anywhere in a cell should check the radio button
-                    $(this).find('input:radio').attr('checked',true);
-
-                </script>
             </div>
         </div>
         <!--features ends-->
@@ -183,7 +385,7 @@ The rating scale is as follows:
 3  Applied to me very much, or most of the time
 
 1
-I was aware of nopositive of my mouth.
+I was aware of nervous of my mouth.
 0      1      2      3
 2
 I experienced difficult difficulty (e.g., excessively rapid difficult,

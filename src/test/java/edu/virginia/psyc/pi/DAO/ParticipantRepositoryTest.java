@@ -46,7 +46,7 @@ public class ParticipantRepositoryTest {
         Participant p;
         ParticipantRepositoryImpl repository = new ParticipantRepositoryImpl();
 
-        dao = new ParticipantDAO("Dan Funk", "dan@sartography.com", "password", false);
+        dao = new ParticipantDAO("Dan Funk", "dan@sartography.com", "password", false, "green");
         dao.setCurrentSession(CBMStudy.NAME.SESSION1.toString());
         dao.setTaskIndex(1);
         dao.setEmailOptout(true);
@@ -80,7 +80,7 @@ public class ParticipantRepositoryTest {
         Participant p;
         ParticipantRepositoryImpl repository = new ParticipantRepositoryImpl();
 
-        dao = new ParticipantDAO("Dan Funk", "dan@sartography.com", "password", false);
+        dao = new ParticipantDAO("Dan Funk", "dan@sartography.com", "password", false, "green");
         dao.setPasswordTokenDAO(new PasswordTokenDAO(dao, new Date(), "1234"));
 
         p = repository.entityToDomain(dao);
@@ -171,7 +171,7 @@ public class ParticipantRepositoryTest {
         EmailLog log2;
 
         // Create a participant
-        participantDAO = new ParticipantDAO("John", "john@x.com", "12341234", false);
+        participantDAO = new ParticipantDAO("John", "john@x.com", "12341234", false, "green");
         log            = new EmailLogDAO(participantDAO, EmailService.TYPE.day2);
         participantDAO.addEmailLog(log);
         participantRepository.save(participantDAO);
@@ -209,8 +209,8 @@ public class ParticipantRepositoryTest {
         GiftLogDAO logDao;
         GiftLog log;
 
-        participantDAO = new ParticipantDAO("Dan", "Smith@x.com", "1234", false);
-        logDao = new GiftLogDAO(participantDAO, "code123");
+        participantDAO = new ParticipantDAO("Dan", "Smith@x.com", "1234", false, "green");
+        logDao = new GiftLogDAO(participantDAO, "code123", "SESSION1");
         participantDAO.addGiftLog(logDao);
         participantRepository.save(participantDAO);
         participantRepository.flush();
@@ -243,7 +243,7 @@ public class ParticipantRepositoryTest {
         String tokenString = "abcfedf";
 
         // Create a participant
-        participantDAO = new ParticipantDAO("John", "john@x.com", "12341234", false);
+        participantDAO = new ParticipantDAO("John", "john@x.com", "12341234", false, "green");
 
         // Create a token DAO object
         token = new PasswordTokenDAO(participantDAO, new Date(), tokenString);

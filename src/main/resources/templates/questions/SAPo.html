@@ -6,22 +6,8 @@
 <html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
 <!--<![endif]-->
 <head th:include="/fragment/common :: headerFragment" />
-<body>
+<body th:class="|user-theme-${participant.theme}|">
 <section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
-
-<!-- header-btm starts
-================================================== -->
-<section id="header-btm" class="clearfix">
-    <div class="container">
-        <div class="row">
-            <div class="span12">
-                <h4 class="heading-icon clearfix"> <img th:src="@{/grepfrut/img/icons/heading-icon-user.png}" width="40" height="40" alt="icon" class="icon-small-bg"/> </h4>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- header-btm ends
-================================================== -->
 
 <!-- content starts
 ================================================== -->
@@ -38,7 +24,7 @@
                     <fieldset>
                         <legend>Step 1 - Use your imagination</legend>
                         <p>
-                            <label>Please remember the XXX situation we asked you to imagine yourself in earlier. We would like you to imagine yourself in the situation again.
+                            <label>Please remember the situation we asked you to imagine yourself in earlier. We would like you to imagine yourself in the situation again.
                             </label>
                         </p>
                     </fieldset>
@@ -144,7 +130,11 @@
                     if (!$(this).find(":input").valid()) {
                         return false;
                     }
-                }).jWizard().validate();
+                    }).jWizard({
+                        progress: false,
+                        menu: false,
+                        title: false
+                    }).validate();
                 </script>
             </div>
         </div>

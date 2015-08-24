@@ -104,6 +104,10 @@ public class LoginController extends BaseController {
     public String showEligibility(ModelMap model) {
         // Template will set a difference form action if this variable is set to true.
         model.addAttribute("eligibility",true);
+        Participant p = new Participant();
+        p.setTheme("blue");
+        model.addAttribute("participant",p);
+
         return "questions/DASS21_AS";
     }
 
@@ -187,7 +191,6 @@ public class LoginController extends BaseController {
                                        ) {
 
         model.addAttribute("participant", participant);
-        model.addAttribute("hideAccountBar", true);
 
         if(participantRepository.findByEmail(participant.getEmail()) != null) {
             bindingResult.addError(new ObjectError("email", "This email already exists."));
@@ -199,7 +202,7 @@ public class LoginController extends BaseController {
 
         if (bindingResult.hasErrors()) {
             LOG.error("Invalid participant:" + bindingResult.getAllErrors());
-
+            model.addAttribute("hideAccountBar", true);
             return "consent";
         }
 
@@ -214,7 +217,7 @@ public class LoginController extends BaseController {
         saveEligibilityForm(participant, session);
 
         LOG.info("Participant authenticated.");
-        return "redirect:/session";
+        return "redirect:/account/theme";
     }
 
     /**
@@ -272,7 +275,7 @@ public class LoginController extends BaseController {
         if(participant != null) {
             model.addAttribute("participant", participant);
             model.addAttribute("token", token);
-            return "changePassword";
+            return "/changePassword";
         } else {
             model.addAttribute("invalidCode", true);
             model.addAttribute("participant", new Participant());

@@ -11,22 +11,10 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
 
 	function increase_count(){
 		scorer.count = scorer.count+1;
-		console.log('hello');
 		return scorer.count;
 	}
 
-    API.addSettings('canvas',{
-    	background:'#FFDBB8',
-        canvasBackground:'white',
-        css:{color:'black',
-        'font-family': "'Source Sans Pro', Arial, Helvetica, sans-serif",
-        'box-sizing':'border-box',
-     	 'border-radius': '25px',
-    	 'padding': '20px',
-    	 'width': '200px',
-    	 'height': '150px',
-}
-    });
+
 //    This was added to redirect back
     API.addSettings('redirect', "../playerScript/completed/int_train");
 
@@ -61,7 +49,17 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {handle:'error',media:'X', css:{fontSize:'20px',color:'#FF0000'}, location:{top:70}, nolog:true}
         ],
         yesno: [
-            {handle:'yesno',media:'Y = Yes N = No', css:{fontSize:'20px',color:'black'}, location:{top:70}}
+            {handle:'yesno',media:{html:"<div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>"}, css:{fontSize:'20px',color:'black', 'text-align':'center'}, location:{top:70}}
+        ],
+        counter: [
+            {
+                'handle': 'counter',
+                customize: function () {
+                    this.media = scorer.count + ' of 50';
+                },
+                css: {fontSize: '12px', 'text-align': 'center'},
+                location:{bottom:'200px'}
+            }
         ]
     });
 
@@ -186,7 +184,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     {type:'trigger',handle : 'answered', duration:500}
                 ]
             },
-            // Listen for an incorrect response to a question
+            // Listen for an incorrect response to a question, this should work, but doesn't.
             {
                 conditions: [{type:'inputEqualsStim', property:'positiveAnswer'},
                     {type:'trialEquals', property:'positive', value:false},
@@ -199,6 +197,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                         }
                     }},
                     {type:'setTrialAttr',setter:{correctOnQuestion:"false"}},
+                    {type:'custom',fn:function(){ console.log("please make the pain go away.")}},
                     {type:'showStim',handle:'error'},
                     {type:'setInput',input:{handle:'clear', on:'timeout',duration:500}}
                 ]
@@ -255,7 +254,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             layout: [
                 // This is a stimulus object
                 {
-                    media :"In this task, you will read about a series of situations. Please read each paragraph carefully, and imagine yourself in the situations described. Each situation has a title. Please pay attention to the title, these titles will be referenced in the next task. At the end of each paragraph, there will be a word fragment (an incomplete word) for you to complete. To complete the word fragment, press the key that corresponds to the missing letter. Once you type in the correct letter, you will move on to the next question. After completing the word fragment, you will be asked to answer a question about the situation in which you imagined yourself. Please press the spacebar to continue.",
+                    media :{html:"<p class='em'>In this part of the assessment, you will read a series of very short stories.  Pay attention to the title of each story because after you have read all the stories, you will be asked more questions about them.</p><p><b>For each story:</b></p><ul><li>Read the paragraph carefully and imagine yourself in the story described.</li><li>There will be an incomplete word at the end of each story.</li><li>Press the key on the keyboard that completes the word.</li><li>When you correctly complete the word you will move on to the next screen which will ask you a question about the story.</li></ul><p>Press the <b>space bar</b> to continue.</p>"},
                     css:{fontSize:'20px',color:'black'}
                 }
             ],
@@ -271,29 +270,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             ]
         },
-                {
-                    input: [
-                        {handle:'space',on:'space'}
-                    ],
-                    layout: [
-                        // This is a stimulus object
-                        {
-                            media:"Please use only the information from the situation to answer the question. Once you have the correct answer, you will move on to the next situation. If you are unsure about an item, please make your best guess. For example, if you saw the following scenario: 'You are waiting in line with your friend to buy food for lunch. Your stomach growls. You plan to order pasta with alfredo sa_ce,' you would fill in the 'u' that is missing from 'sauce.' After reading each situation, you will be asked a question about the situation. After you have read about all the situations, you will be asked more questions about them.",
-                            css:{fontSize:'20px',color:'black'}
-                        }
-                    ],
-                    interactions: [
-                        // This is an interaction (it has a condition and an action)
-                        {
-                            conditions: [
-                                {type:'inputEquals',value:'space'}
-                            ],
-                            actions: [
-                                {type:'endTrial'}
-                            ]
-                        }
-                    ]
-                },
         {
             mixer: 'random',
             //n: 50,  // The total number of randomly selected trials to run.
@@ -310,11 +286,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
                 "data": {
                     "positiveKey": "i",
                     "positiveWord": "acc[ ]dent.",
@@ -322,16 +293,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>" 
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
-            },
-            {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
             },
             {
                 "handle": "question",
@@ -340,6 +303,16 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>As you passed through the intersection, were you thinking about your friend?</div>"
+                }
+            },
+            {
+                "inherit": {
+                    "set": "yesno"
+                }
+            },
+            {
+                "inherit": {
+                    "set": "counter"
                 }
             }
         ]
@@ -354,11 +327,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {
                 "inherit": {
                     "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
                 }
             },
             {
@@ -369,16 +337,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>" 
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
-            },
-            {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
             },
             {
                 "handle": "question",
@@ -387,6 +347,16 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Are you thinking about the coffee pot when you arrive to work?</div>"
+                }
+            },
+            {
+                "inherit": {
+                    "set": "yesno"
+                }
+            },
+            {
+                "inherit": {
+                    "set": "counter"
                 }
             }
         ]
@@ -401,11 +371,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {
                 "inherit": {
                     "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
                 }
             },
             {
@@ -416,16 +381,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>" 
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
-            },
-            {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
             },
             {
                 "handle": "question",
@@ -434,6 +391,16 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Did you think about the elevator’s safety?</div>"
+                }
+            },
+            {
+                "inherit": {
+                    "set": "yesno"
+                }
+            },
+            {
+                "inherit": {
+                    "set": "counter"
                 }
             }
         ]
@@ -448,11 +415,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {
                 "inherit": {
                     "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
                 }
             },
             {
@@ -463,16 +425,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>" 
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
-            },
-            {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
             },
             {
                 "handle": "question",
@@ -481,6 +435,16 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Are you going on vacation?</div>"
+                }
+            },
+            {
+                "inherit": {
+                    "set": "yesno"
+                }
+            },
+            {
+                "inherit": {
+                    "set": "counter"
                 }
             }
         ]
@@ -495,11 +459,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {
                 "inherit": {
                     "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
                 }
             },
             {
@@ -510,16 +469,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>" 
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
-            },
-            {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
             },
             {
                 "handle": "question",
@@ -528,6 +479,16 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Will you be without an income soon?</div>"
+                }
+            },
+            {
+                "inherit": {
+                    "set": "yesno"
+                }
+            },
+            {
+                "inherit": {
+                    "set": "counter"
                 }
             }
         ]
@@ -542,11 +503,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {
                 "inherit": {
                     "set": "error"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
                 }
             },
             {
@@ -557,16 +513,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>" 
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
-            },
-            {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
             },
             {
                 "handle": "question",
@@ -575,6 +523,16 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Have you been woken up in the middle of the night?</div>"
+                }
+            },
+            {
+                "inherit": {
+                    "set": "yesno"
+                }
+            },
+            {
+                "inherit": {
+                    "set": "counter"
                 }
             }
         ]
@@ -592,19 +550,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "data": {
                     "positiveKey": "e",
                     "positiveWord": "all[ ]rgic.",
@@ -612,7 +557,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>" 
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -622,6 +567,16 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Are you at dinner with your family?</div>"
+                }
+            },
+            {
+                "inherit": {
+                    "set": "yesno"
+                }
+            },
+            {
+                "inherit": {
+                    "set": "counter"
                 }
             }
         ]

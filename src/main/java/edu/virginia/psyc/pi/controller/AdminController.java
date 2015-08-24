@@ -69,9 +69,11 @@ public class AdminController extends BaseController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String listUsers(ModelMap model,
+    public String listUsers(ModelMap model,Principal principal,
                             final @RequestParam(value = "search", required = false, defaultValue = "") String search,
                             final @RequestParam(value = "page", required = false, defaultValue = "0") String pageParam) {
+
+        Participant p = getParticipant(principal);
 
         ParticipantForm form;
         Page<ParticipantDAO> daoList;
@@ -93,6 +95,7 @@ public class AdminController extends BaseController {
             form.add(dao.getCurrentSession());
         }
 
+        model.addAttribute("hideAccountBar", true);
         model.addAttribute("participantForm", form);
         model.addAttribute("search", search);
         model.addAttribute("paging", daoList);
@@ -106,8 +109,9 @@ public class AdminController extends BaseController {
         Participant p;
         p = participantRepository.entityToDomain(participantRepository.findOne(id));
 
+        model.addAttribute("hideAccountBar", true);
         model.addAttribute("participant", p);
-        return "account";
+        return "admin/participant_form";
     }
 
     @RequestMapping(value="/updateParticipants", method=RequestMethod.POST)
@@ -168,6 +172,7 @@ public class AdminController extends BaseController {
     public String showNewForm(ModelMap model) {
         Participant p;
         p = new Participant();
+        model.addAttribute("hideAccountBar", true);
         model.addAttribute("participant", p);
         return "admin/new_participant";
     }
@@ -179,6 +184,7 @@ public class AdminController extends BaseController {
                                        BindingResult bindingResult) {
 
         ParticipantDAO dao;
+        model.addAttribute("hideAccountBar", true);
 
         if(participantRepository.findByEmail(participant.getEmail()) != null) {
             bindingResult.addError(new ObjectError("email", "This email already exists."));
@@ -204,6 +210,7 @@ public class AdminController extends BaseController {
     @RequestMapping(value="/listEmails", method=RequestMethod.GET)
     public String listEmails(ModelMap model, Principal principal) {
         Participant p = getParticipant(principal);
+        model.addAttribute("hideAccountBar", true);
         model.addAttribute("participant", p);
         return "admin/listEmails";
     }
@@ -234,6 +241,7 @@ public class AdminController extends BaseController {
         Participant p = getParticipant(principal);
         model.addAttribute("participant", p);
         model.addAttribute("sessions", p.getStudy().getSessions());
+        model.addAttribute("hideAccountBar", true);
         return "admin/listSessions";
     }
 
@@ -242,6 +250,7 @@ public class AdminController extends BaseController {
         Participant p = getParticipant(principal);
         model.addAttribute("participant", p);
         model.addAttribute("sessions", p.getStudy().getSessions());
+        model.addAttribute("hideAccountBar", true);
         return "admin/listDownloads";
     }
 
@@ -291,6 +300,7 @@ public class AdminController extends BaseController {
     public String checkFunds(ModelMap model, Principal principal){
         Account a = tangoService.getAccountInfo();
         model.addAttribute("tango",a);
+        model.addAttribute("hideAccountBar", true);
         return "admin/checkFunds";
     }
 
@@ -301,7 +311,8 @@ public class AdminController extends BaseController {
         Participant p = participantRepository.entityToDomain(participantRepository.findByEmail(principal.getName()));
         Reward r = tangoService.createGiftCard(p, "AdminAwarded");
         this.emailService.sendGiftCardEmail(p, r);
-        model.addAttribute("participant",p);
+        model.addAttribute("participant", p);
+        model.addAttribute("hideAccountBar", true);
         return "/admin/participant_form";
     }
 
@@ -311,6 +322,7 @@ public class AdminController extends BaseController {
     public String showRewardInfo(ModelMap model, Principal principal, @PathVariable ("orderId") String orderId) {
         Order order = tangoService.getOrderInfo(orderId);
         model.addAttribute("order",order);
+        model.addAttribute("hideAccountBar", true);
         return "admin/rewardInfo";
     }
 

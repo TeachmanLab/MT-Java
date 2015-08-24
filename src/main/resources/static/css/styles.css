@@ -13,8 +13,8 @@ h3 { font-size:100%; font-weight: 700 }
 
 .fineprint p { font-size: 75%; margin: 0 }
 
-button {  -webkit-border-radius: 5;
-  -moz-border-radius: 5;
+button {  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
   border-radius: 5px;
   -webkit-box-shadow: 0px 1px 3px #666;
   -moz-box-shadow: 0px 1px 3px #666;
@@ -29,7 +29,6 @@ button {  -webkit-border-radius: 5;
   text-decoration: none;
   font-size:20px;
   margin:10px 0px;
-    min-width: 120px;
     font-weight: 700;
 }
 
@@ -57,13 +56,13 @@ button {  -webkit-border-radius: 5;
 .user-theme-gold .account-bar { background:#ECB800; }
 .account-bar a, .account-bar span.item {color:#000000; padding: 0 10px 0 10px; font-weight:400}
 .account-bar .login {}
-.page-title {font-size:1.45em; color:#00ACE4; font-weight:bold; margin-left: 135px;}
+.page-title {font-size:1.45em; color:#00ACE4; font-weight:bold; }
 .page-title img {margin-bottom:20px;}
 .user-theme-orange .page-title { color:#F77D38; }
 .user-theme-green .page-title { color:#77B46D; }
 .user-theme-purple .page-title { color:#C98ABB; }
 .user-theme-gold .page-title { color:#ECB800; }
-.heading-icon {margin-top:-10px; margin-left:135px;}
+.heading-icon {margin-top:-10px; }
 
 
 #footer {background:#21336B; font-size:0.5em;}
@@ -82,9 +81,9 @@ button {  -webkit-border-radius: 5;
 /**
   Mainly used for all-in-one forms, such as the login form, reset password, etc...
 **/
-div.longSection, div.sessionSection {
+div.longSection, div.sessionSection, div.sessionOverview {
     margin: 40px auto;
-    padding: 20px 90px 20px 90px;
+    padding: 20px 20px 20px 20px;
     max-width: 900px;
     border-radius: 15px;
     border: 1px solid #BBB;
@@ -114,17 +113,263 @@ div.session p.session-note {
 div.session .date { color:#00ACE4; font-weight: 600 }
 
 /**
-Forms
+Account Theme Section
 **/
+
+div.themeSection {
+    max-width: 900px;
+    border-bottom-left-radius: 15px;
+    border-top-left-radius: 15px;
+    border: 1px solid #BBB;
+    background: #FFF;
+    height: 200px;
+    min-width:924px;
+}
+
+div.themeSection img {
+    float:right;
+}
+
+div.themeSection input {
+    margin: 20px 0 0 20px;
+}
+
+div.themeSection label {
+    float:right;
+    margin:0px;
+    min-width: 100px;
+    font-weight: 700;
+
+}
+
+div.themeSection div.themeOption {
+    float:right;
+    background: #ffffff;
+    height: 200px;
+    min-width:824px;
+    margin-left: 20px;
+    border-bottom: 1px solid #BBB;
+    padding: 10px 20px 0 20px;
+}
+
+div.orange  {
+    background-color: #ef7b40;
+}
+div.green {
+    background-color: #7bb76f;
+}
+div.purple  {
+    background-color: #c686ba;
+}
+div.gold  {
+    background-color: #e6ba21;
+}
+
+div.adminTools {
+    background-color: #fff;
+    font-size: 1.2em;
+}
+
+span.form-note {
+    display: block;
+    margin-left: 170px;
+    font-style: italic;
+}
+
+/**  PIPlayer styling **/
+
+div.piPlayerHeader {
+    width:100%;
+    background: #21336B;
+}
+
+div#canvas {
+    position: relative;
+    color:black;
+    background: white;
+    box-sizing:border-box;
+    border-radius: 25px;
+    padding: 20px 50px;
+    width: 200px;
+    margin: 40px auto;
+    border: 1px solid #bbb;
+}
+
+div.stimulus {
+    font-size: 25px;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+div.piIntro {
+    text-align:left;
+}
+
+div.piIntro img {
+    float:left;
+}
+
+div.piIntro p, div.piIntro h3, div.piIntro ul {
+    margin-left: 200px;
+    font-size: 20px;
+}
+
+
+/**
+Session Overview
+**/
+
+img.sessionMarker {
+    position:absolute;
+    left: 20px;
+    margin: 20px;
+}
+
+div.sessionGrouping {
+    width: 850px;
+    clear:both;
+    margin: 50px 0 0 0;
+    position:relative;
+}
+
+div.sessionOverview {
+    left: 120px;
+    background:#21336B;
+    margin: 0 0 0 120px;
+    padding: 0;
+    width: 600px;
+}
+
+div.sessionOverview h3 {
+    color: white;
+    font-size: 92%;
+    margin: 5px 20px;
+}
+
+div.sessionOverview span.date {
+    margin-left: 10px;
+}
+
+div.gift {
+    position:absolute;
+    width: 100px;
+    bottom:0px;
+    right:0px;
+    text-align: center;
+}
+
+div.gift img {
+    margin-left:-20px;
+}
+
+
+br.clear {
+    clear:both;
+}
+
+div.sessionOverview table {
+    background-color: white;
+    min-width: 598px;
+}
+
+div.sessionOverview table td {
+    background-color: white;
+    border: 1px solid #BBB;
+    padding-left: 20px;
+    height: 40px;
+}
+
+.allow2days {
+    color: #5f5f5f;
+    font-size: 83%;
+    margin: 0 0 0 175px;
+}
+
+
+/**
+Questionnaires
+**/
+
+table.questionnaire {
+    max-width:100%;
+    font-size: 75%;
+}
+
+table.questionnaire th {
+    font-weight: 400;
+    text-align: center;
+    width: 120px;
+    background-color: #ddd;
+}
+
+table.questionnaire td {
+  text-align: center;
+}
+
+table.questionnaire td.statement {
+    text-align: left;
+    min-width: 200px;
+    padding-bottom: 20px;
+}
 
 label {
     min-width: 170px;
     font-weight: 400;
+    vertical-align: middle;
 }
 
-div.section, div.scale {
+input.radioBox {
+    cursor: pointer;
+}
+
+label.radioBox {
+    min-width: 50px;
+    min-height: 50px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+label.radioBox5 {
+    min-width: 18%;
+}
+
+label.radioList {
+    cursor: pointer;
+    text-indent: -25px;
+    font-size: 85%;
+    margin: 0 0 0 20px;
+    padding: 0 200px 0 25px;
+    display: block;
+    width:100%;
+}
+
+label.radioList input[type="radio"], label.radioList input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+label.radioListNoAnswer {
+    position: absolute;
+    height: 75%;
+    width: 150px;
+    right:0;
+    font-size: 85%;
+    display: block;
+    padding: 15px;
+    border-left: 1px solid #BBB;
+    text-align: center;
+}
+
+label.radioList b {
+    font-weight: 600;
+}
+
+div.wide {
+    width:900px;
+}
+
+div.section, div.scale, form#wizard{
+    position: relative;
     padding: 0px;
-    width: 900px;
     border-radius: 15px;
     border: 1px solid #bbb;
     background: #FFF;
@@ -147,8 +392,6 @@ div.scale div.option, div.scale div.optionLast {
 
 div.option, div.optionLast {
     font-size: 75%;
-    float: left;
-    width: 175px;
     padding: 10px 28px 0 25px;
     align-content: center;
     text-align: center;
@@ -164,12 +407,14 @@ div.optionLast {
     border-right: solid 2px #bbb;
 }
 
-div.section div.desc1 {
-    height: 30px;
+div.section div.desc1, div.scale div.desc1 {
+    height: 40px;
+    width: 120px;
 }
 
+
 div.scale div.desc1 {
-    height: 70px;
+    height: 50px;
 }
 
 div.scale div.desc2 {
@@ -182,8 +427,8 @@ div.desc {
 
 div.question {
     font-size: 92%;
-    padding: 5px 0 0 15px;
-    font-width: 600;
+    padding: 5px 0 10px 15px;
+    font-weight: 600;
 }
 
 
@@ -194,17 +439,17 @@ div#submit {
     align-content: center;
 }
 
+
 /**
-PIPlayer style
+Wizards
 **/
-
-
-div.optionTheme{
-    font-size: .8em;
-    float: left;
-    width: 100%;
+form#wizard {
+    font-size: 75%;
+    margin: 20px 0px;
+    padding: 20px;
 }
 
-div.optionThemeSub {
-    display: inline-block;
+#wizard th {
+    text-align: center;
 }
+
