@@ -13,7 +13,7 @@ h3 { font-size:100%; font-weight: 700 }
 
 .fineprint p { font-size: 75%; margin: 0 }
 
-button {  -webkit-border-radius: 5px;
+button  {  -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
   -webkit-box-shadow: 0px 1px 3px #666;
@@ -311,6 +311,8 @@ table.questionnaire td.statement {
     text-align: left;
     min-width: 200px;
     padding-bottom: 20px;
+    padding-left: 5px;
+
 }
 
 label {
@@ -370,11 +372,13 @@ div.wide {
 
 div.section, div.scale, form#wizard{
     position: relative;
+    margin: 10px auto;
     padding: 0px;
     border-radius: 15px;
     border: 1px solid #bbb;
     background: #FFF;
     font-weight:400;
+    max-width: 900px;
 }
 
 
@@ -432,8 +436,12 @@ div.question {
     font-weight: 600;
 }
 
+div.section select {
+    margin: 0 0 10px 20px;
+}
 
-div#submit {
+div#submit, div.submit {
+    margin: 20px auto;
     width: 900px;
     padding: 0;
     text-align: center;
@@ -461,7 +469,6 @@ table.daysOfWeek th {
 Wizards
 **/
 form#wizard {
-    font-size: 75%;
     margin: 20px 0px;
     padding: 20px;
 }
