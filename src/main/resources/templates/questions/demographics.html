@@ -34,7 +34,7 @@
         <!--features starts-->
         <div class="row">
             <div class="span12">
-                <form id="wizard" th:action="@{/questions/demographics}" method="POST">
+                <form  th:action="@{/questions/demographics}" method="POST">
                         <legend><h2 class="page-title">Demographics</h2></legend>
                         <p>Please provide as much information as possible. This data helps us improve the MindTrails Program. </p>
                         <p>
@@ -47,8 +47,8 @@
                         </select>
                         </p>
                         <p>
-                        <label>Birth Date</label>
-                        <input type="text" name="birthdate" id="datepicker"/>
+                        <label>Birth Year</label>
+                        <input type="number" min="1900" name="birthYear" />
                         </p>
                         <p>
                         <label>Race</label>
@@ -406,27 +406,9 @@
                         </select>
                         </p>
                     <div style="text-align:center">
-                    <a th:href="@{/account}"><button type="submit">Done</button></a>
+                    <button type="submit">Done</button>
                     </div>
                 </form>
-                <script>
-                    jQuery("#datepicker").datepicker({
-                            changeMonth: true,
-                            changeYear: true,
-                            showButtonPanel: true,
-                            yearRange: "-100:+0"
-                        });
-
-                    (function( $ ){
-                        $(function(){
-                            $( 'select.auto-selector' ).selectToAutocomplete();
-                            if ( !!( 'placeholder' in document.createElement('input') ) ) {
-                                $( '.demo .label' ).remove();
-                            }
-                        });
-                    })( jQuery );
-                </script>
-
             </div>
         </div>
         <!--features ends-->
