@@ -15,7 +15,11 @@
 <section id="header-btm" class="clearfix">
     <div class="container">
         <div class="row">
-            <h2 class="page-title heading-icon clearfix"> <img th:src="@{/images/map-arrow-orange.png}" alt="icon" class="icon-small-bg" /><br/>Eligibility Questionnaire</h2>
+            <h2 class="page-title heading-icon clearfix"> <img th:src="@{/images/map-arrow-orange.png}" alt="icon" class="icon-small-bg" />
+                <br/>
+              <span th:text="${eligibility}? 'Eligibility Questionnaire' : 'Status Questionnaire'"/>
+            </h2>
+
         </div>
     </div>
 </section>
@@ -34,6 +38,7 @@
         <!--features starts-->
         <div class="row">
             <div class="span12 wide">
+                <h2></h2>
                 <p>Please read each statement and select an option that indicates how much the statement applied to you over the <b>past week</b>. There are no right or wrong answers.  Do not spend too much time on any statement.</p>
                 <form th:action="${eligibility}? @{/public/eligibilityCheck} : @{/questions/DASS21_AS}" method="POST">
                         <!--TODO CHANGE INSTRUCTIONS BASED ON INITIAL OR DURING TRAINING-->
