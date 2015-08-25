@@ -1902,17 +1902,11 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 	negativeAnswer:"y"
                 },
                 "media": {
-<<<<<<< HEAD
                     "inlineTemplate": "<div>Are you likely to get sick from the cake? </div>"
-                }
-            }
-=======
-                    "inlineTemplate": "<div>Are you likely to get sick from the man behind the deli counter? </div>"
                      }
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}}
->>>>>>> master
         ]
     },           
     {
