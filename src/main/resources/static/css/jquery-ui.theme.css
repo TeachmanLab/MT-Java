@@ -16,7 +16,7 @@
 ----------------------------------*/
 .ui-widget {
 	font-family: Source Sans;
-	font-size: 1.1em;
+	font-size: .8em;
 }
 .ui-widget .ui-widget {
 	font-size: 1em;
@@ -30,6 +30,7 @@
 }
 .ui-widget-content {
 	color: #333333;
+    border: none;
 }
 .ui-widget-content a {
 	color: #333333;
