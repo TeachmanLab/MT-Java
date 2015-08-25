@@ -293,6 +293,7 @@ Questionnaires
 table.questionnaire {
     max-width:100%;
     font-size: 75%;
+    margin: 10px auto;
 }
 
 table.questionnaire th {

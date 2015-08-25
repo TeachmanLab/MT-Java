@@ -116,6 +116,7 @@ public class CBMStudy implements Study {
                 tasks.add(new Task("MH", "Mental Health History", Task.TYPE.questions, 1));
                 tasks.add(new Task("QOL", "Quality of Life Scale", Task.TYPE.questions, 2));
                 tasks.add(new Task("RecognitionRatings", "Recognition Training", Task.TYPE.playerScript, 20));
+                tasks.add(new Task("BBSIQ", "Scenerios", Task.TYPE.questions, 1));
                 tasks.add(new Task("DASS21_DS", "Symptom Measures", Task.TYPE.questions, 1));
                 tasks.add(new Task("RR", "Recognition Ratings", Task.TYPE.questions, 4));
                 tasks.add(new Task("DD", "Daily Drinking", Task.TYPE.questions, 4));
