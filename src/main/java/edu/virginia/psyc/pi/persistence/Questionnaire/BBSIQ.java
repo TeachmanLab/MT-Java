@@ -1,6 +1,7 @@
 package edu.virginia.psyc.pi.persistence.Questionnaire;
 
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -10,8 +11,8 @@ import java.util.Date;
  */
 @Entity
 @Table(name="BBSIQ")
+@Data
 public class BBSIQ implements QuestionnaireData {
-
 
     @Id
     @GeneratedValue
@@ -25,52 +26,56 @@ public class BBSIQ implements QuestionnaireData {
     private int visitors_engagement;
     private int visitors_bored;
 
-    public int getVisitors_outstay() {
-        return visitors_outstay;
-    }
+    private int breath_flu;
+    private int breath_suffocate;
+    private int breath_physically;
 
-    public void setVisitors_outstay(int visitors_outstay) {
-        this.visitors_outstay = visitors_outstay;
-    }
+    private int vision_strained;
+    private int vision_glasses;
+    private int vision_illness;
 
+    private int shop_bored;
+    private int shop_concentrating;
+    private int shop_irritating;
 
-    public int getVisitors_bored() {
-        return visitors_bored;
-    }
+    private int lightheaded_faint;
+    private int lightheaded_eat;
+    private int lightheaded_sleep;
 
-    public void setVisitors_bored(int visitors_bored) {
-        this.visitors_bored = visitors_bored;
-    }
+    private int smoke_house;
+    private int smoke_food;
+    private int smoke_cig;
 
-    public int getId() {
-        return id;
-    }
+    private int friend_helpful;
+    private int friend_incompetent;
+    private int friend_moreoften;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    private int chest_indigestion;
+    private int chest_sore;
+    private int chest_heart;
 
-    public ParticipantDAO getParticipantDAO() {
-        return participantDAO;
-    }
+    private int jolt_dream;
+    private int jolt_burglar;
+    private int jolt_wind;
 
-    public void setParticipantDAO(ParticipantDAO participantDAO) {
-        this.participantDAO = participantDAO;
-    }
+    private int party_hear;
+    private int party_boring;
+    private int party_preoccupied;
 
-    public Date getDate() {
-        return date;
-    }
+    private int heart_active;
+    private int heart_wrong;
+    private int heart_excited;
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
+    private int confused_outofmind;
+    private int confused_cold;
+    private int confused_work;
 
-    public String getSession() {
-        return session;
-    }
+    private int urgent_junk;
+    private int urgent_bill;
+    private int urgent_died;
 
-    public void setSession(String session) {
-        this.session = session;
-    }
+    private int dizzy_overtired;
+    private int dizzy_ate;
+    private int dizzy_ill;
+
 }
