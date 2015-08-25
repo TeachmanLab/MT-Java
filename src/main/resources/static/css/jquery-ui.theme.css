@@ -15,8 +15,7 @@
 /* Component containers
 ----------------------------------*/
 .ui-widget {
-	font-family: Source Sans;
-	font-size: .8em;
+    font-family: 'Source Sans Pro', sans-serif;
 }
 .ui-widget .ui-widget {
 	font-size: 1em;
@@ -25,7 +24,7 @@
 .ui-widget select,
 .ui-widget textarea,
 .ui-widget button {
-	font-family: Source Sans;
+    font-family: 'Source Sans Pro', sans-serif;
 	font-size: 1em;
 }
 .ui-widget-content {
@@ -38,6 +37,9 @@
 .ui-widget-header {
 	color: #444444;
 	font-weight: bold;
+    border: 0px;
+    background: transparent;
+    margin: 10px auto;
 }
 .ui-widget-header a {
 	color: #444444;
