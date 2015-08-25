@@ -13,6 +13,11 @@
     <p>To customize the appearance of MindTrails select one of the options below. You can change your
         theme at any time under "Account Settings" in the menu bar above.</p>
     <fieldset>
+        <label class="theme">
+        <input type="radio" th:field="*{theme}" value="blue" required="true"/> Default (Blue)
+        </label>
+        <br/>
+        <label>
         <div class="themeSection orange">
             <input type="radio" th:field="*{theme}" value="orange" required="true"/>
 
@@ -21,6 +26,9 @@
                 <label>Orange</label>
             </div>
         </div>
+        </label>
+        <br/>
+        <label>
         <div class="themeSection green">
             <input type="radio" th:field="*{theme}" value="green"/>
 
@@ -29,6 +37,9 @@
                 <label>Green</label>
             </div>
         </div>
+        </label>
+        <br/>
+        <label>
         <div class="themeSection purple">
             <input type="radio" th:field="*{theme}" value="purple"/>
 
@@ -37,6 +48,9 @@
                 <label>Purple</label>
             </div>
         </div>
+        </label>
+        <br/>
+        <label>
         <div class="themeSection gold">
             <input type="radio" th:field="*{theme}" value="gold"/>
 
@@ -45,6 +59,7 @@
                 <label>Gold</label>
             </div>
         </div>
+        </label>
     </fieldset>
     <button>Update Theme</button>
 </section>
