@@ -121,7 +121,7 @@ public class CBMStudy implements Study {
                 tasks.add(new Task("RR", "Recognition Ratings", Task.TYPE.questions, 4));
                 tasks.add(new Task("DD", "Daily Drinking", Task.TYPE.questions, 4));
                 tasks.add(new Task("OA", "OASIS", Task.TYPE.questions, 1));
-//                tasks.add(new Task("SA", "Anxiety Assessment", Task.TYPE.questions, 2));
+                tasks.add(new Task("AnxietyTriggers", "Anxiety Triggers", Task.TYPE.questions, 1));
                 break;
             case SESSION1:
                 tasks.add(new Task("AIP", "Use Your Imagination", Task.TYPE.questions,5));

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="/fragment/common :: headerFragment" />
+<body th:class="|user-theme-${participant.theme}|">
+<section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
+
+<!-- header-btm starts
+================================================== -->
+<section id="header-btm" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <h2 class="page-title heading-icon clearfix"><img th:src="|/images/map-arrow-${participant.theme}.png|" alt="icon"
+                                                              class="icon-small-bg"/><br/>Anxiety Triggers</h2>
+        </div>
+    </div>
+</section>
+
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+    <div class="container">
+
+        <!--spacer here-->
+        <div class="spacer-30px"></div>
+
+        <!--features starts-->
+        <div class="row">
+                <form th:action="@{/questions/AnxietyTriggers}" method="POST">
+                    <div class="longSection">
+                        <p>How long have you been experiencing moderate to severe anxiety symptoms?</p>
+                        <select name="howLong" required="required">
+                            <option>one week</option>
+                            <option>between one week and one month</option>
+                            <option>between 1-3 months</option>
+                            <option>between 3-6 months</option>
+                            <option>between 6-12 months</option>
+                            <option>between 1- 2 years</option>
+                            <option>between 2-5 years</option>
+                            <option>between 5-10 years</option>
+                            <option>more than 10 years</option>
+                        </select>
+                    </div>
+                    <div class="longSection">
+                     <fieldset>
+                        <p>People become anxious for lots of different reasons. To what extent do you routinely experience moderate to severe anxiety in the following situations?</p>
+                        <table class="questionnaire">
+                            <tr>
+                                <th></th>
+                                <th>Not at all</th>
+                                <th></th>
+                                <th>Somewhat</th>
+                                <th></th>
+                                <th>Extremely</th>
+                                <th>Prefer not to answer</th>
+                            </tr>
+                            <tr>
+                                <td class="statement">Anxiety at social gatherings (e.g., parties), speaking in public, when meeting new people or dating, or talking to an authority figure (e.g., boss, teacher)
+                                </td>
+                                <td><label class="radioBox"><input type="radio" name="social" class="form-control" value="1" required="true"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="social" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="social" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="social" class="form-control" value="4" />4</label></td>
+                                <td><label class="radioBox"><input type="radio" name="social" class="form-control" value="5" />5</label></td>
+                                <td><label class="radioBox"><input type="radio" name="social" class="form-control" value="555" /></label></td>
+
+                            </tr>
+                            <tr>
+                                <td class="statement">Fear about changes in bodily sensations (e.g., feeling dizzy, short of breath or rapid heart beat) or fears about having a “panic attack”
+                                </td>
+                                <td><label class="radioBox"><input type="radio" name="sensations" class="form-control" value="1" required="true"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="sensations" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="sensations" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="sensations" class="form-control" value="4" />4</label></td>
+                                <td><label class="radioBox"><input type="radio" name="sensations" class="form-control" value="5" />5</label></td>
+                                <td><label class="radioBox"><input type="radio" name="sensations" class="form-control" value="555" /></label></td>
+                            </tr>
+                            <tr>
+                                <td class="statement">Uncontrollable worries about lots of different things that could go badly (e.g., finances/money, work/career/school, relationships, health)
+                                </td>
+                                <td><label class="radioBox"><input type="radio" name="worry" class="form-control" value="1" required="true"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="worry" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="worry" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="worry" class="form-control" value="4" />4</label></td>
+                                <td><label class="radioBox"><input type="radio" name="worry" class="form-control" value="5" />5</label></td>
+                                <td><label class="radioBox"><input type="radio" name="worry" class="form-control" value="555" /></label></td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th>Not at all</th>
+                                <th></th>
+                                <th>Somewhat</th>
+                                <th></th>
+                                <th>Extremely</th>
+                                <th>Prefer not to answer</th>
+                            </tr>
+                            <tr>
+                                <td class="statement">Fear about becoming anxious and not being able to leave a situation (e.g., getting stuck at a movie theater or in a crowd)
+                                </td>
+                                <td><label class="radioBox"><input type="radio" name="anxiousFear" class="form-control" value="1" required="true"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="anxiousFear" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="anxiousFear" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="anxiousFear" class="form-control" value="4" />4</label></td>
+                                <td><label class="radioBox"><input type="radio" name="anxiousFear" class="form-control" value="5" />5</label></td>
+                                <td><label class="radioBox"><input type="radio" name="anxiousFear" class="form-control" value="555" /></label></td>
+                            </tr>
+                            <tr>
+                                <td class="statement">Extreme fear about a particular object or situation, like flying, being in a high place, certain insects or animals, or seeing blood or a wound
+                                </td>
+                                <td><label class="radioBox"><input type="radio" name="particularObject" class="form-control" value="1" required="true"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="particularObject" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="particularObject" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="particularObject" class="form-control" value="4" />4</label></td>
+                                <td><label class="radioBox"><input type="radio" name="particularObject" class="form-control" value="5" />5</label></td>
+                                <td><label class="radioBox"><input type="radio" name="particularObject" class="form-control" value="555" /></label></td>
+                            </tr>
+                            <tr>
+                                <td class="statement">Anxiety about upsetting thoughts or images that keep coming to mind, or anxiety about rituals or activities you feel you have to do over and over again (e.g., checking things or washing your hands)
+                                </td>
+                                <td><label class="radioBox"><input type="radio" name="thoughts" class="form-control" value="1" required="true"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="thoughts" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="thoughts" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="thoughts" class="form-control" value="4" />4</label></td>
+                                <td><label class="radioBox"><input type="radio" name="thoughts" class="form-control" value="5" />5</label></td>
+                                <td><label class="radioBox"><input type="radio" name="thoughts" class="form-control" value="555" /></label></td>
+                            </tr>
+                            <tr>
+                                <td class="statement">Anxiety related to reminders of a prior traumatic experience (such as a natural disaster, accident, assault, or exposure to combat or violence)
+                                </td>
+                                <td><label class="radioBox"><input type="radio" name="priorTrauma" class="form-control" value="1" required="true"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="priorTrauma" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="priorTrauma" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="priorTrauma" class="form-control" value="4" />4</label></td>
+                                <td><label class="radioBox"><input type="radio" name="priorTrauma" class="form-control" value="5" />5</label></td>
+                                <td><label class="radioBox"><input type="radio" name="priorTrauma" class="form-control" value="555" /></label></td>
+                            </tr>
+                            
+                        </table>
+                    </fieldset>
+                    </div>
+                    <div class="submit">
+                        <button type="submit">Next</button>
+                    </div>
+                </form>
+                <script>
+                $("#wizard").on("wizardfinish", function() {
+                    if (!$(this).find(":input").valid()) {
+                        return false;
+                    }
+                }).jWizard().validate();
+                </script>
+        </div>
+        <!--features ends-->
+
+        <!--divider here-->
+        <div class="spacer-40px"></div>
+
+    </div>
+</section>
+
+
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts" />
+
+</body>
+</html>
+
+<!--Please read each item and circle the number that best describes how satisfied you are at this time. Please answer each item even if you do not currently participate in an activity or have a relationship. You can be satisfied or dissatisfied with not doing the activity or having the relationship.-->
+
+<!--Mostly 	           Mostly-->
+<!--Delighted    Pleased    Satisfied    Mixed    Dissatisfied    Unhappy    Terrible-->
+<!--1. Material comforts home, food, conveniences,-->
+<!--financial security . . . . . . . . . . . . . . . . . . . . . . . 	    7            6            5          4            3              2             1-->
+
+<!--2. Health - being physically fit and vigorous . . . 	    7            6            5          4            3              2             1-->
+
+<!--3. Relationships with parents, siblings & other-->
+<!--relatives –  communicating, visiting, helping . . . 	    7            6            5          4            3              2             1-->
+
+<!--4. Having and rearing children . . . . . . . . . . . . . . .    	    7            6            5          4            3              2             1-->
+
+<!--5. Close relationships with spouse or-->
+<!--significant other . . . . . . . . . . . . . . . . . . . . . . . . 	    7            6            5          4            3              2             1-->
+
+<!--6. Close friends . . . . . . . . . . . . . . . . . . . . . . . . . .         7            6            5          4            3              2             1-->
+
+<!--7. Helping and encouraging others,-->
+<!--volunteering, giving advice . . . . . . . . . . . . . . . . 	    7            6            5          4            3              2             1-->
+
+<!--8. Participating in organizations and-->
+<!--public affairs . . . . . . . . . . . . . . . . . . . . . . . . . . 	    7            6            5          4            3              2             1-->
+
+<!--9. Learning- attending school, improving-->
+<!--understanding, getting additional knowledge . . 	    7            6            5          4            3              2             1-->
+
+<!--10. Understanding yourself - knowing your assets-->
+<!--and limitations - knowing what life is about . . 	    7            6            5          4            3              2             1-->
+
+<!--11. Work - job or in home . . . . . . . . . . . . . . . . . . .        7            6            5          4            3              2             1-->
+
+<!--12. Expressing yourself creatively . . . . . . . . . . . .         7            6            5          4            3              2             1-->
+
+<!--13. Socializing - meeting other people,-->
+<!--doing things, parties, etc . . . . . . . . . . . . . . . . . 	    7            6            5          4            3              2             1-->
+
+<!--14. Reading, listening to music, or observing-->
+<!--entertainment . . . . . . . . . . . . . . . . . . . . . . . . . . 	    7            6            5          4            3              2             1-->
+
+<!--15. Participating in active recreation . . . . . . . . . . .       7            6            5          4            3              2             1-->
+
+<!--16. Independence, doing for yourself . . . . . . . . . .        7            6            5          4            3              2             1-->
+
