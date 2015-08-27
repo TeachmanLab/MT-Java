@@ -107,7 +107,84 @@
                                 </table>
                             </div>
                     </div>
-                    <button>Continue</button>
+                    <div class="longSection">
+                        <p>
+                            <label>Are you <b>CURRENTLY</b> seeking help for anxiety or other mental or emotional difficulties from any
+                                of the following?(Check all that apply)</label>
+
+                        </p>
+                        <br/>
+                        <div class="row">
+                            <table>
+                                <td><div  style="padding:0; margin:0; border-right: solid 2px #bbb; width: 550px ">
+                                    <ul style="list-style-type: none;">
+
+                                        <li><input type="checkbox" name="helps" value="psychiatrist">Psychiatrist</input></li>
+                                        <li><input type="checkbox" name="helps" value="psychologist">Psychologist</input></li>
+                                        <li><input type="checkbox" name="helps" value="school_counselor">School Counselor</input></li>
+                                        <li><input type="checkbox" name="helps" value="LMHC">Licensed mental health practitioner</input></li>
+                                        <li><input type="checkbox" name="helps" value="general_practitioner">General practitioner(e.g. family doctor)</input></li>
+                                        <li><input type="checkbox" name="helps" value="teacher">Teacher</input></li>
+                                        <li><input type="checkbox" name="helps" value="family">Family member</input></li>
+                                        <li><input type="checkbox" name="helps" value="friend">Friend</input></li>
+                                        <li><input type="checkbox" name="helps" value="religious_leader">Religious Leader</input></li>
+                                        <li><input type="checkbox" name="helps" value="coach">Coach</input></li>
+                                        <li><input type="checkbox" name="helps" value="book">Self-help book</input></li>
+                                        <li><input type="checkbox" name="helps" value="medicine">Prescription medicine</input></li>
+                                        <li><input type="checkbox" name="helps" value="online">Online treatment</input></li>
+                                        <br />
+                                        <li><input type="checkbox" name="helps" value="Other">Other</input>  (Please specify)<input type="text" name="OtherHelp" /></li>
+                                    </ul>
+                                </div>
+                                </td>
+                                <td>
+                                    <div style="width:150px; text-align:center">
+                                        <p>I am not receiving help</p>
+                                        <input type="checkbox" name="helps" value="notHelp" />
+                                    </div>
+                                </td>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="longSection">
+                        <p>
+						    Have you sought help for mental or emotional difficulties for anxiety or other mental or emotional difficulties from any of the following
+						<b>IN THE PAST</b>? (Check all that apply) 
+						</p>
+                        <div class="row">
+                            <table>
+                                <td><div  style="padding:0; margin:0; border-right: solid 2px #bbb; width: 550px ">
+                                    <ul style="list-style-type: none;">
+										
+										<li><input type="checkbox" name="helps_past" value="psychiatrist">Psychiatrist</input></li>
+                                        <li><input type="checkbox" name="helps_past" value="psychologist">Psychologist</input></li>
+                                        <li><input type="checkbox" name="helps_past" value="school_counselor">School Counselor</input></li>
+                                        <li><input type="checkbox" name="helps_past" value="LMHC">Licensed mental health practitioner</input></li>
+                                        <li><input type="checkbox" name="helps_past" value="general_practitioner">General practitioner(e.g. family doctor)</input></li>
+                                        <li><input type="checkbox" name="helps_past" value="teacher">Teacher</input></li>
+                                        <li><input type="checkbox" name="helps_past" value="family">Family member</input></li>
+                                        <li><input type="checkbox" name="helps_past" value="friend">Friend</input></li>
+                                        <li><input type="checkbox" name="helps_past" value="religious_leader">Religious Leader</input></li>
+                                        <li><input type="checkbox" name="helps_past" value="coach">Coach</input></li>
+                                        <li><input type="checkbox" name="helps_past" value="book">Self-help book</input></li>
+                                        <li><input type="checkbox" name="helps_past" value="medicine">Prescription medicine</input></li>
+                                        <li><input type="checkbox" name="helps_past" value="online">Online treatment</input></li>
+                                        <br />
+                                        <li><input type="checkbox" name="helps_past" value="Other">Other</input>  (Please specify)<input type="text" name="OtherHelpPast" /></li>
+
+                                    </ul>
+                                </div>
+                                </td>
+                                <td>
+                                    <div style="width:150px; text-align:center">
+                                        <p>I have not gotten help</p>
+                                        <input type="checkbox" name="helps_past" value="NotGottenHelp" />
+                                    </div>
+                                </td>
+                            </table>
+                        </div>
+                    </div>
+                    <button type="submit" >Continue</button>
                 </form>
                 <script src="http://cdn.jsdelivr.net/jquery.validation/1.14.0/jquery.validate.min.js">
                 </script>

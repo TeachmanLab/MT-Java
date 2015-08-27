@@ -116,8 +116,9 @@ public class CBMStudy implements Study {
                 tasks.add(new Task("MH", "Mental Health History", Task.TYPE.questions, 1));
                 tasks.add(new Task("QOL", "Quality of Life Scale", Task.TYPE.questions, 2));
                 tasks.add(new Task("RecognitionRatings", "Recognition Training", Task.TYPE.playerScript, 20));
-                tasks.add(new Task("DASS21_DS", "Symptom Measures", Task.TYPE.questions, 1));
                 tasks.add(new Task("RR", "Recognition Ratings", Task.TYPE.questions, 4));
+
+                tasks.add(new Task("DASS21_DS", "Symptom Measures", Task.TYPE.questions, 1));
                 tasks.add(new Task("OA", "OASIS", Task.TYPE.questions, 1));
 //                tasks.add(new Task("SA", "Anxiety Assessment", Task.TYPE.questions, 2));
                 break;
@@ -126,12 +127,14 @@ public class CBMStudy implements Study {
                 tasks.add(new Task("FirstSessionComplete", "First Session", Task.TYPE.playerScript, 20));
                 tasks.add(new Task("CC", "Compare / Contrast", Task.TYPE.questions,1));
                 tasks.add(new Task("DASS21_AS", "Status Questionnaire", Task.TYPE.questions,1));
+                tasks.add(new Task("OA", "OASIS", Task.TYPE.questions, 1));
                 break;
             case SESSION2:
                 tasks.add(new Task("AIP", "Use your Imagination", Task.TYPE.questions,5));
                 tasks.add(new Task("SecondSessionComplete", "Second Session", Task.TYPE.playerScript, 20));
                 tasks.add(new Task("CC", "Compare / Contrast", Task.TYPE.questions, 1));
                 tasks.add(new Task("DASS21_AS", "Status Questionnaire", Task.TYPE.questions, 1));
+                tasks.add(new Task("OA", "OASIS", Task.TYPE.questions, 1));
                 break;
             case SESSION3:
                 tasks.add(new Task("AIP", "Use your Imagination", Task.TYPE.questions, 5));
@@ -139,6 +142,7 @@ public class CBMStudy implements Study {
                 tasks.add(new Task("CC", "Compare / Contrast", Task.TYPE.questions, 1));
                 tasks.add(new Task("DASS21_AS", "Status Questionnaire", Task.TYPE.questions, 1));
                 tasks.add(new Task("SAPo", "State Anxiety", Task.TYPE.questions, 3));
+                tasks.add(new Task("OA", "OASIS", Task.TYPE.questions, 1));
                 break;
             case SESSION4:
                 tasks.add(new Task("AIP", "Use your Imagination", Task.TYPE.questions, 5));
@@ -147,12 +151,14 @@ public class CBMStudy implements Study {
                 tasks.add(new Task("DASS21_AS", "Status Questionnaire", Task.TYPE.questions, 1));
                 tasks.add(new Task("QOL", "Quality of Life Scale", Task.TYPE.questions, 2));
                 tasks.add(new Task("DASS21_DS", "Symptom Measures", Task.TYPE.questions, 1));
+                tasks.add(new Task("OA", "OASIS", Task.TYPE.questions, 1));
                 break;
             case SESSION5:
                 tasks.add(new Task("AIP", "Use your Imagination", Task.TYPE.questions, 5));
                 tasks.add(new Task("FirstSessionComplete", "First Session", Task.TYPE.playerScript, 20));
                 tasks.add(new Task("CC", "CompareContrast", Task.TYPE.questions, 1));
                 tasks.add(new Task("DASS21_AS", "Status Questionnaire", Task.TYPE.questions, 1));
+                tasks.add(new Task("OA", "OASIS", Task.TYPE.questions, 1));
                 break;
             case SESSION6:
                 tasks.add(new Task("AIP", "Use your Imagination", Task.TYPE.questions, 5));
@@ -160,12 +166,14 @@ public class CBMStudy implements Study {
                 tasks.add(new Task("CC", "CompareContrast", Task.TYPE.questions, 1));
                 tasks.add(new Task("DASS21_AS", "Status Questionnaire", Task.TYPE.questions, 1));
                 tasks.add(new Task("SAPo", "State Anxiety", Task.TYPE.questions, 3));
+                tasks.add(new Task("OA", "OASIS", Task.TYPE.questions, 1));
                 break;
             case SESSION7:
                 tasks.add(new Task("AIP", "Use your Imagination", Task.TYPE.questions, 5));
                 tasks.add(new Task("ThirdSessionComplete", "Third Session", Task.TYPE.playerScript, 20));
                 tasks.add(new Task("CC", "CompareContrast", Task.TYPE.questions, 1));
                 tasks.add(new Task("DASS21_AS", "Status Questionnaire", Task.TYPE.questions, 1));
+                tasks.add(new Task("OA", "OASIS", Task.TYPE.questions, 1));
                 break;
             case SESSION8:
                 tasks.add(new Task("AIP", "Use your Imagination", Task.TYPE.questions, 5));
@@ -175,6 +183,7 @@ public class CBMStudy implements Study {
                 tasks.add(new Task("SAPo", "State Anxiety", Task.TYPE.questions, 3));
                 tasks.add(new Task("QOL", "Quality of Life Scale", Task.TYPE.questions, 2));
                 tasks.add(new Task("DASS21_DS", "Symptom Measures", Task.TYPE.questions, 1));
+                tasks.add(new Task("OA", "OASIS", Task.TYPE.questions, 1));
                 break;
             case POST:
                 tasks.add(new Task("MUE", "User Experience", Task.TYPE.questions, 2));
@@ -182,6 +191,7 @@ public class CBMStudy implements Study {
                 tasks.add(new Task("SAPo", "State Anxiety", Task.TYPE.questions, 3));
                 tasks.add(new Task("QOL", "Quality of Life Scale", Task.TYPE.questions, 2));
                 tasks.add(new Task("DASS21_DS", "Symptom Measures", Task.TYPE.questions, 1));
+                tasks.add(new Task("OA", "OASIS", Task.TYPE.questions, 1));
         }
         setTaskStates(name, tasks, taskIndex);
         return tasks;
