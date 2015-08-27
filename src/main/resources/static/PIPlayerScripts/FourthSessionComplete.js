@@ -1100,7 +1100,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {
                 "data": {
                     "negativeKey": "p",
-                    "negativeWord": "dissa[ ]ointed",
+                    "negativeWord": "disap[ ]ointed",
                     "positiveKey": "s",
                     "positiveWord": "plea[ ]ed",
                     "statement": " You are giving a speech at a convention for work. As you look into the crowd, you notice your boss\u2019s expression is neutral. You think that her expression means that she is "
@@ -1902,7 +1902,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Are you likely to get sick from the man behind the deli counter? </div>"
+                    "inlineTemplate": "<div>Are you likely to get sick from the cake? </div>"
                      }
             },
             {"inherit": {"set": "yesno"}},

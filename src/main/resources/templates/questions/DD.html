@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<!--<![endif]-->
+<head th:include="/fragment/common :: headerFragment"/>
+<body>
+<section id="header" class="clearfix" th:include="/fragment/common :: topFragment"/>
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+    <div class="container">
+
+        <!--spacer here-->
+        <div class="spacer-30px"></div>
+
+        <!--features starts-->
+        <form th:action="@{/questions/DD}" method="POST">
+            <div class="longSection">
+                <p>
+                    This section asks you to report on <b>your</b> drinking over the <b>past three months.</b>
+                </p>
+                <div>
+                    For all questions, <b>one drink equals</b>:
+                    <ul>
+                        <li> 5oz. wine</li>
+                        <li> 12oz. wine cooler</li>
+                        <li> 12oz. beer (10oz. of Microbrew; 8-9 oz. Malt Liquor, Canadian Beer or Ice Beer)</li>
+                        <li> 6oz. Ice Malt Liquor</li>
+                        <li> 1 Cocktail with 1 oz. of 100 proof liquor or 1.5 oz. (single jigger) of 80 proof liquor
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="question">Consider a typical week during the last three months. How much alcohol, on average (measured in
+                    number of drinks), do you drink on each day of a typical week?</div>
+                <table class="daysOfWeek">
+                    <tr>
+                        <th>Mon</th>
+                        <th>Tues</th>
+                        <th>Wed</th>
+                        <th>Thur</th>
+                        <th>Fri</th>
+                        <th>Sat</th>
+                        <th>Sun</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="number" min="0" max="100" required="required"  name="monday_count" class="form-control"/>
+                        </td>
+                        <td>
+                            <input type="number" min="0" max="100" required="required"  name="tuesday_count" class="form-control"/>
+                        </td>
+                        <td>
+                            <input type="number" min="0" max="100" required="required"  name="wednesday_count" class="form-control"/>
+                        </td>
+                        <td>
+                            <input type="number" min="0" max="100" required="required"  name="thursday_count" class="form-control"/>
+                        </td>
+                        <td>
+                            <input type="number" min="0" max="100" required="required"  name="friday_count" class="form-control"/>
+                        </td>
+                        <td>
+                            <input type="number" min="0" max="100" required="required"  name="saturday_count" class="form-control"/>
+                        </td>
+                        <td>
+                            <input type="number" min="0" max="100" required="required"  name="sunday_count" class="form-control"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <br/>
+            <div class="section">
+                <div class="question">Consider a typical week during the last three months. Over how many hours do you drink the above
+                    number of drinks?</div>
+                <table class="daysOfWeek">
+                    <tr>
+                        <th>Mon</th>
+                        <th>Tues</th>
+                        <th>Wed</th>
+                        <th>Thur</th>
+                        <th>Fri</th>
+                        <th>Sat</th>
+                        <th>Sun</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="number" min="0" max="100" required="required"  name="monday_hours" class="form-control"/>
+                        </td>
+                        <td>
+                            <input type="number" min="0" max="100" required="required"  name="tuesday_hours" class="form-control"/>
+                        </td>
+                        <td>
+                            <input type="number" min="0" max="100" required="required"  name="wednesday_hours" class="form-control"/>
+                        </td>
+                        <td>
+                            <input type="number" min="0" max="100" required="required"  name="thursday_hours" class="form-control"/>
+                        </td>
+                        <td>
+                            <input type="number" min="0" max="100" required="required"  name="friday_hours" class="form-control"/>
+                        </td>
+                        <td>
+                            <input type="number" min="0" max="100" required="required"  name="saturday_hours" class="form-control"/>
+                        </td>
+                        <td>
+                            <input type="number" min="0" max="100" required="required"  name="sunday_hours" class="form-control"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <br/>
+            <div class="section">
+                <div class="question">On average, during the last three months, how often have you consumed alcohol?</div>
+                <select name="average_freq" required="required">
+                    <option/>
+                    <option value="555">Prefer not to anwser</option>
+                    <option value="0" >
+                    Never</option>
+                    <option value="1">
+                    Less than once per month</option>
+                    <option value="2">
+                    Once a month</option>
+                    <option value="3">
+                    Two times a month</option>
+                    <option value="4">
+                    Three times a month</option>
+                    <option value="5">
+                    Once a week</option>
+                    <option value="6">
+                    Twice a week</option>
+                    <option value="7">
+                    Three times a week</option>
+                    <option value="8">
+                    Four times a week</option>
+                    <option value="9">
+                    Five times a week</option>
+                    <option value="10">
+                    Six times a week</option>
+                    <option value="11">
+                    Every day</option>
+                </select>
+            </div>
+            <br/>
+            <div class="section">
+                <div class="question">During the last three months, when you have consumed alcohol, how many drinks on average did you
+                    typically consume on a given occasion?</div>
+                <select name="average_amount" required="required">
+                    <option/>
+                    <option value="555">Prefer not to anwser</option>
+                    <option value="0" >0 drinks</option>
+                    <option value="1" >1 drinks</option>
+                    <option value="2" >2 drinks</option>
+                    <option value="3" >3 drinks</option>
+                    <option value="4" >4 drinks</option>
+                    <option value="5" >5 drinks</option>
+                    <option value="6" >6 drinks</option>
+                    <option value="7" >7 drinks</option>
+                    <option value="8" >8 drinks</option>
+                    <option value="9" >9 drinks</option>
+                    <option value="10" >10 drinks</option>
+                    <option value="11" >11 drinks</option>
+                    <option value="12" >12 drinks</option>
+                    <option value="13" >13 drinks</option>
+                    <option value="14" >14 drinks</option>
+                    <option value="15" >15 drinks</option>
+                    <option value="16" >16 drinks</option>
+                    <option value="17" >17 drinks</option>
+                    <option value="18" >18 drinks</option>
+                    <option value="19" >19 drinks</option>
+                    <option value="20" >20 drinks</option>
+                    <option value="21" >21 drinks</option>
+                    <option value="22" >22 drinks</option>
+                    <option value="23" >23 drinks</option>
+                    <option value="24" >24 drinks</option>
+                    <option value="25" >25 drinks</option>
+                </select>
+            </div>
+            <div class="submit">
+                <button type="submit">Next</button>
+            </div>
+        </form>
+    </div>
+    <!--features ends-->
+</section>
+
+
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>

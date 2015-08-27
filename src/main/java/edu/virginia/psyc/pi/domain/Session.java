@@ -19,6 +19,7 @@ public class Session {
 
     public enum STATE {COMPLETE, CURRENT, INCOMPLETE}
 
+    private int index;
     private String name;
     private String displayName;
     private boolean complete;
@@ -29,7 +30,8 @@ public class Session {
     public Session() {
     }
 
-    public Session(String name, String displayName, boolean complete, boolean current, boolean gift, List<Task> tasks) {
+    public Session(int index, String name, String displayName, boolean complete, boolean current, boolean gift, List<Task> tasks) {
+        this.index = index;
         this.name = name;
         this.complete = complete;
         this.current = current;

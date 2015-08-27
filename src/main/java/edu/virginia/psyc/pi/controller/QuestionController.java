@@ -55,8 +55,11 @@ public class QuestionController extends BaseController {
     private CCRepository cc_repository;
     private OARepository oa_repository;
     private ReRuRepository reru_repository;
+    private DDRepository dd_repository;
+    private DD_FURepository dd_fu_repository;
 //    private StateAnxietyPreRepository stateAnxietyPre_Repository;
     private StateAnxietyPostRepository stateAnxietyPost_Repository;
+    private BBSIQRepository bbsiqRepository;
     private static final Logger LOG = LoggerFactory.getLogger(QuestionController.class);
 
     @Autowired
@@ -89,7 +92,10 @@ public class QuestionController extends BaseController {
                               ReRuRepository reru_repository,
 //                              StateAnxietyPreRepository stateAnxietyPre_Repository,
                               FollowUp_ChangeInTreatment_Repository followup_Repository,
-                              StateAnxietyPostRepository stateAnxietyPost_Repository) {
+                              StateAnxietyPostRepository stateAnxietyPost_Repository,
+                              DDRepository dd_Repository,
+                              DD_FURepository dd_fu_repository,
+                              BBSIQRepository bbsiqRepository) {
         this.participantRepository = participantRepository;
         this.dass21_asRepository = dass21_asRepository;
         this.credibilityRepository = credibilityRepository;
@@ -111,6 +117,9 @@ public class QuestionController extends BaseController {
 //        this.stateAnxietyPre_Repository = stateAnxietyPre_Repository;
         this.stateAnxietyPost_Repository = stateAnxietyPost_Repository;
         this.followup_Repository = followup_Repository;
+        this.dd_repository = dd_Repository;
+        this.dd_fu_repository = dd_fu_repository;
+        this.bbsiqRepository = bbsiqRepository;
     }
 
 
@@ -627,6 +636,81 @@ public class QuestionController extends BaseController {
     String exportReRu() {
         return(objectListToCSV(reru_repository.findAll()));
     }
+
+
+    /**
+     * Daily Drinking
+     * ---------*
+     */
+    @RequestMapping(value = "DD", method = RequestMethod.GET)
+    public ModelAndView showDD(Principal principal) {
+        return modelAndView(principal, "/questions/DD", "DD", new DD());
+    }
+
+    @RequestMapping(value = "DD", method = RequestMethod.POST)
+    RedirectView handleDD(@ModelAttribute("DD") DD dd,
+                          BindingResult result) {
+
+        recordSessionProgress(dd);
+        dd_repository.save(dd);
+        return new RedirectView("/session/next");
+    }
+
+    @RequestMapping(value = "DD/export", method = RequestMethod.GET, produces = "text/csv")
+    @ResponseBody // Return the string directly, the return value is not a template name.
+    String exportDD() {
+        return(objectListToCSV(dd_repository.findAll()));
+    }
+
+    /**
+     * Daily Drinking Follow up
+     * ---------*
+     */
+    @RequestMapping(value = "DD_FU", method = RequestMethod.GET)
+    public ModelAndView showDDFU(Principal principal) {
+        return modelAndView(principal, "/questions/DD_FU", "DD_FU", new DD());
+    }
+
+    @RequestMapping(value = "DD_FU", method = RequestMethod.POST)
+    RedirectView handleDD(@ModelAttribute("DD_FU") DD_FU dd_fu,
+                          BindingResult result) {
+
+        recordSessionProgress(dd_fu);
+        dd_fu_repository.save(dd_fu);
+        return new RedirectView("/session/next");
+    }
+
+    @RequestMapping(value = "DD_FU/export", method = RequestMethod.GET, produces = "text/csv")
+    @ResponseBody // Return the string directly, the return value is not a template name.
+    String exportDDFU() {
+        return(objectListToCSV(dd_fu_repository.findAll()));
+    }
+
+
+    /**
+     * BBSIQ
+     * ---------*
+     */
+    @RequestMapping(value = "BBSIQ", method = RequestMethod.GET)
+    public ModelAndView showBBSIQ(Principal principal) {
+        return modelAndView(principal, "/questions/BBSIQ", "BBSIQ", new BBSIQ());
+    }
+
+    @RequestMapping(value = "BBSIQ", method = RequestMethod.POST)
+    RedirectView handleDD(@ModelAttribute("BBSIQ") BBSIQ bbsiq,
+                          BindingResult result) {
+
+        recordSessionProgress(bbsiq);
+        bbsiqRepository.save(bbsiq);
+        return new RedirectView("/session/next");
+    }
+
+    @RequestMapping(value = "BBSIQ/export", method = RequestMethod.GET, produces = "text/csv")
+    @ResponseBody // Return the string directly, the return value is not a template name.
+    String exportBBSIQ() {
+        return(objectListToCSV(bbsiqRepository.findAll()));
+    }
+
 
 //    /**
 //     * AnxietyPreRepository

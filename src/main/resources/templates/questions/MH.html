@@ -15,6 +15,16 @@
 <body th:class="|user-theme-${participant.theme}|">
 <section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
 
+<!-- header-btm starts
+================================================== -->
+<section id="header-btm" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <h2 class="page-title heading-icon clearfix"><img th:src="@{/images/map-arrow-orange.png}" alt="icon"
+                                                              class="icon-small-bg"/><br/>Mental Health History</h2>
+        </div>
+    </div>
+</section>
 
 <!-- content starts
 ================================================== -->
@@ -27,7 +37,6 @@
         <!--features starts-->
         <div class="row">
             <div class="span12">
-                <h2 class="page-title">Initial Assessment</h2>
                 <form th:action="@{/questions/MH}" method="POST">
                     <div class="longSection">
                         <p>
@@ -107,6 +116,7 @@
                                 </table>
                             </div>
                     </div>
+<<<<<<< HEAD
                     <div class="longSection">
                         <p>
                             <label>Are you <b>CURRENTLY</b> seeking help for anxiety or other mental or emotional difficulties from any
@@ -185,6 +195,11 @@
                         </div>
                     </div>
                     <button type="submit" >Continue</button>
+=======
+                    <div class="submit">
+                        <button type="submit">Next</button>
+                    </div>
+>>>>>>> upstream/master
                 </form>
                 <script src="http://cdn.jsdelivr.net/jquery.validation/1.14.0/jquery.validate.min.js">
                 </script>

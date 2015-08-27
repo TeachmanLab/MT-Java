@@ -20,9 +20,7 @@
     ================================================== -->
     <div class="container sessionSection" th:if="${sessionState == 'READY'}">
         <div class="row">
-            <div class="col-md-4">
-                <img th:src="@{/images/map-0-orange.png}" alt="icon" class="icon-small-bg"/>
-            </div>
+                <img class="sessionImage" th:src="|/images/map-${currentSession.index}-${participant.theme}.png|"/>
             <div class="col-md-8 session">
                 <div th:if="${currentSession.name =='PRE'}">
                     <h2><span th:text="${participant.fullName}">Jim</span>, you're ready to begin your initial
@@ -37,9 +35,9 @@
                     <p>You are ready to begin <span th:text="${currentSession.displayName}"/></p>
 
                     <p>This includes ...</p>
-                    <img th:src="@{/images/clock-20-blue.png}"/>
+                    <img th:src="|/images/clock-20-${participant.theme}.png|"/>
                     <p>A 20-minute Training</p>
-                    <img th:src="@{/images/clock-1-blue.png}"/>
+                    <img th:src="|/images/clock-1-${participant.theme}.png|"/>
                     <p>A Brief Followup</p>
                 </div>
                 <div th:if="${currentSession.name == 'SESSION2'}">
@@ -47,9 +45,9 @@
                     You're ready to begin the <span th:text="${currentSession.displayName}"/>
 
                     <p>This includes ...</p>
-                    <img th:src="@{/images/clock-20-blue.png}"/>
+                    <img th:src="|/images/clock-20-${participant.theme}.png|"/>
                     <p>A 20-minute training session</p>
-                    <img th:src="@{/images/clock-1-blue.png}"/>
+                    <img th:src="|/images/clock-1-${participant.theme}.png|"/>
                     <p>A brief 2-minute review</p>
                 </div>
                 <div th:if="${currentSession.name == 'SESSION3'}">
@@ -57,9 +55,9 @@
                     You're ready to begin the <span th:text="${currentSession.displayName}"/>
 
                     <p>This includes ...</p>
-                    <img th:src="@{/images/clock-20-blue.png}"/>
+                    <img th:src="|/images/clock-20-${participant.theme}.png|"/>
                     <p>A 20-minute training session</p>
-                    <img th:src="@{/images/clock-1-blue.png}"/>
+                    <img th:src="|/images/clock-1-${participant.theme}.png|"/>
                     <p>A brief 2-minute review</p>
                 </div>
                 <div th:if="${currentSession.name == 'SESSION4'}">
@@ -67,18 +65,18 @@
                     You're ready to begin the <span th:text="${currentSession.displayName}"/>
 
                     <p>This includes ...</p>
-                    <img th:src="@{/images/clock-20-blue.png}"/>
+                    <img th:src="|/images/clock-20-${participant.theme}.png|"/>
                     <p>A 20-minute training session</p>
-                    <img th:src="@{/images/clock-10-blue.png}"/>
+                    <img th:src="|/images/clock-10-${participant.theme}.png|"/>
                     <p>A 10-minute assessment</p>
                 </div>
                 <div th:if="${currentSession.name == 'SESSION5'}">
                     <h2>Welcome Back <span th:text="${participant.fullName}">Jim</span>.</h2>
                     You're ready to begin the <span th:text="${currentSession.displayName}"/>
                     <p>This includes ...</p>
-                    <img th:src="@{/images/clock-20-blue.png}"/>
+                    <img th:src="|/images/clock-20-${participant.theme}.png|"/>
                     <p>A 20-minute training session</p>
-                    <img th:src="@{/images/clock-10-blue.png}"/>
+                    <img th:src="|/images/clock-10-${participant.theme}.png|"/>
                     <p>A 10-minute assessment</p>
                 </div>
                 <div th:if="${currentSession.name == 'SESSION6'}">
@@ -86,36 +84,36 @@
                     You're ready to begin the <span th:text="${currentSession.displayName}"/>
 
                     <p>This includes ...</p>
-                    <img th:src="@{/images/clock-20-blue.png}"/>
+                    <img th:src="|/images/clock-20-${participant.theme}.png|"/>
                     <p>A 20-minute training session</p>
-                    <img th:src="@{/images/clock-1-blue.png}"/>
+                    <img th:src="|/images/clock-1-${participant.theme}.png|"/>
                     <p>A brief 2-minute review</p>
                 </div>
                 <div th:if="${currentSession.name == 'SESSION7'}">
                     <h2>Welcome Back <span th:text="${participant.fullName}">Jim</span>.</h2>
                     You're ready to begin the <span th:text="${currentSession.displayName}"/>
                     <p>This includes ...</p>
-                    <img th:src="@{/images/clock-20-blue.png}"/>
+                    <img th:src="|/images/clock-20-${participant.theme}.png|"/>
                     <p>A 20-minute training session</p>
-                    <img th:src="@{/images/clock-1-blue.png}"/>
+                    <img th:src="|/images/clock-1-${participant.theme}.png|"/>
                     <p>A brief 2-minute review</p>
                 </div>
                 <div th:if="${currentSession.name == 'SESSION8'}">
                     <h2>Welcome Back <span th:text="${participant.fullName}">Jim</span>.</h2>
                     You're ready to begin the <span th:text="${currentSession.displayName}"/>
                     <p>This includes ...</p>
-                    <img th:src="@{/images/clock-20-blue.png}"/>
+                    <img th:src="|/images/clock-20-${participant.theme}.png|"/>
                     <p>A 20-minute training session</p>
-                    <img th:src="@{/images/clock-10-blue.png}"/>
+                    <img th:src="|/images/clock-10-${participant.theme}.png|"/>
                     <p>A 10-minute assessment</p>
                 </div>
                 <div th:if="${currentSession.name == 'POST'}">
                     <h2>Welcome Back <span th:text="${participant.fullName}">Jim</span>.</h2>
                     You're ready to begin the <span th:text="${currentSession.displayName}"/>
                     <p>This includes ...</p>
-                    <img th:src="@{/images/clock-20-blue.png}"/>
+                    <img th:src="|/images/clock-20-${participant.theme}.png|"/>
                     <p>A 20-minute training session</p>
-                    <img th:src="@{/images/clock-10-blue.png}"/>
+                    <img th:src="|/images/clock-10-${participant.theme}.png|"/>
                     <p>A 10-minute assessment</p>
                 </div>
                 <a th:href="${currentTask.requestMapping}" th:if="${currentTask}">
@@ -160,26 +158,28 @@
     <!-- SESSION STATE WAIT A DAY ....
     ================================================== -->
     <div class="container sessionSection" th:if="${sessionState == 'WAIT_A_DAY'}">
-        <div class="row">
-            <div class="col-md-4">
-                <img th:src="@{/images/map-arrow-orange.png}" alt="icon" class="icon-small-bg"/>
+            <div class="sessionHeader">
+                <img class="sessionImage" th:src="|/images/map-${lastSession.index}-${participant.theme}.png|" alt="icon"/>
+                <h2>Good work, <span th:text="${participant.fullName}">Jim</span>.<br/>You have completed the <span th:text="${lastSession.displayName}"/>. </h2>
             </div>
 
-            <div class="col-md-8 session">
-                <h2>Good work, <span th:text="${participant.fullName}">Jim</span>.<br/>You have completed the <span
-                        th:text="${lastSession.displayName}"/>. </h2>
-
-                <p>UP NEXT: For best results, plan to begin the <span th:text="${currentSession.displayName}"/> between
-                    <span class="dateRange" th:text="${dateRange}">July 7 - July 10, 2015</span></p>
-
-                <div th:if="${giftAwarded}">
-                    <h3>Congratulations! You have earned a $5 gift card.</h3> Please check your email for information on
-                    how to redeem it.
-                </div>
-                <p>Your next gift card will be available when you complete <span th:text="${nextGiftSession}"/></p>
-                <a href="/session/overview">Program Overview</a>
+        <div class="giftAwarded" th:if="${giftAwarded}">
+            <img th:src="@{/images/gift_card_sm.png}"/>
+            <div class="message">
+                 <em>Congratulations! You have earned a $5 gift card.</em><br/>
+                 Please check your email for information on how to redeem it.
+                 <span th:if="${nextGiftSession}"><b>Your next gift card</b> will be available when you complete <span th:text="${nextGiftSession.displayName}"/></span>
             </div>
         </div>
+
+                <p>UP NEXT: For best results, plan to begin the <span th:text="${currentSession.displayName}"/> between
+                    <br/><em th:text="${dateRange}">July 7 - July 10, 2015</em>
+                    <br/><a href="/session/overview">Program Overview</a>
+                </p>
+                <div class="nextGift" th:unless="${giftAwarded}" th:if="${nextGiftSession}">
+                    <img th:src="@{/images/gift_card_sm.png}"/>
+                    <span>Your next gift card will be available when you complete <span th:text="${nextGiftSession.displayName}"/></span>
+                </div>
      </div>
 
     <!-- SESSION STATE WAIT FOR FOLLOWUP ....

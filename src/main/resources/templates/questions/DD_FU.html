@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<!--<![endif]-->
+<head th:include="/fragment/common :: headerFragment" />
+<body>
+<section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+    <div class="container">
+
+        <!--spacer here-->
+        <div class="spacer-30px"></div>
+
+        <!--features starts-->
+                <form th:action="@{/questions/DD_FU}" method="POST">
+                    <div class="longSection">
+                        <p>
+                            This section asks you to report on <b>your</b> drinking over the <b>past three months.</b>
+                        </p>
+                        <div>
+                            For all questions, <b>one drink equals</b>:
+                            <ul>
+                                <li> 5oz. wine</li>
+                                <li> 12oz. wine cooler</li>
+                                <li> 12oz. beer (10oz. of Microbrew; 8-9 oz. Malt Liquor, Canadian Beer or Ice Beer)</li>
+                                <li> 6oz. Ice Malt Liquor</li>
+                                <li> 1 Cocktail with 1 oz. of 100 proof liquor or 1.5 oz. (single jigger) of 80 proof liquor
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="question">Consider the prior week.  How much alcohol (measured in number
+                             of drinks), did you drink on each day of the past week?</div>
+                        <table class="daysOfWeek">
+                            <tr>
+                                <th>Mon</th>
+                                <th>Tues</th>
+                                <th>Wed</th>
+                                <th>Thur</th>
+                                <th>Fri</th>
+                                <th>Sat</th>
+                                <th>Sun</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="number" min="0" max="100" required="required"  name="monday_count" class="form-control"/>
+                                </td>
+                                <td>
+                                    <input type="number" min="0" max="100" required="required"  name="tuesday_count" class="form-control"/>
+                                </td>
+                                <td>
+                                    <input type="number" min="0" max="100" required="required"  name="wednesday_count" class="form-control"/>
+                                </td>
+                                <td>
+                                    <input type="number" min="0" max="100" required="required"  name="thursday_count" class="form-control"/>
+                                </td>
+                                <td>
+                                    <input type="number" min="0" max="100" required="required"  name="friday_count" class="form-control"/>
+                                </td>
+                                <td>
+                                    <input type="number" min="0" max="100" required="required"  name="saturday_count" class="form-control"/>
+                                </td>
+                                <td>
+                                    <input type="number" min="0" max="100" required="required"  name="sunday_count" class="form-control"/>
+                                </td>
+                            </tr>
+</table>
+                        </div>
+                    <br/>
+                    <div class="section">
+                        <div class="question">Consider the prior week.  Over how many hours did you drink the above number of drinks?</div>
+                        <table class="daysOfWeek">
+                            <tr>
+                                <th>Mon</th>
+                                <th>Tues</th>
+                                <th>Wed</th>
+                                <th>Thur</th>
+                                <th>Fri</th>
+                                <th>Sat</th>
+                                <th>Sun</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="number" min="0" max="100" required="required"  name="monday_hours" class="form-control"/>
+                                </td>
+                                <td>
+                                    <input type="number" min="0" max="100" required="required"  name="tuesday_hours" class="form-control"/>
+                                </td>
+                                <td>
+                                    <input type="number" min="0" max="100" required="required"  name="wednesday_hours" class="form-control"/>
+                                </td>
+                                <td>
+                                    <input type="number" min="0" max="100" required="required"  name="thursday_hours" class="form-control"/>
+                                </td>
+                                <td>
+                                    <input type="number" min="0" max="100" required="required"  name="friday_hours" class="form-control"/>
+                                </td>
+                                <td>
+                                    <input type="number" min="0" max="100" required="required"  name="saturday_hours" class="form-control"/>
+                                </td>
+                                <td>
+                                    <input type="number" min="0" max="100" required="required"  name="sunday_hours" class="form-control"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="submit">
+                        <button type="submit">Next</button>
+                    </div>
+                </form>
+        <!--features ends-->
+
+        <!--divider here-->
+        <div class="spacer-40px"></div>
+
+    </div>
+</section>
+
+
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts" />
+
+</body>
+</html>

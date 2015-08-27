@@ -65,7 +65,7 @@ public class SessionController extends BaseController {
         DateTime startDate = new DateTime(p.lastMilestone()).plusDays(2);
         DateTime endDate = new DateTime(p.lastMilestone()).plusDays(5);
         DateTime completeBy = new DateTime(p.lastMilestone()).plusDays(2);
-        DateTimeFormatter startFormat = DateTimeFormat.forPattern("MMMM d -");
+        DateTimeFormatter startFormat = DateTimeFormat.forPattern("MMMM d - ");
         DateTimeFormatter endFormat = DateTimeFormat.forPattern("MMMM d, YYYY");
 
         // Determine if a gift should be awarded, and award it.
@@ -78,6 +78,7 @@ public class SessionController extends BaseController {
         model.addAttribute("participant", p);
         model.addAttribute("lastSession", study.getLastSession());
         model.addAttribute("currentSession", session);
+        model.addAttribute("nextGiftSession", study.nextGiftSession());
         model.addAttribute("currentTask", session.getCurrentTask());
         model.addAttribute("sessionState", study.getState().toString());
         model.addAttribute("dateRange", startFormat.print(startDate) + endFormat.print(endDate));

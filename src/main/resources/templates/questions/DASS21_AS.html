@@ -15,7 +15,11 @@
 <section id="header-btm" class="clearfix">
     <div class="container">
         <div class="row">
-            <h2 class="page-title heading-icon clearfix"> <img th:src="@{/images/map-arrow-orange.png}" alt="icon" class="icon-small-bg" /><br/>Eligibility Questionnaire</h2>
+            <h2 class="page-title heading-icon clearfix"> <img th:src="@{/images/map-arrow-orange.png}" alt="icon" class="icon-small-bg" />
+                <br/>
+              <span th:text="${eligibility}? 'Eligibility Questionnaire' : 'Status Questionnaire'"/>
+            </h2>
+
         </div>
     </div>
 </section>
@@ -34,6 +38,7 @@
         <!--features starts-->
         <div class="row">
             <div class="span12 wide">
+                <h2></h2>
                 <p>Please read each statement and select an option that indicates how much the statement applied to you over the <b>past week</b>. There are no right or wrong answers.  Do not spend too much time on any statement.</p>
                 <form th:action="${eligibility}? @{/public/eligibilityCheck} : @{/questions/DASS21_AS}" method="POST">
                         <!--TODO CHANGE INSTRUCTIONS BASED ON INITIAL OR DURING TRAINING-->
@@ -69,7 +74,7 @@
                             </div>
                             </label>
                         </div>
-                        <br />
+
                         <div class="section">
                             <div class="question">I was aware of dryness of my mouth.</div>
                             <label class="radioBox">
@@ -108,7 +113,7 @@
                                 </div>
                             </label>
                         </div>
-                        <br />
+
                         <div class="section">
                             <div class="question"><h4>I experienced breathing difficulty (e.g., excessively rapid breathing,
                                 breathlessness in the absence of physical exertion).</h4></div>
@@ -148,7 +153,7 @@
                             </div>
                             </label>
                         </div>
-                        <br />
+
                         <div class="section">
                             <div class="question"><h4>I experienced trembling (e.g., in the hands).</h4></div>
                             <label class="radioBox">
@@ -187,7 +192,7 @@
                             </div>
                             </label>
                         </div>
-                        <br />
+
                         <div class="section">
                             <div class="question"><h4>I was worried about situations in which I might panic and make
                                 a fool of myself.</h4></div>
@@ -227,7 +232,7 @@
                             </div>
                             </label>
                         </div>
-                        <br />
+
                         <div class="section">
                             <div class="question"><h4>I felt I was close to panic.</h4></div>
                             <label class="radioBox">
@@ -266,7 +271,7 @@
                             </div>
                             </label>
                         </div>
-                        <br />
+
                         <div class="section">
                             <div class="question"><h4>I was aware of the action of my heart in the absence of physical
                                 exertion (e.g., sense of heart rate increase, heart missing a beat).</h4></div>
@@ -306,7 +311,7 @@
                             </div>
                             </label>
                         </div>
-                        <br />
+
                         <div class="section">
                             <div class="question"><h4>I felt scared without any good reason..</h4></div>
                             <label class="radioBox">
@@ -345,13 +350,13 @@
                             </div>
                             </label>
                         </div>
-                        <br />
-                    <br />
+
+
                     <div id="submit">
                         <span th:if="${eligibility}">
                         <input type="checkbox" id="over18" name="isOver18" /> I am 18 years old or older.<br />
                         </span>
-                        <button>Submit</button>
+                        <button>Next</button>
                     </div>
                 </form>
 
