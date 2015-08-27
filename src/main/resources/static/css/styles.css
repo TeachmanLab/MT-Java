@@ -64,6 +64,11 @@ button  {  -webkit-border-radius: 5px;
 .user-theme-gold .page-title { color:#ECB800; }
 .heading-icon {margin-top:-10px; }
 
+em {font-style: normal; color:#5ECCDE; font-weight: 800;}
+.user-theme-orange em { color:#F77D38; }
+.user-theme-green em { color:#77B46D; }
+.user-theme-purple em { color:#C98ABB; }
+.user-theme-gold em { color:#ECB800; }
 
 #footer {background:#21336B; font-size:0.5em;}
 .footer-logo { float:left;}
@@ -75,6 +80,14 @@ button  {  -webkit-border-radius: 5px;
 .user-theme-green .footer-links a { color:#99C38D; }
 .user-theme-purple .footer-links a { color:#D4A4CA; }
 .user-theme-gold .footer-links a { color:#F1C657;}
+
+h2 {font-size:1.45em; color:#00ACE4; font-weight:bold }
+.user-theme-orange h2 { color:#F77D38;}
+.user-theme-green h2 { color:#77B46D; }
+.user-theme-purple h2 { color:#C98ABB; }
+.user-theme-gold h2 { olor:#ECB800; }
+
+
 
 .copyright {width:100%; padding:15px; text-align:center; background:#FFFFFF;}
 
@@ -93,15 +106,67 @@ div.longSection, div.sessionSection, div.sessionOverview {
 /**
   For the main landing page for participants
 **/
-div.sessionSection{  padding: 20px 0px; align-content: center }
+div.sessionSection{  padding: 20px 0px; align-content: center text-align: center;}
 div.sessionSection .col-md-4 { padding: 0 0 0 100px; }
 div.sessionSection .col-md-8 { padding: 0 100px 0 100px; }
+
+div.sessionSection p {
+    text-align: center;
+    margin: 20px;
+}
+
+div.sessionSection div.sessionHeader {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    background: #00ACE4;
+    margin: -20px 0 0 0;
+    padding: 10px 40px;
+    color: #FFF;
+    min-height: 180px;
+}
+div.sessionSection div.sessionHeader h2 {
+    color: #FFF;
+    font-weight: bold;
+    text-align: center;
+    max-width: 600px;
+    margin: 20px 100px 20px 300px;
+}
+
+
+div.sessionSection img.sessionImage {
+    float:left;
+    padding-left: 50px;
+}
+
+div.sessionSection div.nextGift {
+    border-top: 1px solid #5f5f5f;
+    line-height: 40px;
+    padding: 20px 20px 0 20px;
+    text-align:  center;
+}
+
+div.sessionSection div.giftAwarded {
+    border-top: none;
+    border-bottom: 1px solid #5f5f5f;
+    text-align: left;
+    padding: 20px 100px 20px 150px;
+}
+
+div.sessionSection div.giftAwarded div.message {
+    padding-left: 100px;
+}
+
+
+div.sessionSection div.nextGift img, div.sessionSection div.giftAwarded img {
+    float: left;
+    padding: 20px;
+}
+
 
 /**
 Session Home / Status Page
 **/
 div.session {text-align: center}
-div.session h2 {font-size:1.45em; color:#00ACE4; font-weight:bold }
 div.session p { font-size: 1.16em; }
 div.session p.session-note {
     border-top: 2px solid #5f5f5f;

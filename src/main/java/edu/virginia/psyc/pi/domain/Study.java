@@ -16,6 +16,8 @@ public interface Study {
 
     public Session getCurrentSession(); // returns the current session.
 
+    public Session nextGiftSession(); // returns the current session.
+
     public void completeCurrentTask(); // completes a task, moving the participant further through the study/
 
     public int getCurrentTaskIndex();  // Returns the index of the task currently underway within the current session.

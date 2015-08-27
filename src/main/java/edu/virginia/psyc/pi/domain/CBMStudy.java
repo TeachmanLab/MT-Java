@@ -70,7 +70,7 @@ public class CBMStudy implements Study {
             gift = false;
             if(giftSessions.contains(name)) gift = true;
             if (!name.equals(NAME.ELIGIBLE) && !name.equals(NAME.COMPLETE)) {
-                session = new Session(name.toString(), calculateDisplayName(name), completed, current, gift, getTasks(name, taskIndex));
+                session = new Session(calcIndex(name), name.toString(), calculateDisplayName(name), completed, current, gift, getTasks(name, taskIndex));
                 sessions.add(session);
             }
             current = false;  // only one can be current.
@@ -217,6 +217,26 @@ public class CBMStudy implements Study {
         return displayName;
     }
 
+    private static int calcIndex(NAME name) {
+        int index = -1;
+        switch (name) {
+            case ELIGIBLE: index=-1; break;
+            case PRE: index=-0; break;
+            case SESSION1: index=1; break;
+            case SESSION2: index=2; break;
+            case SESSION3: index=3; break;
+            case SESSION4: index=4; break;
+            case SESSION5: index=5; break;
+            case SESSION6: index=6; break;
+            case SESSION7: index=7; break;
+            case SESSION8: index=8; break;
+            case POST: index=9; break;
+            case COMPLETE: index=0; break;
+        }
+        return index;
+    }
+
+
     /**
      * Given a session name, returns the next session name.
      */
@@ -237,8 +257,19 @@ public class CBMStudy implements Study {
             if (name == NAME.valueOf(currentName)) break;
             last = name;
         }
-        return new Session(last.toString(), calculateDisplayName(last), true, false, giftSessions.contains(last), getTasks(last,0));
+        return new Session(calcIndex(last), last.toString(), calculateDisplayName(last), true, false, giftSessions.contains(last), getTasks(last,0));
     }
+
+    public Session nextGiftSession() {
+
+        boolean toCurrent = false;
+        for (Session s : getSessions()) {
+            if (toCurrent && s.isAwardGift()) return s;
+            if (s.isCurrent()) toCurrent = true;
+        }
+        return null;
+    }
+
 
     /**
      * This method churns through the list of tasks, setting the "current" and "complete" flags based on the
@@ -328,6 +359,7 @@ public class CBMStudy implements Study {
 
             // Otherwise, you must wait at least one day before starting the next
             // session.
+
             if(daysSinceLastSession() == 0 && lastSessionDate != null) return STUDY_STATE.WAIT_A_DAY;
             return STUDY_STATE.READY;
         }
