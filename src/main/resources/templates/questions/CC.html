@@ -36,50 +36,78 @@
             <div class="span12">
                 <form th:action="@{/questions/CC}" method="POST">
                     <div class="section">
-                        <div class="question">While reading the descriptions, to what extent did you feel the scenarios fit with versus contrasted with your idea of how you might respond in those situations?</div>
+                        <div class="question">While reading the brief stories in the training program, to what extent did you feel you could relate to the situations that were presented?</div>
                         <label class="radioBox">
                             <div class="option">
-                                <div class="desc1">Completely contrasted with my idea of myself</div>
-                                <input type="radio" name="fit" class="form-control" value="0" required="true"/>
-                                <div class="desc2">0</div>
-                            </div>
-                        </label>
-                        <label class="radioBox">
-                            <div class="option">
-                                <div class="desc1">Neither fit nor contrasted with my idea of myself</div>
-                                <input type="radio" name="fit" class="form-control" value="1" />
+                                <div class="desc1">Not at all</div>
+                                <input type="radio" name="related" class="form-control" value="1" required="true"/>
                                 <div class="desc2">1</div>
                             </div>
                         </label>
                         <label class="radioBox">
                             <div class="option">
-                                <div class="desc1">Completely fit with my idea of myself</div>
-                                <input type="radio" name="fit" class="form-control" value="2" />
+                                <div class="desc1">Slightly</div>
+                                <input type="radio" name="related" class="form-control" value="2" />
                                 <div class="desc2">2</div>
+                            </div>
+                        </label>
+                        <label class="radioBox">
+                            <div class="option">
+                                <div class="desc1">Somewhat</div>
+                                <input type="radio" name="related" class="form-control" value="3" />
+                                <div class="desc2">3</div>
+                            </div>
+                        </label>
+                        <label class="radioBox">
+                            <div class="option">
+                                <div class="desc1">Mostly</div>
+                                <input type="radio" name="related" class="form-control" value="4" />
+                                <div class="desc2">4</div>
+                            </div>
+                        </label>
+                        <label class="radioBox">
+                            <div class="option">
+                                <div class="desc1">Very much</div>
+                                <input type="radio" name="related" class="form-control" value="5" />
+                                <div class="desc2">5</div>
                             </div>
                         </label>
                     </div>
                     <div class="section">
-                        <div class="question">While reading the descriptions, to what extent did you compare yourself to the actions described in the scenarios in a positive (self-enhancing) versus a negative (self-devaluing) way?</div>
+                        <div class="question">While reading the brief stories in the training program, to what extent did you feel like it could be you behaving that way in those stories?</div>
                         <label class="radioBox">
                             <div class="option">
-                                <div class="desc1">Completely contrasted with my idea of myself</div>
-                                <input type="radio" name="compare" class="form-control" value="0" required="true"/>
-                                <div class="desc2">0</div>
-                            </div>
-                        </label>
-                        <label class="radioBox">
-                            <div class="option">
-                                <div class="desc1">Neither fit nor contrasted with my idea of myself</div>
-                                <input type="radio" name="compare" class="form-control" value="1" />
+                                <div class="desc1">Not at all</div>
+                                <input type="radio" name="compare" class="form-control" value="1" required="true"/>
                                 <div class="desc2">1</div>
                             </div>
                         </label>
                         <label class="radioBox">
                             <div class="option">
-                                <div class="desc1">Completely fit with my idea of myself</div>
+                                <div class="desc1">Slightly</div>
                                 <input type="radio" name="compare" class="form-control" value="2" />
                                 <div class="desc2">2</div>
+                            </div>
+                        </label>
+                        <label class="radioBox">
+                            <div class="option">
+                                <div class="desc1">Somewhat</div>
+                                <input type="radio" name="compare" class="form-control" value="3" />
+                                <div class="desc2">3</div>
+                            </div>
+                        </label>
+                        <label class="radioBox">
+                            <div class="option">
+                                <div class="desc1">Mostly</div>
+                                <input type="radio" name="compare" class="form-control" value="4" />
+                                <div class="desc2">4</div>
+                            </div>
+                        </label>
+                        <label class="radioBox">
+                            <div class="option">
+                                <div class="desc1">Very much</div>
+                                <input type="radio" name="compare" class="form-control" value="5" />
+                                <div class="desc2">5</div>
                             </div>
                         </label>
                     </div>
