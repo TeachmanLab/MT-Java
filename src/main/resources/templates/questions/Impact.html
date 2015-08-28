@@ -39,28 +39,40 @@
                         <legend>Questions</legend>
                         <h4>Please provide as much information as possible.</h4>
                         <p>
-                            <label>Using a 0-100 scale, where 0 means you have absolutely no anxiety, and 100 means you are the most anxious you could imagine being, like panic, what was your highest level of anxiety as you competed the imagery task? Type NA if you prefer not to answer</label>
-                            <input type="text" name="anxiety" required="true"/>
+                            <label>How calm vs. anxious do you think you would be in this situation?</label>
+                            <select name="anxiety" required="true">
+                                <option>Very Calm</option>
+                                <option>Somewhat Calm</option>
+                                <option>Neutral</option>
+                                <option>Somewhat anxious</option>
+                                <option>Anxious</option>
+                                <option>Prefer not to answer</option>
+                            </select>
                         </p>
                         </fieldset>
                         <fieldset>
                         <p>
-                            <label>While you were doing that task, how vivid (in the sense of being intense or seeming real) was the picture in your mind, on a scale from 0 (not at all) to 100 (an extremely vivid image)? Type NA if you prefer not to answer?</label>
-                            <input type="text" name="vivid" required="true"/>
+                            <label>How would you rate your desire to approach or stay in this situation vs. avoid
+                                or escape from this situation?</label>
+                            <select name="approach" required="true">
+                            <option value="">Strong desire to approach or stay</option>
+                            <option>Slight desire to approach or stay</option>
+                            <option>Neutral</option>
+                            <option>Slight desire to avoid or escape</option>
+                            <option>Strong desire to avoid or escape</option>
+                            <option>Prefer not to answer</option>
+                            </select>
                         </p>
                         <br/>
                         <br/>
                         <p>
-                            <label>How likely is it that this situation or task will turn out badly (i.e., not go well)?</label>
-                            <select name="badly" required="true">
-                                <option value="">Please select one</option>
-                                <option>Extremely Unlikely</option>
-                                <option>Unlikely</option>
-                                <option>Somewhat Unlikely</option>
-                                <option>Neither Likely Nor Unlikely</option>
-                                <option>Somewhat likely </option>
-                                <option>Likely </option>
-                                <option>Extremely Likely </option>
+                            <label>How likely is it that this situation or task will turn out well vs. turn out badly </label>
+                            <select name="well" required="true">
+                                <option value="">Very likely to turn out well</option>
+                                <option>Somewhat likely to turn out well</option>
+                                <option>Neutral</option>
+                                <option>Somewhat likely to turn out badly</option>
+                                <option>Very likely to turn out badly</option>
                                 <option>Prefer not to answer</option>
                             </select>
                         </p>
