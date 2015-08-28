@@ -350,6 +350,18 @@ public class QuestionController extends BaseController {
                                         BindingResult result) {
 
         recordSessionProgress(mh);
+
+        // This bit of mess just saves the array of records that is useful, and discards
+        // null values.
+        List<MentalHealthHelpful> helpfulSave = new ArrayList<MentalHealthHelpful>();
+        for(MentalHealthHelpful helpful : mh.getHelpful()) {
+            if (helpful.getType() != null) {
+                helpful.setMentalHealthHxTx(mh);
+                helpfulSave.add(helpful);
+            }
+        }
+        mh.setHelpful(helpfulSave);
+
         mh_Repository.save(mh);
         return new RedirectView("/session/next");
     }

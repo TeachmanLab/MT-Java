@@ -15,7 +15,7 @@ import java.util.ArrayList;
 @Entity
 @Table(name="MentalHealthHxTx")
 @Data
-public class MentalHealthHxTx implements QuestionnaireData{
+public class MentalHealthHxTx implements QuestionnaireData {
 
     @Id
     @GeneratedValue
@@ -30,25 +30,17 @@ public class MentalHealthHxTx implements QuestionnaireData{
     private String OtherDescNo;
 
     @ElementCollection
-    @CollectionTable(name="disorders", joinColumns=@JoinColumn(name="id"))
-    @Column(name="disorder")
+    @CollectionTable(name = "mental_health_disorders", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "disorder")
     private List<String> disorders;
 
-
     @ElementCollection
-    @CollectionTable(name="Disorders_no", joinColumns=@JoinColumn(name="id"))
-    @Column(name="Disorder_no")
+    @CollectionTable(name = "mental_health_disorders_no", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "Disorder_no")
     private List<String> disorders_no;
 
-    @ElementCollection
-    @CollectionTable(name="helps", joinColumns=@JoinColumn(name="id"))
-    @Column(name="helps")
-    private List<String> helps;
-
-    private int psychiatrist = -1;
-    private int psychologist = -1;
-
-
+    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "mentalHealthHxTx")
+    private List<MentalHealthHelpful> helpful;
 
 }
 
