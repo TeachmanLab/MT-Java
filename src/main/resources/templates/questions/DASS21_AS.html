@@ -353,9 +353,7 @@
 
 
                     <div id="submit">
-                        <span th:if="${eligibility}">
-                        <input type="checkbox" id="over18" name="isOver18" /> I am 18 years old or older.<br />
-                        </span>
+                        <label th:if="${eligibility}"><input type="checkbox" id="over18" name="isOver18" /> I am 18 years old or older.</label><br />
                         <button>Next</button>
                     </div>
                 </form>

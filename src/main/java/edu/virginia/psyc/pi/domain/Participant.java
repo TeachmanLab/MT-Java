@@ -80,7 +80,7 @@ public class Participant {
 
     private Study          study;
 
-    private String theme;
+    private String theme = "blue";
 
 
 

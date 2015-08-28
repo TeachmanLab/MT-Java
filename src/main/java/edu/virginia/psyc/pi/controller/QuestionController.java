@@ -60,6 +60,7 @@ public class QuestionController extends BaseController {
 //    private StateAnxietyPreRepository stateAnxietyPre_Repository;
     private StateAnxietyPostRepository stateAnxietyPost_Repository;
     private BBSIQRepository bbsiqRepository;
+    private AnxietyTriggersRepository anxietyTriggersRepository;
     private static final Logger LOG = LoggerFactory.getLogger(QuestionController.class);
 
     @Autowired
@@ -95,7 +96,8 @@ public class QuestionController extends BaseController {
                               StateAnxietyPostRepository stateAnxietyPost_Repository,
                               DDRepository dd_Repository,
                               DD_FURepository dd_fu_repository,
-                              BBSIQRepository bbsiqRepository) {
+                              BBSIQRepository bbsiqRepository,
+                              AnxietyTriggersRepository anxietyTriggersRepository) {
         this.participantRepository = participantRepository;
         this.dass21_asRepository = dass21_asRepository;
         this.credibilityRepository = credibilityRepository;
@@ -120,7 +122,9 @@ public class QuestionController extends BaseController {
         this.dd_repository = dd_Repository;
         this.dd_fu_repository = dd_fu_repository;
         this.bbsiqRepository = bbsiqRepository;
+        this.anxietyTriggersRepository = anxietyTriggersRepository;
     }
+
 
 
     /**
@@ -754,6 +758,31 @@ public class QuestionController extends BaseController {
     @ResponseBody // Return the string directly, the return value is not a template name.
     String exportSAPo() {
         return(objectListToCSV(stateAnxietyPost_Repository.findAll()));
+    }
+
+
+    /**
+     * Anxiety Triggers
+     * ---------*
+     */
+    @RequestMapping(value = "AnxietyTriggers", method = RequestMethod.GET)
+    public ModelAndView showAnxietyTriggers(Principal principal) {
+        return modelAndView(principal, "/questions/AnxietyTriggers", "AnxietyTriggers", new AnxietyTriggers());
+    }
+
+    @RequestMapping(value = "AnxietyTriggers", method = RequestMethod.POST)
+    RedirectView handleAnxietyTriggers(@ModelAttribute("AnxietyTriggers") AnxietyTriggers triggers,
+                            BindingResult result) {
+
+        recordSessionProgress(triggers);
+        anxietyTriggersRepository.save(triggers);
+        return new RedirectView("/session/next");
+    }
+
+    @RequestMapping(value = "AnxietyTriggers/export", method = RequestMethod.GET, produces = "text/csv")
+    @ResponseBody // Return the string directly, the return value is not a template name.
+    String exportAnxietyTriggers() {
+        return(objectListToCSV(anxietyTriggersRepository.findAll()));
     }
 
 
