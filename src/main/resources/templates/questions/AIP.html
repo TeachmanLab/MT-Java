@@ -25,14 +25,19 @@
                     <fieldset>
                         <legend>Step 1 - Use your imagination</legend>
                         <p>
-                                    Please think of an upcoming situation that you expect will make you feel anxious, worried, or scared. For instance, the situation could involve public speaking (e.g., in class or at work), talking to someone in a position of authority (e.g., a boss or teacher), meeting new people, extreme worries about a situation tied to your health, work, relationships, or finances, or fears about entering a situation or encountering an object that frightens you (e.g., seeing a spider or snake, flying in an airplane, or being up high). Pick a situation that you worry might go badly, or that you expect will evoke symptoms related to anxiety (e.g., racing heart, sweating). Any situation that will make you feel anxious or scared will work. If no specific situation is upcoming, then just select a situation that you expect would make you feel anxious or scared IF you were to be in that situation.
+                                    Please think of an <b>UPCOMING</b> situation that you expect will make you feel anxious, worried, or scared.
                                     Please click "NEXT" one you have thought of a situation.
                         </p>
+                        <ul>
+                            <li>Pick a situation that you worry might go badly, or that you expect will evoke symptoms related to
+                                anxiety (e.g., racing heart, sweating).</li>
+                            <li>Any situation that will make you feel quite anxious or scared will work, as long as it’s a situation you’re likely to actually encounter.</li>
+                        </ul>
                     </fieldset>
                     <fieldset>
                         <legend>Step 2 - Note the situation</legend>
                                 <p>
-                                <label>Please note (in just a few words) what type of situation this involves (e.g., speaking in public, driving, feeling caught in a crowd, worry about an upcoming trip). </label>
+                                <label>Please describe the situation in a few words.</label>
                                 <textarea name="situation" rows="1" required="true"></textarea>
                                 </p>
                                 <p>
@@ -44,55 +49,29 @@
                     <fieldset>
                         <legend>Step 3 - Imagine the situation</legend>
                         <p>
-
-                            Please generate an image of the situation that is as vivid as possible (i.e., that feels very real). Try to imagine you are actually in the situation. Play out the specific parts of the situation in your head.
-
-                            Try to imagine using all your senses while you think about this situation. Think about the things you would <b>see</b>, <b>hear</b>, and <b>smell</b> if you were really in that situation. Think about the kinds of things you would <b>think</b> or <b>feel</b> if you were actually there.
-
-                            Please click "NEXT" once you have finished imagining the situation in your head.
+                            Please imagine the situation as vividly as possible (i.e., so that it feels very real).
+                            <ul>
+                                <li>Try to imagine you are actually in the situation.</li>
+                                <li>Play out the specific parts of the situation in your head.</li>
+                                <li>Try to imagine using all your senses while you think about this situation. Think about the things you
+                                    would see, hear, and smell if you were really in that situation.</li>
+                                <li>Think about the kinds of things you would think or feel if you were actually there.</li>
+                            </ul>
+                            Please click the button below and play this situation in your head for the next 20 seconds. We will tell you
+                            when the 20 seconds are up.
                         </p>
                     </fieldset>
-                    <fieldset>
-                        <legend>Step 4 - Write it down</legend>
-                        <p>
-                            <label>Please think of at least three things you would likely think or feel in the situation. Write down a few words to note 3 of the things you would think or feel (e.g., I feel embarrassed, I look stupid, I think I want to leave)</label>
-                            <textarea name="think1" rows="1" required="true"></textarea>
-                            <textarea name="think2" rows="1" required="true"></textarea>
-                            <textarea name="think3" rows="1" required="true"></textarea>
-                        </p>
-                        <p>
-                            Please click "NEXT" once you have typed three things.
-                        </p>
-                        <br/>
-                    </fieldset>
-                    <fieldset id="step_five">
+                    <fieldset id="step_four">
                         <legend>Step 5 - Things you would think or feel</legend>
                         <p>
                             Please play this upcoming situation in your head for the next 20 seconds, remembering all of the things you see, hear, think, and feel. We will tell you when the 20 seconds are up.
-                        </p>
-                    </fieldset>
-                    <fieldset>
-                        <legend>Step 6 - Some Questions</legend>
-                        <p>
-                            <label>How vividly did you imagine the situation on a scale of 1 (not at all) to 7 (a very vivid image of the situation)?</label>
-                            <select name="vivid" required="true">
-                                <option value="">Please select one</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="555">NA</option>
-                            </select>
                         </p>
                     </fieldset>
                 </form>
                 <script>
                     var mNext = false;
                     var mVisit = false;
-                    $("#wizard").on("stepshown", "#step_five", function () {
+                    $("#wizard").on("stepshown", "#step_four", function () {
                         if (! mVisit)
                         {
                             mVisit = true;
@@ -101,7 +80,7 @@
                                                   }, 20000);
                         }
 
-                    }).on("stephide", "#step_five", function () {
+                    }).on("stephide", "#step_four", function () {
                         if (! mNext)
                         {
                             return false;
