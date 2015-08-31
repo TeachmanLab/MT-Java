@@ -1,40 +1,46 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
-    <head th:include="fragment/email :: headerFragment"/>
+<head th:include="fragment/email :: headerFragment"/>
 
-    <body style="background:#eee; min-height:1000px; color:#000;font-family:Arial, Helvetica, sans-serif; font-size:12px"
-          alink="#FF0000" link="#FF0000" bgcolor="#767676" text="#FFFFFF" yahoo="fix" >
+<body style="font-family: 'Source Sans Pro', sans-serif; font-size:20px; box-sizing:border-box; background-color: #FFF">
 
-    <div id="body_style" style="padding:15px" border="5px solid #767676">
+<div id="body_style" style="padding:15px">
 
-        <table cellpadding="0" cellspacing="0" width="400" align="center" th:include="fragment/email :: logoFragment"/>
+    <table cellpadding="0" cellspacing="0" width="400" align="center" th:include="fragment/email :: logoFragment"/>
 
-        <table cellpadding="0" cellspacing="0" width="400" align="center" style="margin-top:20px">
-            <tr>
-                <td width="400">
-                    <p th:text="'Hi ' +  ${name} + ','" style="margin-top:0; margin-bottom:10px">
-                        Hi Fred,
-                    </p>
-                    <p style="margin-top:5px">We haven’t heard from you for over 2 weeks regarding completion of the follow-up assessment for the study, so this is a final request to please login and complete your surveys.</p>
+    <table cellpadding="0" cellspacing="0" width="600" align="center" style="margin-top:20px">
+        <tr>
+            <td width="400">
+                <p th:text="'Hi ' +  ${name} + ','" style="margin-top:0; margin-bottom:10px">
+                    Hi Fred,
+                </p>
+                <p style="margin-top:5px">We haven’t heard from you for over 2 weeks regarding completion of the
+                    follow-up assessment for the study, so this is a final request to please login and complete your surveys.</p>
+                <div style="border-radius: 15px; background: #fff; text-align:center; border: 1px solid #666; margin: 20px;">
+                    <div style="border-top-right-radius: 15px; border-top-left-radius: 15px; width:100%; height:20px; background: #0084AE"> </div>
+                    <div style="padding:20px; font-weight:700">JUST A REMINDER</div>
+                    <p style="margin:5px 20px; text-align: left">It’s time to complete your final set of surveys and tasks for
+                        this study. As you may recall, we ask all participants
+                        to let us know how they've been doing now that the
+                        training program is over.</p>
+                    <p>To login and complete your final surveys, click “Start” below.</p>
+                    <a href="/session" th:href="${url} + '/session'" style="color: #637580ff; text-decoration: none; font-weight: bold"><button style="border-radius: 5px; background: #00ACE4; border-top:1px solid #5FBCEA; border-left:1px solid #5FBCEA; border-bottom:1px solid #0084AE; border-right:1px solid #0084AE; text-decoration: none; font-size:20px; margin:10px 0px; padding: 15px; font-weight: 700; color: #fff">Start</button></a>
+                </div>
 
-                    <p style="margin-top:5px"><a href="/session" th:href="${url} + '/session'" style="color: #637580ff; text-decoration: none; font-weight: bold"> Please click here to login and complete your final surveys.</a></p>
+                <p style="margin-top:5px">Thank you for your participation in the study!</p>
 
-                    <p style="margin-top:5px">As always, please let us know if you have any concerns about your participation that we can address.  You can contact the study team at <a th:href="'mailto:' + ${respondTo} + '?Subject=PIMH%20Email%20Response'" target="_top" th:text="${respondTo}"/></p>
+                <div id="footer" th:include="fragment/email :: footerFragment"/>
 
-                    <p style="margin-top:5px">Thank you again for your support of this research.</p>
+            </td>
+        </tr>
+    </table>
 
-                    <div id="footer" th:include="fragment/email :: footerFragment"/>
-
-                </td>
-            </tr>
-        </table>
-
-        <p style="margin-top:0"></p>
+    <p style="margin-top:0"></p>
 
 
 
-    </div>
+</div>
 
-    </body>
+</body>
 </html>

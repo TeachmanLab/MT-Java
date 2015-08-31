@@ -1,40 +1,48 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
-    <head th:include="fragment/email :: headerFragment"/>
+<head th:include="fragment/email :: headerFragment"/>
 
-    <body style="background:#eee; min-height:1000px; color:#000;font-family:Arial, Helvetica, sans-serif; font-size:12px"
-          alink="#FF0000" link="#FF0000" bgcolor="#767676" text="#FFFFFF" yahoo="fix" >
+<body style="font-family: 'Source Sans Pro', sans-serif; font-size:20px; box-sizing:border-box; background-color: #FFF">
 
-    <div id="body_style" style="padding:15px" border="5px solid #767676">
+<div style="padding:15px" border="5px solid #767676">
 
-        <table cellpadding="0" cellspacing="0" width="400" align="center" th:include="fragment/email :: logoFragment"/>
+    <table cellpadding="0" cellspacing="0" width="600" align="center" th:include="fragment/email :: logoFragment"/>
 
-        <table cellpadding="0" cellspacing="0" width="400" align="center" style="margin-top:20px">
-            <tr>
-                <td width="400">
-                    <p th:text="'Hi ' +  ${name} + ','" style="margin-top:0; margin-bottom:10px">
-                        Hi Fred,
-                    </p>
-                    <p style="margin-top:5px">We haven’t heard from you for 2 weeks, so we are assuming you are no longer interested in participating in the study and we will close your account in the next 3 days.</p>
+    <table cellpadding="0" cellspacing="0" width="600" align="center" style="margin-top:20px">
+        <tr>
+            <td width="400">
+                <p th:text="'Hi ' +  ${name} + ','" style="margin-top:0; margin-bottom:10px">
+                    Hi Fred,
+                </p>
 
-                    <p style="margin-top:5px">If, however, you do want to continue your participation, you will need to login and complete your session in the next 2 days.  <a href="/session" th:href="${url} + '/session'" style="color: #637580ff; text-decoration: none; font-weight: bold"> Please click here to login and complete your session.</a></p>
+                <p style="margin-top:5px">We haven’t heard from you for 2 weeks, so we are assuming you
+                    are no longer interested in participating in the study and we will
+                    close your account in the next 3 days.</p>
 
-                    <p style="margin-top:5px">Please let us know if you have any concerns about your participation that we can address.  You can contact the study team at <a th:href="'mailto:' + ${respondTo} + '?Subject=PIMH%20Email%20Response'" target="_top" th:text="${respondTo}"/></p>
+                <p style="margin-top:5px">If, however, you do want to continue your participation, you will
+                    need to complete your session in the next 2 days. Please click
+                    “Start” below to begin.</p>
 
-                    <p style="margin-top:5px">Thanks for your participation in the study and we hope you’re having a good week.</p>
+                <div style="margin:auto; width:100px">
+                <a href="/session" th:href="${url} + '/session'" style="color: #637580ff; text-decoration: none; font-weight: bold"><button style="border-radius: 5px; background: #00ACE4; border-top:1px solid #5FBCEA; border-left:1px solid #5FBCEA; border-bottom:1px solid #0084AE; border-right:1px solid #0084AE; text-decoration: none; font-size:20px; margin:10px 0px; padding: 15px; font-weight: 700; color: #fff">Start</button></a>
+                </div>
 
-                    <div id="footer" th:include="fragment/email :: footerFragment"/>
+                <p style="margin-top:5px">Please let us know if you have any concerns about your
+                    participation that we can address. You can contact the study team
+                    at studyteam@mindtrails.org.</p>
 
-                </td>
-            </tr>
-        </table>
+                <p style="margin-top:5px">Thank you for your participation in the study and we hope you’re
+                    having a good week.</p>
 
-        <p style="margin-top:0"></p>
+                <div id="footer" th:include="fragment/email :: footerFragment"/>
 
+            </td>
+        </tr>
+    </table>
 
+</div>
 
-    </div>
-
-    </body>
+</body>
 </html>
+

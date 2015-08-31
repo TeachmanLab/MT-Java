@@ -3,39 +3,34 @@
 
     <head th:include="fragment/email :: headerFragment"/>
 
-    <body style="background:#eee; min-height:1000px; color:#000;font-family:Arial, Helvetica, sans-serif; font-size:12px"
-          alink="#FF0000" link="#FF0000" bgcolor="#767676" text="#FFFFFF" yahoo="fix" >
+    <body style="font-family: 'Source Sans Pro', sans-serif; font-size:20px; box-sizing:border-box; background-color: #FFF">
 
-    <div id="body_style" style="padding:15px" border="5px solid #767676">
+    <div style="padding:15px" border="5px solid #767676">
 
-        <table cellpadding="0" cellspacing="0" width="400" align="center" th:include="fragment/email :: logoFragment"/>
+        <table cellpadding="0" cellspacing="0" width="600" align="center" th:include="fragment/email :: logoFragment"/>
 
-        <table cellpadding="0" cellspacing="0" width="400" align="center" style="margin-top:20px">
+        <table cellpadding="0" cellspacing="0" width="600" align="center" style="margin-top:20px">
             <tr>
                 <td width="400">
                     <p th:text="'Hi ' +  ${name} + ','" style="margin-top:0; margin-bottom:10px">
                         Hi Fred,
                     </p>
-                    <p style="margin-top:5px">Thanks for completing your earlier training session(s)!</p>
+                    <p style="margin-top:5px">Thanks for completing your earlier training session(s)! We haven't heard from you for about a week.</p>
+                    <div style="border-radius: 15px; background: #fff; text-align:center; border: 1px solid #666; margin: 20px;">
+                        <div style="border-top-right-radius: 15px; border-top-left-radius: 15px; width:100%; height:20px; background: #0084AE"> </div>
+                        <div style="padding:20px; font-weight:700">JUST A REMINDER</div>
+                        <p style="margin:5px 20px; text-align: left">Your next session should be completed as soon as possible.  You can catch up,
+                            no problem.  Simply click "Start" below.</p>
+                        <a href="/session" th:href="${url} + '/session'" style="color: #637580ff; text-decoration: none; font-weight: bold"><button style="border-radius: 5px; background: #00ACE4; border-top:1px solid #5FBCEA; border-left:1px solid #5FBCEA; border-bottom:1px solid #0084AE; border-right:1px solid #0084AE; text-decoration: none; font-size:20px; margin:10px 0px; padding: 15px; font-weight: 700; color: #fff">Start</button></a>
+                    </div>
 
-                    <p style="margin-top:5px">We haven’t heard from you for about a week, so this is a reminder that your next session should be completed as soon as possible.</p>
-
-                    <p style="margin-top:5px">You can catch up no problem.<a href="/session" th:href="${url} + '/session'" style="color: #637580ff; text-decoration: none; font-weight: bold"> Simply click here to login and complete your session.</a></p>
-
-                    <p style="margin-top:5px">Please let us know if you have any concerns about your participation that we can address.  You can contact the study team at <a th:href="'mailto:' + ${respondTo} + '?Subject=PIMH%20Email%20Response'" target="_top" th:text="${respondTo}"/>.</p>
-
-                    <p style="margin-top:5px">Thanks for your participation in the study and we hope you’re having a good week.</p>
-
+                    <p style="margin-top:5px">Thank you for your participation in the study and we hope you&rsquo;re having a good week.</p>
 
                     <div id="footer" th:include="fragment/email :: footerFragment"/>
 
                 </td>
             </tr>
         </table>
-
-        <p style="margin-top:0"></p>
-
-
 
     </div>
 
