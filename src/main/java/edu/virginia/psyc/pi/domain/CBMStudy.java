@@ -124,9 +124,11 @@ public class CBMStudy implements Study {
                 tasks.add(new Task("AnxietyTriggers", "Anxiety Triggers", Task.TYPE.questions, 1));
                 break;
             case SESSION1:
+                tasks.add(new Task("SUDS", "Subjective Units of Distress", Task.TYPE.questions, 1));
                 tasks.add(new Task("AIP", "Use Your Imagination", Task.TYPE.questions,5));
                 tasks.add(new Task("Impact","Question",Task.TYPE.questions,1));
                 tasks.add(new Task("FirstSessionComplete", "First Session", Task.TYPE.playerScript, 20));
+                tasks.add(new Task("SUDS", "Subjective Units of Distress", Task.TYPE.questions, 1));
                 tasks.add(new Task("CC", "Compare / Contrast", Task.TYPE.questions,1));
                 tasks.add(new Task("OA", "OASIS", Task.TYPE.questions, 1));
                 break;
