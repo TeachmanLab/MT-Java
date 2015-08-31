@@ -435,7 +435,7 @@ div.wide {
     width:900px;
 }
 
-div.section, div.scale, form#wizard{
+div.section, div.sectionLong, div.scale, form#wizard{
     position: relative;
     margin: 10px auto;
     padding: 0px;
@@ -445,6 +445,7 @@ div.section, div.scale, form#wizard{
     font-weight:400;
     max-width: 900px;
 }
+
 
 
 div.scale .title {
