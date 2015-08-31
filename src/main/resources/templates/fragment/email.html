@@ -3,80 +3,9 @@
 <head id="headerFragment" th:fragment="headerFragment">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Project Implicit Mental Health</title>
-
-    <style type="text/css">
-        .ExternalClass {width:100%;}
-
-        .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {
-            line-height: 100%;
-        }
-
-        body {-webkit-text-size-adjust:none; -ms-text-size-adjust:none;}
-
-        body {margin:0; padding:0;}
-
-        table td {border-collapse:collapse;}
-
-        #scores {
-            font-family: "Trebuchet MS",Arial,Helvetica,sans-serif;
-            width: 100%;
-            border-collapse: collapse;
-        }
-        #scores td, #scores th {
-            text-align: right;
-            font-size: 1.2em;
-            border: 1px solid #98BF21;
-            padding: 3px 7px 2px;
-        }
-
-        p {margin:0; padding:0; margin-bottom:0;}
-
-        h1, h2, h3, h4, h5, h6 {
-            color: black;
-            line-height: 100%;
-        }
-
-        a, a:link {
-            color:#2A5DB0;
-            text-decoration: underline;
-        }
-
-        body, #body_style {
-            background:#767676;
-            min-height:1000px;
-            color:#000;
-            font-family:Arial, Helvetica, sans-serif;
-            font-size:12px;
-        }
-
-        span.yshortcuts { color:#000; background-color:none; border:none;}
-        span.yshortcuts:hover,
-        span.yshortcuts:active,
-        span.yshortcuts:focus {color:#000; background-color:none; border:none;}
-
-        a:visited { color: #3c96e2; text-decoration: none}
-        a:focus   { color: #3c96e2; text-decoration: underline}
-        a:hover   { color: #3c96e2; text-decoration: underline}
-
-        @media only screen and (max-device-width: 480px) {
-
-
-            body[yahoo] #container1 {display:block !important}
-            body[yahoo] p {font-size: 10px}
-
-        }
-
-        @media only screen and (min-device-width: 768px) and (max-device-width: 1024px)  {
-
-
-            body[yahoo] #container1 {display:block !important}
-            body[yahoo] p {font-size: 12px}
-
-        }
-
-    </style>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,700,700italic,600' rel='stylesheet' type='text/css'/>
 </head>
-<body style="background:#767676; min-height:1000px; color:#000;font-family:Arial, Helvetica, sans-serif; font-size:12px"
+<body style="font-family: 'Source Sans Pro', sans-serif; font-size:20px; box-sizing:border-box; background-color: #f6f5ea"
       alink="#FF0000" link="#FF0000" bgcolor="#000000" text="#FFFFFF" yahoo="fix">
 
     <table cellpadding="0" cellspacing="0" width="400" align="center" style="margin-top:20px" th:fragment="logoFragment">
@@ -84,31 +13,34 @@
             <td width="300"></td>
             <td width="100">
                 <a href="http://projectImplicit" target="_blank" >
-                <img src="/images/pimh_logo.png"  th:src="${url} + '/images/pimh_logo.png'" alt="Project Implicit Mental Health" title="PIMH"
-                 style="display:block"  border="0"/>
+                <img src="/images/pimh_logo.png"  th:src="${url} + '/images/pimh_logo.png'" alt="Project Implicit Mental Health" title="PIMH" style="display:block"  border="0"/>
                </a>
             </td>
         </tr>
     </table>
 
     <div id="footer" class="clearfix" th:fragment="footerFragment">
-        <p style="margin-top:20px">Best,</p>
-        <p style="margin-top:5px">Bethany Teachman PhD (Project Director) </p>
-        <p style="margin-top:0; font-style:italic">and the Project Implicit Mental Health team</p>
+        <p style="margin-top:30px">Best,</p>
+        <img style="border: none; margin-top: 40px;" th:src="${url} + '/images/bethany_sig.png'" alt="" border="none"/>
+        <p style="margin:0 0 0 0; font-weight: bold;">Bethany Teachman PhD</p>
+        <p style="margin:2px 0 0 0; font-style: italic">Project Director</p>
+        <p style="margin:10px 0 0 0; ">and the MindTrails team</p>
 
-        <p style="margin-top:40px"><b>P.S.</b> As a reminder, there are 8 sessions of training total, and each one is a little different.
-            After sessions 3, 6, and 8, we will ask you to complete a brief set of surveys and tasks so we can keep track of your progress.</p>
+        <p style="margin-top:40px">
+            <img style="float:left; padding: 10px;" th:src="${url} + '/images/gift_card_sm.png'" alt="" border="none"/>
+            P.S. As a reminder, there are 8 sessions of training total,
+            and each one is a little different.
+            After sessions 3, 6, and 8, we will ask you to complete a brief set of surveys and tasks so we can keep track of your progress.
+            You will receive a $5 gift card for completing the surveys.
 
-        <p style="margin-top:0px; font-weight:bold">[You will receive a $5 gift card for completing the surveys.]</p>
+        </p>
 
-
-        <p style="margin-top:40px; font-size:.9em; font-style:italic; text-align:center">You received this email because you
+        <p style="margin-top:40px; font-size:.9em; text-align:left; border-top: 1px solid black; padding-top: 4px" >You received this email because you
             signed up to participate in a PIMH
             study. You can manage your contact
             preferences, and / or exit the study
             at any time by visiting your <a th:href="${url} + '/pages/account'">account
-            settings.</a></p>
-
+                settings.</a></p>
     </div>
 
 
