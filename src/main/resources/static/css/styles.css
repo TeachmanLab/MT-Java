@@ -70,6 +70,16 @@ em {font-style: normal; color:#5ECCDE; font-weight: 800;}
 .user-theme-purple em { color:#C98ABB; }
 .user-theme-gold em { color:#ECB800; }
 
+ul.errors {
+
+}
+
+li.alert {
+    margin: 0px;
+    padding: 0px;
+    color: darkred;
+}
+
 #footer {background:#21336B; font-size:0.5em;}
 .footer-logo { float:left;}
 

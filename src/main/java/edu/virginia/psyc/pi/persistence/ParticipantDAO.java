@@ -53,6 +53,7 @@ public class ParticipantDAO implements UserDetails {
 
     private String theme;
 
+    private boolean over18;
 
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -284,8 +285,13 @@ public class ParticipantDAO implements UserDetails {
         this.theme = theme;
     }
 
+    public boolean isOver18() {
+        return over18;
+    }
 
-
+    public void setOver18(boolean over18) {
+        this.over18 = over18;
+    }
 
     @Override
     public String toString() {

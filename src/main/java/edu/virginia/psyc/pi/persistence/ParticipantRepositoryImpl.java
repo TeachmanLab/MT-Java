@@ -30,6 +30,7 @@ public class ParticipantRepositoryImpl implements ParticipantRepositoryCustom {
         p.setCbmCondition(dao.getCbmCondition());
         p.setPrime(dao.getPrime());
         p.setTheme(dao.getTheme());
+        p.setOver18(dao.isOver18());
 
         // Password Tokens
         if(dao.getPasswordTokenDAO() != null) {
@@ -82,6 +83,7 @@ public class ParticipantRepositoryImpl implements ParticipantRepositoryCustom {
         dao.setCbmCondition(p.getCbmCondition());
         dao.setPrime(p.getPrime());
         dao.setTheme(p.getTheme());
+        dao.setOver18(p.isOver18());
 
         // Encrypt Password if it is set.
         if(p.getPassword() != null) {

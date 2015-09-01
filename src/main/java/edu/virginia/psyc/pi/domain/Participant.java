@@ -1,6 +1,7 @@
 package edu.virginia.psyc.pi.domain;
 
 import edu.virginia.psyc.pi.service.EmailService;
+import lombok.Data;
 import org.hibernate.validator.constraints.Email;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
@@ -25,6 +26,7 @@ import java.util.*;
  * This is also used for displaying details about the Participant, and for housing
  * general business logic specific to the Participant.
  */
+@Data
 public class Participant {
 
     private long id;
@@ -82,7 +84,7 @@ public class Participant {
 
     private String theme = "blue";
 
-
+    private boolean        over18;
 
     public Participant() {
         cbmCondition = randomCondition();
@@ -172,62 +174,10 @@ public class Participant {
     }
 
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public boolean isAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
-    }
-
-    public boolean isEmailOptout() {
-        return emailOptout;
-    }
-
-    public void setEmailOptout(boolean emailOptout) {
-        this.emailOptout = emailOptout;
-    }
-
-    public List<EmailLog> getEmailLogs() {
-        return emailLogs;
-    }
-
-    public void setEmailLogs(List<EmailLog> emailLogs) {
-        this.emailLogs = emailLogs;
-    }
-
     public void addEmailLog(EmailLog log) {
         if (this.emailLogs == null) emailLogs = new ArrayList<EmailLog>();
         emailLogs.add(log);
     }
-
-    public List<GiftLog> getGiftLogs() { return giftLogs; }
-
-    public void setGiftLogs(List<GiftLog> giftLogs) { this.giftLogs = giftLogs; }
 
     public void addGiftLog(GiftLog log) {
         if (this.giftLogs == null) giftLogs = new ArrayList<GiftLog>();
@@ -242,10 +192,6 @@ public class Participant {
         }
         return false;
     }
-
-    public List<TaskLog> getTaskLogs() { return taskLogs; }
-
-    public void setTaskLogs(List<TaskLog> taskLogs) { this.taskLogs = taskLogs; }
 
     public void addTaskLog(TaskLog log) {
         if (this.taskLogs == null) taskLogs = new ArrayList<TaskLog>();
@@ -262,71 +208,4 @@ public class Participant {
         return false;
     }
 
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getPasswordAgain() {
-        return passwordAgain;
-    }
-
-    public void setPasswordAgain(String passwordAgain) {
-        this.passwordAgain = passwordAgain;
-    }
-
-    public Date getLastLoginDate() {
-        return lastLoginDate;
-    }
-
-    public void setLastLoginDate(Date lastLoginDate) {
-        this.lastLoginDate = lastLoginDate;
-    }
-
-    public PasswordToken getPasswordToken() {
-        return passwordToken;
-    }
-
-    public void setPasswordToken(PasswordToken passwordToken) {
-        this.passwordToken = passwordToken;
-    }
-
-    public CBM_CONDITION getCbmCondition() {
-        return cbmCondition;
-    }
-
-    public void setCbmCondition(CBM_CONDITION cbmCondition) {
-        this.cbmCondition = cbmCondition;
-    }
-
-    public PRIME getPrime() {
-        return prime;
-    }
-
-    public void setPrime(PRIME prime) {
-        this.prime = prime;
-    }
-
-    public Study getStudy() {  return study;  }
-
-    public void setStudy(Study study) { this.study = study;  }
-
-    public String getTheme() {
-        return theme;
-    }
-
-    public void setTheme(String theme) {
-        this.theme = theme;
-    }
 }

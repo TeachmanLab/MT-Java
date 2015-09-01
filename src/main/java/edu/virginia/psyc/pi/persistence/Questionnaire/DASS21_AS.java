@@ -3,19 +3,17 @@ package edu.virginia.psyc.pi.persistence.Questionnaire;
 import edu.virginia.psyc.pi.domain.CBMStudy;
 import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
 
 /**
- * Created with IntelliJ IDEA.
- * User: dan
- * Date: 5/26/14
- * Time: 1:55 PM
- * To change this template use File | Settings | File Templates.
+ * Somewhat speicial questionnaire model, as it is used to gage eligibility.
  */
 @Entity
 @Table(name="DASS21_AS")
+@Data
 public class DASS21_AS implements QuestionnaireData {
 
     @Id
@@ -33,14 +31,11 @@ public class DASS21_AS implements QuestionnaireData {
     private int panic;
     private int heart;
     private int scared;
-    private boolean isOver18;
-
-
 
 
     public DASS21_AS() {}
 
-    public DASS21_AS(int dryness, int breathing, int trembling, int worry, int panic, int heart, int scared, boolean isOver18) {
+    public DASS21_AS(int dryness, int breathing, int trembling, int worry, int panic, int heart, int scared) {
         this.dryness = dryness;
         this.breathing = breathing;
         this.trembling = trembling;
@@ -48,7 +43,6 @@ public class DASS21_AS implements QuestionnaireData {
         this.panic = panic;
         this.heart = heart;
         this.scared = scared;
-        this.isOver18 = isOver18;
     }
 
 
@@ -81,105 +75,6 @@ public class DASS21_AS implements QuestionnaireData {
     public boolean atRisk(DASS21_AS original) {
         return (score() / original.score()) > 1.3;
     }
-
-    /** Auto Generated methods follow */
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public ParticipantDAO getParticipantDAO() {
-        return participantDAO;
-    }
-
-    public void setParticipantDAO(ParticipantDAO participantDAO) {
-        this.participantDAO = participantDAO;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public int getDryness() {
-        return dryness;
-    }
-
-    public void setDryness(int dryness) {
-        this.dryness = dryness;
-    }
-
-    public int getBreathing() {
-        return breathing;
-    }
-
-    public void setBreathing(int breathing) {
-        this.breathing = breathing;
-    }
-
-    public int getTrembling() {
-        return trembling;
-    }
-
-    public void setTrembling(int trembling) {
-        this.trembling = trembling;
-    }
-
-    public int getWorry() {
-        return worry;
-    }
-
-    public void setWorry(int worry) {
-        this.worry = worry;
-    }
-
-    public int getPanic() {
-        return panic;
-    }
-
-    public void setPanic(int panic) {
-        this.panic = panic;
-    }
-
-    public int getHeart() {
-        return heart;
-    }
-
-    public void setHeart(int heart) {
-        this.heart = heart;
-    }
-
-    public int getScared() {
-        return scared;
-    }
-
-    public void setScared(int scared) {
-        this.scared = scared;
-    }
-
-    public String getSession() {
-        return session;
-    }
-
-    public void setSession(String session) {
-        this.session = session;
-    }
-
-    public boolean isOver18() {
-        return isOver18;
-    }
-
-    public void setIsOver18(boolean isOver18) {
-        this.isOver18 = isOver18;
-    }
-
-
 
 }
 

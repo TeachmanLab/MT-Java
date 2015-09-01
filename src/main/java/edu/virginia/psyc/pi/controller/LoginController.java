@@ -3,10 +3,7 @@ package edu.virginia.psyc.pi.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.virginia.psyc.pi.domain.CBMStudy;
-import edu.virginia.psyc.pi.domain.Participant;
-import edu.virginia.psyc.pi.domain.PasswordToken;
-import edu.virginia.psyc.pi.domain.Session;
+import edu.virginia.psyc.pi.domain.*;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.persistence.Questionnaire.DASS21_AS;
@@ -116,7 +113,7 @@ public class LoginController extends BaseController {
                                    ModelMap model,
                                    HttpSession session) {
 
-        if(dass21_as.eligibleScore() && dass21_as.isOver18()) {
+        if(dass21_as.eligibleScore()) {
             // Save the DASS21_AS object in the session, so we can grab it when the
             // user is logged in.
             session.setAttribute("dass21", dass21_as);
@@ -131,20 +128,22 @@ public class LoginController extends BaseController {
     // where the form is filled out on a remote site, and it's results are
     // added here.
     @RequestMapping(value="public/eligible", method = RequestMethod.POST)
-    public String eligable(@RequestBody DASS21_AS dass21_as,
+    public String eligable(@ModelAttribute Dass21FromPi data,
                                    ModelMap model,
-                                   HttpSession session) {
+                                   HttpSession session) throws Exception {
         model.addAttribute("hideAccountBar", true);
-        if(dass21_as.eligibleScore()) {
+        DASS21_AS dass21 = data.asDass21Object();
+        if(dass21.eligibleScore()) {
             // Save the DASS21_AS object in the session, so we can grab it when the
             // user is logged in.
-            session.setAttribute("dass21", dass21_as);
+            session.setAttribute("dass21", dass21);
             model.addAttribute("participant", new Participant());
             return "invitation";
         } else {
             return "ineligible";
         }
     }
+
 
     @RequestMapping("public/faq")
     public String showFaq(ModelMap model, Principal principal) {
@@ -191,6 +190,10 @@ public class LoginController extends BaseController {
                                        ) {
 
         model.addAttribute("participant", participant);
+
+        if(!participant.isOver18()) {
+            bindingResult.addError(new ObjectError("over18", "You must be over 18 to participate in this Study."));
+        }
 
         if(participantRepository.findByEmail(participant.getEmail()) != null) {
             bindingResult.addError(new ObjectError("email", "This email already exists."));
