@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<!--<![endif]-->
+<head th:include="/fragment/common :: headerFragment" />
+<body th:class="|user-theme-${participant.theme}|">
+<section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
+
+<!-- header-btm starts
+================================================== -->
+<section id="header-btm" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <h4 class="heading-icon clearfix"> <img th:src="@{/grepfrut/img/icons/heading-icon-user.png}" width="40" height="40" alt="icon" class="icon-small-bg"/></h4>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- header-btm ends
+================================================== -->
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+    <div class="container">
+
+        <!--spacer here-->
+        <div class="spacer-30px"></div>
+
+        <!--features starts-->
+        <div class="row">
+            <div class="span12">
+                <form  th:action="@{/questions/vivid}" method="POST">
+
+                    <div class="sectionLong">
+                        <div class="question">While you were doing that task, how vivid (in the sense of being intense or seeming real) was the picture in your mind, on a scale from 0 (not at all) to 100 (an extremely vivid image)? </div>
+                        <label class="radioBox">
+                            <div class="option">
+                                <div class="desc1">Not at all vivid</div>
+                                <input type="radio" name="vivid" class="form-control" value="1" required="true"/>
+                                <div class="desc2">1</div>
+                            </div>
+                        </label>
+                        <label class="radioBox">
+                            <div class="option">
+                                <div class="desc1" >Somewhat vivid</div>
+                                <input type="radio" name="vivid" class="form-control" value="2" />
+                                <div class="desc2">2</div>
+                            </div>
+                        </label>
+                        <label class="radioBox">
+                            <div class="option">
+                                <div class="desc1">Moderately vivid</div>
+                                <input type="radio" name="vivid" class="form-control" value="3" />
+                                <div class="desc2">3</div>
+                            </div>
+                        </label>
+                        <label class="radioBox">
+                            <div class="option" >
+                                <div class="desc1">Very vivid</div>
+                                <input type="radio" name="vivid" class="form-control" value="4" />
+                                <div class="desc2">4</div>
+                            </div>
+                        </label>
+                        <label class="radioBox">
+                            <div class="optionLast">
+                                <div class="desc1">Totally vivid</div>
+                                <input type="radio" name="vivid" class="form-control" value="5" />
+                                <div class="desc2">5</div>
+                            </div>
+                        </label>
+                        <label class="radioBox">
+                            <div class="option">
+                                <div class="desc1">Prefer not to answer</div>
+                                <input type="radio" name="vivid" class="form-control" value="-1" />
+                                <div class="desc2"></div>
+                            </div>
+                        </label>
+                    </div>
+
+
+
+                </form>
+
+            </div>
+        </div>
+        <!--features ends-->
+
+        <!--divider here-->
+        <div class="spacer-40px"></div>
+
+    </div>
+</section>
+
+
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts" />
+
+</body>
+</html>
+
+
+
+
+
+
+<!--Vividness of Imagery-->
+
+
+
+<!--Activation of Feared Outcomes: Probability and Catastrophe Judgments-->
+
+<!--How likely is it that this situation or task will turn out badly (i.e., not go well)?-->
+
+<!--1(extremely unlikely) – 7 (extremely likely)-->
+
+
+<!--How terrible would it be if this situation or task did turn out badly (i.e., if it did not go well)?-->
+
+<!--1(not at all terrible) – 7 (extremely terrible)-->

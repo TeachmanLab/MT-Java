@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<!--<![endif]-->
+<head th:include="/fragment/common :: headerFragment" />
+<body th:class="|user-theme-${participant.theme}|">
+<section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
+
+<!-- header-btm starts
+================================================== -->
+<section id="header-btm" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <h4 class="heading-icon clearfix"> <img th:src="@{/grepfrut/img/icons/heading-icon-user.png}" width="40" height="40" alt="icon" class="icon-small-bg"/></h4>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- header-btm ends
+================================================== -->
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+    <div class="container">
+
+        <!--spacer here-->
+        <div class="spacer-30px"></div>
+
+        <!--features starts-->
+        <div class="row">
+            <div class="span12">
+                <form  th:action="@{/questions/SUDS}" method="POST">
+                    <div class="sectionLong">
+                        <div class="question">Using a 0-100 scale, where 0 means you have absolutely no anxiety, and 100 means you are the most anxious you could imagine being, like panic, what was your highest level of anxiety as you competed the imagery task?</div>
+                        <input style="display:none" id="anxiety" type="text" name="anxiety" required="true"/>
+
+                        <label class="radioBox">
+                            <div class="option">
+                                <div class="desc1">Absolutely no anxiety</div>
+                                <div class="desc2">1</div>
+                            </div>
+                        </label>
+                        <label class="radioBox">
+                            <div class="option">
+                                <div class="desc1"> </div>
+                                <div class="desc2"> </div>
+                            </div>
+                        </label>
+                        <label class="radioBox">
+                            <div class="option">
+                                <div class="desc1">Moderately anxious</div>
+                                <div class="desc2">50</div>
+                            </div>
+                        </label>
+                        <label class="radioBox">
+                            <div class="option">
+                                <div class="desc1"> </div>
+                                <div class="desc2"> </div>
+                            </div>
+                        </label>
+                        <label class="radioBox">
+                            <div class="optionLast">
+                                <div class="desc1">Totally anxious</div>
+                                <div class="desc2">100</div>
+                            </div>
+                        </label>
+                        <label class="radioBox">
+                            <div class="option">
+                                <div class="desc1">Prefer Not to Answer</div>
+                                <input type="radio" name="anxiety" class="form-control" value="-1" />
+                                <div class="desc2"> </div>
+                            </div>
+                        </label>
+                        <div style="width: 475px; margin-bottom:10px; margin-left:90px;" id="slider" ></div>
+
+                    </div>
+
+
+
+                </form>
+                <script>
+
+                     $(function() {
+                        $( "#slider" ).slider({
+                            range: "min",
+                            min: 0,
+                            max: 100,
+                            value: 60,
+                            slide: function( event, ui ) {
+                                $( "#anxiety" ).val( ui.value );
+                                 }
+                                });
+                                $( "#anxiety" ).val( $( "#slider" ).slider( "value" ) );
+                            });
+                </script>
+            </div>
+        </div>
+        <!--features ends-->
+
+        <!--divider here-->
+        <div class="spacer-40px"></div>
+
+    </div>
+</section>
+
+
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts" />
+
+</body>
+</html>
+
