@@ -94,6 +94,14 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 var mediaList = this._stimulus_collection.get_medialist();
                 var global = API.getGlobal();
 
+/*
+                p = jQuery.grep(trial._stimulus_collection.models, function(e, i) {return e.attributes.handle == "paragraph"})[0]
+                if(trial.data.positive) {
+                    return (p.attributes.data.positiveKey);
+                } else {
+                    return(p.attributes.data.negativeKey);
+                }
+*/
                 return {
                     log_serial : logStack.length,
                     trial_id: this._id,
@@ -231,6 +239,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 actions: [
                     // Preserve the question as completed, so that it will eventually be set back to the server.
                     {type:'setTrialAttr',setter:function(trialData, eventData){
+                        trialData.word = $("span.incomplete").text();
                         trialData.paragraph = $("div[data-handle='paragraph']").text();
                         trialData.letter_latency  = Math.floor(eventData.latency);
                         if(trialData.first_letter_latency == null) {
@@ -403,8 +412,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 "data": {
                     "negativeKey": "ibl",
                     "negativeWord": "terr[ ][ ][ ]e",
-                    "positiveKey": "li",
-                    "positiveWord": "thril[ ][ ]ng",
+                    "positiveKey": "l",
+                    "positiveWord": "thril[ ]ing",
                     "statement": " You are out to dinner on a date. As you look into your date\u2019s eyes, you are unsure whether he/she will ask you out for another date. The feeling of uncertainty is "
                 },
                 "handle": "paragraph",

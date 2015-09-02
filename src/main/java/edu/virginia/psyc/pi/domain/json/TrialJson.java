@@ -66,6 +66,7 @@ public class TrialJson {
         headers.add("first question latency");
         headers.add("question latency");
         headers.add("question correct");
+        headers.add("word");
         headers.add("paragraph");
         headers.add("question");
         return headers;
@@ -90,6 +91,7 @@ public class TrialJson {
         report.put("first question latency",   data.get("first_question_latency"));
         report.put("question latency",   data.get("question_latency"));
         report.put("question correct",   data.get("correctOnQuestion"));
+        report.put("word",  data.get("word"));
         report.put("paragraph",  data.get("paragraph"));
         report.put("question",   data.get("question"));
 
