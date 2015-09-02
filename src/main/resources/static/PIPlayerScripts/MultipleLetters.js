@@ -198,7 +198,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     {type:'setInput',input:{handle:'clear', on:'timeout',duration:500}}
                 ]
             },
-
             {// The letters are correct so far...
                 conditions: [
                     {type:'globalEquals', property:'askingQuestion', value:false},
@@ -211,10 +210,14 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                         var span = $("span.incomplete");
                         var text = span.text().replace(' ', eventData["handle"]);
                         span.text(text);
+                    }},
+                    {type:'setTrialAttr',setter:function(trialData, eventData){
+                        if(trialData.first_letter_latency == null) {
+                            trialData.first_letter_latency = Math.floor(eventData.latency);
+                        }
                     }}
                 ]
             },
-
             {// All the letters are entered correctly
                 conditions: [
                     {type:'globalEquals', property:'askingQuestion', value:false},
