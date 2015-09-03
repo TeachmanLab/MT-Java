@@ -45,6 +45,22 @@ public class DASS21_AS implements QuestionnaireData {
         this.scared = scared;
     }
 
+    /**
+     * Returns a new DASS21 data structure, where all the values are decremented by 1.
+     * @return
+     */
+    public DASS21_AS decrementBy1() {
+        DASS21_AS newDass = new DASS21_AS(
+                this.dryness - 1,
+                this.breathing - 1,
+                this.trembling - 1,
+                this.worry - 1,
+                this.panic - 1,
+                this.heart - 1,
+                this.scared - 1);
+        return newDass;
+    }
+
 
     /**
      * Calculates the eligibility of a participant to be in a particular study
