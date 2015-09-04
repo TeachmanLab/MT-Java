@@ -62,6 +62,10 @@ public class QuestionController extends BaseController {
     private BBSIQRepository bbsiqRepository;
     private AnxietyTriggersRepository anxietyTriggersRepository;
     private static final Logger LOG = LoggerFactory.getLogger(QuestionController.class);
+    private SUDSRepository sudsRepository;
+    private VividRepository vividRepository;
+
+
 
     @Autowired
     private EmailService emailService;
@@ -97,7 +101,9 @@ public class QuestionController extends BaseController {
                               DDRepository dd_Repository,
                               DD_FURepository dd_fu_repository,
                               BBSIQRepository bbsiqRepository,
-                              AnxietyTriggersRepository anxietyTriggersRepository) {
+                              AnxietyTriggersRepository anxietyTriggersRepository,
+                              SUDSRepository sudsRepository,
+                              VividRepository vividRepository) {
         this.participantRepository = participantRepository;
         this.dass21_asRepository = dass21_asRepository;
         this.credibilityRepository = credibilityRepository;
@@ -123,6 +129,8 @@ public class QuestionController extends BaseController {
         this.dd_fu_repository = dd_fu_repository;
         this.bbsiqRepository = bbsiqRepository;
         this.anxietyTriggersRepository = anxietyTriggersRepository;
+        this.sudsRepository = sudsRepository;
+        this.vividRepository = vividRepository;
     }
 
 
@@ -412,19 +420,68 @@ public class QuestionController extends BaseController {
         return(objectListToCSV(pue_Repository.findAll()));
     }
 
+/**
+ * SUDS
+ * -----*
+ *
+ */
+@RequestMapping(value = "SUDS", method = RequestMethod.GET)
+public ModelAndView showSUDS(Principal principal) {
+    return modelAndView(principal, "questions/SUDS", "SUDS", new SUDS());
+}
+
+    @RequestMapping(value = "SUDS", method = RequestMethod.POST)
+    RedirectView handleSUDS(@ModelAttribute("SUDS") SUDS suds,
+                                           BindingResult result) {
+
+        recordSessionProgress(suds);
+        sudsRepository.save(suds);
+        return new RedirectView("/session/next");
+    }
+
+    @RequestMapping(value = "SUDS/export", method = RequestMethod.GET, produces = "text/csv")
+    @ResponseBody // Return the string directly, the return value is not a template name.
+    String exportSUDS() {
+        return(objectListToCSV(sudsRepository.findAll()));
+    }
+
+    /**
+     * Vividness
+     * -----*
+     *
+     */
+    @RequestMapping(value = "Vivid", method = RequestMethod.GET)
+    public ModelAndView showVivid(Principal principal) {
+        return modelAndView(principal, "questions/Vivid", "Vivid", new Vivid());
+    }
+
+    @RequestMapping(value = "Vivid", method = RequestMethod.POST)
+    RedirectView handleVivid(@ModelAttribute("Vivid") Vivid vivid,
+                            BindingResult result) {
+
+        recordSessionProgress(vivid);
+        vividRepository.save(vivid);
+        return new RedirectView("/session/next");
+    }
+
+    @RequestMapping(value = "Vivid/export", method = RequestMethod.GET, produces = "text/csv")
+    @ResponseBody // Return the string directly, the return value is not a template name.
+    String exportVivid() {
+        return(objectListToCSV(vividRepository.findAll()));
+    }
 
     /**
      * ImpactAnxiousImagery
      * ---------*
      */
 
-    @RequestMapping(value = "impact", method = RequestMethod.GET)
+    @RequestMapping(value = "Impact", method = RequestMethod.GET)
     public ModelAndView showImpact(Principal principal) {
-        return modelAndView(principal, "/questions/impact", "impact", new ImpactAnxiousImagery());
+        return modelAndView(principal, "/questions/Impact", "Impact", new ImpactAnxiousImagery());
     }
 
-    @RequestMapping(value = "impact", method = RequestMethod.POST)
-    RedirectView handleImpact(@ModelAttribute("impact") ImpactAnxiousImagery impact,
+    @RequestMapping(value = "Impact", method = RequestMethod.POST)
+    RedirectView handleImpact(@ModelAttribute("Impact") ImpactAnxiousImagery impact,
                               BindingResult result) {
 
         recordSessionProgress(impact);
@@ -432,7 +489,7 @@ public class QuestionController extends BaseController {
         return new RedirectView("/session/next");
     }
 
-    @RequestMapping(value = "impact/export", method = RequestMethod.GET, produces = "text/csv")
+    @RequestMapping(value = "Impact/export", method = RequestMethod.GET, produces = "text/csv")
     @ResponseBody // Return the string directly, the return value is not a template name.
     String exportImplact() {
         return(objectListToCSV(impact_Repository.findAll()));
