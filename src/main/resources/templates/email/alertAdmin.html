@@ -16,7 +16,7 @@
                     <p th:text="'Hello ' +  ${name} + ','" style="margin-top:0; margin-bottom:10px">
                         Hi Fred,
                     </p>
-                    <p style="margin-top:5px">A participant with id <b><span th:text="${participant.id}"/></b> just completed the DASS21_AS
+                    <p style="margin-top:5px">A participant with id <b><span th:text="${participant.id}"/></b> just completed the Oasis
                         questionnaire and received a score that is 30% higher than their original.  The participant will receive
                         an email explaining these declining results.</p>
                 </td>
@@ -27,39 +27,29 @@
                         <th>Latest Score</th>
                     </tr>
                     <tr>
-                        <th>Dryness</th>
-                        <td align="right" th:text="${orig.dryness}"/>
-                        <td align="right" th:text="${latest.dryness}"/>
+                        <th>Anxious Frequency</th>
+                        <td align="right" th:text="${orig.anxious_freq}"/>
+                        <td align="right" th:text="${latest.anxious_freq}"/>
                     </tr>
                     <tr>
-                        <th>breathing</th>
-                        <td align="right" th:text="${orig.breathing}"/>
-                        <td align="right" th:text="${latest.breathing}"/>
+                        <th>Anxious Severity</th>
+                        <td align="right" th:text="${orig.anxious_sev}"/>
+                        <td align="right" th:text="${latest.anxious_sev}"/>
                     </tr>
                     <tr>
-                        <th>trembling</th>
-                        <td align="right" th:text="${orig.trembling}"/>
-                        <td align="right" th:text="${latest.trembling}"/>
+                        <th>Avoid Situations</th>
+                        <td align="right" th:text="${orig.avoid}"/>
+                        <td align="right" th:text="${latest.avoid}"/>
                     </tr>
                     <tr>
-                        <th>worry</th>
-                        <td align="right" th:text="${orig.worry}"/>
-                        <td align="right" th:text="${latest.worry}"/>
+                        <th>Interfere (work)</th>
+                        <td align="right" th:text="${orig.interfere}"/>
+                        <td align="right" th:text="${latest.interfere}"/>
                     </tr>
                     <tr>
-                        <th>panic</th>
-                        <td align="right" th:text="${orig.panic}"/>
-                        <td align="right" th:text="${latest.panic}"/>
-                    </tr>
-                    <tr>
-                        <th>heart</th>
-                        <td align="right" th:text="${orig.heart}"/>
-                        <td align="right" th:text="${latest.heart}"/>
-                    </tr>
-                    <tr>
-                        <th>scared</th>
-                        <td align="right" th:text="${orig.scared}"/>
-                        <td align="right" th:text="${latest.scared}"/>
+                        <th>Interfer (social)</th>
+                        <td align="right" th:text="${orig.interfere_social}"/>
+                        <td align="right" th:text="${latest.interfere_social}"/>
                     </tr>
                 </table>
 

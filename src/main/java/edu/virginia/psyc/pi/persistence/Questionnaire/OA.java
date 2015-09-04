@@ -2,6 +2,7 @@ package edu.virginia.psyc.pi.persistence.Questionnaire;
 
 import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -15,8 +16,10 @@ import java.util.Date;
  */
 @Entity
 @Table(name="OA")
+@Data
 public class OA implements QuestionnaireData {
 
+    public static int NO_ANSWER = 555;
 
     @Id
     @GeneratedValue
@@ -33,71 +36,35 @@ public class OA implements QuestionnaireData {
     private int interfere;
     private int interfere_social;
 
-    public int getAnxious_freq() {
-        return anxious_freq;
-    }
-
-    public void setAnxious_freq(int anxious_freq) {
-        this.anxious_freq = anxious_freq;
-    }
-
-    public int getAnxious_sev() {
-        return anxious_sev;
-    }
-
-    public void setAnxious_sev(int anxious_sev) {
+    public OA(int anxious_freq, int anxious_sev, int avoid, int interfere, int interfere_social) {
+        this.anxious_freq=anxious_freq;
         this.anxious_sev = anxious_sev;
-    }
-
-    public int getAvoid() {
-        return avoid;
-    }
-
-    public void setAvoid(int avoid) {
         this.avoid = avoid;
-    }
-
-    public int getInterfere() {
-        return interfere;
-    }
-
-    public void setInterfere(int interfere) {
         this.interfere = interfere;
-    }
-
-    public int getInterfere_social() {
-        return interfere_social;
-    }
-
-    public void setInterfere_social(int interfere_social) {
         this.interfere_social = interfere_social;
     }
 
-    public int getId() {
-        return id;
+    public OA(){}
+
+    public double score() {
+
+        int sum = 0;
+        double total = 0.0;
+
+        if(anxious_freq != NO_ANSWER) { sum += anxious_freq; total++;}
+        if(anxious_sev != NO_ANSWER) { sum += anxious_sev; total++;}
+        if(avoid != NO_ANSWER) { sum += avoid; total++;}
+        if(interfere != NO_ANSWER) { sum += interfere; total++;}
+        if(interfere_social != NO_ANSWER) { sum += interfere_social; total++;}
+
+        if (total == 0) return 0;
+        return(sum / total);
     }
 
-    public void setId(int id) {
-        this.id = id;
+
+    public boolean atRisk(OA original) {
+        return (score() / original.score()) > 1.3;
     }
 
-    public ParticipantDAO getParticipantDAO() {
-        return participantDAO;
-    }
 
-    public void setParticipantDAO(ParticipantDAO participantDAO) {
-        this.participantDAO = participantDAO;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-   public String getSession() { return session; }
-
-    public void setSession(String session) {this.session = session;}
 }

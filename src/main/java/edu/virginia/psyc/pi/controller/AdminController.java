@@ -10,6 +10,7 @@ import edu.virginia.psyc.pi.persistence.*;
 import edu.virginia.psyc.pi.domain.tango.Reward;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
+import edu.virginia.psyc.pi.persistence.Questionnaire.OA;
 import edu.virginia.psyc.pi.persistence.TrialDAO;
 import edu.virginia.psyc.pi.persistence.TrialRepository;
 import edu.virginia.psyc.pi.service.EmailService;
@@ -225,9 +226,9 @@ public class AdminController extends BaseController {
             // Reward reward = tangoService.createGiftCard(p);  This would actually award a gift card, if you need to do some testing.
             Reward reward = new Reward("111-111-111-111", "1234-2345-2345", "123", "https://www.google.com", "12345");
             this.emailService.sendGiftCardEmail(p, reward);
-        } else if(type.equals(EmailService.TYPE.dass21Alert)) {
-            DASS21_AS d1 = new DASS21_AS(1,1,3,1,3,1,3);
-            DASS21_AS d2 = new DASS21_AS(4,4,4,4,4,4,4);
+        } else if(type.equals(EmailService.TYPE.alertAdmin)) {
+            OA d1 = new OA(1,2,3,4,5);
+            OA d2 = new OA(3,3,4,5,5);
             this.emailService.sendAtRiskAdminEmail(p, d1, d2);
         } else {
             this.emailService.sendSimpleMail(p, type);

@@ -9,6 +9,7 @@ import edu.virginia.psyc.pi.persistence.EmailLogDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.persistence.Questionnaire.DASS21_AS;
+import edu.virginia.psyc.pi.persistence.Questionnaire.OA;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,7 @@ public class EmailService {
     public enum TYPE {
         day2, day4, day7, day11, day15, day18,
         followup, followup2, followup3,
-        resetPass, dass21Alert, dass21AlertParticipant, giftCard
+        resetPass, alertAdmin, alertParticipant, giftCard
     }
 
     @Autowired
@@ -92,9 +93,9 @@ public class EmailService {
                 return "Final reminder from the Project Implicit Mental Health training team";
             case resetPass:
                 return "Project Implicit Mental Health - Account Request";
-            case dass21Alert:
+            case alertAdmin:
                 return "PIMH Alert! a participants score is Dropping";
-            case dass21AlertParticipant:
+            case alertParticipant:
                 return "Project Implicit Mental Health - Alert, your score is dropping.";
             case giftCard:
                 return "Project Implicit Mental Health - Your $5 gift card!";
@@ -144,7 +145,7 @@ public class EmailService {
         sendMail(participant, TYPE.resetPass, ctx);
     }
 
-    public void sendAtRiskAdminEmail(Participant participant, DASS21_AS firstEntry, DASS21_AS currentEntry) throws MessagingException {
+    public void sendAtRiskAdminEmail(Participant participant, OA firstEntry, OA currentEntry) throws MessagingException {
 
         // Prepare the evaluation context
         final Context ctx = new Context();
@@ -156,7 +157,7 @@ public class EmailService {
         ctx.setVariable("orig", firstEntry);
         ctx.setVariable("latest", currentEntry);
 
-        sendMail(this.alertsTo, participant.getId(), TYPE.dass21Alert, ctx);
+        sendMail(this.alertsTo, participant.getId(), TYPE.alertAdmin, ctx);
     }
 
     public void sendGiftCardEmail(Participant participant, Reward reward) throws MessagingException {

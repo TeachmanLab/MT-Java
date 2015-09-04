@@ -88,9 +88,5 @@ public class DASS21_AS implements QuestionnaireData {
         return(this.score() > 10 );
     }
 
-    public boolean atRisk(DASS21_AS original) {
-        return (score() / original.score()) > 1.3;
-    }
-
 }
 

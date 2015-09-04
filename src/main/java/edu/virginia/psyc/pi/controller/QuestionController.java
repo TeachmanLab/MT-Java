@@ -2,8 +2,6 @@ package edu.virginia.psyc.pi.controller;
 
 import edu.virginia.psyc.pi.domain.CBMStudy;
 import edu.virginia.psyc.pi.domain.Participant;
-import edu.virginia.psyc.pi.domain.Session;
-import edu.virginia.psyc.pi.persistence.GiftLogDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.persistence.Questionnaire.*;
@@ -189,24 +187,6 @@ public class QuestionController extends BaseController {
 
         recordSessionProgress(dass21_as);
         dass21_asRepository.save(dass21_as);
-
-        // If the users score differs from there original score and places the user
-        // "at-risk", then send a message to the administrator.
-        List<DASS21_AS> previous = dass21_asRepository.findByParticipantDAO(dass21_as.getParticipantDAO());
-        DASS21_AS firstEntry = Collections.min(previous, new Comparator<DASS21_AS>() {
-            public int compare(DASS21_AS x, DASS21_AS y) {
-                return x.getDate().compareTo(y.getDate());
-            }
-        });
-        if(dass21_as.atRisk(firstEntry)) {
-            Participant participant = getParticipant(principal);
-            if (!participant.previouslySent(EmailService.TYPE.dass21AlertParticipant)) {
-                emailService.sendAtRiskAdminEmail(participant, firstEntry, dass21_as);
-                emailService.sendSimpleMail(participant, EmailService.TYPE.dass21AlertParticipant);
-            } else {
-                LOG.info("User #" + participant.getId() + " continues to score poorly on assessment, but we've already notified everyone.");
-            }
-        }
         return new RedirectView("/session/next");
     }
 
@@ -659,11 +639,29 @@ public ModelAndView showSUDS(Principal principal) {
     }
 
     @RequestMapping(value = "OA", method = RequestMethod.POST)
-    RedirectView handleRR(@ModelAttribute("OA") OA oa,
-                          BindingResult result) {
+    RedirectView handleOA(@ModelAttribute("OA") OA oa,
+                          BindingResult result, Principal principal) throws MessagingException{
 
         recordSessionProgress(oa);
         oa_repository.save(oa);
+
+        // If the users score differs from there original score and places the user
+        // "at-risk", then send a message to the administrator.
+        List<OA> previous = oa_repository.findByParticipantDAO(oa.getParticipantDAO());
+        OA firstEntry = Collections.min(previous, new Comparator<OA>() {
+            public int compare(OA x, OA y) {
+                return x.getDate().compareTo(y.getDate());
+            }
+        });
+        if(oa.atRisk(firstEntry)) {
+            Participant participant = getParticipant(principal);
+            if (!participant.previouslySent(EmailService.TYPE.alertParticipant)) {
+                emailService.sendAtRiskAdminEmail(participant, firstEntry, oa);
+                emailService.sendSimpleMail(participant, EmailService.TYPE.alertParticipant);
+            } else {
+                LOG.info("User #" + participant.getId() + " continues to score poorly on assessment, but we've already notified everyone.");
+            }
+        }
         return new RedirectView("/session/next");
     }
 
