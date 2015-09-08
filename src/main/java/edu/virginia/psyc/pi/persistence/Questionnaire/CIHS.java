@@ -29,7 +29,7 @@ public class CIHS implements QuestionnaireData {
     private String OtherDesc;
     @ElementCollection
     @CollectionTable(name = "change_in_help_seeking", joinColumns = @JoinColumn(name = "id"))
-    @Column (name = "change")
+    @Column (name = "changes")
     private List<String> changes;
 
 }
