@@ -9,6 +9,7 @@ import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.persistence.Questionnaire.DASS21_AS;
 import edu.virginia.psyc.pi.persistence.Questionnaire.DASS21_ASRepository;
 import edu.virginia.psyc.pi.service.EmailService;
+// import jdk.internal.org.objectweb.asm.tree.analysis.Value;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -108,6 +109,8 @@ public class LoginController extends BaseController {
         return "questions/DASS21_AS";
     }
 
+
+
     @RequestMapping(value="public/eligibilityCheck", method = RequestMethod.POST)
     public String checkEligibility(@ModelAttribute("DASS21_AS") DASS21_AS dass21_as,
                                    ModelMap model,
@@ -175,10 +178,25 @@ public class LoginController extends BaseController {
 
     }
 
-
+/**
+ *
+ * Privacy Policy
+ *
+ * */
     @RequestMapping("public/privacy")
     public String showPrivacy(ModelMap model, Principal principal) {
         return "privacy";
+    }
+
+
+    /**
+     *  Disclaimer
+     *
+     */
+
+    @RequestMapping("public/disclaimer")
+    public String showDisclaimer(ModelMap model, Principal principal) {
+        return "disclaimer";
     }
 
     @RequestMapping(value = "/newParticipant", method = RequestMethod.POST)
