@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -634,7 +635,12 @@ public ModelAndView showSUDS(Principal principal) {
      * ---------*
      */
     @RequestMapping(value = "OA", method = RequestMethod.GET)
-    public ModelAndView showOA(Principal principal) {
+    public ModelAndView showOA(ModelMap model, Principal principal) {
+        Participant p = getParticipant(principal);
+        boolean inSessions = !p.getStudy().getCurrentSession().getName().equals(CBMStudy.NAME.PRE) &&
+                             !p.getStudy().getCurrentSession().getName().equals(CBMStudy.NAME.POST);
+        model.addAttribute("inSessions", inSessions);
+        LOG.info("The value for inSessions is :" + inSessions);
         return modelAndView(principal, "/questions/OA", "OA", new OA());
     }
 
