@@ -21,7 +21,7 @@
     <div class="container">
         <div class="row">
             <h2 class="page-title heading-icon clearfix"><img th:src="@{/images/map-arrow-orange.png}" alt="icon"
-                                                              class="icon-small-bg"/><br/>Mental Health History</h2>
+                                                              class="icon-small-bg"/><br/>Change in Help Seeking</h2>
         </div>
     </div>
 </section>
@@ -109,10 +109,10 @@
           var id_pair=id.substring(0,2) + "1";
      };
      if (document.getElementById(id).checked) {
-     document.getElementById(id_pair).prop("disable",true);
+     document.getElementById(id_pair).disabled = true;
      }
      else {
-     document.getElementById(id_pair).prop("disable",false);
+     document.getElementById(id_pair).disabled = false;
      };
      };
 
