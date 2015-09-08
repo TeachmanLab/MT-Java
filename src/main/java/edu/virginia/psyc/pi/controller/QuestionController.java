@@ -64,6 +64,7 @@ public class QuestionController extends BaseController {
     private SUDSRepository sudsRepository;
     private VividRepository vividRepository;
     private ReasonsForEndingRepository reasonsForEndingRepository;
+    private CIHSRepository cihsRepository;
 
 
 
@@ -133,6 +134,7 @@ public class QuestionController extends BaseController {
         this.sudsRepository = sudsRepository;
         this.vividRepository = vividRepository;
         this.reasonsForEndingRepository = reasonsForEndingRepository;
+        this.cihsRepository = cihsRepository;
     }
 
 
@@ -348,10 +350,31 @@ public class QuestionController extends BaseController {
 
     @RequestMapping(value = "MH/export", method = RequestMethod.GET, produces = "text/csv")
     @ResponseBody // Return the string directly, the return value is not a template name.
-    String exportHealthHxTx() {
+    String exportMentalHealthHxTx() {
         return(objectListToCSV(mh_Repository.findAll()));
     }
 
+    /**
+     * Change in Help Seeking
+     * -------------*
+     */
+
+    @RequestMapping(value="CIHS", method = RequestMethod.GET)
+    public  ModelAndView showCIHS (Principal principal) {
+        return modelAndView(principal, "/questions/CIHS", "CIHS", new CIHS());
+    }
+
+    @RequestMapping(value = "CIHS", method = RequestMethod.POST)
+    RedirectView handleCIHS(@ModelAttribute("CIHS") CIHS cihs,
+                            BindingResult result) {
+        recordSessionProgress(cihs);
+        cihsRepository.save(cihs);
+        return new RedirectView("/session/next");
+    }
+
+    @RequestMapping(value = "CIHS/export", method = RequestMethod.GET, produces = "text/csv")
+    @ResponseBody // Return the string directly, the return value is not a template name.y
+    String exportCIHS() {return(objectListToCSV(cihsRepository.findAll())); }
 
     /**
      * MultiUserExperience
