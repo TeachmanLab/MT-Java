@@ -62,6 +62,7 @@ public class QuestionController extends BaseController {
     private static final Logger LOG = LoggerFactory.getLogger(QuestionController.class);
     private SUDSRepository sudsRepository;
     private VividRepository vividRepository;
+    private ReasonsForEndingRepository reasonsForEndingRepository;
 
 
 
@@ -101,7 +102,8 @@ public class QuestionController extends BaseController {
                               BBSIQRepository bbsiqRepository,
                               AnxietyTriggersRepository anxietyTriggersRepository,
                               SUDSRepository sudsRepository,
-                              VividRepository vividRepository) {
+                              VividRepository vividRepository,
+                              ReasonsForEndingRepository reasonsForEndingRepository) {
         this.participantRepository = participantRepository;
         this.dass21_asRepository = dass21_asRepository;
         this.credibilityRepository = credibilityRepository;
@@ -129,6 +131,7 @@ public class QuestionController extends BaseController {
         this.anxietyTriggersRepository = anxietyTriggersRepository;
         this.sudsRepository = sudsRepository;
         this.vividRepository = vividRepository;
+        this.reasonsForEndingRepository = reasonsForEndingRepository;
     }
 
 
@@ -841,6 +844,31 @@ public ModelAndView showSUDS(Principal principal) {
     }
 
 
+    /**
+     * Reasons For Ending Study
+     * ---------*
+     */
+    @RequestMapping(value = "ReasonsForEnding", method = RequestMethod.GET)
+    public ModelAndView showReasonsForEnding(Principal principal) {
+        return modelAndView(principal, "/questions/ReasonsForEnding", "ReasonsForEnding", new ReasonsForEnding());
+    }
+
+    @RequestMapping(value = "ReasonsForEnding", method = RequestMethod.POST)
+    String handleReasonsForEnding(@ModelAttribute("ReasonsForEnding") ReasonsForEnding reasons,
+                                       BindingResult result) {
+
+        recordSessionProgress(reasons);
+        reasonsForEndingRepository.save(reasons);
+        return "debriefing";
+    }
+
+    @RequestMapping(value = "ReasonsForEnding/export", method = RequestMethod.GET, produces = "text/csv")
+    @ResponseBody // Return the string directly, the return value is not a template name.
+    String exportReasonsForEnding() {
+        return(objectListToCSV(reasonsForEndingRepository.findAll()));
+    }
+
+
 
     /** ==============================================================
      *       Some utilility methods for exporting csv data from the forms
@@ -925,7 +953,6 @@ public ModelAndView showSUDS(Principal principal) {
                 }
             }
         }
-
     }
 
     public static boolean isGetter(Method method){

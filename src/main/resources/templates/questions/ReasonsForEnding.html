@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="/fragment/common :: headerFragment" />
+<body th:class="|user-theme-${participant.theme}|">
+<section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
+
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+    <div class="container">
+
+        <!--features starts-->
+        <div class="row">
+            <div class="col-md-12">
+                <form id="form" th:action="@{/questions/ReasonsForEnding}" method="POST">
+                    <h2>Reasons for Ending</h2>
+                    <p>We are interested in improving our program and would like to learn about why you decided to stop the program. We appreciate your feedback!</p>
+                    <p>Note that <b>assessment sessions</b> were sessions in which you completed questionnaires about your feelings and thoughts. <b>Training sessions</b> were sessions in which you completed words at the end of sentences.</p>
+
+                    <div class="section group-required">
+                        <div class="question">1. Why did you decided to end the program? (please check all that apply) </div>
+                        <label class="radioList"><input type="checkbox" name="reasons" value="not enough time" />I did not have enough time to complete the program.</label>
+                        <label class="radioList"><input type="checkbox" name="reasons" value="not helpful" />I did not find the program helpful for reducing my anxiety.</label>
+                        <label class="radioList"><input type="checkbox" name="reasons" value="not interesting" />I did not find the program interesting</label>
+                        <label class="radioList"><input type="checkbox" name="reasons" value="not believe" />I did not believe a program like this could work </label>
+                        <label class="radioList"><input type="checkbox" name="reasons" value="frustrating" />I found the program frustrating to use</label>
+                        <label class="radioList"><input type="checkbox" name="reasons" value="not needed" />I no longer needed the program (i.e., I no longer felt anxious)</label>
+                        <label class="radioList"><input type="checkbox" name="reasons" value="in control" />I believe I was assigned to the control condition (i.e., the condition that was not expected to change anxiety) </label>
+                    </div>
+                    <div class="section">
+                        <div class="question">2. Even if it was not your reason for ending the program, do you believe that you were assigned to the control condition? </div>
+                        <label class="radioList"><input type="radio" id="thoughtInControl" name="thoughtInControl" value="true" required="true"/>Yes</label>
+                        <label class="radioList"><input type="radio" id="thoughtInControl" name="thoughtInControl" value="false"/>No</label>
+                        <div id="thoughtInControlDetail" style="display: none">
+                            <div class="question">At what point did you think you were in the control condition?</div>
+                            <label class="radioList"><input type="radio" name="pointInControl" value="early" /><b>Early</b> in the training program (within the first 3 sessions)</label>
+                            <label class="radioList"><input type="radio" name="pointInControl" value="mid-way" /><b>Mid-way</b> through the training program (around the 4th or 5th session)</label>
+                            <label class="radioList"><input type="radio" name="pointInControl" value="later" /><b>Later</b> in the training program (within the last 3 sessions)</label>
+
+                            <div class="question">What made you think you were in the control condition? Check all that apply.</div>
+                            <label class="radioList"><input type="radio" name="whyInControl" value="not relieved" />My anxiety wasn’t being relieved</label>
+                            <label class="radioList"><input type="radio" name="whyInControl" value="not helpful" />I didn’t think that the program that I was completing could help my anxiety</label>
+                            <label class="radioList"><input type="radio" name="whyInControl" value="other" />Other, please specify: <input type="text" name="whyInControl"/></label>
+                        </div>
+                        <script>
+                            $(document).ready(function(){
+                                $("input[name$='thoughtInControl']").click(function() {
+                                    if($(this).val() == "true") {
+                                        $('#thoughtInControlDetail').fadeIn('slow');
+                                    } else {
+                                        $('#thoughtInControlDetail').fadeOut('slow');
+                                    }
+                                });
+                            });
+                        </script>
+                    </div>
+
+                    <div class="section">
+                        <div class="question">3. To the extent you completed the program ...</div>
+                        <table class="questionnaire">
+                            <tr>
+                                <th></th>
+                                <th>Not at all</th>
+                                <th>Slightly</th>
+                                <th>Somewhat</th>
+                                <th>Mostly</th>
+                                <th>Very</th>
+                                <th>Prefer not to answer</th>
+                            </tr>
+                            <tr>
+                                <td class="statement">how helpful was it for reducing your anxiety?</td>
+                                <td><label class="radioBox"><input type="radio" name="helpful" class="form-control" value="0" required="true"/>0</label></td>
+                                <td><label class="radioBox"><input type="radio" name="helpful" class="form-control" value="1" />1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="helpful" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="helpful" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="helpful" class="form-control" value="4" />4</label></td>
+                                <td><label class="radioBox"><input type="radio" name="helpful" class="form-control" value="555" /></label></td>
+                            </tr>
+                            <tr>
+                                <td class="statement">how well did the web program work for you? </td>
+                                <td><label class="radioBox"><input type="radio" name="work" class="form-control" value="0" required="true"/>0</label></td>
+                                <td><label class="radioBox"><input type="radio" name="work" class="form-control" value="1" />1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="work" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="work" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="work" class="form-control" value="4" />4</label></td>
+                                <td><label class="radioBox"><input type="radio" name="work" class="form-control" value="555" /></label></td>
+                            </tr>
+                            <tr>
+                                <td class="statement">how easy was the web program to use? </td>
+                                <td><label class="radioBox"><input type="radio" name="easy" class="form-control" value="0" required="true"/>0</label></td>
+                                <td><label class="radioBox"><input type="radio" name="easy" class="form-control" value="1" />1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="easy" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="easy" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="easy" class="form-control" value="4" />4</label></td>
+                                <td><label class="radioBox"><input type="radio" name="easy" class="form-control" value="555" /></label></td>
+                            </tr>
+                            <tr>
+                                <td class="statement">how much did the web program keep your interest and attention?</td>
+                                <td><label class="radioBox"><input type="radio" name="interest" class="form-control" value="0" required="true"/>0</label></td>
+                                <td><label class="radioBox"><input type="radio" name="interest" class="form-control" value="1" />1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="interest" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="interest" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="interest" class="form-control" value="4" />4</label></td>
+                                <td><label class="radioBox"><input type="radio" name="interest" class="form-control" value="555" /></label></td>
+                            </tr>
+                            <tr>
+                                <td class="statement">how much did you like the web program in general?</td>
+                                <td><label class="radioBox"><input type="radio" name="inGeneral" class="form-control" value="0" required="true"/>0</label></td>
+                                <td><label class="radioBox"><input type="radio" name="inGeneral" class="form-control" value="1" />1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="inGeneral" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="inGeneral" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="inGeneral" class="form-control" value="4" />4</label></td>
+                                <td><label class="radioBox"><input type="radio" name="inGeneral" class="form-control" value="555" /></label></td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th>Not at all</th>
+                                <th>Slightly</th>
+                                <th>Somewhat</th>
+                                <th>Mostly</th>
+                                <th>Very</th>
+                                <th>Prefer not to answer</th>
+                            </tr>
+                            <tr>
+                                <td class="statement">how much did you like the way the web program looked?</td>
+                                <td><label class="radioBox"><input type="radio" name="looked" class="form-control" value="0" required="true"/>0</label></td>
+                                <td><label class="radioBox"><input type="radio" name="looked" class="form-control" value="1" />1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="looked" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="looked" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="looked" class="form-control" value="4" />4</label></td>
+                                <td><label class="radioBox"><input type="radio" name="looked" class="form-control" value="555" /></label></td>
+                            </tr>
+                            <tr>
+                                <td class="statement">how worried were you about your privacy in using this web program?</td>
+                                <td><label class="radioBox"><input type="radio" name="privacy" class="form-control" value="0" required="true"/>0</label></td>
+                                <td><label class="radioBox"><input type="radio" name="privacy" class="form-control" value="1" />1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="privacy" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="privacy" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="privacy" class="form-control" value="4" />4</label></td>
+                                <td><label class="radioBox"><input type="radio" name="privacy" class="form-control" value="555" /></label></td>
+                            </tr>
+                            <tr>
+                                <td class="statement">how easy were the assessments to understand? </td>
+                                <td><label class="radioBox"><input type="radio" name="understandAssessments" class="form-control" value="0" required="true"/>0</label></td>
+                                <td><label class="radioBox"><input type="radio" name="understandAssessments" class="form-control" value="1" />1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="understandAssessments" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="understandAssessments" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="understandAssessments" class="form-control" value="4" />4</label></td>
+                                <td><label class="radioBox"><input type="radio" name="understandAssessments" class="form-control" value="555" /></label></td>
+                            </tr>
+                            <tr>
+                                <td class="statement">how easy was the training program (including instructions and materials) to understand?</td>
+                                <td><label class="radioBox"><input type="radio" name="understandTraining" class="form-control" value="0" required="true"/>0</label></td>
+                                <td><label class="radioBox"><input type="radio" name="understandTraining" class="form-control" value="1" />1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="understandTraining" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="understandTraining" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="understandTraining" class="form-control" value="4" />4</label></td>
+                                <td><label class="radioBox"><input type="radio" name="understandTraining" class="form-control" value="555" /></label></td>
+                            </tr>
+                            <tr>
+                                <td class="statement">how much did you feel you could trust the information?</td>
+                                <td><label class="radioBox"><input type="radio" name="trust" class="form-control" value="0" required="true"/>0</label></td>
+                                <td><label class="radioBox"><input type="radio" name="trust" class="form-control" value="1" />1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="trust" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="trust" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="trust" class="form-control" value="4" />4</label></td>
+                                <td><label class="radioBox"><input type="radio" name="trust" class="form-control" value="555" /></label></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="section">
+                        <div class="question group-required">4. Of the sessions you did complete, where did you primarily complete the program? (please check all that apply)</div>
+                        <label class="radioList"><input type="checkbox" name="location" value="home" />At home</label>
+                        <label class="radioList"><input type="checkbox" name="location" value="work" />At work</label>
+                        <label class="radioList"><input type="checkbox" name="location" value="library" />At the library, coffee shop, restaurant or other public spaces</label>
+                        <label class="radioList"><input type="checkbox" name="location" value="commuting" />While commuting/travelling (e.g., on the train to work)</label>
+                        <label class="radioList"><input type="checkbox" name="location" value="vacation" />On vacation</label>
+                        <label class="radioList"><input type="checkbox" name="location" value="other" />Other:  <input type="text" name="location"/></label>
+                    </div>
+
+                    <div class="section">
+                        <div class="question">5. While you were completing the treatment sessions, how focused or distracted were you? Please use a 1 (extremely distracted) to 7 (extremely focused) scale. </div>
+                        <label class="radioBox7">
+                            <div class="option">
+                                <div class="desc1">Extremely Distracted</div>
+                                <input type="radio" name="focused" class="form-control" value="1" />
+                                <div class="desc2">1</div>
+                            </div>
+                        </label>
+                        <label class="radioBox7">
+                            <div class="option">
+                                <div class="desc1"></div>
+                                <input type="radio" name="focused" class="form-control" value="2" />
+                                <div class="desc2">2</div>
+                            </div>
+                        </label>
+                        <label class="radioBox7">
+                            <div class="option">
+                                <div class="desc1"></div>
+                                <input type="radio" name="focused" class="form-control" value="3" />
+                                <div class="desc2">3</div>
+                            </div>
+                        </label>
+                        <label class="radioBox7">
+                            <div class="option">
+                                <div class="desc1"></div>
+                                <input type="radio" name="focused" class="form-control" value="4" />
+                                <div class="desc2">4</div>
+                            </div>
+                        </label>
+                        <label class="radioBox7">
+                            <div class="option">
+                                <div class="desc1"></div>
+                                <input type="radio" name="focused" class="form-control" value="5" />
+                                <div class="desc2">5</div>
+                            </div>
+                        </label>
+                        <label class="radioBox7">
+                            <div class="option">
+                                <div class="desc1"></div>
+                                <input type="radio" name="focused" class="form-control" value="6" />
+                                <div class="desc2">6</div>
+                            </div>
+                        </label>
+                        <label class="radioBox7">
+                            <div class="option">
+                                <div class="desc1">Extremely Focused</div>
+                                <input type="radio" name="focused" class="form-control" value="7" />
+                                <div class="desc2">7</div>
+                            </div>
+                        </label>
+                    </div>
+                     <div class="section">
+                        <div class="question">6. Some people have problems when trying to use a web program. Please read the next items and tell us how much of a problem you had when trying to use the web program.  </div>
+                        <table class="questionnaire">
+                            <tr>
+                                <th></th>
+                                <th>Not a problem</th>
+                                <th>Little problem</th>
+                                <th>Major problem </th>
+                                <th>Not Applicable</th>
+                            </tr>
+                            <tr>
+                                <td class="statement">My Internet connection did not work (i.e., I could not connect to the Internet).</td>
+                                <td><label class="radioBox"><input type="radio" name="internet" class="form-control" value="0" required="true"/>0</label></td>
+                                <td><label class="radioBox"><input type="radio" name="internet" class="form-control" value="1" />1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="internet" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="internet" class="form-control" value="3" />3</label></td>
+                            </tr>
+                            <tr>
+                                <td class="statement">My internet connection worked, but I could not get connected to the web program.</td>
+                                <td><label class="radioBox"><input type="radio" name="connected" class="form-control" value="0" required="true"/>0</label></td>
+                                <td><label class="radioBox"><input type="radio" name="connected" class="form-control" value="1" />1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="connected" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="connected" class="form-control" value="3" />3</label></td>
+                            </tr>
+                            <tr>
+                                <td class="statement">I just forgot to go to the web program.</td>
+                                <td><label class="radioBox"><input type="radio" name="forgot" class="form-control" value="0" required="true"/>0</label></td>
+                                <td><label class="radioBox"><input type="radio" name="forgot" class="form-control" value="1" />1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="forgot" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="forgot" class="form-control" value="3" />3</label></td>
+                            </tr>
+                            <tr>
+                                <td class="statement">Personal issues stopped me from using the web program.</td>
+                                <td><label class="radioBox"><input type="radio" name="personalIssues" class="form-control" value="0" required="true"/>0</label></td>
+                                <td><label class="radioBox"><input type="radio" name="personalIssues" class="form-control" value="1" />1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="personalIssues" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="personalIssues" class="form-control" value="3" />3</label></td>
+                            </tr>
+                            <tr>
+                                <td class="statement">The web program was too hard to navigate.</td>
+                                <td><label class="radioBox"><input type="radio" name="navigationHard" class="form-control" value="0" required="true"/>0</label></td>
+                                <td><label class="radioBox"><input type="radio" name="navigationHard" class="form-control" value="1" />1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="navigationHard" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="navigationHard" class="form-control" value="3" />3</label></td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th>Not a problem</th>
+                                <th>Little problem</th>
+                                <th>Major problem </th>
+                                <th>Not Applicable</th>
+                            </tr>
+                            <tr>
+                                <td class="statement">The web program was too hard to understand.</td>
+                                <td><label class="radioBox"><input type="radio" name="hardToUnderstand" class="form-control" value="0" required="true"/>0</label></td>
+                                <td><label class="radioBox"><input type="radio" name="hardToUnderstand" class="form-control" value="1" />1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="hardToUnderstand" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="hardToUnderstand" class="form-control" value="3" />3</label></td>
+                            </tr>
+                            <tr>
+                                <td class="statement">The web program did not seem very useful.</td>
+                                <td><label class="radioBox"><input type="radio" name="notUseful" class="form-control" value="0" required="true"/>0</label></td>
+                                <td><label class="radioBox"><input type="radio" name="notUseful" class="form-control" value="1" />1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="notUseful" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="notUseful" class="form-control" value="3" />3</label></td>
+                            </tr>
+                            <tr>
+                                <td class="statement">I thought the program was going to take too long.</td>
+                                <td><label class="radioBox"><input type="radio" name="takeTooLong" class="form-control" value="0" required="true"/>0</label></td>
+                                <td><label class="radioBox"><input type="radio" name="takeTooLong" class="form-control" value="1" />1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="takeTooLong" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="takeTooLong" class="form-control" value="3" />3</label></td>
+                            </tr>
+                            <tr>
+                                <td class="statement">The web program had too many words.</td>
+                                <td><label class="radioBox"><input type="radio" name="tooManyWords" class="form-control" value="0" required="true"/>0</label></td>
+                                <td><label class="radioBox"><input type="radio" name="tooManyWords" class="form-control" value="1" />1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="tooManyWords" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="tooManyWords" class="form-control" value="3" />3</label></td>
+                            </tr>
+                            <tr>
+                                <td class="statement">The screen was hard to read (e.g., words were too small).</td>
+                                <td><label class="radioBox"><input type="radio" name="hardToRead" class="form-control" value="0" required="true"/>0</label></td>
+                                <td><label class="radioBox"><input type="radio" name="hardToRead" class="form-control" value="1" />1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="hardToRead" class="form-control" value="2" />2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="hardToRead" class="form-control" value="3" />3</label></td>
+                            </tr>
+                        </table>
+                        </div>
+                    <div class="section">
+                        <div class="question group-required">7. Over the course of this program, did you start/stop/change a dose of medication, therapy, or other intervention to help your anxiety difficulties?  (Check all that apply)</div>
+                        <label class="radioList"><input type="checkbox" name="changeMed" value="therapyMore" />I seek in-person therapy more now</label>
+                        <label class="radioList"><input type="checkbox" name="changeMed" value="therapyLess" />I seek in-person therapy less now</label>
+                        <label class="radioList"><input type="checkbox" name="changeMed" value="medsMore" />I use prescription medication more now</label>
+                        <label class="radioList"><input type="checkbox" name="changeMed" value="medsLess" />I use prescription medication less now</label>
+                        <label class="radioList"><input type="checkbox" name="changeMed" value="onlineMore" />I use online computer programs (other than MindTrails) or mobile apps more now</label>
+                        <label class="radioList"><input type="checkbox" name="changeMed" value="onlineLess" />I use online computer programs (other than MindTrails) or mobile apps less now</label>
+                        <label class="radioList"><input type="checkbox" name="other" value="other" />Other:  <input type="text" name=""/></label>
+                    </div>
+
+                    <div class="submit">
+                        <button type="submit">Next</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--features ends-->
+
+        <!--divider here-->
+        <div class="spacer-40px"></div>
+
+    </div>
+    <script>
+        $('#form').validate( {
+            rules: {
+                reasons: {
+                    required: true
+                },
+                location: {
+                    required: true
+                }
+            }
+        });
+        $.validator.setDefaults({
+            messages: {
+                required: ""
+            }
+        });
+    </script>
+</section>
+
+
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts" />
+
+</body>
+</html>
+
+
+

@@ -409,7 +409,19 @@ label.radioBox {
 
 label.radioBox5 {
     min-width: 18%;
+    width: 18%;
 }
+
+label.radioBox7 {
+    min-width: 13%;
+    width: 13%;
+}
+
+div.section label.radioBox7 div.desc1, div.section label.radioBox5 div.desc1{
+    width: 100%;
+    text-align: center;
+}
+
 
 label.radioList {
     cursor: pointer;
@@ -439,6 +451,11 @@ label.radioListNoAnswer {
 
 label.radioList b {
     font-weight: 600;
+}
+
+label label.error {
+    padding: 0px 10px 0px 24px;
+    color: darkred;
 }
 
 div.wide {
