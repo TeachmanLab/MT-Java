@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="fragment/common :: headerFragment" />
+<body>
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment" />
+
+<!-- header-btm starts
+================================================== -->
+<section id="header-btm" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <h2 class="page-title heading-icon clearfix"><img th:src="@{/images/map-arrow-orange.png}"/><br/>Disclaimer</h2>
+        </div>
+    </div>
+</section>
+
+<!-- header-btm ends
+================================================== -->
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+
+
+                <h3><b>General</b></h3>
+
+                <p>MindTrails does not endorse or recommend any commercial products or services. Information on the website may not be used by private
+                    parties for advertising or product endorsement purposes. MindTrails is not responsible for, and disclaims all liability for damages
+                    of any kind arising out of participation in the tests, the training programs, and other general interest and educational use of the site,
+                    or reference to or reliance on any information contained within the site.</p>
+
+                <h3><b>Diagnostic &amp; Treatment Information</b></h3>
+
+                <p>MindTrails does not intend to provide personalized diagnostic, medical or treatment advice on our website. We do not provide specific advice
+                    to individuals, and urge you to consult with a qualified mental health or health care provider for diagnoses and answers to your personal
+                    questions. We do not offer crisis management or real-time monitoring of email. The user’s use of the website is at the user’s sole risk.</p>
+
+                <h3><b>Gift Cards &amp; T-shirts</b></h3>
+
+                <p>The awarding of gift cards and a T-shirt for completion of the study assessments will be available while supplies last. Please note that
+                    T-shirts are only available in the United States and Canada.</p>
+
+                <h3><b>Links to Other Sites</b></h3>
+
+                <p>Some MindTrails web pages may link to those of other organizations. Appearance of a website link here does not imply an endorsement of their
+                    views, policies or products. Once you click on a link to another site, you are subject to its privacy policy. MindTrails has not participated
+                    in the development of the sites of other organizations and does not exert any control over the content of those sites. MindTrails is not
+                    responsible for the accuracy or content of information contained in those sites.</p>
+
+                <h3><b>Links From Other Sites</b></h3>
+
+                <p>MindTrails does not exert any control over the content of sites linking to the MindTrails website. MindTrails is not responsible for the accuracy
+                    or content of information contained in those sites.</p>
+
+                <h3><b>Pop-Up Advertisements</b></h3>
+
+                <p>When visiting our site, your Web browser may produce "pop-up" advertisements (advertisements that spontaneously appear on your computer screen).
+                    The most likely source of such an advertisement is another website you visited or third-party software on your computer. MindTrails does not
+                    endorse or recommend products or services featured in advertisements that "pop up" during your visit to our site.</p>
+
+
+
+
+
+
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts" />
+
+</body>
+</html>

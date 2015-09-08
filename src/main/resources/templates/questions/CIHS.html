@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<!--<![endif]-->
+<head th:include="/fragment/common :: headerFragment" />
+<style>
+    form label.error
+    {
+    font-size: 16px;
+    }
+</style>
+<body th:class="|user-theme-${participant.theme}|">
+<section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
+
+<!-- header-btm starts
+================================================== -->
+<section id="header-btm" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <h2 class="page-title heading-icon clearfix"><img th:src="@{/images/map-arrow-orange.png}" alt="icon"
+                                                              class="icon-small-bg"/><br/>Change in Help Seeking</h2>
+        </div>
+    </div>
+</section>
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+    <div class="container">
+
+        <!--spacer here-->
+        <div class="spacer-30px"></div>
+
+        <!--features starts-->
+        <div class="row">
+            <div class="span12">
+                <form th:action="@{/questions/CIHS}" method="POST">
+                    <div class="longSection">
+                        <p>
+                            <label>Over the course of this program, did you start/stop/change a dose of medication, therapy, or other intervention to help your anxiety difficulties?  (Check all that apply)
+                                (If you are on the same dose of medication or same appointment schedule for therapy or intervention as you were when you began this program, please choose “No change.”)</label>
+                        </p>
+                        <br/>
+                        <div class="row">
+                            <table>
+                                <td><div  style="padding:0; margin:0; border-right: solid 2px #bbb; width: 550px ">
+                                    <ul style="list-style-type: none;">
+
+                                        <li><input id="Q1.1" onchange="lock(id)" type="checkbox" name="changes" value="therapy_more">I seek in-person therapy more now</input></li>
+                                        <li><input id="Q1.2" onchange="lock(id)" type="checkbox" name="changes" value="therapy_less">I seek in-person therapy less now</input></li>
+                                        <li><input id="Q2.1" onchange="lock(id)" type="checkbox" name="changes" value="med_more">I use prescription medication more now</input></li>
+                                        <li><input id="Q2.2" onchange="lock(id)" type="checkbox" name="changes" value="med_less">I use prescription medication less now</input></li>
+                                        <li><input id="Q3.1" onchange="lock(id)" type="checkbox" name="changes" value="online_more">I use online computer programs (other than MindTrails) or mobile apps more now</input></li>
+                                        <li><input id="Q3.2" onchange="lock(id)" type="checkbox" name="changes" value="online_less">I use online computer programs (other than MindTrails) or mobile apps less now</input></li>
+                                        <br />
+                                        <li><input type="checkbox" name="changes" value="Other">Other</input>  (Please specify)<input type="text" name="OtherDesc" /></li>
+                                    </ul>
+                                </div>
+                                </td>
+                                <td>
+                                    <div style="width:150px; text-align:center">
+                                        <p>No Change</p>
+                                        <input type="checkbox" name="changes" value="NoChange" />
+                                    </div>
+                                </td>
+                            </table>
+                        </div>
+                    </div>
+
+                    <button type="submit" >Continue</button>
+                </form>
+                <script src="http://cdn.jsdelivr.net/jquery.validation/1.14.0/jquery.validate.min.js">
+                </script>
+            </div>
+        </div>
+        <!--features ends-->
+
+        <!--divider here-->
+        <div class="spacer-40px"></div>
+
+    </div>
+</section>
+
+
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts" />
+
+<script type="text/javascript">
+
+
+
+     function lock(id) {
+     if (id.charAt(id.length() - 1) == "1") {
+     var id_pair=id.substring(0,2) + "2";
+     }
+     else {
+          var id_pair=id.substring(0,2) + "1";
+     };
+     if (document.getElementById(id).checked) {
+     document.getElementById(id_pair).disabled = true;
+     }
+     else {
+     document.getElementById(id_pair).disabled = false;
+     };
+     };
+
+</script>
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Assessing Change in Help Seeking During the Study (Aims 2 & 3)
+Developed for the current study
+
+Administered after Session 8 and at Follow-up
+
+Over the course of this program, did you start/stop/change a dose of medication, therapy, or other intervention to help your anxiety difficulties?  (Check all that apply)
+(If you are on the same dose of medication or same appointment schedule for therapy or intervention as you were when you began this program, please choose “No change.”)
+I seek in-person therapy more now
+I seek in-person therapy less now
+I use prescription medication more now
+I use prescription medication less now
+I use online computer programs (other than MindTrails) or mobile apps more now
+I use online computer programs (other than MindTrails) or mobile apps less now
+Other (please specify)
+No change
+
+-->

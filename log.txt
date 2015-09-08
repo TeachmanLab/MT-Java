@@ -1,0 +1,218 @@
+:clean
+:compileJava
+:processResources
+:classes
+:findMainClass
+:bootRun
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v1.2.4.RELEASE)
+
+2015-09-08 14:54:14.822  INFO 17086 --- [           main] edu.virginia.psyc.pi.Application         : Starting Application on d-172-25-47-61.bootp.Virginia.EDU with PID 17086 (/Users/Diheng/PIServer/build/classes/main started by Diheng in /Users/Diheng/PIServer)
+2015-09-08 14:54:14.826 DEBUG 17086 --- [           main] edu.virginia.psyc.pi.Application         : Running with Spring Boot v1.2.4.RELEASE, Spring v4.1.6.RELEASE
+2015-09-08 14:54:18.190  INFO 17086 --- [           main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2015-09-08 14:54:18.192  INFO 17086 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.0.23
+2015-09-08 14:54:18.333  INFO 17086 --- [ost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2015-09-08 14:54:19.802  INFO 17086 --- [ost-startStop-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2015-09-08 14:54:19.897  INFO 17086 --- [ost-startStop-1] org.hibernate.Version                    : HHH000412: Hibernate Core {4.3.10.Final}
+2015-09-08 14:54:19.899  INFO 17086 --- [ost-startStop-1] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2015-09-08 14:54:19.902  INFO 17086 --- [ost-startStop-1] org.hibernate.cfg.Environment            : HHH000021: Bytecode provider name : javassist
+2015-09-08 14:54:20.145  INFO 17086 --- [ost-startStop-1] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {4.0.5.Final}
+2015-09-08 14:54:20.731  INFO 17086 --- [ost-startStop-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2015-09-08 14:54:21.042  INFO 17086 --- [ost-startStop-1] o.h.h.i.ast.ASTQueryTranslatorFactory    : HHH000397: Using ASTQueryTranslatorFactory
+2015-09-08 14:54:22.269  INFO 17086 --- [ost-startStop-1] org.hibernate.tool.hbm2ddl.SchemaUpdate  : HHH000228: Running hbm2ddl schema update
+2015-09-08 14:54:22.269  INFO 17086 --- [ost-startStop-1] org.hibernate.tool.hbm2ddl.SchemaUpdate  : HHH000102: Fetching database metadata
+2015-09-08 14:54:22.272  INFO 17086 --- [ost-startStop-1] org.hibernate.tool.hbm2ddl.SchemaUpdate  : HHH000396: Updating schema
+2015-09-08 14:54:22.322  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.anxiety_triggers
+2015-09-08 14:54:22.323  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, sensations, worry, participantdao_id, thoughts, social, anxious_fear, session, how_long, particular_object, id, prior_trauma]
+2015-09-08 14:54:22.323  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_5q83yd8ipjqs36ihg7ncd95ln]
+2015-09-08 14:54:22.323  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_5q83yd8ipjqs36ihg7ncd95ln, primary]
+2015-09-08 14:54:22.332  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.anxious_imagery_prime
+2015-09-08 14:54:22.333  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, participantdao_id, session, id, think_feel, situation, vivid]
+2015-09-08 14:54:22.333  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_6do7cbkh2nnbtcml5y368bov8]
+2015-09-08 14:54:22.333  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_6do7cbkh2nnbtcml5y368bov8, primary]
+2015-09-08 14:54:22.343  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.audit
+2015-09-08 14:54:22.344  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, participantdao_id, guilt, drinks_freq, cant_stop, drink_alc, drink_morning, session, fail, injured, remembered, binge, friend, id]
+2015-09-08 14:54:22.344  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_51rrvteaw03i8lckl8oy3ivgr]
+2015-09-08 14:54:22.344  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_51rrvteaw03i8lckl8oy3ivgr, primary]
+2015-09-08 14:54:22.356  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.bbsiq
+2015-09-08 14:54:22.357  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, party_preoccupied, urgent_died, participantdao_id, lightheaded_eat, visitors_bored, heart_active, session, jolt_wind, shop_bored, confused_cold, friend_moreoften, lightheaded_faint, friend_helpful, chest_heart, vision_glasses, breath_flu, chest_sore, id, heart_excited, visitors_engagement, shop_concentrating, urgent_junk, urgent_bill, jolt_burglar, chest_indigestion, jolt_dream, vision_illness, party_hear, dizzy_ill, breath_suffocate, smoke_food, confused_outofmind, vision_strained, lightheaded_sleep, dizzy_ate, heart_wrong, dizzy_overtired, friend_incompetent, smoke_cig, breath_physically, party_boring, shop_irritating, smoke_house, visitors_outstay, confused_work]
+2015-09-08 14:54:22.357  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_o8reu61gpufoyecac8f9jwa0k]
+2015-09-08 14:54:22.357  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [primary, fk_o8reu61gpufoyecac8f9jwa0k]
+2015-09-08 14:54:22.364  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.cc
+2015-09-08 14:54:22.365  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, fit, participantdao_id, compare, session, id]
+2015-09-08 14:54:22.365  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_1rqrnu58gf9i1l7gbrgdpycuf]
+2015-09-08 14:54:22.365  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_1rqrnu58gf9i1l7gbrgdpycuf, primary]
+2015-09-08 14:54:22.371  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.change_in_help_seeking
+2015-09-08 14:54:22.371  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [changes, id]
+2015-09-08 14:54:22.371  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_2ce3qpgg3i0wp4ja7dr74nr9k]
+2015-09-08 14:54:22.372  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_2ce3qpgg3i0wp4ja7dr74nr9k]
+2015-09-08 14:54:22.379  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.cihs
+2015-09-08 14:54:22.379  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, participantdao_id, session, changes, id, other_desc]
+2015-09-08 14:54:22.380  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_fsbm596rk9ogkwrfppbx9i6fq]
+2015-09-08 14:54:22.380  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_fsbm596rk9ogkwrfppbx9i6fq, primary]
+2015-09-08 14:54:22.387  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.credibility
+2015-09-08 14:54:22.388  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, participantdao_id, recommendable, session, id, logical, successful]
+2015-09-08 14:54:22.388  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_53hrw49phqt9y8b9c713wbyn7]
+2015-09-08 14:54:22.388  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_53hrw49phqt9y8b9c713wbyn7, primary]
+2015-09-08 14:54:22.396  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.dass21_as
+2015-09-08 14:54:22.396  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, worry, participantdao_id, is_over18, breathing, dryness, session, trembling, id, heart, scared, panic]
+2015-09-08 14:54:22.396  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_4taaevbaxad5obr1weg9u9h23]
+2015-09-08 14:54:22.397  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_4taaevbaxad5obr1weg9u9h23, primary]
+2015-09-08 14:54:22.404  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.dass21_ds
+2015-09-08 14:54:22.405  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, participantdao_id, blue, noenthusiastic, noworth, nervous, session, nopositive, difficult, id, meaningless]
+2015-09-08 14:54:22.405  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_8r7txj92dl4gi09ea0prvkn8f]
+2015-09-08 14:54:22.405  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_8r7txj92dl4gi09ea0prvkn8f, primary]
+2015-09-08 14:54:22.413  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.data
+2015-09-08 14:54:22.413  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [trialdao_id, my_key, id, value]
+2015-09-08 14:54:22.413  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_qd9enypseqv47ua94edbm4bc]
+2015-09-08 14:54:22.414  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_qd9enypseqv47ua94edbm4bc, primary]
+2015-09-08 14:54:22.422  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.dd
+2015-09-08 14:54:22.422  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, saturday_hours, participantdao_id, wednesday_hours, average_amount, thursday_hours, sunday_count, monday_hours, session, friday_hours, thursday_count, saturday_count, sunday_hours, tuesday_hours, friday_count, tuesday_count, id, wednesday_count, monday_count, average_freq]
+2015-09-08 14:54:22.422  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_boxn19fjgey8ncq4s96bmdrfw]
+2015-09-08 14:54:22.422  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_boxn19fjgey8ncq4s96bmdrfw, primary]
+2015-09-08 14:54:22.431  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.dd_fu
+2015-09-08 14:54:22.432  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, saturday_hours, participantdao_id, wednesday_hours, thursday_hours, sunday_count, monday_hours, session, friday_hours, thursday_count, saturday_count, sunday_hours, tuesday_hours, friday_count, tuesday_count, id, wednesday_count, monday_count]
+2015-09-08 14:54:22.432  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_q9qhm6s1ecu8dfncdme79dta1]
+2015-09-08 14:54:22.433  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_q9qhm6s1ecu8dfncdme79dta1, primary]
+2015-09-08 14:54:22.440  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.demographic
+2015-09-08 14:54:22.440  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, income, participantdao_id, birthdate, education, ethnicity, gender, race, session, citizenship, social_issues, residence_country, field_of_study, religion, birth_year, marital_status, religiosity, political_issues, id, employment_status, state]
+2015-09-08 14:54:22.440  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_qjfchji1mh84i6nvv4trpr472]
+2015-09-08 14:54:22.440  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_qjfchji1mh84i6nvv4trpr472, primary]
+2015-09-08 14:54:22.447  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.email_log
+2015-09-08 14:54:22.447  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [participantdao_id, date_sent, email_type, id]
+2015-09-08 14:54:22.449  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_7wug9faa0ot7j09mmep8jwvu6]
+2015-09-08 14:54:22.449  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_7wug9faa0ot7j09mmep8jwvu6, primary]
+2015-09-08 14:54:22.456  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.follow_up
+2015-09-08 14:54:22.457  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, participantdao_id, session, description, medication_tx, id]
+2015-09-08 14:54:22.457  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_2dlocvu4rqyuimlhgtyiphl01]
+2015-09-08 14:54:22.457  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_2dlocvu4rqyuimlhgtyiphl01, primary]
+2015-09-08 14:54:22.463  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.gift_log
+2015-09-08 14:54:22.463  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [participantdao_id, session_name, date_sent, id, order_id]
+2015-09-08 14:54:22.463  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_qwtvffb8hh8ca012os6m16kdo]
+2015-09-08 14:54:22.464  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_qwtvffb8hh8ca012os6m16kdo, primary]
+2015-09-08 14:54:22.469  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.help
+2015-09-08 14:54:22.470  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [help, id]
+2015-09-08 14:54:22.470  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_pfd5jtldsugihgvhvbc1kb92o]
+2015-09-08 14:54:22.470  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_pfd5jtldsugihgvhvbc1kb92o]
+2015-09-08 14:54:22.474  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.help_past
+2015-09-08 14:54:22.474  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [help_past, id]
+2015-09-08 14:54:22.474  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_eit2tciqc8ear4y0jx0enh9md]
+2015-09-08 14:54:22.474  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_eit2tciqc8ear4y0jx0enh9md]
+2015-09-08 14:54:22.480  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.impact_anxious_imagery
+2015-09-08 14:54:22.480  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [badly, date, participantdao_id, anxiety, session, vivd, id, terrible]
+2015-09-08 14:54:22.480  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_qa14dtqb2gv27pj2yfnpqeqwg]
+2015-09-08 14:54:22.480  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_qa14dtqb2gv27pj2yfnpqeqwg, primary]
+2015-09-08 14:54:22.492  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.media
+2015-09-08 14:54:22.492  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [trialdao_id, id, value]
+2015-09-08 14:54:22.493  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_43nau8bqrl9ejwvqp7t4s0toc]
+2015-09-08 14:54:22.493  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_43nau8bqrl9ejwvqp7t4s0toc, primary]
+2015-09-08 14:54:22.501  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.mental_health_disorders
+2015-09-08 14:54:22.503  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [disorder, id]
+2015-09-08 14:54:22.503  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_rn2shrljeshe68qf6uroof57p]
+2015-09-08 14:54:22.503  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_rn2shrljeshe68qf6uroof57p]
+2015-09-08 14:54:22.509  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.mental_health_disorders_no
+2015-09-08 14:54:22.509  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [disorder_no, id]
+2015-09-08 14:54:22.509  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_ejuqi1yld2i70tsb2lwddp8b9]
+2015-09-08 14:54:22.510  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_ejuqi1yld2i70tsb2lwddp8b9]
+2015-09-08 14:54:22.516  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.mental_health_hx_tx
+2015-09-08 14:54:22.516  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, participantdao_id, general_practitioner, other_past, other, coach_past, psychiatrist_past, teacher_past, other_desc_no, session, book_past, book, religious_leader_past, other_help, lmhc, psychologist_past, lmhc_past, teacher, religious_leader, school_counselor, online_past, friend, id, psychologist, medicine, medicine_past, friend_past, school_counselor_past, family_past, psychiatrist, general_practitioner_past, online, other_desc, family, coach, other_help_past]
+2015-09-08 14:54:22.516  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_i5t04rhjg0wfsjbgmm4me4w2l]
+2015-09-08 14:54:22.516  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_i5t04rhjg0wfsjbgmm4me4w2l, primary]
+2015-09-08 14:54:22.522  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.multi_user_experience
+2015-09-08 14:54:22.522  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, like_value, trust, participantdao_id, ease, mood, session, privacy, recommend, cntrl_tx, qol, where_value, tiring_training, interest, id, helpful, ideal, similar_program, understand, distracted, training_ease, look, other_therapy, other_desc, internet]
+2015-09-08 14:54:22.522  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_9c9q8n5cgagr5yu6f2365uhh7]
+2015-09-08 14:54:22.522  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_9c9q8n5cgagr5yu6f2365uhh7, primary]
+2015-09-08 14:54:22.527  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.oa
+2015-09-08 14:54:22.527  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, participantdao_id, anxious_sev, session, interfere_social, id, avoid, interfere, anxious_freq]
+2015-09-08 14:54:22.527  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_rfmnni8mo0xkxldg60if0lrtr]
+2015-09-08 14:54:22.528  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [primary, fk_rfmnni8mo0xkxldg60if0lrtr]
+2015-09-08 14:54:22.534  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.participant
+2015-09-08 14:54:22.534  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [prime, over18, current_session, active, admin, email_optout, last_login_date, last_session_date, password, full_name, task_index, password_tokendao_id, random_token, theme, id, cbm_condition, email]
+2015-09-08 14:54:22.534  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_q8kdlkw83l3nd9v9do5k41i7l]
+2015-09-08 14:54:22.534  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_q8kdlkw83l3nd9v9do5k41i7l, primary, uk_gl6v798uk1ye39evt1spdkchj]
+2015-09-08 14:54:22.541  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.participant_email_logdaos
+2015-09-08 14:54:22.541  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [participant_id, email_logdaos_id]
+2015-09-08 14:54:22.542  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_8a2ndraiti3n9lowolloffw9u, fk_cplc4exo5ej1e8oof78qqmi9v]
+2015-09-08 14:54:22.542  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_cplc4exo5ej1e8oof78qqmi9v, uk_8a2ndraiti3n9lowolloffw9u]
+2015-09-08 14:54:22.546  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.participant_gift_logdaos
+2015-09-08 14:54:22.546  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [participant_id, gift_logdaos_id]
+2015-09-08 14:54:22.546  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_dr30k2w97asengg9utpt034kn, fk_9ii74srbdmrwnndsy983kheut]
+2015-09-08 14:54:22.547  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_dr30k2w97asengg9utpt034kn, uk_9ii74srbdmrwnndsy983kheut]
+2015-09-08 14:54:22.552  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.participant_task_logdaos
+2015-09-08 14:54:22.552  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [participant_id, task_logdaos_id]
+2015-09-08 14:54:22.553  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_rl4051yxkq8udrebbnc14r57o, fk_4btbkn513t0pqavse36ee8sro]
+2015-09-08 14:54:22.553  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_rl4051yxkq8udrebbnc14r57o, uk_4btbkn513t0pqavse36ee8sro]
+2015-09-08 14:54:22.557  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.password_token
+2015-09-08 14:54:22.558  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [participantdao_id, date_created, id, token]
+2015-09-08 14:54:22.558  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_svy5rspgkk9dtx2hbk4ve6o46]
+2015-09-08 14:54:22.558  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_svy5rspgkk9dtx2hbk4ve6o46, primary]
+2015-09-08 14:54:22.564  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.pilot_user_experience
+2015-09-08 14:54:22.564  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, like_value, trust, participantdao_id, ease, practice, continue_program, session, understand, privacy, recommend, look, tiring_training, interest, treat_anx, tiring_measures, id]
+2015-09-08 14:54:22.564  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_nte1flpjwq94g0uj8mnx1qjtw]
+2015-09-08 14:54:22.565  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_nte1flpjwq94g0uj8mnx1qjtw, primary]
+2015-09-08 14:54:22.570  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.qol
+2015-09-08 14:54:22.570  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, participantdao_id, expression, helping, session, work, recreation, health, reading, learning, socializing, independence, spouse, relationships, material, children, friend, understanding, participating, id]
+2015-09-08 14:54:22.570  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_h2n4lr88fmtqnenrjq3jmktyi]
+2015-09-08 14:54:22.570  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_h2n4lr88fmtqnenrjq3jmktyi, primary]
+2015-09-08 14:54:22.576  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.re_ru
+2015-09-08 14:54:22.576  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, important, participantdao_id, session, confident, id]
+2015-09-08 14:54:22.576  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_keuo8wtqga3n4k1m1wixq3snv]
+2015-09-08 14:54:22.577  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_keuo8wtqga3n4k1m1wixq3snv, primary]
+2015-09-08 14:54:22.582  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.reasons_ending
+2015-09-08 14:54:22.582  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, participantdao_id, session, id]
+2015-09-08 14:54:22.582  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_99p6i061sgi08ve2jtqh6bx18]
+2015-09-08 14:54:22.582  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_99p6i061sgi08ve2jtqh6bx18, primary]
+2015-09-08 14:54:22.588  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.rr
+2015-09-08 14:54:22.589  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, participantdao_id, session, yellow4, noise1, noise4, noise2, id, noise3, job2, coffee1, job1, coffee2, job4, coffee3, job3, coffee4, yellow1, yellow2, yellow3, elevator3, restaurant4, elevator2, restaurant3, restaurant2, elevator4, flight4, restaurant1, flight3, flight2, elevator1, flight1]
+2015-09-08 14:54:22.589  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_fmu55mmj3t8at7ksl0fvmy03m]
+2015-09-08 14:54:22.590  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_fmu55mmj3t8at7ksl0fvmy03m, primary]
+2015-09-08 14:54:22.598  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.sa
+2015-09-08 14:54:22.599  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [badly, date, participantdao_id, terrible_2, session, think_feel, vivid, vivid2, think_feel_2, anxious, situation_desc, situation_desc_2, anxious_2, badly_2, id, terrible]
+2015-09-08 14:54:22.599  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_gedcbguorb454equf6vnwrmmb]
+2015-09-08 14:54:22.599  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_gedcbguorb454equf6vnwrmmb, primary]
+2015-09-08 14:54:22.605  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.state_anxiety_post
+2015-09-08 14:54:22.605  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [badly, date, participantdao_id, anxious, situation_desc, session, id, avoid, think_feel, terrible]
+2015-09-08 14:54:22.606  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_m6xr3cjtdbppc60dchj565tay]
+2015-09-08 14:54:22.606  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_m6xr3cjtdbppc60dchj565tay, primary]
+2015-09-08 14:54:22.611  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.stimuli
+2015-09-08 14:54:22.612  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [trialdao_id, id, value]
+2015-09-08 14:54:22.612  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_3ths3q8cl5uymx1do1edomsdj]
+2015-09-08 14:54:22.612  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_3ths3q8cl5uymx1do1edomsdj, primary]
+2015-09-08 14:54:22.617  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.suds
+2015-09-08 14:54:22.617  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, participantdao_id, anxiety, session, id]
+2015-09-08 14:54:22.617  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_c9bqy387k9tpfvasgfux94g52]
+2015-09-08 14:54:22.617  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_c9bqy387k9tpfvasgfux94g52, primary]
+2015-09-08 14:54:22.623  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.task_log
+2015-09-08 14:54:22.624  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [task_name, participantdao_id, session_name, date_completed, id]
+2015-09-08 14:54:22.625  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_n1iqs08g6m9sk1s4yplgyk3d7]
+2015-09-08 14:54:22.625  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [primary, fk_n1iqs08g6m9sk1s4yplgyk3d7]
+2015-09-08 14:54:22.632  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.trial
+2015-09-08 14:54:22.632  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [trial_id, session, latency, participant_id, name, id, log_serial, script, response_handle]
+2015-09-08 14:54:22.632  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: []
+2015-09-08 14:54:22.632  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [primary]
+2015-09-08 14:54:22.639  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.trial_datadao
+2015-09-08 14:54:22.639  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [datadao_id, trial_id]
+2015-09-08 14:54:22.639  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_n87kwnoktur51nmmlte53sdgx, fk_o7myvet6vstslyqes80l8jv8o]
+2015-09-08 14:54:22.639  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_n87kwnoktur51nmmlte53sdgx, uk_o7myvet6vstslyqes80l8jv8o]
+2015-09-08 14:54:22.644  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.trial_mediadao
+2015-09-08 14:54:22.645  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [mediadao_id, trial_id]
+2015-09-08 14:54:22.645  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_n8vi51svgyvvbx5k658d3vx3a, fk_8r6ft4981h8jgxpfifgh30xf0]
+2015-09-08 14:54:22.646  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [uk_n8vi51svgyvvbx5k658d3vx3a, fk_8r6ft4981h8jgxpfifgh30xf0]
+2015-09-08 14:54:22.651  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.trial_stimulidao
+2015-09-08 14:54:22.652  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [trial_id, stimulidao_id]
+2015-09-08 14:54:22.652  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_m4pq6qpdbat38m6f5wdwahv4i, fk_k3wptfhoxe8gto9f7keibeuvr]
+2015-09-08 14:54:22.652  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_m4pq6qpdbat38m6f5wdwahv4i, uk_k3wptfhoxe8gto9f7keibeuvr]
+2015-09-08 14:54:22.658  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.vivid
+2015-09-08 14:54:22.658  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, participantdao_id, session, id, vivid]
+2015-09-08 14:54:22.658  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_1atkypb614uaj0is4pl6xim2d]
+2015-09-08 14:54:22.658  INFO 17086 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_1atkypb614uaj0is4pl6xim2d, primary]
+2015-09-08 14:54:22.661  INFO 17086 --- [ost-startStop-1] org.hibernate.tool.hbm2ddl.SchemaUpdate  : HHH000232: Schema update complete
+2015-09-08 14:54:25.266  INFO 17086 --- [           main] edu.virginia.psyc.pi.Application         : Started Application in 10.957 seconds (JVM running for 11.392)

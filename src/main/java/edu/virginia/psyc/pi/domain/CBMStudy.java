@@ -201,6 +201,7 @@ public class CBMStudy implements Study {
                 tasks.add(new Task("DD_FU", "Daily Drinking Follow Up", Task.TYPE.questions, 4));
                 tasks.add(new Task("OA", "OASIS", Task.TYPE.questions, 1));
                 tasks.add(new Task("DASS21_AS", "Status Questionnaire", Task.TYPE.questions, 1));
+                tasks.add(new Task("CIHS","Change in Help Seeking", Task.TYPE.questions, 1));
                 break;
             case POST:
                 tasks.add(new Task("MUE", "User Experience", Task.TYPE.questions, 2));
@@ -213,6 +214,7 @@ public class CBMStudy implements Study {
                 tasks.add(new Task("DD_FU", "Daily Drinking Follow Up", Task.TYPE.questions, 4));
                 tasks.add(new Task("OA", "OASIS", Task.TYPE.questions, 1));
                 tasks.add(new Task("DASS21_AS", "Status Questionnaire", Task.TYPE.questions, 1));
+                tasks.add(new Task("CIHS","Change in Help Seeking", Task.TYPE.questions, 1));
         }
         setTaskStates(name, tasks, taskIndex);
         return tasks;
