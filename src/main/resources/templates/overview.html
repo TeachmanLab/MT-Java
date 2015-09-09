@@ -22,6 +22,7 @@
         <div class="sessionGrouping" th:each="session,iterStat : ${study.sessions}">
         <img class="sessionMarker" th:src="|/images/marker-${iterStat.index}-${participant.theme}.png|"/>
         <div class="gift"><div th:if="${session.awardGift}">$5 Gift Card!<img th:src="@{/images/gift_card.png}"/></div></div>
+        <div class="gift"><div th:if="${session.name == 'POST'}">Free T-Shirt!<img th:src="|/images/shirt-${participant.theme}.png|"/></div></div>
         <div class="sessionOverview">
             <h3 th:text="${session.displayName}">Session Title</h3>
             <table>
