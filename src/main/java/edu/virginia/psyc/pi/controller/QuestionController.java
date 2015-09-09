@@ -509,7 +509,13 @@ public ModelAndView showSUDS(Principal principal) {
      */
 
     @RequestMapping(value = "AIP", method = RequestMethod.GET)
-    public ModelAndView showAIP(Principal principal) {
+    public ModelAndView showAIP(ModelMap model, Principal principal) {
+        Participant p = getParticipant(principal);
+        boolean notFirst = !p.getStudy().getCurrentSession().getName().equals(CBMStudy.NAME.SESSION1);
+        LOG.info("The value for notFirst is :" + notFirst);
+        LOG.info("This session is:" + p.getStudy().getCurrentSession().getName());
+        LOG.info("Target is:" + CBMStudy.NAME.SESSION1);
+        model.addAttribute("notFirst", notFirst);
         return modelAndView(principal, "/questions/AIP", "AIP", new AnxiousImageryPrime());
     }
 

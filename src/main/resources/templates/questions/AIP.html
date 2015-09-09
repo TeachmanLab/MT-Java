@@ -13,7 +13,7 @@
 <!-- content starts
 ================================================== -->
 <section id="content" class="clearfix">
-    <div class="container">
+    <div class="container" th:with="past=${notFirst} ? 'This can be the same situation you imagined in a previous session, or a new situation.' : ' '">
 
         <!--spacer here-->
         <div class="spacer-30px"></div>
@@ -32,6 +32,7 @@
                             <li>Pick a situation that you worry might go badly, or that you expect will evoke symptoms related to
                                 anxiety (e.g., racing heart, sweating).</li>
                             <li>Any situation that will make you feel quite anxious or scared will work, as long as it’s a situation you’re likely to actually encounter.</li>
+                            <li><span th:text="${past}"/></li>
                         </ul>
                     </fieldset>
                     <fieldset>
