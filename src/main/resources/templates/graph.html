@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+    <head th:include="fragment/common :: headerFragment" />
+
+<body th:class="|user-theme-${participant.theme}|">
+    <section id="header" class="clearfix" th:include="fragment/common :: topFragment" />
+
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+    <div class="container">
+        <h1>Graph of Progress</h1>
+        <p>In nearly every session you completed an axiety assessment questionnaire.  The graph below shows your computed
+            score for each time you completed a session.  The higher the score, the higher anxiety you reported at
+            that point in time. </p>
+
+        <div class="longSection">
+            <div id="graph"/>
+        </div>
+
+        <p>When reviewing this, we'd like to let you know that you were a part of the Control Group, and did
+            not receive the actual training sessions designed to improve your Anxiety.  You may now request to re-take
+            this study and actually receive the treatment.  ---- OR --- We'd like you to know that you were not a part of
+            any control group.  You received the actual treatments designed to help reduce your anxiety.... </p>
+
+
+        <p>Over the course of the study, you [improved a lot! / a little / remained the same / got worse ] ....</p>
+
+        <script  th:inline="javascript">
+            /*<![CDATA[*/
+            $(function() {
+
+                var d4 = /*[[${points}]]*/ null;
+
+                $.plot("#graph", [ d4 ], {
+                    series: {
+                        lines: { show: true },
+                        points: { show: true }
+                    },
+                    xaxis: { mode: "time" }
+                    
+                });
+
+
+            });
+            /*]]>*/
+        </script>
+
+    </div>
+    <br/>
+    <br/>
+</section>
+
+
+    <!-- footer starts
+    ================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts" />
+
+</body>
+</html>

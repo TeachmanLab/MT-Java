@@ -1,12 +1,11 @@
 package edu.virginia.psyc.pi.controller;
 
-import edu.virginia.psyc.pi.domain.CBMStudy;
-import edu.virginia.psyc.pi.domain.Participant;
-import edu.virginia.psyc.pi.domain.Session;
-import edu.virginia.psyc.pi.domain.Study;
+import edu.virginia.psyc.pi.domain.*;
 import edu.virginia.psyc.pi.domain.tango.Reward;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
+import edu.virginia.psyc.pi.persistence.Questionnaire.OA;
+import edu.virginia.psyc.pi.persistence.Questionnaire.OARepository;
 import edu.virginia.psyc.pi.service.EmailService;
 import edu.virginia.psyc.pi.service.TangoService;
 import org.joda.time.DateTime;
@@ -23,6 +22,10 @@ import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -43,6 +46,8 @@ public class SessionController extends BaseController {
     @Autowired
     private EmailService emailService;
 
+    @Autowired
+    private OARepository oaRepository;
 
     /**
      * Spring automatically configures this object.
@@ -98,8 +103,26 @@ public class SessionController extends BaseController {
         return "overview";
     }
 
+    @RequestMapping("/graph")
+    public String graph(ModelMap model, Principal principal) {
+
+        ParticipantDAO dao = getParticipantDAO(principal.getName());
+        Participant p      = getParticipant(dao);
+        List<OA> oaList    = oaRepository.findByParticipantDAO(dao);
+        Collections.sort(oaList);
+        List<List<Object>> points = new ArrayList();
+        for(OA oa : oaList) {
+            points.add(oa.plotPoint());
+        }
+
+        model.addAttribute("participant", p);
+        model.addAttribute("points", points);
+        return "graph";
+    }
+
     @RequestMapping("/next")
     public View nextStepInSession(ModelMap model, Principal principal) {
+
         Participant p = getParticipant(principal);
         Study study = p.getStudy();
 

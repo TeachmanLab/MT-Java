@@ -5,7 +5,9 @@ import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,7 +19,7 @@ import java.util.Date;
 @Entity
 @Table(name="OA")
 @Data
-public class OA implements QuestionnaireData {
+public class OA implements QuestionnaireData, Comparable<OA> {
 
     public static int NO_ANSWER = 555;
 
@@ -66,5 +68,16 @@ public class OA implements QuestionnaireData {
         return (score() / original.score()) > 1.3;
     }
 
+    @Override
+    public int compareTo(OA o) {
+        return date.compareTo(o.date);
+    }
+
+    public List<Object> plotPoint() {
+        List<Object> list = new ArrayList<>();
+        list.add(this.date.getTime());
+        list.add(score());
+        return list;
+    }
 
 }

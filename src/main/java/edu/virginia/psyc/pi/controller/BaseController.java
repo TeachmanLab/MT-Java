@@ -21,10 +21,20 @@ public class BaseController {
     protected ParticipantRepository participantRepository;
     private static final Logger LOG = LoggerFactory.getLogger(BaseController.class);
 
+    ParticipantDAO getParticipantDAO(Principal principal) {
+        return participantRepository.findByEmail(principal.getName());
+    }
+
+    ParticipantDAO getParticipantDAO(String email) {
+        return participantRepository.findByEmail(email);
+    }
+
     Participant getParticipant(Principal principal) {
-        Participant p;
-        p = participantRepository.entityToDomain(participantRepository.findByEmail(principal.getName()));
-        return(p);
+        return participantRepository.entityToDomain(getParticipantDAO(principal));
+    }
+
+    Participant getParticipant(ParticipantDAO dao) {
+        return participantRepository.entityToDomain(dao);
     }
 
     Participant getParticipant(String email) {
