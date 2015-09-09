@@ -32,10 +32,20 @@ button  {  -webkit-border-radius: 5px;
     font-weight: 700;
 }
 
+button.jw-button-finish:disabled {
+    color: #bbb;
+}
+
+button.jw-button-finish:disabled span.ui-icon-circle-check {
+    display: none;
+}
+
+
 .user-theme-orange button { background:#F77D38; border-top:#F99A65; border-left:#F99A65; border-bottom:#B36B42; border-right:#B36B42;}
 .user-theme-green button { background:#77B46D; border-top:#99C38D; border-left:#99C38D; border-bottom:#698D63; border-right:#698D63;}
 .user-theme-purple button { background:#C98ABB; border-top:#D4A4CA; border-left:#D4A4CA; border-bottom:#9A7490; border-right:#9A7490;}
 .user-theme-gold button { background:#ECB800; border-top:#F1C657; border-left:#F1C657; border-bottom:#AF8A00; border-right:#AF8A00;}
+
 
 #header {background:url(/images/bg-header.png) top left repeat-x; }
 .logo {background:url(/images/header-logo.png) top left no-repeat; width:365px; height:135px; float:left; margin-left:-35px;}
