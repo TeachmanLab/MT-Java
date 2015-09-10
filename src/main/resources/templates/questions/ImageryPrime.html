@@ -13,8 +13,7 @@
 <!-- content starts
 ================================================== -->
 <section id="content" class="clearfix">
-    <div class="container" th:with="past=${notFirst} ? 'This can be the same situation you imagined in a previous session, or a new situation.' : ' '">
-
+    <div class="container">
         <!--spacer here-->
         <div class="spacer-30px"></div>
 
@@ -32,7 +31,7 @@
                                 <li>Pick a situation that you worry might go badly, or that you expect will evoke symptoms related to
                                     anxiety (e.g., racing heart, sweating).</li>
                                 <li>Any situation that will make you feel quite anxious or scared will work, as long as it’s a situation you’re likely to actually encounter.</li>
-                                <li><span th:text="${past}"/></li>
+                                <li th:if="${notFirst}">This can be the same situation you imagined in a previous session, or a new situation.</li>
                             </ul>
                         </div>
                         <div th:if="${prime == 'NEUTRAL'}">
@@ -40,6 +39,7 @@
                             does not particularly concern you or make you feel especially happy, worried, sad, etc.
                             For instance, the situation could involve brushing your teeth, taking a shower,
                             surfing the web, watching TV, getting dressed, or checking your email. </p>
+                            <p th:if="${notFirst}">This can be the same situation you imagined in a previous session, or a new situation.</p>
                             <p>Pick a situation that
                             you won’t worry or get excited about; the situation should be so mundane and routine you
                             will hardly give it any thought. Any situation that you have no strong feelings toward

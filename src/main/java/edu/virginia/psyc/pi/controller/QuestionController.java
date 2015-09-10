@@ -510,7 +510,7 @@ public ModelAndView showSUDS(Principal principal) {
     @RequestMapping(value = "ImageryPrime", method = RequestMethod.GET)
     public ModelAndView showIP(ModelMap model, Principal principal) {
         Participant p = getParticipant(principal);
-        boolean notFirst = !p.getStudy().getCurrentSession().getName().equals(CBMStudy.NAME.SESSION1);
+        boolean notFirst = p.getStudy().getCurrentSession().getIndex() > 1;
         model.addAttribute("notFirst", notFirst);
         model.addAttribute("prime", p.getPrime().toString());
         return modelAndView(principal, "/questions/ImageryPrime", "IP", new ImageryPrime());
