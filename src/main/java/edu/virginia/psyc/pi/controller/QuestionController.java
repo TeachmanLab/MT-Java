@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -62,6 +63,8 @@ public class QuestionController extends BaseController {
     private static final Logger LOG = LoggerFactory.getLogger(QuestionController.class);
     private SUDSRepository sudsRepository;
     private VividRepository vividRepository;
+    private ReasonsForEndingRepository reasonsForEndingRepository;
+    private CIHSRepository cihsRepository;
 
 
 
@@ -101,7 +104,8 @@ public class QuestionController extends BaseController {
                               BBSIQRepository bbsiqRepository,
                               AnxietyTriggersRepository anxietyTriggersRepository,
                               SUDSRepository sudsRepository,
-                              VividRepository vividRepository) {
+                              VividRepository vividRepository,
+                              ReasonsForEndingRepository reasonsForEndingRepository) {
         this.participantRepository = participantRepository;
         this.dass21_asRepository = dass21_asRepository;
         this.credibilityRepository = credibilityRepository;
@@ -129,6 +133,8 @@ public class QuestionController extends BaseController {
         this.anxietyTriggersRepository = anxietyTriggersRepository;
         this.sudsRepository = sudsRepository;
         this.vividRepository = vividRepository;
+        this.reasonsForEndingRepository = reasonsForEndingRepository;
+        this.cihsRepository = cihsRepository;
     }
 
 
@@ -344,10 +350,31 @@ public class QuestionController extends BaseController {
 
     @RequestMapping(value = "MH/export", method = RequestMethod.GET, produces = "text/csv")
     @ResponseBody // Return the string directly, the return value is not a template name.
-    String exportHealthHxTx() {
+    String exportMentalHealthHxTx() {
         return(objectListToCSV(mh_Repository.findAll()));
     }
 
+    /**
+     * Change in Help Seeking
+     * -------------*
+     */
+
+    @RequestMapping(value="CIHS", method = RequestMethod.GET)
+    public  ModelAndView showCIHS (Principal principal) {
+        return modelAndView(principal, "/questions/CIHS", "CIHS", new CIHS());
+    }
+
+    @RequestMapping(value = "CIHS", method = RequestMethod.POST)
+    RedirectView handleCIHS(@ModelAttribute("CIHS") CIHS cihs,
+                            BindingResult result) {
+        recordSessionProgress(cihs);
+        cihsRepository.save(cihs);
+        return new RedirectView("/session/next");
+    }
+
+    @RequestMapping(value = "CIHS/export", method = RequestMethod.GET, produces = "text/csv")
+    @ResponseBody // Return the string directly, the return value is not a template name.y
+    String exportCIHS() {return(objectListToCSV(cihsRepository.findAll())); }
 
     /**
      * MultiUserExperience
@@ -482,7 +509,13 @@ public ModelAndView showSUDS(Principal principal) {
      */
 
     @RequestMapping(value = "AIP", method = RequestMethod.GET)
-    public ModelAndView showAIP(Principal principal) {
+    public ModelAndView showAIP(ModelMap model, Principal principal) {
+        Participant p = getParticipant(principal);
+        boolean notFirst = !p.getStudy().getCurrentSession().getName().equals(CBMStudy.NAME.SESSION1);
+        LOG.info("The value for notFirst is :" + notFirst);
+        LOG.info("This session is:" + p.getStudy().getCurrentSession().getName());
+        LOG.info("Target is:" + CBMStudy.NAME.SESSION1);
+        model.addAttribute("notFirst", notFirst);
         return modelAndView(principal, "/questions/AIP", "AIP", new AnxiousImageryPrime());
     }
 
@@ -634,7 +667,12 @@ public ModelAndView showSUDS(Principal principal) {
      * ---------*
      */
     @RequestMapping(value = "OA", method = RequestMethod.GET)
-    public ModelAndView showOA(Principal principal) {
+    public ModelAndView showOA(ModelMap model, Principal principal) {
+        Participant p = getParticipant(principal);
+        boolean inSessions = !p.getStudy().getCurrentSession().getName().equals(CBMStudy.NAME.PRE) &&
+                             !p.getStudy().getCurrentSession().getName().equals(CBMStudy.NAME.POST);
+        model.addAttribute("inSessions", inSessions);
+        LOG.info("The value for inSessions is :" + inSessions);
         return modelAndView(principal, "/questions/OA", "OA", new OA());
     }
 
@@ -841,6 +879,31 @@ public ModelAndView showSUDS(Principal principal) {
     }
 
 
+    /**
+     * Reasons For Ending Study
+     * ---------*
+     */
+    @RequestMapping(value = "ReasonsForEnding", method = RequestMethod.GET)
+    public ModelAndView showReasonsForEnding(Principal principal) {
+        return modelAndView(principal, "/questions/ReasonsForEnding", "ReasonsForEnding", new ReasonsForEnding());
+    }
+
+    @RequestMapping(value = "ReasonsForEnding", method = RequestMethod.POST)
+    String handleReasonsForEnding(@ModelAttribute("ReasonsForEnding") ReasonsForEnding reasons,
+                                       BindingResult result) {
+
+        recordSessionProgress(reasons);
+        reasonsForEndingRepository.save(reasons);
+        return "debriefing";
+    }
+
+    @RequestMapping(value = "ReasonsForEnding/export", method = RequestMethod.GET, produces = "text/csv")
+    @ResponseBody // Return the string directly, the return value is not a template name.
+    String exportReasonsForEnding() {
+        return(objectListToCSV(reasonsForEndingRepository.findAll()));
+    }
+
+
 
     /** ==============================================================
      *       Some utilility methods for exporting csv data from the forms
@@ -925,7 +988,6 @@ public ModelAndView showSUDS(Principal principal) {
                 }
             }
         }
-
     }
 
     public static boolean isGetter(Method method){

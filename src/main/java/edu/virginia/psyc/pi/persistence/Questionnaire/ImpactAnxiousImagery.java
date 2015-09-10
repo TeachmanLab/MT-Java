@@ -28,7 +28,7 @@ public class ImpactAnxiousImagery implements QuestionnaireData{
     private int anxiety;
     private int vivd;
     private int badly;
-    private int terrible;
+    private int manageable;
 
     public int getId() {
         return id;
@@ -86,11 +86,11 @@ public class ImpactAnxiousImagery implements QuestionnaireData{
         this.badly = badly;
     }
 
-    public int getTerrible() {
-        return terrible;
+    public int getManageable() {
+        return manageable;
     }
 
-    public void setTerrible(int terrible) {
-        this.terrible = terrible;
+    public void setManageable(int terrible) {
+        this.manageable = manageable;
     }
 }

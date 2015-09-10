@@ -13,7 +13,7 @@
 <!-- content starts
 ================================================== -->
 <section id="content" class="clearfix">
-    <div class="container">
+    <div class="container" th:with="past=${notFirst} ? 'This can be the same situation you imagined in a previous session, or a new situation.' : ' '">
 
         <!--spacer here-->
         <div class="spacer-30px"></div>
@@ -32,6 +32,7 @@
                             <li>Pick a situation that you worry might go badly, or that you expect will evoke symptoms related to
                                 anxiety (e.g., racing heart, sweating).</li>
                             <li>Any situation that will make you feel quite anxious or scared will work, as long as it’s a situation you’re likely to actually encounter.</li>
+                            <li><span th:text="${past}"/></li>
                         </ul>
                     </fieldset>
                     <fieldset>
@@ -57,12 +58,12 @@
                                     would see, hear, and smell if you were really in that situation.</li>
                                 <li>Think about the kinds of things you would think or feel if you were actually there.</li>
                             </ul>
-                            Please click the button below and play this situation in your head for the next 20 seconds. We will tell you
+                            Please click the "Next" button below and play this situation in your head for the next 20 seconds. We will tell you
                             when the 20 seconds are up.
                         </p>
                     </fieldset>
                     <fieldset id="step_four">
-                        <legend>Step 5 - Things you would think or feel</legend>
+                        <legend>Step 4 - Things you would think or feel</legend>
                         <p>
                             Please play this upcoming situation in your head for the next 20 seconds, remembering all of the things you see, hear, think, and feel. We will tell you when the 20 seconds are up.
                         </p>
@@ -75,12 +76,14 @@
                         if (! mVisit)
                         {
                             mVisit = true;
+                            $(".jw-button-finish").prop("disabled",true);
                             setTimeout(function() { alert("20 Seconds Are Over!");
+                                $(".jw-button-finish").prop("disabled",false);
                                                     mNext = true;
                                                   }, 20000);
                         }
 
-                    }).on("stephide", "#step_four", function () {
+                    }).on("wizardfinish", "#step_four", function () {
                         if (! mNext)
                         {
                             return false;

@@ -1,0 +1,881 @@
+:clean
+:compileJava
+:processResources
+:classes
+:findMainClass
+:bootRun
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v1.2.4.RELEASE)
+
+2015-09-09 08:26:27.079  INFO 17640 --- [           main] edu.virginia.psyc.pi.Application         : Starting Application on Dihengs-MacBook-Pro.local with PID 17640 (/Users/Diheng/PIServer/build/classes/main started by Diheng in /Users/Diheng/PIServer)
+2015-09-09 08:26:27.082 DEBUG 17640 --- [           main] edu.virginia.psyc.pi.Application         : Running with Spring Boot v1.2.4.RELEASE, Spring v4.1.6.RELEASE
+2015-09-09 08:26:30.139  INFO 17640 --- [           main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2015-09-09 08:26:30.141  INFO 17640 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.0.23
+2015-09-09 08:26:30.280  INFO 17640 --- [ost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2015-09-09 08:26:31.790  INFO 17640 --- [ost-startStop-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2015-09-09 08:26:31.921  INFO 17640 --- [ost-startStop-1] org.hibernate.Version                    : HHH000412: Hibernate Core {4.3.10.Final}
+2015-09-09 08:26:31.924  INFO 17640 --- [ost-startStop-1] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2015-09-09 08:26:31.927  INFO 17640 --- [ost-startStop-1] org.hibernate.cfg.Environment            : HHH000021: Bytecode provider name : javassist
+2015-09-09 08:26:32.199  INFO 17640 --- [ost-startStop-1] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {4.0.5.Final}
+2015-09-09 08:26:32.796  INFO 17640 --- [ost-startStop-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2015-09-09 08:26:33.091  INFO 17640 --- [ost-startStop-1] o.h.h.i.ast.ASTQueryTranslatorFactory    : HHH000397: Using ASTQueryTranslatorFactory
+2015-09-09 08:26:34.129  INFO 17640 --- [ost-startStop-1] org.hibernate.tool.hbm2ddl.SchemaUpdate  : HHH000228: Running hbm2ddl schema update
+2015-09-09 08:26:34.130  INFO 17640 --- [ost-startStop-1] org.hibernate.tool.hbm2ddl.SchemaUpdate  : HHH000102: Fetching database metadata
+2015-09-09 08:26:34.133  INFO 17640 --- [ost-startStop-1] org.hibernate.tool.hbm2ddl.SchemaUpdate  : HHH000396: Updating schema
+2015-09-09 08:26:34.215  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.anxiety_triggers
+2015-09-09 08:26:34.216  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, sensations, worry, participantdao_id, thoughts, social, anxious_fear, session, how_long, particular_object, id, prior_trauma]
+2015-09-09 08:26:34.216  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_5q83yd8ipjqs36ihg7ncd95ln]
+2015-09-09 08:26:34.216  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_5q83yd8ipjqs36ihg7ncd95ln, primary]
+2015-09-09 08:26:34.224  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.anxious_imagery_prime
+2015-09-09 08:26:34.225  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, participantdao_id, session, id, think_feel, situation, vivid]
+2015-09-09 08:26:34.225  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_6do7cbkh2nnbtcml5y368bov8]
+2015-09-09 08:26:34.225  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_6do7cbkh2nnbtcml5y368bov8, primary]
+2015-09-09 08:26:34.233  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.audit
+2015-09-09 08:26:34.233  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, participantdao_id, guilt, drinks_freq, cant_stop, drink_alc, drink_morning, session, fail, injured, remembered, binge, friend, id]
+2015-09-09 08:26:34.234  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_51rrvteaw03i8lckl8oy3ivgr]
+2015-09-09 08:26:34.234  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_51rrvteaw03i8lckl8oy3ivgr, primary]
+2015-09-09 08:26:34.246  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.bbsiq
+2015-09-09 08:26:34.246  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, party_preoccupied, urgent_died, participantdao_id, lightheaded_eat, visitors_bored, heart_active, session, jolt_wind, shop_bored, confused_cold, friend_moreoften, lightheaded_faint, friend_helpful, chest_heart, vision_glasses, breath_flu, chest_sore, id, heart_excited, visitors_engagement, shop_concentrating, urgent_junk, urgent_bill, jolt_burglar, chest_indigestion, jolt_dream, vision_illness, party_hear, dizzy_ill, breath_suffocate, smoke_food, confused_outofmind, vision_strained, lightheaded_sleep, dizzy_ate, heart_wrong, dizzy_overtired, friend_incompetent, smoke_cig, breath_physically, party_boring, shop_irritating, smoke_house, visitors_outstay, confused_work]
+2015-09-09 08:26:34.249  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_o8reu61gpufoyecac8f9jwa0k]
+2015-09-09 08:26:34.249  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [primary, fk_o8reu61gpufoyecac8f9jwa0k]
+2015-09-09 08:26:34.261  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.cc
+2015-09-09 08:26:34.261  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, fit, participantdao_id, compare, session, id]
+2015-09-09 08:26:34.262  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_1rqrnu58gf9i1l7gbrgdpycuf]
+2015-09-09 08:26:34.264  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_1rqrnu58gf9i1l7gbrgdpycuf, primary]
+2015-09-09 08:26:34.275  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.change_in_help_seeking
+2015-09-09 08:26:34.276  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [changes, id]
+2015-09-09 08:26:34.276  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_2ce3qpgg3i0wp4ja7dr74nr9k]
+2015-09-09 08:26:34.277  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_2ce3qpgg3i0wp4ja7dr74nr9k]
+2015-09-09 08:26:34.284  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.cihs
+2015-09-09 08:26:34.284  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, participantdao_id, session, changes, id, other_desc]
+2015-09-09 08:26:34.284  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_fsbm596rk9ogkwrfppbx9i6fq]
+2015-09-09 08:26:34.285  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_fsbm596rk9ogkwrfppbx9i6fq, primary]
+2015-09-09 08:26:34.292  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.credibility
+2015-09-09 08:26:34.293  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, participantdao_id, recommendable, session, id, logical, successful]
+2015-09-09 08:26:34.293  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_53hrw49phqt9y8b9c713wbyn7]
+2015-09-09 08:26:34.293  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_53hrw49phqt9y8b9c713wbyn7, primary]
+2015-09-09 08:26:34.303  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.dass21_as
+2015-09-09 08:26:34.307  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, worry, participantdao_id, is_over18, breathing, dryness, session, trembling, id, heart, scared, panic]
+2015-09-09 08:26:34.308  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_4taaevbaxad5obr1weg9u9h23]
+2015-09-09 08:26:34.308  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_4taaevbaxad5obr1weg9u9h23, primary]
+2015-09-09 08:26:34.317  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.dass21_ds
+2015-09-09 08:26:34.320  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, participantdao_id, blue, noenthusiastic, noworth, nervous, session, nopositive, difficult, id, meaningless]
+2015-09-09 08:26:34.320  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_8r7txj92dl4gi09ea0prvkn8f]
+2015-09-09 08:26:34.320  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_8r7txj92dl4gi09ea0prvkn8f, primary]
+2015-09-09 08:26:34.327  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.data
+2015-09-09 08:26:34.327  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [trialdao_id, my_key, id, value]
+2015-09-09 08:26:34.328  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_qd9enypseqv47ua94edbm4bc]
+2015-09-09 08:26:34.328  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_qd9enypseqv47ua94edbm4bc, primary]
+2015-09-09 08:26:34.336  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.dd
+2015-09-09 08:26:34.336  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, saturday_hours, participantdao_id, wednesday_hours, average_amount, thursday_hours, sunday_count, monday_hours, session, friday_hours, thursday_count, saturday_count, sunday_hours, tuesday_hours, friday_count, tuesday_count, id, wednesday_count, monday_count, average_freq]
+2015-09-09 08:26:34.337  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_boxn19fjgey8ncq4s96bmdrfw]
+2015-09-09 08:26:34.337  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_boxn19fjgey8ncq4s96bmdrfw, primary]
+2015-09-09 08:26:34.347  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.dd_fu
+2015-09-09 08:26:34.348  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, saturday_hours, participantdao_id, wednesday_hours, thursday_hours, sunday_count, monday_hours, session, friday_hours, thursday_count, saturday_count, sunday_hours, tuesday_hours, friday_count, tuesday_count, id, wednesday_count, monday_count]
+2015-09-09 08:26:34.348  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_q9qhm6s1ecu8dfncdme79dta1]
+2015-09-09 08:26:34.348  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_q9qhm6s1ecu8dfncdme79dta1, primary]
+2015-09-09 08:26:34.356  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.demographic
+2015-09-09 08:26:34.356  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, income, participantdao_id, birthdate, education, ethnicity, gender, race, session, citizenship, social_issues, residence_country, field_of_study, religion, birth_year, marital_status, religiosity, political_issues, id, employment_status, state]
+2015-09-09 08:26:34.356  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_qjfchji1mh84i6nvv4trpr472]
+2015-09-09 08:26:34.356  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_qjfchji1mh84i6nvv4trpr472, primary]
+2015-09-09 08:26:34.365  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.email_log
+2015-09-09 08:26:34.365  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [participantdao_id, date_sent, email_type, id]
+2015-09-09 08:26:34.368  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_7wug9faa0ot7j09mmep8jwvu6]
+2015-09-09 08:26:34.368  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_7wug9faa0ot7j09mmep8jwvu6, primary]
+2015-09-09 08:26:34.393  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.follow_up
+2015-09-09 08:26:34.394  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, participantdao_id, session, description, medication_tx, id]
+2015-09-09 08:26:34.394  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_2dlocvu4rqyuimlhgtyiphl01]
+2015-09-09 08:26:34.394  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_2dlocvu4rqyuimlhgtyiphl01, primary]
+2015-09-09 08:26:34.400  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.gift_log
+2015-09-09 08:26:34.400  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [participantdao_id, session_name, date_sent, id, order_id]
+2015-09-09 08:26:34.400  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_qwtvffb8hh8ca012os6m16kdo]
+2015-09-09 08:26:34.400  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_qwtvffb8hh8ca012os6m16kdo, primary]
+2015-09-09 08:26:34.405  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.help
+2015-09-09 08:26:34.405  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [help, id]
+2015-09-09 08:26:34.405  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_pfd5jtldsugihgvhvbc1kb92o]
+2015-09-09 08:26:34.406  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_pfd5jtldsugihgvhvbc1kb92o]
+2015-09-09 08:26:34.411  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.help_past
+2015-09-09 08:26:34.411  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [help_past, id]
+2015-09-09 08:26:34.411  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_eit2tciqc8ear4y0jx0enh9md]
+2015-09-09 08:26:34.411  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_eit2tciqc8ear4y0jx0enh9md]
+2015-09-09 08:26:34.417  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.impact_anxious_imagery
+2015-09-09 08:26:34.418  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [badly, date, participantdao_id, anxiety, session, vivd, id, terrible]
+2015-09-09 08:26:34.418  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_qa14dtqb2gv27pj2yfnpqeqwg]
+2015-09-09 08:26:34.418  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_qa14dtqb2gv27pj2yfnpqeqwg, primary]
+2015-09-09 08:26:34.423  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.media
+2015-09-09 08:26:34.423  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [trialdao_id, id, value]
+2015-09-09 08:26:34.424  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_43nau8bqrl9ejwvqp7t4s0toc]
+2015-09-09 08:26:34.424  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_43nau8bqrl9ejwvqp7t4s0toc, primary]
+2015-09-09 08:26:34.428  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.mental_health_disorders
+2015-09-09 08:26:34.429  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [disorder, id]
+2015-09-09 08:26:34.429  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_rn2shrljeshe68qf6uroof57p]
+2015-09-09 08:26:34.429  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_rn2shrljeshe68qf6uroof57p]
+2015-09-09 08:26:34.433  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.mental_health_disorders_no
+2015-09-09 08:26:34.434  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [disorder_no, id]
+2015-09-09 08:26:34.434  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_ejuqi1yld2i70tsb2lwddp8b9]
+2015-09-09 08:26:34.434  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_ejuqi1yld2i70tsb2lwddp8b9]
+2015-09-09 08:26:34.440  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.mental_health_hx_tx
+2015-09-09 08:26:34.441  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, participantdao_id, general_practitioner, other_past, other, coach_past, psychiatrist_past, teacher_past, other_desc_no, session, book_past, book, religious_leader_past, other_help, lmhc, psychologist_past, lmhc_past, teacher, religious_leader, school_counselor, online_past, friend, id, psychologist, medicine, medicine_past, friend_past, school_counselor_past, family_past, psychiatrist, general_practitioner_past, online, other_desc, family, coach, other_help_past]
+2015-09-09 08:26:34.441  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_i5t04rhjg0wfsjbgmm4me4w2l]
+2015-09-09 08:26:34.441  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_i5t04rhjg0wfsjbgmm4me4w2l, primary]
+2015-09-09 08:26:34.447  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.multi_user_experience
+2015-09-09 08:26:34.448  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, like_value, trust, participantdao_id, ease, mood, session, privacy, recommend, cntrl_tx, qol, where_value, tiring_training, interest, id, helpful, ideal, similar_program, understand, distracted, training_ease, look, other_therapy, other_desc, internet]
+2015-09-09 08:26:34.448  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_9c9q8n5cgagr5yu6f2365uhh7]
+2015-09-09 08:26:34.448  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_9c9q8n5cgagr5yu6f2365uhh7, primary]
+2015-09-09 08:26:34.452  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.oa
+2015-09-09 08:26:34.453  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, participantdao_id, anxious_sev, session, interfere_social, id, avoid, interfere, anxious_freq]
+2015-09-09 08:26:34.453  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_rfmnni8mo0xkxldg60if0lrtr]
+2015-09-09 08:26:34.453  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [primary, fk_rfmnni8mo0xkxldg60if0lrtr]
+2015-09-09 08:26:34.460  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.participant
+2015-09-09 08:26:34.461  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [prime, over18, current_session, active, admin, email_optout, last_login_date, last_session_date, password, full_name, task_index, password_tokendao_id, random_token, theme, id, cbm_condition, email]
+2015-09-09 08:26:34.462  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_q8kdlkw83l3nd9v9do5k41i7l]
+2015-09-09 08:26:34.462  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_q8kdlkw83l3nd9v9do5k41i7l, primary, uk_gl6v798uk1ye39evt1spdkchj]
+2015-09-09 08:26:34.470  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.participant_email_logdaos
+2015-09-09 08:26:34.470  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [participant_id, email_logdaos_id]
+2015-09-09 08:26:34.470  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_8a2ndraiti3n9lowolloffw9u, fk_cplc4exo5ej1e8oof78qqmi9v]
+2015-09-09 08:26:34.470  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_cplc4exo5ej1e8oof78qqmi9v, uk_8a2ndraiti3n9lowolloffw9u]
+2015-09-09 08:26:34.475  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.participant_gift_logdaos
+2015-09-09 08:26:34.476  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [participant_id, gift_logdaos_id]
+2015-09-09 08:26:34.476  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_dr30k2w97asengg9utpt034kn, fk_9ii74srbdmrwnndsy983kheut]
+2015-09-09 08:26:34.476  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_dr30k2w97asengg9utpt034kn, uk_9ii74srbdmrwnndsy983kheut]
+2015-09-09 08:26:34.482  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.participant_task_logdaos
+2015-09-09 08:26:34.482  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [participant_id, task_logdaos_id]
+2015-09-09 08:26:34.482  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_rl4051yxkq8udrebbnc14r57o, fk_4btbkn513t0pqavse36ee8sro]
+2015-09-09 08:26:34.482  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_rl4051yxkq8udrebbnc14r57o, uk_4btbkn513t0pqavse36ee8sro]
+2015-09-09 08:26:34.487  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.password_token
+2015-09-09 08:26:34.487  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [participantdao_id, date_created, id, token]
+2015-09-09 08:26:34.487  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_svy5rspgkk9dtx2hbk4ve6o46]
+2015-09-09 08:26:34.487  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_svy5rspgkk9dtx2hbk4ve6o46, primary]
+2015-09-09 08:26:34.493  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.pilot_user_experience
+2015-09-09 08:26:34.493  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, like_value, trust, participantdao_id, ease, practice, continue_program, session, understand, privacy, recommend, look, tiring_training, interest, treat_anx, tiring_measures, id]
+2015-09-09 08:26:34.493  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_nte1flpjwq94g0uj8mnx1qjtw]
+2015-09-09 08:26:34.493  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_nte1flpjwq94g0uj8mnx1qjtw, primary]
+2015-09-09 08:26:34.500  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.qol
+2015-09-09 08:26:34.500  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, participantdao_id, expression, helping, session, work, recreation, health, reading, learning, socializing, independence, spouse, relationships, material, children, friend, understanding, participating, id]
+2015-09-09 08:26:34.500  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_h2n4lr88fmtqnenrjq3jmktyi]
+2015-09-09 08:26:34.500  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_h2n4lr88fmtqnenrjq3jmktyi, primary]
+2015-09-09 08:26:34.506  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.re_ru
+2015-09-09 08:26:34.506  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, important, participantdao_id, session, confident, id]
+2015-09-09 08:26:34.506  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_keuo8wtqga3n4k1m1wixq3snv]
+2015-09-09 08:26:34.506  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_keuo8wtqga3n4k1m1wixq3snv, primary]
+2015-09-09 08:26:34.507  INFO 17640 --- [ost-startStop-1] java.sql.DatabaseMetaData                : HHH000262: Table not found: reasons_for_ending
+2015-09-09 08:26:34.509  INFO 17640 --- [ost-startStop-1] java.sql.DatabaseMetaData                : HHH000262: Table not found: reasons_for_ending_change_med
+2015-09-09 08:26:34.510  INFO 17640 --- [ost-startStop-1] java.sql.DatabaseMetaData                : HHH000262: Table not found: reasons_for_ending_list
+2015-09-09 08:26:34.511  INFO 17640 --- [ost-startStop-1] java.sql.DatabaseMetaData                : HHH000262: Table not found: reasons_for_ending_location
+2015-09-09 08:26:34.518  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.rr
+2015-09-09 08:26:34.518  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, participantdao_id, session, yellow4, noise1, noise4, noise2, id, noise3, job2, coffee1, job1, coffee2, job4, coffee3, job3, coffee4, yellow1, yellow2, yellow3, elevator3, restaurant4, elevator2, restaurant3, restaurant2, elevator4, flight4, restaurant1, flight3, flight2, elevator1, flight1]
+2015-09-09 08:26:34.518  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_fmu55mmj3t8at7ksl0fvmy03m]
+2015-09-09 08:26:34.519  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_fmu55mmj3t8at7ksl0fvmy03m, primary]
+2015-09-09 08:26:34.526  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.sa
+2015-09-09 08:26:34.526  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [badly, date, participantdao_id, terrible_2, session, think_feel, vivid, vivid2, think_feel_2, anxious, situation_desc, situation_desc_2, anxious_2, badly_2, id, terrible]
+2015-09-09 08:26:34.526  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_gedcbguorb454equf6vnwrmmb]
+2015-09-09 08:26:34.526  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_gedcbguorb454equf6vnwrmmb, primary]
+2015-09-09 08:26:34.532  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.state_anxiety_post
+2015-09-09 08:26:34.532  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [badly, date, participantdao_id, anxious, situation_desc, session, id, avoid, think_feel, terrible]
+2015-09-09 08:26:34.532  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_m6xr3cjtdbppc60dchj565tay]
+2015-09-09 08:26:34.532  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_m6xr3cjtdbppc60dchj565tay, primary]
+2015-09-09 08:26:34.537  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.stimuli
+2015-09-09 08:26:34.538  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [trialdao_id, id, value]
+2015-09-09 08:26:34.538  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_3ths3q8cl5uymx1do1edomsdj]
+2015-09-09 08:26:34.538  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_3ths3q8cl5uymx1do1edomsdj, primary]
+2015-09-09 08:26:34.544  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.suds
+2015-09-09 08:26:34.545  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, participantdao_id, anxiety, session, id]
+2015-09-09 08:26:34.545  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_c9bqy387k9tpfvasgfux94g52]
+2015-09-09 08:26:34.545  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_c9bqy387k9tpfvasgfux94g52, primary]
+2015-09-09 08:26:34.549  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.task_log
+2015-09-09 08:26:34.549  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [task_name, participantdao_id, session_name, date_completed, id]
+2015-09-09 08:26:34.550  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_n1iqs08g6m9sk1s4yplgyk3d7]
+2015-09-09 08:26:34.550  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [primary, fk_n1iqs08g6m9sk1s4yplgyk3d7]
+2015-09-09 08:26:34.556  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.trial
+2015-09-09 08:26:34.557  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [trial_id, session, latency, participant_id, name, id, log_serial, script, response_handle]
+2015-09-09 08:26:34.557  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: []
+2015-09-09 08:26:34.557  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [primary]
+2015-09-09 08:26:34.562  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.trial_datadao
+2015-09-09 08:26:34.562  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [datadao_id, trial_id]
+2015-09-09 08:26:34.562  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_n87kwnoktur51nmmlte53sdgx, fk_o7myvet6vstslyqes80l8jv8o]
+2015-09-09 08:26:34.562  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_n87kwnoktur51nmmlte53sdgx, uk_o7myvet6vstslyqes80l8jv8o]
+2015-09-09 08:26:34.567  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.trial_mediadao
+2015-09-09 08:26:34.568  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [mediadao_id, trial_id]
+2015-09-09 08:26:34.568  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_n8vi51svgyvvbx5k658d3vx3a, fk_8r6ft4981h8jgxpfifgh30xf0]
+2015-09-09 08:26:34.568  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [uk_n8vi51svgyvvbx5k658d3vx3a, fk_8r6ft4981h8jgxpfifgh30xf0]
+2015-09-09 08:26:34.573  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.trial_stimulidao
+2015-09-09 08:26:34.574  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [trial_id, stimulidao_id]
+2015-09-09 08:26:34.574  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_m4pq6qpdbat38m6f5wdwahv4i, fk_k3wptfhoxe8gto9f7keibeuvr]
+2015-09-09 08:26:34.574  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_m4pq6qpdbat38m6f5wdwahv4i, uk_k3wptfhoxe8gto9f7keibeuvr]
+2015-09-09 08:26:34.579  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000261: Table found: pi.vivid
+2015-09-09 08:26:34.579  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000037: Columns: [date, participantdao_id, session, id, vivid]
+2015-09-09 08:26:34.580  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000108: Foreign keys: [fk_1atkypb614uaj0is4pl6xim2d]
+2015-09-09 08:26:34.580  INFO 17640 --- [ost-startStop-1] o.hibernate.tool.hbm2ddl.TableMetadata   : HHH000126: Indexes: [fk_1atkypb614uaj0is4pl6xim2d, primary]
+2015-09-09 08:26:34.581  INFO 17640 --- [ost-startStop-1] java.sql.DatabaseMetaData                : HHH000262: Table not found: reasons_for_ending
+2015-09-09 08:26:34.582  INFO 17640 --- [ost-startStop-1] java.sql.DatabaseMetaData                : HHH000262: Table not found: reasons_for_ending_change_med
+2015-09-09 08:26:34.582  INFO 17640 --- [ost-startStop-1] java.sql.DatabaseMetaData                : HHH000262: Table not found: reasons_for_ending_list
+2015-09-09 08:26:34.583  INFO 17640 --- [ost-startStop-1] java.sql.DatabaseMetaData                : HHH000262: Table not found: reasons_for_ending_location
+2015-09-09 08:26:34.584  INFO 17640 --- [ost-startStop-1] java.sql.DatabaseMetaData                : HHH000262: Table not found: reasons_for_ending
+2015-09-09 08:26:34.585  INFO 17640 --- [ost-startStop-1] java.sql.DatabaseMetaData                : HHH000262: Table not found: reasons_for_ending_change_med
+2015-09-09 08:26:34.586  INFO 17640 --- [ost-startStop-1] java.sql.DatabaseMetaData                : HHH000262: Table not found: reasons_for_ending_list
+2015-09-09 08:26:34.587  INFO 17640 --- [ost-startStop-1] java.sql.DatabaseMetaData                : HHH000262: Table not found: reasons_for_ending_location
+2015-09-09 08:26:34.790  INFO 17640 --- [ost-startStop-1] org.hibernate.tool.hbm2ddl.SchemaUpdate  : HHH000232: Schema update complete
+2015-09-09 08:26:37.472  INFO 17640 --- [           main] edu.virginia.psyc.pi.Application         : Started Application in 10.745 seconds (JVM running for 11.23)
+2015-09-09 08:27:20.546  INFO 17640 --- [nio-9000-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2015-09-09 08:41:51.346  WARN 17640 --- [nio-9000-exec-2] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 1364, SQLState: HY000
+2015-09-09 08:41:51.347 ERROR 17640 --- [nio-9000-exec-2] o.h.engine.jdbc.spi.SqlExceptionHelper   : Field 'is_over18' doesn't have a default value
+2015-09-09 08:41:51.359  WARN 17640 --- [nio-9000-exec-2] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 1364, SQLState: HY000
+2015-09-09 08:41:51.363  WARN 17640 --- [nio-9000-exec-2] o.h.engine.jdbc.spi.SqlExceptionHelper   : Field 'is_over18' doesn't have a default value
+2015-09-09 08:41:51.398 ERROR 17640 --- [nio-9000-exec-2] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.springframework.orm.jpa.JpaSystemException: could not execute statement; nested exception is org.hibernate.exception.GenericJDBCException: could not execute statement] with root cause
+
+java.sql.SQLException: Field 'is_over18' doesn't have a default value
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:998)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3835)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3771)
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2435)
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2582)
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2535)
+	at com.mysql.jdbc.PreparedStatement.executeInternal(PreparedStatement.java:1911)
+	at com.mysql.jdbc.PreparedStatement.executeUpdate(PreparedStatement.java:2145)
+	at com.mysql.jdbc.PreparedStatement.executeUpdate(PreparedStatement.java:2081)
+	at com.mysql.jdbc.PreparedStatement.executeUpdate(PreparedStatement.java:2066)
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:208)
+	at org.hibernate.id.IdentityGenerator$GetGeneratedKeysDelegate.executeAndExtract(IdentityGenerator.java:96)
+	at org.hibernate.id.insert.AbstractReturningDelegate.performInsert(AbstractReturningDelegate.java:58)
+	at org.hibernate.persister.entity.AbstractEntityPersister.insert(AbstractEntityPersister.java:3032)
+	at org.hibernate.persister.entity.AbstractEntityPersister.insert(AbstractEntityPersister.java:3558)
+	at org.hibernate.action.internal.EntityIdentityInsertAction.execute(EntityIdentityInsertAction.java:98)
+	at org.hibernate.engine.spi.ActionQueue.execute(ActionQueue.java:492)
+	at org.hibernate.engine.spi.ActionQueue.addResolvedEntityInsertAction(ActionQueue.java:197)
+	at org.hibernate.engine.spi.ActionQueue.addInsertAction(ActionQueue.java:181)
+	at org.hibernate.engine.spi.ActionQueue.addAction(ActionQueue.java:216)
+	at org.hibernate.event.internal.AbstractSaveEventListener.addInsertAction(AbstractSaveEventListener.java:334)
+	at org.hibernate.event.internal.AbstractSaveEventListener.performSaveOrReplicate(AbstractSaveEventListener.java:289)
+	at org.hibernate.event.internal.AbstractSaveEventListener.performSave(AbstractSaveEventListener.java:195)
+	at org.hibernate.event.internal.AbstractSaveEventListener.saveWithGeneratedId(AbstractSaveEventListener.java:126)
+	at org.hibernate.jpa.event.internal.core.JpaPersistEventListener.saveWithGeneratedId(JpaPersistEventListener.java:84)
+	at org.hibernate.event.internal.DefaultPersistEventListener.entityIsTransient(DefaultPersistEventListener.java:206)
+	at org.hibernate.event.internal.DefaultPersistEventListener.onPersist(DefaultPersistEventListener.java:149)
+	at org.hibernate.event.internal.DefaultPersistEventListener.onPersist(DefaultPersistEventListener.java:75)
+	at org.hibernate.internal.SessionImpl.firePersist(SessionImpl.java:811)
+	at org.hibernate.internal.SessionImpl.persist(SessionImpl.java:784)
+	at org.hibernate.internal.SessionImpl.persist(SessionImpl.java:789)
+	at org.hibernate.jpa.spi.AbstractEntityManagerImpl.persist(AbstractEntityManagerImpl.java:1181)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.springframework.orm.jpa.ExtendedEntityManagerCreator$ExtendedEntityManagerInvocationHandler.invoke(ExtendedEntityManagerCreator.java:344)
+	at com.sun.proxy.$Proxy74.persist(Unknown Source)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.springframework.orm.jpa.SharedEntityManagerCreator$SharedEntityManagerInvocationHandler.invoke(SharedEntityManagerCreator.java:291)
+	at com.sun.proxy.$Proxy74.persist(Unknown Source)
+	at org.springframework.data.jpa.repository.support.SimpleJpaRepository.save(SimpleJpaRepository.java:407)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$QueryExecutorMethodInterceptor.executeMethodOn(RepositoryFactorySupport.java:416)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$QueryExecutorMethodInterceptor.doInvoke(RepositoryFactorySupport.java:401)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$QueryExecutorMethodInterceptor.invoke(RepositoryFactorySupport.java:373)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$DefaultMethodInvokingMethodInterceptor.invoke(RepositoryFactorySupport.java:486)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:99)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:281)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:96)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:136)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodIntercceptor.invoke(CrudMethodMetadataPostProcessor.java:122)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:92)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:207)
+	at com.sun.proxy.$Proxy86.save(Unknown Source)
+	at edu.virginia.psyc.pi.controller.LoginController.saveEligibilityForm(LoginController.java:262)
+	at edu.virginia.psyc.pi.controller.LoginController.createNewParticipant(LoginController.java:238)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:221)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:137)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:110)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandleMethod(RequestMappingHandlerAdapter.java:776)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:705)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:959)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:893)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:966)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:868)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:648)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:842)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:729)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:291)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:330)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:118)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:84)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:113)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:103)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:113)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter.doFilter(RememberMeAuthenticationFilter.java:139)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:154)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:45)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:199)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:110)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:57)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:87)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:50)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:192)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:160)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:77)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:85)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:219)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:106)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:502)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:142)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:79)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:88)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:518)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1091)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:668)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1521)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.run(NioEndpoint.java:1478)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:745)
+
+2015-09-09 08:41:56.557  INFO 17640 --- [nio-9000-exec-7] e.v.p.p.c.SecurityConfiguration          : Participant Found:ParticipantDAO{id=25, fullName='test011', email='test011@testing.com', password='96f868573f8b3b2dd652f78bddc6121330b6ff478bdac55ee511799260e47d06f3cfbcf79729e4e1', admin=false, emailOptout=false, currentSession=PRE, taskIndex=0, active=true}
+2015-09-09 08:42:20.365 ERROR 17640 --- [nio-9000-exec-9] e.v.psyc.pi.controller.LoginController   : Invalid participant:[Error in object 'over18': codes []; arguments []; default message [You must be over 18 to participate in this Study.], Error in object 'email': codes []; arguments []; default message [This email already exists.]]
+2015-09-09 08:42:44.474  WARN 17640 --- [nio-9000-exec-6] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 1364, SQLState: HY000
+2015-09-09 08:42:44.475 ERROR 17640 --- [nio-9000-exec-6] o.h.engine.jdbc.spi.SqlExceptionHelper   : Field 'is_over18' doesn't have a default value
+2015-09-09 08:42:44.475  WARN 17640 --- [nio-9000-exec-6] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 1364, SQLState: HY000
+2015-09-09 08:42:44.475  WARN 17640 --- [nio-9000-exec-6] o.h.engine.jdbc.spi.SqlExceptionHelper   : Field 'is_over18' doesn't have a default value
+2015-09-09 08:42:44.480 ERROR 17640 --- [nio-9000-exec-6] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.springframework.orm.jpa.JpaSystemException: could not execute statement; nested exception is org.hibernate.exception.GenericJDBCException: could not execute statement] with root cause
+
+java.sql.SQLException: Field 'is_over18' doesn't have a default value
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:998)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3835)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3771)
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2435)
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2582)
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2535)
+	at com.mysql.jdbc.PreparedStatement.executeInternal(PreparedStatement.java:1911)
+	at com.mysql.jdbc.PreparedStatement.executeUpdate(PreparedStatement.java:2145)
+	at com.mysql.jdbc.PreparedStatement.executeUpdate(PreparedStatement.java:2081)
+	at com.mysql.jdbc.PreparedStatement.executeUpdate(PreparedStatement.java:2066)
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:208)
+	at org.hibernate.id.IdentityGenerator$GetGeneratedKeysDelegate.executeAndExtract(IdentityGenerator.java:96)
+	at org.hibernate.id.insert.AbstractReturningDelegate.performInsert(AbstractReturningDelegate.java:58)
+	at org.hibernate.persister.entity.AbstractEntityPersister.insert(AbstractEntityPersister.java:3032)
+	at org.hibernate.persister.entity.AbstractEntityPersister.insert(AbstractEntityPersister.java:3558)
+	at org.hibernate.action.internal.EntityIdentityInsertAction.execute(EntityIdentityInsertAction.java:98)
+	at org.hibernate.engine.spi.ActionQueue.execute(ActionQueue.java:492)
+	at org.hibernate.engine.spi.ActionQueue.addResolvedEntityInsertAction(ActionQueue.java:197)
+	at org.hibernate.engine.spi.ActionQueue.addInsertAction(ActionQueue.java:181)
+	at org.hibernate.engine.spi.ActionQueue.addAction(ActionQueue.java:216)
+	at org.hibernate.event.internal.AbstractSaveEventListener.addInsertAction(AbstractSaveEventListener.java:334)
+	at org.hibernate.event.internal.AbstractSaveEventListener.performSaveOrReplicate(AbstractSaveEventListener.java:289)
+	at org.hibernate.event.internal.AbstractSaveEventListener.performSave(AbstractSaveEventListener.java:195)
+	at org.hibernate.event.internal.AbstractSaveEventListener.saveWithGeneratedId(AbstractSaveEventListener.java:126)
+	at org.hibernate.jpa.event.internal.core.JpaPersistEventListener.saveWithGeneratedId(JpaPersistEventListener.java:84)
+	at org.hibernate.event.internal.DefaultPersistEventListener.entityIsTransient(DefaultPersistEventListener.java:206)
+	at org.hibernate.event.internal.DefaultPersistEventListener.onPersist(DefaultPersistEventListener.java:149)
+	at org.hibernate.event.internal.DefaultPersistEventListener.onPersist(DefaultPersistEventListener.java:75)
+	at org.hibernate.internal.SessionImpl.firePersist(SessionImpl.java:811)
+	at org.hibernate.internal.SessionImpl.persist(SessionImpl.java:784)
+	at org.hibernate.internal.SessionImpl.persist(SessionImpl.java:789)
+	at org.hibernate.jpa.spi.AbstractEntityManagerImpl.persist(AbstractEntityManagerImpl.java:1181)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.springframework.orm.jpa.ExtendedEntityManagerCreator$ExtendedEntityManagerInvocationHandler.invoke(ExtendedEntityManagerCreator.java:344)
+	at com.sun.proxy.$Proxy74.persist(Unknown Source)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.springframework.orm.jpa.SharedEntityManagerCreator$SharedEntityManagerInvocationHandler.invoke(SharedEntityManagerCreator.java:291)
+	at com.sun.proxy.$Proxy74.persist(Unknown Source)
+	at org.springframework.data.jpa.repository.support.SimpleJpaRepository.save(SimpleJpaRepository.java:407)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$QueryExecutorMethodInterceptor.executeMethodOn(RepositoryFactorySupport.java:416)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$QueryExecutorMethodInterceptor.doInvoke(RepositoryFactorySupport.java:401)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$QueryExecutorMethodInterceptor.invoke(RepositoryFactorySupport.java:373)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$DefaultMethodInvokingMethodInterceptor.invoke(RepositoryFactorySupport.java:486)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:99)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:281)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:96)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:136)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodIntercceptor.invoke(CrudMethodMetadataPostProcessor.java:122)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:92)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:207)
+	at com.sun.proxy.$Proxy86.save(Unknown Source)
+	at edu.virginia.psyc.pi.controller.LoginController.saveEligibilityForm(LoginController.java:262)
+	at edu.virginia.psyc.pi.controller.LoginController.createNewParticipant(LoginController.java:238)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:221)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:137)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:110)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandleMethod(RequestMappingHandlerAdapter.java:776)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:705)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:959)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:893)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:966)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:868)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:648)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:842)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:729)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:291)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:330)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:118)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:84)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:113)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:103)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:113)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter.doFilter(RememberMeAuthenticationFilter.java:146)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:154)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:45)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:199)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:110)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:57)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:87)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:50)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:192)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:160)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:77)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:85)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:219)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:106)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:502)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:142)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:79)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:88)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:518)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1091)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:668)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1521)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.run(NioEndpoint.java:1478)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:745)
+
+2015-09-09 08:42:46.770  INFO 17640 --- [io-9000-exec-10] e.v.p.p.c.SecurityConfiguration          : Participant Found:ParticipantDAO{id=26, fullName='final', email='final@final.com', password='28a90b97e505b1558b9aa13225a5065c75e43577ddd2f1b914b304985dc0259c455de008f8faa951', admin=false, emailOptout=false, currentSession=PRE, taskIndex=0, active=true}
+2015-09-09 09:19:42.160  WARN 17640 --- [nio-9000-exec-1] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 1364, SQLState: HY000
+2015-09-09 09:19:42.162 ERROR 17640 --- [nio-9000-exec-1] o.h.engine.jdbc.spi.SqlExceptionHelper   : Field 'is_over18' doesn't have a default value
+2015-09-09 09:19:42.164  WARN 17640 --- [nio-9000-exec-1] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 1364, SQLState: HY000
+2015-09-09 09:19:42.165  WARN 17640 --- [nio-9000-exec-1] o.h.engine.jdbc.spi.SqlExceptionHelper   : Field 'is_over18' doesn't have a default value
+2015-09-09 09:19:42.176 ERROR 17640 --- [nio-9000-exec-1] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.springframework.orm.jpa.JpaSystemException: could not execute statement; nested exception is org.hibernate.exception.GenericJDBCException: could not execute statement] with root cause
+
+java.sql.SQLException: Field 'is_over18' doesn't have a default value
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:998)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3835)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3771)
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2435)
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2582)
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2535)
+	at com.mysql.jdbc.PreparedStatement.executeInternal(PreparedStatement.java:1911)
+	at com.mysql.jdbc.PreparedStatement.executeUpdate(PreparedStatement.java:2145)
+	at com.mysql.jdbc.PreparedStatement.executeUpdate(PreparedStatement.java:2081)
+	at com.mysql.jdbc.PreparedStatement.executeUpdate(PreparedStatement.java:2066)
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:208)
+	at org.hibernate.id.IdentityGenerator$GetGeneratedKeysDelegate.executeAndExtract(IdentityGenerator.java:96)
+	at org.hibernate.id.insert.AbstractReturningDelegate.performInsert(AbstractReturningDelegate.java:58)
+	at org.hibernate.persister.entity.AbstractEntityPersister.insert(AbstractEntityPersister.java:3032)
+	at org.hibernate.persister.entity.AbstractEntityPersister.insert(AbstractEntityPersister.java:3558)
+	at org.hibernate.action.internal.EntityIdentityInsertAction.execute(EntityIdentityInsertAction.java:98)
+	at org.hibernate.engine.spi.ActionQueue.execute(ActionQueue.java:492)
+	at org.hibernate.engine.spi.ActionQueue.addResolvedEntityInsertAction(ActionQueue.java:197)
+	at org.hibernate.engine.spi.ActionQueue.addInsertAction(ActionQueue.java:181)
+	at org.hibernate.engine.spi.ActionQueue.addAction(ActionQueue.java:216)
+	at org.hibernate.event.internal.AbstractSaveEventListener.addInsertAction(AbstractSaveEventListener.java:334)
+	at org.hibernate.event.internal.AbstractSaveEventListener.performSaveOrReplicate(AbstractSaveEventListener.java:289)
+	at org.hibernate.event.internal.AbstractSaveEventListener.performSave(AbstractSaveEventListener.java:195)
+	at org.hibernate.event.internal.AbstractSaveEventListener.saveWithGeneratedId(AbstractSaveEventListener.java:126)
+	at org.hibernate.jpa.event.internal.core.JpaPersistEventListener.saveWithGeneratedId(JpaPersistEventListener.java:84)
+	at org.hibernate.event.internal.DefaultPersistEventListener.entityIsTransient(DefaultPersistEventListener.java:206)
+	at org.hibernate.event.internal.DefaultPersistEventListener.onPersist(DefaultPersistEventListener.java:149)
+	at org.hibernate.event.internal.DefaultPersistEventListener.onPersist(DefaultPersistEventListener.java:75)
+	at org.hibernate.internal.SessionImpl.firePersist(SessionImpl.java:811)
+	at org.hibernate.internal.SessionImpl.persist(SessionImpl.java:784)
+	at org.hibernate.internal.SessionImpl.persist(SessionImpl.java:789)
+	at org.hibernate.jpa.spi.AbstractEntityManagerImpl.persist(AbstractEntityManagerImpl.java:1181)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.springframework.orm.jpa.ExtendedEntityManagerCreator$ExtendedEntityManagerInvocationHandler.invoke(ExtendedEntityManagerCreator.java:344)
+	at com.sun.proxy.$Proxy74.persist(Unknown Source)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.springframework.orm.jpa.SharedEntityManagerCreator$SharedEntityManagerInvocationHandler.invoke(SharedEntityManagerCreator.java:291)
+	at com.sun.proxy.$Proxy74.persist(Unknown Source)
+	at org.springframework.data.jpa.repository.support.SimpleJpaRepository.save(SimpleJpaRepository.java:407)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$QueryExecutorMethodInterceptor.executeMethodOn(RepositoryFactorySupport.java:416)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$QueryExecutorMethodInterceptor.doInvoke(RepositoryFactorySupport.java:401)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$QueryExecutorMethodInterceptor.invoke(RepositoryFactorySupport.java:373)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$DefaultMethodInvokingMethodInterceptor.invoke(RepositoryFactorySupport.java:486)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:99)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:281)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:96)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:136)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodIntercceptor.invoke(CrudMethodMetadataPostProcessor.java:122)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:92)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:207)
+	at com.sun.proxy.$Proxy86.save(Unknown Source)
+	at edu.virginia.psyc.pi.controller.LoginController.saveEligibilityForm(LoginController.java:262)
+	at edu.virginia.psyc.pi.controller.LoginController.createNewParticipant(LoginController.java:238)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:221)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:137)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:110)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandleMethod(RequestMappingHandlerAdapter.java:776)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:705)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:959)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:893)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:966)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:868)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:648)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:842)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:729)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:291)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:330)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:118)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:84)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:113)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:103)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:113)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter.doFilter(RememberMeAuthenticationFilter.java:139)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:154)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:45)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:199)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:110)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:57)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:87)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:50)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:192)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:160)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:77)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:85)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:219)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:106)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:502)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:142)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:79)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:88)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:518)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1091)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:668)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1521)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.run(NioEndpoint.java:1478)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:745)
+
+2015-09-09 10:05:51.097  INFO 17640 --- [nio-9000-exec-2] e.v.p.p.c.SecurityConfiguration          : Participant Found:ParticipantDAO{id=1, fullName='diheng', email='dihengz@gmail.com', password='e140c70d22bcdc2aa7c8d0d414e2a887a3c0cc27016065b65944bd3fe78e0e91ebb46b43e6eb2952', admin=true, emailOptout=false, currentSession=SESSION4, taskIndex=1, active=true}
+2015-09-09 10:05:51.136 ERROR 17640 --- [nio-9000-exec-2] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+
+org.springframework.dao.InvalidDataAccessApiUsageException: Unknown name value [dass21AlertParticipant] for enum class [edu.virginia.psyc.pi.service.EmailService$TYPE]; nested exception is java.lang.IllegalArgumentException: Unknown name value [dass21AlertParticipant] for enum class [edu.virginia.psyc.pi.service.EmailService$TYPE]
+	at org.springframework.orm.jpa.EntityManagerFactoryUtils.convertJpaAccessExceptionIfPossible(EntityManagerFactoryUtils.java:381)
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:223)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.translateExceptionIfPossible(AbstractEntityManagerFactoryBean.java:417)
+	at org.springframework.dao.support.ChainedPersistenceExceptionTranslator.translateExceptionIfPossible(ChainedPersistenceExceptionTranslator.java:59)
+	at org.springframework.dao.support.DataAccessUtils.translateIfNecessary(DataAccessUtils.java:213)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:147)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodIntercceptor.invoke(CrudMethodMetadataPostProcessor.java:122)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:92)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:207)
+	at com.sun.proxy.$Proxy78.save(Unknown Source)
+	at edu.virginia.psyc.pi.service.UserService.onApplicationEvent(UserService.java:27)
+	at edu.virginia.psyc.pi.service.UserService.onApplicationEvent(UserService.java:16)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:151)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:128)
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:331)
+	at org.springframework.security.authentication.DefaultAuthenticationEventPublisher.publishAuthenticationSuccess(DefaultAuthenticationEventPublisher.java:72)
+	at org.springframework.security.authentication.ProviderManager.authenticate(ProviderManager.java:192)
+	at org.springframework.security.authentication.ProviderManager.authenticate(ProviderManager.java:177)
+	at org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.attemptAuthentication(UsernamePasswordAuthenticationFilter.java:92)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:211)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:110)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:57)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:87)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:50)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:192)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:160)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:77)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:85)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:219)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:106)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:502)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:142)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:79)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:88)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:518)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1091)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:668)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1521)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.run(NioEndpoint.java:1478)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.IllegalArgumentException: Unknown name value [dass21AlertParticipant] for enum class [edu.virginia.psyc.pi.service.EmailService$TYPE]
+	at org.hibernate.type.EnumType$NamedEnumValueMapper.fromName(EnumType.java:467)
+	at org.hibernate.type.EnumType$NamedEnumValueMapper.getValue(EnumType.java:452)
+	at org.hibernate.type.EnumType.nullSafeGet(EnumType.java:107)
+	at org.hibernate.type.CustomType.nullSafeGet(CustomType.java:127)
+	at org.hibernate.type.AbstractType.hydrate(AbstractType.java:106)
+	at org.hibernate.persister.entity.AbstractEntityPersister.hydrate(AbstractEntityPersister.java:2969)
+	at org.hibernate.loader.Loader.loadFromResultSet(Loader.java:1696)
+	at org.hibernate.loader.Loader.instanceNotYetLoaded(Loader.java:1628)
+	at org.hibernate.loader.Loader.getRow(Loader.java:1515)
+	at org.hibernate.loader.Loader.getRowFromResultSet(Loader.java:726)
+	at org.hibernate.loader.Loader.processResultSet(Loader.java:953)
+	at org.hibernate.loader.Loader.doQuery(Loader.java:921)
+	at org.hibernate.loader.Loader.doQueryAndInitializeNonLazyCollections(Loader.java:355)
+	at org.hibernate.loader.Loader.doQueryAndInitializeNonLazyCollections(Loader.java:325)
+	at org.hibernate.loader.Loader.loadEntity(Loader.java:2149)
+	at org.hibernate.loader.entity.AbstractEntityLoader.load(AbstractEntityLoader.java:78)
+	at org.hibernate.loader.entity.AbstractEntityLoader.load(AbstractEntityLoader.java:68)
+	at org.hibernate.persister.entity.AbstractEntityPersister.load(AbstractEntityPersister.java:4126)
+	at org.hibernate.event.internal.DefaultLoadEventListener.loadFromDatasource(DefaultLoadEventListener.java:503)
+	at org.hibernate.event.internal.DefaultLoadEventListener.doLoad(DefaultLoadEventListener.java:468)
+	at org.hibernate.event.internal.DefaultLoadEventListener.load(DefaultLoadEventListener.java:213)
+	at org.hibernate.event.internal.DefaultLoadEventListener.proxyOrLoad(DefaultLoadEventListener.java:275)
+	at org.hibernate.event.internal.DefaultLoadEventListener.onLoad(DefaultLoadEventListener.java:151)
+	at org.hibernate.internal.SessionImpl.fireLoad(SessionImpl.java:1106)
+	at org.hibernate.internal.SessionImpl.access$2000(SessionImpl.java:176)
+	at org.hibernate.internal.SessionImpl$IdentifierLoadAccessImpl.load(SessionImpl.java:2587)
+	at org.hibernate.internal.SessionImpl.get(SessionImpl.java:996)
+	at org.hibernate.event.internal.DefaultMergeEventListener.entityIsDetached(DefaultMergeEventListener.java:306)
+	at org.hibernate.event.internal.DefaultMergeEventListener.onMerge(DefaultMergeEventListener.java:186)
+	at org.hibernate.event.internal.DefaultMergeEventListener.onMerge(DefaultMergeEventListener.java:85)
+	at org.hibernate.internal.SessionImpl.fireMerge(SessionImpl.java:876)
+	at org.hibernate.internal.SessionImpl.merge(SessionImpl.java:858)
+	at org.hibernate.internal.SessionImpl.merge(SessionImpl.java:863)
+	at org.hibernate.jpa.spi.AbstractEntityManagerImpl.merge(AbstractEntityManagerImpl.java:1196)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.springframework.orm.jpa.SharedEntityManagerCreator$SharedEntityManagerInvocationHandler.invoke(SharedEntityManagerCreator.java:291)
+	at com.sun.proxy.$Proxy74.merge(Unknown Source)
+	at org.springframework.data.jpa.repository.support.SimpleJpaRepository.save(SimpleJpaRepository.java:410)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$QueryExecutorMethodInterceptor.executeMethodOn(RepositoryFactorySupport.java:416)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$QueryExecutorMethodInterceptor.doInvoke(RepositoryFactorySupport.java:401)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$QueryExecutorMethodInterceptor.invoke(RepositoryFactorySupport.java:373)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$DefaultMethodInvokingMethodInterceptor.invoke(RepositoryFactorySupport.java:486)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:99)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:281)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:96)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:136)
+	... 55 common frames omitted
+
+2015-09-09 10:10:57.402  INFO 17640 --- [nio-9000-exec-6] e.v.p.p.c.SecurityConfiguration          : Participant Found:ParticipantDAO{id=25, fullName='test011', email='test011@testing.com', password='96f868573f8b3b2dd652f78bddc6121330b6ff478bdac55ee511799260e47d06f3cfbcf79729e4e1', admin=false, emailOptout=false, currentSession=PRE, taskIndex=0, active=true}
+Recieved Data:TrialJson{id=0, log_serial=0, trial_id='trial_5', name='all', responseHandle='answered', latency=1722, stimuli=[paragraph, question, yesno, counter], media=[<div> THE ELEVATOR: You are in the lobby of your friend’s new apartment building and press the button to the elevator to go up. The building looks old, and as you get on the elevator, your think about its <span class='incomplete' style='white-space:nowrap;'>s[ ]fety.</span></div>, <div>Did you think about the elevator’s safety?</div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 1 of 50], data={positive=true, correctOnLetter=true, paragraph= THE ELEVATOR: You are in the lobby of your friend’s new apartment building and press the button to the elevator to go up. The building looks old, and as you get on the elevator, your think about its s[a]fety., letter_latency=1722, first_letter_latency=1722, correctOnQuestion=true, question=Did you think about the elevator’s safety?, question_latency=1574, first_question_latency=1574}, script='RecognitionRatings', session='PRE', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=1, trial_id='trial_16', name='all', responseHandle='answered', latency=795, stimuli=[paragraph, question, yesno, counter], media=[<div> THE YELLOW LIGHT: You are in your car, on your way to see a friend for lunch. Because you are running late, you are not as careful as you usually are and speed through a yellow light. As you pass through the intersection, you think about the likelihood of causing an <span class='incomplete' style='white-space:nowrap;'>acc[ ]dent.</span></div>, <div>As you passed through the intersection, were you thinking about your friend?</div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 2 of 50], data={positive=true, correctOnLetter=true, paragraph= THE YELLOW LIGHT: You are in your car, on your way to see a friend for lunch. Because you are running late, you are not as careful as you usually are and speed through a yellow light. As you pass through the intersection, you think about the likelihood of causing an acc[i]dent., letter_latency=795, first_letter_latency=795, correctOnQuestion=true, question=As you passed through the intersection, were you thinking about your friend?, question_latency=1991, first_question_latency=1991}, script='RecognitionRatings', session='PRE', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=2, trial_id='trial_27', name='all', responseHandle='answered', latency=1012, stimuli=[paragraph, question, yesno, counter], media=[<div>  THE LOUD NOISE: You are woken up in the middle of the night by a loud noise. You are not sure what caused the noise and leave your bedroom to see what happened. You walk <span class='incomplete' style='white-space:nowrap;'>downs[ ]airs.</span></div>, <div>Have you been woken up in the middle of the night?</div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 3 of 50], data={positive=true, correctOnLetter=true, paragraph=  THE LOUD NOISE: You are woken up in the middle of the night by a loud noise. You are not sure what caused the noise and leave your bedroom to see what happened. You walk downs[t]airs., letter_latency=1012, first_letter_latency=1012, correctOnQuestion=true, question=Have you been woken up in the middle of the night?, question_latency=1356, first_question_latency=1356}, script='RecognitionRatings', session='PRE', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=3, trial_id='trial_38', name='all', responseHandle='answered', latency=1258, stimuli=[paragraph, question, yesno, counter], media=[<div>  THE COFFEE POT: You are running late on your way to work. In the car, you realize that you forgot to check if you turned off the coffee pot. When you get to work, you think about what would happen if you did leave the coffee pot <span class='incomplete' style='white-space:nowrap;'>[ ]n.</span></div>, <div>Are you thinking about the coffee pot when you arrive to work?</div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 4 of 50], data={positive=true, correctOnLetter=true, paragraph=  THE COFFEE POT: You are running late on your way to work. In the car, you realize that you forgot to check if you turned off the coffee pot. When you get to work, you think about what would happen if you did leave the coffee pot [o]n., letter_latency=1258, first_letter_latency=1258, correctOnQuestion=true, question=Are you thinking about the coffee pot when you arrive to work?, question_latency=2196, first_question_latency=2196}, script='RecognitionRatings', session='PRE', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=4, trial_id='trial_49', name='all', responseHandle='answered', latency=900, stimuli=[paragraph, question, yesno, counter], media=[<div> THE RESTAURANT: You are at a restaurant with a group of friends for dinner. Everyone at the table shares an appetizer. After you eat the appetizer, you remember that you did not ask the waiter if the food is cooked in peanut oil, to which you are <span class='incomplete' style='white-space:nowrap;'>all[ ]rgic.</span></div>, <div>Are you at dinner with your family?</div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 5 of 50], data={positive=true, correctOnLetter=true, paragraph= THE RESTAURANT: You are at a restaurant with a group of friends for dinner. Everyone at the table shares an appetizer. After you eat the appetizer, you remember that you did not ask the waiter if the food is cooked in peanut oil, to which you are all[e]rgic., letter_latency=900, first_letter_latency=900, correctOnQuestion=true, question=Are you at dinner with your family?, question_latency=2159, first_question_latency=2159}, script='RecognitionRatings', session='PRE', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=5, trial_id='trial_60', name='all', responseHandle='answered', latency=1296, stimuli=[paragraph, question, yesno, counter], media=[<div> THE FLIGHT: You are on a long flight with your partner going to an exotic location for your vacation. The airplane pilot gets on the intercom, and says there is going to be some turbulence. As you wait for the turbulence, you feel a little <span class='incomplete' style='white-space:nowrap;'>an[ ]ious.</span></div>, <div>Are you going on vacation?</div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 6 of 50], data={positive=true, correctOnLetter=true, paragraph= THE FLIGHT: You are on a long flight with your partner going to an exotic location for your vacation. The airplane pilot gets on the intercom, and says there is going to be some turbulence. As you wait for the turbulence, you feel a little an[x]ious., letter_latency=1296, first_letter_latency=1296, correctOnQuestion=true, question=Are you going on vacation?, question_latency=1660, first_question_latency=1660}, script='RecognitionRatings', session='PRE', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=6, trial_id='trial_71', name='all', responseHandle='answered', latency=906, stimuli=[paragraph, question, yesno, counter], media=[<div> THE JOB: You are currently working as a contractor for a company. Once this job is finished, you will be without employment until you can find your next job. You think about not having an income for a few weeks and about your future <span class='incomplete' style='white-space:nowrap;'>fin[ ]nces.</span></div>, <div>Will you be without an income soon?</div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 7 of 50], data={positive=true, correctOnLetter=true, paragraph= THE JOB: You are currently working as a contractor for a company. Once this job is finished, you will be without employment until you can find your next job. You think about not having an income for a few weeks and about your future fin[a]nces., letter_latency=906, first_letter_latency=906, correctOnQuestion=true, question=Will you be without an income soon?, question_latency=1985, first_question_latency=1985}, script='RecognitionRatings', session='PRE', participant=25}
+2015-09-09 10:15:53.222  INFO 17640 --- [nio-9000-exec-6] e.v.p.pi.controller.QuestionController   : The value for inSessions is :true
+2015-09-09 10:16:24.639  INFO 17640 --- [io-9000-exec-10] e.virginia.psyc.pi.service.TangoService  : Awarded a gift to participant #25
+2015-09-09 10:16:27.649  INFO 17640 --- [io-9000-exec-10] e.virginia.psyc.pi.service.EmailService  : Sent an email to participant #25 of type giftCard
+2015-09-09 10:34:08.453  INFO 17640 --- [nio-9000-exec-5] e.v.p.p.c.SecurityConfiguration          : Participant Found:ParticipantDAO{id=25, fullName='test011', email='test011@testing.com', password='96f868573f8b3b2dd652f78bddc6121330b6ff478bdac55ee511799260e47d06f3cfbcf79729e4e1', admin=false, emailOptout=false, currentSession=SESSION1, taskIndex=0, active=true}
+2015-09-09 12:22:44.351  INFO 17640 --- [nio-9000-exec-4] e.v.p.p.c.SecurityConfiguration          : Participant Found:ParticipantDAO{id=25, fullName='test011', email='test011@testing.com', password='96f868573f8b3b2dd652f78bddc6121330b6ff478bdac55ee511799260e47d06f3cfbcf79729e4e1', admin=false, emailOptout=false, currentSession=SESSION1, taskIndex=3, active=true}
+Recieved Data:TrialJson{id=0, log_serial=0, trial_id='trial_5', name='posneg', responseHandle='answered', latency=4949, stimuli=[paragraph, question, yesno, counter], media=[<div> You are shopping with a friend, and you try on a new outfit. As you come out of the fitting room, your friend pauses, and then, without smiling, says that you look good. As you think about your friend’s response, you decide your friend is being <span class='incomplete' style='white-space:nowrap;'>sa[ ]castic</span></div>, <div>Does your friend think you look nice? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 1 of 50], data={positive=false, correctOnLetter=false, first_letter_latency=1816, paragraph= You are shopping with a friend, and you try on a new outfit. As you come out of the fitting room, your friend pauses, and then, without smiling, says that you look good. As you think about your friend’s response, you decide your friend is being sa[r]castic, letter_latency=4949, correctOnQuestion=false, first_question_latency=1433, question=Does your friend think you look nice? , question_latency=2522}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=1, trial_id='trial_16', name='posneg', responseHandle='answered', latency=1084, stimuli=[paragraph, question, yesno, counter], media=[<div> You arrange to meet your date at 8 p. m. in a local bar. You arrive on time and find that he/she is not there yet. After your last conversation, you thought that he/she found you <span class='incomplete' style='white-space:nowrap;'>in[ ]ersting</span></div>, <div>Was your date interested in you after your last conversation? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 2 of 50], data={positive=true, correctOnLetter=true, paragraph= You arrange to meet your date at 8 p. m. in a local bar. You arrive on time and find that he/she is not there yet. After your last conversation, you thought that he/she found you in[t]ersting, letter_latency=1084, first_letter_latency=1084, correctOnQuestion=false, first_question_latency=901, question=Was your date interested in you after your last conversation? , question_latency=1816}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=2, trial_id='trial_27', name='posneg', responseHandle='answered', latency=3364, stimuli=[paragraph, question, yesno, counter], media=[<div> You accidentally knock over a few picture frames in a store. You feel your cheeks become hot as people in the store turn and look at you. As the shop owners come over to rearrange the picture frames, he is <span class='incomplete' style='white-space:nowrap;'>s[ ]iling</span></div>, <div>Is the show owner mad at you for knocking over the picture frames? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 3 of 50], data={positive=true, correctOnLetter=false, first_letter_latency=2268, paragraph= You accidentally knock over a few picture frames in a store. You feel your cheeks become hot as people in the store turn and look at you. As the shop owners come over to rearrange the picture frames, he is s[m]iling, letter_latency=3364, correctOnQuestion=false, first_question_latency=1118, question=Is the show owner mad at you for knocking over the picture frames? , question_latency=2285}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=3, trial_id='trial_38', name='posneg', responseHandle='answered', latency=1882, stimuli=[paragraph, question, yesno, counter], media=[<div> You have had a busy week so your kitchen is slightly disorganized. You are expecting your neighbor to stop by for a drink, so you begin to straighten up. Just as you start, your neighbor arrives. He probably thinks your hosting stills are <span class='incomplete' style='white-space:nowrap;'>lac[ ]ing</span></div>, <div>Do you feel that your neighbor disapproves of you? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 4 of 50], data={positive=false, correctOnLetter=true, paragraph= You have had a busy week so your kitchen is slightly disorganized. You are expecting your neighbor to stop by for a drink, so you begin to straighten up. Just as you start, your neighbor arrives. He probably thinks your hosting stills are lac[k]ing, letter_latency=1882, first_letter_latency=1882, correctOnQuestion=true, question=Do you feel that your neighbor disapproves of you? , question_latency=1835, first_question_latency=1835}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=4, trial_id='trial_49', name='posneg', responseHandle='answered', latency=1693, stimuli=[paragraph, question, yesno, counter], media=[<div> You have almost completed a computer course and part of your grade will be determined by a presentation that is to be graded by your classmates. You know most of them, and feel that their opinions of you will make them grade you more <span class='incomplete' style='white-space:nowrap;'>ne[ ]atively</span></div>, <div>Will your classmates grade your presentation advantageously? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 5 of 50], data={positive=false, correctOnLetter=true, paragraph= You have almost completed a computer course and part of your grade will be determined by a presentation that is to be graded by your classmates. You know most of them, and feel that their opinions of you will make them grade you more ne[g]atively, letter_latency=1693, first_letter_latency=1693, correctOnQuestion=false, first_question_latency=1221, question=Will your classmates grade your presentation advantageously? , question_latency=2143}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=5, trial_id='trial_60', name='posneg', responseHandle='answered', latency=1710, stimuli=[paragraph, question, yesno, counter], media=[<div> You are bringing in the mail for your neighbor while she is away. Each day on your way out of her house, you lock the front door and check it. Today you were rushing and think you forgot to check the lock. The house will probably be <span class='incomplete' style='white-space:nowrap;'>fi[ ]e</span></div>, <div>Will your neighbor’s house probably be robbed? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 6 of 50], data={positive=true, correctOnLetter=false, first_letter_latency=1037, paragraph= You are bringing in the mail for your neighbor while she is away. Each day on your way out of her house, you lock the front door and check it. Today you were rushing and think you forgot to check the lock. The house will probably be fi[n]e, letter_latency=1710, correctOnQuestion=false, first_question_latency=1199, question=Will your neighbor’s house probably be robbed? , question_latency=2545}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=6, trial_id='trial_71', name='posneg', responseHandle='answered', latency=1405, stimuli=[paragraph, question, yesno, counter], media=[<div> You have not heard from your elderly neighbor recently. You normally visit with him regularly, so it is strange that you have not seen him lately. Your neighbor has probably been <span class='incomplete' style='white-space:nowrap;'>si[ ]k</span></div>, <div>Has your elderly neighbor likely been sick? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 7 of 50], data={positive=false, correctOnLetter=true, paragraph= You have not heard from your elderly neighbor recently. You normally visit with him regularly, so it is strange that you have not seen him lately. Your neighbor has probably been si[c]k, letter_latency=1405, first_letter_latency=1405, correctOnQuestion=true, question=Has your elderly neighbor likely been sick? , question_latency=1900, first_question_latency=1900}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=7, trial_id='trial_82', name='posneg', responseHandle='answered', latency=1211, stimuli=[paragraph, question, yesno, counter], media=[<div> You arrive at a large party, and quickly realize that there are a lot of people you do not know there. You feel anxious, and consider going home. After thinking about it, you decide to <span class='incomplete' style='white-space:nowrap;'>lea[ ]e</span></div>, <div>Do you remain at the party, even though you are feeling anxious? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 8 of 50], data={positive=false, correctOnLetter=true, paragraph= You arrive at a large party, and quickly realize that there are a lot of people you do not know there. You feel anxious, and consider going home. After thinking about it, you decide to lea[v]e, letter_latency=1211, first_letter_latency=1211, correctOnQuestion=true, question=Do you remain at the party, even though you are feeling anxious? , question_latency=1991, first_question_latency=1991}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=8, trial_id='trial_93', name='posneg', responseHandle='answered', latency=985, stimuli=[paragraph, question, yesno, counter], media=[<div> You are sitting on the couch and watching television with a friend. Your friend asks you a personal question. You answer honestly, and you think your friend judges you to be <span class='incomplete' style='white-space:nowrap;'>op[ ]n</span></div>, <div>Does your friend have a more negative opinion of you after you share personal information? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 9 of 50], data={positive=true, correctOnLetter=true, paragraph= You are sitting on the couch and watching television with a friend. Your friend asks you a personal question. You answer honestly, and you think your friend judges you to be op[e]n, letter_latency=985, first_letter_latency=985, correctOnQuestion=false, first_question_latency=1302, question=Does your friend have a more negative opinion of you after you share personal information? , question_latency=2244}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=9, trial_id='trial_104', name='posneg', responseHandle='answered', latency=1098, stimuli=[paragraph, question, yesno, counter], media=[<div> At your routine doctor's appointment, your doctor decides to run a few tests to evaluate your health. The doctor tells you that she will get you your results within a week. While you wait for your results, you think you are likely <span class='incomplete' style='white-space:nowrap;'>hea[ ]thy</span></div>, <div>Do you think that you are healthy? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 10 of 50], data={positive=true, correctOnLetter=true, paragraph= At your routine doctor's appointment, your doctor decides to run a few tests to evaluate your health. The doctor tells you that she will get you your results within a week. While you wait for your results, you think you are likely hea[l]thy, letter_latency=1098, first_letter_latency=1098, correctOnQuestion=true, question=Do you think that you are healthy? , question_latency=1772, first_question_latency=1772}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=10, trial_id='trial_115', name='posneg', responseHandle='answered', latency=2015, stimuli=[paragraph, question, yesno, counter], media=[<div>Yesterday you spent the day with your friend and her new infant. A few times during the day, the infant coughed and sneezed on you, and you wonder if you will catch something. Tomorrow, you will probably be <span class='incomplete' style='white-space:nowrap;'>f[ ]ne</span></div>, <div> Will you get sick from your friend's new baby?</div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 11 of 50], data={positive=true, correctOnLetter=true, paragraph=Yesterday you spent the day with your friend and her new infant. A few times during the day, the infant coughed and sneezed on you, and you wonder if you will catch something. Tomorrow, you will probably be f[i]ne, letter_latency=2015, first_letter_latency=2015, correctOnQuestion=true, question= Will you get sick from your friend's new baby?, question_latency=1666, first_question_latency=1666}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=11, trial_id='trial_126', name='posneg', responseHandle='answered', latency=1046, stimuli=[paragraph, question, yesno, counter], media=[<div> You are looking after a friend’s child. The child you are watching asks to go to the park in a different neighborhood. In your opinion, an ordinary outing like this is <span class='incomplete' style='white-space:nowrap;'>sa[ ]e</span></div>, <div>Is going to a park in a different neighborhood dangerous? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 12 of 50], data={positive=true, correctOnLetter=true, paragraph= You are looking after a friend’s child. The child you are watching asks to go to the park in a different neighborhood. In your opinion, an ordinary outing like this is sa[f]e, letter_latency=1046, first_letter_latency=1046, correctOnQuestion=false, first_question_latency=1229, question=Is going to a park in a different neighborhood dangerous? , question_latency=2354}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=12, trial_id='trial_137', name='posneg', responseHandle='answered', latency=954, stimuli=[paragraph, question, yesno, counter], media=[<div> You heard in the news that a lot of businesses are currently downsizing. You think about what will happen if you lose your job. You decide that finding another job will be <span class='incomplete' style='white-space:nowrap;'>pos[ ]ible</span></div>, <div> Do you think it will be impossible to find a new job? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 13 of 50], data={positive=true, correctOnLetter=true, paragraph= You heard in the news that a lot of businesses are currently downsizing. You think about what will happen if you lose your job. You decide that finding another job will be pos[s]ible, letter_latency=954, first_letter_latency=954, correctOnQuestion=false, first_question_latency=1253, question= Do you think it will be impossible to find a new job? , question_latency=2141}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=13, trial_id='trial_148', name='posneg', responseHandle='answered', latency=1354, stimuli=[paragraph, question, yesno, counter], media=[<div> You meet someone at a party and feel that you got along well. Later, you call and suggest meeting again. The reply you get makes you feel that the person thinks meeting again would be <span class='incomplete' style='white-space:nowrap;'>d[ ]ll</span></div>, <div>Did the person from the party accept your invitation for getting together again? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 14 of 50], data={positive=false, correctOnLetter=true, paragraph= You meet someone at a party and feel that you got along well. Later, you call and suggest meeting again. The reply you get makes you feel that the person thinks meeting again would be d[u]ll, letter_latency=1354, first_letter_latency=1354, correctOnQuestion=false, first_question_latency=957, question=Did the person from the party accept your invitation for getting together again? , question_latency=1918}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=14, trial_id='trial_159', name='posneg', responseHandle='answered', latency=2539, stimuli=[paragraph, question, yesno, counter], media=[<div> Your friend sets you up on a blind date and you agree to meet the date at a coffee shop. Once you are both sitting at your table, you notice that he/she is very attractive. You have difficulty thinking of something to say, so you sit quietly. He/she probably thinks that you are <span class='incomplete' style='white-space:nowrap;'>cal[ ]</span></div>, <div>Does the date think that you are anxious? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 15 of 50], data={positive=true, correctOnLetter=false, first_letter_latency=1009, paragraph= Your friend sets you up on a blind date and you agree to meet the date at a coffee shop. Once you are both sitting at your table, you notice that he/she is very attractive. You have difficulty thinking of something to say, so you sit quietly. He/she probably thinks that you are cal[m], letter_latency=2539, correctOnQuestion=false, first_question_latency=957, question=Does the date think that you are anxious? , question_latency=1995}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=15, trial_id='trial_170', name='posneg', responseHandle='answered', latency=1612, stimuli=[paragraph, question, yesno, counter], media=[<div> You buy a new camera, but when you get it home, you decide you do not like it. You return it to the store and get your money back. The assistant is not very talkative as he helps you, and you think he views you as <span class='incomplete' style='white-space:nowrap;'>ra[ ]ional</span></div>, <div>Do you think the sales assistant felt you were annoying? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 16 of 50], data={positive=true, correctOnLetter=true, paragraph= You buy a new camera, but when you get it home, you decide you do not like it. You return it to the store and get your money back. The assistant is not very talkative as he helps you, and you think he views you as ra[t]ional, letter_latency=1612, first_letter_latency=1612, correctOnQuestion=false, first_question_latency=1222, question=Do you think the sales assistant felt you were annoying? , question_latency=2450}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=16, trial_id='trial_181', name='posneg', responseHandle='answered', latency=1568, stimuli=[paragraph, question, yesno, counter], media=[<div> During a discussion, you end up debating an issue with colleagues. You later discover that they found your views unusual. When the issue comes up again in a group conversation, you expect that you will be <span class='incomplete' style='white-space:nowrap;'>inc[ ]uded</span></div>, <div>Do you expect that others will want to talk with you about the issue in the future? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 17 of 50], data={positive=true, correctOnLetter=true, paragraph= During a discussion, you end up debating an issue with colleagues. You later discover that they found your views unusual. When the issue comes up again in a group conversation, you expect that you will be inc[l]uded, letter_latency=1568, first_letter_latency=1568, correctOnQuestion=false, first_question_latency=1214, question=Do you expect that others will want to talk with you about the issue in the future? , question_latency=2235}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=17, trial_id='trial_192', name='posneg', responseHandle='answered', latency=1576, stimuli=[paragraph, question, yesno, counter], media=[<div> This morning you left the house and began your drive to work. About 10 minutes into your commute, you wonder if you remembered to lock the door to your home. As you continue to drive, you feel <span class='incomplete' style='white-space:nowrap;'>an[ ]ious</span></div>, <div> Are you able to stay calm, despite being unsure whether you remembered to lock your door? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 18 of 50], data={positive=false, correctOnLetter=true, paragraph= This morning you left the house and began your drive to work. About 10 minutes into your commute, you wonder if you remembered to lock the door to your home. As you continue to drive, you feel an[x]ious, letter_latency=1576, first_letter_latency=1576, correctOnQuestion=false, first_question_latency=1582, question= Are you able to stay calm, despite being unsure whether you remembered to lock your door? , question_latency=2608}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=18, trial_id='trial_203', name='posneg', responseHandle='answered', latency=1205, stimuli=[paragraph, question, yesno, counter], media=[<div> Your son is going camping with his friend’s family for two days. There will be no cell phone reception and you are worried about not being able to check in with him. Your worries over the next two days are going to be <span class='incomplete' style='white-space:nowrap;'>mana[ ]eable</span></div>, <div>Are you able to manage your worries about your son? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 19 of 50], data={positive=true, correctOnLetter=true, paragraph= Your son is going camping with his friend’s family for two days. There will be no cell phone reception and you are worried about not being able to check in with him. Your worries over the next two days are going to be mana[g]eable, letter_latency=1205, first_letter_latency=1205, correctOnQuestion=true, question=Are you able to manage your worries about your son? , question_latency=1744, first_question_latency=1744}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=19, trial_id='trial_214', name='posneg', responseHandle='answered', latency=932, stimuli=[paragraph, question, yesno, counter], media=[<div> You are persuaded to join a trivia team in a tournament. You are told that most of the questions will be asked to individuals, in different rounds. The first round is hard and you feel that the others found your efforts particularly <span class='incomplete' style='white-space:nowrap;'>p[ ]or</span></div>, <div>Did your teammates feel positive about your efforts in the tournament? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 20 of 50], data={positive=false, correctOnLetter=true, paragraph= You are persuaded to join a trivia team in a tournament. You are told that most of the questions will be asked to individuals, in different rounds. The first round is hard and you feel that the others found your efforts particularly p[o]or, letter_latency=932, first_letter_latency=932, correctOnQuestion=true, question=Did your teammates feel positive about your efforts in the tournament? , question_latency=1611, first_question_latency=1611}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=20, trial_id='trial_225', name='posneg', responseHandle='answered', latency=1475, stimuli=[paragraph, question, yesno, counter], media=[<div>Yesterday, you got together with a friend who coughed a few times while you were out. You are nervous that you might catch something from your friend. You decide that your anxiety is <span class='incomplete' style='white-space:nowrap;'>manage[ ]ble</span></div>, <div> Can you manage your anxiety about potentially getting sick from your friend?</div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 21 of 50], data={positive=true, correctOnLetter=true, paragraph=Yesterday, you got together with a friend who coughed a few times while you were out. You are nervous that you might catch something from your friend. You decide that your anxiety is manage[a]ble, letter_latency=1475, first_letter_latency=1475, correctOnQuestion=true, question= Can you manage your anxiety about potentially getting sick from your friend?, question_latency=1864, first_question_latency=1864}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=21, trial_id='trial_236', name='posneg', responseHandle='answered', latency=1643, stimuli=[paragraph, question, yesno, counter], media=[<div> You are at a birthday party for a friend of a friend. You notice that you are flushed and a little sweaty. You think that these sensations are <span class='incomplete' style='white-space:nowrap;'>embara[ ]sing</span></div>, <div>Is it bad to be flushed and sweaty in front of others? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 22 of 50], data={positive=false, correctOnLetter=true, paragraph= You are at a birthday party for a friend of a friend. You notice that you are flushed and a little sweaty. You think that these sensations are embara[s]sing, letter_latency=1643, first_letter_latency=1643, correctOnQuestion=true, question=Is it bad to be flushed and sweaty in front of others? , question_latency=1775, first_question_latency=1775}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=22, trial_id='trial_247', name='posneg', responseHandle='answered', latency=1399, stimuli=[paragraph, question, yesno, counter], media=[<div> While making dinner, you accidentally touch a hot pan. You quickly put your finger under cold water. You think the burn is <span class='incomplete' style='white-space:nowrap;'>mi[ ]or</span></div>, <div>Will your burned finger be okay? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 23 of 50], data={positive=true, correctOnLetter=true, paragraph= While making dinner, you accidentally touch a hot pan. You quickly put your finger under cold water. You think the burn is mi[n]or, letter_latency=1399, first_letter_latency=1399, correctOnQuestion=false, first_question_latency=885, question=Will your burned finger be okay? , question_latency=2108}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=23, trial_id='trial_258', name='posneg', responseHandle='answered', latency=1384, stimuli=[paragraph, question, yesno, counter], media=[<div> You just left for vacation and cannot remember if you shut off the stove after the last time you cooked. You become anxious not knowing whether the stove is on or off. With these thoughts in mind, your vacation will be <span class='incomplete' style='white-space:nowrap;'>u[ ]enjoyable</span></div>, <div>Will you still be able to enjoy your vacation, even if you are wondering about your stove? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 24 of 50], data={positive=false, correctOnLetter=true, paragraph= You just left for vacation and cannot remember if you shut off the stove after the last time you cooked. You become anxious not knowing whether the stove is on or off. With these thoughts in mind, your vacation will be u[n]enjoyable, letter_latency=1384, first_letter_latency=1384, correctOnQuestion=false, first_question_latency=1318, question=Will you still be able to enjoy your vacation, even if you are wondering about your stove? , question_latency=2443}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=24, trial_id='trial_269', name='posneg', responseHandle='answered', latency=1147, stimuli=[paragraph, question, yesno, counter], media=[<div> You are at a class that your company has sent you to. Your teacher asks each member of the group to stand up and introduce himself or herself. During your brief presentation you momentarily forget what you plan to say, but quickly recover; you guess that others thought you sounded <span class='incomplete' style='white-space:nowrap;'>an[ ]ious</span></div>, <div>Did the other people in the workshop think you sounded nervous while you spoke? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 25 of 50], data={positive=false, correctOnLetter=true, paragraph= You are at a class that your company has sent you to. Your teacher asks each member of the group to stand up and introduce himself or herself. During your brief presentation you momentarily forget what you plan to say, but quickly recover; you guess that others thought you sounded an[x]ious, letter_latency=1147, first_letter_latency=1147, correctOnQuestion=true, question=Did the other people in the workshop think you sounded nervous while you spoke? , question_latency=1440, first_question_latency=1440}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=25, trial_id='trial_280', name='posneg', responseHandle='answered', latency=2529, stimuli=[paragraph, question, yesno, counter], media=[<div> Your throat is scratchier than it usually is. You think about why this may be. You decide it is probably because you are <span class='incomplete' style='white-space:nowrap;'>thir[ ]ty</span></div>, <div>Will drinking water make your throat feel better? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 26 of 50], data={positive=true, correctOnLetter=true, paragraph= Your throat is scratchier than it usually is. You think about why this may be. You decide it is probably because you are thir[s]ty, letter_latency=2529, first_letter_latency=2529, correctOnQuestion=false, first_question_latency=911, question=Will drinking water make your throat feel better? , question_latency=2206}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=26, trial_id='trial_291', name='posneg', responseHandle='answered', latency=1019, stimuli=[paragraph, question, yesno, counter], media=[<div> You are headed out for vacation. You leave before double checking that all the appliances in your house are turned off. As you close the door to your house, you feel <span class='incomplete' style='white-space:nowrap;'>pea[ ]eful</span></div>, <div>Are you feeling calm as you leave for vacation, despite not double checking the appliances? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 27 of 50], data={positive=true, correctOnLetter=true, paragraph= You are headed out for vacation. You leave before double checking that all the appliances in your house are turned off. As you close the door to your house, you feel pea[c]eful, letter_latency=1019, first_letter_latency=1019, correctOnQuestion=false, first_question_latency=1094, question=Are you feeling calm as you leave for vacation, despite not double checking the appliances? , question_latency=1945}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=27, trial_id='trial_302', name='posneg', responseHandle='answered', latency=1072, stimuli=[paragraph, question, yesno, counter], media=[<div> You consider taking an evening class in which part of your grade is based on your participation, even though you do not like speaking up in front of others. Because the topic is really interesting, you decide to sign up for the class. After signing up, you realize this decision was <span class='incomplete' style='white-space:nowrap;'>ter[ ]ible</span></div>, <div>Are you happy that you signed up for the interesting evening class? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 28 of 50], data={positive=false, correctOnLetter=true, paragraph= You consider taking an evening class in which part of your grade is based on your participation, even though you do not like speaking up in front of others. Because the topic is really interesting, you decide to sign up for the class. After signing up, you realize this decision was ter[r]ible, letter_latency=1072, first_letter_latency=1072, correctOnQuestion=false, first_question_latency=909, question=Are you happy that you signed up for the interesting evening class? , question_latency=1823}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=28, trial_id='trial_313', name='posneg', responseHandle='answered', latency=1226, stimuli=[paragraph, question, yesno, counter], media=[<div> You have just moved to a new area and your neighbor asks if you would like to go to your local bar that evening. When you arrive, she is not there yet. Reflecting on your earlier conversation, she probably thought you were <span class='incomplete' style='white-space:nowrap;'>d[ ]ll</span></div>, <div>Did you make a bad impression on your new neighbor? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 29 of 50], data={positive=false, correctOnLetter=true, paragraph= You have just moved to a new area and your neighbor asks if you would like to go to your local bar that evening. When you arrive, she is not there yet. Reflecting on your earlier conversation, she probably thought you were d[u]ll, letter_latency=1226, first_letter_latency=1226, correctOnQuestion=true, question=Did you make a bad impression on your new neighbor? , question_latency=1421, first_question_latency=1421}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=29, trial_id='trial_324', name='posneg', responseHandle='answered', latency=1730, stimuli=[paragraph, question, yesno, counter], media=[<div> You have not been feeling great recently, so you try to schedule a doctor’s appointment. The soonest appointment you can get is a few days away, which makes you feel anxious. You know that your anxiety as you wait for the appointment is <span class='incomplete' style='white-space:nowrap;'>tolera[ ]le</span></div>, <div>Do you think you will be able to handle your anxiety as you wait for the doctor’s appointment? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 30 of 50], data={positive=true, correctOnLetter=false, first_letter_latency=489, paragraph= You have not been feeling great recently, so you try to schedule a doctor’s appointment. The soonest appointment you can get is a few days away, which makes you feel anxious. You know that your anxiety as you wait for the appointment is tolera[b]le, letter_latency=1730, correctOnQuestion=true, question=Do you think you will be able to handle your anxiety as you wait for the doctor’s appointment? , question_latency=1429, first_question_latency=1429}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=30, trial_id='trial_335', name='posneg', responseHandle='answered', latency=524, stimuli=[paragraph, question, yesno, counter], media=[<div> Your son is going camping with his friend’s family for two days. There will be no cell phone reception and you are worried about not being able to check in with him. Your worries over the next two days are going to be <span class='incomplete' style='white-space:nowrap;'>u[ ]manageable</span></div>, <div>Are you able to manage your worries about your son? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 31 of 50], data={positive=false, correctOnLetter=true, paragraph= Your son is going camping with his friend’s family for two days. There will be no cell phone reception and you are worried about not being able to check in with him. Your worries over the next two days are going to be u[n]manageable, letter_latency=524, first_letter_latency=524, correctOnQuestion=false, first_question_latency=1631, question=Are you able to manage your worries about your son? , question_latency=3089}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=31, trial_id='trial_346', name='posneg', responseHandle='answered', latency=1516, stimuli=[paragraph, question, yesno, counter], media=[<div> A friend is having problems with her toddler and calls you to discuss the situation. You explain the methods that worked for you when your children were that age. Your friend notes that your methods are quite different from her methods, and as a result, she thinks you are <span class='incomplete' style='white-space:nowrap;'>hel[ ]ful</span></div>, <div>Did your friend find your advice constructive? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 32 of 50], data={positive=true, correctOnLetter=true, paragraph= A friend is having problems with her toddler and calls you to discuss the situation. You explain the methods that worked for you when your children were that age. Your friend notes that your methods are quite different from her methods, and as a result, she thinks you are hel[p]ful, letter_latency=1516, first_letter_latency=1516, correctOnQuestion=true, question=Did your friend find your advice constructive? , question_latency=1701, first_question_latency=1701}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=32, trial_id='trial_357', name='posneg', responseHandle='answered', latency=1418, stimuli=[paragraph, question, yesno, counter], media=[<div> You are taking a dancing class and during break, find yourself talking to a newcomer about your job. As you chat, you notice that you are sweating. She probably assumes this is a result of <span class='incomplete' style='white-space:nowrap;'>dan[ ]ing</span></div>, <div>Did the person you met at dance class think you were anxious? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 33 of 50], data={positive=true, correctOnLetter=true, paragraph= You are taking a dancing class and during break, find yourself talking to a newcomer about your job. As you chat, you notice that you are sweating. She probably assumes this is a result of dan[c]ing, letter_latency=1418, first_letter_latency=1418, correctOnQuestion=false, first_question_latency=1118, question=Did the person you met at dance class think you were anxious? , question_latency=2118}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=33, trial_id='trial_368', name='posneg', responseHandle='answered', latency=792, stimuli=[paragraph, question, yesno, counter], media=[<div> You have a minor disagreement with a coworker about the best way to complete a task. You and the coworker decide to ask your boss about it. When you talk to your boss, you momentarily forget what you were about to say. Your boss thinks you sound <span class='incomplete' style='white-space:nowrap;'>ca[ ]m</span></div>, <div>Do you appear nervous when you speak with your boss? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 34 of 50], data={positive=true, correctOnLetter=true, paragraph= You have a minor disagreement with a coworker about the best way to complete a task. You and the coworker decide to ask your boss about it. When you talk to your boss, you momentarily forget what you were about to say. Your boss thinks you sound ca[l]m, letter_latency=792, first_letter_latency=792, correctOnQuestion=false, first_question_latency=1070, question=Do you appear nervous when you speak with your boss? , question_latency=2128}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=34, trial_id='trial_379', name='posneg', responseHandle='answered', latency=935, stimuli=[paragraph, question, yesno, counter], media=[<div> A new teacher is hired for your history class and you hear that he is very disciplined and hard-working. When you meet him for the first time to discuss your work and interests, you think that he found you to be <span class='incomplete' style='white-space:nowrap;'>d[ ]ll</span></div>, <div>Does your new teacher have a good opinion of you? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 35 of 50], data={positive=false, correctOnLetter=true, paragraph= A new teacher is hired for your history class and you hear that he is very disciplined and hard-working. When you meet him for the first time to discuss your work and interests, you think that he found you to be d[u]ll, letter_latency=935, first_letter_latency=935, correctOnQuestion=false, first_question_latency=1070, question=Does your new teacher have a good opinion of you? , question_latency=2092}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=35, trial_id='trial_390', name='posneg', responseHandle='answered', latency=1013, stimuli=[paragraph, question, yesno, counter], media=[<div> Your professor asks you what career you plan to pursue. You respond that you haven’t decided yet. Thinking about your future is <span class='incomplete' style='white-space:nowrap;'>wor[ ]isome</span></div>, <div>Do you enjoy thinking about your future? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 36 of 50], data={positive=false, correctOnLetter=true, paragraph= Your professor asks you what career you plan to pursue. You respond that you haven’t decided yet. Thinking about your future is wor[r]isome, letter_latency=1013, first_letter_latency=1013, correctOnQuestion=false, first_question_latency=1109, question=Do you enjoy thinking about your future? , question_latency=2065}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=36, trial_id='trial_401', name='posneg', responseHandle='answered', latency=1126, stimuli=[paragraph, question, yesno, counter], media=[<div> You are taking a challenging exam. On one of the questions, you are 90% certain that you know the correct answer. When you respond, you feel <span class='incomplete' style='white-space:nowrap;'>an[ ]ious</span></div>, <div>Are you uneasy about your answer? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 37 of 50], data={positive=false, correctOnLetter=true, paragraph= You are taking a challenging exam. On one of the questions, you are 90% certain that you know the correct answer. When you respond, you feel an[x]ious, letter_latency=1126, first_letter_latency=1126, correctOnQuestion=true, question=Are you uneasy about your answer? , question_latency=1712, first_question_latency=1712}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=37, trial_id='trial_412', name='posneg', responseHandle='answered', latency=1074, stimuli=[paragraph, question, yesno, counter], media=[<div> You are ready to purchase a new car. After considering all the options, you are still torn between two cars. When you tell the dealer which car you decided to buy, you feel <span class='incomplete' style='white-space:nowrap;'>worr[ ]ed</span></div>, <div>Are you anxious about your decision? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 38 of 50], data={positive=false, correctOnLetter=false, first_letter_latency=399, paragraph= You are ready to purchase a new car. After considering all the options, you are still torn between two cars. When you tell the dealer which car you decided to buy, you feel worr[i]ed, letter_latency=1074, correctOnQuestion=true, question=Are you anxious about your decision? , question_latency=1713, first_question_latency=1713}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=38, trial_id='trial_423', name='posneg', responseHandle='answered', latency=1468, stimuli=[paragraph, question, yesno, counter], media=[<div> Your friend enjoys ice-skating and persuades you to try it out. At the rink you put on the skates and step on the ice. You glide forward, slowly at first, then faster, and think your chances of getting injured are <span class='incomplete' style='white-space:nowrap;'>mi[ ]imal</span></div>, <div>Do you think you will get hurt when ice skating? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 39 of 50], data={positive=true, correctOnLetter=true, paragraph= Your friend enjoys ice-skating and persuades you to try it out. At the rink you put on the skates and step on the ice. You glide forward, slowly at first, then faster, and think your chances of getting injured are mi[n]imal, letter_latency=1468, first_letter_latency=1468, correctOnQuestion=true, question=Do you think you will get hurt when ice skating? , question_latency=1754, first_question_latency=1754}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=39, trial_id='trial_434', name='posneg', responseHandle='answered', latency=1401, stimuli=[paragraph, question, yesno, counter], media=[<div> You are out to dinner on a date. As you look into your date’s eyes, you are unsure whether he/she will ask you out for another date. The feeling of uncertainty is <span class='incomplete' style='white-space:nowrap;'>thril[ ]ing</span></div>, <div>Is it fun to experience a little uncertainty on a date? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 40 of 50], data={positive=true, correctOnLetter=true, paragraph= You are out to dinner on a date. As you look into your date’s eyes, you are unsure whether he/she will ask you out for another date. The feeling of uncertainty is thril[l]ing, letter_latency=1401, first_letter_latency=1401, correctOnQuestion=true, question=Is it fun to experience a little uncertainty on a date? , question_latency=1645, first_question_latency=1645}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=40, trial_id='trial_445', name='posneg', responseHandle='answered', latency=1819, stimuli=[paragraph, question, yesno, counter], media=[<div> You are at home alone watching TV at night. You must have been dozing because you suddenly wake up. You have the impression that you heard a frightening noise and then realize it must be your <span class='incomplete' style='white-space:nowrap;'>part[ ]er</span></div>, <div> Should you be frightened when you hear a noise at night? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 41 of 50], data={positive=true, correctOnLetter=true, paragraph= You are at home alone watching TV at night. You must have been dozing because you suddenly wake up. You have the impression that you heard a frightening noise and then realize it must be your part[n]er, letter_latency=1819, first_letter_latency=1819, correctOnQuestion=true, question= Should you be frightened when you hear a noise at night? , question_latency=1581, first_question_latency=1581}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=41, trial_id='trial_456', name='posneg', responseHandle='answered', latency=1378, stimuli=[paragraph, question, yesno, counter], media=[<div> You go to the hospital to visit a friend. Someone behind you coughs. If you wash your hands, the probability that you will get sick is <span class='incomplete' style='white-space:nowrap;'>l[ ]w</span></div>, <div>Is it likely that you will become sick? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 42 of 50], data={positive=true, correctOnLetter=true, paragraph= You go to the hospital to visit a friend. Someone behind you coughs. If you wash your hands, the probability that you will get sick is l[o]w, letter_latency=1378, first_letter_latency=1378, correctOnQuestion=false, first_question_latency=909, question=Is it likely that you will become sick? , question_latency=1858}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=42, trial_id='trial_467', name='posneg', responseHandle='answered', latency=2223, stimuli=[paragraph, question, yesno, counter], media=[<div>A friend suggests that you join an evening class on creative writing. The thought of other people looking at your writing makes you feel <span class='incomplete' style='white-space:nowrap;'>enthu[ ]iastic</span></div>, <div>Would you expect to feel uncomfortable if others look at your work? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 43 of 50], data={positive=true, correctOnLetter=true, paragraph=A friend suggests that you join an evening class on creative writing. The thought of other people looking at your writing makes you feel enthu[s]iastic, letter_latency=2223, first_letter_latency=2223, correctOnQuestion=false, first_question_latency=1100, question=Would you expect to feel uncomfortable if others look at your work? , question_latency=2278}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=43, trial_id='trial_478', name='posneg', responseHandle='answered', latency=1419, stimuli=[paragraph, question, yesno, counter], media=[<div> You arrive at a party in a new outfit. Everyone turns to look at you as you walk in. You decide that they must think that you look <span class='incomplete' style='white-space:nowrap;'>a[ ]ful</span></div>, <div>Did everyone at the party like your new outfit? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 44 of 50], data={positive=false, correctOnLetter=true, paragraph= You arrive at a party in a new outfit. Everyone turns to look at you as you walk in. You decide that they must think that you look a[w]ful, letter_latency=1419, first_letter_latency=1419, correctOnQuestion=false, first_question_latency=1717, question=Did everyone at the party like your new outfit? , question_latency=2907}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=44, trial_id='trial_489', name='posneg', responseHandle='answered', latency=1275, stimuli=[paragraph, question, yesno, counter], media=[<div> Your friend is taking an airplane to come visit you. The idea of your friend taking an airplane makes you feel anxious. You think you will deal with your anxiety <span class='incomplete' style='white-space:nowrap;'>u[ ]successfully</span></div>, <div>Are you able to successfully manage your nervousness? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 45 of 50], data={positive=false, correctOnLetter=true, paragraph= Your friend is taking an airplane to come visit you. The idea of your friend taking an airplane makes you feel anxious. You think you will deal with your anxiety u[n]successfully, letter_latency=1275, first_letter_latency=1275, correctOnQuestion=false, first_question_latency=1205, question=Are you able to successfully manage your nervousness? , question_latency=2263}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=45, trial_id='trial_500', name='posneg', responseHandle='answered', latency=2004, stimuli=[paragraph, question, yesno, counter], media=[<div> Your credit card bill for the month will arrive soon. You spent a bit more this month than you normally do. When you think about your future finances, you feel like you will be  <span class='incomplete' style='white-space:nowrap;'>ba[ ]krupt</span></div>, <div>Are you likely to go broke in the future? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 46 of 50], data={positive=false, correctOnLetter=true, paragraph= Your credit card bill for the month will arrive soon. You spent a bit more this month than you normally do. When you think about your future finances, you feel like you will be  ba[n]krupt, letter_latency=2004, first_letter_latency=2004, correctOnQuestion=true, question=Are you likely to go broke in the future? , question_latency=1720, first_question_latency=1720}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=46, trial_id='trial_511', name='posneg', responseHandle='answered', latency=2104, stimuli=[paragraph, question, yesno, counter], media=[<div> While on a date, you accidentally spill a glass of water. You feel slightly embarrassed as your date helps you clean up the spill. The rest of the date is likely to be <span class='incomplete' style='white-space:nowrap;'>fi[ ]e</span></div>, <div>Will the rest of the date be OK, even though you spill water? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 47 of 50], data={positive=true, correctOnLetter=false, first_letter_latency=1094, paragraph= While on a date, you accidentally spill a glass of water. You feel slightly embarrassed as your date helps you clean up the spill. The rest of the date is likely to be fi[n]e, letter_latency=2104, correctOnQuestion=true, question=Will the rest of the date be OK, even though you spill water? , question_latency=1452, first_question_latency=1452}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=47, trial_id='trial_522', name='posneg', responseHandle='answered', latency=883, stimuli=[paragraph, question, yesno, counter], media=[<div> Your daughter is getting married, and you agreed to help pay for the wedding. As the costs begin to pile up, you realize that the wedding is going to be much more expensive than you previously thought. You feel that after you help pay for the wedding, you will be <span class='incomplete' style='white-space:nowrap;'>po[ ]r</span></div>, <div> Do you think you will be poor after helping your daughter pay for the wedding? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 48 of 50], data={positive=false, correctOnLetter=true, paragraph= Your daughter is getting married, and you agreed to help pay for the wedding. As the costs begin to pile up, you realize that the wedding is going to be much more expensive than you previously thought. You feel that after you help pay for the wedding, you will be po[o]r, letter_latency=883, first_letter_latency=883, correctOnQuestion=false, first_question_latency=1181, question= Do you think you will be poor after helping your daughter pay for the wedding? , question_latency=2403}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=48, trial_id='trial_533', name='posneg', responseHandle='answered', latency=2271, stimuli=[paragraph, question, yesno, counter], media=[<div> You are in the car with your mother-in-law, and put on the radio. As you discuss which station to listen to, you realize that you and your mother-in-law like different types of music. After having an in-depth discussion about the pros and cons of different music styles, your mother-in-law judges you as <span class='incomplete' style='white-space:nowrap;'>knowled[ ]eable</span></div>, <div>Does your mother-in-law decide that you do not know anything about music? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 49 of 50], data={positive=true, correctOnLetter=true, paragraph= You are in the car with your mother-in-law, and put on the radio. As you discuss which station to listen to, you realize that you and your mother-in-law like different types of music. After having an in-depth discussion about the pros and cons of different music styles, your mother-in-law judges you as knowled[g]eable, letter_latency=2271, first_letter_latency=2271, correctOnQuestion=false, first_question_latency=949, question=Does your mother-in-law decide that you do not know anything about music? , question_latency=2154}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=49, trial_id='trial_544', name='posneg', responseHandle='answered', latency=1745, stimuli=[paragraph, question, yesno, counter], media=[<div> You get home from work on a Friday evening and wonder if you locked the office door. You usually lock the door, but still feel anxious not knowing for sure. Your weekend away from the office will be <span class='incomplete' style='white-space:nowrap;'>unen[ ]oyable</span></div>, <div>Will you still be able to enjoy the weekend, even if you are wondering about the lock? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 50 of 50], data={positive=false, correctOnLetter=true, paragraph= You get home from work on a Friday evening and wonder if you locked the office door. You usually lock the door, but still feel anxious not knowing for sure. Your weekend away from the office will be unen[j]oyable, letter_latency=1745, first_letter_latency=1745, correctOnQuestion=false, first_question_latency=860, question=Will you still be able to enjoy the weekend, even if you are wondering about the lock? , question_latency=2132}, script='FirstSessionComplete', session='SESSION1', participant=25}
+Recieved Data:TrialJson{id=0, log_serial=49, trial_id='trial_544', name='posneg', responseHandle='answered', latency=1745, stimuli=[paragraph, question, yesno, counter], media=[<div> You get home from work on a Friday evening and wonder if you locked the office door. You usually lock the door, but still feel anxious not knowing for sure. Your weekend away from the office will be <span class='incomplete' style='white-space:nowrap;'>unen[ ]oyable</span></div>, <div>Will you still be able to enjoy the weekend, even if you are wondering about the lock? </div>, <div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>, 50 of 50], data={positive=false, correctOnLetter=true, paragraph= You get home from work on a Friday evening and wonder if you locked the office door. You usually lock the door, but still feel anxious not knowing for sure. Your weekend away from the office will be unen[j]oyable, letter_latency=1745, first_letter_latency=1745, correctOnQuestion=false, first_question_latency=860, question=Will you still be able to enjoy the weekend, even if you are wondering about the lock? , question_latency=2132}, script='FirstSessionComplete', session='SESSION1', participant=25}
+2015-09-09 13:05:54.149  INFO 17640 --- [nio-9000-exec-3] e.v.p.pi.controller.QuestionController   : The value for inSessions is :true

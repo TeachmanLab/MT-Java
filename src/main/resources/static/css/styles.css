@@ -32,10 +32,20 @@ button  {  -webkit-border-radius: 5px;
     font-weight: 700;
 }
 
+button.jw-button-finish:disabled {
+    color: #bbb;
+}
+
+button.jw-button-finish:disabled span.ui-icon-circle-check {
+    display: none;
+}
+
+
 .user-theme-orange button { background:#F77D38; border-top:#F99A65; border-left:#F99A65; border-bottom:#B36B42; border-right:#B36B42;}
 .user-theme-green button { background:#77B46D; border-top:#99C38D; border-left:#99C38D; border-bottom:#698D63; border-right:#698D63;}
 .user-theme-purple button { background:#C98ABB; border-top:#D4A4CA; border-left:#D4A4CA; border-bottom:#9A7490; border-right:#9A7490;}
 .user-theme-gold button { background:#ECB800; border-top:#F1C657; border-left:#F1C657; border-bottom:#AF8A00; border-right:#AF8A00;}
+
 
 #header {background:url(/images/bg-header.png) top left repeat-x; }
 .logo {background:url(/images/header-logo.png) top left no-repeat; width:365px; height:135px; float:left; margin-left:-35px;}
@@ -409,7 +419,19 @@ label.radioBox {
 
 label.radioBox5 {
     min-width: 18%;
+    width: 18%;
 }
+
+label.radioBox7 {
+    min-width: 13%;
+    width: 13%;
+}
+
+div.section label.radioBox7 div.desc1, div.section label.radioBox5 div.desc1{
+    width: 100%;
+    text-align: center;
+}
+
 
 label.radioList {
     cursor: pointer;
@@ -439,6 +461,11 @@ label.radioListNoAnswer {
 
 label.radioList b {
     font-weight: 600;
+}
+
+label label.error {
+    padding: 0px 10px 0px 24px;
+    color: darkred;
 }
 
 div.wide {
@@ -518,7 +545,7 @@ div.section select {
 
 div#submit, div.submit {
     margin: 20px auto;
-    width: 900px;
+    width: 100%;
     padding: 0;
     text-align: center;
     align-content: center;
@@ -550,6 +577,22 @@ form#wizard {
 }
 
 #wizard th {
+    text-align: center;
+}
+
+#slider {
+    border: 1px solid #ccc;
+    width: 475px;
+    margin: 20px 0 90px 100px;
+}
+#slider label.slider {
+    font-width: 400;
+    font-size:72%;
+    position: absolute;
+    width: 100px;
+    min-width: 100px;
+    margin-top: 20px;
+    margin-left: -10px;
     text-align: center;
 }
 
