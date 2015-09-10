@@ -17,7 +17,7 @@
         <h1>Overview for <span th:text="${participant.fullName}"/></h1>
 
         <p>This shows your progress through the MindTrails program. You must wait a minimum of 24 hours between
-            training sessions. We encourage you to begin a new session 3-4 days after completing the previous session.”</p>
+            training sessions. We encourage you to begin a new session 3-4 days after completing the previous session.</p>
 
         <div class="sessionGrouping" th:each="session,iterStat : ${study.sessions}">
         <img class="sessionMarker" th:src="|/images/marker-${iterStat.index}-${participant.theme}.png|"/>
