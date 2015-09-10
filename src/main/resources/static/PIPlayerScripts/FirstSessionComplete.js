@@ -470,7 +470,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
 				},
                 {
                     conditions: [{type:'inputEquals', value:'vivid_switch'}],
-					actions: [{type:'log'}, type:'endTrial'}]
+					actions: [{type:'log'}, {type:'endTrial'}]
                 },
 				{
 					conditions: [
