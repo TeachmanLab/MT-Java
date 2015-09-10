@@ -26,7 +26,7 @@
 <!-- content starts
 ================================================== -->
 <section id="content" class="clearfix">
-    <div class="container">
+    <div class="container" th:with="past=${notFirst} ? 'This can be the same situation you imagined in a previous session, or a new situation.' : ' '">
 
         <!--spacer here-->
         <div class="spacer-30px"></div>
@@ -119,7 +119,11 @@
                         {
                             return false;
                         }
-                    }).jWizard();
+                    }).jWizard({
+                        progress: false,
+                        menu: false,
+                        title: false
+                    });
                 </script>
             </div>
         </div>

@@ -504,25 +504,26 @@ public ModelAndView showSUDS(Principal principal) {
 
 
     /**
-     * AnxiousImageryPrime
+     * ImageryPrime
+     * This can be either an AIP (Anxious Imagery Prime) or NIP (Neutral Imagery Prime) depending
+     * on the status of the participant.
      * ---------*
      */
 
-    @RequestMapping(value = "AIP", method = RequestMethod.GET)
-    public ModelAndView showAIP(ModelMap model, Principal principal) {
+    @RequestMapping(value = "ImageryPrime", method = RequestMethod.GET)
+    public ModelAndView showIP(ModelMap model, Principal principal) {
         Participant p = getParticipant(principal);
         boolean notFirst = !p.getStudy().getCurrentSession().getName().equals(CBMStudy.NAME.SESSION1);
-        LOG.info("The value for notFirst is :" + notFirst);
-        LOG.info("This session is:" + p.getStudy().getCurrentSession().getName());
-        LOG.info("Target is:" + CBMStudy.NAME.SESSION1);
         model.addAttribute("notFirst", notFirst);
-        return modelAndView(principal, "/questions/AIP", "AIP", new AnxiousImageryPrime());
+        if(p.getPrime().equals(Participant.PRIME.ANXIETY))
+            return modelAndView(principal, "/questions/AIP", "AIP", new AnxiousImageryPrime());
+        else
+            return modelAndView(principal, "/questions/NIP", "NIP", new NeutralImageryPrime());
     }
 
     @RequestMapping(value = "AIP", method = RequestMethod.POST)
     RedirectView handleAIP(@ModelAttribute("AIP") AnxiousImageryPrime prime,
                               BindingResult result) {
-
         recordSessionProgress(prime);
         anxiousImageryPrime_Repository.save(prime);
         return new RedirectView("/session/next");
@@ -532,17 +533,6 @@ public ModelAndView showSUDS(Principal principal) {
     @ResponseBody // Return the string directly, the return value is not a template name.
     String exportAIP() {
         return(objectListToCSV(anxiousImageryPrime_Repository.findAll()));
-    }
-
-
-    /**
-     * NeutralImageryPrime
-     * ---------*
-     */
-
-    @RequestMapping(value = "NIP", method = RequestMethod.GET)
-    public ModelAndView showNIP(Principal principal) {
-        return modelAndView(principal, "/questions/NIP", "NIP", new NeutralImageryPrime());
     }
 
     @RequestMapping(value = "NIP", method = RequestMethod.POST)
