@@ -317,7 +317,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
      */
     API.addTrialSets('posneg',[
                     { inherit:'base', data: {positive:true}},
-                    { inherit:'base', data: {positive:false}}
+                    { inherit:'base', data: {positive:true}}
                             ]);
 
     API.addSequence([

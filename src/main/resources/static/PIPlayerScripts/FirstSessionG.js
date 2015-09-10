@@ -317,7 +317,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
      */
     API.addTrialSets('posneg',[
                     { inherit:'base', data: {positive:true}},
-                    { inherit:'base', data: {positive:false}}
+                    { inherit:'base', data: {positive:true}}
                             ]);
 
     API.addSequence([
@@ -346,7 +346,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
         {
             mixer: 'random',
             //n: 50,  // The total number of randomly selected trials to run.
-            data: [
+            data:[
     {
         "inherit": {
             "set": "posneg",
@@ -356,11 +356,11 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {"inherit": {"set": "error"}},
             {
                 "data": {
-                    "negativeKey": "t",
-                    "negativeWord": "poin[ ]less",
-                    "positiveKey": "e",
-                    "positiveWord": "gr[ ]at",
-                    "statement": " At a dinner party, you are introduced to someone new and chat with him for quite a while. When you call him the next week to suggest meeting again, he pauses for a moment. He probably thinks that getting together would be "
+                    "negativeKey": "l",
+                    "negativeWord": "care[ ]ess",
+                    "positiveKey": "s",
+                    "positiveWord": "progres[ ]ing",
+                    "statement": " Your boss asks you to do a task at work. You finish it before the deadline, although there is a small mistake in it. You are new to the job and feel that your boss will think you are "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -374,8 +374,457 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Does your new acquaintance want to meet with you again? </div>"
+                    "inlineTemplate": "<div>Was your new boss pleased with your performance? </div>"
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
+        ]
+    },
+    {
+        "inherit": {
+            "set": "posneg",
+            "type": "random"
+        },
+        "stimuli": [
+            {"inherit": {"set": "error"}},
+            {
+                "data": {
+                    "negativeKey": "s",
+                    "negativeWord": "me[ ]sy",
+                    "positiveKey": "t",
+                    "positiveWord": "interes[ ]ing",
+                    "statement": " You are out to lunch with a friend. As you eat your salad and talk with your friend, your friend stares at you. She probably thinks that you are "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
+            },
+            {
+                "handle": "question",
+                 data: {
+                	positiveAnswer:"n",
+                	negativeAnswer:"y"
+                },
+                "media": {
+                    "inlineTemplate": "<div>Does your friend judge you negatively? </div>"
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
+        ]
+    },
+    ]
+        },
+		{
+        input: [
+                    {handle:'Not at all vivid',on:'keypressed', key:'1'},
+                    {handle:'Somewhat vivid',on:'keypressed', key:'2'},
+                    {handle:'Moderately vivid',on:'keypressed', key:'3'},
+                    {handle:'Very vivid',on:'keypressed', key:'4'},
+                    {handle:'Totally vivid',on:'keypressed', key:'5'},
+            ],
+			layout:[
+				{media:{'inlineTemplate':"<div> How vividly did you imagine yourself in the scenario? </div> <div> 1=<i>Not at all vivid</i> </div> <div> 2=<i>Somewhat vivid</i> </div> <div> 3=<i>Moderately vivid</i> </div> <div> 4=<i>Very vivid</i> </div> <div> 5=<i>Totally vivid</i> </div> <div>Please type the corresponding number </div>"}}
+			],
+			stimuli: [
+				{media :{'inlineTemplate':"<div class='vivid'>_______</div>"}}
+			],
+			interactions: [
+				// 1. Display Stimulus
+				{
+					/* when we begin the trial (condition) */
+					conditions: [{type:'begin'}],
+					/* show all stimuli (action) */
+					actions: [{type:'showStim',handle:'All'}]
+				},
+				{
+					conditions: [{type:'inputEquals',value:'Not at all vivid'}
+					             ],
+					/* end the trial */
+					actions: [
+                    {type:'custom',fn:function(options,eventData){
+                        var span = $("div.vivid");
+                        var text = span.text().replace('_______', eventData["handle"]);
+                        span.text(text);                    }},
+                    {type:'trigger', handle:'vivid_switch',  on: 'timeout', duration: 500}],
+				},
+                {
+                    conditions: [{type:'inputEquals', value:'vivid_switch'}],
+					actions: [{type:'log'}, {type:'endTrial'}]
+                },
+				{
+					conditions: [
+					             {type:'inputEquals',value:'Somewhat vivid'},
+					             ],
+					/* end the trial */
+					actions: [
+                    {type:'custom',fn:function(options,eventData){
+                        var span = $("div.vivid");
+                        var text = span.text().replace('_______', eventData["handle"]);
+                        span.text(text);                    }},
+                    {type:'trigger', handle:'vivid_switch',  on: 'timeout', duration: 500}],
+				},
+                {
+                    conditions: [{type:'inputEquals', value:'vivid_switch'}],
+					actions: [{type:'log'}, {type:'endTrial'}]
+                },
+				{
+					conditions: [
+					             {type:'inputEquals',value:'Moderately vivid'},
+					             ],
+					/* end the trial */
+					actions: [
+                    {type:'custom',fn:function(options,eventData){
+                        var span = $("div.vivid");
+                        var text = span.text().replace('_______', eventData["handle"]);
+                        span.text(text);                    }},
+                    {type:'trigger', handle:'vivid_switch',  on: 'timeout', duration: 500}],
+				},
+                {
+                    conditions: [{type:'inputEquals', value:'vivid_switch'}],
+					actions: [{type:'log'}, {type:'endTrial'}]
+                },
+				{
+					conditions: [
+					             {type:'inputEquals',value:'Very vivid'},
+					             ],
+					/* end the trial */
+					actions: [
+                    {type:'custom',fn:function(options,eventData){
+                        var span = $("div.vivid");
+                        var text = span.text().replace('_______', eventData["handle"]);
+                        span.text(text);                    }},
+                    {type:'trigger', handle:'vivid_switch',  on: 'timeout', duration: 500}],
+				},
+                {
+                    conditions: [{type:'inputEquals', value:'vivid_switch'}],
+					actions: [{type:'log'}, {type:'endTrial'}]
+                },
+				{
+					conditions: [
+					             {type:'inputEquals',value:'Totally vivid'}
+					             ],
+					/* end the trial */
+					actions: [
+                    {type:'custom',fn:function(options,eventData){
+                        var span = $("div.vivid");
+                        var text = span.text().replace('_______', eventData["handle"]);
+                        span.text(text);                    }},
+                    {type:'trigger', handle:'vivid_switch',  on: 'timeout', duration: 500}],
+				},
+                {
+                    conditions: [{type:'inputEquals', value:'vivid_switch'}],
+					actions: [{type:'log'}, {type:'endTrial'}]
+                }
+			]
+		},
+        {
+            mixer: 'random',
+            //n: 50,  // The total number of randomly selected trials to run.
+            data: [
+    {
+        "inherit": {
+            "set": "posneg",
+            "type": "random"
+        },
+        "stimuli": [
+            {"inherit": {"set": "error"}},
+            {
+                "data": {
+                    "negativeKey": "a",
+                    "negativeWord": "neg[ ]tive",
+                    "positiveKey": "t",
+                    "positiveWord": "posi[ ]ive",
+                    "statement": " Your supervisor asks you to write a report. The finished document is quite brief but took a lot of time and effort. Based on your writing, you expect your supervisor\u2019s opinion of you will be "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "handle": "question",
+                 data: {
+                	positiveAnswer:"y",
+                	negativeAnswer:"n"
+                },
+                "media": {
+                    "inlineTemplate": "<div>Do you expect your supervisor to have a positive opinion of you after reading your report? </div>"
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
+        ]
+    },
+    {
+        "inherit": {
+            "set": "posneg",
+            "type": "random"
+        },
+        "stimuli": [
+            {"inherit": {"set": "error"}},
+            {
+                "data": {
+                    "negativeKey": "r",
+                    "negativeWord": "bo[ ]ing",
+                    "positiveKey": "s",
+                    "positiveWord": "intere[ ]ting",
+                    "statement": " You are required to give a presentation to a group of work colleagues that you know well. They are all quiet during your presentation. As you think about the presentation later that day, you think that your colleagues found your presentation "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "handle": "question",
+                 data: {
+                	positiveAnswer:"y",
+                	negativeAnswer:"n"
+                },
+                "media": {
+                    "inlineTemplate": "<div>Did you colleagues enjoy your presentation? </div>"
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
+        ]
+    },
+    {
+        "inherit": {
+            "set": "posneg",
+            "type": "random"
+        },
+        "stimuli": [
+            {"inherit": {"set": "error"}},
+            {
+                "data": {
+                    "negativeKey": "r",
+                    "negativeWord": "awkwa[ ]d",
+                    "positiveKey": "c",
+                    "positiveWord": "ni[ ]e",
+                    "statement": " You are out of town with your basketball team and are sharing a hotel room with someone you do not know very well. As you unpack, there is little conversation between you. You think your teammate thinks you are "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "handle": "question",
+                 data: {
+                	positiveAnswer:"y",
+                	negativeAnswer:"n"
+                },
+                "media": {
+                    "inlineTemplate": "<div>Do you think your teammate likes you? </div>"
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
+        ]
+    },
+    {
+        "inherit": {
+            "set": "posneg",
+            "type": "random"
+        },
+        "stimuli": [
+            {"inherit": {"set": "error"}},
+            {
+                "data": {
+                    "negativeKey": "f",
+                    "negativeWord": "insuf[ ]icient",
+                    "positiveKey": "a",
+                    "positiveWord": "appropri[ ]te",
+                    "statement": " You have an English assignment to write and try very hard to make sure it is comprehensive. The final copy is quite long. When your teacher reads it, you think she will judge your efforts as "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "handle": "question",
+                 data: {
+                	positiveAnswer:"y",
+                	negativeAnswer:"n"
+                },
+                "media": {
+                    "inlineTemplate": "<div>Will your teacher judge your efforts as adequate? </div>"
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
+        ]
+    },
+    {
+        "inherit": {
+            "set": "posneg",
+            "type": "random"
+        },
+        "stimuli": [
+            {"inherit": {"set": "error"}},
+            {
+                "data": {
+                    "negativeKey": "v",
+                    "negativeWord": "a[ ]oid",
+                    "positiveKey": "s",
+                    "positiveWord": "an[ ]wer",
+                    "statement": " An old acquaintance just moved into your city and asks you out to coffee. You are nervous about seeing him again after many years and could easily tell him that you are too busy. When you calls about meeting, you "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "handle": "question",
+                 data: {
+                	positiveAnswer:"y",
+                	negativeAnswer:"n"
+                },
+                "media": {
+                    "inlineTemplate": "<div>Do you take your acquaintance\u2019s call to meet for coffee? </div>"
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
+        ]
+    },
+    {
+        "inherit": {
+            "set": "posneg",
+            "type": "random"
+        },
+        "stimuli": [
+            {"inherit": {"set": "error"}},
+            {
+                "data": {
+                    "negativeKey": "c",
+                    "negativeWord": "can[ ]el",
+                    "positiveKey": "a",
+                    "positiveWord": "st[ ]y",
+                    "statement": " You just arrived at a restaurant for a date, and you feel nervous. You consider cancelling. In the end you decide to "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "handle": "question",
+                 data: {
+                	positiveAnswer:"n",
+                	negativeAnswer:"y"
+                },
+                "media": {
+                    "inlineTemplate": "<div>Do you cancel the date? </div>"
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
+        ]
+    },
+    {
+        "inherit": {
+            "set": "posneg",
+            "type": "random"
+        },
+        "stimuli": [
+            {"inherit": {"set": "error"}},
+            {
+                "data": {
+                    "negativeKey": "r",
+                    "negativeWord": "bo[ ]ed",
+                    "positiveKey": "c",
+                    "positiveWord": "ex[ ]ited",
+                    "statement": " You are put in charge of your office\u2019s fundraising efforts and quickly realize that your coworkers are not very interested in the fundraising. At a meeting, you give a presentation about the importance of helping with the fundraising, during which your coworkers are quiet. After your presentation you think you coworkers seem more "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "handle": "question",
+                 data: {
+                	positiveAnswer:"n",
+                	negativeAnswer:"y"
+                },
+                "media": {
+                    "inlineTemplate": "<div>Do your coworkers seem bored after your presentation? </div>"
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
+        ]
+    },
+    {
+        "inherit": {
+            "set": "posneg",
+            "type": "random"
+        },
+        "stimuli": [
+            {"inherit": {"set": "error"}},
+            {
+                "data": {
+                    "negativeKey": "r",
+                    "negativeWord": "poo[ ]ly",
+                    "positiveKey": "v",
+                    "positiveWord": "con[ ]incingly",
+                    "statement": " As a member of a local charity, you are asked to promote your fundraising evens on local radio. You know that the station is widely listened to. You expect that the other committee members will think you spoke "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "handle": "question",
+                 data: {
+                	positiveAnswer:"n",
+                	negativeAnswer:"y"
+                },
+                "media": {
+                    "inlineTemplate": "<div>Do you think your committee members thought you were a bad speaker? </div>"
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
+        ]
+    },
+    {
+        "inherit": {
+            "set": "posneg",
+            "type": "random"
+        },
+        "stimuli": [
+            {"inherit": {"set": "error"}},
+            {
+                "data": {
+                    "negativeKey": "o",
+                    "negativeWord": "fo[ ]lish",
+                    "positiveKey": "r",
+                    "positiveWord": "sma[ ]t",
+                    "statement": " As part of a language course, you are required to take an oral exam. The material has been briefly covered in class and you were requested to do some individual research. As you wait your turn, you feel that others will think you seem "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "handle": "question",
+                 data: {
+                	positiveAnswer:"y",
+                	negativeAnswer:"n"
+                },
+                "media": {
+                    "inlineTemplate": "<div>Do others think you seem intelligent when presenting? </div>"
+                     }
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}}
@@ -394,7 +843,41 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "negativeWord": "bo[ ]ing",
                     "positiveKey": "d",
                     "positiveWord": "frien[ ]ly",
-                    "statement": " A friend invites you to a dinner party that she is holding. She tells you who the other guests are, but you do not recognize any of the other names. You go anyway and on the way there, you think that the other guests will find you "
+                    "statement": " Your partner asks you to go to an anniversary dinner that his/her company is holding. You have not met any of his/her work colleagues before. Getting ready to go, you think that the new people you will meet will find you "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "handle": "question",
+                 data: {
+                	positiveAnswer:"n",
+                	negativeAnswer:"y"
+                },
+                "media": {
+                    "inlineTemplate": "<div>Will you be disliked by your new acquaintances? </div>"
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
+        ]
+    },
+    {
+        "inherit": {
+            "set": "posneg",
+            "type": "random"
+        },
+        "stimuli": [
+            {"inherit": {"set": "error"}},
+            {
+                "data": {
+                    "negativeKey": "r",
+                    "negativeWord": "unbea[ ]able",
+                    "positiveKey": "k",
+                    "positiveWord": "o[ ]ay",
+                    "statement": " You have a date scheduled with someone you have liked for awhile. One the day of the date, you feel a little nervous as you wonder if he/she will like you as much as you like him/her. Feeling nervous is "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -408,122 +891,47 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Will you be well-liked at the party? </div>"
-                }
+                    "inlineTemplate": "<div>Is it tolerable to feel nervous before your date? </div>"
+                     }
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}}
         ]
     },
-    ]
-            },
-    		{
-            input: [
-                        {handle:'Not at all vivid',on:'keypressed', key:'1'},
-                        {handle:'Somewhat vivid',on:'keypressed', key:'2'},
-                        {handle:'Moderately vivid',on:'keypressed', key:'3'},
-                        {handle:'Very vivid',on:'keypressed', key:'4'},
-                        {handle:'Totally vivid',on:'keypressed', key:'5'},
-                ],
-    			layout:[
-    				{media:{'inlineTemplate':"<div> How vividly did you imagine yourself in the scenario? </div> <div> 1=<i>Not at all vivid</i> </div> <div> 2=<i>Somewhat vivid</i> </div> <div> 3=<i>Moderately vivid</i> </div> <div> 4=<i>Very vivid</i> </div> <div> 5=<i>Totally vivid</i> </div> <div>Please type the corresponding number </div>"}}
-    			],
-    			stimuli: [
-    				{media :{'inlineTemplate':"<div class='vivid'>_______</div>"}}
-    			],
-    			interactions: [
-    				// 1. Display Stimulus
-    				{
-    					/* when we begin the trial (condition) */
-    					conditions: [{type:'begin'}],
-    					/* show all stimuli (action) */
-    					actions: [{type:'showStim',handle:'All'}]
-    				},
-    				{
-    					conditions: [{type:'inputEquals',value:'Not at all vivid'}
-    					             ],
-    					/* end the trial */
-    					actions: [
-                        {type:'custom',fn:function(options,eventData){
-                            var span = $("div.vivid");
-                            var text = span.text().replace('_______', eventData["handle"]);
-                            span.text(text);                    }},
-                        {type:'trigger', handle:'vivid_switch',  on: 'timeout', duration: 500}],
-    				},
-                    {
-                        conditions: [{type:'inputEquals', value:'vivid_switch'}],
-    					actions: [{type:'log'}, {type:'endTrial'}]
-                    },
-    				{
-    					conditions: [
-    					             {type:'inputEquals',value:'Somewhat vivid'},
-    					             ],
-    					/* end the trial */
-    					actions: [
-                        {type:'custom',fn:function(options,eventData){
-                            var span = $("div.vivid");
-                            var text = span.text().replace('_______', eventData["handle"]);
-                            span.text(text);                    }},
-                        {type:'trigger', handle:'vivid_switch',  on: 'timeout', duration: 500}],
-    				},
-                    {
-                        conditions: [{type:'inputEquals', value:'vivid_switch'}],
-    					actions: [{type:'log'}, {type:'endTrial'}]
-                    },
-    				{
-    					conditions: [
-    					             {type:'inputEquals',value:'Moderately vivid'},
-    					             ],
-    					/* end the trial */
-    					actions: [
-                        {type:'custom',fn:function(options,eventData){
-                            var span = $("div.vivid");
-                            var text = span.text().replace('_______', eventData["handle"]);
-                            span.text(text);                    }},
-                        {type:'trigger', handle:'vivid_switch',  on: 'timeout', duration: 500}],
-    				},
-                    {
-                        conditions: [{type:'inputEquals', value:'vivid_switch'}],
-    					actions: [{type:'log'}, {type:'endTrial'}]
-                    },
-    				{
-    					conditions: [
-    					             {type:'inputEquals',value:'Very vivid'},
-    					             ],
-    					/* end the trial */
-    					actions: [
-                        {type:'custom',fn:function(options,eventData){
-                            var span = $("div.vivid");
-                            var text = span.text().replace('_______', eventData["handle"]);
-                            span.text(text);                    }},
-                        {type:'trigger', handle:'vivid_switch',  on: 'timeout', duration: 500}],
-    				},
-                    {
-                        conditions: [{type:'inputEquals', value:'vivid_switch'}],
-    					actions: [{type:'log'}, {type:'endTrial'}]
-                    },
-    				{
-    					conditions: [
-    					             {type:'inputEquals',value:'Totally vivid'}
-    					             ],
-    					/* end the trial */
-    					actions: [
-                        {type:'custom',fn:function(options,eventData){
-                            var span = $("div.vivid");
-                            var text = span.text().replace('_______', eventData["handle"]);
-                            span.text(text);                    }},
-                        {type:'trigger', handle:'vivid_switch',  on: 'timeout', duration: 500}],
-    				},
-                    {
-                        conditions: [{type:'inputEquals', value:'vivid_switch'}],
-    					actions: [{type:'log'}, {type:'endTrial'}]
-                    }
-    			]
-    		},
+    {
+        "inherit": {
+            "set": "posneg",
+            "type": "random"
+        },
+        "stimuli": [
+            {"inherit": {"set": "error"}},
             {
-                mixer: 'random',
-                //n: 50,  // The total number of randomly selected trials to run.
-                data: [
+                "data": {
+                    "negativeKey": "h",
+                    "negativeWord": "rus[ ]ed",
+                    "positiveKey": "s",
+                    "positiveWord": "promi[ ]ing",
+                    "statement": " Your orchestra asks you to play a solo at the next concert. You practice for a few weeks until you feel ready to play with the orchestra. At the first performance you make one mistake, and the conductor probably thinks that your work is "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "handle": "question",
+                 data: {
+                	positiveAnswer:"n",
+                	negativeAnswer:"y"
+                },
+                "media": {
+                    "inlineTemplate": "<div>Is the conductor disappointed with your performance? </div>"
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
+        ]
+    },
     {
         "inherit": {
             "set": "posneg",
@@ -534,44 +942,10 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {
                 "data": {
                     "negativeKey": "l",
-                    "negativeWord": "care[ ]ess",
-                    "positiveKey": "m",
-                    "positiveWord": "com[ ]endable",
-                    "statement": " You have started a new job and you are given a task to do that normally takes a few days. You manage to finish it the same day. As you go over it, you boss finds only one mistake in your work. You expect he thinks your work is "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "handle": "question",
-                 data: {
-                	positiveAnswer:"y",
-                	negativeAnswer:"n"
-                },
-                "media": {
-                    "inlineTemplate": "<div>Was your boss pleased with your work? </div>"
-                }
-            },
-            {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
-        ]
-    },
-    {
-        "inherit": {
-            "set": "posneg",
-            "type": "random"
-        },
-        "stimuli": [
-            {"inherit": {"set": "error"}},
-            {
-                "data": {
-                    "negativeKey": "g",
-                    "negativeWord": "i[ ]nored",
+                    "negativeWord": "fai[ ]ure",
                     "positiveKey": "c",
-                    "positiveWord": "in[ ]luded",
-                    "statement": " You meet someone new at a book club and have a stimulating discussion. Towards the end you find that she disagrees with something that you said. When the book club meets next, you expect that you will be "
+                    "positiveWord": "suc[ ]ess",
+                    "statement": " You decide to have a barbeque, as the weather is so nice. As your friends arrive, you realize many of them do not know each other well. You realize that your friends probably think that as a host, you are a "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -581,12 +955,12 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {
                 "handle": "question",
                  data: {
-                	positiveAnswer:"y",
-                	negativeAnswer:"n"
+                	positiveAnswer:"n",
+                	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Will you be talked to during the next book club meeting? </div>"
-                }
+                    "inlineTemplate": "<div>Do your friends have a negative opinion of you as a host? </div>"
+                     }
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}}
@@ -602,10 +976,10 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {
                 "data": {
                     "negativeKey": "b",
-                    "negativeWord": "un[ ]earable",
-                    "positiveKey": "g",
-                    "positiveWord": "mana[ ]eable",
-                    "statement": " You are on a date with an attractive person. You go for a walk around a park together, and then get coffee. As you think about how the date is going, you feel nervous, and you know being nervous is "
+                    "negativeWord": "em[ ]arassed",
+                    "positiveKey": "h",
+                    "positiveWord": "ent[ ]usiastic",
+                    "statement": " A friend suggests that you join an evening class on creative writing. You go online and read information about the class. The thought of other people looking at your writing makes you feel "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -619,8 +993,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Is it difficult to tolerate your nervousness on the date? </div>"
-                }
+                    "inlineTemplate": "<div>Do you expect to feel uncomfortable if others look at your work? </div>"
+                     }
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}}
@@ -635,79 +1009,11 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {"inherit": {"set": "error"}},
             {
                 "data": {
-                    "negativeKey": "r",
-                    "negativeWord": "ca[ ]eless",
-                    "positiveKey": "n",
-                    "positiveWord": "lear[ ]ing",
-                    "statement": " You finish a task for your evening class that is due next week, and ask the tutor for his opinion. He says the work is good, apart from an incomplete section. You feel that he thinks you are "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "handle": "question",
-                 data: {
-                	positiveAnswer:"y",
-                	negativeAnswer:"n"
-                },
-                "media": {
-                    "inlineTemplate": "<div>Was the tutor pleased with the quality of work on your paper? </div>"
-                }
-            },
-            {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
-        ]
-    },
-    {
-        "inherit": {
-            "set": "posneg",
-            "type": "random"
-        },
-        "stimuli": [
-            {"inherit": {"set": "error"}},
-            {
-                "data": {
-                    "negativeKey": "f",
-                    "negativeWord": "aw[ ]ul",
+                    "negativeKey": "b",
+                    "negativeWord": "dum[ ]",
                     "positiveKey": "m",
                     "positiveWord": "nor[ ]al",
-                    "statement": " Your boss asks you a question, and you realize you respond incorrectly. Your boss corrects you. You think the experience of being corrected by your boss is "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "handle": "question",
-                 data: {
-                	positiveAnswer:"y",
-                	negativeAnswer:"n"
-                },
-                "media": {
-                    "inlineTemplate": "<div>Is it ok to occasionally answer a question from your boss incorrectly? </div>"
-                }
-            },
-            {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
-        ]
-    },
-    {
-        "inherit": {
-            "set": "posneg",
-            "type": "random"
-        },
-        "stimuli": [
-            {"inherit": {"set": "error"}},
-            {
-                "data": {
-                    "negativeKey": "r",
-                    "negativeWord": "unp[ ]ofessional",
-                    "positiveKey": "g",
-                    "positiveWord": "or[ ]anized",
-                    "statement": " Some important people are visiting your office and you are asked to present a project to them. On the day of the presentation, you arrange your slides and mentally prepare yourself. You think that your performance will be evaluated as "
+                    "statement": " While in a meeting your boss calls on you to write a few notes on the board. As she dictates, you jot down what she says, and everyone watches you while you write. As you hope that you are not making any spelling errors on the board, the others are probably thinking you are "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -721,8 +1027,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Will the visitors be unimpressed with your performance? </div>"
-                }
+                    "inlineTemplate": "<div>Do your coworkers judge you negatively while you write on the board? </div>"
+                     }
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}}
@@ -737,79 +1043,11 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {"inherit": {"set": "error"}},
             {
                 "data": {
-                    "negativeKey": "d",
-                    "negativeWord": "offen[ ]ed",
-                    "positiveKey": "e",
-                    "positiveWord": "valu[ ]d",
-                    "statement": " You overhear some work colleagues discussing other people and hear your name mentioned. You do not hear everything they say, but think that what they are saying would probably make you feel "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "handle": "question",
-                 data: {
-                	positiveAnswer:"n",
-                	negativeAnswer:"y"
-                },
-                "media": {
-                    "inlineTemplate": "<div>Were your colleagues saying negative things about you? </div>"
-                }
-            },
-            {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
-        ]
-    },
-    {
-        "inherit": {
-            "set": "posneg",
-            "type": "random"
-        },
-        "stimuli": [
-            {"inherit": {"set": "error"}},
-            {
-                "data": {
-                    "negativeKey": "p",
-                    "negativeWord": "sto[ ]",
-                    "positiveKey": "t",
-                    "positiveWord": "con[ ]inue",
-                    "statement": " You are in a club, and are told you need to give a presentation to other club members. When it is time to present, you have a sip of water. You begin to speak, feel scared, and decide to "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "handle": "question",
-                 data: {
-                	positiveAnswer:"n",
-                	negativeAnswer:"y"
-                },
-                "media": {
-                    "inlineTemplate": "<div>Do you stop your presentation when you feel scared? </div>"
-                }
-            },
-            {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
-        ]
-    },
-    {
-        "inherit": {
-            "set": "posneg",
-            "type": "random"
-        },
-        "stimuli": [
-            {"inherit": {"set": "error"}},
-            {
-                "data": {
-                    "negativeKey": "k",
-                    "negativeWord": "wea[ ]ness",
+                    "negativeKey": "t",
+                    "negativeWord": "incompe[ ]ent",
                     "positiveKey": "p",
-                    "positiveWord": "com[ ]etence",
-                    "statement": " At your computer class you finish your work early and so the teacher gives you a new task to do. You read through it and cannot think how to start, so you ask for advice. Your teacher probably sees you asking for help as a sign of  "
+                    "positiveWord": "pre[ ]ared",
+                    "statement": " You have completed a first aid course and have to take a practical test, in which you demonstrate what you learned in front of your classmates. You spent the evening before practicing for the difficult test. As you begin the test, your classmates observing you think you are "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -823,8 +1061,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Was your lecturer understanding when you asked for help? </div>"
-                }
+                    "inlineTemplate": "<div>Do your classmates think you are prepared for the practical test? </div>"
+                     }
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}}
@@ -840,10 +1078,112 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {
                 "data": {
                     "negativeKey": "y",
-                    "negativeWord": "anno[ ]ed",
+                    "negativeWord": "l[ ]ing",
+                    "positiveKey": "c",
+                    "positiveWord": "sin[ ]ere",
+                    "statement": " You are working on a project with a coworker in a coffee shop and you accidentally spill your coffee on her papers. As you clean up the mess, your coworkers says that she is not upset with you because of the spill. You think that she is "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "handle": "question",
+                 data: {
+                	positiveAnswer:"n",
+                	negativeAnswer:"y"
+                },
+                "media": {
+                    "inlineTemplate": "<div>Is your coworker mad at you for spilling coffee on her papers? </div>"
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
+        ]
+    },
+    {
+        "inherit": {
+            "set": "posneg",
+            "type": "random"
+        },
+        "stimuli": [
+            {"inherit": {"set": "error"}},
+            {
+                "data": {
+                    "negativeKey": "d",
+                    "negativeWord": "od[ ]",
+                    "positiveKey": "m",
+                    "positiveWord": "nor[ ]al",
+                    "statement": " You arrive to a morning meeting right on time, but you are the last one to arrive. You coworkers look at you as you pull out your chair, and it squeaks loudly. They probably think that you are "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "handle": "question",
+                 data: {
+                	positiveAnswer:"n",
+                	negativeAnswer:"y"
+                },
+                "media": {
+                    "inlineTemplate": "<div>Do your coworkers find you strange? </div>"
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
+        ]
+    },
+    {
+        "inherit": {
+            "set": "posneg",
+            "type": "random"
+        },
+        "stimuli": [
+            {"inherit": {"set": "error"}},
+            {
+                "data": {
+                    "negativeKey": "c",
+                    "negativeWord": "un[ ]lear",
+                    "positiveKey": "p",
+                    "positiveWord": "exce[ ]tional",
+                    "statement": " Your boss asks to see you following the recent submission of a paper you wrote. He tells you that he wants to talk to you about your work. You think he will tell you that your writing is "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "handle": "question",
+                 data: {
+                	positiveAnswer:"y",
+                	negativeAnswer:"n"
+                },
+                "media": {
+                    "inlineTemplate": "<div>Do you think your boss likes your writing? </div>"
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
+        ]
+    },
+    {
+        "inherit": {
+            "set": "posneg",
+            "type": "random"
+        },
+        "stimuli": [
+            {"inherit": {"set": "error"}},
+            {
+                "data": {
+                    "negativeKey": "r",
+                    "negativeWord": "wor[ ]ied",
                     "positiveKey": "s",
-                    "positiveWord": "impre[ ]sed",
-                    "statement": " You are out to dinner with a few friends. During the meal, one friend says something that you really disagree with. As you voice your opinion, your friends become quiet because they are "
+                    "positiveWord": "plea[ ]ed",
+                    "statement": " You are invited to a charity ball and decide to wear a formal outfit. The next day you see that your photograph is in the local newspaper with a report. The thought of everyone seeing it makes you feel "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -853,12 +1193,12 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {
                 "handle": "question",
                  data: {
-                	positiveAnswer:"n",
-                	negativeAnswer:"y"
+                	positiveAnswer:"y",
+                	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Are your friends annoyed by your point of view? </div>"
-                }
+                    "inlineTemplate": "<div>Are you looking forward to others seeing your picture in the paper? </div>"
+                     }
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}}
@@ -873,79 +1213,11 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {"inherit": {"set": "error"}},
             {
                 "data": {
-                    "negativeKey": "k",
-                    "negativeWord": "aw[ ]ward",
+                    "negativeKey": "p",
+                    "negativeWord": "disap[ ]ointed",
                     "positiveKey": "s",
-                    "positiveWord": "intere[ ]ting",
-                    "statement": " You are required to go to a conference in Scotland for your firm. Your coworker who is supposed to go on the trip falls ill a few days before you leave, so your boss asks someone you don\u2019t know to go in his/her place. As you think about spending time with the person you do not know, you think he/she will think you are "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "handle": "question",
-                 data: {
-                	positiveAnswer:"y",
-                	negativeAnswer:"n"
-                },
-                "media": {
-                    "inlineTemplate": "<div>Do you expect your new colleague to have a good impression of you? </div>"
-                }
-            },
-            {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
-        ]
-    },
-    {
-        "inherit": {
-            "set": "posneg",
-            "type": "random"
-        },
-        "stimuli": [
-            {"inherit": {"set": "error"}},
-            {
-                "data": {
-                    "negativeKey": "i",
-                    "negativeWord": "terr[ ]ble",
-                    "positiveKey": "x",
-                    "positiveWord": "rela[ ]ing",
-                    "statement": " You and your partner want to go to a remote destination for vacation. You worry about going because you will not have access to your email or cell phone while away. You are anxious as you make the trip reservations, and decide that the trip will be "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "handle": "question",
-                 data: {
-                	positiveAnswer:"y",
-                	negativeAnswer:"n"
-                },
-                "media": {
-                    "inlineTemplate": "<div>Will the trip be relaxing? </div>"
-                }
-            },
-            {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
-        ]
-    },
-    {
-        "inherit": {
-            "set": "posneg",
-            "type": "random"
-        },
-        "stimuli": [
-            {"inherit": {"set": "error"}},
-            {
-                "data": {
-                    "negativeKey": "l",
-                    "negativeWord": "foo[ ]ish",
-                    "positiveKey": "t",
-                    "positiveWord": "exci[ ]ing",
-                    "statement": " Your boss calls a meeting to discuss a new project that will involve most of the staff at your office. You are suddenly asked to contribute your ideas to the discussion. You quickly come up with some ideas on the spot, and think that your colleagues will find your ideas to be "
+                    "positiveWord": "plea[ ]ed",
+                    "statement": " You are giving a speech at a convention for work. As you look into the crowd, you notice your boss\u2019s expression is neutral. You think that her expression means that she is "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -959,8 +1231,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Did your colleagues dislike your ideas at the meeting? </div>"
-                }
+                    "inlineTemplate": "<div>Does your boss\u2019s neutral expression mean that she is disappointed in your speech? </div>"
+                     }
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}}
@@ -975,79 +1247,11 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {"inherit": {"set": "error"}},
             {
                 "data": {
-                    "negativeKey": "t",
-                    "negativeWord": "in[ ]olerable",
-                    "positiveKey": "l",
-                    "positiveWord": "to[ ]erable",
-                    "statement": " You are at a small party with people from your company. You feel nervous about spending time with your coworkers outside of work. While at the party, you decide your nervousness is "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "handle": "question",
-                 data: {
-                	positiveAnswer:"y",
-                	negativeAnswer:"n"
-                },
-                "media": {
-                    "inlineTemplate": "<div>Can you manage your nervousness at the party with your coworkers? </div>"
-                }
-            },
-            {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
-        ]
-    },
-    {
-        "inherit": {
-            "set": "posneg",
-            "type": "random"
-        },
-        "stimuli": [
-            {"inherit": {"set": "error"}},
-            {
-                "data": {
-                    "negativeKey": "i",
-                    "negativeWord": "bor[ ]ng",
-                    "positiveKey": "u",
-                    "positiveWord": "f[ ]n",
-                    "statement": " You arrange to meet up with a friend who you have not seen for many years. You drive to the station to pick him up. When you arrive, you know he will find spending time with you  "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "handle": "question",
-                 data: {
-                	positiveAnswer:"y",
-                	negativeAnswer:"n"
-                },
-                "media": {
-                    "inlineTemplate": "<div>Do you think your friend will have a good time with you? </div>"
-                }
-            },
-            {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
-        ]
-    },
-    {
-        "inherit": {
-            "set": "posneg",
-            "type": "random"
-        },
-        "stimuli": [
-            {"inherit": {"set": "error"}},
-            {
-                "data": {
-                    "negativeKey": "l",
-                    "negativeWord": "ca[ ]m",
-                    "positiveKey": "r",
-                    "positiveWord": "sca[ ]ed",
-                    "statement": " On entering an interview, the panel of interviewers welcome you. You are the third candidate to be seen today and as you sit down, you feel your cheeks turning red. You think that they probably see you as "
+                    "negativeKey": "u",
+                    "negativeWord": "fail[ ]re",
+                    "positiveKey": "g",
+                    "positiveWord": "intelli[ ]ence",
+                    "statement": " A new task is assigned to your department at work and your supervisor asks you to be responsible for it. You have no guidelines to follow, and you ask a colleague for advice. You colleague probably sees this as a sign of "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -1061,76 +1265,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Do you think the interviewers see you as a nervous person? </div>"
-                }
-            },
-            {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
-        ]
-    },
-    {
-        "inherit": {
-            "set": "posneg",
-            "type": "random"
-        },
-        "stimuli": [
-            {"inherit": {"set": "error"}},
-            {
-                "data": {
-                    "negativeKey": "t",
-                    "negativeWord": "in[ ]olerable",
-                    "positiveKey": "r",
-                    "positiveWord": "tole[ ]able",
-                    "statement": " You go out shopping with a friend who tends to be very loud. While you are shopping, other shoppers stop and look at you and your friend. The experience is "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "handle": "question",
-                 data: {
-                	positiveAnswer:"y",
-                	negativeAnswer:"n"
-                },
-                "media": {
-                    "inlineTemplate": "<div>Is it OK for people to look at you and your friend while out shopping? </div>"
-                }
-            },
-            {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
-        ]
-    },
-    {
-        "inherit": {
-            "set": "posneg",
-            "type": "random"
-        },
-        "stimuli": [
-            {"inherit": {"set": "error"}},
-            {
-                "data": {
-                    "negativeKey": "a",
-                    "negativeWord": "dis[ ]ppointing",
-                    "positiveKey": "a",
-                    "positiveWord": "valu[ ]ble",
-                    "statement": " You have been a member of a choir for several years and enjoy performing at concerts. One evening, you are asked to sing on very short notice with another group. Afterwards you feel that the others found your contribution "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "handle": "question",
-                 data: {
-                	positiveAnswer:"y",
-                	negativeAnswer:"n"
-                },
-                "media": {
-                    "inlineTemplate": "<div>Were the other members of the choir happy with your singing? </div>"
-                }
+                    "inlineTemplate": "<div>Did you make a mistake by asking for advice on the new project? </div>"
+                     }
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}}
@@ -1146,10 +1282,10 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {
                 "data": {
                     "negativeKey": "n",
-                    "negativeWord": "u[ ]comfortable",
-                    "positiveKey": "f",
-                    "positiveWord": "com[ ]ortable",
-                    "statement": " When hanging out with a friend, the conversation dies down. Neither of you saying anything for a bit. As you think of a new conversation topic, your friend probably thinks you are "
+                    "negativeWord": "unma[ ]ageable",
+                    "positiveKey": "g",
+                    "positiveWord": "mana[ ]eable",
+                    "statement": " For work, you have to give a talk to another department. As you think about the talk, you feel butterflies in your stomach. You feel nervous, and you think your nerves will be "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -1163,13 +1299,14 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Does your friend think you are okay with the silence? </div>"
-                }
+                    "inlineTemplate": "<div>Are you able to tolerate your anxiety? </div>"
+                     }
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}}
         ]
     },
+
     {
         "inherit": {
             "set": "posneg",
@@ -1179,11 +1316,11 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {"inherit": {"set": "error"}},
             {
                 "data": {
-                    "negativeKey": "s",
-                    "negativeWord": "he[ ]itant",
-                    "positiveKey": "f",
-                    "positiveWord": "con[ ]ident",
-                    "statement": " Your new supervisor calls a meeting to find out who everyone is and asks each of you in turn to present yourself and your area of expertise. When it is your turn to speak your pause frequently. As you reflect on the meeting later in the day, you feel that the supervisor thought you sounded "
+                    "negativeKey": "g",
+                    "negativeWord": "lar[ ]e",
+                    "positiveKey": "m",
+                    "positiveWord": "s[ ]all",
+                    "statement": " You have decided to go on a tour of a cave, even though you feel nervous about being in such an enclosed space. You go deep inside the first cave. You think the chances that you will get trapped inside the case are "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -1197,8 +1334,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Do you think your supervisor thought you sounded unsure of yourself? </div>"
-                }
+                    "inlineTemplate": "<div>Are you likely to get trapped inside of the cave? </div>"
+                     }
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}}
@@ -1213,11 +1350,11 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {"inherit": {"set": "error"}},
             {
                 "data": {
-                    "negativeKey": "v",
-                    "negativeWord": "a[ ]oid",
-                    "positiveKey": "s",
-                    "positiveWord": "pre[ ]ent",
-                    "statement": " Your boss asks you to give a speech at a conference. You are nervous about the idea of giving a speech, and consider telling your boss that you do not want to give the speech. After thinking about your anxiety, you decide that the speech is something you want to "
+                    "negativeKey": "e",
+                    "negativeWord": "dang[ ]rous",
+                    "positiveKey": "u",
+                    "positiveWord": "f[ ]n",
+                    "statement": " You are on holiday at a mountain resort and are learning how to ski. This is your first attempt to ski downhill on your own. At a moderate speed you approach the first bend and think that skiing is "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -1231,8 +1368,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Do you decide to give the speech, even though you are anxious? </div>"
-                }
+                    "inlineTemplate": "<div>Is it safe to try skiing? </div>"
+                     }
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}}
@@ -1247,11 +1384,11 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {"inherit": {"set": "error"}},
             {
                 "data": {
-                    "negativeKey": "o",
-                    "negativeWord": "fo[ ]lish",
-                    "positiveKey": "s",
-                    "positiveWord": "intere[ ]ting",
-                    "statement": " You are on the committee of an amateur theater group, which is planning a new production. At the first meeting, the director asks you for ideas about which play to perform. Everybody pauses after you say your ideas, and you think the others find your thoughts "
+                    "negativeKey": "l",
+                    "negativeWord": "into[ ]erable",
+                    "positiveKey": "n",
+                    "positiveWord": "ma[ ]ageable",
+                    "statement": " You just finished a hard exam and you do not know if you did well or not. You feel nervous as you think about what grade you will get. You think being nervous is "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -1265,8 +1402,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Did the other committee members like your ideas? </div>"
-                }
+                    "inlineTemplate": "<div> Can you tolerate your nervousness as you wait to find out your grade? </div>"
+                     }
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}}
@@ -1285,7 +1422,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "negativeWord": "i[ ]tolerable",
                     "positiveKey": "r",
                     "positiveWord": "tole[ ]able",
-                    "statement": " You have a one-on-one meeting today with your intimidating boss, which you are nervous about. As you are meeting, you momentarily lose your train of thought. After that, your anxiety is "
+                    "statement": " You are backpacking through Europe with your best friend. You have a general idea of what you will do each day, but you didn\u2019t plan out every detail ahead of time. This uncertaintly causes some anxiety that will be "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -1299,43 +1436,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Are you able to tolerate your anxiety while meeting with your boss? </div>"
-                }
-            },
-            {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
-        ]
-    },
-
-    {
-        "inherit": {
-            "set": "posneg",
-            "type": "random"
-        },
-        "stimuli": [
-            {"inherit": {"set": "error"}},
-            {
-                "data": {
-                    "negativeKey": "a",
-                    "negativeWord": "sc[ ]red",
-                    "positiveKey": "c",
-                    "positiveWord": "fas[ ]inated",
-                    "statement": " You are at a metro stop waiting for a train. Standing by the edge, you realize you\u2019ve never thought about how far a drop it is to the rails below. You are "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "handle": "question",
-                 data: {
-                	positiveAnswer:"n",
-                	negativeAnswer:"y"
-                },
-                "media": {
-                    "inlineTemplate": "<div>Are you terrified by the height of the metro platform? </div>"
-                }
+                    "inlineTemplate": "<div>Is the spontaneity of your trip going to be tolerable? </div>"
+                     }
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}}
@@ -1350,11 +1452,11 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {"inherit": {"set": "error"}},
             {
                 "data": {
-                    "negativeKey": "n",
-                    "negativeWord": "u[ ]successfully",
-                    "positiveKey": "c",
-                    "positiveWord": "suc[ ]essfully",
-                    "statement": " Your friend is taking an airplane to come visit you. The idea of your friend taking an airplane makes you feel anxious. You think you will deal with your anxiety "
+                    "negativeKey": "p",
+                    "negativeWord": "de[ ]ressed",
+                    "positiveKey": "n",
+                    "positiveWord": "fi[ ]e",
+                    "statement": " Your son recently went away to college. When you talked to him on the phone last, he sounded different than usual. When you think about the phone call, you decide your son is probably "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -1368,8 +1470,42 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Are you able to successfully manage your nervousness? </div>"
+                    "inlineTemplate": "<div>Is your son doing ok at college? </div>"
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
+        ]
+    },
+    {
+        "inherit": {
+            "set": "posneg",
+            "type": "random"
+        },
+        "stimuli": [
+            {"inherit": {"set": "error"}},
+            {
+                "data": {
+                    "negativeKey": "d",
+                    "negativeWord": "ina[ ]equate",
+                    "positiveKey": "c",
+                    "positiveWord": "suc[ ]essful",
+                    "statement": " You are applying to a prestigious internship program. As you prepare your resume, you reflect upon everything you have accomplished thus far. You record is strng, but not perfect, which makes you feel "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
+            },
+            {
+                "handle": "question",
+                 data: {
+                	positiveAnswer:"y",
+                	negativeAnswer:"n"
+                },
+                "media": {
+                    "inlineTemplate": "<div>Are you pleased with your record? </div>"
+                     }
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}}
@@ -1386,77 +1522,9 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 "data": {
                     "negativeKey": "r",
                     "negativeWord": "ter[ ]ified",
-                    "positiveKey": "t",
-                    "positiveWord": "exci[ ]ed",
-                    "statement": " Your daughter goes horseback riding every weekend, and you reluctantly agree to go with her. When you get there, the riding instructor gives you a large horse to ride. Soon, the horse starts to gallop quickly and you feel "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "handle": "question",
-                 data: {
-                	positiveAnswer:"y",
-                	negativeAnswer:"n"
-                },
-                "media": {
-                    "inlineTemplate": "<div>Is it fun to try riding the horse? </div>"
-                }
-            },
-            {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
-        ]
-    },
-    {
-        "inherit": {
-            "set": "posneg",
-            "type": "random"
-        },
-        "stimuli": [
-            {"inherit": {"set": "error"}},
-            {
-                "data": {
-                    "negativeKey": "c",
-                    "negativeWord": "si[ ]k",
                     "positiveKey": "i",
-                    "positiveWord": "f[ ]ne",
-                    "statement": " You have not heard from your elderly neighbor recently. You normally visit with him regularly, so it is strange that you have not seen him lately. Your neighbor has probably been "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "handle": "question",
-                 data: {
-                	positiveAnswer:"n",
-                	negativeAnswer:"y"
-                },
-                "media": {
-                    "inlineTemplate": "<div>Has your elderly neighbor likely been sick? </div>"
-                }
-            },
-            {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
-        ]
-    },
-    {
-        "inherit": {
-            "set": "posneg",
-            "type": "random"
-        },
-        "stimuli": [
-            {"inherit": {"set": "error"}},
-            {
-                "data": {
-                    "negativeKey": "x",
-                    "negativeWord": "an[ ]ious",
-                    "positiveKey": "l",
-                    "positiveWord": "re[ ]axed",
-                    "statement": " This morning you left the house and began your drive to work. About 10 minutes into your commute, you wonder if you remembered to lock the door to your home. As you continue to drive, you feel "
+                    "positiveWord": "thr[ ]lled",
+                    "statement": " You are riding an airplane to London. As you look outside the window, you think about how you\u2019ve never been so far above the Atlantic Ocean. You feel "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -1470,76 +1538,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div> Are you able to stay calm, despite being unsure whether you remembered to lock your door? </div>"
-                }
-            },
-            {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
-        ]
-    },
-    {
-        "inherit": {
-            "set": "posneg",
-            "type": "random"
-        },
-        "stimuli": [
-            {"inherit": {"set": "error"}},
-            {
-                "data": {
-                    "negativeKey": "a",
-                    "negativeWord": "b[ ]d",
-                    "positiveKey": "o",
-                    "positiveWord": "g[ ]od",
-                    "statement": " Your parents are getting older, and have discussed moving into an assisted living facility. You find yourself wondering what their health will be like in the future, given their increasing age. After thinking about it, you think their health in the future will likely be "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "handle": "question",
-                 data: {
-                	positiveAnswer:"n",
-                	negativeAnswer:"y"
-                },
-                "media": {
-                    "inlineTemplate": "<div>Do you think your parents will have poor health in the future? </div>"
-                }
-            },
-            {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
-        ]
-    },
-    {
-        "inherit": {
-            "set": "posneg",
-            "type": "random"
-        },
-        "stimuli": [
-            {"inherit": {"set": "error"}},
-            {
-                "data": {
-                    "negativeKey": "i",
-                    "negativeWord": "fa[ ]lure",
-                    "positiveKey": "c",
-                    "positiveWord": "suc[ ]ess",
-                    "statement": " You are driving home after a soccer game where your team won. As your mind wanders, you think about the one goal that you missed. Overall, you consider your performance a "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "handle": "question",
-                 data: {
-                	positiveAnswer:"y",
-                	negativeAnswer:"n"
-                },
-                "media": {
-                    "inlineTemplate": "<div>Are you satisfied with your performance in the game? </div>"
-                }
+                    "inlineTemplate": "<div> Is it exhilarating to be so high up? </div>"
+                     }
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}}
@@ -1555,215 +1555,10 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {
                 "data": {
                     "negativeKey": "s",
-                    "negativeWord": "up[ ]et",
-                    "positiveKey": "c",
-                    "positiveWord": "uncon[ ]erned",
-                    "statement": " You are going to turn in a paper. As you walk, you glance down and realize there is a small typo on the last page of your paper. You believe that you should be "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "handle": "question",
-                 data: {
-                	positiveAnswer:"n",
-                	negativeAnswer:"y"
-                },
-                "media": {
-                    "inlineTemplate": "<div>Should you be troubled about the small typo? </div>"
-                }
-            },
-            {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
-        ]
-    },
-    {
-        "inherit": {
-            "set": "posneg",
-            "type": "random"
-        },
-        "stimuli": [
-            {"inherit": {"set": "error"}},
-            {
-                "data": {
-                    "negativeKey": "o",
-                    "negativeWord": "anxi[ ]is",
-                    "positiveKey": "a",
-                    "positiveWord": "c[ ]lm",
-                    "statement": " You are on a hike with friends. You come to a suspension bridge you need to cross, but you aren\u2019t 100% sure it is safe even though your friends think it\u2019s probably OK. As you cross the bridge you feel "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "handle": "question",
-                 data: {
-                	positiveAnswer:"n",
-                	negativeAnswer:"y"
-                },
-                "media": {
-                    "inlineTemplate": "<div>Are you worried as you cross the bridge? </div>"
-                }
-            },
-            {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
-        ]
-    },
-    {
-        "inherit": {
-            "set": "posneg",
-            "type": "random"
-        },
-        "stimuli": [
-            {"inherit": {"set": "error"}},
-            {
-                "data": {
-                    "negativeKey": "c",
-                    "negativeWord": "si[ ]k",
-                    "positiveKey": "s",
-                    "positiveWord": "bu[ ]y",
-                    "statement": " Every Monday, you call your grandmother to say hello. Today is Monday, and she did not pick up the phone when you called, which is unusual. Your grandmother probably did not answer the phone because she is "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "handle": "question",
-                 data: {
-                	positiveAnswer:"n",
-                	negativeAnswer:"y"
-                },
-                "media": {
-                    "inlineTemplate": "<div>Is your grandmother unable to talk because she is ill? </div>"
-                }
-            },
-            {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
-        ]
-    },
-    {
-        "inherit": {
-            "set": "posneg",
-            "type": "random"
-        },
-        "stimuli": [
-            {"inherit": {"set": "error"}},
-            {
-                "data": {
-                    "negativeKey": "s",
-                    "negativeWord": "mi[ ]erable",
-                    "positiveKey": "y",
-                    "positiveWord": "enjo[ ]able",
-                    "statement": " You are out to dinner and realize that you are not wearing your favorite watch. You don\u2019t remember taking it off earlier, but think it is probably where you always keep it. You become a little anxious thinking about where the watch is, and your dinner ends up being "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "handle": "question",
-                 data: {
-                	positiveAnswer:"n",
-                	negativeAnswer:"y"
-                },
-                "media": {
-                    "inlineTemplate": "<div>Is the dinner miserable while you worry about the watch? </div>"
-                }
-            },
-            {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
-        ]
-    },
-    {
-        "inherit": {
-            "set": "posneg",
-            "type": "random"
-        },
-        "stimuli": [
-            {"inherit": {"set": "error"}},
-            {
-                "data": {
-                    "negativeKey": "u",
-                    "negativeWord": "uns[ ]ccessfully",
-                    "positiveKey": "s",
-                    "positiveWord": "succes[ ]fully",
-                    "statement": " You let your teenage son go to an amusement park with some friends. You feel worried about letting your son go to the amusement park without any parents. You think you will deal with your worry "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "handle": "question",
-                 data: {
-                	positiveAnswer:"n",
-                	negativeAnswer:"y"
-                },
-                "media": {
-                    "inlineTemplate": "<div>Will you be unsuccessful at dealing with your anxiety? </div>"
-                }
-            },
-            {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
-        ]
-    },
-    {
-        "inherit": {
-            "set": "posneg",
-            "type": "random"
-        },
-        "stimuli": [
-            {"inherit": {"set": "error"}},
-            {
-                "data": {
-                    "negativeKey": "b",
-                    "negativeWord": "rob[ ]ers",
+                    "negativeWord": "lo[ ]t",
                     "positiveKey": "n",
-                    "positiveWord": "part[ ]er",
-                    "statement": " You are at home alone watching TV at night. You must have been dozing because you suddenly wake up. You have the impression that you heard a frightening noise and then realize it must be your "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "handle": "question",
-                 data: {
-                	positiveAnswer:"n",
-                	negativeAnswer:"y"
-                },
-                "media": {
-                    "inlineTemplate": "<div> Should you be frightened when you hear a noise at night? </div>"
-                }
-            },
-            {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
-        ]
-    },
-
-    {
-        "inherit": {
-            "set": "posneg",
-            "type": "random"
-        },
-        "stimuli": [
-            {"inherit": {"set": "error"}},
-            {
-                "data": {
-                    "negativeKey": "p",
-                    "negativeWord": "unpre[ ]ared",
-                    "positiveKey": "t",
-                    "positiveWord": "sa[ ]isfied",
-                    "statement": " You are considering multiple options for where to go for spring break. You only have a little bit of information about each potential destination before you make your choice. When you decide, you feel "
+                    "positiveWord": "fi[ ]e",
+                    "statement": " Your daughter is outside playing with friends. You look out the window and check on her, and do not see her. She is probably "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -1777,8 +1572,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Are you content with your decision for where to go on Spring Break? </div>"
-                }
+                    "inlineTemplate": "<div>Is your daughter okay? </div>"
+                     }
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}}
@@ -1794,78 +1589,44 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {
                 "data": {
                     "negativeKey": "i",
-                    "negativeWord": "fa[ ]lure",
-                    "positiveKey": "c",
-                    "positiveWord": "suc[ ]ess",
-                    "statement": " You are driving hope after a soccer game where your team won. As your mind wanders, you think about the one goal that you missed. Overall, you consider your performance a "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "handle": "question",
-                 data: {
-                	positiveAnswer:"y",
-                	negativeAnswer:"n"
-                },
-                "media": {
-                    "inlineTemplate": "<div>Are you satisfied with your performance in the game? </div>"
-                }
-            },
-            {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
-        ]
-    },
-    {
-        "inherit": {
-            "set": "posneg",
-            "type": "random"
-        },
-        "stimuli": [
-            {"inherit": {"set": "error"}},
-            {
-                "data": {
-                    "negativeKey": "g",
-                    "negativeWord": "hi[ ]h",
-                    "positiveKey": "o",
-                    "positiveWord": "l[ ]w",
-                    "statement": " You heard a rumor your boss is planning to fire someone in your office. Although you are normally a good employee, you were late for a meeting earlier this week. You feel that the probability that you will get fired is "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "handle": "question",
-                 data: {
-                	positiveAnswer:"y",
-                	negativeAnswer:"n"
-                },
-                "media": {
-                    "inlineTemplate": "<div>Do you think that you job is safe? </div>"
-                }
-            },
-            {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
-        ]
-    },
-    {
-        "inherit": {
-            "set": "posneg",
-            "type": "random"
-        },
-        "stimuli": [
-            {"inherit": {"set": "error"}},
-            {
-                "data": {
-                    "negativeKey": "o",
-                    "negativeWord": "anxi[ ]is",
+                    "negativeWord": "fa[ ]l",
                     "positiveKey": "a",
-                    "positiveWord": "c[ ]lm",
-                    "statement": " You are on a hike with friends. You come to a suspension bridge you need to cross, but you aren\u2019t 100% sure it is safe even though your friends think it\u2019s probably OK. As you cross the bridge you feel "
+                    "positiveWord": "p[ ]ss",
+                    "statement": " You are taking a class, and recently turned in a paper. You decided to re-read your submitted paper and realize that you accidentally deleted a section you meant to include in the paper. Given that you accidently made this deletion, you think that you are likely to "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "handle": "question",
+                 data: {
+                	positiveAnswer:"y",
+                	negativeAnswer:"n"
+                },
+                "media": {
+                    "inlineTemplate": "<div>Are you going to get a passing grade on the paper? </div>"
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
+        ]
+    },
+    {
+        "inherit": {
+            "set": "posneg",
+            "type": "random"
+        },
+        "stimuli": [
+            {"inherit": {"set": "error"}},
+            {
+                "data": {
+                    "negativeKey": "j",
+                    "negativeWord": "in[ ]ured",
+                    "positiveKey": "n",
+                    "positiveWord": "fi[ ]e",
+                    "statement": " You are bouncing on your friend\u2019s trampoline. You have fun with your friends, but also consider their safety. While on the trampoline you will probably be "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -1879,8 +1640,42 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Are you worried as you cross the bridge? </div>"
+                    "inlineTemplate": "<div>Are you likely to get hurt whole on the trampoline? </div>"
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
+        ]
+    },
+    {
+        "inherit": {
+            "set": "posneg",
+            "type": "random"
+        },
+        "stimuli": [
+            {"inherit": {"set": "error"}},
+            {
+                "data": {
+                    "negativeKey": "n",
+                    "negativeWord": "u[ ]safe",
+                    "positiveKey": "f",
+                    "positiveWord": "sa[ ]e",
+                    "statement": " You decide to donate blood at the local blood bank. You look around the room where you will give blood and notice it is very crowded. You decide the environment is "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
+            },
+            {
+                "handle": "question",
+                 data: {
+                	positiveAnswer:"y",
+                	negativeAnswer:"n"
+                },
+                "media": {
+                    "inlineTemplate": "<div>Is the blood bank harmless? </div>"
+                     }
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}}
@@ -1914,7 +1709,315 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "media": {
                     "inlineTemplate": "<div>Are you disappointed with the outcome of the project? </div>"
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
+        ]
+    },
+
+    {
+        "inherit": {
+            "set": "posneg",
+            "type": "random"
+        },
+        "stimuli": [
+            {"inherit": {"set": "error"}},
+            {
+                "data": {
+                    "negativeKey": "u",
+                    "negativeWord": "uns[ ]ccessfully",
+                    "positiveKey": "s",
+                    "positiveWord": "succes[ ]fully",
+                    "statement": " You let your teenage son go to an amusement park with some friends. You feel worried about letting your son go to the amusement park without any parents. You think you will deal with your worry "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
+            },
+            {
+                "handle": "question",
+                 data: {
+                	positiveAnswer:"n",
+                	negativeAnswer:"y"
+                },
+                "media": {
+                    "inlineTemplate": "<div>Will you be unsuccessful at dealing with your anxiety? </div>"
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
+        ]
+    },
+    {
+        "inherit": {
+            "set": "posneg",
+            "type": "random"
+        },
+        "stimuli": [
+            {"inherit": {"set": "error"}},
+            {
+                "data": {
+                    "negativeKey": "i",
+                    "negativeWord": "h[ ]gh",
+                    "positiveKey": "w",
+                    "positiveWord": "lo[ ]",
+                    "statement": " You have decided to go back to school for another degree. Although you have been saving for this for the past few years, you worry about not having an income while you are back in school. The likelihood that you will go broke while in school is "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "handle": "question",
+                 data: {
+                	positiveAnswer:"n",
+                	negativeAnswer:"y"
+                },
+                "media": {
+                    "inlineTemplate": "<div>Will you become broke once you go back to school? </div>"
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
+        ]
+    },
+    {
+        "inherit": {
+            "set": "posneg",
+            "type": "random"
+        },
+        "stimuli": [
+            {"inherit": {"set": "error"}},
+            {
+                "data": {
+                    "negativeKey": "o",
+                    "negativeWord": "po[ ]rly",
+                    "positiveKey": "e",
+                    "positiveWord": "w[ ]ll",
+                    "statement": " You are auditioning for a play. You say most of your lines correctly, but mess up on one of two. You think the audition went "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "handle": "question",
+                 data: {
+                	positiveAnswer:"y",
+                	negativeAnswer:"n"
+                },
+                "media": {
+                    "inlineTemplate": "<div> Do you feel good about the audition? </div>"
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
+        ]
+    },
+    {
+        "inherit": {
+            "set": "posneg",
+            "type": "random"
+        },
+        "stimuli": [
+            {"inherit": {"set": "error"}},
+            {
+                "data": {
+                    "negativeKey": "b",
+                    "negativeWord": "rob[ ]ed",
+                    "positiveKey": "n",
+                    "positiveWord": "fi[ ]e",
+                    "statement": " You are bringing in the mail for your neighbor while she is away. Each day on your way out of her house, you lock the front door and check it. Today you were rushing and think you forgot to check the lock. The house will probably be "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "handle": "question",
+                 data: {
+                	positiveAnswer:"n",
+                	negativeAnswer:"y"
+                },
+                "media": {
+                    "inlineTemplate": "<div>Will your neighbor\u2019s house probably be robbed? </div>"
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
+        ]
+    },
+    {
+        "inherit": {
+            "set": "posneg",
+            "type": "random"
+        },
+        "stimuli": [
+            {"inherit": {"set": "error"}},
+            {
+                "data": {
+                    "negativeKey": "n",
+                    "negativeWord": "u[ ]enjoyable",
+                    "positiveKey": "j",
+                    "positiveWord": "en[ ]oyable",
+                    "statement": " You just left for vacation and cannot remember if you shut off the stove after the last time you cooked. You become anxious not knowing whether the stove is on or off. With these thoughts in mind, your vacation will be "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "handle": "question",
+                 data: {
+                	positiveAnswer:"y",
+                	negativeAnswer:"n"
+                },
+                "media": {
+                    "inlineTemplate": "<div>Will you still be able to enjoy your vacation, even if you are wondering about your stove? </div>"
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
+        ]
+    },
+    {
+        "inherit": {
+            "set": "posneg",
+            "type": "random"
+        },
+        "stimuli": [
+            {"inherit": {"set": "error"}},
+            {
+                "data": {
+                    "negativeKey": "o",
+                    "negativeWord": "po[ ]r",
+                    "positiveKey": "n",
+                    "positiveWord": "fi[ ]e",
+                    "statement": " Your daughter is getting married, and you agreed to help pay for the wedding. As the costs begin to pile up, you realize that the wedding is going to be much more expensive than you previously thought. You feel that after you help pay for the wedding, you will be "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "handle": "question",
+                 data: {
+                	positiveAnswer:"n",
+                	negativeAnswer:"y"
+                },
+                "media": {
+                    "inlineTemplate": "<div> Do you think you will be poor after helping your daughter pay for the wedding? </div>"
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
+        ]
+    },
+    {
+        "inherit": {
+            "set": "posneg",
+            "type": "random"
+        },
+        "stimuli": [
+            {"inherit": {"set": "error"}},
+            {
+                "data": {
+                    "negativeKey": "g",
+                    "negativeWord": "hi[ ]h",
+                    "positiveKey": "o",
+                    "positiveWord": "l[ ]w",
+                    "statement": " You rushed out of the house this morning. Once at work, you wonder if you forgot to turn off your space heater. The likelihood that the space heater will cause a fire is "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "handle": "question",
+                 data: {
+                	positiveAnswer:"n",
+                	negativeAnswer:"y"
+                },
+                "media": {
+                    "inlineTemplate": "<div>Will your space heater cause a fire? </div>"
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
+        ]
+    },
+
+    {
+        "inherit": {
+            "set": "posneg",
+            "type": "random"
+        },
+        "stimuli": [
+            {"inherit": {"set": "error"}},
+            {
+                "data": {
+                    "negativeKey": "a",
+                    "negativeWord": "intoler[ ]ble",
+                    "positiveKey": "r",
+                    "positiveWord": "tole[ ]able",
+                    "statement": " You woke up this morning with a stiff neck. You wonder whether this is a minor injury or a sign of a larger problem, so you schedule an appointment with your doctor. You have to wait until tomorrow to see her, and you think that your anxiety while waiting for the appointment will be "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "handle": "question",
+                 data: {
+                	positiveAnswer:"y",
+                	negativeAnswer:"n"
+                },
+                "media": {
+                    "inlineTemplate": "<div>Are you able to tolerate the anxiety while waiting to see your doctor? </div>"
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
+        ]
+    },
+    {
+        "inherit": {
+            "set": "posneg",
+            "type": "random"
+        },
+        "stimuli": [
+            {"inherit": {"set": "error"}},
+            {
+                "data": {
+                    "negativeKey": "g",
+                    "negativeWord": "hi[ ]h",
+                    "positiveKey": "n",
+                    "positiveWord": "mi[ ]imal",
+                    "statement": " Your neighbor bakes you a cake for your birthday. When she delivers it, she notes that she has recently gotten over the flu. Your chances of becoming sick are "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "handle": "question",
+                 data: {
+                	positiveAnswer:"n",
+                	negativeAnswer:"y"
+                },
+                "media": {
+                    "inlineTemplate": "<div>Are you likely to get sick from the cake? </div>"
+                     }
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}}
@@ -1930,227 +2033,15 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {
                 "data": {
                     "negativeKey": "r",
-                    "negativeWord": "ter[ ]ified",
-                    "positiveKey": "t",
-                    "positiveWord": "exci[ ]ed",
-                    "statement": " Your daughter goes horseback riding every weekend, and you reluctantly agree to go with her. When you get there, the riding instructor gives you a large horse to ride. Soon, the horse starts to gallop quickly and you feel "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "handle": "question",
-                 data: {
-                	positiveAnswer:"y",
-                	negativeAnswer:"n"
-                },
-                "media": {
-                    "inlineTemplate": "<div>Is it fun to try riding the horse? </div>"
-                }
-            },
-            {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
-        ]
-    },
-
-    {
-        "inherit": {
-            "set": "posneg",
-            "type": "random"
-        },
-        "stimuli": [
-            {"inherit": {"set": "error"}},
-            {
-                "data": {
-                    "negativeKey": "e",
-                    "negativeWord": "intol[ ]rable",
-                    "positiveKey": "a",
-                    "positiveWord": "toler[ ]ble",
-                    "statement": "You get blood drawn for your annual physical. Your doctor tells you that you will have to wait a few days to receive the results, and you worry about what the results will say. The worries are "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "handle": "question",
-                 data: {
-                	positiveAnswer:"y",
-                	negativeAnswer:"n"
-                },
-                "media": {
-                    "inlineTemplate": "<div>Are your worries about your blood test results tolerable? </div>"
-                }
-            },
-            {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
-        ]
-    },
-    {
-        "inherit": {
-            "set": "posneg",
-            "type": "random"
-        },
-        "stimuli": [
-            {"inherit": {"set": "error"}},
-            {
-                "data": {
-                    "negativeKey": "u",
-                    "negativeWord": "serio[ ]s",
-                    "positiveKey": "g",
-                    "positiveWord": "meanin[ ]less",
-                    "statement": " Last weekend you ran your first race. Since then, you have been experiencing slight pain in your hip. This pain is probably "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
-                "handle": "question",
-                 data: {
-                	positiveAnswer:"n",
-                	negativeAnswer:"y"
-                },
-                "media": {
-                    "inlineTemplate": "<div>Does the pain in your hip mean you have a serious health problem? </div>"
-                }
-            }
-        ]
-    },
-    {
-        "inherit": {
-            "set": "posneg",
-            "type": "random"
-        },
-        "stimuli": [
-            {"inherit": {"set": "error"}},
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "data": {
-                    "negativeKey": "g",
-                    "negativeWord": "hi[ ]h",
-                    "positiveKey": "o",
-                    "positiveWord": "l[ ]w",
-                    "statement": " At your routine doctor\u00e2\u20ac\u2122s appointment, you are asked to take a test for a disease. After the test, you wait for your results in the waiting room. You think the chances that you have the disease are "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
-                "handle": "question",
-                 data: {
-                	positiveAnswer:"n",
-                	negativeAnswer:"y"
-                },
-                "media": {
-                    "inlineTemplate": "<div>Do you think the test results will say you have the disease? </div>"
-                }
-            }
-        ]
-    },
-    {
-        "inherit": {
-            "set": "posneg",
-            "type": "random"
-        },
-        "stimuli": [
-            {"inherit": {"set": "error"}},
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "data": {
-                    "negativeKey": "t",
-                    "negativeWord": "infec[ ]ed",
-                    "positiveKey": "l",
-                    "positiveWord": "hea[ ]ing",
-                    "statement": " You accidentally cut your finger a bit while cooking. You promptly clean the cut, and put on a bandage. Later, the cut hurts a little bit, and you think it is likely "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
-                "handle": "question",
-                 data: {
-                	positiveAnswer:"n",
-                	negativeAnswer:"y"
-                },
-                "media": {
-                    "inlineTemplate": "<div>Is your finger seriously infected? <div>"
-                }
-            }
-        ]
-    },
-    {
-        "inherit": {
-            "set": "posneg",
-            "type": "random"
-        },
-        "stimuli": [
-            {"inherit": {"set": "error"}},
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "data": {
-                    "negativeKey": "n",
-                    "negativeWord": "u[ ]mangeable",
+                    "negativeWord": "unbea[ ]able",
                     "positiveKey": "g",
                     "positiveWord": "mana[ ]eable",
-                    "statement": " While out hiking you are bitten by a spider. Your friend assures you that the spider was not poisonous and that you will be fine. You worry that it could have been a deadly spider, but continue your hike anyway, and your worries for the rest of the hike are "
+                    "statement": " You found a dark mole on your leg and made an appointment with your doctor to get it looked at. Your doctor says she will get back to you with the test results within the next few days. You become anxious at the thought of waiting for test results for an undetermined amount of time, and your anxious feelings are "
                 },
                 "handle": "paragraph",
                 "media": {
                     "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
-            },
-            {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
             },
             {
                 "handle": "question",
@@ -2159,9 +2050,11 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Are you able to manage your worries while finishing your hike? </div>"
-                }
-            }
+                    "inlineTemplate": "<div>Are you able to manage your anxious feelings while waiting for your test results? </div>"
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
         ]
     },
     {
@@ -2172,17 +2065,12 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
         "stimuli": [
             {"inherit": {"set": "error"}},
             {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
                 "data": {
-                    "negativeKey": "l",
-                    "negativeWord": "unhea[ ]thy",
-                    "positiveKey": "t",
-                    "positiveWord": "heal[ ]hy",
-                    "statement": " You have a dentist appointment, and find out that you need some tests to check the health of your gums and teeth. After the dentist performs the tests, you wait for your results. You think your teeth and gums are probably "
+                    "negativeKey": "b",
+                    "negativeWord": "un[ ]earable",
+                    "positiveKey": "g",
+                    "positiveWord": "mana[ ]eable",
+                    "statement": " Your neighbor bakes you a cake for your birthday. When she delivers it, she notes that she has recently gotten over the flu. Your chances of becoming sick are "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -2190,12 +2078,38 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
+                "handle": "question",
+                 data: {
+                	positiveAnswer:"y",
+                	negativeAnswer:"n"
                 },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
+                "media": {
+                    "inlineTemplate": "<div>Will you remain healthy after eating the cake? </div>"
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
+        ]
+    },
+    {
+        "inherit": {
+            "set": "posneg",
+            "type": "random"
+        },
+        "stimuli": [
+            {"inherit": {"set": "error"}},
+            {
+                "data": {
+                    "negativeKey": "c",
+                    "negativeWord": "can[ ]er",
+                    "positiveKey": "l",
+                    "positiveWord": "meaning[ ]ess",
+                    "statement": " You notice that you have a mole on your arm that you haven't noticed before. You schedule a doctor's appointment to have it examined. As you wait for your appointment, you think the mole is likely "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                }
             },
             {
                 "handle": "question",
@@ -2204,7 +2118,41 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Do you think you have gum disease? </div>"
+                    "inlineTemplate": "<div>Is the new mole a sign of cancer? </div>"
+                     }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
+        ]
+    },
+    {
+        "inherit": {
+            "set": "posneg",
+            "type": "random"
+        },
+        "stimuli": [
+            {"inherit": {"set": "error"}},
+            {
+                "data": {
+                    "negativeKey": "c",
+                    "negativeWord": "ul[ ]ers",
+                    "positiveKey": "g",
+                    "positiveWord": "hun[ ]er",
+                    "statement": " You have been riding in the car all day with your partner and have not yet stopped for food. Once you stop, you realize that your stomach is starting to ache. This is probably a sign of "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "handle": "question",
+                 data: {
+                	positiveAnswer:"y",
+                	negativeAnswer:"n"
+                },
+                "media": {
+                    "inlineTemplate": "<div>Does the ache in your stomach mean that you are hungry? </div>"
                 }
             }
         ]
@@ -2217,5 +2165,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
 
     ]);
     return API.script;
+    // #### Activate the player
+    //API.play();
 });
 /* don't forget to close the define wrapper */
