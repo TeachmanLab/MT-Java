@@ -47,8 +47,7 @@ public class QuestionController extends BaseController {
     private PilotUserExperienceRepository pue_Repository;
     private CredibilityRepository credibilityRepository;
     private DemographicRepository demographicRepository;
-    private AnxiousImageryPrime_Repository anxiousImageryPrime_Repository;
-    private NeutralImageryPrime_Repository neutralImageryPrime_Repository;
+    private ImageryPrimeRepository imageryPrimeRepository;
     private StateAnxietyRepository stateAnxiety_Repository;
     private RR_Repository rr_repository;
     private CCRepository cc_repository;
@@ -89,8 +88,7 @@ public class QuestionController extends BaseController {
                               AUDIT_Repository audit_Repository,
                               CredibilityRepository credibilityRepository,
                               DemographicRepository demographicRepository,
-                              AnxiousImageryPrime_Repository anxiousImageryPrime_Repository,
-                              NeutralImageryPrime_Repository neutralImageryPrime_Repository,
+                              ImageryPrimeRepository imageryPrimeRepository,
                               StateAnxietyRepository stateAnxiety_Repository,
                               RR_Repository rr_repository,
                               CCRepository cc_repository,
@@ -117,8 +115,7 @@ public class QuestionController extends BaseController {
         this.mh_Repository = mh_Repository;
         this.mue_Repository = mue_Repository;
         this.pue_Repository = pue_Repository;
-        this.anxiousImageryPrime_Repository = anxiousImageryPrime_Repository;
-        this.neutralImageryPrime_Repository = neutralImageryPrime_Repository;
+        this.imageryPrimeRepository = imageryPrimeRepository;
         this.stateAnxiety_Repository = stateAnxiety_Repository;
         this.rr_repository = rr_repository;
         this.cc_repository = cc_repository;
@@ -515,41 +512,23 @@ public ModelAndView showSUDS(Principal principal) {
         Participant p = getParticipant(principal);
         boolean notFirst = !p.getStudy().getCurrentSession().getName().equals(CBMStudy.NAME.SESSION1);
         model.addAttribute("notFirst", notFirst);
-        if(p.getPrime().equals(Participant.PRIME.ANXIETY))
-            return modelAndView(principal, "/questions/AIP", "AIP", new AnxiousImageryPrime());
-        else
-            return modelAndView(principal, "/questions/NIP", "NIP", new NeutralImageryPrime());
+        model.addAttribute("prime", p.getPrime().toString());
+        return modelAndView(principal, "/questions/ImageryPrime", "IP", new ImageryPrime());
     }
 
-    @RequestMapping(value = "AIP", method = RequestMethod.POST)
-    RedirectView handleAIP(@ModelAttribute("AIP") AnxiousImageryPrime prime,
+    @RequestMapping(value = "ImageryPrime", method = RequestMethod.POST)
+    RedirectView handleIP(@ModelAttribute("IP") ImageryPrime prime,
                               BindingResult result) {
         recordSessionProgress(prime);
-        anxiousImageryPrime_Repository.save(prime);
+        imageryPrimeRepository.save(prime);
         return new RedirectView("/session/next");
     }
 
-    @RequestMapping(value = "AIP/export", method = RequestMethod.GET, produces = "text/csv")
+    @RequestMapping(value = "ImageryPrime/export", method = RequestMethod.GET, produces = "text/csv")
     @ResponseBody // Return the string directly, the return value is not a template name.
-    String exportAIP() {
-        return(objectListToCSV(anxiousImageryPrime_Repository.findAll()));
+    String exportIP() {
+        return(objectListToCSV(imageryPrimeRepository.findAll()));
     }
-
-    @RequestMapping(value = "NIP", method = RequestMethod.POST)
-    RedirectView handleNIP(@ModelAttribute("NIP") NeutralImageryPrime prime,
-                              BindingResult result) {
-
-        recordSessionProgress(prime);
-        neutralImageryPrime_Repository.save(prime);
-        return new RedirectView("/session/next");
-    }
-
-    @RequestMapping(value = "NIP/export", method = RequestMethod.GET, produces = "text/csv")
-    @ResponseBody // Return the string directly, the return value is not a template name.
-    String exportNIP() {
-        return(objectListToCSV(neutralImageryPrime_Repository.findAll()));
-    }
-
 
     /**
      * Demographics

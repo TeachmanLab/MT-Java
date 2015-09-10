@@ -21,19 +21,33 @@
         <!--features starts-->
         <div class="row">
             <div class="span12">
-                <form id="wizard" th:action="@{/questions/AIP}" method="POST">
+                <form id="wizard" th:action="@{/questions/ImageryPrime}" method="POST">
                     <fieldset>
                         <legend>Step 1 - Use your imagination</legend>
-                        <p>
-                                    Please think of an <b>UPCOMING</b> situation that you expect will make you feel anxious, worried, or scared.
-                                    Please click "NEXT" one you have thought of a situation.
-                        </p>
-                        <ul>
-                            <li>Pick a situation that you worry might go badly, or that you expect will evoke symptoms related to
-                                anxiety (e.g., racing heart, sweating).</li>
-                            <li>Any situation that will make you feel quite anxious or scared will work, as long as it’s a situation you’re likely to actually encounter.</li>
-                            <li><span th:text="${past}"/></li>
-                        </ul>
+                        <input type="hidden" name="prime" th:value="${prime}"/>
+                        <div th:if="${prime == 'ANXIETY'}">
+                            <p>Please think of an <b>UPCOMING</b> situation that you expect will make you feel anxious,
+                                worried, or scared.</p>
+                            <ul>
+                                <li>Pick a situation that you worry might go badly, or that you expect will evoke symptoms related to
+                                    anxiety (e.g., racing heart, sweating).</li>
+                                <li>Any situation that will make you feel quite anxious or scared will work, as long as it’s a situation you’re likely to actually encounter.</li>
+                                <li><span th:text="${past}"/></li>
+                            </ul>
+                        </div>
+                        <div th:if="${prime == 'NEUTRAL'}">
+                            <p>Please think of an upcoming situation that is routine (i.e., that happens regularly) and
+                            does not particularly concern you or make you feel especially happy, worried, sad, etc.
+                            For instance, the situation could involve brushing your teeth, taking a shower,
+                            surfing the web, watching TV, getting dressed, or checking your email. </p>
+                            <p>Pick a situation that
+                            you won’t worry or get excited about; the situation should be so mundane and routine you
+                            will hardly give it any thought. Any situation that you have no strong feelings toward
+                            will work. If no specific situation is upcoming, then just select a situation that you
+                            expect would generate little emotion IF you were in that situation.
+                            </p>
+                            <P>Please click "NEXT" one you have thought of a situation.</P>
+                        </div>
                     </fieldset>
                     <fieldset>
                         <legend>Step 2 - Note the situation</legend>
