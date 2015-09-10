@@ -638,10 +638,9 @@ public ModelAndView showSUDS(Principal principal) {
     @RequestMapping(value = "OA", method = RequestMethod.GET)
     public ModelAndView showOA(ModelMap model, Principal principal) {
         Participant p = getParticipant(principal);
-        boolean inSessions = !p.getStudy().getCurrentSession().getName().equals(CBMStudy.NAME.PRE) &&
-                             !p.getStudy().getCurrentSession().getName().equals(CBMStudy.NAME.POST);
+        boolean inSessions = !p.getStudy().getCurrentSession().getName().equals(CBMStudy.NAME.PRE.toString()) &&
+                             !p.getStudy().getCurrentSession().getName().equals(CBMStudy.NAME.POST.toString());
         model.addAttribute("inSessions", inSessions);
-        LOG.info("The value for inSessions is :" + inSessions);
         return modelAndView(principal, "/questions/OA", "OA", new OA());
     }
 
