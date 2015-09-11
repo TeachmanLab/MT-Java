@@ -38,10 +38,15 @@ public class OA implements QuestionnaireData, Comparable<OA> {
     private Date date;
     private String session;
 
+    @Column(name="AXF")
     private int anxious_freq;
+    @Column(name="AXS")
     private int anxious_sev;
+    @Column(name="AVO")
     private int avoid;
+    @Column(name="WRK")
     private int interfere;
+    @Column(name="SOC")
     private int interfere_social;
 
     public OA(int anxious_freq, int anxious_sev, int avoid, int interfere, int interfere_social) {
