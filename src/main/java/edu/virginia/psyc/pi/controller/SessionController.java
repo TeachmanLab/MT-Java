@@ -110,13 +110,27 @@ public class SessionController extends BaseController {
         Participant p      = getParticipant(dao);
         List<OA> oaList    = oaRepository.findByParticipantDAO(dao);
         Collections.sort(oaList);
+
+        OA original = oaList.get(0);
+        OA last     = oaList.get(oaList.size() - 1);
+
         List<List<Object>> points = new ArrayList();
         for(OA oa : oaList) {
             points.add(oa.plotPoint());
         }
+        int improvement = new Double((last.score() / original.score()) * 100).intValue();
+        String status = "";
+        if(improvement < 90) status = "worse";
+        else if (improvement < 110) status = "same";
+        else if (improvement < 130) status = "little";
+        else status = "lot";
 
         model.addAttribute("participant", p);
         model.addAttribute("points", points);
+        model.addAttribute("improvement", improvement);
+        model.addAttribute("status", status);
+
+
         return "graph";
     }
 

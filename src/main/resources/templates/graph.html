@@ -16,7 +16,7 @@
 <section id="content" class="clearfix">
     <div class="container">
         <h1>Graph of Progress</h1>
-        <p>In nearly every session you completed an axiety assessment questionnaire.  The graph below shows your computed
+        <p>In every session you completed an anxiety assessment questionnaire.  The graph below shows your computed
             score for each time you completed a session.  The higher the score, the higher anxiety you reported at
             that point in time. </p>
 
@@ -28,7 +28,12 @@
             not receive the actual training sessions designed to improve your Anxiety.  You may now request to re-take
             this study and actually receive the treatment.  ---- OR --- We'd like you to know that you were not a part of
             any control group.  You received the actual treatments designed to help reduce your anxiety.... </p>
+        <h2 th:text="${improvement}"></h2>
 
+        <p th:if="${status == 'worse'}">You got worse</p>
+        <p th:if="${status == 'same'}">You stayed the same</p>
+        <p th:if="${status == 'little'}">You got a little better</p>
+        <p th:if="${status == 'lot'}">You improved a lot!</p>
 
         <p>Over the course of the study, you [improved a lot! / a little / remained the same / got worse ] ....</p>
 
