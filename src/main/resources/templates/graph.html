@@ -8,6 +8,9 @@
     <head th:include="fragment/common :: headerFragment" />
 
 <body th:class="|user-theme-${participant.theme}|">
+<script type="text/javascript" th:src="@{/bower/jquery-flot/jquery.flot.js}"></script>
+<script type="text/javascript" th:src="@{/bower/jquery-flot/jquery.flot.categories.js}"></script>
+
     <section id="header" class="clearfix" th:include="fragment/common :: topFragment" />
 
 
@@ -48,8 +51,10 @@
                         lines: { show: true },
                         points: { show: true }
                     },
-                    xaxis: { mode: "time" }
-                    
+                    xaxis: {
+                        mode: "categories",
+                        tickLength: 0
+                    }
                 });
 
 

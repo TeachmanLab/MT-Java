@@ -3,6 +3,8 @@ package edu.virginia.psyc.pi.persistence.Questionnaire;
 import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import lombok.Data;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -21,7 +23,10 @@ import java.util.List;
 @Data
 public class OA implements QuestionnaireData, Comparable<OA> {
 
+    private static final Logger LOG = LoggerFactory.getLogger(OA.class);
+
     public static int NO_ANSWER = 555;
+    public static final int MAX_SCORE = 4;
 
     @Id
     @GeneratedValue
@@ -44,6 +49,7 @@ public class OA implements QuestionnaireData, Comparable<OA> {
         this.avoid = avoid;
         this.interfere = interfere;
         this.interfere_social = interfere_social;
+        this.date = new Date();
     }
 
     public OA(){}
@@ -63,7 +69,6 @@ public class OA implements QuestionnaireData, Comparable<OA> {
         return(sum / total);
     }
 
-
     public boolean atRisk(OA original) {
         return (score() / original.score()) > 1.3;
     }
@@ -73,11 +78,37 @@ public class OA implements QuestionnaireData, Comparable<OA> {
         return date.compareTo(o.date);
     }
 
-    public List<Object> plotPoint() {
-        List<Object> list = new ArrayList<>();
-        list.add(this.date.getTime());
-        list.add(score());
-        return list;
+
+
+
+    /** Calculates the slope across a series of OA scores
+     * and returns a message about the participants progress.
+     */
+    public static String progress(List<OA> oas) {
+
+        double difference;
+        double sumOfDifferences = 0;
+        double firstScore = oas.get(0).score();
+
+        // for every Oasis score (except the last one)
+        // subtract the next score from it, and divide by the
+        // first score.
+        for(int i = 0; i < oas.size() - 1; i++) {
+            // Calculate the difference between the
+            // score percentage and next score percentage.
+            difference = (oas.get(i).score() - oas.get(i+1).score())/firstScore;
+            sumOfDifferences += difference;
+        }
+
+        // Here I average the percentages
+        difference = sumOfDifferences / (oas.size() - 1);
+
+        // And then calculate the message.
+        if(Math.abs(difference) <= 0.15) return "same";
+        else if(difference > 0.15 && difference < 0.30) return "little better";
+        else if(difference >= 0.30) return "lot better";
+        else return "worse";
+
     }
 
 }

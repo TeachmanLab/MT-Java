@@ -226,6 +226,12 @@ public class CBMStudy implements Study {
         return tasks;
     }
 
+
+    public static String calculateDisplayName(String name) {
+       return calculateDisplayName(NAME.valueOf(name));
+    }
+
+
     private static String calculateDisplayName(NAME name) {
         String displayName = "UNKNOWN";
         switch (name) {

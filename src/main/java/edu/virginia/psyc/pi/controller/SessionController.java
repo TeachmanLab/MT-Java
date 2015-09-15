@@ -115,8 +115,13 @@ public class SessionController extends BaseController {
         OA last     = oaList.get(oaList.size() - 1);
 
         List<List<Object>> points = new ArrayList();
+        List<Object> point;
         for(OA oa : oaList) {
-            points.add(oa.plotPoint());
+            String x = CBMStudy.calculateDisplayName(oa.getSession());
+            point = new ArrayList<>();
+            point.add(x);
+            point.add(oa.score());
+            points.add(point);
         }
         int improvement = new Double((last.score() / original.score()) * 100).intValue();
         String status = "";
