@@ -13,14 +13,14 @@
 <!-- content starts
 ================================================== -->
 <section id="content" class="clearfix">
-    <div class="container" th:with="pastX=${inSessions} ? 'Since the last session' : 'In the past week'">
+    <div class="container" th:with="pastX=${inSessions} ? 'since your last MindTrails session' : 'in the past week'">
 
         <!--features starts-->
         <div class="row">
             <div class="col-md-12">
                 <form th:action="@{/questions/OA}" method="POST">
-                    <h2>Review</h2>
-                    <p>Please read each statement below and select an option that indicates how much the statement
+                    <h2>Anxiety Review</h2>
+                    <p>Please read each statement below and select the option that indicates how much the statement
                     applied to you <i><span th:text="${pastX}"/></i>.</p>
                     <div class="section">
                         <div class="question">1. <span th:text="${pastX}"/>, how often have you felt anxious?</div>

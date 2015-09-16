@@ -22,9 +22,9 @@
         <div class="row">
             <div class="span12">
                 <form  th:action="@{/questions/Impact}" method="POST">
-                    <div class="page-title">Impact Questions</div>
                         <div class="sectionLong">
                             <div class="question">How anxious did you feel (at the highest level of anxiety) as you completed the imagery task?</div>
+                            <input style="display:none" id="checkSUDS" name="checkSUDS" type="checkbox" value="1" required="true" />
                             <input style="display:none" id="anxiety" type="text" name="anxiety" required="true"/>
 
                             <label class="radioBox">
@@ -156,7 +156,7 @@
                         <div class="question">If this situation did turn out badly, how well or badly would you be able to handle it?</div>
                         <label class="radioBox">
                             <div class="option" style="width: 140px">
-                                <div class="desc1" style="height:30px">Very Well</div>
+                                <div class="desc1" style="height:30px">Very well</div>
                                 <input type="radio" name="manageable" class="form-control" value="1" required="true"/>
                                 <div class="desc2">1</div>
                             </div>
@@ -212,9 +212,13 @@
                             value: 60,
                             slide: function( event, ui ) {
                                 $( "#anxiety" ).val( ui.value );
+                            document.getElementById("checkSUDS").checked = true;
+
                                  }
-                                });
-                                $( "#anxiety" ).val( $( "#slider" ).slider( "value" ) );
+                            });
+                            $( "#anxiety" ).val( $( "#slider" ).slider( "value" ) );
+
+
                             });
                 </script>
             </div>
