@@ -486,7 +486,7 @@ label label.error {
 }
 
 input[type="number"] {
-    width: 40px;
+    width: 60px;
     margin-left: 10px;
 }
 
@@ -581,7 +581,7 @@ table.daysOfWeek {
     width: 90%;
     font-size: 85%;
     margin: 10px auto;
-
+    padding-left: 10px;
 }
 
 table.daysOfWeek td {
@@ -591,6 +591,7 @@ table.daysOfWeek td {
 table.daysOfWeek th {
     width: 40px;
     font-weight: 400;
+    padding-left: 10px;
 }
 
 

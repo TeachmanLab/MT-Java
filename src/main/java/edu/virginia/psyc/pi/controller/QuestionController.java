@@ -134,8 +134,6 @@ public class QuestionController extends BaseController {
         this.cihsRepository = cihsRepository;
     }
 
-
-
     /**
      * Does some tasks common to all forms:
      * - Adds the current CBMStudy.NAME to the data being recorded
@@ -205,7 +203,10 @@ public class QuestionController extends BaseController {
      * ---------*
      */
     @RequestMapping(value = "DASS21_DS", method = RequestMethod.GET)
-    public ModelAndView showDASS21_DS(Principal principal) {
+    public ModelAndView showDASS21_DS(ModelMap model, Principal principal) {
+        Participant p = getParticipant(principal);
+        model.addAttribute("inSessions", p.inSession());
+        model.addAttribute("p", p);
         return modelAndView(principal, "/questions/DASS21_DS", "DASS21_DS", new DASS21_DS());
     }
 
@@ -638,9 +639,7 @@ public ModelAndView showSUDS(Principal principal) {
     @RequestMapping(value = "OA", method = RequestMethod.GET)
     public ModelAndView showOA(ModelMap model, Principal principal) {
         Participant p = getParticipant(principal);
-        boolean inSessions = !p.getStudy().getCurrentSession().getName().equals(CBMStudy.NAME.PRE.toString()) &&
-                             !p.getStudy().getCurrentSession().getName().equals(CBMStudy.NAME.POST.toString());
-        model.addAttribute("inSessions", inSessions);
+        model.addAttribute("inSessions", p.inSession());
         return modelAndView(principal, "/questions/OA", "OA", new OA());
     }
 
