@@ -90,7 +90,7 @@ li.alert {
     color: darkred;
 }
 
-#footer {background:#21336B; font-size:0.5em;}
+#footer {background:#21336B; font-size:0.6em;}
 .footer-logo { float:left;}
 
 .footer-links {float:right; list-style:none; padding:15px;}
@@ -376,7 +376,7 @@ Questionnaires
 **/
 
 table.questionnaire {
-    max-width:100%;
+    width:100%;
     font-size: 75%;
     margin: 10px auto;
 }
@@ -398,6 +398,10 @@ table.questionnaire td.statement {
     padding-bottom: 20px;
     padding-left: 5px;
 
+}
+
+table.questionnaire td:last-chifld {
+    border-left: 1px solid #ddd;
 }
 
 label {
@@ -447,6 +451,13 @@ label.radioList input[type="radio"], label.radioList input[type="checkbox"] {
     margin-right: 10px;
 }
 
+div.listNoAnswer {
+    width: 150px;
+    margin: 20px;
+    text-align: center;
+    font-size: .8em;
+}
+
 label.radioListNoAnswer {
     position: absolute;
     height: 75%;
@@ -459,6 +470,12 @@ label.radioListNoAnswer {
     text-align: center;
 }
 
+div.oneToSeven {
+    display: none;
+    font-size: .7em;
+    margin-left: 40px;
+     }
+
 label.radioList b {
     font-weight: 600;
 }
@@ -466,6 +483,11 @@ label.radioList b {
 label label.error {
     padding: 0px 10px 0px 24px;
     color: darkred;
+}
+
+input[type="number"] {
+    width: 40px;
+    margin-left: 10px;
 }
 
 div.wide {
@@ -509,6 +531,10 @@ div.option, div.optionLast {
 
 div.option, div.optionLast {
     font-weight: 400;
+}
+
+div.option input[type="radio"] {
+    margin: 0px auto;
 }
 
 div.optionLast {

@@ -114,7 +114,7 @@ public class CBMStudy implements Study {
                 tasks.add(new Task("credibility", "Credibility Assessment", Task.TYPE.questions, 1));
                 tasks.add(new Task("demographics", "Demographics", Task.TYPE.questions, 2));
                 tasks.add(new Task("MH", "Mental Health History", Task.TYPE.questions, 1));
-                tasks.add(new Task("QOL", "How satisfied you feel", Task.TYPE.questions, 2));
+                tasks.add(new Task("QOL", "Satisfaction", Task.TYPE.questions, 2));
                 tasks.add(new Task("RecognitionRatings", "Training Session", Task.TYPE.playerScript, 20));
                 tasks.add(new Task("RR", "Completing Short Stories", Task.TYPE.questions, 4));
                 tasks.add(new Task("BBSIQ", "Situations", Task.TYPE.questions, 5));
