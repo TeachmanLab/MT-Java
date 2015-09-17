@@ -392,13 +392,17 @@ table.questionnaire td {
   text-align: center;
 }
 
-table.questionnaire td.statement {
+table.questionnaire td.statement,table.questionnaire td.statementLong {
     text-align: left;
     min-width: 200px;
     padding-bottom: 20px;
     padding-left: 5px;
-
 }
+
+table.questionnaire td.statementLong {
+    min-width: 300px;
+}
+
 
 table.questionnaire td:last-chifld {
     border-left: 1px solid #ddd;
