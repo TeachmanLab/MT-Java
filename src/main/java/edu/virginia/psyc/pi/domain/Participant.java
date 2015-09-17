@@ -208,4 +208,15 @@ public class Participant {
         return false;
     }
 
+    /**
+     * Returns true if the participant is in a session, versus being in a pre-assessment or
+     * post assessment period.
+     */
+    public boolean inSession() {
+        return (!this.getStudy().getCurrentSession().getName().equals(CBMStudy.NAME.PRE.toString()) &&
+                !this.getStudy().getCurrentSession().getName().equals(CBMStudy.NAME.POST.toString()));
+    }
+
+
+
 }

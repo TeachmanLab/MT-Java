@@ -30,7 +30,7 @@
     <div class="container">
         <!--features starts-->
         <div class="row">
-            <div class="span12">
+            <div class="span12 wide">
                 <form th:action="@{/questions/RR}" method="POST">
 
                     <p>Below you will see the titles of the seven short stories you just read and four sentences about each
@@ -38,33 +38,47 @@
                         sentence for its similarity to the meaning of the original story.</p>
 
                     <p>The rating scale is as follows:</p>
-                    <table class="table table-striped table-bordered">
-                        <tr>
-                            <td>1</td>
-                            <td>very different in meaning</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>different in meaning</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>similar in meaning</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>very similar in meaning</td>
-                        </tr>
-                    </table>
+                    <div class="scale">
+                        <div class="title" align="center">SCALE</div>
+                        <label class="radioBox">
+                            <div class="option">
+                                <div class="desc1">Very different in meaning</div>
+                                <div class="desc2">1</div>
+                            </div>
+                        </label>
+                        <label class="radioBox">
+                            <div class="option">
+                                <div class="desc1">Different in meaning</div>
+                                <div class="desc2">2</div>
+                            </div>
+                        </label>
+                        <label class="radioBox">
+                            <div class="option">
+                                <div class="desc1">Similar in meaning</div>
+                                <div class="desc2">3</div>
+                            </div>
+                        </label>
+                        <label class="radioBox">
+                            <div class="optionLast">
+                                <div class="desc1">Very similar in meaning</div>
+                                <div class="desc2">4</div>
+                            </div>
+                        </label>
+                        <label class="radioBox">
+                            <div class="option">
+                                <div class="desc">Prefer not to answer</div>
+                            </div>
+                        </label>
+                    </div>
                     <div class="section">
                         <div class="question">THE YELLOW LIGHT: As you pass through the intersection...</div>
                         <table class="questionnaire">
                             <tr>
-                                <th>Question</th>
-                                <th>very different</th>
-                                <th>different</th>
-                                <th>similar</th>
-                                <th>very similar</th>
+                                <th>Question </th>
+                                <th>Very different<div class="desc2">1</div></th>
+                                <th>Different <div class="desc2">2</div></th>
+                                <th>Similar <div class="desc2">3</div></th>
+                                <th>Very similar<div class="desc2">4</div></th>
                                 <th>Prefer not to answer</th>
                             </tr>
                             <tr>
@@ -109,14 +123,13 @@
                         <div class="question">THE COFFEE POT: When you get to work...</div>
                         <table class="questionnaire">
                             <tr>
-                                <th>Question</th>
-                                <th>very different</th>
-                                <th>different</th>
-                                <th>similar</th>
-                                <th>very similar</th>
+                                <th>Question </th>
+                                <th>Very different<div class="desc2">1</div></th>
+                                <th>Different <div class="desc2">2</div></th>
+                                <th>Similar <div class="desc2">3</div></th>
+                                <th>Very similar<div class="desc2">4</div></th>
                                 <th>Prefer not to answer</th>
-                            </tr>
-                            <tr>
+                            </tr>                            <tr>
                                 <td class="statement">you decide not to worry about whether you left the coffee pot on.</td>
                                 <td><input type="radio" name="coffee1" class="form-control" value="0" required="true"/>
                                 </td>
@@ -158,14 +171,13 @@
                         <div class="question">THE ELEVATOR: As you get on the elevator...</div>
                         <table class="questionnaire">
                             <tr>
-                                <th>Question</th>
-                                <th>very different</th>
-                                <th>different</th>
-                                <th>similar</th>
-                                <th>very similar</th>
+                                <th>Question </th>
+                                <th>Very different<div class="desc2">1</div></th>
+                                <th>Different <div class="desc2">2</div></th>
+                                <th>Similar <div class="desc2">3</div></th>
+                                <th>Very similar<div class="desc2">4</div></th>
                                 <th>Prefer not to answer</th>
-                            </tr>
-                            <tr>
+                            </tr>                            <tr>
                                 <td class="statement">you think that riding the elevator will be safe.</td>
                                 <td><input type="radio" name="elevator1" class="form-control" value="0"
                                            required="true"/></td>
@@ -207,14 +219,13 @@
                         <div class="question">THE FLIGHT: As you wait for the turbulence...</div>
                         <table class="questionnaire">
                             <tr>
-                                <th>Question</th>
-                                <th>very different</th>
-                                <th>different</th>
-                                <th>similar</th>
-                                <th>very similar</th>
+                                <th>Question </th>
+                                <th>Very different<div class="desc2">1</div></th>
+                                <th>Different <div class="desc2">2</div></th>
+                                <th>Similar <div class="desc2">3</div></th>
+                                <th>Very similar<div class="desc2">4</div></th>
                                 <th>Prefer not to answer</th>
-                            </tr>
-                            <tr>
+                            </tr>                            <tr>
                                 <td class="statement">you feel anxious, and you worry you will not be able to control your anxiety.</td>
                                 <td><input type="radio" name="flight1" class="form-control" value="0" required="true"/>
                                 </td>
@@ -256,14 +267,13 @@
                         <div class="question">THE JOB: You think about not having an income for a few weeks...</div>
                         <table class="questionnaire">
                             <tr>
-                                <th>Question</th>
-                                <th>very different</th>
-                                <th>different</th>
-                                <th>similar</th>
-                                <th>very similar</th>
+                                <th>Question </th>
+                                <th>Very different<div class="desc2">1</div></th>
+                                <th>Different <div class="desc2">2</div></th>
+                                <th>Similar <div class="desc2">3</div></th>
+                                <th>Very similar<div class="desc2">4</div></th>
                                 <th>Prefer not to answer</th>
-                            </tr>
-                            <tr>
+                            </tr>                          <tr>
                                 <td class="statement">and know that you can rely on your savings.</td>
                                 <td><input type="radio" name="job1" class="form-control" value="0" required="true"/>
                                 </td>
@@ -305,14 +315,13 @@
                         <div class="question">THE LOUD NOISE: As you walk downstairs...</div>
                         <table class="questionnaire">
                             <tr>
-                                <th>Question</th>
-                                <th>very different</th>
-                                <th>different</th>
-                                <th>similar</th>
-                                <th>very similar</th>
+                                <th>Question </th>
+                                <th>Very different<div class="desc2">1</div></th>
+                                <th>Different <div class="desc2">2</div></th>
+                                <th>Similar <div class="desc2">3</div></th>
+                                <th>Very similar<div class="desc2">4</div></th>
                                 <th>Prefer not to answer</th>
-                            </tr>
-                            <tr>
+                            </tr>                         <tr>
                                 <td class="statement">you feel afraid, and worry that you cannot handle the fear.</td>
                                 <td><input type="radio" name="noise1" class="form-control" value="0" required="true"/>
                                 </td>
@@ -354,14 +363,13 @@
                         <div class="question">THE RESTAURANT: After you eat the appetizer...</div>
                         <table class="questionnaire">
                             <tr>
-                                <th>Question</th>
-                                <th>very different</th>
-                                <th>different</th>
-                                <th>similar</th>
-                                <th>very similar</th>
+                                <th>Question </th>
+                                <th>Very different<div class="desc2">1</div></th>
+                                <th>Different <div class="desc2">2</div></th>
+                                <th>Similar <div class="desc2">3</div></th>
+                                <th>Very similar<div class="desc2">4</div></th>
                                 <th>Prefer not to answer</th>
-                            </tr>
-                            <tr>
+                            </tr>                            <tr>
                                 <td class="statement">You worry that you will soon break out in hives.</td>
                                 <td><input type="radio" name="restaurant1" class="form-control" value="0"
                                            required="true"/></td>
