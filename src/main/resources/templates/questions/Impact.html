@@ -21,7 +21,7 @@
         <!--features starts-->
         <div class="row">
             <div class="span12">
-                <form  th:action="@{/questions/Impact}" method="POST">
+                <form  name="form1" th:action="@{/questions/Impact}" method="POST">
                         <div class="sectionLong">
                             <div class="question">How anxious did you feel (at the highest level of anxiety) as you completed the imagery task?</div>
                             <input style="display:none" id="checkSUDS" name="checkSUDS" type="checkbox" value="1" required="true" />
@@ -198,7 +198,7 @@
                         </label>
                     </div>
                     <div id="submit">
-                        <button>Next</button>
+                        <button onclick="check()">Next</button>
                     </div>
 
                 </form>
@@ -220,6 +220,13 @@
 
 
                             });
+                     function check(){
+                     if (document.getElementById("checkSUDS").checked != true) {
+                     alert("Please move the bar to select a number for your anxiety level in the first question.");
+                     }
+                     };
+
+
                 </script>
             </div>
         </div>

@@ -102,13 +102,16 @@
                         {
                             return false;
                         }
+
                     }).jWizard({
                         progress: false,
                         menu: false,
                         title: false,
-                        buttons.prev: null,
-                        buttons.cancel: null
-                    });
+                        buttons: {
+                            prev: false,
+                            cancel: false
+                            }
+                        });
 
 
                 </script>
