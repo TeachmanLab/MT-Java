@@ -76,7 +76,7 @@ public class Participant {
 
     private PasswordToken  passwordToken;
 
-    private CBM_CONDITION  cbmCondition;
+    public CBM_CONDITION  cbmCondition;
 
     private PRIME          prime;
 
