@@ -79,7 +79,7 @@
                     <fieldset id="step_four">
                         <legend>Step 4 - Things you would think or feel</legend>
                         <p>
-                            Please play this upcoming situation in your head for the next 20 seconds, remembering all of the things you see, hear, think, and feel. We will tell you when the 20 seconds are up.
+                            Please play this upcoming situation in your head. We will tell you when the 20 seconds are up.
                         </p>
                     </fieldset>
                 </form>
@@ -102,11 +102,18 @@
                         {
                             return false;
                         }
+
                     }).jWizard({
                         progress: false,
                         menu: false,
-                        title: false
-                    });
+                        title: false,
+                        buttons: {
+                            prev: false,
+                            cancel: false
+                            }
+                        });
+
+
                 </script>
             </div>
         </div>
