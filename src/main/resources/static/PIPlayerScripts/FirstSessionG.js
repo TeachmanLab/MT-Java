@@ -256,7 +256,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     {type:'hideStim', handle:'yesno'},
                     {type:'showStim',handle:'error'},
                     {type:'showStim',handle:'stall'},
-                    {type:'setInput',input:{handle:'endTrial',on:'timeout',duration:5000}},
+                    {type:'setInput',input:{handle:'delay',on:'timeout',duration:5000}},
                     {type:'setTrialAttr',setter:{correctOnQuestion:"false"}},
                     {type:'setInput',input:{handle:'clear', on:'timeout',duration:500}},
                 ]
