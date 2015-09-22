@@ -392,6 +392,7 @@ table.questionnaire td {
   text-align: center;
 }
 
+
 table.questionnaire td.statement,table.questionnaire td.statementLong {
     text-align: left;
     min-width: 200px;
@@ -537,8 +538,11 @@ div.option, div.optionLast {
     font-weight: 400;
 }
 
-div.option input[type="radio"] {
-    margin: 0px auto;
+input[type="radio"] {
+    margin: 10px auto;
+    width: auto;
+    height: auto;
+    border: none;
 }
 
 div.optionLast {
