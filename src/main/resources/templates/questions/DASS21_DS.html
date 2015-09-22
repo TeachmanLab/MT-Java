@@ -26,7 +26,7 @@
 <!-- content starts
 ================================================== -->
 <section id="content" class="clearfix">
-    <div class="container">
+    <div class="container" th:with="pastX=${inSessions} ? 'since your last MindTrails session' : 'in the past week'">
 
         <!--spacer here-->
         <div class="spacer-30px"></div>
@@ -34,7 +34,9 @@
         <!--features starts-->
         <div class="row">
             <div class="span12 wide">
-                <p>Please read each statement and select a number that indicates how much the statement applied to you since your last session (or over the past week if your last session was more than a week ago). There are no right or wrong answers.  Do not spend too much time on any statement.</p>
+                <p>Please read each statement and select a number that indicates how much the statement applied to you
+                    <span th:text="${pastX}"/>. There are no right or wrong answers.  Do not spend too much time on any
+                    statement.</p>
                 <form th:action="@{/questions/DASS21_DS}" method="POST">
                         <!--TODO CHANGE INSTRUCTIONS BASED ON INITIAL OR DURING TRAINING-->
                         <div class="scale">

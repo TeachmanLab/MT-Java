@@ -49,31 +49,30 @@
                                 <td><div  style="padding:0; margin:0; border-right: solid 2px #bbb; width: 550px ">
                                     <ul style="list-style-type: none;">
 
-                                        <li><input id="Q1.1" onchange="lock(id)" type="checkbox" name="changes" value="therapy_more">I seek in-person therapy more now</input></li>
-                                        <li><input id="Q1.2" onchange="lock(id)" type="checkbox" name="changes" value="therapy_less">I seek in-person therapy less now</input></li>
-                                        <li><input id="Q2.1" onchange="lock(id)" type="checkbox" name="changes" value="med_more">I use prescription medication more now</input></li>
-                                        <li><input id="Q2.2" onchange="lock(id)" type="checkbox" name="changes" value="med_less">I use prescription medication less now</input></li>
-                                        <li><input id="Q3.1" onchange="lock(id)" type="checkbox" name="changes" value="online_more">I use online computer programs (other than MindTrails) or mobile apps more now</input></li>
-                                        <li><input id="Q3.2" onchange="lock(id)" type="checkbox" name="changes" value="online_less">I use online computer programs (other than MindTrails) or mobile apps less now</input></li>
+                                        <li><input id="Q1.1" class="mainboxes" onchange="lock(id)" type="checkbox" name="changes" value="therapy_more">I seek in-person therapy more now</input></li>
+                                        <li><input id="Q1.2" class="mainboxes" onchange="lock(id)" type="checkbox" name="changes" value="therapy_less">I seek in-person therapy less now</input></li>
+                                        <li><input id="Q2.1" class="mainboxes" onchange="lock(id)" type="checkbox" name="changes" value="med_more">I use prescription medication more now</input></li>
+                                        <li><input id="Q2.2" class="mainboxes" onchange="lock(id)" type="checkbox" name="changes" value="med_less">I use prescription medication less now</input></li>
+                                        <li><input id="Q3.1" class="mainboxes" onchange="lock(id)" type="checkbox" name="changes" value="online_more">I use online computer programs (other than MindTrails) or mobile apps more now</input></li>
+                                        <li><input id="Q3.2" class="mainboxes" onchange="lock(id)" type="checkbox" name="changes" value="online_less">I use online computer programs (other than MindTrails) or mobile apps less now</input></li>
                                         <br />
-                                        <li><input type="checkbox" name="changes" value="Other">Other</input>  (Please specify)<input type="text" name="OtherDesc" /></li>
+                                        <li><input type="checkbox"  class="mainboxes" name="changes" value="Other">Other</input>  (Please specify)<input type="text" name="OtherDesc" /></li>
                                     </ul>
                                 </div>
                                 </td>
                                 <td>
                                     <div style="width:150px; text-align:center">
                                         <p>No Change</p>
-                                        <input type="checkbox" name="changes" value="NoChange" />
+                                        <input id="nochange" onchange="noChange(this)" type="checkbox" name="changes" value="NoChange" />
                                     </div>
                                 </td>
                             </table>
                         </div>
                     </div>
-
-                    <button type="submit" >Continue</button>
+                    <div style="text-align:center">
+                    <button type="submit" >Next</button>
+                    </div>
                 </form>
-                <script src="http://cdn.jsdelivr.net/jquery.validation/1.14.0/jquery.validate.min.js">
-                </script>
             </div>
         </div>
         <!--features ends-->
@@ -99,25 +98,34 @@
 
 <script type="text/javascript">
 
+    function lock(id) {
 
+        if (id.charAt(id.length - 1) == "1") {
+            var id_pair = id.substring(0, 2) + ".2";
+        }
+        else {
+            var id_pair = id.substring(0, 2) + ".1";
+        }
+        var checkbox1 = document.getElementById(id);
+        var checkbox2 = document.getElementById(id_pair);
+        if (checkbox1.checked) {
+            checkbox2.disabled = "disabled";
+        }
+        else {
+            checkbox2.disabled = "";
+        }
+    }
 
-     function lock(id) {
-     if (id.charAt(id.length() - 1) == "1") {
-     var id_pair=id.substring(0,2) + "2";
-     }
-     else {
-          var id_pair=id.substring(0,2) + "1";
-     };
-     if (document.getElementById(id).checked) {
-     document.getElementById(id_pair).disabled = true;
-     }
-     else {
-     document.getElementById(id_pair).disabled = false;
-     };
-     };
+    function noChange() {
+        if ($("#nochange")[0].checked) {
+            $(".mainboxes").attr('checked', false);
+            $(".mainboxes").attr('disabled', true);
+        } else {
+            $(".mainboxes").attr('disabled', false);
+        }
+    }
 
 </script>
-
 
 
 </body>

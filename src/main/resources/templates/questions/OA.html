@@ -19,13 +19,13 @@
         <div class="row">
             <div class="col-md-12">
                 <form th:action="@{/questions/OA}" method="POST">
-                    <h2>Review</h2>
+                    <h2>Impact of Anxiety</h2>
                     <p>Please read each statement below and select an option that indicates how much the statement
                     applied to you <i><span th:text="${pastX}"/></i>.</p>
                     <div class="section">
                         <div class="question">1. <span th:text="${pastX}"/>, how often have you felt anxious?</div>
                         <label class="radioListNoAnswer">Prefer not to answer<br/><input type="radio" name="anxious_freq" value="555" required="true"/></label>
-                        <label class="radioList"><input type="radio" name="anxious_freq" value="0" required="true"/><b>No anxiety</b> in the past week.</label>
+                        <label class="radioList"><input type="radio" name="anxious_freq" value="0" required="true"/><b>No anxiety.</b></label>
                         <label class="radioList"><input type="radio" name="anxious_freq" value="1" required="true"/><b>Infrequent anxiety.</b> Felt anxious a few times.</label>
                         <label class="radioList"><input type="radio" name="anxious_freq" value="2" required="true"/><b>Occasional anxiety.</b> Felt anxious as much of the time as not. It was hard to relax.</label>
                         <label class="radioList"><input type="radio" name="anxious_freq" value="3" required="true"/><b>Frequent anxiety.</b> Felt anxious most of the time. It was very difficult to relax.</label>
@@ -46,7 +46,7 @@
                         <label class="radioList"><input type="radio" name="avoid" value="0" required="true"/><b>None.</b> I do not avoid places, situations, activities, or things because of fear.</label>
                         <label class="radioList"><input type="radio" name="avoid" value="1" required="true"/><b>Infrequent.</b> I avoid something once in a while, but will usually face the situation or confront the object. My lifestyle is not affected.</label>
                         <label class="radioList"><input type="radio" name="avoid" value="2" required="true"/><b>Occasional.</b> I have some fear of certain situations, places, or objects, but it is still manageable. My lifestyle has only changed in minor ways. I always or almost always avoid the things I fear when I’m alone, but can handle them if someone comes with me.</label>
-                        <label class="radioList"><input type="radio" name="avoid" value="3" required="true"/><b>Frequent.</b> I have considerable fear and really try to avoid the things that frighten me. I have made significant changes in my life style to avoid the object, situation, activity, or place.</label>
+                        <label class="radioList"><input type="radio" name="avoid" value="3" required="true"/><b>Frequent.</b> I have considerable fear and really try to avoid the things that frighten me. I have made significant changes in my lifestyle to avoid the object, situation, activity, or place.</label>
                         <label class="radioList"><input type="radio" name="avoid" value="4" required="true"/><b>All the Time.</b> Avoiding objects, situations, activities, or places has taken over my life. My lifestyle has been extensively affected and I no longer do things that I used to enjoy.</label>
                     </div>
                     <div class="section">

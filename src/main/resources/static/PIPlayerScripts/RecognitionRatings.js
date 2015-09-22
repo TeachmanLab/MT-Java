@@ -4,16 +4,82 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
     var API = new APIConstructor();
     var scorer = new Scorer();
 
-	var scorer =
-	{
-		count : 1
-	};
+    var scorer =
+    {
+        count : 1
+    };
 
-	function increase_count(){
-		scorer.count = scorer.count+1;
-		return scorer.count;
-	}
+    function increase_count(){
+        scorer.count = scorer.count+1;
+        return scorer.count;
+    }
 
+    /**
+     * Returns the missing letters
+     * @param trial
+     * @returns a string containing the missing letters, based on if this is a positive or negative word.
+     */
+    function missing_letters(trial) {
+        p = jQuery.grep(trial._stimulus_collection.models, function(e, i) {return e.attributes.handle == "paragraph"})[0]
+        if(trial.data.positive) {
+            return (p.attributes.data.positiveKey);
+        } else {
+            return(p.attributes.data.negativeKey);
+        }
+    }
+
+    /**
+     * Returns true if missing letters start with the letters typed so far.
+     * @param trial
+     * @param inputData
+     * @returns {*}
+     */
+    function correct_letters(trial,inputData) {
+        if(!API.getGlobal().lettersTyped) API.addGlobal({lettersTyped:""});
+        if(inputData.handle.length  > 1) return false;
+        var lettersTyped = API.getGlobal().lettersTyped + inputData.handle;
+        return missing_letters(trial).startsWith(lettersTyped);
+    }
+
+    /**
+     * Returns true if the number of letters entered meets or exceeds the letters expected.
+     * @param trial
+     * @param inputData
+     */
+    function correct_length(trial, inputData) {
+        if(!API.getGlobal().lettersTyped) API.addGlobal({lettersTyped:""});
+        var lettersTyped = API.getGlobal().lettersTyped + inputData.handle;
+        return lettersTyped.length >= missing_letters(trial).length
+    }
+
+
+    /**
+     * Java ME, Java Swing (thick client app, talking to robots )
+     * Search discovery / analytics ?  dash board, visualization ... rate + $40 an hour
+     * Give them regular price + $20/hour
+     * @param inputData
+     * @returns {boolean}
+     */
+
+    //** A custom condition, which returns true if the users entered a correct first letter
+    // in a missing phrase, and false otherwise.
+    function correct_all_letters(inputData) {
+        // Set the missing letters to an empty string if it is undefined.
+        if(!API.getGlobal().lettersTyped) API.addGlobal({lettersTyped:""});
+
+        // If a single letter is typed, add it to the string containing users input
+        if(inputData.handle.length == 1) {
+            API.getGlobal().lettersTyped = API.getGlobal().lettersTyped + inputData.handle
+        }
+
+        // If the guess is too long, show an x, and let the user restart.
+        if(inputData.length > 2) {
+            API.getGlobal().lettersTyped = "";
+        }
+        current_trial = require('./app/trial/current_trial');
+        c = current_trial()._stimulus_collection.whereData({"positiveKey":API.getGlobal().lettersTyped});
+        return(c.length > 0);
+    }
 
 //    This was added to redirect back
     API.addSettings('redirect', "../playerScript/completed/int_train");
@@ -28,6 +94,14 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 var mediaList = this._stimulus_collection.get_medialist();
                 var global = API.getGlobal();
 
+                /*
+                 p = jQuery.grep(trial._stimulus_collection.models, function(e, i) {return e.attributes.handle == "paragraph"})[0]
+                 if(trial.data.positive) {
+                 return (p.attributes.data.positiveKey);
+                 } else {
+                 return(p.attributes.data.negativeKey);
+                 }
+                 */
                 return {
                     log_serial : logStack.length,
                     trial_id: this._id,
@@ -55,7 +129,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {
                 'handle': 'counter',
                 customize: function () {
-                    this.media = scorer.count + ' of 50';
+                    this.media = scorer.count + ' of 7';
                 },
                 css: {fontSize: '12px', 'text-align': 'center'},
                 location:{bottom:'200px'}
@@ -99,18 +173,57 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {
                 conditions: [{type:'begin'}],
                 actions: [
-                    {type:'showStim', handle: 'counter'},
                     {type:'showStim',handle:'paragraph'},
+                    {type:'showStim', handle: 'counter'},
                     {type:'setGlobalAttr',setter:{askingQuestion:false}},
-                    {type:'setTrialAttr',setter:{correctOnLetter:"true"}}  // set to true - will get set to false later if incorrectly answered.
+                    {type:'setTrialAttr',setter:{correctOnLetter:"true"}},  // set to true - will get set to false later if incorrectly answered.
+                    {type:'custom',fn:function(options,eventData) {API.addGlobal({"original":$("span.incomplete").text()})}}]
+            },
 
+            {// The letters entered are incorrect
+                conditions: [
+                    {type:'globalEquals', property:'askingQuestion', value:false},
+                    {type:'inputEquals',value:'askQuestion', negate: true},
+                    {type:'inputEquals',value:'correct', negate: true},
+                    {type:'function',value:function(trial,inputData){ return !correct_letters(trial, inputData) }}
+                ],
+                actions: [
+                    {type:'custom',fn:function(options,eventData){
+                        API.getGlobal().lettersTyped = "";
+                        var span = $("span.incomplete");
+                        span.text(API.getGlobal().original);
+                    }},
+                    {type:'showStim',handle:'error'},
+                    {type:'setTrialAttr',setter:{correctOnLetter:"false"}},
+                    {type:'setInput',input:{handle:'clear', on:'timeout',duration:500}}
                 ]
             },
-            { // Watch for correct answer for a positive missing letter.
+            {// The letters are correct so far...
                 conditions: [
-                    {type:'inputEqualsStim', property:'positiveKey'},
-                    {type:'trialEquals', property:'positive', value:true},
-                    {type:'globalEquals', property:'askingQuestion', value:false}],
+                    {type:'globalEquals', property:'askingQuestion', value:false},
+                    {type:'function',value:function(trial,inputData){ return !correct_length(trial, inputData) }},
+                    {type:'function',value:function(trial,inputData){ return correct_letters(trial, inputData) }}
+                ],
+                actions: [
+                    {type:'custom',fn:function(options,eventData){
+                        API.getGlobal().lettersTyped = API.getGlobal().lettersTyped + eventData.handle;
+                        var span = $("span.incomplete");
+                        var text = span.text().replace(' ', eventData["handle"]);
+                        span.text(text);
+                    }},
+                    {type:'setTrialAttr',setter:function(trialData, eventData){
+                        if(trialData.first_letter_latency == null) {
+                            trialData.first_letter_latency = Math.floor(eventData.latency);
+                        }
+                    }}
+                ]
+            },
+            {// All the letters are entered correctly
+                conditions: [
+                    {type:'globalEquals', property:'askingQuestion', value:false},
+                    {type:'function',value:function(trial,inputData){ return correct_length(trial, inputData) }},
+                    {type:'function',value:function(trial,inputData){ return correct_letters(trial, inputData) }}
+                ],
                 actions: [
                     {type:'custom',fn:function(options,eventData){
                         var span = $("span.incomplete");
@@ -120,25 +233,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     {type:'trigger',handle : 'correct'}
                 ]
             },
-            { // Display a red X on incorrect input for positive responses.
-                conditions: [
-                    {type:'inputEqualsStim', property:'positiveKey', negate:'true'},
-                    {type:'trialEquals', property:'positive', value:true},
-                    {type:'inputEquals',value:'correct', negate:'true'},
-                    {type:'globalEquals', property:'askingQuestion', value:false},
-                    {type:'inputEquals',value:'askQuestion', negate:'true'}
-                ],
-                actions: [
-                    {type:'setTrialAttr',setter:function(trialData, eventData){
-                        if(trialData.first_letter_latency == null) {
-                            trialData.first_letter_latency = Math.floor(eventData.latency);
-                        }
-                    }},
-                    {type:'showStim',handle:'error'},
-                    {type:'setTrialAttr',setter:{correctOnLetter:"false"}},
-                    {type:'setInput',input:{handle:'clear', on:'timeout',duration:500}}
-                ]
-            },
+
             {
                 // Trigger when the correct response is provided, as there are two interactions
                 // that can cause this, I've separated it out into it's own section rather than
@@ -147,6 +242,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 actions: [
                     // Preserve the question as completed, so that it will eventually be set back to the server.
                     {type:'setTrialAttr',setter:function(trialData, eventData){
+                        trialData.word = $("span.incomplete").text();
                         trialData.paragraph = $("div[data-handle='paragraph']").text();
                         trialData.letter_latency  = Math.floor(eventData.latency);
                         if(trialData.first_letter_latency == null) {
@@ -171,20 +267,33 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     {type:'setGlobalAttr',setter:{askingQuestion:true}}
                 ]
             },
-            // Listen for a correct response to a question
+            // Listen for a correct response to a positive question
             {
                 conditions: [{type:'inputEqualsStim', property:'positiveAnswer'},
                     {type:'trialEquals', property:'positive', value:true},
                     {type:'globalEquals', property:'askingQuestion', value:true}
                 ],
                 actions: [
-                    {type:'hideStim', handle: 'counter'},
                     {type:'hideStim',handle : 'question'},
                     {type:'hideStim',handle:'yesno'},
+                    {type:'hideStim', handle: 'counter'},
                     {type:'trigger',handle : 'answered', duration:500}
                 ]
             },
-            // Listen for an incorrect response to a question, this should work, but doesn't.
+            // Listen for a correct response to a negative question
+            {
+                conditions: [{type:'inputEqualsStim', property:'negativeAnswer'},
+                    {type:'trialEquals', property:'positive', value:false},
+                    {type:'globalEquals', property:'askingQuestion', value:true}
+                ],
+                actions: [
+                    {type:'hideStim',handle : 'question'},
+                    {type:'hideStim',handle:'yesno'},
+                    {type:'hideStim', handle: 'counter'},
+                    {type:'trigger',handle : 'answered', duration:500}
+                ]
+            },
+            // Listen for an incorrect response to a positive question
             {
                 conditions: [{type:'inputEqualsStim', property:'positiveAnswer'},
                     {type:'trialEquals', property:'positive', value:false},
@@ -197,7 +306,23 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                         }
                     }},
                     {type:'setTrialAttr',setter:{correctOnQuestion:"false"}},
-                    {type:'custom',fn:function(){ console.log("please make the pain go away.")}},
+                    {type:'showStim',handle:'error'},
+                    {type:'setInput',input:{handle:'clear', on:'timeout',duration:500}}
+                ]
+            },
+            // Listen for a incorrect response to a negative question
+            {
+                conditions: [{type:'inputEqualsStim', property:'negativeAnswer'},
+                    {type:'trialEquals', property:'positive', value:true},
+                    {type:'globalEquals', property:'askingQuestion', value:true}
+                ],
+                actions: [
+                    {type:'setTrialAttr',setter:function(trialData, eventData){
+                        if(trialData.first_question_latency == null) {
+                            trialData.first_question_latency = Math.floor(eventData.latency);
+                        }
+                    }},
+                    {type:'setTrialAttr',setter:{correctOnQuestion:"false"}},
                     {type:'showStim',handle:'error'},
                     {type:'setInput',input:{handle:'clear', on:'timeout',duration:500}}
                 ]
@@ -241,7 +366,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
 
     }]);
 
-
     API.addTrialSets('all',[
                     { inherit:'base', data: {positive:true}}
                             ]);
@@ -271,20 +395,148 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             ]
         },
         {
-            mixer: 'random',
-            //n: 50,  // The total number of randomly selected trials to run.
-            data: [
+            "inherit": {
+                "set": "all",
+                "type": "random"
+            },
+            "stimuli": [
+                {"inherit": {"set": "error"}},
+                {
+                    "data": {
+                        "positiveKey": "a",
+                        "positiveWord": "s[ ]fety.",
+                        "statement": " THE ELEVATOR: You are in the lobby of your friend’s new apartment building and press the button to the elevator to go up. The building looks old, and as you get on the elevator, your think about its "
+                    },
+                    "handle": "paragraph",
+                    "media": {
+                        "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    }
+                },
+                {
+                    "handle": "question",
+                    data: {
+                        positiveAnswer:"y",
+                        negativeAnswer:"n"
+                    },
+                    "media": {
+                        "inlineTemplate": "<div>Did you think about the elevator’s safety?</div>"
+                    }
+                },
+                {"inherit": {"set": "yesno"}},
+                {"inherit": {"set": "counter"}}
+
+            ]
+        },
+// NEXT
+        {
+            "inherit": {
+                "set": "all",
+                "type": "random"
+            },
+            "stimuli": [
+                {"inherit": {"set": "error"}},
+                {
+                    "data": {
+                        "positiveKey": "o",
+                        "positiveWord": "[ ]n.",
+                        "statement": "  THE COFFEE POT: You are running late on your way to work. In the car, you realize that you forgot to check if you turned off the coffee pot. When you get to work, you think about what would happen if you did leave the coffee pot "
+                    },
+                    "handle": "paragraph",
+                    "media": {
+                        "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    }
+                },
+                {
+                    "handle": "question",
+                    data: {
+                        positiveAnswer:"y",
+                        negativeAnswer:"n"
+                    },
+                    "media": {
+                        "inlineTemplate": "<div>Are you thinking about the coffee pot when you arrive to work?</div>"
+                    }
+                },
+                {"inherit": {"set": "yesno"}},
+                {"inherit": {"set": "counter"}}
+
+            ]
+        },
+// NEXT
+        {
+            "inherit": {
+                "set": "all",
+                "type": "random"
+            },
+            "stimuli": [
+                {"inherit": {"set": "error"}},
+                {
+                    "data": {
+                        "positiveKey": "a",
+                        "positiveWord": "fin[ ]nces.",
+                        "statement": " THE JOB: You are currently working as a contractor for a company. Once this job is finished, you will be without employment until you can find your next job. You think about not having an income for a few weeks and about your future "
+                    },
+                    "handle": "paragraph",
+                    "media": {
+                        "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    }
+                },
+                {
+                    "handle": "question",
+                    data: {
+                        positiveAnswer:"y",
+                        negativeAnswer:"n"
+                    },
+                    "media": {
+                        "inlineTemplate": "<div>Will you be without an income soon?</div>"
+                    }
+                },
+                {"inherit": {"set": "yesno"}},
+                {"inherit": {"set": "counter"}}
+
+            ]
+        },
+// NEXT
+        {
+            "inherit": {
+                "set": "all",
+                "type": "random"
+            },
+            "stimuli": [
+                {"inherit": {"set": "error"}},
+                {
+                    "data": {
+                        "positiveKey": "t",
+                        "positiveWord": "downs[ ]airs.",
+                        "statement": "  THE LOUD NOISE: You are woken up in the middle of the night by a loud noise. You are not sure what caused the noise and leave your bedroom to see what happened. You walk "
+                    },
+                    "handle": "paragraph",
+                    "media": {
+                        "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    }
+                },
+                {
+                    "handle": "question",
+                    data: {
+                        positiveAnswer:"y",
+                        negativeAnswer:"n"
+                    },
+                    "media": {
+                        "inlineTemplate": "<div>Have you been woken up in the middle of the night?</div>"
+                    }
+                },
+                {"inherit": {"set": "yesno"}},
+                {"inherit": {"set": "counter"}}
+
+            ]
+        },
+// NEXT
         {
         "inherit": {
             "set": "all",
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "positiveKey": "i",
@@ -299,22 +551,16 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {
                 "handle": "question",
                 data: {
-                	positiveAnswer:"n"
+                    positiveAnswer: "n",
+                    negativeAnswer: "y"
                 },
                 "media": {
                     "inlineTemplate": "<div>As you passed through the intersection, were you thinking about your friend?</div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
+
         ]
     },
 // NEXT
@@ -324,99 +570,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "data": {
-                    "positiveKey": "o",
-                    "positiveWord": "[ ]n.",
-                    "statement": "  THE COFFEE POT: You are running late on your way to work. In the car, you realize that you forgot to check if you turned off the coffee pot. When you get to work, you think about what would happen if you did leave the coffee pot "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "handle": "question",
-                data: {
-                	positiveAnswer:"y"
-                },
-                "media": {
-                    "inlineTemplate": "<div>Are you thinking about the coffee pot when you arrive to work?</div>"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
-        ]
-    },
-// NEXT
-        {
-        "inherit": {
-            "set": "all",
-            "type": "random"
-        },
-        "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "data": {
-                    "positiveKey": "a",
-                    "positiveWord": "s[ ]fety.",
-                    "statement": " THE ELEVATOR: You are in the lobby of your friend’s new apartment building and press the button to the elevator to go up. The building looks old, and as you get on the elevator, your think about its "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "handle": "question",
-                data: {
-                	positiveAnswer:"y"
-                },
-                "media": {
-                    "inlineTemplate": "<div>Did you think about the elevator’s safety?</div>"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
-        ]
-    },
-// NEXT
-        {
-        "inherit": {
-            "set": "all",
-            "type": "random"
-        },
-        "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "positiveKey": "x",
@@ -431,22 +585,16 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {
                 "handle": "question",
                 data: {
-                	positiveAnswer:"y"
+                	positiveAnswer:"y",
+                    negativeAnswer:"n"
                 },
                 "media": {
                     "inlineTemplate": "<div>Are you going on vacation?</div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
+
         ]
     },
 // NEXT
@@ -456,99 +604,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             "type": "random"
         },
         "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "data": {
-                    "positiveKey": "a",
-                    "positiveWord": "fin[ ]nces.",
-                    "statement": " THE JOB: You are currently working as a contractor for a company. Once this job is finished, you will be without employment until you can find your next job. You think about not having an income for a few weeks and about your future "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "handle": "question",
-                data: {
-                	positiveAnswer:"y"
-                },
-                "media": {
-                    "inlineTemplate": "<div>Will you be without an income soon?</div>"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
-        ]
-    },
-// NEXT
-        {
-        "inherit": {
-            "set": "all",
-            "type": "random"
-        },
-        "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "data": {
-                    "positiveKey": "t",
-                    "positiveWord": "downs[ ]airs.",
-                    "statement": "  THE LOUD NOISE: You are woken up in the middle of the night by a loud noise. You are not sure what caused the noise and leave your bedroom to see what happened. You walk "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "handle": "question",
-                data: {
-                	positiveAnswer:"y"
-                },
-                "media": {
-                    "inlineTemplate": "<div>Have you been woken up in the middle of the night?</div>"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
-        ]
-    },
-// NEXT
-        {
-        "inherit": {
-            "set": "all",
-            "type": "random"
-        },
-        "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
+            {"inherit": {"set": "error"}},
             {
                 "data": {
                     "positiveKey": "e",
@@ -563,27 +619,18 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {
                 "handle": "question",
                 data: {
-                	positiveAnswer:"n"
+                	positiveAnswer:"n",
+                    negativeAnswer:"y"
                 },
                 "media": {
                     "inlineTemplate": "<div>Are you at dinner with your family?</div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}
+
         ]
     }
-   ]
-   }
-
 ]);
     return API.script;
 });

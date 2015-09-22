@@ -17,7 +17,8 @@
         <h1>Overview for <span th:text="${participant.fullName}"/></h1>
 
         <p>This shows your progress through the MindTrails program. You must wait a minimum of 24 hours between
-            training sessions. We encourage you to begin a new session 3-4 days after completing the previous session.”</p>
+            training sessions. We encourage you to begin a new session 3-4 days after completing the previous session.
+            When you're done reviewing, head back to <a th:href="@{/session}">home</a> to start your next session.</p>
 
         <div class="sessionGrouping" th:each="session,iterStat : ${study.sessions}">
         <img class="sessionMarker" th:src="|/images/marker-${iterStat.index}-${participant.theme}.png|"/>
@@ -26,7 +27,7 @@
         <div class="sessionOverview">
             <h3 th:text="${session.displayName}">Session Title</h3>
             <table>
-                <tr th:each="task : ${session.tasks}">
+                <tr th:each="task : ${session.tasks}" th:if="${task.duration} > 0">
                     <td th:text="${task.displayName}">Session Title</td>
                     <td th:if="${task.dateCompleted}"><img th:src="|/images/check-${participant.theme}.png|"/>
                         <span class="date" th:text="${#calendars.format(task.dateCompleted,'MMM d, YYYY')}">10/05/2015</span>
@@ -37,6 +38,8 @@
         </div>
             <p class="allow2days" th:if="${session.name != 'POST'}"> Allow 3 to 4 days between each session.</p>
         </div>
+        <br/>
+        <p>Head back <a th:href="@{/session}">home</a>.</p>
     </div>
     <br/>
     <br/>
