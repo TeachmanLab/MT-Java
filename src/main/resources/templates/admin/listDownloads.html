@@ -22,40 +22,44 @@
         <div class="spacer-30px"></div>
 
         <h1>Questionnaire Downloads</h1>
-        <p>Here is a list of all questionnaires, click a link to download a spreadsheet of all data from a questionnaire: </p>
+        <p>Here is a list of all questionnaires, in order of appearance. Click a link to download a spreadsheet of all data from a questionnaire: </p>
         <ul>
-            <li><a th:href="@{'/questions/DASS21_AS/export'}">DASS-21 AS</a></li>
-            <li><a th:href="@{'/questions/DASS21_DS/export'}">DASS-21 DS</a></li>
-            <li><a th:href="@{'/questions/credibility/export'}">Credibility Scale</a></li>
-            <li><a th:href="@{'/questions/ReRu/export'}">Readiness Rulers</a></li>
-            <li><a th:href="@{'/questions/MH/export'}">Mental Health and Treatment History</a></li>
-            <li><a th:href="@{'/questions/SA/export'}">State Anxiety</a></li>
-            <li><a th:href="@{'/questions/SAPo/export'}">State Anxiety (Post)</a></li>
-            <li><a th:href="@{'/questions/QOL/export'}">Quality of Life Scale</a></li>
-            <li><a th:href="@{'/questions/DASS21_DS/export'}">Symptom Measures</a></li>
-            <li><a th:href="@{'/questions/AIP/export'}">Anxious Imagery Prime</a></li>
-            <li><a th:href="@{'/questions/impact/export'}">Impact Anxious Imagery Prime</a></li>
-            <li><a th:href="@{'/questions/NIP/export'}">Neutral Imagery Prime</a></li>
-            <li><a th:href="@{'/questions/MUE/export'}">Multi User Experience</a></li>
-            <li><a th:href="@{'/questions/audit/export'}">Audit</a></li>
-            <li><a th:href="@{'/questions/FU/export'}">Followup</a></li>
-            <li><a th:href="@{'/questions/PUE/export'}">Pilot User Experience</a></li>
+            <li><a th:href="@{'/questions/DASS21_AS/export'}">DASS-21 AS</a> (Eligibility)</li>
+            <li><a th:href="@{'/questions/credibility/export'}">Credibility Assessment</a></li>
             <li><a th:href="@{'/questions/demographics/export'}">Demographics</a></li>
-            <li><a th:href="@{'/questions/RR/export'}">Interpretation bias measure 1 (Recognition Ratings)</a></li>
-            <li><a th:href="@{'/questions/BBSIQ/export'}">Interpretation bias measure 2 (BBSIQ)</a></li>
-            <li><a th:href="@{'/questions/CC/export'}">Compare and Contrast Items</a></li>
-            <li><a th:href="@{'/questions/OA/export'}">OASIS</a></li>
+            <li><a th:href="@{'/questions/MH/export'}">Mental Health History</a></li>
+            <li><a th:href="@{'/questions/QOL/export'}">Quality of Life Scale</a>(Satisfaction)</li>
+            <li><a th:href="@{'/questions/RR/export'}">Interpretation bias measure 1</a> (Recognition Ratings)</li>
+            <li><a th:href="@{'/questions/BBSIQ/export'}">Interpretation bias measure 2</a> (BBSIQ / Situtations)</li>
+            <li><a th:href="@{'/questions/DASS21_DS/export'}">DASS-21 DS</a>(Mood Assessment)</li>
             <li><a th:href="@{'/questions/DD/export'}">Daily Drinking</a></li>
             <li><a th:href="@{'/questions/DD_FU/export'}">Daily Drinking Follow Up</a></li>
-            <li><a th:href="@{'/questions/AnxietyTriggers/export'}">Establishing Caseness &amp; Anxiety Triggers</a></li>
-            <li><a th:href="@{'/questions/ReasonsForEnding/export'}">Reasons for Ending</a></li>
+            <li><a th:href="@{'/questions/OA/export'}">OASIS</a> (Anxiety Review)</li>
+            <li><a th:href="@{'/questions/AnxietyTriggers/export'}">Anxiety Triggers</a></li>
+            <li><a th:href="@{'/questions/SUDS/export'}">SUDS</a> (includes pre and post)</li>
+            <li><a th:href="@{'/questions/ImageryPrime/export'}">Imagery Prime</a> (includes anxious and neutral)</li>
+            <li><a th:href="@{'/questions/Impact/export'}">Impact Questions</a></li>
+            <li><a th:href="@{'/questions/CC/export'}">Compare and Contrast Items</a></li>
+            <li><a th:href="@{'/questions/CIHS/export'}">Change in Help Seeking</a></li>
+            <li><a th:href="@{'/questions/MUE/export'}">Multi User Experience</a></li>
+            <li><a th:href="@{'/questions/ReasonsForEnding/export'}">Reasons for Ending</a> (form available from a link in 18 day email)</li>
         </ul>
+
         <!--divider here-->
         <div class="spacer-40px"></div>
         <h1>PIPlayer Download</h1>
         <p>All PIPlayer data is stored in one large table. <a th:href="@{'/admin/playerData'}">Download PIPlayer Data.</a> </p>
 
-
+        <h1>Questionnaires no longer in use</h1>
+        <ul>
+            <li><a th:href="@{'/questions/SA/export'}">State Anxiety</a></li>
+            <li><a th:href="@{'/questions/SAPo/export'}">State Anxiety (Post)</a></li>
+            <li><a th:href="@{'/questions/audit/export'}">Audit</a></li>
+            <li><a th:href="@{'/questions/FU/export'}">Followup</a></li>
+            <li><a th:href="@{'/questions/PUE/export'}">Pilot User Experience</a></li>
+            <li><a th:href="@{'/questions/ReRu/export'}">Reducing Anxiety</a></li>
+            <li><a th:href="@{'/questions/Vivid/export'}">Vividness</a></li>
+        </ul>
         <!--spacer here-->
         <div class="spacer-30px"></div>
 
