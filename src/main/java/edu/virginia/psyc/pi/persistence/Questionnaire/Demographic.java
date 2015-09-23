@@ -38,4 +38,5 @@ public class Demographic implements QuestionnaireData {
     private String maritalStatus;
     private String employmentStatus;
     private String income;
+    private String participateReason;
 }

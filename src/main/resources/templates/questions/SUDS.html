@@ -24,6 +24,7 @@
                     <div class="page-title">How anxious do you feel?</div>
                     <div class="longSection">
                         <div class="question">How anxious do you feel right now, that is, at the present moment?</div>
+                        <input style="display:none" id="checkSUDS" name="checkSUDS" type="checkbox" value="1" required="true" />
                         <input style="display:none" id="anxiety" type="text" name="anxiety" required="true"/>
 
                         <div id="slider" >
@@ -33,7 +34,7 @@
                         </div>
                     </div>
                     <div class="submit">
-                        <button type="submit">Next</button>
+                        <button type="submit" onclick="check()">Next</button>
                     </div>
                 </form>
                 <script th:inline="javascript">
@@ -45,13 +46,18 @@
                              min: 0,
                              max: 100,
                              value: 50,
-                             step: 10,
                              slide: function (event, ui) {
                                  $("#anxiety").val(ui.value);
+                             document.getElementById("checkSUDS").checked = true;
                              }
                          });
                          $("#anxiety").val($("#slider").slider("value"))
                      });
+                         function check(){
+                     if (document.getElementById("checkSUDS").checked != true) {
+                     alert("Please move the bar to select a number for your anxiety level.");
+                     }
+                     };
                     /*]]>*/
                 </script>
             </div>
