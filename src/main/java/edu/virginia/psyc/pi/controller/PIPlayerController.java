@@ -51,7 +51,7 @@ public class PIPlayerController extends BaseController {
     public String showPlayer(ModelMap model, Principal principal, @PathVariable String scriptName) {
 
         Participant p = getParticipant(principal);
-        if (p.cbmCondition.toString() == "POSITIVE")
+        if (p.getCbmCondition() == Participant.CBM_CONDITION.POSITIVE)
         {
             scriptName = scriptName + "G";
         }
