@@ -4,15 +4,15 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
     var API = new APIConstructor();
     var scorer = new Scorer();
 
-	var scorer =
-	{
-		count : 1
-	};
+    var scorer =
+    {
+        count : 1
+    };
 
-	function increase_count(){
-		scorer.count = scorer.count+1;
-		return scorer.count;
-	}
+    function increase_count(){
+        scorer.count = scorer.count+1;
+        return scorer.count;
+    }
 
     /**
      * Returns the missing letters
@@ -53,7 +53,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
     }
 
 
-        //** A custom condition, which returns true if the users entered a correct first letter
+    //** A custom condition, which returns true if the users entered a correct first letter
     // in a missing phrase, and false otherwise.
     function correct_all_letters(inputData) {
         // Set the missing letters to an empty string if it is undefined.
@@ -86,14 +86,14 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 var mediaList = this._stimulus_collection.get_medialist();
                 var global = API.getGlobal();
 
-/*
-                p = jQuery.grep(trial._stimulus_collection.models, function(e, i) {return e.attributes.handle == "paragraph"})[0]
-                if(trial.data.positive) {
-                    return (p.attributes.data.positiveKey);
-                } else {
-                    return(p.attributes.data.negativeKey);
-                }
-*/
+                /*
+                 p = jQuery.grep(trial._stimulus_collection.models, function(e, i) {return e.attributes.handle == "paragraph"})[0]
+                 if(trial.data.positive) {
+                 return (p.attributes.data.positiveKey);
+                 } else {
+                 return(p.attributes.data.negativeKey);
+                 }
+                 */
                 return {
                     log_serial : logStack.length,
                     trial_id: this._id,
@@ -117,6 +117,9 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
         yesno: [
             {handle:'yesno',media:{html:"<div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>"}, css:{fontSize:'20px',color:'black', 'text-align':'center'}, location:{top:70}}
         ],
+        stall: [
+            {handle:'stall',media:{html:"<div class='stim'>Oops, that answer is incorrect; please re-read and in a moment you will have a chance to answer again.</div>"}, css:{fontSize:'20px',color:'black', 'text-align':'center'}, location:{top:70}, nolog:true}
+        ],
         vivid: [
             {media :{'inlineTemplate':"<div class='vivid'>_______</div>"}}
         ],
@@ -131,7 +134,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             }
         ]
     });
-
 
     API.addTrialSets('base',[{
         input: [
@@ -300,8 +302,13 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                             trialData.first_question_latency = Math.floor(eventData.latency);
                         }
                     }},
-                    {type:'setTrialAttr',setter:{correctOnQuestion:"false"}},
+                    {type:'removeInput', handle:'y'},
+                    {type:'removeInput', handle:'n'},
+                    {type:'hideStim', handle:'yesno'},
                     {type:'showStim',handle:'error'},
+                    {type:'showStim',handle:'stall'},
+                    {type:'setInput',input:{handle:'delay',on:'timeout',duration:5000}},
+                    {type:'setTrialAttr',setter:{correctOnQuestion:"false"}},
                     {type:'setInput',input:{handle:'clear', on:'timeout',duration:500}}
                 ]
             },
@@ -317,9 +324,23 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                             trialData.first_question_latency = Math.floor(eventData.latency);
                         }
                     }},
-                    {type:'setTrialAttr',setter:{correctOnQuestion:"false"}},
+                    {type:'removeInput', handle:'y'},
+                    {type:'removeInput', handle:'n'},
+                    {type:'hideStim', handle:'yesno'},
                     {type:'showStim',handle:'error'},
+                    {type:'showStim',handle:'stall'},
+                    {type:'setInput',input:{handle:'delay',on:'timeout',duration:5000}},
+                    {type:'setTrialAttr',setter:{correctOnQuestion:"false"}},
                     {type:'setInput',input:{handle:'clear', on:'timeout',duration:500}}
+                ]
+            },
+            {
+                conditions: [{type: 'inputEquals', value: 'delay'}],
+                actions: [
+                    {type: 'setInput', input: {handle: 'y', on: 'keypressed', key: 'y'}},
+                    {type: 'setInput', input: {handle: 'n', on: 'keypressed', key: 'n'}},
+                    {type: 'showStim', handle: 'yesno'},
+                    {type: 'hideStim', handle: 'stall'},
                 ]
             },
             {
@@ -368,9 +389,9 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
      * if would then be a 75% positive, 25% negative split.
      */
     API.addTrialSets('posneg',[
-                    { inherit:'base', data: {positive:true}},
-                    { inherit:'base', data: {positive:false}}
-                            ]);
+        { inherit:'base', data: {positive:true}},
+        { inherit:'base', data: {positive:false}}
+    ]);
 
     /**
      * Type of Trial Set that collects vividness responses
@@ -401,13 +422,13 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 conditions: [
                     {
                         type: 'function', value: function(trial, inputData) {
-                            return( inputData.handle == "Not at all vivid" ||
-                                    inputData.handle == "Somewhat vivid"  ||
-                                    inputData.handle == "Moderately vivid" ||
-                                    inputData.handle == "Very vivid"  ||
-                                    inputData.handle == "Totally vivid" ||
-                                    inputData.handle == "Prefer not to answer")
-                        }
+                        return( inputData.handle == "Not at all vivid" ||
+                        inputData.handle == "Somewhat vivid"  ||
+                        inputData.handle == "Moderately vivid" ||
+                        inputData.handle == "Very vivid"  ||
+                        inputData.handle == "Totally vivid" ||
+                        inputData.handle == "Prefer not to answer")
+                    }
                     }
                 ],
                 actions: [
@@ -453,31 +474,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             ]
         },
         {
-            input: [
-                {handle:'space',on:'space'}
-            ],
-            layout: [
-                // This is a stimulus object
-                {
-                    media : {template:"/PIPlayerScripts/intro.html"}
-                }
-            ],
-            interactions: [
-                // This is an interaction (it has a condition and an action)
-                {
-                    conditions: [
-                        {type:'inputEquals',value:'space'}
-                    ],
-                    actions: [
-                        {type:'endTrial'}
-                    ]
-                }
-            ]
-        },
-        {
-            "inherit": {
-                "set": "vivid"
-            }
+            "inherit": {"set": "vivid"},
+            layout: [{media : {template:"/PIPlayerScripts/vividness_last.html"}}]
         },
         {
             mixer: 'random',
@@ -515,7 +513,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}
         ]
     }
 
