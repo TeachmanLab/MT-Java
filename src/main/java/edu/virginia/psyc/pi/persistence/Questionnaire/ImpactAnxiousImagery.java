@@ -26,7 +26,7 @@ public class ImpactAnxiousImagery implements QuestionnaireData{
     private String session;
 
     private int anxiety;
-    private int vivd;
+    private int vivid;
     private int badly;
     private int manageable;
 
@@ -70,12 +70,12 @@ public class ImpactAnxiousImagery implements QuestionnaireData{
         this.anxiety = anxiety;
     }
 
-    public int getVivd() {
-        return vivd;
+    public int getVivid() {
+        return vivid;
     }
 
-    public void setVivd(int vivd) {
-        this.vivd = vivd;
+    public void setVivid(int vivid) {
+        this.vivid = vivid;
     }
 
     public int getBadly() {
@@ -90,7 +90,7 @@ public class ImpactAnxiousImagery implements QuestionnaireData{
         return manageable;
     }
 
-    public void setManageable(int terrible) {
+    public void setManageable(int manageable) {
         this.manageable = manageable;
     }
 }
