@@ -2293,8 +2293,10 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
 
 
         },
-        { "inherit": { "set": "vivid" } }
-
+        {
+            "inherit": {"set": "vivid"},
+            layout: [{media: {template: "/PIPlayerScripts/vividness_last.html"}}]
+        }
     ]);
     return API.script;
 });

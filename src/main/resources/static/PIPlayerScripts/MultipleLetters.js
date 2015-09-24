@@ -473,7 +473,10 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             ]
         },
-        { "inherit": { "set": "vivid" } },
+        {
+            "inherit": {"set": "vivid"},
+            layout: [{media : {template:"/PIPlayerScripts/vividness_last.html"}}]
+        },
         {
             mixer: 'random',
             //n: 50,  // The total number of randomly selected trials to run.
