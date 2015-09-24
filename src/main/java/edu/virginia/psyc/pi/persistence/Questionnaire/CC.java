@@ -21,16 +21,13 @@ public class CC implements QuestionnaireData {
     private ParticipantDAO participantDAO;
     private Date date;
     private String session;
-    private int fit;
+    private int related;
     private int compare;
 
-    public int getFit() {
-        return fit;
-    }
 
-    public void setFit(int fit) {
-        this.fit = fit;
-    }
+    public int getRelated() {return related; }
+
+    public void setRelated(int related) { this.related = related; }
 
     public int getCompare() {
         return compare;

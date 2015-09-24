@@ -27,7 +27,7 @@ public class Credibility implements QuestionnaireData {
     private String session;
 
     private int logical;
-    private int successful;
+    private int important;
     private int recommendable;
 
     /** Auto Generated methods follow */
@@ -63,12 +63,12 @@ public class Credibility implements QuestionnaireData {
         this.logical = logical;
     }
 
-    public int getSuccessful() {
-        return successful;
+    public int getImportant() {
+        return important;
     }
 
-    public void setSuccessful(int successful) {
-        this.successful = successful;
+    public void setImportant(int important) {
+        this.important = important;
     }
 
     public int getRecommendable() {
