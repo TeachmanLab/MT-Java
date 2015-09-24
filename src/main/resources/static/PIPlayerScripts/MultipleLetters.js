@@ -53,14 +53,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
     }
 
 
-    /**
-     * Java ME, Java Swing (thick client app, talking to robots )
-     * Search discovery / analytics ?  dash board, visualization ... rate + $40 an hour
-     * Give them regular price + $20/hour
-     * @param inputData
-     * @returns {boolean}
-     */
-
         //** A custom condition, which returns true if the users entered a correct first letter
     // in a missing phrase, and false otherwise.
     function correct_all_letters(inputData) {
@@ -124,6 +116,9 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
         ],
         yesno: [
             {handle:'yesno',media:{html:"<div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>"}, css:{fontSize:'20px',color:'black', 'text-align':'center'}, location:{top:70}}
+        ],
+        vivid: [
+            {media :{'inlineTemplate':"<div class='vivid'>_______</div>"}}
         ],
         counter: [
             {
@@ -377,6 +372,63 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     { inherit:'base', data: {positive:false}}
                             ]);
 
+    /**
+     * Type of Trial Set that collects vividness responses
+     */
+    API.addTrialSets('vivid', [{
+        input: [
+            {handle: 'Not at all vivid', on: 'keypressed', key: '1'},
+            {handle: 'Somewhat vivid', on: 'keypressed', key: '2'},
+            {handle: 'Moderately vivid', on: 'keypressed', key: '3'},
+            {handle: 'Very vivid', on: 'keypressed', key: '4'},
+            {handle: 'Totally vivid', on: 'keypressed', key: '5'},
+            {handle: 'Prefer not to answer', on: 'keypressed', key: 'p'}
+        ],
+        layout: [
+            {
+                media : {template:"/PIPlayerScripts/vividness.html"}
+            }
+        ],
+        stimuli: [
+            {media :{'inlineTemplate':"<div class='vivid'>_______</div>"}}
+        ],
+        interactions: [
+            {
+                conditions: [{type: 'begin'}],
+                actions: [{type: 'showStim', handle: 'All'}]
+            },
+            {
+                conditions: [
+                    {
+                        type: 'function', value: function(trial, inputData) {
+                            return( inputData.handle == "Not at all vivid" ||
+                                    inputData.handle == "Somewhat vivid"  ||
+                                    inputData.handle == "Moderately vivid" ||
+                                    inputData.handle == "Very vivid"  ||
+                                    inputData.handle == "Totally vivid" ||
+                                    inputData.handle == "Prefer not to answer")
+                        }
+                    }
+                ],
+                actions: [
+                    {type:'custom',fn:function(options,eventData){
+                        var span = $("div.vivid");
+                        var text = span.text().replace('_______', eventData["handle"]);
+                        span.text(text);                    }},
+                    {type:'setTrialAttr',setter:function(trialData, eventData) {
+                        trialData.vividness = eventData["handle"];
+                    }},
+                    {type:'trigger', handle:'vivid_switch',  on: 'timeout', duration: 500}
+                ]
+            },
+            {
+                conditions: [{type:'inputEquals', value:'vivid_switch'}],
+                actions: [{type:'log'}, {type:'endTrial'}]
+            },
+        ]
+    }]);
+
+
     API.addSequence([
         {
             input: [
@@ -399,6 +451,33 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     ]
                 }
             ]
+        },
+        {
+            input: [
+                {handle:'space',on:'space'}
+            ],
+            layout: [
+                // This is a stimulus object
+                {
+                    media : {template:"/PIPlayerScripts/intro.html"}
+                }
+            ],
+            interactions: [
+                // This is an interaction (it has a condition and an action)
+                {
+                    conditions: [
+                        {type:'inputEquals',value:'space'}
+                    ],
+                    actions: [
+                        {type:'endTrial'}
+                    ]
+                }
+            ]
+        },
+        {
+            "inherit": {
+                "set": "vivid"
+            }
         },
         {
             mixer: 'random',

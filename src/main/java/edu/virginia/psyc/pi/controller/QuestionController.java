@@ -103,7 +103,8 @@ public class QuestionController extends BaseController {
                               AnxietyTriggersRepository anxietyTriggersRepository,
                               SUDSRepository sudsRepository,
                               VividRepository vividRepository,
-                              ReasonsForEndingRepository reasonsForEndingRepository) {
+                              ReasonsForEndingRepository reasonsForEndingRepository,
+                              CIHSRepository cihsRepository) {
         this.participantRepository = participantRepository;
         this.dass21_asRepository = dass21_asRepository;
         this.credibilityRepository = credibilityRepository;
