@@ -50,6 +50,9 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
         yesno: [
             {handle:'yesno',media:{html:"<div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>"}, css:{fontSize:'20px',color:'black', 'text-align':'center'}, location:{top:70}}
         ],
+        stall: [
+            {handle:'stall',media:{html:"<div class='stim'>Oops, that answer is incorrect; please re-read and in a moment you will have a chance to answer again.</div>"}, css:{fontSize:'20px',color:'black', 'text-align':'center'}, location:{top:70}, nolog:true}
+        ],
         counter: [
             {
                 'handle': 'counter',
@@ -248,11 +251,24 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                             trialData.first_question_latency = Math.floor(eventData.latency);
                         }
                     }},
-                    {type:'setTrialAttr',setter:{correctOnQuestion:"false"}},
+                    {type:'removeInput', handle:'y'},
+                    {type:'removeInput', handle:'n'},
+                    {type:'hideStim', handle:'yesno'},
                     {type:'showStim',handle:'error'},
-                    {type:'setInput',input:{handle:'clear', on:'timeout',duration:500}}
+                    {type:'showStim',handle:'stall'},
+                    {type:'setInput',input:{handle:'delay',on:'timeout',duration:5000}},
+                    {type:'setTrialAttr',setter:{correctOnQuestion:"false"}},
+                    {type:'setInput',input:{handle:'clear', on:'timeout',duration:500}},
                 ]
             },
+            {
+                conditions: [{type:'inputEquals', value:'delay'}],
+                actions: [
+                    {type:'setInput',input:{handle:'y',on:'keypressed',key: 'y'}},
+                    {type:'setInput',input:{handle:'n',on:'keypressed',key: 'n'}},
+                ]
+            },
+
             // Listen for a incorrect response to a negative question
             {
                 conditions: [{type:'inputEqualsStim', property:'negativeAnswer'},
@@ -265,9 +281,23 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                             trialData.first_question_latency = Math.floor(eventData.latency);
                         }
                     }},
-                    {type:'setTrialAttr',setter:{correctOnQuestion:"false"}},
+                    {type:'removeInput', handle:'y'},
+                    {type:'removeInput', handle:'n'},
+                    {type:'hideStim', handle:'yesno'},
                     {type:'showStim',handle:'error'},
-                    {type:'setInput',input:{handle:'clear', on:'timeout',duration:500}}
+                    {type:'showStim', handle:'stall'},
+                    {type:'setInput',input:{handle:'delay',on:'timeout',duration:5000}},
+                    {type:'setTrialAttr',setter:{correctOnQuestion:"false"}},
+                    {type:'setInput',input:{handle:'clear', on:'timeout',duration:500}},
+                ]
+            },
+            {
+                conditions: [{type:'inputEquals', value:'delay'}],
+                actions: [
+                    {type:'setInput',input:{handle:'y',on:'keypressed',key: 'y'}},
+                    {type:'setInput',input:{handle:'n',on:'keypressed',key: 'n'}},
+                    {type:'showStim', handle:'yesno'},
+                    {type:'hideStim', handle:'stall'},
                 ]
             },
             {
@@ -344,186 +374,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             ]
         },
         {
-            mixer: 'random',
-            //n: 50,  // The total number of randomly selected trials to run.
+            mixer:'random',
             data:[
-    {
-        "inherit": {
-            "set": "posneg",
-            "type": "random"
-        },
-        "stimuli": [
-            {"inherit": {"set": "error"}},
-            {
-                "data": {
-                    "negativeKey": "l",
-                    "negativeWord": "care[ ]ess",
-                    "positiveKey": "s",
-                    "positiveWord": "progres[ ]ing",
-                    "statement": " Your boss asks you to do a task at work. You finish it before the deadline, although there is a small mistake in it. You are new to the job and feel that your boss will think you are "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "handle": "question",
-                 data: {
-                	positiveAnswer:"y",
-                	negativeAnswer:"n"
-                },
-                "media": {
-                    "inlineTemplate": "<div>Was your new boss pleased with your performance? </div>"
-                     }
-            },
-            {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
-        ]
-    },           
-    {
-        "inherit": {
-            "set": "posneg",
-            "type": "random"
-        },
-        "stimuli": [
-            {"inherit": {"set": "error"}},
-            {
-                "data": {
-                    "negativeKey": "s",
-                    "negativeWord": "me[ ]sy",
-                    "positiveKey": "t",
-                    "positiveWord": "interes[ ]ing",
-                    "statement": " You are out to lunch with a friend. As you eat your salad and talk with your friend, your friend stares at you. She probably thinks that you are "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "handle": "question",
-                 data: {
-                	positiveAnswer:"n",
-                	negativeAnswer:"y"
-                },
-                "media": {
-                    "inlineTemplate": "<div>Does your friend judge you negatively? </div>"
-                     }
-            },
-            {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
-        ]
-    },
-    ]
-        },
-		{
-        input: [
-                    {handle:'Not at all vivid',on:'keypressed', key:'1'},
-                    {handle:'Somewhat vivid',on:'keypressed', key:'2'},
-                    {handle:'Moderately vivid',on:'keypressed', key:'3'},
-                    {handle:'Very vivid',on:'keypressed', key:'4'},
-                    {handle:'Totally vivid',on:'keypressed', key:'5'},
-            ],
-			layout:[
-				{media:{'inlineTemplate':"<div> How vividly did you imagine yourself in the scenario? </div> <div> 1=<i>Not at all vivid</i> </div> <div> 2=<i>Somewhat vivid</i> </div> <div> 3=<i>Moderately vivid</i> </div> <div> 4=<i>Very vivid</i> </div> <div> 5=<i>Totally vivid</i> </div> <div>Please type the corresponding number </div>"}}
-			],
-			stimuli: [
-				{media :{'inlineTemplate':"<div class='vivid'>_______</div>"}}
-			],
-			interactions: [
-				// 1. Display Stimulus
-				{
-					/* when we begin the trial (condition) */
-					conditions: [{type:'begin'}],
-					/* show all stimuli (action) */
-					actions: [{type:'showStim',handle:'All'}]
-				},
-				{
-					conditions: [{type:'inputEquals',value:'Not at all vivid'}
-					             ],
-					/* end the trial */
-					actions: [
-                    {type:'custom',fn:function(options,eventData){
-                        var span = $("div.vivid");
-                        var text = span.text().replace('_______', eventData["handle"]);
-                        span.text(text);                    }},
-                    {type:'trigger', handle:'vivid_switch',  on: 'timeout', duration: 500}],
-				},
-                {
-                    conditions: [{type:'inputEquals', value:'vivid_switch'}],
-					actions: [{type:'log'}, {type:'endTrial'}]
-                },
-				{
-					conditions: [
-					             {type:'inputEquals',value:'Somewhat vivid'},
-					             ],
-					/* end the trial */
-					actions: [
-                    {type:'custom',fn:function(options,eventData){
-                        var span = $("div.vivid");
-                        var text = span.text().replace('_______', eventData["handle"]);
-                        span.text(text);                    }},
-                    {type:'trigger', handle:'vivid_switch',  on: 'timeout', duration: 500}],
-				},
-                {
-                    conditions: [{type:'inputEquals', value:'vivid_switch'}],
-					actions: [{type:'log'}, {type:'endTrial'}]
-                },
-				{
-					conditions: [
-					             {type:'inputEquals',value:'Moderately vivid'},
-					             ],
-					/* end the trial */
-					actions: [
-                    {type:'custom',fn:function(options,eventData){
-                        var span = $("div.vivid");
-                        var text = span.text().replace('_______', eventData["handle"]);
-                        span.text(text);                    }},
-                    {type:'trigger', handle:'vivid_switch',  on: 'timeout', duration: 500}],
-				},
-                {
-                    conditions: [{type:'inputEquals', value:'vivid_switch'}],
-					actions: [{type:'log'}, {type:'endTrial'}]
-                },
-				{
-					conditions: [
-					             {type:'inputEquals',value:'Very vivid'},
-					             ],
-					/* end the trial */
-					actions: [
-                    {type:'custom',fn:function(options,eventData){
-                        var span = $("div.vivid");
-                        var text = span.text().replace('_______', eventData["handle"]);
-                        span.text(text);                    }},
-                    {type:'trigger', handle:'vivid_switch',  on: 'timeout', duration: 500}],
-				},
-                {
-                    conditions: [{type:'inputEquals', value:'vivid_switch'}],
-					actions: [{type:'log'}, {type:'endTrial'}]
-                },
-				{
-					conditions: [
-					             {type:'inputEquals',value:'Totally vivid'}
-					             ],
-					/* end the trial */
-					actions: [
-                    {type:'custom',fn:function(options,eventData){
-                        var span = $("div.vivid");
-                        var text = span.text().replace('_______', eventData["handle"]);
-                        span.text(text);                    }},
-                    {type:'trigger', handle:'vivid_switch',  on: 'timeout', duration: 500}],
-				},
-                {
-                    conditions: [{type:'inputEquals', value:'vivid_switch'}],
-					actions: [{type:'log'}, {type:'endTrial'}]
-                }
-			]
-		},
-        {
-            mixer: 'random',
-            //n: 50,  // The total number of randomly selected trials to run.
-            data: [
     {
         "inherit": {
             "set": "posneg",
