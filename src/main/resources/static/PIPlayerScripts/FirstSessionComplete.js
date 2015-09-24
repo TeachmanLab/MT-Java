@@ -4,15 +4,74 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
     var API = new APIConstructor();
     var scorer = new Scorer();
 
-	var scorer =
-	{
-		count : 1
-	};
+    var scorer =
+    {
+        count : 1
+    };
 
-	function increase_count(){
-		scorer.count = scorer.count+1;
-		return scorer.count;
-	}
+    function increase_count(){
+        scorer.count = scorer.count+1;
+        return scorer.count;
+    }
+
+    /**
+     * Returns the missing letters
+     * @param trial
+     * @returns a string containing the missing letters, based on if this is a positive or negative word.
+     */
+    function missing_letters(trial) {
+        p = jQuery.grep(trial._stimulus_collection.models, function(e, i) {return e.attributes.handle == "paragraph"})[0]
+        if(trial.data.positive) {
+            return (p.attributes.data.positiveKey);
+        } else {
+            return(p.attributes.data.negativeKey);
+        }
+    }
+
+    /**
+     * Returns true if missing letters start with the letters typed so far.
+     * @param trial
+     * @param inputData
+     * @returns {*}
+     */
+    function correct_letters(trial,inputData) {
+        if(!API.getGlobal().lettersTyped) API.addGlobal({lettersTyped:""});
+        if(inputData.handle.length  > 1) return false;
+        var lettersTyped = API.getGlobal().lettersTyped + inputData.handle;
+        return missing_letters(trial).startsWith(lettersTyped);
+    }
+
+    /**
+     * Returns true if the number of letters entered meets or exceeds the letters expected.
+     * @param trial
+     * @param inputData
+     */
+    function correct_length(trial, inputData) {
+        if(!API.getGlobal().lettersTyped) API.addGlobal({lettersTyped:""});
+        var lettersTyped = API.getGlobal().lettersTyped + inputData.handle;
+        return lettersTyped.length >= missing_letters(trial).length
+    }
+
+
+    //** A custom condition, which returns true if the users entered a correct first letter
+    // in a missing phrase, and false otherwise.
+    function correct_all_letters(inputData) {
+        // Set the missing letters to an empty string if it is undefined.
+        if(!API.getGlobal().lettersTyped) API.addGlobal({lettersTyped:""});
+
+        // If a single letter is typed, add it to the string containing users input
+        if(inputData.handle.length == 1) {
+            API.getGlobal().lettersTyped = API.getGlobal().lettersTyped + inputData.handle
+        }
+
+        // If the guess is too long, show an x, and let the user restart.
+        if(inputData.length > 2) {
+            API.getGlobal().lettersTyped = "";
+        }
+        current_trial = require('./app/trial/current_trial');
+        c = current_trial()._stimulus_collection.whereData({"positiveKey":API.getGlobal().lettersTyped});
+        return(c.length > 0);
+    }
 
 //    This was added to redirect back
     API.addSettings('redirect', "../playerScript/completed/int_train");
@@ -27,6 +86,14 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 var mediaList = this._stimulus_collection.get_medialist();
                 var global = API.getGlobal();
 
+                /*
+                 p = jQuery.grep(trial._stimulus_collection.models, function(e, i) {return e.attributes.handle == "paragraph"})[0]
+                 if(trial.data.positive) {
+                 return (p.attributes.data.positiveKey);
+                 } else {
+                 return(p.attributes.data.negativeKey);
+                 }
+                 */
                 return {
                     log_serial : logStack.length,
                     trial_id: this._id,
@@ -53,6 +120,9 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
         stall: [
             {handle:'stall',media:{html:"<div class='stim'>Oops, that answer is incorrect; please re-read and in a moment you will have a chance to answer again.</div>"}, css:{fontSize:'20px',color:'black', 'text-align':'center'}, location:{top:70}, nolog:true}
         ],
+        vivid: [
+            {media :{'inlineTemplate':"<div class='vivid'>_______</div>"}}
+        ],
         counter: [
             {
                 'handle': 'counter',
@@ -62,16 +132,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 css: {fontSize: '12px', 'text-align': 'center'},
                 location:{bottom:'200px'}
             }
-        ],
-        vivid:[
-            {
-                'handle':'vivid',
-                media:'________'
-
-            }
         ]
     });
-
 
     API.addTrialSets('base',[{
         input: [
@@ -111,15 +173,54 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     {type:'showStim',handle:'paragraph'},
                     {type:'showStim', handle: 'counter'},
                     {type:'setGlobalAttr',setter:{askingQuestion:false}},
-                    {type:'setTrialAttr',setter:{correctOnLetter:"true"}}  // set to true - will get set to false later if incorrectly answered.
+                    {type:'setTrialAttr',setter:{correctOnLetter:"true"}},  // set to true - will get set to false later if incorrectly answered.
+                    {type:'custom',fn:function(options,eventData) {API.addGlobal({"original":$("span.incomplete").text()})}}]
+            },
 
+            {// The letters entered are incorrect
+                conditions: [
+                    {type:'globalEquals', property:'askingQuestion', value:false},
+                    {type:'inputEquals',value:'askQuestion', negate: true},
+                    {type:'inputEquals',value:'correct', negate: true},
+                    {type:'function',value:function(trial,inputData){ return !correct_letters(trial, inputData) }}
+                ],
+                actions: [
+                    {type:'custom',fn:function(options,eventData){
+                        API.getGlobal().lettersTyped = "";
+                        var span = $("span.incomplete");
+                        span.text(API.getGlobal().original);
+                    }},
+                    {type:'showStim',handle:'error'},
+                    {type:'setTrialAttr',setter:{correctOnLetter:"false"}},
+                    {type:'setInput',input:{handle:'clear', on:'timeout',duration:500}}
                 ]
             },
-            { // Watch for correct answer for a positive missing letter.
+            {// The letters are correct so far...
                 conditions: [
-                    {type:'inputEqualsStim', property:'positiveKey'},
-                    {type:'trialEquals', property:'positive', value:true},
-                    {type:'globalEquals', property:'askingQuestion', value:false}],
+                    {type:'globalEquals', property:'askingQuestion', value:false},
+                    {type:'function',value:function(trial,inputData){ return !correct_length(trial, inputData) }},
+                    {type:'function',value:function(trial,inputData){ return correct_letters(trial, inputData) }}
+                ],
+                actions: [
+                    {type:'custom',fn:function(options,eventData){
+                        API.getGlobal().lettersTyped = API.getGlobal().lettersTyped + eventData.handle;
+                        var span = $("span.incomplete");
+                        var text = span.text().replace(' ', eventData["handle"]);
+                        span.text(text);
+                    }},
+                    {type:'setTrialAttr',setter:function(trialData, eventData){
+                        if(trialData.first_letter_latency == null) {
+                            trialData.first_letter_latency = Math.floor(eventData.latency);
+                        }
+                    }}
+                ]
+            },
+            {// All the letters are entered correctly
+                conditions: [
+                    {type:'globalEquals', property:'askingQuestion', value:false},
+                    {type:'function',value:function(trial,inputData){ return correct_length(trial, inputData) }},
+                    {type:'function',value:function(trial,inputData){ return correct_letters(trial, inputData) }}
+                ],
                 actions: [
                     {type:'custom',fn:function(options,eventData){
                         var span = $("span.incomplete");
@@ -129,58 +230,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     {type:'trigger',handle : 'correct'}
                 ]
             },
-            { // Watch for correct answer of a negative missing letter.
-                conditions: [
-                    {type:'inputEqualsStim', property:'negativeKey'},
-                    {type:'trialEquals', property:'positive', value:false},
-                    {type:'globalEquals', property:'askingQuestion', value:false}],
-                actions: [
-                    {type:'custom',fn:function(options,eventData){
-                        var span = $("span.incomplete");
-                        var text = span.text().replace(' ', eventData["handle"]);
-                        span.text(text);
-                    }},
-                    {type:'trigger',handle : 'correct'}
-                ]
-            },
-            { // Display a red X on incorrect input for positive responses.
-                conditions: [
-                    {type:'inputEqualsStim', property:'positiveKey', negate:'true'},
-                    {type:'trialEquals', property:'positive', value:true},
-                    {type:'inputEquals',value:'correct', negate:'true'},
-                    {type:'globalEquals', property:'askingQuestion', value:false},
-                    {type:'inputEquals',value:'askQuestion', negate:'true'}
-                ],
-                actions: [
-                    {type:'setTrialAttr',setter:function(trialData, eventData){
-                        if(trialData.first_letter_latency == null) {
-                            trialData.first_letter_latency = Math.floor(eventData.latency);
-                        }
-                    }},
-                    {type:'showStim',handle:'error'},
-                    {type:'setTrialAttr',setter:{correctOnLetter:"false"}},
-                    {type:'setInput',input:{handle:'clear', on:'timeout',duration:500}}
-                ]
-            },
-            { // Display a red X on incorrect input for negative responses.
-                conditions: [
-                    {type:'inputEqualsStim', property:'negativeKey', negate:'true'},
-                    {type:'trialEquals', property:'positive', value:false},
-                    {type:'inputEquals',value:'correct', negate:'true'},
-                    {type:'globalEquals', property:'askingQuestion', value:false},
-                    {type:'inputEquals',value:'askQuestion', negate:'true'}
-                ],
-                actions: [
-                    {type:'setTrialAttr',setter:function(trialData, eventData){
-                        if(trialData.first_letter_latency == null) {
-                            trialData.first_letter_latency = Math.floor(eventData.latency);
-                        }
-                    }},
-                    {type:'showStim',handle:'error'},
-                    {type:'setTrialAttr',setter:{correctOnLetter:"false"}},
-                    {type:'setInput',input:{handle:'clear', on:'timeout',duration:500}}
-                ]
-            },
+
             {
                 // Trigger when the correct response is provided, as there are two interactions
                 // that can cause this, I've separated it out into it's own section rather than
@@ -189,6 +239,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 actions: [
                     // Preserve the question as completed, so that it will eventually be set back to the server.
                     {type:'setTrialAttr',setter:function(trialData, eventData){
+                        trialData.word = $("span.incomplete").text();
                         trialData.paragraph = $("div[data-handle='paragraph']").text();
                         trialData.letter_latency  = Math.floor(eventData.latency);
                         if(trialData.first_letter_latency == null) {
@@ -258,17 +309,9 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     {type:'showStim',handle:'stall'},
                     {type:'setInput',input:{handle:'delay',on:'timeout',duration:5000}},
                     {type:'setTrialAttr',setter:{correctOnQuestion:"false"}},
-                    {type:'setInput',input:{handle:'clear', on:'timeout',duration:500}},
+                    {type:'setInput',input:{handle:'clear', on:'timeout',duration:500}}
                 ]
             },
-            {
-                conditions: [{type:'inputEquals', value:'delay'}],
-                actions: [
-                    {type:'setInput',input:{handle:'y',on:'keypressed',key: 'y'}},
-                    {type:'setInput',input:{handle:'n',on:'keypressed',key: 'n'}},
-                ]
-            },
-
             // Listen for a incorrect response to a negative question
             {
                 conditions: [{type:'inputEqualsStim', property:'negativeAnswer'},
@@ -285,19 +328,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     {type:'removeInput', handle:'n'},
                     {type:'hideStim', handle:'yesno'},
                     {type:'showStim',handle:'error'},
-                    {type:'showStim', handle:'stall'},
+                    {type:'showStim',handle:'stall'},
                     {type:'setInput',input:{handle:'delay',on:'timeout',duration:5000}},
                     {type:'setTrialAttr',setter:{correctOnQuestion:"false"}},
-                    {type:'setInput',input:{handle:'clear', on:'timeout',duration:500}},
+                    {type:'setInput',input:{handle:'clear', on:'timeout',duration:500}}
                 ]
             },
             {
-                conditions: [{type:'inputEquals', value:'delay'}],
+                conditions: [{type: 'inputEquals', value: 'delay'}],
                 actions: [
-                    {type:'setInput',input:{handle:'y',on:'keypressed',key: 'y'}},
-                    {type:'setInput',input:{handle:'n',on:'keypressed',key: 'n'}},
-                    {type:'showStim', handle:'yesno'},
-                    {type:'hideStim', handle:'stall'},
+                    {type: 'setInput', input: {handle: 'y', on: 'keypressed', key: 'y'}},
+                    {type: 'setInput', input: {handle: 'n', on: 'keypressed', key: 'n'}},
+                    {type: 'showStim', handle: 'yesno'},
+                    {type: 'hideStim', handle: 'stall'},
                 ]
             },
             {
@@ -346,9 +389,66 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
      * if would then be a 75% positive, 25% negative split.
      */
     API.addTrialSets('posneg',[
-                    { inherit:'base', data: {positive:true}},
-                    { inherit:'base', data: {positive:false}}
-                            ]);
+        { inherit:'base', data: {positive:true}},
+        { inherit:'base', data: {positive:false}}
+    ]);
+
+    /**
+     * Type of Trial Set that collects vividness responses
+     */
+    API.addTrialSets('vivid', [{
+        input: [
+            {handle: 'Not at all vivid', on: 'keypressed', key: '1'},
+            {handle: 'Somewhat vivid', on: 'keypressed', key: '2'},
+            {handle: 'Moderately vivid', on: 'keypressed', key: '3'},
+            {handle: 'Very vivid', on: 'keypressed', key: '4'},
+            {handle: 'Totally vivid', on: 'keypressed', key: '5'},
+            {handle: 'Prefer not to answer', on: 'keypressed', key: 'p'}
+        ],
+        layout: [
+            {
+                media : {template:"/PIPlayerScripts/vividness.html"}
+            }
+        ],
+        stimuli: [
+            {media :{'inlineTemplate':"<div class='vivid'>_______</div>"}}
+        ],
+        interactions: [
+            {
+                conditions: [{type: 'begin'}],
+                actions: [{type: 'showStim', handle: 'All'}]
+            },
+            {
+                conditions: [
+                    {
+                        type: 'function', value: function(trial, inputData) {
+                        return( inputData.handle == "Not at all vivid" ||
+                        inputData.handle == "Somewhat vivid"  ||
+                        inputData.handle == "Moderately vivid" ||
+                        inputData.handle == "Very vivid"  ||
+                        inputData.handle == "Totally vivid" ||
+                        inputData.handle == "Prefer not to answer")
+                    }
+                    }
+                ],
+                actions: [
+                    {type:'custom',fn:function(options,eventData){
+                        var span = $("div.vivid");
+                        var text = span.text().replace('_______', eventData["handle"]);
+                        span.text(text);                    }},
+                    {type:'setTrialAttr',setter:function(trialData, eventData) {
+                        trialData.vividness = eventData["handle"];
+                    }},
+                    {type:'trigger', handle:'vivid_switch',  on: 'timeout', duration: 500}
+                ]
+            },
+            {
+                conditions: [{type:'inputEquals', value:'vivid_switch'}],
+                actions: [{type:'log'}, {type:'endTrial'}]
+            },
+        ]
+    }]);
+
 
     API.addSequence([
         {
@@ -450,128 +550,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
             ]
         },
-		{
-        input: [
-                    {handle:'Not at all vivid',on:'keypressed', key:'1'},
-                    {handle:'Somewhat vivid',on:'keypressed', key:'2'},
-                    {handle:'Moderately vivid',on:'keypressed', key:'3'},
-                    {handle:'Very vivid',on:'keypressed', key:'4'},
-                    {handle:'Totally vivid',on:'keypressed', key:'5'},
-                    {handle:'Prefer not to answer',on:'keypressed', key:'p'},
-
-            ],
-			layout:[
-				{media:{'inlineTemplate':"<div> How vividly did you imagine yourself in the scenario? </div> <div> 1=<i>Not at all vivid</i> </div> <div> 2=<i>Somewhat vivid</i> </div> <div> 3=<i>Moderately vivid</i> </div> <div> 4=<i>Very vivid</i> </div> <div> 5=<i>Totally vivid</i> </div> <div> p = <i> Prefer not to answer </i> </div> <div>Please type the corresponding number </div>"}}
-			],
-			stimuli: [
-				{media :{'inlineTemplate':"<div class='vivid'>_______</div>"}}
-			],
-			interactions: [
-				// 1. Display Stimulus
-				{
-					/* when we begin the trial (condition) */
-					conditions: [{type:'begin'}],
-					/* show all stimuli (action) */
-					actions: [{type:'showStim',handle:'All'}]
-				},
-				{
-					conditions: [{type:'inputEquals',value:'Not at all vivid'}
-					             ],
-					/* end the trial */
-					actions: [
-                    {type:'custom',fn:function(options,eventData){
-                        var span = $("div.vivid");
-                        var text = span.text().replace('_______', eventData["handle"]);
-                        span.text(text);                    }},
-                    {type:'trigger', handle:'vivid_switch',  on: 'timeout', duration: 500}],
-				},
-                {
-                    conditions: [{type:'inputEquals', value:'vivid_switch'}],
-					actions: [{type:'log'}, {type:'endTrial'}]
-                },
-				{
-					conditions: [
-					             {type:'inputEquals',value:'Somewhat vivid'},
-					             ],
-					/* end the trial */
-					actions: [
-                    {type:'custom',fn:function(options,eventData){
-                        var span = $("div.vivid");
-                        var text = span.text().replace('_______', eventData["handle"]);
-                        span.text(text);                    }},
-                    {type:'trigger', handle:'vivid_switch',  on: 'timeout', duration: 500}],
-				},
-                {
-                    conditions: [{type:'inputEquals', value:'vivid_switch'}],
-					actions: [{type:'log'}, {type:'endTrial'}]
-                },
-				{
-					conditions: [
-					             {type:'inputEquals',value:'Moderately vivid'},
-					             ],
-					/* end the trial */
-					actions: [
-                    {type:'custom',fn:function(options,eventData){
-                        var span = $("div.vivid");
-                        var text = span.text().replace('_______', eventData["handle"]);
-                        span.text(text);                    }},
-                    {type:'trigger', handle:'vivid_switch',  on: 'timeout', duration: 500}],
-				},
-                {
-                    conditions: [{type:'inputEquals', value:'vivid_switch'}],
-					actions: [{type:'log'}, {type:'endTrial'}]
-                },
-				{
-					conditions: [
-					             {type:'inputEquals',value:'Very vivid'},
-					             ],
-					/* end the trial */
-					actions: [
-                    {type:'custom',fn:function(options,eventData){
-                        var span = $("div.vivid");
-                        var text = span.text().replace('_______', eventData["handle"]);
-                        span.text(text);                    }},
-                    {type:'trigger', handle:'vivid_switch',  on: 'timeout', duration: 500}],
-				},
-                {
-                    conditions: [{type:'inputEquals', value:'vivid_switch'}],
-					actions: [{type:'log'}, {type:'endTrial'}]
-                },
-				{
-					conditions: [
-					             {type:'inputEquals',value:'Totally vivid'}
-					             ],
-					/* end the trial */
-					actions: [
-                    {type:'custom',fn:function(options,eventData){
-                        var span = $("div.vivid");
-                        var text = span.text().replace('_______', eventData["handle"]);
-                        span.text(text);                    }},
-                    {type:'trigger', handle:'vivid_switch',  on: 'timeout', duration: 500}],
-				},
-                {
-                    conditions: [{type:'inputEquals', value:'vivid_switch'}],
-					actions: [ {type:'log'}, {type:'endTrial'}]
-                },
-				{
-					conditions: [
-					             {type:'inputEquals',value:'Prefer not to answer'}
-					             ],
-					/* end the trial */
-					actions: [
-                    {type:'custom',fn:function(options,eventData){
-                        var span = $("div.vivid");
-                        var text = span.text().replace('_______', eventData["handle"]);
-                        span.text(text);                    }},
-                    {type:'trigger', handle:'vivid_switch',  on: 'timeout', duration: 500}],
-				},
-                {
-                    conditions: [{type:'inputEquals', value:'vivid_switch'}],
-					actions: [ {type:'log'}, {type:'endTrial'}]
-                }
-			]
-		},
-        {
+{ "inherit": { "set": "vivid" } },        {
             mixer: 'random',
             //n: 50,  // The total number of randomly selected trials to run.
             data: [
@@ -1259,128 +1238,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
         ]
     }
     ]},
-		{
-        input: [
-                    {handle:'Not at all vivid',on:'keypressed', key:'1'},
-                    {handle:'Somewhat vivid',on:'keypressed', key:'2'},
-                    {handle:'Moderately vivid',on:'keypressed', key:'3'},
-                    {handle:'Very vivid',on:'keypressed', key:'4'},
-                    {handle:'Totally vivid',on:'keypressed', key:'5'},
-                    {handle:'Prefer not to answer',on:'keypressed', key:'p'},
-
-            ],
-			layout:[
-				{media:{'inlineTemplate':"<div> How vividly did you imagine yourself in the scenario? </div> <div> 1=<i>Not at all vivid</i> </div> <div> 2=<i>Somewhat vivid</i> </div> <div> 3=<i>Moderately vivid</i> </div> <div> 4=<i>Very vivid</i> </div> <div> 5=<i>Totally vivid</i> </div> <div> p = <i> Prefer not to answer </i> </div> <div>Please type the corresponding number </div>"}}
-			],
-			stimuli: [
-				{media :{'inlineTemplate':"<div class='vivid'>_______</div>"}}
-			],
-			interactions: [
-				// 1. Display Stimulus
-				{
-					/* when we begin the trial (condition) */
-					conditions: [{type:'begin'}],
-					/* show all stimuli (action) */
-					actions: [{type:'showStim',handle:'All'}]
-				},
-				{
-					conditions: [{type:'inputEquals',value:'Not at all vivid'}
-					             ],
-					/* end the trial */
-					actions: [
-                    {type:'custom',fn:function(options,eventData){
-                        var span = $("div.vivid");
-                        var text = span.text().replace('_______', eventData["handle"]);
-                        span.text(text);                    }},
-                    {type:'trigger', handle:'vivid_switch',  on: 'timeout', duration: 500}],
-				},
-                {
-                    conditions: [{type:'inputEquals', value:'vivid_switch'}],
-					actions: [{type:'log'}, {type:'endTrial'}]
-                },
-				{
-					conditions: [
-					             {type:'inputEquals',value:'Somewhat vivid'},
-					             ],
-					/* end the trial */
-					actions: [
-                    {type:'custom',fn:function(options,eventData){
-                        var span = $("div.vivid");
-                        var text = span.text().replace('_______', eventData["handle"]);
-                        span.text(text);                    }},
-                    {type:'trigger', handle:'vivid_switch',  on: 'timeout', duration: 500}],
-				},
-                {
-                    conditions: [{type:'inputEquals', value:'vivid_switch'}],
-					actions: [{type:'log'}, {type:'endTrial'}]
-                },
-				{
-					conditions: [
-					             {type:'inputEquals',value:'Moderately vivid'},
-					             ],
-					/* end the trial */
-					actions: [
-                    {type:'custom',fn:function(options,eventData){
-                        var span = $("div.vivid");
-                        var text = span.text().replace('_______', eventData["handle"]);
-                        span.text(text);                    }},
-                    {type:'trigger', handle:'vivid_switch',  on: 'timeout', duration: 500}],
-				},
-                {
-                    conditions: [{type:'inputEquals', value:'vivid_switch'}],
-					actions: [{type:'log'}, {type:'endTrial'}]
-                },
-				{
-					conditions: [
-					             {type:'inputEquals',value:'Very vivid'},
-					             ],
-					/* end the trial */
-					actions: [
-                    {type:'custom',fn:function(options,eventData){
-                        var span = $("div.vivid");
-                        var text = span.text().replace('_______', eventData["handle"]);
-                        span.text(text);                    }},
-                    {type:'trigger', handle:'vivid_switch',  on: 'timeout', duration: 500}],
-				},
-                {
-                    conditions: [{type:'inputEquals', value:'vivid_switch'}],
-					actions: [{type:'log'}, {type:'endTrial'}]
-                },
-				{
-					conditions: [
-					             {type:'inputEquals',value:'Totally vivid'}
-					             ],
-					/* end the trial */
-					actions: [
-                    {type:'custom',fn:function(options,eventData){
-                        var span = $("div.vivid");
-                        var text = span.text().replace('_______', eventData["handle"]);
-                        span.text(text);                    }},
-                    {type:'trigger', handle:'vivid_switch',  on: 'timeout', duration: 500}],
-				},
-                {
-                    conditions: [{type:'inputEquals', value:'vivid_switch'}],
-					actions: [ {type:'log'}, {type:'endTrial'}]
-                },
-				{
-					conditions: [
-					             {type:'inputEquals',value:'Prefer not to answer'}
-					             ],
-					/* end the trial */
-					actions: [
-                    {type:'custom',fn:function(options,eventData){
-                        var span = $("div.vivid");
-                        var text = span.text().replace('_______', eventData["handle"]);
-                        span.text(text);                    }},
-                    {type:'trigger', handle:'vivid_switch',  on: 'timeout', duration: 500}],
-				},
-                {
-                    conditions: [{type:'inputEquals', value:'vivid_switch'}],
-					actions: [ {type:'log'}, {type:'endTrial'}]
-                }
-			]
-		},
-    {
+    { "inherit": { "set": "vivid" } },    {
 	mixer: 'random',
 		    data:[
     {
@@ -2432,128 +2290,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
     }
     ]
         },
-		{
-        input: [
-                    {handle:'Not at all vivid',on:'keypressed', key:'1'},
-                    {handle:'Somewhat vivid',on:'keypressed', key:'2'},
-                    {handle:'Moderately vivid',on:'keypressed', key:'3'},
-                    {handle:'Very vivid',on:'keypressed', key:'4'},
-                    {handle:'Totally vivid',on:'keypressed', key:'5'},
-                    {handle:'Prefer not to answer',on:'keypressed', key:'p'},
-
-            ],
-			layout:[
-				{media:{'inlineTemplate':"<div> Thinking about the set of 50 scenarios you just completed, on average, how vividly did you imagine yourself in the scenarios? </div> <div> 1=<i>Not at all vivid</i> </div> <div> 2=<i>Somewhat vivid</i> </div> <div> 3=<i>Moderately vivid</i> </div> <div> 4=<i>Very vivid</i> </div> <div> 5=<i>Totally vivid</i> </div> <div> p = <i> Prefer not to answer </i> </div> <div>Please type the corresponding number </div>"}}
-			],
-			stimuli: [
-				{media :{'inlineTemplate':"<div class='vivid'>_______</div>"}}
-			],
-			interactions: [
-				// 1. Display Stimulus
-				{
-					/* when we begin the trial (condition) */
-					conditions: [{type:'begin'}],
-					/* show all stimuli (action) */
-					actions: [{type:'showStim',handle:'All'}]
-				},
-				{
-					conditions: [{type:'inputEquals',value:'Not at all vivid'}
-					             ],
-					/* end the trial */
-					actions: [
-                    {type:'custom',fn:function(options,eventData){
-                        var span = $("div.vivid");
-                        var text = span.text().replace('_______', eventData["handle"]);
-                        span.text(text);                    }},
-                    {type:'trigger', handle:'vivid_switch',  on: 'timeout', duration: 500}],
-				},
-                {
-                    conditions: [{type:'inputEquals', value:'vivid_switch'}],
-					actions: [{type:'log'}, {type:'endTrial'}]
-                },
-				{
-					conditions: [
-					             {type:'inputEquals',value:'Somewhat vivid'},
-					             ],
-					/* end the trial */
-					actions: [
-                    {type:'custom',fn:function(options,eventData){
-                        var span = $("div.vivid");
-                        var text = span.text().replace('_______', eventData["handle"]);
-                        span.text(text);                    }},
-                    {type:'trigger', handle:'vivid_switch',  on: 'timeout', duration: 500}],
-				},
-                {
-                    conditions: [{type:'inputEquals', value:'vivid_switch'}],
-					actions: [{type:'log'}, {type:'endTrial'}]
-                },
-				{
-					conditions: [
-					             {type:'inputEquals',value:'Moderately vivid'},
-					             ],
-					/* end the trial */
-					actions: [
-                    {type:'custom',fn:function(options,eventData){
-                        var span = $("div.vivid");
-                        var text = span.text().replace('_______', eventData["handle"]);
-                        span.text(text);                    }},
-                    {type:'trigger', handle:'vivid_switch',  on: 'timeout', duration: 500}],
-				},
-                {
-                    conditions: [{type:'inputEquals', value:'vivid_switch'}],
-					actions: [{type:'log'}, {type:'endTrial'}]
-                },
-				{
-					conditions: [
-					             {type:'inputEquals',value:'Very vivid'},
-					             ],
-					/* end the trial */
-					actions: [
-                    {type:'custom',fn:function(options,eventData){
-                        var span = $("div.vivid");
-                        var text = span.text().replace('_______', eventData["handle"]);
-                        span.text(text);                    }},
-                    {type:'trigger', handle:'vivid_switch',  on: 'timeout', duration: 500}],
-				},
-                {
-                    conditions: [{type:'inputEquals', value:'vivid_switch'}],
-					actions: [{type:'log'}, {type:'endTrial'}]
-                },
-				{
-					conditions: [
-					             {type:'inputEquals',value:'Totally vivid'}
-					             ],
-					/* end the trial */
-					actions: [
-                    {type:'custom',fn:function(options,eventData){
-                        var span = $("div.vivid");
-                        var text = span.text().replace('_______', eventData["handle"]);
-                        span.text(text);                    }},
-                    {type:'trigger', handle:'vivid_switch',  on: 'timeout', duration: 500}],
-				},
-                {
-                    conditions: [{type:'inputEquals', value:'vivid_switch'}],
-					actions: [ {type:'log'}, {type:'endTrial'}]
-                },
-				{
-					conditions: [
-					             {type:'inputEquals',value:'Prefer not to answer'}
-					             ],
-					/* end the trial */
-					actions: [
-                    {type:'custom',fn:function(options,eventData){
-                        var span = $("div.vivid");
-                        var text = span.text().replace('_______', eventData["handle"]);
-                        span.text(text);                    }},
-                    {type:'trigger', handle:'vivid_switch',  on: 'timeout', duration: 500}],
-				},
-                {
-                    conditions: [{type:'inputEquals', value:'vivid_switch'}],
-					actions: [ {type:'log'}, {type:'endTrial'}]
-                }
-			]
-		}
-
+        { "inherit": { "set": "vivid" } }
     ]);
     return API.script;
 });

@@ -452,33 +452,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             ]
         },
-        {
-            input: [
-                {handle:'space',on:'space'}
-            ],
-            layout: [
-                // This is a stimulus object
-                {
-                    media : {template:"/PIPlayerScripts/intro.html"}
-                }
-            ],
-            interactions: [
-                // This is an interaction (it has a condition and an action)
-                {
-                    conditions: [
-                        {type:'inputEquals',value:'space'}
-                    ],
-                    actions: [
-                        {type:'endTrial'}
-                    ]
-                }
-            ]
-        },
-        {
-            "inherit": {
-                "set": "vivid"
-            }
-        },
+        { "inherit": { "set": "vivid" } },
         {
             mixer: 'random',
             //n: 50,  // The total number of randomly selected trials to run.
