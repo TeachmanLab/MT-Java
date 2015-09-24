@@ -62,13 +62,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 css: {fontSize: '12px', 'text-align': 'center'},
                 location:{bottom:'200px'}
             }
-        ],
-        vivid:[
-            {
-                'handle':'vivid',
-                media:'________'
-
-            }
         ]
     });
 
@@ -350,6 +343,64 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     { inherit:'base', data: {positive:false}}
                             ]);
 
+
+    /**
+     * Type of Trial Set that collects vividness responses
+     */
+    API.addTrialSets('vivid', [{
+        input: [
+            {handle: 'Not at all vivid', on: 'keypressed', key: '1'},
+            {handle: 'Somewhat vivid', on: 'keypressed', key: '2'},
+            {handle: 'Moderately vivid', on: 'keypressed', key: '3'},
+            {handle: 'Very vivid', on: 'keypressed', key: '4'},
+            {handle: 'Totally vivid', on: 'keypressed', key: '5'},
+            {handle: 'Prefer not to answer', on: 'keypressed', key: 'p'}
+        ],
+        layout: [
+            {
+                media : {template:"/PIPlayerScripts/vividness.html"}
+            }
+        ],
+        stimuli: [
+            {media :{'inlineTemplate':"<div class='vivid'>_______</div>"}}
+        ],
+        interactions: [
+            {
+                conditions: [{type: 'begin'}],
+                actions: [{type: 'showStim', handle: 'All'}]
+            },
+            {
+                conditions: [
+                    {
+                        type: 'function', value: function(trial, inputData) {
+                            return( inputData.handle == "Not at all vivid" ||
+                                    inputData.handle == "Somewhat vivid"  ||
+                                    inputData.handle == "Moderately vivid" ||
+                                    inputData.handle == "Very vivid"  ||
+                                    inputData.handle == "Totally vivid" ||
+                                    inputData.handle == "Prefer not to answer")
+                        }
+                    }
+                ],
+                actions: [
+                    {type:'custom',fn:function(options,eventData){
+                        var span = $("div.vivid");
+                        var text = span.text().replace('_______', eventData["handle"]);
+                        span.text(text);                    }},
+                    {type:'setTrialAttr',setter:function(trialData, eventData) {
+                        trialData.vividness = eventData["handle"];
+                    }},
+                    {type:'trigger', handle:'vivid_switch',  on: 'timeout', duration: 500}
+                ]
+            },
+            {
+                conditions: [{type:'inputEquals', value:'vivid_switch'}],
+                actions: [{type:'log'}, {type:'endTrial'}]
+            },
+        ]
+    }]);
+
+
     API.addSequence([
         {
             input: [
@@ -408,7 +459,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },
     {
@@ -443,114 +494,16 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },
     ]
         },
-		{
-        input: [
-                    {handle:'Not at all vivid',on:'keypressed', key:'1'},
-                    {handle:'Somewhat vivid',on:'keypressed', key:'2'},
-                    {handle:'Moderately vivid',on:'keypressed', key:'3'},
-                    {handle:'Very vivid',on:'keypressed', key:'4'},
-                    {handle:'Totally vivid',on:'keypressed', key:'5'},
-            ],
-			layout:[
-				{media:{'inlineTemplate':"<div> How vividly did you imagine yourself in the scenario? </div> <div> 1=<i>Not at all vivid</i> </div> <div> 2=<i>Somewhat vivid</i> </div> <div> 3=<i>Moderately vivid</i> </div> <div> 4=<i>Very vivid</i> </div> <div> 5=<i>Totally vivid</i> </div> <div>Please type the corresponding number </div>"}}
-			],
-			stimuli: [
-				{media :{'inlineTemplate':"<div class='vivid'>_______</div>"}}
-			],
-			interactions: [
-				// 1. Display Stimulus
-				{
-					/* when we begin the trial (condition) */
-					conditions: [{type:'begin'}],
-					/* show all stimuli (action) */
-					actions: [{type:'showStim',handle:'All'}]
-				},
-				{
-					conditions: [{type:'inputEquals',value:'Not at all vivid'}
-					             ],
-					/* end the trial */
-					actions: [
-                    {type:'custom',fn:function(options,eventData){
-                        var span = $("div.vivid");
-                        var text = span.text().replace('_______', eventData["handle"]);
-                        span.text(text);                    }},
-                    {type:'trigger', handle:'vivid_switch',  on: 'timeout', duration: 500}],
-				},
-                {
-                    conditions: [{type:'inputEquals', value:'vivid_switch'}],
-					actions: [{type:'log'}, {type:'endTrial'}]
-                },
-				{
-					conditions: [
-					             {type:'inputEquals',value:'Somewhat vivid'},
-					             ],
-					/* end the trial */
-					actions: [
-                    {type:'custom',fn:function(options,eventData){
-                        var span = $("div.vivid");
-                        var text = span.text().replace('_______', eventData["handle"]);
-                        span.text(text);                    }},
-                    {type:'trigger', handle:'vivid_switch',  on: 'timeout', duration: 500}],
-				},
-                {
-                    conditions: [{type:'inputEquals', value:'vivid_switch'}],
-					actions: [{type:'endTrial'}]
-                },
-				{
-					conditions: [
-					             {type:'inputEquals',value:'Moderately vivid'},
-					             ],
-					/* end the trial */
-					actions: [
-                    {type:'custom',fn:function(options,eventData){
-                        var span = $("div.vivid");
-                        var text = span.text().replace('_______', eventData["handle"]);
-                        span.text(text);                    }},
-                    {type:'trigger', handle:'vivid_switch',  on: 'timeout', duration: 500}],
-				},
-                {
-                    conditions: [{type:'inputEquals', value:'vivid_switch'}],
-					actions: [{type:'log'}, {type:'endTrial'}]
-                },
-				{
-					conditions: [
-					             {type:'inputEquals',value:'Very vivid'},
-					             ],
-					/* end the trial */
-					actions: [
-                    {type:'custom',fn:function(options,eventData){
-                        var span = $("div.vivid");
-                        var text = span.text().replace('_______', eventData["handle"]);
-                        span.text(text);                    }},
-                    {type:'trigger', handle:'vivid_switch',  on: 'timeout', duration: 500}],
-				},
-                {
-                    conditions: [{type:'inputEquals', value:'vivid_switch'}],
-					actions: [{type:'log'}, {type:'endTrial'}]
-                },
-				{
-					conditions: [
-					             {type:'inputEquals',value:'Totally vivid'}
-					             ],
-					/* end the trial */
-					actions: [
-                    {type:'custom',fn:function(options,eventData){
-                        var span = $("div.vivid");
-                        var text = span.text().replace('_______', eventData["handle"]);
-                        span.text(text);                    }},
-                    {type:'trigger', handle:'vivid_switch',  on: 'timeout', duration: 500}],
-				},
-                {
-                    conditions: [{type:'inputEquals', value:'vivid_switch'}],
-					actions: [{type:'log'}, {type:'endTrial'}]
-                }
-			]
-		},
+        {
+            "inherit": {
+                "set": "vivid"
+            }
+        },
         {
             mixer: 'random',
             //n: 50,  // The total number of randomly selected trials to run.
@@ -587,7 +540,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -621,7 +574,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -655,7 +608,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -689,7 +642,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -723,7 +676,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -757,7 +710,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -791,7 +744,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -825,7 +778,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -859,7 +812,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -893,7 +846,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -927,7 +880,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -961,7 +914,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -995,7 +948,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -1029,7 +982,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -1063,7 +1016,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -1097,7 +1050,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -1131,7 +1084,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -1165,7 +1118,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -1199,7 +1152,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -1233,7 +1186,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -1267,7 +1220,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -1301,9 +1254,21 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
-    },           {
+    },
+    ]
+        },
+        {
+            "inherit": {
+                "set": "vivid"
+            }
+        },
+        {
+            mixer: 'random',
+            //n: 50,  // The total number of randomly selected trials to run.
+            data: [
+    {
         "inherit": {
             "set": "posneg",
             "type": "random"
@@ -1335,7 +1300,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },       
     {
@@ -1370,7 +1335,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -1404,7 +1369,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -1438,7 +1403,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -1472,7 +1437,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -1506,7 +1471,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -1540,7 +1505,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -1574,7 +1539,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -1608,7 +1573,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -1643,7 +1608,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -1677,7 +1642,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -1711,7 +1676,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -1745,7 +1710,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -1779,7 +1744,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },       
     {
@@ -1814,7 +1779,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -1848,7 +1813,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -1882,7 +1847,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -1916,7 +1881,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -1950,7 +1915,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -1984,7 +1949,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },       
     {
@@ -2019,7 +1984,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -2053,7 +2018,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -2087,7 +2052,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -2121,7 +2086,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -2155,7 +2120,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                      }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}} 
         ]
     },           {
         "inherit": {
@@ -2190,13 +2155,13 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             }
         ]
     }
-]
-    
-
-
-        }
-
-    ]);
+]   ]
+        },
+        {
+            "inherit": {
+                "set": "vivid"
+            }
+        }]);
     return API.script;
     // #### Activate the player
     // API.play();
