@@ -37,9 +37,9 @@ public class MentalHealthHxTx implements QuestionnaireData {
     private List<String> disorders;
 
     @ElementCollection
-    @CollectionTable(name = "mental_health_disorders_no", joinColumns = @JoinColumn(name = "id"))
-    @Column(name = "Disorder_no")
-    private List<String> disorders_no;
+    @CollectionTable(name = "mental_health_disorders_past", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "Disorder_past")
+    private List<String> disorders_past;
 
     @ElementCollection
     @CollectionTable(name = "help", joinColumns = @JoinColumn(name = "id"))
@@ -51,7 +51,7 @@ public class MentalHealthHxTx implements QuestionnaireData {
     @Column(name = "help_past")
     private List<String> help_past;
 
-    private int psychiatrist;
+    private String psychiatrist;
     private int psychologist;
     private int school_counselor;
     private int LMHC;
