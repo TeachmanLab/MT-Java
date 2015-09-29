@@ -631,3 +631,10 @@ form#wizard {
     text-align: center;
 }
 
+#graph {
+    width: 600px;
+    height: 400px;
+    font-size: 14px;
+    line-height: 1.2em;
+    margin: auto;
+}

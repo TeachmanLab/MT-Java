@@ -3,9 +3,14 @@ package edu.virginia.psyc.pi.persistence.Questionnaire;
 import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import lombok.Data;
+import org.apache.commons.math3.stat.regression.SimpleRegression;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,9 +22,12 @@ import java.util.Date;
 @Entity
 @Table(name="OA")
 @Data
-public class OA implements QuestionnaireData {
+public class OA implements QuestionnaireData, Comparable<OA> {
+
+    private static final Logger LOG = LoggerFactory.getLogger(OA.class);
 
     public static int NO_ANSWER = 555;
+    public static final int MAX_SCORE = 4;
 
     @Id
     @GeneratedValue
@@ -42,6 +50,7 @@ public class OA implements QuestionnaireData {
         this.avoid = avoid;
         this.interfere = interfere;
         this.interfere_social = interfere_social;
+        this.date = new Date();
     }
 
     public OA(){}
@@ -61,10 +70,31 @@ public class OA implements QuestionnaireData {
         return(sum / total);
     }
 
-
     public boolean atRisk(OA original) {
         return (score() / original.score()) > 1.3;
     }
 
+    @Override
+    public int compareTo(OA o) {
+        return date.compareTo(o.date);
+    }
+
+
+
+
+    /** Calculates a linear regression, providing two plot points
+     * for adding to the graph, along with a value for the slope of
+     * the curve, which will determine how well the participant has
+     * done.
+     */
+    public static SimpleRegression regression(List<OA> oas) {
+        SimpleRegression regression = new SimpleRegression();
+        double counter = 0;
+        for(OA oa : oas) {
+            regression.addData(counter, oa.score());
+            counter++;
+        }
+        return regression;
+    }
 
 }

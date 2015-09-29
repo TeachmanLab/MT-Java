@@ -76,10 +76,12 @@ public class LoginControllerTest {
                 .param("fullName", "Dan Funk")
                 .param("email", "some_crazy2@email.com")
                 .param("password", PASSWD)
-                .param("passwordAgain", PASSWD))
+                .param("passwordAgain" +
+                        "", PASSWD)
+                .param("over18", "true"))
                 .andDo(print())
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/account"));
+                .andExpect(view().name("redirect:/account/theme"));
 
         p = participantRepository.findByEmail("some_crazy2@email.com");
         assert(p != null);
