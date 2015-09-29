@@ -91,7 +91,7 @@ li.alert {
 }
 
 #footer {background:#21336B; font-size:0.6em;}
-.footer-logo { float:left;}
+.footer-logo { float:left; margin: 10px;}
 
 .footer-links {float:right; list-style:none; padding:15px;}
 .footer-links li {float:left; padding:0px 10px;}
