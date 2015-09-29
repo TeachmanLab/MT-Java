@@ -1,14 +1,14 @@
 package edu.virginia.psyc.pi.controller;
 
-import edu.virginia.psyc.pi.domain.CBMStudy;
-import edu.virginia.psyc.pi.domain.Participant;
-import edu.virginia.psyc.pi.domain.Session;
-import edu.virginia.psyc.pi.domain.Study;
+import edu.virginia.psyc.pi.domain.*;
 import edu.virginia.psyc.pi.domain.tango.Reward;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
+import edu.virginia.psyc.pi.persistence.Questionnaire.OA;
+import edu.virginia.psyc.pi.persistence.Questionnaire.OARepository;
 import edu.virginia.psyc.pi.service.EmailService;
 import edu.virginia.psyc.pi.service.TangoService;
+import org.apache.commons.math3.stat.regression.SimpleRegression;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -23,6 +23,10 @@ import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -43,6 +47,8 @@ public class SessionController extends BaseController {
     @Autowired
     private EmailService emailService;
 
+    @Autowired
+    private OARepository oaRepository;
 
     /**
      * Spring automatically configures this object.
@@ -98,8 +104,61 @@ public class SessionController extends BaseController {
         return "overview";
     }
 
+    @RequestMapping("/graph")
+    public String graph(ModelMap model, Principal principal) {
+
+        ParticipantDAO dao = getParticipantDAO(principal.getName());
+        Participant p      = getParticipant(dao);
+        List<OA> oaList    = oaRepository.findByParticipantDAO(dao);
+        List<List<Object>> points = new ArrayList();
+        List<List<Object>> regressionPoints = new ArrayList();
+
+        Collections.sort(oaList);
+        SimpleRegression regression;
+
+        OA original = oaList.get(0);
+        OA last     = oaList.get(oaList.size() - 1);
+
+        regression = OA.regression(oaList);
+
+        // Create plot points
+        List<Object> point;
+        for(OA oa : oaList) {
+            point = new ArrayList<>();
+            point.add(CBMStudy.calculateDisplayName(oa.getSession()));
+            point.add(oa.score());
+            points.add(point);
+            if(oa.equals(original)) {
+                ArrayList<Object> rPoint = new ArrayList<>(point);
+                rPoint.set(1, regression.getIntercept());
+                regressionPoints.add(rPoint);
+            }
+            if(oa.equals(last)) {
+                ArrayList<Object> rPoint = new ArrayList<>(point);
+                rPoint.set(1, regression.predict(oaList.size()));
+                regressionPoints.add(rPoint);
+            }
+        }
+
+        int improvement = new Double((regression.getIntercept() - regression.predict(oaList.size()))/regression.getIntercept() * 100).intValue();
+        String status = "";
+        if(Math.abs(improvement) < 15) status = "same";
+        else if (improvement > 30) status = "lot";
+        else if (improvement > 15) status = "little";
+        else if (improvement < -15) status = "worse";
+
+        model.addAttribute("participant", p);
+        model.addAttribute("points", points);
+        model.addAttribute("regressionPoints", regressionPoints);
+        model.addAttribute("improvement", improvement);
+        model.addAttribute("status", status);
+
+        return "graph";
+    }
+
     @RequestMapping("/next")
     public View nextStepInSession(ModelMap model, Principal principal) {
+
         Participant p = getParticipant(principal);
         Study study = p.getStudy();
 

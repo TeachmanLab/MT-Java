@@ -654,11 +654,7 @@ public ModelAndView showSUDS(Principal principal) {
         // If the users score differs from there original score and places the user
         // "at-risk", then send a message to the administrator.
         List<OA> previous = oa_repository.findByParticipantDAO(oa.getParticipantDAO());
-        OA firstEntry = Collections.min(previous, new Comparator<OA>() {
-            public int compare(OA x, OA y) {
-                return x.getDate().compareTo(y.getDate());
-            }
-        });
+        OA firstEntry = Collections.min(previous);
         if(oa.atRisk(firstEntry)) {
             Participant participant = getParticipant(principal);
             if (!participant.previouslySent(EmailService.TYPE.alertParticipant)) {

@@ -79,11 +79,11 @@ public class CBMStudyTest {
         tasks = study.getCurrentSession().getTasks();
 
         assertNotNull(tasks);
-        assertEquals("Pre should have nine tasks.", 9, tasks.size());
-        assertEquals("Unique name for the task should be OA", "OA", tasks.get(0).getName());
-        assertEquals("First task should be named OASIS", "OASIS", tasks.get(0).getDisplayName());
+        assertEquals("Pre should have eleven tasks.", 11, tasks.size());
+        assertEquals("Unique name for the task should be credibility", "credibility", tasks.get(0).getName());
+        assertEquals("First task should be named Credibility Assessment", "Credibility Assessment", tasks.get(0).getDisplayName());
         assertEquals("First task should point to a questionniare", Task.TYPE.questions, tasks.get(0).getType());
-        assertEquals("First task should point to the OA questionniare","/questions/OA", tasks.get(0).getRequestMapping());
+        assertEquals("First task should point to the Credibility Assessment questionniare","/questions/credibility", tasks.get(0).getRequestMapping());
         assertTrue("First task should be completed",tasks.get(0).isComplete());
         assertFalse("First task should not be current", tasks.get(0).isCurrent());
         assertFalse("Second task should not be completed",tasks.get(1).isComplete());
@@ -101,12 +101,12 @@ public class CBMStudyTest {
         study = new CBMStudy(CBMStudy.NAME.PRE.toString(), 0, null, new ArrayList<TaskLog>());
 
         assertEquals(CBMStudy.NAME.PRE.toString(), study.getCurrentSession().getName());
-        assertEquals("OA", study.getCurrentSession().getCurrentTask().getName());
+        assertEquals("credibility", study.getCurrentSession().getCurrentTask().getName());
 
         study.completeCurrentTask();
 
         assertEquals(CBMStudy.NAME.PRE.toString(), study.getCurrentSession().getName());
-        assertEquals("credibility", study.getCurrentSession().getCurrentTask().getName());
+        assertEquals("demographics", study.getCurrentSession().getCurrentTask().getName());
 
         study.completeCurrentTask();
 
@@ -116,7 +116,7 @@ public class CBMStudyTest {
         assertNull(study.getLastSessionDate());
 
         // Move past all the tasks in Pre
-        for(int i =0; i<7; i++) {
+        for(int i =0; i<9; i++) {
             study.completeCurrentTask();
         }
         assertEquals(CBMStudy.NAME.SESSION1.toString(), study.getCurrentSession().getName());
