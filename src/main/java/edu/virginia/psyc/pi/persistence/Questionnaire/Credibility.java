@@ -2,6 +2,7 @@ package edu.virginia.psyc.pi.persistence.Questionnaire;
 
 import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -15,6 +16,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name="Credibility")
+@Data
 public class Credibility implements QuestionnaireData {
 
     @Id
@@ -27,64 +29,7 @@ public class Credibility implements QuestionnaireData {
     private String session;
 
     private int logical;
-    private int successful;
+    private int important;
     private int recommendable;
-
-    /** Auto Generated methods follow */
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public ParticipantDAO getParticipantDAO() {
-        return participantDAO;
-    }
-
-    public void setParticipantDAO(ParticipantDAO participantDAO) {
-        this.participantDAO = participantDAO;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public int getLogical() {
-        return logical;
-    }
-
-    public void setLogical(int logical) {
-        this.logical = logical;
-    }
-
-    public int getSuccessful() {
-        return successful;
-    }
-
-    public void setSuccessful(int successful) {
-        this.successful = successful;
-    }
-
-    public int getRecommendable() {
-        return recommendable;
-    }
-
-    public void setRecommendable(int recommendable) {
-        this.recommendable = recommendable;
-    }
-
-    public String getSession() {
-        return session;
-    }
-
-    public void setSession(String session) {
-        this.session = session;
-    }
 
 }

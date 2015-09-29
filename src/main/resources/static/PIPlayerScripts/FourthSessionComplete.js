@@ -332,16 +332,21 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
 
     }]);
 
-
     /**
      * This sets the ratio of positive to negative statements.  if there is one
      * true, and one false, it will be a 50/50 split.  If it is 3 true, and 1 false
      * if would then be a 75% positive, 25% negative split.
      */
-    API.addTrialSets('posneg',[
-                    { inherit:'base', data: {positive:true}},
-                    { inherit:'base', data: {positive:false}}
-                            ]);
+    if(API.getGlobal()["cbmCondition"] == "FITFY_FIFTY") {
+        API.addTrialSets('posneg',[
+            { inherit:'base', data: {positive:true}},
+            { inherit:'base', data: {positive:false}}
+        ]);
+    } else {
+        API.addTrialSets('posneg',[
+            { inherit:'base', data: {positive:true}}
+        ]);
+    }
 
     /**
      * Type of Trial Set that collects vividness responses
@@ -2086,12 +2091,11 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
 
 
         },
-            "inherit": {
-                "set": "vivid",
-                layout: [{media: {template: "/PIPlayerScripts/vividness_last.html"}}]
-            }
+        {
+            "inherit": {"set": "vivid"},
+            layout: [{media : {template:"/PIPlayerScripts/vividness_last.html"}}]
         }
-        )];
+        ]);
     return API.script;
     // #### Activate the player
     //API.play();

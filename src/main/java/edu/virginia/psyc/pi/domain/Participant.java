@@ -31,7 +31,7 @@ public class Participant {
 
     private long id;
 
-    public enum CBM_CONDITION {FITFY_FIFTY, POSITIVE, NEUTRAL}
+    public enum CBM_CONDITION {FIFTY_FIFTY, POSITIVE, NEUTRAL}
     public enum PRIME {NEUTRAL, ANXIETY}
     private static final Random RANDOM = new Random();  // For generating random CBM and Prime values.
     private static final Logger LOG = LoggerFactory.getLogger(Participant.class);
