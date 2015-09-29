@@ -8,6 +8,7 @@ import edu.virginia.psyc.pi.persistence.Questionnaire.OA;
 import edu.virginia.psyc.pi.persistence.Questionnaire.OARepository;
 import edu.virginia.psyc.pi.service.EmailService;
 import edu.virginia.psyc.pi.service.TangoService;
+import org.apache.commons.math3.stat.regression.SimpleRegression;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -109,32 +110,48 @@ public class SessionController extends BaseController {
         ParticipantDAO dao = getParticipantDAO(principal.getName());
         Participant p      = getParticipant(dao);
         List<OA> oaList    = oaRepository.findByParticipantDAO(dao);
+        List<List<Object>> points = new ArrayList();
+        List<List<Object>> regressionPoints = new ArrayList();
+
         Collections.sort(oaList);
+        SimpleRegression regression;
 
         OA original = oaList.get(0);
         OA last     = oaList.get(oaList.size() - 1);
 
-        List<List<Object>> points = new ArrayList();
+        regression = OA.regression(oaList);
+
+        // Create plot points
         List<Object> point;
         for(OA oa : oaList) {
-            String x = CBMStudy.calculateDisplayName(oa.getSession());
             point = new ArrayList<>();
-            point.add(x);
+            point.add(CBMStudy.calculateDisplayName(oa.getSession()));
             point.add(oa.score());
             points.add(point);
+            if(oa.equals(original)) {
+                ArrayList<Object> rPoint = new ArrayList<>(point);
+                rPoint.set(1, regression.getIntercept());
+                regressionPoints.add(rPoint);
+            }
+            if(oa.equals(last)) {
+                ArrayList<Object> rPoint = new ArrayList<>(point);
+                rPoint.set(1, regression.predict(oaList.size()));
+                regressionPoints.add(rPoint);
+            }
         }
-        int improvement = new Double((last.score() / original.score()) * 100).intValue();
+
+        int improvement = new Double((regression.getIntercept() - regression.predict(oaList.size()))/regression.getIntercept() * 100).intValue();
         String status = "";
-        if(improvement < 90) status = "worse";
-        else if (improvement < 110) status = "same";
-        else if (improvement < 130) status = "little";
-        else status = "lot";
+        if(Math.abs(improvement) < 15) status = "same";
+        else if (improvement > 30) status = "lot";
+        else if (improvement > 15) status = "little";
+        else if (improvement < -15) status = "worse";
 
         model.addAttribute("participant", p);
         model.addAttribute("points", points);
+        model.addAttribute("regressionPoints", regressionPoints);
         model.addAttribute("improvement", improvement);
         model.addAttribute("status", status);
-
 
         return "graph";
     }

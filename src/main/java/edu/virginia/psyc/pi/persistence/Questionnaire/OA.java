@@ -3,6 +3,7 @@ package edu.virginia.psyc.pi.persistence.Questionnaire;
 import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import lombok.Data;
+import org.apache.commons.math3.stat.regression.SimpleRegression;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -81,34 +82,19 @@ public class OA implements QuestionnaireData, Comparable<OA> {
 
 
 
-    /** Calculates the slope across a series of OA scores
-     * and returns a message about the participants progress.
+    /** Calculates a linear regression, providing two plot points
+     * for adding to the graph, along with a value for the slope of
+     * the curve, which will determine how well the participant has
+     * done.
      */
-    public static String progress(List<OA> oas) {
-
-        double difference;
-        double sumOfDifferences = 0;
-        double firstScore = oas.get(0).score();
-
-        // for every Oasis score (except the last one)
-        // subtract the next score from it, and divide by the
-        // first score.
-        for(int i = 0; i < oas.size() - 1; i++) {
-            // Calculate the difference between the
-            // score percentage and next score percentage.
-            difference = (oas.get(i).score() - oas.get(i+1).score())/firstScore;
-            sumOfDifferences += difference;
+    public static SimpleRegression regression(List<OA> oas) {
+        SimpleRegression regression = new SimpleRegression();
+        double counter = 0;
+        for(OA oa : oas) {
+            regression.addData(counter, oa.score());
+            counter++;
         }
-
-        // Here I average the percentages
-        difference = sumOfDifferences / (oas.size() - 1);
-
-        // And then calculate the message.
-        if(Math.abs(difference) <= 0.15) return "same";
-        else if(difference > 0.15 && difference < 0.30) return "little better";
-        else if(difference >= 0.30) return "lot better";
-        else return "worse";
-
+        return regression;
     }
 
 }
