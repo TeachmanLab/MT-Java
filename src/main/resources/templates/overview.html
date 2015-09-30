@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
-<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
-<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!-->
 <html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
 <!--<![endif]-->
-    <head th:include="fragment/common :: headerFragment" />
+<head th:include="fragment/common :: headerFragment"/>
 <body th:class="|user-theme-${participant.theme}|">
-    <section id="header" class="clearfix" th:include="fragment/common :: topFragment" />
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
 
 
 <!-- content starts
@@ -20,25 +23,33 @@
             training sessions. We encourage you to begin a new session 3-4 days after completing the previous session.
             When you're done reviewing, head back to <a th:href="@{/session}">home</a> to start your next session.</p>
 
-        <div class="sessionGrouping" th:each="session,iterStat : ${study.sessions}">
-        <img class="sessionMarker" th:src="|/images/marker-${iterStat.index}-${participant.theme}.png|"/>
-        <div class="gift"><div th:if="${session.awardGift}">$5 Gift Card!<img th:src="@{/images/gift_card.png}"/></div></div>
-        <div class="gift"><div th:if="${session.name == 'POST'}">Free T-Shirt!<img th:src="|/images/shirt-${participant.theme}.png|"/></div></div>
-        <div class="sessionOverview">
-            <h3 th:text="${session.displayName}">Session Title</h3>
-            <table>
-                <tr th:each="task : ${session.tasks}" th:if="${task.duration} > 0">
-                    <td th:text="${task.displayName}">Session Title</td>
-                    <td th:if="${task.dateCompleted}"><img th:src="|/images/check-${participant.theme}.png|"/>
-                        <span class="date" th:text="${#calendars.format(task.dateCompleted,'MMM d, YYYY')}">10/05/2015</span>
-                    </td>
-                    <td th:unless="${task.dateCompleted}" th:text="'Est ' + ${task.duration} + ' min. duration'"></td>
-                </tr>
-            </table>
-        </div>
-            <p class="allow2days" th:if="${session.name != 'POST'}"> Allow 3 to 4 days between each session.</p>
+        <div class="sessionGrouping" th:each="session,iterStat : ${study.sessions}"  th:unless="${session.name == 'COMPLETE'}">
+            <img class="sessionMarker" th:src="|/images/marker-${iterStat.index}-${participant.theme}.png|"/>
+
+            <div class="gift">
+                <div th:if="${session.awardGift}">$5 Gift Card!<img th:src="@{/images/gift_card.png}"/></div>
+            </div>
+            <div class="gift">
+                <div th:if="${session.name == 'POST'}">Free T-Shirt!<img
+                        th:src="|/images/shirt-${participant.theme}.png|"/></div>
+            </div>
+            <div class="sessionOverview">
+                <h3 th:text="${session.displayName}">Session Title</h3>
+                <table>
+                    <tr th:each="task : ${session.tasks}" th:if="${task.duration} > 0">
+                        <td th:text="${task.displayName}">Session Title</td>
+                        <td th:if="${task.dateCompleted}"><img th:src="|/images/check-${participant.theme}.png|"/>
+                            <span class="date" th:text="${#calendars.format(task.dateCompleted,'MMM d, YYYY')}">10/05/2015</span>
+                        </td>
+                        <td th:unless="${task.dateCompleted}"
+                            th:text="'Est ' + ${task.duration} + ' min. duration'"></td>
+                    </tr>
+                </table>
+            </div>
+            <p class="allow2days" th:if="${session.index != 'POST'}"> Allow 3 to 4 days between each session.</p>
         </div>
         <br/>
+
         <p>Head back <a th:href="@{/session}">home</a>.</p>
     </div>
     <br/>
@@ -46,17 +57,17 @@
 </section>
 
 
-    <!-- footer starts
-    ================================================== -->
-<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
 
 <!-- copyright starts
 ================================================== -->
-<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
 
 <!--Javascript
 ================================================== -->
-<div th:include="fragment/common :: scripts" />
+<div th:include="fragment/common :: scripts"/>
 
 </body>
 </html>

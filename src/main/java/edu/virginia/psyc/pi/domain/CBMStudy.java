@@ -69,7 +69,7 @@ public class CBMStudy implements Study {
             }
             gift = false;
             if(giftSessions.contains(name)) gift = true;
-            if (!name.equals(NAME.ELIGIBLE) && !name.equals(NAME.COMPLETE)) {
+            if (!name.equals(NAME.ELIGIBLE)) {
                 session = new Session(calcIndex(name), name.toString(), calculateDisplayName(name), completed, current, gift, getTasks(name, taskIndex));
                 sessions.add(session);
             }
@@ -266,7 +266,7 @@ public class CBMStudy implements Study {
             case SESSION7: index=7; break;
             case SESSION8: index=8; break;
             case POST: index=9; break;
-            case COMPLETE: index=0; break;
+            case COMPLETE: index=10; break;
         }
         return index;
     }
@@ -385,19 +385,23 @@ public class CBMStudy implements Study {
     @Override
     public STUDY_STATE getState() {
 
-            if (taskIndex != 0) return STUDY_STATE.IN_PROGRESS;
-
-            // Pre Assessment and Session 1 can be completed immediately.
-            if(getCurrentSession().getName().equals(NAME.PRE.toString()) ||
-                    getCurrentSession().getName().equals(NAME.SESSION1.toString()))
-                return STUDY_STATE.READY;
-
-            // Otherwise, you must wait at least one day before starting the next
-            // session.
-
-            if(daysSinceLastSession() == 0 && lastSessionDate != null) return STUDY_STATE.WAIT_A_DAY;
-            return STUDY_STATE.READY;
+        if (getCurrentSession().getName().equals(NAME.COMPLETE.toString())) {
+            return STUDY_STATE.ALL_DONE;
         }
+
+        if (taskIndex != 0) return STUDY_STATE.IN_PROGRESS;
+
+        // Pre Assessment, Session 1, and 'Complete' can be accessed immediately.
+        if(getCurrentSession().getName().equals(NAME.PRE.toString()) ||
+                getCurrentSession().getName().equals(NAME.SESSION1.toString()))
+            return STUDY_STATE.READY;
+
+        // Otherwise, you must wait at least one day before starting the next
+        // session.
+
+        if(daysSinceLastSession() == 0 && lastSessionDate != null) return STUDY_STATE.WAIT_A_DAY;
+        return STUDY_STATE.READY;
+    }
 
     void completeSession() {
         List<Session> sessions = getSessions();

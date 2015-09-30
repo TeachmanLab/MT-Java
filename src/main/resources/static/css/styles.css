@@ -48,10 +48,13 @@ button.jw-button-finish:disabled span.ui-icon-circle-check {
 
 
 #header {background:url(/images/bg-header.png) top left repeat-x; }
-.logo {background:url(/images/header-logo.png) top left no-repeat; width:365px; height:135px; float:left; margin-left:-35px;}
+.logo {
+    background:url(/images/header-logo.png) top left no-repeat;
+    width:365px; height:135px; float:left;
+    margin-left:-35px; margin-right: 150px;}
 .logo a {height:135px; width:365px; display:block;}
 
-#nav {float:right; font-size:0.6em; list-style:none; padding:15px 0 15px 0;}
+#nav {font-size:0.6em; list-style:none; padding:15px 0 15px 20px; text-align: right;}
 #nav li {float:left; padding:0px 10px;}
 #nav a {color:#5ECCDE; text-decoration:none; font-weight: 700}
 .user-theme-orange #nav a { color:#F99A65;}
@@ -91,7 +94,7 @@ li.alert {
 }
 
 #footer {background:#21336B; font-size:0.6em;}
-.footer-logo { float:left;}
+.footer-logo { float:left; margin: 10px;}
 
 .footer-links {float:right; list-style:none; padding:15px;}
 .footer-links li {float:left; padding:0px 10px;}

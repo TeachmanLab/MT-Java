@@ -3,6 +3,7 @@ package edu.virginia.psyc.pi.domain;
 import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,6 +19,7 @@ public class Session {
 
 
     public enum STATE {COMPLETE, CURRENT, INCOMPLETE}
+    private static final Task nullTask = new Task("null", "no task", Task.TYPE.questions, 0, false, false, new Date());
 
     private int index;
     private String name;
@@ -55,7 +57,7 @@ public class Session {
         for (Task t : tasks) {
             if (t.isCurrent()) return t;
         }
-        return null;
+        return nullTask;
     }
 
     /**

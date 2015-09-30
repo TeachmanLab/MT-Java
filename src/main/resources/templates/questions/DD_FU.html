@@ -21,7 +21,7 @@
                 <form th:action="@{/questions/DD_FU}" method="POST">
                     <div class="longSection">
                         <p>
-                            This section asks you to report on <b>your</b> drinking over the <b>past three months.</b>
+                            This section asks you to report on <b>your</b> drinking over the <b>past week.</b>
                         </p>
                         <div>
                             For all questions, <b>one drink equals</b>:
@@ -51,25 +51,25 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="number" min="0" max="100" required="required"  name="monday_count" class="form-control"/>
+                                    <input type="number" min="0" id="mon_drinks" onchange="hours('mon')" max="100" required="required"  name="monday_count" class="form-control"/>
                                 </td>
                                 <td>
-                                    <input type="number" min="0" max="100" required="required"  name="tuesday_count" class="form-control"/>
+                                    <input type="number" min="0" id="tues_drinks" onchange="hours('tues')" max="100" required="required"  name="tuesday_count" class="form-control"/>
                                 </td>
                                 <td>
-                                    <input type="number" min="0" max="100" required="required"  name="wednesday_count" class="form-control"/>
+                                    <input type="number" min="0" id="wed_drinks" onchange="hours('wed')" max="100" required="required"  name="wednesday_count" class="form-control"/>
                                 </td>
                                 <td>
-                                    <input type="number" min="0" max="100" required="required"  name="thursday_count" class="form-control"/>
+                                    <input type="number" min="0" id="thurs_drinks" onchange="hours('thurs')" max="100" required="required"  name="thursday_count" class="form-control"/>
                                 </td>
                                 <td>
-                                    <input type="number" min="0" max="100" required="required"  name="friday_count" class="form-control"/>
+                                    <input type="number" min="0" id="fri_drinks" onchange="hours('fri')" max="100" required="required"  name="friday_count" class="form-control"/>
                                 </td>
                                 <td>
-                                    <input type="number" min="0" max="100" required="required"  name="saturday_count" class="form-control"/>
+                                    <input type="number" min="0" id="sat_drinks" onchange="hours('sat')" max="100" required="required"  name="saturday_count" class="form-control"/>
                                 </td>
                                 <td>
-                                    <input type="number" min="0" max="100" required="required"  name="sunday_count" class="form-control"/>
+                                    <input type="number" min="0" id="sun_drinks" onchange="hours('sun')" max="100" required="required"  name="sunday_count" class="form-control"/>
                                 </td>
                             </tr>
 </table>
@@ -89,25 +89,25 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="number" min="0" max="100" required="required"  name="monday_hours" class="form-control"/>
+                                    <input type="number" min="0" max="100" id="mon" disabled="disabled"  name="monday_hours" class="form-control"/>
                                 </td>
                                 <td>
-                                    <input type="number" min="0" max="100" required="required"  name="tuesday_hours" class="form-control"/>
+                                    <input type="number" min="0" max="100" id="tues" disabled="disabled"  name="tuesday_hours" class="form-control"/>
                                 </td>
                                 <td>
-                                    <input type="number" min="0" max="100" required="required"  name="wednesday_hours" class="form-control"/>
+                                    <input type="number" min="0" max="100" id="wed" disabled="disabled"  name="wednesday_hours" class="form-control"/>
                                 </td>
                                 <td>
-                                    <input type="number" min="0" max="100" required="required"  name="thursday_hours" class="form-control"/>
+                                    <input type="number" min="0" max="100" id="thurs" disabled="disabled"  name="thursday_hours" class="form-control"/>
                                 </td>
                                 <td>
-                                    <input type="number" min="0" max="100" required="required"  name="friday_hours" class="form-control"/>
+                                    <input type="number" min="0" max="100" id="fri" disabled="disabled"  name="friday_hours" class="form-control"/>
                                 </td>
                                 <td>
-                                    <input type="number" min="0" max="100" required="required"  name="saturday_hours" class="form-control"/>
+                                    <input type="number" min="0" max="100" id="sat" disabled="disabled"  name="saturday_hours" class="form-control"/>
                                 </td>
                                 <td>
-                                    <input type="number" min="0" max="100" required="required"  name="sunday_hours" class="form-control"/>
+                                    <input type="number" min="0" max="100" id="sun" disabled="disabled"  name="sunday_hours" class="form-control"/>
                                 </td>
                             </tr>
                         </table>
@@ -124,6 +124,24 @@
     </div>
 </section>
 
+<!--Javascript
+================================================== -->
+<script type="text/javascript">
+
+    function hours(id) {
+        if ($("input#"+id+"_drinks").val() > 0) {
+            $("input#"+id).prop('disabled', false);
+            $("input#"+id).prop('required', true);
+        }
+        else {
+            $("input#"+id).prop('disabled', true);
+            $("input#"+id).prop('required', false);
+        }
+        ;
+
+    }
+    ;
+</script>
 
 <!-- footer starts
 ================================================== -->

@@ -118,7 +118,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {handle:'yesno',media:{html:"<div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>"}, css:{fontSize:'20px',color:'black', 'text-align':'center'}, location:{top:70}}
         ],
         stall: [
-            {handle:'stall',media:{html:"<div class='stim'>Oops, that answer is incorrect; please re-read and in a moment you will have a chance to answer again.</div>"}, css:{fontSize:'20px',color:'black', 'text-align':'center'}, location:{top:70}, nolog:true}
+            {handle:'stall',media:{html:"<div class='stim'>Oops, that answer is incorrect; please re-read the question and in a moment you will have a chance to answer again.</div>"}, css:{fontSize:'20px',color:'black', 'text-align':'center'}, location:{top:70}, nolog:true}
         ],
         vivid: [
             {media :{'inlineTemplate':"<div class='vivid'>_______</div>"}}
@@ -516,6 +516,13 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {"inherit": {"set": "stall"}}
         ]
     },
+    ]
+    },
+                { "inherit": { "set": "vivid" } },
+            {
+                mixer: 'random',
+                //n: 50,  // The total number of randomly selected trials to run.
+                data: [
     {
         "inherit": {
             "set": "posneg",
@@ -551,9 +558,9 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {"inherit": {"set": "stall"}}
         ]
     },
-                { "inherit": { "set": "vivid" } },
     ]
-            },
+    },
+                { "inherit": { "set": "vivid" } },
             {
                 mixer: 'random',
                 //n: 50,  // The total number of randomly selected trials to run.
@@ -1092,10 +1099,10 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {"inherit": {"set": "error"}},
             {
                 "data": {
-                    "negativeKey": "l",
-                    "negativeWord": "ca[ ]m",
-                    "positiveKey": "r",
-                    "positiveWord": "sca[ ]ed",
+                    "negativeKey": "r",
+                    "negativeWord": "sca[ ]ed",
+                    "positiveKey": "l",
+                    "positiveWord": "ca[ ]m",
                     "statement": " On entering an interview, the panel of interviewers welcome you. You are the third candidate to be seen today and as you sit down, you feel your cheeks turning red. You think that they probably see you as "
                 },
                 "handle": "paragraph",
@@ -1327,14 +1334,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {"inherit": {"set": "counter"}},
             {"inherit": {"set": "stall"}}
         ]
-    }
-                ]
-            },
-        { "inherit": { "set": "vivid" } },
-        {
-            mixer: 'random',
-            //n: 50,  // The total number of randomly selected trials to run.
-            data: [
+    },
     {
         "inherit": {
             "set": "posneg",
@@ -1370,7 +1370,17 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {"inherit": {"set": "stall"}}
         ]
     },
-
+    ]
+        },
+        {
+            "inherit": {
+                "set": "vivid"
+            }
+        },
+        {
+            mixer: 'random',
+            //n: 50,  // The total number of randomly selected trials to run.
+            data: [
     {
         "inherit": {
             "set": "posneg",
