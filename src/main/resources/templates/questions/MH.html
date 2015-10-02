@@ -37,7 +37,7 @@
         <!--features starts-->
         <div class="row">
             <div class="span12">
-                <form th:action="@{/questions/MH}" method="POST">
+                <form id="MHFORM" th:action="@{/questions/MH}" method="POST">
                     <div class="longSection">
                         <p>
                             <label>Do you <b>CURRENTLY</b> have a disorder diagnosis (i.e., diagnosed by a health
@@ -51,13 +51,13 @@
                             <td><div  style="padding:0; margin:0; border-right: solid 2px #bbb; width: 550px ">
                                 <ul style="list-style-type: none;">
 
-                                <li><label class="radioList"><input type="checkbox" name="disorders" value="GAD">Generalized anxiety disorder (GAD)</input></label></li>
-                                 <li><label class="radioList"><input type="checkbox" name="disorders" value="OCD">Obsessive-compulsive disorder (OCD)</input> </label></li>
-                                 <li><label class="radioList"><input type="checkbox" name="disorders" value="Panic">Panic disorder</input> </label></li>
-                                 <li><label class="radioList"><input type="checkbox" name="disorders" value="Agor">Agoraphobia</input> </label></li>
-                                 <li><label class="radioList"><input type="checkbox" name="disorders" value="PSTD">Posttraumatic stress disorder</input> </label></li>
-                                 <li><label class="radioList"><input type="checkbox" name="disorders" value="SAD">Social anxiety disorder</input> </label></li>
-                                 <li><label class="radioList"><input type="checkbox" name="disorders" value="Phobias">Specific phobia(s)</input> </label></li>
+                                     <li><label class="radioList"><input type="checkbox" name="disorders" value="GAD">Generalized anxiety disorder (GAD)</input></label></li>
+                                     <li><label class="radioList"><input type="checkbox" name="disorders" value="OCD">Obsessive-compulsive disorder (OCD)</input> </label></li>
+                                     <li><label class="radioList"><input type="checkbox" name="disorders" value="Panic">Panic disorder</input> </label></li>
+                                     <li><label class="radioList"><input type="checkbox" name="disorders" value="Agor">Agoraphobia</input> </label></li>
+                                     <li><label class="radioList"><input type="checkbox" name="disorders" value="PSTD">Posttraumatic stress disorder</input> </label></li>
+                                     <li><label class="radioList"><input type="checkbox" name="disorders" value="SAD">Social anxiety disorder</input> </label></li>
+                                     <li><label class="radioList"><input type="checkbox" name="disorders" value="Phobias">Specific phobia(s)</input> </label></li>
                                      <li><label class="radioList"><input type="checkbox" name="disorders" value="dem">Dementia or other cognitive disorder</input> </label></li>
                                      <li><label class="radioList"><input type="checkbox" name="disorders" value="subst">Substance-related disorder</input> </label></li>
                                      <li><label class="radioList"><input type="checkbox" name="disorders" value="schiz">Schizophrenia or other related disorder</input> </label></li>
@@ -72,9 +72,10 @@
                             </td>
                                 <td>
                             <div class="listNoAnswer">
+                                <label>
                                 <p>Prefer not to answer</p>
                                 <input type="checkbox" name="disorders" value="Notanswer" />
-                                <br />
+                                </label>                                <br />
                                 <br />
                                 <br />
                                 <br />
@@ -116,8 +117,10 @@
                                     </td>
                                     <td>
                                         <div class="listNoAnswer">
+                                            <label>
                                             <p>Prefer not to answer</p>
                                             <input type="checkbox" name="disorders_past" value="Notanswer" />
+                                            </label>
                                             <br />
                                             <br />
                                             <br />
@@ -144,201 +147,201 @@
 
                                         <li><label class="radioList"><input id="Q3-1" onchange="sub('Q3-1')" type="checkbox" name="help" value="psychiatrist">Psychiatrist</input> </label></li>
                                         <div class="oneToSeven" id="Q3-1-1"> <label >Has this been helpful? </label>
-                                            <select required="true" name="psychiatrist">
+                                            <select name="psychiatrist">
                                                 <option value="">Please select one</option>
-                                                <option>1 (not helpful at all)</option>
+                                                <option value="1">1 (not helpful at all)</option>
                                                 <option> 2 </option>
                                                 <option> 3 </option>
                                                 <option> 4 </option>
                                                 <option> 5 </option>
                                                 <option> 6 </option>
-                                                <option> 7 (Extremely helpful) </option>
-                                                <option> Prefer not to answer </option>
+                                                <option value="7"> 7 (Extremely helpful) </option>
+                                                <option value="555"> Prefer not to answer </option>
                                             </select>
 
                                         </div>
 
                                          <li><label class="radioList"><input id="Q3-2" onchange="sub('Q3-2')" type="checkbox" name="help" value="psychologist">Psychologist</input> </label></li>
                                         <div class="oneToSeven" id="Q3-2-1"><label >Has this been helpful? </label>
-                                            <select required="true" name="psychologist">
+                                            <select name="psychologist">
                                                 <option value="">Please select one</option>
-                                                <option>1 (not helpful at all)</option>
+                                                <option value="1">1 (not helpful at all)</option>
                                                 <option> 2 </option>
                                                 <option> 3 </option>
                                                 <option> 4 </option>
                                                 <option> 5 </option>
                                                 <option> 6 </option>
-                                                <option> 7 (Extremely helpful) </option>
-                                                <option> Prefer not to answer </option>
+                                                <option value="7"> 7 (Extremely helpful) </option>
+                                                <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
                                          <li><label class="radioList"><input id="Q3-3" onchange="sub('Q3-3')" type="checkbox" name="help" value="school_counselor">School counselor</input> </label></li>
                                         <div class="oneToSeven" id="Q3-3-1"><label >Has this been helpful? </label>
-                                            <select required="true" name="school_counselor">
+                                            <select name="school_counselor">
                                                 <option value="">Please select one</option>
-                                                <option>1 (not helpful at all)</option>
+                                                <option value="1">1 (not helpful at all)</option>
                                                 <option> 2 </option>
                                                 <option> 3 </option>
                                                 <option> 4 </option>
                                                 <option> 5 </option>
                                                 <option> 6 </option>
-                                                <option> 7 (Extremely helpful) </option>
-                                                <option> Prefer not to answer </option>
+                                                <option value="7"> 7 (Extremely helpful) </option>
+                                                <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
                                          <li><label class="radioList"><input id="Q3-4" onchange="sub('Q3-4')" type="checkbox" name="help" value="LMHC">Licensed mental health practitioner</input> </label></li>
                                         <div class="oneToSeven" id="Q3-4-1"><label >Has this been helpful? </label>
-                                            <select required="true" name="LMHC">
+                                            <select name="LMHC">
                                                 <option value="">Please select one</option>
-                                                <option>1 (not helpful at all)</option>
+                                                <option value="1">1 (not helpful at all)</option>
                                                 <option> 2 </option>
                                                 <option> 3 </option>
                                                 <option> 4 </option>
                                                 <option> 5 </option>
                                                 <option> 6 </option>
-                                                <option> 7 (Extremely helpful) </option>
-                                                <option> Prefer not to answer </option>
+                                                <option value="7"> 7 (Extremely helpful) </option>
+                                                <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
                                          <li><label class="radioList"><input id="Q3-5" onchange="sub('Q3-5')" type="checkbox" name="help" value="general_practitioner">General practitioner (e.g. family doctor)</input> </label></li>
                                         <div class="oneToSeven" id="Q3-5-1"><label >Has this been helpful? </label>
-                                            <select required="true" name="general_practitioner">
+                                            <select name="general_practitioner">
                                                 <option value="">Please select one</option>
-                                                <option>1 (not helpful at all)</option>
+                                                <option value="1">1 (not helpful at all)</option>
                                                 <option> 2 </option>
                                                 <option> 3 </option>
                                                 <option> 4 </option>
                                                 <option> 5 </option>
                                                 <option> 6 </option>
-                                                <option> 7 (Extremely helpful) </option>
-                                                <option> Prefer not to answer </option>
+                                                <option value="7"> 7 (Extremely helpful) </option>
+                                                <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
                                          <li><label class="radioList"><input id="Q3-6" onchange="sub('Q3-6')" type="checkbox" name="help" value="teacher">Teacher</input> </label></li>
                                         <div class="oneToSeven" id="Q3-6-1"><label >Has this been helpful? </label>
-                                            <select required="true" name="teacher">
+                                            <select name="teacher">
                                                 <option value="">Please select one</option>
-                                                <option>1 (not helpful at all)</option>
+                                                <option value="1">1 (not helpful at all)</option>
                                                 <option> 2 </option>
                                                 <option> 3 </option>
                                                 <option> 4 </option>
                                                 <option> 5 </option>
                                                 <option> 6 </option>
-                                                <option> 7 (Extremely helpful) </option>
-                                                <option> Prefer not to answer </option>
+                                                <option value="7"> 7 (Extremely helpful) </option>
+                                                <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
                                          <li><label class="radioList"><input id="Q3-7" onchange="sub('Q3-7')" type="checkbox" name="help" value="family">Family member</input> </label></li>
                                         <div class="oneToSeven" id="Q3-7-1"><label >Has this been helpful? </label>
-                                            <select required="true" name="family">
+                                            <select name="family">
                                                 <option value="">Please select one</option>
-                                                <option>1 (not helpful at all)</option>
+                                                <option value="1">1 (not helpful at all)</option>
                                                 <option> 2 </option>
                                                 <option> 3 </option>
                                                 <option> 4 </option>
                                                 <option> 5 </option>
                                                 <option> 6 </option>
-                                                <option> 7 (Extremely helpful) </option>
-                                                <option> Prefer not to answer </option>
+                                                <option value="7"> 7 (Extremely helpful) </option>
+                                                <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
                                          <li><label class="radioList"><input id="Q3-8" onchange="sub('Q3-8')" type="checkbox" name="help" value="">Friend</input> </label></li>
                                         <div class="oneToSeven" id="Q3-8-1"><label >Has this been helpful? </label>
-                                            <select required="true" name="friend">
+                                            <select name="friend">
                                                 <option value="">Please select one</option>
-                                                <option>1 (not helpful at all)</option>
+                                                <option value="1">1 (not helpful at all)</option>
                                                 <option> 2 </option>
                                                 <option> 3 </option>
                                                 <option> 4 </option>
                                                 <option> 5 </option>
                                                 <option> 6 </option>
-                                                <option> 7 (Extremely helpful) </option>
-                                                <option> Prefer not to answer </option>
+                                                <option value="7"> 7 (Extremely helpful) </option>
+                                                <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
                                          <li><label class="radioList"><input id="Q3-9" onchange="sub('Q3-9')" type="checkbox" name="help" value="religious_leader">Religious leader</input> </label></li>
                                         <div class="oneToSeven" id="Q3-9-1"><label >Has this been helpful? </label>
-                                            <select required="true" name="religious_leader">
+                                            <select name="religious_leader">
                                                 <option value="">Please select one</option>
-                                                <option>1 (not helpful at all)</option>
+                                                <option value="1">1 (not helpful at all)</option>
                                                 <option> 2 </option>
                                                 <option> 3 </option>
                                                 <option> 4 </option>
                                                 <option> 5 </option>
                                                 <option> 6 </option>
-                                                <option> 7 (Extremely helpful) </option>
-                                                <option> Prefer not to answer </option>
+                                                <option value="7"> 7 (Extremely helpful) </option>
+                                                <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
                                          <li><label class="radioList"><input id="Q3-10" onchange="sub('Q3-10')" type="checkbox" name="help" value="coach">Coach</input> </label></li>
                                         <div class="oneToSeven" id="Q3-10-1"><label >Has this been helpful? </label>
-                                            <select required="true" name="coach">
+                                            <select name="coach">
                                                 <option value="">Please select one</option>
-                                                <option>1 (not helpful at all)</option>
+                                                <option value="1">1 (not helpful at all)</option>
                                                 <option> 2 </option>
                                                 <option> 3 </option>
                                                 <option> 4 </option>
                                                 <option> 5 </option>
                                                 <option> 6 </option>
-                                                <option> 7 (Extremely helpful) </option>
-                                                <option> Prefer not to answer </option>
+                                                <option value="7"> 7 (Extremely helpful) </option>
+                                                <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
                                          <li><label class="radioList"><input id="Q3-11" onchange="sub('Q3-11')" type="checkbox" name="help" value="book">Self-help book</input> </label></li>
                                         <div class="oneToSeven" id="Q3-11-1"><label >Has this been helpful? </label>
-                                            <select required="true" name="book">
+                                            <select name="book">
                                                 <option value="">Please select one</option>
-                                                <option>1 (not helpful at all)</option>
+                                                <option value="1">1 (not helpful at all)</option>
                                                 <option> 2 </option>
                                                 <option> 3 </option>
                                                 <option> 4 </option>
                                                 <option> 5 </option>
                                                 <option> 6 </option>
-                                                <option> 7 (Extremely helpful) </option>
-                                                <option> Prefer not to answer </option>
+                                                <option value="7"> 7 (Extremely helpful) </option>
+                                                <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
                                          <li><label class="radioList"><input id="Q3-12" onchange="sub('Q3-12')" type="checkbox" name="help" value="medicine">Prescription medicine</input> </label></li>
                                         <div class="oneToSeven" id="Q3-12-1"><label >Has this been helpful? </label>
-                                            <select required="true" name="medicine">
+                                            <select name="medicine">
                                                 <option value="">Please select one</option>
-                                                <option>1 (not helpful at all)</option>
+                                                <option value="1">1 (not helpful at all)</option>
                                                 <option> 2 </option>
                                                 <option> 3 </option>
                                                 <option> 4 </option>
                                                 <option> 5 </option>
                                                 <option> 6 </option>
-                                                <option> 7 (Extremely helpful) </option>
-                                                <option> Prefer not to answer </option>
+                                                <option value="7"> 7 (Extremely helpful) </option>
+                                                <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
                                          <li><label class="radioList"><input id="Q3-13" onchange="sub('Q3-13')" type="checkbox" name="help" value="online">Online treatment</input> </label></li>
                                         <div class="oneToSeven" id="Q3-13-1"><label >Has this been helpful? </label>
-                                            <select required="true" name="online">
+                                            <select name="online">
                                                 <option value="">Please select one</option>
-                                                <option>1 (not helpful at all)</option>
+                                                <option value="1">1 (not helpful at all)</option>
                                                 <option> 2 </option>
                                                 <option> 3 </option>
                                                 <option> 4 </option>
                                                 <option> 5 </option>
                                                 <option> 6 </option>
-                                                <option> 7 (Extremely helpful) </option>
-                                                <option> Prefer not to answer </option>
+                                                <option value="7"> 7 (Extremely helpful) </option>
+                                                <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
                                         <br />
                                          <li><label class="radioList"><input id="Q3-14" onchange="sub('Q3-14')" type="checkbox" name="otherHelp" value="Other">Other</input>  (Please specify)<input type="text" name="OtherHelpPast" /> </label></li>
                                         <div class="oneToSeven" id="Q3-14-1"><label >Has this been helpful? </label>
-                                            <select required="true" name="other">
+                                            <select name="other">
                                                 <option value="">Please select one</option>
-                                                <option>1 (not helpful at all)</option>
+                                                <option value="1">1 (not helpful at all)</option>
                                                 <option> 2 </option>
                                                 <option> 3 </option>
                                                 <option> 4 </option>
                                                 <option> 5 </option>
                                                 <option> 6 </option>
-                                                <option> 7 (Extremely helpful) </option>
-                                                <option> Prefer not to answer </option>
+                                                <option value="7"> 7 (Extremely helpful) </option>
+                                                <option value="555"> Prefer not to answer </option>
                                             </select></div>
                                     </ul>
                                 </div>
@@ -364,199 +367,199 @@
 										
 										 <li><label class="radioList"><input id="Q4-1" onchange="sub('Q4-1')" type="checkbox" name="helps_past" value="psychiatrist" >Psychiatrist</input> </label></li>
                                         <div class="oneToSeven" id="Q4-1-1"><label >Was this helpful? </label>
-                                            <select required="true" name="psychiatrist_past">
+                                            <select name="psychiatrist_past">
                                                 <option value="">Please select one</option>
-                                                <option>1 (not helpful at all)</option>
+                                                <option value="1">1 (not helpful at all)</option>
                                                 <option> 2 </option>
                                                 <option> 3 </option>
                                                 <option> 4 </option>
                                                 <option> 5 </option>
                                                 <option> 6 </option>
-                                                <option> 7 (Extremely helpful) </option>
-                                                <option> Prefer not to answer </option>
+                                                <option value="7"> 7 (Extremely helpful) </option>
+                                                <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
                                          <li><label class="radioList"><input id="Q4-2" onchange="sub('Q4-2')" type="checkbox" name="helps_past" value="psychologist">Psychologist</input> </label></li>
                                         <div class="oneToSeven" id="Q4-2-1"><label >Was this helpful? </label>
-                                            <select required="true" name="psychology_past">
+                                            <select name="psychology_past">
                                                 <option value="">Please select one</option>
-                                                <option>1 (not helpful at all)</option>
+                                                <option value="1">1 (not helpful at all)</option>
                                                 <option> 2 </option>
                                                 <option> 3 </option>
                                                 <option> 4 </option>
                                                 <option> 5 </option>
                                                 <option> 6 </option>
-                                                <option> 7 (Extremely helpful) </option>
-                                                <option> Prefer not to answer </option>
+                                                <option value="7"> 7 (Extremely helpful) </option>
+                                                <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
                                          <li><label class="radioList"><input id="Q4-3" onchange="sub('Q4-3')" type="checkbox" name="helps_past" value="school_counselor">School counselor</input> </label></li>
                                         <div class="oneToSeven" id="Q4-3-1"><label >Was this helpful? </label>
-                                            <select required="true" name="school_counselor_past">
+                                            <select name="school_counselor_past">
                                                 <option value="">Please select one</option>
-                                                <option>1 (not helpful at all)</option>
+                                                <option value="1">1 (not helpful at all)</option>
                                                 <option> 2 </option>
                                                 <option> 3 </option>
                                                 <option> 4 </option>
                                                 <option> 5 </option>
                                                 <option> 6 </option>
-                                                <option> 7 (Extremely helpful) </option>
-                                                <option> Prefer not to answer </option>
+                                                <option value="7"> 7 (Extremely helpful) </option>
+                                                <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
                                          <li><label class="radioList"><input id="Q4-4" onchange="sub('Q4-4')" type="checkbox" name="helps_past" value="LMHC">Licensed mental health practitioner</input> </label></li>
                                         <div class="oneToSeven" id="Q4-4-1"><label >Was this helpful? </label>
-                                            <select required="true" name="LMHC_past">
+                                            <select name="LMHC_past">
                                                 <option value="">Please select one</option>
-                                                <option>1 (not helpful at all)</option>
+                                                <option value="1">1 (not helpful at all)</option>
                                                 <option> 2 </option>
                                                 <option> 3 </option>
                                                 <option> 4 </option>
                                                 <option> 5 </option>
                                                 <option> 6 </option>
-                                                <option> 7 (Extremely helpful) </option>
-                                                <option> Prefer not to answer </option>
+                                                <option value="7"> 7 (Extremely helpful) </option>
+                                                <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
                                          <li><label class="radioList"><input id="Q4-5" onchange="sub('Q4-5')" type="checkbox" name="helps_past" value="general_practitioner">General practitioner (e.g. family doctor)</input> </label></li>
                                         <div class="oneToSeven" id="Q4-5-1"><label >Was this helpful? </label>
-                                            <select required="true" name="general_practitioner_past">
+                                            <select name="general_practitioner_past">
                                                 <option value="">Please select one</option>
-                                                <option>1 (not helpful at all)</option>
+                                                <option value="1">1 (not helpful at all)</option>
                                                 <option> 2 </option>
                                                 <option> 3 </option>
                                                 <option> 4 </option>
                                                 <option> 5 </option>
                                                 <option> 6 </option>
-                                                <option> 7 (Extremely helpful) </option>
-                                                <option> Prefer not to answer </option>
+                                                <option value="7"> 7 (Extremely helpful) </option>
+                                                <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
                                          <li><label class="radioList"><input id="Q4-6" onchange="sub('Q4-6')" type="checkbox" name="helps_past" value="teacher">Teacher</input> </label></li>
                                         <div class="oneToSeven" id="Q4-6-1"><label >Was this helpful? </label>
-                                            <select required="true" name="teacher_past">
+                                            <select name="teacher_past">
                                                 <option value="">Please select one</option>
-                                                <option>1 (not helpful at all)</option>
+                                                <option value="1">1 (not helpful at all)</option>
                                                 <option> 2 </option>
                                                 <option> 3 </option>
                                                 <option> 4 </option>
                                                 <option> 5 </option>
                                                 <option> 6 </option>
-                                                <option> 7 (Extremely helpful) </option>
-                                                <option> Prefer not to answer </option>
+                                                <option value="7"> 7 (Extremely helpful) </option>
+                                                <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
                                          <li><label class="radioList"><input id="Q4-7" onchange="sub('Q4-7')" type="checkbox" name="helps_past" value="family">Family member</input> </label></li>
                                         <div class="oneToSeven" id="Q4-7-1"><label >Was this helpful? </label>
-                                            <select required="true" name="family_past">
+                                            <select name="family_past">
                                                 <option value="">Please select one</option>
-                                                <option>1 (not helpful at all)</option>
+                                                <option value="1">1 (not helpful at all)</option>
                                                 <option> 2 </option>
                                                 <option> 3 </option>
                                                 <option> 4 </option>
                                                 <option> 5 </option>
                                                 <option> 6 </option>
-                                                <option> 7 (Extremely helpful) </option>
-                                                <option> Prefer not to answer </option>
+                                                <option value="7"> 7 (Extremely helpful) </option>
+                                                <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
                                          <li><label class="radioList"><input id="Q4-8" onchange="sub('Q4-8')" type="checkbox" name="helps_past" value="friend">Friend</input> </label></li>
                                         <div class="oneToSeven" id="Q4-8-1"><label >Was this helpful? </label>
-                                            <select required="true" name="friend_past">
+                                            <select name="friend_past">
                                                 <option value="">Please select one</option>
-                                                <option>1 (not helpful at all)</option>
+                                                <option value="1">1 (not helpful at all)</option>
                                                 <option> 2 </option>
                                                 <option> 3 </option>
                                                 <option> 4 </option>
                                                 <option> 5 </option>
                                                 <option> 6 </option>
-                                                <option> 7 (Extremely helpful) </option>
-                                                <option> Prefer not to answer </option>
+                                                <option value="7"> 7 (Extremely helpful) </option>
+                                                <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
                                          <li><label class="radioList"><input id="Q4-9" onchange="sub('Q4-9')" type="checkbox" name="helps_past" value="religious_leader">Religious leader</input> </label></li>
                                         <div class="oneToSeven" id="Q4-9-1"><label >Was this helpful? </label>
-                                            <select required="true" name="religious_leader_past">
+                                            <select name="religious_leader_past">
                                                 <option value="">Please select one</option>
-                                                <option>1 (not helpful at all)</option>
+                                                <option value="1">1 (not helpful at all)</option>
                                                 <option> 2 </option>
                                                 <option> 3 </option>
                                                 <option> 4 </option>
                                                 <option> 5 </option>
                                                 <option> 6 </option>
-                                                <option> 7 (Extremely helpful) </option>
-                                                <option> Prefer not to answer </option>
+                                                <option value="7"> 7 (Extremely helpful) </option>
+                                                <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
                                          <li><label class="radioList"><input id="Q4-10" onchange="sub('Q4-10')" type="checkbox" name="helps_past" value="coach">Coach</input> </label></li>
                                         <div class="oneToSeven" id="Q4-10-1"><label >Was this helpful? </label>
-                                            <select required="true" name="coach_past">
+                                            <select name="coach_past">
                                                 <option value="">Please select one</option>
-                                                <option>1 (not helpful at all)</option>
+                                                <option value="1">1 (not helpful at all)</option>
                                                 <option> 2 </option>
                                                 <option> 3 </option>
                                                 <option> 4 </option>
                                                 <option> 5 </option>
                                                 <option> 6 </option>
-                                                <option> 7 (Extremely helpful) </option>
-                                                <option> Prefer not to answer </option>
+                                                <option value="7"> 7 (Extremely helpful) </option>
+                                                <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
                                          <li><label class="radioList"><input id="Q4-11" onchange="sub('Q4-11')" type="checkbox" name="helps_past" value="book">Self-help book</input> </label></li>
                                         <div class="oneToSeven" id="Q4-11-1"><label >Was this helpful? </label>
-                                            <select required="true" name="book_past">
+                                            <select name="book_past">
                                                 <option value="">Please select one</option>
-                                                <option>1 (not helpful at all)</option>
+                                                <option value="1">1 (not helpful at all)</option>
                                                 <option> 2 </option>
                                                 <option> 3 </option>
                                                 <option> 4 </option>
                                                 <option> 5 </option>
                                                 <option> 6 </option>
-                                                <option> 7 (Extremely helpful) </option>
-                                                <option> Prefer not to answer </option>
+                                                <option value="7"> 7 (Extremely helpful) </option>
+                                                <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
                                          <li><label class="radioList"><input id="Q4-12" onchange="sub('Q4-12')" type="checkbox" name="helps_past" value="medicine">Prescription medicine</input> </label></li>
                                         <div class="oneToSeven" id="Q4-12-1"><label >Was this helpful? </label>
-                                            <select required="true" name="medicine_past">
+                                            <select name="medicine_past">
                                                 <option value="">Please select one</option>
-                                                <option>1 (not helpful at all)</option>
+                                                <option value="1">1 (not helpful at all)</option>
                                                 <option> 2 </option>
                                                 <option> 3 </option>
                                                 <option> 4 </option>
                                                 <option> 5 </option>
                                                 <option> 6 </option>
-                                                <option> 7 (Extremely helpful) </option>
-                                                <option> Prefer not to answer </option>
+                                                <option value="7"> 7 (Extremely helpful) </option>
+                                                <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
                                          <li><label class="radioList"><input id="Q4-13" onchange="sub('Q4-13')" type="checkbox" name="helps_past" value="online">Online treatment</input> </label></li>
                                         <div class="oneToSeven" id="Q4-13-1"><label >Was this helpful? </label>
-                                            <select required="true" name="online_past">
+                                            <select name="online_past">
                                                 <option value="">Please select one</option>
-                                                <option>1 (not helpful at all)</option>
+                                                <option value="1">1 (not helpful at all)</option>
                                                 <option> 2 </option>
                                                 <option> 3 </option>
                                                 <option> 4 </option>
                                                 <option> 5 </option>
                                                 <option> 6 </option>
-                                                <option> 7 (Extremely helpful) </option>
-                                                <option> Prefer not to answer </option>
+                                                <option value="7"> 7 (Extremely helpful) </option>
+                                                <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
                                         <br />
                                          <li><label class="radioList"><input id="Q4-14" onchange="sub('Q4-14')" type="checkbox" name="helps_past" value="Other">Other</input>  (Please specify)<input type="text" name="OtherHelpPast" /> </label></li>
                                         <div class="oneToSeven" id="Q4-14-1"><label >Was this helpful? </label>
-                                            <select required="true" name="other_past">
+                                            <select name="other_past">
                                                 <option value="">Please select one</option>
-                                                <option>1 (not helpful at all)</option>
+                                                <option value="1">1 (not helpful at all)</option>
                                                 <option> 2 </option>
                                                 <option> 3 </option>
                                                 <option> 4 </option>
                                                 <option> 5 </option>
                                                 <option> 6 </option>
-                                                <option> 7 (Extremely helpful) </option>
-                                                <option> Prefer not to answer </option>
+                                                <option value="7"> 7 (Extremely helpful) </option>
+                                                <option value="555"> Prefer not to answer </option>
                                             </select></div>
                                     </ul>
                                 </div>
@@ -642,15 +645,22 @@
     function sub(id) {
         if (document.getElementById(id).checked) {
             $("div#"+id+"-1").show();
-            $("div#"+id+"-1 input").prop('required',true);
+            $("div#"+id+"-1 select").prop('required',true);
         }
         else {
             $("div#"+id+"-1").hide();
         }
-        ;
-
     }
-    ;
+
+
+    $('#MHFORM').validate({
+        rules : {
+            'helps_past': { required: true, minlength: 1 },
+            'helps': { required: true, minlength: 1 },
+            'disorders': { required: true, minlength: 1 },
+            disorders_past:  { required: true, minlength: 1 }
+        }
+    });
 
 </script>
 
