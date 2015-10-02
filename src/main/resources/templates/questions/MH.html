@@ -39,18 +39,17 @@
             <div class="span12">
                 <form id="MHFORM" th:action="@{/questions/MH}" method="POST">
                     <div class="longSection">
-                        <p>
-                            <label>Do you <b>CURRENTLY</b> have a disorder diagnosis (i.e., diagnosed by a health
+                        <div class="question">
+                            Do you <b>CURRENTLY</b> have a disorder diagnosis (i.e., diagnosed by a health
                                 professional, such as a social worker, psychologist, psychiatrist, or a general practitioner)
-                                for any of the following disorders? (Check all that apply)</label>
+                                for any of the following disorders? (Check all that apply)
 
-                        </p>
+                        </div>
                         <br/>
                         <div class="row">
                             <table>
-                            <td><div  style="padding:0; margin:0; border-right: solid 2px #bbb; width: 550px ">
-                                <ul style="list-style-type: none;">
-
+                            <td><div class="radioList">
+                                <ul>
                                      <li><label class="radioList"><input type="checkbox" name="disorders" value="GAD">Generalized anxiety disorder (GAD)</input></label></li>
                                      <li><label class="radioList"><input type="checkbox" name="disorders" value="OCD">Obsessive-compulsive disorder (OCD)</input> </label></li>
                                      <li><label class="radioList"><input type="checkbox" name="disorders" value="Panic">Panic disorder</input> </label></li>
@@ -75,27 +74,29 @@
                                 <label>
                                 <p>Prefer not to answer</p>
                                 <input type="checkbox" name="disorders" value="Notanswer" />
-                                </label>                                <br />
-                                <br />
-                                <br />
-                                <br />
-                                <br />
+                                </label>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <label>
                                 <p>No diagnosis</p>
                                 <input type="checkbox" name="disorders" value="noDiagnosis" />
+                                </label>
                             </div>
                                 </td>
                             </table>
                         </div>
                     </div>
                     <div class="longSection">
-                        <p>
+                        <div class="question">
                             Have you been diagnosed with an anxiety disorder <b>IN THE PAST</b> that you no longer have? (Check all that apply)
-                        </p>
+                        </div>
                             <div class="row">
                                 <table>
-                                    <td><div  style="padding:0; margin:0; border-right: solid 2px #bbb; width: 550px ">
-                                        <ul style="list-style-type: none;">
-
+                                    <td><div class="radioList">
+                                        <ul>
                                              <li><label class="radioList"><input type="checkbox" name="disorders_past" value="GAD">Generalized anxiety disorder (GAD)</input> </label></li>
                                              <li><label class="radioList"><input type="checkbox" name="disorders_past" value="OCD">Obsessive-compulsive disorder (OCD)</input> </label></li>
                                              <li><label class="radioList"><input type="checkbox" name="disorders_past" value="Panic">Panic disorder</input> </label></li>
@@ -126,24 +127,25 @@
                                             <br />
                                             <br />
                                             <br />
+                                            <label>
                                             <p>No diagnosis</p>
                                             <input type="checkbox" name="disorders_past" value="noDiagnosis" />
+                                            </label>
                                         </div>
                                     </td>
                                 </table>
                             </div>
                     </div>
                     <div class="longSection">
-                        <p>
-                            <label>Are you <b>CURRENTLY</b> seeking help for anxiety or other mental or emotional difficulties from any
-                                of the following?(Check all that apply)</label>
-
-                        </p>
+                        <div class="question">
+                            Are you <b>CURRENTLY</b> seeking help for anxiety or other mental or emotional difficulties from any
+                            of the following?(Check all that apply)
+                        </div>
                         <br/>
                         <div class="row">
                             <table>
-                                <td><div  style="padding:0; margin:0; border-right: solid 2px #bbb; width: 550px ">
-                                    <ul style="list-style-type: none;">
+                                <td><div class="radioList">
+                                    <ul >
 
                                         <li><label class="radioList"><input id="Q3-1" onchange="sub('Q3-1')" type="checkbox" name="help" value="psychiatrist">Psychiatrist</input> </label></li>
                                         <div class="oneToSeven" id="Q3-1-1"> <label >Has this been helpful? </label>
@@ -348,23 +350,25 @@
                                 </td>
                                 <td>
                                     <div class="listNoAnswer">
+                                        <label>
                                         <p>I am not receiving help</p>
                                         <input id="helps" type="checkbox" name="help" value="notHelp" />
+                                        </label>
                                     </div>
                                 </td>
                             </table>
                         </div>
                     </div>
                     <div class="longSection">
-                        <p>
+                        <div class="question">
 						    Have you sought help for anxiety or other mental or emotional difficulties from any of the following
-						<b>IN THE PAST</b>? (Check all that apply) 
-						</p>
+						<b>IN THE PAST</b>? (Check all that apply)
+                        </div>
                         <div class="row">
                             <table>
-                                <td><div  style="padding:0; margin:0; border-right: solid 2px #bbb; width: 550px ">
-                                    <ul style="list-style-type: none;">
-										
+                                <td><div  class="radioList">
+                                    <ul >
+
 										 <li><label class="radioList"><input id="Q4-1" onchange="sub('Q4-1')" type="checkbox" name="helps_past" value="psychiatrist" >Psychiatrist</input> </label></li>
                                         <div class="oneToSeven" id="Q4-1-1"><label >Was this helpful? </label>
                                             <select name="psychiatrist_past">
@@ -566,22 +570,24 @@
                                 </td>   
                                 <td>
                                     <div class="listNoAnswer">
+                                        <label>
                                         <p>I have not gotten help</p>
                                         <input id="helps_past" onchange="show()" type="checkbox" name="helps_past" value="NotGottenHelp"/>
+                                        </label>
                                     </div>
                                 </td>
                             </table>
                         </div>
                     </div>
                     <div id="Q5" class="longSection" style="display: none">
-                        <p>
+                        <div class="question">
                             There are lots of reasons people choose not to seek treatment. Please let us know why you have not pursued treatment for your anxiety
                             symptoms in the past. (Check all that apply)
-                        </p>
+                        </div>
                         <div class="row">
                             <table>
-                                <td><div  style="padding:0; margin:0; width: 700px; ">
-                                    <ul style="list-style-type: none;">
+                                <td><div class="radioList">
+                                    <ul >
 
                                          <li><label class="radioList"><input type="checkbox" name="NoHelp_Reason" value="medNotHelp">I don’t think a prescription medication would help my anxiety</input> </label></li>
                                          <li><label class="radioList"><input type="checkbox" name="NoHelp_Reason" value="doNotLikeMed">I don’t like the idea of taking prescription medication</input> </label></li>
