@@ -229,7 +229,7 @@ label {
 }
 
 
-label:hover { background-color: #00ACE4; color: #000;}
+.user-theme-blue label:hover { background-color: #00ACE4; color: #000;}
 .user-theme-orange label:hover { background-color: #F77D38;  color: #000;}
 .user-theme-green label:hover { background-color: #77B46D;  color: #000;}
 .user-theme-purple label:hover { background-color: #C98ABB; color: #000; }
