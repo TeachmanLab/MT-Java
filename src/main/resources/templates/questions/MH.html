@@ -349,7 +349,7 @@
                                 <td>
                                     <div class="listNoAnswer">
                                         <p>I am not receiving help</p>
-                                        <input id="helps" type="checkbox" name="helps" value="notHelp" />
+                                        <input id="helps" type="checkbox" name="help" value="notHelp" />
                                     </div>
                                 </td>
                             </table>
@@ -656,7 +656,7 @@
     $('#MHFORM').validate({
         rules : {
             'helps_past': { required: true, minlength: 1 },
-            'helps': { required: true, minlength: 1 },
+            'help': { required: true, minlength: 1 },
             'disorders': { required: true, minlength: 1 },
             disorders_past:  { required: true, minlength: 1 }
         }
