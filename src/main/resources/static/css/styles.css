@@ -240,6 +240,9 @@ div.themeSection div.themeOption {
     padding: 10px 20px 0 20px;
 }
 
+div.blue  {
+    background-color: #00ACE4;
+}
 div.orange  {
     background-color: #ef7b40;
 }
