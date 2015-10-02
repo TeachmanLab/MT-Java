@@ -17,15 +17,7 @@ import java.util.Date;
 @Entity
 @Table(name="ImpactAnxiousImagery")
 @Data
-public class ImpactAnxiousImagery implements QuestionnaireData{
-
-    @Id
-    @GeneratedValue
-    private int id;
-    @ManyToOne
-    private ParticipantDAO participantDAO;
-    private Date date;
-    private String session;
+public class ImpactAnxiousImagery extends QuestionnaireData{
 
     private int anxiety;
     private int vivid;

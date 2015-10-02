@@ -13,16 +13,8 @@ import java.util.Date;
 @Entity
 @Table(name="CC")
 @Data
-public class CC implements QuestionnaireData {
+public class CC extends QuestionnaireData {
 
-
-    @Id
-    @GeneratedValue
-    private int id;
-    @ManyToOne
-    private ParticipantDAO participantDAO;
-    private Date date;
-    private String session;
     private int related;
     private int compare;
 

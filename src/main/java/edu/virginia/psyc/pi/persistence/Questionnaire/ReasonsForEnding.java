@@ -13,16 +13,8 @@ import java.util.List;
 @Entity
 @Table(name="ReasonsForEnding")
 @Data
-public class ReasonsForEnding  implements QuestionnaireData {
+public class ReasonsForEnding  extends QuestionnaireData {
 
-    @Id
-    @GeneratedValue
-    private int id;
-
-    @ManyToOne
-    private ParticipantDAO participantDAO;
-    private Date date;
-    private String session;
 
     @ElementCollection
     @CollectionTable(name = "reasonsForEndingList", joinColumns = @JoinColumn(name = "id"))

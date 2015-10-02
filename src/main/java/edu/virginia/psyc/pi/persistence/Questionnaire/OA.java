@@ -22,21 +22,12 @@ import java.util.List;
 @Entity
 @Table(name="OA")
 @Data
-public class OA implements QuestionnaireData, Comparable<OA> {
+public class OA extends QuestionnaireData implements Comparable<OA> {
 
     private static final Logger LOG = LoggerFactory.getLogger(OA.class);
 
     public static int NO_ANSWER = 555;
     public static final int MAX_SCORE = 4;
-
-    @Id
-    @GeneratedValue
-    private int id;
-
-    @ManyToOne
-    private ParticipantDAO participantDAO;
-    private Date date;
-    private String session;
 
     @Column(name="AXF")
     private int anxious_freq;

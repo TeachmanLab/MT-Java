@@ -2,6 +2,7 @@ package edu.virginia.psyc.pi.persistence.Questionnaire;
 
 import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -15,15 +16,8 @@ import java.util.Date;
  */
 @Entity
 @Table(name="DASS21_DS")
-public class DASS21_DS implements QuestionnaireData {
-
-    @Id
-    @GeneratedValue
-    private int id;
-    @ManyToOne
-    private ParticipantDAO participantDAO;
-    private Date date;
-    private String session;
+@Data
+public class DASS21_DS extends QuestionnaireData {
 
     private int nopositive;
     private int difficult;
@@ -33,91 +27,4 @@ public class DASS21_DS implements QuestionnaireData {
     private int noworth;
     private int meaningless;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public ParticipantDAO getParticipantDAO() {
-        return participantDAO;
-    }
-
-    public void setParticipantDAO(ParticipantDAO participantDAO) {
-        this.participantDAO = participantDAO;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public String getSession() {
-        return session;
-    }
-
-    public void setSession(String session) {
-        this.session = session;
-    }
-
-    public int getNopositive() {
-        return nopositive;
-    }
-
-    public void setNopositive(int nopositive) {
-        this.nopositive = nopositive;
-    }
-
-    public int getDifficult() {
-        return difficult;
-    }
-
-    public void setDifficult(int difficult) {
-        this.difficult = difficult;
-    }
-
-    public int getNervous() {
-        return nervous;
-    }
-
-    public void setNervous(int nervous) {
-        this.nervous = nervous;
-    }
-
-    public int getBlue() {
-        return blue;
-    }
-
-    public void setBlue(int blue) {
-        this.blue = blue;
-    }
-
-    public int getNoenthusiastic() {
-        return noenthusiastic;
-    }
-
-    public void setNoenthusiastic(int noenthusiastic) {
-        this.noenthusiastic = noenthusiastic;
-    }
-
-    public int getNoworth() {
-        return noworth;
-    }
-
-    public void setNoworth(int noworth) {
-        this.noworth = noworth;
-    }
-
-    public int getMeaningless() {
-        return meaningless;
-    }
-
-    public void setMeaningless(int meaningless) {
-        this.meaningless = meaningless;
-    }
 }

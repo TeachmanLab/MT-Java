@@ -16,15 +16,7 @@ import java.util.ArrayList;
 @Entity
 @Table(name="CIHS")
 @Data
-public class CIHS implements QuestionnaireData {
-
-    @Id
-    @GeneratedValue
-    private int id;
-    @ManyToOne
-    private ParticipantDAO participantDAO;
-    private Date date;
-    private String session;
+public class CIHS extends QuestionnaireData {
 
     private String OtherDesc;
     @ElementCollection

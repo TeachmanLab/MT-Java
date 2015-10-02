@@ -14,15 +14,7 @@ import java.util.Date;
 @Entity
 @Table(name="DASS21_AS")
 @Data
-public class DASS21_AS implements QuestionnaireData {
-
-    @Id
-    @GeneratedValue
-    private int id;
-    @ManyToOne
-    private ParticipantDAO participantDAO;
-    private Date date;
-    private String session;
+public class DASS21_AS extends QuestionnaireData {
 
     private int dryness;
     private int breathing;

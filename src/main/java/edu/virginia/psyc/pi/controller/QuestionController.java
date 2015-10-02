@@ -7,6 +7,7 @@ import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.persistence.Questionnaire.*;
 import edu.virginia.psyc.pi.persistence.TaskLogDAO;
 import edu.virginia.psyc.pi.service.EmailService;
+import edu.virginia.psyc.pi.service.ExportService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,6 +69,9 @@ public class QuestionController extends BaseController {
     private EmailService emailService;
 
     @Autowired
+    private ExportService exportService;
+
+    @Autowired
     public QuestionController(ParticipantRepository repository) {
         this.participantRepository   = repository;
     }
@@ -77,6 +81,7 @@ public class QuestionController extends BaseController {
      * - Adds the current CBMStudy.NAME to the data being recorded
      * - Marks this "task" as complete, and moves the participant on to the next session
      * - Connects the data to the participant who completed it.
+     * - Notifies the backup service that it may need to export data.
      *
      * @param data
      */
@@ -98,6 +103,9 @@ public class QuestionController extends BaseController {
         participant.getStudy().completeCurrentTask();
         participantRepository.domainToEntity(participant, dao);
         participantRepository.save(dao);
+
+        // Notify the backup service that it may need to export data.
+        exportService.recordUpdated(data);
 
         // Connect the participant to the data being recorded.
         data.setParticipantDAO(dao);
@@ -804,102 +812,34 @@ public ModelAndView showSUDS(Principal principal) {
         return(objectListToCSV(reasonsForEndingRepository.findAll()));
     }
 
-
-
-    /** ==============================================================
-     *       Some utilility methods for exporting csv data from the forms
-     *  ==============================================================
-     */
-
     /**
      * Converts a list of objects into a string suitable for returning
      * as a csv.
      * @param objects
      * @return
      */
-    public static String objectListToCSV(List objects) {
+    public static String objectListToCSV(List<? extends QuestionnaireData> objects) {
         StringBuffer csv = new StringBuffer();
 
         if(objects.size() < 1) return "";
 
-        Method[] methods = objects.get(0).getClass().getMethods();
+        List<String> headers = objects.get(0).listHeaders();
 
         // Add in headers.
-        for(Method method : methods){
-            if(isGetter(method)) {
-                csv.append("\"");
-                csv.append(method.getName().substring(3));
-                csv.append("\"");
-                csv.append(",");
-            }
+        for (String header : headers) {
+            csv.append("\"");
+            csv.append(header);
+            csv.append("\"");
+            csv.append(",");
         }
+
         csv.append("\n");
-        for(Object o : objects) {
-            appendObjectToCSV(o, csv);
+        for(QuestionnaireData data : objects) {
+            data.appendToCSV(csv);
             csv.append("\n");
         }
         return csv.toString();
     }
-
-    private static void appendObjectToCSV(Object o, StringBuffer csv) {
-        Method[] methods = o.getClass().getMethods();
-        ParticipantDAO participantDAO;
-        CBMStudy.NAME session;
-        List list;
-        String data;
-
-        for(Method method : methods){
-            if(isGetter(method)) {
-                try {
-                    if(null == method.invoke(o)) {
-                        data = "";
-                    } else if(method.getReturnType().isPrimitive()) {
-                        data = method.invoke(o).toString();
-                    } else if (String.class.equals(method.getReturnType())) {
-                        data = method.invoke(o).toString();
-                    } else if (List.class.equals(method.getReturnType())) {
-                        StringBuffer values = new StringBuffer();
-                        list = (List)method.invoke(o);
-                        for(int i = 0; i < list.size(); i++) {
-                            values.append(list.get(i).toString());
-                            if (i < list.size() -1) values.append("; ");
-                        }
-                        data = values.toString();
-                    } else if (Date.class.equals(method.getReturnType())) {
-                        data = method.invoke(o).toString();
-                    } else if (ParticipantDAO.class.equals(method.getReturnType())) {
-                        participantDAO = (ParticipantDAO)method.invoke(o);
-                        data = "" + participantDAO.getId();
-                    } else if (CBMStudy.NAME.class.equals(method.getReturnType())) {
-                        session  = (CBMStudy.NAME)method.invoke(o);
-                        data = session.toString();
-                    } else if (Class.class.equals(method.getReturnType())) {
-                        data = ((Class)method.invoke(o)).getSimpleName();
-                    } else {
-                        data = method.getReturnType().getName();
-                    }
-                    csv.append("\"");
-                    csv.append(data.replaceAll("\"", "\\\""));
-                    csv.append("\"");
-                    csv.append(",");
-                } catch (InvocationTargetException e) {
-                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                }
-            }
-        }
-    }
-
-    public static boolean isGetter(Method method){
-        if(!method.getName().startsWith("get"))       return false;
-        if(method.getParameterTypes().length != 0)    return false;
-        if(void.class.equals(method.getReturnType())) return false;
-        return true;
-    }
-
-
-
 
 }
 

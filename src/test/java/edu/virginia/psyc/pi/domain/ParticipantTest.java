@@ -114,7 +114,7 @@ public class ParticipantTest {
 
         for(int i = 0; i< 100; i++)  {
             p = new Participant(1, "Dan Funk", "daniel.h.funk@gmail.com", false);
-            if(p.getCbmCondition().equals(Participant.CBM_CONDITION.FITFY_FIFTY)) is50 = true;
+            if(p.getCbmCondition().equals(Participant.CBM_CONDITION.FIFTY_FIFTY)) is50 = true;
             if(p.getCbmCondition().equals(Participant.CBM_CONDITION.POSITIVE)) isPos = true;
             if(p.getCbmCondition().equals(Participant.CBM_CONDITION.NEUTRAL)) isNeutral = true;
         }
