@@ -352,7 +352,7 @@
                                     <div class="listNoAnswer">
                                         <label>
                                         <p>I am not receiving help</p>
-                                        <input id="helps" type="checkbox" name="help" value="notHelp" />
+                                        <input id="helps" onchange="show()"  type="checkbox" name="help" value="notHelp" />
                                         </label>
                                     </div>
                                 </td>
@@ -572,7 +572,7 @@
                                     <div class="listNoAnswer">
                                         <label>
                                         <p>I have not gotten help</p>
-                                        <input id="helps_past" onchange="show()" type="checkbox" name="helps_past" value="NotGottenHelp"/>
+                                        <input id="helps_past" type="checkbox" name="helps_past" value="NotGottenHelp"/>
                                         </label>
                                     </div>
                                 </td>
@@ -641,7 +641,7 @@
 <script type="text/javascript">
 
     function show() {
-        if (document.getElementById("helps_past").checked) {
+        if (document.getElementById("helps").checked) {
             document.getElementById("Q5").style.display = "block";
         } else {
             document.getElementById("Q5").style.display = "none";
