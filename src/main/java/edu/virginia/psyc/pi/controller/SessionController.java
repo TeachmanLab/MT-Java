@@ -119,7 +119,15 @@ public class SessionController extends BaseController {
         OA original = oaList.get(0);
         OA last     = oaList.get(oaList.size() - 1);
 
-        regression = OA.regression(oaList);
+        regression = new SimpleRegression();
+        double counter = 0;
+        for(OA oa : oaList) {
+                // don't include the post assessment when calculating the regression.
+                 if (!oa.getSession().startsWith("POST")) {
+                    regression.addData(counter, oa.score());
+                    counter++;
+                }
+            }
 
         // Create plot points
         List<Object> point;
