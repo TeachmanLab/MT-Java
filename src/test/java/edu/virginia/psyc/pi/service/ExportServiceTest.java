@@ -19,6 +19,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.annotation.Annotation;
 
 import static junit.framework.Assert.*;
@@ -41,7 +45,7 @@ public class ExportServiceTest {
     private ExportService service;
 
     @Test
-    public void testUpdated() throws InterruptedException {
+    public void testUpdated() {
         AnxietyTriggers triggers = new AnxietyTriggers();
         triggers.setAnxiousFear(1);
         service.recordUpdated(triggers);
@@ -50,6 +54,18 @@ public class ExportServiceTest {
         assertTrue(service.exportNeeded());
     }
 
+
+    @Test
+    public void testAppendToFile() throws IOException {
+
+        String textFile = "/home/dan/code/pi/PIServer/wd/writeOnly.txt";
+        BufferedWriter bw = new BufferedWriter(new FileWriter(textFile, false));
+
+        bw.write("This is an extra line, to a file that is write only, in a directory that is write only.");
+        bw.flush();
+        bw.close();
+
+    }
 
 
 }

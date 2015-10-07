@@ -53,9 +53,7 @@ public class ExportService implements  ApplicationListener<ContextRefreshedEvent
     @Scheduled(cron = "0 * * * * MON-FRI")
     public void exportIfThereAreChanges() {
         if (updatedClasses.size() == 0) return;
-        List<>
         for(Class c : updatedClasses) {
-            exportAndRemove(c);
         }
     }
 
