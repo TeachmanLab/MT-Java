@@ -67,7 +67,7 @@ public class OA implements QuestionnaireData, Comparable<OA> {
         if(interfere_social != NO_ANSWER) { sum += interfere_social; total++;}
 
         if (total == 0) return 0;
-        return(sum / total);
+        return(sum / total) * 5;
     }
 
     public boolean atRisk(OA original) {
@@ -77,24 +77,6 @@ public class OA implements QuestionnaireData, Comparable<OA> {
     @Override
     public int compareTo(OA o) {
         return date.compareTo(o.date);
-    }
-
-
-
-
-    /** Calculates a linear regression, providing two plot points
-     * for adding to the graph, along with a value for the slope of
-     * the curve, which will determine how well the participant has
-     * done.
-     */
-    public static SimpleRegression regression(List<OA> oas) {
-        SimpleRegression regression = new SimpleRegression();
-        double counter = 0;
-        for(OA oa : oas) {
-            regression.addData(counter, oa.score());
-            counter++;
-        }
-        return regression;
     }
 
 }

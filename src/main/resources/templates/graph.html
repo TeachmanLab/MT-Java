@@ -10,8 +10,9 @@
 <body th:class="|user-theme-${participant.theme}|">
 <script type="text/javascript" th:src="@{/bower/jquery-flot/jquery.flot.js}"></script>
 <script type="text/javascript" th:src="@{/bower/jquery-flot/jquery.flot.categories.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.flot.axislabels.js}"></script>
 
-    <section id="header" class="clearfix" th:include="fragment/common :: topFragment" />
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment" />
 
 
 <!-- content starts
@@ -21,9 +22,11 @@
         <h1>Graph of Progress</h1>
         <p>You completed a questionnaire after each training session about how your anxiety had been since your
             last session. This allowed us to track your progress over the course of the MindTrails program.</p>
-        <p>The graph below shows the changes in your score on the anxiety questionnaire. The higher the score, the
+        <p>The graph below shows the changes in your score on the anxiety questionnaire, which is called the
+            Overall Anxiety Severity and Impairment Scale. On this scale, the higher the score, the
             more difficulties with anxiety you reported at that point in time.</p>
-
+        <p>The orange line shows your specific scores on each day. The blue line shows your overall change pattern,
+            taking into account the variation that occurred across sessions.</p>
         <div class="longSection">
             <div id="graph"/>
         </div>
@@ -84,6 +87,7 @@
                 var regression = /*[[${regressionPoints}]]*/ [["Initial Assessment",2.6],["2 Months Post Training", 1]];
 
                 $.plot("#graph", [ actualPoints, regression ], {
+                    axisLabels: { show:true},
                     series: {
                         lines: { show: true },
                         points: { show: true }
@@ -91,6 +95,9 @@
                     xaxis: {
                         mode: "categories",
                         tickLength: 0
+                    },
+                    yaxis: {
+                        axisLabel: 'Overall Anxiety Severity and Impairment Scale Score'
                     }
                 });
 
