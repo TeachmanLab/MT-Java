@@ -27,8 +27,8 @@ public class UserService implements ApplicationListener<AuthenticationSuccessEve
     @Override
     public void onApplicationEvent(AuthenticationSuccessEvent event) {
 
-        LOG.info("Authentication Success Event Captured for " + event);
         ParticipantDAO dao = (ParticipantDAO) event.getAuthentication().getPrincipal();
+        LOG.info("Authentication Success Event Captured for " + dao.getEmail());
         dao = participantRepository.findByEmail(dao.getEmail()); // Refresh session object from database.
         dao.setLastLoginDate(new Date());
         participantRepository.save(dao);
