@@ -69,13 +69,16 @@ public class ParticipantDAO implements UserDetails {
 
     private int taskIndex = 0;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    // IMPORTANT: Automatic email notifications start failing when
+    // these relationships are setup with a FetchType.LAZY. Please
+    // leave this eager, or address that problem.
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Collection<EmailLogDAO> emailLogDAOs = new ArrayList<EmailLogDAO>();
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Collection<GiftLogDAO> giftLogDAOs = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Collection<TaskLogDAO> taskLogDAOs = new ArrayList<>();
 
 
