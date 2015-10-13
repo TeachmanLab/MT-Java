@@ -45,25 +45,25 @@
 
                 <form action="#" th:action="@{/account/update}" th:object="${participant}" method="post">
                     <p>
-                        <label for="name">Name / Nickname</label>
+                        <label class="standard" for="name">Name / Nickname</label>
                         <input id="name" type="text" th:field="*{fullName}"/>
                         <span th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">Name Error</span>
                     </p>
 
                     <p>
-                        <label for="email">Email</label>
+                        <label class="standard" for="email">Email</label>
                         <input id="email" type="text" th:field="*{email}"/>
                         <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</span>
                     </p>
 
                     <p>
                         <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Name Error</span>
-                        <label>Password</label>
+                        <label class="standard" >Password</label>
                         <span>******** (<a th:href="@{/account/changePass}">Change Password</a>)</span>
                     </p>
 
                     <p>
-                        <label for="optOut">No emails reinders?:</label>
+                        <label class="standard" for="optOut">No emails reinders?:</label>
                         <input id="optOut" type="checkbox" th:field="*{emailOptout}"/>
                         <span th:if="${#fields.hasErrors('emailOptout')}" th:errors="*{emailOptout}">Optout Error</span>
 

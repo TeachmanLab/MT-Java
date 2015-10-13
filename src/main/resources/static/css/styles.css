@@ -228,6 +228,12 @@ label {
     padding:2px;
 }
 
+label.standard {
+    font-weight: 600;
+    width: 180px;
+    text-align: right;
+}
+
 
 .user-theme-blue label:hover { background-color: #00ACE4; color: #000;}
 .user-theme-orange label:hover { background-color: #F77D38;  color: #000;}
@@ -242,8 +248,8 @@ div.themeSection label {
     margin:0px;
     min-width: 100px;
     font-weight: 700;
-
 }
+
 
 div.themeSection div.themeOption {
     float:right;
