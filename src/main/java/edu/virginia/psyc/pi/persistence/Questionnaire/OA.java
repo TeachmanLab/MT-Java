@@ -3,9 +3,14 @@ package edu.virginia.psyc.pi.persistence.Questionnaire;
 import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import lombok.Data;
+import org.apache.commons.math3.stat.regression.SimpleRegression;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,9 +22,12 @@ import java.util.Date;
 @Entity
 @Table(name="OA")
 @Data
-public class OA implements QuestionnaireData {
+public class OA implements QuestionnaireData, Comparable<OA> {
+
+    private static final Logger LOG = LoggerFactory.getLogger(OA.class);
 
     public static int NO_ANSWER = 555;
+    public static final int MAX_SCORE = 4;
 
     @Id
     @GeneratedValue
@@ -42,6 +50,7 @@ public class OA implements QuestionnaireData {
         this.avoid = avoid;
         this.interfere = interfere;
         this.interfere_social = interfere_social;
+        this.date = new Date();
     }
 
     public OA(){}
@@ -58,13 +67,16 @@ public class OA implements QuestionnaireData {
         if(interfere_social != NO_ANSWER) { sum += interfere_social; total++;}
 
         if (total == 0) return 0;
-        return(sum / total);
+        return(sum / total) * 5;
     }
-
 
     public boolean atRisk(OA original) {
         return (score() / original.score()) > 1.3;
     }
 
+    @Override
+    public int compareTo(OA o) {
+        return date.compareTo(o.date);
+    }
 
 }

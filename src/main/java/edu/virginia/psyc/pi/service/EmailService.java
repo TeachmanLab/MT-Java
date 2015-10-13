@@ -171,6 +171,7 @@ public class EmailService {
 
     public void sendSimpleMail(Participant participant, TYPE type) throws MessagingException {
         // Prepare the evaluation context
+        LOG.info("SENDING MAIL: " + participant.getEmail() + "\t" + type + "\t" + participant.isEmailOptout());
         final Context ctx = new Context();
         sendMail(participant, type, ctx);
 

@@ -126,7 +126,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {handle:'yesno',media:{html:"<div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>"}, css:{fontSize:'20px',color:'black', 'text-align':'center'}, location:{top:70}}
         ],
         stall: [
-            {handle:'stall',media:{html:"<div class='stim'>Oops, that answer is incorrect; please re-read and in a moment you will have a chance to answer again.</div>"}, css:{fontSize:'20px',color:'black', 'text-align':'center'}, location:{top:70}, nolog:true}
+            {handle:'stall',media:{html:"<div class='stim'>Oops, that answer is incorrect; please re-read the question and in a moment you will have a chance to answer again.</div>"}, css:{fontSize:'20px',color:'black', 'text-align':'center'}, location:{top:70}, nolog:true}
         ],
         counter: [
             {
@@ -408,7 +408,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             layout: [
                 // This is a stimulus object
                 {
-                    media :{html:"<p class='em'>In this part of the assessment, you will read a series of very short stories.  Pay attention to the title of each story because after you have read all the stories, you will be asked more questions about them.</p><p><b>For each story:</b></p><ul><li>Read the paragraph carefully and imagine yourself in the story described.</li><li>There will be an incomplete word at the end of each story.</li><li>Press the key on the keyboard that completes the word.</li><li>When you correctly complete the word you will move on to the next screen which will ask you a question about the story.</li></ul><p>Press the <b>space bar</b> to continue.</p>"},
+                    media :{html:"<br /><h2 style='font-size:1.45em; font-weight:bold;'>Completing Short Stories</h2><br /><p class='em'>In this part of the assessment, you will read a series of very short stories.  Pay attention to the title of each story because after you have read all the stories, you will be asked more questions about them.</p><p><b>For each story:</b></p><ul><li>Read the paragraph carefully and imagine yourself in the story described.</li><li>There will be an incomplete word at the end of each story.</li><li>Press the key on the keyboard that completes the word.</li><li>When you correctly complete the word you will move on to the next screen which will ask you a question about the story.</li></ul><p>Press the <b>space bar</b> to continue.</p>"},
                     css:{fontSize:'20px',color:'black'}
                 }
             ],

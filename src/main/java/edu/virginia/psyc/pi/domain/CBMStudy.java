@@ -69,7 +69,7 @@ public class CBMStudy implements Study {
             }
             gift = false;
             if(giftSessions.contains(name)) gift = true;
-            if (!name.equals(NAME.ELIGIBLE) && !name.equals(NAME.COMPLETE)) {
+            if (!name.equals(NAME.ELIGIBLE)) {
                 session = new Session(calcIndex(name), name.toString(), calculateDisplayName(name), completed, current, gift, getTasks(name, taskIndex));
                 sessions.add(session);
             }
@@ -112,119 +112,126 @@ public class CBMStudy implements Study {
         List<Task> tasks = new ArrayList<Task>();
         switch (name) {
             case PRE:
-                tasks.add(new Task("credibility", "Credibility assessment", Task.TYPE.questions, 1));
+                tasks.add(new Task("credibility", "Consent to participate", Task.TYPE.questions, 1));
                 tasks.add(new Task("demographics", "Demographics", Task.TYPE.questions, 2));
                 tasks.add(new Task("MH", "Mental health history", Task.TYPE.questions, 1));
                 tasks.add(new Task("QOL", "Satisfaction", Task.TYPE.questions, 2));
-                tasks.add(new Task("RecognitionRatings", "Training session", Task.TYPE.playerScript, 20));
-                tasks.add(new Task("RR", "Completing short stories", Task.TYPE.questions, 4));
-                tasks.add(new Task("BBSIQ", "Situations", Task.TYPE.questions, 5));
-                tasks.add(new Task("DASS21_DS", "Mood Assessment", Task.TYPE.questions, 1));
-                tasks.add(new Task("DD", "Drinking Habits", Task.TYPE.questions, 4));
-                tasks.add(new Task("OA", "Anxiety Review", Task.TYPE.questions, 1));
-                tasks.add(new Task("AnxietyTriggers", "Anxiety Triggers", Task.TYPE.questions, 1));
+                tasks.add(new Task("RecognitionRatings", "Completing short stories", Task.TYPE.playerScript, 20));
+                tasks.add(new Task("RR", "Completing short stories", Task.TYPE.questions, 0));
+                tasks.add(new Task("BBSIQ", "Why things happen", Task.TYPE.questions, 5));
+                tasks.add(new Task("DASS21_DS", "Mood assessment", Task.TYPE.questions, 1));
+                tasks.add(new Task("DD", "Drinking habits", Task.TYPE.questions, 4));
+                tasks.add(new Task("OA", "Anxiety review", Task.TYPE.questions, 1));
+                tasks.add(new Task("AnxietyTriggers", "Personal anxiety triggers", Task.TYPE.questions, 1));
                 break;
             case SESSION1:
                 tasks.add(new Task("SUDS", "How anxious you feel", Task.TYPE.questions, 1));
-                tasks.add(new Task("ImageryPrime", "Use Your Imagination", Task.TYPE.questions,5));
-                tasks.add(new Task("Impact","Impact Questions",Task.TYPE.questions,1));
-                tasks.add(new Task("FirstSessionComplete", "First Session", Task.TYPE.playerScript, 20));
-                tasks.add(new Task("SUDS", "How anxious you feel", Task.TYPE.questions, 1));
-                tasks.add(new Task("CC", "Follow up", Task.TYPE.questions,1));
-                tasks.add(new Task("OA", "Anxiety Review", Task.TYPE.questions, 1));
+                tasks.add(new Task("ImageryPrime", "Use your imagination", Task.TYPE.questions,5));
+                tasks.add(new Task("Impact","Impact questions",Task.TYPE.questions,0));
+                tasks.add(new Task("FirstSessionComplete", "Training stories", Task.TYPE.playerScript, 20));
+                tasks.add(new Task("SUDS", "How anxious you feel", Task.TYPE.questions, 0));
+                tasks.add(new Task("CC", "Follow up", Task.TYPE.questions,0));
+                tasks.add(new Task("OA", "Anxiety review", Task.TYPE.questions, 1));
                 break;
             case SESSION2:
-                tasks.add(new Task("ImageryPrime", "Use your Imagination", Task.TYPE.questions,5));
-                tasks.add(new Task("Impact","Impact Questions",Task.TYPE.questions,1));
-                tasks.add(new Task("SecondSessionComplete", "Second Session", Task.TYPE.playerScript, 20));
-                tasks.add(new Task("OA", "Anxiety Review", Task.TYPE.questions, 1));
+                tasks.add(new Task("ImageryPrime", "Use your imagination", Task.TYPE.questions,5));
+                tasks.add(new Task("Impact","Impact questions",Task.TYPE.questions,0));
+                tasks.add(new Task("SecondSessionComplete", "Training stories", Task.TYPE.playerScript, 20));
+                tasks.add(new Task("OA", "Anxiety review", Task.TYPE.questions, 1));
 
                 break;
             case SESSION3:
-                tasks.add(new Task("SUDS", "How anxious you feel", Task.TYPE.questions, 0));
+                tasks.add(new Task("SUDS", "How anxious you feel", Task.TYPE.questions, 1));
                 tasks.add(new Task("ImageryPrime", "Use your imagination", Task.TYPE.questions, 5));
                 tasks.add(new Task("Impact","Impact questions",Task.TYPE.questions,0));
-                tasks.add(new Task("ThirdSessionComplete", "Third session", Task.TYPE.playerScript, 20));
+                tasks.add(new Task("ThirdSessionComplete", "Training stories", Task.TYPE.playerScript, 20));
                 tasks.add(new Task("SUDS", "How anxious you feel", Task.TYPE.questions, 0));
                 tasks.add(new Task("CC", "Follow up", Task.TYPE.questions, 0));
                 tasks.add(new Task("RR", "Completing short stories", Task.TYPE.questions, 4));
-                tasks.add(new Task("BBSIQ", "Situations", Task.TYPE.questions, 5));
+                tasks.add(new Task("BBSIQ", "Why things happen", Task.TYPE.questions, 5));
                 tasks.add(new Task("QOL", "How satisfied you feel", Task.TYPE.questions, 2));
-                tasks.add(new Task("DASS21_DS", "Mood Assessment", Task.TYPE.questions, 1));
-                tasks.add(new Task("DD_FU", "Drinking Habits Follow Up", Task.TYPE.questions, 4));
-                tasks.add(new Task("OA", "Anxiety Review", Task.TYPE.questions, 1));
+                tasks.add(new Task("DASS21_DS", "Mood assessment", Task.TYPE.questions, 1));
+                tasks.add(new Task("DD_FU", "Drinking habits follow up", Task.TYPE.questions, 4));
+                tasks.add(new Task("OA", "Anxiety review", Task.TYPE.questions, 1));
 //                tasks.add(new Task("SAPo", "State Anxiety", Task.TYPE.questions, 3));
                 break;
             case SESSION4:
-                tasks.add(new Task("ImageryPrime", "Use your Imagination", Task.TYPE.questions, 5));
-                tasks.add(new Task("Impact","Impact Questions",Task.TYPE.questions,1));
-                tasks.add(new Task("FourthSessionComplete", "Fourth Session", Task.TYPE.playerScript, 20));
-                tasks.add(new Task("OA", "Anxiety Review", Task.TYPE.questions, 1));
+                tasks.add(new Task("ImageryPrime", "Use your imagination", Task.TYPE.questions, 5));
+                tasks.add(new Task("Impact","Impact questions",Task.TYPE.questions,0));
+                tasks.add(new Task("FourthSessionComplete", "Training stories", Task.TYPE.playerScript, 20));
+                tasks.add(new Task("OA", "Anxiety review", Task.TYPE.questions, 1));
                 break;
             case SESSION5:
-                tasks.add(new Task("ImageryPrime", "Use your Imagination", Task.TYPE.questions, 5));
-                tasks.add(new Task("Impact","Impact Questions",Task.TYPE.questions,1));
-                tasks.add(new Task("FirstSessionComplete", "Fifth Session", Task.TYPE.playerScript, 20));
-                tasks.add(new Task("OA", "Anxiety Review", Task.TYPE.questions, 1));
+                tasks.add(new Task("ImageryPrime", "Use your imagination", Task.TYPE.questions, 5));
+                tasks.add(new Task("Impact","Impact questions",Task.TYPE.questions,0));
+                tasks.add(new Task("FirstSessionComplete", "Training stories", Task.TYPE.playerScript, 20));
+                tasks.add(new Task("OA", "Anxiety review", Task.TYPE.questions, 1));
 
                 break;
             case SESSION6:
-                tasks.add(new Task("SUDS", "How anxious you feel", Task.TYPE.questions, 0));
+                tasks.add(new Task("SUDS", "How anxious you feel", Task.TYPE.questions, 1));
                 tasks.add(new Task("ImageryPrime", "Use your imagination", Task.TYPE.questions, 5));
                 tasks.add(new Task("Impact","Impact questions",Task.TYPE.questions,0));
-                tasks.add(new Task("SecondSessionComplete", "Sixth session", Task.TYPE.playerScript, 20));
+                tasks.add(new Task("SecondSessionComplete", "Training stories", Task.TYPE.playerScript, 20));
                 tasks.add(new Task("SUDS", "How anxious you feel", Task.TYPE.questions, 0));
                 tasks.add(new Task("CC", "Follow up", Task.TYPE.questions, 0));
                 tasks.add(new Task("RR", "Completing short stories", Task.TYPE.questions, 4));
-                tasks.add(new Task("BBSIQ", "Situations", Task.TYPE.questions, 5));
+                tasks.add(new Task("BBSIQ", "Why things happen", Task.TYPE.questions, 5));
                 tasks.add(new Task("QOL", "How satisfied you feel", Task.TYPE.questions, 2));
-                tasks.add(new Task("DASS21_DS", "Mood Assessment", Task.TYPE.questions, 1));
-                tasks.add(new Task("DD_FU", "Drinking Habits Follow Up", Task.TYPE.questions, 4));
-                tasks.add(new Task("OA", "Anxiety Review", Task.TYPE.questions, 1));
+                tasks.add(new Task("DASS21_DS", "Mood assessment", Task.TYPE.questions, 1));
+                tasks.add(new Task("DD_FU", "Drinking habits follow up", Task.TYPE.questions, 4));
+                tasks.add(new Task("OA", "Anxiety review", Task.TYPE.questions, 1));
 //                tasks.add(new Task("SAPo", "State Anxiety", Task.TYPE.questions, 3));
                 break;
             case SESSION7:
-                tasks.add(new Task("ImageryPrime", "Use your Imagination", Task.TYPE.questions, 5));
-                tasks.add(new Task("Impact","Impact Questions",Task.TYPE.questions,1));
-                tasks.add(new Task("ThirdSessionComplete", "Seventh Session", Task.TYPE.playerScript, 20));
-                tasks.add(new Task("OA", "Anxiety Review", Task.TYPE.questions, 1));
+                tasks.add(new Task("ImageryPrime", "Use your imagination", Task.TYPE.questions, 5));
+                tasks.add(new Task("Impact","Impact questions",Task.TYPE.questions,0));
+                tasks.add(new Task("ThirdSessionComplete", "Training stories", Task.TYPE.playerScript, 20));
+                tasks.add(new Task("OA", "Anxiety review", Task.TYPE.questions, 1));
 
                 break;
             case SESSION8:
-                tasks.add(new Task("SUDS", "How anxious you feel", Task.TYPE.questions, 0));
+                tasks.add(new Task("SUDS", "How anxious you feel", Task.TYPE.questions, 1));
                 tasks.add(new Task("ImageryPrime", "Use your imagination", Task.TYPE.questions, 5));
                 tasks.add(new Task("Impact","Impact questions",Task.TYPE.questions,0));
-                tasks.add(new Task("FourthSessionComplete", "Eighth session", Task.TYPE.playerScript, 20));
+                tasks.add(new Task("FourthSessionComplete", "Training stories", Task.TYPE.playerScript, 20));
                 tasks.add(new Task("SUDS", "How anxious you feel", Task.TYPE.questions, 0));
                 tasks.add(new Task("CC", "Follow up", Task.TYPE.questions, 0));
                 tasks.add(new Task("RR", "Completing short stories", Task.TYPE.questions, 4));
-                tasks.add(new Task("BBSIQ", "Situations", Task.TYPE.questions, 5));
+                tasks.add(new Task("BBSIQ", "Why things happen", Task.TYPE.questions, 5));
 //                tasks.add(new Task("SAPo", "State Anxiety", Task.TYPE.questions, 3));
                 tasks.add(new Task("QOL", "How satisfied you feel", Task.TYPE.questions, 2));
-                tasks.add(new Task("DASS21_DS", "Mood Assessment", Task.TYPE.questions, 1));
-                tasks.add(new Task("DD_FU", "Drinking Habits Follow Up", Task.TYPE.questions, 4));
-                tasks.add(new Task("OA", "Anxiety Review", Task.TYPE.questions, 1));
-                tasks.add(new Task("DASS21_AS", "Status Questionnaire", Task.TYPE.questions, 1));
-                tasks.add(new Task("CIHS","Change in Help Seeking", Task.TYPE.questions, 1));
+                tasks.add(new Task("DASS21_DS", "Mood assessment", Task.TYPE.questions, 1));
+                tasks.add(new Task("DD_FU", "Drinking habits follow up", Task.TYPE.questions, 4));
+                tasks.add(new Task("OA", "Anxiety review", Task.TYPE.questions, 1));
+                tasks.add(new Task("DASS21_AS", "Recent anxiety symptoms", Task.TYPE.questions, 1));
+                tasks.add(new Task("CIHS","Change in help seeking", Task.TYPE.questions, 1));
 
                 break;
             case POST:
-                tasks.add(new Task("MUE", "User experience", Task.TYPE.questions, 2));
+
                 tasks.add(new Task("RR", "Completing short stories", Task.TYPE.questions, 4));
-                tasks.add(new Task("BBSIQ", "Situations", Task.TYPE.questions, 5));
+                tasks.add(new Task("BBSIQ", "Why things happen", Task.TYPE.questions, 5));
 
 //                tasks.add(new Task("SAPo", "State Anxiety", Task.TYPE.questions, 3));
                 tasks.add(new Task("QOL", "How satisfied you feel", Task.TYPE.questions, 2));
-                tasks.add(new Task("DASS21_DS", "Mood Assessment", Task.TYPE.questions, 1));
-                tasks.add(new Task("DD_FU", "Drinking Habits Follow Up", Task.TYPE.questions, 4));
-                tasks.add(new Task("OA", "Anxiety Review", Task.TYPE.questions, 1));
-                tasks.add(new Task("DASS21_AS", "Status Questionnaire", Task.TYPE.questions, 1));
-                tasks.add(new Task("CIHS","Change in Help Seeking", Task.TYPE.questions, 1));
+                tasks.add(new Task("DASS21_DS", "Mood assessment", Task.TYPE.questions, 1));
+                tasks.add(new Task("DD_FU", "Drinking habits follow up", Task.TYPE.questions, 4));
+                tasks.add(new Task("OA", "Anxiety review", Task.TYPE.questions, 1));
+                tasks.add(new Task("DASS21_AS", "Recent anxiety symptoms", Task.TYPE.questions, 1));
+                tasks.add(new Task("CIHS","Change in help seeking", Task.TYPE.questions, 1));
+                tasks.add(new Task("MUE", "Evaluating the program", Task.TYPE.questions, 2));
 
         }
         setTaskStates(name, tasks, taskIndex);
         return tasks;
     }
+
+
+    public static String calculateDisplayName(String name) {
+       return calculateDisplayName(NAME.valueOf(name));
+    }
+
 
     private static String calculateDisplayName(NAME name) {
         String displayName = "UNKNOWN";
@@ -259,7 +266,7 @@ public class CBMStudy implements Study {
             case SESSION7: index=7; break;
             case SESSION8: index=8; break;
             case POST: index=9; break;
-            case COMPLETE: index=0; break;
+            case COMPLETE: index=10; break;
         }
         return index;
     }
@@ -378,19 +385,23 @@ public class CBMStudy implements Study {
     @Override
     public STUDY_STATE getState() {
 
-            if (taskIndex != 0) return STUDY_STATE.IN_PROGRESS;
-
-            // Pre Assessment and Session 1 can be completed immediately.
-            if(getCurrentSession().getName().equals(NAME.PRE.toString()) ||
-                    getCurrentSession().getName().equals(NAME.SESSION1.toString()))
-                return STUDY_STATE.READY;
-
-            // Otherwise, you must wait at least one day before starting the next
-            // session.
-
-            if(daysSinceLastSession() == 0 && lastSessionDate != null) return STUDY_STATE.WAIT_A_DAY;
-            return STUDY_STATE.READY;
+        if (getCurrentSession().getName().equals(NAME.COMPLETE.toString())) {
+            return STUDY_STATE.ALL_DONE;
         }
+
+        if (taskIndex != 0) return STUDY_STATE.IN_PROGRESS;
+
+        // Pre Assessment, Session 1, and 'Complete' can be accessed immediately.
+        if(getCurrentSession().getName().equals(NAME.PRE.toString()) ||
+                getCurrentSession().getName().equals(NAME.SESSION1.toString()))
+            return STUDY_STATE.READY;
+
+        // Otherwise, you must wait at least one day before starting the next
+        // session.
+
+        if(daysSinceLastSession() == 0 && lastSessionDate != null) return STUDY_STATE.WAIT_A_DAY;
+        return STUDY_STATE.READY;
+    }
 
     void completeSession() {
         List<Session> sessions = getSessions();

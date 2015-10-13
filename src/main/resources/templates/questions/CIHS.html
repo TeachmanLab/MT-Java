@@ -6,12 +6,7 @@
 <html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <!--<![endif]-->
 <head th:include="/fragment/common :: headerFragment" />
-<style>
-    form label.error
-    {
-    font-size: 16px;
-    }
-</style>
+
 <body th:class="|user-theme-${participant.theme}|">
 <section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
 
@@ -46,22 +41,22 @@
                         <br/>
                         <div class="row">
                             <table>
-                                <td><div  style="padding:0; margin:0; border-right: solid 2px #bbb; width: 550px ">
-                                    <ul style="list-style-type: none;">
+                                <td><div class="radioList">
+                                    <ul>
 
-                                        <li><input id="Q1.1" class="mainboxes" onchange="lock(id)" type="checkbox" name="changes" value="therapy_more">I seek in-person therapy more now</input></li>
-                                        <li><input id="Q1.2" class="mainboxes" onchange="lock(id)" type="checkbox" name="changes" value="therapy_less">I seek in-person therapy less now</input></li>
-                                        <li><input id="Q2.1" class="mainboxes" onchange="lock(id)" type="checkbox" name="changes" value="med_more">I use prescription medication more now</input></li>
-                                        <li><input id="Q2.2" class="mainboxes" onchange="lock(id)" type="checkbox" name="changes" value="med_less">I use prescription medication less now</input></li>
-                                        <li><input id="Q3.1" class="mainboxes" onchange="lock(id)" type="checkbox" name="changes" value="online_more">I use online computer programs (other than MindTrails) or mobile apps more now</input></li>
-                                        <li><input id="Q3.2" class="mainboxes" onchange="lock(id)" type="checkbox" name="changes" value="online_less">I use online computer programs (other than MindTrails) or mobile apps less now</input></li>
+                                        <li><label class="radioList"><input id="Q1.1" class="mainboxes" onchange="lock(id)" type="checkbox" name="changes" value="therapy_more">I seek in-person therapy more now</input></label></li>
+                                        <li><label class="radioList"><input id="Q1.2" class="mainboxes" onchange="lock(id)" type="checkbox" name="changes" value="therapy_less">I seek in-person therapy less now</input></label></li>
+                                        <li><label class="radioList"><input id="Q2.1" class="mainboxes" onchange="lock(id)" type="checkbox" name="changes" value="med_more">I use prescription medication more now</input></label></li>
+                                        <li><label class="radioList"><input id="Q2.2" class="mainboxes" onchange="lock(id)" type="checkbox" name="changes" value="med_less">I use prescription medication less now</input></label></li>
+                                        <li><label class="radioList"><input id="Q3.1" class="mainboxes" onchange="lock(id)" type="checkbox" name="changes" value="online_more">I use online computer programs (other than MindTrails) or mobile apps more now</input></label></li>
+                                        <li><label class="radioList"><input id="Q3.2" class="mainboxes" onchange="lock(id)" type="checkbox" name="changes" value="online_less">I use online computer programs (other than MindTrails) or mobile apps less now</input></label></li>
                                         <br />
-                                        <li><input type="checkbox"  class="mainboxes" name="changes" value="Other">Other</input>  (Please specify)<input type="text" name="OtherDesc" /></li>
+                                        <li><label class="radioList"><input type="checkbox"  class="mainboxes" name="changes" value="Other">Other</input>  (Please specify)<input type="text" name="OtherDesc" /></label></li>
                                     </ul>
-                                </div>
+                        </div>
                                 </td>
                                 <td>
-                                    <div style="width:150px; text-align:center">
+                                    <div class="listNoAnswer">
                                         <p>No Change</p>
                                         <input id="nochange" onchange="noChange(this)" type="checkbox" name="changes" value="NoChange" />
                                     </div>

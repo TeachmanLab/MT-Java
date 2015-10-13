@@ -48,10 +48,13 @@ button.jw-button-finish:disabled span.ui-icon-circle-check {
 
 
 #header {background:url(/images/bg-header.png) top left repeat-x; }
-.logo {background:url(/images/header-logo.png) top left no-repeat; width:365px; height:135px; float:left; margin-left:-35px;}
+.logo {
+    background:url(/images/header-logo.png) top left no-repeat;
+    width:365px; height:135px; float:left;
+    margin-left:-35px; margin-right: 150px;}
 .logo a {height:135px; width:365px; display:block;}
 
-#nav {float:right; font-size:0.6em; list-style:none; padding:15px 0 15px 0;}
+#nav {font-size:0.6em; list-style:none; padding:15px 0 15px 20px; text-align: right;}
 #nav li {float:left; padding:0px 10px;}
 #nav a {color:#5ECCDE; text-decoration:none; font-weight: 700}
 .user-theme-orange #nav a { color:#F99A65;}
@@ -91,7 +94,7 @@ li.alert {
 }
 
 #footer {background:#21336B; font-size:0.6em;}
-.footer-logo { float:left;}
+.footer-logo { float:left; margin: 10px;}
 
 .footer-links {float:right; list-style:none; padding:15px;}
 .footer-links li {float:left; padding:0px 10px;}
@@ -219,13 +222,34 @@ div.themeSection input {
     margin: 20px 0 0 20px;
 }
 
+label {
+    font-weight: 400;
+    border-radius: 7px;
+    padding:2px;
+}
+
+label.standard {
+    font-weight: 600;
+    width: 180px;
+    text-align: right;
+}
+
+
+.user-theme-blue label:hover { background-color: #00ACE4; color: #000;}
+.user-theme-orange label:hover { background-color: #F77D38;  color: #000;}
+.user-theme-green label:hover { background-color: #77B46D;  color: #000;}
+.user-theme-purple label:hover { background-color: #C98ABB; color: #000; }
+.user-theme-gold label:hover { background-color: #ECB800;  color: #000;}
+
+
+
 div.themeSection label {
     float:right;
     margin:0px;
     min-width: 100px;
     font-weight: 700;
-
 }
+
 
 div.themeSection div.themeOption {
     float:right;
@@ -237,6 +261,9 @@ div.themeSection div.themeOption {
     padding: 10px 20px 0 20px;
 }
 
+div.blue  {
+    background-color: #00ACE4;
+}
 div.orange  {
     background-color: #ef7b40;
 }
@@ -405,14 +432,29 @@ table.questionnaire td.statementLong {
 }
 
 
-table.questionnaire td:last-chifld {
+table.questionnaire td:last-child {
     border-left: 1px solid #ddd;
 }
 
-label {
-    min-width: 170px;
+.section > label, .scale > label {
+    width: 18%;
+    max-width: 170px;
     font-weight: 400;
     vertical-align: middle;
+    color: #5f5f5f;
+}
+
+.section > label.six, .scale > label.six {
+    width: 15%;
+}
+
+
+td > label {
+    width: 90%;
+    max-width: 170px;
+    font-weight: 400;
+    vertical-align: middle;
+    color: #5f5f5f;
 }
 
 input.radioBox {
@@ -420,10 +462,19 @@ input.radioBox {
 }
 
 label.radioBox {
-    min-width: 50px;
-    min-height: 50px;
+    padding: 5px;
+    margin: 5px 0 10px 5px;
+    background-color: #eee;
+    border-radius: 7px;
     cursor: pointer;
-    margin-bottom: 10px;
+}
+
+input[type="radio"]:checked + label {
+    background-color:#bbb;
+}
+
+label.radioBox::selection {
+    background-color: greenyellow;
 }
 
 label.radioBox5 {
@@ -441,16 +492,34 @@ div.section label.radioBox7 div.desc1, div.section label.radioBox5 div.desc1{
     text-align: center;
 }
 
+div.radioList {
+    padding:0;
+    margin:0;
+    border-right: solid 2px #bbb;
+    width: 550px
+}
+
+div.radioList > ul {
+    list-style-type: none;
+}
 
 label.radioList {
     cursor: pointer;
     text-indent: -25px;
     font-size: 85%;
     margin: 0 0 0 20px;
-    padding: 0 200px 0 25px;
+    padding: 0px 0px 0px 25px;
     display: block;
-    width:100%;
+    width:70%;
+    max-width: 100%;
 }
+
+label.radioList:hover { background-color: #00ACE4;  color: #000;}
+.user-theme-orange label.radioList:hover { background-color: #F77D38;  color: #000;}
+.user-theme-green label.radioList:hover { background-color: #77B46D;  color: #000;}
+.user-theme-purple label.radioList:hover { background-color: #C98ABB;  color: #000;}
+.user-theme-gold label.radioList:hover { background-color: #ECB800;  color: #000;}
+
 
 label.radioList input[type="radio"], label.radioList input[type="checkbox"] {
     margin-right: 10px;
@@ -466,7 +535,7 @@ div.listNoAnswer {
 label.radioListNoAnswer {
     position: absolute;
     height: 75%;
-    width: 150px;
+    width: 20%;
     right:0;
     font-size: 85%;
     display: block;
@@ -480,6 +549,7 @@ div.oneToSeven {
     font-size: .7em;
     margin-left: 40px;
      }
+
 
 label.radioList b {
     font-weight: 600;
@@ -527,15 +597,22 @@ div.scale div.option, div.scale div.optionLast {
 
 div.option, div.optionLast {
     font-size: 75%;
-    padding: 10px 28px 0 25px;
-    align-content: center;
+   align-content: center;
     text-align: center;
     line-height: 1.1em;
-    color: #5f5f5f;
 }
 
 div.option, div.optionLast {
     font-weight: 400;
+}
+
+div.divider {
+    vertical-align: middle;
+    display: inline-block;
+    width: 2px;
+    height: 100px;
+    background: #ccc;
+    margin: 0 5px;
 }
 
 input[type="radio"] {
@@ -551,7 +628,7 @@ div.optionLast {
 
 div.section div.desc1, div.scale div.desc1 {
     height: 40px;
-    width: 120px;
+    margin: auto;
 }
 
 
@@ -631,3 +708,10 @@ form#wizard {
     text-align: center;
 }
 
+#graph {
+    width: 600px;
+    height: 400px;
+    font-size: 14px;
+    line-height: 1.2em;
+    margin: auto;
+}

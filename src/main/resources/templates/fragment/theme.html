@@ -15,8 +15,14 @@
         completing the program can also be the color you choose for your t-shirt when you’ve completed
         the study or you can pick a different color for your shirt.</p>
     <fieldset>
-        <label class="theme">
-        <input type="radio" th:field="*{theme}" value="blue" required="true"/> Default (Blue)
+        <label>
+            <div class="themeSection blue">
+                <input type="radio" th:field="*{theme}" value="blue" required="true"/>
+                <div class="themeOption">
+                    <img th:src="@{/images/settings-blue.png}"/>
+                    <label>Blue</label>
+                </div>
+            </div>
         </label>
         <br/>
         <label>

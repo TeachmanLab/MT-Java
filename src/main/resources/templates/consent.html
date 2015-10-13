@@ -26,7 +26,7 @@
                     <fieldset>
                         <h2 class="page-title">Create an Account</h2>
 
-                        <div class="formErrors">
+                        <div class=" formErrors">
                             <ul class="errors">
                                 <li th:each="err : ${#fields.errors('*')}" th:text="${err}" class="alert alert-error">
                                     Input is incorrect
@@ -36,22 +36,22 @@
                         </div>
 
                         <p>
-                            <label for="fullName" th:field="*{fullName}">Name / Nickname</label>
+                            <label class="standard" for="fullName" th:field="*{fullName}">Name / Nickname</label>
                             <input type="name" id="fullName" name="fullName" th:errorclass="error"/>
                         </p>
 
                         <p>
-                            <label for="email" th:field="*{email}">Email</label>
+                            <label class="standard" for="email" th:field="*{email}">Email</label>
                             <input type="email" id="email" name="email" th:errorclass="error"/>
                         </p>
 
                         <p>
-                            <label for="password" th:field="*{password}">Password</label>
+                            <label class="standard" for="password" th:field="*{password}">Password</label>
                             <input type="password" id="password" name="password" th:errorclass="error"/>
                         </p>
 
                         <p>
-                            <label for="passwordAgain" th:field="*{passwordAgain}">Confirm Password</label>
+                            <label class="standard" for="passwordAgain" th:field="*{passwordAgain}">Confirm Password</label>
                             <input type="password" id="passwordAgain" name="passwordAgain"/>
                         </p>
                     </fieldset>

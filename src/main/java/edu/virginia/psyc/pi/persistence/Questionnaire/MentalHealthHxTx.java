@@ -37,9 +37,9 @@ public class MentalHealthHxTx implements QuestionnaireData {
     private List<String> disorders;
 
     @ElementCollection
-    @CollectionTable(name = "mental_health_disorders_no", joinColumns = @JoinColumn(name = "id"))
-    @Column(name = "Disorder_no")
-    private List<String> disorders_no;
+    @CollectionTable(name = "mental_health_disorders_past", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "Disorder_past")
+    private List<String> disorders_past;
 
     @ElementCollection
     @CollectionTable(name = "help", joinColumns = @JoinColumn(name = "id"))
@@ -47,39 +47,40 @@ public class MentalHealthHxTx implements QuestionnaireData {
     private List<String> help;
 
     @ElementCollection
-    @CollectionTable(name = "help_past", joinColumns = @JoinColumn(name = "id"))
-    @Column(name = "help_past")
-    private List<String> help_past;
+    @CollectionTable(name = "helps_past", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "helps_past")
+    private List<String> helps_past;
 
-    private int psychiatrist;
-    private int psychologist;
-    private int school_counselor;
-    private int LMHC;
-    private int general_practitioner;
-    private int teacher;
-    private int family;
-    private int friend;
-    private int religious_leader;
-    private int coach;
-    private int book;
-    private int medicine;
-    private int online;
-    private int other;
 
-    private int psychiatrist_past;
-    private int psychologist_past;
-    private int school_counselor_past;
-    private int LMHC_past;
-    private int general_practitioner_past;
-    private int teacher_past;
-    private int family_past;
-    private int friend_past;
-    private int religious_leader_past;
-    private int coach_past;
-    private int book_past;
-    private int medicine_past;
-    private int online_past;
-    private int other_past;
+    private int psychiatrist = 0;
+    private int psychologist = 0;
+    private int school_counselor = 0;
+    private int LMHC = 0;
+    private int general_practitioner = 0;
+    private int teacher = 0;
+    private int family = 0;
+    private int friend = 0;
+    private int religious_leader = 0;
+    private int coach = 0;
+    private int book = 0;
+    private int medicine = 0;
+    private int online = 0;
+    private int other = 0;
+
+    private int psychiatrist_past = 0;
+    private int psychologist_past = 0;
+    private int school_counselor_past = 0;
+    private int LMHC_past = 0;
+    private int general_practitioner_past = 0;
+    private int teacher_past = 0;
+    private int family_past = 0;
+    private int friend_past = 0;
+    private int religious_leader_past = 0;
+    private int coach_past = 0;
+    private int book_past = 0;
+    private int medicine_past = 0;
+    private int online_past = 0;
+    private int other_past = 0;
 
 
 }

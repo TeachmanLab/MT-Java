@@ -9,11 +9,9 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "PIPlayer": "v0.3.15",
-    "bootstrap": "v3.3.5",
-    "jqueryui": "v1.11"
-  },
-  "resolutions": {
-    "PIPlayer": "b1f5713b184f98cb0cf4b4151c91117b32f67cfa"
+  		  "PIPlayer":"v0.3.15",
+          "bootstrap":"v3.3.5",
+          "jqueryui":"v1.11",
+          "jquery-flot": "0.8.3"
   }
 }
