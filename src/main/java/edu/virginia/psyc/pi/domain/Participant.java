@@ -214,7 +214,8 @@ public class Participant {
      */
     public boolean inSession() {
         return (!this.getStudy().getCurrentSession().getName().equals(CBMStudy.NAME.PRE.toString()) &&
-                !this.getStudy().getCurrentSession().getName().equals(CBMStudy.NAME.POST.toString()));
+                !this.getStudy().getCurrentSession().getName().equals(CBMStudy.NAME.POST.toString()) &&
+                !this.getStudy().getCurrentSession().getName().equals(CBMStudy.NAME.SESSION1.toString()));
     }
 
 

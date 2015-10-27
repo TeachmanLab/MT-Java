@@ -1605,7 +1605,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "negativeWord": "cr[ ]sh",
                     "positiveKey": "e",
                     "positiveWord": "d[ ]tour",
-                    "statement": " You are meeting your parents for dinner. You arrive at the restaurant, and they are not there yet, which is strange because they are typically on time. They are probably late due to a"
+                    "statement": " You are meeting your parents for dinner. You arrive at the restaurant, and they are not there yet, which is strange because they are typically on time. They are probably late due to a "
                 },
                 "handle": "paragraph",
                 "media": {

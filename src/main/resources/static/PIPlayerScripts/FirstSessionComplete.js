@@ -870,7 +870,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "negativeWord": "lac[ ]ing",
                     "positiveKey": "m",
                     "positiveWord": "nor[ ]al",
-                    "statement": " You have had a busy week so your kitchen is slightly disorganized. You are expecting your neighbor to stop by for a drink, so you begin to straighten up. Just as you start, your neighbor arrives. He probably thinks your hosting stills are "
+                    "statement": " You have had a busy week so your kitchen is slightly disorganized. You are expecting your neighbor to stop by for a drink, so you begin to straighten up. Just as you start, your neighbor arrives. He probably thinks your hosting skills are "
                 },
                 "handle": "paragraph",
                 "media": {
