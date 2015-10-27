@@ -1,5 +1,6 @@
 package edu.virginia.psyc.pi.persistence.Questionnaire;
 
+import edu.virginia.psyc.pi.domain.DoNotDelete;
 import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import lombok.Data;
@@ -13,15 +14,16 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: dan
- * Date: 5/26/14
- * Time: 1:55 PM
- * To change this template use File | Settings | File Templates.
+ * This Oasis questionnaire is used over time in the study to determine
+ * participant progress.  So while it can be exported through the admin
+ * panel, the data should not be deleted.  To help make things a little
+ * safer, we obscure the names of the fields while the data is stored in
+ * the database.
  */
 @Entity
 @Table(name="OA")
 @Data
+@DoNotDelete
 public class OA extends QuestionnaireData implements Comparable<OA> {
 
     private static final Logger LOG = LoggerFactory.getLogger(OA.class);

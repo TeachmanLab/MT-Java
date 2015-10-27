@@ -1,7 +1,6 @@
 package edu.virginia.psyc.pi.service;
 
 import edu.virginia.psyc.pi.persistence.Questionnaire.*;
-import edu.virginia.psyc.pi.persistence.SensitiveData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,9 +66,6 @@ public class ExportService implements  ApplicationListener<ContextRefreshedEvent
             Iterator<Class<?>> list = repositories.iterator();
             while(list.hasNext()) {
                 Class aClass = list.next();
-                if (aClass.isAnnotationPresent(SensitiveData.class)) {
-
-                }
             }
         } else {
             LOG.info("Not Ready");

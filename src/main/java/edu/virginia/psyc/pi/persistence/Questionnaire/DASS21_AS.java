@@ -1,6 +1,7 @@
 package edu.virginia.psyc.pi.persistence.Questionnaire;
 
 import edu.virginia.psyc.pi.domain.CBMStudy;
+import edu.virginia.psyc.pi.domain.DoNotDelete;
 import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import lombok.Data;
@@ -9,19 +10,31 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
- * Somewhat speicial questionnaire model, as it is used to gage eligibility.
+ * This DASS21 questionnaire is used to guage eligibility in the study
+ * This data should not be deleted after export, since there is a slight
+ * risk that it would get exported between the time it is completed and the
+ * moment when we guage eligibility.  Field names in the database are
+ * obscured for this reason.
  */
 @Entity
 @Table(name="DASS21_AS")
 @Data
+@DoNotDelete
 public class DASS21_AS extends QuestionnaireData {
 
+    @Column(name="DRY")
     private int dryness;
+    @Column(name="BRE")
     private int breathing;
+    @Column(name="TRE")
     private int trembling;
+    @Column(name="WOR")
     private int worry;
+    @Column(name="PAN")
     private int panic;
+    @Column(name="HEA")
     private int heart;
+    @Column(name="SCA")
     private int scared;
 
 

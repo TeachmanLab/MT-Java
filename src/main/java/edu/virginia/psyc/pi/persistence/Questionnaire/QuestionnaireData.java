@@ -1,5 +1,9 @@
 package edu.virginia.psyc.pi.persistence.Questionnaire;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import edu.virginia.psyc.pi.domain.CBMStudy;
 import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
@@ -28,14 +32,19 @@ public abstract class QuestionnaireData {
 
     @Id
     @GeneratedValue
-    protected int id;
+    protected long id;
+
     @ManyToOne
+    @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
+    @JsonIdentityReference(alwaysAsId=true) // otherwise first ref as POJO, others as id
     protected ParticipantDAO participantDAO;
+
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="EEE, dd MMM yyyy HH:mm:ss Z", timezone="EST")
     protected Date date;
     protected String session;
 
     /** ==============================================================
-     *       Some utilility methods for exporting csv data from the forms
+     *       Some utility methods for exporting csv data from the forms
      *  ==============================================================
      */
 
