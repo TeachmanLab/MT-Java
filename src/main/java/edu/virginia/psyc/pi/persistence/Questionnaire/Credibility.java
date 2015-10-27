@@ -17,16 +17,7 @@ import java.util.Date;
 @Entity
 @Table(name="Credibility")
 @Data
-public class Credibility implements QuestionnaireData {
-
-    @Id
-    @GeneratedValue
-    private int id;
-
-    @ManyToOne
-    private ParticipantDAO participantDAO;
-    private Date date;
-    private String session;
+public class Credibility extends QuestionnaireData {
 
     private int logical;
     private int important;

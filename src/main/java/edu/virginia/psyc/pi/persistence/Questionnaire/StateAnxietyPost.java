@@ -2,6 +2,7 @@ package edu.virginia.psyc.pi.persistence.Questionnaire;
 
 import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -13,16 +14,8 @@ import java.util.ArrayList;
  */
 @Entity
 @Table(name="StateAnxietyPost")
-public class StateAnxietyPost implements QuestionnaireData{
-
-    @Id
-    @GeneratedValue
-    private int id;
-
-    @ManyToOne
-    private ParticipantDAO participantDAO;
-    private Date date;
-    private String session;
+@Data
+public class StateAnxietyPost extends QuestionnaireData{
 
     private String situation_desc;
     private int think_feel;
@@ -31,80 +24,5 @@ public class StateAnxietyPost implements QuestionnaireData{
     private int badly;
     private int terrible;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public ParticipantDAO getParticipantDAO() {
-        return participantDAO;
-    }
-
-    public void setParticipantDAO(ParticipantDAO participantDAO) {
-        this.participantDAO = participantDAO;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public String getSession() { return session; }
-
-    public void setSession(String session) {this.session = session;}
-
-    public String getSituation_desc() {
-        return situation_desc;
-    }
-
-    public void setSituation_desc(String situation_desc) {
-        this.situation_desc = situation_desc;
-    }
-
-    public int getThink_feel() {
-        return think_feel;
-    }
-
-    public void setThink_feel(int think_feel) {
-        this.think_feel = think_feel;
-    }
-
-    public int getAnxious() {
-        return anxious;
-    }
-
-    public void setAnxious(int anxious) {
-        this.anxious = anxious;
-    }
-
-    public int getAvoid() {
-        return avoid;
-    }
-
-    public void setAvoid(int avoid) {
-        this.avoid = avoid;
-    }
-
-    public int getBadly() {
-        return badly;
-    }
-
-    public void setBadly(int badly) {
-        this.badly = badly;
-    }
-
-    public int getTerrible() {
-        return terrible;
-    }
-
-    public void setTerrible(int terrible) {
-        this.terrible = terrible;
-    }
 }
 

@@ -7,6 +7,7 @@ import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.persistence.Questionnaire.*;
 import edu.virginia.psyc.pi.persistence.TaskLogDAO;
 import edu.virginia.psyc.pi.service.EmailService;
+import edu.virginia.psyc.pi.service.ExportService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,104 +36,44 @@ import java.util.*;
 @RequestMapping("/questions")
 public class QuestionController extends BaseController {
 
+    @Autowired private static final Logger LOG = LoggerFactory.getLogger(QuestionController.class);
 
-    private DASS21_ASRepository dass21_asRepository;
-    private DASS21_DSRepository dass21_dsRepository;
-    private QOLRepository qol_Repository;
-    private AUDIT_Repository audit_Repository;
-    private FollowUp_ChangeInTreatment_Repository followup_Repository;
-    private ImpactAnxiousImagery_Repository impact_Repository;
-    private MentalHealthHxTxRepository mh_Repository;
-    private MultiUserExperienceRepository mue_Repository;
-    private PilotUserExperienceRepository pue_Repository;
-    private CredibilityRepository credibilityRepository;
-    private DemographicRepository demographicRepository;
-    private ImageryPrimeRepository imageryPrimeRepository;
-    private StateAnxietyRepository stateAnxiety_Repository;
-    private RR_Repository rr_repository;
-    private CCRepository cc_repository;
-    private OARepository oa_repository;
-    private ReRuRepository reru_repository;
-    private DDRepository dd_repository;
-    private DD_FURepository dd_fu_repository;
-//    private StateAnxietyPreRepository stateAnxietyPre_Repository;
-    private StateAnxietyPostRepository stateAnxietyPost_Repository;
-    private BBSIQRepository bbsiqRepository;
-    private AnxietyTriggersRepository anxietyTriggersRepository;
-    private static final Logger LOG = LoggerFactory.getLogger(QuestionController.class);
-    private SUDSRepository sudsRepository;
-    private VividRepository vividRepository;
-    private ReasonsForEndingRepository reasonsForEndingRepository;
-    private CIHSRepository cihsRepository;
-
-
+    @Autowired private DASS21_ASRepository dass21_asRepository;
+    @Autowired private DASS21_DSRepository dass21_dsRepository;
+    @Autowired private QOLRepository qol_Repository;
+    @Autowired private AUDIT_Repository audit_Repository;
+    @Autowired private FollowUp_ChangeInTreatment_Repository followup_Repository;
+    @Autowired private ImpactAnxiousImagery_Repository impact_Repository;
+    @Autowired private MentalHealthHxTxRepository mh_Repository;
+    @Autowired private MultiUserExperienceRepository mue_Repository;
+    @Autowired private PilotUserExperienceRepository pue_Repository;
+    @Autowired private CredibilityRepository credibilityRepository;
+    @Autowired private DemographicRepository demographicRepository;
+    @Autowired private ImageryPrimeRepository imageryPrimeRepository;
+    @Autowired private StateAnxietyRepository stateAnxiety_Repository;
+    @Autowired private RR_Repository rr_repository;
+    @Autowired private CCRepository cc_repository;
+    @Autowired private OARepository oa_repository;
+    @Autowired private ReRuRepository reru_repository;
+    @Autowired private DDRepository dd_repository;
+    @Autowired private DD_FURepository dd_fu_repository;
+    @Autowired private StateAnxietyPostRepository stateAnxietyPost_Repository;
+    @Autowired private BBSIQRepository bbsiqRepository;
+    @Autowired private AnxietyTriggersRepository anxietyTriggersRepository;
+    @Autowired private SUDSRepository sudsRepository;
+    @Autowired private VividRepository vividRepository;
+    @Autowired private ReasonsForEndingRepository reasonsForEndingRepository;
+    @Autowired private CIHSRepository cihsRepository;
 
     @Autowired
     private EmailService emailService;
 
-
-
-    /**
-     * Spring automatically configures this object.
-     * You can modify the location of this database by editing the application.properties file.
-     */
     @Autowired
-    public QuestionController(ParticipantRepository participantRepository,
-                              DASS21_ASRepository dass21_asRepository,
-                              DASS21_DSRepository dass21_dsRepository,
-                              QOLRepository qol_Repository,
-                              ImpactAnxiousImagery_Repository impact_Repository,
-                              MentalHealthHxTxRepository mh_Repository,
-                              MultiUserExperienceRepository mue_Repository,
-                              PilotUserExperienceRepository pue_Repository,
-                              AUDIT_Repository audit_Repository,
-                              CredibilityRepository credibilityRepository,
-                              DemographicRepository demographicRepository,
-                              ImageryPrimeRepository imageryPrimeRepository,
-                              StateAnxietyRepository stateAnxiety_Repository,
-                              RR_Repository rr_repository,
-                              CCRepository cc_repository,
-                              OARepository oa_repository,
-                              ReRuRepository reru_repository,
-//                              StateAnxietyPreRepository stateAnxietyPre_Repository,
-                              FollowUp_ChangeInTreatment_Repository followup_Repository,
-                              StateAnxietyPostRepository stateAnxietyPost_Repository,
-                              DDRepository dd_Repository,
-                              DD_FURepository dd_fu_repository,
-                              BBSIQRepository bbsiqRepository,
-                              AnxietyTriggersRepository anxietyTriggersRepository,
-                              SUDSRepository sudsRepository,
-                              VividRepository vividRepository,
-                              ReasonsForEndingRepository reasonsForEndingRepository,
-                              CIHSRepository cihsRepository) {
-        this.participantRepository = participantRepository;
-        this.dass21_asRepository = dass21_asRepository;
-        this.credibilityRepository = credibilityRepository;
-        this.demographicRepository = demographicRepository;
-        this.audit_Repository = audit_Repository;
-        this.dass21_dsRepository = dass21_dsRepository;
-        this.qol_Repository = qol_Repository;
-        this.impact_Repository = impact_Repository;
-        this.mh_Repository = mh_Repository;
-        this.mue_Repository = mue_Repository;
-        this.pue_Repository = pue_Repository;
-        this.imageryPrimeRepository = imageryPrimeRepository;
-        this.stateAnxiety_Repository = stateAnxiety_Repository;
-        this.rr_repository = rr_repository;
-        this.cc_repository = cc_repository;
-        this.oa_repository = oa_repository;
-        this.reru_repository = reru_repository;
-//        this.stateAnxietyPre_Repository = stateAnxietyPre_Repository;
-        this.stateAnxietyPost_Repository = stateAnxietyPost_Repository;
-        this.followup_Repository = followup_Repository;
-        this.dd_repository = dd_Repository;
-        this.dd_fu_repository = dd_fu_repository;
-        this.bbsiqRepository = bbsiqRepository;
-        this.anxietyTriggersRepository = anxietyTriggersRepository;
-        this.sudsRepository = sudsRepository;
-        this.vividRepository = vividRepository;
-        this.reasonsForEndingRepository = reasonsForEndingRepository;
-        this.cihsRepository = cihsRepository;
+    private ExportService exportService;
+
+    @Autowired
+    public QuestionController(ParticipantRepository repository) {
+        this.participantRepository   = repository;
     }
 
     /**
@@ -140,6 +81,7 @@ public class QuestionController extends BaseController {
      * - Adds the current CBMStudy.NAME to the data being recorded
      * - Marks this "task" as complete, and moves the participant on to the next session
      * - Connects the data to the participant who completed it.
+     * - Notifies the backup service that it may need to export data.
      *
      * @param data
      */
@@ -161,6 +103,9 @@ public class QuestionController extends BaseController {
         participant.getStudy().completeCurrentTask();
         participantRepository.domainToEntity(participant, dao);
         participantRepository.save(dao);
+
+        // Notify the backup service that it may need to export data.
+        exportService.recordUpdated(data);
 
         // Connect the participant to the data being recorded.
         data.setParticipantDAO(dao);
@@ -867,102 +812,34 @@ public ModelAndView showSUDS(Principal principal) {
         return(objectListToCSV(reasonsForEndingRepository.findAll()));
     }
 
-
-
-    /** ==============================================================
-     *       Some utilility methods for exporting csv data from the forms
-     *  ==============================================================
-     */
-
     /**
      * Converts a list of objects into a string suitable for returning
      * as a csv.
      * @param objects
      * @return
      */
-    public static String objectListToCSV(List objects) {
+    public static String objectListToCSV(List<? extends QuestionnaireData> objects) {
         StringBuffer csv = new StringBuffer();
 
         if(objects.size() < 1) return "";
 
-        Method[] methods = objects.get(0).getClass().getMethods();
+        List<String> headers = objects.get(0).listHeaders();
 
         // Add in headers.
-        for(Method method : methods){
-            if(isGetter(method)) {
-                csv.append("\"");
-                csv.append(method.getName().substring(3));
-                csv.append("\"");
-                csv.append(",");
-            }
+        for (String header : headers) {
+            csv.append("\"");
+            csv.append(header);
+            csv.append("\"");
+            csv.append(",");
         }
+
         csv.append("\n");
-        for(Object o : objects) {
-            appendObjectToCSV(o, csv);
+        for(QuestionnaireData data : objects) {
+            data.appendToCSV(csv);
             csv.append("\n");
         }
         return csv.toString();
     }
-
-    private static void appendObjectToCSV(Object o, StringBuffer csv) {
-        Method[] methods = o.getClass().getMethods();
-        ParticipantDAO participantDAO;
-        CBMStudy.NAME session;
-        List list;
-        String data;
-
-        for(Method method : methods){
-            if(isGetter(method)) {
-                try {
-                    if(null == method.invoke(o)) {
-                        data = "";
-                    } else if(method.getReturnType().isPrimitive()) {
-                        data = method.invoke(o).toString();
-                    } else if (String.class.equals(method.getReturnType())) {
-                        data = method.invoke(o).toString();
-                    } else if (List.class.equals(method.getReturnType())) {
-                        StringBuffer values = new StringBuffer();
-                        list = (List)method.invoke(o);
-                        for(int i = 0; i < list.size(); i++) {
-                            values.append(list.get(i).toString());
-                            if (i < list.size() -1) values.append("; ");
-                        }
-                        data = values.toString();
-                    } else if (Date.class.equals(method.getReturnType())) {
-                        data = method.invoke(o).toString();
-                    } else if (ParticipantDAO.class.equals(method.getReturnType())) {
-                        participantDAO = (ParticipantDAO)method.invoke(o);
-                        data = "" + participantDAO.getId();
-                    } else if (CBMStudy.NAME.class.equals(method.getReturnType())) {
-                        session  = (CBMStudy.NAME)method.invoke(o);
-                        data = session.toString();
-                    } else if (Class.class.equals(method.getReturnType())) {
-                        data = ((Class)method.invoke(o)).getSimpleName();
-                    } else {
-                        data = method.getReturnType().getName();
-                    }
-                    csv.append("\"");
-                    csv.append(data.replaceAll("\"", "\\\""));
-                    csv.append("\"");
-                    csv.append(",");
-                } catch (InvocationTargetException e) {
-                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                }
-            }
-        }
-    }
-
-    public static boolean isGetter(Method method){
-        if(!method.getName().startsWith("get"))       return false;
-        if(method.getParameterTypes().length != 0)    return false;
-        if(void.class.equals(method.getReturnType())) return false;
-        return true;
-    }
-
-
-
 
 }
 
