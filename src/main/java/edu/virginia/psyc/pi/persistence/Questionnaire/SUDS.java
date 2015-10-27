@@ -12,18 +12,8 @@ import java.util.Date;
 @Entity
 @Table(name="SUDS")
 @Data
-
-public class SUDS implements QuestionnaireData{
-    @Id
-    @GeneratedValue
-    private int id;
-    @ManyToOne
-    private ParticipantDAO participantDAO;
-    private Date date;
-    private String session;
+public class SUDS extends QuestionnaireData {
 
     private int anxiety;
-
-
 
 }

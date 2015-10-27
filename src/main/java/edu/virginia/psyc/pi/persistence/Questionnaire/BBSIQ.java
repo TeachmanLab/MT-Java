@@ -12,15 +12,7 @@ import java.util.Date;
 @Entity
 @Table(name="BBSIQ")
 @Data
-public class BBSIQ implements QuestionnaireData {
-
-    @Id
-    @GeneratedValue
-    private int id;
-    @ManyToOne
-    private ParticipantDAO participantDAO;
-    private Date date;
-    private String session;
+public class BBSIQ extends QuestionnaireData {
 
     private int visitors_outstay;
     private int visitors_engagement;
