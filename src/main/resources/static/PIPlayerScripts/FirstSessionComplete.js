@@ -1,6 +1,7 @@
 /* The script wrapper */
 define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
 
+
     var API = new APIConstructor();
     var scorer = new Scorer();
 
@@ -73,8 +74,21 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
         return(c.length > 0);
     }
 
-//    This was added to redirect back
+    // Warn people about leaving the page before they complete all the questions
+    window.onbeforeunload = function() {
+        return 'Are you sure you want to exit this training session?'
+    }
+
+    // When the training session is complete, move on to the next Questionnaire
     API.addSettings('redirect', "../playerScript/completed/int_train");
+
+    // Removes the warning about leaving the page.
+    API.addSettings("hooks", {
+        endTask: function () {
+            window.onbeforeunload = null;
+            window.location = "../playerScript/completed/int_train";
+        }
+    })
 
     // setting the way the logger works (how often we send data to the server and the url for the data)
     API.addSettings('logger',{
