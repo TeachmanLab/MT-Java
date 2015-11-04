@@ -51,6 +51,10 @@ public class PIPlayerController extends BaseController {
     public String showPlayer(ModelMap model, Principal principal, @PathVariable String scriptName) {
 
         Participant p = getParticipant(principal);
+        if (p.cbmCondition.toString() == "NEUTRAL")
+           {
+               scriptName = scriptName + "NT";
+           }
         model.addAttribute("script", scriptName);
         model.addAttribute("sessionName", p.getStudy().getCurrentSession().getName());
         model.addAttribute("participantId", p.getId());
