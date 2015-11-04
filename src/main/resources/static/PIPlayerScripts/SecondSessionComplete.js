@@ -1276,8 +1276,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 "data": {
                     "negativeKey": "v",
                     "negativeWord": "a[ ]oid",
-                    "positiveKey": "s",
-                    "positiveWord": "pre[ ]ent",
+                    "positiveKey": "i",
+                    "positiveWord": "g[ ]ve",
                     "statement": " Your boss asks you to give a speech at a conference. You are nervous about the idea of giving a speech, and consider telling your boss that you do not want to give the speech. After thinking about your anxiety, you decide that the speech is something you want to "
                 },
                 "handle": "paragraph",
