@@ -17,17 +17,7 @@ import java.util.Date;
 @Entity
 @Table(name="Demographic")
 @Data
-public class Demographic implements QuestionnaireData {
-
-    @Id
-    @GeneratedValue
-    private int id;
-
-    @ManyToOne
-    private ParticipantDAO participantDAO;
-    private Date date;
-    private String session;
-
+public class Demographic extends QuestionnaireData {
 
     private String gender;
     private int   birthYear;

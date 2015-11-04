@@ -1,10 +1,9 @@
 package edu.virginia.psyc.pi.persistence.Questionnaire;
 
-import edu.virginia.psyc.pi.persistence.ParticipantDAO;
+import edu.virginia.psyc.pi.domain.DoNotDelete;
 import lombok.Data;
-
+import org.slf4j.LoggerFactory;
 import javax.persistence.*;
-import java.util.Date;
 
 /**
  * Created by dan on 8/27/15.
@@ -12,15 +11,9 @@ import java.util.Date;
 @Entity
 @Table(name="AnxietyTriggers")
 @Data
-public class AnxietyTriggers implements QuestionnaireData {
+public class AnxietyTriggers extends QuestionnaireData  {
 
-    @Id
-    @GeneratedValue
-    private int id;
-    @ManyToOne
-    private ParticipantDAO participantDAO;
-    private Date date;
-    private String session;
+    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(AnxietyTriggers.class);
 
     private String howLong;
     private int social;

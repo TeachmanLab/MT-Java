@@ -1,5 +1,6 @@
 package edu.virginia.psyc.pi.persistence.Questionnaire;
 
+import edu.virginia.psyc.pi.domain.DoNotDelete;
 import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import lombok.Data;
@@ -13,35 +14,32 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: dan
- * Date: 5/26/14
- * Time: 1:55 PM
- * To change this template use File | Settings | File Templates.
+ * This Oasis questionnaire is used over time in the study to determine
+ * participant progress.  So while it can be exported through the admin
+ * panel, the data should not be deleted.  To help make things a little
+ * safer, we obscure the names of the fields while the data is stored in
+ * the database.
  */
 @Entity
 @Table(name="OA")
 @Data
-public class OA implements QuestionnaireData, Comparable<OA> {
+@DoNotDelete
+public class OA extends QuestionnaireData implements Comparable<OA> {
 
     private static final Logger LOG = LoggerFactory.getLogger(OA.class);
 
     public static int NO_ANSWER = 555;
     public static final int MAX_SCORE = 4;
 
-    @Id
-    @GeneratedValue
-    private int id;
-
-    @ManyToOne
-    private ParticipantDAO participantDAO;
-    private Date date;
-    private String session;
-
+    @Column(name="AXF")
     private int anxious_freq;
+    @Column(name="AXS")
     private int anxious_sev;
+    @Column(name="AVO")
     private int avoid;
+    @Column(name="WRK")
     private int interfere;
+    @Column(name="SOC")
     private int interfere_social;
 
     public OA(int anxious_freq, int anxious_sev, int avoid, int interfere, int interfere_social) {

@@ -14,16 +14,7 @@ import java.util.Date;
 @Entity
 @Table(name="ImageryPrime")
 @Data
-public class ImageryPrime implements QuestionnaireData{
-
-
-    @Id
-    @GeneratedValue
-    private int id;
-    @ManyToOne
-    private ParticipantDAO participantDAO;
-    private Date date;
-    private String session;
+public class ImageryPrime extends QuestionnaireData{
 
     private String prime;  // Either 'ANXIOUS' or 'NEUTRAL'
     private String situation;

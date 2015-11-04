@@ -15,16 +15,7 @@ import java.util.ArrayList;
 @Entity
 @Table(name="MentalHealthHxTx")
 @Data
-public class MentalHealthHxTx implements QuestionnaireData {
-
-    @Id
-    @GeneratedValue
-    private int id;
-
-    @ManyToOne
-    private ParticipantDAO participantDAO;
-    private Date date;
-    private String session;
+public class MentalHealthHxTx extends QuestionnaireData {
 
     private String OtherDesc;
     private String OtherDescNo;
