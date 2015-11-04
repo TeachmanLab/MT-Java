@@ -64,12 +64,70 @@ You can generate a WAR file suitable for deployment in a web server with
 $ ./gradlew war
 Then you will find the war file in ./build/lib/piServer-0.1.0.war
 
-
 If you need to modify the default configuration for production (and you most likely will) then you should edit
 the file WEB-INF/classes/application.properties that exists within the WAR file (just edit the file in place)
 There are three major areas to configure for a production installation:
-1. You will need create/update/modify permissions on a database. Preferably
+1. You will need to create/update/modify permissions on a database.
 1. You will need an account with Tango (a service to automate the giving of gift cards.)
+
+A word on Sensitive Data
+======================
+It is critical that we keep the link between a participants personal medical history and
+their identifiable information (such as email) separate.  It is also important that we
+be able to re-connect this information in the event that we need to contact the particpant
+because we identify a pattern in the data collected that we much ethically notify the
+participant about.
+To keep participant data anonymous (but ultimately linkable) there is the ability to export
+and then expunge this information from the main web server.
+A series of REST endpoints exist that allow for listing all data that is available, downloading
+that data, and then removing the data from the server. These end points include:
+
+**GET** *[SERVER]/admin/export*:  Returns a list of all questionnaires, including the number of records, and if the records can and should be deleted after export.
+For example: *curl localhost:9000/admin/export* would return:
+```javascript
+[
+   {
+      "name" : "SUDS",
+      "deleteable" : true,
+      "size" : 9
+   },
+   {
+      "name" : "DASS21_DS",
+      "deleteable" : true,
+      "size" : 16
+   },
+   {
+      "name" : "Demographic",
+      "deleteable" : true,
+      "size" : 4
+   }
+   ...
+]
+   
+```
+**GET** *SERVER/admin/export/NAME*:  Returns all the data available on the server at that moment.
+For example: *curl localhost:9000/admin/export/ImageryPrime* would return:
+```javascript
+[
+   {
+      "id" : 1,
+      "vivid" : 0,
+      "situation" : "Waiting at doctors office",
+      "prime" : "prime",
+      "think_feel" : null,
+      "date" : 1441908506000,
+      "session" : "PRE",
+      "participantDAO" : 5
+   },
+   {
+      "id" : 2,
+      "vivid" : 0,
+   ...
+```
+**DELETE** *SERVER/admin/export/NAME/ID*:  Removes a record from the Database.
+For example: *curl -X DELETE localhost:9000/admin/export/ImageryPrime/1* would remove the item above.  This is secure delete, where the id linking the record to a participant is first overwritten, then deleted.
+
+
 
 
 Testing
@@ -113,21 +171,20 @@ The questionnaire must have a unique name from all other questionnaires.  It sho
 spaces, or special characters, thought in a pinch it could use an underscore "_".  A good convention
 is camelCase, where you upper case individual terms in your unique name, such as "UniqueName"
 
-You will see references to "[UNIQUE_NAME]" in the steps below.  Please replace this with the name
-of the form you are creating.  You may also see [UNIQUE_NAME_uc], at which point you should upper case the first letter.  For example IF [UNIQUE_NAME]  is "demographic" then [UNIQUE_NAME_uc] would be "Demographic"
+You will see references to **myForm** in the steps below.  Please replace this with the name of the form you are creating.  You may also see **MyForm** at which point you should upper case the first letter.  
 
 Step 1:
 -------
 Create the html form.  New forms should be placed in 
 
-/src/main/resources/templates/questions/[UNIQUE_NAME].html
+/src/main/resources/templates/questions/**myForm**.html
 
 It's a good idea to start with an existing form you like, and modify it.  However, there is nothing to prevent you from creating the page you want from scratch.  "Credibility" offers a good example of a simple one page form.  "Demographics" shows a multi-page form.  "DASS21" is a multi-page form with validation. 
 
 Be sure to give the HTML <Form> tag a unique action.  
 This will be used over again to wire your new questionnaire into the system, so make it unique and descriptive.  Making this the same as the file name of the form you are creating is recommended.
 ```
-<form id="wizard" th:action="@{/questions/[UNIQUE_NAME]}" method="POST">
+<form id="wizard" th:action="@{/questions/**myForm**}" method="POST">
 ```
 From here, you just create your HTML form elements.  Give thoughtful names to these elements, you will be using them again in the next step.
 
@@ -135,7 +192,7 @@ You can see your form as you develop it.  Just execute:
 ```prompt
 gradlew bootrun
 ```
-and visit http:\\localhost:9000/questions/[UNIQUE_NAME]
+and visit http:\\localhost:9000/questions/**myForm**
 
 Any changes you make will be automatically visible by refreshing the page.  You don't need to stop and start the server to see your changes.
 
@@ -144,7 +201,8 @@ Step 2:
 
 Create a Java class for containing your form.  This should be located at:
 
-/src/main/java/edu/virginia/psyc/pi/persistence/Questionnaire/[UNIQUE_NAME_uc].java
+/src/main/java/edu/virginia/psyc/pi/persistence/Questionnaire/**MyForm**.java
+(please note the upper casing of the name)
 
 This file defines how your data will be stored in the database.  While this looks an awful lot like programming, it is a very boilerplate format, that can be quickly implemented over and over again.
 
@@ -152,42 +210,25 @@ It should look roughly like this:
 
 ```java
 package edu.virginia.psyc.pi.persistence.Questionnaire;
-import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 
+import lombok.Data;
 import javax.persistence.*;
-import java.util.Date;
 
 /**
- * User: dan
- * Date: 5/26/14
- * Time: 1:55 PM
+ * The MyForm Web form.
  */
- @Entity
- @Table(name="Demographic")
- public class Demographic implements QuestionnaireData {
-	
-   @Id
-   @GeneratedValue
-   private int id;
-				  
-   @ManyToOne
-   private ParticipantDAO participantDAO;
-   private Date date;
-							  
-   // 1. Define your form fields here using appropriate types.
+@Entity
+@Table(name="MY_FORM")  // 1. The database is case insensitive, so using an _ can add a lot of clairty here.
+@Data // 2. This will create a getX setX method for all our privately declared values.   
+public class MyForm extends QuestionnaireData { // 3. Be sure to extend QuestionnaireData
+
+   // 4. Define your form fields here using appropriate types.
    //    These should match exactly the "name" attribute on the
    //    the form elements created in Step 1.
    // -----------------------------------------------------
-   private String gender;
-   private Date   birthdate;
-   private String race;
-
-   ...
-   
-   // 2. Create getters and setters for each field.
-   // ------------------------------------------
-   public void getGender() { return Gender; }
-   public void setGender(String gender) { this.gender = gender; }
+    private int someNumbericInput;
+    private String anyTextualInput;
+}
 
 ```
 
@@ -195,7 +236,7 @@ Step 3:
 ---------
 Define a Java Repository - this file will be located here:
 ```
-/src/main/java/edu/virginia/psyc/pi/persistence/Questionnaire/[UNIQUE_NAME_uc]Repository.java
+/src/main/java/edu/virginia/psyc/pi/persistence/Questionnaire/**MyForm**Repository.java
 ```
 The Repository is VERY simple, and consists completely of only the content shown below.  It exists to give us a critical hook into the database if we need to access this data later in a unique way.
 
@@ -207,13 +248,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-/**
- * User: dan
- * Date: 3/19/14
- * Time: 4:42 PM
- */
- public interface [UNIQUE_NAME_uc]Repository extends JpaRepository<[UNIQUE_NAME_uc], Long> {
-     List<[UNIQUE_NAME_uc]> findByParticipantDAO(ParticipantDAO p);				 
+ public interface **MyForm**Repository extends JpaRepository<**MyForm**, Long> {
+     List<**MyForm**> findByParticipantDAO(ParticipantDAO p);				 
  }
 				 
 ```
@@ -229,17 +265,25 @@ There is a Questionnaire controller located at:
 You aren't creating a new file this time, just adding a new method to an existing file.
 
 You need to define an additional method on this controller, that will take the data from the form
-covert it to our model in step 2, then use the repository in step 3 to store it in the Database. While this sounds complicated, the code is shown in full below.  Simply replace the [UPPER_CASE] terms with the correct values, and you have completed adding the form:
+covert it to our model in step 2, then use the repository in step 3 to store it in the Database. While this sounds complicated, the code is shown in full below. 
 
 ```java
-    @RequestMapping(value="[UNIQUE_NAME]", method = RequestMethod.POST)
-	String handleCredibility(@ModelAttribute("[UNIQUE_NAME_lc]") [UNIQUE_NAME_uc] [UNIQUE_NAME],
-		                                                    BindingResult result) {
-        prepareQuestionnaireData([UNIQUE_NAME]);
-		[UNIQUE_NAME_lc]Repository.save([UNIQUE_NAME]);
-	    return "/home";
-	}
+    @Autowired private **MyForm**Repository **myForm**Repository;
+
+    @RequestMapping(value = "**MyForm**", method = RequestMethod.GET)
+    public ModelAndView show**MyForm**(Principal principal) {
+        return modelAndView(principal, "/questions/**MyForm**", "**MyForm**", new **MyForm**());
+    }
+
+    @RequestMapping(value = "**MyForm**", method = RequestMethod.POST)
+    RedirectView handle**MyForm**(@ModelAttribute("**MyForm**") **MyForm** **myForm**,
+                                 BindingResult result, Principal principal) throws MessagingException {
+
+        recordSessionProgress(**myForm**);
+        **myForm**Repository.save(**myForm**);
+        return new RedirectView("/session/next");
+    }
 ```																 
 
-That is it.  When participants fill out your new form, it will be stored in a new table named [UNIQUE_NAME] in the database.  From here we can create various reports to present this data which will be covered shortly.
+That is it.  When participants fill out your new form, it will be stored in a new table named **MY_FORM** in the database.  From here we can create various reports to present this data which will be covered shortly.
 
