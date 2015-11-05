@@ -719,7 +719,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "negativeWord": "po[ ]rly",
                     "positiveKey": "e",
                     "positiveWord": "w[ ]ll",
-                    "statement": " Your first is taking part in a recruitment campaign, and you are asked to go along and speak to local teenagers about the work you do. During the presentation, you feel slightly awkward, and after, other colleagues tell you that you spoke "
+                    "statement": " Your firm is taking part in a recruitment campaign, and you are asked to go along and speak to local teenagers about the work you do. During the presentation, you feel slightly awkward, and after, other colleagues tell you that you spoke "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -1619,7 +1619,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "negativeWord": "cr[ ]sh",
                     "positiveKey": "e",
                     "positiveWord": "d[ ]tour",
-                    "statement": " You are meeting your parents for dinner. You arrive at the restaurant, and they are not there yet, which is strange because they are typically on time. They are probably late due to a"
+                    "statement": " You are meeting your parents for dinner. You arrive at the restaurant, and they are not there yet, which is strange because they are typically on time. They are probably late due to a "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -2094,10 +2094,10 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             
             {
                 "data": {
-                    "negativeKey": "o",
-                    "negativeWord": "l[ ]w",
-                    "positiveKey": "g",
-                    "positiveWord": "hi[ ]h",
+                    "negativeKey": "g",
+                    "negativeWord": "hi[ ]h",
+                    "positiveKey": "o",
+                    "positiveWord": "l[ ]w",
                     "statement": " You have experienced dry mouth for a few days. You wonder if the dry mouth is a minor side effect from a medicine you just started taking, or if it something more serious. The likelihood of your dry mouth indicating a serious health problem is "
                 },
                 "handle": "paragraph",
@@ -2165,7 +2165,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "negativeKey": "c",
                     "negativeWord": "infe[ ]ted  ",
                     "positiveKey": "a",
-                    "positiveWord": "he[ ]l",
+                    "positiveWord": "he[ ]led",
                     "statement": " While at a picnic with some friends, you accidentally cut your finger while slicing fruit. Because you are outside, you are not able to wash it out immediately with soap and water. In a few days, your cut will be "
                 },
                 "handle": "paragraph",
