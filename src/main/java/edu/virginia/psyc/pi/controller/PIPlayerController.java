@@ -51,6 +51,12 @@ public class PIPlayerController extends BaseController {
     public String showPlayer(ModelMap model, Principal principal, @PathVariable String scriptName) {
 
         Participant p = getParticipant(principal);
+
+        // The Neutral condition requires a completely different file.
+        if(p.getCbmCondition().equals(Participant.CBM_CONDITION.NEUTRAL)) {
+            scriptName = scriptName + "NT";
+        }
+
         model.addAttribute("script", scriptName);
         model.addAttribute("sessionName", p.getStudy().getCurrentSession().getName());
         model.addAttribute("participantId", p.getId());

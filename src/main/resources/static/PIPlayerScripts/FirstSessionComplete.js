@@ -1387,7 +1387,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "negativeKey": "n",
                     "negativeWord": "u[ ]interesting",
                     "positiveKey": "t",
-                    "positiveWord": "in[ ]ersting",
+                    "positiveWord": "in[ ]eresting",
                     "statement": " You arrange to meet your date at 8 p. m. in a local bar. You arrive on time and find that he/she is not there yet. After your last conversation, you thought that he/she found you "
                 },
                 "handle": "paragraph",
