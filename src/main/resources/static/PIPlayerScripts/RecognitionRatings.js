@@ -449,7 +449,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "data": {
                         "positiveKey": "a",
                         "positiveWord": "s[ ]fety.",
-                        "statement": " THE ELEVATOR: You are in the lobby of your friend’s new apartment building and press the button to the elevator to go up. The building looks old, and as you get on the elevator, your think about its "
+                        "statement": " THE ELEVATOR: You are in the lobby of your friend’s new apartment building and press the button to the elevator to go up. The building looks old, and as you get on the elevator, you think about its "
                     },
                     "handle": "paragraph",
                     "media": {
