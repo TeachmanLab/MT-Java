@@ -9,9 +9,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,28 +19,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
-import java.util.List;
-
-/**
- * Created with IntelliJ IDEA.
- * User: dan
- * Date: 3/20/14
- * Time: 10:50 PM
- * This is the general configuration regarding access to the pages within
- * the web application.
- */
 @Configuration
-@EnableWebMvcSecurity  // The enables the CRF Token in LimeLeaf forms.
-@EnableWebSecurity
-@Order(0) // so that it is used before the default one in Spring Boot
+@EnableWebMvcSecurity
+@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true, proxyTargetClass = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private static final Logger LOG = LoggerFactory.getLogger(SecurityConfiguration.class);
 
-
     @Autowired
     private ParticipantRepository participantRepository;
-
 
     /**
      * Checks database for user details
@@ -51,89 +38,72 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(new UserDetailsService() {
             @Override
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+                LOG.info("Searching for :" + username);
                 ParticipantDAO participant = participantRepository.findByEmail(username);
-                if(participant != null) {
+                if (participant != null) {
                     LOG.info("Participant Found:" + participant);
                     return participant;
                 } else return null;
             }
         }).passwordEncoder(new StandardPasswordEncoder());
-
-        /**
-        auth
-                .inMemoryAuthentication()
-                    .withUser("user")  // #1
-                    .password("password")
-                    .roles("USER")
-                .and()
-                    .withUser("admin") // #2
-                    .password("password")
-                    .roles("ADMIN", "USER");
-           **/
     }
 
-    @Override
-    /**
-     * Restrict access to admin endpoints to users with admin roles,
-     * and restrict access to user detail endpoints to participants.
-     */
-    protected void configure(HttpSecurity http) throws Exception {
-            http
-                .csrf().disable()
-                .authorizeRequests()
-                    .antMatchers(
-                            "/css/**",
-                            "/js/**",
-                            "/bower/**",
-                            "/grepfrut/**",
-                            "/images/**",
-                            "/",
+    @Configuration
+    @Order(1)
+    public static class ApiWebSecurityConfig extends WebSecurityConfigurerAdapter{
+        @Override
+        protected void configure(HttpSecurity http) throws Exception {
+            http.csrf().disable()
+                    .antMatcher("/api/**")
+                    .authorizeRequests()
+                    .anyRequest().hasRole("ADMIN")
+                    .and()
+                    .httpBasic();
+        }
+    }
+
+    @Configuration
+    @Order(2)
+    public static class FormWebSecurityConfig extends WebSecurityConfigurerAdapter{
+
+        /**
+         * Poke a hole completely through to allow posting to the data endpoint
+         * as we don't have security settings built into the PiPlayer and I'm not
+         * certain their really need to be.
+         * @param web
+         * @throws Exception
+         */
+        @Override
+        public void configure(WebSecurity web) throws Exception {
+            web
+                    .ignoring()
+                    .antMatchers("/bower/**", "/css/**", "/js/**", "/images/**",
+                            "/resources/**")
+                    .antMatchers(HttpMethod.POST, "/data");
+        }
+
+        @Override
+        protected void configure(HttpSecurity http) throws Exception {
+            http.csrf().disable() //HTTP with Disable CSRF
+                    .authorizeRequests() //Authorize Request Configuration
+                    .antMatchers("/",
                             "/public/**",
                             "/newParticipant/**",
                             "/resetPass",
                             "/resetPassStep2/**",
                             "/changePassword/**",
-                            "/consent"
-                    ).permitAll()
+                            "/consent").permitAll()
                     .antMatchers("/admin", "/admin/**", "/questions/*/export").hasRole("ADMIN")
                     .antMatchers("/**").hasRole("USER")
-                    .and()
-                .formLogin()
-                    .defaultSuccessUrl("/session")
-                    .loginPage("/login")
-                    .permitAll()
-                    .and()
-                .logout()
-                    .permitAll()
-                    .and()
-                .rememberMe();
+                    .anyRequest().authenticated()
+                    .and() //Login Form configuration for all others
+                    .formLogin()
+                        .defaultSuccessUrl("/session")
+                        .loginPage("/login")
+                        .permitAll()
+                        .and()
+                    .logout()
+                        .permitAll();
+        }
     }
-   /**
-    http
-                .authorizeRequests()
-                .antMatchers("/**").permitAll()
-
-                .antMatchers("/user/**").hasRole("USER");
-    }
-**/
-    /**
-     * Poke a hole completely through to allow posting to the data endpoint
-     * as we don't have security settings built into the PiPlayer and I'm not
-     * certain their really need to be.
-     * @param webSecurity
-     * @throws Exception
-     */
-    @Override
-    public void configure(WebSecurity webSecurity) throws Exception
-    {
-
-        webSecurity
-                .ignoring()
-                        // All of Spring Security will ignore the requests
-                .antMatchers("/resources/**")
-                .antMatchers(HttpMethod.POST, "/data");
-    }
-
-
-
 }

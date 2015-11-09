@@ -82,8 +82,8 @@ and then expunge this information from the main web server.
 A series of REST endpoints exist that allow for listing all data that is available, downloading
 that data, and then removing the data from the server. These end points include:
 
-**GET** *[SERVER]/admin/export*:  Returns a list of all questionnaires, including the number of records, and if the records can and should be deleted after export.
-For example: *curl localhost:9000/admin/export* would return:
+**GET** *[SERVER]/api/export*:  Returns a list of all questionnaires, including the number of records, and if the records can and should be deleted after export.
+For example: *curl -u admin@email.com:passwd localhost:9000/api/export* would return:
 ```javascript
 [
    {
@@ -105,8 +105,8 @@ For example: *curl localhost:9000/admin/export* would return:
 ]
    
 ```
-**GET** *SERVER/admin/export/NAME*:  Returns all the data available on the server at that moment.
-For example: *curl localhost:9000/admin/export/ImageryPrime* would return:
+**GET** *SERVER/api/export/NAME*:  Returns all the data available on the server at that moment.
+For example: *curl -u admin@email.com:passwd localhost:9000/api/export/ImageryPrime* would return:
 ```javascript
 [
    {
@@ -124,8 +124,8 @@ For example: *curl localhost:9000/admin/export/ImageryPrime* would return:
       "vivid" : 0,
    ...
 ```
-**DELETE** *SERVER/admin/export/NAME/ID*:  Removes a record from the Database.
-For example: *curl -X DELETE localhost:9000/admin/export/ImageryPrime/1* would remove the item above.  This is secure delete, where the id linking the record to a participant is first overwritten, then deleted.
+**DELETE** *SERVER/api/export/NAME/ID*:  Removes a record from the Database.
+For example: *curl -u admin@email.com:passwd  -X DELETE localhost:9000/api/export/ImageryPrime/1* would remove the item above.  This is secure delete, where the id linking the record to a participant is first overwritten, then deleted.
 
 
 

@@ -26,7 +26,7 @@ import java.util.List;
  *
  */
 @Controller
-@RequestMapping("/public/export")
+@RequestMapping("/api/export")
 public class ExportController implements ApplicationListener<ContextRefreshedEvent> {
 
     private static final Logger LOG = LoggerFactory.getLogger(ExportController.class);
