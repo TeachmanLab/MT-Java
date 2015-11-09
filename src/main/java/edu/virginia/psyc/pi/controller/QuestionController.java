@@ -8,6 +8,7 @@ import edu.virginia.psyc.pi.persistence.Questionnaire.*;
 import edu.virginia.psyc.pi.persistence.TaskLogDAO;
 import edu.virginia.psyc.pi.service.EmailService;
 import edu.virginia.psyc.pi.service.ExportService;
+import edu.virginia.psyc.pi.service.RsaEncyptionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,7 @@ import java.util.*;
 public class QuestionController extends BaseController {
 
     @Autowired private static final Logger LOG = LoggerFactory.getLogger(QuestionController.class);
+
 
     @Autowired private DASS21_ASRepository dass21_asRepository;
     @Autowired private DASS21_DSRepository dass21_dsRepository;
@@ -72,6 +74,9 @@ public class QuestionController extends BaseController {
     private ExportService exportService;
 
     @Autowired
+    private RsaEncyptionService encryptService;
+
+    @Autowired
     public QuestionController(ParticipantRepository repository) {
         this.participantRepository   = repository;
     }
@@ -99,6 +104,7 @@ public class QuestionController extends BaseController {
                                             participant.getStudy().getCurrentSession().getCurrentTask().getName());
         dao.addTaskLog(taskDao);
 
+
         // Update the participant's session status, and save back to the database.
         participant.getStudy().completeCurrentTask();
         participantRepository.domainToEntity(participant, dao);
@@ -108,7 +114,8 @@ public class QuestionController extends BaseController {
         exportService.recordUpdated(data);
 
         // Connect the participant to the data being recorded.
-        data.setParticipantDAO(dao);
+        data.setParticipant(encryptService.encrypt(dao.getId()));
+
         data.setDate(new Date());
     }
 
@@ -132,6 +139,8 @@ public class QuestionController extends BaseController {
     RedirectView handleDASS21_AS(@ModelAttribute("DASS21_AS") DASS21_AS dass21_as,
                                  BindingResult result, Principal principal) throws MessagingException {
 
+        // Connect this object to the Participant, as we will need to reference it later.
+        dass21_as.setParticipantDAO(getParticipantDAO(principal));
         recordSessionProgress(dass21_as);
         dass21_asRepository.save(dass21_as);
         return new RedirectView("/session/next");
@@ -593,6 +602,8 @@ public ModelAndView showSUDS(Principal principal) {
     RedirectView handleOA(@ModelAttribute("OA") OA oa,
                           BindingResult result, Principal principal) throws MessagingException{
 
+        // Connect this object to the Participant, as we will need to reference it later.
+        oa.setParticipantDAO(getParticipantDAO(principal));
         recordSessionProgress(oa);
         oa_repository.save(oa);
 
