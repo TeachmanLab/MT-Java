@@ -116,6 +116,9 @@ public class QuestionController extends BaseController {
         // Connect the participant to the data being recorded.
         data.setParticipant(encryptService.encrypt(dao.getId()));
 
+        LOG.debug("The encrypted value is" + data.getParticipant());
+        LOG.debug("which is " + data.getParticipant().length() + " characters long.");
+
         data.setDate(new Date());
     }
 

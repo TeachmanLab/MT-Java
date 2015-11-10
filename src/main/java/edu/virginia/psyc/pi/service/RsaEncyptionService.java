@@ -63,7 +63,7 @@ public class RsaEncyptionService {
         byte[] cipherText = null;
         try {
             // get an RSA cipher object and print the provider
-            final Cipher cipher = Cipher.getInstance("RSA/ECB/NoPadding");
+            final Cipher cipher = Cipher.getInstance("RSA");
             // encrypt the plain text using the public key
             cipher.init(Cipher.ENCRYPT_MODE, publicKey);
             cipherText = cipher.doFinal(text.getBytes());

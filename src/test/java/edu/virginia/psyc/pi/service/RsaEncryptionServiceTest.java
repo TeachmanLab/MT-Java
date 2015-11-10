@@ -65,7 +65,7 @@ public class RsaEncryptionServiceTest {
         String cipherText = service.encrypt(100);
         System.out.println("encodedBytes: '" + cipherText + "'");
 
-        Cipher cipher = Cipher.getInstance("RSA/ECB/NoPadding");
+        Cipher cipher = Cipher.getInstance("RSA");
         cipher.init(Cipher.DECRYPT_MODE, getPrivateKey());
         String decodedText = new String(cipher.doFinal(Base64.decodeBase64(cipherText)), "UTF-8");
         System.out.println("Decoded String'" + decodedText + "'");
