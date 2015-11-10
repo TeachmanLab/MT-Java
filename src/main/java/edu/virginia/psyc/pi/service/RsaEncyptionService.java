@@ -25,6 +25,7 @@ import java.security.spec.X509EncodedKeySpec;
 public class RsaEncyptionService {
 
     private static final Logger LOG = LoggerFactory.getLogger(RsaEncyptionService.class);
+    private static final String ALGORITHM= "RSA";
 
     @Autowired
     ResourceLoader resourceLoader;
@@ -52,7 +53,7 @@ public class RsaEncyptionService {
 
         X509EncodedKeySpec spec =
                 new X509EncodedKeySpec(keyBytes);
-        KeyFactory kf = KeyFactory.getInstance("RSA");
+        KeyFactory kf = KeyFactory.getInstance(ALGORITHM);
         return kf.generatePublic(spec);
     }
 
@@ -63,7 +64,7 @@ public class RsaEncyptionService {
         byte[] cipherText = null;
         try {
             // get an RSA cipher object and print the provider
-            final Cipher cipher = Cipher.getInstance("RSA");
+            final Cipher cipher = Cipher.getInstance(ALGORITHM);
             // encrypt the plain text using the public key
             cipher.init(Cipher.ENCRYPT_MODE, publicKey);
             cipherText = cipher.doFinal(text.getBytes());
