@@ -30,7 +30,6 @@ import java.util.List;
 public class ExportController implements ApplicationListener<ContextRefreshedEvent> {
 
     private static final Logger LOG = LoggerFactory.getLogger(ExportController.class);
-    private static final String FAKE_PARTICIPANT_EMAIL="fakeParticipant@fake.com";
 
     Repositories repositories;
 
@@ -90,7 +89,6 @@ public class ExportController implements ApplicationListener<ContextRefreshedEve
         return null;
     }
 
-
     /**
      * Returns a repository for a given name.  Makes some
      * assumptions about the class.  This class is pretty dreadful, returns null
@@ -103,25 +101,6 @@ public class ExportController implements ApplicationListener<ContextRefreshedEve
             return (JpaRepository) repositories.getRepositoryFor(domainType);
         LOG.info("failed to find a repository for " + name);
         return null;
-    }
-
-    /**
-     * Returns a participant that isn't a real participant with real data.
-     * This allows us to re-associate the data with someone who doesnt exist,
-     * overwritting the link between the real participant and their data.
-     * This is done to permit a secure delete.
-     */
-    private ParticipantDAO getFakeParticipant() {
-        ParticipantDAO p;
-        p = participantRepository.findByEmail(FAKE_PARTICIPANT_EMAIL);
-        if(p == null) {
-            p = new ParticipantDAO();
-            p.setEmail(FAKE_PARTICIPANT_EMAIL);
-            participantRepository.save(p);
-            participantRepository.flush();
-            p = participantRepository.findByEmail(FAKE_PARTICIPANT_EMAIL);
-        }
-        return p;
     }
 
     /**
