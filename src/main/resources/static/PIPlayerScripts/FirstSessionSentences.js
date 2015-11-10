@@ -199,6 +199,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                         break_up[break_up.length-1] = break_up[break_up.length-1].replace(last_word, "");
                         break_up.push(last_word);
                         sentence.text(break_up[0] + '.');
+                        sentence.append('<p> Press the spacebar to continue </p>');
                     }
                     }]
 
@@ -216,6 +217,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                             if (where_at < (break_up.length - 2))
                             {
                                 sentence.text(break_up[where_at] + '.');
+                                sentence.append('<p> Press the spacebar to continue </p>');
+
                             }
                             else
                             {
