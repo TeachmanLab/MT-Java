@@ -36,7 +36,7 @@ public abstract class QuestionnaireData {
     // An encrypted link to the participant;
     @Lob
     @Column(columnDefinition = "TEXT")
-    private String participant;
+    private String participantRSA;
 
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="EEE, dd MMM yyyy HH:mm:ss Z", timezone="EST")
     protected Date date;
