@@ -6,7 +6,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
     var scorer = new Scorer();
     var break_up;
     var word_display;
-    var where_at = 0;
+    var where_at = 1;
     var scorer =
     {
         count : 1
@@ -283,7 +283,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                         var span = $("div.sentence");
                         var text = span.text().replace(' ', eventData["handle"]);
                         span.text(text);
-                        where_at = 0;
+                        where_at = 1;
                     }},
                     {type:'trigger',handle : 'correct'}
                 ]
