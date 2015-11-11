@@ -97,7 +97,7 @@ public class QuestionController extends BaseController {
         Participant participant = participantRepository.entityToDomain(dao);
 
         // Record the session for which this questionnaire was completed.
-        data.setSession(participant.getStudy().getCurrentSession().getName());  
+        data.setSession(participant.getStudy().getCurrentSession().getName());
 
         // Log the completion of the task
         TaskLogDAO taskDao = new TaskLogDAO(dao, participant.getStudy().getCurrentSession().getName(),
@@ -114,7 +114,7 @@ public class QuestionController extends BaseController {
         exportService.recordUpdated(data);
 
         // Connect the participant to the data being recorded.
-        data.setParticipantRSA(encryptService.encrypt(dao.getId()));
+        data.setParticipantRSA(encryptService.encryptIfEnabled(dao.getId()));
 
         data.setDate(new Date());
     }
