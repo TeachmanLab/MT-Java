@@ -9,10 +9,7 @@ import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import lombok.Data;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -30,9 +27,15 @@ import java.util.List;
 @Data
 public abstract class QuestionnaireData {
 
+//    @Id
+//    @GeneratedValue
+//    protected long id;
+
+    @TableGenerator(name = "QUESTION_GEN", table = "ID_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 1)
     @Id
-    @GeneratedValue
-    protected long id;
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "QUESTION_GEN")
+    protected Long id;
+
 
     @ManyToOne
     @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
