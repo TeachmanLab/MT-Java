@@ -4,6 +4,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,10 @@ import java.security.spec.X509EncodedKeySpec;
 public class RsaEncyptionService {
 
     private static final Logger LOG = LoggerFactory.getLogger(RsaEncyptionService.class);
+    private static final String ALGORITHM= "RSA";
+
+    @Value("${encryption.enabled ?: false}")
+    private Boolean enabled;
 
     @Autowired
     ResourceLoader resourceLoader;
@@ -52,18 +57,20 @@ public class RsaEncyptionService {
 
         X509EncodedKeySpec spec =
                 new X509EncodedKeySpec(keyBytes);
-        KeyFactory kf = KeyFactory.getInstance("RSA");
+        KeyFactory kf = KeyFactory.getInstance(ALGORITHM);
         return kf.generatePublic(spec);
     }
 
-    public String encrypt(int number) { return encrypt("" + number); }
-    public String encrypt(long number) { return encrypt("" + number); }
+    public String encryptIfEnabled(int number) { return encryptIfEnabled("" + number); }
+    public String encryptIfEnabled(long number) { return encryptIfEnabled("" + number); }
 
-    public String encrypt(String text) {
+    public String encryptIfEnabled(String text) {
+        // If encryption is not enabled, then don't actually encrypt the string.
+        if(!enabled) return text;
         byte[] cipherText = null;
         try {
             // get an RSA cipher object and print the provider
-            final Cipher cipher = Cipher.getInstance("RSA/ECB/NoPadding");
+            final Cipher cipher = Cipher.getInstance(ALGORITHM);
             // encrypt the plain text using the public key
             cipher.init(Cipher.ENCRYPT_MODE, publicKey);
             cipherText = cipher.doFinal(text.getBytes());
