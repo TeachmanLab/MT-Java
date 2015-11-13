@@ -32,7 +32,7 @@ Install MySQL, and execute the following commands to establish
 a user account.  You can use a different password if you change
 the datasource.password setting in src/main/resources/application.properties
 
-> CREATE database pi;
+> CREATE DATABASE pi CHARACTER SET utf8 COLLATE utf8_general_ci;
 > CREATE USER 'pi_user'@'localhost' IDENTIFIED BY 'pi_password';
 > GRANT ALL PRIVILEGES ON pi.* TO 'pi_user'@'localhost' IDENTIFIED BY 'pi_password' WITH GRANT OPTION;
 
