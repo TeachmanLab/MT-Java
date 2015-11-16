@@ -19,8 +19,4 @@ import java.util.List;
  * Additional methods will be provided automatically by following a standard
  * naming convention, as is the case with findByEmailAddress
  */
-public interface StateAnxietyRepository extends JpaRepository<StateAnxiety, Long> {
-
-    List<StateAnxiety> findByParticipantDAO(ParticipantDAO p);
-
-}
+public interface StateAnxietyRepository extends JpaRepository<StateAnxiety, Long> {}

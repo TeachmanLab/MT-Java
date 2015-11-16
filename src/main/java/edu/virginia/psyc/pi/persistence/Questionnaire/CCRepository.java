@@ -19,8 +19,4 @@ import java.util.List;
  * Additional methods will be provided automatically by following a standard
  * naming convention, as is the case with findByEmailAddress
  */
-public interface CCRepository extends JpaRepository<CC, Long> {
-
-    List<CC> findByParticipantDAO(ParticipantDAO p);
-
-}
+public interface CCRepository extends JpaRepository<CC, Long> {}

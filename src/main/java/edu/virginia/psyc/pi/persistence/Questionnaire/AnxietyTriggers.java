@@ -25,3 +25,4 @@ public class AnxietyTriggers extends QuestionnaireData  {
     private int priorTrauma;
 
 }
+

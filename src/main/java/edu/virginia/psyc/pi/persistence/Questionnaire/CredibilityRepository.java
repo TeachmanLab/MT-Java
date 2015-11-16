@@ -19,8 +19,4 @@ import java.util.List;
  * Additional methods will be provided automatically by following a standard
  * naming convention, as is the case with findByEmailAddress
  */
-public interface CredibilityRepository extends JpaRepository<Credibility, Long> {
-
-    List<Credibility> findByParticipantDAO(ParticipantDAO p);
-
-}
+public interface CredibilityRepository extends JpaRepository<Credibility, Long> {}
