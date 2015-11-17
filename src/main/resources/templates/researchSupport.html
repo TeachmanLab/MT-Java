@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="fragment/common :: headerFragment" />
+<body>
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment" />
+
+<!-- header-btm starts
+================================================== -->
+<section id="header-btm" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <h2 class="page-title heading-icon clearfix"><img th:src="@{/images/map-arrow-orange.png}"/><br/>What the Research Says</h2>
+        </div>
+    </div>
+</section>
+
+<!-- header-btm ends
+================================================== -->
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <p>The program you’re completing is a type of intervention called Cognitive Bias Modification, and it is
+                    designed to change how you think in response to situations that make you feel anxious or upset.</p>
+                <p>Cognitive biases are tendencies to pay attention to, remember, and interpret things differently when
+                    processing information tied to your emotional responses. For example, sometimes it’s difficult to
+                    tell whether something that happens is good or bad. Our tendency to interpret these ambiguous events
+                    as positive or negative can happen very rapidly and even without us being aware of our
+                    interpretation, so it can be difficult to catch these thinking habits, even though a tendency to
+                    routinely interpret things in negative ways can make us feel more anxious or sad. That’s where
+                    cognitive bias modification might help.</p>
+                <p>Cognitive Bias Modification works by giving people lots of practice processing information in new ways
+                    to help develop healthier thinking habits. These tasks may seem repetitive, and it is not always
+                    obvious what the program is doing. However, there is growing evidence that Cognitive Bias
+                    Modification can be an effective method for reducing negative feelings, like anxiety and sadness.</p>
+                 <p>Several research studies have shown that Cognitive Bias Modification is effective at changing
+                     interpretations in people with clinical levels of anxiety. Further, many studies have found that
+                     Cognitive Bias Modification leads to decreases in anxiety symptoms and/or anxious reactions to
+                     potentially stressful situations, compared to a control condition (often referred to as placebo;
+                     this condition may look like the active training but is not expected to work as well at encouraging
+                     healthier thinking habits).</p>
+                <p>There is also research evidence that repeated training sessions can be especially beneficial, because
+                    it provides more opportunities to practice healthier ways of thinking than a single training
+                    session. This is why we ask you to complete eight brief sessions of training.</p>
+                <p>Although there are many examples of Cognitive Bias Modification programs helping to reduce anxiety,
+                    and even helping other problem areas like depression, substance use (e.g., alcohol abuse), eating
+                    disorders, and anger problems (among others), there are also some mixed findings. Not all studies
+                    using these approaches get the same results, and some studies find decreases in one anxiety measure
+                    but not another. Also, more research needs to be done comparing different numbers of training
+                    sessions to try to find the optimum number, and testing how to make the results for Cognitive Bias
+                    Modification done online as strong as results for the program done in the clinic. Though there are
+                    still questions that need to be answered, one goal of this site is to work on answering these
+                    questions in order to refine and improve this promising treatment method.</p>
+                <p>Below are a few resources if you’re interested in learning more about Cognitive Bias Modification or
+                    the research supporting it.</p>
+                <ul>
+                    <li><a target ="new" href="http://www.apa.org/monitor/2011/11/behavior-change.aspx">
+                        Behavior change in 15-minute sessions?</a><br/> - APA</li>
+                    <li><a target="new" href="http://www.economist.com/node/18276234">
+                        Therapist-free therapy</a><br/> – The Economist</li>
+                    <li><a target="new" href="http://psycnet.apa.org/journals/bul/137/6/940/">
+                        A meta-analysis of the effect of cognitive bias modification on anxiety and depression</a><br/>
+                        – Psychological Bulletin</li>
+                    <li><a target="new" href="http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3092585/">
+                        Cognitive bias modification for anxiety: Current evidence and future directions</a><br/>
+                        – Expert Review of Neurotherapeutics
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts" />
+
+</body>
+</html>
