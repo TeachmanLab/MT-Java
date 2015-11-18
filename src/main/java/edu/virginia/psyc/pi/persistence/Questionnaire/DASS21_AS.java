@@ -1,5 +1,8 @@
 package edu.virginia.psyc.pi.persistence.Questionnaire;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import edu.virginia.psyc.pi.domain.CBMStudy;
 import edu.virginia.psyc.pi.domain.DoNotDelete;
 import edu.virginia.psyc.pi.domain.Session;
@@ -10,10 +13,10 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
- * This DASS21 questionnaire is used to guage eligibility in the study
+ * This DASS21 questionnaire is used to gage eligibility in the study
  * This data should not be deleted after export, since there is a slight
  * risk that it would get exported between the time it is completed and the
- * moment when we guage eligibility.  Field names in the database are
+ * moment when we determine eligibility.  Field names in the database are
  * obscured for this reason.
  */
 @Entity
@@ -21,6 +24,11 @@ import java.util.Date;
 @Data
 @DoNotDelete
 public class DASS21_AS extends QuestionnaireData {
+
+    @ManyToOne
+    @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
+    @JsonIdentityReference(alwaysAsId=true) // otherwise first ref as POJO, others as id
+    protected ParticipantDAO participantDAO;
 
     @Column(name="DRY")
     private int dryness;

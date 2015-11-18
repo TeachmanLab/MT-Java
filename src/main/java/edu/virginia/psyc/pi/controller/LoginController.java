@@ -168,6 +168,11 @@ public class LoginController extends BaseController {
         return "informed";
     }
 
+    @RequestMapping("public/researchSupport")
+    public String showResearchSupport(ModelMap model, Principal principal) {
+        return "researchSupport";
+    }
+
 
     @RequestMapping("invitation")
     public String showInvitation(ModelMap model, Principal principal) {

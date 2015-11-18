@@ -19,8 +19,4 @@ import java.util.List;
  * Additional methods will be provided automatically by following a standard
  * naming convention, as is the case with findByEmailAddress
  */
-public interface FollowUp_ChangeInTreatment_Repository extends JpaRepository<FollowUp_ChangeInTreatment, Long> {
-
-    List<FollowUp_ChangeInTreatment> findByParticipantDAO(ParticipantDAO p);
-
-}
+public interface FollowUp_ChangeInTreatment_Repository extends JpaRepository<FollowUp_ChangeInTreatment, Long> {}

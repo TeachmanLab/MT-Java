@@ -32,7 +32,7 @@ Install MySQL, and execute the following commands to establish
 a user account.  You can use a different password if you change
 the datasource.password setting in src/main/resources/application.properties
 
-> CREATE database pi;
+> CREATE DATABASE pi CHARACTER SET utf8 COLLATE utf8_general_ci;
 > CREATE USER 'pi_user'@'localhost' IDENTIFIED BY 'pi_password';
 > GRANT ALL PRIVILEGES ON pi.* TO 'pi_user'@'localhost' IDENTIFIED BY 'pi_password' WITH GRANT OPTION;
 
@@ -126,6 +126,34 @@ For example: *curl -u admin@email.com:passwd localhost:9000/api/export/ImageryPr
 ```
 **DELETE** *SERVER/api/export/NAME/ID*:  Removes a record from the Database.
 For example: *curl -u admin@email.com:passwd  -X DELETE localhost:9000/api/export/ImageryPrime/1* would remove the item above.  This is secure delete, where the id linking the record to a participant is first overwritten, then deleted.
+
+
+Encryption
+-----------
+You can enable encryption of the link between questionnaire data and the participant.
+When you do so, the system will use a public key to encrypt the participant id
+when recording the questionnaire.
+
+Generating a key:
+--------------------------
+(Taken from:
+http://stackoverflow.com/questions/11410770/load-rsa-public-key-from-file)
+
+1. Generate a 2048-bit RSA private key
+```$ openssl genrsa -out private_key.pem 2048```
+2. Convert private Key to PKCS#8 format (so Java can read it)
+```$ openssl pkcs8 -topk8 -inform PEM -outform DER -in private_key.pem \ -out private_key.der -nocrypt```
+3. Output public key portion in DER format (so Java can read it)
+```$ openssl rsa -in private_key.pem -pubout -outform DER -out public_key.der```
+4. Place the public key in the resources directory of the WAR file, and place the
+private key on the server running the PIExport script.
+
+Manually Decrypting a link from the command line
+--------------------------
+if you place the encrypted string in a file, you can decrypt it with
+base64 -d encrypted.txt  | openssl rsautl -decrypt -inkey private_key.pem
+If you are copying the key from a file, you can deocde it directly with
+echo myEncryptedString | base64 -d | openssl rsautl -decrypt -inkey private_key.pem
 
 
 

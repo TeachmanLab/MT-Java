@@ -1,18 +1,11 @@
 package edu.virginia.psyc.pi.persistence.Questionnaire;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import edu.virginia.psyc.pi.domain.CBMStudy;
-import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import lombok.Data;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -30,18 +23,25 @@ import java.util.List;
 @Data
 public abstract class QuestionnaireData {
 
-    @Id
-    @GeneratedValue
-    protected long id;
+//    @Id
+//    @GeneratedValue
+//    protected long id;
 
-    @ManyToOne
-    @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
-    @JsonIdentityReference(alwaysAsId=true) // otherwise first ref as POJO, others as id
-    protected ParticipantDAO participantDAO;
+    @TableGenerator(name = "QUESTION_GEN", table = "ID_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 1)
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "QUESTION_GEN")
+    protected Long id;
+
+
+    // An encrypted link to the participant;
+    @Lob
+    @Column(columnDefinition = "TEXT")
+    private String participantRSA;
 
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="EEE, dd MMM yyyy HH:mm:ss Z", timezone="EST")
     protected Date date;
     protected String session;
+
 
     /** ==============================================================
      *       Some utility methods for exporting csv data from the forms
