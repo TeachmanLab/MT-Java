@@ -8,6 +8,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
     var text_to_display;
     var word_display;
     var where_at = 1;
+    var latency = 0;
     var scorer =
     {
         count : 1
@@ -199,9 +200,9 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                         last_word = last_word[last_word.length-2] + ' ' + last_word[last_word.length-1];
                         break_up[break_up.length-1] = break_up[break_up.length-1].replace(last_word, "");
                         break_up.push(last_word);
-                        text_to_display = break_up[0] + '.';
-                        sentence.text(text_to_display);
-                        sentence.append('<p style="font-size: 20px"> Press the spacebar to continue </p>');
+                        text_to_display = break_up[0] + '.' + '<br/>';
+                        sentence.html(text_to_display);
+                        sentence.append('<p style="font-size: 20px; position:relative; top:240px;" > Press the spacebar to continue </p>');
                     }
                     }]
 
@@ -213,31 +214,36 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     {type:'inputEquals',value:'askQuestion', negate: true},
                     {type:'inputEquals',value:'correct', negate: true},
                     {type:'function', value:function(trial, inputData){
-                        if (where_at < break_up.length && inputData.handle == 'space')
+
+                        console.log(inputData.latency - latency);
+                        if (where_at < break_up.length && inputData.handle == 'space' && inputData.latency - latency > 1000)
                         {
                             var sentence = $("div.sentence");
                             if (where_at < (break_up.length - 2))
                             {
-                                text_to_display = text_to_display + break_up[where_at] + '.';
-                                sentence.text(text_to_display);
-                                sentence.append('<p class="space" style="font-size: 20px"> Press the spacebar to continue </p>');
+                                text_to_display = text_to_display + break_up[where_at] + '.' + '<br/>';
+                                sentence.html(text_to_display);
+                                sentence.append('<p class="space" style="font-size: 20px; position:relative; top:240px;"> Press the spacebar to continue </p>');
 
                             }
                             else if (where_at < (break_up.length - 1))
                             {
                                 text_to_display = text_to_display + break_up[where_at];
-                                sentence.text(text_to_display);
-                                sentence.append('<p class="space" style="font-size: 20px"> Press the spacebar to continue </p>');
+                                sentence.html(text_to_display);
+                                sentence.append('<p class="space" style="font-size: 20px; position:relative; top:240px;"> Press the spacebar to continue </p>');
                             }
                             else
                             {
                                 var space = $("p.space");
-                                space.before('<span class="incomplete">' + break_up[where_at] + '</span>');
+                                space.before('<span class="incomplete">' + break_up[where_at] + '.</span>');
                             }
+
+                            latency = inputData.latency;
                             where_at = where_at + 1;
                         }
                         else if (where_at >= break_up.length)
                         {
+                            latency = 0;
                             return true;
                         }
                     }},
