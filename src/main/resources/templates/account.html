@@ -83,7 +83,7 @@
                 <script>
                     $(function () {
                         $("#dialog").dialog({
-                            minWidth: 500,
+                            minWidth: 650,
                             autoOpen: false,
                             show: {
                                 effect: "blind",
@@ -100,18 +100,20 @@
                     });
                 </script>
 
-                <div id="dialog" title="Will you please stay?">
-                    <p>Sessions only take 15 to 20 minutes to complete,
-                        and your participation can help make a substantial
-                        impact in the lives and well being of others. Will you
-                        please stay and complete a session?</p>
+                <div id="dialog" title="Are you sure you want to permanently leave the study?">
+                    <p>Thank you for your participation. Before you quit the study, please let us know if there are
+                        questions or concerns we can address – we are very interested in making this study work for all
+                        who have kindly agreed to participate, so please let us know if we can help make it work for you.</p>
                     <a th:href="@{'/session'}">
-                        <button>Yes, Let's go!</button>
+                        <button>Continue with the study</button>
                     </a>
                     <a th:href="@{'/account/exitStudy'}">
-                        <button>No, remove me now.</button>
+                        <button>Exit the study permanently</button>
                     </a>
-
+                    <p>Or</p>
+                    <a href="mailto:staff@mindtrails.org">
+                        <button>Send a note to the MindTrails team</button>
+                    </a>
                 </div>
 
             </div>
