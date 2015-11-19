@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
 <!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
 <!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
@@ -6,6 +6,20 @@
 <html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
 <!--<![endif]-->
 <head th:include="/fragment/common :: headerFragment" />
+
+<head>
+    <title>Audio test</title>
+
+    <script type="text/javascript">
+            // @param filename The name of the file WITHOUT ending
+            function playSound(filename){
+                document.getElementById("sound").innerHTML='<audio autoplay="autoplay"><source src="sounds/' + filename + '.mp3" type="audio/mpeg" /><source src="sounds/' + filename + '.ogg" type="audio/ogg" /><embed hidden="true" autostart="true" loop="false" src="sounds/' + filename +'.mp3" /></audio>';
+            }
+
+        </script>
+</head>
+
+
 <body th:class="|user-theme-${participant.theme}|">
 <section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
 
@@ -90,6 +104,7 @@
                         </p>
                     </fieldset>
                 </form>
+
                 <script>
                     var mNext = false;
                     var mVisit = false;
@@ -99,6 +114,7 @@
                             mVisit = true;
                             $(".jw-button-finish").prop("disabled",true);
                             setTimeout(function() { alert("20 Seconds Are Over!");
+                                playSound('bing')
                                 $(".jw-button-finish").prop("disabled",false);
                                                     mNext = true;
                                                   }, 20000);
@@ -119,6 +135,7 @@
                             cancel: false
                             }
                         });
+
 
 
                 </script>
