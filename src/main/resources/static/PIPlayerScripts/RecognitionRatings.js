@@ -619,7 +619,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 "data": {
                     "positiveKey": "x",
                     "positiveWord": "an[ ]ious.",
-                    "statement": " THE FLIGHT: You are on a long flight with your partner going to an exotic location for your vacation. The airplane pilot gets on the intercom, and says there is going to be some turbulence. As you wait for the turbulence, you feel a little "
+                    "statement": " THE FLIGHT: You are on a long flight with your partner going to an exotic location for your vacation. The airplane pilot gets on the intercom and says there is going to be some turbulence. As you wait for the turbulence, you feel a little "
                 },
                 "handle": "paragraph",
                 "media": {
