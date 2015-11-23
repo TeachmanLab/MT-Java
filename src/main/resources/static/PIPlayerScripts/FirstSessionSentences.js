@@ -479,7 +479,16 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
         ]);
     } else {
         API.addTrialSets('posneg',[
-            { inherit:'base', data: {positive:true}}
+            { inherit:'base', data: {positive:true}},
+            { inherit:'base', data: {positive:true}},
+            { inherit:'base', data: {positive:true}},
+            { inherit:'base', data: {positive:true}},
+            { inherit:'base', data: {positive:true}},
+            { inherit:'base', data: {positive:true}},
+            { inherit:'base', data: {positive:true}},
+            { inherit:'base', data: {positive:true}},
+            { inherit:'base', data: {positive:true}},
+            { inherit:'base', data: {positive:false}}
         ]);
     }
 
