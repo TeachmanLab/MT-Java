@@ -63,9 +63,9 @@ public class SessionController extends BaseController {
     public String sessionHome(ModelMap model, Principal principal) throws Exception {
 
         Participant p = getParticipant(principal);
-        Study study  = p.getStudy();
+        Study study = p.getStudy();
         Session session = study.getCurrentSession();
-        Session last    = study.getLastSession();
+        Session last = study.getLastSession();
 
         // Provide dates for next visit.
         DateTime startDate = new DateTime(p.lastMilestone()).plusDays(2);
@@ -75,7 +75,7 @@ public class SessionController extends BaseController {
         DateTimeFormatter endFormat = DateTimeFormat.forPattern("MMMM d, YYYY");
 
         // Determine if a gift should be awarded, and award it.
-        if(last.isAwardGift() && !p.giftAwardedForSession(last)) {
+        if (last.isAwardGift() && !p.giftAwardedForSession(last)) {
             Reward reward = tangoService.createGiftCard(p, last.getName());
             this.emailService.sendGiftCardEmail(p, reward);
             model.addAttribute("giftAwarded", true);
@@ -90,7 +90,20 @@ public class SessionController extends BaseController {
         model.addAttribute("dateRange", startFormat.print(startDate) + endFormat.print(endDate));
         model.addAttribute("completeBy", endFormat.print(completeBy));
 
-        return "home";
+        switch (study.getState()) {
+            case IN_PROGRESS:
+                return "sessionHome/inProgress"; // check
+            case ALL_DONE:
+                return "sessionHome/allDone"; // check
+            case READY:
+                return "sessionHome/ready";       // Check
+            case WAIT_A_DAY:
+                return "sessionHome/waitADay"; // check
+            case WAIT_FOR_FOLLOWUP:
+                return "sessionHome/waitFollowup";  
+            default:
+                return "sessionHome/inProgress";
+        }
     }
 
     @RequestMapping("/overview")

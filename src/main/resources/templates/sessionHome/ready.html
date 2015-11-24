@@ -16,9 +16,7 @@
 ================================================== -->
 <section id="content" class="clearfix">
 
-    <!-- SESSION STATE READY ....
-    ================================================== -->
-    <div class="container sessionSection" th:if="${sessionState == 'READY'}">
+    <div class="container sessionSection">
         <div class="row">
                 <img class="sessionImage" th:src="|/images/map-${currentSession.index}-${participant.theme}.png|"/>
             <div class="col-md-8 session">
@@ -134,106 +132,7 @@
             </div>
         </div>
     </div>
-
-    <!-- SESSION STATE IN PROGRESS ....
-    ================================================== -->
-    <div class="container sessionSection" th:if="${sessionState == 'IN_PROGRESS'}">
-        <div class="row">
-            <div class="col-md-4">
-                <img th:src="@{/images/map-0-orange.png}" alt="icon" class="icon-small-bg"/>
-            </div>
-
-            <div class="col-md-8 session">
-                <h2>Welcome back <span th:text="${participant.fullName}">Jim</span>.</h2>
-
-                <p>You are part way through the <span th:text="${currentSession.displayName}"/>. You can now pick back
-                    up where you left off.</p>
-                <a th:href="${currentTask.requestMapping}" th:if="${currentTask}">
-                    <button>Continue</button>
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- SESSION STATE WAIT A DAY ....
-    ================================================== -->
-    <div class="container sessionSection" th:if="${sessionState == 'WAIT_A_DAY'}">
-        <div class="sessionHeader">
-            <img class="sessionImage" th:src="|/images/map-${lastSession.index}-${participant.theme}.png|" alt="icon"/>
-
-            <h2>Good work, <span th:text="${participant.fullName}">Jim</span>.<br/>You have completed the <span
-                    th:text="${lastSession.displayName}"/>. </h2>
-        </div>
-
-        <div class="giftAwarded" th:if="${giftAwarded}">
-            <img th:src="@{/images/gift_card_sm.png}"/>
-
-            <div class="message">
-                <em>Congratulations! You have earned a $5 gift card.</em><br/>
-                Please check your email for information on how to redeem it.
-                <span th:if="${nextGiftSession}"><b>Your next gift card</b> will be available when you complete <span
-                        th:text="${nextGiftSession.displayName}"/></span>
-            </div>
-        </div>
-
-        <p>UP NEXT: For best results, plan to begin the <span th:text="${currentSession.displayName}"/> between
-            <br/><em th:text="${dateRange}">July 7 - July 10, 2015</em>
-            <br/><a href="/session/overview">Program Overview</a>
-        </p>
-
-        <p class="detour"><img th:src="|/images/detour-${participant.theme}.png|"/>
-            Now that you have finished the session it is time to have some fun.  Check out this
-            video to learn about an <a target="new" href="https://www.youtube.com/watch?v=vJG698U2Mvo">interesting
-                psychological effect.</a></p>
-
-
-        <div class="nextGift" th:unless="${giftAwarded}" th:if="${nextGiftSession}">
-            <img th:src="@{/images/gift_card_sm.png}"/>
-            <span>Your next gift card will be available when you complete <span
-                    th:text="${nextGiftSession.displayName}"/></span>
-        </div>
-    </div>
-
-    <!-- SESSION STATE WAIT FOR FOLLOWUP ....
-    ================================================== -->
-    <div class="container sessionSection" th:if="${sessionState == 'WAIT_FOR_FOLLOWUP'}">
-        <div class="row">
-            <div class="col-md-4">
-                <img th:src="@{/images/map-arrow-orange.png}" alt="icon" class="icon-small-bg"/>
-            </div>
-
-            <div class="col-md-8 session">
-                <h2>Great Job, <span th:text="${participant.fullName}">Jim</span>.<br/>You have completed the <span
-                        th:text="${lastSession.displayName}"/>. </h2>
-                You have completed all the Sessions! We will email you in a few months, when it is time to complete the
-                follow up and get your T-Shirt.
-            </div>
-        </div>
-    </div>
-
-
-    <!-- SESSION STATE ALL DONE ....
-    ================================================== -->
-    <div class="container sessionSection" th:if="${sessionState == 'ALL_DONE'}">
-        <div class="row">
-            <div class="col-md-4">
-                <img th:src="@{/images/map-arrow-orange.png}" alt="icon" class="icon-small-bg"/>
-            </div>
-
-            <div class="col-md-8 session">
-                <h2>Thank you <span th:text="${participant.fullName}">Jim</span>!<br/> you have reached the end of the
-                    Study.</h2>
-                You are all finished! We will send an email with details on how to get your t-shirt.  You can now
-                <a th:href="@{/session/graph}">review your progress</a> through the study, to see how you performed, and find out if you were part of
-                the control group, or if you received the full treatment.
-            </div>
-
-            <!--divider here-->
-            <div class="spacer-40px"></div>
-        </div>
-    </div>
 </section>
-
 
 <!-- footer starts
 ================================================== -->

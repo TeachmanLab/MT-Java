@@ -16,22 +16,26 @@
 ================================================== -->
 <section id="content" class="clearfix">
 
-    <div class="container sessionSection" th:if="${sessionState == 'WAIT_FOR_FOLLOWUP'}">
+    <div class="container sessionSection">
         <div class="row">
             <div class="col-md-4">
                 <img th:src="@{/images/map-arrow-orange.png}" alt="icon" class="icon-small-bg"/>
             </div>
 
             <div class="col-md-8 session">
-                <h2>Great Job, <span th:text="${participant.fullName}">Jim</span>.<br/>You have completed the <span
-                        th:text="${lastSession.displayName}"/>. </h2>
-                You have completed all the Sessions! We will email you in a few months, when it is time to complete the
-                follow up and get your T-Shirt.
+                <h2>Thank you <span th:text="${participant.fullName}">Jim</span>!<br/> you have reached the end of the
+                    Study.</h2>
+                You are all finished! We will send an email with details on how to get your t-shirt.  You can now
+                <a th:href="@{/session/graph}">review your progress</a> through the study, to see how you performed, and find out if you were part of
+                the control group, or if you received the full treatment.
             </div>
+
+            <!--divider here-->
+            <div class="spacer-40px"></div>
         </div>
     </div>
-
 </section>
+
 
 <!-- footer starts
 ================================================== -->
