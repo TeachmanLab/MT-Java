@@ -8,10 +8,14 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
     var text_to_display;
     var word_display;
     var where_at = 1;
+    var latency = 0;
+    var vivid_text;
     var scorer =
     {
         count : 1
     };
+
+    var on_question = false;
 
     function increase_count(){
         scorer.count = scorer.count+1;
@@ -137,6 +141,10 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
         stall: [
             {handle:'stall',media:{html:"<div class='stim'>Oops, that answer is incorrect; please re-read the question and in a moment you will have a chance to answer again.</div>"}, css:{fontSize:'20px',color:'black', 'text-align':'center'}, location:{top:70}, nolog:true}
         ],
+        greatjob:
+        [
+            {handle:'greatjob',media:{html:"<div class='stim'>Great job!</div>"}, css:{fontSize:'20px',color:'black', 'text-align':'center'}, nolog:true}
+        ],
         vivid: [
             {media :{'inlineTemplate':"<div class='vivid'>_______</div>"}}
         ],
@@ -145,6 +153,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 'handle': 'counter',
                 customize: function () {
                     this.media = scorer.count + ' of 50';
+                    on_question = false;
                 },
                 css: {fontSize: '12px', 'text-align': 'center'},
                 location:{bottom:'200px'}
@@ -199,9 +208,9 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                         last_word = last_word[last_word.length-2] + ' ' + last_word[last_word.length-1];
                         break_up[break_up.length-1] = break_up[break_up.length-1].replace(last_word, "");
                         break_up.push(last_word);
-                        text_to_display = break_up[0] + '.';
-                        sentence.text(text_to_display);
-                        sentence.append('<p style="font-size: 20px"> Press the spacebar to continue </p>');
+                        text_to_display = break_up[0] + '.' + '<br/>';
+                        sentence.html(text_to_display);
+                        sentence.append('<p style="font-size: 20px; position:relative; top:240px;" > Press the spacebar to continue </p>');
                     }
                     }]
 
@@ -213,31 +222,36 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     {type:'inputEquals',value:'askQuestion', negate: true},
                     {type:'inputEquals',value:'correct', negate: true},
                     {type:'function', value:function(trial, inputData){
-                        if (where_at < break_up.length && inputData.handle == 'space')
+
+                        if (where_at < break_up.length && inputData.handle == 'space' && inputData.latency - latency > 1000 && ! on_question)
                         {
                             var sentence = $("div.sentence");
                             if (where_at < (break_up.length - 2))
                             {
-                                text_to_display = text_to_display + break_up[where_at] + '.';
-                                sentence.text(text_to_display);
-                                sentence.append('<p class="space" style="font-size: 20px"> Press the spacebar to continue </p>');
+                                text_to_display = text_to_display + break_up[where_at] + '.' + '<br/>';
+                                sentence.html(text_to_display);
+                                sentence.append('<p class="space" style="font-size: 20px; position:relative; top:240px;"> Press the spacebar to continue </p>');
 
                             }
                             else if (where_at < (break_up.length - 1))
                             {
-                                text_to_display = text_to_display + break_up[where_at];
-                                sentence.text(text_to_display);
-                                sentence.append('<p class="space" style="font-size: 20px"> Press the spacebar to continue </p>');
+                                text_to_display = text_to_display + break_up[where_at] + '<br/>';
+                                sentence.html(text_to_display);
+                                sentence.append('<p class="space" style="font-size: 20px; position:relative; top:240px;"> Press the spacebar to continue </p>');
                             }
                             else
                             {
                                 var space = $("p.space");
-                                space.before('<span class="incomplete">' + break_up[where_at] + '</span>');
+                                space.empty();
+                                space.before('<span class="incomplete">' + break_up[where_at] + '.</span>');
                             }
+
+                            latency = inputData.latency;
                             where_at = where_at + 1;
                         }
                         else if (where_at >= break_up.length)
                         {
+                            latency = 0;
                             return true;
                         }
                     }},
@@ -297,6 +311,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                         var text = span.text().replace(' ', eventData["handle"]);
                         span.text(text);
                         where_at = 1;
+                        on_question = true;
                     }},
                     {type:'trigger',handle : 'correct'}
                 ]
@@ -345,7 +360,9 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     {type:'hideStim',handle : 'question'},
                     {type:'hideStim',handle:'yesno'},
                     {type:'hideStim', handle: 'counter'},
-                    {type:'trigger',handle : 'answered', duration:500}
+                    {type:'showStim', handle:'greatjob'},
+                    {type:'trigger',handle : 'answered', duration:500},
+
                 ]
             },
             // Listen for a correct response to a negative question
@@ -358,7 +375,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     {type:'hideStim',handle : 'question'},
                     {type:'hideStim',handle:'yesno'},
                     {type:'hideStim', handle: 'counter'},
-                    {type:'trigger',handle : 'answered', duration:500}
+                    {type:'showStim', handle:'greatjob'},
+                    {type:'trigger',handle : 'answered', duration:500},
                 ]
             },
             // Listen for an incorrect response to a positive question
@@ -465,7 +483,16 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
         ]);
     } else {
         API.addTrialSets('posneg',[
-            { inherit:'base', data: {positive:true}}
+            { inherit:'base', data: {positive:true}},
+            { inherit:'base', data: {positive:true}},
+            { inherit:'base', data: {positive:true}},
+            { inherit:'base', data: {positive:true}},
+            { inherit:'base', data: {positive:true}},
+            { inherit:'base', data: {positive:true}},
+            { inherit:'base', data: {positive:true}},
+            { inherit:'base', data: {positive:true}},
+            { inherit:'base', data: {positive:true}},
+            { inherit:'base', data: {positive:false}}
         ]);
     }
 
@@ -499,6 +526,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 conditions: [
                     {
                         type: 'function', value: function(trial, inputData) {
+                        if (inputData.handle == 'Not at all vivid' ||
+                                                inputData.handle == "Somewhat vivid"  ||
+                                                inputData.handle == "Moderately vivid"
+                        )
+                        {
+                            vivid_text = 'Thanks. Really try to use your imagination!';
+                        }
+                        else if (inputData.handle == "Very vivid"  ||
+                                 inputData.handle == "Totally vivid" ||
+                                 inputData.handle == "Prefer not to answer")
+                        {
+                            vivid_text = "Thanks. It's great you're really using your imagination!";
+                        }
                         return( inputData.handle == "Not at all vivid" ||
                         inputData.handle == "Somewhat vivid"  ||
                         inputData.handle == "Moderately vivid" ||
@@ -524,7 +564,37 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 actions: [{type:'log'}, {type:'endTrial'}]
             },
         ]
-    }]);
+    },
+    ]);
+
+    API.addTrialSets('vivid_after', [
+    {
+        input: [
+            // What input to accept from the participant (user)
+            {handle:'space',on:'space'}
+        ],
+        layout: [
+            {
+                media : {html:''}
+            }
+        ],
+        customize: function () {
+            this.layout[0].media.html = '<p style="font-size: 24px; text-align:center">' + vivid_text + '</p>' + '<p style="font-size: 20px; text-align:center;" > Press the spacebar to continue </p>';
+;
+        },
+        interactions: [
+            // What to do when different events occur.
+            {
+                conditions: [
+                    {type:'inputEquals',value:'space'}
+                ],
+                actions: [
+                    {type:'endTrial'}
+                ]
+            }
+        ]
+    }
+    ]);
 
 
     API.addSequence([
@@ -586,12 +656,14 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                         },
                         {"inherit": {"set": "yesno"}},
                         {"inherit": {"set": "counter"}},
-                        {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}
                     ]
                 },
             ]
         },
         { "inherit": { "set": "vivid" } },
+        { "inherit": { "set": "vivid_after" } },
+
         {
             mixer: 'random',
             //n: 50,  // The total number of randomly selected trials to run.
@@ -629,12 +701,13 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                             }
                         },
                         {"inherit": {"set": "yesno"}},
-                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
-                    ]
+                                    {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}                   ]
                 },
             ]
         },
 { "inherit": { "set": "vivid" } },
+{ "inherit": { "set": "vivid_after" } },
+
 {
             mixer: 'random',
             //n: 50,  // The total number of randomly selected trials to run.
@@ -671,7 +744,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                                    {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -707,7 +780,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                                    {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -743,7 +816,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                                    {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -779,7 +852,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -815,7 +888,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -851,7 +924,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -887,7 +960,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -923,7 +996,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -959,7 +1032,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -995,7 +1068,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -1031,7 +1104,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -1067,7 +1140,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -1103,7 +1176,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -1139,7 +1212,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -1175,7 +1248,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -1211,7 +1284,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -1247,7 +1320,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -1283,7 +1356,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -1319,7 +1392,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -1355,7 +1428,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -1391,7 +1464,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -1427,7 +1500,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -1463,11 +1536,12 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     ]},
-    { "inherit": { "set": "vivid" } },    {
+    { "inherit": { "set": "vivid" } }, { "inherit": { "set": "vivid_after" } },
+    {
 	mixer: 'random',
 		    data:[
     {
@@ -1503,7 +1577,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -1539,7 +1613,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -1575,7 +1649,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -1611,7 +1685,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -1647,7 +1721,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -1683,7 +1757,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -1719,7 +1793,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -1755,7 +1829,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -1791,7 +1865,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -1827,7 +1901,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -1863,7 +1937,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -1899,7 +1973,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
 
@@ -1936,7 +2010,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -1972,7 +2046,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -2008,7 +2082,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -2044,7 +2118,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -2080,7 +2154,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -2116,7 +2190,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
 
@@ -2153,7 +2227,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -2189,7 +2263,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -2225,7 +2299,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -2261,7 +2335,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -2297,7 +2371,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -2333,7 +2407,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     },
     {
@@ -2369,7 +2443,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+                        {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}
         ]
     }
     ]

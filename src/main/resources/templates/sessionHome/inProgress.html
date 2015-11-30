@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="fragment/common :: headerFragment"/>
+<body th:class="|user-theme-${participant.theme}|">
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+
+    <div class="container sessionSection">
+        <div class="row">
+            <div class="col-md-4">
+                <img th:src="@{/images/map-0-orange.png}" alt="icon" class="icon-small-bg"/>
+            </div>
+
+            <div class="col-md-8 session">
+                <h2>Welcome back <span th:text="${participant.fullName}">Jim</span>.</h2>
+
+                <p>You are part way through the <span th:text="${currentSession.displayName}"/>. You can now pick back
+                    up where you left off.</p>
+                <a th:href="${currentTask.requestMapping}" th:if="${currentTask}">
+                    <button>Continue</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>
