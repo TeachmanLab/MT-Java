@@ -7,17 +7,8 @@
 <!--<![endif]-->
 <head th:include="/fragment/common :: headerFragment" />
 
-<head>
-    <title>Audio test</title>
 
-    <script type="text/javascript">
-            // @param filename The name of the file WITHOUT ending
-            function playSound(filename){
-                document.getElementById("sound").innerHTML='<audio autoplay="autoplay"><source src="sounds/' + filename + '.mp3" type="audio/mpeg" /><source src="sounds/' + filename + '.ogg" type="audio/ogg" /><embed hidden="true" autostart="true" loop="false" src="sounds/' + filename +'.mp3" /></audio>';
-            }
 
-        </script>
-</head>
 
 
 <body th:class="|user-theme-${participant.theme}|">
@@ -106,6 +97,9 @@
                 </form>
 
                 <script>
+                    function playSound(filename){
+                        document.getElementById("sound").innerHTML='<audio autoplay="autoplay"><source src="sounds/' + filename + '.mp3" type="audio/mpeg" /><source src="sounds/' + filename + '.ogg" type="audio/ogg" /><embed hidden="true" autostart="true" loop="false" src="sounds/' + filename +'.mp3" /></audio>';
+                            }
                     var mNext = false;
                     var mVisit = false;
                     $("#wizard").on("stepshown", "#step_four", function () {
