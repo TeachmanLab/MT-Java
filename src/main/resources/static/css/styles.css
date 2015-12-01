@@ -135,7 +135,6 @@ div.sessionSection .col-md-8 { padding: 0 100px 0 100px; }
 
 div.sessionSection p {
     text-align: center;
-    margin: 20px;
 }
 
 div.sessionSection div.sessionHeader {
@@ -161,11 +160,31 @@ div.sessionSection img.sessionImage {
     padding-left: 50px;
 }
 
-div.sessionSection div.nextGift {
+div.sessionSection p.detour {
+    margin: 0px;
+    min-height: 80px;
     border-top: 1px solid #5f5f5f;
-    line-height: 40px;
-    padding: 20px 20px 0 20px;
-    text-align:  center;
+    padding: 10px 75px 10px 75px;
+    font-size: .9em;
+    text-align: left;
+}
+div.sessionSection p.detour img {
+    float: left;
+    padding: 0px 20px;
+}
+
+div.sessionSection div.nextGift img, div.sessionSection div.giftAwarded img {
+    float: left;
+    padding: 0px 20px;
+}
+
+
+div.sessionSection div.nextGift {
+    margin: 0px;
+    border-top: 1px solid #DDD;
+    padding: 10px 75px 10px 75px;
+    font-size: .9em;
+    text-align: left;
 }
 
 div.sessionSection div.giftAwarded {
@@ -180,10 +199,6 @@ div.sessionSection div.giftAwarded div.message {
 }
 
 
-div.sessionSection div.nextGift img, div.sessionSection div.giftAwarded img {
-    float: left;
-    padding: 20px;
-}
 
 
 /**
@@ -199,6 +214,7 @@ div.session p.session-note {
     font-size: 1em;
 }
 div.session .date { color:#00ACE4; font-weight: 600 }
+
 
 /**
 Account Theme Section
