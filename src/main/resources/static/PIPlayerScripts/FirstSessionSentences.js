@@ -1,6 +1,13 @@
 /* The script wrapper */
 define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
 
+    jQuery.fn.visible = function() {
+        return this.css('visibility', 'visible');
+    };
+
+    jQuery.fn.invisible = function() {
+        return this.css('visibility', 'hidden');
+    };
 
     var API = new APIConstructor();
     var scorer = new Scorer();
@@ -156,7 +163,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     on_question = false;
                 },
                 css: {fontSize: '12px', 'text-align': 'center'},
-                location:{bottom:'200px'}
+                location:{bottom:'0px'}
             }
         ]
     });
@@ -208,9 +215,24 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                         last_word = last_word[last_word.length-2] + ' ' + last_word[last_word.length-1];
                         break_up[break_up.length-1] = break_up[break_up.length-1].replace(last_word, "");
                         break_up.push(last_word);
-                        text_to_display = break_up[0] + '.' + '<br/>';
-                        sentence.html(text_to_display);
-                        sentence.append('<p style="font-size: 20px; position:relative; top:240px;" > Press the spacebar to continue </p>');
+                        for (i = 0; i < break_up.length; i++) {
+                            if (i == break_up.length-1)
+                            {
+                                break_up[i] = $("<p class='incomplete'>" + break_up[i] + '.</p>')
+                            }
+                            else if (i == break_up.length-2)
+                            {
+                                break_up[i] = $("<p class='sentences'>" + break_up[i] + '</p>')
+                            }
+                            else
+                            {
+                                break_up[i] = $("<p class='sentences'>" + break_up[i] + '.</p>')
+                            }
+                            break_up[i].invisible();
+                        }
+                        sentence.html(break_up);
+                        break_up[0].visible();
+                        sentence.append('<p style="font-size: 20px; position:relative; bottom:0px;" > Press the spacebar to continue </p>');
                     }
                     }]
 
@@ -228,22 +250,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                             var sentence = $("div.sentence");
                             if (where_at < (break_up.length - 2))
                             {
-                                text_to_display = text_to_display + break_up[where_at] + '.' + '<br/>';
-                                sentence.html(text_to_display);
-                                sentence.append('<p class="space" style="font-size: 20px; position:relative; top:240px;"> Press the spacebar to continue </p>');
+                                break_up[where_at].visible();
 
                             }
                             else if (where_at < (break_up.length - 1))
                             {
-                                text_to_display = text_to_display + break_up[where_at] + '<br/>';
-                                sentence.html(text_to_display);
-                                sentence.append('<p class="space" style="font-size: 20px; position:relative; top:240px;"> Press the spacebar to continue </p>');
+                                break_up[where_at].visible();
                             }
                             else
                             {
                                 var space = $("p.space");
                                 space.empty();
-                                space.before('<span class="incomplete">' + break_up[where_at] + '.</span>');
+                                break_up[where_at].visible();
+                                space.before(break_up[where_at]);
                             }
 
                             latency = inputData.latency;
@@ -277,7 +296,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 actions: [
                     {type:'custom',fn:function(options,eventData){
                         API.getGlobal().lettersTyped = API.getGlobal().lettersTyped + eventData.handle;
-                        var span = $("span.incomplete");
+                        var span = $("p.incomplete");
                         var text = span.text().replace(' ', eventData["handle"]);
                         span.text(text);
                     }},
@@ -307,7 +326,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 ],
                 actions: [
                     {type:'custom',fn:function(options,eventData){
-                        var span = $("span.incomplete");
+                        var span = $("p.incomplete");
                         var text = span.text().replace(' ', eventData["handle"]);
                         span.text(text);
                         where_at = 1;
@@ -343,6 +362,9 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 // Trigger when input handle is "end".
                 conditions: [{type:'inputEquals',value:'askQuestion'}],
                 actions: [
+                {type:'custom',fn:function(options,eventData){
+                                    $("div.sentence").empty();
+                                    }},
                     {type:'hideStim',handle : 'paragraph'},
                     {type:'showStim',handle : 'question'},
                     {type:'showStim',handle:'yesno'},
@@ -579,7 +601,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             }
         ],
         customize: function () {
-            this.layout[0].media.html = '<p style="font-size: 24px; text-align:center">' + vivid_text + '</p>' + '<p style="font-size: 20px; text-align:center;" > Press the spacebar to continue </p>';
+            this.layout[0].media.html = '<p style="font-size: 24px; text-align:center">' + vivid_text + '</p>' + '<p style="font-size: 20px; text-align:center" > Press the spacebar to continue </p>';
 ;
         },
         interactions: [
