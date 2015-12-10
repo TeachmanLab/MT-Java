@@ -4,6 +4,8 @@ import edu.virginia.psyc.pi.domain.DoNotDelete;
 import edu.virginia.psyc.pi.domain.RestExceptions.NoSuchQuestionnaireException;
 import edu.virginia.psyc.pi.domain.RestExceptions.NotDeleteableException;
 import edu.virginia.psyc.pi.domain.QuestionnaireInfo;
+import edu.virginia.psyc.pi.persistence.ExportLogDAO;
+import edu.virginia.psyc.pi.persistence.ExportLogRepository;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.persistence.Questionnaire.QuestionnaireData;
@@ -34,6 +36,7 @@ public class ExportController implements ApplicationListener<ContextRefreshedEve
     Repositories repositories;
 
     @Autowired ParticipantRepository participantRepository;
+    @Autowired ExportLogRepository exportLogRepository;
 
     /** Rather than autowire all the repositories, this class will
      * gather a list of all repositories and filter out the ones that
@@ -47,7 +50,11 @@ public class ExportController implements ApplicationListener<ContextRefreshedEve
 
     @RequestMapping(method= RequestMethod.GET)
     public @ResponseBody List<QuestionnaireInfo> list() {
-        return (listRepositories());
+        List<QuestionnaireInfo> infoList = listRepositories();
+        int sum = 0;
+        for(QuestionnaireInfo i : infoList) sum += i.getSize();
+        exportLogRepository.save(new ExportLogDAO(sum));
+        return (infoList);
     }
 
     @RequestMapping(value="{name}", method= RequestMethod.GET)
@@ -125,6 +132,8 @@ public class ExportController implements ApplicationListener<ContextRefreshedEve
         LOG.info("Returning: " + names);
         return names;
     }
+
+
 }
 
 
