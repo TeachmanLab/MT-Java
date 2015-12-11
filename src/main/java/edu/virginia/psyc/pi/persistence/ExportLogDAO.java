@@ -1,6 +1,5 @@
 package edu.virginia.psyc.pi.persistence;
 
-import edu.virginia.psyc.pi.service.EmailService;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -24,6 +23,7 @@ public class ExportLogDAO {
     private Date date;
     private int totalRecords;
 
+    public ExportLogDAO() {}
 
     public ExportLogDAO(int totalRecords) {
         this.totalRecords = totalRecords;
