@@ -18,7 +18,7 @@
                     </p>
                     <p style="margin-top:5px">A participant with id <b><span th:text="${participant.id}"/></b> just completed the Oasis
                         questionnaire and received a score that is 30% higher than their original.  The participant will receive
-                        an email explaining these declining results.</p>
+                        an notification explaining these declining results.</p>
                 </td>
                 <table class="scores">
                     <tr>
@@ -47,7 +47,7 @@
                         <td align="right" th:text="${latest.interfere}"/>
                     </tr>
                     <tr>
-                        <th>Interfer (social)</th>
+                        <th>Interfere (social)</th>
                         <td align="right" th:text="${orig.interfere_social}"/>
                         <td align="right" th:text="${latest.interfere_social}"/>
                     </tr>
