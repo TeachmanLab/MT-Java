@@ -1,13 +1,11 @@
 package edu.virginia.psyc.pi.controller;
 
-import edu.virginia.psyc.pi.domain.CBMStudy;
 import edu.virginia.psyc.pi.domain.Participant;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.persistence.Questionnaire.*;
 import edu.virginia.psyc.pi.persistence.TaskLogDAO;
 import edu.virginia.psyc.pi.service.EmailService;
-import edu.virginia.psyc.pi.service.ExportService;
 import edu.virginia.psyc.pi.service.RsaEncyptionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,8 +68,6 @@ public class QuestionController extends BaseController {
     @Autowired
     private EmailService emailService;
 
-    @Autowired
-    private ExportService exportService;
 
     @Autowired
     private RsaEncyptionService encryptService;
@@ -110,8 +106,6 @@ public class QuestionController extends BaseController {
         participantRepository.domainToEntity(participant, dao);
         participantRepository.save(dao);
 
-        // Notify the backup service that it may need to export data.
-        exportService.recordUpdated(data);
 
         // Connect the participant to the data being recorded.
         data.setParticipantRSA(encryptService.encryptIfEnabled(dao.getId()));
