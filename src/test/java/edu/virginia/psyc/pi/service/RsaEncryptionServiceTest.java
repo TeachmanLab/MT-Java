@@ -55,14 +55,14 @@ public class RsaEncryptionServiceTest {
 
     @Test
     public void testEncryptionSameEachTime() throws Exception {
-        String cipherText1 = service.encrypt(100);
-        String cipherText2 = service.encrypt(100);
+        String cipherText1 = service.encryptIfEnabled(100);
+        String cipherText2 = service.encryptIfEnabled(100);
         assertTrue(cipherText1 + " == " + cipherText2, cipherText1.equals(cipherText2));
     }
 
     @Test
     public void testEncryption() throws Exception {
-        String cipherText = service.encrypt(100);
+        String cipherText = service.encryptIfEnabled(100);
         System.out.println("encodedBytes: '" + cipherText + "'");
 
         Cipher cipher = Cipher.getInstance("RSA");
