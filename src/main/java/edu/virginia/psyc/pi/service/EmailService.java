@@ -2,13 +2,11 @@ package edu.virginia.psyc.pi.service;
 
 import edu.virginia.psyc.pi.domain.CBMStudy;
 import edu.virginia.psyc.pi.domain.Participant;
-import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.domain.Study;
 import edu.virginia.psyc.pi.domain.tango.Reward;
 import edu.virginia.psyc.pi.persistence.EmailLogDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
-import edu.virginia.psyc.pi.persistence.Questionnaire.DASS21_AS;
 import edu.virginia.psyc.pi.persistence.Questionnaire.OA;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,7 +45,7 @@ public class EmailService {
     public enum TYPE {
         day2, day4, day7, day11, day15, day18,
         followup, followup2, followup3,
-        resetPass, alertAdmin, alertParticipant, giftCard, exportError
+        resetPass, alertAdmin, giftCard, exportError
     }
 
     @Autowired
@@ -95,8 +93,6 @@ public class EmailService {
                 return "Project Implicit Mental Health - Account Request";
             case alertAdmin:
                 return "PIMH Alert! a participants score is Dropping";
-            case alertParticipant:
-                return "Project Implicit Mental Health - Alert, your score is dropping.";
             case giftCard:
                 return "Project Implicit Mental Health - Your $5 gift card!";
             case exportError:

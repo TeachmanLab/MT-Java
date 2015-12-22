@@ -201,6 +201,16 @@ public class SessionController extends BaseController {
         }
     }
 
+    @RequestMapping("/atRisk")
+    public String atRisk(ModelMap model, Principal principal) {
+
+        Participant p = getParticipant(principal);
+        Study study = p.getStudy();
+        model.addAttribute("participant", p);
+        model.addAttribute("study", study);
+        return "atRisk";
+    }
+
 }
 
 

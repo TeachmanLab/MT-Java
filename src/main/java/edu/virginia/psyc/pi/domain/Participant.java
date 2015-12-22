@@ -66,6 +66,8 @@ public class Participant {
 
     private boolean        active = true;
 
+    private boolean        increase30 = false;
+
     private Date           lastLoginDate;
 
     private List<EmailLog> emailLogs = new ArrayList<>();

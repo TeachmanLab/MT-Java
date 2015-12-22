@@ -45,6 +45,8 @@ public class ParticipantDAO implements UserDetails {
 
     private boolean active;
 
+    private boolean increase30;
+
     private Date          lastLoginDate;
 
     private Date          lastSessionDate;
@@ -295,6 +297,10 @@ public class ParticipantDAO implements UserDetails {
     public void setOver18(boolean over18) {
         this.over18 = over18;
     }
+
+    public boolean isIncrease30() {return increase30;}
+
+    public void setIncrease30(boolean increase30) {this.increase30 = increase30;}
 
     @Override
     public String toString() {
