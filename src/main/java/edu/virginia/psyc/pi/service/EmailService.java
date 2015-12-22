@@ -47,7 +47,7 @@ public class EmailService {
     public enum TYPE {
         day2, day4, day7, day11, day15, day18,
         followup, followup2, followup3,
-        resetPass, alertAdmin, alertParticipant, giftCard
+        resetPass, alertAdmin, alertParticipant, giftCard, exportError
     }
 
     @Autowired
@@ -99,6 +99,8 @@ public class EmailService {
                 return "Project Implicit Mental Health - Alert, your score is dropping.";
             case giftCard:
                 return "Project Implicit Mental Health - Your $5 gift card!";
+            case exportError:
+                return "MindTrails - Export Failure!";
             default:
                 return "";
         }
@@ -107,13 +109,13 @@ public class EmailService {
   /*
   * Send HTML mail using a template named according to Type.
   */
-    private void sendMail(String email, Long id, TYPE type, Context ctx) throws MessagingException{
+    private void sendMail(String address, Long id, TYPE type, Context ctx) throws MessagingException{
         // Prepare message using a Spring helper
         final MimeMessage mimeMessage = this.mailSender.createMimeMessage();
         final MimeMessageHelper message = new MimeMessageHelper(mimeMessage, "UTF-8");
         message.setSubject(getSubject(type));
         message.setFrom(this.respondTo);
-        message.setTo(email);
+        message.setTo(address);
         // Create the HTML body using Thymeleaf
         final String htmlContent = this.templateEngine.process("email/" + type.toString(), ctx);
         message.setText(htmlContent, true /* isHtml */);
@@ -123,7 +125,9 @@ public class EmailService {
         logEmail(id, type);
     }
 
-  /*
+
+
+    /*
   * Send HTML mail (simple)
   */
     private void sendMail(Participant participant, TYPE type, Context ctx)
@@ -159,6 +163,22 @@ public class EmailService {
 
         sendMail(this.alertsTo, participant.getId(), TYPE.alertAdmin, ctx);
     }
+    /**
+     * Sends an alert message to an administrative account, letting them know about a problem with the system.
+     * @param alertMessage
+     */
+    public void sendExportAlertEmail(String alertMessage) throws MessagingException {
+        // Prepare the evaluation context
+        final Context ctx = new Context();
+
+        ctx.setVariable("name", "PIMH-CBM Administrator");
+        ctx.setVariable("url", this.siteUrl);
+        ctx.setVariable("respondTo", this.respondTo);
+            ctx.setVariable("message", alertMessage);
+        sendMail(this.alertsTo, 0l, TYPE.exportError, ctx);
+    }
+
+
 
     public void sendGiftCardEmail(Participant participant, Reward reward) throws MessagingException {
         // Prepare the evaluation context
@@ -191,8 +211,10 @@ public class EmailService {
         LOG.info("Sent an email to participant #" + id + " of type " + type);
         participantDAO = participantRepository.findOne(id);
         logDAO = new EmailLogDAO(participantDAO, type);
-        participantDAO.addEmailLog(logDAO);
-        participantRepository.save(participantDAO);
+        if(participantDAO != null) {  // Don't die if you can't log the email.
+            participantDAO.addEmailLog(logDAO);
+            participantRepository.save(participantDAO);
+        }
     }
 
     @Scheduled(cron = "0 0 2 * * *")  // schedules task for 2:00am every day.

@@ -1,9 +1,11 @@
 package edu.virginia.psyc.pi.service;
 
 import edu.virginia.psyc.pi.domain.DoNotDelete;
+import edu.virginia.psyc.pi.domain.Participant;
 import edu.virginia.psyc.pi.domain.QuestionnaireInfo;
 import edu.virginia.psyc.pi.persistence.ExportLogDAO;
 import edu.virginia.psyc.pi.persistence.ExportLogRepository;
+import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.Questionnaire.QuestionnaireData;
 import org.joda.time.DateTime;
 import org.joda.time.Minutes;
@@ -15,15 +17,17 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.support.Repositories;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
 import java.util.ArrayList;
 import java.util.List;
 
 
 /**
  * Keeps track of when the export service was last used, and how many records exist in the database.
- * Used by controllers if we need to disable log-ins to the site because we data is not getting exported
+ * Used by controllers if we need to disable log-ins to the site because the data is not getting exported
  * from the system on a regular basis.
  */
 @Service
@@ -37,8 +41,8 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
     @Value("${export.maxMinutes}")
     private int maxMinutes;
 
-    @Autowired
-    ExportLogRepository exportLogRepository;
+    @Autowired ExportLogRepository exportLogRepository;
+    @Autowired EmailService emailService;
 
     Repositories repositories;
 
@@ -107,7 +111,6 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
                 names.add(info);
             }
         }
-        LOG.info("Returning: " + names);
         return names;
     }
 
@@ -126,5 +129,62 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
         }
         return null;
     }
+
+    private String getAlertMessage(int minutes, int records) {
+            return(
+                "It has been " + minutes + " minutes since an export has occurred. " +
+                "Please make sure the export server is running correctly.  There are currently " +
+                records + " records awaiting export.  You will receive messages about this " +
+                "problem every 2 hours for the first 24 hours, and every 4 hours thereafter.");
+    }
+
+    /** Every 30 minutes:
+     * If it's been more than 30 minutes (but less than 2 hours) since the least eport, notify
+     * the admin of this fact.
+     */
+    @Scheduled(cron = "* 0,30 * * * *")
+    public void send30MinAlert() throws MessagingException {
+        LOG.debug("Running 30 minute alert.");
+        int minutesSinceLastExport = minutesSinceLastExport();
+        int totalRecords = totalRecords();
+        if(totalRecords > 0 && minutesSinceLastExport > 30 && minutesSinceLastExport < 60) {
+            emailService.sendExportAlertEmail(getAlertMessage(minutesSinceLastExport, totalRecords));
+        }
+    }
+
+    /**
+     * Every 2 hours
+     *    if it's been more than 2 hours but less than 24 hours since last export,
+     *    send alerts every 2 hours if no exports are occurring.
+     */
+    @Scheduled(cron = "0 0 */2 * * *")
+    public void send2hrAlert() throws MessagingException {
+        LOG.debug("Running 2hr alert.");
+        int minutesSinceLastExport = minutesSinceLastExport();
+        int totalRecords = totalRecords();
+        if(totalRecords > 0 && minutesSinceLastExport > 120 && minutesSinceLastExport < 1440) {
+            emailService.sendExportAlertEmail(getAlertMessage(minutesSinceLastExport, totalRecords));
+        }
+    }
+
+    /**
+     * Every 4 hours
+     *    a) If we have exceeded the maximum records, alert admin that site is disabled.
+     *    b) If it's been more than 24 hours since the last export, alert the admin of this fact.
+     */
+    @Scheduled(cron = "0 0 */4 * * *")
+    public void send4hrAlert() throws MessagingException {
+        LOG.debug("Running 4 hour alert.");
+        int minutesSinceLastExport = minutesSinceLastExport();
+        int totalRecords = totalRecords();
+        if(totalRecords > 90) {
+            emailService.sendExportAlertEmail("The site is currently disabled.  Too many " +
+                    "records exist, and they need to be exported." +
+                    getAlertMessage(minutesSinceLastExport, totalRecords));
+        } else if(totalRecords > 0 && minutesSinceLastExport > 1440) {
+            emailService.sendExportAlertEmail(getAlertMessage(minutesSinceLastExport, totalRecords));
+        }
+    }
+
 
 }
