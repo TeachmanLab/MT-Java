@@ -36,7 +36,7 @@
                 <p>Found <span th:text="${paging.totalElements}"> 100</span> participants. Showing page <span
                         th:text="${paging.number + 1}">1</span> of <span
                         th:text="${paging.totalPages}">10</span><br/>
-                    <a th:href="@{/admin/new_participant}">New Participant</a>
+                    <a th:href="@{/admin/new_participant}">New Participant / Admin</a>
                 </p>
             </div>
         </div>
@@ -78,7 +78,7 @@
                         </td>
                         <td><input type="checkbox"  th:field="*{participants[__${status.index}__].emailOptout}" /></td>
                         <td><input type="checkbox"  th:field="*{participants[__${status.index}__].active}" /></td>
-                        <td><input type="checkbox"  th:field="*{participants[__${status.index}__].admin}" /></td>
+                        <td><span th:if="*{participants[__${status.index}__].admin}">Admin</span></td>
                         <td><img th:if="*{participants[__${status.index}__].increase30}" th:src="@{images/alert.png}"/></td>
                         <td>
                             <select th:field="*{participants[__${status.index}__].prime}" >

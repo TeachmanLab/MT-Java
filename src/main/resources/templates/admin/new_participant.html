@@ -31,40 +31,42 @@
                 <form action="#" th:action="@{'/admin/participant/'}" th:object="${participant}"
                       method="post">
 
+
                     <table>
                         <tr>
                             <td>Full Name:</td>
-                            <td width="70%"><input type="text" th:field="*{fullName}" /></td>
-                            <td th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">Name Error</td>
+                            <td><input type="text" th:field="*{fullName}" /></td>
+                            <td class="error" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">Name Error</td>
                         </tr>
                         <tr>
                             <td>Email Address:</td>
                             <td><input type="text" th:field="*{email}"/></td>
-                            <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</td>
+                            <td class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</td>
                         </tr>
                         <tr>
                             <td>Password</td>
                             <td><input type="password" id="password" name="password"  th:errorclass="error"/></td>
-                            <td th:if="${#fields.hasErrors('password')}" th:errors="*{Password}">Password Error</td>
+                            <td class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
                         </tr>
                         <tr>
                             <td>Password</td>
                             <td><input type="password" id="passwordAgain" name="passwordAgain"  th:errorclass="error"/></td>
+                            <td class="error" th:if="${#fields.hasErrors('passwordAgain')}" th:errors="*{passwordAgain}">Password Error</td>
                         </tr>
                         <tr>
                             <td>Opt out of emails?:</td>
                             <td><input type="checkbox" th:field="*{emailOptout}"/></td>
-                            <td th:if="${#fields.hasErrors('emailOptout')}" th:errors="*{emailOptout}">Optout Error</td>
+                            <td  class="error" th:if="${#fields.hasErrors('emailOptout')}" th:errors="*{emailOptout}">Optout Error</td>
                         </tr>
                         <tr>
                             <td>Is Active:</td>
                             <td><input type="checkbox" th:field="*{active}"/></td>
-                            <td th:if="${#fields.hasErrors('active')}" th:errors="*{active}">Admin Error</td>
+                            <td  class="error" th:if="${#fields.hasErrors('active')}" th:errors="*{active}">Admin Error</td>
                         </tr>
                         <tr>
                             <td>Is Admin:</td>
                             <td><input type="checkbox" th:field="*{admin}"/></td>
-                            <td th:if="${#fields.hasErrors('admin')}" th:errors="*{admin}">Admin Error</td>
+                            <td  class="error" th:if="${#fields.hasErrors('admin')}" th:errors="*{admin}">Admin Error</td>
                         </tr>
                         <tr>
                             <td>Prime:</td>
@@ -73,7 +75,7 @@
                                     <option th:each="elem: ${T(edu.virginia.psyc.pi.domain.Participant.PRIME).values()}" th:value="${elem.name()}" th:text="${elem.name()}" value="BAZ">BAZ</option>
                                 </select>
                             </td>
-                            <td th:if="${#fields.hasErrors('prime')}" th:errors="*{admin}">Admin Error</td>
+                            <td class="error"  th:if="${#fields.hasErrors('prime')}" th:errors="*{prime}">Admin Error</td>
                         </tr>
                         <tr>
                             <td>CDM Condition:</td>
@@ -82,7 +84,7 @@
                                 <option th:each="elem: ${T(edu.virginia.psyc.pi.domain.Participant.CBM_CONDITION).values()}" th:value="${elem.name()}" th:text="${elem.name()}" value="BAZ">BAZ</option>
                             </select>
                             </td>
-                            <td th:if="${#fields.hasErrors('cbmCondition')}" th:errors="*{admin}">Admin Error</td>
+                            <td class="error"  th:if="${#fields.hasErrors('cbmCondition')}" th:errors="*{cbmCondition}">Admin Error</td>
                         </tr>
 
                     </table>
