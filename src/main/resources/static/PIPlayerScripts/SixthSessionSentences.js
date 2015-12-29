@@ -17,6 +17,11 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
     var where_at = 1;
     var latency = 0;
     var vivid_text;
+    var brackets = ['[', ']'];
+    var letter;
+    var index;
+    var pick;
+    var changed_attribute = false;
     var scorer =
     {
         count : 1
@@ -35,7 +40,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
      * @returns a string containing the missing letters, based on if this is a positive or negative word.
      */
     function missing_letters(trial) {
-        p = jQuery.grep(trial._stimulus_collection.models, function(e, i) {return e.attributes.handle == "paragraph"})[0]
+        p = jQuery.grep(trial._stimulus_collection.models, function(e, i) {return e.attributes.handle == "paragraph"})[0];
         if(trial.data.positive) {
             return (p.attributes.data.positiveKey);
         } else {
@@ -53,7 +58,9 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
         if(!API.getGlobal().lettersTyped) API.addGlobal({lettersTyped:""});
         if(inputData.handle.length  > 1) return false;
         var lettersTyped = API.getGlobal().lettersTyped + inputData.handle;
-        return missing_letters(trial).startsWith(lettersTyped);
+        var result = missing_letters(trial).startsWith(lettersTyped);
+        console.log(result);
+        return(result);
     }
 
     /**
@@ -246,6 +253,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                         last_word = break_up[break_up.length-1].split(' ');
                         last_word = last_word[last_word.length-2] + ' ' + last_word[last_word.length-1];
                         break_up[break_up.length-1] = break_up[break_up.length-1].replace(last_word, "");
+                        pick = Math.floor(Math.random() * (1 +1));
+                        if (pick == 0)
+                        {
+                            index = last_word.indexOf(brackets[pick]);
+                            letter = last_word[index-1];
+                            last_word = last_word.replace(letter + brackets[pick], brackets[pick] + " ");
+                        }
+                        else
+                        {
+                            index = last_word.indexOf(brackets[pick]);
+                            letter = last_word[index+1];
+                            last_word = last_word.replace(brackets[pick] + letter, " " + brackets[pick]);
+                        }
                         break_up.push(last_word);
                         for (i = 0; i < break_up.length; i++) {
                             if (i == break_up.length-1)
@@ -275,7 +295,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     {type:'inputEquals',value:'askQuestion', negate: true},
                     {type:'inputEquals',value:'correct', negate: true},
                     {type:'function', value:function(trial, inputData){
-
                         if (where_at < break_up.length && inputData.handle == 'space' && inputData.latency - latency > 1000 && ! on_question)
                         {
                             var sentence = $("div.sentence");
@@ -304,6 +323,32 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                             latency = 0;
                             return true;
                         }
+                    }},
+                    {type:'function',value:function(trial,inputData){
+                        p = jQuery.grep(trial._stimulus_collection.models, function(e, i) {return e.attributes.handle == "paragraph"})[0];
+                        if(trial.data.positive & ! changed_attribute)
+                        {
+                           if (pick == 0)
+                           {
+                                p.attributes.data.positiveKey = letter + p.attributes.data.positiveKey;
+                           }
+                           else
+                           {
+                               p.attributes.data.positiveKey = p.attributes.data.positiveKey + letter;
+                           }                        }
+                        else if (! changed_attribute)
+                        {
+                           if (pick == 0)
+                           {
+                               p.attributes.data.negativeKey = letter + p.attributes.data.negativeKey;
+                           }
+                           else
+                           {
+                               p.attributes.data.negativeKey = p.attributes.data.negativeKey + letter;
+                           }
+                        }
+                        changed_attribute = true;
+                        return (true);
                     }},
                     {type:'function',value:function(trial,inputData){ return !correct_letters(trial, inputData) }}
                 ],
@@ -493,6 +538,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 conditions: [{type:'inputEquals',value:'answered'}],
                 actions: [
                     {type:'setGlobalAttr',setter:function(){
+                        changed_attribute = false;
                         increase_count();
                     }},
                     {type:'removeInput',handle : ['y','n']},
