@@ -7,6 +7,7 @@ import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.persistence.Questionnaire.OA;
 import edu.virginia.psyc.pi.persistence.Questionnaire.OARepository;
 import edu.virginia.psyc.pi.service.EmailService;
+import edu.virginia.psyc.pi.service.ExportService;
 import edu.virginia.psyc.pi.service.TangoService;
 import org.apache.commons.math3.stat.regression.SimpleRegression;
 import org.joda.time.DateTime;
@@ -41,14 +42,11 @@ public class SessionController extends BaseController {
 
     private static final Logger LOG = LoggerFactory.getLogger(SessionController.class);
 
-    @Autowired
-    private TangoService tangoService;
+    @Autowired private TangoService tangoService;
+    @Autowired private EmailService emailService;
+    @Autowired private OARepository oaRepository;
+    @Autowired private ExportService exportService;
 
-    @Autowired
-    private EmailService emailService;
-
-    @Autowired
-    private OARepository oaRepository;
 
     /**
      * Spring automatically configures this object.
@@ -74,13 +72,6 @@ public class SessionController extends BaseController {
         DateTimeFormatter startFormat = DateTimeFormat.forPattern("MMMM d - ");
         DateTimeFormatter endFormat = DateTimeFormat.forPattern("MMMM d, YYYY");
 
-        // Determine if a gift should be awarded, and award it.
-        if (last.isAwardGift() && !p.giftAwardedForSession(last)) {
-            Reward reward = tangoService.createGiftCard(p, last.getName());
-            this.emailService.sendGiftCardEmail(p, reward);
-            model.addAttribute("giftAwarded", true);
-        }
-
         model.addAttribute("participant", p);
         model.addAttribute("lastSession", study.getLastSession());
         model.addAttribute("currentSession", session);
@@ -89,6 +80,25 @@ public class SessionController extends BaseController {
         model.addAttribute("sessionState", study.getState().toString());
         model.addAttribute("dateRange", startFormat.print(startDate) + endFormat.print(endDate));
         model.addAttribute("completeBy", endFormat.print(completeBy));
+
+        // Don't allow people to progress if we reach the max form submissions
+        // and the exports are not running correctly.
+        if((study.getState() == Study.STUDY_STATE.READY ||
+                study.getState() == Study.STUDY_STATE.IN_PROGRESS) &&
+                exportService.disableAdditionalFormSubmissions() == true) {
+            LOG.error("The site is disabled.  We have " + exportService.totalRecords() +
+                    " total questionnaire submissions. It has been " + exportService.minutesSinceLastExport()
+                    + " minutes since the last export ran.");
+            return "sessionHome/siteDisabled";
+
+        }
+
+        // Determine if a gift should be awarded, and award it.
+        if (last.isAwardGift() && !p.giftAwardedForSession(last)) {
+            Reward reward = tangoService.createGiftCard(p, last.getName());
+            this.emailService.sendGiftCardEmail(p, reward);
+            model.addAttribute("giftAwarded", true);
+        }
 
         switch (study.getState()) {
             case IN_PROGRESS:
@@ -189,6 +199,16 @@ public class SessionController extends BaseController {
         } else {
             return new RedirectView("/session");
         }
+    }
+
+    @RequestMapping("/atRisk")
+    public String atRisk(ModelMap model, Principal principal) {
+
+        Participant p = getParticipant(principal);
+        Study study = p.getStudy();
+        model.addAttribute("participant", p);
+        model.addAttribute("study", study);
+        return "atRisk";
     }
 
 }

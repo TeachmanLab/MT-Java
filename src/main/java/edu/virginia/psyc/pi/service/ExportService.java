@@ -1,86 +1,190 @@
 package edu.virginia.psyc.pi.service;
 
-import edu.virginia.psyc.pi.persistence.Questionnaire.*;
+import edu.virginia.psyc.pi.domain.DoNotDelete;
+import edu.virginia.psyc.pi.domain.Participant;
+import edu.virginia.psyc.pi.domain.QuestionnaireInfo;
+import edu.virginia.psyc.pi.persistence.ExportLogDAO;
+import edu.virginia.psyc.pi.persistence.ExportLogRepository;
+import edu.virginia.psyc.pi.persistence.ParticipantDAO;
+import edu.virginia.psyc.pi.persistence.Questionnaire.QuestionnaireData;
+import org.joda.time.DateTime;
+import org.joda.time.Minutes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.support.Repositories;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
+
 /**
- * Automated process that extracts sensitive data from the database, writes that data out to
- * a text file, and sends the data to a remote server over ssh.    Once data is successfully
- * transfered and verified it is removed locally.
- *
- * It determines which repositories to do this to, based on an annotation applied to the
- * repository.
+ * Keeps track of when the export service was last used, and how many records exist in the database.
+ * Used by controllers if we need to disable log-ins to the site because the data is not getting exported
+ * from the system on a regular basis.
  */
 @Service
-@Component
-public class ExportService implements  ApplicationListener<ContextRefreshedEvent> {
+public class ExportService implements ApplicationListener<ContextRefreshedEvent> {
 
-    @Autowired
     private static final Logger LOG = LoggerFactory.getLogger(ExportService.class);
 
-    private Repositories repositories;
-    private List<Class> updatedClasses = new ArrayList<>();
+    @Value("${export.maxRecords}")
+    private int maxRecords;
 
-    /**
-     * This should be called to hint to this Export Service that data is available
-     * that is considered sensitive, and should be archived.
-     * @return
+    @Value("${export.maxMinutes}")
+    private int maxMinutes;
+
+    @Autowired ExportLogRepository exportLogRepository;
+    @Autowired EmailService emailService;
+
+    Repositories repositories;
+
+    /** Rather than autowire all the repositories, this class will
+     * gather a list of all repositories and filter out the ones that
+     * are annotated as ExportAndDelete or that extend question
      */
-    public void recordUpdated(QuestionnaireData data) {
-        updatedClasses.add(data.getClass());
-    }
-    public boolean exportNeeded() {
-        return updatedClasses.size() > 0;
-    }
-
-    /**
-     * Run on a very regular basis <5 minutes to check and see if an export
-     * should be run.
-     */
-    @Scheduled(cron = "0 * * * * MON-FRI")
-    public void exportIfThereAreChanges() {
-        if (updatedClasses.size() == 0) return;
-        for(Class c : updatedClasses) {
-        }
-    }
-
-
-    /**
-     * Run at startup to assure all sensitive data is exported.
-     */
-    @Scheduled(cron = "0 * * * * MON-FRI")
-    public void exportAllSensitiveData() {
-        if(repositories != null) {
-            Iterator<Class<?>> list = repositories.iterator();
-            while(list.hasNext()) {
-                Class aClass = list.next();
-            }
-        } else {
-            LOG.info("Not Ready");
-        }
-    }
-
-
-
-    private void exportRecord(QuestionnaireData data) {
-        LOG.info("Exporting Record : " + data);
-    }
-
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        repositories = new Repositories(event.getApplicationContext());
+        LOG.debug("CONTEXT loaded:  " + event.getApplicationContext());
+        repositories=new Repositories(event.getApplicationContext());
     }
+
+    public boolean disableAdditionalFormSubmissions() {
+        if(totalRecords() > maxRecords) return true;
+        return false;
+    }
+
+    public int minutesSinceLastExport() {
+        DateTime now = new DateTime(System.currentTimeMillis());
+        DateTime last = new DateTime(lastExport().getDate());
+        return Minutes.minutesBetween(last.toLocalDate(), now.toLocalDate()).getMinutes();
+    }
+
+    public int totalRecords() {
+        int sum = 0;
+        for(QuestionnaireInfo i : listRepositories()) sum += i.getSize();
+        return sum;
+    }
+
+    private ExportLogDAO lastExport() {
+       return exportLogRepository.findFirstByOrderByIdDesc();
+    }
+
+
+    /**
+     * Returns a repository for a given name.  Makes some
+     * assumptions about the class.  This class is pretty dreadful, returns null
+     * if it can't find a repository by name.
+     */
+    public JpaRepository getRepositoryForName(String name) {
+        LOG.info("Looking for a repository for " + name);
+        Class<?> domainType = getDomainType(name);
+        if (domainType != null)
+            return (JpaRepository) repositories.getRepositoryFor(domainType);
+        LOG.info("failed to find a repository for " + name);
+        return null;
+    }
+
+    /**
+     * Returns a list of all repositories
+     */
+    public List<QuestionnaireInfo> listRepositories() {
+        List<QuestionnaireInfo> names = new ArrayList<>();
+        if(repositories == null) return names;
+        boolean deleteableFlag;
+
+        for (  Class<?> domainType : repositories) {
+            Class<?> repoClass=repositories.getRepositoryInformationFor(domainType).getRepositoryInterface();
+            Object repository=repositories.getRepositoryFor(domainType);
+            // If this is questionnaire data ...
+            if(QuestionnaireData.class.isAssignableFrom(domainType)) {
+                deleteableFlag        = !domainType.isAnnotationPresent(DoNotDelete.class);
+                JpaRepository rep = (JpaRepository)repository;
+                QuestionnaireInfo info = new QuestionnaireInfo(domainType.getSimpleName(), rep.count(), deleteableFlag);
+                names.add(info);
+            }
+        }
+        return names;
+    }
+
+
+    /**
+     * Returns a Class for a given name.  Makes some
+     * assumptions about the class.  This method is pretty dreadful, returns null
+     * if it can't find a repository by name.
+     */
+    public Class<?> getDomainType(String name) {
+        if(repositories == null) return null;
+        for (  Class<?> domainType : repositories) {
+            if (domainType.getSimpleName().equals(name)) {
+                return domainType;
+            }
+        }
+        return null;
+    }
+
+    private String getAlertMessage(int minutes, int records) {
+            return(
+                "It has been " + minutes + " minutes since an export has occurred. " +
+                "Please make sure the export server is running correctly.  There are currently " +
+                records + " records awaiting export.  You will receive messages about this " +
+                "problem every 2 hours for the first 24 hours, and every 4 hours thereafter.");
+    }
+
+    /** Every 30 minutes:
+     * If it's been more than 30 minutes (but less than 2 hours) since the least eport, notify
+     * the admin of this fact.
+     */
+    @Scheduled(cron = "* 0,30 * * * *")
+    public void send30MinAlert() throws MessagingException {
+        LOG.debug("Running 30 minute alert.");
+        int minutesSinceLastExport = minutesSinceLastExport();
+        int totalRecords = totalRecords();
+        if(totalRecords > 0 && minutesSinceLastExport > 30 && minutesSinceLastExport < 60) {
+            emailService.sendExportAlertEmail(getAlertMessage(minutesSinceLastExport, totalRecords));
+        }
+    }
+
+    /**
+     * Every 2 hours
+     *    if it's been more than 2 hours but less than 24 hours since last export,
+     *    send alerts every 2 hours if no exports are occurring.
+     */
+    @Scheduled(cron = "0 0 */2 * * *")
+    public void send2hrAlert() throws MessagingException {
+        LOG.debug("Running 2hr alert.");
+        int minutesSinceLastExport = minutesSinceLastExport();
+        int totalRecords = totalRecords();
+        if(totalRecords > 0 && minutesSinceLastExport > 120 && minutesSinceLastExport < 1440) {
+            emailService.sendExportAlertEmail(getAlertMessage(minutesSinceLastExport, totalRecords));
+        }
+    }
+
+    /**
+     * Every 4 hours
+     *    a) If we have exceeded the maximum records, alert admin that site is disabled.
+     *    b) If it's been more than 24 hours since the last export, alert the admin of this fact.
+     */
+    @Scheduled(cron = "0 0 */4 * * *")
+    public void send4hrAlert() throws MessagingException {
+        LOG.debug("Running 4 hour alert.");
+        int minutesSinceLastExport = minutesSinceLastExport();
+        int totalRecords = totalRecords();
+        if(totalRecords > 90) {
+            emailService.sendExportAlertEmail("The site is currently disabled.  Too many " +
+                    "records exist, and they need to be exported." +
+                    getAlertMessage(minutesSinceLastExport, totalRecords));
+        } else if(totalRecords > 0 && minutesSinceLastExport > 1440) {
+            emailService.sendExportAlertEmail(getAlertMessage(minutesSinceLastExport, totalRecords));
+        }
+    }
+
 
 }

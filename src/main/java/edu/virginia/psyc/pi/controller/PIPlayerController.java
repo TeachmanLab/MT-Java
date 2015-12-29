@@ -53,7 +53,8 @@ public class PIPlayerController extends BaseController {
         Participant p = getParticipant(principal);
 
         // The Neutral condition requires a completely different file.
-        if(p.getCbmCondition().equals(Participant.CBM_CONDITION.NEUTRAL)) {
+        if(p.getCbmCondition().equals(Participant.CBM_CONDITION.NEUTRAL) &&
+                scriptName != "RecognitionRatings") {
             scriptName = scriptName + "NT";
         }
 

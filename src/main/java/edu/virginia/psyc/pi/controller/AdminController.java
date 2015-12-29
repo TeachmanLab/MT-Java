@@ -26,6 +26,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
@@ -188,11 +189,15 @@ public class AdminController extends BaseController {
         model.addAttribute("hideAccountBar", true);
 
         if(participantRepository.findByEmail(participant.getEmail()) != null) {
-            bindingResult.addError(new ObjectError("email", "This email already exists."));
+            bindingResult.addError(new FieldError("Participant","email", "This email already exists."));
         }
 
         if(!participant.getPassword().equals(participant.getPasswordAgain())) {
-            bindingResult.addError(new ObjectError("password", "Passwords do not match."));
+            bindingResult.addError(new FieldError("Participant","passwordAgain", "Passwords do not match."));
+        }
+
+        if(participant.isAdmin() && participant.getPassword().length() < 20) {
+            bindingResult.addError(new FieldError("Participant", "admin", "Admin users must have a password of at least 20 characters."));
         }
 
         if (bindingResult.hasErrors()) {

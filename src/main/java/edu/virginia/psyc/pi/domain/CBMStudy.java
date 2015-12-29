@@ -396,10 +396,17 @@ public class CBMStudy implements Study {
                 getCurrentSession().getName().equals(NAME.SESSION1.toString()))
             return STUDY_STATE.READY;
 
+        // If you are on the POST assessment, you need to wait 60 days after completing
+        // session8
+        if(getCurrentSession().getName().equals(NAME.POST.toString()) && daysSinceLastSession() < 60) {
+            return STUDY_STATE.WAIT_FOR_FOLLOWUP;
+        }
+
         // Otherwise, you must wait at least one day before starting the next
         // session.
-
         if(daysSinceLastSession() == 0 && lastSessionDate != null) return STUDY_STATE.WAIT_A_DAY;
+
+        // Otherwise it's time to start.
         return STUDY_STATE.READY;
     }
 

@@ -11,6 +11,7 @@
 <head th:include="fragment/common :: headerFragment"/>
 
 <body>
+<script src="js/password.js"></script>
 <section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
 
 <!-- content starts
@@ -19,10 +20,10 @@
     <section id="content" class="clearfix">
         <div class="container longSection">
             <div class="row">
-                <div class="col-md-4 heading-icon">
+                <div class="col-md-8 heading-icon">
                     <img th:src="@{/images/map-arrow-blue.png}" alt="icon" class="icon-small-bg"/>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <fieldset>
                         <h2 class="page-title">Create an Account</h2>
 
@@ -54,6 +55,18 @@
                             <label class="standard" for="passwordAgain" th:field="*{passwordAgain}">Confirm Password</label>
                             <input type="password" id="passwordAgain" name="passwordAgain"/>
                         </p>
+
+                        <div id="pswd_info">
+                            <h4>Password must meet the following requirements:</h4>
+                            <ul>
+                                <li id="letter" class="invalid">At least <strong>one letter</strong></li>
+                                <li id="capital" class="invalid">At least <strong>one capital letter</strong></li>
+                                <li id="number" class="invalid">At least <strong>one number</strong></li>
+                                <li id="symbol"  class="invalid">At least <strong>one symbol</strong><br/>( ! # $ @ _ ' + , ? [ ] . - and space)</li>
+                                <li id="length" class="invalid">Be at least <strong>8 characters</strong></li>
+                            </ul>
+                        </div>
+
                     </fieldset>
                 </div>
             </div>

@@ -1,13 +1,11 @@
 package edu.virginia.psyc.pi.controller;
 
-import edu.virginia.psyc.pi.domain.CBMStudy;
 import edu.virginia.psyc.pi.domain.Participant;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.persistence.Questionnaire.*;
 import edu.virginia.psyc.pi.persistence.TaskLogDAO;
 import edu.virginia.psyc.pi.service.EmailService;
-import edu.virginia.psyc.pi.service.ExportService;
 import edu.virginia.psyc.pi.service.RsaEncyptionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,8 +68,6 @@ public class QuestionController extends BaseController {
     @Autowired
     private EmailService emailService;
 
-    @Autowired
-    private ExportService exportService;
 
     @Autowired
     private RsaEncyptionService encryptService;
@@ -110,8 +106,6 @@ public class QuestionController extends BaseController {
         participantRepository.domainToEntity(participant, dao);
         participantRepository.save(dao);
 
-        // Notify the backup service that it may need to export data.
-        exportService.recordUpdated(data);
 
         // Connect the participant to the data being recorded.
         data.setParticipantRSA(encryptService.encryptIfEnabled(dao.getId()));
@@ -603,7 +597,9 @@ public ModelAndView showSUDS(Principal principal) {
                           BindingResult result, Principal principal) throws MessagingException{
 
         // Connect this object to the Participant, as we will need to reference it later.
-        oa.setParticipantDAO(getParticipantDAO(principal));
+        ParticipantDAO dao      = getParticipantDAO(principal);
+        Participant participant = participantRepository.entityToDomain(dao);
+        oa.setParticipantDAO(dao);
         recordSessionProgress(oa);
         oa_repository.save(oa);
 
@@ -611,14 +607,14 @@ public ModelAndView showSUDS(Principal principal) {
         // "at-risk", then send a message to the administrator.
         List<OA> previous = oa_repository.findByParticipantDAO(oa.getParticipantDAO());
         OA firstEntry = Collections.min(previous);
+
         if(oa.atRisk(firstEntry)) {
-            Participant participant = getParticipant(principal);
-            if (!participant.previouslySent(EmailService.TYPE.alertParticipant)) {
+            if(!participant.isIncrease30()) { // alert admin the first time.
                 emailService.sendAtRiskAdminEmail(participant, firstEntry, oa);
-                emailService.sendSimpleMail(participant, EmailService.TYPE.alertParticipant);
-            } else {
-                LOG.info("User #" + participant.getId() + " continues to score poorly on assessment, but we've already notified everyone.");
+                dao.setIncrease30(true);
+                participantRepository.save(dao);
             }
+            return new RedirectView("/session/atRisk");
         }
         return new RedirectView("/session/next");
     }
