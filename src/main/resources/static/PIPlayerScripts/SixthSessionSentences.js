@@ -59,7 +59,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
         if(inputData.handle.length  > 1) return false;
         var lettersTyped = API.getGlobal().lettersTyped + inputData.handle;
         var result = missing_letters(trial).startsWith(lettersTyped);
-        console.log(result);
         return(result);
     }
 
@@ -270,6 +269,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                         for (i = 0; i < break_up.length; i++) {
                             if (i == break_up.length-1)
                             {
+                                break_up[i][0].innerText = '';
                                 break_up[i] = $("<p class='incomplete'>" + break_up[i] + '.</p>')
                             }
                             else if (i == break_up.length-2)
@@ -282,6 +282,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                             }
                             break_up[i].invisible();
                         }
+                        console.log(break_up);
                         sentence.html(break_up);
                         break_up[0].visible();
                     }
@@ -326,28 +327,33 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     }},
                     {type:'function',value:function(trial,inputData){
                         p = jQuery.grep(trial._stimulus_collection.models, function(e, i) {return e.attributes.handle == "paragraph"})[0];
-                        if(trial.data.positive & ! changed_attribute)
+                        if (! changed_attribute)
                         {
-                           if (pick == 0)
-                           {
-                                p.attributes.data.positiveKey = letter + p.attributes.data.positiveKey;
-                           }
-                           else
-                           {
-                               p.attributes.data.positiveKey = p.attributes.data.positiveKey + letter;
-                           }                        }
-                        else if (! changed_attribute)
-                        {
-                           if (pick == 0)
-                           {
-                               p.attributes.data.negativeKey = letter + p.attributes.data.negativeKey;
-                           }
-                           else
-                           {
-                               p.attributes.data.negativeKey = p.attributes.data.negativeKey + letter;
-                           }
+                            if(trial.data.positive)
+                            {
+                               if (pick == 0)
+                               {
+                                    p.attributes.data.positiveKey = letter + p.attributes.data.positiveKey;
+                               }
+                               else
+                               {
+                                   p.attributes.data.positiveKey = p.attributes.data.positiveKey + letter;
+                               }
+
+                            }
+                            else
+                            {
+                               if (pick == 0)
+                               {
+                                   p.attributes.data.negativeKey = letter + p.attributes.data.negativeKey;
+                               }
+                               else
+                               {
+                                   p.attributes.data.negativeKey = p.attributes.data.negativeKey + letter;
+                               }
+                            }
+                           changed_attribute = true;
                         }
-                        changed_attribute = true;
                         return (true);
                     }},
                     {type:'function',value:function(trial,inputData){ return !correct_letters(trial, inputData) }}

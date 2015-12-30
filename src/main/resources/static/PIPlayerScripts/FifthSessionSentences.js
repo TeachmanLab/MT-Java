@@ -303,6 +303,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                         {
                             latency = 0;
                             return true;
+
                         }
                     }},
                     {type:'function',value:function(trial,inputData){ return !correct_letters(trial, inputData) }}
