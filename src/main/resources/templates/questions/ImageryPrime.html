@@ -15,6 +15,9 @@
 <section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
 
 
+<audio id="bing" th:src="@{/sounds/bing.ogg}" />
+
+
 <!-- content starts
 ================================================== -->
 <section id="content" class="clearfix">
@@ -96,10 +99,9 @@
                     </fieldset>
                 </form>
 
+
+
                 <script>
-                    function playSound(filename){
-                        document.getElementById("sound").innerHTML='<audio autoplay="autoplay"><source src="sounds/' + filename + '.mp3" type="audio/mpeg" /><source src="sounds/' + filename + '.ogg" type="audio/ogg" /><embed hidden="true" autostart="true" loop="false" src="sounds/' + filename +'.mp3" /></audio>';
-                            }
                     var mNext = false;
                     var mVisit = false;
                     $("#wizard").on("stepshown", "#step_four", function () {
@@ -107,10 +109,10 @@
                         {
                             mVisit = true;
                             $(".jw-button-finish").prop("disabled",true);
-                            setTimeout(function() { alert("20 Seconds Are Over!");
-                                playSound('bing')
+                            setTimeout(function() { document.getElementById("bing").play();
+                            alert("20 Seconds Are Over!");
                                 $(".jw-button-finish").prop("disabled",false);
-                                                    mNext = true;
+                                mNext = true;
                                                   }, 20000);
                         }
 
