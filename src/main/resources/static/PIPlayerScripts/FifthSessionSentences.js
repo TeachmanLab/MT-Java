@@ -307,7 +307,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     {type:'showStim',handle:'error'},
                     {type:'setTrialAttr',setter:{correctOnLetter:"false"}},
                     {type:'setInput',input:{handle:'clear', on:'timeout',duration:500}}
-                ]
+                ],
             },
             {// The letters are correct so far...
                 conditions: [
