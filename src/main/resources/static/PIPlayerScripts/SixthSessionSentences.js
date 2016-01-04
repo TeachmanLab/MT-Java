@@ -244,6 +244,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     {type:'showStim',handle:'press_space'},
                     {type:'showStim', handle: 'counter'},
                     {type:'setGlobalAttr',setter:{askingQuestion:false}},
+                    {type:'setGlobalAttr',setter:{sentenceDisplayed:false}},
                     {type:'setTrialAttr',setter:{correctOnLetter:"true"}},  // set to true - will get set to false later if incorrectly answered.
                     {type:'custom',fn:function(options,eventData) {API.addGlobal({"original":$("span.incomplete").text()})}},
                     {type:'custom',fn:function(trial,inputData) {
@@ -356,14 +357,25 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                         }
                         return (true);
                     }},
-                    {type:'function',value:function(trial,inputData){ return !correct_letters(trial, inputData) }}
                 ],
                 actions: [
-                    {type:'custom',fn:function(options,eventData){
-                        API.getGlobal().lettersTyped = "";
-                        var span = $("span.incomplete");
-                        span.text(API.getGlobal().original);
-                    }},
+                    {type:'setGlobalAttr',setter:{sentenceDisplayed:true}}
+                ]
+            },
+            // The letters entered are incorrect
+            {
+                conditions:
+                [
+                {type:'globalEquals', property:'sentenceDisplayed', value:true},
+                {type:'globalEquals', property:'askingQuestion', value:false},
+                {type:'inputEquals',value:'askQuestion', negate: true},
+                {type:'function',value:function(trial,inputData){
+                    console.log(!correct_letters(trial, inputData));
+                    return (!correct_letters(trial, inputData));
+                    }
+                    }
+                ],
+                actions: [
                     {type:'showStim',handle:'error'},
                     {type:'setTrialAttr',setter:{correctOnLetter:"false"}},
                     {type:'setInput',input:{handle:'clear', on:'timeout',duration:500}}
@@ -413,11 +425,12 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                         span.text(text);
                         where_at = 1;
                         on_question = true;
+                        API.getGlobal().lettersTyped = "";
                     }},
+                    {type:'setGlobalAttr',setter:{askingQuestion:true}},
                     {type:'trigger',handle : 'correct'}
                 ]
             },
-
             {
                 // Trigger when the correct response is provided, as there are two interactions
                 // that can cause this, I've separated it out into it's own section rather than

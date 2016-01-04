@@ -17,6 +17,11 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
     var where_at = 1;
     var latency = 0;
     var vivid_text;
+    var brackets = ['[', ']'];
+    var letter;
+    var index;
+    var pick;
+    var changed_attribute = false;
     var scorer =
     {
         count : 1
@@ -35,7 +40,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
      * @returns a string containing the missing letters, based on if this is a positive or negative word.
      */
     function missing_letters(trial) {
-        p = jQuery.grep(trial._stimulus_collection.models, function(e, i) {return e.attributes.handle == "paragraph"})[0]
+        p = jQuery.grep(trial._stimulus_collection.models, function(e, i) {return e.attributes.handle == "paragraph"})[0];
         if(trial.data.positive) {
             return (p.attributes.data.positiveKey);
         } else {
@@ -53,7 +58,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
         if(!API.getGlobal().lettersTyped) API.addGlobal({lettersTyped:""});
         if(inputData.handle.length  > 1) return false;
         var lettersTyped = API.getGlobal().lettersTyped + inputData.handle;
-        return missing_letters(trial).startsWith(lettersTyped);
+        var result = missing_letters(trial).startsWith(lettersTyped);
+        return(result);
     }
 
     /**
@@ -238,6 +244,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     {type:'showStim',handle:'press_space'},
                     {type:'showStim', handle: 'counter'},
                     {type:'setGlobalAttr',setter:{askingQuestion:false}},
+                    {type:'setGlobalAttr',setter:{sentenceDisplayed:false}},
                     {type:'setTrialAttr',setter:{correctOnLetter:"true"}},  // set to true - will get set to false later if incorrectly answered.
                     {type:'custom',fn:function(options,eventData) {API.addGlobal({"original":$("span.incomplete").text()})}},
                     {type:'custom',fn:function(trial,inputData) {
@@ -246,10 +253,24 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                         last_word = break_up[break_up.length-1].split(' ');
                         last_word = last_word[last_word.length-2] + ' ' + last_word[last_word.length-1];
                         break_up[break_up.length-1] = break_up[break_up.length-1].replace(last_word, "");
+                        pick = Math.floor(Math.random() * (1 +1));
+                        if (pick == 0)
+                        {
+                            index = last_word.indexOf(brackets[pick]);
+                            letter = last_word[index-1];
+                            last_word = last_word.replace(letter + brackets[pick], brackets[pick] + " ");
+                        }
+                        else
+                        {
+                            index = last_word.indexOf(brackets[pick]);
+                            letter = last_word[index+1];
+                            last_word = last_word.replace(brackets[pick] + letter, " " + brackets[pick]);
+                        }
                         break_up.push(last_word);
                         for (i = 0; i < break_up.length; i++) {
                             if (i == break_up.length-1)
                             {
+                                break_up[i][0].innerText = '';
                                 break_up[i] = $("<p class='incomplete'>" + break_up[i] + '.</p>')
                             }
                             else if (i == break_up.length-2)
@@ -262,6 +283,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                             }
                             break_up[i].invisible();
                         }
+                        console.log(break_up);
                         sentence.html(break_up);
                         break_up[0].visible();
                     }
@@ -275,7 +297,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     {type:'inputEquals',value:'askQuestion', negate: true},
                     {type:'inputEquals',value:'correct', negate: true},
                     {type:'function', value:function(trial, inputData){
-
                         if (where_at < break_up.length && inputData.handle == 'space' && inputData.latency - latency > 1000 && ! on_question)
                         {
                             var sentence = $("div.sentence");
@@ -305,14 +326,56 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                             return true;
                         }
                     }},
-                    {type:'function',value:function(trial,inputData){ return !correct_letters(trial, inputData) }}
+                    {type:'function',value:function(trial,inputData){
+                        p = jQuery.grep(trial._stimulus_collection.models, function(e, i) {return e.attributes.handle == "paragraph"})[0];
+                        if (! changed_attribute)
+                        {
+                            if(trial.data.positive)
+                            {
+                               if (pick == 0)
+                               {
+                                    p.attributes.data.positiveKey = letter + p.attributes.data.positiveKey;
+                               }
+                               else
+                               {
+                                   p.attributes.data.positiveKey = p.attributes.data.positiveKey + letter;
+                               }
+
+                            }
+                            else
+                            {
+                               if (pick == 0)
+                               {
+                                   p.attributes.data.negativeKey = letter + p.attributes.data.negativeKey;
+                               }
+                               else
+                               {
+                                   p.attributes.data.negativeKey = p.attributes.data.negativeKey + letter;
+                               }
+                            }
+                           changed_attribute = true;
+                        }
+                        return (true);
+                    }},
                 ],
                 actions: [
-                    {type:'custom',fn:function(options,eventData){
-                        API.getGlobal().lettersTyped = "";
-                        var span = $("span.incomplete");
-                        span.text(API.getGlobal().original);
-                    }},
+                    {type:'setGlobalAttr',setter:{sentenceDisplayed:true}}
+                ]
+            },
+            // The letters entered are incorrect
+            {
+                conditions:
+                [
+                {type:'globalEquals', property:'sentenceDisplayed', value:true},
+                {type:'globalEquals', property:'askingQuestion', value:false},
+                {type:'inputEquals',value:'askQuestion', negate: true},
+                {type:'function',value:function(trial,inputData){
+                    console.log(!correct_letters(trial, inputData));
+                    return (!correct_letters(trial, inputData));
+                    }
+                    }
+                ],
+                actions: [
                     {type:'showStim',handle:'error'},
                     {type:'setTrialAttr',setter:{correctOnLetter:"false"}},
                     {type:'setInput',input:{handle:'clear', on:'timeout',duration:500}}
@@ -362,11 +425,12 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                         span.text(text);
                         where_at = 1;
                         on_question = true;
+                        API.getGlobal().lettersTyped = "";
                     }},
+                    {type:'setGlobalAttr',setter:{askingQuestion:true}},
                     {type:'trigger',handle : 'correct'}
                 ]
             },
-
             {
                 // Trigger when the correct response is provided, as there are two interactions
                 // that can cause this, I've separated it out into it's own section rather than
@@ -493,6 +557,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 conditions: [{type:'inputEquals',value:'answered'}],
                 actions: [
                     {type:'setGlobalAttr',setter:function(){
+                        changed_attribute = false;
                         increase_count();
                     }},
                     {type:'removeInput',handle : ['y','n']},
@@ -649,6 +714,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
         ]
     }
     ]);
+
 
 
     API.addSequence([

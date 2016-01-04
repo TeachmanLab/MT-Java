@@ -710,7 +710,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     ]

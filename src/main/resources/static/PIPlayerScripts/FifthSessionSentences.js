@@ -67,27 +67,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
         return lettersTyped.length >= missing_letters(trial).length
     }
 
-
-    //** A custom condition, which returns true if the users entered a correct first letter
-    // in a missing phrase, and false otherwise.
-    function correct_all_letters(inputData) {
-        // Set the missing letters to an empty string if it is undefined.
-        if(!API.getGlobal().lettersTyped) API.addGlobal({lettersTyped:""});
-
-        // If a single letter is typed, add it to the string containing users input
-        if(inputData.handle.length == 1) {
-            API.getGlobal().lettersTyped = API.getGlobal().lettersTyped + inputData.handle
-        }
-
-        // If the guess is too long, show an x, and let the user restart.
-        if(inputData.length > 2) {
-            API.getGlobal().lettersTyped = "";
-        }
-        current_trial = require('./app/trial/current_trial');
-        c = current_trial()._stimulus_collection.whereData({"positiveKey":API.getGlobal().lettersTyped});
-        return(c.length > 0);
-    }
-
     // Warn people about leaving the page before they complete all the questions
     window.onbeforeunload = function() {
         return 'Are you sure you want to exit this training session?'
@@ -238,6 +217,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     {type:'showStim',handle:'press_space'},
                     {type:'showStim', handle: 'counter'},
                     {type:'setGlobalAttr',setter:{askingQuestion:false}},
+                    {type:'setGlobalAttr',setter:{sentenceDisplayed:false}},
                     {type:'setTrialAttr',setter:{correctOnLetter:"true"}},  // set to true - will get set to false later if incorrectly answered.
                     {type:'custom',fn:function(options,eventData) {API.addGlobal({"original":$("span.incomplete").text()})}},
                     {type:'custom',fn:function(trial,inputData) {
@@ -269,13 +249,12 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
 
             },
 
-            {// The letters entered are incorrect
+            {// Sentence display - one at a time
                 conditions: [
                     {type:'globalEquals', property:'askingQuestion', value:false},
                     {type:'inputEquals',value:'askQuestion', negate: true},
                     {type:'inputEquals',value:'correct', negate: true},
                     {type:'function', value:function(trial, inputData){
-
                         if (where_at < break_up.length && inputData.handle == 'space' && inputData.latency - latency > 1000 && ! on_question)
                         {
                             var sentence = $("div.sentence");
@@ -305,15 +284,26 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                             return true;
 
                         }
-                    }},
-                    {type:'function',value:function(trial,inputData){ return !correct_letters(trial, inputData) }}
+                    }}
                 ],
                 actions: [
-                    {type:'custom',fn:function(options,eventData){
-                        API.getGlobal().lettersTyped = "";
-                        var span = $("span.incomplete");
-                        span.text(API.getGlobal().original);
-                    }},
+                    {type:'setGlobalAttr',setter:{sentenceDisplayed:true}}
+                ]
+            },
+            // The letters entered are incorrect
+            {
+                conditions:
+                [
+                {type:'globalEquals', property:'sentenceDisplayed', value:true},
+                {type:'globalEquals', property:'askingQuestion', value:false},
+                {type:'inputEquals',value:'askQuestion', negate: true},
+                {type:'function',value:function(trial,inputData){
+                    console.log(!correct_letters(trial, inputData));
+                    return (!correct_letters(trial, inputData));
+                    }
+                    }
+                ],
+                actions: [
                     {type:'showStim',handle:'error'},
                     {type:'setTrialAttr',setter:{correctOnLetter:"false"}},
                     {type:'setInput',input:{handle:'clear', on:'timeout',duration:500}}
@@ -363,7 +353,9 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                         span.text(text);
                         where_at = 1;
                         on_question = true;
+                        API.getGlobal().lettersTyped = "";
                     }},
+                    {type:'setGlobalAttr',setter:{askingQuestion:true}},
                     {type:'trigger',handle : 'correct'}
                 ]
             },
