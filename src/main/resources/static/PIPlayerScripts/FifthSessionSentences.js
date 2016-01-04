@@ -298,7 +298,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 {type:'globalEquals', property:'askingQuestion', value:false},
                 {type:'inputEquals',value:'askQuestion', negate: true},
                 {type:'function',value:function(trial,inputData){
-                    console.log(!correct_letters(trial, inputData));
                     return (!correct_letters(trial, inputData));
                     }
                     }
