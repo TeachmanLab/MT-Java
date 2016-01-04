@@ -59,18 +59,9 @@ public class ExportControllerTest {
     }
 
     @Test
-    public void testEntryExists() {
-        createTestEntry();
-        List infos =  exportController.listRepositories();
-        assertThat((List<Object>)infos, hasItem(hasProperty("name", is("TestQuestionnaire"))));
-    }
-
-    @Test
     public void testEntryDataIsReturned() {
         createTestEntry();
-        List infos =  exportController.listRepositories();
-        assertThat((List<Object>)infos, hasItem(hasProperty("name", is("TestQuestionnaire"))));
-        List data =  exportController.listData("TestQuestionnaire");
+        List data = exportController.listData("TestQuestionnaire");
         assertThat((List<Object>)data, hasItem(hasProperty("value", is("MyTestValue"))));
     }
 

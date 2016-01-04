@@ -36,14 +36,8 @@ public class Participant {
     private static final Random RANDOM = new Random();  // For generating random CBM and Prime values.
     private static final Logger LOG = LoggerFactory.getLogger(Participant.class);
 
-    /**
-    NOTE:  Recommend using stronger password security settings, like these:
-    ------------------
-    public static final String PASSWORD_REGEX = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
-    public static final String PASSWORD_MESSAGE = "Password must be 8 digits long.  It must contain one digit, a lower case letter, an upper case letter, and a special character.";
-    **/
-    public static final String PASSWORD_REGEX = "^.{8,}$";
-    public static final String PASSWORD_MESSAGE = "Password must be at least 8 digits long.";
+    public static final String PASSWORD_REGEX = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!#\\$@_'\\+\\?\\[\\]\\.\\- ])(?=.+$).{8,}$";
+    public static final String PASSWORD_MESSAGE = "Password must be at least 8 digits long.  It must contain one digit, a lower case letter, an upper case letter, and a special character.";
 
 
     @Size(min=2, max=100, message="Please specify your full name.")
@@ -65,6 +59,8 @@ public class Participant {
     private boolean        emailOptout = false;  // User required to receive no more emails.
 
     private boolean        active = true;
+
+    private boolean        increase30 = false;
 
     private Date           lastLoginDate;
 

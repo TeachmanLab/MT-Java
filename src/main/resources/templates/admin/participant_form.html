@@ -25,8 +25,8 @@
 
             <div class="main-content span8">
 
-
-                <h1>Edit Participant</h1>
+                <h1 th:unless="${participant.admin}">Edit Participant</h1>
+                <h1 th:if="${participant.admin}">Edit Administrator</h1>
 
                 <form action="#" th:action="@{'/admin/participant/'+${participant.id}}" th:object="${participant}"
                       method="post">
@@ -54,7 +54,7 @@
                         </tr>
                         <tr>
                             <td>Is Admin:</td>
-                            <td><input type="checkbox" th:field="*{admin}"/></td>
+                            <td><input type="hidden" th:field="*{admin}"/><span th:if="*{admin}">True</span></td>
                             <td th:if="${#fields.hasErrors('admin')}" th:errors="*{admin}">Admin Error</td>
                         </tr>
                         <tr>
