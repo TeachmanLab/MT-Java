@@ -42,7 +42,7 @@
                 <p>Please read each statement and select an option that indicates how much the statement applied to you over the <b>past week</b>. There are no right or wrong answers.  Do not spend too much time on any statement.</p>
                 <form th:action="${eligibility}? @{/public/eligibilityCheck} : @{/questions/DASS21_AS}" method="POST">
                         <!--TODO CHANGE INSTRUCTIONS BASED ON INITIAL OR DURING TRAINING-->
-                        <div class="scale">
+            <!--            <div class="scale">
                             <div class="title" align="center">SCALE</div>
                             <label class="radioBox">
                             <div class="option">
@@ -74,7 +74,7 @@
                                 <div class="desc">Prefer not to answer</div>
                             </div>
                             </label>
-                        </div>
+                        </div> -->
 
                         <div class="section">
                             <div class="question">I was aware of dryness of my mouth.</div>
