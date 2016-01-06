@@ -142,7 +142,7 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
      * If it's been more than 30 minutes (but less than 2 hours) since the least eport, notify
      * the admin of this fact.
      */
-    @Scheduled(cron = "* 0,30 * * * *")
+    @Scheduled(cron = "0 0,30 * * * *")
     public void send30MinAlert() throws MessagingException {
         LOG.debug("Running 30 minute alert.");
         int minutesSinceLastExport = minutesSinceLastExport();
