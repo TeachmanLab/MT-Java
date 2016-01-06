@@ -488,6 +488,7 @@ table.questionnaire td:last-child {
 td > label {
     width: 90%;
     max-width: 170px;
+    height: 65px;
     font-weight: 400;
     vertical-align: middle;
     color: #5f5f5f;
@@ -526,6 +527,10 @@ label.radioBox7 {
 div.section label.radioBox7 div.desc1, div.section label.radioBox5 div.desc1{
     width: 100%;
     text-align: center;
+}
+
+label.radioBox div.option div.desc2 {
+    height: 15px;
 }
 
 div.radioList {
