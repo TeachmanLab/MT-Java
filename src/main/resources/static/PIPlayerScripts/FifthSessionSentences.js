@@ -1292,7 +1292,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Is the show owner mad at you for knocking over the picture frames? </div>"
+                    "inlineTemplate": "<div>Is the shop owner mad at you for knocking over the picture frames? </div>"
                 }
             },
             {"inherit": {"set": "yesno"}},

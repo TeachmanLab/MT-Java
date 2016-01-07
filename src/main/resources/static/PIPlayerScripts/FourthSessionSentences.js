@@ -1818,7 +1818,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Are you likely to get hurt whole on the trampoline? </div>"
+                    "inlineTemplate": "<div>Are you likely to get hurt while on the trampoline? </div>"
                      }
             },
             {"inherit": {"set": "yesno"}},
@@ -2332,7 +2332,10 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 "media": {
                     "inlineTemplate": "<div>Does the ache in your stomach mean that you are hungry? </div>"
                 }
-            }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+
         ]
     }
 ]

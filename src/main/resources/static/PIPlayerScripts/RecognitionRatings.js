@@ -422,7 +422,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             layout: [
                 // This is a stimulus object
                 {
-                    media :{html:"<br /><h2 style='font-size:1.45em; font-weight:bold;'>Completing Short Stories</h2><br /><p class='em'>In this part of the assessment, you will read a series of very short stories.  Pay attention to the title of each story because after you have read all the stories, you will be asked more questions about them.</p><p><b>For each story:</b></p><ul><li>Read the paragraph carefully and imagine yourself in the story described.</li><li>There will be an incomplete word at the end of each story.</li><li>Press the key on the keyboard that completes the word.</li><li>When you correctly complete the word you will move on to the next screen which will ask you a question about the story.</li></ul><p>Press the <b>space bar</b> to continue.</p>"},
+                    media :{html:"<br /><h1 style='font-size:1.45em; font-weight:bold;'>Completing Short Stories</h2><br /><p class='em'>In this part of the assessment, you will read a series of very short stories.  Pay attention to the title of each story because after you have read all the stories, you will be asked more questions about them.</p><p><b>For each story:</b></p><ul><li>Read the paragraph carefully and imagine yourself in the story described.</li><li>There will be an incomplete word at the end of each story.</li><li>Press the key on the keyboard that completes the word.</li><li>When you correctly complete the word you will move on to the next screen which will ask you a question about the story.</li></ul><p>Press the <b>space bar</b> to continue.</p>"},
                     css:{fontSize:'20px',color:'black'}
                 }
             ],
@@ -449,7 +449,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     "data": {
                         "positiveKey": "a",
                         "positiveWord": "s[ ]fety.",
-                        "statement": " THE ELEVATOR: You are in the lobby of your friend’s new apartment building and press the button to the elevator to go up. The building looks old, and as you get on the elevator, your think about its "
+                        "statement": " THE ELEVATOR: You are in the lobby of your friend’s new apartment building and press the button to the elevator to go up. The building looks old, and as you get on the elevator you think about its "
                     },
                     "handle": "paragraph",
                     "media": {
@@ -619,7 +619,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 "data": {
                     "positiveKey": "x",
                     "positiveWord": "an[ ]ious.",
-                    "statement": " THE FLIGHT: You are on a long flight with your partner going to an exotic location for your vacation. The airplane pilot gets on the intercom, and says there is going to be some turbulence. As you wait for the turbulence, you feel a little "
+                    "statement": " THE FLIGHT: You are on a long flight with your partner going to an exotic location for your vacation. The airplane pilot gets on the intercom and says there is going to be some turbulence. As you wait for the turbulence, you feel a little "
                 },
                 "handle": "paragraph",
                 "media": {
