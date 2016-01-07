@@ -1,13 +1,28 @@
 /* The script wrapper */
 define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
 
+    jQuery.fn.visible = function() {
+        return this.css('visibility', 'visible');
+    };
+
+    jQuery.fn.invisible = function() {
+        return this.css('visibility', 'hidden');
+    };
+
     var API = new APIConstructor();
     var scorer = new Scorer();
-
+    var break_up;
+    var text_to_display;
+    var word_display;
+    var where_at = 1;
+    var latency = 0;
+    var vivid_text;
     var scorer =
     {
         count : 1
     };
+
+    var on_question = false;
 
     function increase_count(){
         scorer.count = scorer.count+1;
@@ -89,6 +104,11 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
         }
     })
 
+    API.addSettings("canvas", {
+        maxWidth: 1000,
+        proportions: {width:4,height:3},
+        textSize: 5
+    });
 
     // setting the way the logger works (how often we send data to the server and the url for the data)
     API.addSettings('logger',{
@@ -126,13 +146,42 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
 
     API.addStimulusSets({
         error: [
-            {handle:'error',media:'X', css:{fontSize:'20px',color:'#FF0000'}, location:{top:70}, nolog:true}
+            {handle:'error',media:'X', css:{color:'#FF0000'}, location:{top:70}, nolog:true}
         ],
         yesno: [
-            {handle:'yesno',media:{html:"<div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>"}, css:{fontSize:'20px',color:'black', 'text-align':'center'}, location:{top:70}}
+            {   handle:'yesno',
+                media:{html:"<div class='stim'>Please Type <b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>"},
+                css: {color: '#333', fontSize: '.8em', position: 'absolute'},
+                location:{bottom: 1}
+            }
         ],
         stall: [
-            {handle:'stall',media:{html:"<div class='stim'>Oops, that answer is incorrect; please re-read the question and in a moment you will have a chance to answer again.</div>"}, css:{fontSize:'20px',color:'black', 'text-align':'center'}, location:{top:70}, nolog:true}
+            {
+                handle:'stall',
+                media:{html:"<div class='stim'>Oops, that answer is incorrect; please re-read the question and in a moment you will have a chance to answer again.</div>"},
+                css: {color: '#333', fontSize: '.8em', position: 'absolute'},
+                location:{top:50},
+                nolog:true}
+        ],
+        greatjob:
+        [
+            {
+                handle:'greatjob',
+                media:{html:"<div class='stim'>Great job!</div>"},
+                nolog:true,
+                css: {color: '#333', fontSize: '1.2em', position: 'absolute'},
+                location:{bottom: 50}
+            }
+        ],
+        press_space:
+        [
+            {
+                handle: 'press_space',
+                media: {html: "<div class='press_space'>Press the <b>Space Bar</b> to continue.</div>"},
+                nolog: true,
+                css: {color: '#333', fontSize: '.8em', position: 'absolute'},
+                location: {bottom: 1}
+            }
         ],
         vivid: [
             {media :{'inlineTemplate':"<div class='vivid'>_______</div>"}}
@@ -142,9 +191,10 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 'handle': 'counter',
                 customize: function () {
                     this.media = scorer.count + ' of 50';
+                    on_question = false;
                 },
-                css: {fontSize: '12px', 'text-align': 'center'},
-                location:{bottom:'200px'}
+                css: {color: '#333', fontSize: '.8em', position: 'absolute'},
+                location: {bottom: 1,  right: 1}
             }
         ]
     });
@@ -185,10 +235,38 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 conditions: [{type:'begin'}],
                 actions: [
                     {type:'showStim',handle:'paragraph'},
+                    {type:'showStim',handle:'press_space'},
                     {type:'showStim', handle: 'counter'},
                     {type:'setGlobalAttr',setter:{askingQuestion:false}},
                     {type:'setTrialAttr',setter:{correctOnLetter:"true"}},  // set to true - will get set to false later if incorrectly answered.
-                    {type:'custom',fn:function(options,eventData) {API.addGlobal({"original":$("span.incomplete").text()})}}]
+                    {type:'custom',fn:function(options,eventData) {API.addGlobal({"original":$("span.incomplete").text()})}},
+                    {type:'custom',fn:function(trial,inputData) {
+                        var sentence = $("div.sentence");
+                        break_up = $("div.sentence").text().split('.');
+                        last_word = break_up[break_up.length-1].split(' ');
+                        last_word = last_word[last_word.length-2] + ' ' + last_word[last_word.length-1];
+                        break_up[break_up.length-1] = break_up[break_up.length-1].replace(last_word, "");
+                        break_up.push(last_word);
+                        for (i = 0; i < break_up.length; i++) {
+                            if (i == break_up.length-1)
+                            {
+                                break_up[i] = $("<p class='incomplete'>" + break_up[i] + '.</p>')
+                            }
+                            else if (i == break_up.length-2)
+                            {
+                                break_up[i] = $("<p class='sentences'>" + break_up[i] + '</p>')
+                            }
+                            else
+                            {
+                                break_up[i] = $("<p class='sentences'>" + break_up[i] + '.</p>')
+                            }
+                            break_up[i].invisible();
+                        }
+                        sentence.html(break_up);
+                        break_up[0].visible();
+                    }
+                    }]
+
             },
 
             {// The letters entered are incorrect
@@ -196,6 +274,37 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     {type:'globalEquals', property:'askingQuestion', value:false},
                     {type:'inputEquals',value:'askQuestion', negate: true},
                     {type:'inputEquals',value:'correct', negate: true},
+                    {type:'function', value:function(trial, inputData){
+
+                        if (where_at < break_up.length && inputData.handle == 'space' && inputData.latency - latency > 1000 && ! on_question)
+                        {
+                            var sentence = $("div.sentence");
+                            if (where_at < (break_up.length - 2))
+                            {
+                                break_up[where_at].visible();
+
+                            }
+                            else if (where_at < (break_up.length - 1))
+                            {
+                                break_up[where_at].visible();
+                            }
+                            else
+                            {
+                                break_up[where_at].visible();
+                                var space = $("div.press_space");
+                                space.text("Type the missing letter.");
+                                //space.before(break_up[where_at]);
+                            }
+
+                            latency = inputData.latency;
+                            where_at = where_at + 1;
+                        }
+                        else if (where_at >= break_up.length)
+                        {
+                            latency = 0;
+                            return true;
+                        }
+                    }},
                     {type:'function',value:function(trial,inputData){ return !correct_letters(trial, inputData) }}
                 ],
                 actions: [
@@ -218,7 +327,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 actions: [
                     {type:'custom',fn:function(options,eventData){
                         API.getGlobal().lettersTyped = API.getGlobal().lettersTyped + eventData.handle;
-                        var span = $("span.incomplete");
+                        var span = $("p.incomplete");
                         var text = span.text().replace(' ', eventData["handle"]);
                         span.text(text);
                     }},
@@ -232,14 +341,27 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {// All the letters are entered correctly
                 conditions: [
                     {type:'globalEquals', property:'askingQuestion', value:false},
+                    {type: 'function', value:function(trial, inputData)
+                    {
+                        if (where_at < break_up.length)
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            return true;
+                        }
+                    }},
                     {type:'function',value:function(trial,inputData){ return correct_length(trial, inputData) }},
                     {type:'function',value:function(trial,inputData){ return correct_letters(trial, inputData) }}
                 ],
                 actions: [
                     {type:'custom',fn:function(options,eventData){
-                        var span = $("span.incomplete");
+                        var span = $("p.incomplete");
                         var text = span.text().replace(' ', eventData["handle"]);
                         span.text(text);
+                        where_at = 1;
+                        on_question = true;
                     }},
                     {type:'trigger',handle : 'correct'}
                 ]
@@ -271,6 +393,10 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 // Trigger when input handle is "end".
                 conditions: [{type:'inputEquals',value:'askQuestion'}],
                 actions: [
+                {type:'custom',fn:function(options,eventData){
+                                    $("div.sentence").empty();
+                                    }},
+                    {type:'hideStim',handle : 'press_space'},
                     {type:'hideStim',handle : 'paragraph'},
                     {type:'showStim',handle : 'question'},
                     {type:'showStim',handle:'yesno'},
@@ -288,7 +414,9 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     {type:'hideStim',handle : 'question'},
                     {type:'hideStim',handle:'yesno'},
                     {type:'hideStim', handle: 'counter'},
-                    {type:'trigger',handle : 'answered', duration:500}
+                    {type:'showStim', handle:'greatjob'},
+                    {type:'trigger',handle : 'answered', duration:1000},
+
                 ]
             },
             // Listen for a correct response to a negative question
@@ -301,7 +429,8 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     {type:'hideStim',handle : 'question'},
                     {type:'hideStim',handle:'yesno'},
                     {type:'hideStim', handle: 'counter'},
-                    {type:'trigger',handle : 'answered', duration:500}
+                    {type:'showStim', handle:'greatjob'},
+                    {type:'trigger',handle : 'answered', duration:1000},
                 ]
             },
             // Listen for an incorrect response to a positive question
@@ -408,9 +537,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
         ]);
     } else {
         API.addTrialSets('posneg',[
-            { inherit:'base', data: {positive:true}}
+            { inherit:'base', data: {positive:true}},
+            { inherit:'base', data: {positive:true}},
+            { inherit:'base', data: {positive:true}},
+            { inherit:'base', data: {positive:true}},
+            { inherit:'base', data: {positive:true}},
+            { inherit:'base', data: {positive:true}},
+            { inherit:'base', data: {positive:true}},
+            { inherit:'base', data: {positive:true}},
+            { inherit:'base', data: {positive:true}},
+            { inherit:'base', data: {positive:false}}
         ]);
     }
+
 
     /**
      * Type of Trial Set that collects vividness responses
@@ -441,6 +580,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 conditions: [
                     {
                         type: 'function', value: function(trial, inputData) {
+                        if (inputData.handle == 'Not at all vivid' ||
+                                                inputData.handle == "Somewhat vivid"  ||
+                                                inputData.handle == "Moderately vivid"
+                        )
+                        {
+                            vivid_text = 'Thanks. Really try to use your imagination!';
+                        }
+                        else if (inputData.handle == "Very vivid"  ||
+                                 inputData.handle == "Totally vivid" ||
+                                 inputData.handle == "Prefer not to answer")
+                        {
+                            vivid_text = "Thanks. It's great you're really using your imagination!";
+                        }
                         return( inputData.handle == "Not at all vivid" ||
                         inputData.handle == "Somewhat vivid"  ||
                         inputData.handle == "Moderately vivid" ||
@@ -466,7 +618,38 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 actions: [{type:'log'}, {type:'endTrial'}]
             },
         ]
-    }]);
+    },
+    ]);
+
+    API.addTrialSets('vivid_after', [
+    {
+        input: [
+            // What input to accept from the participant (user)
+            {handle:'space',on:'space'}
+        ],
+        layout: [
+            {
+                media : {html:''}
+            }
+        ],
+        customize: function () {
+            this.layout[0].media.html = '<div class="thanks"><p style="font-size: 24px; text-align:center">' + vivid_text + '</p>' + '<p style="font-size: 20px; text-align:center" > Press the spacebar to continue </p></div>';
+;
+        },
+        interactions: [
+            // What to do when different events occur.
+            {
+                conditions: [
+                    {type:'inputEquals',value:'space'}
+                ],
+                actions: [
+                    {type:'endTrial'}
+                ]
+            }
+        ]
+    }
+    ]);
+
 
     API.addSequence([
         {
@@ -512,7 +695,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -527,12 +710,12 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     ]
     },
-                { "inherit": { "set": "vivid" } },
+                { "inherit": { "set": "vivid" } },{ "inherit": { "set": "vivid_after" } },
             {
                 mixer: 'random',
                 //n: 50,  // The total number of randomly selected trials to run.
@@ -554,7 +737,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -569,12 +752,12 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     ]
     },
-                { "inherit": { "set": "vivid" } },
+                { "inherit": { "set": "vivid" } },{ "inherit": { "set": "vivid_after" } },
             {
                 mixer: 'random',
                 //n: 50,  // The total number of randomly selected trials to run.
@@ -596,7 +779,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -611,7 +794,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -631,7 +814,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -646,7 +829,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -666,7 +849,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -681,7 +864,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -701,7 +884,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -716,7 +899,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -736,7 +919,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -751,7 +934,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -771,7 +954,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -786,7 +969,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -806,7 +989,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -821,7 +1004,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -841,7 +1024,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -856,7 +1039,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -876,7 +1059,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -891,7 +1074,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -911,7 +1094,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -926,7 +1109,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -946,7 +1129,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -961,7 +1144,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -981,7 +1164,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -996,7 +1179,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -1016,7 +1199,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -1031,7 +1214,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -1051,7 +1234,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -1066,7 +1249,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -1086,7 +1269,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -1101,7 +1284,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -1121,7 +1304,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -1136,7 +1319,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -1156,7 +1339,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -1171,7 +1354,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -1191,7 +1374,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -1206,7 +1389,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -1226,7 +1409,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -1241,7 +1424,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -1261,7 +1444,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -1276,7 +1459,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -1296,7 +1479,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -1311,7 +1494,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -1331,7 +1514,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -1346,7 +1529,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -1366,7 +1549,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -1381,16 +1564,12 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     ]
         },
-        {
-            "inherit": {
-                "set": "vivid"
-            }
-        },
+        { "inherit": { "set": "vivid" } },{ "inherit": { "set": "vivid_after" } },
         {
             mixer: 'random',
             //n: 50,  // The total number of randomly selected trials to run.
@@ -1412,7 +1591,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -1427,7 +1606,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -1447,7 +1626,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -1462,7 +1641,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -1482,7 +1661,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -1497,7 +1676,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -1517,7 +1696,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -1532,7 +1711,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -1552,7 +1731,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -1567,7 +1746,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -1587,7 +1766,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -1602,7 +1781,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -1622,7 +1801,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -1637,7 +1816,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -1657,7 +1836,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -1672,7 +1851,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -1692,7 +1871,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -1707,7 +1886,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -1727,7 +1906,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -1742,7 +1921,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -1762,7 +1941,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -1777,7 +1956,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -1797,7 +1976,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -1812,7 +1991,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -1832,7 +2011,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -1847,7 +2026,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
 
@@ -1868,7 +2047,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -1883,7 +2062,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -1903,7 +2082,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -1918,7 +2097,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -1938,7 +2117,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -1953,7 +2132,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -1973,7 +2152,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -1988,7 +2167,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -2008,7 +2187,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -2023,7 +2202,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -2043,7 +2222,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -2058,7 +2237,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
 
@@ -2079,7 +2258,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -2094,7 +2273,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -2114,7 +2293,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -2159,7 +2338,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -2204,7 +2383,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -2249,7 +2428,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -2294,7 +2473,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
