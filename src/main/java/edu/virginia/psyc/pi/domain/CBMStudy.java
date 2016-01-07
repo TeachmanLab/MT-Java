@@ -128,7 +128,7 @@ public class CBMStudy implements Study {
                 tasks.add(new Task("SUDS", "How anxious you feel", Task.TYPE.questions, 1));
                 tasks.add(new Task("ImageryPrime", "Use your imagination", Task.TYPE.questions,5));
                 tasks.add(new Task("Impact","Impact questions",Task.TYPE.questions,0));
-                tasks.add(new Task("FirstSessionComplete", "Training stories", Task.TYPE.playerScript, 20));
+                tasks.add(new Task("FirstSessionSentences", "Training stories", Task.TYPE.playerScript, 20));
                 tasks.add(new Task("SUDS", "How anxious you feel", Task.TYPE.questions, 0));
                 tasks.add(new Task("CC", "Follow up", Task.TYPE.questions,0));
                 tasks.add(new Task("OA", "Anxiety review", Task.TYPE.questions, 1));
@@ -136,7 +136,7 @@ public class CBMStudy implements Study {
             case SESSION2:
                 tasks.add(new Task("ImageryPrime", "Use your imagination", Task.TYPE.questions,5));
                 tasks.add(new Task("Impact","Impact questions",Task.TYPE.questions,0));
-                tasks.add(new Task("SecondSessionComplete", "Training stories", Task.TYPE.playerScript, 20));
+                tasks.add(new Task("SecondSessionSentences", "Training stories", Task.TYPE.playerScript, 20));
                 tasks.add(new Task("OA", "Anxiety review", Task.TYPE.questions, 1));
 
                 break;
@@ -144,7 +144,7 @@ public class CBMStudy implements Study {
                 tasks.add(new Task("SUDS", "How anxious you feel", Task.TYPE.questions, 1));
                 tasks.add(new Task("ImageryPrime", "Use your imagination", Task.TYPE.questions, 5));
                 tasks.add(new Task("Impact","Impact questions",Task.TYPE.questions,0));
-                tasks.add(new Task("ThirdSessionComplete", "Training stories", Task.TYPE.playerScript, 20));
+                tasks.add(new Task("ThirdSessionSentences", "Training stories", Task.TYPE.playerScript, 20));
                 tasks.add(new Task("SUDS", "How anxious you feel", Task.TYPE.questions, 0));
                 tasks.add(new Task("CC", "Follow up", Task.TYPE.questions, 0));
                 tasks.add(new Task("RR", "Completing short stories", Task.TYPE.questions, 4));
@@ -158,13 +158,13 @@ public class CBMStudy implements Study {
             case SESSION4:
                 tasks.add(new Task("ImageryPrime", "Use your imagination", Task.TYPE.questions, 5));
                 tasks.add(new Task("Impact","Impact questions",Task.TYPE.questions,0));
-                tasks.add(new Task("FourthSessionComplete", "Training stories", Task.TYPE.playerScript, 20));
+                tasks.add(new Task("FourthSessionSentences", "Training stories", Task.TYPE.playerScript, 20));
                 tasks.add(new Task("OA", "Anxiety review", Task.TYPE.questions, 1));
                 break;
             case SESSION5:
                 tasks.add(new Task("ImageryPrime", "Use your imagination", Task.TYPE.questions, 5));
                 tasks.add(new Task("Impact","Impact questions",Task.TYPE.questions,0));
-                tasks.add(new Task("FirstSessionComplete", "Training stories", Task.TYPE.playerScript, 20));
+                tasks.add(new Task("FifthSessionSentences", "Training stories", Task.TYPE.playerScript, 20));
                 tasks.add(new Task("OA", "Anxiety review", Task.TYPE.questions, 1));
 
                 break;
@@ -172,7 +172,7 @@ public class CBMStudy implements Study {
                 tasks.add(new Task("SUDS", "How anxious you feel", Task.TYPE.questions, 1));
                 tasks.add(new Task("ImageryPrime", "Use your imagination", Task.TYPE.questions, 5));
                 tasks.add(new Task("Impact","Impact questions",Task.TYPE.questions,0));
-                tasks.add(new Task("SecondSessionComplete", "Training stories", Task.TYPE.playerScript, 20));
+                tasks.add(new Task("SixthSessionSentences", "Training stories", Task.TYPE.playerScript, 20));
                 tasks.add(new Task("SUDS", "How anxious you feel", Task.TYPE.questions, 0));
                 tasks.add(new Task("CC", "Follow up", Task.TYPE.questions, 0));
                 tasks.add(new Task("RR", "Completing short stories", Task.TYPE.questions, 4));
@@ -186,7 +186,7 @@ public class CBMStudy implements Study {
             case SESSION7:
                 tasks.add(new Task("ImageryPrime", "Use your imagination", Task.TYPE.questions, 5));
                 tasks.add(new Task("Impact","Impact questions",Task.TYPE.questions,0));
-                tasks.add(new Task("ThirdSessionComplete", "Training stories", Task.TYPE.playerScript, 20));
+                tasks.add(new Task("SeventhSessionSentences", "Training stories", Task.TYPE.playerScript, 20));
                 tasks.add(new Task("OA", "Anxiety review", Task.TYPE.questions, 1));
 
                 break;
@@ -194,7 +194,7 @@ public class CBMStudy implements Study {
                 tasks.add(new Task("SUDS", "How anxious you feel", Task.TYPE.questions, 1));
                 tasks.add(new Task("ImageryPrime", "Use your imagination", Task.TYPE.questions, 5));
                 tasks.add(new Task("Impact","Impact questions",Task.TYPE.questions,0));
-                tasks.add(new Task("FourthSessionComplete", "Training stories", Task.TYPE.playerScript, 20));
+                tasks.add(new Task("EighthSessionSentences", "Training stories", Task.TYPE.playerScript, 20));
                 tasks.add(new Task("SUDS", "How anxious you feel", Task.TYPE.questions, 0));
                 tasks.add(new Task("CC", "Follow up", Task.TYPE.questions, 0));
                 tasks.add(new Task("RR", "Completing short stories", Task.TYPE.questions, 4));

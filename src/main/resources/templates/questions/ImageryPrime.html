@@ -7,13 +7,8 @@
 <!--<![endif]-->
 <head th:include="/fragment/common :: headerFragment" />
 
-
-
-
-
 <body th:class="|user-theme-${participant.theme}|">
 <section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
-
 
 <audio id="bing">
     <source th:src="@{/sounds/bing.mp3}"/>
@@ -111,8 +106,9 @@
                         {
                             mVisit = true;
                             $(".jw-button-finish").prop("disabled",true);
-                            setTimeout(function() { document.getElementById("bing").play();
-                            alert("20 Seconds Are Over!");
+                            setTimeout(function() {
+                                document.getElementById("bing").play();
+                                alert("20 Seconds Are Over!");
                                 $(".jw-button-finish").prop("disabled",false);
                                 mNext = true;
                                                   }, 20000);

@@ -1,13 +1,28 @@
 /* The script wrapper */
 define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
 
+    jQuery.fn.visible = function() {
+        return this.css('visibility', 'visible');
+    };
+
+    jQuery.fn.invisible = function() {
+        return this.css('visibility', 'hidden');
+    };
+
     var API = new APIConstructor();
     var scorer = new Scorer();
-
+    var break_up;
+    var text_to_display;
+    var word_display;
+    var where_at = 1;
+    var latency = 0;
+    var vivid_text;
     var scorer =
     {
         count : 1
     };
+
+    var on_question = false;
 
     function increase_count(){
         scorer.count = scorer.count+1;
@@ -24,19 +39,6 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
         return (p.attributes.data.neutralKey);
     }
 
-    function get_neutral_key(trial)
-    {
-        q = jQuery.grep(trial._stimulus_collection.models, function(e, i) {return e.attributes.handle == "question"})[0]
-        return (q.attributes.data.neutralAnswer);
-    }
-
-    function correct_neutral(trial, inputData)
-    {
-        if(!API.getGlobal().lettersTyped) API.addGlobal({lettersTyped:""});
-        if(inputData.handle.length  > 1) return false;
-        var lettersTyped = API.getGlobal().lettersTyped + inputData.handle;
-        return get_neutral_key(trial) == lettersTyped;
-    }
     /**
      * Returns true if missing letters start with the letters typed so far.
      * @param trial
@@ -82,8 +84,27 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
         return(c.length > 0);
     }
 
-//    This was added to redirect back
+    // Warn people about leaving the page before they complete all the questions
+    window.onbeforeunload = function() {
+        return 'Are you sure you want to exit this training session?'
+    }
+
+    // When the training session is complete, move on to the next Questionnaire
     API.addSettings('redirect', "../playerScript/completed/int_train");
+
+    // Removes the warning about leaving the page.
+    API.addSettings("hooks", {
+        endTask: function () {
+            window.onbeforeunload = null;
+            window.location = "../playerScript/completed/int_train";
+        }
+    })
+
+    API.addSettings("canvas", {
+        maxWidth: 1000,
+        proportions: {width:4,height:3},
+        textSize: 5
+    });
 
     // setting the way the logger works (how often we send data to the server and the url for the data)
     API.addSettings('logger',{
@@ -121,13 +142,42 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
 
     API.addStimulusSets({
         error: [
-            {handle:'error',media:'X', css:{fontSize:'20px',color:'#FF0000'}, location:{top:70}, nolog:true}
+            {handle:'error',media:'X', css:{color:'#FF0000'}, location:{top:70}, nolog:true}
         ],
         yesno: [
-            {handle:'yesno',media:{html:"<div class='stim'><b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>"}, css:{fontSize:'20px',color:'black', 'text-align':'center'}, location:{top:70}}
+            {   handle:'yesno',
+                media:{html:"<div class='stim'>Please Type <b>Y</b>=Yes &nbsp;  &nbsp;  &nbsp; <b>N</b>=No</div>"},
+                css: {color: '#333', fontSize: '.8em', position: 'absolute'},
+                location:{bottom: 1}
+            }
         ],
         stall: [
-            {handle:'stall',media:{html:"<div class='stim'>Oops, that answer is incorrect; please re-read the question and in a moment you will have a chance to answer again.</div>"}, css:{fontSize:'20px',color:'black', 'text-align':'center'}, location:{top:70}, nolog:true}
+            {
+                handle:'stall',
+                media:{html:"<div class='stim'>Oops, that answer is incorrect; please re-read the question and in a moment you will have a chance to answer again.</div>"},
+                css: {color: '#333', fontSize: '.8em', position: 'absolute'},
+                location:{top:50},
+                nolog:true}
+        ],
+        greatjob:
+        [
+            {
+                handle:'greatjob',
+                media:{html:"<div class='stim'>Great job!</div>"},
+                nolog:true,
+                css: {color: '#333', fontSize: '1.2em', position: 'absolute'},
+                location:{bottom: 50}
+            }
+        ],
+        press_space:
+        [
+            {
+                handle: 'press_space',
+                media: {html: "<div class='press_space'>Press the <b>Space Bar</b> to continue.</div>"},
+                nolog: true,
+                css: {color: '#333', fontSize: '.8em', position: 'absolute'},
+                location: {bottom: 1}
+            }
         ],
         vivid: [
             {media :{'inlineTemplate':"<div class='vivid'>_______</div>"}}
@@ -137,9 +187,10 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 'handle': 'counter',
                 customize: function () {
                     this.media = scorer.count + ' of 50';
+                    on_question = false;
                 },
-                css: {fontSize: '12px', 'text-align': 'center'},
-                location:{bottom:'200px'}
+                css: {color: '#333', fontSize: '.8em', position: 'absolute'},
+                location: {bottom: 1,  right: 1}
             }
         ]
     });
@@ -180,10 +231,38 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 conditions: [{type:'begin'}],
                 actions: [
                     {type:'showStim',handle:'paragraph'},
+                    {type:'showStim',handle:'press_space'},
                     {type:'showStim', handle: 'counter'},
                     {type:'setGlobalAttr',setter:{askingQuestion:false}},
                     {type:'setTrialAttr',setter:{correctOnLetter:"true"}},  // set to true - will get set to false later if incorrectly answered.
-                    {type:'custom',fn:function(options,eventData) {API.addGlobal({"original":$("span.incomplete").text()})}}]
+                    {type:'custom',fn:function(options,eventData) {API.addGlobal({"original":$("span.incomplete").text()})}},
+                    {type:'custom',fn:function(trial,inputData) {
+                        var sentence = $("div.sentence");
+                        break_up = $("div.sentence").text().split('.');
+                        last_word = break_up[break_up.length-1].split(' ');
+                        last_word = last_word[last_word.length-2] + ' ' + last_word[last_word.length-1];
+                        break_up[break_up.length-1] = break_up[break_up.length-1].replace(last_word, "");
+                        break_up.push(last_word);
+                        for (i = 0; i < break_up.length; i++) {
+                            if (i == break_up.length-1)
+                            {
+                                break_up[i] = $("<p class='incomplete'>" + break_up[i] + '.</p>')
+                            }
+                            else if (i == break_up.length-2)
+                            {
+                                break_up[i] = $("<p class='sentences'>" + break_up[i] + '</p>')
+                            }
+                            else
+                            {
+                                break_up[i] = $("<p class='sentences'>" + break_up[i] + '.</p>')
+                            }
+                            break_up[i].invisible();
+                        }
+                        sentence.html(break_up);
+                        break_up[0].visible();
+                    }
+                    }]
+
             },
 
             {// The letters entered are incorrect
@@ -191,6 +270,37 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                     {type:'globalEquals', property:'askingQuestion', value:false},
                     {type:'inputEquals',value:'askQuestion', negate: true},
                     {type:'inputEquals',value:'correct', negate: true},
+                    {type:'function', value:function(trial, inputData){
+
+                        if (where_at < break_up.length && inputData.handle == 'space' && inputData.latency - latency > 1000 && ! on_question)
+                        {
+                            var sentence = $("div.sentence");
+                            if (where_at < (break_up.length - 2))
+                            {
+                                break_up[where_at].visible();
+
+                            }
+                            else if (where_at < (break_up.length - 1))
+                            {
+                                break_up[where_at].visible();
+                            }
+                            else
+                            {
+                                break_up[where_at].visible();
+                                var space = $("div.press_space");
+                                space.text("Type the missing letter.");
+                                //space.before(break_up[where_at]);
+                            }
+
+                            latency = inputData.latency;
+                            where_at = where_at + 1;
+                        }
+                        else if (where_at >= break_up.length)
+                        {
+                            latency = 0;
+                            return true;
+                        }
+                    }},
                     {type:'function',value:function(trial,inputData){ return !correct_letters(trial, inputData) }}
                 ],
                 actions: [
@@ -213,7 +323,7 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 actions: [
                     {type:'custom',fn:function(options,eventData){
                         API.getGlobal().lettersTyped = API.getGlobal().lettersTyped + eventData.handle;
-                        var span = $("span.incomplete");
+                        var span = $("p.incomplete");
                         var text = span.text().replace(' ', eventData["handle"]);
                         span.text(text);
                     }},
@@ -227,14 +337,27 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {// All the letters are entered correctly
                 conditions: [
                     {type:'globalEquals', property:'askingQuestion', value:false},
+                    {type: 'function', value:function(trial, inputData)
+                    {
+                        if (where_at < break_up.length)
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            return true;
+                        }
+                    }},
                     {type:'function',value:function(trial,inputData){ return correct_length(trial, inputData) }},
                     {type:'function',value:function(trial,inputData){ return correct_letters(trial, inputData) }}
                 ],
                 actions: [
                     {type:'custom',fn:function(options,eventData){
-                        var span = $("span.incomplete");
+                        var span = $("p.incomplete");
                         var text = span.text().replace(' ', eventData["handle"]);
                         span.text(text);
+                        where_at = 1;
+                        on_question = true;
                     }},
                     {type:'trigger',handle : 'correct'}
                 ]
@@ -266,6 +389,10 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 // Trigger when input handle is "end".
                 conditions: [{type:'inputEquals',value:'askQuestion'}],
                 actions: [
+                {type:'custom',fn:function(options,eventData){
+                                    $("div.sentence").empty();
+                                    }},
+                    {type:'hideStim',handle : 'press_space'},
                     {type:'hideStim',handle : 'paragraph'},
                     {type:'showStim',handle : 'question'},
                     {type:'showStim',handle:'yesno'},
@@ -275,35 +402,29 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             // Listen for a correct response to a positive question
             {
-                conditions: [{type:'inputEqualsStim', property:'neutralAnswer'},
-                    {type:'globalEquals', property:'askingQuestion', value:true},
-                    {type:'function',value:function(trial,inputData){
-                        correct = correct_neutral(trial, inputData);
-                        console.log(correct);
-                        return correct;
-                    }}
+                conditions: [
+                    {type:'inputEquals',value:['y', 'n']},
+                    {type:'inputEqualsStim', property:'neutralAnswer'},
+                    {type:'globalEquals', property:'askingQuestion', value:true}
                 ],
                 actions: [
                     {type:'hideStim',handle : 'question'},
                     {type:'hideStim',handle:'yesno'},
                     {type:'hideStim', handle: 'counter'},
-                    {type:'trigger',handle : 'answered', duration:500}
+                    {type:'showStim', handle:'greatjob'},
+                    {type:'trigger',handle : 'answered', duration:1000},
+
                 ]
             },
             // Listen for an incorrect response to a positive question
             {
-                conditions: [{type:'inputEquals',value:['y', 'n']},
-                    {type:'globalEquals', property:'askingQuestion', value:true},
-                    {type:'function', value:function(trial,inputData){
-                        incorrect = !correct_neutral(trial, inputData);
-                        console.log(incorrect);
-                        return incorrect;
-                    }
-                    }
+                conditions: [
+                    {type:'inputEquals',value:['y', 'n']},
+                    {type:'inputEqualsStim', property:'neutralAnswer', negate:true},
+                    {type:'globalEquals', property:'askingQuestion', value:true}
                 ],
                 actions: [
                     {type:'setTrialAttr',setter:function(trialData, eventData){
-                        console.log('hi');
                         if(trialData.first_question_latency == null) {
                             trialData.first_question_latency = Math.floor(eventData.latency);
                         }
@@ -366,15 +487,15 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
 
     }]);
 
-
     /**
      * This sets the ratio of positive to negative statements.  if there is one
      * true, and one false, it will be a 50/50 split.  If it is 3 true, and 1 false
      * if would then be a 75% positive, 25% negative split.
      */
-        API.addTrialSets('neutral',[
-            { inherit:'base', data: {neutral:true}}
-        ]);
+    API.addTrialSets('neutral',[
+        { inherit:'base', data: {neutral:true}}
+    ]);
+
 
 
     /**
@@ -406,6 +527,19 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 conditions: [
                     {
                         type: 'function', value: function(trial, inputData) {
+                        if (inputData.handle == 'Not at all vivid' ||
+                                                inputData.handle == "Somewhat vivid"  ||
+                                                inputData.handle == "Moderately vivid"
+                        )
+                        {
+                            vivid_text = 'Thanks. Really try to use your imagination!';
+                        }
+                        else if (inputData.handle == "Very vivid"  ||
+                                 inputData.handle == "Totally vivid" ||
+                                 inputData.handle == "Prefer not to answer")
+                        {
+                            vivid_text = "Thanks. It's great you're really using your imagination!";
+                        }
                         return( inputData.handle == "Not at all vivid" ||
                         inputData.handle == "Somewhat vivid"  ||
                         inputData.handle == "Moderately vivid" ||
@@ -431,7 +565,38 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 actions: [{type:'log'}, {type:'endTrial'}]
             },
         ]
-    }]);
+    },
+    ]);
+
+    API.addTrialSets('vivid_after', [
+    {
+        input: [
+            // What input to accept from the participant (user)
+            {handle:'space',on:'space'}
+        ],
+        layout: [
+            {
+                media : {html:''}
+            }
+        ],
+        customize: function () {
+            this.layout[0].media.html = '<div class="thanks"><p style="font-size: 24px; text-align:center">' + vivid_text + '</p>' + '<p style="font-size: 20px; text-align:center" > Press the spacebar to continue </p></div>';
+
+        },
+        interactions: [
+            // What to do when different events occur.
+            {
+                conditions: [
+                    {type:'inputEquals',value:'space'}
+                ],
+                actions: [
+                    {type:'endTrial'}
+                ]
+            }
+        ]
+    }
+    ]);
+
 
 
     API.addSequence([
@@ -460,58 +625,47 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
         {
             mixer:'random',
             data:[
+    {
+        "inherit": {
+            "set": "neutral",
+            "type": "random"
+        },
+        "stimuli": [
+            {
+                "inherit": {
+                    "set": "error"
+                }
+            },
+            {
+                "data": {
+                    "neutralKey": "i",
+                    "neutralWord": "runn[ ]ng",
+                    "statement": " You are playing basketball. You are running and trip. You get back up and continue "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "data": {
+                    "neutralAnswer": "n"
+                },
+                "handle": "question",
+                "media": {
+                    "inlineTemplate": "<div>Were you playing soccer? </div>"
+                }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
 
-    {
-        "inherit": {
-            "set": "neutral",
-            "type": "random"
-        },
-        "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "data": {
-                    "neutralKey": "n",
-                    "neutralWord": "pa[ ]ts",
-                    "statement": "You are shopping for clothes. There is a sale. You buy a pair of "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "data": {
-                    "neutralAnswer": "y"
-                },
-                "handle": "question",
-                "media": {
-                    "inlineTemplate": "<div>Did you decide to buy a pair of pants?</div>"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
         ]
     },
             ]
         },
-        { "inherit": { "set": "vivid" } },
+         { "inherit": { "set": "vivid" } },{ "inherit": { "set": "vivid_after" } },
+
         {
             mixer: 'random',
             //n: 50,  // The total number of randomly selected trials to run.
@@ -529,13 +683,13 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {
                 "data": {
-                    "neutralKey": "n",
-                    "neutralWord": "hurti[ ]g",
-                    "statement": " You are going for a jog. Your leg starts to hurt. You keep running and it stops "
+                    "neutralKey": "c",
+                    "neutralWord": "dis[ ]ussion",
+                    "statement": " You are talking with friends. A topic you feel strongly about comes up. You engage in an interesting "
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -544,33 +698,23 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "question",
                 "media": {
-                    "inlineTemplate": "<div>Were you going for a jog? </div>"
+                    "inlineTemplate": "<div>Were you talking with friends? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
-        ]
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
+         ]
     },
-            ]
-        },
-        { "inherit": { "set": "vivid" } },
-        {
-            mixer: 'random',
-            //n: 50,  // The total number of randomly selected trials to run.
-            data: [
+         ]
+         },
+          { "inherit": { "set": "vivid" } },{ "inherit": { "set": "vivid_after" } },
+
+         {
+             mixer: 'random',
+             //n: 50,  // The total number of randomly selected trials to run.
+             data: [
     {
         "inherit": {
             "set": "neutral",
@@ -585,12 +729,12 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {
                 "data": {
                     "neutralKey": "i",
-                    "neutralWord": "wh[ ]le",
-                    "statement": " You are jogging with a friend. You have been jogging for a while. You stop running and talk for a "
+                    "neutralWord": "founta[ ]n",
+                    "statement": "You decide to go for a jog. After running for a while, you take a break. You drink from a water "
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -599,408 +743,13 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "question",
                 "media": {
-                    "inlineTemplate": "<div>Were you jogging? </div>"
+                    "inlineTemplate": "<div>Did you get water from a fountain?</div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
-        ]
-    },
-    {
-        "inherit": {
-            "set": "neutral",
-            "type": "random"
-        },
-        "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "data": {
-                    "neutralKey": "a",
-                    "neutralWord": "p[ ]int",
-                    "statement": "You are at the hardware store. You need to build a fence. You buy "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "data": {
-                    "neutralAnswer": "n"
-                },
-                "handle": "question",
-                "media": {
-                    "inlineTemplate": "<div>Were you at the grocery store?</div>"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
-        ]
-    },
-    {
-        "inherit": {
-            "set": "neutral",
-            "type": "random"
-        },
-        "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "data": {
-                    "neutralKey": "e",
-                    "neutralWord": "siz[ ]",
-                    "statement": " You are bowling with friends. You forgot to bring your bowling shoes. You hope that they have shoes in your "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "data": {
-                    "neutralAnswer": "y"
-                },
-                "handle": "question",
-                "media": {
-                    "inlineTemplate": "<div>Were you bowling? </div>"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
-        ]
-    },
-    {
-        "inherit": {
-            "set": "neutral",
-            "type": "random"
-        },
-        "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "data": {
-                    "neutralKey": "w",
-                    "neutralWord": "marshmallo[ ]s",
-                    "statement": " You are camping with some friends. You set up your tents and build a fire. You roast "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "data": {
-                    "neutralAnswer": "y"
-                },
-                "handle": "question",
-                "media": {
-                    "inlineTemplate": "<div>Were you camping? </div>"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
-        ]
-    },
-    {
-        "inherit": {
-            "set": "neutral",
-            "type": "random"
-        },
-        "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "data": {
-                    "neutralKey": "t",
-                    "neutralWord": "cha[ ]",
-                    "statement": " You are going for a walk. You see a friend coming from the other direction. You stop for a bit and "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "data": {
-                    "neutralAnswer": "n"
-                },
-                "handle": "question",
-                "media": {
-                    "inlineTemplate": "<div>Were you going for a run? </div>"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
-        ]
-    },
-    {
-        "inherit": {
-            "set": "neutral",
-            "type": "random"
-        },
-        "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "data": {
-                    "neutralKey": "w",
-                    "neutralWord": "ro[ ]",
-                    "statement": " You are at a concert. There are a lot of people there. You are in the third "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "data": {
-                    "neutralAnswer": "y"
-                },
-                "handle": "question",
-                "media": {
-                    "inlineTemplate": "<div>Were you at a concert? </div>"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
-        ]
-    },
-    {
-        "inherit": {
-            "set": "neutral",
-            "type": "random"
-        },
-        "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "data": {
-                    "neutralKey": "s",
-                    "neutralWord": "hi[ ]tory",
-                    "statement": "You are at a bookstore. You pick out several books you want to buy. You decide to read a book about American history "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "data": {
-                    "neutralAnswer": "y"
-                },
-                "handle": "question",
-                "media": {
-                    "inlineTemplate": "<div>Did you buy a book?</div>"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
-        ]
-    },
-    {
-        "inherit": {
-            "set": "neutral",
-            "type": "random"
-        },
-        "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "data": {
-                    "neutralKey": "i",
-                    "neutralWord": "m[ ]lk",
-                    "statement": " You go to the grocery store. While you are there, you buy eggs, bread, and juice. You forget to purchase "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "data": {
-                    "neutralAnswer": "n"
-                },
-                "handle": "question",
-                "media": {
-                    "inlineTemplate": "<div>Did you forget to purchase eggs?</div>"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
-        ]
-    },
-    {
-        "inherit": {
-            "set": "neutral",
-            "type": "random"
-        },
-        "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "data": {
-                    "neutralKey": "r",
-                    "neutralWord": "[ ]ow",
-                    "statement": " You are at the movies. You arrived late and you're not sure you'll find a seat. You find a seat in the fourth "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "data": {
-                    "neutralAnswer": "n"
-                },
-                "handle": "question",
-                "media": {
-                    "inlineTemplate": "<div>Were you at the mall? </div>"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
         ]
     },
     {
@@ -1017,156 +766,12 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {
                 "data": {
                     "neutralKey": "c",
-                    "neutralWord": "su[ ]cesful",
-                    "statement": "You are parallel parking your car. You attempt to back into the spot slowly but you gently hit the curb on accident. After a few more tries, you are "
+                    "neutralWord": "respe[ ]tfully",
+                    "statement": " You are talking with a friend. A topic you disagree about comes up. You discuss it "
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "data": {
-                    "neutralAnswer": "y"
-                },
-                "handle": "question",
-                "media": {
-                    "inlineTemplate": "<div>Did you hit the curb?</div>"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
-        ]
-    },
-    {
-        "inherit": {
-            "set": "neutral",
-            "type": "random"
-        },
-        "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "data": {
-                    "neutralKey": "n",
-                    "neutralWord": "mi[ ]utes",
-                    "statement": " You are going to the movies with a friend. The theater is crowded, and your friend goes to use the bathroom and asks if you can save their seat. Your friend comes back in five "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "data": {
-                    "neutralAnswer": "y"
-                },
-                "handle": "question",
-                "media": {
-                    "inlineTemplate": "<div>Was the theater crowded? </div>"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
-        ]
-    },
-    {
-        "inherit": {
-            "set": "neutral",
-            "type": "random"
-        },
-        "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "data": {
-                    "neutralKey": "o",
-                    "neutralWord": "ro[ ]m",
-                    "statement": "You just arrived at the gym. You decide to lift weights, and then do some cardio. You walk over to the weight "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "data": {
-                    "neutralAnswer": "y"
-                },
-                "handle": "question",
-                "media": {
-                    "inlineTemplate": "<div>Did you decide to lift weights first?</div>"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
-        ]
-    },
-    {
-        "inherit": {
-            "set": "neutral",
-            "type": "random"
-        },
-        "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "data": {
-                    "neutralKey": "e",
-                    "neutralWord": "ar[ ]a",
-                    "statement": " You are at a basketball game. The crowd is cheering loudly and your head hurts. You got to a quiet "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -1175,556 +780,13 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "question",
                 "media": {
-                    "inlineTemplate": "<div>Were you at a soccer match? </div>"
+                    "inlineTemplate": "<div>Did you agree on every topic? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
-        ]
-    },
-    {
-        "inherit": {
-            "set": "neutral",
-            "type": "random"
-        },
-        "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "data": {
-                    "neutralKey": "i",
-                    "neutralWord": "stat[ ]on",
-                    "statement": " You are traveling with some friends and stop at a gas station to use the bathroom. It is very dirty. You decide to leave the gas "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "data": {
-                    "neutralAnswer": "y"
-                },
-                "handle": "question",
-                "media": {
-                    "inlineTemplate": "<div>Was the bathroom dirty? </div>"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
-        ]
-    },
-    {
-        "inherit": {
-            "set": "neutral",
-            "type": "random"
-        },
-        "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "data": {
-                    "neutralKey": "a",
-                    "neutralWord": "ch[ ]t",
-                    "statement": " You are at the park and see a colleague from work. They are with their family and you wonder if you should say hello. They noticed and stop by to "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "data": {
-                    "neutralAnswer": "y"
-                },
-                "handle": "question",
-                "media": {
-                    "inlineTemplate": "<div>Were you at the park? </div>"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
-        ]
-    },
-    {
-        "inherit": {
-            "set": "neutral",
-            "type": "random"
-        },
-        "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "data": {
-                    "neutralKey": "s",
-                    "neutralWord": "out[ ]ide",
-                    "statement": " You are seeing an old friend. You go to the beach. It is hot "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "data": {
-                    "neutralAnswer": "n"
-                },
-                "handle": "question",
-                "media": {
-                    "inlineTemplate": "<div>Did you go to the pool? </div>"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
-        ]
-    },
-    {
-        "inherit": {
-            "set": "neutral",
-            "type": "random"
-        },
-        "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "data": {
-                    "neutralKey": "u",
-                    "neutralWord": "la[ ]ndry",
-                    "statement": "You are packing for your winter vacation. As you fold your clothes, you remember your favorite sweater is dirty. You decide you should do "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "data": {
-                    "neutralAnswer": "n"
-                },
-                "handle": "question",
-                "media": {
-                    "inlineTemplate": "<div>Did you find that your favorite pants were dirty?</div>"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
-        ]
-    },
-    {
-        "inherit": {
-            "set": "neutral",
-            "type": "random"
-        },
-        "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "data": {
-                    "neutralKey": "y",
-                    "neutralWord": "shortl[ ]",
-                    "statement": " You are at the dentist for a cleaning. You check in with the receptionist. She says the dentist will see you "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "data": {
-                    "neutralAnswer": "n"
-                },
-                "handle": "question",
-                "media": {
-                    "inlineTemplate": "<div>Were you at the dentist for teeth whitening? </div>"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
-        ]
-    },
-    {
-        "inherit": {
-            "set": "neutral",
-            "type": "random"
-        },
-        "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "data": {
-                    "neutralKey": "n",
-                    "neutralWord": "fur[ ]iture",
-                    "statement": "You are listening to the radio. There is a commericial. It is an advertisement for "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "data": {
-                    "neutralAnswer": "y"
-                },
-                "handle": "question",
-                "media": {
-                    "inlineTemplate": "<div> Is the advertisement for furniture?</div>"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
-        ]
-    },
-    {
-        "inherit": {
-            "set": "neutral",
-            "type": "random"
-        },
-        "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "data": {
-                    "neutralKey": "a",
-                    "neutralWord": "l[ ]mp",
-                    "statement": " You spent a lot of time arranging the furniture in your new apartment. One day when you come home, you decide to rearrange some things. You decide to move the "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "data": {
-                    "neutralAnswer": "y"
-                },
-                "handle": "question",
-                "media": {
-                    "inlineTemplate": "<div>Did you decide to move the lamp?</div>"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
-        ]
-    },
-    {
-        "inherit": {
-            "set": "neutral",
-            "type": "random"
-        },
-        "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "data": {
-                    "neutralKey": "s",
-                    "neutralWord": "te[ ]ts",
-                    "statement": " You are at the doctor's office. He says that he would like to run some tests and asks for your permission. You say that it is fine if he runs some "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "data": {
-                    "neutralAnswer": "y"
-                },
-                "handle": "question",
-                "media": {
-                    "inlineTemplate": "<div>Were you at the office of your doctor? </div>"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
-        ]
-    },
-    {
-        "inherit": {
-            "set": "neutral",
-            "type": "random"
-        },
-        "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "data": {
-                    "neutralKey": "n",
-                    "neutralWord": "u[ ]derstand",
-                    "statement": " You are giving a presentation at work. A coworker asks you to clarify a point you made. You go back over the point and make sure they "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "data": {
-                    "neutralAnswer": "y"
-                },
-                "handle": "question",
-                "media": {
-                    "inlineTemplate": "<div>Were you giving a presentation? </div>"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
-        ]
-    },
-    {
-        "inherit": {
-            "set": "neutral",
-            "type": "random"
-        },
-        "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "data": {
-                    "neutralKey": "o",
-                    "neutralWord": "sh[ ]rt",
-                    "statement": " You are on a boat. The water is a bit rough. The ride is "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "data": {
-                    "neutralAnswer": "y"
-                },
-                "handle": "question",
-                "media": {
-                    "inlineTemplate": "<div>Were you on a boat? </div>"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
-        ]
-    },
-    ]},
-    { "inherit": { "set": "vivid" } },    {
- 	mixer: 'random',
- 		    data:[
-    {
-        "inherit": {
-            "set": "neutral",
-            "type": "random"
-        },
-        "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "data": {
-                    "neutralKey": "n",
-                    "neutralWord": "fa[ ]",
-                    "statement": " You are at a party. You are warm and you begin to sweat. You go and stand near a "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "data": {
-                    "neutralAnswer": "y"
-                },
-                "handle": "question",
-                "media": {
-                    "inlineTemplate": "<div>Were you at a party? </div>"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
         ]
     },
     {
@@ -1741,12 +803,49 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {
                 "data": {
                     "neutralKey": "t",
-                    "neutralWord": "his[ ]ory",
-                    "statement": " You are listening to a talk at a conference. You think the talk should be helpful for your work. The subject of the talk is "
+                    "neutralWord": "sal[ ]",
+                    "statement": " You are making dinner for a friend. You realize that you are out of salt. You go to the store to purchase more "
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "data": {
+                    "neutralAnswer": "y"
+                },
+                "handle": "question",
+                "media": {
+                    "inlineTemplate": "<div>Were you out of salt? </div>"
+                }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
+        ]
+    },
+    {
+        "inherit": {
+            "set": "neutral",
+            "type": "random"
+        },
+        "stimuli": [
+            {
+                "inherit": {
+                    "set": "error"
+                }
+            },
+            {
+                "data": {
+                    "neutralKey": "t",
+                    "neutralWord": "shir[ ]",
+                    "statement": " You are going on a date. You try on a new outfit. You wear a new button-up "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -1755,24 +854,50 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "question",
                 "media": {
-                    "inlineTemplate": "<div>Is the subject of the talk science?</div>"
+                    "inlineTemplate": "<div>Did you wear an old outfit? </div>"
+                }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
+        ]
+    },
+    {
+        "inherit": {
+            "set": "neutral",
+            "type": "random"
+        },
+        "stimuli": [
+            {
+                "inherit": {
+                    "set": "error"
                 }
             },
             {
-                "inherit": {
-                    "set": "yesno"
+                "data": {
+                    "neutralKey": "o",
+                    "neutralWord": "cl[ ]se",
+                    "statement": "You are playing volleyball. You are with friends. The game is "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
-                "inherit": {
-                    "set": "counter"
+                "data": {
+                    "neutralAnswer": "n"
+                },
+                "handle": "question",
+                "media": {
+                    "inlineTemplate": "<div>Were you playing soccer?</div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
         ]
     },
     {
@@ -1789,86 +914,27 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {
                 "data": {
                     "neutralKey": "a",
-                    "neutralWord": "aw[ ]y",
-                    "statement": " You are walking on a trail with your friends. One of your friends points out a beautiful bird as it lands in a nearby tree. As you turn your head to look, it flies "
+                    "neutralWord": "p[ ]sta",
+                    "statement": "You are eating dinner. The food is good. The main course is "
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
                 "data": {
-                    "neutralAnswer": "n"
+                    "neutralAnswer": "y"
                 },
                 "handle": "question",
                 "media": {
-                    "inlineTemplate": "<div>Did you see a cat?</div>"
+                    "inlineTemplate": "<div>Are you eating dinner?</div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
-        ]
-    },
-    {
-        "inherit": {
-            "set": "neutral",
-            "type": "random"
-        },
-        "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "data": {
-                    "neutralKey": "s",
-                    "neutralWord": "end[ ]",
-                    "statement": " You are driving on a bumpy road. You are driving to go to the grocery store. Finally, the bumpy road "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "data": {
-                    "neutralAnswer": "n"
-                },
-                "handle": "question",
-                "media": {
-                    "inlineTemplate": "<div>Were you walking on a road? </div>"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
         ]
     },
     {
@@ -1886,11 +952,11 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 "data": {
                     "neutralKey": "t",
                     "neutralWord": "wa[ ]er",
-                    "statement": " You are eating a sandwich. You take a large bite and have trouble swallowing it. You take a drink of "
+                    "statement": "While at work, you feel thirsty. You think about whether you want a soda or water bottle from the vending machine. You decide to get "
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -1899,24 +965,13 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "question",
                 "media": {
-                    "inlineTemplate": "<div>Were you eating ice cream? </div>"
+                    "inlineTemplate": "<div>Did you decide to get a soda?</div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
         ]
     },
     {
@@ -1932,39 +987,28 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {
                 "data": {
-                    "neutralKey": "x",
-                    "neutralWord": "e[ ]ploration",
-                    "statement": " You are at a conference and meet someone in your field who you think is very smart. They are an interesting person. You discuss space "
+                    "neutralKey": "a",
+                    "neutralWord": "n[ ]p",
+                    "statement": "You are at the beach. It is partly cloudly. You take a "
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
                 "data": {
-                    "neutralAnswer": "y"
+                    "neutralAnswer": "n"
                 },
                 "handle": "question",
                 "media": {
-                    "inlineTemplate": "<div>Were you at a conference? </div>"
+                    "inlineTemplate": "<div>Are you at the park?</div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
         ]
     },
     {
@@ -1980,39 +1024,28 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {
                 "data": {
-                    "neutralKey": "g",
-                    "neutralWord": "lon[ ]",
-                    "statement": " You are going fishing and have just caught a fish. While you take the fish of the hook, the hook pricks your hand. The fish is 8 inches "
+                    "neutralKey": "h",
+                    "neutralWord": "c[ ]ickens",
+                    "statement": "You are surfing the web. You see an interesting news article. It is about "
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
                 "data": {
-                    "neutralAnswer": "y"
+                    "neutralAnswer": "n"
                 },
                 "handle": "question",
                 "media": {
-                    "inlineTemplate": "<div>Did you go fishing? </div>"
+                    "inlineTemplate": "<div>Were you watching TV?</div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
         ]
     },
     {
@@ -2028,39 +1061,28 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {
                 "data": {
-                    "neutralKey": "e",
-                    "neutralWord": "r[ ]st",
-                    "statement": " You are going for a run after not exercising for a long time. You feel slightly out of shape. You stop and "
+                    "neutralKey": "c",
+                    "neutralWord": "post[ ]ard",
+                    "statement": " You are visiting Chicago. While there, you decide to buy a souvenir. You purchase a "
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
                 "data": {
-                    "neutralAnswer": "y"
+                    "neutralAnswer": "n"
                 },
                 "handle": "question",
                 "media": {
-                    "inlineTemplate": "<div>Were you exercising? </div>"
+                    "inlineTemplate": "<div>Did you decide to purchase a souvenir hat?</div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
         ]
     },
     {
@@ -2077,12 +1099,12 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {
                 "data": {
                     "neutralKey": "i",
-                    "neutralWord": "ju[ ]ce",
-                    "statement": "You are trying to decide what to have for lunch. You thought you had leftovers from the night before but you cannot find them in the fridge. You realize that the leftovers are behind the "
+                    "neutralWord": "bo[ ]l",
+                    "statement": "You decide to make some tea. You fill the kettle up with water and put in on the stove. After a few minutes, the water begins to "
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -2091,264 +1113,13 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "question",
                 "media": {
-                    "inlineTemplate": "<div>Are the leftovers behind the milk?</div>"
+                    "inlineTemplate": "<div>Did you decide to make coffee?</div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
-        ]
-    },
-    {
-        "inherit": {
-            "set": "neutral",
-            "type": "random"
-        },
-        "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "data": {
-                    "neutralKey": "x",
-                    "neutralWord": "e[ ]pensive",
-                    "statement": " You are in line at the grocery store. You talk with the person in front of you about the price of lobster. You agree that it is "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "data": {
-                    "neutralAnswer": "y"
-                },
-                "handle": "question",
-                "media": {
-                    "inlineTemplate": "<div>Were you at the grocery store? </div>"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
-        ]
-    },
-    {
-        "inherit": {
-            "set": "neutral",
-            "type": "random"
-        },
-        "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "data": {
-                    "neutralKey": "a",
-                    "neutralWord": "pl[ ]te",
-                    "statement": "You are cleaning dishes from dinner. You get out soap and a sponge. The first dish you clean is a "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "data": {
-                    "neutralAnswer": "n"
-                },
-                "handle": "question",
-                "media": {
-                    "inlineTemplate": "<div> Is the first dish you clean a bowl?</div>"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
-        ]
-    },
-    {
-        "inherit": {
-            "set": "neutral",
-            "type": "random"
-        },
-        "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "data": {
-                    "neutralKey": "c",
-                    "neutralWord": "so[ ]ks",
-                    "statement": "You are taking a getting dressed. You are going out for dinner. You put on your "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "data": {
-                    "neutralAnswer": "y"
-                },
-                "handle": "question",
-                "media": {
-                    "inlineTemplate": "<div>Are you putting on your socks before you go out to dinner?</div>"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
-        ]
-    },
-    {
-        "inherit": {
-            "set": "neutral",
-            "type": "random"
-        },
-        "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "data": {
-                    "neutralKey": "o",
-                    "neutralWord": "st[ ]re",
-                    "statement": "You are getting ready to do your laundry. You realize you do not have any detergent. Because of this, you have to go to the "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "data": {
-                    "neutralAnswer": "n"
-                },
-                "handle": "question",
-                "media": {
-                    "inlineTemplate": "<div>Are you getting ready to wash dishes?</div>"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
-        ]
-    },
-    {
-        "inherit": {
-            "set": "neutral",
-            "type": "random"
-        },
-        "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "data": {
-                    "neutralKey": "r",
-                    "neutralWord": "comfo[ ]table",
-                    "statement": "You are relaxing on the couch. You were at work late. The couch is "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "data": {
-                    "neutralAnswer": "y"
-                },
-                "handle": "question",
-                "media": {
-                    "inlineTemplate": "<div>Did you end up working late that night?</div>"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
         ]
     },
     {
@@ -2365,12 +1136,12 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {
                 "data": {
                     "neutralKey": "s",
-                    "neutralWord": "sun[ ]hine",
-                    "statement": "You are watering your household plants. As you make your way around the house, you notice that one of your plants is wilting. You decide to move the plant into more direct "
+                    "neutralWord": "cas[ ]erole",
+                    "statement": " Your colleague invites you to a dinner party. There will several people from your company there. Your colleague tells you they will serve "
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -2379,360 +1150,13 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "question",
                 "media": {
-                    "inlineTemplate": "<div>Did you decide to move the plant?</div>"
+                    "inlineTemplate": "<div>Were you at a dinner party? </div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
-        ]
-    },
-    {
-        "inherit": {
-            "set": "neutral",
-            "type": "random"
-        },
-        "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "data": {
-                    "neutralKey": "e",
-                    "neutralWord": "qui[ ]t",
-                    "statement": " You are at the movies. You are watching the previews and the person next to you is talking. Once the movie starts, they are "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "data": {
-                    "neutralAnswer": "y"
-                },
-                "handle": "question",
-                "media": {
-                    "inlineTemplate": "<div>Were you at the movies? </div>"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
-        ]
-    },
-    {
-        "inherit": {
-            "set": "neutral",
-            "type": "random"
-        },
-        "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "data": {
-                    "neutralKey": "t",
-                    "neutralWord": "reserva[ ]ion",
-                    "statement": " You made dinner reservations at a new restaurant in town. When you arrive with your date, the hostess says they can't find your reservation. They keep looking and eventually find your "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "data": {
-                    "neutralAnswer": "n"
-                },
-                "handle": "question",
-                "media": {
-                    "inlineTemplate": "<div>Did you make lunch reservations? </div>"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
-        ]
-    },
-    {
-        "inherit": {
-            "set": "neutral",
-            "type": "random"
-        },
-        "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "data": {
-                    "neutralKey": "l",
-                    "neutralWord": "wel[ ]",
-                    "statement": " You are in class and you are confused about what the lecturer is talking about. You raise your hand and ask if they could clarify. The student next to you says they were confused as "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "data": {
-                    "neutralAnswer": "y"
-                },
-                "handle": "question",
-                "media": {
-                    "inlineTemplate": "<div>Were you in class? </div>"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
-        ]
-    },
-    {
-        "inherit": {
-            "set": "neutral",
-            "type": "random"
-        },
-        "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "data": {
-                    "neutralKey": "g",
-                    "neutralWord": "walkin[ ]",
-                    "statement": " You are taking a hike. You stub your toe. You keep "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "data": {
-                    "neutralAnswer": "y"
-                },
-                "handle": "question",
-                "media": {
-                    "inlineTemplate": "<div>Did you stub your toe? </div>"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
-        ]
-    },
-    {
-        "inherit": {
-            "set": "neutral",
-            "type": "random"
-        },
-        "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "data": {
-                    "neutralKey": "g",
-                    "neutralWord": "eg[ ]s",
-                    "statement": "You are eating breakfast. Your meal tastes good. You eat scrambled "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "data": {
-                    "neutralAnswer": "y"
-                },
-                "handle": "question",
-                "media": {
-                    "inlineTemplate": "<div>Were you eating breakfast?</div>"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
-        ]
-    },
-    {
-        "inherit": {
-            "set": "neutral",
-            "type": "random"
-        },
-        "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "data": {
-                    "neutralKey": "u",
-                    "neutralWord": "sa[ ]ce",
-                    "statement": "You decide to make some pasta for dinner. You start to boil some water in a pot. As the water boils, you start to make some "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "data": {
-                    "neutralAnswer": "n"
-                },
-                "handle": "question",
-                "media": {
-                    "inlineTemplate": "<div>Did you decide to make salad for dinner?</div>"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
-        ]
-    },
-    {
-        "inherit": {
-            "set": "neutral",
-            "type": "random"
-        },
-        "stimuli": [
-            {
-                "inherit": {
-                    "set": "error"
-                }
-            },
-            {
-                "data": {
-                    "neutralKey": "c",
-                    "neutralWord": "s[ ]ratchy",
-                    "statement": " You are going to an upcoming outdoor concert with friends. You bring blankets to sit on, and a bottle of water. You notice the blanket feels "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "data": {
-                    "neutralAnswer": "n"
-                },
-                "handle": "question",
-                "media": {
-                    "inlineTemplate": "<div>Was the blanket comfortable?</div>"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
         ]
     },
     {
@@ -2749,38 +1173,27 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {
                 "data": {
                     "neutralKey": "o",
-                    "neutralWord": "to[ ]thbrush",
-                    "statement": "You are going on vacation. You plan to drive to the beach. You realize you forgot your "
+                    "neutralWord": "bef[ ]re",
+                    "statement": " You are in a hotel. You notice that there is soft background music playing. You realize the song is one you have heard "
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
                 "data": {
-                    "neutralAnswer": "n"
+                    "neutralAnswer": "y"
                 },
                 "handle": "question",
                 "media": {
-                    "inlineTemplate": "<div>Did you forget your hairbrush?</div>"
+                    "inlineTemplate": "<div>Was music playing in the background?</div>"
                 }
             },
-            {
-                "inherit": {
-                    "set": "yesno"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "counter"
-                }
-            },
-            {
-                "inherit": {
-                    "set": "stall"
-                }
-            }
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
         ]
     },
     {
@@ -2796,13 +1209,87 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             },
             {
                 "data": {
-                    "neutralKey": "n",
-                    "neutralWord": "anythi[ ]g",
-                    "statement": "You are washing dishes. Your hand is slippery with soap and you are careful not to drop any dishes. You do not drop "
+                    "neutralKey": "h",
+                    "neutralWord": "s[ ]irt",
+                    "statement": " You are shopping for new work clothes with a friend. You try on slacks and a shirt. You decide to purchase the "
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "data": {
+                    "neutralAnswer": "y"
+                },
+                "handle": "question",
+                "media": {
+                    "inlineTemplate": "<div>Did you decide to purchase the shirt?</div>"
+                }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
+        ]
+    },
+    {
+        "inherit": {
+            "set": "neutral",
+            "type": "random"
+        },
+        "stimuli": [
+            {
+                "inherit": {
+                    "set": "error"
+                }
+            },
+            {
+                "data": {
+                    "neutralKey": "u",
+                    "neutralWord": "resta[ ]rant",
+                    "statement": " You are on a double date with your partner, your best friend, and your best friend's partner. This is your first time meeting your best friend's partner. You talk about the food at the "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "data": {
+                    "neutralAnswer": "y"
+                },
+                "handle": "question",
+                "media": {
+                    "inlineTemplate": "<div>Were you with your best friend? </div>"
+                }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
+        ]
+    },
+    {
+        "inherit": {
+            "set": "neutral",
+            "type": "random"
+        },
+        "stimuli": [
+            {
+                "inherit": {
+                    "set": "error"
+                }
+            },
+            {
+                "data": {
+                    "neutralKey": "p",
+                    "neutralWord": "[ ]art",
+                    "statement": " You are about to audition for a play. You hope you get the part. You are auditioning for a minor "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -2811,24 +1298,198 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "question",
                 "media": {
-                    "inlineTemplate": "<div>Did you end up dropping a dish?</div>"
+                    "inlineTemplate": "<div>Were you auditioning for a dance? </div>"
+                }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
+        ]
+    },
+    {
+        "inherit": {
+            "set": "neutral",
+            "type": "random"
+        },
+        "stimuli": [
+            {
+                "inherit": {
+                    "set": "error"
                 }
             },
             {
-                "inherit": {
-                    "set": "yesno"
+                "data": {
+                    "neutralKey": "m",
+                    "neutralWord": "war[ ]",
+                    "statement": " It is the middle of the winter and you are very cold. You smother yourself in blankets. You begin to get "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
+                "data": {
+                    "neutralAnswer": "y"
+                },
+                "handle": "question",
+                "media": {
+                    "inlineTemplate": "<div>Was it winter? </div>"
+                }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
+        ]
+    },
+    {
+        "inherit": {
+            "set": "neutral",
+            "type": "random"
+        },
+        "stimuli": [
+            {
                 "inherit": {
-                    "set": "counter"
+                    "set": "error"
                 }
             },
             {
-                "inherit": {
-                    "set": "stall"
+                "data": {
+                    "neutralKey": "f",
+                    "neutralWord": "cof[ ]ee",
+                    "statement": "You are waiting for an important phone call. You are tired. To stay awake, you make "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
                 }
-            }
+            },
+            {
+                "data": {
+                    "neutralAnswer": "y"
+                },
+                "handle": "question",
+                "media": {
+                    "inlineTemplate": "<div>Are you waiting for an important phone call?</div>"
+                }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
+        ]
+    },
+    {
+        "inherit": {
+            "set": "neutral",
+            "type": "random"
+        },
+        "stimuli": [
+            {
+                "inherit": {
+                    "set": "error"
+                }
+            },
+            {
+                "data": {
+                    "neutralKey": "k",
+                    "neutralWord": "wor[ ]",
+                    "statement": " You are out to eat with a friend. Your friend is a doctor. You talk about her "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "data": {
+                    "neutralAnswer": "n"
+                },
+                "handle": "question",
+                "media": {
+                    "inlineTemplate": "<div>Were you with your dad? </div>"
+                }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
+        ]
+    },
+    {
+        "inherit": {
+            "set": "neutral",
+            "type": "random"
+        },
+        "stimuli": [
+            {
+                "inherit": {
+                    "set": "error"
+                }
+            },
+            {
+                "data": {
+                    "neutralKey": "d",
+                    "neutralWord": "tire[ ]",
+                    "statement": " You are watching TV with a friend. Your friend falls asleep. You think that they must be "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "data": {
+                    "neutralAnswer": "y"
+                },
+                "handle": "question",
+                "media": {
+                    "inlineTemplate": "<div>Were you watching TV? </div>"
+                }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
+        ]
+    },
+    {
+        "inherit": {
+            "set": "neutral",
+            "type": "random"
+        },
+        "stimuli": [
+            {
+                "inherit": {
+                    "set": "error"
+                }
+            },
+            {
+                "data": {
+                    "neutralKey": "i",
+                    "neutralWord": "sta[ ]rs",
+                    "statement": " You are walking down the stairs. While walking down the stairs you slip on a step. You recover your balance and continue walking down the "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "data": {
+                    "neutralAnswer": "y"
+                },
+                "handle": "question",
+                "media": {
+                    "inlineTemplate": "<div>Were you walking downstairs? </div>"
+                }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
         ]
     },
     {
@@ -2845,12 +1506,91 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
             {
                 "data": {
                     "neutralKey": "a",
-                    "neutralWord": "t[ ]lking",
-                    "statement": " You are talking with a new coworker. There is a lull in the conversation. You switch topics and continue "
+                    "neutralWord": "te[ ]",
+                    "statement": " You are on a date. You go to get coffee. You order a "
                 },
                 "handle": "paragraph",
                 "media": {
-                    "inlineTemplate": "<div><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "data": {
+                    "neutralAnswer": "y"
+                },
+                "handle": "question",
+                "media": {
+                    "inlineTemplate": "<div>Were you on a date? </div>"
+                }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
+        ]
+    },
+    {
+        "inherit": {
+            "set": "neutral",
+            "type": "random"
+        },
+        "stimuli": [
+            {
+                "inherit": {
+                    "set": "error"
+                }
+            },
+            {
+                "data": {
+                    "neutralKey": "a",
+                    "neutralWord": "anyw[ ]y",
+                    "statement": " You are running a race. Your hip begins to hurt. You finish the race "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "data": {
+                    "neutralAnswer": "y"
+                },
+                "handle": "question",
+                "media": {
+                    "inlineTemplate": "<div>Were you running a race? </div>"
+                }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
+        ]
+    },
+    ]},
+     { "inherit": { "set": "vivid" } },{ "inherit": { "set": "vivid_after" } },
+    {
+ 	mixer: 'random',
+ 		    data:[
+    {
+        "inherit": {
+            "set": "neutral",
+            "type": "random"
+        },
+        "stimuli": [
+            {
+                "inherit": {
+                    "set": "error"
+                }
+            },
+            {
+                "data": {
+                    "neutralKey": "h",
+                    "neutralWord": "p[ ]one",
+                    "statement": " You are at a ballgame. You sit down in your seat. Once seated, you realize that you forgot to bring your cell "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
@@ -2859,32 +1599,911 @@ define(['pipAPI','pipScorer'], function(APIConstructor,Scorer) {
                 },
                 "handle": "question",
                 "media": {
+                    "inlineTemplate": "<div>Did you have your cellphone with you?</div>"
+                }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
+        ]
+    },
+    {
+        "inherit": {
+            "set": "neutral",
+            "type": "random"
+        },
+        "stimuli": [
+            {
+                "inherit": {
+                    "set": "error"
+                }
+            },
+            {
+                "data": {
+                    "neutralKey": "s",
+                    "neutralWord": "fi[ ]h",
+                    "statement": "You are looking for a new pet. At the store, you think about what would fit best with your busy lifestyle. You decide to get a "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "data": {
+                    "neutralAnswer": "n"
+                },
+                "handle": "question",
+                "media": {
+                    "inlineTemplate": "<div>Did you decide to get a car?</div>"
+                }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
+        ]
+    },
+    {
+        "inherit": {
+            "set": "neutral",
+            "type": "random"
+        },
+        "stimuli": [
+            {
+                "inherit": {
+                    "set": "error"
+                }
+            },
+            {
+                "data": {
+                    "neutralKey": "l",
+                    "neutralWord": "p[ ]ace",
+                    "statement": " You are playing softball with friends. You have a headache. You ask a friend to take your "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "data": {
+                    "neutralAnswer": "n"
+                },
+                "handle": "question",
+                "media": {
+                    "inlineTemplate": "<div>Were you playing basketball? </div>"
+                }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
+        ]
+    },
+    {
+        "inherit": {
+            "set": "neutral",
+            "type": "random"
+        },
+        "stimuli": [
+            {
+                "inherit": {
+                    "set": "error"
+                }
+            },
+            {
+                "data": {
+                    "neutralKey": "w",
+                    "neutralWord": "sand[ ]ich",
+                    "statement": " You are at a restaurant with friends, and you are hungry. You motion to the waiter. You order a chicken "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "data": {
+                    "neutralAnswer": "y"
+                },
+                "handle": "question",
+                "media": {
+                    "inlineTemplate": "<div>Were you at a restaurant? </div>"
+                }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
+        ]
+    },
+    {
+        "inherit": {
+            "set": "neutral",
+            "type": "random"
+        },
+        "stimuli": [
+            {
+                "inherit": {
+                    "set": "error"
+                }
+            },
+            {
+                "data": {
+                    "neutralKey": "r",
+                    "neutralWord": "bi[ ]d",
+                    "statement": "You are taking a walk. You look up at the sky. You see a "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "data": {
+                    "neutralAnswer": "n"
+                },
+                "handle": "question",
+                "media": {
+                    "inlineTemplate": "<div>Was there a plane in the sky?</div>"
+                }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
+        ]
+    },
+    {
+        "inherit": {
+            "set": "neutral",
+            "type": "random"
+        },
+        "stimuli": [
+            {
+                "inherit": {
+                    "set": "error"
+                }
+            },
+            {
+                "data": {
+                    "neutralKey": "b",
+                    "neutralWord": "ham[ ]urger",
+                    "statement": "You are at a barbeque. Lots of your friends are there. You eat a "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "data": {
+                    "neutralAnswer": "n"
+                },
+                "handle": "question",
+                "media": {
+                    "inlineTemplate": "<div>Did you decide to eat a hotdog?</div>"
+                }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
+        ]
+    },
+    {
+        "inherit": {
+            "set": "neutral",
+            "type": "random"
+        },
+        "stimuli": [
+            {
+                "inherit": {
+                    "set": "error"
+                }
+            },
+            {
+                "data": {
+                    "neutralKey": "r",
+                    "neutralWord": "cha[ ]ity",
+                    "statement": "You are cleaning out your closet. You take out a few shirts you haven't worn for a long time. You plan to give them to "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "data": {
+                    "neutralAnswer": "n"
+                },
+                "handle": "question",
+                "media": {
+                    "inlineTemplate": "<div>Did you give your old shirts to your neighbor next door?</div>"
+                }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
+        ]
+    },
+    {
+        "inherit": {
+            "set": "neutral",
+            "type": "random"
+        },
+        "stimuli": [
+            {
+                "inherit": {
+                    "set": "error"
+                }
+            },
+            {
+                "data": {
+                    "neutralKey": "i",
+                    "neutralWord": "vik[ ]ngs",
+                    "statement": "You are watching TV with some friends. Your favorite program comes on. It is a show about "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "data": {
+                    "neutralAnswer": "y"
+                },
+                "handle": "question",
+                "media": {
+                    "inlineTemplate": "<div>Were you watching TV? </div>"
+                }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
+        ]
+    },
+    {
+        "inherit": {
+            "set": "neutral",
+            "type": "random"
+        },
+        "stimuli": [
+            {
+                "inherit": {
+                    "set": "error"
+                }
+            },
+            {
+                "data": {
+                    "neutralKey": "n",
+                    "neutralWord": "o[ ]line",
+                    "statement": " You are at the library looking for a book. However, you notice that the book you want has already been checked out. You decide to try to order the book "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "data": {
+                    "neutralAnswer": "y"
+                },
+                "handle": "question",
+                "media": {
+                    "inlineTemplate": "<div>Were you able to get the book from the library?</div>"
+                }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
+        ]
+    },
+    {
+        "inherit": {
+            "set": "neutral",
+            "type": "random"
+        },
+        "stimuli": [
+            {
+                "inherit": {
+                    "set": "error"
+                }
+            },
+            {
+                "data": {
+                    "neutralKey": "s",
+                    "neutralWord": "deci[ ]ion",
+                    "statement": " You think about adopting a pet. You decide to make a list of the pros and cons of getting a cat. You decide to spend some more time thinking about the "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "data": {
+                    "neutralAnswer": "y"
+                },
+                "handle": "question",
+                "media": {
+                    "inlineTemplate": "<div>Were you thinking about adopting a pet?</div>"
+                }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
+        ]
+    },
+    {
+        "inherit": {
+            "set": "neutral",
+            "type": "random"
+        },
+        "stimuli": [
+            {
+                "inherit": {
+                    "set": "error"
+                }
+            },
+            {
+                "data": {
+                    "neutralKey": "h",
+                    "neutralWord": "seas[ ]ell",
+                    "statement": "You are at the beach. It is hot out so you decide to go swimming. While in the ocean you find a "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "data": {
+                    "neutralAnswer": "y"
+                },
+                "handle": "question",
+                "media": {
+                    "inlineTemplate": "<div>Did you decide to go swimming?</div>"
+                }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
+        ]
+    },
+    {
+        "inherit": {
+            "set": "neutral",
+            "type": "random"
+        },
+        "stimuli": [
+            {
+                "inherit": {
+                    "set": "error"
+                }
+            },
+            {
+                "data": {
+                    "neutralKey": "o",
+                    "neutralWord": "g[ ]lf",
+                    "statement": " You are talking with your boss and you zone out briefly. You ask if she could repeat what she just said. She says she was talking about "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "data": {
+                    "neutralAnswer": "y"
+                },
+                "handle": "question",
+                "media": {
                     "inlineTemplate": "<div>Were you talking with your boss? </div>"
                 }
             },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
+        ]
+    },
+    {
+        "inherit": {
+            "set": "neutral",
+            "type": "random"
+        },
+        "stimuli": [
             {
                 "inherit": {
-                    "set": "yesno"
+                    "set": "error"
                 }
             },
             {
-                "inherit": {
-                    "set": "counter"
+                "data": {
+                    "neutralKey": "e",
+                    "neutralWord": "p[ ]ople",
+                    "statement": " You are in line at the movies. You hear people talking about the actors in the movie. The actors sound like interesting "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
                 }
             },
             {
-                "inherit": {
-                    "set": "stall"
+                "data": {
+                    "neutralAnswer": "n"
+                },
+                "handle": "question",
+                "media": {
+                    "inlineTemplate": "<div>Were you at school? </div>"
                 }
-            }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
+        ]
+    },
+    {
+        "inherit": {
+            "set": "neutral",
+            "type": "random"
+        },
+        "stimuli": [
+            {
+                "inherit": {
+                    "set": "error"
+                }
+            },
+            {
+                "data": {
+                    "neutralKey": "r",
+                    "neutralWord": "p[ ]ogress",
+                    "statement": " You are giving a talk to your boss and several other executives in the company. They are listening to what you have to say. The talk is about the company's "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "data": {
+                    "neutralAnswer": "y"
+                },
+                "handle": "question",
+                "media": {
+                    "inlineTemplate": "<div>Were you giving a talk? </div>"
+                }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
+        ]
+    },
+    {
+        "inherit": {
+            "set": "neutral",
+            "type": "random"
+        },
+        "stimuli": [
+            {
+                "inherit": {
+                    "set": "error"
+                }
+            },
+            {
+                "data": {
+                    "neutralKey": "l",
+                    "neutralWord": "ta[ ]k",
+                    "statement": " You are on a hike with a friend. They sit down on a rock. You sit down with them and "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "data": {
+                    "neutralAnswer": "y"
+                },
+                "handle": "question",
+                "media": {
+                    "inlineTemplate": "<div>Were you with a friend? </div>"
+                }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
+        ]
+    },
+    {
+        "inherit": {
+            "set": "neutral",
+            "type": "random"
+        },
+        "stimuli": [
+            {
+                "inherit": {
+                    "set": "error"
+                }
+            },
+            {
+                "data": {
+                    "neutralKey": "m",
+                    "neutralWord": "gu[ ]",
+                    "statement": " You are on a plane. Your ears start popping. You chew some "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "data": {
+                    "neutralAnswer": "n"
+                },
+                "handle": "question",
+                "media": {
+                    "inlineTemplate": "<div>Were you in a car? </div>"
+                }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
+        ]
+    },
+    {
+        "inherit": {
+            "set": "neutral",
+            "type": "random"
+        },
+        "stimuli": [
+            {
+                "inherit": {
+                    "set": "error"
+                }
+            },
+            {
+                "data": {
+                    "neutralKey": "a",
+                    "neutralWord": "qu[ ]rter",
+                    "statement": " You are in line at the grocery store. The person in front of you asks for a quarter. You give them a "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "data": {
+                    "neutralAnswer": "n"
+                },
+                "handle": "question",
+                "media": {
+                    "inlineTemplate": "<div>Were you at the mall? </div>"
+                }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
+        ]
+    },
+    {
+        "inherit": {
+            "set": "neutral",
+            "type": "random"
+        },
+        "stimuli": [
+            {
+                "inherit": {
+                    "set": "error"
+                }
+            },
+            {
+                "data": {
+                    "neutralKey": "e",
+                    "neutralWord": "bas[ ]ball",
+                    "statement": "You are reading a magazine. It is a special edition. You choose to read an article on the history of "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "data": {
+                    "neutralAnswer": "y"
+                },
+                "handle": "question",
+                "media": {
+                    "inlineTemplate": "<div>Were you reading a magazine?</div>"
+                }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
+        ]
+    },
+    {
+        "inherit": {
+            "set": "neutral",
+            "type": "random"
+        },
+        "stimuli": [
+            {
+                "inherit": {
+                    "set": "error"
+                }
+            },
+            {
+                "data": {
+                    "neutralKey": "o",
+                    "neutralWord": "bef[ ]re",
+                    "statement": " You are on a date going to get coffee. The coffee shop is playing music you've never heard before. You ask your date if she has heard the music "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "data": {
+                    "neutralAnswer": "n"
+                },
+                "handle": "question",
+                "media": {
+                    "inlineTemplate": "<div>Were you at the movies? </div>"
+                }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
+        ]
+    },
+    {
+        "inherit": {
+            "set": "neutral",
+            "type": "random"
+        },
+        "stimuli": [
+            {
+                "inherit": {
+                    "set": "error"
+                }
+            },
+            {
+                "data": {
+                    "neutralKey": "a",
+                    "neutralWord": "w[ ]ter",
+                    "statement": "You are playing basketball. It is halftime. You drink "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "data": {
+                    "neutralAnswer": "n"
+                },
+                "handle": "question",
+                "media": {
+                    "inlineTemplate": "<div>Are you playing football?</div>"
+                }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
+        ]
+    },
+    {
+        "inherit": {
+            "set": "neutral",
+            "type": "random"
+        },
+        "stimuli": [
+            {
+                "inherit": {
+                    "set": "error"
+                }
+            },
+            {
+                "data": {
+                    "neutralKey": "i",
+                    "neutralWord": "h[ ]m",
+                    "statement": "You are working on a final paper for your class. As you are typing, you get distracted by your dog. You stop working and go play with "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "data": {
+                    "neutralAnswer": "n"
+                },
+                "handle": "question",
+                "media": {
+                    "inlineTemplate": "<div>Did you get distracted by your cat?</div>"
+                }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
+        ]
+    },
+    {
+        "inherit": {
+            "set": "neutral",
+            "type": "random"
+        },
+        "stimuli": [
+            {
+                "inherit": {
+                    "set": "error"
+                }
+            },
+            {
+                "data": {
+                    "neutralKey": "n",
+                    "neutralWord": "pla[ ]s",
+                    "statement": " You are eating dinner with a friend. You are eating spaghetti. You talk about your upcoming vacation "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "data": {
+                    "neutralAnswer": "n"
+                },
+                "handle": "question",
+                "media": {
+                    "inlineTemplate": "<div>Were you eating lunch? </div>"
+                }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
+        ]
+    },
+    {
+        "inherit": {
+            "set": "neutral",
+            "type": "random"
+        },
+        "stimuli": [
+            {
+                "inherit": {
+                    "set": "error"
+                }
+            },
+            {
+                "data": {
+                    "neutralKey": "e",
+                    "neutralWord": "de[ ]r",
+                    "statement": "You are on a walk outside. Hearing a rustling noise, you look into the forest. You see a"
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "data": {
+                    "neutralAnswer": "n"
+                },
+                "handle": "question",
+                "media": {
+                    "inlineTemplate": "<div>Did you see a bunny in the forest?</div>"
+                }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
+        ]
+    },
+    {
+        "inherit": {
+            "set": "neutral",
+            "type": "random"
+        },
+        "stimuli": [
+            {
+                "inherit": {
+                    "set": "error"
+                }
+            },
+            {
+                "data": {
+                    "neutralKey": "e",
+                    "neutralWord": "p[ ]n",
+                    "statement": " You just answered a question aloud in your class. After answering, you notice that you accidentally knocked your pen off your desk. You reach down to pick up your "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "data": {
+                    "neutralAnswer": "y"
+                },
+                "handle": "question",
+                "media": {
+                    "inlineTemplate": "<div>Did you answer the question?</div>"
+                }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
+        ]
+    },
+    {
+        "inherit": {
+            "set": "neutral",
+            "type": "random"
+        },
+        "stimuli": [
+            {
+                "inherit": {
+                    "set": "error"
+                }
+            },
+            {
+                "data": {
+                    "neutralKey": "a",
+                    "neutralWord": "surf[ ]ce",
+                    "statement": " You are swimming in a pool, and you decide to try to touch the bottom of the pool. As you swim downward, you realize that you can't hold your breath much longer. You swim back to the "
+                },
+                "handle": "paragraph",
+                "media": {
+                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.neutral ? stimulusData.neutralWord : stimulusData.negativeWord %></span></div>"
+                }
+            },
+            {
+                "data": {
+                    "neutralAnswer": "y"
+                },
+                "handle": "question",
+                "media": {
+                    "inlineTemplate": "<div>Were you at the pool? </div>"
+                }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+
         ]
     }
+
             ]
          },
         {
             "inherit": {"set": "vivid"},
             layout: [{media: {template: "/PIPlayerScripts/vividness_last.html"}}]
         }
+
     ]);
     return API.script;
 });
