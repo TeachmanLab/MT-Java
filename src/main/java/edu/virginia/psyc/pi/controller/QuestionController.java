@@ -54,7 +54,6 @@ public class QuestionController extends BaseController {
     @Autowired private RR_Repository rr_repository;
     @Autowired private CCRepository cc_repository;
     @Autowired private OARepository oa_repository;
-    @Autowired private ReRuRepository reru_repository;
     @Autowired private DDRepository dd_repository;
     @Autowired private DD_FURepository dd_fu_repository;
     @Autowired private StateAnxietyPostRepository stateAnxietyPost_Repository;
@@ -626,29 +625,7 @@ public ModelAndView showSUDS(Principal principal) {
     }
 
 
-    /**
-     * ReRu
-     * ---------*
-     */
-    @RequestMapping(value = "ReRu", method = RequestMethod.GET)
-    public ModelAndView showReRu(Principal principal) {
-        return modelAndView(principal, "/questions/ReRu", "ReRu", new ReRu());
-    }
 
-    @RequestMapping(value = "ReRu", method = RequestMethod.POST)
-    RedirectView handleRR(@ModelAttribute("ReRu") ReRu reru,
-                          BindingResult result) {
-
-        recordSessionProgress(reru);
-        reru_repository.save(reru);
-        return new RedirectView("/session/next");
-    }
-
-    @RequestMapping(value = "ReRu/export", method = RequestMethod.GET, produces = "text/csv")
-    @ResponseBody // Return the string directly, the return value is not a template name.
-    String exportReRu() {
-        return(objectListToCSV(reru_repository.findAll()));
-    }
 
 
     /**

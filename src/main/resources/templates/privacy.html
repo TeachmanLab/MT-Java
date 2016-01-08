@@ -46,6 +46,36 @@
 
                 <p>Please remember that we cannot guarantee the confidentiality of information sent by e-mail.</p>
 
+
+                <h3>Technical Details <b>(you can ignore this part if not interested)</b></h3>
+
+                <b>Web Hosting:</b>
+                <p>We will be using servers hosted by the University of Virginia to run a medium size Linux virtual machine running Tomcat for hosting our Java based web application.</p>
+
+                <b>Data Storage:</b>
+                <p>We will be using a MySQL database hosted on the same server that is running the web service.</p>
+
+                <b>Form Security:</b>
+                <p>Once data files are downloaded, they will be stored securely on an investigator’s computer. Results will be reported in aggregate.</p>
+
+                <p>At the software level, our security model is built on the popular Spring Security Framework. We currently
+                    use a form based authentication (a web login form) that provides the following basic projections and features:</p>
+                <ul>
+                    <li>Every URL in the site requires authentication.</li>
+                    <li>CSRF attach prevention <a href="http://en.wikipedia.org/wiki/Cross-site_request_forgery">(http://en.wikipedia.org/wiki/Cross-site_request_forgery)</a>)</li>
+                    <li>Session Fixation Protection <a href="http://en.wikipedia.org/wiki/Session_fixation">(http://en.wikipedia.org/wiki/Session_fixation)</a></li>
+                    <li>Security header integration
+                        <ul>
+                            <li>HTTP Strict Transport Security for secure requests</li>
+                            <li>X-Content-Type-Options integration</li>
+                            <li>Cache Control</li>
+                            <li>X-XSS-Protection integration</li>
+                            <li>X-Frame-Options integration to help prevent Clickjacking</li>
+                        </ul>
+                    </li>
+                </ul>
+
+
             </div>
         </div>
 
