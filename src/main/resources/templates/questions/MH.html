@@ -65,7 +65,7 @@
                                      <li><label class="radioList"><input id="Q1_13" type="checkbox" name="disorders" value="eating">Eating disorder</input> </label></li>
                                      <li><label class="radioList"><input id="Q1_14" type="checkbox" name="disorders" value="personality">Personality disorder</input> </label></li>
                                     <br />
-                                 <li><label class="radioList"><input id="Q1_15" type="checkbox" name="disorders" value="Other">Other</input>  (Please specify)<input id="Q1_16" type="text" name="OtherDesc" /> </label></li>
+                                 <li><label class="radioList"><input id="Q1_15" type="checkbox" name="disorders" value="Other" onchange="spec('Q1_15')">Other</input>  (Please specify)<input id="Q1_15_spec" type="text" name="OtherDesc" /> </label></li>
                                     </ul>
                             </div>
                             </td>
@@ -112,7 +112,7 @@
                                              <li><label class="radioList"><input id="Q2_13" type="checkbox" name="disorders_past" value="eating">Eating disorder</input> </label></li>
                                              <li><label class="radioList"><input id="Q2_14" type="checkbox" name="disorders_past" value="personality">Personality disorder</input> </label></li>
                                             <br />
-                                             <li><label class="radioList"><input id="Q2_15" onchange="specify('Q2')" type="checkbox" name="disorders_past" value="Other">Other</input>  (Please specify)<input id="Q2_16" type="text" name="OtherDescNo" /> </label></li>
+                                             <li><label class="radioList"><input id="Q2_15" onchange="spec('Q2_15')" type="checkbox" name="disorders_past" value="Other">Other</input>  (Please specify)<input id="Q2_15_spec" type="text" name="OtherDescNo" /> </label></li>
                                         </ul>
                                     </div>
                                     </td>
@@ -332,7 +332,7 @@
                                             </select></div>
 
                                         <br />
-                                         <li><label class="radioList"><input id="Q3-14" onchange="sub('Q3-14')" type="checkbox" name="otherHelp" value="Other">Other</input>  (Please specify)<input id="Q3-15" type="text" name="OtherHelpPast" /> </label></li>
+                                         <li><label class="radioList"><input id="Q3-14" onchange="sub('Q3-14');spec('Q3-14');" type="checkbox" name="help" value="Other">Other</input>  (Please specify)<input id="Q3-14_spec" type="text" name="OtherHelpPast" /> </label></li>
                                         <div class="oneToSeven" id="Q3-14-1"><label >Has this been helpful? </label>
                                             <select name="other">
                                                 <option value="">Please select one</option>
@@ -561,7 +561,7 @@
                                             </select></div>
 
                                         <br />
-                                         <li><label class="radioList"><input id="Q4-14" onchange="sub('Q4-14')" type="checkbox" name="helps_past" value="Other">Other</input>  (Please specify)<input id="Q4-15" type="text" name="OtherHelpPast" /> </label></li>
+                                         <li><label class="radioList"><input id="Q4-14" onchange="sub('Q4-14');spec('Q4-14');" type="checkbox" name="helps_past" value="Other">Other</input>  (Please specify)<input id="Q4-14_spec" type="text" name="OtherHelpPast" /> </label></li>
                                         <div class="oneToSeven" id="Q4-14-1"><label >Was this helpful? </label>
                                             <select name="other_past">
                                                 <option value="">Please select one</option>
@@ -619,7 +619,7 @@
                                          <li><label class="radioList"><input id="Q5_10" type="checkbox" name="NoHelp_Reason" value="thinkLess">I think people might think less of me if I sought treatment</input> </label></li>
                                          <li><label class="radioList"><input id="Q5_11" type="checkbox" name="NoHelp_Reason" value="noTime">I don’t have time to seek treatment</input> </label></li>
                                         <br />
-                                         <li><label class="radioList"><input id="Q5_12" type="checkbox" name="NoHelp_Reason" value="Other">Other</input>  (Please specify)<input id="Q5_13" type="text" name="OtherHelpPast" /> </label></li>
+                                         <li><label class="radioList"><input id="Q5_12" type="checkbox" name="NoHelp_Reason" value="Other" onchange="spec('Q5_12')">Other</input>  (Please specify)<input id="Q5_12_spec" type="text" name="OtherHelpPast" /> </label></li>
 
                                     </ul>
                                 </div>
@@ -684,6 +684,15 @@
         }
     }
 
+
+    function spec(id) {
+        if (document.getElementById(id).checked) {
+            document.getElementById(id+"_spec").required = true;
+        } else {
+            document.getElementById(id+"_spec").required = false;
+        }
+    }
+
     function hide_Q1_noAns(){
         if (document.getElementById("Q1_noAns").checked) {
             document.getElementById("Q1_1").disabled = true;
@@ -701,7 +710,7 @@
             document.getElementById("Q1_13").disabled = true;
             document.getElementById("Q1_14").disabled = true;
             document.getElementById("Q1_15").disabled = true;
-            document.getElementById("Q1_16").disabled = true;
+            document.getElementById("Q1_15_spec").disabled = true;
             document.getElementById("Q1_noDiag").disabled = true;
         } else {
             document.getElementById("Q1_1").disabled = false;
@@ -719,7 +728,7 @@
             document.getElementById("Q1_13").disabled = false;
             document.getElementById("Q1_14").disabled = false;
             document.getElementById("Q1_15").disabled = false;
-            document.getElementById("Q1_16").disabled = false;
+            document.getElementById("Q1_15_spec").disabled = false;
             document.getElementById("Q1_noDiag").disabled = false;
         }
     }
@@ -741,7 +750,7 @@
             document.getElementById("Q1_13").disabled = true;
             document.getElementById("Q1_14").disabled = true;
             document.getElementById("Q1_15").disabled = true;
-            document.getElementById("Q1_16").disabled = true;
+            document.getElementById("Q1_15_spec").disabled = true;
             document.getElementById("Q1_noAns").disabled = true;
         } else {
             document.getElementById("Q1_1").disabled = false;
@@ -759,7 +768,7 @@
             document.getElementById("Q1_13").disabled = false;
             document.getElementById("Q1_14").disabled = false;
             document.getElementById("Q1_15").disabled = false;
-            document.getElementById("Q1_16").disabled = false;
+            document.getElementById("Q1_15_spec").disabled = false;
             document.getElementById("Q1_noAns").disabled = false;
         }
     }
@@ -781,7 +790,7 @@
             document.getElementById("Q2_13").disabled = true;
             document.getElementById("Q2_14").disabled = true;
             document.getElementById("Q2_15").disabled = true;
-            document.getElementById("Q2_16").disabled = true;
+            document.getElementById("Q2_15_spec").disabled = true;
             document.getElementById("Q2_noDiag").disabled = true;
         } else {
             document.getElementById("Q2_1").disabled = false;
@@ -799,7 +808,7 @@
             document.getElementById("Q2_13").disabled = false;
             document.getElementById("Q2_14").disabled = false;
             document.getElementById("Q2_15").disabled = false;
-            document.getElementById("Q2_16").disabled = false;
+            document.getElementById("Q2_15_spec").disabled = false;
             document.getElementById("Q2_noDiag").disabled = false;
         }
     }
@@ -821,7 +830,7 @@
             document.getElementById("Q2_13").disabled = true;
             document.getElementById("Q2_14").disabled = true;
             document.getElementById("Q2_15").disabled = true;
-            document.getElementById("Q2_16").disabled = true;
+            document.getElementById("Q2_15_spec").disabled = true;
             document.getElementById("Q2_noAns").disabled = true;
         } else {
             document.getElementById("Q2_1").disabled = false;
@@ -839,7 +848,7 @@
             document.getElementById("Q2_13").disabled = false;
             document.getElementById("Q2_14").disabled = false;
             document.getElementById("Q2_15").disabled = false;
-            document.getElementById("Q2_16").disabled = false;
+            document.getElementById("Q2_15_spec").disabled = false;
             document.getElementById("Q2_noAns").disabled = false;
         }
     }
@@ -862,7 +871,7 @@
             document.getElementById("Q3-12").disabled = true;
             document.getElementById("Q3-13").disabled = true;
             document.getElementById("Q3-14").disabled = true;
-            document.getElementById("Q3-15").disabled = true;
+            document.getElementById("Q3-14_spec").disabled = true;
             document.getElementById("helps").disabled = true;
         } else {
             document.getElementById("Q3-1").disabled = false;
@@ -879,7 +888,7 @@
             document.getElementById("Q3-12").disabled = false;
             document.getElementById("Q3-13").disabled = false;
             document.getElementById("Q3-14").disabled = false;
-            document.getElementById("Q3-15").disabled = false;
+            document.getElementById("Q3-14_spec").disabled = false;
             document.getElementById("helps").disabled = false;
         }
     }
@@ -900,7 +909,7 @@
             document.getElementById("Q3-12").disabled = true;
             document.getElementById("Q3-13").disabled = true;
             document.getElementById("Q3-14").disabled = true;
-            document.getElementById("Q3-15").disabled = true;
+            document.getElementById("Q3-14_spec").disabled = true;
             document.getElementById("Q3_noAns").disabled = true;
         } else {
             document.getElementById("Q3-1").disabled = false;
@@ -917,7 +926,7 @@
             document.getElementById("Q3-12").disabled = false;
             document.getElementById("Q3-13").disabled = false;
             document.getElementById("Q3-14").disabled = false;
-            document.getElementById("Q3-15").disabled = false;
+            document.getElementById("Q3-14_spec").disabled = false;
             document.getElementById("Q3_noAns").disabled = false;
         }
     }
@@ -939,7 +948,7 @@
             document.getElementById("Q4-12").disabled = true;
             document.getElementById("Q4-13").disabled = true;
             document.getElementById("Q4-14").disabled = true;
-            document.getElementById("Q4-15").disabled = true;
+            document.getElementById("Q4-14_spec").disabled = true;
             document.getElementById("helps_past").disabled = true;
         } else {
             document.getElementById("Q4-1").disabled = false;
@@ -956,7 +965,7 @@
             document.getElementById("Q4-12").disabled = false;
             document.getElementById("Q4-13").disabled = false;
             document.getElementById("Q4-14").disabled = false;
-            document.getElementById("Q4-15").disabled = false;
+            document.getElementById("Q4-14_spec").disabled = false;
             document.getElementById("helps_past").disabled = false;
         }
     }
@@ -977,7 +986,7 @@
             document.getElementById("Q4-12").disabled = true;
             document.getElementById("Q4-13").disabled = true;
             document.getElementById("Q4-14").disabled = true;
-            document.getElementById("Q4-15").disabled = true;
+            document.getElementById("Q4-14_spec").disabled = true;
             document.getElementById("Q4_noAns").disabled = true;
         } else {
             document.getElementById("Q4-1").disabled = false;
@@ -994,7 +1003,7 @@
             document.getElementById("Q4-12").disabled = false;
             document.getElementById("Q4-13").disabled = false;
             document.getElementById("Q4-14").disabled = false;
-            document.getElementById("Q4-15").disabled = false;
+            document.getElementById("Q4-14_spec").disabled = false;
             document.getElementById("Q4_noAns").disabled = false;
         }
     }
@@ -1013,7 +1022,7 @@
             document.getElementById("Q5_10").disabled = true;
             document.getElementById("Q5_11").disabled = true;
             document.getElementById("Q5_12").disabled = true;
-            document.getElementById("Q5_13").disabled = true;
+            document.getElementById("Q5_12_spec").disabled = true;
         } else {
             document.getElementById("Q5_1").disabled = false;
             document.getElementById("Q5_2").disabled = false;
@@ -1027,7 +1036,7 @@
             document.getElementById("Q5_10").disabled = false;
             document.getElementById("Q5_11").disabled = false;
             document.getElementById("Q5_12").disabled = false;
-            document.getElementById("Q5_13").disabled = false;
+            document.getElementById("Q5_12_spec").disabled = false;
         }
     }
 
