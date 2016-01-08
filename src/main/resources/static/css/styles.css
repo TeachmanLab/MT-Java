@@ -813,3 +813,10 @@ form#wizard {
     line-height:24px;
     color:#3a7d34;
 }
+
+/******
+  DIALOG BOXES
+  ***/
+#dialog {
+    display:none;
+}
