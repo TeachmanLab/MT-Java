@@ -612,7 +612,7 @@ div.wide {
 
 div.section, div.sectionLong, div.scale, form#wizard{
     position: relative;
-    margin: 10px auto;
+    margin: 50px auto;
     padding: 0px;
     border-radius: 15px;
     border: 1px solid #bbb;
