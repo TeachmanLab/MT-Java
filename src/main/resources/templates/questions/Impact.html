@@ -21,7 +21,7 @@
         <!--features starts-->
         <div class="row">
             <div class="span12">
-                <form  name="form1" th:action="@{/questions/Impact}" method="POST">
+                <form  id="form" name="form1" th:action="@{/questions/Impact}" method="POST">
                         <div class="sectionLong">
                             <div class="question">How anxious did you feel (at the highest level of anxiety) as you completed the imagery task?</div>
                             <input style="display:none" id="checkSUDS" name="checkSUDS" type="checkbox" value="1" required="true" />
@@ -66,6 +66,9 @@
 
                          <!--   <div style="width: 475px; margin-bottom:10px; margin-left:90px;" id="slider" ></div> -->
 
+                        </div>
+                        <div id="dialog" title="Please move the bar.">
+                            <p>Please move the bar to select a number for your anxiety level.</p>
                         </div>
                     <div class="section">
                         <div class="question">How vividly did you imagine the situation?</div>
@@ -207,7 +210,7 @@
                         </label>
                     </div>
                     <div id="submit">
-                        <button onclick="check()">Next</button>
+                        <button onclick="check()" type="button">Next</button>
                     </div>
 
                 </form>
@@ -221,19 +224,18 @@
                             value: 50,
                             slide: function( event, ui ) {
                                 $( "#anxiety" ).val( ui.value );
-                            document.getElementById("checkSUDS").checked = true;
-
-                                 }
-                            });
-                            $( "#anxiety" ).val( $( "#slider" ).slider( "value" ) );
-
-
-                            });
+                                document.getElementById("checkSUDS").checked = true;
+                            }
+                        });
+                         $( "#anxiety" ).val( $( "#slider" ).slider( "value" ) );
+                     });
                      function check(){
-                     if (document.getElementById("checkSUDS").checked != true) {
-                     alert("Please move the bar to select a number for your anxiety level in the first question.");
+                         if (document.getElementById("checkSUDS").checked != true) {
+                             $("#dialog").dialog();
+                         } else {
+                             $("#form").submit();
+                         }
                      }
-                     };
 
 
                 </script>

@@ -612,7 +612,7 @@ div.wide {
 
 div.section, div.sectionLong, div.scale, form#wizard{
     position: relative;
-    margin: 10px auto;
+    margin: 50px auto;
     padding: 0px;
     border-radius: 15px;
     border: 1px solid #bbb;
@@ -812,4 +812,11 @@ form#wizard {
     padding-left:22px;
     line-height:24px;
     color:#3a7d34;
+}
+
+/******
+  DIALOG BOXES
+  ***/
+#dialog {
+    display:none;
 }
