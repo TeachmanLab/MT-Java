@@ -12,6 +12,8 @@
         <script th:inline="javascript">
             /*<![CDATA[*/
             var scriptName = /*[[${script}]]*/ int_train.js;
+            var scriptFile = "/PIPlayerScripts/" + scriptName + ".js";
+
             var piGlobal = { // create the global object
                 script : /*[[${script}]]*/ int_train.js,
                 session : /*[[${sessionName}]]*/ PRE,
@@ -20,7 +22,7 @@
             }
 
             require(['/bower/PIPlayer/dist/js/config.js'], function() {
-                require(['activatePIP',"/PIPlayerScripts/" + scriptName + ".js"], function(activatePIP, script) {
+                require(['activatePIP',"/PIPlayerScripts/PiPlayerMain.js", scriptFile], function(activatePIP, script, sequence) {
                     activatePIP(script);
                 })
                 });

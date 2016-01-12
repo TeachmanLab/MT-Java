@@ -351,15 +351,17 @@ div.stimulus {
 
 div.piIntro {
     text-align:left;
-    font-size: .8em;
+    font-size: .7em;
 }
 
 div.piIntro img {
     float:left;
+    margin:25px;
+    padding-right: 20px;
 }
 
 div.piIntro p, div.piIntro h3, div.piIntro ul {
-    margin-left: 200px;
+    margin-left: 20px;
 }
 
 
