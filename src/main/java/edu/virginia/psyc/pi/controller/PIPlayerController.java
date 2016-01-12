@@ -41,6 +41,7 @@ import java.util.Date;
 @RequestMapping("/playerScript")
 public class PIPlayerController extends BaseController {
 
+    @Autowired private static final Logger LOG = LoggerFactory.getLogger(PIPlayerController.class);
 
     @Autowired
     public PIPlayerController(ParticipantRepository participantRepository) {
@@ -53,8 +54,10 @@ public class PIPlayerController extends BaseController {
         Participant p = getParticipant(principal);
 
         // The Neutral condition requires a completely different file.
+        LOG.debug("The Script name: " + scriptName + "!=" +  "RecognitionRatings?" + (scriptName != "RecognitionRatings"));
+
         if(p.getCbmCondition().equals(Participant.CBM_CONDITION.NEUTRAL) &&
-                scriptName != "RecognitionRatings") {
+                !scriptName.equals("RecognitionRatings")) {
             scriptName = scriptName + "NT";
         }
 
