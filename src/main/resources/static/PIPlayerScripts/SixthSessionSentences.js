@@ -40,8 +40,8 @@ define([], function() {
                 "data": {
                     "negativeKey": "t",
                     "negativeWord": "poin[ ]less",
-                    "positiveKey": "e",
-                    "positiveWord": "gr[ ]at",
+                    "positiveKey": "g",
+                    "positiveWord": "[ ]reat",
                     "statement": " At a dinner party, you are introduced to someone new and chat with him for quite a while. When you call him the next week to suggest meeting again, he pauses for a moment. He probably thinks that getting together would be "
                 },
                 "handle": "paragraph",

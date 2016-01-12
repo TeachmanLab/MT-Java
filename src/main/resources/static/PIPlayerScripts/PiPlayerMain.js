@@ -53,13 +53,18 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
         last_word = break_up[break_up.length - 1].split(' ');
         last_word = last_word[last_word.length - 2] + ' ' + last_word[last_word.length - 1];
         break_up[break_up.length - 1] = break_up[break_up.length - 1].replace(last_word, "");
-
         // Randomly select an extra letter to include as the missing letter, if an extra letter should be missing.
         if(Sequence.add_extra_missing_letter) {
             p = jQuery.grep(trial._stimulus_collection.models, function (e, i) {
                 return e.attributes.handle == "paragraph";})[0];
-
             pick = Math.floor(Math.random() * (1 + 1));
+            console.log(pick);
+            while (last_word.indexOf(brackets[pick]) == last_word.length - 1 | last_word.indexOf(brackets[pick]) == 0)
+            {
+                console.log('RE-CHOOSING THE BRACKET');
+                pick = Math.floor(Math.random() * (1 + 1));
+            }
+            console.log(pick);
             if (pick == 0) {
                 index = last_word.indexOf(brackets[pick]);
                 letter = last_word[index - 1];

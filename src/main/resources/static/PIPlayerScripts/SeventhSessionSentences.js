@@ -40,8 +40,8 @@ define([], function() {
                 "data": {
                     "negativeKey": "d",
                     "negativeWord": "ru[ ]e",
-                    "positiveKey": "t",
-                    "positiveWord": "conscien[ ]ious",
+                    "positiveKey": "s",
+                    "positiveWord": "conscientiou[ ]",
                     "statement": " You are taking a class and during a brief break, call home to speak to your partner. You are late getting back into the classroom. The other students will think that choosing now to call home must mean that you are "
                 },
                 "handle": "paragraph",
