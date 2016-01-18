@@ -351,15 +351,17 @@ div.stimulus {
 
 div.piIntro {
     text-align:left;
-    font-size: .8em;
+    font-size: .7em;
 }
 
 div.piIntro img {
     float:left;
+    margin:25px;
+    padding-right: 20px;
 }
 
 div.piIntro p, div.piIntro h3, div.piIntro ul {
-    margin-left: 200px;
+    margin-left: 20px;
 }
 
 
@@ -801,13 +803,13 @@ form#wizard {
     display:block;
 }
 
-.invalid {
+li.invalid {
     background:url(../images/invalid.png) no-repeat 0 50%;
     padding-left:22px;
     line-height:24px;
     color:#ec3f41;
 }
-.valid {
+li.valid {
     background:url(../images/valid.png) no-repeat 0 50%;
     padding-left:22px;
     line-height:24px;
@@ -819,4 +821,12 @@ form#wizard {
   ***/
 #dialog {
     display:none;
+}
+
+/******
+  Admin Export Page
+  ***/
+.bigNumber {
+    font-size: 1.2em;
+    font-weight: bold;
 }
