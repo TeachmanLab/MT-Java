@@ -822,3 +822,11 @@ li.valid {
 #dialog {
     display:none;
 }
+
+/******
+  Admin Export Page
+  ***/
+.bigNumber {
+    font-size: 1.2em;
+    font-weight: bold;
+}
