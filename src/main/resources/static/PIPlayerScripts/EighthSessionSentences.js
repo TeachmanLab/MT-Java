@@ -308,10 +308,10 @@ define([], function() {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"n",
-                	negativeAnswer:"y"
+                	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Do you think your committee members thought you were a bad speaker? </div>"
+                    "inlineTemplate": "<div>Are you speaking on TV?</div>"
                      }
             },
             {"inherit": {"set": "yesno"}},

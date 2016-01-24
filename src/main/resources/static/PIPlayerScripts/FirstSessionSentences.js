@@ -53,10 +53,10 @@ define([], function() {
                             data: {
 
                             	positiveAnswer:"y",
-                            	negativeAnswer:"n"
+                            	negativeAnswer:"y"
                             },
                             "media": {
-                                "inlineTemplate": "<div>Is it fun to experience a little uncertainty on a date? </div>"
+                                "inlineTemplate": "<div>Are you eating dinner at a restaurant?</div>"
                             }
                         },
                         {"inherit": {"set": "yesno"}},
@@ -1121,52 +1121,52 @@ define([], function() {
                  data: {
 
                 	positiveAnswer:"n",
-                	negativeAnswer:"y"
-                },
-                "media": {
-                    "inlineTemplate": "<div>Are you anxious about your decision? </div>"
-                }
-            },
-            {"inherit": {"set": "yesno"}},
-                         {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit": {"set": "counter"}}
-        ]
-    },
-    {
-        "inherit": {
-            "set": "posneg",
-            "type": "random"
-        },
-        "stimuli": [
-            {"inherit": {"set": "error"}},
-            {
-                data: {
-
-                    "negativeKey": "n",
-                    "negativeWord": "u[ ]manageable",
-                    "positiveKey": "g",
-                    "positiveWord": "mana[ ]eable",
-                    "statement": " Your son is going camping with his friend\u2019s family for two days. There will be no cell phone reception and you are worried about not being able to check in with him. Your worries over the next two days are going to be "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "handle": "question",
-                 data: {
-
-                	positiveAnswer:"y",
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Are you able to manage your worries about your son? </div>"
+                    "inlineTemplate": "<div>Are you purchasing a new house? </div>"
                 }
             },
             {"inherit": {"set": "yesno"}},
                          {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit": {"set": "counter"}}
         ]
     },
+//    {
+//        "inherit": {
+//            "set": "posneg",
+//            "type": "random"
+//        },
+//        "stimuli": [
+//            {"inherit": {"set": "error"}},
+//            {
+//                data: {
+//
+//                    "negativeKey": "n",
+//                    "negativeWord": "u[ ]manageable",
+//                    "positiveKey": "g",
+//                    "positiveWord": "mana[ ]eable",
+//                    "statement": " Your son is going camping with his friend\u2019s family for two days. There will be no cell phone reception and you are worried about not being able to check in with him. Your worries over the next two days are going to be "
+//                },
+//                "handle": "paragraph",
+//                "media": {
+//                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+//                }
+//            },
+//            {
+//                "handle": "question",
+//                 data: {
+//
+//                	positiveAnswer:"y",
+//                	negativeAnswer:"n"
+//                },
+//                "media": {
+//                    "inlineTemplate": "<div>Are you able to manage your worries about your son? </div>"
+//                }
+//            },
+//            {"inherit": {"set": "yesno"}},
+//                         {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit": {"set": "counter"}}
+//        ]
+//    },
     {
         "inherit": {
             "set": "posneg",
@@ -1481,11 +1481,11 @@ define([], function() {
                 "handle": "question",
                  data: {
 
-                	positiveAnswer:"y",
+                	positiveAnswer:"n",
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Are you able to manage your worries about your son? </div>"
+                    "inlineTemplate": "<div>Is your son going to the beach with this friend?</div>"
                 }
             },
             {"inherit": {"set": "yesno"}},
@@ -1627,10 +1627,10 @@ define([], function() {
                  data: {
 
                 	positiveAnswer:"n",
-                	negativeAnswer:"y"
+                	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Is it likely that you will become sick? </div>"
+                    "inlineTemplate": "<div>Is your father in the hospital?</div>"
                 }
             },
             {"inherit": {"set": "yesno"}},

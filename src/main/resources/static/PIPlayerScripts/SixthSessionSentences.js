@@ -40,8 +40,8 @@ define([], function() {
                 "data": {
                     "negativeKey": "t",
                     "negativeWord": "poin[ ]less",
-                    "positiveKey": "g",
-                    "positiveWord": "[ ]reat",
+                    "positiveKey": "e",
+                    "positiveWord": "gr[ ]at",
                     "statement": " At a dinner party, you are introduced to someone new and chat with him for quite a while. When you call him the next week to suggest meeting again, he pauses for a moment. He probably thinks that getting together would be "
                 },
                 "handle": "paragraph",
@@ -52,16 +52,16 @@ define([], function() {
             {
                 "handle": "question",
                  data: {
-                	positiveAnswer:"y",
+                	positiveAnswer:"n",
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Does your new acquaintance want to meet with you again? </div>"
+                    "inlineTemplate": "<div> Did you call your new acquaintance after 2 weeks? </div>"
                 }
             },
             {"inherit": {"set": "yesno"}},
             {"inherit": {"set": "counter"}},
-            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     ]
@@ -95,10 +95,10 @@ define([], function() {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"y",
-                	negativeAnswer:"n"
+                	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Will you be well-liked at the party? </div>"
+                    "inlineTemplate": "<div>Did you hear the guest list before the party?</div>"
                 }
             },
             {"inherit": {"set": "yesno"}},
@@ -171,11 +171,11 @@ define([], function() {
             {
                 "handle": "question",
                  data: {
-                	positiveAnswer:"y",
+                	positiveAnswer:"n",
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Will you be talked to during the next book club meeting? </div>"
+                    "inlineTemplate": "<div>Did you talk to someone new at the movies? </div>"
                 }
             },
             {"inherit": {"set": "yesno"}},
@@ -207,10 +207,10 @@ define([], function() {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"n",
-                	negativeAnswer:"y"
+                	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Is it difficult to tolerate your nervousness on the date? </div>"
+                    "inlineTemplate": "<div>Did you go for a walk in the mall?</div>"
                 }
             },
             {"inherit": {"set": "yesno"}},
@@ -824,8 +824,8 @@ define([], function() {
                 "data": {
                     "negativeKey": "v",
                     "negativeWord": "a[ ]oid",
-                    "positiveKey": "i",
-                    "positiveWord": "g[ ]ve",
+                    "positiveKey": "e",
+                    "positiveWord": "pres[ ]nt",
                     "statement": " Your boss asks you to give a speech at a conference. You are nervous about the idea of giving a speech, and consider telling your boss that you do not want to give the speech. After thinking about your anxiety, you decide that the speech is something you want to "
                 },
                 "handle": "paragraph",
@@ -1496,7 +1496,7 @@ define([], function() {
             {
                 "data": {
                     "negativeKey": "o",
-                    "negativeWord": "anxi[ ]us",
+                    "negativeWord": "anxi[ ]is",
                     "positiveKey": "a",
                     "positiveWord": "c[ ]lm",
                     "statement": " You are on a hike with friends. You come to a suspension bridge you need to cross, but you aren\u2019t 100% sure it is safe even though your friends think it\u2019s probably OK. As you cross the bridge you feel "
@@ -1848,8 +1848,6 @@ define([], function() {
         ]
     }
 ]
-
-
 
         },
         {
