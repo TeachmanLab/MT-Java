@@ -46,6 +46,15 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
 
     Repositories repositories;
 
+
+    public int getMaxRecords() {
+        return maxRecords;
+    }
+
+    public int getMaxMinutes() {
+        return maxMinutes;
+    }
+
     /** Rather than autowire all the repositories, this class will
      * gather a list of all repositories and filter out the ones that
      * are annotated as ExportAndDelete or that extend question

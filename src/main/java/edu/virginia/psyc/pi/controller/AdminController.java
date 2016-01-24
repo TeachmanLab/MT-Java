@@ -16,11 +16,13 @@ import edu.virginia.psyc.pi.persistence.TrialRepository;
 import edu.virginia.psyc.pi.service.EmailService;
 import edu.virginia.psyc.pi.domain.tango.Account;
 import edu.virginia.psyc.pi.domain.tango.AccountResponse;
+import edu.virginia.psyc.pi.service.ExportService;
 import edu.virginia.psyc.pi.service.TangoService;
 import edu.virginia.psyc.pi.persistence.Questionnaire.DASS21_AS;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -59,6 +61,14 @@ public class AdminController extends BaseController {
 
     @Autowired
     private TangoService tangoService;
+
+    @Autowired
+    private ExportService exportService;
+
+    @Value("$export.disableDownloads")
+    private String downloadsDisabled;
+
+
 
 
     /**
@@ -251,13 +261,21 @@ public class AdminController extends BaseController {
         return "admin/listSessions";
     }
 
-    @RequestMapping(value="/listDownloads", method=RequestMethod.GET)
-    public String listDownloads(ModelMap model, Principal principal) {
+    @RequestMapping(value="/export", method=RequestMethod.GET)
+    public String export(ModelMap model, Principal principal) {
         Participant p = getParticipant(principal);
+
+        model.addAttribute("downloadsDisabled", Boolean.parseBoolean(downloadsDisabled));
+        model.addAttribute("exportMaxMinutes", exportService.getMaxMinutes());
+        model.addAttribute("exportMaxRecords", exportService.getMaxRecords());
+        model.addAttribute("totalRecords", exportService.totalRecords());
+        model.addAttribute("minutesSinceLastExport", exportService.minutesSinceLastExport());
+        model.addAttribute("formsDisabled", exportService.disableAdditionalFormSubmissions());
+
         model.addAttribute("participant", p);
         model.addAttribute("sessions", p.getStudy().getSessions());
         model.addAttribute("hideAccountBar", true);
-        return "admin/listDownloads";
+        return "admin/export";
     }
 
     /**
