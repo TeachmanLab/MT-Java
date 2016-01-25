@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="fragment/common :: headerFragment" />
+<body>
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment" />
+
+<!-- header-btm starts
+================================================== -->
+<section id="header-btm" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <h2 class="page-title heading-icon clearfix"> <img th:src="@{/images/map-arrow-orange.png}" alt="icon" class="icon-small-bg" /><br/>About The Team</h2>
+        </div>
+    </div>
+</section>
+<!-- header-btm ends
+================================================== -->
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+    <div class="container">
+        <table class='table'>
+            <tr>
+                <td colspan="2">The Core Team</td>
+            </tr>
+            <tr>
+                <td>Bethany Teachman, Ph.D., is the Director of MindTrails. Bethany is a licensed clinical psychologist and Professor of psychology at the University of Virginia. Her research focuses on biased thought patterns associated with anxiety and other forms of mental illness (see www.teachman.org). She also directs Project Implicit Mental Health, a web site where visitors can learn about their automatic associations toward different mental health topics.</td>
+                <td>Dan Funk is the lead software developer for MindTrails.  As an independent contractor, Dan has the privilege of working on a variety of projects from commercial e-commerce applications for UnderArmour to search systems for the US Patent Office.  His favorite projects are at the University of Virginia, working with leading experts in the sciences to make the world a better place to be. </td>
+            </tr>
+            <tr>
+                <td>Diheng Zhang, M.A., is the project coordinator for MindTrails. Diheng is an experienced web developer and psychological researcher. His research focuses on the cognitive mechanisms that sustain mood disorders, the developmental trajectories of mood disorders, and interventions for mood disorders. </td>
+                <td>Sam Portnow, M.A., is the lead graduate assistant for MindTrails. Sam is a Community Psychologist in-training, and also has experience developing open-source web applications. As such, Sam has extensive experience working alongside both web developers and psychologists.</td>
+            </tr>
+            <tr>
+                <td colspan="2">Consultants</td>
+            </tr>
+            <tr>
+                <td>Lee Ritterband, Ph.D., is a Professor of Psychiatry and Neurobehavioral Sciences at the University of Virginia. His research focuses on the development of Internet interventions for various behavioral health issues. </td>
+                <td>Andrew Mathews, Ph.D. is a (visiting) Professor of Psychology at King’s College in London and Research Associate at the University of California, Davis. His research focuses on biased thought patterns involved in the development and maintenance of anxiety.</td>
+            </tr>
+            <tr>
+                <td colspan="2">Contributors</td>
+            </tr>
+            <tr>
+                <td>Jessica Beadel Cruz, M.A.</td>
+                <td>Jen Green, Ph.D.</td>
+            </tr>
+            <tr>
+                <td>Nauder Namaky, B.A.</td>
+                <td>Shari Steinman, Ph.D.</td>
+            </tr>
+            <tr>
+                <td>Alexandra Werntz, B.A.</td>
+                <td>Program for Anxiety, Cognition, and Treatment (PACT) Lab </td>
+            </tr>
+        </table>
+
+    </div>
+</section>
+
+
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts" />
+
+</body>
+</html>

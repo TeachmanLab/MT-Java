@@ -158,6 +158,11 @@ public class LoginController extends BaseController {
         return "about";
     }
 
+    @RequestMapping("public/team")
+    public String showTeam(ModelMap model, Principal principal) {
+        return "team";
+    }
+
     @RequestMapping("public/contact")
     public String showoContact(ModelMap model, Principal principal) {
         return "contact";
