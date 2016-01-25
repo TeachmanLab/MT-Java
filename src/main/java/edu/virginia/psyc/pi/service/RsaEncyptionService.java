@@ -28,8 +28,8 @@ public class RsaEncyptionService {
     private static final Logger LOG = LoggerFactory.getLogger(RsaEncyptionService.class);
     private static final String ALGORITHM= "RSA";
 
-    @Value("${encryption.enabled ?: false}")
-    private Boolean enabled;
+    @Value("${encryption.enabled}")
+    private String enabledString;
 
     @Autowired
     ResourceLoader resourceLoader;
@@ -65,6 +65,7 @@ public class RsaEncyptionService {
     public String encryptIfEnabled(long number) { return encryptIfEnabled("" + number); }
 
     public String encryptIfEnabled(String text) {
+        boolean enabled = Boolean.parseBoolean(enabledString);
         // If encryption is not enabled, then don't actually encrypt the string.
         if(!enabled) return text;
         byte[] cipherText = null;

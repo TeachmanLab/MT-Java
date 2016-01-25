@@ -7,6 +7,7 @@ import edu.virginia.psyc.pi.persistence.ExportLogDAO;
 import edu.virginia.psyc.pi.persistence.ExportLogRepository;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.Questionnaire.QuestionnaireData;
+import edu.virginia.psyc.pi.persistence.TrialDAO;
 import org.joda.time.DateTime;
 import org.joda.time.Minutes;
 import org.slf4j.Logger;
@@ -113,7 +114,7 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
             Class<?> repoClass=repositories.getRepositoryInformationFor(domainType).getRepositoryInterface();
             Object repository=repositories.getRepositoryFor(domainType);
             // If this is questionnaire data ...
-            if(QuestionnaireData.class.isAssignableFrom(domainType)) {
+            if(QuestionnaireData.class.isAssignableFrom(domainType) || domainType.equals(TrialDAO.class)) {
                 deleteableFlag        = !domainType.isAnnotationPresent(DoNotDelete.class);
                 JpaRepository rep = (JpaRepository)repository;
                 QuestionnaireInfo info = new QuestionnaireInfo(domainType.getSimpleName(), rep.count(), deleteableFlag);

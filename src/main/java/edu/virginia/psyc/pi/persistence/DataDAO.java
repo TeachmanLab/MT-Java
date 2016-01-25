@@ -1,5 +1,8 @@
 package edu.virginia.psyc.pi.persistence;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
+
 import javax.persistence.*;
 
 /**
@@ -11,14 +14,13 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="data")
+@Data
 public class DataDAO {
 
     @Id
     @GeneratedValue
+    @JsonIgnore
     private int id;
-
-    @ManyToOne
-    private TrialDAO trialDAO;
 
     @Column(name="myKey")
     private String key;
@@ -33,35 +35,4 @@ public class DataDAO {
         this.key   = k;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public TrialDAO getTrialDAO() {
-        return trialDAO;
-    }
-
-    public void setTrialDAO(TrialDAO trialDAO) {
-        this.trialDAO = trialDAO;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
 }

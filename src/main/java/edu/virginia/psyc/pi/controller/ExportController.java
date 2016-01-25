@@ -1,13 +1,12 @@
 package edu.virginia.psyc.pi.controller;
 
 import edu.virginia.psyc.pi.domain.DoNotDelete;
+import edu.virginia.psyc.pi.domain.RestExceptions.NoSuchIdException;
 import edu.virginia.psyc.pi.domain.RestExceptions.NoSuchQuestionnaireException;
 import edu.virginia.psyc.pi.domain.RestExceptions.NotDeleteableException;
 import edu.virginia.psyc.pi.domain.QuestionnaireInfo;
-import edu.virginia.psyc.pi.persistence.ExportLogDAO;
-import edu.virginia.psyc.pi.persistence.ExportLogRepository;
-import edu.virginia.psyc.pi.persistence.ParticipantDAO;
-import edu.virginia.psyc.pi.persistence.ParticipantRepository;
+import edu.virginia.psyc.pi.domain.json.TrialJson;
+import edu.virginia.psyc.pi.persistence.*;
 import edu.virginia.psyc.pi.persistence.Questionnaire.QuestionnaireData;
 import edu.virginia.psyc.pi.service.ExportService;
 import org.slf4j.Logger;
@@ -15,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.support.Repositories;
 import org.springframework.stereotype.Controller;
@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
 
 /**
  * Provides a tool for Exporting data from the system and then
@@ -37,6 +39,7 @@ public class ExportController  {
     @Autowired ParticipantRepository participantRepository;
     @Autowired ExportLogRepository exportLogRepository;
     @Autowired ExportService exportService;
+    @Autowired TrialRepository trialRepository;
 
     @RequestMapping(method= RequestMethod.GET)
     public @ResponseBody List<QuestionnaireInfo> list() {
@@ -64,16 +67,16 @@ public class ExportController  {
             if (domainType.isAnnotationPresent(DoNotDelete.class))
                 throw new NotDeleteableException();
             JpaRepository rep = exportService.getRepositoryForName(name);
-            rep.delete(id);
-            rep.flush();
+            try {
+                rep.delete(id);
+                rep.flush();
+            } catch (EmptyResultDataAccessException e) {
+                throw new NoSuchIdException();
+            }
         } else {
             throw new NoSuchQuestionnaireException();
         }
     }
-
-
-
-
 
 }
 
