@@ -51,7 +51,7 @@
                         </p>
                         <p>
                         <label class="standard">Birth Year</label>
-                        <input type="number" min="1900" name="birthYear" />
+                        <input type="number" min="1900" name="birthYear" required="true" />
                         </p>
                         <p>
                         <label class="standard">Race</label>
@@ -80,7 +80,7 @@
                         </p>
                         <p>
                         <label class="standard">Country of Residence</label>
-                        <select class="auto-selector" placeholder="Type your country of residence" name="residenceCountry"  autofocus="autofocus" autocorrect="off" autocomplete="off">
+                        <select required="true" class="auto-selector" placeholder="Type your country of residence" name="residenceCountry"  autofocus="autofocus" autocorrect="off" autocomplete="off">
                         <option value="" selected="selected"></option>
                         <option value="United States" data-relevancy-booster="3.5" data-alternative-spellings="US USA United States of America">United States</option>
                         <option value="Afghanistan" data-alternative-spellings="AF">Afghanistan</option>
@@ -337,7 +337,7 @@
                         </p>
                         <p>
                             <label class="standard">Please indicate your highest educational attainment.</label>
-                            <select name="education">
+                            <select required="true" name="education">
                                 <option value="">Please select one</option>
                                 <option>Elementary School</option>
                                 <option>Junior High</option>
@@ -358,7 +358,7 @@
                         </p>
                         <p>
                             <label class="standard">What is your marital status?</label>
-                            <select name="maritalStatus">
+                            <select name="maritalStatus" required="true">
                                 <option value="">Please select one</option>
                                 <option>Single</option>
                                 <option>Single, but casually dating</option>
@@ -375,7 +375,7 @@
                         </p>
                         <p>
                             <label class="standard">What is your employment status?</label>
-                            <select name="employmentStatus">
+                            <select name="employmentStatus" required="true">
                                 <option value="">Please select one</option>
                                 <option>Working full-time</option>
                                 <option>Working part-time</option>
@@ -390,7 +390,7 @@
                         </p>
                         <p>
                         <label class="standard">What is your household annual income (before taxes and other deductions)?</label>
-                        <select name="income">
+                        <select name="income" required="true">
                             <option value="">Please select one</option>
                             <option>Less than $5,000</option>
                             <option>$5,000 through $11,999</option>
@@ -410,7 +410,7 @@
                         </p>
                     <p>
                         <label class="standard">What brought you to this website?</label>
-                        <select name="participateReason">
+                        <select name="participateReason" required="true">
                             <option value="">Please select one</option>
                             <option>Recommendation of teacher</option>
                             <option>Recommendation of employer</option>
