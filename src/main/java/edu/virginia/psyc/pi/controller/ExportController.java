@@ -5,6 +5,7 @@ import edu.virginia.psyc.pi.domain.RestExceptions.NoSuchIdException;
 import edu.virginia.psyc.pi.domain.RestExceptions.NoSuchQuestionnaireException;
 import edu.virginia.psyc.pi.domain.RestExceptions.NotDeleteableException;
 import edu.virginia.psyc.pi.domain.QuestionnaireInfo;
+import edu.virginia.psyc.pi.domain.json.InterpretationReport;
 import edu.virginia.psyc.pi.domain.json.TrialJson;
 import edu.virginia.psyc.pi.persistence.*;
 import edu.virginia.psyc.pi.persistence.Questionnaire.QuestionnaireData;
@@ -20,10 +21,7 @@ import org.springframework.data.repository.support.Repositories;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 /**
  * Provides a tool for Exporting data from the system and then
@@ -39,7 +37,6 @@ public class ExportController  {
     @Autowired ParticipantRepository participantRepository;
     @Autowired ExportLogRepository exportLogRepository;
     @Autowired ExportService exportService;
-    @Autowired TrialRepository trialRepository;
 
     @RequestMapping(method= RequestMethod.GET)
     public @ResponseBody List<QuestionnaireInfo> list() {
@@ -55,7 +52,11 @@ public class ExportController  {
         JpaRepository rep = exportService.getRepositoryForName(name);
         if (rep != null) {
             LOG.info("Found " + rep.count() + " items to return .");
-            return rep.findAll();
+            if (rep instanceof TrialRepository) {
+                return(getTrialSummary((TrialRepository) rep));
+            } else {
+                return rep.findAll();
+            }
         }
         else return new ArrayList<>();
     }
@@ -77,6 +78,24 @@ public class ExportController  {
             throw new NoSuchQuestionnaireException();
         }
     }
+
+
+
+    /**
+     * Returns the json data of a PIPlayer script, removing non-essential data so
+     * the exporter can more easily handle it.
+     * @return
+     */
+    public List<Object> getTrialSummary(TrialRepository trialRepository) {
+        List<TrialDAO> trialData = trialRepository.findAll();
+        List<Object> reports = new ArrayList<>();
+        // Convert to trial summary
+        for (TrialDAO data : trialData) {
+            reports.add(data.toTrialJson().toInterpretationReport());
+        }
+        return reports;
+    }
+
 
 }
 

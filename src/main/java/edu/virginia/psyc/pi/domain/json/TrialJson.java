@@ -1,5 +1,7 @@
 package edu.virginia.psyc.pi.domain.json;
 
+import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +15,7 @@ import java.util.Map;
  * An Java Object representation of data returned from PIPlayer.  This representation
  * is designed for storing in a relational database.
  */
+@Data
 public class TrialJson {
 
     private long id;
@@ -27,7 +30,6 @@ public class TrialJson {
     private String script;
     private String session;
     private int participant;
-
 
     @Override
     public String toString() {
@@ -47,151 +49,26 @@ public class TrialJson {
                 '}';
     }
 
-    /**
-     * Retruns the headers of an interpretation report in the order they
-     * should occur.
-     * @return
-     */
-    public static List<String> interpretationReportHeaders() {
-        List<String> headers = new ArrayList<String>();
-        headers.add("participant");
-        headers.add("sessionName");
-        headers.add("scriptName");
-        headers.add("session");
-        headers.add("trial");
-        headers.add("positive");
-        headers.add("first letter latency");
-        headers.add("letter latency");
-        headers.add("letter correct");
-        headers.add("first question latency");
-        headers.add("question latency");
-        headers.add("question correct");
-        headers.add("word");
-        headers.add("paragraph");
-        headers.add("question");
-        return headers;
+
+    public InterpretationReport toInterpretationReport() {
+        InterpretationReport r = new InterpretationReport();
+        r.setId(id);
+        r.setParticipant(participant + "");
+        r.setSessionName(session);
+        r.setScriptName(script);
+        r.setSession(log_serial + "");
+        r.setTrial(trial_id);
+        r.setPositive(data.get("positive"));
+        r.setFirstLetterLatency(data.get("first_letter_latency"));
+        r.setLetterLatency(data.get("letter_latency"));
+        r.setLetterCorrect(data.get("correctOnLetter"));
+        r.setFirstQuestionLatency(data.get("first_question_latency"));
+        r.setQuestionLatency(data.get("question_latency"));
+        r.setQuestionCorrect(data.get("correctOnQuestion"));
+        r.setWord(data.get("word"));
+        r.setParagraph(data.get("paragraph"));
+        r.setQuestion(data.get("question"));
+        return r;
     }
 
-    public Map<String,String> toInterpretationReport() {
-
-        Map<String,String> report = new HashMap<String, String>();
-
-        // Return an empty row for invalid results.
-        if(!this.name.equals("posneg")) return report;
-
-        report.put("participant", participant+"");
-        report.put("sessionName", session);
-        report.put("scriptName", script);
-        report.put("session",    log_serial+"");
-        report.put("trial",      trial_id);
-        report.put("positive",   data.get("positive"));
-        report.put("first letter latency",   data.get("first_letter_latency"));
-        report.put("letter latency",   data.get("letter_latency"));
-        report.put("letter correct",   data.get("correctOnLetter"));
-        report.put("first question latency",   data.get("first_question_latency"));
-        report.put("question latency",   data.get("question_latency"));
-        report.put("question correct",   data.get("correctOnQuestion"));
-        report.put("word",  data.get("word"));
-        report.put("paragraph",  data.get("paragraph"));
-        report.put("question",   data.get("question"));
-
-        return report;
-    }
-
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public int getLog_serial() {
-        return log_serial;
-    }
-
-    public void setLog_serial(int log_serial) {
-        this.log_serial = log_serial;
-    }
-
-    public String getTrial_id() {
-        return trial_id;
-    }
-
-    public void setTrial_id(String trial_id) {
-        this.trial_id = trial_id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getResponseHandle() {
-        return responseHandle;
-    }
-
-    public void setResponseHandle(String responseHandle) {
-        this.responseHandle = responseHandle;
-    }
-
-    public int getLatency() {
-        return latency;
-    }
-
-    public void setLatency(int latency) {
-        this.latency = latency;
-    }
-
-    public List<String> getStimuli() {
-        return stimuli;
-    }
-
-    public void setStimuli(List<String> stimuli) {
-        this.stimuli = stimuli;
-    }
-
-    public List<String> getMedia() {
-        return media;
-    }
-
-    public void setMedia(List<String> media) {
-        this.media = media;
-    }
-
-    public Map<String, String> getData() {
-        return data;
-    }
-
-    public void setData(Map<String, String> data) {
-        this.data = data;
-    }
-
-    public String getScript() {
-        return script;
-    }
-
-    public void setScript(String script) {
-        this.script = script;
-    }
-
-    public String getSession() {
-        return session;
-    }
-
-    public void setSession(String session) {
-        this.session = session;
-    }
-
-    public int getParticipant() {
-        return participant;
-    }
-
-    public void setParticipant(int participant) {
-        this.participant = participant;
-    }
 }
