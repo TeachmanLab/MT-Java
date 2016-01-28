@@ -268,7 +268,7 @@ public class AdminController extends BaseController {
         model.addAttribute("downloadsDisabled", Boolean.parseBoolean(downloadsDisabled));
         model.addAttribute("exportMaxMinutes", exportService.getMaxMinutes());
         model.addAttribute("exportMaxRecords", exportService.getMaxRecords());
-        model.addAttribute("totalRecords", exportService.totalRecords());
+        model.addAttribute("totalRecords", exportService.totalDeleteableRecords());
         model.addAttribute("minutesSinceLastExport", exportService.minutesSinceLastExport());
         model.addAttribute("formsDisabled", exportService.disableAdditionalFormSubmissions());
 

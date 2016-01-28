@@ -86,7 +86,7 @@ public class SessionController extends BaseController {
         if((study.getState() == Study.STUDY_STATE.READY ||
                 study.getState() == Study.STUDY_STATE.IN_PROGRESS) &&
                 exportService.disableAdditionalFormSubmissions() == true) {
-            LOG.error("The site is disabled.  We have " + exportService.totalRecords() +
+            LOG.error("The site is disabled.  We have " + exportService.totalDeleteableRecords() +
                     " total questionnaire submissions. It has been " + exportService.minutesSinceLastExport()
                     + " minutes since the last export ran.");
             return "sessionHome/siteDisabled";
