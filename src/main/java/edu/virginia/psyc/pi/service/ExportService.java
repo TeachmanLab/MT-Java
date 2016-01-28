@@ -67,7 +67,7 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
     }
 
     public boolean disableAdditionalFormSubmissions() {
-        if(totalRecords() > maxRecords) return true;
+        if(totalDeleteableRecords() > maxRecords) return true;
         return false;
     }
 
@@ -77,9 +77,11 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
         return Minutes.minutesBetween(last.toLocalDate(), now.toLocalDate()).getMinutes();
     }
 
-    public int totalRecords() {
+    public int totalDeleteableRecords() {
         int sum = 0;
-        for(QuestionnaireInfo i : listRepositories()) sum += i.getSize();
+        for(QuestionnaireInfo i : listRepositories()) {
+            if(i.isDeleteable()) sum += i.getSize();
+        }
         return sum;
     }
 
@@ -156,7 +158,7 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
     public void send30MinAlert() throws MessagingException {
         LOG.debug("Running 30 minute alert.");
         int minutesSinceLastExport = minutesSinceLastExport();
-        int totalRecords = totalRecords();
+        int totalRecords = totalDeleteableRecords();
         if(totalRecords > 0 && minutesSinceLastExport > 30 && minutesSinceLastExport < 60) {
             emailService.sendExportAlertEmail(getAlertMessage(minutesSinceLastExport, totalRecords));
         }
@@ -171,7 +173,7 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
     public void send2hrAlert() throws MessagingException {
         LOG.debug("Running 2hr alert.");
         int minutesSinceLastExport = minutesSinceLastExport();
-        int totalRecords = totalRecords();
+        int totalRecords = totalDeleteableRecords();
         if(totalRecords > 0 && minutesSinceLastExport > 120 && minutesSinceLastExport < 1440) {
             emailService.sendExportAlertEmail(getAlertMessage(minutesSinceLastExport, totalRecords));
         }
@@ -186,8 +188,8 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
     public void send4hrAlert() throws MessagingException {
         LOG.debug("Running 4 hour alert.");
         int minutesSinceLastExport = minutesSinceLastExport();
-        int totalRecords = totalRecords();
-        if(totalRecords > 90) {
+        int totalRecords = totalDeleteableRecords();
+        if(disableAdditionalFormSubmissions()) {
             emailService.sendExportAlertEmail("The site is currently disabled.  Too many " +
                     "records exist, and they need to be exported." +
                     getAlertMessage(minutesSinceLastExport, totalRecords));
