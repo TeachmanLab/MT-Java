@@ -123,6 +123,7 @@ public class SessionController extends BaseController {
 
         model.addAttribute("participant", p);
         model.addAttribute("study", study);
+        model.addAttribute("complete", p.getStudy().getCurrentSession().getName().equals("COMPLETE"));
 
         return "overview";
     }

@@ -23,4 +23,5 @@ public class InterpretationReport {
     private String word;
     private String paragraph;
     private String question;
+    private String vividness;
 }
