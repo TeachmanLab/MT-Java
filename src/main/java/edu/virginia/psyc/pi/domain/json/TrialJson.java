@@ -68,6 +68,7 @@ public class TrialJson {
         r.setWord(data.get("word"));
         r.setParagraph(data.get("paragraph"));
         r.setQuestion(data.get("question"));
+        r.setVividness(data.get("vividness"));
         return r;
     }
 
