@@ -3,7 +3,7 @@ define([], function() {
         display_length: 50,
         add_extra_missing_letter:true,
         sequence:[
-            {
+         {
              input: [
                  {handle:'space',on:'space'}
              ],
@@ -961,11 +961,11 @@ define([], function() {
             {
                 "handle": "question",
                  data: {
-                	positiveAnswer:"y",
+                	positiveAnswer:"n",
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Do you enjoy the rest of the movie after thinking about the car? </div>"
+                    "inlineTemplate": "<div>Are you watching television with your friend? </div>"
                      }
             },
             {"inherit": {"set": "yesno"}},
@@ -996,10 +996,10 @@ define([], function() {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"n",
-                	negativeAnswer:"y"
+                	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Are you likely to get into an accident? </div>"
+                    "inlineTemplate": "<div>Is it snowing outside while you are driving?</div>"
                      }
             },
             {"inherit": {"set": "yesno"}},
@@ -1100,11 +1100,11 @@ define([], function() {
             {
                 "handle": "question",
                  data: {
-                	positiveAnswer:"n",
+                	positiveAnswer:"y",
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Is it likely that you will be fired? </div>"
+                    "inlineTemplate": "<div>Did you recently watch the news?</div>"
                      }
             },
             {"inherit": {"set": "yesno"}},
@@ -1135,10 +1135,10 @@ define([], function() {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"n",
-                	negativeAnswer:"y"
+                	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Will you go bankrupt after paying for the car repairs? </div>"
+                    "inlineTemplate": "<div>Is your car running smoothly?</div>"
                      }
             },
             {"inherit": {"set": "yesno"}},
@@ -1350,41 +1350,42 @@ define([], function() {
             {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}},
         ]
     },
+//    {
+//        "inherit": {
+//            "set": "posneg",
+//            "type": "random"
+//        },
+//        "stimuli": [
+//            {"inherit": {"set": "error"}},
+//
+//            {
+//                "data": {
+//                    "negativeKey": "s",
+//                    "negativeWord": "mi[ ]erable",
+//                    "positiveKey": "l",
+//                    "positiveWord": "thril[ ]ing",
+//                    "statement": " You are seeing a movie with your friend and realize that you don\u2019t remember locking your car. You worry about someone breaking in and stealing something. The rest of the movie is "
+//                },
+//                "handle": "paragraph",
+//                "media": {
+//                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+//                }
+//            },
+//            {
+//                "handle": "question",
+//                 data: {
+//                	positiveAnswer:"y",
+//                	negativeAnswer:"n"
+//                },
+//                "media": {
+//                    "inlineTemplate": "<div>Do you enjoy the rest of the movie after thinking about the car? </div>"
+//                     }
+//            },
+//            {"inherit": {"set": "yesno"}},
+//            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}},
+//        ]
+//    },
     {
-        "inherit": {
-            "set": "posneg",
-            "type": "random"
-        },
-        "stimuli": [
-            {"inherit": {"set": "error"}},
-
-            {
-                "data": {
-                    "negativeKey": "s",
-                    "negativeWord": "mi[ ]erable",
-                    "positiveKey": "l",
-                    "positiveWord": "thril[ ]ing",
-                    "statement": " You are seeing a movie with your friend and realize that you don\u2019t remember locking your car. You worry about someone breaking in and stealing something. The rest of the movie is "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "handle": "question",
-                 data: {
-                	positiveAnswer:"y",
-                	negativeAnswer:"n"
-                },
-                "media": {
-                    "inlineTemplate": "<div>Do you enjoy the rest of the movie after thinking about the car? </div>"
-                     }
-            },
-            {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}},
-        ]
-    },           {
         "inherit": {
             "set": "posneg",
             "type": "random"
@@ -1764,6 +1765,8 @@ define([], function() {
         "inherit": {"set": "vivid"},
         layout: [{media : {template:"/PIPlayerScripts/vividness_last.html"}}]
     }
-]});
+        ]});
 });
+
+
 /* don't forget to close the define wrapper */

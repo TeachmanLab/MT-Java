@@ -3,7 +3,7 @@ define([], function() {
         display_length: 50,
         add_extra_missing_letter:true,
         sequence:[
-            {
+        {
             input: [
                 {handle:'space',on:'space'}
             ],
@@ -38,9 +38,9 @@ define([], function() {
                         {
                             "data": {
                                 "negativeKey": "r",
-                                "negativeWord": "ter[ ]ile",
-                                "positiveKey": "r",
-                                "positiveWord": "th[ ]lling",
+                                "negativeWord": "ter[ ]ible",
+                                "positiveKey": "l",
+                                "positiveWord": "thril[ ]ing",
                                 "statement": " You are out to dinner on a date. As you look into your date\u2019s eyes, you are unsure whether he/she will ask you out for another date. The feeling of uncertainty is "
                             },
                             "handle": "paragraph",
@@ -53,10 +53,10 @@ define([], function() {
                             data: {
 
                             	positiveAnswer:"y",
-                            	negativeAnswer:"n"
+                            	negativeAnswer:"y"
                             },
                             "media": {
-                                "inlineTemplate": "<div>Is it fun to experience a little uncertainty on a date? </div>"
+                                "inlineTemplate": "<div>Are you eating dinner at a restaurant?</div>"
                             }
                         },
                         {"inherit": {"set": "yesno"}},
@@ -129,10 +129,10 @@ define([], function() {
             {
                 "data": {
 
-                    "negativeKey": "w",
-                    "negativeWord": "a[ ]ful",
-                    "positiveKey": "in",
-                    "positiveWord": "f[ ]ne",
+                    "negativeKey": "f",
+                    "negativeWord": "aw[ ]ul",
+                    "positiveKey": "n",
+                    "positiveWord": "fi[ ]e",
                     "statement": " While on a date, you accidentally spill a glass of water. You feel slightly embarrassed as your date helps you clean up the spill. The rest of the date is likely to be "
                 },
                 "handle": "paragraph",
@@ -164,10 +164,10 @@ define([], function() {
             {
                 "data": {
 
-                    "negativeKey": "e",
-                    "negativeWord": "n[ ]rvous",
+                    "negativeKey": "r",
+                    "negativeWord": "ne[ ]vous",
                     "positiveKey": "m",
-                    "positiveWord": "ca[ ]m",
+                    "positiveWord": "cal[ ]",
                     "statement": " Your friend sets you up on a blind date and you agree to meet the date at a coffee shop. Once you are both sitting at your table, you notice that he/she is very attractive. You have difficulty thinking of something to say, so you sit quietly. He/she probably thinks that you are "
                 },
                 "handle": "paragraph",
@@ -236,8 +236,8 @@ define([], function() {
             {
                 data: {
 
-                    "negativeKey": "r",
-                    "negativeWord": "embar[ ]assed",
+                    "negativeKey": "a",
+                    "negativeWord": "embarr[ ]ssed",
                     "positiveKey": "s",
                     "positiveWord": "enthu[ ]iastic",
                     "statement": "A friend suggests that you join an evening class on creative writing. The thought of other people looking at your writing makes you feel "
@@ -272,10 +272,10 @@ define([], function() {
             {
                 data: {
 
-                    "negativeKey": "i",
-                    "negativeWord": "we[ ]rd",
+                    "negativeKey": "r",
+                    "negativeWord": "wei[ ]d",
                     "positiveKey": "e",
-                    "positiveWord": "op[  ]n",
+                    "positiveWord": "op[ ]n",
                     "statement": " You are sitting on the couch and watching television with a friend. Your friend asks you a personal question. You answer honestly, and you think your friend judges you to be "
                 },
                 "handle": "paragraph",
@@ -310,8 +310,8 @@ define([], function() {
 
                     "negativeKey": "r",
                     "negativeWord": "sa[ ]castic",
-                    "positiveKey": "n",
-                    "positiveWord": "si[ ]cere",
+                    "positiveKey": "c",
+                    "positiveWord": "sin[ ]ere",
                     "statement": " You are shopping with a friend, and you try on a new outfit. As you come out of the fitting room, your friend pauses, and then, without smiling, says that you look good. As you think about your friend\u2019s response, you decide your friend is being "
                 },
                 "handle": "paragraph",
@@ -344,8 +344,8 @@ define([], function() {
             {
                 data: {
 
-                    "negativeKey": "e",
-                    "negativeWord": "n[ ]gatively",
+                    "negativeKey": "g",
+                    "negativeWord": "ne[ ]atively",
                     "positiveKey": "v",
                     "positiveWord": "fa[ ]orably",
                     "statement": " You have almost completed a computer course and part of your grade will be determined by a presentation that is to be graded by your classmates. You know most of them, and feel that their opinions of you will make them grade you more "
@@ -381,7 +381,7 @@ define([], function() {
                 data: {
 
                     "negativeKey": "r",
-                    "negativeWord": "te[ ]rible",
+                    "negativeWord": "ter[ ]ible",
                     "positiveKey": "e",
                     "positiveWord": "gr[ ]at",
                     "statement": " You consider taking an evening class in which part of your grade is based on your participation, even though you do not like speaking up in front of others. Because the topic is really interesting, you decide to sign up for the class. After signing up, you realize this decision was "
@@ -418,8 +418,8 @@ define([], function() {
 
                     "negativeKey": "k",
                     "negativeWord": "lac[ ]ing",
-                    "positiveKey": "r",
-                    "positiveWord": "no[ ]mal",
+                    "positiveKey": "m",
+                    "positiveWord": "nor[ ]al",
                     "statement": " You have had a busy week so your kitchen is slightly disorganized. You are expecting your neighbor to stop by for a drink, so you begin to straighten up. Just as you start, your neighbor arrives. He probably thinks your hosting skills are "
                 },
                 "handle": "paragraph",
@@ -453,7 +453,7 @@ define([], function() {
                 data: {
 
                     "negativeKey": "i",
-                    "negativeWord": "fustrat[ ]ig",
+                    "negativeWord": "fustrat[ ]ng",
                     "positiveKey": "t",
                     "positiveWord": "ra[ ]ional",
                     "statement": " You buy a new camera, but when you get it home, you decide you do not like it. You return it to the store and get your money back. The assistant is not very talkative as he helps you, and you think he views you as "
@@ -490,8 +490,8 @@ define([], function() {
 
                     "negativeKey": "o",
                     "negativeWord": "p[ ]or",
-                    "positiveKey": "d",
-                    "positiveWord": "a[ ]mirable",
+                    "positiveKey": "m",
+                    "positiveWord": "ad[ ]irable",
                     "statement": " You are persuaded to join a trivia team in a tournament. You are told that most of the questions will be asked to individuals, in different rounds. The first round is hard and you feel that the others found your efforts particularly "
                 },
                 "handle": "paragraph",
@@ -526,8 +526,8 @@ define([], function() {
 
                     "negativeKey": "u",
                     "negativeWord": "d[ ]ll",
-                    "positiveKey": "a",
-                    "positiveWord": "like[ ]ble",
+                    "positiveKey": "b",
+                    "positiveWord": "likea[ ]le",
                     "statement": " You have just moved to a new area and your neighbor asks if you would like to go to your local bar that evening. When you arrive, she is not there yet. Reflecting on your earlier conversation, she probably thought you were "
                 },
                 "handle": "paragraph",
@@ -562,8 +562,8 @@ define([], function() {
 
                     "negativeKey": "s",
                     "negativeWord": "embara[ ]sing",
-                    "positiveKey": "r",
-                    "positiveWord": "no[ ]mal",
+                    "positiveKey": "m",
+                    "positiveWord": "nor[ ]al",
                     "statement": " You are at a birthday party for a friend of a friend. You notice that you are flushed and a little sweaty. You think that these sensations are "
                 },
                 "handle": "paragraph",
@@ -651,7 +651,7 @@ define([], function() {
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Is the shop owner mad at you for knocking over the picture frames? </div>"
+                    "inlineTemplate": "<div>Is the show owner mad at you for knocking over the picture frames? </div>"
                 }
             },
             {"inherit": {"set": "yesno"}},
@@ -670,8 +670,8 @@ define([], function() {
 
                     "negativeKey": "u",
                     "negativeWord": "d[ ]ll",
-                    "positiveKey": "u",
-                    "positiveWord": "f[ ]n",
+                    "positiveKey": "n",
+                    "positiveWord": "fu[ ]",
                     "statement": " You meet someone at a party and feel that you got along well. Later, you call and suggest meeting again. The reply you get makes you feel that the person thinks meeting again would be "
                 },
                 "handle": "paragraph",
@@ -706,8 +706,8 @@ define([], function() {
 
                     "negativeKey": "n",
                     "negativeWord": "ig[ ]orant",
-                    "positiveKey": "d",
-                    "positiveWord": "knowle[ ]geable",
+                    "positiveKey": "g",
+                    "positiveWord": "knowled[ ]eable",
                     "statement": " You are in the car with your mother-in-law, and put on the radio. As you discuss which station to listen to, you realize that you and your mother-in-law like different types of music. After having an in-depth discussion about the pros and cons of different music styles, your mother-in-law judges you as "
                 },
                 "handle": "paragraph",
@@ -778,8 +778,8 @@ define([], function() {
 
                     "negativeKey": "v",
                     "negativeWord": "lea[ ]e",
-                    "positiveKey": "a",
-                    "positiveWord": "st[ ]y",
+                    "positiveKey": "y",
+                    "positiveWord": "sta[ ]",
                     "statement": " You arrive at a large party, and quickly realize that there are a lot of people you do not know there. You feel anxious, and consider going home. After thinking about it, you decide to "
                 },
                 "handle": "paragraph",
@@ -885,7 +885,7 @@ define([], function() {
                 data: {
 
                     "negativeKey": "w",
-                    "negativeWord": "a[  ]ful",
+                    "negativeWord": "a[ ]ful",
                     "positiveKey": "y",
                     "positiveWord": "st[ ]lish",
                     "statement": " You arrive at a party in a new outfit. Everyone turns to look at you as you walk in. You decide that they must think that you look "
@@ -1070,7 +1070,7 @@ define([], function() {
                 data: {
 
                     "negativeKey": "r",
-                    "negativeWord": "wo[ ]risome",
+                    "negativeWord": "wor[ ]isome",
                     "positiveKey": "x",
                     "positiveWord": "e[ ]citing",
                     "statement": " Your professor asks you what career you plan to pursue. You respond that you haven\u2019t decided yet. Thinking about your future is "
@@ -1121,52 +1121,52 @@ define([], function() {
                  data: {
 
                 	positiveAnswer:"n",
-                	negativeAnswer:"y"
-                },
-                "media": {
-                    "inlineTemplate": "<div>Are you anxious about your decision? </div>"
-                }
-            },
-            {"inherit": {"set": "yesno"}},
-                         {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit": {"set": "counter"}}
-        ]
-    },
-    {
-        "inherit": {
-            "set": "posneg",
-            "type": "random"
-        },
-        "stimuli": [
-            {"inherit": {"set": "error"}},
-            {
-                data: {
-
-                    "negativeKey": "m",
-                    "negativeWord": "un[ ]anageable",
-                    "positiveKey": "g",
-                    "positiveWord": "mana[ ]eable",
-                    "statement": " Your son is going camping with his friend\u2019s family for two days. There will be no cell phone reception and you are worried about not being able to check in with him. Your worries over the next two days are going to be "
-                },
-                "handle": "paragraph",
-                "media": {
-                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
-                }
-            },
-            {
-                "handle": "question",
-                 data: {
-
-                	positiveAnswer:"y",
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Are you able to manage your worries about your son? </div>"
+                    "inlineTemplate": "<div>Are you purchasing a new house? </div>"
                 }
             },
             {"inherit": {"set": "yesno"}},
                          {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit": {"set": "counter"}}
         ]
     },
+//    {
+//        "inherit": {
+//            "set": "posneg",
+//            "type": "random"
+//        },
+//        "stimuli": [
+//            {"inherit": {"set": "error"}},
+//            {
+//                data: {
+//
+//                    "negativeKey": "n",
+//                    "negativeWord": "u[ ]manageable",
+//                    "positiveKey": "g",
+//                    "positiveWord": "mana[ ]eable",
+//                    "statement": " Your son is going camping with his friend\u2019s family for two days. There will be no cell phone reception and you are worried about not being able to check in with him. Your worries over the next two days are going to be "
+//                },
+//                "handle": "paragraph",
+//                "media": {
+//                    "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+//                }
+//            },
+//            {
+//                "handle": "question",
+//                 data: {
+//
+//                	positiveAnswer:"y",
+//                	negativeAnswer:"n"
+//                },
+//                "media": {
+//                    "inlineTemplate": "<div>Are you able to manage your worries about your son? </div>"
+//                }
+//            },
+//            {"inherit": {"set": "yesno"}},
+//                         {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit": {"set": "counter"}}
+//        ]
+//    },
     {
         "inherit": {
             "set": "posneg",
@@ -1213,7 +1213,7 @@ define([], function() {
             {
                 data: {
 
-                    "negativeKey": "y",
+                    "negativeKey": "k",
                     "negativeWord": "ris[ ]y",
                     "positiveKey": "f",
                     "positiveWord": "sa[ ]e",
@@ -1285,8 +1285,8 @@ define([], function() {
             {
                 data: {
 
-                    "negativeKey": "e",
-                    "negativeWord": "un[ ]njoyable",
+                    "negativeKey": "n",
+                    "negativeWord": "u[ ]enjoyable",
                     "positiveKey": "j",
                     "positiveWord": "en[ ]oyable",
                     "statement": " You just left for vacation and cannot remember if you shut off the stove after the last time you cooked. You become anxious not knowing whether the stove is on or off. With these thoughts in mind, your vacation will be "
@@ -1322,7 +1322,7 @@ define([], function() {
                 data: {
 
                     "negativeKey": "b",
-                    "negativeWord": "ro[ ]bed",
+                    "negativeWord": "rob[ ]ed",
                     "positiveKey": "n",
                     "positiveWord": "fi[ ]e",
                     "statement": " You are bringing in the mail for your neighbor while she is away. Each day on your way out of her house, you lock the front door and check it. Today you were rushing and think you forgot to check the lock. The house will probably be "
@@ -1357,10 +1357,10 @@ define([], function() {
             {
                 data: {
 
-                    "negativeKey": "p",
-                    "negativeWord": "im[ ]ossible",
+                    "negativeKey": "m",
+                    "negativeWord": "i[ ]possible",
                     "positiveKey": "s",
-                    "positiveWord": "po[ ]sible",
+                    "positiveWord": "pos[ ]ible",
                     "statement": " You heard in the news that a lot of businesses are currently downsizing. You think about what will happen if you lose your job. You decide that finding another job will be "
                 },
                 "handle": "paragraph",
@@ -1481,11 +1481,11 @@ define([], function() {
                 "handle": "question",
                  data: {
 
-                	positiveAnswer:"y",
+                	positiveAnswer:"n",
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Are you able to manage your worries about your son? </div>"
+                    "inlineTemplate": "<div>Is your son going to the beach with this friend?</div>"
                 }
             },
             {"inherit": {"set": "yesno"}},
@@ -1627,10 +1627,10 @@ define([], function() {
                  data: {
 
                 	positiveAnswer:"n",
-                	negativeAnswer:"y"
+                	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Is it likely that you will become sick? </div>"
+                    "inlineTemplate": "<div>Is your father in the hospital?</div>"
                 }
             },
             {"inherit": {"set": "yesno"}},
@@ -1791,8 +1791,8 @@ define([], function() {
             {
                 data: {
 
-                    "negativeKey": "i",
-                    "negativeWord": "s[ ]ck",
+                    "negativeKey": "c",
+                    "negativeWord": "si[ ]k",
                     "positiveKey": "i",
                     "positiveWord": "f[ ]ne",
                     "statement": "Yesterday you spent the day with your friend and her new infant. A few times during the day, the infant coughed and sneezed on you, and you wonder if you will catch something. Tomorrow, you will probably be "
@@ -1859,6 +1859,6 @@ define([], function() {
             "inherit": {"set": "vivid"},
             layout: [{media: {template: "/PIPlayerScripts/vividness_last.html"}}]
         }
-    ]});
+        ]})
 });
 /* don't forget to close the define wrapper */

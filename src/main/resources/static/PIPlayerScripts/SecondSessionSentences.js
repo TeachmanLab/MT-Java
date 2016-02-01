@@ -52,11 +52,11 @@ define([], function() {
             {
                 "handle": "question",
                  data: {
-                	positiveAnswer:"y",
+                	positiveAnswer:"n",
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Does your new acquaintance want to meet with you again? </div>"
+                    "inlineTemplate": "<div> Did you call your new acquaintance after 2 weeks? </div>"
                 }
             },
             {"inherit": {"set": "yesno"}},
@@ -95,10 +95,10 @@ define([], function() {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"y",
-                	negativeAnswer:"n"
+                	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Will you be well-liked at the party? </div>"
+                    "inlineTemplate": "<div>Did you hear the guest list before the party?</div>"
                 }
             },
             {"inherit": {"set": "yesno"}},
@@ -171,11 +171,11 @@ define([], function() {
             {
                 "handle": "question",
                  data: {
-                	positiveAnswer:"y",
+                	positiveAnswer:"n",
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Will you be talked to during the next book club meeting? </div>"
+                    "inlineTemplate": "<div>Did you talk to someone new at the movies? </div>"
                 }
             },
             {"inherit": {"set": "yesno"}},
@@ -207,10 +207,10 @@ define([], function() {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"n",
-                	negativeAnswer:"y"
+                	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Is it difficult to tolerate your nervousness on the date? </div>"
+                    "inlineTemplate": "<div>Did you go for a walk in the mall?</div>"
                 }
             },
             {"inherit": {"set": "yesno"}},

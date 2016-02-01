@@ -195,7 +195,7 @@ define([], function() {
                     "negativeWord": "a[ ]oid",
                     "positiveKey": "s",
                     "positiveWord": "an[ ]wer",
-                    "statement": " An old acquaintance just moved into your city and asks you out to coffee. You are nervous about seeing him again after many years and could easily tell him that you are too busy. When you calls about meeting, you "
+                    "statement": " An old acquaintance just moved into your city and asks you out to coffee. You are nervous about seeing him again after many years and could easily tell him that you are too busy. When he calls you about meeting, you "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -308,10 +308,10 @@ define([], function() {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"n",
-                	negativeAnswer:"y"
+                	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Do you think your committee members thought you were a bad speaker? </div>"
+                    "inlineTemplate": "<div>Are you speaking on TV? </div>"
                      }
             },
             {"inherit": {"set": "yesno"}},
