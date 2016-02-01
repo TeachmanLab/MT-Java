@@ -3,12 +3,15 @@ package edu.virginia.psyc.pi.DAO;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.virginia.psyc.pi.domain.json.InterpretationReport;
 import edu.virginia.psyc.pi.domain.json.TrialJson;
 import junit.framework.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.util.Map;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,10 +31,17 @@ public class TrialJsonTest {
             "\"latency\":3225,\"stimuli\":[\"error\"," +
             "\"yesno\",\"paragraph\",\"question\"]," +
             "\"media\":[\"X\",\"Type \\\"y\\\" for Yes, and \\\"n\\\" for No.\",\"<div><%= stimulusData.statement %><span class='incomplete'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>\",\"<div>Would you expect to feel uncomfortable if others look at your work?</div>\"]," +
-            "\"data\":{\"positive\":true," +
-            "\"paragraph\":\"A friend suggests that you join an evening class on creative writing. The thought of other people looking at your writing makes you feel enthu[s]iastic\"," +
-            "\"questionResponse\":\"yes\"," +
-            "\"question\":\"Would you expect to feel uncomfortable if others look at your work?\"}}";
+            "\"data\":{\n" +
+            "    \"positive\":false, \n" +
+            "    \"correctOnLetter\":true, \n" +
+            "    \"word\":\"ter[r]ible.\", \n" +
+            "    \"paragraph\": \"You are out to dinner on a date. As you lo... is ter[r]ible.\", \n" +
+            "    \"letter_latency\":6702, \n" +
+            "    \"first_letter_latency\":6201, \n" +
+            "    \"correctOnQuestion\":false, \n" +
+            "    \"first_question_latency\":3498, \n" +
+            "    \"question\":\"Is it fun to experience a little uncertainty on a date?\" , \n" +
+            "    \"question_latency\":9985}}}";
 
 
 public static TrialJson fromJson(String text) throws IllegalArgumentException {
@@ -62,19 +72,22 @@ public static TrialJson fromJson(String text) throws IllegalArgumentException {
 
     @Test
     public void testInterpretationReport() {
+
         TrialJson trial = fromJson(JSON_INT);
-
-        Map<String,String> report;
-
+        System.out.print("The trial is:" + trial.toString());
+        InterpretationReport report;
         report = trial.toInterpretationReport();
 
-        Assert.assertTrue(report.keySet().contains("session"));
-        Assert.assertTrue(report.keySet().contains("trial"));
-        Assert.assertTrue(report.keySet().contains("positive"));
-        Assert.assertTrue(report.keySet().toString() + " does not contain 'correct'", report.keySet().contains("question correct"));
-        Assert.assertTrue(report.keySet().contains("paragraph"));
-        Assert.assertTrue(report.keySet().contains("question"));
-
+        assertEquals("false", report.getPositive());
+        assertEquals("true", report.getLetterCorrect());
+        assertEquals("ter[r]ible.", report.getWord());
+        assertEquals("You are out to dinner on a date. As you lo... is ter[r]ible.", report.getParagraph());
+        assertEquals("6702", report.getLetterLatency());
+        assertEquals("6201", report.getFirstLetterLatency());
+        assertEquals("false", report.getQuestionCorrect());
+        assertEquals("3498", report.getFirstQuestionLatency());
+        assertEquals("Is it fun to experience a little uncertainty on a date?", report.getQuestion());
+        assertEquals("9985", report.getQuestionLatency());
 
     }
 

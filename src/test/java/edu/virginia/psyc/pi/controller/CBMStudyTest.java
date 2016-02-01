@@ -45,7 +45,7 @@ public class CBMStudyTest {
         study = new CBMStudy(CBMStudy.NAME.SESSION1.toString(), 0, new Date(), new ArrayList<TaskLog>());
         sessionList = study.getSessions();
 
-        assertEquals(10, sessionList.size());  // Should be one less, since not all are displayable.
+        assertEquals(11, sessionList.size());  // Should be one less, since not all are displayable.
         assertEquals("incorrect order.", CBMStudy.NAME.PRE.toString(), sessionList.get(0).getName());
         assertEquals("incorrect order.", CBMStudy.NAME.POST.toString(), sessionList.get(9).getName());
 
@@ -81,7 +81,7 @@ public class CBMStudyTest {
         assertNotNull(tasks);
         assertEquals("Pre should have eleven tasks.", 11, tasks.size());
         assertEquals("Unique name for the task should be credibility", "credibility", tasks.get(0).getName());
-        assertEquals("First task should be named Credibility Assessment", "Credibility Assessment", tasks.get(0).getDisplayName());
+        assertEquals("First task should be named Consent to Participate", "Consent to participate", tasks.get(0).getDisplayName());
         assertEquals("First task should point to a questionniare", Task.TYPE.questions, tasks.get(0).getType());
         assertEquals("First task should point to the Credibility Assessment questionniare","/questions/credibility", tasks.get(0).getRequestMapping());
         assertTrue("First task should be completed",tasks.get(0).isComplete());

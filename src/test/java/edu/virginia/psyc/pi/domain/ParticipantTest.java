@@ -152,9 +152,9 @@ public class ParticipantTest {
         Participant p;
 
         p = new Participant(1, "Dan Funk", "daniel.h.funk@gmail.com", false);
-        assertFalse(p.previouslySent(EmailService.TYPE.alertParticipant));
-        p.addEmailLog(new EmailLog(EmailService.TYPE.alertParticipant, new Date()));
-        assertTrue(p.previouslySent(EmailService.TYPE.alertParticipant));
+        assertFalse(p.previouslySent(EmailService.TYPE.followup));
+        p.addEmailLog(new EmailLog(EmailService.TYPE.followup, new Date()));
+        assertTrue(p.previouslySent(EmailService.TYPE.followup));
 
     }
 

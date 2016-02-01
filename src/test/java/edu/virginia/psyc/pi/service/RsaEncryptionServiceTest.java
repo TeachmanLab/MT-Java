@@ -19,6 +19,7 @@ import java.security.KeyFactory;
 import java.security.PrivateKey;
 import java.security.spec.PKCS8EncodedKeySpec;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -54,10 +55,10 @@ public class RsaEncryptionServiceTest {
     }
 
     @Test
-    public void testEncryptionSameEachTime() throws Exception {
+    public void testEncryptionNotSameEachTime() throws Exception {
         String cipherText1 = service.encryptIfEnabled(100);
         String cipherText2 = service.encryptIfEnabled(100);
-        assertTrue(cipherText1 + " == " + cipherText2, cipherText1.equals(cipherText2));
+        assertFalse(cipherText1 + " != " + cipherText2, cipherText1.equals(cipherText2));
     }
 
     @Test
