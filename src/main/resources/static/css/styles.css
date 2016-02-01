@@ -179,6 +179,14 @@ div.sessionSection p.detour img {
     padding: 0px 20px;
 }
 
+.reminder {
+  font-size: .55em;
+  text-align: left;
+  margin: 0px;
+  padding: 10px 75px 10px 75px;
+
+}
+
 div.sessionSection div.nextGift img, div.sessionSection div.giftAwarded img {
     float: left;
     padding: 0px 20px;
@@ -834,7 +842,6 @@ li.valid {
 /*************
    Error Page
 *************/
-
 .vertical-center {
     min-height: 70%;  /* Fallback for browsers do NOT support vh unit */
     min-height: 70vh; /* These two lines are counted as one :-)       */
