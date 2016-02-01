@@ -4,6 +4,7 @@ import edu.virginia.psyc.pi.domain.CBMStudy;
 import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -13,6 +14,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name="ImageryPrime")
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class ImageryPrime extends QuestionnaireData{
 

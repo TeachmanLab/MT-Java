@@ -3,6 +3,7 @@ package edu.virginia.psyc.pi.persistence.Questionnaire;
 import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -16,6 +17,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name="Demographic")
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class Demographic extends QuestionnaireData {
 

@@ -7,6 +7,7 @@ import edu.virginia.psyc.pi.domain.DoNotDelete;
 import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.apache.commons.math3.stat.regression.SimpleRegression;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +27,7 @@ import java.util.List;
 @Entity
 @Table(name="OA")
 @Data
+@EqualsAndHashCode(callSuper = true)
 @DoNotDelete
 public class OA extends QuestionnaireData implements Comparable<OA> {
 
