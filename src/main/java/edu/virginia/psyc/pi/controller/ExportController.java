@@ -9,6 +9,7 @@ import edu.virginia.psyc.pi.domain.json.InterpretationReport;
 import edu.virginia.psyc.pi.domain.json.TrialJson;
 import edu.virginia.psyc.pi.persistence.*;
 import edu.virginia.psyc.pi.persistence.Questionnaire.QuestionnaireData;
+import edu.virginia.psyc.pi.persistence.Questionnaire.QuestionnaireRepository;
 import edu.virginia.psyc.pi.service.ExportService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,14 +49,17 @@ public class ExportController  {
     }
 
     @RequestMapping(value="{name}", method= RequestMethod.GET)
-    public @ResponseBody List<Object> listData(@PathVariable String name) {
+    public @ResponseBody List<Object> listData(@PathVariable String name, @
+                RequestParam(value = "greaterThan", required = false, defaultValue = "0") long id) {
         JpaRepository rep = exportService.getRepositoryForName(name);
         if (rep != null) {
             LOG.info("Found " + rep.count() + " items to return .");
             if (rep instanceof TrialRepository) {
                 return(getTrialSummary((TrialRepository) rep));
             } else {
-                return rep.findAll();
+                if(id != 0 && rep instanceof QuestionnaireRepository) {
+                    return ((QuestionnaireRepository) rep).findByIdGreaterThan(id);
+                } else return rep.findAll();
             }
         }
         else return new ArrayList<>();

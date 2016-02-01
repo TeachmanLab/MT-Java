@@ -19,4 +19,4 @@ import java.util.List;
  * Additional methods will be provided automatically by following a standard
  * naming convention, as is the case with findByEmailAddress
  */
-public interface DASS21_DSRepository extends JpaRepository<DASS21_DS, Long> {}
+public interface DASS21_DSRepository extends QuestionnaireRepository<DASS21_DS> {}

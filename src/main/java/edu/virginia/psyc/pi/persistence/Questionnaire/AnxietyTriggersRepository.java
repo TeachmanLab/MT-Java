@@ -2,6 +2,8 @@ package edu.virginia.psyc.pi.persistence.Questionnaire;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: dan
@@ -16,4 +18,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * Additional methods will be provided automatically by following a standard
  * naming convention, as is the case with findByParticipantDAO
  */
-public interface AnxietyTriggersRepository extends JpaRepository<AnxietyTriggers, Long> {}
+public interface AnxietyTriggersRepository extends QuestionnaireRepository<AnxietyTriggers> {}
