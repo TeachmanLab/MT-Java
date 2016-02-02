@@ -65,7 +65,7 @@ public class AdminController extends BaseController {
     @Autowired
     private ExportService exportService;
 
-    @Value("$export.disableDownloads")
+    @Value("${export.disableDownloads}")
     private String downloadsDisabled;
 
 
