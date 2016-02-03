@@ -142,7 +142,6 @@ public class AdminController extends BaseController {
                 index = participants.indexOf(p);
                 dao = participantRepository.findOne(p.getId());
                 dao.setActive(p.isActive());
-                dao.setAdmin(p.isAdmin());
                 dao.setPrime(p.getPrime());
                 dao.setCbmCondition(p.getCbmCondition());
                 // Only if the session was change in the ui, update the session
