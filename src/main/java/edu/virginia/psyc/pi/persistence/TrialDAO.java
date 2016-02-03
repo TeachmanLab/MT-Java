@@ -37,7 +37,9 @@ import java.util.*;
 @Data
 public class TrialDAO {
 
-    @Id @GeneratedValue
+    @TableGenerator(name = "QUESTION_GEN", table = "ID_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 1)
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "QUESTION_GEN")
     private long id;
 
     private int log_serial;
