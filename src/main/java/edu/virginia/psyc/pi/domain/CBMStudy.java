@@ -43,6 +43,7 @@ public class CBMStudy implements Study {
             add(NAME.PRE);
             add(NAME.SESSION3);
             add(NAME.SESSION6);
+            add(NAME.SESSION8);
         }
     };
 
