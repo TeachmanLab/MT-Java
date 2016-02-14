@@ -1648,14 +1648,6 @@ define([], function() {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"n",
@@ -1664,7 +1656,10 @@ define([], function() {
                 "media": {
                     "inlineTemplate": "<div>Does the pain in your hip mean you have a serious health problem? </div>"
                 }
-            }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -1693,14 +1688,6 @@ define([], function() {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"n",
@@ -1709,7 +1696,10 @@ define([], function() {
                 "media": {
                     "inlineTemplate": "<div>Do you think the test results will say you have the disease? </div>"
                 }
-            }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -1738,14 +1728,6 @@ define([], function() {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"n",
@@ -1754,7 +1736,10 @@ define([], function() {
                 "media": {
                     "inlineTemplate": "<div>Is your finger seriously infected? <div>"
                 }
-            }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -1783,14 +1768,6 @@ define([], function() {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"y",
@@ -1799,7 +1776,10 @@ define([], function() {
                 "media": {
                     "inlineTemplate": "<div>Are you able to manage your worries while finishing your hike? </div>"
                 }
-            }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -1828,14 +1808,6 @@ define([], function() {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"n",
@@ -1844,7 +1816,10 @@ define([], function() {
                 "media": {
                     "inlineTemplate": "<div>Do you think you have gum disease? </div>"
                 }
-            }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     }
 ]
