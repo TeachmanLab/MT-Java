@@ -57,6 +57,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .antMatcher("/api/**")
                     .authorizeRequests()
                     .anyRequest().hasRole("ADMIN")
+//                    .anyRequest().permitAll()  // disables API Security if swtiched with line above
                     .and()
                     .httpBasic();
         }

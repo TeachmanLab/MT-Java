@@ -8,6 +8,7 @@ import edu.virginia.psyc.pi.domain.DoNotDelete;
 import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -22,6 +23,7 @@ import java.util.Date;
 @Entity
 @Table(name="DASS21_AS")
 @Data
+@EqualsAndHashCode(callSuper = true)
 @DoNotDelete
 public class DASS21_AS extends QuestionnaireData {
 

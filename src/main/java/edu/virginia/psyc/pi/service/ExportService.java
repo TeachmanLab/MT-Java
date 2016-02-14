@@ -7,7 +7,9 @@ import edu.virginia.psyc.pi.persistence.ExportLogDAO;
 import edu.virginia.psyc.pi.persistence.ExportLogRepository;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.Questionnaire.QuestionnaireData;
+import edu.virginia.psyc.pi.persistence.TrialDAO;
 import org.joda.time.DateTime;
+import org.joda.time.Duration;
 import org.joda.time.Minutes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,19 +68,22 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
     }
 
     public boolean disableAdditionalFormSubmissions() {
-        if(totalRecords() > maxRecords) return true;
+        if(totalDeleteableRecords() > maxRecords) return true;
         return false;
     }
 
-    public int minutesSinceLastExport() {
+    public long minutesSinceLastExport() {
         DateTime now = new DateTime(System.currentTimeMillis());
         DateTime last = new DateTime(lastExport().getDate());
-        return Minutes.minutesBetween(last.toLocalDate(), now.toLocalDate()).getMinutes();
+        Duration duration = new Duration(last, now);
+        return duration.getStandardMinutes();
     }
 
-    public int totalRecords() {
+    public int totalDeleteableRecords() {
         int sum = 0;
-        for(QuestionnaireInfo i : listRepositories()) sum += i.getSize();
+        for(QuestionnaireInfo i : listRepositories()) {
+            if(i.isDeleteable()) sum += i.getSize();
+        }
         return sum;
     }
 
@@ -113,7 +118,7 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
             Class<?> repoClass=repositories.getRepositoryInformationFor(domainType).getRepositoryInterface();
             Object repository=repositories.getRepositoryFor(domainType);
             // If this is questionnaire data ...
-            if(QuestionnaireData.class.isAssignableFrom(domainType)) {
+            if(QuestionnaireData.class.isAssignableFrom(domainType) || domainType.equals(TrialDAO.class)) {
                 deleteableFlag        = !domainType.isAnnotationPresent(DoNotDelete.class);
                 JpaRepository rep = (JpaRepository)repository;
                 QuestionnaireInfo info = new QuestionnaireInfo(domainType.getSimpleName(), rep.count(), deleteableFlag);
@@ -139,7 +144,7 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
         return null;
     }
 
-    private String getAlertMessage(int minutes, int records) {
+    private String getAlertMessage(long minutes, int records) {
             return(
                 "It has been " + minutes + " minutes since an export has occurred. " +
                 "Please make sure the export server is running correctly.  There are currently " +
@@ -154,8 +159,8 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
     @Scheduled(cron = "0 0,30 * * * *")
     public void send30MinAlert() throws MessagingException {
         LOG.debug("Running 30 minute alert.");
-        int minutesSinceLastExport = minutesSinceLastExport();
-        int totalRecords = totalRecords();
+        long minutesSinceLastExport = minutesSinceLastExport();
+        int totalRecords = totalDeleteableRecords();
         if(totalRecords > 0 && minutesSinceLastExport > 30 && minutesSinceLastExport < 60) {
             emailService.sendExportAlertEmail(getAlertMessage(minutesSinceLastExport, totalRecords));
         }
@@ -169,8 +174,8 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
     @Scheduled(cron = "0 0 */2 * * *")
     public void send2hrAlert() throws MessagingException {
         LOG.debug("Running 2hr alert.");
-        int minutesSinceLastExport = minutesSinceLastExport();
-        int totalRecords = totalRecords();
+        long minutesSinceLastExport = minutesSinceLastExport();
+        int totalRecords = totalDeleteableRecords();
         if(totalRecords > 0 && minutesSinceLastExport > 120 && minutesSinceLastExport < 1440) {
             emailService.sendExportAlertEmail(getAlertMessage(minutesSinceLastExport, totalRecords));
         }
@@ -184,9 +189,9 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
     @Scheduled(cron = "0 0 */4 * * *")
     public void send4hrAlert() throws MessagingException {
         LOG.debug("Running 4 hour alert.");
-        int minutesSinceLastExport = minutesSinceLastExport();
-        int totalRecords = totalRecords();
-        if(totalRecords > 90) {
+        long minutesSinceLastExport = minutesSinceLastExport();
+        int totalRecords = totalDeleteableRecords();
+        if(disableAdditionalFormSubmissions()) {
             emailService.sendExportAlertEmail("The site is currently disabled.  Too many " +
                     "records exist, and they need to be exported." +
                     getAlertMessage(minutesSinceLastExport, totalRecords));

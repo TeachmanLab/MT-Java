@@ -1,6 +1,8 @@
 package edu.virginia.psyc.pi.persistence;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import edu.virginia.psyc.pi.domain.json.TrialJson;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.*;
@@ -32,9 +34,14 @@ import java.util.*;
  */
 @Entity
 @Table(name="trial")
+@Data
 public class TrialDAO {
 
-    @Id @GeneratedValue private long id;
+    @TableGenerator(name = "QUESTION_GEN", table = "ID_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 1)
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "QUESTION_GEN")
+    private long id;
+
     private int log_serial;
     private String trial_id;
     private String name;
@@ -44,11 +51,11 @@ public class TrialDAO {
     private int participantId;
     private int latency;
     @OneToMany(cascade = CascadeType.ALL)
-    private Collection<StimuliDAO> stimuliDAO;
+    private Collection<StimuliDAO> stimuli;
     @OneToMany(cascade = CascadeType.ALL)
-    private Collection<MediaDAO> mediaDAO;
+    private Collection<MediaDAO> media;
     @OneToMany(cascade = CascadeType.ALL)
-    private Collection<DataDAO> dataDAO;
+    private Collection<DataDAO> data;
 
     @Override
     public String toString() {
@@ -57,9 +64,9 @@ public class TrialDAO {
                 ", trial_id=" + trial_id +
                 ", name='" + name + '\'' +
                 ", responseHandle='" + responseHandle + '\'' +
-                ", stimuliDAO=" + stimuliDAO +
-                ", mediaDAO=" + mediaDAO +
-                ", dataDAO=" + dataDAO +
+                ", stimuliDAO=" + stimuli +
+                ", mediaDAO=" + media +
+                ", dataDAO=" + data +
                 '}';
     }
 
@@ -98,148 +105,69 @@ public class TrialDAO {
         return t;
     }
 
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getScript() {
-        return script;
-    }
-
-    public void setScript(String script) {
-        this.script = script;
-    }
-
-    public String getSession() {
-        return session;
-    }
-
-    public void setSession(String session) {
-        this.session = session;
-    }
-
-    public int getParticipantId() {
-        return participantId;
-    }
-
-    public void setParticipantId(int participantId) {
-        this.participantId = participantId;
-    }
-
-    public int getLog_serial() {
-        return log_serial;
-    }
-
-    public void setLog_serial(int log_serial) {
-        this.log_serial = log_serial;
-    }
-
-    public String getTrial_id() {
-        return trial_id;
-    }
-
-    public void setTrial_id(String trial_id) {
-        this.trial_id = trial_id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getResponseHandle() {
-        return responseHandle;
-    }
-
-    public void setResponseHandle(String responseHandle) {
-        this.responseHandle = responseHandle;
-    }
-
-    public int getLatency() {
-        return latency;
-    }
-
-    public void setLatency(int latency) {
-        this.latency = latency;
-    }
-
-    public Collection<StimuliDAO> getStimuliDAO() {
-        return stimuliDAO;
-    }
-
-
     public List<String> getStimuliAsList() {
         List l = new ArrayList<String>();
-        for(StimuliDAO s : stimuliDAO) {
+        for(StimuliDAO s : stimuli) {
             l.add(s.getValue());
         }
         return l;
     }
 
-    public void setStimuliDAO(Collection<StimuliDAO> stimuliDAO) {
-        this.stimuliDAO = stimuliDAO;
+    public void setstimuli(Collection<StimuliDAO> stimuli) {
+        this.stimuli = stimuli;
     }
 
     public void setStimuli(List<String> stimuliIn) {
-        this.stimuliDAO = new ArrayList<StimuliDAO>();
+        this.stimuli = new ArrayList<StimuliDAO>();
         for(String s: stimuliIn) {
-            this.stimuliDAO.add(new StimuliDAO(s));
+            this.stimuli.add(new StimuliDAO(s));
         }
     }
 
 
-    public Collection<MediaDAO> getMediaDAO() {
-        return mediaDAO;
+    public Collection<MediaDAO> getMedia() {
+        return media;
     }
 
     public List<String> getMediaAsList() {
         List l = new ArrayList<String>();
-        for(MediaDAO m : mediaDAO) {
+        for(MediaDAO m : media) {
             l.add(m.getValue());
         }
         return l;
     }
 
-    public void setMediaDAO(Collection<MediaDAO> mediaDAO) {
-        this.mediaDAO = mediaDAO;
+    public void setMediaDAO(Collection<MediaDAO> media) {
+        this.media = media;
     }
 
     public void setMedia(List<String> mediaIn) {
-        this.mediaDAO = new ArrayList<MediaDAO>();
+        this.media = new ArrayList<MediaDAO>();
         for(String s: mediaIn) {
-            this.mediaDAO.add(new MediaDAO(s));
+            this.media.add(new MediaDAO(s));
         }
     }
 
-
     public Collection<DataDAO> getDataDAO() {
-        return dataDAO;
+        return data;
     }
 
     public Map<String,String> getDataAsMap() {
         Map<String,String> dataMap = new HashMap();
-        for(DataDAO d : this.dataDAO) {
+        for(DataDAO d : this.data) {
             dataMap.put(d.getKey(), d.getValue());
         }
         return dataMap;
     }
 
     public void setDataDAO(Collection<DataDAO> dataDAO) {
-        this.dataDAO = dataDAO;
+        this.data = dataDAO;
     }
 
     public void setData(Map<String, String> data) {
-        this.dataDAO = new ArrayList<DataDAO>();
+        this.data = new ArrayList<DataDAO>();
         for(String key : data.keySet()) {
-            this.dataDAO.add(new DataDAO(key, data.get(key)));
+            this.data.add(new DataDAO(key, data.get(key)));
         }
     }
 

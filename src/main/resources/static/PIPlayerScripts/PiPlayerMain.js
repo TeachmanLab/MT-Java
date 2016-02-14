@@ -252,6 +252,7 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
                 script: global["script"],
                 session: global["session"],
                 participant: global["participant"]
+
             }
         }
     });
@@ -473,7 +474,7 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
                     // Preserve the question as completed, so that it will eventually be set back to the server.
                     {type: 'setTrialAttr', setter: function (trialData, eventData) {
                         console.log("YO BABY #2!");
-                        trialData.word = $("span.incomplete").text();
+                        trialData.word = last_word;
                         trialData.paragraph = $("div[data-handle='paragraph']").text();
                         trialData.letter_latency = Math.floor(eventData.latency);
                         if (trialData.first_letter_latency == null) {

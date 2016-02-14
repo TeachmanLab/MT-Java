@@ -66,6 +66,10 @@ public class EmailService {
     @Value("${email.alertsTo}")
     private String alertsTo;
 
+    @Value("${email.admin}")
+    private String adminTo;
+
+
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
     private String getSubject(TYPE type) {
@@ -171,10 +175,8 @@ public class EmailService {
         ctx.setVariable("url", this.siteUrl);
         ctx.setVariable("respondTo", this.respondTo);
             ctx.setVariable("message", alertMessage);
-        sendMail(this.alertsTo, 0l, TYPE.exportError, ctx);
+        sendMail(this.adminTo, 0l, TYPE.exportError, ctx);
     }
-
-
 
     public void sendGiftCardEmail(Participant participant, Reward reward) throws MessagingException {
         // Prepare the evaluation context
@@ -184,13 +186,11 @@ public class EmailService {
         sendMail(participant, TYPE.giftCard, ctx);
     }
 
-
     public void sendSimpleMail(Participant participant, TYPE type) throws MessagingException {
         // Prepare the evaluation context
         LOG.info("SENDING MAIL: " + participant.getEmail() + "\t" + type + "\t" + participant.isEmailOptout());
         final Context ctx = new Context();
         sendMail(participant, type, ctx);
-
     }
 
 

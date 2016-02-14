@@ -24,7 +24,7 @@ import java.util.List;
  * Additional methods will be provided automatically by following a standard
  * naming convention, as is the case with findByEmailAddress
  */
-public interface DASS21_ASRepository extends JpaRepository<DASS21_AS, Long> {
+public interface DASS21_ASRepository extends QuestionnaireRepository<DASS21_AS> {
 
     List<DASS21_AS> findByParticipantDAO(ParticipantDAO p);
 

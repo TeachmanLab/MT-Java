@@ -1,6 +1,8 @@
 package edu.virginia.psyc.pi.persistence.Questionnaire;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import javax.persistence.*;
 
 /**
@@ -8,6 +10,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="DASS21_DS")
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class DASS21_DS extends QuestionnaireData {
 

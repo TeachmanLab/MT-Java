@@ -19,4 +19,4 @@ import java.util.List;
  * Additional methods will be provided automatically by following a standard
  * naming convention, as is the case with findByEmailAddress
  */
-public interface RR_Repository extends JpaRepository<RR, Long> {}
+public interface RR_Repository extends QuestionnaireRepository<RR> {}

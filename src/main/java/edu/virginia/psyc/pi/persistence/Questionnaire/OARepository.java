@@ -19,7 +19,7 @@ import java.util.List;
  * Additional methods will be provided automatically by following a standard
  * naming convention, as is the case with findByEmailAddress
  */
-public interface OARepository extends JpaRepository<OA, Long> {
+public interface OARepository extends QuestionnaireRepository<OA> {
 
     List<OA> findByParticipantDAO(ParticipantDAO p);
 

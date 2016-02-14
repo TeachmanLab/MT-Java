@@ -3,6 +3,8 @@ package edu.virginia.psyc.pi.persistence.Questionnaire;
 import lombok.Data;
 import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
+import lombok.EqualsAndHashCode;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 
 @Entity
 @Table(name="CIHS")
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class CIHS extends QuestionnaireData {
 

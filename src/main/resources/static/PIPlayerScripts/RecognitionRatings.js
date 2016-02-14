@@ -1,6 +1,6 @@
 define([], function() {
     return({
-        display_length: 7,
+        display_length: 9,
         add_extra_missing_letter:false,
         sequence:[
             {
@@ -48,7 +48,7 @@ define([], function() {
                         "handle": "question",
                         data: {
                             positiveAnswer: "y",
-                            negativeAnswer: "n"
+                            negativeAnswer: "n",
                         },
                         "media": {
                             "inlineTemplate": "<div>Did you think about the elevator’s safety?</div>"
@@ -71,9 +71,9 @@ define([], function() {
                     {"inherit": {"set": "error"}},
                     {
                         "data": {
-                            "positiveKey": "o",
-                            "positiveWord": "[ ]n",
-                            "statement": "  THE COFFEE POT: You are running late on your way to work. In the car, you realize that you forgot to check if you turned off the coffee pot. When you get to work, you think about what would happen if you did leave the coffee pot "
+                            "positiveKey": "a",
+                            "positiveWord": "l[ ]ugh",
+                            "statement": " THE WEDDING RECEPTION: Your friend asks you to give a speech at her wedding reception. You prepare some remarks and when the time comes, get to your feet. As you speak, you notice some people in the audience start to "
                         },
                         "handle": "paragraph",
                         "media": {
@@ -87,7 +87,7 @@ define([], function() {
                             negativeAnswer: "n"
                         },
                         "media": {
-                            "inlineTemplate": "<div>Are you thinking about the coffee pot when you arrive to work?</div>"
+                            "inlineTemplate": "<div>Did the audiences laught when you speak?</div>"
                         }
                     },
                     {"inherit": {"set": "yesno"}},
@@ -179,9 +179,9 @@ define([], function() {
                     {"inherit": {"set": "error"}},
                     {
                         "data": {
-                            "positiveKey": "i",
-                            "positiveWord": "acc[ ]dent",
-                            "statement": " THE YELLOW LIGHT: You are in your car, on your way to see a friend for lunch. Because you are running late, you are not as careful as you usually are and speed through a yellow light. As you pass through the intersection, you think about the likelihood of causing an "
+                            "positiveKey": "e",
+                            "positiveWord": "th[ ]re",
+                            "statement": " MEETING A FRIEND: In the street you bump into an old friend you haven't seen for a long time. She is too busy to stop, so you arrange to meet later in a bar.  You arrive a little late but the bar is empty and a few minutes later she is still not "
                         },
                         "handle": "paragraph",
                         "media": {
@@ -195,7 +195,7 @@ define([], function() {
                             negativeAnswer: "y"
                         },
                         "media": {
-                            "inlineTemplate": "<div>As you passed through the intersection, were you thinking about your friend?</div>"
+                            "inlineTemplate": "<div>Did your friend stop?</div>"
                         }
                     },
                     {"inherit": {"set": "yesno"}},
@@ -215,9 +215,9 @@ define([], function() {
                     {"inherit": {"set": "error"}},
                     {
                         "data": {
-                            "positiveKey": "x",
-                            "positiveWord": "an[ ]ious",
-                            "statement": " THE FLIGHT: You are on a long flight with your partner going to an exotic location for your vacation. The airplane pilot gets on the intercom and says there is going to be some turbulence. As you wait for the turbulence, you feel a little "
+                            "positiveKey": "o",
+                            "positiveWord": "y[ ]u",
+                            "statement": " THE LUNCH: You are eating lunch with a friend. As you start eating your salad, you describe your plans for the weekend. You accidentally drop a piece of lettuce, and your friend looks at "
                         },
                         "handle": "paragraph",
                         "media": {
@@ -231,7 +231,7 @@ define([], function() {
                             negativeAnswer: "n"
                         },
                         "media": {
-                            "inlineTemplate": "<div>Are you going on vacation?</div>"
+                            "inlineTemplate": "<div>Do you have salad for lunch?</div>"
                         }
                     },
                     {"inherit": {"set": "yesno"}},
@@ -252,8 +252,8 @@ define([], function() {
                     {
                         "data": {
                             "positiveKey": "e",
-                            "positiveWord": "all[ ]rgic",
-                            "statement": " THE RESTAURANT: You are at a restaurant with a group of friends for dinner. Everyone at the table shares an appetizer. After you eat the appetizer, you remember that you did not ask the waiter if the food is cooked in peanut oil, to which you are "
+                            "positiveWord": "bl[ ]ed",
+                            "statement": " THE SCRAPE: You are playing basketball with some friends. While running toward the ball, you trip and scrape your knee. The scrape hurts a bit, but does not "
                         },
                         "handle": "paragraph",
                         "media": {
@@ -267,7 +267,7 @@ define([], function() {
                             negativeAnswer: "y"
                         },
                         "media": {
-                            "inlineTemplate": "<div>Are you at dinner with your family?</div>"
+                            "inlineTemplate": "<div>Are you playing soccer with your friend?</div>"
                         }
                     },
                     {"inherit": {"set": "yesno"}},
@@ -276,6 +276,76 @@ define([], function() {
                     {"inherit": {"set": "counter"}}
 
                 ]
+            },
+// NEXT
+            {
+                "inherit": {
+                    "set": "all",
+                    "type": "random"
+                },
+                "stimuli": [
+                    {"inherit": {"set": "error"}},
+                    {
+                        "data": {
+                            "positiveKey": "c",
+                            "positiveWord": "si[ ]k",
+                            "statement": "  THE SHOPPING TRIP: You are at the mall with your friend. While you shop, she tells you how several of her friends have recently come down with a strange illness. You think about your recent health, and wonder if you will get "
+                        },
+                        "handle": "paragraph",
+                        "media": {
+                            "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                        }
+                    },
+                    {
+                        "handle": "question",
+                        data: {
+                            positiveAnswer: "n",
+                            negativeAnswer: "y"
+                        },
+                        "media": {
+                            "inlineTemplate": "<div>Are you shopping alone?</div>"
+                        }
+                    },
+                    {"inherit": {"set": "yesno"}},
+                    {"inherit": {"set": "stall"}}, {"inherit": {"set": "greatjob"}},
+                    {"inherit": {"set": "press_space"}},
+                    {"inherit": {"set": "counter"}}
+                  ]
+            },
+// NEXT
+            {
+                "inherit": {
+                    "set": "all",
+                    "type": "random"
+                },
+                "stimuli": [
+                    {"inherit": {"set": "error"}},
+                    {
+                        "data": {
+                            "positiveKey": "i",
+                            "positiveWord": "t[ ]me",
+                            "statement": "  THE BLOOD TEST: You are at a routine doctor’s appointment. At the appointment, the doctor decides to run a few blood tests to check your health. The doctor says he will call you in a few weeks, and you will find out your test results at that "
+                        },
+                        "handle": "paragraph",
+                        "media": {
+                            "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                        }
+                    },
+                    {
+                        "handle": "question",
+                        data: {
+                            positiveAnswer: "y",
+                            negativeAnswer: "n"
+                        },
+                        "media": {
+                            "inlineTemplate": "<div>Did you take blood tests?</div>"
+                        }
+                    },
+                    {"inherit": {"set": "yesno"}},
+                    {"inherit": {"set": "stall"}}, {"inherit": {"set": "greatjob"}},
+                    {"inherit": {"set": "press_space"}},
+                    {"inherit": {"set": "counter"}}
+                  ]
             }
     ]})
 });

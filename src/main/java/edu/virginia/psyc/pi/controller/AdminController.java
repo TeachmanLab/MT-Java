@@ -65,7 +65,7 @@ public class AdminController extends BaseController {
     @Autowired
     private ExportService exportService;
 
-    @Value("$export.disableDownloads")
+    @Value("${export.disableDownloads}")
     private String downloadsDisabled;
 
 
@@ -142,7 +142,6 @@ public class AdminController extends BaseController {
                 index = participants.indexOf(p);
                 dao = participantRepository.findOne(p.getId());
                 dao.setActive(p.isActive());
-                dao.setAdmin(p.isAdmin());
                 dao.setPrime(p.getPrime());
                 dao.setCbmCondition(p.getCbmCondition());
                 // Only if the session was change in the ui, update the session
@@ -268,7 +267,7 @@ public class AdminController extends BaseController {
         model.addAttribute("downloadsDisabled", Boolean.parseBoolean(downloadsDisabled));
         model.addAttribute("exportMaxMinutes", exportService.getMaxMinutes());
         model.addAttribute("exportMaxRecords", exportService.getMaxRecords());
-        model.addAttribute("totalRecords", exportService.totalRecords());
+        model.addAttribute("totalRecords", exportService.totalDeleteableRecords());
         model.addAttribute("minutesSinceLastExport", exportService.minutesSinceLastExport());
         model.addAttribute("formsDisabled", exportService.disableAdditionalFormSubmissions());
 
@@ -277,46 +276,6 @@ public class AdminController extends BaseController {
         model.addAttribute("hideAccountBar", true);
         return "admin/export";
     }
-
-    /**
-     * Returns the json data of a PIPlayer script as a text/csv content
-     * @return
-     */
-    @RequestMapping(value="/playerData", method = RequestMethod.GET, produces = "text/csv")
-    @ResponseBody
-    public String getData() {
-        StringBuffer csv = new StringBuffer();
-        List<String> keys;
-        Map<String, String> reportData;
-        TrialJson trial;
-        List<TrialDAO> trialData = trialRepository.findAll();
-
-        // Write headers based on first trial.
-        keys = TrialJson.interpretationReportHeaders();
-        for (String k : keys) {
-            csv.append(k);
-            csv.append(",");
-        }
-        csv.append(("\n"));
-
-        // Write the data.
-        for (TrialDAO data : trialData) {
-            reportData = data.toTrialJson().toInterpretationReport();
-            for (String k : keys) {
-                csv.append("\"");
-                if(null == reportData.get(k)) {
-                    csv.append("");
-                } else {
-                    csv.append(reportData.get(k).replaceAll("\"", "\\\""));
-                }
-                csv.append("\"");
-                csv.append(",");
-            }
-            csv.append("\n");
-        }
-        return csv.toString();
-    }
-
 
     // Trying to write a methods to get Tango Account information. By Diheng
 

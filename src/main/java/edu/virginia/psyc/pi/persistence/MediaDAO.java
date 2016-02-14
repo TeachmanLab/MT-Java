@@ -1,5 +1,8 @@
 package edu.virginia.psyc.pi.persistence;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
+
 import javax.persistence.*;
 
 /**
@@ -12,45 +15,19 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="media")
+@Data
 public class MediaDAO {
 
     @Id
     @GeneratedValue
+    @JsonIgnore
     private int id;
-
-    @ManyToOne
-    private TrialDAO trialDAO;
 
     @Lob
     private String value;
 
     public MediaDAO() {}
-
     public MediaDAO(String s) {
         this.value = s;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public TrialDAO getTrialDAO() {
-        return trialDAO;
-    }
-
-    public void setTrialDAO(TrialDAO trialDAO) {
-        this.trialDAO = trialDAO;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
     }
 }
