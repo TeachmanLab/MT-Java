@@ -1,5 +1,7 @@
 package edu.virginia.psyc.pi.configuration;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +14,7 @@ import java.util.Properties;
 
 @Configuration
 public class EmailConfiguration {
+    private static final Logger LOG = LoggerFactory.getLogger(EmailConfiguration.class);
 
     @Value("${email.host}")
     private String host;
@@ -28,7 +31,8 @@ public class EmailConfiguration {
     @Value("${email.alertsTo}")
     private String alertsTo;
 
-
+    @Value("${email.auth}")
+    private String auth;
 
     @Bean
     public JavaMailSender javaMailService() {
@@ -36,17 +40,20 @@ public class EmailConfiguration {
 
         javaMailSender.setHost(host);
         javaMailSender.setPort(port);
-        javaMailSender.setUsername(username);
-        javaMailSender.setPassword(password);
+        if(auth.toLowerCase().trim().equals("true")) {
+            javaMailSender.setUsername(username);
+            javaMailSender.setPassword(password);
+        }
         javaMailSender.setJavaMailProperties(getMailProperties());
 
         return javaMailSender;
     }
 
     private Properties getMailProperties() {
+
         Properties properties = new Properties();
         properties.setProperty("mail.transport.protocol", "smtp");
-        properties.setProperty("mail.smtp.auth", "true");
+        properties.setProperty("mail.smtp.auth", auth);
         properties.setProperty("mail.smtp.starttls.enable", "true");
         properties.setProperty("mail.debug", "false");
         return properties;
