@@ -3,7 +3,7 @@ define([], function() {
         display_length: 50,
         add_extra_missing_letter:true,
         sequence:[
-            {
+        {
             input: [
                 {handle:'space',on:'space'}
             ],
@@ -138,10 +138,10 @@ define([], function() {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"y",
-                	negativeAnswer:"n"
+                	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Do you think your teammate likes you? </div>"
+                    "inlineTemplate": "<div>Are you at a hotel? </div>"
                      }
             },
             {"inherit": {"set": "yesno"}},
@@ -195,7 +195,7 @@ define([], function() {
                     "negativeWord": "a[ ]oid",
                     "positiveKey": "s",
                     "positiveWord": "an[ ]wer",
-                    "statement": " An old acquaintance just moved into your city and asks you out to coffee. You are nervous about seeing him again after many years and could easily tell him that you are too busy. When you calls about meeting, you "
+                    "statement": " An old acquaintance just moved into your city and asks you out to coffee. You are nervous about seeing him again after many years and could easily tell him that you are too busy. When he calls you about meeting, you "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -311,7 +311,7 @@ define([], function() {
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Are you speaking on TV?</div>"
+                    "inlineTemplate": "<div>Are you speaking on TV? </div>"
                      }
             },
             {"inherit": {"set": "yesno"}},
@@ -613,11 +613,11 @@ define([], function() {
             {
                 "handle": "question",
                  data: {
-                	positiveAnswer:"n",
+                	positiveAnswer:"y",
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Is your coworker mad at you for spilling coffee on her papers? </div>"
+                    "inlineTemplate": "<div>Are you at a coffee shop? </div>"
                      }
             },
             {"inherit": {"set": "yesno"}},
@@ -1169,7 +1169,7 @@ define([], function() {
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Are you likely to get hurt whole on the trampoline? </div>"
+                    "inlineTemplate": "<div>Are you likely to get hurt while on the trampoline? </div>"
                      }
             },
             {"inherit": {"set": "yesno"}},
@@ -1683,7 +1683,10 @@ define([], function() {
                 "media": {
                     "inlineTemplate": "<div>Does the ache in your stomach mean that you are hungry? </div>"
                 }
-            }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
+
         ]
     }
 ]
@@ -1696,5 +1699,7 @@ define([], function() {
             layout: [{media : {template:"/PIPlayerScripts/vividness_last.html"}}]
         }
         ]});
+    // #### Activate the player
+    //API.play();
 });
 /* don't forget to close the define wrapper */

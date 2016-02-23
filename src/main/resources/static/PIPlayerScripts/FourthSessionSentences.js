@@ -138,10 +138,10 @@ define([], function() {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"y",
-                	negativeAnswer:"n"
+                	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Do you think your teammate likes you? </div>"
+                    "inlineTemplate": "<div>Are you at a hotel? </div>"
                      }
             },
             {"inherit": {"set": "yesno"}},
@@ -613,11 +613,11 @@ define([], function() {
             {
                 "handle": "question",
                  data: {
-                	positiveAnswer:"n",
+                	positiveAnswer:"y",
                 	negativeAnswer:"y"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Is your coworker mad at you for spilling coffee on her papers? </div>"
+                    "inlineTemplate": "<div>Are you at a coffee shop? </div>"
                      }
             },
             {"inherit": {"set": "yesno"}},
