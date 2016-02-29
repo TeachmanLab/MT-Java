@@ -98,7 +98,7 @@ public class EmailService {
             case alertAdmin:
                 return "PIMH Alert! a participants score is Dropping";
             case giftCard:
-                return "Project Implicit Mental Health - Your $5 gift card!";
+                return "Project Implicit Mental Health - Your gift card!";
             case exportError:
                 return "MindTrails - Export Failure!";
             default:
@@ -178,11 +178,12 @@ public class EmailService {
         sendMail(this.adminTo, 0l, TYPE.exportError, ctx);
     }
 
-    public void sendGiftCardEmail(Participant participant, Reward reward) throws MessagingException {
+    public void sendGiftCardEmail(Participant participant, Reward reward, int amount) throws MessagingException {
         // Prepare the evaluation context
         final Context ctx = new Context();
 
         ctx.setVariable("reward", reward);
+        ctx.setVariable("giftAmount", amount);
         sendMail(participant, TYPE.giftCard, ctx);
     }
 
