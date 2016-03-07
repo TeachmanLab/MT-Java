@@ -20,180 +20,137 @@
 
         <!--features starts-->
         <div class="row">
-            <div class="span12">
+            <div class="col-md-12">
                 <form th:action="@{/questions/MUE}" method="POST">
-                    <div class="longSection">
-                    <legend>Instructions</legend>
+                    <h2>Evaluating the Program</h2>
                     <p> Thank you for taking the time to go through our program! We are interested in your feedback and reactions to the training programs, assessments, and other aspects of the website. Please answer the following questions openly and honestly. Your feedback will help us improve the program.
                     </p>
                     <p>
                     *Note that assessment sessions were sessions in which you completed questionnaires about your feelings and thoughts. Training sessions were sessions in which you either completed words at the end of sentences OR saw two words on the screen and then a letter that you had to identify by pressing a button on the keyboard.
                     </p>
+                    <div class="section">
+                        <div class="question">How helpful did you find the web program for reducing your anxiety?</div>
+                        <label class="radioListNoAnswer">Prefer not to answer<br/><input type="radio" name="helpful" value="555" required="true"/></label>
+                        <label class="radioList"><input type="radio" name="helpful" value="1" required="true"/><b>Not at all</b></label>
+                        <label class="radioList"><input type="radio" name="helpful" value="2" required="true"/><b>Slightly</b></label>
+                        <label class="radioList"><input type="radio" name="helpful" value="3" required="true"/><b>Somewhat</b></label>
+                        <label class="radioList"><input type="radio" name="helpful" value="4" required="true"/><b>Mostly</b></label>
+                        <label class="radioList"><input type="radio" name="helpful" value="5" required="true"/><b>Very</b></label>
                     </div>
-                    <div class="longSection">
-                     <legend>Questions</legend>
-                       <p>
-                            <label>How helpful did you find the web program for reducing your anxiety?</label>
-                            <select name="helpful" required="true">
-                                <option value="">Please select one</option>
-                                <option value="1">Not at all</option>
-                                <option value="2">Slightly</option>
-                                <option value="3">Somewhat</option>
-                                <option value="4">Mostly</option>
-                                <option value="5">Very</option>
-                                <option value="555">Prefer not to answer</option>
-                            </select>
-                        </p>
-                        <p>
-                            <label>How much did the web program improve your overall quality of life?</label>
-                            <select name="qol" required="true">
-                                <option value="">Please select one</option>
-                                <option value="1">Not at all</option>
-                                <option value="2">Slightly</option>
-                                <option value="3">Somewhat</option>
-                                <option value="4">Mostly</option>
-                                <option value="5">Very</option>
-                                <option value="555">Prefer not to answer</option>
-                            </select>
-                        </p>
-                        <p>
-                            <label>How much did the web program help improve your overall mood (e.g., feeling happier)?</label>
-                            <select name="mood" required="true">
-                                <option value="">Please select one</option>
-                                <option value="1">Not at all</option>
-                                <option value="2">Slightly</option>
-                                <option value="3">Somewhat</option>
-                                <option value="4">Mostly</option>
-                                <option value="5">Very</option>
-                                <option value="555">Prefer not to answer</option>
-                            </select>
-                        </p>
+                    <div class="section">
+                        <div class="question">How much did the web program improve your overall quality of life?</div>
+                        <label class="radioListNoAnswer">Prefer not to answer<br/><input type="radio" name="qol" value="555" required="true"/></label>
+                        <label class="radioList"><input type="radio" name="qol" value="1" required="true"/><b>Not at all</b></label>
+                        <label class="radioList"><input type="radio" name="qol" value="2" required="true"/><b>Slightly</b></label>
+                        <label class="radioList"><input type="radio" name="qol" value="3" required="true"/><b>Somewhat</b></label>
+                        <label class="radioList"><input type="radio" name="qol" value="4" required="true"/><b>Mostly</b></label>
+                        <label class="radioList"><input type="radio" name="qol" value="5" required="true"/><b>Very</b></label>
                     </div>
-                    <div class="longSection">
-                    <p>
-                            <label>How likely would you be to recommend this web program to others with similar anxiety difficulties?</label>
-                            <select name="recommend" required="true">
-                                <option value="">Please select one</option>
-                                <option value="1">Not at all</option>
-                                <option value="2">Slightly</option>
-                                <option value="3">Somewhat</option>
-                                <option value="4">Mostly</option>
-                                <option value="5">Very</option>
-                                <option value="555">Prefer not to answer</option>
-                            </select>
-                        </p>
+                    <div class="section">
+                        <div class="question">How much did the web program help improve your overall mood (e.g., feeling happier)?</div>
+                        <label class="radioListNoAnswer">Prefer not to answer<br/><input type="radio" name="mood" value="555" required="true"/></label>
+                        <label class="radioList"><input type="radio" name="mood" value="1" required="true"/><b>Not at all</b></label>
+                        <label class="radioList"><input type="radio" name="mood" value="2" required="true"/><b>Slightly</b></label>
+                        <label class="radioList"><input type="radio" name="mood" value="3" required="true"/><b>Somewhat</b></label>
+                        <label class="radioList"><input type="radio" name="mood" value="4" required="true"/><b>Mostly</b></label>
+                        <label class="radioList"><input type="radio" name="mood" value="5" required="true"/><b>Very</b></label>
                     </div>
-                    <div class="longSection">
-                        <p>
-                            <label>How easy was the web program to use?</label><br/>
-                            <select name="ease" required="true">
-                                <option value="">Please select one</option>
-                                <option value="1">Not at all</option>
-                                <option value="2">Slightly</option>
-                                <option value="3">Somewhat</option>
-                                <option value="4">Mostly</option>
-                                <option value="5">Very</option>
-                                <option value="555">Prefer not to answer</option>
-                            </select>
-                        </p>
-                        <p>
-                            <label>How much did the web program keep your interest and attention?</label>
-                            <select name="interest" required="true">
-                                <option value="">Please select one</option>
-                                <option value="1">Not at all</option>
-                                <option value="2">Slightly</option>
-                                <option value="3">Somewhat</option>
-                                <option value="4">Mostly</option>
-                                <option value="5">Very</option>
-                                <option value="555">Prefer not to answer</option>
-                            </select>
-                        </p>
-                        <p>
-                            <label>How much did you like the web program in general?</label><br/>
-                            <select name="like" required="true">
-                                <option value="">Please select one</option>
-                                <option value="1">Not at all</option>
-                                <option value="2">Slightly</option>
-                                <option value="3">Somewhat</option>
-                                <option value="4">Mostly</option>
-                                <option value="5">Very</option>
-                                <option value="555">Prefer not to answer</option>
-                            </select>
-                        </p>
-                        <p>
-                            <label>How much did you like the way the web program looked?</label><br/>
-                            <select name="look" required="true">
-                                <option value="">Please select one</option>
-                                <option value="1">Not at all</option>
-                                <option value="2">Slightly</option>
-                                <option value="3">Somewhat</option>
-                                <option value="4">Mostly</option>
-                                <option value="5">Very</option>
-                                <option value="555">Prefer not to answer</option>
-                            </select>
-                        </p>
-                        <p>
-                            <label>How worried were you about your privacy in using this web program?</label><br/>
-                            <select name="privacy" required="true">
-                                <option value="">Please select one</option>
-                                <option value="1">Not at all</option>
-                                <option value="2">Slightly</option>
-                                <option value="3">Somewhat</option>
-                                <option value="4">Mostly</option>
-                                <option value="5">Very</option>
-                                <option value="555">Prefer not to answer</option>
-                            </select>
-                        </p>
-                        <p>
-                            <label>	How easy were the assessments to understand?</label><br/>
-                            <select name="understand" required="true">
-                                <option value="">Please select one</option>
-                                <option value="1">Not at all</option>
-                                <option value="2">Slightly</option>
-                                <option value="3">Somewhat</option>
-                                <option value="4">Mostly</option>
-                                <option value="5">Very</option>
-                                <option value="555">Prefer not to answer</option>
-                            </select>
-                        </p>
-                        <p>
-                            <label>How easy was the training program (including instructions and materials) to understand?</label><br/>
-                            <select name="training_ease" required="true">
-                                <option value="">Please select one</option>
-                                <option value="1">Not at all</option>
-                                <option value="2">Slightly</option>
-                                <option value="3">Somewhat</option>
-                                <option value="4">Mostly</option>
-                                <option value="5">Very</option>
-                                <option value="555">Prefer not to answer</option>
-                            </select>
-                        </p>
+                    <div class="section">
+                        <div class="question">How likely would you be to recommend this web program to others with similar anxiety difficulties?</div>
+                        <label class="radioListNoAnswer">Prefer not to answer<br/><input type="radio" name="recommend" value="555" required="true"/></label>
+                        <label class="radioList"><input type="radio" name="recommend" value="1" required="true"/><b>Not at all</b></label>
+                        <label class="radioList"><input type="radio" name="recommend" value="2" required="true"/><b>Slightly</b></label>
+                        <label class="radioList"><input type="radio" name="recommend" value="3" required="true"/><b>Somewhat</b></label>
+                        <label class="radioList"><input type="radio" name="recommend" value="4" required="true"/><b>Mostly</b></label>
+                        <label class="radioList"><input type="radio" name="recommend" value="5" required="true"/><b>Very</b></label>
                     </div>
-                    <div class="longSection">
-                        <p>
-                            <label>	How much did you feel you could trust the information?</label><br/>
-                            <select name="trust" required="true">
-                                <option value="">Please select one</option>
-                                <option value="1">Not at all</option>
-                                <option value="2">Slightly</option>
-                                <option value="3">Somewhat</option>
-                                <option value="4">Mostly</option>
-                                <option value="5">Very</option>
-                                <option value="555">Prefer not to answer</option>
-                            </select>
-                        </p>
-                        <p>
-                            <label>	To what extent did Internet or computer problems affect your use of the web program?</label>
-                            <select name="internet" required="true">
-                                <option value="">Please select one</option>
-                                <option value="1">Not at all</option>
-                                <option value="2">Slightly</option>
-                                <option value="3">Somewhat</option>
-                                <option value="4">Mostly</option>
-                                <option value="5">Very</option>
-                                <option value="555">Prefer not to answer</option>
-                            </select>
-                        </p>
+
+                    <div class="section">
+                        <div class="question">How easy was the web program to use?</div>
+                        <label class="radioListNoAnswer">Prefer not to answer<br/><input type="radio" name="ease" value="555" required="true"/></label>
+                        <label class="radioList"><input type="radio" name="ease" value="1" required="true"/><b>Not at all</b></label>
+                        <label class="radioList"><input type="radio" name="ease" value="2" required="true"/><b>Slightly</b></label>
+                        <label class="radioList"><input type="radio" name="ease" value="3" required="true"/><b>Somewhat</b></label>
+                        <label class="radioList"><input type="radio" name="ease" value="4" required="true"/><b>Mostly</b></label>
+                        <label class="radioList"><input type="radio" name="ease" value="5" required="true"/><b>Very</b></label>
+                    </div>
+
+                    <div class="section">
+                        <div class="question">How much did the web program keep your interest and attention?</div>
+                        <label class="radioListNoAnswer">Prefer not to answer<br/><input type="radio" name="interest" value="555" required="true"/></label>
+                        <label class="radioList"><input type="radio" name="interest" value="1" required="true"/><b>Not at all</b></label>
+                        <label class="radioList"><input type="radio" name="interest" value="2" required="true"/><b>Slightly</b></label>
+                        <label class="radioList"><input type="radio" name="interest" value="3" required="true"/><b>Somewhat</b></label>
+                        <label class="radioList"><input type="radio" name="interest" value="4" required="true"/><b>Mostly</b></label>
+                        <label class="radioList"><input type="radio" name="interest" value="5" required="true"/><b>Very</b></label>
+                    </div>
+
+                    <div class="section">
+                        <div class="question">How much did you like the web program in general?</div>
+                        <label class="radioListNoAnswer">Prefer not to answer<br/><input type="radio" name="like" value="555" required="true"/></label>
+                        <label class="radioList"><input type="radio" name="like" value="1" required="true"/><b>Not at all</b></label>
+                        <label class="radioList"><input type="radio" name="like" value="2" required="true"/><b>Slightly</b></label>
+                        <label class="radioList"><input type="radio" name="like" value="3" required="true"/><b>Somewhat</b></label>
+                        <label class="radioList"><input type="radio" name="like" value="4" required="true"/><b>Mostly</b></label>
+                        <label class="radioList"><input type="radio" name="like" value="5" required="true"/><b>Very</b></label>
+                    </div>
+
+                    <div class="section">
+                        <div class="question">How much did you like the way the web program looked?</div>
+                        <label class="radioListNoAnswer">Prefer not to answer<br/><input type="radio" name="look" value="555" required="true"/></label>
+                        <label class="radioList"><input type="radio" name="look" value="1" required="true"/><b>Not at all</b></label>
+                        <label class="radioList"><input type="radio" name="look" value="2" required="true"/><b>Slightly</b></label>
+                        <label class="radioList"><input type="radio" name="look" value="3" required="true"/><b>Somewhat</b></label>
+                        <label class="radioList"><input type="radio" name="look" value="4" required="true"/><b>Mostly</b></label>
+                        <label class="radioList"><input type="radio" name="look" value="5" required="true"/><b>Very</b></label>
+                    </div>
+                    <div class="section">
+                        <div class="question">How worried were you about your privacy in using this web program?</div>
+                        <label class="radioListNoAnswer">Prefer not to answer<br/><input type="radio" name="privacy" value="555" required="true"/></label>
+                        <label class="radioList"><input type="radio" name="privacy" value="1" required="true"/><b>Not at all</b></label>
+                        <label class="radioList"><input type="radio" name="privacy" value="2" required="true"/><b>Slightly</b></label>
+                        <label class="radioList"><input type="radio" name="privacy" value="3" required="true"/><b>Somewhat</b></label>
+                        <label class="radioList"><input type="radio" name="privacy" value="4" required="true"/><b>Mostly</b></label>
+                        <label class="radioList"><input type="radio" name="privacy" value="5" required="true"/><b>Very</b></label>
+                    </div>
+                    <div class="section">
+                        <div class="question">How easy were the assessments to understand?</div>
+                        <label class="radioListNoAnswer">Prefer not to answer<br/><input type="radio" name="understand" value="555" required="true"/></label>
+                        <label class="radioList"><input type="radio" name="understand" value="1" required="true"/><b>Not at all</b></label>
+                        <label class="radioList"><input type="radio" name="understand" value="2" required="true"/><b>Slightly</b></label>
+                        <label class="radioList"><input type="radio" name="understand" value="3" required="true"/><b>Somewhat</b></label>
+                        <label class="radioList"><input type="radio" name="understand" value="4" required="true"/><b>Mostly</b></label>
+                        <label class="radioList"><input type="radio" name="understand" value="5" required="true"/><b>Very</b></label>
+                    </div>
+
+                    <div class="section">
+                        <div class="question">How easy was the training program (including instructions and materials) to understand?</div>
+                        <label class="radioListNoAnswer">Prefer not to answer<br/><input type="radio" name="training_ease" value="555" required="true"/></label>
+                        <label class="radioList"><input type="radio" name="training_ease" value="1" required="true"/><b>Not at all</b></label>
+                        <label class="radioList"><input type="radio" name="training_ease" value="2" required="true"/><b>Slightly</b></label>
+                        <label class="radioList"><input type="radio" name="training_ease" value="3" required="true"/><b>Somewhat</b></label>
+                        <label class="radioList"><input type="radio" name="training_ease" value="4" required="true"/><b>Mostly</b></label>
+                        <label class="radioList"><input type="radio" name="training_ease" value="5" required="true"/><b>Very</b></label>
+                    </div>
+
+                    <div class="section">
+                        <div class="question">How much did you feel you could trust the information?</div>
+                        <label class="radioListNoAnswer">Prefer not to answer<br/><input type="radio" name="trust" value="555" required="true"/></label>
+                        <label class="radioList"><input type="radio" name="trust" value="1" required="true"/><b>Not at all</b></label>
+                        <label class="radioList"><input type="radio" name="trust" value="2" required="true"/><b>Slightly</b></label>
+                        <label class="radioList"><input type="radio" name="trust" value="3" required="true"/><b>Somewhat</b></label>
+                        <label class="radioList"><input type="radio" name="trust" value="4" required="true"/><b>Mostly</b></label>
+                        <label class="radioList"><input type="radio" name="trust" value="5" required="true"/><b>Very</b></label>
+                    </div>
+
+                    <div class="section">
+                        <div class="question">To what extent did Internet or computer problems affect your use of the web program?</div>
+                        <label class="radioListNoAnswer">Prefer not to answer<br/><input type="radio" name="internet" value="555" required="true"/></label>
+                        <label class="radioList"><input type="radio" name="internet" value="1" required="true"/><b>Not at all</b></label>
+                        <label class="radioList"><input type="radio" name="internet" value="2" required="true"/><b>Slightly</b></label>
+                        <label class="radioList"><input type="radio" name="internet" value="3" required="true"/><b>Somewhat</b></label>
+                        <label class="radioList"><input type="radio" name="internet" value="4" required="true"/><b>Mostly</b></label>
+                        <label class="radioList"><input type="radio" name="internet" value="5" required="true"/><b>Very</b></label>
                     </div>
                     <div class="longSection">
                         <p>
@@ -204,100 +161,83 @@
                             <label>Why is that number ideal?</label>
                             <input type="text" name="describe" required="true"/>
                         </p>
-                        <p>
-                            <label> How tiring did you find the training sessions? </label><br/>
-                            <select name="tiring_training" required="true">
-                                <option value="">Please select one</option>
-                                <option value="1">Not at all</option>
-                                <option value="2">Slightly</option>
-                                <option value="3">Somewhat</option>
-                                <option value="4">Mostly</option>
-                                <option value="5">Very</option>
-                                <option value="555">Prefer not to answer</option>
-                            </select>
-                        </p>
-                        <p>
-                            <label> How tiring did you find the assessments? </label><br/>
-                            <select name="tiring_assessments" required="true">
-                                <option value="">Please select one</option>
-                                <option value="1">Not at all</option>
-                                <option value="2">Slightly</option>
-                                <option value="3">Somewhat</option>
-                                <option value="4">Mostly</option>
-                                <option value="5">Very</option>
-                                <option value="555">Prefer not to answer</option>
-                            </select>
-                        </p>
-                        <p>
-                            <label>On average, while you were completing the training sessions, how focused or distracted were you? </label>
-                            <select name="distracted" required="true">
-                                <option value="">Please select one</option>
-                                <option value="1">Extremely Distracted</option>
-                                <option value="2">Distracted</option>
-                                <option value="3">Somewhat Distracted</option>
-                                <option value="4">Neither Distracted Nor Focused</option>
-                                <option value="5">Somewhat Focused</option>
-                                <option value="6">Focused</option>
-                                <option value="7">Extremely Focused</option>
-                                <option value="555">Prefer not to answer</option>
-                            </select>
-                        </p>
                     </div>
-                    <div class="longSection">
-                        <p>
-                            <label>If you were to seek help for your anxiety again, would you seek a similar program?</label>
-                            <select name="similar_program" required="true">
-                                <option value="">Please select one</option>
-                                <option value="1">No, definitely not</option>
-                                <option value="2">No, probably not</option>
-                                <option value="3">Not sure</option>
-                                <option value="4">A little less likely</option>
-                                <option value="5">Much less likely</option>
-                                <option value="555">Prefer not to answer</option>
-                            </select>
-                        </p>
+                    <div class="section">
+                        <div class="question">How tiring did you find the training sessions? </div>
+                        <label class="radioListNoAnswer">Prefer not to answer<br/><input type="radio" name="tiring_training" value="555" required="true"/></label>
+                        <label class="radioList"><input type="radio" name="tiring_training" value="1" required="true"/><b>Not at all</b></label>
+                        <label class="radioList"><input type="radio" name="tiring_training" value="2" required="true"/><b>Slightly</b></label>
+                        <label class="radioList"><input type="radio" name="tiring_training" value="3" required="true"/><b>Somewhat</b></label>
+                        <label class="radioList"><input type="radio" name="tiring_training" value="4" required="true"/><b>Mostly</b></label>
+                        <label class="radioList"><input type="radio" name="tiring_training" value="5" required="true"/><b>Very</b></label>
+                    </div>
+                    <div class="section">
+                        <div class="question">How tiring did you find the assessments? </div>
+                        <label class="radioListNoAnswer">Prefer not to answer<br/><input type="radio" name="tiring_assessments" value="555" required="true"/></label>
+                        <label class="radioList"><input type="radio" name="tiring_assessments" value="1" required="true"/><b>Not at all</b></label>
+                        <label class="radioList"><input type="radio" name="tiring_assessments" value="2" required="true"/><b>Slightly</b></label>
+                        <label class="radioList"><input type="radio" name="tiring_assessments" value="3" required="true"/><b>Somewhat</b></label>
+                        <label class="radioList"><input type="radio" name="tiring_assessments" value="4" required="true"/><b>Mostly</b></label>
+                        <label class="radioList"><input type="radio" name="tiring_assessments" value="5" required="true"/><b>Very</b></label>
+                    </div>
+                    <div class="section">
+                        <div class="question">On average, while you were completing the training sessions, how focused or distracted were you? </div>
+                        <label class="radioListNoAnswer">Prefer not to answer<br/><input type="radio" name="distracted" value="555" required="true"/></label>
+                        <label class="radioList"><input type="radio" name="distracted" value="1" required="true"/><b>Extremely Distracted</b></label>
+                        <label class="radioList"><input type="radio" name="distracted" value="2" required="true"/><b>Distracted</b></label>
+                        <label class="radioList"><input type="radio" name="distracted" value="3" required="true"/><b>Somewhat Distracted</b></label>
+                        <label class="radioList"><input type="radio" name="distracted" value="4" required="true"/><b>Neither Distracted Nor Focused</b></label>
+                        <label class="radioList"><input type="radio" name="distracted" value="5" required="true"/><b>Somewhat Focused</b></label>
+                        <label class="radioList"><input type="radio" name="distracted" value="6" required="true"/><b>Focused</b></label>
+                        <label class="radioList"><input type="radio" name="distracted" value="7" required="true"/><b>Extremely Focused</b></label>
+                    </div>
+                    <div class="section">
+                        <div class="question">If you were to seek help for your anxiety again, would you seek a similar program?</div>
+                        <label class="radioListNoAnswer">Prefer not to answer<br/><input type="radio" name="similar_program" value="555" required="true"/></label>
+                        <label class="radioList"><input type="radio" name="similar_program" value="1" required="true"/><b>No, definitely not</b></label>
+                        <label class="radioList"><input type="radio" name="similar_program" value="2" required="true"/><b>No, probably not</b></label>
+                        <label class="radioList"><input type="radio" name="similar_program" value="3" required="true"/><b>Not sure</b></label>
+                        <label class="radioList"><input type="radio" name="similar_program" value="4" required="true"/><b>A little less likely</b></label>
+                        <label class="radioList"><input type="radio" name="similar_program" value="5" required="true"/><b>Much less likely</b></label>
+                    </div>
 
-                        <p>
-                            <label>If you were to experience moderate to severe anxiety in the future, does this program make you more or less likely to consider other forms of therapy (e.g., medications, therapy)?</label>
-                            <select name="other_therapy" required="true">
-                                <option value="">Please select one</option>
-                                <option value="1">Much more likely </option>
-                                <option value="2">A little more likely</option>
-                                <option value="3">Not sure</option>
-                                <option value="4">Yes, I probably would</option>
-                                <option value="5">N/A (e.g., I’m currently undergoing another form of treatment)</option>
-                                <option value="555">Prefer not to answer</option>
-                            </select>
-                        </p>
+                    <div class="section">
+                        <div class="question">If you were to experience moderate to severe anxiety in the future, does this program make you more or less likely to consider other forms of therapy (e.g., medications, therapy)?</div>
+                        <label class="radioListNoAnswer">Prefer not to answer<br/><input type="radio" name="other_therapy" value="555" required="true"/></label>
+                        <label class="radioList"><input type="radio" name="other_therapy" value="1" required="true"/><b>Much more likely </b></label>
+                        <label class="radioList"><input type="radio" name="other_therapy" value="2" required="true"/><b>A little more likely</b></label>
+                        <label class="radioList"><input type="radio" name="other_therapy" value="3" required="true"/><b>Not sure</b></label>
+                        <label class="radioList"><input type="radio" name="other_therapy" value="4" required="true"/><b>Yes, I probably would</b></label>
+                        <label class="radioList"><input type="radio" name="other_therapy" value="5" required="true"/><b>N/A (e.g., I’m currently undergoing another form of treatment)</b></label>
+                        <br />
                     </div>
-                    <div class="longSection">
-                        <p>
-                            <label>Where did you complete the training sessions? Select all that apply</label>
-                            <label class="radioList"><input name="where" type="checkbox" value="home"/>At home</label>
-                            <label class="radioList"><input name="where" type="checkbox" value="work"/>At work</label>
-                            <label class="radioList"><input name="where" type="checkbox" value="public"/>At a public space, such as a library, coffee shop, or restaurant</label>
-                            <label class="radioList"><input name="where" type="checkbox" value="commuting"/>While commuting/travelling (e.g., on the train to work)</label>
-                            <label class="radioList"><input name="where" type="checkbox" value="vacation"/>On Vacation</label>
-                            <label class="radioList"><input name="where" type="checkbox" value="other"/>Other</label>
-                            <label class="radioList"><input name="where" type="checkbox" value="555"/>Prefer not to answer</label>
-                        </p>
-                        <p>
-                            <label> If other, please specficy </label>
-                            <input type="text" name="OtherDesc"/>
-                        </p>
-                        <p>
-                            <label>Did you think you were in the active training condition (designed to change your anxious thinking) or the “control” condition (not designed to change your anxious thinking)?</label>
-                            <select name="cntrl_tx" required="true">
-                                <option value="">Please select one</option>
-                                <option value="active_training">activing training condition</option>
-                                <option value="control">control condition</option>
-                                <option value="555">Prefer not to answer</option>
-                            </select>
-                        </p>
+                    <div class="section">
+                        <div class="question">Where did you complete the training sessions? Select all that apply</div>
+                        <label class="radioListNoAnswer">Prefer not to answer<br/><input type="checkbox" name="where" value="555" required="true" id="Q1_noAns" onchange="hide_Q1_noAns()"/></label>
+                        <label class="radioList"><input type="checkbox" name="where" value="home" required="true" id="Q1_1"/><b>At home</b></label>
+                        <label class="radioList"><input type="checkbox" name="where" value="work" required="true" id="Q1_2"/><b>At work</b></label>
+                        <label class="radioList"><input type="checkbox" name="where" value="public" required="true" id="Q1_3"/><b>At a public space, such as a library, coffee shop, or restaurant</b></label>
+                        <label class="radioList"><input type="checkbox" name="where" value="commuting" required="true" id="Q1_4"/><b>While commuting/travelling (e.g., on the train to work)</b></label>
+                        <label class="radioList"><input type="checkbox" name="where" value="vacation" required="true" id="Q1_5"/><b>On Vacation</b></label>
+                        <label class="radioList"><input type="checkbox" name="where" value="other" required="true" id="Q1_6" onchange="spec()"/><b>Other</b></label>
+                        <label class="radioList">If other, please specify<input type="text" name="OtherDesc" id="Q1_7" disabled="true"/></label>
+
+                    </div>
+                    <div class="section">
+                        <div class="question">Did you think you were in the active training condition (designed to change your anxious thinking) or the “control” condition (not designed to change your anxious thinking)?</div>
+                        <label class="radioListNoAnswer">Prefer not to answer<br/><input type="radio" name="cntrl_tx" value="555" required="true"/></label>
+                        <br />
+                        <label class="radioList"><input type="radio" name="cntrl_tx" value="active_training" required="true"/><b>activing training condition</b></label>
+                        <br />
+                        <label class="radioList"><input type="radio" name="cntrl_tx" value="control" required="true"/><b>control condition</b></label>
+                        <br />
+                        <br />
+                        <br />
                     </div>
                     <div class="submit">
                         <button type="submit">Next</button>
-                    </div>                </form>
+                    </div>
+                </form>
             </div>
         </div>
         <!--features ends-->
@@ -318,7 +258,39 @@
 <!--Javascript
 ================================================== -->
 <div th:include="fragment/common :: scripts" />
+<script type="text/javascript">
 
+    function spec(){
+        if (document.getElementById("Q1_6").checked) {
+            document.getElementById("Q1_7").disabled = false;
+            document.getElementById("Q1_7").required = true;
+        } else {
+            document.getElementById("Q1_7").disabled = true;
+            document.getElementById("Q1_7").required = false;
+        }
+    }
+
+function hide_Q1_noAns(){
+    if (document.getElementById("Q1_noAns").checked) {
+        document.getElementById("Q1_1").disabled = true;
+        document.getElementById("Q1_2").disabled = true;
+        document.getElementById("Q1_3").disabled = true;
+        document.getElementById("Q1_4").disabled = true;
+        document.getElementById("Q1_5").disabled = true;
+        document.getElementById("Q1_6").disabled = true;
+        document.getElementById("Q1_7").disabled = true;
+    } else {
+        document.getElementById("Q1_1").disabled = false;
+        document.getElementById("Q1_2").disabled = false;
+        document.getElementById("Q1_3").disabled = false;
+        document.getElementById("Q1_4").disabled = false;
+        document.getElementById("Q1_5").disabled = false;
+        document.getElementById("Q1_6").disabled = false;
+        document.getElementById("Q1_7").disabled = false;
+    }
+  }
+
+</script>
 </body>
 </html>
 
@@ -338,5 +310,3 @@
 <!--	Yes-->
 <!--	No-->
 <!--If yes: Please describe: ________________-->
-
-

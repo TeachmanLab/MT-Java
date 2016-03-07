@@ -34,12 +34,13 @@ public class MultiUserExperience extends QuestionnaireData {
     private int trust;
     private int internet;
     private int ideal;
+    private String describe;
     private int tiring_training;
     private int distracted;
     private int similar_program;
     private int other_therapy;
     @Column(name="where_value") // 'where' is a reserved word in the database syntax and can't be used as name.
-    private int where;
+    private String where;
     private String OtherDesc;
     private String cntrl_tx;
 
