@@ -119,7 +119,7 @@
             <br/>
             <div class="section">
                 <div class="question">On average, during the last three months, how often have you consumed alcohol?</div>
-                <select name="average_freq" required="required">
+                <select id="on_average" name="average_freq" required="required">
                     <option/>
                     <option value="555">Prefer not to anwser</option>
                     <option value="0" >
@@ -152,7 +152,7 @@
             <div class="section">
                 <div class="question">During the last three months, when you have consumed alcohol, how many drinks on average did you
                     typically consume on a given occasion?</div>
-                <select name="average_amount" required="required">
+                <select id="last_month" name="average_amount" required="required">
                     <option/>
                     <option value="555">Prefer not to anwser</option>
                     <option value="0" >0 drinks</option>
@@ -183,6 +183,9 @@
                     <option value="25" >25 drinks</option>
                 </select>
             </div>
+              <br />
+              <input type="checkbox" onchange="NoAns()" id="noAns" name="noAns_for_all">Prefer not to answer for all items.</input>
+              <br />
             <div class="submit">
                 <button type="submit">Next</button>
             </div>
@@ -208,6 +211,32 @@
 
     }
     ;
+    function NoAns(){
+      if (document.getElementById("noAns").checked) {
+        document.getElementById("mon_drinks").required = false;
+        document.getElementById("tues_drinks").required = false;
+        document.getElementById("wed_drinks").required = false;
+        document.getElementById("thurs_drinks").required = false;
+        document.getElementById("fri_drinks").required = false;
+        document.getElementById("sat_drinks").required = false;
+        document.getElementById("sun_drinks").required = false;
+        document.getElementById("last_month").required = false;
+        document.getElementById("on_average").required = false;
+        document.getElementById("noAns").val = true;
+      }else{
+        document.getElementById("mon_drinks").required = true;
+        document.getElementById("tues_drinks").required = true;
+        document.getElementById("wed_drinks").required = true;
+        document.getElementById("thurs_drinks").required = true;
+        document.getElementById("fri_drinks").required = true;
+        document.getElementById("sat_drinks").required = true;
+        document.getElementById("sun_drinks").required = true;
+        document.getElementById("last_month").required = true;
+        document.getElementById("on_average").required = true;
+        document.getElementById("noAns").val = false;
+      };
+    }
+
 </script>
 
 

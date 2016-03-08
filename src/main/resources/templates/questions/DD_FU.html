@@ -112,6 +112,9 @@
                             </tr>
                         </table>
                     </div>
+                    <br />
+                    <input type="checkbox" onchange="NoAns()" id="noAns" name="noAns_for_all">Prefer not to answer for all items.</input>
+                    <br />
                     <div class="submit">
                         <button type="submit">Next</button>
                     </div>
@@ -141,6 +144,28 @@
 
     }
     ;
+    function NoAns(){
+      if (document.getElementById("noAns").checked) {
+        document.getElementById("mon_drinks").required = false;
+        document.getElementById("tues_drinks").required = false;
+        document.getElementById("wed_drinks").required = false;
+        document.getElementById("thurs_drinks").required = false;
+        document.getElementById("fri_drinks").required = false;
+        document.getElementById("sat_drinks").required = false;
+        document.getElementById("sun_drinks").required = false;
+        document.getElementById("noAns").val = true;
+      }else{
+        document.getElementById("mon_drinks").required = true;
+        document.getElementById("tues_drinks").required = true;
+        document.getElementById("wed_drinks").required = true;
+        document.getElementById("thurs_drinks").required = true;
+        document.getElementById("fri_drinks").required = true;
+        document.getElementById("sat_drinks").required = true;
+        document.getElementById("sun_drinks").required = true;
+        document.getElementById("noAns").val = false;
+      };
+    }
+
 </script>
 
 <!-- footer starts
