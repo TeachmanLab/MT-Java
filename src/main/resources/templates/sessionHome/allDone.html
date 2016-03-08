@@ -32,6 +32,14 @@
 
             <!--divider here-->
             <div class="spacer-40px"></div>
+            <br clear="both"/>
+            <div class="giftAwarded" th:if="${giftAwarded}">
+                <img th:src="@{/images/gift_card_sm.png}"/>
+                <div class="message">
+                    <em>Congratulations! You have earned a $<span th:text="${giftAmount}"/> gift card.</em><br/>
+                    Please check your email for information on how to redeem it.
+                </div>
+            </div>
         </div>
     </div>
 </section>

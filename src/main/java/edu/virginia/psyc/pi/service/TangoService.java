@@ -53,12 +53,8 @@ public class TangoService {
     @Value("${tango.tangoCardSku}")
     private String tangoCardSku;
 
-    @Value("${tango.cardValueCents}")
-    private int cardValueCents;
-
     @Autowired
     private ParticipantRepository participantRepository;
-
 
     /**
      * HTTP Basic Authentication is required to connect to Tango.
@@ -150,9 +146,9 @@ public class TangoService {
      * Places an order with Tango.  Returns Gift Card details that we can later use
      * to notify Participant.
      */
-    public Reward createGiftCard(Participant participant, String sessionName) {
+    public Reward createGiftCard(Participant participant, String sessionName, int amount) {
         Recipient recipient = new Recipient(participant.getFullName(), participant.getEmail());
-        Order order = new Order(id, accountId, tangoCardSku, cardValueCents, false);
+        Order order = new Order(id, accountId, tangoCardSku, amount, false);
         order.setRecipient(recipient);
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = headers();

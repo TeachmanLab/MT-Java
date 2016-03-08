@@ -239,7 +239,7 @@ public class AdminController extends BaseController {
         if(type.equals(EmailService.TYPE.giftCard)) {
             // Reward reward = tangoService.createGiftCard(p);  This would actually award a gift card, if you need to do some testing.
             Reward reward = new Reward("111-111-111-111", "1234-2345-2345", "123", "https://www.google.com", "12345");
-            this.emailService.sendGiftCardEmail(p, reward);
+            this.emailService.sendGiftCardEmail(p, reward, 100);
         } else if(type.equals(EmailService.TYPE.alertAdmin)) {
             OA d1 = new OA(1,2,3,4,5);
             OA d2 = new OA(3,3,4,5,5);
@@ -292,8 +292,8 @@ public class AdminController extends BaseController {
     @RequestMapping(value="/participant/giftCard")
     public String giftCard(ModelMap model, Principal principal) throws Exception {
         Participant p = participantRepository.entityToDomain(participantRepository.findByEmail(principal.getName()));
-        Reward r = tangoService.createGiftCard(p, "AdminAwarded");
-        this.emailService.sendGiftCardEmail(p, r);
+        Reward r = tangoService.createGiftCard(p, "AdminAwarded",100);
+        this.emailService.sendGiftCardEmail(p, r, 100);
         model.addAttribute("participant", p);
         model.addAttribute("hideAccountBar", true);
         return "/admin/participant_form";

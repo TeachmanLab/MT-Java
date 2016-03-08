@@ -94,10 +94,11 @@ public class SessionController extends BaseController {
         }
 
         // Determine if a gift should be awarded, and award it.
-        if (last.isAwardGift() && !p.giftAwardedForSession(last)) {
-            Reward reward = tangoService.createGiftCard(p, last.getName());
-            this.emailService.sendGiftCardEmail(p, reward);
+        if (last.getGiftAmount() > 0 && !p.giftAwardedForSession(last)) {
+            Reward reward = tangoService.createGiftCard(p, last.getName(), last.getGiftAmount());
+            this.emailService.sendGiftCardEmail(p, reward, last.getGiftAmount());
             model.addAttribute("giftAwarded", true);
+            model.addAttribute("giftAmount", last.getGiftAmount()/100);
         }
 
         switch (study.getState()) {
