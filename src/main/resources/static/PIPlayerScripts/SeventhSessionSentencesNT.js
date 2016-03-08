@@ -1,6 +1,6 @@
 define([], function() {
     return({
-        display_length: 50,
+        display_length: 40,
         add_extra_missing_letter:true,
         sequence:[
             {
@@ -27,6 +27,7 @@ define([], function() {
         },
         {
             mixer:'random',
+            n: 40,  // The total number of randomly selected trials to run.
             data:[
 
     {
@@ -1397,7 +1398,7 @@ define([], function() {
                 "data": {
                     "neutralKey": "c",
                     "neutralWord": "so[ ]ks",
-                    "statement": "You are taking a getting dressed. You are going out for dinner. You put on your "
+                    "statement": "You are getting dressed. You are going out for dinner. You put on your "
                 },
                 "handle": "paragraph",
                 "media": {

@@ -1,6 +1,6 @@
 define([], function() {
     return({
-        display_length: 50,
+        display_length: 40,
         add_extra_missing_letter:false,
         sequence:[
         {
@@ -27,6 +27,7 @@ define([], function() {
         },
         {
             mixer:'random',
+            n: 40,  // The total number of randomly selected trials to run.
             data:[
 
     {
@@ -1068,7 +1069,7 @@ define([], function() {
             },
             {
                 "data": {
-                    "neutralKey": "o",
+                    "neutralKey": "r",
                     "neutralWord": "o[ ]der",
                     "statement": "You have dinner plans with some friends. You are going to your favorite restaurant. While you drive to the restaurant, you think about what you want to "
                 },
@@ -1682,7 +1683,7 @@ define([], function() {
                 "data": {
                     "neutralKey": "a",
                     "neutralWord": "W[ ]r",
-                    "statement": " You are in class listening to a lecture. They person next to you asks if you could tell them what the lecturer was going over. You tell them they were going over the Revolutionary "
+                    "statement": " You are in class listening to a lecture. The person next to you asks if you could tell them what the lecturer was going over. You tell them they were going over the Revolutionary "
                 },
                 "handle": "paragraph",
                 "media": {

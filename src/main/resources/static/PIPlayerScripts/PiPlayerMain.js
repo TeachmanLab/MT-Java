@@ -30,8 +30,17 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
     var index;
     var pick;
     var changed_attribute = false;
-    var scorer = {  count: 1 };
+    var already_wrong_s = false;
+    var already_wrong_c = false;
+    var scorer = {  count: 1, ct_s: 0, ct_c: 0};
     var on_question = false;
+
+
+    var pct_ct_s = 0;
+    var pct_ct_c = 0;
+
+    var feed_back_s = '';
+    var feed_back_c = '';
 
     var last_word = ""; // The word with missing letters in it.
     var letters = ""; // The letters that are missing
@@ -47,7 +56,6 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
      */
     function splitSentences(trial) {
         if(API.getGlobal().state != STATE_RESET) return false;
-        console.log("Resetting paragraphs.")
         var sentence = $("div.sentence");
         break_up = sentence.text().split('.');
         last_word = break_up[break_up.length - 1].split(' ');
@@ -58,13 +66,10 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
             p = jQuery.grep(trial._stimulus_collection.models, function (e, i) {
                 return e.attributes.handle == "paragraph";})[0];
             pick = Math.floor(Math.random() * (1 + 1));
-            console.log(pick);
             while (last_word.indexOf(brackets[pick]) == last_word.length - 1 | last_word.indexOf(brackets[pick]) == 0)
             {
-                console.log('RE-CHOOSING THE BRACKET');
                 pick = Math.floor(Math.random() * (1 + 1));
             }
-            console.log(pick);
             if (pick == 0) {
                 index = last_word.indexOf(brackets[pick]);
                 letter = last_word[index - 1];
@@ -103,11 +108,9 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
             }
             break_up[i].invisible();
         }
-        console.log("The last word is:" + last_word);
         sentence.html(break_up);
         break_up[0].visible();
 
-        console.log("So I do return true then right?");
         return true;
     }
 
@@ -165,12 +168,39 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
         })[0];
         if(trial.data.neutral) {
             console.log("Incorrect answer to neutral.");
+            if (! already_wrong_c)
+            {
+                if (q.attributes.data.neutralAnswer != inputData.handle)
+                {
+                    scorer.ct_c = scorer.ct_c + 1;
+                    already_wrong_c = true;
+                    console.log(scorer.ct_c + ' incorrect');
+                }
+            }
             return(q.attributes.data.neutralAnswer != inputData.handle);
         } else if(trial.data.positive) {
             console.log("Incorrect answer to positive.");
+            if (! already_wrong_c)
+            {
+                if (q.attributes.data.positiveAnswer != inputData.handle)
+                {
+                    scorer.ct_c = scorer.ct_c + 1;
+                    already_wrong_c = true;
+                    console.log(scorer.ct_c + ' incorrect');
+                }
+            }
             return(q.attributes.data.positiveAnswer != inputData.handle);
         } else {
             console.log("Incorrect answer to negative.");
+            if (! already_wrong_c)
+            {
+                if (q.attributes.data.negativeAnswer != inputData.handle)
+                {
+                    scorer.ct_c = scorer.ct_c + 1;
+                    already_wrong_c = true;
+                    console.log(scorer.ct_c + ' incorrect');
+                }
+            }
             return (q.attributes.data.negativeAnswer != inputData.handle);
         }
     }
@@ -187,6 +217,16 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
         if (inputData.handle.length > 1) return false;
         var lettersTyped = API.getGlobal().lettersTyped + inputData.handle;
         var result = missing_letters(trial).startsWith(lettersTyped);
+        console.log('IS IT ALREADY WRONG ' + already_wrong_s);
+        console.log(lettersTyped);
+        if (! result & ! already_wrong_s & ! on_question)
+        {
+            console.log(result);
+            console.log(already_wrong_s);
+            scorer.ct_s = scorer.ct_s + 1;
+            already_wrong_s = true;
+            console.log('THIS MANY CORRECT ' + Math.round(((40-scorer.ct_s)/40)*100));
+        }
         return (result);
     }
 
@@ -382,7 +422,14 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
                         if(where_at >= break_up.length) {
                             console.log("Last sentence is visible, moving on.");
                             API.getGlobal().state = STATE_FILL_LETTERS;
-                            $("div.press_space").text("Type the missing letter.");
+                            if (Sequence.add_extra_missing_letter)
+                            {
+                                $("div.press_space").text("Type the missing letters.");
+                            }
+                            else
+                            {
+                                $("div.press_space").text("Type the missing letter.");
+                            }
                         }
                     }}
                 ]
@@ -395,6 +442,7 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
                     {type: 'inputEquals', value: 'space',negate:true},
                     {type: 'inputEquals', value: 'correct',negate:true},
                     {type: 'function', value: function (trial, inputData) {
+                        console.log('GOING BACK INCORRECT');
                         return (!correct_letters(trial, inputData));
                     }}
             ],
@@ -415,6 +463,7 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
                     },
                     {
                         type: 'function', value: function (trial, inputData) {
+                        console.log('GOING BACK CORRECT');
                         return correct_letters(trial, inputData)
                     }
                     }
@@ -473,7 +522,6 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
                 actions: [
                     // Preserve the question as completed, so that it will eventually be set back to the server.
                     {type: 'setTrialAttr', setter: function (trialData, eventData) {
-                        console.log("YO BABY #2!");
                         trialData.word = last_word;
                         trialData.paragraph = $("div[data-handle='paragraph']").text();
                         trialData.letter_latency = Math.floor(eventData.latency);
@@ -583,6 +631,8 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
                           if (trialData.first_question_latency == null) {
                               trialData.first_question_latency = Math.floor(eventData.latency);
                           }
+                          already_wrong_c = false;
+                          already_wrong_s = false;
                     }
                     },
                     {type: 'setGlobalAttr', setter: {state: STATE_RESET}}, // Reset the State
@@ -620,8 +670,6 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
         ]);
     } else {
         API.addTrialSets('posneg', [
-            {inherit: 'base', data: {positive: true}},
-            {inherit: 'base', data: {positive: true}},
             {inherit: 'base', data: {positive: true}},
             {inherit: 'base', data: {positive: true}},
             {inherit: 'base', data: {positive: true}},
@@ -732,7 +780,7 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
                 }
             ],
             customize: function () {
-                this.layout[0].media.html = '<div class="thanks"><p style="font-size: 24px; text-align:center">' + vivid_text + '</p>' + '<p style="font-size: 20px; text-align:center" > Press the spacebar to continue </p></div>';
+                this.layout[0].media.html = '<div class="results"><p style="font-size: 24px; text-align:center">' + vivid_text + '</p>' + '<p style="font-size: 20px; text-align:center" > Press the spacebar to continue </p></div>';
                 ;
             },
             interactions: [
@@ -748,6 +796,65 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
             ]
         }
     ]);
+
+    API.addTrialSets('results', [
+        {
+            input: [
+                // What input to accept from the participant (user)
+                {handle: 'space', on: 'space'}
+            ],
+            layout: [
+                {
+                    media: {html: ''}
+                }
+            ],
+            customize: function () {
+
+                pct_ct_s = Math.round(((40-scorer.ct_s)/40)*100);
+                pct_ct_c = Math.round(((40-scorer.ct_c)/40)*100);
+
+                if (pct_ct_s >= 90)
+                {
+                    feed_back_s = 'You filled in the missing letters correctly on the first try ' + pct_ct_c + '% of the time this round. Great job, we’re really impressed with your ability to complete the stories!';
+                }
+                else if (pct_ct_s < 90 & pct_ct_s >= 70)
+                {
+                    feed_back_s = 'You filled in the missing letters correctly on the first try ' + pct_ct_c + '% of the time this round. You’re doing well, and we encourage you to pay really close attention to the stories to work out what letters are needed to complete the final words. This will allow you to get the most out of the training.';
+                }
+                else
+                {
+                    feed_back_s = 'You filled in the missing letters correctly on the first try ' + pct_ct_c + '%% of the time this round. We want to encourage you to pay really close attention to the stories to work out what letters are needed to complete the final words. This will allow you to get the most out of the training. If any aspect of the task is unclear, please email us with any questions at studyteam@mindtrails.org.';
+                }
+
+                if (pct_ct_c >= 90)
+                {
+                    feed_back_c = 'You answered the yes/no question following each story correctly on the first try ' + pct_ct_s + '% of the time this round. That’s terrific, and shows you’re paying really careful attention to the stories!';
+                }
+                else if (pct_ct_c < 90 & pct_ct_s >= 70)
+                {
+                    feed_back_c = 'You answered the yes/no question following each story correctly on the first try ' + pct_ct_s + '% of the time this round. You’re doing a good job, and we want to remind you to pay really close attention to the whole story each time, including how it ends, and just use the information in the story to answer the question. This will allow you to get the most out of the training.';
+                }
+                else
+                {
+                    feed_back_c = 'You answered the yes/no question following each story correctly on the first try ' + pct_ct_s + '% of the time this round. We want to remind you to pay really close attention to the whole story each time, including how it ends, and just use the information in the story to answer the question. This will allow you to get the most out of the training. If any aspect of the task is unclear, please email us with any questions at studyteam@mindtrails.org.';
+
+                }
+                this.layout[0].media.html = '<div class="results"><p style="font-size: 24px; text-align:center">' + feed_back_s + '</p><p style="font-size: 24px; text-align:center">' + feed_back_c + '</p>' + '<p style="font-size: 20px; text-align:center" > Press the spacebar to continue </p></div>';
+            },
+            interactions: [
+                // What to do when different events occur.
+                {
+                    conditions: [
+                        {type: 'inputEquals', value: 'space'}
+                    ],
+                    actions: [
+                        {type: 'endTrial'}
+                    ]
+                }
+            ]
+        }
+    ]);
+
 
     API.addSequence(Sequence.sequence);
     return API.script;

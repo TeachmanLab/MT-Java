@@ -1,6 +1,6 @@
 define([], function() {
     return({
-        display_length: 50,
+        display_length: 40,
         add_extra_missing_letter:true,
         sequence:[
         {
@@ -27,7 +27,7 @@ define([], function() {
         },
         {
             mixer: 'random',
-            //n: 50,  // The total number of randomly selected trials to run.
+            n: 40,  // The total number of randomly selected trials to run.
             data: [
     {
         "inherit": {
@@ -1496,7 +1496,7 @@ define([], function() {
             {
                 "data": {
                     "negativeKey": "o",
-                    "negativeWord": "anxi[ ]is",
+                    "negativeWord": "anxi[ ]us",
                     "positiveKey": "a",
                     "positiveWord": "c[ ]lm",
                     "statement": " You are on a hike with friends. You come to a suspension bridge you need to cross, but you aren\u2019t 100% sure it is safe even though your friends think it\u2019s probably OK. As you cross the bridge you feel "
@@ -1680,7 +1680,7 @@ define([], function() {
                     "negativeWord": "hi[ ]h",
                     "positiveKey": "o",
                     "positiveWord": "l[ ]w",
-                    "statement": " At your routine doctor\u00e2\u20ac\u2122s appointment, you are asked to take a test for a disease. After the test, you wait for your results in the waiting room. You think the chances that you have the disease are "
+                    "statement": " At your routine doctor&rsquo;s appointment, you are asked to take a test for a disease. After the test, you wait for your results in the waiting room. You think the chances that you have the disease are "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -1828,6 +1828,10 @@ define([], function() {
         {
             "inherit": {"set": "vivid"},
             layout: [{media: {template: "/PIPlayerScripts/vividness_last.html"}}]
+        },
+        {
+            "inherit": {"set": "results"},
+            layout: [{media: {template: "/PIPlayerScripts/results.html"}}]
         }
     ]});
 });
