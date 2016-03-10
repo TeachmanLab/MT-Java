@@ -76,8 +76,11 @@
                         </td>
                     </tr>
                 </table>
+          <div class="question">
+            <input type="checkbox" onchange="Q1_NoAns()" id="Q1_noAns" name="q1_noAns">Prefer not to answer</input>
+          </div>
             </div>
-            <br/>
+            <br />
             <div class="section">
                 <div class="question">Consider a typical week during the last three months. Over how many hours do you drink the above
                     number of drinks?</div>
@@ -115,8 +118,11 @@
                         </td>
                     </tr>
                 </table>
+          <div class="question">
+            <input type="checkbox" onchange="Q2_NoAns()" id="Q2_noAns" name="q2_noAns" disabled="disabled">Prefer not to answer</input>
+          </div>
             </div>
-            <br/>
+            <br />
             <div class="section">
                 <div class="question">On average, during the last three months, how often have you consumed alcohol?</div>
                 <select id="on_average" name="average_freq" required="required">
@@ -183,9 +189,7 @@
                     <option value="25" >25 drinks</option>
                 </select>
             </div>
-              <br />
-              <input type="checkbox" onchange="NoAns()" id="noAns" name="noAns_for_all">Prefer not to answer for all items.</input>
-              <br />
+
             <div class="submit">
                 <button type="submit">Next</button>
             </div>
@@ -202,6 +206,7 @@
         if ($("input#"+id+"_drinks").val() > 0) {
            $("input#"+id).prop('disabled', false);
            $("input#"+id).prop('required', true);
+           document.getElementById("Q2_noAns").disabled = false;
         }
         else {
             $("input#"+id).prop('disabled', true);
@@ -211,8 +216,8 @@
 
     }
     ;
-    function NoAns(){
-      if (document.getElementById("noAns").checked) {
+    function Q1_NoAns(){
+      if (document.getElementById("Q1_noAns").checked) {
         document.getElementById("mon_drinks").required = false;
         document.getElementById("tues_drinks").required = false;
         document.getElementById("wed_drinks").required = false;
@@ -220,9 +225,7 @@
         document.getElementById("fri_drinks").required = false;
         document.getElementById("sat_drinks").required = false;
         document.getElementById("sun_drinks").required = false;
-        document.getElementById("last_month").required = false;
-        document.getElementById("on_average").required = false;
-        document.getElementById("noAns").val = true;
+        document.getElementById("Q1_noAns").val = true;
       }else{
         document.getElementById("mon_drinks").required = true;
         document.getElementById("tues_drinks").required = true;
@@ -231,12 +234,31 @@
         document.getElementById("fri_drinks").required = true;
         document.getElementById("sat_drinks").required = true;
         document.getElementById("sun_drinks").required = true;
-        document.getElementById("last_month").required = true;
-        document.getElementById("on_average").required = true;
-        document.getElementById("noAns").val = false;
+        document.getElementById("Q1_noAns").val = false;
+      };
+    };
+
+    function Q2_NoAns(){
+      if (document.getElementById("Q2_noAns").checked) {
+        document.getElementById("mon").required = false;
+        document.getElementById("tues").required = false;
+        document.getElementById("wed").required = false;
+        document.getElementById("thurs").required = false;
+        document.getElementById("fri").required = false;
+        document.getElementById("sat").required = false;
+        document.getElementById("sun").required = false;
+        document.getElementById("Q2_noAns").val = true;
+      }else{
+        document.getElementById("mon").required = true;
+        document.getElementById("tues").required = true;
+        document.getElementById("wed").required = true;
+        document.getElementById("thurs").required = true;
+        document.getElementById("fri").required = true;
+        document.getElementById("sat").required = true;
+        document.getElementById("sun").required = true;
+        document.getElementById("Q2_noAns").val = false;
       };
     }
-
 </script>
 
 

@@ -34,6 +34,8 @@ public class DD extends QuestionnaireData {
 
     private int average_freq;
     private int average_amount;
-    private boolean noAns_for_all;
+    private boolean q1_noAns;
+    private boolean q2_noAns;
+
 
 }
