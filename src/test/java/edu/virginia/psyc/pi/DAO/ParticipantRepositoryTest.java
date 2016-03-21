@@ -20,7 +20,6 @@ import static org.springframework.test.util.AssertionErrors.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -322,7 +321,7 @@ public class ParticipantRepositoryTest {
 
         dao.setCbmCondition(Participant.CBM_CONDITION.NEUTRAL);
         p = repository.entityToDomain(dao);
-        Assert.assertTrue(p.getStudy() instanceof CBMNeuralStudy);
+        Assert.assertTrue(p.getStudy() instanceof CBMNeutralStudy);
 
         dao.setCbmCondition(Participant.CBM_CONDITION.POSITIVE);
         p = repository.entityToDomain(dao);

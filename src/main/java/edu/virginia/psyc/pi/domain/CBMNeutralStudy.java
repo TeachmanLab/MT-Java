@@ -15,9 +15,9 @@ import java.util.List;
  * Time: 8:21 AM
  * The Participants progress through a series of sessions
  */
-public class CBMNeuralStudy extends CBMStudy implements Study {
+public class CBMNeutralStudy extends CBMStudy implements Study {
 
-    public CBMNeuralStudy(String currentName, int taskIndex, Date lastSessionDate, List<TaskLog> taskLogs) {
+    public CBMNeutralStudy(String currentName, int taskIndex, Date lastSessionDate, List<TaskLog> taskLogs) {
         super(currentName,taskIndex,lastSessionDate,taskLogs);
     }
 

@@ -161,7 +161,7 @@ public class ParticipantTest {
             p = new Participant(1, "Dan Funk", "daniel.h.funk@gmail.com", false);
             if(p.getCbmCondition().equals(Participant.CBM_CONDITION.NEUTRAL)) {
                 isNeutral = true;
-                assertTrue(p.getStudy() instanceof CBMNeuralStudy);
+                assertTrue(p.getStudy() instanceof CBMNeutralStudy);
             }
         }
 

@@ -108,7 +108,7 @@ public class Participant {
      */
     public void setStudy(CBM_CONDITION condition, String session, int taskIndex, Date lastSession, List<TaskLog> taskLogs) {
         if(condition == CBM_CONDITION.NEUTRAL) {
-            this.study = new CBMNeuralStudy(session, taskIndex, lastSession, taskLogs);
+            this.study = new CBMNeutralStudy(session, taskIndex, lastSession, taskLogs);
         } else {
             this.study = new CBMStudy(session, taskIndex, lastSession, taskLogs);
         }
