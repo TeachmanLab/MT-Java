@@ -61,7 +61,7 @@ public class ExportControllerTest {
     @Test
     public void testEntryDataIsReturned() {
         createTestEntry();
-        List data = exportController.listData("TestQuestionnaire");
+        List data = exportController.listData("TestQuestionnaire",0);
         assertThat((List<Object>)data, hasItem(hasProperty("value", is("MyTestValue"))));
     }
 
@@ -71,7 +71,7 @@ public class ExportControllerTest {
         createTestEntry();
         QuestionnaireData qd;
 
-        List data =  exportController.listData("TestQuestionnaire");
+        List data =  exportController.listData("TestQuestionnaire",0);
         assertThat(data.size(), greaterThan(0));
 
         // Going to make the assumption this is QuestionnaireData
@@ -81,7 +81,7 @@ public class ExportControllerTest {
             exportController.delete("TestQuestionnaire",qd.getId());
         }
 
-        data =  exportController.listData("TestQuestionnaire");
+        data =  exportController.listData("TestQuestionnaire",0);
         assertThat(data.size(), is(0));
     }
 
@@ -96,7 +96,7 @@ public class ExportControllerTest {
 
         QuestionnaireData qd;
 
-        List data =  exportController.listData("TestUndeleteable");
+        List data =  exportController.listData("TestUndeleteable",0);
         assertThat(data.size(), greaterThan(0));
 
         qd = (QuestionnaireData)data.get(0);
