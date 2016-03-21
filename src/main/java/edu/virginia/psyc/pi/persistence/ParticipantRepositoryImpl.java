@@ -60,8 +60,7 @@ public class ParticipantRepositoryImpl implements ParticipantRepositoryCustom {
         p.setTaskLogs(taskLogs);
 
         // Setup the Study (after the task logs are converted)
-        Study       study = new CBMStudy(dao.getCurrentSession(), dao.getTaskIndex(), dao.getLastSessionDate(), p.getTaskLogs());
-        p.setStudy(study);
+        p.setStudy(dao.getCbmCondition(), dao.getCurrentSession(), dao.getTaskIndex(), dao.getLastSessionDate(), p.getTaskLogs());
 
 
         return p;

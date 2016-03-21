@@ -1,10 +1,6 @@
 package edu.virginia.psyc.pi.domain;
 
-import antlr.collections.impl.IntRange;
-import edu.virginia.psyc.pi.domain.Participant;
-import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.service.EmailService;
-import junit.framework.Assert;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.junit.Test;
@@ -12,10 +8,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Date;
 
-import static junit.framework.Assert.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -158,6 +151,22 @@ public class ParticipantTest {
 
     }
 
+    @Test
+    public void testNeutralParticipantInNeutralStudy() {
+
+        Participant p;
+        boolean isNeutral = false;
+
+        for(int i = 0; i< 100; i++)  {
+            p = new Participant(1, "Dan Funk", "daniel.h.funk@gmail.com", false);
+            if(p.getCbmCondition().equals(Participant.CBM_CONDITION.NEUTRAL)) {
+                isNeutral = true;
+                assertTrue(p.getStudy() instanceof CBMNeuralStudy);
+            }
+        }
+
+        assertTrue("after 100 iterations, Neutral should have occurred at least once", isNeutral);
+    }
 
 
 }

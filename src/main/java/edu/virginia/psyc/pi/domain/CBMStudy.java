@@ -108,7 +108,7 @@ public class CBMStudy implements Study {
      * @param name The Name of a given session.
      * @return
      */
-    private List<Task> getTasks(NAME name, int taskIndex) {
+    protected List<Task> getTasks(NAME name, int taskIndex) {
 
         List<Task> tasks = new ArrayList<Task>();
         switch (name) {
@@ -314,7 +314,7 @@ public class CBMStudy implements Study {
      * This method churns through the list of tasks, setting the "current" and "complete" flags based on the
      * current task index. It also uses the task logs to determine the completion date.
      */
-    private void setTaskStates(NAME sessionName, List<Task> tasks, int taskIndex) {
+    protected void setTaskStates(NAME sessionName, List<Task> tasks, int taskIndex) {
         int index = 0;
         for (Task t : tasks) {
             t.setCurrent(taskIndex == index);
