@@ -21,40 +21,51 @@ import java.util.Date;
 @Data
 public class RR extends QuestionnaireData {
 
-    private int yellow1;
-    private int yellow2;
-    private int yellow3;
-    private int yellow4;
 
-    private int coffee1;
-    private int coffee2;
-    private int coffee3;
-    private int coffee4;
+    private int wedding_PS;
+    private int wedding_NS;
+    private int wedding_PF;
+    private int wedding_NF;
 
-    private int elevator1;
-    private int elevator2;
-    private int elevator3;
-    private int elevator4;
+    private int noise_PS;
+    private int noise_NS;
+    private int noise_PF;
+    private int noise_NF;
 
-    private int flight1;
-    private int flight2;
-    private int flight3;
-    private int flight4;
+    private int meeting_friend_PS;
+    private int meeting_friend_NS;
+    private int meeting_friend_PF;
+    private int meeting_friend_NF;
 
-    private int job1;
-    private int job2;
-    private int job3;
-    private int job4;
-
-    private int noise1;
-    private int noise2;
-    private int noise3;
-    private int noise4;
+    private int elevator_PS;
+    private int elevator_NS;
+    private int elevator_PF;
+    private int elevator_NF;
 
 
-    private int restaurant1;
-    private int restaurant2;
-    private int restaurant3;
-    private int restaurant4;
+    private int job_PS;
+    private int job_NS;
+    private int job_PF;
+    private int job_NF;
+
+    private int lunch_PS;
+    private int lunch_NS;
+    private int lunch_PF;
+    private int lunch_NF;
+
+    private int scrape_PS;
+    private int scrape_NS;
+    private int scrape_PF;
+    private int scrape_NF;
+
+    private int blood_test_PS;
+    private int blood_test_NS;
+    private int blood_test_PF;
+    private int blood_test_NF;
+
+    private int shopping_PS;
+    private int shopping_NS;
+    private int shopping_PF;
+    private int shopping_NF;
 
 }

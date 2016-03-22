@@ -20,7 +20,5 @@ public class ImageryPrime extends QuestionnaireData{
 
     private String prime;  // Either 'ANXIOUS' or 'NEUTRAL'
     private String situation;
-    private String think_feel;
-    private int vivid;
 
 }

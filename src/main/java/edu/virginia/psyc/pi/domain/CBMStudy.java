@@ -40,13 +40,12 @@ public class CBMStudy implements Study {
     /** This specifies the gift amount, in dollars, that should be awarded when a user completes a session.
      */
     private int giftAmountCents(NAME name) {
-        if(name.equals(NAME.PRE) || name.equals(NAME.SESSION3) || name.equals(NAME.SESSION6))
+        if(name.equals(NAME.PRE) || name.equals(NAME.SESSION3) || name.equals(NAME.SESSION6) || name.equals(NAME.SESSION8))
             return 500; // $5
         if(name.equals(NAME.POST))
             return 1000; // $10
         return 0;
     }
-
 
     public CBMStudy(String currentName, int taskIndex, Date lastSessionDate, List<TaskLog> taskLogs) {
         this.currentName = currentName;

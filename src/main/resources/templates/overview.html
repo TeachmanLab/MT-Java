@@ -21,10 +21,8 @@
 
         <p>This shows your progress through the MindTrails program. You must wait a minimum of 24 hours between
             training sessions. We encourage you to begin a new session 3-4 days after completing the previous session.
+            This will give you a chance to practice the new thinking style between sessions.
             When you're done reviewing, head back to <a th:href="@{/session}">home</a> to start your next session.</p>
-
-        <p th:if="${complete}">You can now  <a th:href="@{/session/graph}">review your progress</a> through the study, to see how you
-            performed, and find out if you were part of the control group, or if you received the full treatment.</p>
 
         <div class="sessionGrouping" th:each="session,iterStat : ${study.sessions}"  th:unless="${session.name == 'COMPLETE'}">
             <img class="sessionMarker" th:src="|/images/marker-${iterStat.index}-${participant.theme}.png|"/>
@@ -48,6 +46,11 @@
             <p class="allow2days" th:if="${session.index != 'POST'}"> Allow 3 to 4 days between each session.</p>
         </div>
         <br/>
+
+        <p th:if="${complete}">You can now  <a th:href="@{/session/graph}">review your progress</a> through the study, to see how you
+            performed, and find out if you were part of the control group, or if you received the full treatment.</p>
+
+        <p th:unless="${complete}">Once you're done with all the sessions, you can get feedback on your progress.</p>
 
         <p>Head back <a th:href="@{/session}">home</a>.</p>
     </div>

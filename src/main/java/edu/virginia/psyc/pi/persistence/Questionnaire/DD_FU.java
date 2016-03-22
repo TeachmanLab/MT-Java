@@ -32,4 +32,6 @@ public class DD_FU extends QuestionnaireData {
     private int saturday_hours;
     private int sunday_hours;
 
+    private boolean q1_noAns;
+    private boolean q2_noAns;
 }

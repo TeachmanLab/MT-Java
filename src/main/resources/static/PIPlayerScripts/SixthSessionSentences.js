@@ -10,8 +10,31 @@ define([], function() {
             layout: [
                 // This is a stimulus object
                 {
-                    media : {template:"/PIPlayerScripts/intro.html"}
+                    media : {template:"/PIPlayerScripts/intro_1.html"}
                 }
+            ],
+            interactions: [
+                // This is an interaction (it has a condition and an action)
+                {
+                    conditions: [
+                        {type:'inputEquals',value:'space'}
+                    ],
+                    actions: [
+                        {type:'endTrial'}
+                    ]
+                }
+            ]
+        },
+        {
+            input: [
+                {handle:'space',on:'space'}
+            ],
+            layout: [
+                // This is a stimulus object
+                {
+                    media : {template:"/PIPlayerScripts/intro_2.html"}
+                }
+
             ],
             interactions: [
                 // This is an interaction (it has a condition and an action)
@@ -1215,7 +1238,7 @@ define([], function() {
             {
                 "data": {
                     "negativeKey": "o",
-                    "negativeWord": "anxi[ ]is",
+                    "negativeWord": "anxi[ ]us",
                     "positiveKey": "a",
                     "positiveWord": "c[ ]lm",
                     "statement": " You are on a hike with friends. You come to a suspension bridge you need to cross, but you aren\u2019t 100% sure it is safe even though your friends think it\u2019s probably OK. As you cross the bridge you feel "
@@ -1429,7 +1452,7 @@ define([], function() {
                     "negativeWord": "fa[ ]lure",
                     "positiveKey": "c",
                     "positiveWord": "suc[ ]ess",
-                    "statement": " You are driving hope after a soccer game where your team won. As your mind wanders, you think about the one goal that you missed. Overall, you consider your performance a "
+                    "statement": " You are driving home after a soccer game where your team won. As your mind wanders, you think about the one goal that you missed. Overall, you consider your performance a "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -1496,7 +1519,7 @@ define([], function() {
             {
                 "data": {
                     "negativeKey": "o",
-                    "negativeWord": "anxi[ ]is",
+                    "negativeWord": "anxi[ ]us",
                     "positiveKey": "a",
                     "positiveWord": "c[ ]lm",
                     "statement": " You are on a hike with friends. You come to a suspension bridge you need to cross, but you aren\u2019t 100% sure it is safe even though your friends think it\u2019s probably OK. As you cross the bridge you feel "
@@ -1680,7 +1703,7 @@ define([], function() {
                     "negativeWord": "hi[ ]h",
                     "positiveKey": "o",
                     "positiveWord": "l[ ]w",
-                    "statement": " At your routine doctor\u00e2\u20ac\u2122s appointment, you are asked to take a test for a disease. After the test, you wait for your results in the waiting room. You think the chances that you have the disease are "
+                    "statement": " At your routine doctor's appointment, you are asked to take a test for a disease. After the test, you wait for your results in the waiting room. You think the chances that you have the disease are "
                 },
                 "handle": "paragraph",
                 "media": {
