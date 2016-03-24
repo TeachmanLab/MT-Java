@@ -50,6 +50,17 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
         return scorer.count;
     }
 
+    function getRandomSubarray(arr, size) {
+        var shuffled = arr.slice(0), i = arr.length, temp, index;
+        while (i--) {
+            index = Math.floor((i + 1) * Math.random());
+            temp = shuffled[index];
+            shuffled[index] = shuffled[i];
+            shuffled[i] = temp;
+        }
+        return shuffled.slice(0, size);
+    }
+
     /**
      * Divides up the content so that statements in the sequence are displayed one at a time, rather than all
      * at once.
@@ -73,7 +84,8 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
             if (pick == 0) {
                 index = last_word.indexOf(brackets[pick]);
                 letter = last_word[index - 1];
-                last_word = last_word.replace(letter + brackets[pick], brackets[pick] + " ");
+                console.log("FIRST");
+                last_word = last_word.replace(letter + brackets[pick], brackets[pick] + " ][");
                 if (p.attributes.data.neutralKey) {
                     p.attributes.data.neutralKey = letter + p.attributes.data.neutralKey;
                 } else {
@@ -82,9 +94,10 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
                 }
             }
             else {
+                console.log("SECOND");
                 index = last_word.indexOf(brackets[pick]);
                 letter = last_word[index + 1];
-                last_word = last_word.replace(brackets[pick] + letter, " " + brackets[pick]);
+                last_word = last_word.replace(brackets[pick] + letter, "][ " + brackets[pick]);
                 if(p.attributes.data.neutralKey) {
                     p.attributes.data.neutralKey = p.attributes.data.neutralKey + letter;
                 } else {
@@ -408,7 +421,11 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
                         return (where_at < break_up.length)
                     }},
                     {type: 'function', value: function (trial, inputData) { // don't let people do this too quickly.
-                        if(inputData.latency - latency > 1000) {
+                        number_words = break_up[where_at-1][0].innerHTML;
+                        var number_words = number_words.split(' ').length;
+                        var wait  = number_words * 150;
+                        console.log(wait);
+                        if(inputData.latency - latency > wait) {
                             latency = inputData.latency;
                             return true;
                         }
@@ -815,28 +832,28 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
 
                 if (pct_ct_s >= 90)
                 {
-                    feed_back_s = 'You filled in the missing letters correctly on the first try ' + pct_ct_c + '% of the time this round. Great job, we’re really impressed with your ability to complete the stories!';
+                    feed_back_s = 'You filled in the missing letters correctly on the first try ' + pct_ct_s + '% of the time this round. Great job, we’re really impressed with your ability to complete the stories!';
                 }
                 else if (pct_ct_s < 90 & pct_ct_s >= 70)
                 {
-                    feed_back_s = 'You filled in the missing letters correctly on the first try ' + pct_ct_c + '% of the time this round. You’re doing well, and we encourage you to pay really close attention to the stories to work out what letters are needed to complete the final words. This will allow you to get the most out of the training.';
+                    feed_back_s = 'You filled in the missing letters correctly on the first try ' + pct_ct_s + '% of the time this round. You’re doing well, and we encourage you to pay really close attention to the stories to work out what letters are needed to complete the final words. This will allow you to get the most out of the training.';
                 }
                 else
                 {
-                    feed_back_s = 'You filled in the missing letters correctly on the first try ' + pct_ct_c + '%% of the time this round. We want to encourage you to pay really close attention to the stories to work out what letters are needed to complete the final words. This will allow you to get the most out of the training. If any aspect of the task is unclear, please email us with any questions at studyteam@mindtrails.org.';
+                    feed_back_s = 'You filled in the missing letters correctly on the first try ' + pct_ct_s + '%% of the time this round. We want to encourage you to pay really close attention to the stories to work out what letters are needed to complete the final words. This will allow you to get the most out of the training. If any aspect of the task is unclear, please email us with any questions at studyteam@mindtrails.org.';
                 }
 
                 if (pct_ct_c >= 90)
                 {
-                    feed_back_c = 'You answered the yes/no question following each story correctly on the first try ' + pct_ct_s + '% of the time this round. That’s terrific, and shows you’re paying really careful attention to the stories!';
+                    feed_back_c = 'You answered the yes/no question following each story correctly on the first try ' + pct_ct_c + '% of the time this round. That’s terrific, and shows you’re paying really careful attention to the stories!';
                 }
                 else if (pct_ct_c < 90 & pct_ct_s >= 70)
                 {
-                    feed_back_c = 'You answered the yes/no question following each story correctly on the first try ' + pct_ct_s + '% of the time this round. You’re doing a good job, and we want to remind you to pay really close attention to the whole story each time, including how it ends, and just use the information in the story to answer the question. This will allow you to get the most out of the training.';
+                    feed_back_c = 'You answered the yes/no question following each story correctly on the first try ' + pct_ct_c + '% of the time this round. You’re doing a good job, and we want to remind you to pay really close attention to the whole story each time, including how it ends, and just use the information in the story to answer the question. This will allow you to get the most out of the training.';
                 }
                 else
                 {
-                    feed_back_c = 'You answered the yes/no question following each story correctly on the first try ' + pct_ct_s + '% of the time this round. We want to remind you to pay really close attention to the whole story each time, including how it ends, and just use the information in the story to answer the question. This will allow you to get the most out of the training. If any aspect of the task is unclear, please email us with any questions at studyteam@mindtrails.org.';
+                    feed_back_c = 'You answered the yes/no question following each story correctly on the first try ' + pct_ct_c + '% of the time this round. We want to remind you to pay really close attention to the whole story each time, including how it ends, and just use the information in the story to answer the question. This will allow you to get the most out of the training. If any aspect of the task is unclear, please email us with any questions at studyteam@mindtrails.org.';
 
                 }
                 this.layout[0].media.html = '<div class="results"><p style="font-size: 24px; text-align:center">' + feed_back_s + '</p><p style="font-size: 24px; text-align:center">' + feed_back_c + '</p>' + '<p style="font-size: 20px; text-align:center" > Press the spacebar to continue </p></div>';
@@ -855,8 +872,35 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
         }
     ]);
 
-
+    var vivids = []
+    var vivid_afs = []
+    var scens = []
+    var seq = Sequence.sequence[1].data
+    for (var i = 0; i < seq.length; i++)
+    {
+        if (seq[i].inherit.set == 'vivid')
+        {
+            vivids.push(seq[i])
+        }
+        else if (seq[i].inherit.set == 'vivid_after')
+        {
+            vivid_afs.push(seq[i])
+        }
+        else if (seq[i].inherit.set == 'posneg')
+        {
+            scens.push(seq[i])
+        }
+    }
+    scens = getRandomSubarray(scens, Sequence.display_length);
+    scens.splice(1, 0, vivids[0]);
+    scens.splice(2, 0, vivid_afs[0]);
+    scens.splice(4, 0, vivids[1]);
+    scens.splice(5, 0, vivid_afs[1]);
+    scens.splice((scens.length/2) + 2, 0, vivids[2]);
+    scens.splice((scens.length/2) + 3, 0, vivid_afs[2]);
+    Sequence.sequence[1].data = scens;
     API.addSequence(Sequence.sequence);
+    console.log(API);
     return API.script;
 
 });

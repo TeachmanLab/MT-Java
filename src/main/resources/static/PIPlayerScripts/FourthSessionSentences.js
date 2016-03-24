@@ -26,7 +26,7 @@ define([], function() {
             ]
         },
         {
-            mixer:'random',
+            mixer:'wrapper',
             n: 40,  // The total number of randomly selected trials to run.
             data:[
     {

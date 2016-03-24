@@ -25,8 +25,7 @@ define([], function() {
             ]
         },
         {
-            mixer:'random',
-            n: 40,  // The total number of randomly selected trials to run.
+            mixer:'wrapper',
             data:[
     {
         "inherit": {
@@ -65,14 +64,7 @@ define([], function() {
 
         ]
     },
-            ]
-        },
          { "inherit": { "set": "vivid" } },{ "inherit": { "set": "vivid_after" } },
-
-        {
-            mixer: 'random',
-            //n: 50,  // The total number of randomly selected trials to run.
-            data: [
     {
         "inherit": {
             "set": "neutral",
@@ -110,14 +102,7 @@ define([], function() {
 
          ]
     },
-         ]
-         },
           { "inherit": { "set": "vivid" } },{ "inherit": { "set": "vivid_after" } },
-
-         {
-             mixer: 'random',
-             //n: 50,  // The total number of randomly selected trials to run.
-             data: [
     {
         "inherit": {
             "set": "neutral",
@@ -969,11 +954,7 @@ define([], function() {
 
         ]
     },
-    ]},
      { "inherit": { "set": "vivid" } },{ "inherit": { "set": "vivid_after" } },
-    {
- 	mixer: 'random',
- 		    data:[
     {
         "inherit": {
             "set": "neutral",
