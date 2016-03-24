@@ -289,7 +289,7 @@
                                                 <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
-                                         <li><label class="radioList"><input id="Q3-11" onchange="sub('Q3-11')" type="checkbox" name="help" value="book">Self-help book</input> </label></li>
+                                         <li><label class="radioList"><input id="Q3-11" onchange="sub('Q3-11')" type="checkbox" name="help" value="book">Self-help book or blog/online post</input> </label></li>
                                         <div class="oneToSeven" id="Q3-11-1"><label >Has this been helpful? </label>
                                             <select name="book">
                                                 <option value="">Please select one</option>
@@ -331,7 +331,35 @@
                                                 <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
-                                        <br />
+                                        <li><label class="radioList"><input id="Q3-15" onchange="sub('Q3-15')" type="checkbox" name="help" value="app">Mobile (phone or tablet) application</input> </label></li>
+                                       <div class="oneToSeven" id="Q3-15-1"><label >Has this been helpful? </label>
+                                           <select name="online">
+                                               <option value="">Please select one</option>
+                                               <option value="1">1 (Not helpful at all)</option>
+                                               <option> 2 </option>
+                                               <option> 3 </option>
+                                               <option> 4 (Somewhat helpful)</option>
+                                               <option> 5 </option>
+                                               <option> 6 </option>
+                                               <option value="7"> 7 (Extremely helpful) </option>
+                                               <option value="555"> Prefer not to answer </option>
+                                           </select></div>
+
+                                           <li><label class="radioList"><input id="Q3-16" onchange="sub('Q3-16')" type="checkbox" name="help" value="support_group">Support group</input> </label></li>
+                                          <div class="oneToSeven" id="Q3-16-1"><label >Has this been helpful? </label>
+                                              <select name="online">
+                                                  <option value="">Please select one</option>
+                                                  <option value="1">1 (Not helpful at all)</option>
+                                                  <option> 2 </option>
+                                                  <option> 3 </option>
+                                                  <option> 4 (Somewhat helpful)</option>
+                                                  <option> 5 </option>
+                                                  <option> 6 </option>
+                                                  <option value="7"> 7 (Extremely helpful) </option>
+                                                  <option value="555"> Prefer not to answer </option>
+                                              </select></div>
+
+                                       <br />
                                          <li><label class="radioList"><input id="Q3-14" onchange="sub('Q3-14');spec('Q3-14');" type="checkbox" name="help" value="Other">Other</input>  (Please specify)<input id="Q3-14_spec" type="text" name="OtherHelpPast" /> </label></li>
                                         <div class="oneToSeven" id="Q3-14-1"><label >Has this been helpful? </label>
                                             <select name="other">
@@ -518,7 +546,7 @@
                                                 <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
-                                         <li><label class="radioList"><input id="Q4-11" onchange="sub('Q4-11')" type="checkbox" name="helps_past" value="book">Self-help book</input> </label></li>
+                                         <li><label class="radioList"><input id="Q4-11" onchange="sub('Q4-11')" type="checkbox" name="helps_past" value="book">Self-help book or blog/online post</input> </label></li>
                                         <div class="oneToSeven" id="Q4-11-1"><label >Was this helpful? </label>
                                             <select name="book_past">
                                                 <option value="">Please select one</option>
@@ -560,6 +588,33 @@
                                                 <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
+                                         <li><label class="radioList"><input id="Q4-15" onchange="sub('Q4-15')" type="checkbox" name="helps_past" value="app">Mobile (phone or tablet) application</input> </label></li>
+                                        <div class="oneToSeven" id="Q4-15-1"><label >Was this helpful? </label>
+                                            <select name="online_past">
+                                                <option value="">Please select one</option>
+                                                <option value="1">1 (Not helpful at all)</option>
+                                                <option> 2 </option>
+                                                <option> 3 </option>
+                                                <option> 4 (Somewhat helpful)</option>
+                                                <option> 5 </option>
+                                                <option> 6 </option>
+                                                <option value="7"> 7 (Extremely helpful) </option>
+                                                <option value="555"> Prefer not to answer </option>
+                                            </select></div>
+
+                                         <li><label class="radioList"><input id="Q4-16" onchange="sub('Q4-16')" type="checkbox" name="helps_past" value="support_group">Support group</input> </label></li>
+                                        <div class="oneToSeven" id="Q4-16-1"><label >Was this helpful? </label>
+                                            <select name="online_past">
+                                                <option value="">Please select one</option>
+                                                <option value="1">1 (Not helpful at all)</option>
+                                                <option> 2 </option>
+                                                <option> 3 </option>
+                                                <option> 4 (Somewhat helpful)</option>
+                                                <option> 5 </option>
+                                                <option> 6 </option>
+                                                <option value="7"> 7 (Extremely helpful) </option>
+                                                <option value="555"> Prefer not to answer </option>
+                                            </select></div>
                                         <br />
                                          <li><label class="radioList"><input id="Q4-14" onchange="sub('Q4-14');spec('Q4-14');" type="checkbox" name="helps_past" value="Other">Other</input>  (Please specify)<input id="Q4-14_spec" type="text" name="OtherHelpPast" /> </label></li>
                                         <div class="oneToSeven" id="Q4-14-1"><label >Was this helpful? </label>
@@ -576,7 +631,7 @@
                                             </select></div>
                                     </ul>
                                 </div>
-                                </td>   
+                                </td>
                                 <td>
                                     <div class="listNoAnswer">
                                         <label>
@@ -872,6 +927,8 @@
             document.getElementById("Q3-13").disabled = true;
             document.getElementById("Q3-14").disabled = true;
             document.getElementById("Q3-14_spec").disabled = true;
+            document.getElementById("Q3-15").disabled = true;
+            document.getElementById("Q3-16").disabled = true;
             document.getElementById("helps").disabled = true;
         } else {
             document.getElementById("Q3-1").disabled = false;
@@ -888,6 +945,8 @@
             document.getElementById("Q3-12").disabled = false;
             document.getElementById("Q3-13").disabled = false;
             document.getElementById("Q3-14").disabled = false;
+            document.getElementById("Q3-15").disabled = false;
+            document.getElementById("Q3-16").disabled = false;
             document.getElementById("Q3-14_spec").disabled = false;
             document.getElementById("helps").disabled = false;
         }
@@ -909,6 +968,8 @@
             document.getElementById("Q3-12").disabled = true;
             document.getElementById("Q3-13").disabled = true;
             document.getElementById("Q3-14").disabled = true;
+            document.getElementById("Q3-15").disabled = true;
+            document.getElementById("Q3-16").disabled = true;
             document.getElementById("Q3-14_spec").disabled = true;
             document.getElementById("Q3_noAns").disabled = true;
         } else {
@@ -926,6 +987,8 @@
             document.getElementById("Q3-12").disabled = false;
             document.getElementById("Q3-13").disabled = false;
             document.getElementById("Q3-14").disabled = false;
+            document.getElementById("Q3-15").disabled = false;
+            document.getElementById("Q3-16").disabled = false;
             document.getElementById("Q3-14_spec").disabled = false;
             document.getElementById("Q3_noAns").disabled = false;
         }
@@ -948,6 +1011,8 @@
             document.getElementById("Q4-12").disabled = true;
             document.getElementById("Q4-13").disabled = true;
             document.getElementById("Q4-14").disabled = true;
+            document.getElementById("Q4-15").disabled = true;
+            document.getElementById("Q4-16").disabled = true;
             document.getElementById("Q4-14_spec").disabled = true;
             document.getElementById("helps_past").disabled = true;
         } else {
@@ -965,6 +1030,8 @@
             document.getElementById("Q4-12").disabled = false;
             document.getElementById("Q4-13").disabled = false;
             document.getElementById("Q4-14").disabled = false;
+            document.getElementById("Q4-15").disabled = false;
+            document.getElementById("Q4-16").disabled = false;
             document.getElementById("Q4-14_spec").disabled = false;
             document.getElementById("helps_past").disabled = false;
         }
@@ -986,6 +1053,8 @@
             document.getElementById("Q4-12").disabled = true;
             document.getElementById("Q4-13").disabled = true;
             document.getElementById("Q4-14").disabled = true;
+            document.getElementById("Q4-15").disabled = true;
+            document.getElementById("Q4-16").disabled = true;
             document.getElementById("Q4-14_spec").disabled = true;
             document.getElementById("Q4_noAns").disabled = true;
         } else {
@@ -1003,6 +1072,8 @@
             document.getElementById("Q4-12").disabled = false;
             document.getElementById("Q4-13").disabled = false;
             document.getElementById("Q4-14").disabled = false;
+            document.getElementById("Q4-15").disabled = false;
+            document.getElementById("Q4-16").disabled = false;
             document.getElementById("Q4-14_spec").disabled = false;
             document.getElementById("Q4_noAns").disabled = false;
         }
@@ -1110,8 +1181,3 @@
 <!--	I think people might think less of me if I sought treatment-->
 <!--	I don’t have time to seek treatment-->
 <!--	Other (please describe: _____________)-->
-
-
-
-
-

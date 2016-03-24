@@ -53,7 +53,7 @@ public class TangoServiceTest {
 
     @Test
     public void giveParticipantAGift() {
-        Reward reward = service.createGiftCard(participant, "TEST_SESSION");
+        Reward reward = service.createGiftCard(participant, "TEST_SESSION", 1);
         assertNotNull("A reward is returned.", reward);
         assertNotNull("The reward has a token", reward.getToken());
 
@@ -62,13 +62,13 @@ public class TangoServiceTest {
     @Test
     public void getGiftDetails() {
         // Send a reward
-        Reward reward = service.createGiftCard(participant, "TEST_SESSION");
+        Reward reward = service.createGiftCard(participant, "TEST_SESSION", 1);
 
         // Now Get the details of that reward form the API.
         Order order = service.getOrderInfo(reward.getOrder_id());
 
         assertEquals("Gift card should be sent to pariticipant", participant.getEmail(), order.getRecipient().getEmail());
-        assertEquals("Gift award should be $5 (measured in cents)", 500, order.getAmount());
+        assertEquals("Gift award should be $5 (measured in cents)", 1, order.getAmount());
 
     }
 

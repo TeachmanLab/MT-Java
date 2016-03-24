@@ -875,7 +875,7 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
     var vivids = []
     var vivid_afs = []
     var scens = []
-    var seq = Sequence.sequence[1].data
+    var seq = Sequence.sequence[2].data
     for (var i = 0; i < seq.length; i++)
     {
         if (seq[i].inherit.set == 'vivid')

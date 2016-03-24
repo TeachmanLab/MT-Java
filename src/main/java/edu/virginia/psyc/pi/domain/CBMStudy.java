@@ -40,13 +40,12 @@ public class CBMStudy implements Study {
     /** This specifies the gift amount, in dollars, that should be awarded when a user completes a session.
      */
     private int giftAmountCents(NAME name) {
-        if(name.equals(NAME.PRE) || name.equals(NAME.SESSION3) || name.equals(NAME.SESSION6))
+        if(name.equals(NAME.PRE) || name.equals(NAME.SESSION3) || name.equals(NAME.SESSION6) || name.equals(NAME.SESSION8))
             return 500; // $5
         if(name.equals(NAME.POST))
             return 1000; // $10
         return 0;
     }
-
 
     public CBMStudy(String currentName, int taskIndex, Date lastSessionDate, List<TaskLog> taskLogs) {
         this.currentName = currentName;
@@ -108,7 +107,7 @@ public class CBMStudy implements Study {
      * @param name The Name of a given session.
      * @return
      */
-    private List<Task> getTasks(NAME name, int taskIndex) {
+    protected List<Task> getTasks(NAME name, int taskIndex) {
 
         List<Task> tasks = new ArrayList<Task>();
         switch (name) {
@@ -314,7 +313,7 @@ public class CBMStudy implements Study {
      * This method churns through the list of tasks, setting the "current" and "complete" flags based on the
      * current task index. It also uses the task logs to determine the completion date.
      */
-    private void setTaskStates(NAME sessionName, List<Task> tasks, int taskIndex) {
+    protected void setTaskStates(NAME sessionName, List<Task> tasks, int taskIndex) {
         int index = 0;
         for (Task t : tasks) {
             t.setCurrent(taskIndex == index);

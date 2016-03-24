@@ -1,30 +1,53 @@
 define([], function() {
     return({
         display_length: 40,
-        add_extra_missing_letter:false,
+        add_extra_missing_letter:true,
         sequence:[
-         {
-             input: [
-                 {handle:'space',on:'space'}
-             ],
-             layout: [
-                 // This is a stimulus object
-                 {
-                     media : {template:"/PIPlayerScripts/intro.html"}
-                 }
-             ],
-             interactions: [
-                 // This is an interaction (it has a condition and an action)
-                 {
-                     conditions: [
-                         {type:'inputEquals',value:'space'}
-                     ],
-                     actions: [
-                         {type:'endTrial'}
-                     ]
-                 }
-             ]
-         },
+        {
+            input: [
+                {handle:'space',on:'space'}
+            ],
+            layout: [
+                // This is a stimulus object
+                {
+                    media : {template:"/PIPlayerScripts/intro_1.html"}
+                }
+            ],
+            interactions: [
+                // This is an interaction (it has a condition and an action)
+                {
+                    conditions: [
+                        {type:'inputEquals',value:'space'}
+                    ],
+                    actions: [
+                        {type:'endTrial'}
+                    ]
+                }
+            ]
+        },
+        {
+            input: [
+                {handle:'space',on:'space'}
+            ],
+            layout: [
+                // This is a stimulus object
+                {
+                    media : {template:"/PIPlayerScripts/intro_2.html"}
+                }
+
+            ],
+            interactions: [
+                // This is an interaction (it has a condition and an action)
+                {
+                    conditions: [
+                        {type:'inputEquals',value:'space'}
+                    ],
+                    actions: [
+                        {type:'endTrial'}
+                    ]
+                }
+            ]
+        },
         {
             mixer:'wrapper',
             data:[
