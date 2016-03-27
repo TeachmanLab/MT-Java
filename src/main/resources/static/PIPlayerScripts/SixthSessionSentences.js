@@ -1,6 +1,6 @@
 define([], function() {
     return({
-        display_length: 50,
+        display_length: 40,
         add_extra_missing_letter:true,
         sequence:[
         {
@@ -49,9 +49,8 @@ define([], function() {
             ]
         },
         {
-            mixer: 'random',
-            //n: 50,  // The total number of randomly selected trials to run.
-            data: [
+            mixer:'wrapper',
+            data:[
     {
         "inherit": {
             "set": "posneg",
@@ -87,13 +86,7 @@ define([], function() {
             {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
-    ]
-    },
-                { "inherit": { "set": "vivid" } },{ "inherit": { "set": "vivid_after" } },
-            {
-                mixer: 'random',
-                //n: 50,  // The total number of randomly selected trials to run.
-                data: [
+    { "inherit": { "set": "vivid" } },{ "inherit": { "set": "vivid_after" } },
     {
         "inherit": {
             "set": "posneg",
@@ -129,13 +122,7 @@ define([], function() {
             {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
-    ]
-    },
-                { "inherit": { "set": "vivid" } },{ "inherit": { "set": "vivid_after" } },
-            {
-                mixer: 'random',
-                //n: 50,  // The total number of randomly selected trials to run.
-                data: [
+    { "inherit": { "set": "vivid" } },{ "inherit": { "set": "vivid_after" } },
     {
         "inherit": {
             "set": "posneg",
@@ -941,13 +928,7 @@ define([], function() {
             {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
-    ]
-        },
-        { "inherit": { "set": "vivid" } },{ "inherit": { "set": "vivid_after" } },
-        {
-            mixer: 'random',
-            //n: 50,  // The total number of randomly selected trials to run.
-            data: [
+    { "inherit": { "set": "vivid" } },{ "inherit": { "set": "vivid_after" } },
     {
         "inherit": {
             "set": "posneg",
@@ -1703,7 +1684,11 @@ define([], function() {
                     "negativeWord": "hi[ ]h",
                     "positiveKey": "o",
                     "positiveWord": "l[ ]w",
+<<<<<<< HEAD
+                    "statement": " At your routine doctor&rsquo;s appointment, you are asked to take a test for a disease. After the test, you wait for your results in the waiting room. You think the chances that you have the disease are "
+=======
                     "statement": " At your routine doctor's appointment, you are asked to take a test for a disease. After the test, you wait for your results in the waiting room. You think the chances that you have the disease are "
+>>>>>>> master
                 },
                 "handle": "paragraph",
                 "media": {
@@ -1851,6 +1836,10 @@ define([], function() {
         {
             "inherit": {"set": "vivid"},
             layout: [{media: {template: "/PIPlayerScripts/vividness_last.html"}}]
+        },
+        {
+            "inherit": {"set": "results"},
+            layout: [{media: {template: "/PIPlayerScripts/results.html"}}]
         }
     ]});
 });

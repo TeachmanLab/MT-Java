@@ -1,7 +1,7 @@
 define([], function() {
     return({
-        display_length: 50,
-        add_extra_missing_letter:false,
+        display_length: 40,
+        add_extra_missing_letter:true,
         sequence:[
         {
             input: [
@@ -49,7 +49,7 @@ define([], function() {
             ]
         },
         {
-            mixer:'random',
+            mixer:'wrapper',
             data:[
     {
         "inherit": {

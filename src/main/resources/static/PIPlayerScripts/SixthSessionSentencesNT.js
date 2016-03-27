@@ -1,6 +1,6 @@
 define([], function() {
     return({
-        display_length: 50,
+        display_length: 40,
         add_extra_missing_letter:true,
         sequence:[
         {
@@ -49,7 +49,7 @@ define([], function() {
             ]
         },
         {
-            mixer:'random',
+            mixer:'wrapper',
             data:[
     {
         "inherit": {
@@ -88,14 +88,7 @@ define([], function() {
 
         ]
     },
-            ]
-        },
          { "inherit": { "set": "vivid" } },{ "inherit": { "set": "vivid_after" } },
-
-        {
-            mixer: 'random',
-            //n: 50,  // The total number of randomly selected trials to run.
-            data: [
     {
         "inherit": {
             "set": "neutral",
@@ -133,14 +126,7 @@ define([], function() {
 
          ]
     },
-         ]
-         },
           { "inherit": { "set": "vivid" } },{ "inherit": { "set": "vivid_after" } },
-
-         {
-             mixer: 'random',
-             //n: 50,  // The total number of randomly selected trials to run.
-             data: [
     {
         "inherit": {
             "set": "neutral",
@@ -992,11 +978,7 @@ define([], function() {
 
         ]
     },
-    ]},
      { "inherit": { "set": "vivid" } },{ "inherit": { "set": "vivid_after" } },
-    {
- 	mixer: 'random',
- 		    data:[
     {
         "inherit": {
             "set": "neutral",

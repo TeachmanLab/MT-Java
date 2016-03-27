@@ -1,8 +1,9 @@
 define([], function() {
     return({
-        display_length: 50,
-        add_extra_missing_letter:false,
-        sequence:[        {
+        display_length: 40,
+        add_extra_missing_letter:true,
+        sequence:[
+        {
             input: [
                 {handle:'space',on:'space'}
             ],
@@ -48,7 +49,7 @@ define([], function() {
             ]
         },
         {
-            mixer:'random',
+            mixer:'wrapper',
             data:[
     {
         "inherit": {
@@ -87,14 +88,7 @@ define([], function() {
 
         ]
     },
-            ]
-        },
          { "inherit": { "set": "vivid" } },{ "inherit": { "set": "vivid_after" } },
-
-        {
-            mixer: 'random',
-            //n: 50,  // The total number of randomly selected trials to run.
-            data: [
     {
         "inherit": {
             "set": "neutral",
@@ -132,14 +126,7 @@ define([], function() {
 
          ]
     },
-         ]
-         },
           { "inherit": { "set": "vivid" } },{ "inherit": { "set": "vivid_after" } },
-
-         {
-             mixer: 'random',
-             //n: 50,  // The total number of randomly selected trials to run.
-             data: [
     {
         "inherit": {
             "set": "neutral",
@@ -525,7 +512,7 @@ define([], function() {
                 "data": {
                     "neutralKey": "i",
                     "neutralWord": "bo[ ]l",
-                    "statement": "You decide to make some tea. You fill the kettle up with water and put in on the stove. After a few minutes, the water begins to "
+                    "statement": "You decide to make some tea. You fill the kettle up with water and put on the stove. After a few minutes, the water begins to "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -562,7 +549,7 @@ define([], function() {
                 "data": {
                     "neutralKey": "s",
                     "neutralWord": "cas[ ]erole",
-                    "statement": " Your colleague invites you to a dinner party. There will several people from your company there. Your colleague tells you they will serve "
+                    "statement": " Your colleague invites you to a dinner party. There will be several people from your company there. Your colleague tells you they will serve "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -797,7 +784,7 @@ define([], function() {
                 },
                 "handle": "question",
                 "media": {
-                    "inlineTemplate": "<div>Are you waiting for an important phone call?</div>"
+                    "inlineTemplate": "<div>Were you waiting for an important phone call?</div>"
                 }
             },
             {"inherit": {"set": "yesno"}},
@@ -991,11 +978,7 @@ define([], function() {
 
         ]
     },
-    ]},
      { "inherit": { "set": "vivid" } },{ "inherit": { "set": "vivid_after" } },
-    {
- 	mixer: 'random',
- 		    data:[
     {
         "inherit": {
             "set": "neutral",
@@ -1825,7 +1808,7 @@ define([], function() {
                 "data": {
                     "neutralKey": "e",
                     "neutralWord": "de[ ]r",
-                    "statement": "You are on a walk outside. Hearing a rustling noise, you look into the forest. You see a"
+                    "statement": "You are on a walk outside. Hearing a rustling noise, you look into the forest. You see a "
                 },
                 "handle": "paragraph",
                 "media": {

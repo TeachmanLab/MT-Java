@@ -1,9 +1,9 @@
 define([], function() {
     return({
-        display_length: 50,
+        display_length: 40,
         add_extra_missing_letter:true,
         sequence:[
-            {
+        {
             input: [
                 {handle:'space',on:'space'}
             ],
@@ -49,7 +49,7 @@ define([], function() {
             ]
         },
         {
-            mixer:'random',
+            mixer:'wrapper',
             data:[
 
     {
@@ -88,13 +88,7 @@ define([], function() {
             {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
-            ]
-        },
         { "inherit": { "set": "vivid" } },{ "inherit": { "set": "vivid_after" } },
-        {
-            mixer: 'random',
-            //n: 50,  // The total number of randomly selected trials to run.
-            data: [
     {
         "inherit": {
             "set": "neutral",
@@ -131,13 +125,7 @@ define([], function() {
             {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
-            ]
-        },
         { "inherit": { "set": "vivid" } },{ "inherit": { "set": "vivid_after" } },
-        {
-            mixer: 'random',
-            //n: 50,  // The total number of randomly selected trials to run.
-            data: [
     {
         "inherit": {
             "set": "neutral",
@@ -966,10 +954,7 @@ define([], function() {
             {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
-    ]},
-    { "inherit": { "set": "vivid" } },{ "inherit": { "set": "vivid_after" } },     {
- 	mixer: 'random',
- 		    data:[
+    { "inherit": { "set": "vivid" } },{ "inherit": { "set": "vivid_after" } },
     {
         "inherit": {
             "set": "neutral",
