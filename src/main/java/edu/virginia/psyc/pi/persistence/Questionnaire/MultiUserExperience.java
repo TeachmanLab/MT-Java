@@ -34,6 +34,7 @@ public class MultiUserExperience extends QuestionnaireData {
     private int trust;
     private int internet;
     private int ideal;
+    @Column(name="`describe`")
     private String describe;
     private int tiring_training;
     private int distracted;
