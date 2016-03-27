@@ -1,5 +1,8 @@
 package edu.virginia.psyc.pi.persistence;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import edu.virginia.psyc.pi.domain.DoNotDelete;
+import edu.virginia.psyc.pi.domain.Exportable;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -14,6 +17,8 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name="participant")
+@Exportable
+@DoNotDelete
 public class ParticipantExportDAO {
 
     @Id private long id;
@@ -25,6 +30,7 @@ public class ParticipantExportDAO {
     private boolean emailOptout;
     private boolean active;
     private boolean increase30;
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="EEE, dd MMM yyyy HH:mm:ss Z", timezone="EST")
     private Date   lastLogin;
     private String currentSession;
 }

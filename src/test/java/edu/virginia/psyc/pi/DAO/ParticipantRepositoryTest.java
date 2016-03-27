@@ -20,6 +20,7 @@ import static org.springframework.test.util.AssertionErrors.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -37,6 +38,8 @@ public class ParticipantRepositoryTest {
     @Autowired
     protected ParticipantRepository participantRepository;
 
+    @Autowired
+    protected ParticipantExportRepository exportRepository;
 
     @Test
     public void testEntityToDomain() {
@@ -328,4 +331,32 @@ public class ParticipantRepositoryTest {
         Assert.assertTrue(p.getStudy() instanceof CBMStudy);
     }
 
+    @Test
+    @Transactional
+    public void participantCanBeRetrievedAsExportableObject() {
+
+        ParticipantDAO participantDAO;
+        ParticipantExportDAO exportDAO = null;
+        List<ParticipantExportDAO> exportList;
+
+        // Create a participant
+        participantDAO = new ParticipantDAO("John Export", "john@x.com", "12341234", false, "green");
+        participantRepository.save(participantDAO);
+        participantRepository.flush();
+
+        Assert.assertNotNull(participantDAO.getId());
+        Assert.assertNotEquals(0, participantDAO.getId());
+
+        exportList = exportRepository.findAll();
+
+        for (ParticipantExportDAO e : exportList) {
+            if (e.getId() == participantDAO.getId()) {
+                exportDAO = e;
+            }
+        }
+
+        assertNotNull(exportDAO);
+        assertEquals("green", exportDAO.getTheme());
+        assertEquals(false, exportDAO.isAdmin());
+    }
 }

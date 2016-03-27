@@ -2,6 +2,7 @@ package edu.virginia.psyc.pi.persistence.Questionnaire;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import edu.virginia.psyc.pi.domain.CBMStudy;
+import edu.virginia.psyc.pi.domain.Exportable;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import lombok.Data;
 
@@ -21,6 +22,7 @@ import java.util.List;
  */
 @MappedSuperclass
 @Data
+@Exportable // All Quetionnaire data should be exportable.
 public abstract class QuestionnaireData {
 
 //    @Id

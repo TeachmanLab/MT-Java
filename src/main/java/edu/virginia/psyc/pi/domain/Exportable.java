@@ -1,16 +1,12 @@
 package edu.virginia.psyc.pi.domain;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
- * Questionnaire DAO's that are labeled with this class should be removed
- * after export.  This information will be communicated to clients, so they
- * know they should follow up with delete commands after they have successfully
- * backed up the data.
+ * This Annotation should be applied to any and all DAO objects that should be
+ * available for export from the system.
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE) //can use in method only.
+@Target(ElementType.TYPE)
+@Inherited
 public @interface Exportable {}

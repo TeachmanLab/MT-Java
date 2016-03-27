@@ -1,7 +1,13 @@
 package edu.virginia.psyc.pi.persistence;
 
-import edu.virginia.psyc.pi.domain.Session;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import edu.virginia.psyc.pi.domain.DoNotDelete;
+import edu.virginia.psyc.pi.domain.Exportable;
 import edu.virginia.psyc.pi.service.EmailService;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -14,6 +20,9 @@ import java.util.Date;
  */
 @Entity
 @Table(name="email_log")
+@Exportable
+@DoNotDelete
+@Data
 public class EmailLogDAO {
 
     @Id
@@ -21,13 +30,15 @@ public class EmailLogDAO {
     private int id;
 
     @ManyToOne
+    @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
+    @JsonIdentityReference(alwaysAsId=true)
     private ParticipantDAO participantDAO;
 
     @Enumerated(EnumType.STRING)
     private EmailService.TYPE emailType;
 
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="EEE, dd MMM yyyy HH:mm:ss Z", timezone="EST")
     private Date dateSent;
-
 
     public EmailLogDAO() {};
 
@@ -35,41 +46,5 @@ public class EmailLogDAO {
         this.participantDAO = participantDAO;
         this.emailType = type;
         this.dateSent  = new Date();
-    }
-
-    /****************************************
-     *   Generated Methods follow
-     ******************************************/
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public ParticipantDAO getParticipantDAO() {
-        return participantDAO;
-    }
-
-    public void setParticipantDAO(ParticipantDAO participantDAO) {
-        this.participantDAO = participantDAO;
-    }
-
-    public EmailService.TYPE getEmailType() {
-        return emailType;
-    }
-
-    public void setEmailType(EmailService.TYPE emailType) {
-        this.emailType = emailType;
-    }
-
-    public Date getDateSent() {
-        return dateSent;
-    }
-
-    public void setDateSent(Date dateSent) {
-        this.dateSent = dateSent;
     }
 }
