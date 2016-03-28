@@ -2,6 +2,7 @@ define([], function() {
     return({
         display_length: 40,
         add_extra_missing_letter:true,
+        training: true,
         sequence:[
         {
             input: [
@@ -1684,11 +1685,7 @@ define([], function() {
                     "negativeWord": "hi[ ]h",
                     "positiveKey": "o",
                     "positiveWord": "l[ ]w",
-<<<<<<< HEAD
                     "statement": " At your routine doctor&rsquo;s appointment, you are asked to take a test for a disease. After the test, you wait for your results in the waiting room. You think the chances that you have the disease are "
-=======
-                    "statement": " At your routine doctor's appointment, you are asked to take a test for a disease. After the test, you wait for your results in the waiting room. You think the chances that you have the disease are "
->>>>>>> master
                 },
                 "handle": "paragraph",
                 "media": {

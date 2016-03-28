@@ -872,35 +872,37 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
         }
     ]);
 
-    var vivids = []
-    var vivid_afs = []
-    var scens = []
-    var seq = Sequence.sequence[2].data
-    for (var i = 0; i < seq.length; i++)
+    if (Sequence.training == true)
     {
-        if (seq[i].inherit.set == 'vivid')
+        var vivids = []
+        var vivid_afs = []
+        var scens = []
+        var seq = Sequence.sequence[2].data
+        for (var i = 0; i < seq.length; i++)
         {
-            vivids.push(seq[i])
+            if (seq[i].inherit.set == 'vivid')
+            {
+                vivids.push(seq[i])
+            }
+            else if (seq[i].inherit.set == 'vivid_after')
+            {
+                vivid_afs.push(seq[i])
+            }
+            else if (seq[i].inherit.set == 'posneg')
+            {
+                scens.push(seq[i])
+            }
         }
-        else if (seq[i].inherit.set == 'vivid_after')
-        {
-            vivid_afs.push(seq[i])
-        }
-        else if (seq[i].inherit.set == 'posneg')
-        {
-            scens.push(seq[i])
-        }
+        scens = getRandomSubarray(scens, Sequence.display_length);
+        scens.splice(1, 0, vivids[0]);
+        scens.splice(2, 0, vivid_afs[0]);
+        scens.splice(4, 0, vivids[1]);
+        scens.splice(5, 0, vivid_afs[1]);
+        scens.splice((scens.length/2) + 2, 0, vivids[2]);
+        scens.splice((scens.length/2) + 3, 0, vivid_afs[2]);
+        Sequence.sequence[1].data = scens;
     }
-    scens = getRandomSubarray(scens, Sequence.display_length);
-    scens.splice(1, 0, vivids[0]);
-    scens.splice(2, 0, vivid_afs[0]);
-    scens.splice(4, 0, vivids[1]);
-    scens.splice(5, 0, vivid_afs[1]);
-    scens.splice((scens.length/2) + 2, 0, vivids[2]);
-    scens.splice((scens.length/2) + 3, 0, vivid_afs[2]);
-    Sequence.sequence[1].data = scens;
     API.addSequence(Sequence.sequence);
-    console.log(API);
     return API.script;
 
 });
