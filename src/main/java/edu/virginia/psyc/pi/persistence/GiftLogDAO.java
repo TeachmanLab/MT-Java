@@ -1,6 +1,13 @@
 package edu.virginia.psyc.pi.persistence;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import edu.virginia.psyc.pi.domain.DoNotDelete;
+import edu.virginia.psyc.pi.domain.Exportable;
 import edu.virginia.psyc.pi.service.EmailService;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -13,21 +20,25 @@ import java.util.Date;
  */
 @Entity
 @Table(name="gift_log")
+@Exportable
+@DoNotDelete
+@Data
 public class GiftLogDAO {
 
     @Id
     @GeneratedValue
     private int id;
-
     @ManyToOne
+    @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
+    @JsonIdentityReference(alwaysAsId=true)
     private ParticipantDAO participantDAO;
-
     private String orderId;
     private String sessionName;
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="EEE, dd MMM yyyy HH:mm:ss Z", timezone="EST")
     private Date dateSent;
-
-
     public GiftLogDAO() {};
+
+
 
     public GiftLogDAO(ParticipantDAO participantDAO, String orderId, String sessionName) {
         this.participantDAO = participantDAO;
@@ -35,44 +46,4 @@ public class GiftLogDAO {
         this.sessionName = sessionName;
         this.dateSent = new Date();
     }
-
-    /****************************************
-     *   Generated Methods follow
-     ******************************************/
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public ParticipantDAO getParticipantDAO() {
-        return participantDAO;
-    }
-
-    public void setParticipantDAO(ParticipantDAO participantDAO) {
-        this.participantDAO = participantDAO;
-    }
-
-    public String getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
-    }
-
-    public Date getDateSent() {
-        return dateSent;
-    }
-
-    public void setDateSent(Date dateSent) {
-        this.dateSent = dateSent;
-    }
-
-    public String getSessionName() { return sessionName; }
-
-    public void setSessionName(String sessionName) { this.sessionName = sessionName; }
 }

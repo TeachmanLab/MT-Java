@@ -1,16 +1,12 @@
 package edu.virginia.psyc.pi.service;
 
 import edu.virginia.psyc.pi.domain.DoNotDelete;
-import edu.virginia.psyc.pi.domain.Participant;
+import edu.virginia.psyc.pi.domain.Exportable;
 import edu.virginia.psyc.pi.domain.QuestionnaireInfo;
 import edu.virginia.psyc.pi.persistence.ExportLogDAO;
 import edu.virginia.psyc.pi.persistence.ExportLogRepository;
-import edu.virginia.psyc.pi.persistence.ParticipantDAO;
-import edu.virginia.psyc.pi.persistence.Questionnaire.QuestionnaireData;
-import edu.virginia.psyc.pi.persistence.TrialDAO;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
-import org.joda.time.Minutes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,11 +111,10 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
         boolean deleteableFlag;
 
         for (  Class<?> domainType : repositories) {
-            Class<?> repoClass=repositories.getRepositoryInformationFor(domainType).getRepositoryInterface();
             Object repository=repositories.getRepositoryFor(domainType);
-            // If this is questionnaire data ...
-            if(QuestionnaireData.class.isAssignableFrom(domainType) || domainType.equals(TrialDAO.class)) {
-                deleteableFlag        = !domainType.isAnnotationPresent(DoNotDelete.class);
+            // If this is exportable data (based on @Exportable annotation.
+            if(domainType.isAnnotationPresent(Exportable.class)) {
+                deleteableFlag = !domainType.isAnnotationPresent(DoNotDelete.class);
                 JpaRepository rep = (JpaRepository)repository;
                 QuestionnaireInfo info = new QuestionnaireInfo(domainType.getSimpleName(), rep.count(), deleteableFlag);
                 names.add(info);
@@ -127,7 +122,6 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
         }
         return names;
     }
-
 
     /**
      * Returns a Class for a given name.  Makes some
