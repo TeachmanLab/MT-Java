@@ -40,8 +40,13 @@ public class MultiUserExperience extends QuestionnaireData {
     private int distracted;
     private int similar_program;
     private int other_therapy;
-    @Column(name="where_value") // 'where' is a reserved word in the database syntax and can't be used as name.
-    private String where;
+    private boolean where_no_anser;
+    private boolean where_home;
+    private boolean where_work;
+    private boolean where_public;
+    private boolean where_commuting;
+    private boolean where_vacation;
+    private boolean where_other_selected;
     private String OtherDesc;
     private String cntrl_tx;
 
