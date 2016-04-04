@@ -878,6 +878,7 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
         var vivid_afs = []
         var scens = []
         var seq = Sequence.sequence[2].data
+        console.log(seq.length);
         for (var i = 0; i < seq.length; i++)
         {
             if (seq[i].inherit.set == 'vivid')
@@ -894,13 +895,14 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
             }
         }
         scens = getRandomSubarray(scens, Sequence.display_length);
+        console.log(Sequence.display_length);
         scens.splice(1, 0, vivids[0]);
         scens.splice(2, 0, vivid_afs[0]);
         scens.splice(4, 0, vivids[1]);
         scens.splice(5, 0, vivid_afs[1]);
         scens.splice((scens.length/2) + 2, 0, vivids[2]);
         scens.splice((scens.length/2) + 3, 0, vivid_afs[2]);
-        Sequence.sequence[1].data = scens;
+        Sequence.sequence[2].data = scens;
     }
     API.addSequence(Sequence.sequence);
     return API.script;

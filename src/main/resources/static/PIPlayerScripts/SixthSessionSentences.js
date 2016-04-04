@@ -1,7 +1,7 @@
 define([], function() {
     return({
         display_length: 40,
-        add_extra_missing_letter:false,
+        add_extra_missing_letter:true,
         training: true,
         sequence:[
         {
