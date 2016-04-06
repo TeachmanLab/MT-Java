@@ -3,6 +3,7 @@ package edu.virginia.psyc.pi.DAO;
 import edu.virginia.psyc.pi.domain.DoNotDelete;
 import edu.virginia.psyc.pi.persistence.Questionnaire.QuestionnaireData;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -13,6 +14,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="TestQuestionnaire")
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class TestQuestionnaire extends QuestionnaireData {
 
     private String value;

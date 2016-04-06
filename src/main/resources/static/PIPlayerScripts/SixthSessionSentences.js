@@ -1,7 +1,8 @@
 define([], function() {
     return({
-        display_length: 50,
-        add_extra_missing_letter:true,
+        display_length: 40,
+        add_extra_missing_letter:false,
+        training: true,
         sequence:[
         {
             input: [
@@ -49,9 +50,8 @@ define([], function() {
             ]
         },
         {
-            mixer: 'random',
-            //n: 50,  // The total number of randomly selected trials to run.
-            data: [
+            mixer:'wrapper',
+            data:[
     {
         "inherit": {
             "set": "posneg",
@@ -87,13 +87,7 @@ define([], function() {
             {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
-    ]
-    },
-                { "inherit": { "set": "vivid" } },{ "inherit": { "set": "vivid_after" } },
-            {
-                mixer: 'random',
-                //n: 50,  // The total number of randomly selected trials to run.
-                data: [
+    { "inherit": { "set": "vivid" } },{ "inherit": { "set": "vivid_after" } },
     {
         "inherit": {
             "set": "posneg",
@@ -129,13 +123,7 @@ define([], function() {
             {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
-    ]
-    },
-                { "inherit": { "set": "vivid" } },{ "inherit": { "set": "vivid_after" } },
-            {
-                mixer: 'random',
-                //n: 50,  // The total number of randomly selected trials to run.
-                data: [
+    { "inherit": { "set": "vivid" } },{ "inherit": { "set": "vivid_after" } },
     {
         "inherit": {
             "set": "posneg",
@@ -941,13 +929,7 @@ define([], function() {
             {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
-    ]
-        },
-        { "inherit": { "set": "vivid" } },{ "inherit": { "set": "vivid_after" } },
-        {
-            mixer: 'random',
-            //n: 50,  // The total number of randomly selected trials to run.
-            data: [
+    { "inherit": { "set": "vivid" } },{ "inherit": { "set": "vivid_after" } },
     {
         "inherit": {
             "set": "posneg",
@@ -1671,14 +1653,6 @@ define([], function() {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"n",
@@ -1687,7 +1661,10 @@ define([], function() {
                 "media": {
                     "inlineTemplate": "<div>Does the pain in your hip mean you have a serious health problem? </div>"
                 }
-            }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -1708,20 +1685,16 @@ define([], function() {
                     "negativeWord": "hi[ ]h",
                     "positiveKey": "o",
                     "positiveWord": "l[ ]w",
+<<<<<<< HEAD
                     "statement": " At your routine doctor's appointment, you are asked to take a test for a disease. After the test, you wait for your results in the waiting room. You think the chances that you have the disease are "
+=======
+                    "statement": " At your routine doctor&rsquo;s appointment, you are asked to take a test for a disease. After the test, you wait for your results in the waiting room. You think the chances that you have the disease are "
+>>>>>>> upstream/master
                 },
                 "handle": "paragraph",
                 "media": {
                     "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
                 }
-            },
-            {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
             },
             {
                 "handle": "question",
@@ -1732,7 +1705,10 @@ define([], function() {
                 "media": {
                     "inlineTemplate": "<div>Do you think the test results will say you have the disease? </div>"
                 }
-            }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -1761,14 +1737,6 @@ define([], function() {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"n",
@@ -1777,7 +1745,10 @@ define([], function() {
                 "media": {
                     "inlineTemplate": "<div>Is your finger seriously infected? <div>"
                 }
-            }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -1806,14 +1777,6 @@ define([], function() {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"y",
@@ -1822,7 +1785,10 @@ define([], function() {
                 "media": {
                     "inlineTemplate": "<div>Are you able to manage your worries while finishing your hike? </div>"
                 }
-            }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
     {
@@ -1851,14 +1817,6 @@ define([], function() {
                 }
             },
             {
-                'handle': 'counter',
-                customize: function(){
-                    this.media = scorer.count + ' of 50';
-                },
-                 css:{fontSize:'20px'},
-                 location:{top:90}
-            },
-            {
                 "handle": "question",
                  data: {
                 	positiveAnswer:"n",
@@ -1867,7 +1825,10 @@ define([], function() {
                 "media": {
                     "inlineTemplate": "<div>Do you think you have gum disease? </div>"
                 }
-            }
+            },
+            {"inherit": {"set": "yesno"}},
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     }
 ]
@@ -1876,6 +1837,10 @@ define([], function() {
         {
             "inherit": {"set": "vivid"},
             layout: [{media: {template: "/PIPlayerScripts/vividness_last.html"}}]
+        },
+        {
+            "inherit": {"set": "results"},
+            layout: [{media: {template: "/PIPlayerScripts/results.html"}}]
         }
     ]});
 });

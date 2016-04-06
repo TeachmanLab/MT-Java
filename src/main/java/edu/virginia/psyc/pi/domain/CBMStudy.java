@@ -4,6 +4,7 @@ import edu.virginia.psyc.pi.persistence.GiftLogDAO;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.xml.datatype.Duration;
 import java.util.ArrayList;
@@ -36,17 +37,15 @@ public class CBMStudy implements Study {
         ELIGIBLE, PRE, SESSION1, SESSION2, SESSION3, SESSION4, SESSION5, SESSION6, SESSION7, SESSION8, POST, COMPLETE
     }
 
-    /** This specifies which Sessions should receive a gift after completion.
+    /** This specifies the gift amount, in dollars, that should be awarded when a user completes a session.
      */
-    private static List<NAME> giftSessions = new ArrayList<NAME>() {
-        {
-            add(NAME.PRE);
-            add(NAME.SESSION3);
-            add(NAME.SESSION6);
-            add(NAME.SESSION8);
-        }
-    };
-
+    private int giftAmountCents(NAME name) {
+        if(name.equals(NAME.PRE) || name.equals(NAME.SESSION3) || name.equals(NAME.SESSION6) || name.equals(NAME.SESSION8))
+            return 500; // $5
+        if(name.equals(NAME.POST))
+            return 1000; // $10
+        return 0;
+    }
 
     public CBMStudy(String currentName, int taskIndex, Date lastSessionDate, List<TaskLog> taskLogs) {
         this.currentName = currentName;
@@ -69,9 +68,9 @@ public class CBMStudy implements Study {
                 current = true;
             }
             gift = false;
-            if(giftSessions.contains(name)) gift = true;
+            if(giftAmountCents(name) > 0) gift = true;
             if (!name.equals(NAME.ELIGIBLE)) {
-                session = new Session(calcIndex(name), name.toString(), calculateDisplayName(name), completed, current, gift, getTasks(name, taskIndex));
+                session = new Session(calcIndex(name), name.toString(), calculateDisplayName(name), completed, current, giftAmountCents(name), getTasks(name, taskIndex));
                 sessions.add(session);
             }
             current = false;  // only one can be current.
@@ -108,7 +107,7 @@ public class CBMStudy implements Study {
      * @param name The Name of a given session.
      * @return
      */
-    private List<Task> getTasks(NAME name, int taskIndex) {
+    protected List<Task> getTasks(NAME name, int taskIndex) {
 
         List<Task> tasks = new ArrayList<Task>();
         switch (name) {
@@ -296,14 +295,14 @@ public class CBMStudy implements Study {
             if (name == NAME.valueOf(currentName)) break;
             last = name;
         }
-        return new Session(calcIndex(last), last.toString(), calculateDisplayName(last), true, false, giftSessions.contains(last), getTasks(last,0));
+        return new Session(calcIndex(last), last.toString(), calculateDisplayName(last), true, false, giftAmountCents(last), getTasks(last,0));
     }
 
     public Session nextGiftSession() {
 
         boolean toCurrent = false;
         for (Session s : getSessions()) {
-            if (toCurrent && s.isAwardGift()) return s;
+            if (toCurrent && s.getGiftAmount() > 0) return s;
             if (s.isCurrent()) toCurrent = true;
         }
         return null;
@@ -314,7 +313,7 @@ public class CBMStudy implements Study {
      * This method churns through the list of tasks, setting the "current" and "complete" flags based on the
      * current task index. It also uses the task logs to determine the completion date.
      */
-    private void setTaskStates(NAME sessionName, List<Task> tasks, int taskIndex) {
+    protected void setTaskStates(NAME sessionName, List<Task> tasks, int taskIndex) {
         int index = 0;
         for (Task t : tasks) {
             t.setCurrent(taskIndex == index);

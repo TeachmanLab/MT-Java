@@ -1,7 +1,8 @@
 define([], function() {
     return({
-        display_length: 50,
+        display_length: 40,
         add_extra_missing_letter:false,
+        training: true,
         sequence:[
         {
             input: [
@@ -50,7 +51,30 @@ define([], function() {
             ]
         },
         {
-            mixer:'random',
+            input: [
+                {handle:'space',on:'space'}
+            ],
+            layout: [
+                // This is a stimulus object
+                {
+                    media : {template:"/PIPlayerScripts/intro_2.html"}
+                }
+
+            ],
+            interactions: [
+                // This is an interaction (it has a condition and an action)
+                {
+                    conditions: [
+                        {type:'inputEquals',value:'space'}
+                    ],
+                    actions: [
+                        {type:'endTrial'}
+                    ]
+                }
+            ]
+        },
+        {
+            mixer:'wrapper',
             data:[
                     {
                     "inherit": {
@@ -89,15 +113,8 @@ define([], function() {
                         {"inherit": {"set": "counter"}}
                     ]
                 },
-            ]
-        },
         { "inherit": { "set": "vivid" } },
         { "inherit": { "set": "vivid_after" } },
-
-        {
-            mixer: 'random',
-            //n: 50,  // The total number of randomly selected trials to run.
-            data: [
                 {
                     "inherit": {
                         "set": "posneg",
@@ -134,15 +151,8 @@ define([], function() {
                                      {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}},  {"inherit": {"set": "counter"}}
                     ]
                 },
-            ]
-        },
 { "inherit": { "set": "vivid" } },
 { "inherit": { "set": "vivid_after" } },
-
-{
-            mixer: 'random',
-            //n: 50,  // The total number of randomly selected trials to run.
-            data: [
     {
         "inherit": {
             "set": "posneg",
@@ -970,11 +980,7 @@ define([], function() {
                          {"inherit": {"set": "stall"}},{"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}, {"inherit": {"set": "counter"}}
         ]
     },
-    ]},
     { "inherit": { "set": "vivid" } }, { "inherit": { "set": "vivid_after" } },
-    {
-	mixer: 'random',
-		    data:[
     {
         "inherit": {
             "set": "posneg",

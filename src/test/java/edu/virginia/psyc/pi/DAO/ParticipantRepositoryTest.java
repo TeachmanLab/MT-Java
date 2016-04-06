@@ -38,6 +38,8 @@ public class ParticipantRepositoryTest {
     @Autowired
     protected ParticipantRepository participantRepository;
 
+    @Autowired
+    protected ParticipantExportRepository exportRepository;
 
     @Test
     public void testEntityToDomain() {
@@ -172,7 +174,7 @@ public class ParticipantRepositoryTest {
 
         // Create a participant
         participantDAO = new ParticipantDAO("John", "john@x.com", "12341234", false, "green");
-        log            = new EmailLogDAO(participantDAO, EmailService.TYPE.day2);
+        log = new EmailLogDAO(participantDAO, EmailService.TYPE.day2);
         participantDAO.addEmailLog(log);
         participantRepository.save(participantDAO);
         participantRepository.flush();
@@ -279,7 +281,7 @@ public class ParticipantRepositoryTest {
         participantRepository.domainToEntity(p, dao);
 
         // Get that participant back.
-        p   = participantRepository.entityToDomain(dao);
+        p = participantRepository.entityToDomain(dao);
 
         // Assure that the participant's current session is pre
         assertEquals(CBMStudy.NAME.PRE.toString(), p.getStudy().getCurrentSession().getName());
@@ -288,7 +290,7 @@ public class ParticipantRepositoryTest {
         dao.setCurrentSession(CBMStudy.NAME.SESSION5.toString());
 
         // Get that participant back.
-        p   = participantRepository.entityToDomain(dao);
+        p = participantRepository.entityToDomain(dao);
 
         // Assure that the participant's current session is session 5
         assertEquals(CBMStudy.NAME.SESSION5.toString(), p.getStudy().getCurrentSession().getName());
@@ -304,12 +306,57 @@ public class ParticipantRepositoryTest {
 
         // Change the participant's session back to Session1.
         dao.setCurrentSession(CBMStudy.NAME.SESSION1.toString());
-        p   = participantRepository.entityToDomain(dao);
+        p = participantRepository.entityToDomain(dao);
         assertEquals(CBMStudy.NAME.SESSION1.toString(), p.getStudy().getCurrentSession().getName());
         p.getStudy().completeCurrentTask();
         assertEquals(CBMStudy.NAME.SESSION1.toString(), p.getStudy().getCurrentSession().getName());
 
     }
 
+    @Test
+    public void testEntityToDomainCorrectlySetsStudy() {
 
+        ParticipantDAO dao;
+        Participant p;
+        ParticipantRepositoryImpl repository = new ParticipantRepositoryImpl();
+
+        dao = new ParticipantDAO("Dan Funk", "dan@sartography.com", "password", false, "green");
+
+        dao.setCbmCondition(Participant.CBM_CONDITION.NEUTRAL);
+        p = repository.entityToDomain(dao);
+        Assert.assertTrue(p.getStudy() instanceof CBMNeutralStudy);
+
+        dao.setCbmCondition(Participant.CBM_CONDITION.POSITIVE);
+        p = repository.entityToDomain(dao);
+        Assert.assertTrue(p.getStudy() instanceof CBMStudy);
+    }
+
+    @Test
+    @Transactional
+    public void participantCanBeRetrievedAsExportableObject() {
+
+        ParticipantDAO participantDAO;
+        ParticipantExportDAO exportDAO = null;
+        List<ParticipantExportDAO> exportList;
+
+        // Create a participant
+        participantDAO = new ParticipantDAO("John Export", "john@x.com", "12341234", false, "green");
+        participantRepository.save(participantDAO);
+        participantRepository.flush();
+
+        Assert.assertNotNull(participantDAO.getId());
+        Assert.assertNotEquals(0, participantDAO.getId());
+
+        exportList = exportRepository.findAll();
+
+        for (ParticipantExportDAO e : exportList) {
+            if (e.getId() == participantDAO.getId()) {
+                exportDAO = e;
+            }
+        }
+
+        assertNotNull(exportDAO);
+        assertEquals("green", exportDAO.getTheme());
+        assertEquals(false, exportDAO.isAdmin());
+    }
 }

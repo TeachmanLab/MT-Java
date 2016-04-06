@@ -1,6 +1,7 @@
 package edu.virginia.psyc.pi.persistence;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import edu.virginia.psyc.pi.domain.Exportable;
 import edu.virginia.psyc.pi.domain.json.TrialJson;
 import lombok.Data;
 
@@ -35,6 +36,7 @@ import java.util.*;
 @Entity
 @Table(name="trial")
 @Data
+@Exportable
 public class TrialDAO {
 
     @TableGenerator(name = "QUESTION_GEN", table = "ID_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 1)

@@ -1,7 +1,8 @@
 define([], function() {
     return({
-        display_length: 50,
+        display_length: 40,
         add_extra_missing_letter:false,
+        training: true,
         sequence:[
         {
             input: [
@@ -49,7 +50,7 @@ define([], function() {
             ]
         },
         {
-            mixer:'random',
+            mixer:'wrapper',
             data:[
 
     {
@@ -89,14 +90,7 @@ define([], function() {
 
         ]
     },
-            ]
-        },
         { "inherit": { "set": "vivid" } },{ "inherit": { "set": "vivid_after" } },
-
-        {
-            mixer: 'random',
-            //n: 50,  // The total number of randomly selected trials to run.
-            data: [
     {
         "inherit": {
             "set": "neutral",
@@ -134,14 +128,7 @@ define([], function() {
 
         ]
     },
-            ]
-        },
         { "inherit": { "set": "vivid" } },{ "inherit": { "set": "vivid_after" } },
-
-        {
-            mixer: 'random',
-            //n: 50,  // The total number of randomly selected trials to run.
-            data: [
     {
         "inherit": {
             "set": "neutral",
@@ -601,7 +588,7 @@ define([], function() {
                 "data": {
                     "neutralKey": "e",
                     "neutralWord": "ar[ ]a",
-                    "statement": " You are at a basketball game. The crowd is cheering loudly and your head hurts. You got to a quiet "
+                    "statement": " You are at a basketball game. The crowd is cheering loudly and your head hurts. You go to a quiet "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -993,11 +980,7 @@ define([], function() {
 
         ]
     },
-    ]},
     { "inherit": { "set": "vivid" } },{ "inherit": { "set": "vivid_after" } },
-    {
- 	mixer: 'random',
- 		    data:[
     {
         "inherit": {
             "set": "neutral",
@@ -1235,7 +1218,7 @@ define([], function() {
                 "data": {
                     "neutralKey": "g",
                     "neutralWord": "lon[ ]",
-                    "statement": " You are going fishing and have just caught a fish. While you take the fish of the hook, the hook pricks your hand. The fish is 8 inches "
+                    "statement": " You are going fishing and have just caught a fish. While you take the fish off of the hook, the hook pricks your hand. The fish is 8 inches "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -1420,7 +1403,7 @@ define([], function() {
                 "data": {
                     "neutralKey": "c",
                     "neutralWord": "so[ ]ks",
-                    "statement": "You are taking a getting dressed. You are going out for dinner. You put on your "
+                    "statement": "You are getting dressed. You are going out for dinner. You put on your "
                 },
                 "handle": "paragraph",
                 "media": {

@@ -16,11 +16,11 @@
                     Hi Fred,
                 </p>
                 <p style="margin-top:5px">Congratulations. For completing a recent set of surveys you have
-                    earned a $5 gift card. Here&rsquo;s how to redeem your card.</p>
+                    earned a $<span th:text="${giftAmount}/100"/> gift card. Here&rsquo;s how to redeem your card.</p>
                 <div style="border-radius: 15px; background: #fff; text-align:center; border: 1px solid #666; margin: 20px;">
                     <div style="border-top-right-radius: 15px; border-top-left-radius: 15px; width:100%; height:20px; background:#F77D38;"> </div>
                     <img style="margin:auto; padding: 10px;" th:src="${url} + '/images/gift_card_lg.png'" alt="" border="none"/>
-                    <div style="padding:20px; font-weight:700">TO REDEEM YOUR $5 GIFT CARD</div>
+                    <div style="padding:20px; font-weight:700">TO REDEEM YOUR $<span th:text="${giftAmount}/100"/> GIFT CARD</div>
                     <p>Visit <a th:href="${reward.redemption_url}" target="_blank">www.tangocard.com/activate</a><br/>
                        Enter your Card Number: <span th:text="${reward.number}"/><br/>
                        Enter your PIN: <span th:text="${reward.pin}"/> <br/>
