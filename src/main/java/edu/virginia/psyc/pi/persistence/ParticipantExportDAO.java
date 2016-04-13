@@ -1,6 +1,7 @@
 package edu.virginia.psyc.pi.persistence;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import edu.virginia.psyc.pi.domain.DoNotDelete;
 import edu.virginia.psyc.pi.domain.Exportable;
 import lombok.Data;
@@ -21,6 +22,7 @@ import java.util.Date;
 @DoNotDelete
 public class ParticipantExportDAO {
 
+    @JsonProperty("participantId")
     @Id private long id;
     private String theme;
     private String study;
