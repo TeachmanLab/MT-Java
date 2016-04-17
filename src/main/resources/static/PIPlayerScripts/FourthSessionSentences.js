@@ -321,7 +321,7 @@ define([], function() {
                     "negativeWord": "poo[ ]ly",
                     "positiveKey": "v",
                     "positiveWord": "con[ ]incingly",
-                    "statement": " As a member of a local charity, you are asked to promote your fundraising evens on local radio. You know that the station is widely listened to. You expect that the other committee members will think you spoke "
+                    "statement": " As a member of a local charity, you are asked to promote your fundraising events on local radio. You know that the station is widely listened to. You expect that the other committee members will think you spoke "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -423,7 +423,7 @@ define([], function() {
                     "negativeWord": "unbea[ ]able",
                     "positiveKey": "k",
                     "positiveWord": "o[ ]ay",
-                    "statement": " You have a date scheduled with someone you have liked for awhile. One the day of the date, you feel a little nervous as you wonder if he/she will like you as much as you like him/her. Feeling nervous is "
+                    "statement": " You have a date scheduled with someone you have liked for awhile. On the day of the date, you feel a little nervous as you wonder if he/she will like you as much as you like him/her. Feeling nervous is "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -797,7 +797,7 @@ define([], function() {
                     "negativeWord": "fail[ ]re",
                     "positiveKey": "g",
                     "positiveWord": "intelli[ ]ence",
-                    "statement": " A new task is assigned to your department at work and your supervisor asks you to be responsible for it. You have no guidelines to follow, and you ask a colleague for advice. You colleague probably sees this as a sign of "
+                    "statement": " A new task is assigned to your department at work and your supervisor asks you to be responsible for it. You have no guidelines to follow, and you ask a colleague for advice. Your colleague probably sees this as a sign of "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -866,7 +866,7 @@ define([], function() {
                     "negativeWord": "lar[ ]e",
                     "positiveKey": "m",
                     "positiveWord": "s[ ]all",
-                    "statement": " You have decided to go on a tour of a cave, even though you feel nervous about being in such an enclosed space. You go deep inside the first cave. You think the chances that you will get trapped inside the case are "
+                    "statement": " You have decided to go on a tour of a cave, even though you feel nervous about being in such an enclosed space. You go deep inside the first cave. You think the chances that you will get trapped inside the cave are "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -975,7 +975,7 @@ define([], function() {
                     "negativeWord": "i[ ]tolerable",
                     "positiveKey": "r",
                     "positiveWord": "tole[ ]able",
-                    "statement": " You are backpacking through Europe with your best friend. You have a general idea of what you will do each day, but you didn\u2019t plan out every detail ahead of time. This uncertaintly causes some anxiety that will be "
+                    "statement": " You are backpacking through Europe with your best friend. You have a general idea of what you will do each day, but you didn\u2019t plan out every detail ahead of time. This uncertainty causes some anxiety that will be "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -1043,7 +1043,7 @@ define([], function() {
                     "negativeWord": "ina[ ]equate",
                     "positiveKey": "c",
                     "positiveWord": "suc[ ]essful",
-                    "statement": " You are applying to a prestigious internship program. As you prepare your resume, you reflect upon everything you have accomplished thus far. You record is strng, but not perfect, which makes you feel "
+                    "statement": " You are applying to a prestigious internship program. As you prepare your resume, you reflect upon everything you have accomplished thus far. Your record is strong, but not perfect, which makes you feel "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -1145,7 +1145,7 @@ define([], function() {
                     "negativeWord": "fa[ ]l",
                     "positiveKey": "a",
                     "positiveWord": "p[ ]ss",
-                    "statement": " You are taking a class, and recently turned in a paper. You decided to re-read your submitted paper and realize that you accidentally deleted a section you meant to include in the paper. Given that you accidently made this deletion, you think that you are likely to "
+                    "statement": " You are taking a class, and recently turned in a paper. You decided to re-read your submitted paper and realize that you accidentally deleted a section you meant to include in the paper. Given that you accidentally made this deletion, you think that you are likely to "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -1714,16 +1714,15 @@ define([], function() {
         ]
     }
 ]
-
-
-
         },
         {
             "inherit": {"set": "vivid"},
-            layout: [{media : {template:"/PIPlayerScripts/vividness_last.html"}}]
+            layout: [{media: {template: "/PIPlayerScripts/vividness_last.html"}}]
+        },
+        {
+            "inherit": {"set": "results"},
+            layout: [{media: {template: "/PIPlayerScripts/results.html"}}]
         }
-        ]});
-    // #### Activate the player
-    //API.play();
+    ]});
 });
 /* don't forget to close the define wrapper */
