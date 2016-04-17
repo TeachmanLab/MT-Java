@@ -1,9 +1,6 @@
 package edu.virginia.psyc.pi.persistence;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import edu.virginia.psyc.pi.domain.DoNotDelete;
 import edu.virginia.psyc.pi.domain.Exportable;
 import edu.virginia.psyc.pi.service.EmailService;
@@ -31,6 +28,7 @@ public class GiftLogDAO {
     @ManyToOne
     @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
     @JsonIdentityReference(alwaysAsId=true)
+    @JsonProperty("participantId")
     private ParticipantDAO participantDAO;
     private String orderId;
     private String sessionName;
