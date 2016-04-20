@@ -96,7 +96,7 @@ public class EmailService {
             case resetPass:
                 return "Project Implicit Mental Health - Account Request";
             case alertAdmin:
-                return "PIMH Alert! a participants score is Dropping";
+                return "PIMH Alert! a participants score is raising";
             case giftCard:
                 return "Project Implicit Mental Health - Your gift card!";
             case exportError:
