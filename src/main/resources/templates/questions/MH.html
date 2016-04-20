@@ -82,7 +82,7 @@
                                 <br/>
                                 <label>
                                 <p>No diagnosis</p>
-                                <input id="Q1_noDiag" type="checkbox" name="disorders" value="noDiagnosis" onchange="hide_Q1_noDiag()"/>
+                                <input id="Q1_noDiag" type="checkbox" name="disorders" value="noDiagnosis" onchange="hide_Q1_noDiag();show()"/>
                                 </label>
                             </div>
                                 </td>
@@ -723,9 +723,12 @@
 
     function show() {
         if (document.getElementById("helps").checked) {
-            document.getElementById("Q5").style.display = "block";
-        } else {
+          if (!document.getElementById("Q1_noDiag").checked) {
+            document.getElementById("Q5").style.display = "block";}
+         else {
             document.getElementById("Q5").style.display = "none";
+        }} else {
+             document.getElementById("Q5").style.display = "none";
         }
     }
 
