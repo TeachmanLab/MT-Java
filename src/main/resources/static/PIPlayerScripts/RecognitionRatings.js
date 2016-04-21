@@ -87,7 +87,7 @@ define([], function() {
                             negativeAnswer: "n"
                         },
                         "media": {
-                            "inlineTemplate": "<div>Did the audiences laugh when you speak?</div>"
+                            "inlineTemplate": "<div>Did the audience laugh when you speak?</div>"
                         }
                     },
                     {"inherit": {"set": "yesno"}},

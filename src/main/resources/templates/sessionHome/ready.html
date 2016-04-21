@@ -20,7 +20,7 @@
         <div class="row">
                 <img class="sessionImage" th:src="|/images/map-${currentSession.index}-${participant.theme}.png|"/>
             <div class="col-md-8 session">
-                <div th:if="${currentSession.name =='PRE'}">
+                <div th:if="${currentSession.name == 'PRE'}">
                     <h2><span th:text="${participant.fullName}">Jim</span>, you're ready to begin your initial
                         assessment.</h2>
                     <p>This is an information gathering session that will take approximately 20 minutes to

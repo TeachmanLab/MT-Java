@@ -43,7 +43,7 @@
                     </tr>
                 </table>
             </div>
-            <p class="allow2days" th:if="${session.index != 'POST'}"> Allow 3 to 4 days between each session.</p>
+            <p class="allow2days" th:unless="${session.index==8 or session.index==9}"> Allow 3 to 4 days between each session.</p>
         </div>
         <br/>
 
