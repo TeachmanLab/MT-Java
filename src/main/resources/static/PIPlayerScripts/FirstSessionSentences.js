@@ -13,6 +13,30 @@ define([], function() {
                 {
                     media : {template:"/PIPlayerScripts/intro_1.html"}
                 }
+
+            ],
+            interactions: [
+                // This is an interaction (it has a condition and an action)
+                {
+                    conditions: [
+                        {type:'inputEquals',value:'space'}
+                    ],
+                    actions: [
+                        {type:'endTrial'}
+                    ]
+                }
+            ]
+        },
+        {
+            input: [
+                {handle:'space',on:'space'}
+            ],
+            layout: [
+                // This is a stimulus object
+                {
+                    media : {template:"/PIPlayerScripts/intro_2.html"}
+                }
+
             ],
             interactions: [
                 // This is an interaction (it has a condition and an action)
@@ -105,7 +129,7 @@ define([], function() {
                                 "negativeWord": "anxi[ ]ty",
                                 "positiveKey": "c",
                                 "positiveWord": "dan[ ]ing",
-                                "statement": " You are taking a dancing class and during break, find yourself talking to a newcomer about your job. As you chat, you notice that you are sweating. She probably assumes this is a result of "
+                                "statement": " You are taking a dance class and during break, find yourself talking to a newcomer about your job. As you chat, you notice that you are sweating. She probably assumes this is a result of "
                             },
                             "handle": "paragraph",
                             "media": {
