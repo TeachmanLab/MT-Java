@@ -89,18 +89,8 @@ define([], function() {
             {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
-<<<<<<< HEAD
-            ]
-        },
-        { "inherit": { "set": "vivid" } },{ "inherit": { "set": "vivid_after" } },
-        {
-            mixer: 'random',
-            //n: 50,  // The total number of randomly selected trials to run.
-            data: [
-=======
         { "inherit": { "set": "vivid" } },{ "inherit": { "set": "vivid_after" } },
         { "inherit": { "set": "vivid" } },{ "inherit": { "set": "vivid_after" } },
->>>>>>> upstream/master
     {
         "inherit": {
             "set": "neutral",
@@ -137,18 +127,8 @@ define([], function() {
             {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     },
-<<<<<<< HEAD
-            ]
-        },
-        { "inherit": { "set": "vivid" } },{ "inherit": { "set": "vivid_after" } },
-        {
-            mixer: 'random',
-            //n: 50,  // The total number of randomly selected trials to run.
-            data: [
-=======
         { "inherit": { "set": "vivid" } },{ "inherit": { "set": "vivid_after" } },
         { "inherit": { "set": "vivid" } },{ "inherit": { "set": "vivid_after" } },
->>>>>>> upstream/master
     {
         "inherit": {
             "set": "neutral",

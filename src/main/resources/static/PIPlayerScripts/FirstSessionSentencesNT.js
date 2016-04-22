@@ -50,34 +50,7 @@ define([], function() {
             ]
         },
         {
-<<<<<<< HEAD
-            input: [
-                {handle:'space',on:'space'}
-            ],
-            layout: [
-                // This is a stimulus object
-                {
-                    media : {template:"/PIPlayerScripts/intro_2.html"}
-                }
-
-            ],
-            interactions: [
-                // This is an interaction (it has a condition and an action)
-                {
-                    conditions: [
-                        {type:'inputEquals',value:'space'}
-                    ],
-                    actions: [
-                        {type:'endTrial'}
-                    ]
-                }
-            ]
-        },
-        {
-            mixer:'random',
-=======
             mixer:'wrapper',
->>>>>>> upstream/master
             data:[
     {
         "inherit": {
