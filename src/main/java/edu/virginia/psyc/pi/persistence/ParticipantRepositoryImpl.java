@@ -20,6 +20,8 @@ public class ParticipantRepositoryImpl implements ParticipantRepositoryCustom {
     public Participant entityToDomain(ParticipantDAO dao) {
         Participant p     = new Participant();
 
+        if(dao == null) return p;
+
         p.setId(dao.getId());
         p.setFullName(dao.getFullName());
         p.setEmail(dao.getEmail());
