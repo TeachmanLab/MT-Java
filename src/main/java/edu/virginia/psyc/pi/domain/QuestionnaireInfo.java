@@ -1,7 +1,6 @@
 package edu.virginia.psyc.pi.domain;
 
 import lombok.Data;
-import org.apache.catalina.util.StringParser;
 
 /**
  * Created by dan on 10/23/15.
