@@ -62,7 +62,7 @@ public class ExportController  {
                 } else return rep.findAll();
             }
         }
-        else return new ArrayList<>();
+        throw new NoSuchQuestionnaireException();
     }
 
     @RequestMapping(value="{name}/{id}", method=RequestMethod.DELETE)

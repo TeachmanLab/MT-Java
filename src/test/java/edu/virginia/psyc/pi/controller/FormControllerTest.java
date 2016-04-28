@@ -41,7 +41,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
-public class FormControllerTest {
+public class FormControllerTest extends BaseControllerTest {
 
     @Autowired
     private FilterChainProxy springSecurityFilterChain;
@@ -88,19 +88,6 @@ public class FormControllerTest {
         List<TestQuestionnaire> dataList = repository.findAll();
         return dataList.get(dataList.size() - 1);
     }
-
-    private ParticipantDAO getUser() {
-        ParticipantDAO dao = new ParticipantDAO("John", "js@st.com","1234", false, "blue");
-        dao.setCurrentSession("PRE");
-        return dao;
-    }
-
-    private ParticipantDAO getAdmin() {
-        ParticipantDAO dao = new ParticipantDAO("JohnAdmin", "js@st.com","1234", true, "blue");
-        dao.setCurrentSession("PRE");
-        return dao;
-    }
-
 
     @Test
     public void testGetForm() throws Exception {
