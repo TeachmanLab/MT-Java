@@ -3,8 +3,9 @@ package edu.virginia.psyc.pi.controller;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.virginia.psyc.pi.Application;
-import edu.virginia.psyc.pi.persistence.forms.FormDAO;
-import edu.virginia.psyc.pi.persistence.forms.FormRepository;
+import edu.virginia.psyc.pi.DAO.TestQuestionnaire;
+import edu.virginia.psyc.pi.DAO.TestQuestionnaireRepository;
+import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +14,9 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.security.web.FilterChainProxy;
+import org.springframework.security.web.method.annotation.AuthenticationPrincipalArgumentResolver;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -22,12 +25,13 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.Iterator;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -43,7 +47,13 @@ public class FormControllerTest {
     private FilterChainProxy springSecurityFilterChain;
 
     @Autowired
-    private FormRepository formRepository;
+    private TestQuestionnaireRepository repository;
+
+    @Autowired
+    private FormController formController;
+
+    @Autowired
+    private ExportController exportController;
 
     private MockMvc mockMvc;
 
@@ -52,16 +62,20 @@ public class FormControllerTest {
 
     @Before
     public void setup() {
-
-        // Process mock annotations
         MockitoAnnotations.initMocks(this);
+
+        this.mockMvc = MockMvcBuilders.standaloneSetup(formController,exportController)
+                .setCustomArgumentResolvers(new AuthenticationPrincipalArgumentResolver())
+                .addFilters(this.springSecurityFilterChain)
+                .build();
+
+        /*
+        // Process mock annotations
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac)
                 .addFilters(this.springSecurityFilterChain).build();
+    */
 
-        // **** DEFINITELY DO NOT LEAVE THIS IN HERE.
-        // THIS IS BAD.  VERY VERY BAD! //
-//        formRepository.deleteAll();
-
+        repository.deleteAll();
     }
 
     @After
@@ -69,74 +83,93 @@ public class FormControllerTest {
     //formRepository.deleteAll();
     }
 
+    private TestQuestionnaire getLastQuestionnaire() {
+        repository.flush();
+        List<TestQuestionnaire> dataList = repository.findAll();
+        return dataList.get(dataList.size() - 1);
+    }
+
+    private ParticipantDAO getUser() {
+        ParticipantDAO dao = new ParticipantDAO("John", "js@st.com","1234", false, "blue");
+        dao.setCurrentSession("PRE");
+        return dao;
+    }
+
+    private ParticipantDAO getAdmin() {
+        ParticipantDAO dao = new ParticipantDAO("JohnAdmin", "js@st.com","1234", true, "blue");
+        dao.setCurrentSession("PRE");
+        return dao;
+    }
+
+
     @Test
     public void testGetForm() throws Exception {
         MvcResult result = mockMvc.perform(get("/forms/TestForm")
-                .with(user("admin").password("pass").roles("USER","ADMIN")))
+                .with(user(getUser())))
                 .andExpect((status().is2xxSuccessful()))
                 .andReturn();
     }
 
     @Test
     public void testPostDataForm() throws Exception {
-
-        ResultActions result = mockMvc.perform(post("/forms/TestForm")
-                .with(user("admin").password("pass").roles("USER","ADMIN"))
+        ResultActions result = mockMvc.perform(post("/forms/TestQuestionnaire")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .param("cheese", "yes"))
-                .andExpect((status().is2xxSuccessful()));
-
+                .with(user(getUser()))
+                .param("value", "cheese")
+                .param("multiValue", "cheddar")
+                .param("multiValue", "havarti"))
+                .andExpect((status().is3xxRedirection()));
     }
 
     @Test
-    public void testThatPostedDataIsStoredAsJson() throws Exception {
+    public void testThatPostedDataIsStored() throws Exception {
         testPostDataForm();
-        formRepository.flush();
-        List<FormDAO> dataList = formRepository.findAll();
-        FormDAO last = dataList.get(dataList.size() - 1);
-        assertEquals("{\"cheese\":\"yes\"}", last.getJson());
+        assertEquals("cheese", getLastQuestionnaire().getValue());
     }
 
-    /** Make sure that when the data is exported, that the json in the
-     * data element is flattened out - so it appears a single chunk of
-     * structured json, not an escaped string inside a json model.
-     *
-     * Basically we want this:  {'id':'1', 'cheese':'yes"}
-     * and NOT this: {'id':'1',"formData":"{\"cheese\":\"yes\"}"}}
-     *
+    /** Make sure that when the data is exported, the values are correctly encoded
      * @throws Exception
      */
     @Test
-    public void testThatPostedDataIsExportedAsFlattedJSon() throws Exception {
+    public void testThatPostedDataIsExportedAsJSon() throws Exception {
         testPostDataForm();
-        formRepository.flush();
-        MvcResult result = mockMvc.perform(get("/api/export/FormDAO")
-                .with(user("admin").password("pass").roles("USER","ADMIN")))
+        repository.flush();
+        MvcResult result = mockMvc.perform(get("/api/export/TestQuestionnaire")
+                .with(user(getAdmin())))
                 .andExpect((status().is2xxSuccessful()))
                 .andReturn();
 
         ObjectMapper mapper = new ObjectMapper();
         JsonNode actualObj = mapper.readTree(result.getResponse().getContentAsString());
-        assertEquals("Cheese should be an accessible json object in the export. ", "yes",actualObj.findValue("cheese").asText());
-        assertEquals("Cheese is a top level object, not a child of 'json'", "yes", actualObj.get(0).path("cheese").asText());
+        assertEquals("Value is a top level object that contains the string 'cheese'", "cheese", actualObj.get(0).path("value").asText());
         System.out.println(actualObj);
     }
 
     @Test
     public void testMultiValueElementsCorrectlyPassedThrough() throws Exception {
-
-
-        formRepository.flush();
-        MvcResult result = mockMvc.perform(get("/api/export/FormDAO")
-                .with(user("admin").password("pass").roles("USER","ADMIN")))
+        testPostDataForm();
+        repository.flush();
+        MvcResult result = mockMvc.perform(get("/api/export/TestQuestionnaire")
+                .with(user(getAdmin())))
                 .andExpect((status().is2xxSuccessful()))
                 .andReturn();
 
         ObjectMapper mapper = new ObjectMapper();
         JsonNode actualObj = mapper.readTree(result.getResponse().getContentAsString());
-        assertEquals("Cheese should be an accessible json object in the export. ", "yes",actualObj.findValue("cheese").asText());
-        assertEquals("Cheese is a top level object, not a child of 'json'", "yes", actualObj.get(0).path("cheese").asText());
+        assertThat(actualObj.findValue("multiValue").isArray(), is(true));
+        Iterator<JsonNode> values = actualObj.findValue("multiValue").iterator();
+        assertThat(values.next().textValue(), is("cheddar"));
+        assertThat(values.next().textValue(), is("havarti"));
         System.out.println(actualObj);
     }
+
+    @Test
+    public void testParticipantDateAndSessionArePopulated() throws Exception {
+        testPostDataForm();
+        assertNotNull(getLastQuestionnaire().getDate());
+        assertNotNull(getLastQuestionnaire().getSession());
+        assertNotNull(getLastQuestionnaire().getParticipantRSA());
+    }
+
 
 }

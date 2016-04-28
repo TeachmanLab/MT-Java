@@ -32,19 +32,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     /**
      * Checks database for user details
      */
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    @Override
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-        auth.userDetailsService(new UserDetailsService() {
-            @Override
-            public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-                LOG.info("Searching for :" + username);
+        auth.userDetailsService(username -> {
                 ParticipantDAO participant = participantRepository.findByEmail(username);
                 if (participant != null) {
                     LOG.info("Participant Found:" + participant);
                     return participant;
                 } else return null;
-            }
         }).passwordEncoder(new StandardPasswordEncoder());
     }
 

@@ -15,8 +15,6 @@ import javax.persistence.*;
 @Data
 public class AnxietyTriggers extends QuestionnaireData  {
 
-    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(AnxietyTriggers.class);
-
     private String howLong;
     private int social;
     private int sensations;
