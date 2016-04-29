@@ -12,6 +12,6 @@ import javax.persistence.*;
 @Table(name="Vivid")
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class Vivid extends QuestionnaireData {
+public class Vivid extends SecureQuestionnaireData {
     private int vivid;
 }

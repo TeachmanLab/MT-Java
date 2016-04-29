@@ -1,7 +1,6 @@
 package edu.virginia.psyc.pi.DAO;
 
-import edu.virginia.psyc.pi.domain.DoNotDelete;
-import edu.virginia.psyc.pi.persistence.Questionnaire.QuestionnaireData;
+import edu.virginia.psyc.pi.persistence.Questionnaire.SecureQuestionnaireData;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -15,7 +14,7 @@ import java.util.List;
 @Table(name="TestQuestionnaire")
 @Data
 @EqualsAndHashCode(callSuper=false)
-public class TestQuestionnaire extends QuestionnaireData {
+public class TestQuestionnaire extends SecureQuestionnaireData {
 
     private String value;
 

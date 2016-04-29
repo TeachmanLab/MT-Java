@@ -1,11 +1,9 @@
 package edu.virginia.psyc.pi.persistence.Questionnaire;
 
-import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
-import java.util.Date;
 
 /**
  * Created by samportnow on 7/21/14.
@@ -14,7 +12,7 @@ import java.util.Date;
 @Table(name="DD_FU")
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class DD_FU extends QuestionnaireData {
+public class DD_FU extends SecureQuestionnaireData {
 
     private int monday_count;
     private int tuesday_count;

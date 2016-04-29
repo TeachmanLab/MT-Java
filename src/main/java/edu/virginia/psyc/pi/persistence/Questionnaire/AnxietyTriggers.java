@@ -1,9 +1,8 @@
 package edu.virginia.psyc.pi.persistence.Questionnaire;
 
-import edu.virginia.psyc.pi.domain.DoNotDelete;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.slf4j.LoggerFactory;
+
 import javax.persistence.*;
 
 /**
@@ -13,7 +12,7 @@ import javax.persistence.*;
 @Table(name="AnxietyTriggers")
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class AnxietyTriggers extends QuestionnaireData  {
+public class AnxietyTriggers extends SecureQuestionnaireData {
 
     private String howLong;
     private int social;

@@ -1,14 +1,10 @@
 package edu.virginia.psyc.pi.persistence.Questionnaire;
 
-import edu.virginia.psyc.pi.domain.Session;
-import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
-import java.util.ArrayList;
 
 /**
  * Created by samportnow on 7/23/14.
@@ -17,7 +13,7 @@ import java.util.ArrayList;
 @Table(name="MentalHealthHxTx")
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class MentalHealthHxTx extends QuestionnaireData {
+public class MentalHealthHxTx extends SecureQuestionnaireData {
 
     private String OtherDesc;
     private String OtherDescNo;

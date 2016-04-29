@@ -1,11 +1,9 @@
 package edu.virginia.psyc.pi.persistence.Questionnaire;
 
-import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,7 +13,7 @@ import java.util.List;
 @Table(name="ReasonsForEnding")
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class ReasonsForEnding  extends QuestionnaireData {
+public class ReasonsForEnding  extends SecureQuestionnaireData {
 
 
     @ElementCollection

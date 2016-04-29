@@ -1,12 +1,9 @@
 package edu.virginia.psyc.pi.persistence.Questionnaire;
 
-import edu.virginia.psyc.pi.domain.Session;
-import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
-import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,7 +16,7 @@ import java.util.Date;
 @Table(name="RR")
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class RR extends QuestionnaireData {
+public class RR extends SecureQuestionnaireData {
 
 
     private int wedding_PS;

@@ -1,14 +1,9 @@
 package edu.virginia.psyc.pi.persistence.Questionnaire;
 
-import edu.virginia.psyc.pi.domain.Session;
-import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 /**
  * Created by samportnow on 7/23/14.
@@ -17,7 +12,7 @@ import java.util.List;
 @Table(name="MultiUserExperience")
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class MultiUserExperience extends QuestionnaireData {
+public class MultiUserExperience extends SecureQuestionnaireData {
 
     private int helpful;
     private int qol;

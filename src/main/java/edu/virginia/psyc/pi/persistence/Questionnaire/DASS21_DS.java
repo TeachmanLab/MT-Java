@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Table(name="DASS21_DS")
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class DASS21_DS extends QuestionnaireData {
+public class DASS21_DS extends SecureQuestionnaireData {
 
     private int nopositive;
     private int difficult;

@@ -4,13 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 
-import edu.virginia.psyc.pi.domain.Session;
-import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import javax.persistence.*;
-import java.util.Date;
 
 /**
  * Created by samportnow on 7/21/14.
@@ -19,7 +14,7 @@ import java.util.Date;
 @Table(name="ImpactAnxiousImagery")
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class ImpactAnxiousImagery extends QuestionnaireData{
+public class ImpactAnxiousImagery extends SecureQuestionnaireData {
 
     private int anxiety;
     private int vivid;

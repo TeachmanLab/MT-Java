@@ -1,12 +1,9 @@
 package edu.virginia.psyc.pi.persistence.Questionnaire;
 
-import edu.virginia.psyc.pi.domain.Session;
-import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
-import java.util.Date;
 
 /**
  * Created by samportnow on 7/21/14.
@@ -15,7 +12,7 @@ import java.util.Date;
 @Table(name="AUDIT")
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class AUDIT extends QuestionnaireData {
+public class AUDIT extends SecureQuestionnaireData {
 
     private int drink_alc;
     private int drinks_freq;
