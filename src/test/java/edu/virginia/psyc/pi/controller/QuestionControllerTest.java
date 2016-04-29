@@ -1,5 +1,7 @@
 package edu.virginia.psyc.pi.controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.virginia.psyc.pi.Application;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.Questionnaire.DASS21_ASRepository;
@@ -18,6 +20,8 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import static org.junit.Assert.assertEquals;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -56,6 +60,24 @@ public class QuestionControllerTest {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac)
                 .addFilters(this.springSecurityFilterChain).build();
     }
+
+    /**  This is how you should test with mockMvc - removing some old tests, don't want to loose this valid logic.
+    @Test
+    public void testMultiValueElementsCorrectlyPassedThrough() throws Exception {
+
+        formRepository.flush();
+        MvcResult result = mockMvc.perform(get("/api/export/FormDAO")
+                .with(user("admin").password("pass").roles("USER","ADMIN")))
+                .andExpect((status().is2xxSuccessful()))
+                .andReturn();
+
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode actualObj = mapper.readTree(result.getResponse().getContentAsString());
+        assertEquals("Cheese should be an accessible json object in the export. ", "yes",actualObj.findValue("cheese").asText());
+        assertEquals("Cheese is a top level object, not a child of 'json'", "yes", actualObj.get(0).path("cheese").asText());
+        System.out.println(actualObj);
+    }
+*/
 
     @Test
     public void testCreateForm() throws Exception {

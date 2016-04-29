@@ -5,7 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.virginia.psyc.pi.Application;
 import edu.virginia.psyc.pi.DAO.TestQuestionnaire;
 import edu.virginia.psyc.pi.DAO.TestQuestionnaireRepository;
-import edu.virginia.psyc.pi.persistence.ParticipantDAO;
+import edu.virginia.psyc.pi.DAO.TestUndeleteable;
+import edu.virginia.psyc.pi.DAO.TestUndeleteableRepository;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +15,6 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.security.web.FilterChainProxy;
 import org.springframework.security.web.method.annotation.AuthenticationPrincipalArgumentResolver;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -48,6 +48,9 @@ public class FormControllerTest extends BaseControllerTest {
 
     @Autowired
     private TestQuestionnaireRepository repository;
+
+    @Autowired
+    private TestUndeleteableRepository undeleteableRepository;
 
     @Autowired
     private FormController formController;
@@ -91,7 +94,7 @@ public class FormControllerTest extends BaseControllerTest {
 
     @Test
     public void testGetForm() throws Exception {
-        MvcResult result = mockMvc.perform(get("/forms/TestForm")
+        MvcResult result = mockMvc.perform(get("/questions/TestForm")
                 .with(user(getUser())))
                 .andExpect((status().is2xxSuccessful()))
                 .andReturn();
@@ -99,13 +102,24 @@ public class FormControllerTest extends BaseControllerTest {
 
     @Test
     public void testPostDataForm() throws Exception {
-        ResultActions result = mockMvc.perform(post("/forms/TestQuestionnaire")
+        ResultActions result = mockMvc.perform(post("/questions/TestQuestionnaire")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .with(user(getUser()))
                 .param("value", "cheese")
                 .param("multiValue", "cheddar")
                 .param("multiValue", "havarti"))
                 .andExpect((status().is3xxRedirection()));
+    }
+
+    @Test
+    public void testPostBadData() throws Exception {
+        ResultActions result = mockMvc.perform(post("/questions/NoSuchForm")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .with(user(getUser()))
+                .param("value", "cheese")
+                .param("multiValue", "cheddar")
+                .param("multiValue", "havarti"))
+                .andExpect((status().is4xxClientError()));
     }
 
     @Test
@@ -158,5 +172,18 @@ public class FormControllerTest extends BaseControllerTest {
         assertNotNull(getLastQuestionnaire().getParticipantRSA());
     }
 
+    @Test
+    public void testParticipantIdIsPopulatedIfItExists() throws Exception {
+        ResultActions result = mockMvc.perform(post("/questions/TestUndeleteable")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .with(user(getUser()))
+                .param("value", "cheese"))
+                .andExpect((status().is3xxRedirection()));
 
+        undeleteableRepository.flush();
+        List<TestUndeleteable> dataList = undeleteableRepository.findAll();
+        TestUndeleteable last = dataList.get(dataList.size() - 1);
+        assertNotNull(last.getParticipantDAO());
+
+    }
 }

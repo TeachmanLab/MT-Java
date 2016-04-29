@@ -3,7 +3,6 @@ package edu.virginia.psyc.pi.service;
 import edu.virginia.psyc.pi.Application;
 import edu.virginia.psyc.pi.DAO.TestQuestionnaire;
 import edu.virginia.psyc.pi.DAO.TestQuestionnaireRepository;
-import edu.virginia.psyc.pi.domain.Participant;
 import edu.virginia.psyc.pi.domain.QuestionnaireInfo;
 import edu.virginia.psyc.pi.persistence.*;
 import edu.virginia.psyc.pi.persistence.Questionnaire.AnxietyTriggers;

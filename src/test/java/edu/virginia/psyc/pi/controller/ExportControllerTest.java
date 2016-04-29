@@ -6,7 +6,7 @@ import edu.virginia.psyc.pi.DAO.TestQuestionnaireRepository;
 import edu.virginia.psyc.pi.DAO.TestUndeleteable;
 import edu.virginia.psyc.pi.DAO.TestUndeleteableRepository;
 import edu.virginia.psyc.pi.domain.RestExceptions.NotDeleteableException;
-import edu.virginia.psyc.pi.persistence.Questionnaire.QuestionnaireData;
+import edu.virginia.psyc.pi.persistence.Questionnaire.SecureQuestionnaireData;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -92,14 +92,14 @@ public class ExportControllerTest extends BaseControllerTest {
     public void testEntryDataCanBeDeleted() {
         // There should be at least one entry.
         createTestEntry();
-        QuestionnaireData qd;
+        SecureQuestionnaireData qd;
 
         List data =  exportController.listData("TestQuestionnaire",0);
         assertThat(data.size(), greaterThan(0));
 
         // Going to make the assumption this is QuestionnaireData
         for(Object o : data) {
-            qd = (QuestionnaireData)o;
+            qd = (SecureQuestionnaireData)o;
             assertThat(qd.getId(), notNullValue());
             exportController.delete("TestQuestionnaire",qd.getId());
         }
@@ -117,12 +117,12 @@ public class ExportControllerTest extends BaseControllerTest {
         repoU.save(u);
         repoU.flush();
 
-        QuestionnaireData qd;
+        SecureQuestionnaireData qd;
 
         List data =  exportController.listData("TestUndeleteable",0);
         assertThat(data.size(), greaterThan(0));
 
-        qd = (QuestionnaireData)data.get(0);
+        qd = (SecureQuestionnaireData)data.get(0);
         assertThat(qd.getId(), notNullValue());
 
         thrown.expect(NotDeleteableException.class);

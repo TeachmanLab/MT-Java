@@ -6,6 +6,7 @@ import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.persistence.Questionnaire.*;
 import edu.virginia.psyc.pi.persistence.TaskLogDAO;
 import edu.virginia.psyc.pi.service.EmailService;
+import edu.virginia.psyc.pi.service.ExportService;
 import edu.virginia.psyc.pi.service.RsaEncyptionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,8 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.mail.MessagingException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.security.Principal;
 import java.util.*;
 
@@ -32,22 +31,16 @@ import java.util.*;
  * To change this template use File | Settings | File Templates.
  */
 @Controller
-@RequestMapping("/questions")
+@RequestMapping("/questionsOld")
 public class QuestionController extends BaseController {
 
-    @Autowired private static final Logger LOG = LoggerFactory.getLogger(QuestionController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(QuestionController.class);
 
-
-    @Autowired private DASS21_ASRepository dass21_asRepository;
-    @Autowired private DASS21_DSRepository dass21_dsRepository;
-    @Autowired private QOLRepository qol_Repository;
-    @Autowired private AUDIT_Repository audit_Repository;
     @Autowired private FollowUp_ChangeInTreatment_Repository followup_Repository;
     @Autowired private ImpactAnxiousImagery_Repository impact_Repository;
     @Autowired private MentalHealthHxTxRepository mh_Repository;
     @Autowired private MultiUserExperienceRepository mue_Repository;
     @Autowired private PilotUserExperienceRepository pue_Repository;
-    @Autowired private CredibilityRepository credibilityRepository;
     @Autowired private DemographicRepository demographicRepository;
     @Autowired private ImageryPrimeRepository imageryPrimeRepository;
     @Autowired private RR_Repository rr_repository;
@@ -65,9 +58,11 @@ public class QuestionController extends BaseController {
     @Autowired
     private EmailService emailService;
 
-
     @Autowired
     private RsaEncyptionService encryptService;
+
+    @Autowired
+    private ExportService exportService;
 
     @Autowired
     public QuestionController(ParticipantRepository repository) {
@@ -105,7 +100,7 @@ public class QuestionController extends BaseController {
 
 
         // Connect the participant to the data being recorded.
-        data.setParticipantRSA(encryptService.encryptIfEnabled(dao.getId()));
+//        data.setParticipantRSA(encryptService.encryptIfEnabled(dao.getId()));
 
         data.setDate(new Date());
     }
@@ -115,335 +110,6 @@ public class QuestionController extends BaseController {
            models.put("participant", getParticipant(principal));
            models.put(name, model);
            return new ModelAndView(url, models);
-    }
-
-    /**
-     * DASS 21 AS
-     * ---------*
-     */
-    @RequestMapping(value = "DASS21_AS", method = RequestMethod.GET)
-    public ModelAndView showDASS21_AS(Principal principal) {
-        return modelAndView(principal, "/questions/DASS21_AS", "DASS21_AS", new DASS21_AS());
-    }
-
-    @RequestMapping(value = "DASS21_AS", method = RequestMethod.POST)
-    RedirectView handleDASS21_AS(@ModelAttribute("DASS21_AS") DASS21_AS dass21_as,
-                                 BindingResult result, Principal principal) throws MessagingException {
-
-        // Connect this object to the Participant, as we will need to reference it later.
-        dass21_as.setParticipantDAO(getParticipantDAO(principal));
-        recordSessionProgress(dass21_as);
-        dass21_asRepository.save(dass21_as);
-        return new RedirectView("/session/next");
-    }
-
-    @RequestMapping(value = "DASS21_AS/export", method = RequestMethod.GET, produces = "text/csv")
-    @ResponseBody // Return the string directly, the return value is not a template name.
-    String exportDASS21_AS() {
-        return(objectListToCSV(dass21_asRepository.findAll()));
-    }
-
-
-    /**
-     * DASS 21 DS
-     * ---------*
-     */
-    @RequestMapping(value = "DASS21_DS", method = RequestMethod.GET)
-    public ModelAndView showDASS21_DS(ModelMap model, Principal principal) {
-        Participant p = getParticipant(principal);
-        model.addAttribute("inSessions", p.inSession());
-        model.addAttribute("p", p);
-        return modelAndView(principal, "/questions/DASS21_DS", "DASS21_DS", new DASS21_DS());
-    }
-
-    @RequestMapping(value = "DASS21_DS", method = RequestMethod.POST)
-    RedirectView handleDASS21_DS(@ModelAttribute("DASS21_DS") DASS21_DS dass21_ds,
-                                 BindingResult result) {
-
-        recordSessionProgress(dass21_ds);
-        dass21_dsRepository.save(dass21_ds);
-        return new RedirectView("/session/next");
-    }
-
-    @RequestMapping(value = "DASS21_DS/export", method = RequestMethod.GET, produces = "text/csv")
-    @ResponseBody // Return the string directly, the return value is not a template name.
-    String exportDASS21_DS() {
-        return(objectListToCSV(dass21_dsRepository.findAll()));
-    }
-
-
-
-    /**
-     * QOL
-     * ---------*
-     */
-    @RequestMapping(value = "QOL", method = RequestMethod.GET)
-    public ModelAndView showqol(Principal principal) {
-        return modelAndView(principal, "questions/QOL", "QOL", new QOL());
-    }
-
-    @RequestMapping(value = "QOL", method = RequestMethod.POST)
-    RedirectView handleqol(@ModelAttribute("qol") QOL qol,
-                           BindingResult result) {
-
-        recordSessionProgress(qol);
-        qol_Repository.save(qol);
-        return new RedirectView("/session/next");
-    }
-
-    @RequestMapping(value = "QOL/export", method = RequestMethod.GET, produces = "text/csv")
-    @ResponseBody // Return the string directly, the return value is not a template name.
-    String exportQOL() {
-        return(objectListToCSV(qol_Repository.findAll()));
-    }
-
-
-    /**
-     * AUDIT
-     * ---------*
-     */
-    @RequestMapping(value = "audit", method = RequestMethod.GET)
-    public ModelAndView showaudit(Principal principal) {
-        return modelAndView(principal, "/questions/audit", "aduit", new AUDIT());
-    }
-
-    @RequestMapping(value = "aduit", method = RequestMethod.POST)
-    RedirectView handleaudit(@ModelAttribute("audit") AUDIT audit,
-                             BindingResult result) {
-
-        recordSessionProgress(audit);
-        audit_Repository.save(audit);
-        return new RedirectView("/session/next");
-    }
-
-    @RequestMapping(value = "audit/export", method = RequestMethod.GET, produces = "text/csv")
-    @ResponseBody // Return the string directly, the return value is not a template name.
-    String exportAudit() {
-        return(objectListToCSV(audit_Repository.findAll()));
-    }
-
-
-    /**
-     * Credibility
-     * ---------*
-     */
-    @RequestMapping(value = "/credibility", method = RequestMethod.GET)
-    public ModelAndView showCredibility(Principal principal) {
-        return modelAndView(principal, "/questions/credibility", "credibility", new Credibility());
-    }
-
-    @RequestMapping(value = "/credibility", method = RequestMethod.POST)
-    RedirectView handleCredibility(@ModelAttribute("credibility") Credibility credibility,
-                                   BindingResult result) {
-
-        recordSessionProgress(credibility);
-        credibilityRepository.save(credibility);
-        return new RedirectView("/session/next");
-    }
-
-    @RequestMapping(value = "credibility/export", method = RequestMethod.GET, produces = "text/csv")
-    @ResponseBody // Return the string directly, the return value is not a template name.
-    String exportCredibility() {
-        return(objectListToCSV(credibilityRepository.findAll()));
-    }
-
-
-    /**
-     * FollowUp_ChangeInTreatment
-     * ---------*
-     */
-
-    @RequestMapping(value = "FU", method = RequestMethod.GET)
-    public ModelAndView showFollowUp(Principal principal) {
-        return modelAndView(principal, "/questions/FU", "FU", new FollowUp_ChangeInTreatment());
-    }
-
-    @RequestMapping(value = "FU", method = RequestMethod.POST)
-    RedirectView handleFollowUp(@ModelAttribute("FU") FollowUp_ChangeInTreatment followup,
-                                BindingResult result) {
-
-        recordSessionProgress(followup);
-        followup_Repository.save(followup);
-        return new RedirectView("/session/next");
-    }
-
-    @RequestMapping(value = "FU/export", method = RequestMethod.GET, produces = "text/csv")
-    @ResponseBody // Return the string directly, the return value is not a template name.
-    String exportFu() {
-        return(objectListToCSV(followup_Repository.findAll()));
-    }
-
-    /**
-     * MentalHealthHxTx
-     * ---------*
-     */
-
-    @RequestMapping(value = "MH", method = RequestMethod.GET)
-    public ModelAndView showMentalHealthHxTx(Principal principal) {
-        return modelAndView(principal, "/questions/MH", "MH", new MentalHealthHxTx());
-    }
-
-    @RequestMapping(value = "MH", method = RequestMethod.POST)
-    RedirectView handleMentalHealthHxTx(@ModelAttribute("MH") MentalHealthHxTx mh,
-                                        BindingResult result) {
-
-        recordSessionProgress(mh);
-        mh_Repository.save(mh);
-        return new RedirectView("/session/next");
-    }
-
-    @RequestMapping(value = "MH/export", method = RequestMethod.GET, produces = "text/csv")
-    @ResponseBody // Return the string directly, the return value is not a template name.
-    String exportMentalHealthHxTx() {
-        return(objectListToCSV(mh_Repository.findAll()));
-    }
-
-    /**
-     * Change in Help Seeking
-     * -------------*
-     */
-
-    @RequestMapping(value="CIHS", method = RequestMethod.GET)
-    public  ModelAndView showCIHS (Principal principal) {
-        return modelAndView(principal, "/questions/CIHS", "CIHS", new CIHS());
-    }
-
-    @RequestMapping(value = "CIHS", method = RequestMethod.POST)
-    RedirectView handleCIHS(@ModelAttribute("CIHS") CIHS cihs,
-                            BindingResult result) {
-        recordSessionProgress(cihs);
-        cihsRepository.save(cihs);
-        return new RedirectView("/session/next");
-    }
-
-    @RequestMapping(value = "CIHS/export", method = RequestMethod.GET, produces = "text/csv")
-    @ResponseBody // Return the string directly, the return value is not a template name.y
-    String exportCIHS() {return(objectListToCSV(cihsRepository.findAll())); }
-
-    /**
-     * MultiUserExperience
-     * ---------*
-     */
-
-    @RequestMapping(value = "MUE", method = RequestMethod.GET)
-    public ModelAndView showMultiUserExperience(Principal principal) {
-        return modelAndView(principal, "/questions/MUE", "MUE", new MultiUserExperience());
-    }
-
-    @RequestMapping(value = "MUE", method = RequestMethod.POST)
-    RedirectView handleMultiUserExperience(@ModelAttribute("MUE") MultiUserExperience mue,
-                                           BindingResult result) {
-
-        recordSessionProgress(mue);
-        mue_Repository.save(mue);
-        return new RedirectView("/session/next");
-    }
-
-    @RequestMapping(value = "MUE/export", method = RequestMethod.GET, produces = "text/csv")
-    @ResponseBody // Return the string directly, the return value is not a template name.
-    String exportMUE() {
-        return(objectListToCSV(mue_Repository.findAll()));
-    }
-
-
-    /**
-     * PilotUserExperience
-     * ---------*
-     */
-
-    @RequestMapping(value = "PUE", method = RequestMethod.GET)
-    public ModelAndView showPilotUserExperience(Principal principal) {
-        return modelAndView(principal, "questions/PUE", "PUE", new PilotUserExperience());
-    }
-
-    @RequestMapping(value = "PUE", method = RequestMethod.POST)
-    RedirectView handlePilotUserExperience(@ModelAttribute("PUE") PilotUserExperience pue,
-                                           BindingResult result) {
-
-        recordSessionProgress(pue);
-        pue_Repository.save(pue);
-        return new RedirectView("/session/next");
-    }
-
-    @RequestMapping(value = "PUE/export", method = RequestMethod.GET, produces = "text/csv")
-    @ResponseBody // Return the string directly, the return value is not a template name.
-    String exportPUE() {
-        return(objectListToCSV(pue_Repository.findAll()));
-    }
-
-/**
- * SUDS
- * -----*
- *
- */
-@RequestMapping(value = "SUDS", method = RequestMethod.GET)
-public ModelAndView showSUDS(Principal principal) {
-    return modelAndView(principal, "questions/SUDS", "SUDS", new SUDS());
-}
-
-    @RequestMapping(value = "SUDS", method = RequestMethod.POST)
-    RedirectView handleSUDS(@ModelAttribute("SUDS") SUDS suds,
-                                           BindingResult result) {
-
-        recordSessionProgress(suds);
-        sudsRepository.save(suds);
-        return new RedirectView("/session/next");
-    }
-
-    @RequestMapping(value = "SUDS/export", method = RequestMethod.GET, produces = "text/csv")
-    @ResponseBody // Return the string directly, the return value is not a template name.
-    String exportSUDS() {
-        return(objectListToCSV(sudsRepository.findAll()));
-    }
-
-    /**
-     * Vividness
-     * -----*
-     *
-     */
-    @RequestMapping(value = "Vivid", method = RequestMethod.GET)
-    public ModelAndView showVivid(Principal principal) {
-        return modelAndView(principal, "questions/Vivid", "Vivid", new Vivid());
-    }
-
-    @RequestMapping(value = "Vivid", method = RequestMethod.POST)
-    RedirectView handleVivid(@ModelAttribute("Vivid") Vivid vivid,
-                            BindingResult result) {
-
-        recordSessionProgress(vivid);
-        vividRepository.save(vivid);
-        return new RedirectView("/session/next");
-    }
-
-    @RequestMapping(value = "Vivid/export", method = RequestMethod.GET, produces = "text/csv")
-    @ResponseBody // Return the string directly, the return value is not a template name.
-    String exportVivid() {
-        return(objectListToCSV(vividRepository.findAll()));
-    }
-
-    /**
-     * ImpactAnxiousImagery
-     * ---------*
-     */
-
-    @RequestMapping(value = "Impact", method = RequestMethod.GET)
-    public ModelAndView showImpact(Principal principal) {
-        return modelAndView(principal, "/questions/Impact", "Impact", new ImpactAnxiousImagery());
-    }
-
-    @RequestMapping(value = "Impact", method = RequestMethod.POST)
-    RedirectView handleImpact(@ModelAttribute("Impact") ImpactAnxiousImagery impact,
-                              BindingResult result) {
-
-        recordSessionProgress(impact);
-        impact_Repository.save(impact);
-        return new RedirectView("/session/next");
-    }
-
-    @RequestMapping(value = "Impact/export", method = RequestMethod.GET, produces = "text/csv")
-    @ResponseBody // Return the string directly, the return value is not a template name.
-    String exportImplact() {
-        return(objectListToCSV(impact_Repository.findAll()));
     }
 
 
@@ -471,11 +137,6 @@ public ModelAndView showSUDS(Principal principal) {
         return new RedirectView("/session/next");
     }
 
-    @RequestMapping(value = "ImageryPrime/export", method = RequestMethod.GET, produces = "text/csv")
-    @ResponseBody // Return the string directly, the return value is not a template name.
-    String exportIP() {
-        return(objectListToCSV(imageryPrimeRepository.findAll()));
-    }
 
     /**
      * Demographics
@@ -495,11 +156,6 @@ public ModelAndView showSUDS(Principal principal) {
         return new RedirectView("/session/next");
     }
 
-    @RequestMapping(value = "demographics/export", method = RequestMethod.GET, produces = "text/csv")
-    @ResponseBody // Return the string directly, the return value is not a template name.
-    String exportDemographics() {
-        return(objectListToCSV(demographicRepository.findAll()));
-    }
 
 
     /**
@@ -520,11 +176,6 @@ public ModelAndView showSUDS(Principal principal) {
         return new RedirectView("/session/next");
     }
 
-    @RequestMapping(value = "RR/export", method = RequestMethod.GET, produces = "text/csv")
-    @ResponseBody // Return the string directly, the return value is not a template name.
-    String exportRR() {
-        return(objectListToCSV(rr_repository.findAll()));
-    }
 
 
     /**
@@ -545,11 +196,6 @@ public ModelAndView showSUDS(Principal principal) {
         return new RedirectView("/session/next");
     }
 
-    @RequestMapping(value = "CC/export", method = RequestMethod.GET, produces = "text/csv")
-    @ResponseBody // Return the string directly, the return value is not a template name.
-    String exportCC() {
-        return(objectListToCSV(cc_repository.findAll()));
-    }
 
 
     /**
@@ -590,11 +236,6 @@ public ModelAndView showSUDS(Principal principal) {
         return new RedirectView("/session/next");
     }
 
-    @RequestMapping(value = "OA/export", method = RequestMethod.GET, produces = "text/csv")
-    @ResponseBody // Return the string directly, the return value is not a template name.
-    String exportOA() {
-        return(objectListToCSV(oa_repository.findAll()));
-    }
 
 
     /**
@@ -615,11 +256,6 @@ public ModelAndView showSUDS(Principal principal) {
         return new RedirectView("/session/next");
     }
 
-    @RequestMapping(value = "DD/export", method = RequestMethod.GET, produces = "text/csv")
-    @ResponseBody // Return the string directly, the return value is not a template name.
-    String exportDD() {
-        return(objectListToCSV(dd_repository.findAll()));
-    }
 
     /**
      * Daily Drinking Follow up
@@ -639,11 +275,6 @@ public ModelAndView showSUDS(Principal principal) {
         return new RedirectView("/session/next");
     }
 
-    @RequestMapping(value = "DD_FU/export", method = RequestMethod.GET, produces = "text/csv")
-    @ResponseBody // Return the string directly, the return value is not a template name.
-    String exportDDFU() {
-        return(objectListToCSV(dd_fu_repository.findAll()));
-    }
 
 
     /**
@@ -664,11 +295,6 @@ public ModelAndView showSUDS(Principal principal) {
         return new RedirectView("/session/next");
     }
 
-    @RequestMapping(value = "BBSIQ/export", method = RequestMethod.GET, produces = "text/csv")
-    @ResponseBody // Return the string directly, the return value is not a template name.
-    String exportBBSIQ() {
-        return(objectListToCSV(bbsiqRepository.findAll()));
-    }
 
     /**
      * Anxiety Triggers
@@ -688,11 +314,6 @@ public ModelAndView showSUDS(Principal principal) {
         return new RedirectView("/session/next");
     }
 
-    @RequestMapping(value = "AnxietyTriggers/export", method = RequestMethod.GET, produces = "text/csv")
-    @ResponseBody // Return the string directly, the return value is not a template name.
-    String exportAnxietyTriggers() {
-        return(objectListToCSV(anxietyTriggersRepository.findAll()));
-    }
 
 
     /**
@@ -713,40 +334,7 @@ public ModelAndView showSUDS(Principal principal) {
         return "debriefing";
     }
 
-    @RequestMapping(value = "ReasonsForEnding/export", method = RequestMethod.GET, produces = "text/csv")
-    @ResponseBody // Return the string directly, the return value is not a template name.
-    String exportReasonsForEnding() {
-        return(objectListToCSV(reasonsForEndingRepository.findAll()));
-    }
 
-    /**
-     * Converts a list of objects into a string suitable for returning
-     * as a csv.
-     * @param objects
-     * @return
-     */
-    public static String objectListToCSV(List<? extends QuestionnaireData> objects) {
-        StringBuffer csv = new StringBuffer();
-
-        if(objects.size() < 1) return "";
-
-        List<String> headers = objects.get(0).listHeaders();
-
-        // Add in headers.
-        for (String header : headers) {
-            csv.append("\"");
-            csv.append(header);
-            csv.append("\"");
-            csv.append(",");
-        }
-
-        csv.append("\n");
-        for(QuestionnaireData data : objects) {
-            data.appendToCSV(csv);
-            csv.append("\n");
-        }
-        return csv.toString();
-    }
 
 }
 

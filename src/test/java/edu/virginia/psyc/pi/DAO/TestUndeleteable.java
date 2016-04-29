@@ -1,7 +1,7 @@
 package edu.virginia.psyc.pi.DAO;
 
 import edu.virginia.psyc.pi.domain.DoNotDelete;
-import edu.virginia.psyc.pi.persistence.Questionnaire.QuestionnaireData;
+import edu.virginia.psyc.pi.persistence.Questionnaire.LinkedQuestionnaireData;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -16,8 +16,10 @@ import javax.persistence.Table;
 @Data
 @EqualsAndHashCode(callSuper=false)
 @DoNotDelete
-public class TestUndeleteable extends QuestionnaireData {
+public class TestUndeleteable extends LinkedQuestionnaireData {
 
     private String value;
+
+
 
 }
