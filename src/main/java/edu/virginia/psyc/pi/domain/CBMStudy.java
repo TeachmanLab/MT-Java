@@ -113,7 +113,7 @@ public class CBMStudy implements Study {
         switch (name) {
             case PRE:
                 tasks.add(new Task("Credibility", "Consent to participate", Task.TYPE.questions, 2));
-                tasks.add(new Task("Demographics", "Demographics", Task.TYPE.questions, 2));
+                tasks.add(new Task("Demographic", "Demographics", Task.TYPE.questions, 2));
                 tasks.add(new Task("MentalHealthHxTx", "Mental health history", Task.TYPE.questions, 2));
                 tasks.add(new Task("QOL", "Satisfaction", Task.TYPE.questions, 0));
                 tasks.add(new Task("RecognitionRatings", "Completing short stories", Task.TYPE.playerScript, 0));
