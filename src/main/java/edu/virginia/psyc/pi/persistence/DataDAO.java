@@ -1,6 +1,6 @@
 package edu.virginia.psyc.pi.persistence;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -22,6 +22,12 @@ public class DataDAO {
     @JsonIgnore
     private int id;
 
+    @ManyToOne
+    @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
+    @JsonIdentityReference(alwaysAsId=true)
+    @JsonProperty("trialId")
+    private TrialDAO trial;
+
     @Column(name="myKey")
     private String key;
 
@@ -30,9 +36,10 @@ public class DataDAO {
 
     public DataDAO() {}
 
-    public DataDAO(String k, String v) {
+    public DataDAO(String k, String v, TrialDAO trial) {
         this.value = v;
         this.key   = k;
+        this.trial = trial;
     }
 
 }

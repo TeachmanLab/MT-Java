@@ -52,11 +52,11 @@ public class TrialDAO {
     private String session;
     private int participantId;
     private int latency;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "trial")
     private Collection<StimuliDAO> stimuli;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "trial")
     private Collection<MediaDAO> media;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "trial")
     private Collection<DataDAO> data;
 
     @Override
@@ -122,7 +122,7 @@ public class TrialDAO {
     public void setStimuli(List<String> stimuliIn) {
         this.stimuli = new ArrayList<StimuliDAO>();
         for(String s: stimuliIn) {
-            this.stimuli.add(new StimuliDAO(s));
+            this.stimuli.add(new StimuliDAO(s, this));
         }
     }
 
@@ -146,7 +146,7 @@ public class TrialDAO {
     public void setMedia(List<String> mediaIn) {
         this.media = new ArrayList<MediaDAO>();
         for(String s: mediaIn) {
-            this.media.add(new MediaDAO(s));
+            this.media.add(new MediaDAO(s, this));
         }
     }
 
@@ -169,7 +169,7 @@ public class TrialDAO {
     public void setData(Map<String, String> data) {
         this.data = new ArrayList<DataDAO>();
         for(String key : data.keySet()) {
-            this.data.add(new DataDAO(key, data.get(key)));
+            this.data.add(new DataDAO(key, data.get(key), this));
         }
     }
 
