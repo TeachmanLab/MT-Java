@@ -1,6 +1,7 @@
 package edu.virginia.psyc.pi.controller;
 
 import edu.virginia.psyc.pi.domain.Participant;
+import edu.virginia.psyc.pi.domain.RestExceptions.NoModelForFormException;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.persistence.Questionnaire.*;
@@ -11,52 +12,42 @@ import edu.virginia.psyc.pi.service.RsaEncyptionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.support.WebRequestDataBinder;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.mail.MessagingException;
 import java.security.Principal;
-import java.util.*;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: dan
- * Date: 3/26/14
- * Time: 10:04 PM
- * To change this template use File | Settings | File Templates.
- */
-@Controller
-@RequestMapping("/questionsOld")
+ * Handles Form postings from Questionnaires. Expects the following:
+ * 1. An Html Form, whose form action = "questions/FormName"
+ * 2. An Entity class that describes how the form data should be stored.
+ * 3. A Repository Class that allows the entity to be saved to the database.
+ *
+ * If these things exist on the class path, then any data posted to the form
+ * will to saved to the datbase and accessible through the export routine.
+ * You do not need to add anything to this class for that to work.
+ *
+ * If you need custom data provided to your form, or if you need to peform
+ * a custom action after the form is submitted, you can add your own endpoint
+ * to this class.  use "recordSessionProgress" method to record your data
+ * if you override the submission behavior.
+ *
+ * */
+@Controller@RequestMapping("/questions")
 public class QuestionController extends BaseController {
-
-    private static final Logger LOG = LoggerFactory.getLogger(QuestionController.class);
-
-    @Autowired private FollowUp_ChangeInTreatment_Repository followup_Repository;
-    @Autowired private ImpactAnxiousImagery_Repository impact_Repository;
-    @Autowired private MentalHealthHxTxRepository mh_Repository;
-    @Autowired private MultiUserExperienceRepository mue_Repository;
-    @Autowired private PilotUserExperienceRepository pue_Repository;
-    @Autowired private DemographicRepository demographicRepository;
-    @Autowired private ImageryPrimeRepository imageryPrimeRepository;
-    @Autowired private RR_Repository rr_repository;
-    @Autowired private CCRepository cc_repository;
-    @Autowired private OARepository oa_repository;
-    @Autowired private DDRepository dd_repository;
-    @Autowired private DD_FURepository dd_fu_repository;
-    @Autowired private BBSIQRepository bbsiqRepository;
-    @Autowired private AnxietyTriggersRepository anxietyTriggersRepository;
-    @Autowired private SUDSRepository sudsRepository;
-    @Autowired private VividRepository vividRepository;
-    @Autowired private ReasonsForEndingRepository reasonsForEndingRepository;
-    @Autowired private CIHSRepository cihsRepository;
-
     @Autowired
-    private EmailService emailService;
+    private static final Logger LOG = LoggerFactory.getLogger(QuestionController.class);
 
     @Autowired
     private RsaEncyptionService encryptService;
@@ -65,53 +56,13 @@ public class QuestionController extends BaseController {
     private ExportService exportService;
 
     @Autowired
-    public QuestionController(ParticipantRepository repository) {
-        this.participantRepository   = repository;
-    }
+    private ImageryPrimeRepository imageryPrimeRepository;
 
-    /**
-     * Does some tasks common to all forms:
-     * - Adds the current CBMStudy.NAME to the data being recorded
-     * - Marks this "task" as complete, and moves the participant on to the next session
-     * - Connects the data to the participant who completed it.
-     * - Notifies the backup service that it may need to export data.
-     *
-     * @param data
-     */
-    private void recordSessionProgress(QuestionnaireData data) {
+    @Autowired
+    private OARepository oaRepository;
 
-        ParticipantDAO dao = (ParticipantDAO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        dao = participantRepository.findByEmail(dao.getEmail()); // Refresh session object from database.
-        Participant participant = participantRepository.entityToDomain(dao);
-
-        // Record the session for which this questionnaire was completed.
-        data.setSession(participant.getStudy().getCurrentSession().getName());
-
-        // Log the completion of the task
-        TaskLogDAO taskDao = new TaskLogDAO(dao, participant.getStudy().getCurrentSession().getName(),
-                                            participant.getStudy().getCurrentSession().getCurrentTask().getName());
-        dao.addTaskLog(taskDao);
-
-
-        // Update the participant's session status, and save back to the database.
-        participant.getStudy().completeCurrentTask();
-        participantRepository.domainToEntity(participant, dao);
-        participantRepository.save(dao);
-
-
-        // Connect the participant to the data being recorded.
-//        data.setParticipantRSA(encryptService.encryptIfEnabled(dao.getId()));
-
-        data.setDate(new Date());
-    }
-
-    private ModelAndView modelAndView(Principal principal, String url, String name, Object model) {
-           Map<String,Object> models = new HashMap<>();
-           models.put("participant", getParticipant(principal));
-           models.put(name, model);
-           return new ModelAndView(url, models);
-    }
-
+    @Autowired
+    private EmailService emailService;
 
     /**
      * ImageryPrime
@@ -121,81 +72,14 @@ public class QuestionController extends BaseController {
      */
 
     @RequestMapping(value = "ImageryPrime", method = RequestMethod.GET)
-    public ModelAndView showIP(ModelMap model, Principal principal) {
+    public String showIP(ModelMap model, Principal principal) {
         Participant p = getParticipant(principal);
         boolean notFirst = p.getStudy().getCurrentSession().getIndex() > 1;
         model.addAttribute("notFirst", notFirst);
         model.addAttribute("prime", p.getPrime().toString());
-        return modelAndView(principal, "/questions/ImageryPrime", "IP", new ImageryPrime());
+        model.addAttribute("participant", p);
+        return ("/questions/ImageryPrime");
     }
-
-    @RequestMapping(value = "ImageryPrime", method = RequestMethod.POST)
-    RedirectView handleIP(@ModelAttribute("IP") ImageryPrime prime,
-                              BindingResult result) {
-        recordSessionProgress(prime);
-        imageryPrimeRepository.save(prime);
-        return new RedirectView("/session/next");
-    }
-
-
-    /**
-     * Demographics
-     * ---------*
-     */
-    @RequestMapping(value = "demographics", method = RequestMethod.GET)
-    public ModelAndView showDemographics(Principal principal) {
-        return modelAndView(principal, "/questions/demographics", "demographics", new Demographic());
-    }
-
-    @RequestMapping(value = "demographics", method = RequestMethod.POST)
-    RedirectView handleDemographics(@ModelAttribute("demographics") Demographic demographic,
-                                    BindingResult result) {
-
-        recordSessionProgress(demographic);
-        demographicRepository.save(demographic);
-        return new RedirectView("/session/next");
-    }
-
-
-
-    /**
-     * RR
-     * ---------*
-     */
-    @RequestMapping(value = "RR", method = RequestMethod.GET)
-    public ModelAndView showRR(Principal principal) {
-        return modelAndView(principal, "/questions/RR", "RR", new RR());
-    }
-
-    @RequestMapping(value = "RR", method = RequestMethod.POST)
-    RedirectView handleRR(@ModelAttribute("RR") RR rr,
-                                 BindingResult result) {
-
-        recordSessionProgress(rr);
-        rr_repository.save(rr);
-        return new RedirectView("/session/next");
-    }
-
-
-
-    /**
-     * CC
-     * ---------*
-     */
-    @RequestMapping(value = "CC", method = RequestMethod.GET)
-    public ModelAndView showCC(Principal principal) {
-        return modelAndView(principal, "/questions/CC", "CC", new CC());
-    }
-
-    @RequestMapping(value = "CC", method = RequestMethod.POST)
-    RedirectView handleRR(@ModelAttribute("CC") CC cc,
-                          BindingResult result) {
-
-        recordSessionProgress(cc);
-        cc_repository.save(cc);
-        return new RedirectView("/session/next");
-    }
-
 
 
     /**
@@ -203,26 +87,27 @@ public class QuestionController extends BaseController {
      * ---------*
      */
     @RequestMapping(value = "OA", method = RequestMethod.GET)
-    public ModelAndView showOA(ModelMap model, Principal principal) {
+    public String showOA(ModelMap model, Principal principal) {
         Participant p = getParticipant(principal);
         model.addAttribute("inSessions", p.inSession());
-        return modelAndView(principal, "/questions/OA", "OA", new OA());
+        model.addAttribute("participant", getParticipant(principal));
+        return ("/questions/OA");
     }
 
     @RequestMapping(value = "OA", method = RequestMethod.POST)
     RedirectView handleOA(@ModelAttribute("OA") OA oa,
-                          BindingResult result, Principal principal) throws MessagingException{
+                          BindingResult result, Principal principal) throws MessagingException {
 
         // Connect this object to the Participant, as we will need to reference it later.
         ParticipantDAO dao      = getParticipantDAO(principal);
         Participant participant = participantRepository.entityToDomain(dao);
         oa.setParticipantDAO(dao);
         recordSessionProgress(oa);
-        oa_repository.save(oa);
+        oaRepository.save(oa);
 
         // If the users score differs from there original score and places the user
         // "at-risk", then send a message to the administrator.
-        List<OA> previous = oa_repository.findByParticipantDAO(oa.getParticipantDAO());
+        List<OA> previous = oaRepository.findByParticipantDAO(oa.getParticipantDAO());
         OA firstEntry = Collections.min(previous);
 
         if(oa.atRisk(firstEntry)) {
@@ -237,104 +122,87 @@ public class QuestionController extends BaseController {
     }
 
 
-
     /**
-     * Daily Drinking
-     * ---------*
+     * Spring automatically configures this object.
+     * You can modify the location of this database by editing the application.properties file.
      */
-    @RequestMapping(value = "DD", method = RequestMethod.GET)
-    public ModelAndView showDD(Principal principal) {
-        return modelAndView(principal, "/questions/DD", "DD", new DD());
+    @Autowired
+    public QuestionController(ParticipantRepository repository) {
+        this.participantRepository   = repository;
     }
 
-    @RequestMapping(value = "DD", method = RequestMethod.POST)
-    RedirectView handleDD(@ModelAttribute("DD") DD dd,
-                          BindingResult result) {
+    @RequestMapping(value = "{form}", method = RequestMethod.GET)
+    public String showForm(ModelMap model, Principal principal, @PathVariable("form") String formName) {
+        model.addAttribute("participant", getParticipant(principal));
+        return ("questions/" + formName);
+    }
 
-        recordSessionProgress(dd);
-        dd_repository.save(dd);
+
+    @RequestMapping(value = "{form}", method = RequestMethod.POST)
+    public @ResponseBody
+    RedirectView saveForm(@PathVariable("form") String formName,
+                    WebRequest request) throws Exception {
+
+        JpaRepository repository = exportService.getRepositoryForName(formName);
+        if(repository == null) {
+            LOG.error("Received a post for form '" + formName +"' But no Repository exists with this name.");
+            throw new NoModelForFormException();
+        }
+        try {
+            QuestionnaireData data = (QuestionnaireData) exportService.getDomainType(formName).newInstance();
+            recordSessionProgress(data);
+            WebRequestDataBinder binder = new WebRequestDataBinder(data);
+            binder.bind(request);
+            repository.save(data);
+        } catch (ClassCastException | InstantiationException | IllegalAccessException e) {
+            LOG.error("Failed to save model '" + formName + "' : " + e.getMessage());
+            throw new NoModelForFormException(e);
+        }
         return new RedirectView("/session/next");
-    }
-
-
-    /**
-     * Daily Drinking Follow up
-     * ---------*
-     */
-    @RequestMapping(value = "DD_FU", method = RequestMethod.GET)
-    public ModelAndView showDDFU(Principal principal) {
-        return modelAndView(principal, "/questions/DD_FU", "DD_FU", new DD());
-    }
-
-    @RequestMapping(value = "DD_FU", method = RequestMethod.POST)
-    RedirectView handleDD(@ModelAttribute("DD_FU") DD_FU dd_fu,
-                          BindingResult result) {
-
-        recordSessionProgress(dd_fu);
-        dd_fu_repository.save(dd_fu);
-        return new RedirectView("/session/next");
-    }
-
-
+   }
 
     /**
-     * BBSIQ
-     * ---------*
+     * Does some tasks common to all forms:
+     * - Adds the current CBMStudy.NAME to the data being recorded
+     * - Marks this "task" as complete, and moves the participant on to the next session
+     * - Connects the data to the participant who completed it.
+     * - Notifies the backup service that it may need to export data.
+     *
+     * @param data
      */
-    @RequestMapping(value = "BBSIQ", method = RequestMethod.GET)
-    public ModelAndView showBBSIQ(Principal principal) {
-        return modelAndView(principal, "/questions/BBSIQ", "BBSIQ", new BBSIQ());
+    private void recordSessionProgress(QuestionnaireData data) {
+
+        Participant participant;
+        ParticipantDAO dao;
+
+        dao = (ParticipantDAO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(participantRepository.findByEmail(dao.getEmail()) != null)
+            dao = participantRepository.findByEmail(dao.getEmail()); // Refresh session object from database.
+
+        // Attempt to set the participant link, depending on sub-class type
+        if(data instanceof LinkedQuestionnaireData)
+            ((LinkedQuestionnaireData) data).setParticipantDAO(dao);
+        if(data instanceof SecureQuestionnaireData)
+            ((SecureQuestionnaireData) data).setParticipantRSA(encryptService.encryptIfEnabled(dao.getId()));
+
+
+        participant = participantRepository.entityToDomain(dao);
+
+        // Record the session for which this questionnaire was completed.
+        data.setSession(participant.getStudy().getCurrentSession().getName());
+
+        // Log the completion of the task
+        TaskLogDAO taskDao = new TaskLogDAO(dao, participant.getStudy().getCurrentSession().getName(),
+                participant.getStudy().getCurrentSession().getCurrentTask().getName());
+        dao.addTaskLog(taskDao);
+
+        // Update the participant's session status, and save back to the database.
+        participant.getStudy().completeCurrentTask();
+        participantRepository.domainToEntity(participant, dao);
+        participantRepository.save(dao);
+
+        data.setDate(new Date());
     }
-
-    @RequestMapping(value = "BBSIQ", method = RequestMethod.POST)
-    RedirectView handleDD(@ModelAttribute("BBSIQ") BBSIQ bbsiq,
-                          BindingResult result) {
-
-        recordSessionProgress(bbsiq);
-        bbsiqRepository.save(bbsiq);
-        return new RedirectView("/session/next");
-    }
-
-
-    /**
-     * Anxiety Triggers
-     * ---------*
-     */
-    @RequestMapping(value = "AnxietyTriggers", method = RequestMethod.GET)
-    public ModelAndView showAnxietyTriggers(Principal principal) {
-        return modelAndView(principal, "/questions/AnxietyTriggers", "AnxietyTriggers", new AnxietyTriggers());
-    }
-
-    @RequestMapping(value = "AnxietyTriggers", method = RequestMethod.POST)
-    RedirectView handleAnxietyTriggers(@ModelAttribute("AnxietyTriggers") AnxietyTriggers triggers,
-                            BindingResult result) {
-
-        recordSessionProgress(triggers);
-        anxietyTriggersRepository.save(triggers);
-        return new RedirectView("/session/next");
-    }
-
-
-
-    /**
-     * Reasons For Ending Study
-     * ---------*
-     */
-    @RequestMapping(value = "ReasonsForEnding", method = RequestMethod.GET)
-    public ModelAndView showReasonsForEnding(Principal principal) {
-        return modelAndView(principal, "/questions/ReasonsForEnding", "ReasonsForEnding", new ReasonsForEnding());
-    }
-
-    @RequestMapping(value = "ReasonsForEnding", method = RequestMethod.POST)
-    String handleReasonsForEnding(@ModelAttribute("ReasonsForEnding") ReasonsForEnding reasons,
-                                       BindingResult result) {
-
-        recordSessionProgress(reasons);
-        reasonsForEndingRepository.save(reasons);
-        return "debriefing";
-    }
-
 
 
 }
-
