@@ -5,7 +5,7 @@ import edu.virginia.psyc.pi.DAO.TestQuestionnaire;
 import edu.virginia.psyc.pi.DAO.TestQuestionnaireRepository;
 import edu.virginia.psyc.pi.DAO.TestUndeleteable;
 import edu.virginia.psyc.pi.DAO.TestUndeleteableRepository;
-import edu.virginia.psyc.pi.service.RestExceptions.NotDeleteableException;
+import org.virginia.psyc.mindtrails.domain.RestExceptions.NotDeleteableException;
 import edu.virginia.psyc.pi.persistence.Questionnaire.SecureQuestionnaireData;
 import org.junit.Before;
 import org.junit.Rule;

@@ -2,25 +2,21 @@ buildscript {
     repositories {
         maven { url "http://repo.spring.io/libs-snapshot" }
         mavenLocal()
+        mavenCentral()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.4.RELEASE")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:$project.ext.springBootVersion")
     }
 }
 
-apply plugin: 'java'
-apply plugin: 'idea'
 apply plugin: 'spring-boot'
 apply plugin: 'war'
 
-war {
-    baseName = 'piServer'
-    version =  '0.1.0'
-}
+description = 'MindTrails Site'
 
-repositories {
-    mavenCentral()
-    maven { url "http://repo.spring.io/libs-snapshot" }
+war {
+    baseName = 'mindtrails'
+    version =  '0.1.0'
 }
 
 configurations {
@@ -28,6 +24,7 @@ configurations {
 }
 
 dependencies {
+    compile project(':core')
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
     compile("org.thymeleaf.extras:thymeleaf-extras-springsecurity3")
     compile("org.springframework:spring-jdbc")
@@ -58,8 +55,4 @@ dependencies {
 //    testCompile("junit:junit") {exclude module: 'org.hamcrest:hamcrest-core'}
     testCompile('com.jayway.jsonpath:json-path:0.9.1')
     testCompile('com.jayway.jsonpath:json-path-assert:0.9.1')
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '1.11'
 }

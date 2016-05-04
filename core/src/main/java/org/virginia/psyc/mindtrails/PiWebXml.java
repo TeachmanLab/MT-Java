@@ -1,4 +1,4 @@
-package edu.virginia.psyc.pi;
+package org.virginia.psyc.mindtrails;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;

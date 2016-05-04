@@ -1,4 +1,4 @@
-package edu.virginia.psyc.pi.service.RestExceptions;
+package org.virginia.psyc.mindtrails.domain.RestExceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

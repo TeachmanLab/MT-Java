@@ -1,4 +1,4 @@
-package edu.virginia.psyc.pi.service;
+package org.virginia.psyc.mindtrails.service;
 
 import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
@@ -23,9 +23,9 @@ import java.security.spec.X509EncodedKeySpec;
  * private key that should be stored elsewhere outside the application.
  */
 @Service
-public class RsaEncyptionService {
+public class RsaEncryptionService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(RsaEncyptionService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(RsaEncryptionService.class);
     private static final String ALGORITHM= "RSA";
 
     @Value("${encryption.enabled}")

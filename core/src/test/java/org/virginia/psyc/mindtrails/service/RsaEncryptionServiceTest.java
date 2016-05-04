@@ -1,7 +1,6 @@
-package edu.virginia.psyc.pi.service;
+package org.virginia.psyc.mindtrails.service;
 
-import edu.virginia.psyc.pi.Application;
-import junit.framework.Assert;
+import org.apache.commons.codec.binary.Base64;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.apache.commons.codec.binary.Base64;
+import org.virginia.psyc.mindtrails.Application;
 
 import javax.crypto.Cipher;
 import java.io.DataInputStream;
@@ -19,8 +18,9 @@ import java.security.KeyFactory;
 import java.security.PrivateKey;
 import java.security.spec.PKCS8EncodedKeySpec;
 
-import static org.junit.Assert.assertFalse;
+import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertTrue;
+
 
 /**
  * Created with IntelliJ IDEA.
@@ -34,7 +34,7 @@ import static org.junit.Assert.assertTrue;
 public class RsaEncryptionServiceTest {
 
     @Autowired
-    private RsaEncyptionService service;
+    private RsaEncryptionService service;
 
     @Autowired
     ResourceLoader resourceLoader;

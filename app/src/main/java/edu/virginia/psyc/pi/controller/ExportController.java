@@ -1,9 +1,9 @@
 package edu.virginia.psyc.pi.controller;
 
 import edu.virginia.psyc.pi.domain.DoNotDelete;
-import edu.virginia.psyc.pi.service.RestExceptions.NoSuchIdException;
-import edu.virginia.psyc.pi.service.RestExceptions.NoSuchQuestionnaireException;
-import edu.virginia.psyc.pi.service.RestExceptions.NotDeleteableException;
+import org.virginia.psyc.mindtrails.domain.RestExceptions.NoSuchIdException;
+import org.virginia.psyc.mindtrails.domain.RestExceptions.NoSuchQuestionnaireException;
+import org.virginia.psyc.mindtrails.domain.RestExceptions.NotDeleteableException;
 import edu.virginia.psyc.pi.domain.QuestionnaireInfo;
 import edu.virginia.psyc.pi.persistence.*;
 import edu.virginia.psyc.pi.persistence.Questionnaire.QuestionnaireRepository;

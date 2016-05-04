@@ -1,14 +1,14 @@
 package edu.virginia.psyc.pi.controller;
 
 import edu.virginia.psyc.pi.domain.Participant;
-import edu.virginia.psyc.pi.service.RestExceptions.NoModelForFormException;
+import org.virginia.psyc.mindtrails.domain.RestExceptions.NoModelForFormException;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.persistence.Questionnaire.*;
 import edu.virginia.psyc.pi.persistence.TaskLogDAO;
 import edu.virginia.psyc.pi.service.EmailService;
 import edu.virginia.psyc.pi.service.ExportService;
-import edu.virginia.psyc.pi.service.RsaEncyptionService;
+import org.virginia.psyc.mindtrails.service.RsaEncryptionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +50,7 @@ public class QuestionController extends BaseController {
     private static final Logger LOG = LoggerFactory.getLogger(QuestionController.class);
 
     @Autowired
-    private RsaEncyptionService encryptService;
+    private RsaEncryptionService encryptService;
 
     @Autowired
     private ExportService exportService;
