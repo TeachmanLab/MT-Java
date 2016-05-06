@@ -24,7 +24,7 @@ public class Order {
     private Reward reward;
     private String delivered_at;
 
-    // Required by Jacson to deserialize this class.
+    // Required by Jackson to deserialize this class.
     public Order() {}
 
     public Order(String customer, String account_identifier, String sku, int amount, boolean send_reward) {

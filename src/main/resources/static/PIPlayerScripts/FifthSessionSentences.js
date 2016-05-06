@@ -105,7 +105,7 @@ define([], function() {
                                 "negativeWord": "anxi[ ]ty",
                                 "positiveKey": "c",
                                 "positiveWord": "dan[ ]ing",
-                                "statement": " You are taking a dancing class and during break, find yourself talking to a newcomer about your job. As you chat, you notice that you are sweating. She probably assumes this is a result of "
+                                "statement": " You are taking a dance class and during break, find yourself talking to a newcomer about your job. As you chat, you notice that you are sweating. She probably assumes this is a result of "
                             },
                             "handle": "paragraph",
                             "media": {

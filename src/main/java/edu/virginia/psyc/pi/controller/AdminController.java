@@ -1,24 +1,17 @@
 package edu.virginia.psyc.pi.controller;
 
-import edu.virginia.psyc.pi.domain.GiftLog;
 import edu.virginia.psyc.pi.domain.Participant;
 import edu.virginia.psyc.pi.domain.ParticipantForm;
-import edu.virginia.psyc.pi.domain.Session;
-import edu.virginia.psyc.pi.domain.json.TrialJson;
-import edu.virginia.psyc.pi.domain.tango.*;
-import edu.virginia.psyc.pi.persistence.*;
+import edu.virginia.psyc.pi.domain.tango.Account;
+import edu.virginia.psyc.pi.domain.tango.Order;
 import edu.virginia.psyc.pi.domain.tango.Reward;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.persistence.Questionnaire.OA;
-import edu.virginia.psyc.pi.persistence.TrialDAO;
 import edu.virginia.psyc.pi.persistence.TrialRepository;
 import edu.virginia.psyc.pi.service.EmailService;
-import edu.virginia.psyc.pi.domain.tango.Account;
-import edu.virginia.psyc.pi.domain.tango.AccountResponse;
 import edu.virginia.psyc.pi.service.ExportService;
 import edu.virginia.psyc.pi.service.TangoService;
-import edu.virginia.psyc.pi.persistence.Questionnaire.DASS21_AS;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,14 +22,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -237,8 +228,8 @@ public class AdminController extends BaseController {
         p = participantRepository.entityToDomain(participantRepository.findByEmail(principal.getName()));
 
         if(type.equals(EmailService.TYPE.giftCard)) {
-            // Reward reward = tangoService.createGiftCard(p);  This would actually award a gift card, if you need to do some testing.
-            Reward reward = new Reward("111-111-111-111", "1234-2345-2345", "123", "https://www.google.com", "12345");
+            Reward reward = tangoService.createGiftCard(p, "test", 1);  // This would actually award a gift card, if you need to do some testing.
+//            Reward reward = new Reward("111-111-111-111", "1234-2345-2345", "123", "https://www.google.com", "12345");
             this.emailService.sendGiftCardEmail(p, reward, 100);
         } else if(type.equals(EmailService.TYPE.alertAdmin)) {
             OA d1 = new OA(1,2,3,4,5);
