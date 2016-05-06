@@ -487,7 +487,7 @@ define([], function() {
                 data: {
 
                     "negativeKey": "i",
-                    "negativeWord": "fustrat[ ]ng",
+                    "negativeWord": "frustrat[ ]ng",
                     "positiveKey": "t",
                     "positiveWord": "ra[ ]ional",
                     "statement": " You buy a new camera, but when you get it home, you decide you do not like it. You return it to the store and get your money back. The assistant is not very talkative as he helps you, and you think he views you as "
@@ -1884,11 +1884,16 @@ define([], function() {
         ]
     }
     ]
+
         },
         {
             "inherit": {"set": "vivid"},
             layout: [{media: {template: "/PIPlayerScripts/vividness_last.html"}}]
+        },
+        {
+            "inherit": {"set": "results"},
+            layout: [{media: {template: "/PIPlayerScripts/results.html"}}]
         }
-        ]})
+    ]});
 });
 /* don't forget to close the define wrapper */
