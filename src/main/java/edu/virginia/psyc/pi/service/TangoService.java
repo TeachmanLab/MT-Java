@@ -50,6 +50,9 @@ public class TangoService {
     @Value("${tango.accountId}")
     private String accountId;
 
+    @Value("${tango.customer}")
+    private String customer;
+
     @Value("${tango.tangoCardSku}")
     private String tangoCardSku;
 
@@ -82,7 +85,7 @@ public class TangoService {
         Account account = new Account();
         account.setIdentifier(this.id);
         account.setEmail(this.from);
-        account.setCustomer(this.accountId);
+        account.setCustomer(this.customer);
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = headers();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -119,7 +122,7 @@ public class TangoService {
     public Account getAccountInfo() {
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<String> request = new HttpEntity<String>(headers());
-        URI uri = URI.create(url + "/accounts/" + id + "/" + accountId);
+        URI uri = URI.create(url + "/accounts/" + customer + "/" + accountId);
         LOGGER.info("Calling url:" + uri.toString());
         ResponseEntity<AccountResponse> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, request, AccountResponse.class);
         try {
@@ -148,7 +151,7 @@ public class TangoService {
      */
     public Reward createGiftCard(Participant participant, String sessionName, int amount) {
         Recipient recipient = new Recipient(participant.getFullName(), participant.getEmail());
-        Order order = new Order(id, accountId, tangoCardSku, amount, false);
+        Order order = new Order(customer, accountId, tangoCardSku, amount, false);
         order.setRecipient(recipient);
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = headers();
