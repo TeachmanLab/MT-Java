@@ -121,11 +121,8 @@ define([], function() {
             {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}},
         ]
     },
-        {
-            "inherit": {
-                "set": "vivid"
-            }
-        },
+        { "inherit": { "set": "vivid" } },
+        { "inherit": { "set": "vivid_after" } },
     {
         "inherit": {
             "set": "posneg",
@@ -1692,12 +1689,11 @@ define([], function() {
                 }
             },
             {"inherit": {"set": "yesno"}},
-            {"inherit": {"set": "counter"}}, {"inherit": {"set": "stall"}}
-
+            {"inherit": {"set": "counter"}},
+            {"inherit": {"set": "stall"}}, {"inherit":{"set":"greatjob"}}, {"inherit": {"set": "press_space"}}
         ]
     }
 ]
-
         },
         {
             "inherit": {"set": "vivid"},
