@@ -1,7 +1,6 @@
 package edu.virginia.psyc.pi.controller;
 
-import edu.virginia.psyc.pi.domain.Participant;
-import edu.virginia.psyc.pi.domain.ParticipantForm;
+import edu.virginia.psyc.pi.domain.PiParticipant;
 import edu.virginia.psyc.pi.domain.ParticipantUpdateForm;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,7 +20,6 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -48,21 +45,21 @@ public class AccountController extends BaseController {
 
     @RequestMapping
     public String showAccount(ModelMap model, Principal principal) {
-        Participant p = getParticipant(principal);
+        PiParticipant p = getParticipant(principal);
         model.addAttribute("participant", p);
         return "account";
     }
 
     @RequestMapping("theme")
     public String showTheme(ModelMap model, Principal principal) {
-        Participant p = getParticipant(principal);
+        PiParticipant p = getParticipant(principal);
         model.addAttribute("participant", p);
         return "theme";
     }
 
     @RequestMapping(value="updateTheme", method = RequestMethod.POST)
     public String updateTheme(ModelMap model, String theme, Principal principal) {
-        Participant p = getParticipant(principal);
+        PiParticipant p = getParticipant(principal);
         p.setTheme(theme);
         ParticipantDAO dao = participantRepository.findOne(p.getId());
         participantRepository.domainToEntity(p, dao);
@@ -73,7 +70,7 @@ public class AccountController extends BaseController {
 
     @RequestMapping("exitStudy")
     public String exitStudy(ModelMap model, Principal principal) {
-        Participant p      = getParticipant(principal);
+        PiParticipant p      = getParticipant(principal);
         ParticipantDAO dao = participantRepository.findByEmail(principal.getName());
         p.setActive(false);
         participantRepository.domainToEntity(p, dao);
@@ -84,7 +81,7 @@ public class AccountController extends BaseController {
 
     @RequestMapping("debriefing")
     public String showDebriefing(ModelMap model, Principal principal) {
-        Participant p = getParticipant(principal);
+        PiParticipant p = getParticipant(principal);
         model.addAttribute("participant", p);
         return "debriefing";
     }
@@ -95,7 +92,7 @@ public class AccountController extends BaseController {
                          BindingResult bindingResult) {
 
 
-            Participant p = getParticipant(principal);
+            PiParticipant p = getParticipant(principal);
             ParticipantDAO dao = participantRepository.findOne(p.getId());
             p.setEmail(form.getEmail());
             p.setFullName(form.getFullName());
@@ -110,7 +107,7 @@ public class AccountController extends BaseController {
 
     @RequestMapping("changePass")
     public String changePassword(ModelMap model, Principal principal) {
-        Participant p = getParticipant(principal);
+        PiParticipant p = getParticipant(principal);
         model.addAttribute("participant", p);
         return "changePassword";
     }
@@ -122,7 +119,7 @@ public class AccountController extends BaseController {
                                  @RequestParam String password,
                                  @RequestParam String passwordAgain) throws MessagingException {
 
-        Participant participant;
+        PiParticipant participant;
         List<String> errors;
 
         participant =  getParticipant(principal);
@@ -131,8 +128,8 @@ public class AccountController extends BaseController {
         if (!password.equals(passwordAgain)) {
             errors.add("Passwords do not match.");
         }
-        if(!Participant.validPassword(password)) {
-            errors.add(Participant.PASSWORD_MESSAGE);
+        if(!PiParticipant.validPassword(password)) {
+            errors.add(PiParticipant.PASSWORD_MESSAGE);
         }
 
         if(errors.size() > 0) {

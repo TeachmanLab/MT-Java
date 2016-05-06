@@ -2,11 +2,6 @@ package edu.virginia.psyc.pi.controller;
 
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 
-import static org.hamcrest.core.Is.is;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-
 /**
  * Just some common tools for executing tests.
  */

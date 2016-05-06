@@ -1,8 +1,5 @@
 package edu.virginia.psyc.pi.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.virginia.psyc.pi.domain.*;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
@@ -22,11 +19,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+import edu.virginia.psyc.mindtrails.domain.participant.PasswordToken;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -102,7 +99,7 @@ public class LoginController extends BaseController {
     public String showEligibility(ModelMap model) {
         // Template will set a difference form action if this variable is set to true.
         model.addAttribute("eligibility",true);
-        Participant p = new Participant();
+        PiParticipant p = new PiParticipant();
         p.setTheme("blue");
         model.addAttribute("participant",p);
 
@@ -120,7 +117,7 @@ public class LoginController extends BaseController {
             // Save the DASS21_AS object in the session, so we can grab it when the
             // user is logged in.
             session.setAttribute("dass21", dass21_as);
-            model.addAttribute("participant", new Participant());
+            model.addAttribute("participant", new PiParticipant());
             return "invitation";
         } else {
             return "ineligible";
@@ -140,7 +137,7 @@ public class LoginController extends BaseController {
             // Save the DASS21_AS object in the session, so we can grab it when the
             // user is logged in.
             session.setAttribute("dass21", dass21);
-            model.addAttribute("participant", new Participant());
+            model.addAttribute("participant", new PiParticipant());
             return "invitation";
         } else {
             return "ineligible";
@@ -187,7 +184,7 @@ public class LoginController extends BaseController {
 
     @RequestMapping(value="/consent", method = RequestMethod.GET)
     public String showConsent (ModelMap model, Principal principal) {
-        model.addAttribute("participant", new Participant());
+        model.addAttribute("participant", new PiParticipant());
         model.addAttribute("hideAccountBar", true);
         return "consent";
 
@@ -216,7 +213,7 @@ public class LoginController extends BaseController {
 
     @RequestMapping(value = "/newParticipant", method = RequestMethod.POST)
     public String createNewParticipant(ModelMap model,
-                                       @Valid Participant participant,
+                                       @Valid PiParticipant participant,
                                        final BindingResult bindingResult,
                                        final SessionStatus status,
                                        HttpSession session
@@ -264,7 +261,7 @@ public class LoginController extends BaseController {
      * @param participant
      * @param session
      */
-    private void saveEligibilityForm(Participant participant, HttpSession session) {
+    private void saveEligibilityForm(PiParticipant participant, HttpSession session) {
         DASS21_AS dass21_as;
         ParticipantDAO   participantDAO = participantRepository.findByEmail(participant.getEmail());
 
@@ -285,7 +282,7 @@ public class LoginController extends BaseController {
     @RequestMapping(value="/resetPass", method = RequestMethod.POST)
     public String resetPass(ModelMap model, @RequestParam String email) throws MessagingException {
 
-        Participant p;
+        PiParticipant p;
 
         p = getParticipant(email);
 
@@ -304,7 +301,7 @@ public class LoginController extends BaseController {
     @RequestMapping(value="/resetPassStep2/{token}", method = RequestMethod.GET)
     public String resetPassStep2(ModelMap model, @PathVariable String token) {
 
-        Participant    participant;
+        PiParticipant participant;
         participant =  getParticipantByToken(token);
         model.addAttribute("hideAccountBar", true);
 
@@ -314,7 +311,7 @@ public class LoginController extends BaseController {
             return "/changePassword";
         } else {
             model.addAttribute("invalidCode", true);
-            model.addAttribute("participant", new Participant());
+            model.addAttribute("participant", new PiParticipant());
             return "login";
         }
     }
@@ -326,7 +323,7 @@ public class LoginController extends BaseController {
                                                  @RequestParam String password,
                                                  @RequestParam String passwordAgain) throws MessagingException {
 
-        Participant participant;
+        PiParticipant participant;
         List<String> errors;
 
         participant =  getParticipantByToken(token);
@@ -336,15 +333,15 @@ public class LoginController extends BaseController {
         if(null == participant || participant.getId() != id) {
             LOG.error("Change Password Page accessed with an invalid code, or the id's don't match");
             model.addAttribute("invalidCode", true);
-            model.addAttribute("participant", new Participant());
+            model.addAttribute("participant", new PiParticipant());
             return "login";
         }
 
         if (!password.equals(passwordAgain)) {
             errors.add("Passwords do not match.");
         }
-        if(!Participant.validPassword(password)) {
-            errors.add(Participant.PASSWORD_MESSAGE);
+        if(!PiParticipant.validPassword(password)) {
+            errors.add(PiParticipant.PASSWORD_MESSAGE);
         }
 
         if(errors.size() > 0) {
@@ -371,9 +368,9 @@ public class LoginController extends BaseController {
      * @param token
      * @return
      */
-    Participant getParticipantByToken(String token) {
+    PiParticipant getParticipantByToken(String token) {
         ParticipantDAO dao;
-        Participant    participant = null;
+        PiParticipant participant = null;
 
         dao = participantRepository.findByToken(token);
         if(dao != null)

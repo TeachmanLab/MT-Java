@@ -1,13 +1,12 @@
 package edu.virginia.psyc.pi.controller;
 
-import edu.virginia.psyc.pi.domain.Participant;
+import edu.virginia.psyc.pi.domain.PiParticipant;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.security.Principal;
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -29,23 +28,23 @@ public class BaseController {
         return participantRepository.findByEmail(email);
     }
 
-    Participant getParticipant(Principal principal) {
+    PiParticipant getParticipant(Principal principal) {
         return participantRepository.entityToDomain(getParticipantDAO(principal));
     }
 
-    Participant getParticipant(ParticipantDAO dao) {
+    PiParticipant getParticipant(ParticipantDAO dao) {
         return participantRepository.entityToDomain(dao);
     }
 
-    Participant getParticipant(String email) {
-        Participant p;
+    PiParticipant getParticipant(String email) {
+        PiParticipant p;
         ParticipantDAO dao;
         dao = participantRepository.findByEmail(email);
         if(dao != null) return(participantRepository.entityToDomain(dao));
         return null;
     }
 
-    void saveParticipant(Participant participant) {
+    void saveParticipant(PiParticipant participant) {
         ParticipantDAO dao;
 
         if(participant.getId() > 0) {

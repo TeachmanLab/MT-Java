@@ -1,8 +1,8 @@
 package edu.virginia.psyc.pi.domain;
 
-import org.joda.time.DateTime;
-import org.joda.time.Days;
-import org.slf4j.LoggerFactory;
+import edu.virginia.psyc.mindtrails.domain.Study;
+import edu.virginia.psyc.mindtrails.domain.Task;
+import edu.virginia.psyc.mindtrails.domain.participant.TaskLog;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -141,7 +141,7 @@ public class CBMNeutralStudy extends CBMStudy implements Study {
                 tasks.add(new Task("MUE", "Evaluating the program", Task.TYPE.questions, 2));
 
         }
-        setTaskStates(name, tasks, taskIndex);
+        setTaskStates(name.toString(), tasks, taskIndex);
         return tasks;
     }
 

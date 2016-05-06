@@ -1,16 +1,15 @@
 package edu.virginia.psyc.pi.domain;
 
-import edu.virginia.psyc.pi.persistence.GiftLogDAO;
-import org.joda.time.DateTime;
-import org.joda.time.Days;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
+import edu.virginia.psyc.mindtrails.domain.BaseStudy;
+import edu.virginia.psyc.mindtrails.domain.Session;
+import edu.virginia.psyc.mindtrails.domain.Study;
+import edu.virginia.psyc.mindtrails.domain.Task;
+import edu.virginia.psyc.mindtrails.domain.participant.TaskLog;
 
-import javax.xml.datatype.Duration;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,12 +18,8 @@ import java.util.logging.Logger;
  * Time: 8:21 AM
  * The Participants progress through a series of sessions
  */
-public class CBMStudy implements Study {
+public class CBMStudy extends BaseStudy implements Study {
 
-    private String currentName;
-    private int taskIndex;
-    private Date lastSessionDate;
-    private List<TaskLog> taskLogs;
 
     private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(CBMStudy.class);
 
@@ -37,6 +32,10 @@ public class CBMStudy implements Study {
         ELIGIBLE, PRE, SESSION1, SESSION2, SESSION3, SESSION4, SESSION5, SESSION6, SESSION7, SESSION8, POST, COMPLETE
     }
 
+    public CBMStudy(String currentName, int taskIndex, Date lastSessionDate, List<TaskLog> taskLogs) {
+        super(currentName, taskIndex, lastSessionDate, taskLogs);
+    }
+
     /** This specifies the gift amount, in dollars, that should be awarded when a user completes a session.
      */
     private int giftAmountCents(NAME name) {
@@ -47,13 +46,7 @@ public class CBMStudy implements Study {
         return 0;
     }
 
-    public CBMStudy(String currentName, int taskIndex, Date lastSessionDate, List<TaskLog> taskLogs) {
-        this.currentName = currentName;
-        this.taskIndex = taskIndex;
-        this.lastSessionDate = lastSessionDate;
-        this.taskLogs = taskLogs;
-    }
-
+    @Override
     public List<Session> getSessions() {
         List<Session> sessions = new ArrayList<Session>();
         boolean completed = true;
@@ -77,21 +70,6 @@ public class CBMStudy implements Study {
         }
         return sessions;
     }
-
-
-    /**
-     * @return Number of days since the last completed session.
-     * Returns 99 if the user never logged in or completed a session.
-     */
-    public int daysSinceLastSession() {
-        DateTime last;
-        DateTime now;
-
-        last = new DateTime(lastSessionDate);
-        now  = new DateTime();
-        return Days.daysBetween(last, now).getDays();
-    }
-
 
     /**
      * In the future we should refactor this, so that we load the sessions from a
@@ -226,7 +204,7 @@ public class CBMStudy implements Study {
                 tasks.add(new Task("MultiUserExperience", "Evaluating the program", Task.TYPE.questions, 2));
 
         }
-        setTaskStates(name, tasks, taskIndex);
+        setTaskStates(name.toString(), tasks, taskIndex);
         return tasks;
     }
 
@@ -288,102 +266,8 @@ public class CBMStudy implements Study {
         return null;
     }
 
-    public Session getLastSession() {
-        NAME last = NAME.ELIGIBLE;
-
-        for (NAME name : NAME.values()) {
-            if (name == NAME.valueOf(currentName)) break;
-            last = name;
-        }
-        return new Session(calcIndex(last), last.toString(), calculateDisplayName(last), true, false, giftAmountCents(last), getTasks(last,0));
-    }
-
-    public Session nextGiftSession() {
-
-        boolean toCurrent = false;
-        for (Session s : getSessions()) {
-            if (toCurrent && s.getGiftAmount() > 0) return s;
-            if (s.isCurrent()) toCurrent = true;
-        }
-        return null;
-    }
 
 
-    /**
-     * This method churns through the list of tasks, setting the "current" and "complete" flags based on the
-     * current task index. It also uses the task logs to determine the completion date.
-     */
-    protected void setTaskStates(NAME sessionName, List<Task> tasks, int taskIndex) {
-        int index = 0;
-        for (Task t : tasks) {
-            t.setCurrent(taskIndex == index);
-            t.setComplete(taskIndex > index);
-            for(TaskLog log : taskLogs) {
-                if (log.getSessionName().equals(sessionName.toString()) && log.getTaskName().equals(t.getName())) {
-                    t.setDateCompleted(log.getDateCompleted());
-                    break;
-                }
-            }
-            index++;
-        }
-    }
-
-    public Session getCurrentSession() {
-        List<Session> sessions = getSessions();
-        for(Session s  : getSessions()) {
-            if (s.isCurrent()) {
-                return s;
-            }
-        }
-        // If there is no current session, return the first session.
-        sessions.get(0).setCurrent(true);
-        return sessions.get(0);
-    }
-
-    /**
-     * Returns true if the session is completed, false otherwise.
-     * @param session
-     * @return
-     */
-    public boolean completed(String session) {
-        Session currentSession = getCurrentSession();
-        if(session == currentSession.getName()) return false;
-        for(NAME s : NAME.values()) {
-            String strName = s.toString();
-            if (strName.equals(session)) return true;
-            if (strName.equals(currentSession.getName())) return false;
-        }
-        // You can't really get here, since we have looped through all
-        // the possible values of session.
-        return false;
-    }
-
-    public void completeCurrentTask() {
-
-
-        // If this is the last task in a session, then we move to the next session.
-        if(taskIndex +1 >= getCurrentSession().getTasks().size()) {
-            completeSession();
-        } else { // otherwise we just increment the task index.
-            this.taskIndex = taskIndex + 1;
-        }
-    }
-
-
-    @Override
-    public int getCurrentTaskIndex() {
-        return taskIndex;
-    }
-
-    @Override
-    public Date getLastSessionDate() {
-        return lastSessionDate;
-    }
-
-    @Override
-    public void setLastSessionDate(Date date) {
-        this.lastSessionDate = date;
-    }
 
     @Override
     public STUDY_STATE getState() {
@@ -413,18 +297,4 @@ public class CBMStudy implements Study {
         return STUDY_STATE.READY;
     }
 
-    void completeSession() {
-        List<Session> sessions = getSessions();
-        boolean next = false;
-
-        Session nextSession = getCurrentSession();
-        for(Session s: sessions) {
-            if(next == true) { nextSession = s; break; }
-            if(s.isCurrent()) next = true;
-        }
-
-        this.taskIndex = 0;
-        this.currentName = nextSession.getName();
-        this.lastSessionDate = new Date();
-    }
 }

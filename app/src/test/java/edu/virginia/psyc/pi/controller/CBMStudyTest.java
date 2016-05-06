@@ -1,11 +1,14 @@
 package edu.virginia.psyc.pi.controller;
 
 import edu.virginia.psyc.pi.domain.*;
-import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.junit.Before;
 import org.junit.Test;
+import edu.virginia.psyc.mindtrails.domain.Session;
+import edu.virginia.psyc.mindtrails.domain.Study;
+import edu.virginia.psyc.mindtrails.domain.Task;
+import edu.virginia.psyc.mindtrails.domain.participant.TaskLog;
 
 import java.util.ArrayList;
 import java.util.Date;

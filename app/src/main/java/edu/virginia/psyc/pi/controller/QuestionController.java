@@ -1,14 +1,14 @@
 package edu.virginia.psyc.pi.controller;
 
-import edu.virginia.psyc.pi.domain.Participant;
-import org.virginia.psyc.mindtrails.domain.RestExceptions.NoModelForFormException;
+import edu.virginia.psyc.pi.domain.PiParticipant;
+import edu.virginia.psyc.mindtrails.domain.RestExceptions.NoModelForFormException;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.persistence.Questionnaire.*;
 import edu.virginia.psyc.pi.persistence.TaskLogDAO;
 import edu.virginia.psyc.pi.service.EmailService;
 import edu.virginia.psyc.pi.service.ExportService;
-import org.virginia.psyc.mindtrails.service.RsaEncryptionService;
+import edu.virginia.psyc.mindtrails.service.RsaEncryptionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +73,7 @@ public class QuestionController extends BaseController {
 
     @RequestMapping(value = "ImageryPrime", method = RequestMethod.GET)
     public String showIP(ModelMap model, Principal principal) {
-        Participant p = getParticipant(principal);
+        PiParticipant p = getParticipant(principal);
         boolean notFirst = p.getStudy().getCurrentSession().getIndex() > 1;
         model.addAttribute("notFirst", notFirst);
         model.addAttribute("prime", p.getPrime().toString());
@@ -88,7 +88,7 @@ public class QuestionController extends BaseController {
      */
     @RequestMapping(value = "OA", method = RequestMethod.GET)
     public String showOA(ModelMap model, Principal principal) {
-        Participant p = getParticipant(principal);
+        PiParticipant p = getParticipant(principal);
         model.addAttribute("inSessions", p.inSession());
         model.addAttribute("participant", getParticipant(principal));
         return ("/questions/OA");
@@ -100,7 +100,7 @@ public class QuestionController extends BaseController {
 
         // Connect this object to the Participant, as we will need to reference it later.
         ParticipantDAO dao      = getParticipantDAO(principal);
-        Participant participant = participantRepository.entityToDomain(dao);
+        PiParticipant participant = participantRepository.entityToDomain(dao);
         oa.setParticipantDAO(dao);
         recordSessionProgress(oa);
         oaRepository.save(oa);
@@ -172,7 +172,7 @@ public class QuestionController extends BaseController {
      */
     private void recordSessionProgress(QuestionnaireData data) {
 
-        Participant participant;
+        PiParticipant participant;
         ParticipantDAO dao;
 
         dao = (ParticipantDAO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

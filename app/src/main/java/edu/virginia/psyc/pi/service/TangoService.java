@@ -1,6 +1,6 @@
 package edu.virginia.psyc.pi.service;
 
-import edu.virginia.psyc.pi.domain.Participant;
+import edu.virginia.psyc.pi.domain.PiParticipant;
 import edu.virginia.psyc.pi.domain.tango.*;
 import edu.virginia.psyc.pi.persistence.GiftLogDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
@@ -146,7 +146,7 @@ public class TangoService {
      * Places an order with Tango.  Returns Gift Card details that we can later use
      * to notify Participant.
      */
-    public Reward createGiftCard(Participant participant, String sessionName, int amount) {
+    public Reward createGiftCard(PiParticipant participant, String sessionName, int amount) {
         Recipient recipient = new Recipient(participant.getFullName(), participant.getEmail());
         Order order = new Order(id, accountId, tangoCardSku, amount, false);
         order.setRecipient(recipient);

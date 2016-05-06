@@ -1,6 +1,6 @@
 package edu.virginia.psyc.pi.persistence;
 
-import edu.virginia.psyc.pi.domain.Participant;
+import edu.virginia.psyc.pi.domain.PiParticipant;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,8 +13,8 @@ import edu.virginia.psyc.pi.domain.Participant;
  */
 public interface ParticipantRepositoryCustom {
 
-    public Participant entityToDomain(ParticipantDAO dao);
+    public PiParticipant entityToDomain(ParticipantDAO dao);
 
-    public void domainToEntity(Participant p , ParticipantDAO dao);
+    public void domainToEntity(PiParticipant p , ParticipantDAO dao);
 
 }

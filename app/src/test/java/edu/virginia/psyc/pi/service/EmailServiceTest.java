@@ -5,6 +5,8 @@ import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.junit.Before;
 import org.junit.Test;
+import edu.virginia.psyc.mindtrails.domain.Study;
+import edu.virginia.psyc.mindtrails.domain.participant.TaskLog;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,12 +23,12 @@ import static junit.framework.Assert.assertNull;
  */
 public class EmailServiceTest {
 
-    Participant participant;
+    PiParticipant participant;
     EmailService service;
 
     @Before
     public void setup() {
-        participant = new Participant(1, "Dan Funk", "daniel.h.funk@gmail.com", false);
+        participant = new PiParticipant(1, "Dan Funk", "daniel.h.funk@gmail.com", false);
         service     = new EmailService();
     }
 

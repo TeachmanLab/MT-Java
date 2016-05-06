@@ -61,7 +61,7 @@
                             <td>Prime:</td>
                             <td>
                                 <select name="prime" th:field="*{prime}">
-                                    <option th:each="elem: ${T(edu.virginia.psyc.pi.domain.Participant.PRIME).values()}" th:value="${elem.name()}" th:text="${elem.name()}" value="BAZ">BAZ</option>
+                                    <option th:each="elem: ${T(edu.virginia.psyc.pi.domain.PiParticipant.PRIME).values()}" th:value="${elem.name()}" th:text="${elem.name()}" value="BAZ">BAZ</option>
                                 </select>
                             </td>
                             <td th:if="${#fields.hasErrors('prime')}" th:errors="*{admin}">Admin Error</td>
@@ -70,7 +70,7 @@
                             <td>CDM Condition:</td>
                             <td>
                                 <select name="cbmCondition" th:field="*{cbmCondition}">
-                                <option th:each="elem: ${T(edu.virginia.psyc.pi.domain.Participant.CBM_CONDITION).values()}" th:value="${elem.name()}" th:text="${elem.name()}" value="BAZ">BAZ</option>
+                                <option th:each="elem: ${T(edu.virginia.psyc.pi.domain.PiParticipant.CBM_CONDITION).values()}" th:value="${elem.name()}" th:text="${elem.name()}" value="BAZ">BAZ</option>
                             </select>
                             </td>
                             <td th:if="${#fields.hasErrors('cbmCondition')}" th:errors="*{admin}">Admin Error</td>

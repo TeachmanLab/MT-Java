@@ -1,26 +1,20 @@
 package edu.virginia.psyc.pi.controller;
 
-import edu.virginia.psyc.pi.domain.Participant;
+import edu.virginia.psyc.pi.domain.PiParticipant;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
-import edu.virginia.psyc.pi.persistence.Questionnaire.*;
 import edu.virginia.psyc.pi.persistence.TaskLogDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
-import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.
@@ -51,12 +45,12 @@ public class PIPlayerController extends BaseController {
     @RequestMapping(value="{scriptName}", method=RequestMethod.GET)
     public String showPlayer(ModelMap model, Principal principal, @PathVariable String scriptName) {
 
-        Participant p = getParticipant(principal);
+        PiParticipant p = getParticipant(principal);
 
         // The Neutral condition requires a completely different file.
         LOG.debug("The Script name: " + scriptName + "!=" +  "RecognitionRatings?" + (scriptName != "RecognitionRatings"));
 
-        if(p.getCbmCondition().equals(Participant.CBM_CONDITION.NEUTRAL) &&
+        if(p.getCbmCondition().equals(PiParticipant.CBM_CONDITION.NEUTRAL) &&
                 !scriptName.equals("RecognitionRatings")) {
             scriptName = scriptName + "NT";
         }
@@ -71,7 +65,7 @@ public class PIPlayerController extends BaseController {
     @RequestMapping("/completed/{scriptName}")
     public RedirectView markComplete(Principal principal, @PathVariable String scriptName) {
 
-        Participant participant = getParticipant(principal);
+        PiParticipant participant = getParticipant(principal);
         ParticipantDAO dao = participantRepository.findByEmail(participant.getEmail());
 
         // Log the completion of the task

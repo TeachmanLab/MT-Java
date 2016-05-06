@@ -2,7 +2,10 @@ package edu.virginia.psyc.pi.persistence;
 
 import edu.virginia.psyc.pi.domain.*;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
-import edu.virginia.psyc.pi.domain.EmailLog;
+import edu.virginia.psyc.mindtrails.domain.participant.PasswordToken;
+import edu.virginia.psyc.mindtrails.domain.participant.EmailLog;
+import edu.virginia.psyc.mindtrails.domain.participant.GiftLog;
+import edu.virginia.psyc.mindtrails.domain.participant.TaskLog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +20,8 @@ import java.util.List;
 public class ParticipantRepositoryImpl implements ParticipantRepositoryCustom {
 
     @Override
-    public Participant entityToDomain(ParticipantDAO dao) {
-        Participant p     = new Participant();
+    public PiParticipant entityToDomain(ParticipantDAO dao) {
+        PiParticipant p     = new PiParticipant();
 
         if(dao == null) return p;
 
@@ -43,7 +46,7 @@ public class ParticipantRepositoryImpl implements ParticipantRepositoryCustom {
         // Email Logs
         List<EmailLog> emailLogs = new ArrayList<EmailLog>();
         for(EmailLogDAO log : dao.getEmailLogDAOs()) {
-            emailLogs.add(new EmailLog(log.getEmailType(), log.getDateSent()));
+            emailLogs.add(new EmailLog(log.getEmailType().toString(), log.getDateSent()));
         }
         p.setEmailLogs(emailLogs);
 
@@ -69,7 +72,7 @@ public class ParticipantRepositoryImpl implements ParticipantRepositoryCustom {
     }
 
     @Override
-    public void domainToEntity(Participant p, ParticipantDAO dao) {
+    public void domainToEntity(PiParticipant p, ParticipantDAO dao) {
         PasswordTokenDAO tokenDAO;
 
         dao.setId(p.getId());

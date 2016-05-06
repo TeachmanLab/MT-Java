@@ -1,22 +1,17 @@
 package edu.virginia.psyc.pi.service;
 
 import edu.virginia.psyc.pi.Application;
-import edu.virginia.psyc.pi.domain.Participant;
+import edu.virginia.psyc.pi.domain.PiParticipant;
 import edu.virginia.psyc.pi.domain.tango.Account;
 import edu.virginia.psyc.pi.domain.tango.Order;
 import edu.virginia.psyc.pi.domain.tango.Reward;
-import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import javax.validation.ConstraintViolationException;
 
 import static junit.framework.Assert.*;
 
@@ -37,12 +32,12 @@ public class TangoServiceTest {
     @Autowired
     private ParticipantRepository participantRepository;
 
-    private Participant participant;
+    private PiParticipant participant;
 
     @Before
     public void setup() {
         // Create a participant
-        participant = new Participant(0, "Dan", "j.q.tester@gmail.com", true);
+        participant = new PiParticipant(0, "Dan", "j.q.tester@gmail.com", true);
     }
 
     @Test

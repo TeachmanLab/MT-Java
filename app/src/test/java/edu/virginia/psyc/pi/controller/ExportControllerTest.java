@@ -5,7 +5,7 @@ import edu.virginia.psyc.pi.DAO.TestQuestionnaire;
 import edu.virginia.psyc.pi.DAO.TestQuestionnaireRepository;
 import edu.virginia.psyc.pi.DAO.TestUndeleteable;
 import edu.virginia.psyc.pi.DAO.TestUndeleteableRepository;
-import org.virginia.psyc.mindtrails.domain.RestExceptions.NotDeleteableException;
+import edu.virginia.psyc.mindtrails.domain.RestExceptions.NotDeleteableException;
 import edu.virginia.psyc.pi.persistence.Questionnaire.SecureQuestionnaireData;
 import org.junit.Before;
 import org.junit.Rule;
@@ -18,7 +18,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.security.web.FilterChainProxy;
+
 import org.springframework.security.web.method.annotation.AuthenticationPrincipalArgumentResolver;
+
+
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;

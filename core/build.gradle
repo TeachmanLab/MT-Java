@@ -16,10 +16,11 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.mindrot:jbcrypt:0.3m")
     compile("commons-codec:commons-codec:1.10")
+    compile('joda-time:joda-time:2.3') // For some very handy date/time utilities.
+    compile('org.apache.commons:commons-lang3:3.4')  // Lots of useful code, used for random number generation.
 
     // Tests
     testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile('com.jayway.jsonpath:json-path:0.9.1')
     testCompile('com.jayway.jsonpath:json-path-assert:0.9.1')
-
 }

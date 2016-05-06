@@ -12,7 +12,11 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-import edu.virginia.psyc.pi.domain.EmailLog;
+import edu.virginia.psyc.mindtrails.domain.Study;
+import edu.virginia.psyc.mindtrails.domain.participant.PasswordToken;
+import edu.virginia.psyc.mindtrails.domain.participant.EmailLog;
+import edu.virginia.psyc.mindtrails.domain.participant.GiftLog;
+import edu.virginia.psyc.mindtrails.domain.participant.TaskLog;
 
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertNull;
@@ -46,7 +50,7 @@ public class ParticipantRepositoryTest {
     public void testEntityToDomain() {
 
         ParticipantDAO dao;
-        Participant p;
+        PiParticipant p;
         ParticipantRepositoryImpl repository = new ParticipantRepositoryImpl();
 
         dao = new ParticipantDAO("Dan Funk", "dan@sartography.com", "password", false, "green");
@@ -80,7 +84,7 @@ public class ParticipantRepositoryTest {
     @Test
     public void testPasswordTokenIsTransferedToDomain() {
         ParticipantDAO dao;
-        Participant p;
+        PiParticipant p;
         ParticipantRepositoryImpl repository = new ParticipantRepositoryImpl();
 
         dao = new ParticipantDAO("Dan Funk", "dan@sartography.com", "password", false, "green");
@@ -95,11 +99,11 @@ public class ParticipantRepositoryTest {
 
     @Test
     public void testPasswordTokenIsTransferedToEntity() {
-        Participant p;
+        PiParticipant p;
         ParticipantDAO dao = new ParticipantDAO();
         ParticipantRepositoryImpl repository = new ParticipantRepositoryImpl();
 
-        p = new Participant(1, "Dan Funk", "daniel.h.funk@gmail.com", false);
+        p = new PiParticipant(1, "Dan Funk", "daniel.h.funk@gmail.com", false);
         p.setPasswordToken(new PasswordToken());
 
         repository.domainToEntity(p, dao);
@@ -111,14 +115,14 @@ public class ParticipantRepositoryTest {
 
     @Test
     public void testPasswordIsEncryptedWhenStored() {
-        Participant p;
+        PiParticipant p;
         ParticipantDAO dao = new ParticipantDAO();
         ParticipantRepositoryImpl repository = new ParticipantRepositoryImpl();
         String password = "Abcdefg1#";
 
         StandardPasswordEncoder encoder = new StandardPasswordEncoder();
 
-        p = new Participant(1, "Dan Funk", "daniel.h.funk@gmail.com", false);
+        p = new PiParticipant(1, "Dan Funk", "daniel.h.funk@gmail.com", false);
         p.setPassword(password);
 
         repository.domainToEntity(p, dao);
@@ -139,12 +143,12 @@ public class ParticipantRepositoryTest {
 
     @Test
     public void testDomainToEntity() {
-        Participant p;
+        PiParticipant p;
         ParticipantDAO dao = new ParticipantDAO();
         ParticipantRepositoryImpl repository = new ParticipantRepositoryImpl();
         Study study = new CBMStudy(CBMStudy.NAME.SESSION1.toString(), 1, new Date(), new ArrayList<TaskLog>());
 
-        p = new Participant(1, "Dan Funk", "daniel.h.funk@gmail.com", false);
+        p = new PiParticipant(1, "Dan Funk", "daniel.h.funk@gmail.com", false);
         p.setStudy(study);
         p.setLastLoginDate(new Date());
 
@@ -169,7 +173,7 @@ public class ParticipantRepositoryTest {
     public void savedEmailLogSurfacesInReturnedParticipant() {
 
         ParticipantDAO participantDAO;
-        Participant p;
+        PiParticipant p;
         EmailLogDAO log;
         EmailLog log2;
 
@@ -208,7 +212,7 @@ public class ParticipantRepositoryTest {
     @Transactional
     public void giftLogSurfacesInReturnedParticipant() {
         ParticipantDAO participantDAO;
-        Participant p;
+        PiParticipant p;
         GiftLogDAO logDao;
         GiftLog log;
 
@@ -241,7 +245,7 @@ public class ParticipantRepositoryTest {
     @Transactional
     public void testFindByToken() {
         ParticipantDAO participantDAO;
-        Participant p, p2;
+        PiParticipant p, p2;
         PasswordTokenDAO token;
         String tokenString = "abcfedf";
 
@@ -268,12 +272,12 @@ public class ParticipantRepositoryTest {
     public void bugWhereParticipantSessionIsWonky() {
 
         ParticipantDAO dao;
-        Participant p;
+        PiParticipant p;
         Study study;
         String email = "john@x.com";
 
         // Create a participant
-        p = new Participant(1000000, email, "23452354", false);
+        p = new PiParticipant(1000000, email, "23452354", false);
         study = new CBMStudy(CBMStudy.NAME.PRE.toString(), 0, new Date(), p.getTaskLogs());
         p.setStudy(study);
 
@@ -318,16 +322,16 @@ public class ParticipantRepositoryTest {
     public void testEntityToDomainCorrectlySetsStudy() {
 
         ParticipantDAO dao;
-        Participant p;
+        PiParticipant p;
         ParticipantRepositoryImpl repository = new ParticipantRepositoryImpl();
 
         dao = new ParticipantDAO("Dan Funk", "dan@sartography.com", "password", false, "green");
 
-        dao.setCbmCondition(Participant.CBM_CONDITION.NEUTRAL);
+        dao.setCbmCondition(PiParticipant.CBM_CONDITION.NEUTRAL);
         p = repository.entityToDomain(dao);
         Assert.assertTrue(p.getStudy() instanceof CBMNeutralStudy);
 
-        dao.setCbmCondition(Participant.CBM_CONDITION.POSITIVE);
+        dao.setCbmCondition(PiParticipant.CBM_CONDITION.POSITIVE);
         p = repository.entityToDomain(dao);
         Assert.assertTrue(p.getStudy() instanceof CBMStudy);
     }

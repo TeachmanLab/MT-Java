@@ -19,14 +19,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
+import edu.virginia.psyc.mindtrails.domain.Session;
+import edu.virginia.psyc.mindtrails.domain.Study;
 
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -60,7 +60,7 @@ public class SessionController extends BaseController {
     @RequestMapping("")
     public String sessionHome(ModelMap model, Principal principal) throws Exception {
 
-        Participant p = getParticipant(principal);
+        PiParticipant p = getParticipant(principal);
         Study study = p.getStudy();
         Session session = study.getCurrentSession();
         Session last = study.getLastSession();
@@ -119,7 +119,7 @@ public class SessionController extends BaseController {
 
     @RequestMapping("/overview")
     public String overview(ModelMap model, Principal principal) {
-        Participant p = getParticipant(principal);
+        PiParticipant p = getParticipant(principal);
         Study study  = p.getStudy();
 
         model.addAttribute("participant", p);
@@ -133,7 +133,7 @@ public class SessionController extends BaseController {
     public String graph(ModelMap model, Principal principal) {
 
         ParticipantDAO dao = getParticipantDAO(principal.getName());
-        Participant p      = getParticipant(dao);
+        PiParticipant p      = getParticipant(dao);
         List<OA> oaList    = oaRepository.findByParticipantDAO(dao);
         List<List<Object>> points = new ArrayList();
         List<List<Object>> regressionPoints = new ArrayList();
@@ -192,7 +192,7 @@ public class SessionController extends BaseController {
     @RequestMapping("/next")
     public View nextStepInSession(ModelMap model, Principal principal) {
 
-        Participant p = getParticipant(principal);
+        PiParticipant p = getParticipant(principal);
         Study study = p.getStudy();
 
         // Re-direct to the next step the current session is in progress.
@@ -206,7 +206,7 @@ public class SessionController extends BaseController {
     @RequestMapping("/atRisk")
     public String atRisk(ModelMap model, Principal principal) {
 
-        Participant p = getParticipant(principal);
+        PiParticipant p = getParticipant(principal);
         Study study = p.getStudy();
         model.addAttribute("participant", p);
         model.addAttribute("study", study);

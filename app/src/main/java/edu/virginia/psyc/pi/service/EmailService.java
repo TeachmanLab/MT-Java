@@ -1,8 +1,7 @@
 package edu.virginia.psyc.pi.service;
 
 import edu.virginia.psyc.pi.domain.CBMStudy;
-import edu.virginia.psyc.pi.domain.Participant;
-import edu.virginia.psyc.pi.domain.Study;
+import edu.virginia.psyc.pi.domain.PiParticipant;
 import edu.virginia.psyc.pi.domain.tango.Reward;
 import edu.virginia.psyc.pi.persistence.EmailLogDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
@@ -18,12 +17,12 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
-
-import java.text.SimpleDateFormat;
-import java.util.List;
+import edu.virginia.psyc.mindtrails.domain.Study;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.text.SimpleDateFormat;
+import java.util.List;
 
 
 /**
@@ -130,7 +129,7 @@ public class EmailService {
     /*
   * Send HTML mail (simple)
   */
-    private void sendMail(Participant participant, TYPE type, Context ctx)
+    private void sendMail(PiParticipant participant, TYPE type, Context ctx)
             throws MessagingException {
 
         // Prepare the evaluation context
@@ -141,7 +140,7 @@ public class EmailService {
         sendMail(participant.getEmail(), participant.getId(), type, ctx);
     }
 
-    public void sendPasswordReset(Participant participant) throws MessagingException {
+    public void sendPasswordReset(PiParticipant participant) throws MessagingException {
         // Prepare the evaluation context
         final Context ctx = new Context();
         ctx.setVariable("token", participant.getPasswordToken().getToken());
@@ -149,7 +148,7 @@ public class EmailService {
         sendMail(participant, TYPE.resetPass, ctx);
     }
 
-    public void sendAtRiskAdminEmail(Participant participant, OA firstEntry, OA currentEntry) throws MessagingException {
+    public void sendAtRiskAdminEmail(PiParticipant participant, OA firstEntry, OA currentEntry) throws MessagingException {
 
         // Prepare the evaluation context
         final Context ctx = new Context();
@@ -178,7 +177,7 @@ public class EmailService {
         sendMail(this.adminTo, 0l, TYPE.exportError, ctx);
     }
 
-    public void sendGiftCardEmail(Participant participant, Reward reward, int amount) throws MessagingException {
+    public void sendGiftCardEmail(PiParticipant participant, Reward reward, int amount) throws MessagingException {
         // Prepare the evaluation context
         final Context ctx = new Context();
 
@@ -187,7 +186,7 @@ public class EmailService {
         sendMail(participant, TYPE.giftCard, ctx);
     }
 
-    public void sendSimpleMail(Participant participant, TYPE type) throws MessagingException {
+    public void sendSimpleMail(PiParticipant participant, TYPE type) throws MessagingException {
         // Prepare the evaluation context
         LOG.info("SENDING MAIL: " + participant.getEmail() + "\t" + type + "\t" + participant.isEmailOptout());
         final Context ctx = new Context();
@@ -217,7 +216,7 @@ public class EmailService {
     @Scheduled(cron = "0 0 2 * * *")  // schedules task for 2:00am every day.
     public void sendEmailReminder() throws MessagingException {
         List<ParticipantDAO> participants;
-        Participant participant;
+        PiParticipant participant;
 
         participants = participantRepository.findAll();
         TYPE type;
@@ -240,7 +239,7 @@ public class EmailService {
      * @param p
      * @return
      */
-    public TYPE getEmailToSend(Participant p) {
+    public TYPE getEmailToSend(PiParticipant p) {
         TYPE type = null;
 
         // Never send more than one email a day.

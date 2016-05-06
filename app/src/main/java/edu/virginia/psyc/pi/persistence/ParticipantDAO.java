@@ -1,7 +1,7 @@
 package edu.virginia.psyc.pi.persistence;
 
-import edu.virginia.psyc.pi.domain.Participant;
-import edu.virginia.psyc.pi.domain.Session;
+import edu.virginia.psyc.pi.domain.PiParticipant;
+import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
@@ -25,6 +25,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name="participant")
+@Data
 public class ParticipantDAO implements UserDetails {
 
     private static final Logger LOG = LoggerFactory.getLogger(ParticipantDAO.class);
@@ -38,34 +39,24 @@ public class ParticipantDAO implements UserDetails {
     private String email;
 
     private String password;
-
     private boolean admin;
-
     private boolean emailOptout;
-
     private boolean active;
-
     private boolean increase30;
-
     private Date          lastLoginDate;
-
     private Date          lastSessionDate;
-
     private String        randomToken;
-
     private String theme;
-
     private boolean over18;
-
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private PasswordTokenDAO  passwordTokenDAO;
 
     @Enumerated(EnumType.STRING)
-    private Participant.PRIME prime;
+    private PiParticipant.PRIME prime;
 
     @Enumerated(EnumType.STRING)
-    private Participant.CBM_CONDITION cbmCondition;
+    private PiParticipant.CBM_CONDITION cbmCondition;
 
     private String currentSession; // set to first session by default
 
@@ -104,19 +95,6 @@ public class ParticipantDAO implements UserDetails {
         this.theme = theme;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-
-    public String getPassword() {
-        return password;
-    }
-
     @Override
     public String getUsername() {
         return email;
@@ -140,58 +118,6 @@ public class ParticipantDAO implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public boolean isAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
-    }
-
-    public String getCurrentSession() {
-        return currentSession;
-    }
-
-    public void setCurrentSession(String currentSession) {
-        this.currentSession = currentSession;
-    }
-
-    public int getTaskIndex() {
-        return taskIndex;
-    }
-
-    public void setTaskIndex(int taskIndex) {
-        this.taskIndex = taskIndex;
-    }
-
-    public boolean isEmailOptout() {
-        return emailOptout;
-    }
-
-    public void setEmailOptout(boolean emailOptout) {
-        this.emailOptout = emailOptout;
     }
 
     public Collection<EmailLogDAO> getEmailLogDAOs() {
@@ -232,75 +158,6 @@ public class ParticipantDAO implements UserDetails {
         if(this.taskLogDAOs == null) this.taskLogDAOs = new ArrayList<TaskLogDAO>();
         this.taskLogDAOs.add(log);
     }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public Date getLastLoginDate() {
-        return lastLoginDate;
-    }
-
-    public void setLastLoginDate(Date lastLoginDate) {
-        this.lastLoginDate = lastLoginDate;
-    }
-
-    public Date getLastSessionDate() {
-        return lastSessionDate;
-    }
-
-    public void setLastSessionDate(Date lastSessionDate) {
-        this.lastSessionDate = lastSessionDate;
-    }
-
-    public PasswordTokenDAO getPasswordTokenDAO() {
-        return passwordTokenDAO;
-    }
-
-    public void setPasswordTokenDAO(PasswordTokenDAO passwordTokenDAO) {
-        this.passwordTokenDAO = passwordTokenDAO;
-    }
-
-    public Participant.PRIME getPrime() {
-        return prime;
-    }
-
-    public void setPrime(Participant.PRIME prime) {
-        this.prime = prime;
-    }
-
-    public Participant.CBM_CONDITION getCbmCondition() {
-        return cbmCondition;
-    }
-
-    public void setCbmCondition(Participant.CBM_CONDITION cbmCondition) {
-        this.cbmCondition = cbmCondition;
-    }
-
-
-    public String getTheme() {
-        return theme;
-    }
-
-    public void setTheme(String theme) {
-        this.theme = theme;
-    }
-
-    public boolean isOver18() {
-        return over18;
-    }
-
-    public void setOver18(boolean over18) {
-        this.over18 = over18;
-    }
-
-    public boolean isIncrease30() {return increase30;}
-
-    public void setIncrease30(boolean increase30) {this.increase30 = increase30;}
 
     @Override
     public String toString() {

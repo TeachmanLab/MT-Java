@@ -13,20 +13,20 @@ import java.util.List;
  */
 public class ParticipantForm {
 
-    private List<Participant> participants;
+    private List<PiParticipant> participants;
 
     private List<String> sessionNames;
 
-    public List<Participant> getParticipants() {
+    public List<PiParticipant> getParticipants() {
         return participants;
     }
 
-    public void setParticipants(List<Participant> participants) {
+    public void setParticipants(List<PiParticipant> participants) {
         this.participants = participants;
     }
 
-    public void add(Participant p) {
-        if(null == this.participants) this.participants = new ArrayList<Participant>();
+    public void add(PiParticipant p) {
+        if(null == this.participants) this.participants = new ArrayList<PiParticipant>();
         this.participants.add(p);
     }
 
