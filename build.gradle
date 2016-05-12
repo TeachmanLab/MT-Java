@@ -25,6 +25,11 @@ subprojects {
 
     dependencies {
         compile("org.projectlombok:lombok:1.16.4")  // avoid boiler plate constructors, getter/setter, hash, toString
+        compile("org.springframework.boot:spring-boot-starter-data-jpa")
+        compile("org.springframework:spring-jdbc")
+        compile("org.springframework.security:spring-security-web")
+        compile("org.springframework.security:spring-security-config")
+
     }
 }
 
