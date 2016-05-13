@@ -1,5 +1,7 @@
-package edu.virginia.psyc.mindtrails.domain;
+package edu.virginia.psyc.mindtrails.domain.tracking;
 
+import edu.virginia.psyc.mindtrails.domain.BaseStudy;
+import edu.virginia.psyc.mindtrails.domain.Study;
 import lombok.Data;
 
 import javax.persistence.*;

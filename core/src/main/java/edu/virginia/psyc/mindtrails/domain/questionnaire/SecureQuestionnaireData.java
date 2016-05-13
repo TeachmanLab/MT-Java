@@ -1,9 +1,11 @@
-package edu.virginia.psyc.pi.persistence.Questionnaire;
+package edu.virginia.psyc.mindtrails.domain.questionnaire;
 
 import edu.virginia.psyc.mindtrails.domain.Exportable;
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Lob;
+import javax.persistence.MappedSuperclass;
 
 /**
  * Created a secure Questionnaire with an ecnrypted link to the Participant.

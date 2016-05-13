@@ -1,6 +1,6 @@
 package edu.virginia.psyc.pi.service;
 
-import edu.virginia.psyc.mindtrails.domain.GiftLog;
+import edu.virginia.psyc.mindtrails.domain.tracking.GiftLog;
 import edu.virginia.psyc.mindtrails.domain.Participant;
 import edu.virginia.psyc.mindtrails.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.domain.tango.*;

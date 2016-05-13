@@ -1,4 +1,4 @@
-package edu.virginia.psyc.pi.DAO;
+package edu.virginia.psyc.pi.MockClasses;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -16,4 +16,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * Additional methods will be provided automatically by following a standard
  * naming convention, as is the case with findByEmailAddress
  */
-public interface TestQuestionnaireRepository extends JpaRepository<TestQuestionnaire, Long> {}
+public interface TestUndeleteableRepository extends JpaRepository<TestUndeleteable, Long> {}
+    

@@ -1,4 +1,4 @@
-package edu.virginia.psyc.pi.persistence.Questionnaire;
+package edu.virginia.psyc.mindtrails.domain.questionnaire;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import edu.virginia.psyc.mindtrails.domain.Exportable;

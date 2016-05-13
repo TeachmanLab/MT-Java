@@ -1,6 +1,9 @@
-package edu.virginia.psyc.mindtrails.domain;
+package edu.virginia.psyc.mindtrails.domain.tracking;
 
 import com.fasterxml.jackson.annotation.*;
+import edu.virginia.psyc.mindtrails.domain.DoNotDelete;
+import edu.virginia.psyc.mindtrails.domain.Exportable;
+import edu.virginia.psyc.mindtrails.domain.Participant;
 import lombok.Data;
 
 import javax.persistence.*;

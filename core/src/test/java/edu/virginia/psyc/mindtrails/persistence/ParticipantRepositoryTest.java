@@ -1,8 +1,8 @@
 package edu.virginia.psyc.mindtrails.persistence;
 
 import edu.virginia.psyc.mindtrails.Application;
-import edu.virginia.psyc.mindtrails.domain.EmailLog;
-import edu.virginia.psyc.mindtrails.domain.GiftLog;
+import edu.virginia.psyc.mindtrails.domain.tracking.EmailLog;
+import edu.virginia.psyc.mindtrails.domain.tracking.GiftLog;
 import edu.virginia.psyc.mindtrails.domain.Participant;
 import edu.virginia.psyc.mindtrails.domain.PasswordToken;
 import org.junit.Assert;

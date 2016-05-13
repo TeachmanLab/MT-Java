@@ -1,14 +1,17 @@
 package edu.virginia.psyc.pi.controller;
 
+import edu.virginia.psyc.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 import edu.virginia.psyc.mindtrails.domain.Participant;
+import edu.virginia.psyc.mindtrails.domain.questionnaire.QuestionnaireData;
 import edu.virginia.psyc.mindtrails.domain.RestExceptions.NoModelForFormException;
+import edu.virginia.psyc.mindtrails.domain.questionnaire.SecureQuestionnaireData;
 import edu.virginia.psyc.mindtrails.persistence.ParticipantRepository;
 import edu.virginia.psyc.mindtrails.service.RsaEncryptionService;
 import edu.virginia.psyc.pi.domain.PiParticipant;
 import edu.virginia.psyc.pi.persistence.PiParticipantRepository;
 import edu.virginia.psyc.pi.persistence.Questionnaire.*;
-import edu.virginia.psyc.pi.service.EmailService;
-import edu.virginia.psyc.pi.service.ExportService;
+import edu.virginia.psyc.pi.service.PiEmailService;
+import edu.virginia.psyc.mindtrails.service.ExportService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +68,7 @@ public class QuestionController extends BaseController {
     private PiParticipantRepository piParticipantRepository;
 
     @Autowired
-    private EmailService emailService;
+    private PiEmailService emailService;
 
     /**
      * ImageryPrime

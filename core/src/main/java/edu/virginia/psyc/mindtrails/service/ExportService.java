@@ -1,10 +1,10 @@
-package edu.virginia.psyc.pi.service;
+package edu.virginia.psyc.mindtrails.service;
 
 import edu.virginia.psyc.mindtrails.domain.DoNotDelete;
+import edu.virginia.psyc.mindtrails.domain.tracking.ExportLog;
 import edu.virginia.psyc.mindtrails.domain.Exportable;
-import edu.virginia.psyc.pi.domain.QuestionnaireInfo;
-import edu.virginia.psyc.pi.persistence.ExportLogDAO;
-import edu.virginia.psyc.pi.persistence.ExportLogRepository;
+import edu.virginia.psyc.mindtrails.domain.questionnaire.QuestionnaireInfo;
+import edu.virginia.psyc.mindtrails.persistence.ExportLogRepository;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 import org.slf4j.Logger;
@@ -18,7 +18,6 @@ import org.springframework.data.repository.support.Repositories;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import javax.mail.MessagingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +25,12 @@ import java.util.List;
 /**
  * Keeps track of when the export service was last used, and how many records exist in the database.
  * Used by controllers if we need to disable log-ins to the site because the data is not getting exported
- * from the system on a regular basis.
+ * from the system on a regular basis.  It also provides all the tools needed by the controllers
+ * to gather a list of exportable entries.  Further, it maintains scheduled tasks to assure that
+ * administrators are notified in exports are not occuring on a regular schedule.  This last item is
+ * required in cases where sensitive data should not be allowed to exist on the server for more than
+ * a very brief period of time.
+ *
  */
 @Service
 public class ExportService implements ApplicationListener<ContextRefreshedEvent> {
@@ -83,7 +87,7 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
         return sum;
     }
 
-    private ExportLogDAO lastExport() {
+    private ExportLog lastExport() {
        return exportLogRepository.findFirstByOrderByIdDesc();
     }
 
@@ -94,7 +98,6 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
      * if it can't find a repository by name.
      */
     public JpaRepository getRepositoryForName(String name) {
-        LOG.info("Looking for a repository for " + name);
         Class<?> domainType = getDomainType(name);
         if (domainType != null)
             return (JpaRepository) repositories.getRepositoryFor(domainType);
@@ -147,11 +150,11 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
     }
 
     /** Every 30 minutes:
-     * If it's been more than 30 minutes (but less than 2 hours) since the least eport, notify
+     * If it's been more than 30 minutes (but less than 2 hours) since the least export, notify
      * the admin of this fact.
      */
     @Scheduled(cron = "0 0,30 * * * *")
-    public void send30MinAlert() throws MessagingException {
+    public void send30MinAlert() {
         LOG.debug("Running 30 minute alert.");
         long minutesSinceLastExport = minutesSinceLastExport();
         int totalRecords = totalDeleteableRecords();
@@ -166,7 +169,7 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
      *    send alerts every 2 hours if no exports are occurring.
      */
     @Scheduled(cron = "0 0 */2 * * *")
-    public void send2hrAlert() throws MessagingException {
+    public void send2hrAlert() {
         LOG.debug("Running 2hr alert.");
         long minutesSinceLastExport = minutesSinceLastExport();
         int totalRecords = totalDeleteableRecords();
@@ -181,7 +184,7 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
      *    b) If it's been more than 24 hours since the last export, alert the admin of this fact.
      */
     @Scheduled(cron = "0 0 */4 * * *")
-    public void send4hrAlert() throws MessagingException {
+    public void send4hrAlert() {
         LOG.debug("Running 4 hour alert.");
         long minutesSinceLastExport = minutesSinceLastExport();
         int totalRecords = totalDeleteableRecords();

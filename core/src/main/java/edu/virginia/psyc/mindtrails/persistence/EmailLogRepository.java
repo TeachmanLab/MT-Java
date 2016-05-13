@@ -1,6 +1,6 @@
 package edu.virginia.psyc.mindtrails.persistence;
 
-import edu.virginia.psyc.mindtrails.domain.EmailLog;
+import edu.virginia.psyc.mindtrails.domain.tracking.EmailLog;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

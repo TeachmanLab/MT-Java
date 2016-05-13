@@ -1,4 +1,4 @@
-package edu.virginia.psyc.pi.persistence.Questionnaire;
+package edu.virginia.psyc.mindtrails.domain.questionnaire;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;

@@ -2,7 +2,7 @@ package edu.virginia.psyc.pi.domain;
 
 import edu.virginia.psyc.mindtrails.domain.Study;
 import edu.virginia.psyc.mindtrails.domain.Task;
-import edu.virginia.psyc.mindtrails.domain.TaskLog;
+import edu.virginia.psyc.mindtrails.domain.tracking.TaskLog;
 import lombok.Data;
 
 import javax.persistence.DiscriminatorValue;

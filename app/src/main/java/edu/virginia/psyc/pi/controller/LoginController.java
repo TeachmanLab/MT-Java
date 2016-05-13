@@ -9,7 +9,7 @@ import edu.virginia.psyc.pi.domain.ParticipantForm;
 import edu.virginia.psyc.pi.domain.PiParticipant;
 import edu.virginia.psyc.pi.persistence.Questionnaire.DASS21_AS;
 import edu.virginia.psyc.pi.persistence.Questionnaire.DASS21_ASRepository;
-import edu.virginia.psyc.pi.service.EmailService;
+import edu.virginia.psyc.pi.service.PiEmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +48,7 @@ public class LoginController extends BaseController {
     private static final String DASS21_SESSION = "dass21";
 
     @Autowired
-    private EmailService emailService;
+    private PiEmailService emailService;
 
     @Autowired
     private DASS21_ASRepository dass21_asRepository;

@@ -10,8 +10,8 @@ import edu.virginia.psyc.pi.domain.tango.Reward;
 import edu.virginia.psyc.pi.persistence.PiParticipantRepository;
 import edu.virginia.psyc.pi.persistence.Questionnaire.OA;
 import edu.virginia.psyc.pi.persistence.Questionnaire.OARepository;
-import edu.virginia.psyc.pi.service.EmailService;
-import edu.virginia.psyc.pi.service.ExportService;
+import edu.virginia.psyc.pi.service.PiEmailService;
+import edu.virginia.psyc.mindtrails.service.ExportService;
 import edu.virginia.psyc.pi.service.TangoService;
 import org.apache.commons.math3.stat.regression.SimpleRegression;
 import org.joda.time.DateTime;
@@ -45,7 +45,7 @@ public class SessionController extends BaseController {
     private static final Logger LOG = LoggerFactory.getLogger(SessionController.class);
 
     @Autowired private TangoService tangoService;
-    @Autowired private EmailService emailService;
+    @Autowired private PiEmailService emailService;
     @Autowired private OARepository oaRepository;
     @Autowired private ExportService exportService;
     @Autowired private PiParticipantRepository piParticipantRepository;

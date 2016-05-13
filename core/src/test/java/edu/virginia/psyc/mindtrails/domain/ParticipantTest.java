@@ -1,5 +1,7 @@
 package edu.virginia.psyc.mindtrails.domain;
 
+import edu.virginia.psyc.mindtrails.MockClasses.TestStudy;
+import edu.virginia.psyc.mindtrails.domain.tracking.EmailLog;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.junit.Test;

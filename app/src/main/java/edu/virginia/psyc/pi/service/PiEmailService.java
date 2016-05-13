@@ -1,9 +1,10 @@
 package edu.virginia.psyc.pi.service;
 
-import edu.virginia.psyc.mindtrails.domain.EmailLog;
+import edu.virginia.psyc.mindtrails.domain.tracking.EmailLog;
 import edu.virginia.psyc.mindtrails.domain.Participant;
 import edu.virginia.psyc.mindtrails.domain.Study;
 import edu.virginia.psyc.mindtrails.persistence.ParticipantRepository;
+import edu.virginia.psyc.mindtrails.service.EmailService;
 import edu.virginia.psyc.pi.domain.CBMStudy;
 import edu.virginia.psyc.pi.domain.tango.Reward;
 import edu.virginia.psyc.pi.persistence.Questionnaire.OA;
@@ -34,8 +35,8 @@ import java.util.List;
  * This is tightly coupled to html files in resources/templates/email
  */
 @Service
-public class EmailService {
-    private static final Logger LOG = LoggerFactory.getLogger(EmailService.class);
+public class PiEmailService implements EmailService {
+    private static final Logger LOG = LoggerFactory.getLogger(PiEmailService.class);
 
     /**
      * Each of these types should have a coresponding template in resources/templates/email
@@ -165,15 +166,19 @@ public class EmailService {
      * Sends an alert message to an administrative account, letting them know about a problem with the system.
      * @param alertMessage
      */
-    public void sendExportAlertEmail(String alertMessage) throws MessagingException {
+    public void sendExportAlertEmail(String alertMessage) {
         // Prepare the evaluation context
         final Context ctx = new Context();
 
         ctx.setVariable("name", "PIMH-CBM Administrator");
         ctx.setVariable("url", this.siteUrl);
         ctx.setVariable("respondTo", this.respondTo);
-            ctx.setVariable("message", alertMessage);
-        sendMail(this.adminTo, 0l, TYPE.exportError, ctx);
+        ctx.setVariable("message", alertMessage);
+        try {
+            sendMail(this.adminTo, 0l, TYPE.exportError, ctx);
+        } catch (MessagingException e) {
+            LOG.error("Encountered a error sending an alert message" + e.getMessage());
+        }
     }
 
     public void sendGiftCardEmail(Participant participant, Reward reward, int amount) throws MessagingException {

@@ -1,6 +1,10 @@
-package edu.virginia.psyc.mindtrails.domain;
+package edu.virginia.psyc.mindtrails.MockClasses;
 
 
+import edu.virginia.psyc.mindtrails.domain.BaseStudy;
+import edu.virginia.psyc.mindtrails.domain.Session;
+import edu.virginia.psyc.mindtrails.domain.Study;
+import edu.virginia.psyc.mindtrails.domain.Task;
 import lombok.Data;
 
 import javax.persistence.DiscriminatorValue;

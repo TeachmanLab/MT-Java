@@ -11,8 +11,8 @@ import edu.virginia.psyc.pi.domain.tango.Reward;
 import edu.virginia.psyc.pi.persistence.PiParticipantRepository;
 import edu.virginia.psyc.pi.persistence.Questionnaire.OA;
 import edu.virginia.psyc.pi.persistence.TrialRepository;
-import edu.virginia.psyc.pi.service.EmailService;
-import edu.virginia.psyc.pi.service.ExportService;
+import edu.virginia.psyc.pi.service.PiEmailService;
+import edu.virginia.psyc.mindtrails.service.ExportService;
 import edu.virginia.psyc.pi.service.TangoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,7 +45,7 @@ public class AdminController extends BaseController {
     private static final int PER_PAGE=20; // Number of users to display per page.
 
     @Autowired
-    private EmailService emailService;
+    private PiEmailService emailService;
 
     @Autowired
     private TrialRepository trialRepository;
@@ -210,14 +210,14 @@ public class AdminController extends BaseController {
 
     @RequestMapping(value="/sendEmail/{type}")
     public String sendEmail(ModelMap model, Principal principal,
-                            @PathVariable("type") EmailService.TYPE type) throws Exception {
+                            @PathVariable("type") PiEmailService.TYPE type) throws Exception {
         Participant p = participantRepository.findByEmail(principal.getName());
 
-        if(type.equals(EmailService.TYPE.giftCard)) {
+        if(type.equals(PiEmailService.TYPE.giftCard)) {
             // Reward reward = tangoService.createGiftCard(p);  This would actually award a gift card, if you need to do some testing.
             Reward reward = new Reward("111-111-111-111", "1234-2345-2345", "123", "https://www.google.com", "12345");
             this.emailService.sendGiftCardEmail(p, reward, 100);
-        } else if(type.equals(EmailService.TYPE.alertAdmin)) {
+        } else if(type.equals(PiEmailService.TYPE.alertAdmin)) {
             OA d1 = new OA(1,2,3,4,5);
             OA d2 = new OA(3,3,4,5,5);
             this.emailService.sendAtRiskAdminEmail(p, d1, d2);

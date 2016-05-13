@@ -1,4 +1,4 @@
-package edu.virginia.psyc.pi.domain;
+package edu.virginia.psyc.mindtrails.domain.questionnaire;
 
 import lombok.Data;
 

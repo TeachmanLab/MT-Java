@@ -1,10 +1,11 @@
-package edu.virginia.psyc.pi.DAO;
+package edu.virginia.psyc.mindtrails.MockClasses;
 
-import edu.virginia.psyc.pi.persistence.Questionnaire.SecureQuestionnaireData;
+import edu.virginia.psyc.mindtrails.domain.questionnaire.SecureQuestionnaireData;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,5 +23,11 @@ public class TestQuestionnaire extends SecureQuestionnaireData {
     @CollectionTable(name = "TestMultiValue", joinColumns = @JoinColumn(name = "id"))
     @Column(name = "multiValue")
     private List<String> multiValue;
+
+    public TestQuestionnaire() {}
+    public TestQuestionnaire(String value) {
+        this.value = value;
+        this.date = new Date();
+    }
 
 }

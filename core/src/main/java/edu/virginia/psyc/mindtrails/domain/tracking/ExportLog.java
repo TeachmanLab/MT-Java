@@ -1,8 +1,11 @@
-package edu.virginia.psyc.pi.persistence;
+package edu.virginia.psyc.mindtrails.domain.tracking;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 
 /**
@@ -15,7 +18,7 @@ import java.util.Date;
 @Entity
 @Table(name="export_log")
 @Data
-public class ExportLogDAO {
+public class ExportLog {
 
     @Id
     @GeneratedValue
@@ -23,9 +26,9 @@ public class ExportLogDAO {
     private Date date;
     private int totalRecords;
 
-    public ExportLogDAO() {}
+    public ExportLog() {}
 
-    public ExportLogDAO(int totalRecords) {
+    public ExportLog(int totalRecords) {
         this.totalRecords = totalRecords;
         this.date = new Date();
     }

@@ -3,7 +3,7 @@ package edu.virginia.psyc.pi.controller;
 import edu.virginia.psyc.mindtrails.domain.Session;
 import edu.virginia.psyc.mindtrails.domain.Study;
 import edu.virginia.psyc.mindtrails.domain.Task;
-import edu.virginia.psyc.mindtrails.domain.TaskLog;
+import edu.virginia.psyc.mindtrails.domain.tracking.TaskLog;
 import edu.virginia.psyc.pi.domain.CBMStudy;
 import org.joda.time.DateTime;
 import org.joda.time.Period;

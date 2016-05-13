@@ -1,6 +1,8 @@
 package edu.virginia.psyc.pi.domain;
 
 import edu.virginia.psyc.mindtrails.domain.*;
+import edu.virginia.psyc.mindtrails.domain.tracking.GiftLog;
+import edu.virginia.psyc.mindtrails.domain.tracking.TaskLog;
 import lombok.Data;
 
 import javax.persistence.*;
