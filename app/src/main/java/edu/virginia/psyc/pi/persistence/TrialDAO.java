@@ -1,7 +1,6 @@
 package edu.virginia.psyc.pi.persistence;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import edu.virginia.psyc.pi.domain.Exportable;
+import edu.virginia.psyc.mindtrails.domain.Exportable;
 import edu.virginia.psyc.pi.domain.json.TrialJson;
 import lombok.Data;
 

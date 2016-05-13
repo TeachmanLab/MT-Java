@@ -4,10 +4,7 @@ import lombok.Data;
 import org.hibernate.validator.constraints.Email;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -26,7 +23,7 @@ public class ParticipantUpdateForm {
     @NotNull
     private String email;
 
-    private boolean        emailOptout = false;  // User required to receive no more emails.
+    private boolean emailOptout = false;  // User required to receive no more emails.
 
     private String theme;
 

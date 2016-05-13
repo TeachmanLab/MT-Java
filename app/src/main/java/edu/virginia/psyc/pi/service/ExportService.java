@@ -1,7 +1,7 @@
 package edu.virginia.psyc.pi.service;
 
-import edu.virginia.psyc.pi.domain.DoNotDelete;
-import edu.virginia.psyc.pi.domain.Exportable;
+import edu.virginia.psyc.mindtrails.domain.DoNotDelete;
+import edu.virginia.psyc.mindtrails.domain.Exportable;
 import edu.virginia.psyc.pi.domain.QuestionnaireInfo;
 import edu.virginia.psyc.pi.persistence.ExportLogDAO;
 import edu.virginia.psyc.pi.persistence.ExportLogRepository;

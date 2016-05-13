@@ -1,11 +1,9 @@
 package edu.virginia.psyc.pi.domain;
 
+import edu.virginia.psyc.mindtrails.domain.*;
 import lombok.Data;
-import edu.virginia.psyc.mindtrails.domain.Participant;
-import edu.virginia.psyc.mindtrails.domain.Session;
-import edu.virginia.psyc.mindtrails.domain.participant.GiftLog;
-import edu.virginia.psyc.mindtrails.domain.participant.TaskLog;
 
+import javax.persistence.*;
 import java.util.*;
 
 /**
@@ -20,15 +18,16 @@ import java.util.*;
  * This is also used for displaying details about the Participant, and for housing
  * general business logic specific to the Participant.
  */
+@Entity
+@Table(name = "participant")
 @Data
 public class PiParticipant extends Participant {
 
-    private long id;
-
     public enum CBM_CONDITION {FIFTY_FIFTY, POSITIVE, NEUTRAL}
     public enum PRIME {NEUTRAL, ANXIETY}
-    private boolean        increase30 = false;
 
+
+    private boolean        increase30 = false;
     private CBM_CONDITION  cbmCondition;
     private PRIME          prime;
 
@@ -38,8 +37,8 @@ public class PiParticipant extends Participant {
         this.setStudy(cbmCondition, CBMStudy.NAME.ELIGIBLE.toString(), 0, null, new ArrayList<TaskLog>());
     }
 
-    public PiParticipant(long id, String fullName, String email, boolean admin) {
-        super(id, fullName, email, admin);
+    public PiParticipant(String fullName, String email, boolean admin) {
+        super(fullName, email, admin);
 
         cbmCondition = randomCondition();
         prime        = randomPrime();
@@ -81,7 +80,7 @@ public class PiParticipant extends Participant {
     }
 
     public boolean giftAwardedForSession(Session s) {
-        for(GiftLog log : giftLogs) {
+        for(GiftLog log : this.getGiftLogs()) {
             if (log.getSessionName().equals(s.getName())) {
                 return true;
             }
@@ -98,7 +97,5 @@ public class PiParticipant extends Participant {
                 !this.getStudy().getCurrentSession().getName().equals(CBMStudy.NAME.POST.toString()) &&
                 !this.getStudy().getCurrentSession().getName().equals(CBMStudy.NAME.SESSION1.toString()));
     }
-
-
 
 }

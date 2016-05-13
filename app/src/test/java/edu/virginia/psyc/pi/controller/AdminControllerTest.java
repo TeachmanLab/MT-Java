@@ -1,8 +1,9 @@
 package edu.virginia.psyc.pi.controller;
 
+import edu.virginia.psyc.mindtrails.domain.Participant;
+import edu.virginia.psyc.mindtrails.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.Application;
-import edu.virginia.psyc.pi.persistence.ParticipantDAO;
-import edu.virginia.psyc.pi.persistence.ParticipantRepository;
+import edu.virginia.psyc.pi.domain.PiParticipant;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +12,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.security.web.FilterChainProxy;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -20,7 +22,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.util.Arrays;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -34,6 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
+@ActiveProfiles("test")
 public class AdminControllerTest {
 
 
@@ -66,9 +69,9 @@ public class AdminControllerTest {
     @Test
     public void testAdminListUsers() throws Exception {
 
-        ParticipantDAO p1 = new ParticipantDAO( "Dan Funk", "daniel.h.funk@gmail.com", "bla", false, "green");
-        ParticipantDAO p2 = new ParticipantDAO( "John Smith", "john.h.funk@gmail.com", "bla2", false, "green");
-        ParticipantDAO p3 = new ParticipantDAO( "Frank Jones", "frank.h.funk@gmail.com", "bla3", false, "green");
+        Participant p1 = new PiParticipant( "Dan Funk", "daniel.h.funk@gmail.com", false);
+        Participant p2 = new PiParticipant( "John Smith", "john.h.funk@gmail.com", false);
+        Participant p3 = new PiParticipant( "Frank Jones", "frank.h.funk@gmail.com", false);
 
         when(participantRepository.findAll()).thenReturn(Arrays.asList(p1,p2,p3));
 

@@ -1,7 +1,6 @@
 package edu.virginia.psyc.pi.DAO;
 
 import edu.virginia.psyc.pi.Application;
-import edu.virginia.psyc.pi.persistence.DataDAO;
 import edu.virginia.psyc.pi.persistence.TrialDAO;
 import edu.virginia.psyc.pi.persistence.TrialRepository;
 import org.junit.Assert;
@@ -9,10 +8,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +26,7 @@ import java.util.Map;
 @Transactional
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
+@ActiveProfiles("test")
 public class TrialRepositoryTest {
 
     @Autowired

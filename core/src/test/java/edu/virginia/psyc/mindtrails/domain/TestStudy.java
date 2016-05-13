@@ -1,20 +1,20 @@
 package edu.virginia.psyc.mindtrails.domain;
 
-import edu.virginia.psyc.mindtrails.domain.participant.TaskLog;
 
+import lombok.Data;
+
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
  * A barebones implementation of Study to aid in testing other structures.
  */
+@Entity
+@Data
+@DiscriminatorValue("Test Study")
 public class TestStudy extends BaseStudy implements Study {
-
-
-    public TestStudy(String currentName, int taskIndex, Date lastSessionDate, List<TaskLog> taskLogs) {
-        super(currentName, taskIndex, lastSessionDate, taskLogs);
-    }
 
     @Override
     public List<Session> getSessions() {

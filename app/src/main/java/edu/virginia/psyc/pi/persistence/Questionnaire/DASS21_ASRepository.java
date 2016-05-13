@@ -1,12 +1,7 @@
 package edu.virginia.psyc.pi.persistence.Questionnaire;
 
-import edu.virginia.psyc.pi.persistence.ParticipantDAO;
-import edu.virginia.psyc.pi.persistence.Questionnaire.DASS21_AS;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+
+import edu.virginia.psyc.mindtrails.domain.Participant;
 
 import java.util.List;
 
@@ -26,6 +21,6 @@ import java.util.List;
  */
 public interface DASS21_ASRepository extends QuestionnaireRepository<DASS21_AS> {
 
-    List<DASS21_AS> findByParticipantDAO(ParticipantDAO p);
+    List<DASS21_AS> findByParticipant(Participant p);
 
 }

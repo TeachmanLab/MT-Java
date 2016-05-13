@@ -1,13 +1,14 @@
 package edu.virginia.psyc.pi.domain;
 
+import edu.virginia.psyc.mindtrails.domain.*;
+import lombok.Data;
 import org.slf4j.LoggerFactory;
-import edu.virginia.psyc.mindtrails.domain.BaseStudy;
-import edu.virginia.psyc.mindtrails.domain.Session;
-import edu.virginia.psyc.mindtrails.domain.Study;
-import edu.virginia.psyc.mindtrails.domain.Task;
-import edu.virginia.psyc.mindtrails.domain.participant.TaskLog;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -18,6 +19,10 @@ import java.util.List;
  * Time: 8:21 AM
  * The Participants progress through a series of sessions
  */
+@Entity
+@Table(name = "study")
+@Data
+@DiscriminatorValue("CBM")
 public class CBMStudy extends BaseStudy implements Study {
 
 
@@ -32,7 +37,9 @@ public class CBMStudy extends BaseStudy implements Study {
         ELIGIBLE, PRE, SESSION1, SESSION2, SESSION3, SESSION4, SESSION5, SESSION6, SESSION7, SESSION8, POST, COMPLETE
     }
 
-    public CBMStudy(String currentName, int taskIndex, Date lastSessionDate, List<TaskLog> taskLogs) {
+    public CBMStudy() {}
+
+    public CBMStudy(String currentName, int taskIndex, Date lastSessionDate, Collection<TaskLog> taskLogs) {
         super(currentName, taskIndex, lastSessionDate, taskLogs);
     }
 
@@ -53,7 +60,7 @@ public class CBMStudy extends BaseStudy implements Study {
         boolean current = false;
         boolean gift;
         Session session;
-        NAME  curName = NAME.valueOf(currentName);
+        NAME  curName = NAME.valueOf(this.currentSession);
 
         for (NAME name : NAME.values()) {
             if (name == curName) {
@@ -63,7 +70,7 @@ public class CBMStudy extends BaseStudy implements Study {
             gift = false;
             if(giftAmountCents(name) > 0) gift = true;
             if (!name.equals(NAME.ELIGIBLE)) {
-                session = new Session(calcIndex(name), name.toString(), calculateDisplayName(name), completed, current, giftAmountCents(name), getTasks(name, taskIndex));
+                session = new Session(calcIndex(name), name.toString(), calculateDisplayName(name), completed, current, giftAmountCents(name), getTasks(name, currentTaskIndex));
                 sessions.add(session);
             }
             current = false;  // only one can be current.
@@ -276,7 +283,7 @@ public class CBMStudy extends BaseStudy implements Study {
             return STUDY_STATE.ALL_DONE;
         }
 
-        if (taskIndex != 0) return STUDY_STATE.IN_PROGRESS;
+        if (currentTaskIndex != 0) return STUDY_STATE.IN_PROGRESS;
 
         // Pre Assessment, Session 1, and 'Complete' can be accessed immediately.
         if(getCurrentSession().getName().equals(NAME.PRE.toString()) ||

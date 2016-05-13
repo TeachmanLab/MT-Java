@@ -1,21 +1,23 @@
 package edu.virginia.psyc.pi.controller;
 
-import edu.virginia.psyc.pi.persistence.ParticipantDAO;
+import edu.virginia.psyc.mindtrails.domain.Participant;
+import edu.virginia.psyc.pi.domain.PiParticipant;
+
 
 /**
  * Just some common tools for executing tests.
  */
 public class BaseControllerTest {
 
-    ParticipantDAO getUser() {
-        ParticipantDAO dao = new ParticipantDAO("John", "js@st.com","1234", false, "blue");
-        dao.setCurrentSession("PRE");
-        return dao;
+    Participant getUser() {
+        Participant p = new PiParticipant("John", "js@st.com", false);
+        p.getStudy().forceToSession("PRE");
+        return p;
     }
 
-    ParticipantDAO getAdmin() {
-        ParticipantDAO dao = new ParticipantDAO("JohnAdmin", "js@st.com","1234", true, "blue");
-        dao.setCurrentSession("PRE");
-        return dao;
+    Participant getAdmin() {
+        Participant p = new PiParticipant("JohnAdmin", "js@st.com", true);
+        p.getStudy().forceToSession("PRE");
+        return p;
     }
 }

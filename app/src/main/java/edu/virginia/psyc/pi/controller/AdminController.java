@@ -1,15 +1,17 @@
 package edu.virginia.psyc.pi.controller;
 
-import edu.virginia.psyc.pi.domain.PiParticipant;
+import edu.virginia.psyc.mindtrails.domain.Participant;
+import edu.virginia.psyc.mindtrails.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.domain.ParticipantForm;
-import edu.virginia.psyc.pi.domain.tango.*;
+import edu.virginia.psyc.pi.domain.ParticipantListForm;
+import edu.virginia.psyc.pi.domain.PiParticipant;
+import edu.virginia.psyc.pi.domain.tango.Account;
+import edu.virginia.psyc.pi.domain.tango.Order;
 import edu.virginia.psyc.pi.domain.tango.Reward;
-import edu.virginia.psyc.pi.persistence.ParticipantDAO;
-import edu.virginia.psyc.pi.persistence.ParticipantRepository;
+import edu.virginia.psyc.pi.persistence.PiParticipantRepository;
 import edu.virginia.psyc.pi.persistence.Questionnaire.OA;
 import edu.virginia.psyc.pi.persistence.TrialRepository;
 import edu.virginia.psyc.pi.service.EmailService;
-import edu.virginia.psyc.pi.domain.tango.Account;
 import edu.virginia.psyc.pi.service.ExportService;
 import edu.virginia.psyc.pi.service.TangoService;
 import org.slf4j.Logger;
@@ -21,12 +23,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -49,6 +49,9 @@ public class AdminController extends BaseController {
 
     @Autowired
     private TrialRepository trialRepository;
+
+    @Autowired
+    private PiParticipantRepository piParticipantRepository;
 
     @Autowired
     private TangoService tangoService;
@@ -76,10 +79,10 @@ public class AdminController extends BaseController {
                             final @RequestParam(value = "search", required = false, defaultValue = "") String search,
                             final @RequestParam(value = "page", required = false, defaultValue = "0") String pageParam) {
 
-        PiParticipant p = getParticipant(principal);
+        Participant p = getParticipant(principal);
 
-        ParticipantForm form;
-        Page<ParticipantDAO> daoList;
+        ParticipantListForm form;
+        Page<Participant> daoList;
         PageRequest pageRequest;
 
         int page = Integer.parseInt(pageParam);
@@ -92,10 +95,9 @@ public class AdminController extends BaseController {
             daoList = participantRepository.search(search, pageRequest);
         }
 
-        form = new ParticipantForm();
-        for(ParticipantDAO dao : daoList) {
-            form.add(participantRepository.entityToDomain(dao));
-            form.add(dao.getCurrentSession());
+        form = new ParticipantListForm();
+        for(Participant participant : daoList) {
+            form.add(participant.getStudy().getCurrentSession().getName());
         }
 
         model.addAttribute("hideAccountBar", true);
@@ -109,8 +111,8 @@ public class AdminController extends BaseController {
     @RequestMapping(value="/participant/{id}", method=RequestMethod.GET)
     public String showForm(ModelMap model,
                            @PathVariable("id") long id) {
-        PiParticipant p;
-        p = participantRepository.entityToDomain(participantRepository.findOne(id));
+        Participant p;
+        p = participantRepository.findOne(id);
 
         model.addAttribute("hideAccountBar", true);
         model.addAttribute("participant", p);
@@ -119,32 +121,30 @@ public class AdminController extends BaseController {
 
     @RequestMapping(value="/updateParticipants", method=RequestMethod.POST)
     public String updateParticipants(ModelMap model,
-                                     @ModelAttribute("participants") ParticipantForm participantForm) {
+                                     @ModelAttribute("participants") ParticipantListForm participantForm) {
 
         List<PiParticipant> participants = participantForm.getParticipants();
         List<String> sessions = participantForm.getSessionNames();
         int     index;
-        ParticipantDAO dao;
+        PiParticipant participant;
 
         // We only want to update a very limited set of fields on the participant
         // data model.
         if(null != participants && participants.size() > 0) {
             for (PiParticipant p : participants) {
                 index = participants.indexOf(p);
-                dao = participantRepository.findOne(p.getId());
-                dao.setActive(p.isActive());
-                dao.setPrime(p.getPrime());
-                dao.setCbmCondition(p.getCbmCondition());
+                participant = piParticipantRepository.findOne(p.getId());
+                participant.setActive(p.isActive());
+                participant.setPrime(p.getPrime());
+                participant.setCbmCondition(p.getCbmCondition());
                 // Only if the session was change in the ui, update the session
                 // current session for the participant, and reset their progress.
                 // set the last session date to null so they don't get a timeout
                 // message.
                 if(p.getStudy().getCurrentSession().getName() != sessions.get(index)) {
-                    dao.setCurrentSession(sessions.get(index));
-                    dao.setTaskIndex(0);
-                    dao.setLastSessionDate(null);
+                    p.getStudy().forceToSession(sessions.get(index));
                 }
-                participantRepository.save(dao);
+                participantRepository.save(participant);
             }
         }
         return "redirect:/admin";
@@ -155,7 +155,7 @@ public class AdminController extends BaseController {
                                        @PathVariable("id") long id,
                                        @Valid PiParticipant participant,
                                        BindingResult bindingResult) {
-        ParticipantDAO dao;
+        Participant dao;
 
         dao = participantRepository.findOne(id);
 
@@ -164,7 +164,6 @@ public class AdminController extends BaseController {
 //            model.addAttribute("participant", participant);
 //            return "admin/participant_form";
  //       } else {
-            participantRepository.domainToEntity(participant, dao);
             participantRepository.save(dao);
  //       }
         return "redirect:/admin";
@@ -182,30 +181,18 @@ public class AdminController extends BaseController {
 
     @RequestMapping(value="/participant/", method=RequestMethod.POST)
     public String createParticipant(ModelMap model,
-                                       @Valid PiParticipant participant,
-                                       BindingResult bindingResult) {
+                                    @Valid ParticipantForm form,
+                                    BindingResult bindingResult) {
 
-        ParticipantDAO dao;
+        Participant participant;
         model.addAttribute("hideAccountBar", true);
+        form.setOver18(true);
 
-        if(participantRepository.findByEmail(participant.getEmail()) != null) {
-            bindingResult.addError(new FieldError("Participant","email", "This email already exists."));
-        }
-
-        if(!participant.getPassword().equals(participant.getPasswordAgain())) {
-            bindingResult.addError(new FieldError("Participant","passwordAgain", "Passwords do not match."));
-        }
-
-        if(participant.isAdmin() && participant.getPassword().length() < 20) {
-            bindingResult.addError(new FieldError("Participant", "admin", "Admin users must have a password of at least 20 characters."));
-        }
-
-        if (bindingResult.hasErrors()) {
-            LOG.error("Invalid participant:" + bindingResult.getAllErrors());
+        if(!form.validParticipant(bindingResult, participantRepository)) {
             return "admin/new_participant";
         }
 
-        participant.setLastLoginDate(new Date()); // Set the last login date.
+        participant = form.toPiParticipant();
         saveParticipant(participant);
 
         LOG.info("Participant created.");
@@ -215,7 +202,7 @@ public class AdminController extends BaseController {
 
     @RequestMapping(value="/listEmails", method=RequestMethod.GET)
     public String listEmails(ModelMap model, Principal principal) {
-        PiParticipant p = getParticipant(principal);
+        Participant p = getParticipant(principal);
         model.addAttribute("hideAccountBar", true);
         model.addAttribute("participant", p);
         return "admin/listEmails";
@@ -224,8 +211,7 @@ public class AdminController extends BaseController {
     @RequestMapping(value="/sendEmail/{type}")
     public String sendEmail(ModelMap model, Principal principal,
                             @PathVariable("type") EmailService.TYPE type) throws Exception {
-        PiParticipant p;
-        p = participantRepository.entityToDomain(participantRepository.findByEmail(principal.getName()));
+        Participant p = participantRepository.findByEmail(principal.getName());
 
         if(type.equals(EmailService.TYPE.giftCard)) {
             // Reward reward = tangoService.createGiftCard(p);  This would actually award a gift card, if you need to do some testing.
@@ -244,7 +230,7 @@ public class AdminController extends BaseController {
 
     @RequestMapping(value="/listSessions", method=RequestMethod.GET)
     public String listSessions(ModelMap model, Principal principal) {
-        PiParticipant p = getParticipant(principal);
+        Participant p = getParticipant(principal);
         model.addAttribute("participant", p);
         model.addAttribute("sessions", p.getStudy().getSessions());
         model.addAttribute("hideAccountBar", true);
@@ -253,7 +239,7 @@ public class AdminController extends BaseController {
 
     @RequestMapping(value="/export", method=RequestMethod.GET)
     public String export(ModelMap model, Principal principal) {
-        PiParticipant p = getParticipant(principal);
+        Participant p = getParticipant(principal);
 
         model.addAttribute("downloadsDisabled", Boolean.parseBoolean(downloadsDisabled));
         model.addAttribute("exportMaxMinutes", exportService.getMaxMinutes());
@@ -282,7 +268,7 @@ public class AdminController extends BaseController {
 
     @RequestMapping(value="/participant/giftCard")
     public String giftCard(ModelMap model, Principal principal) throws Exception {
-        PiParticipant p = participantRepository.entityToDomain(participantRepository.findByEmail(principal.getName()));
+        Participant p = participantRepository.findByEmail(principal.getName());
         Reward r = tangoService.createGiftCard(p, "AdminAwarded",100);
         this.emailService.sendGiftCardEmail(p, r, 100);
         model.addAttribute("participant", p);

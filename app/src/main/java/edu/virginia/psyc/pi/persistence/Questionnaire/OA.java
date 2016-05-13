@@ -3,14 +3,17 @@ package edu.virginia.psyc.pi.persistence.Questionnaire;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import edu.virginia.psyc.pi.domain.DoNotDelete;
-import edu.virginia.psyc.pi.persistence.ParticipantDAO;
+import edu.virginia.psyc.mindtrails.domain.DoNotDelete;
+import edu.virginia.psyc.mindtrails.domain.Participant;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.util.Date;
 
 /**
@@ -32,7 +35,7 @@ public class OA extends SecureQuestionnaireData implements Comparable<OA> {
     @ManyToOne
     @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
     @JsonIdentityReference(alwaysAsId=true) // otherwise first ref as POJO, others as id
-    protected ParticipantDAO participantDAO;
+    protected Participant participant;
 
     public static int NO_ANSWER = 555;
     public static final int MAX_SCORE = 4;

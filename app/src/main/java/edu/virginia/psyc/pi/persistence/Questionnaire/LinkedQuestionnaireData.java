@@ -4,11 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import edu.virginia.psyc.pi.domain.Exportable;
-import edu.virginia.psyc.pi.persistence.ParticipantDAO;
+import edu.virginia.psyc.mindtrails.domain.Exportable;
+import edu.virginia.psyc.mindtrails.domain.Participant;
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 
 /**
  * If questionnaire data should remain directly linked to a Partiicpant
@@ -25,6 +26,7 @@ public abstract class LinkedQuestionnaireData extends QuestionnaireData {
     @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
     @JsonIdentityReference(alwaysAsId=true) // otherwise first ref as POJO, others as id
     @JsonProperty(value = "participant")
-    protected ParticipantDAO participantDAO;
+    protected Participant participant;
+
 
 }

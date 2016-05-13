@@ -3,10 +3,7 @@ package edu.virginia.psyc.mindtrails.domain;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.junit.Test;
-import edu.virginia.psyc.mindtrails.domain.participant.EmailLog;
-import edu.virginia.psyc.mindtrails.domain.participant.TaskLog;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 import static org.junit.Assert.*;
@@ -21,18 +18,22 @@ import static org.junit.Assert.*;
 public class ParticipantTest {
 
 
-    private TestStudy testStudy() {
+    private Participant testParticipant() {
         DateTime dateTime;
+        Participant p;
+
         dateTime = new DateTime().minus(Period.days(3));
-        return new TestStudy("My Test Study", 0, dateTime.toDate(), new ArrayList<TaskLog>());
+        p = new Participant("Dan", "test@tester.org", false);
+        TestStudy study = new TestStudy();
+        study.setLastSessionDate(dateTime.toDate());
+        p.setStudy(study);
+        return(p);
     }
 
     @Test
     public void testParticipantKnowsDaysSinceLastMilestone() {
 
-        Participant p;
-        p = new Participant(1, "Dan Funk", "daniel.h.funk@gmail.com", false);
-        p.setStudy(testStudy());
+        Participant p = testParticipant();
         assertEquals(3,p.daysSinceLastMilestone());
 
         /*
@@ -50,25 +51,25 @@ public class ParticipantTest {
         DateTime    dateTime;
         EmailLog emailLog;
 
-        dateTime = new DateTime().minus(Period.days(7));
-        emailLog = new EmailLog("Day 7", dateTime.toDate());
+        p = testParticipant();
 
-        p = new Participant(1, "Dan Funk", "daniel.h.funk@gmail.com", false);
         assertEquals(99, p.daysSinceLastEmail());
 
+        dateTime = new DateTime().minus(Period.days(7));
+        emailLog = new EmailLog(p, "Day 7", dateTime.toDate());
         p.addEmailLog(emailLog);
+
         assertEquals(7, p.daysSinceLastEmail());
 
         dateTime = new DateTime().minus(Period.days(18));
-        emailLog = new EmailLog("Day 18", dateTime.toDate());
+        emailLog = new EmailLog(p, "Day 18", dateTime.toDate());
         p.addEmailLog(emailLog);
         assertEquals(7, p.daysSinceLastEmail());
 
         dateTime = new DateTime().minus(Period.days(2));
-        emailLog = new EmailLog("Day 2", dateTime.toDate());
+        emailLog = new EmailLog(p, "Day 2", dateTime.toDate());
         p.addEmailLog(emailLog);
         assertEquals(2, p.daysSinceLastEmail());
-
 
     }
 
@@ -78,12 +79,11 @@ public class ParticipantTest {
         Date loginDate;
         TestStudy study;
 
-        study    = testStudy();
-        study.setLastSessionDate(null);
-
         Participant p;
-        p = new Participant(1, "Dan Funk", "daniel.h.funk@gmail.com", false);
+        p = testParticipant();
+        study = new TestStudy();
         p.setStudy(study);
+        study.setLastSessionDate(null);
         assertNull(p.lastMilestone());
 
         loginDate = new Date();
@@ -93,8 +93,6 @@ public class ParticipantTest {
         dateTime = new DateTime().minus(Period.days(3));
         study.setLastSessionDate(dateTime.toDate());
 
-        p.setStudy(testStudy());
-
         assertNotSame(p.lastMilestone(), loginDate);
     }
 
@@ -102,9 +100,9 @@ public class ParticipantTest {
     public void testParticipantKnowsIfEmailOfTypeSentPreviously() {
         Participant p;
 
-        p = new Participant(1, "Dan Funk", "daniel.h.funk@gmail.com", false);
+        p = new Participant("Dan Funk", "daniel.h.funk@gmail.com", false);
         assertFalse(p.previouslySent("followup"));
-        p.addEmailLog(new EmailLog("followup", new Date()));
+        p.addEmailLog(new EmailLog(p,"followup", new Date()));
         assertTrue(p.previouslySent("followup"));
 
     }

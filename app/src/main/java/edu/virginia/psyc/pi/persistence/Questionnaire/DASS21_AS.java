@@ -1,6 +1,6 @@
 package edu.virginia.psyc.pi.persistence.Questionnaire;
 
-import edu.virginia.psyc.pi.domain.DoNotDelete;
+import edu.virginia.psyc.mindtrails.domain.DoNotDelete;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

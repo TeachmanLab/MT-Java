@@ -1,9 +1,10 @@
 package edu.virginia.psyc.pi.controller;
 
-import edu.virginia.psyc.pi.domain.DoNotDelete;
+import edu.virginia.psyc.mindtrails.domain.DoNotDelete;
 import edu.virginia.psyc.mindtrails.domain.RestExceptions.NoSuchIdException;
 import edu.virginia.psyc.mindtrails.domain.RestExceptions.NoSuchQuestionnaireException;
 import edu.virginia.psyc.mindtrails.domain.RestExceptions.NotDeleteableException;
+import edu.virginia.psyc.mindtrails.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.domain.QuestionnaireInfo;
 import edu.virginia.psyc.pi.persistence.*;
 import edu.virginia.psyc.pi.persistence.Questionnaire.QuestionnaireRepository;
@@ -29,7 +30,8 @@ public class ExportController  {
 
     private static final Logger LOG = LoggerFactory.getLogger(ExportController.class);
 
-    @Autowired ParticipantRepository participantRepository;
+    @Autowired
+    ParticipantRepository participantRepository;
     @Autowired ExportLogRepository exportLogRepository;
     @Autowired ExportService exportService;
 

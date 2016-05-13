@@ -1,8 +1,7 @@
 package edu.virginia.psyc.pi.service;
 
-import edu.virginia.psyc.pi.persistence.ParticipantDAO;
-import edu.virginia.psyc.pi.persistence.ParticipantRepository;
-import org.apache.catalina.User;
+import edu.virginia.psyc.mindtrails.domain.Participant;
+import edu.virginia.psyc.mindtrails.persistence.ParticipantRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +26,11 @@ public class UserService implements ApplicationListener<AuthenticationSuccessEve
     @Override
     public void onApplicationEvent(AuthenticationSuccessEvent event) {
 
-        ParticipantDAO dao = (ParticipantDAO) event.getAuthentication().getPrincipal();
-        LOG.info("Authentication Success Event Captured for " + dao.getEmail());
-        dao = participantRepository.findByEmail(dao.getEmail()); // Refresh session object from database.
-        dao.setLastLoginDate(new Date());
-        participantRepository.save(dao);
+        Participant participant = (Participant) event.getAuthentication().getPrincipal();
+        LOG.info("Authentication Success Event Captured for " + participant.getEmail());
+        participant = participantRepository.findByEmail(participant.getEmail()); // Refresh session object from database.
+        participant.setLastLoginDate(new Date());
+        participantRepository.save(participant);
     }
 
 }

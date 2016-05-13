@@ -1,8 +1,7 @@
 package edu.virginia.psyc.pi.controller;
 
-import edu.virginia.psyc.pi.domain.PiParticipant;
-import edu.virginia.psyc.pi.persistence.ParticipantDAO;
-import edu.virginia.psyc.pi.persistence.ParticipantRepository;
+import edu.virginia.psyc.mindtrails.domain.Participant;
+import edu.virginia.psyc.mindtrails.persistence.ParticipantRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,41 +19,16 @@ public class BaseController {
     protected ParticipantRepository participantRepository;
     private static final Logger LOG = LoggerFactory.getLogger(BaseController.class);
 
-    ParticipantDAO getParticipantDAO(Principal principal) {
+    Participant getParticipant(Principal principal) {
         return participantRepository.findByEmail(principal.getName());
     }
 
-    ParticipantDAO getParticipantDAO(String email) {
+    Participant getParticipant(String email) {
         return participantRepository.findByEmail(email);
     }
 
-    PiParticipant getParticipant(Principal principal) {
-        return participantRepository.entityToDomain(getParticipantDAO(principal));
-    }
-
-    PiParticipant getParticipant(ParticipantDAO dao) {
-        return participantRepository.entityToDomain(dao);
-    }
-
-    PiParticipant getParticipant(String email) {
-        PiParticipant p;
-        ParticipantDAO dao;
-        dao = participantRepository.findByEmail(email);
-        if(dao != null) return(participantRepository.entityToDomain(dao));
-        return null;
-    }
-
-    void saveParticipant(PiParticipant participant) {
-        ParticipantDAO dao;
-
-        if(participant.getId() > 0) {
-            dao = participantRepository.findOne(participant.getId());
-        } else {
-            dao = new ParticipantDAO();
-        }
-
-        participantRepository.domainToEntity(participant, dao);
-        participantRepository.save(dao);
+    void saveParticipant(Participant participant) {
+        participantRepository.save(participant);
     }
 
 }

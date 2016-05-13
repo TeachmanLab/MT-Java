@@ -1,22 +1,20 @@
 package edu.virginia.psyc.pi.controller;
 
-import edu.virginia.psyc.pi.domain.*;
+import edu.virginia.psyc.mindtrails.domain.Session;
+import edu.virginia.psyc.mindtrails.domain.Study;
+import edu.virginia.psyc.mindtrails.domain.Task;
+import edu.virginia.psyc.mindtrails.domain.TaskLog;
+import edu.virginia.psyc.pi.domain.CBMStudy;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.junit.Before;
 import org.junit.Test;
-import edu.virginia.psyc.mindtrails.domain.Session;
-import edu.virginia.psyc.mindtrails.domain.Study;
-import edu.virginia.psyc.mindtrails.domain.Task;
-import edu.virginia.psyc.mindtrails.domain.participant.TaskLog;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertNull;
+import static junit.framework.Assert.*;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -83,10 +81,10 @@ public class CBMStudyTest {
 
         assertNotNull(tasks);
         assertEquals("Pre should have eleven tasks.", 11, tasks.size());
-        assertEquals("Unique name for the task should be credibility", "credibility", tasks.get(0).getName());
+        assertEquals("Unique name for the task should be credibility", "Credibility", tasks.get(0).getName());
         assertEquals("First task should be named Consent to Participate", "Consent to participate", tasks.get(0).getDisplayName());
         assertEquals("First task should point to a questionniare", Task.TYPE.questions, tasks.get(0).getType());
-        assertEquals("First task should point to the Credibility Assessment questionniare","/questions/credibility", tasks.get(0).getRequestMapping());
+        assertEquals("First task should point to the Credibility Assessment questionniare","/questions/Credibility", tasks.get(0).getRequestMapping());
         assertTrue("First task should be completed",tasks.get(0).isComplete());
         assertFalse("First task should not be current", tasks.get(0).isCurrent());
         assertFalse("Second task should not be completed",tasks.get(1).isComplete());
@@ -104,17 +102,17 @@ public class CBMStudyTest {
         study = new CBMStudy(CBMStudy.NAME.PRE.toString(), 0, null, new ArrayList<TaskLog>());
 
         assertEquals(CBMStudy.NAME.PRE.toString(), study.getCurrentSession().getName());
-        assertEquals("credibility", study.getCurrentSession().getCurrentTask().getName());
+        assertEquals("Credibility", study.getCurrentSession().getCurrentTask().getName());
 
         study.completeCurrentTask();
 
         assertEquals(CBMStudy.NAME.PRE.toString(), study.getCurrentSession().getName());
-        assertEquals("demographics", study.getCurrentSession().getCurrentTask().getName());
+        assertEquals("Demographic", study.getCurrentSession().getCurrentTask().getName());
 
         study.completeCurrentTask();
 
         assertEquals(CBMStudy.NAME.PRE.toString(), study.getCurrentSession().getName());
-        assertEquals("MH", study.getCurrentSession().getCurrentTask().getName());
+        assertEquals("MentalHealthHxTx", study.getCurrentSession().getCurrentTask().getName());
 
         assertNull(study.getLastSessionDate());
 

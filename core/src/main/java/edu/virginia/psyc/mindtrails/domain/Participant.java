@@ -1,100 +1,176 @@
 package edu.virginia.psyc.mindtrails.domain;
 
-import edu.virginia.psyc.mindtrails.domain.participant.EmailLog;
-import edu.virginia.psyc.mindtrails.domain.participant.GiftLog;
-import edu.virginia.psyc.mindtrails.domain.participant.PasswordToken;
 import lombok.Data;
-import org.hibernate.validator.constraints.Email;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import edu.virginia.psyc.mindtrails.domain.participant.TaskLog;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-import java.util.*;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Random;
 
 /**
- * Created with IntelliJ IDEA.
- * User: dan
- * Date: 4/29/14
- * Time: 4:50 PM
- * This is used to create a new participant in the MVC login controller, and
- * for modifying participants in the admin interface.  And will be used to
- * reset passwords when that get's implemented.
- *
- * This is also used for displaying details about the Participant, and for housing
- * general business logic specific to the Participant.
+ * This class manages the storage and basic business logic
+ * about a participant in a study.
  */
+@Entity
+@Table(name = "participant")
 @Data
-public class Participant {
+public  class Participant implements UserDetails {
 
-    private long id;
-
-    protected static final Random RANDOM = new Random();  // For generating random CBM and Prime values.
     private static final Logger LOG = LoggerFactory.getLogger(Participant.class);
 
-    public static final String PASSWORD_REGEX = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!#\\$@_'\\+\\?\\[\\]\\.\\- ])(?=.+$).{8,}$";
-    public static final String PASSWORD_MESSAGE = "Password must be at least 8 digits long.  It must contain one digit, a lower case letter, an upper case letter, and a special character.";
+    protected static final Random RANDOM = new Random();  // For generating random CBM and Prime values.
 
-    @Size(min=2, max=100, message="Please specify your full name.")
+    @Id
+    @TableGenerator(name = "PARTICIPANT_GEN", table = "ID_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "PARTICIPANT_GEN")
+    protected long id;
     protected String fullName;
-
-    @Email
-    @NotNull
+    @Column(unique = true)
     protected String email;
-
-    @NotNull
     protected boolean admin;
+    protected String password;
+    protected boolean emailOptout = false;
+    protected boolean active = true;
+    protected Date lastLoginDate;
+    protected String randomToken;
+    protected String theme = "blue";
+    protected boolean isOver18;
 
-    @NotNull
-    @Pattern(regexp=PASSWORD_REGEX, message = PASSWORD_MESSAGE)
-    protected String         password;
-    @NotNull
-    protected String         passwordAgain;
-
-    protected boolean        emailOptout = false;  // User required to receive no more emails.
-
-    protected boolean        active = true;
-
-    protected Date           lastLoginDate;
-
-    protected List<EmailLog> emailLogs = new ArrayList<>();
-
-    protected List<GiftLog>  giftLogs = new ArrayList<>();
-
-    protected List<TaskLog>  taskLogs = new ArrayList<>();
-
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     protected PasswordToken passwordToken;
 
-    protected Study          study;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity=BaseStudy.class)
+    protected Study study;
 
-    protected String theme = "blue";
+    // IMPORTANT: Automatic email notifications start failing when
+    // these relationships are setup with a FetchType.LAZY. Please
+    // leave this eager, or address that problem.
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "participant")
+    protected Collection<EmailLog> emailLogs = new ArrayList<EmailLog>();
 
-    protected boolean        over18;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "participant")
+    protected Collection<GiftLog> giftLogs = new ArrayList<>();
 
-    public Participant() {}
 
-    public Participant(Study study) {
-        this.study = study;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Collection<GrantedAuthority> list = new ArrayList();
+        list.add(new SimpleGrantedAuthority("ROLE_USER"));
+        if (admin) list.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        return list;
     }
 
-    public Participant(long id, String fullName, String email, boolean admin) {
-        this.id = id;
+    // Default no-arg constructor
+    public Participant() {
+    }
+
+    // Utility to make testing easier.
+    public Participant(String fullName, String email, boolean admin) {
         this.fullName = fullName;
         this.email = email;
         this.admin = admin;
     }
 
+    /* ********************* *
+     *  User Details Impl.   *
+     * ********************* */
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+  /* ********************* *
+     *  Logging.   *
+     * ********************* */
+
+    public Collection<EmailLog> getEmailLogs() {
+        return emailLogs;
+    }
+
+    public void setEmailLogs(Collection<EmailLog> emailLogs) {
+        this.emailLogs = emailLogs;
+    }
+
+    public void addEmailLog(EmailLog log) {
+        if (this.emailLogs == null) this.emailLogs = new ArrayList<EmailLog>();
+        this.emailLogs.add(log);
+    }
+
+    public Collection<GiftLog> getGiftLogs() {
+        return giftLogs;
+    }
+
+    public void setGiftLogs(Collection<GiftLog> giftLogs) {
+        this.giftLogs = giftLogs;
+    }
+
+    public void addGiftLog(GiftLog log) {
+        if (this.giftLogs == null) this.giftLogs = new ArrayList<GiftLog>();
+        this.giftLogs.add(log);
+    }
+
+    @Override
+    public String toString() {
+        return "Participant{" +
+                "id=" + id +
+                ", fullName='" + fullName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", admin=" + admin +
+                ", emailOptout=" + emailOptout +
+                ", currentSession=" + study.getCurrentSession() +
+                ", taskIndex=" + study.getCurrentTaskIndex() +
+                ", active=" + active +
+                '}';
+    }
+
+    /* ********************* *
+     *  Basic Functions.     *
+     * ********************* */
+
+
     /**
-     * Checks to see if the given password matches some standard criteria:
+     * Change the users password - this will take a plain text password
+     * and run a one-way encyption on it for storage in the database.
+     * Note that if the given password is null, it will not update the
+     * filed.
      * @param password
-     * @return
      */
-    public static boolean validPassword(String password) {
-        return password.matches(PASSWORD_REGEX);
+    public void updatePassword(String password) {
+        if(password == null) return;
+        StandardPasswordEncoder encoder = new StandardPasswordEncoder();
+        String hashedPassword = encoder.encode(password);
+        this.password = hashedPassword;
     }
 
     /**
@@ -107,7 +183,7 @@ public class Participant {
         DateTime now;
 
         last = new DateTime(this.lastMilestone());
-        now  = new DateTime();
+        now = new DateTime();
         return Days.daysBetween(last, now).getDays();
     }
 
@@ -115,13 +191,13 @@ public class Participant {
     public int daysSinceLastEmail() {
         DateTime last = null;
         DateTime each = null;
-        DateTime now  = new DateTime();
+        DateTime now = new DateTime();
 
-        if(null == this.emailLogs || this.emailLogs.size() == 0) return 99;
+        if (null == this.emailLogs || this.emailLogs.size() == 0) return 99;
 
-        for(EmailLog log : this.emailLogs) {
-            each = new DateTime(log.getDate());
-            if(null == last || last.isBefore(each)) {
+        for (EmailLog log : this.emailLogs) {
+            each = new DateTime(log.getDateSent());
+            if (null == last || last.isBefore(each)) {
                 last = each;
             }
         }
@@ -136,7 +212,7 @@ public class Participant {
      * email messages.
      */
     public Date lastMilestone() {
-        if(this.study.getLastSessionDate() != null) return this.study.getLastSessionDate();
+        if (this.study.getLastSessionDate() != null) return this.study.getLastSessionDate();
         return this.lastLoginDate;
     }
 
@@ -144,25 +220,11 @@ public class Participant {
      * Checks to see if this type of email was already sent to the user.
      */
     public boolean previouslySent(String type) {
-        for(EmailLog log : getEmailLogs()) {
-            if (log.getType().equals(type)) return true;
+        for (EmailLog log : getEmailLogs()) {
+            if (log.getEmailType().equals(type)) return true;
         }
         return false;
     }
 
-    public void addEmailLog(EmailLog log) {
-        if (this.emailLogs == null) emailLogs = new ArrayList<EmailLog>();
-        emailLogs.add(log);
-    }
-
-    public void addGiftLog(GiftLog log) {
-        if (this.giftLogs == null) giftLogs = new ArrayList<GiftLog>();
-        giftLogs.add(log);
-    }
-
-    public void addTaskLog(TaskLog log) {
-        if (this.taskLogs == null) taskLogs = new ArrayList<TaskLog>();
-        taskLogs.add(log);
-    }
-
 }
+

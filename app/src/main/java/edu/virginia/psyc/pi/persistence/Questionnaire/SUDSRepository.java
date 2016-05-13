@@ -1,10 +1,5 @@
 package edu.virginia.psyc.pi.persistence.Questionnaire;
 
-import edu.virginia.psyc.pi.persistence.ParticipantDAO;
-import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.List;
-
 /**
  * Created with IntelliJ IDEA.
  * User: dan

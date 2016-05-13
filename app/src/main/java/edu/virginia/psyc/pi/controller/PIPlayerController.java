@@ -1,9 +1,9 @@
 package edu.virginia.psyc.pi.controller;
 
+import edu.virginia.psyc.mindtrails.domain.Participant;
+import edu.virginia.psyc.mindtrails.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.domain.PiParticipant;
-import edu.virginia.psyc.pi.persistence.ParticipantDAO;
-import edu.virginia.psyc.pi.persistence.ParticipantRepository;
-import edu.virginia.psyc.pi.persistence.TaskLogDAO;
+import edu.virginia.psyc.pi.persistence.PiParticipantRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +37,9 @@ public class PIPlayerController extends BaseController {
 
     @Autowired private static final Logger LOG = LoggerFactory.getLogger(PIPlayerController.class);
 
+    @Autowired private PiParticipantRepository piParticipantRepository;
+
+
     @Autowired
     public PIPlayerController(ParticipantRepository participantRepository) {
         this.participantRepository = participantRepository;
@@ -45,7 +48,7 @@ public class PIPlayerController extends BaseController {
     @RequestMapping(value="{scriptName}", method=RequestMethod.GET)
     public String showPlayer(ModelMap model, Principal principal, @PathVariable String scriptName) {
 
-        PiParticipant p = getParticipant(principal);
+        PiParticipant p = piParticipantRepository.findByEmail(principal.getName());
 
         // The Neutral condition requires a completely different file.
         LOG.debug("The Script name: " + scriptName + "!=" +  "RecognitionRatings?" + (scriptName != "RecognitionRatings"));
@@ -65,17 +68,10 @@ public class PIPlayerController extends BaseController {
     @RequestMapping("/completed/{scriptName}")
     public RedirectView markComplete(Principal principal, @PathVariable String scriptName) {
 
-        PiParticipant participant = getParticipant(principal);
-        ParticipantDAO dao = participantRepository.findByEmail(participant.getEmail());
-
-        // Log the completion of the task
-        TaskLogDAO taskDao = new TaskLogDAO(dao, participant.getStudy().getCurrentSession().getName(),
-                participant.getStudy().getCurrentSession().getCurrentTask().getName());
-        dao.addTaskLog(taskDao);
+        Participant participant = getParticipant(principal);
 
         participant.getStudy().completeCurrentTask();
-        participantRepository.domainToEntity(participant, dao);
-        participantRepository.save(dao);
+        participantRepository.save(participant);
 
         return new RedirectView("/session/next");
     }

@@ -1,8 +1,8 @@
 package edu.virginia.psyc.pi.controller;
 
+import edu.virginia.psyc.mindtrails.domain.Participant;
+import edu.virginia.psyc.mindtrails.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.Application;
-import edu.virginia.psyc.pi.persistence.ParticipantDAO;
-import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.security.web.FilterChainProxy;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -18,11 +19,12 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.util.Date;
 
-import static junit.framework.Assert.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 /**
  * Created with IntelliJ IDEA.
@@ -34,6 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
+@ActiveProfiles("test")
 public class LoginControllerTest {
 
     private static String PASSWD = "1234!@#$qwerQWER";
@@ -59,7 +62,7 @@ public class LoginControllerTest {
     @After
     public void teardown() {
         try {
-            ParticipantDAO p = participantRepository.findByEmail("some_crazy2@email.com");
+            Participant p = participantRepository.findByEmail("some_crazy2@email.com");
             participantRepository.delete(p);
             participantRepository.flush();
         } catch (IndexOutOfBoundsException ioe) {
@@ -70,7 +73,7 @@ public class LoginControllerTest {
 
     @Test
     public void testCreateAccountController() throws Exception {
-        ParticipantDAO p;
+        Participant p;
 
         this.mockMvc.perform(post("/newParticipant")
                 .param("fullName", "Dan Funk")
@@ -92,7 +95,7 @@ public class LoginControllerTest {
     @Test
     public void testLoginPostController() throws Exception {
 
-        ParticipantDAO p;
+        Participant p;
         Date orig;
 
         // This will create the user.
@@ -102,8 +105,7 @@ public class LoginControllerTest {
 
         this.mockMvc.perform(post("/login")
                 .param("username", "some_crazy2@email.com")
-                .param("password", PASSWD)
-                .param("passwordAgain", PASSWD))
+                .param("password", PASSWD))
                 .andDo(print())
                 .andExpect(status().is3xxRedirection());
 

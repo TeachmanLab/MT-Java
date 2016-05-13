@@ -36,6 +36,11 @@ the datasource.password setting in src/main/resources/application.properties
 > CREATE USER 'pi_user'@'localhost' IDENTIFIED BY 'pi_password';
 > GRANT ALL PRIVILEGES ON pi.* TO 'pi_user'@'localhost' IDENTIFIED BY 'pi_password' WITH GRANT OPTION;
 
+If you are running the tests, that is configured to use a seperate database
+> CREATE DATABASE pi_test CHARACTER SET utf8 COLLATE utf8_general_ci;
+> GRANT ALL PRIVILEGES ON pi_test.* TO 'pi_user'@'localhost' IDENTIFIED BY 'pi_password' WITH GRANT OPTION;
+
+
 Installing Javascript Dependencies
 -------------------
 Javascript dependencies, including the PIPlayer are installed using Bower, just run `bower install`

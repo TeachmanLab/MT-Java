@@ -1,11 +1,11 @@
 package edu.virginia.psyc.pi.service;
 
+import edu.virginia.psyc.mindtrails.domain.EmailLog;
+import edu.virginia.psyc.mindtrails.domain.Participant;
+import edu.virginia.psyc.mindtrails.domain.Study;
+import edu.virginia.psyc.mindtrails.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.domain.CBMStudy;
-import edu.virginia.psyc.pi.domain.PiParticipant;
 import edu.virginia.psyc.pi.domain.tango.Reward;
-import edu.virginia.psyc.pi.persistence.EmailLogDAO;
-import edu.virginia.psyc.pi.persistence.ParticipantDAO;
-import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.persistence.Questionnaire.OA;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +17,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
-import edu.virginia.psyc.mindtrails.domain.Study;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -129,7 +128,7 @@ public class EmailService {
     /*
   * Send HTML mail (simple)
   */
-    private void sendMail(PiParticipant participant, TYPE type, Context ctx)
+    private void sendMail(Participant participant, TYPE type, Context ctx)
             throws MessagingException {
 
         // Prepare the evaluation context
@@ -140,7 +139,7 @@ public class EmailService {
         sendMail(participant.getEmail(), participant.getId(), type, ctx);
     }
 
-    public void sendPasswordReset(PiParticipant participant) throws MessagingException {
+    public void sendPasswordReset(Participant participant) throws MessagingException {
         // Prepare the evaluation context
         final Context ctx = new Context();
         ctx.setVariable("token", participant.getPasswordToken().getToken());
@@ -148,7 +147,7 @@ public class EmailService {
         sendMail(participant, TYPE.resetPass, ctx);
     }
 
-    public void sendAtRiskAdminEmail(PiParticipant participant, OA firstEntry, OA currentEntry) throws MessagingException {
+    public void sendAtRiskAdminEmail(Participant participant, OA firstEntry, OA currentEntry) throws MessagingException {
 
         // Prepare the evaluation context
         final Context ctx = new Context();
@@ -177,7 +176,7 @@ public class EmailService {
         sendMail(this.adminTo, 0l, TYPE.exportError, ctx);
     }
 
-    public void sendGiftCardEmail(PiParticipant participant, Reward reward, int amount) throws MessagingException {
+    public void sendGiftCardEmail(Participant participant, Reward reward, int amount) throws MessagingException {
         // Prepare the evaluation context
         final Context ctx = new Context();
 
@@ -186,7 +185,7 @@ public class EmailService {
         sendMail(participant, TYPE.giftCard, ctx);
     }
 
-    public void sendSimpleMail(PiParticipant participant, TYPE type) throws MessagingException {
+    public void sendSimpleMail(Participant participant, TYPE type) throws MessagingException {
         // Prepare the evaluation context
         LOG.info("SENDING MAIL: " + participant.getEmail() + "\t" + type + "\t" + participant.isEmailOptout());
         final Context ctx = new Context();
@@ -201,28 +200,26 @@ public class EmailService {
      * @param type
      */
     private void logEmail(long id, TYPE type) {
-        ParticipantDAO participantDAO;
-        EmailLogDAO logDAO;
+        Participant participant;
+        EmailLog logDAO;
 
         LOG.info("Sent an email to participant #" + id + " of type " + type);
-        participantDAO = participantRepository.findOne(id);
-        logDAO = new EmailLogDAO(participantDAO, type);
-        if(participantDAO != null) {  // Don't die if you can't log the email.
-            participantDAO.addEmailLog(logDAO);
-            participantRepository.save(participantDAO);
+        participant = participantRepository.findOne(id);
+        logDAO = new EmailLog(participant, type.toString());
+        if(participant != null) {  // Don't die if you can't log the email.
+            participant.addEmailLog(logDAO);
+            participantRepository.save(participant);
         }
     }
 
     @Scheduled(cron = "0 0 2 * * *")  // schedules task for 2:00am every day.
     public void sendEmailReminder() throws MessagingException {
-        List<ParticipantDAO> participants;
-        PiParticipant participant;
+        List<Participant> participants;
 
         participants = participantRepository.findAll();
         TYPE type;
 
-        for(ParticipantDAO dao : participants) {
-            participant = participantRepository.entityToDomain(dao);
+        for(Participant participant : participants) {
             type = getEmailToSend(participant);
             if(type != null) sendSimpleMail(participant, type);
         }
@@ -239,7 +236,7 @@ public class EmailService {
      * @param p
      * @return
      */
-    public TYPE getEmailToSend(PiParticipant p) {
+    public TYPE getEmailToSend(Participant p) {
         TYPE type = null;
 
         // Never send more than one email a day.

@@ -5,12 +5,13 @@ import edu.virginia.psyc.pi.domain.PiParticipant;
 import edu.virginia.psyc.pi.domain.tango.Account;
 import edu.virginia.psyc.pi.domain.tango.Order;
 import edu.virginia.psyc.pi.domain.tango.Reward;
-import edu.virginia.psyc.pi.persistence.ParticipantRepository;
+import edu.virginia.psyc.mindtrails.persistence.ParticipantRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static junit.framework.Assert.*;
@@ -24,6 +25,7 @@ import static junit.framework.Assert.*;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
+@ActiveProfiles("test")
 public class TangoServiceTest {
 
     @Autowired
@@ -37,7 +39,7 @@ public class TangoServiceTest {
     @Before
     public void setup() {
         // Create a participant
-        participant = new PiParticipant(0, "Dan", "j.q.tester@gmail.com", true);
+        participant = new PiParticipant("Dan", "j.q.tester@gmail.com", true);
     }
 
     @Test

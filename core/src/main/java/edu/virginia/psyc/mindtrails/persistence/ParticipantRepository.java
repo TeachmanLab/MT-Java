@@ -1,10 +1,12 @@
-package edu.virginia.psyc.pi.persistence;
+package edu.virginia.psyc.mindtrails.persistence;
 
+import edu.virginia.psyc.mindtrails.domain.Participant;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,20 +22,21 @@ import org.springframework.data.repository.query.Param;
  * Additional methods will be provided automatically by following a standard
  * naming convention, as is the case with findByEmailAddress
  */
-public interface ParticipantRepository extends JpaRepository<ParticipantDAO, Long>, ParticipantRepositoryCustom {
+@Repository
+public interface ParticipantRepository extends JpaRepository<Participant, Long> {
 
-    ParticipantDAO findByEmail(String email);
+    Participant findByEmail(String email);
 
-    @Query(" select p from ParticipantDAO as p" +
+    @Query(" select p from Participant as p" +
             " where lower(p.fullName) like '%' || lower(:search) || '%'" +
             " or lower(p.email) like '%' || lower(:search) || '%'" +
             " order by lower(p.fullName)")
-    Page<ParticipantDAO> search(@Param("search") String search, Pageable pageable);
+    Page<Participant> search(@Param("search") String search, Pageable pageable);
 
 
-    @Query("SELECT p FROM ParticipantDAO as p LEFT JOIN p.passwordTokenDAO t \n" +
+    @Query("SELECT p FROM Participant as p LEFT JOIN p.passwordToken t \n" +
             "            where t.token = :token")
-    ParticipantDAO findByToken(@Param("token") String token);
+    Participant findByToken(@Param("token") String token);
 
 
 }

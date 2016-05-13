@@ -1,9 +1,6 @@
-package edu.virginia.psyc.pi.persistence;
+package edu.virginia.psyc.mindtrails.domain;
 
 import com.fasterxml.jackson.annotation.*;
-import edu.virginia.psyc.pi.domain.DoNotDelete;
-import edu.virginia.psyc.pi.domain.Exportable;
-import edu.virginia.psyc.pi.service.EmailService;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -20,7 +17,7 @@ import java.util.Date;
 @Exportable
 @DoNotDelete
 @Data
-public class EmailLogDAO {
+public class EmailLog {
 
     @Id
     @GeneratedValue
@@ -30,19 +27,24 @@ public class EmailLogDAO {
     @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
     @JsonIdentityReference(alwaysAsId=true)
     @JsonProperty("participantId")
-    private ParticipantDAO participantDAO;
+    private Participant participant;
 
-    @Enumerated(EnumType.STRING)
-    private EmailService.TYPE emailType;
+    private String emailType;
 
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="EEE, dd MMM yyyy HH:mm:ss Z", timezone="EST")
     private Date dateSent;
 
-    public EmailLogDAO() {};
+    public EmailLog() {};
 
-    public EmailLogDAO(ParticipantDAO participantDAO,  EmailService.TYPE type) {
-        this.participantDAO = participantDAO;
+    public EmailLog(Participant participant, String type) {
+        this.participant = participant;
         this.emailType = type;
         this.dateSent  = new Date();
+    }
+
+    public EmailLog(Participant participant, String type, Date date) {
+        this.participant = participant;
+        this.emailType = type;
+        this.dateSent  = date;
     }
 }

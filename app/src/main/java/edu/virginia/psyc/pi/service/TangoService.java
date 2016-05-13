@@ -1,10 +1,9 @@
 package edu.virginia.psyc.pi.service;
 
-import edu.virginia.psyc.pi.domain.PiParticipant;
+import edu.virginia.psyc.mindtrails.domain.GiftLog;
+import edu.virginia.psyc.mindtrails.domain.Participant;
+import edu.virginia.psyc.mindtrails.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.domain.tango.*;
-import edu.virginia.psyc.pi.persistence.GiftLogDAO;
-import edu.virginia.psyc.pi.persistence.ParticipantDAO;
-import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 import lombok.Data;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.slf4j.Logger;
@@ -146,7 +145,7 @@ public class TangoService {
      * Places an order with Tango.  Returns Gift Card details that we can later use
      * to notify Participant.
      */
-    public Reward createGiftCard(PiParticipant participant, String sessionName, int amount) {
+    public Reward createGiftCard(Participant participant, String sessionName, int amount) {
         Recipient recipient = new Recipient(participant.getFullName(), participant.getEmail());
         Order order = new Order(id, accountId, tangoCardSku, amount, false);
         order.setRecipient(recipient);
@@ -171,15 +170,15 @@ public class TangoService {
      *
      */
     private void logGift(long id, String orderId, String sessionName) {
-        ParticipantDAO participantDAO;
-        GiftLogDAO logDAO;
+        Participant participant;
+        GiftLog logDAO;
 
         LOGGER.info("Awarded a gift to participant #" + id);
-        participantDAO = participantRepository.findOne(id);
-        if (participantDAO != null) {
-            logDAO = new GiftLogDAO(participantDAO, orderId, sessionName);
-            participantDAO.addGiftLog(logDAO);
-            participantRepository.save(participantDAO);
+        participant = participantRepository.findOne(id);
+        if (participant != null) {
+            logDAO = new GiftLog(participant, orderId, sessionName);
+            participant.addGiftLog(logDAO);
+            participantRepository.save(participant);
         } else {
             LOGGER.error("Error logging gift with order Id #" + orderId + ".  The Participant (" + id + ") is not in the database.");
         }

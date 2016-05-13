@@ -1,11 +1,13 @@
 package edu.virginia.psyc.pi.controller;
 
+import edu.virginia.psyc.mindtrails.domain.DoNotDelete;
+import edu.virginia.psyc.mindtrails.domain.RestExceptions.NotDeleteableException;
 import edu.virginia.psyc.pi.Application;
 import edu.virginia.psyc.pi.DAO.TestQuestionnaire;
 import edu.virginia.psyc.pi.DAO.TestQuestionnaireRepository;
 import edu.virginia.psyc.pi.DAO.TestUndeleteable;
 import edu.virginia.psyc.pi.DAO.TestUndeleteableRepository;
-import edu.virginia.psyc.mindtrails.domain.RestExceptions.NotDeleteableException;
+import edu.virginia.psyc.pi.persistence.Questionnaire.LinkedQuestionnaireData;
 import edu.virginia.psyc.pi.persistence.Questionnaire.SecureQuestionnaireData;
 import org.junit.Before;
 import org.junit.Rule;
@@ -18,29 +20,25 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.security.web.FilterChainProxy;
-
 import org.springframework.security.web.method.annotation.AuthenticationPrincipalArgumentResolver;
-
-
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.hamcrest.CoreMatchers.hasItem;
-import static org.hamcrest.CoreMatchers.notNullValue;
+import java.util.Date;
+import java.util.List;
+
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.beans.HasPropertyWithValue.hasProperty;
+import static org.junit.Assert.assertTrue;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.util.Date;
-import java.util.List;
 
 /**
  * Created by dan on 10/23/15.
@@ -48,6 +46,7 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
+@ActiveProfiles("test")
 public class ExportControllerTest extends BaseControllerTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(ExportControllerTest.class);
@@ -120,13 +119,15 @@ public class ExportControllerTest extends BaseControllerTest {
         repoU.save(u);
         repoU.flush();
 
-        SecureQuestionnaireData qd;
+        LinkedQuestionnaireData qd;
 
         List data =  exportController.listData("TestUndeleteable",0);
         assertThat(data.size(), greaterThan(0));
 
-        qd = (SecureQuestionnaireData)data.get(0);
+        qd = (LinkedQuestionnaireData)data.get(0);
         assertThat(qd.getId(), notNullValue());
+
+        assertTrue(TestUndeleteable.class.isAnnotationPresent(DoNotDelete.class));
 
         thrown.expect(NotDeleteableException.class);
         exportController.delete("TestUndeleteable",qd.getId());

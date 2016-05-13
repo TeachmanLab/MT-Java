@@ -1,22 +1,33 @@
-package edu.virginia.psyc.mindtrails.domain.participant;
+package edu.virginia.psyc.mindtrails.domain;
 
+import lombok.Data;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Hours;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.
  * User: dan
  * Date: 7/29/14
- * Time: 4:25 PM
- * To change this template use File | Settings | File Templates.
+ * Time: 3:15 PM
+ * A token used to reset a password.  Only effective for a day.  Should be only one per participant.
  */
+@Entity
+@Table(name="password_token")
+@Data
 public class PasswordToken {
 
     private static final int TOKEN_LENGTH = 20;
 
+    @Id
+    @GeneratedValue
+    private int     id;
+
+    @OneToOne
+    private Participant participant;
     private Date    dateCreated;
     private String  token;
 
@@ -28,9 +39,10 @@ public class PasswordToken {
         this.dateCreated   = new Date();
     }
 
-    public PasswordToken(String token, Date date) {
-        this.token         = token;
-        this.dateCreated   = date;
+    public PasswordToken(Participant p, Date dateCreated, String token) {
+        this.participant = p;
+        this.dateCreated = dateCreated;
+        this.token = token;
     }
 
     /**
@@ -45,21 +57,5 @@ public class PasswordToken {
         now     = new DateTime();
 
         return (Hours.hoursBetween(created, now).getHours() < 24);
-    }
-
-    public Date getDateCreated() {
-        return dateCreated;
-    }
-
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
     }
 }

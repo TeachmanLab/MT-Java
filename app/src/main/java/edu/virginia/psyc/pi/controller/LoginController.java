@@ -1,12 +1,15 @@
 package edu.virginia.psyc.pi.controller;
 
-import edu.virginia.psyc.pi.domain.*;
-import edu.virginia.psyc.pi.persistence.ParticipantDAO;
-import edu.virginia.psyc.pi.persistence.ParticipantRepository;
+import edu.virginia.psyc.mindtrails.domain.Participant;
+import edu.virginia.psyc.mindtrails.domain.PasswordToken;
+import edu.virginia.psyc.mindtrails.persistence.ParticipantRepository;
+import edu.virginia.psyc.pi.domain.CBMStudy;
+import edu.virginia.psyc.pi.domain.Dass21FromPi;
+import edu.virginia.psyc.pi.domain.ParticipantForm;
+import edu.virginia.psyc.pi.domain.PiParticipant;
 import edu.virginia.psyc.pi.persistence.Questionnaire.DASS21_AS;
 import edu.virginia.psyc.pi.persistence.Questionnaire.DASS21_ASRepository;
 import edu.virginia.psyc.pi.service.EmailService;
-// import jdk.internal.org.objectweb.asm.tree.analysis.Value;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +19,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
-import edu.virginia.psyc.mindtrails.domain.participant.PasswordToken;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
@@ -28,6 +29,8 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+// import jdk.internal.org.objectweb.asm.tree.analysis.Value;
 
 /**
  * Created with IntelliJ IDEA.
@@ -213,33 +216,21 @@ public class LoginController extends BaseController {
 
     @RequestMapping(value = "/newParticipant", method = RequestMethod.POST)
     public String createNewParticipant(ModelMap model,
-                                       @Valid PiParticipant participant,
+                                       @Valid ParticipantForm participantForm,
                                        final BindingResult bindingResult,
                                        final SessionStatus status,
                                        HttpSession session
                                        ) {
 
-        model.addAttribute("participant", participant);
+        Participant participant;
+        model.addAttribute("participant", participantForm);
 
-        if(!participant.isOver18()) {
-            bindingResult.addError(new ObjectError("over18", "You must be over 18 to participate in this Study."));
-        }
-
-        if(participantRepository.findByEmail(participant.getEmail()) != null) {
-            bindingResult.addError(new ObjectError("email", "This email already exists."));
-        }
-
-        if(!participant.getPassword().equals(participant.getPasswordAgain())) {
-            bindingResult.addError(new ObjectError("password", "Passwords do not match."));
-        }
-
-        if (bindingResult.hasErrors()) {
-            LOG.error("Invalid participant:" + bindingResult.getAllErrors());
+        if(!participantForm.validParticipant(bindingResult, participantRepository)) {
             model.addAttribute("hideAccountBar", true);
             return "consent";
         }
 
-        participant.setLastLoginDate(new Date()); // Set the last login date.
+        participant = participantForm.toPiParticipant();
         saveParticipant(participant);
 
         // Log this new person in.
@@ -261,14 +252,13 @@ public class LoginController extends BaseController {
      * @param participant
      * @param session
      */
-    private void saveEligibilityForm(PiParticipant participant, HttpSession session) {
+    private void saveEligibilityForm(Participant participant, HttpSession session) {
         DASS21_AS dass21_as;
-        ParticipantDAO   participantDAO = participantRepository.findByEmail(participant.getEmail());
 
         // Save their dass21 score to the Database
         dass21_as = (DASS21_AS)session.getAttribute(DASS21_SESSION);
         if(dass21_as == null) return;   // No eligiblity form exists in the session.
-        dass21_as.setParticipantDAO(participantDAO);
+        dass21_as.setParticipant(participant);
         dass21_as.setDate(new Date());
         dass21_as.setSession(CBMStudy.NAME.ELIGIBLE.toString());
         dass21_asRepository.save(dass21_as);
@@ -282,7 +272,7 @@ public class LoginController extends BaseController {
     @RequestMapping(value="/resetPass", method = RequestMethod.POST)
     public String resetPass(ModelMap model, @RequestParam String email) throws MessagingException {
 
-        PiParticipant p;
+        Participant p;
 
         p = getParticipant(email);
 
@@ -301,7 +291,7 @@ public class LoginController extends BaseController {
     @RequestMapping(value="/resetPassStep2/{token}", method = RequestMethod.GET)
     public String resetPassStep2(ModelMap model, @PathVariable String token) {
 
-        PiParticipant participant;
+        Participant participant;
         participant =  getParticipantByToken(token);
         model.addAttribute("hideAccountBar", true);
 
@@ -323,7 +313,7 @@ public class LoginController extends BaseController {
                                                  @RequestParam String password,
                                                  @RequestParam String passwordAgain) throws MessagingException {
 
-        PiParticipant participant;
+        Participant participant;
         List<String> errors;
 
         participant =  getParticipantByToken(token);
@@ -340,8 +330,8 @@ public class LoginController extends BaseController {
         if (!password.equals(passwordAgain)) {
             errors.add("Passwords do not match.");
         }
-        if(!PiParticipant.validPassword(password)) {
-            errors.add(PiParticipant.PASSWORD_MESSAGE);
+        if(!ParticipantForm.validPassword(password)) {
+            errors.add(ParticipantForm.PASSWORD_MESSAGE);
         }
 
         if(errors.size() > 0) {
@@ -351,7 +341,7 @@ public class LoginController extends BaseController {
             return "changePassword";
         }
 
-         participant.setPassword(password); // save the password.
+         participant.updatePassword(password); // save the password.
          participant.setPasswordToken(null);  // clear out hte token so it can't be used again.
          participant.setLastLoginDate(new Date()); // Set the last login date, as we will auto-login.
          saveParticipant(participant);
@@ -368,15 +358,8 @@ public class LoginController extends BaseController {
      * @param token
      * @return
      */
-    PiParticipant getParticipantByToken(String token) {
-        ParticipantDAO dao;
-        PiParticipant participant = null;
-
-        dao = participantRepository.findByToken(token);
-        if(dao != null)
-            participant = participantRepository.entityToDomain(dao);
-
-        return participant;
+    Participant getParticipantByToken(String token) {
+        return participantRepository.findByToken(token);
     }
 
 

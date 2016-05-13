@@ -1,9 +1,12 @@
 package edu.virginia.psyc.mindtrails.domain;
 
+import lombok.Data;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
-import edu.virginia.psyc.mindtrails.domain.participant.TaskLog;
 
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -11,18 +14,31 @@ import java.util.List;
  * You can use this class to get some basic features
  * rather than implement everything in the Study interface.
  */
+@Data
+@Entity
+@Table(name = "study")
+@DiscriminatorColumn(name="studyType")
 public abstract class BaseStudy implements Study {
 
-    protected String currentName;
-    protected int taskIndex;
-    protected Date lastSessionDate;
-    protected List<TaskLog> taskLogs;
+    @Id
+    @TableGenerator(name = "STUDY_GEN", table = "ID_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "STUDY_GEN")
+    protected long id;
 
-    public BaseStudy(String currentName, int taskIndex, Date lastSessionDate, List<TaskLog> taskLogs) {
-        this.currentName = currentName;
-        this.taskIndex = taskIndex;
+    protected String currentSession;
+    protected int currentTaskIndex = 0;
+    protected Date lastSessionDate;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "study")
+    protected Collection<TaskLog> taskLogs = new ArrayList<>();
+
+    public BaseStudy() {}
+
+    public BaseStudy(String currentName, int taskIndex, Date lastSessionDate, Collection<TaskLog> taskLogs) {
+        this.currentSession = currentName;
+        this.currentTaskIndex = taskIndex;
         this.lastSessionDate = lastSessionDate;
-        this.taskLogs = taskLogs;
+        this.taskLogs = new ArrayList<>();
     }
 
     @Override
@@ -34,7 +50,6 @@ public abstract class BaseStudy implements Study {
         }
         return null;
     }
-
 
     /**
      * @return Number of days since the last completed session.
@@ -52,11 +67,14 @@ public abstract class BaseStudy implements Study {
 
     @Override
     public void completeCurrentTask() {
+        // Log the completion of the task
+        this.taskLogs.add(new TaskLog(this));
+
         // If this is the last task in a session, then we move to the next session.
-        if(taskIndex +1 >= getCurrentSession().getTasks().size()) {
+        if(currentTaskIndex +1 >= getCurrentSession().getTasks().size()) {
             completeSession();
         } else { // otherwise we just increment the task index.
-            this.taskIndex = taskIndex + 1;
+            this.currentTaskIndex = currentTaskIndex + 1;
         }
     }
 
@@ -70,25 +88,11 @@ public abstract class BaseStudy implements Study {
             if(s.isCurrent()) next = true;
         }
 
-        this.taskIndex = 0;
-        this.currentName = nextSession.getName();
+        this.currentTaskIndex = 0;
+        this.currentSession = nextSession.getName();
         this.lastSessionDate = new Date();
     }
 
-    @Override
-    public int getCurrentTaskIndex() {
-        return taskIndex;
-    }
-
-    @Override
-    public Date getLastSessionDate() {
-        return lastSessionDate;
-    }
-
-    @Override
-    public void setLastSessionDate(Date date) {
-        this.lastSessionDate = date;
-    }
 
     @Override
     public Session getCurrentSession() {
@@ -147,11 +151,18 @@ public abstract class BaseStudy implements Study {
         Session last = sessions.get(0);
 
         for(Session s: sessions) {
-            if (s.getName() == currentName) break;
+            if (s.getName() == currentSession) break;
             last = s;
         }
         return last;
     }
 
+    @Override
+    public void forceToSession(String sessionName) {
+        this.currentSession = sessionName;
+        this.currentTaskIndex = 0;
+        this.lastSessionDate = null;
+
+    }
 
 }

@@ -1,46 +1,98 @@
 package edu.virginia.psyc.pi.domain;
 
-import java.util.ArrayList;
-import java.util.List;
+import edu.virginia.psyc.mindtrails.persistence.ParticipantRepository;
+import lombok.Data;
+import org.hibernate.validator.constraints.Email;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.
  * User: dan
  * Date: 9/2/14
  * Time: 3:50 PM
- * Just your basic everyday list of Participants.
- * (This helps us edit a whole set of participants all at once)
+ * For updating a participant.
  */
+@Data
 public class ParticipantForm {
 
-    private List<PiParticipant> participants;
+    private static final Logger LOG = LoggerFactory.getLogger(ParticipantForm.class);
 
-    private List<String> sessionNames;
+    public static final String PASSWORD_REGEX = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!#\\$@_'\\+\\?\\[\\]\\.\\- ])(?=.+$).{8,}$";
+    public static final String PASSWORD_MESSAGE = "Password must be at least 8 digits long.  It must contain one digit, a lower case letter, an upper case letter, and a special character.";
 
-    public List<PiParticipant> getParticipants() {
-        return participants;
+    @Size(min=2, max=100, message="Please provide a name of at least 3 characters.")
+    private String fullName;
+
+    @Email
+    @NotNull
+    private String email;
+
+    private boolean emailOptout = false;  // User required to receive no more emails.
+
+    private String theme;
+
+    private boolean over18;
+
+    private boolean admin;
+
+    @NotNull
+    @Pattern(regexp=PASSWORD_REGEX, message = PASSWORD_MESSAGE)
+    private String         password;
+    @NotNull
+    private String         passwordAgain;
+
+
+    /**
+     * Checks to see if the given password matches some standard criteria:
+     * @param password
+     * @return
+     */
+    public static boolean validPassword(String password) {
+        return password.matches(PASSWORD_REGEX);
     }
 
-    public void setParticipants(List<PiParticipant> participants) {
-        this.participants = participants;
+
+    public boolean validParticipant(BindingResult bindingResult, ParticipantRepository repository) {
+
+        if(!over18) {
+            bindingResult.addError(new ObjectError("over18", "You must be over 18 to participate in this Study."));
+        }
+
+        if(repository.findByEmail(email) != null) {
+            bindingResult.addError(new ObjectError("email", "This email already exists."));
+        }
+
+        if(!password.equals(passwordAgain)) {
+            bindingResult.addError(new ObjectError("password", "Passwords do not match."));
+        }
+
+        if(admin && password.length() < 20) {
+            bindingResult.addError(new FieldError("Participant", "admin", "Admin users must have a password of at least 20 characters."));
+        }
+
+        if (bindingResult.hasErrors()) {
+            LOG.error("Invalid participant:" + bindingResult.getAllErrors());
+            return false;
+        }
+        return true;
     }
 
-    public void add(PiParticipant p) {
-        if(null == this.participants) this.participants = new ArrayList<PiParticipant>();
-        this.participants.add(p);
-    }
-
-    public List<String> getSessionNames() {
-        return sessionNames;
-    }
-
-    public void setSessionNames(List<String> sessionNames) {
-        this.sessionNames = sessionNames;
-    }
-
-    public void add(String name) {
-        if(null == this.sessionNames) this.sessionNames= new ArrayList<String>();
-        this.sessionNames.add(name);
+    public PiParticipant toPiParticipant() {
+        PiParticipant p = new PiParticipant(fullName, email, admin);
+        p.updatePassword(password);
+        if(theme != null) p.setTheme(theme);
+        p.setOver18(over18);
+        p.setLastLoginDate(new Date());
+        return(p);
     }
 
 

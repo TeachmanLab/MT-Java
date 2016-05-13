@@ -1,7 +1,7 @@
 package edu.virginia.psyc.pi.configuration;
 
-import edu.virginia.psyc.pi.persistence.ParticipantDAO;
-import edu.virginia.psyc.pi.persistence.ParticipantRepository;
+import edu.virginia.psyc.mindtrails.domain.Participant;
+import edu.virginia.psyc.mindtrails.persistence.ParticipantRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 
         auth.userDetailsService(username -> {
-                ParticipantDAO participant = participantRepository.findByEmail(username);
+                Participant participant = participantRepository.findByEmail(username);
                 if (participant != null) {
                     LOG.info("Participant Found:" + participant);
                     return participant;

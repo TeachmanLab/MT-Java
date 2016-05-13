@@ -1,7 +1,7 @@
 package edu.virginia.psyc.pi.persistence.Questionnaire;
 
-import edu.virginia.psyc.pi.persistence.ParticipantDAO;
-import org.springframework.data.jpa.repository.JpaRepository;
+
+import edu.virginia.psyc.mindtrails.domain.Participant;
 
 import java.util.List;
 
@@ -21,6 +21,6 @@ import java.util.List;
  */
 public interface OARepository extends QuestionnaireRepository<OA> {
 
-    List<OA> findByParticipantDAO(ParticipantDAO p);
+    List<OA> findByParticipant(Participant p);
 
 }

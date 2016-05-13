@@ -1,9 +1,6 @@
 package edu.virginia.psyc.pi.DAO;
 
-import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.

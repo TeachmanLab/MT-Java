@@ -2,8 +2,8 @@ package edu.virginia.psyc.pi.persistence;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import edu.virginia.psyc.pi.domain.DoNotDelete;
-import edu.virginia.psyc.pi.domain.Exportable;
+import edu.virginia.psyc.mindtrails.domain.DoNotDelete;
+import edu.virginia.psyc.mindtrails.domain.Exportable;
 import lombok.Data;
 
 import javax.persistence.Entity;

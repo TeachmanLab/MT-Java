@@ -1,9 +1,6 @@
-package edu.virginia.psyc.pi.persistence;
+package edu.virginia.psyc.mindtrails.domain;
 
 import com.fasterxml.jackson.annotation.*;
-import edu.virginia.psyc.pi.domain.DoNotDelete;
-import edu.virginia.psyc.pi.domain.Exportable;
-import edu.virginia.psyc.pi.service.EmailService;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -20,7 +17,7 @@ import java.util.Date;
 @Exportable
 @DoNotDelete
 @Data
-public class GiftLogDAO {
+public class GiftLog {
 
     @Id
     @GeneratedValue
@@ -29,17 +26,17 @@ public class GiftLogDAO {
     @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
     @JsonIdentityReference(alwaysAsId=true)
     @JsonProperty("participantId")
-    private ParticipantDAO participantDAO;
+    private Participant participant;
     private String orderId;
     private String sessionName;
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="EEE, dd MMM yyyy HH:mm:ss Z", timezone="EST")
     private Date dateSent;
-    public GiftLogDAO() {};
+    public GiftLog() {};
 
 
 
-    public GiftLogDAO(ParticipantDAO participantDAO, String orderId, String sessionName) {
-        this.participantDAO = participantDAO;
+    public GiftLog(Participant participant, String orderId, String sessionName) {
+        this.participant = participant;
         this.orderId = orderId;
         this.sessionName = sessionName;
         this.dateSent = new Date();

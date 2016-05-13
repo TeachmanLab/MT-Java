@@ -16,6 +16,8 @@ public interface Study {
 
     public Session getCurrentSession(); // returns the current session.
 
+    public void forceToSession(String sessionName); // Forces the study to the beginning of session with the given name.
+
     public Session nextGiftSession(); // returns the current session.
 
     public void completeCurrentTask(); // completes a task, moving the participant further through the study/

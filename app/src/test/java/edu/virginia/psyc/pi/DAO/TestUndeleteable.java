@@ -1,6 +1,6 @@
 package edu.virginia.psyc.pi.DAO;
 
-import edu.virginia.psyc.pi.domain.DoNotDelete;
+import edu.virginia.psyc.mindtrails.domain.DoNotDelete;
 import edu.virginia.psyc.pi.persistence.Questionnaire.LinkedQuestionnaireData;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

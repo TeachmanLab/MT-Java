@@ -1,5 +1,8 @@
 package edu.virginia.psyc.pi.service;
 
+import edu.virginia.psyc.mindtrails.domain.EmailLog;
+import edu.virginia.psyc.mindtrails.domain.GiftLog;
+import edu.virginia.psyc.mindtrails.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.Application;
 import edu.virginia.psyc.pi.DAO.TestQuestionnaire;
 import edu.virginia.psyc.pi.DAO.TestQuestionnaireRepository;
@@ -12,6 +15,7 @@ import org.junit.runner.RunWith;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Date;
@@ -32,6 +36,7 @@ import static org.hamcrest.beans.HasPropertyWithValue.hasProperty;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
+@ActiveProfiles("test")
 public class ExportServiceTest {
 
 
@@ -71,8 +76,8 @@ public class ExportServiceTest {
             if (i.getName().equals(ParticipantExportDAO.class.getSimpleName())) participants = i;
             if (i.getName().equals(TrialDAO.class.getSimpleName())) trials = i;
             if (i.getName().equals(AnxietyTriggers.class.getSimpleName())) anxietyTriggers = i;
-            if (i.getName().equals(GiftLogDAO.class.getSimpleName())) giftLog = i;
-            if (i.getName().equals(EmailLogDAO.class.getSimpleName())) emailLog = i;
+            if (i.getName().equals(GiftLog.class.getSimpleName())) giftLog = i;
+            if (i.getName().equals(EmailLog.class.getSimpleName())) emailLog = i;
         }
         assertNotNull(participants);
         assertNotNull(trials);

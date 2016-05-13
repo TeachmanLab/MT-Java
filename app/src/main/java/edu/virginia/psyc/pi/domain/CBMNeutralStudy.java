@@ -2,8 +2,12 @@ package edu.virginia.psyc.pi.domain;
 
 import edu.virginia.psyc.mindtrails.domain.Study;
 import edu.virginia.psyc.mindtrails.domain.Task;
-import edu.virginia.psyc.mindtrails.domain.participant.TaskLog;
+import edu.virginia.psyc.mindtrails.domain.TaskLog;
+import lombok.Data;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,7 +19,14 @@ import java.util.List;
  * Time: 8:21 AM
  * The Participants progress through a series of sessions
  */
+@Entity
+@Table(name = "study")
+@Data
+@DiscriminatorValue("CBM Neutral")
 public class CBMNeutralStudy extends CBMStudy implements Study {
+
+
+    public CBMNeutralStudy() {}
 
     public CBMNeutralStudy(String currentName, int taskIndex, Date lastSessionDate, List<TaskLog> taskLogs) {
         super(currentName,taskIndex,lastSessionDate,taskLogs);

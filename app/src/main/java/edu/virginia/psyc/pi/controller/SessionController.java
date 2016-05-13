@@ -1,9 +1,13 @@
 package edu.virginia.psyc.pi.controller;
 
-import edu.virginia.psyc.pi.domain.*;
+import edu.virginia.psyc.mindtrails.domain.Participant;
+import edu.virginia.psyc.mindtrails.domain.Session;
+import edu.virginia.psyc.mindtrails.domain.Study;
+import edu.virginia.psyc.mindtrails.persistence.ParticipantRepository;
+import edu.virginia.psyc.pi.domain.CBMStudy;
+import edu.virginia.psyc.pi.domain.PiParticipant;
 import edu.virginia.psyc.pi.domain.tango.Reward;
-import edu.virginia.psyc.pi.persistence.ParticipantDAO;
-import edu.virginia.psyc.pi.persistence.ParticipantRepository;
+import edu.virginia.psyc.pi.persistence.PiParticipantRepository;
 import edu.virginia.psyc.pi.persistence.Questionnaire.OA;
 import edu.virginia.psyc.pi.persistence.Questionnaire.OARepository;
 import edu.virginia.psyc.pi.service.EmailService;
@@ -21,8 +25,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
-import edu.virginia.psyc.mindtrails.domain.Session;
-import edu.virginia.psyc.mindtrails.domain.Study;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -46,7 +48,7 @@ public class SessionController extends BaseController {
     @Autowired private EmailService emailService;
     @Autowired private OARepository oaRepository;
     @Autowired private ExportService exportService;
-
+    @Autowired private PiParticipantRepository piParticipantRepository;
 
     /**
      * Spring automatically configures this object.
@@ -57,10 +59,14 @@ public class SessionController extends BaseController {
         this.participantRepository = participantRepository;
     }
 
+    private PiParticipant getPiParticipant(Principal principal) {
+        return piParticipantRepository.findByEmail(principal.getName());
+    }
+
     @RequestMapping("")
     public String sessionHome(ModelMap model, Principal principal) throws Exception {
 
-        PiParticipant p = getParticipant(principal);
+        PiParticipant p = getPiParticipant(principal);
         Study study = p.getStudy();
         Session session = study.getCurrentSession();
         Session last = study.getLastSession();
@@ -119,7 +125,7 @@ public class SessionController extends BaseController {
 
     @RequestMapping("/overview")
     public String overview(ModelMap model, Principal principal) {
-        PiParticipant p = getParticipant(principal);
+        Participant p = getParticipant(principal);
         Study study  = p.getStudy();
 
         model.addAttribute("participant", p);
@@ -132,9 +138,8 @@ public class SessionController extends BaseController {
     @RequestMapping("/graph")
     public String graph(ModelMap model, Principal principal) {
 
-        ParticipantDAO dao = getParticipantDAO(principal.getName());
-        PiParticipant p      = getParticipant(dao);
-        List<OA> oaList    = oaRepository.findByParticipantDAO(dao);
+        Participant p = getParticipant(principal);
+        List<OA> oaList    = oaRepository.findByParticipant(p);
         List<List<Object>> points = new ArrayList();
         List<List<Object>> regressionPoints = new ArrayList();
 
@@ -192,7 +197,7 @@ public class SessionController extends BaseController {
     @RequestMapping("/next")
     public View nextStepInSession(ModelMap model, Principal principal) {
 
-        PiParticipant p = getParticipant(principal);
+        Participant p = getParticipant(principal);
         Study study = p.getStudy();
 
         // Re-direct to the next step the current session is in progress.
@@ -206,7 +211,7 @@ public class SessionController extends BaseController {
     @RequestMapping("/atRisk")
     public String atRisk(ModelMap model, Principal principal) {
 
-        PiParticipant p = getParticipant(principal);
+        Participant p = getParticipant(principal);
         Study study = p.getStudy();
         model.addAttribute("participant", p);
         model.addAttribute("study", study);

@@ -1,14 +1,14 @@
 package edu.virginia.psyc.pi.controller;
 
-import edu.virginia.psyc.pi.domain.PiParticipant;
+import edu.virginia.psyc.mindtrails.domain.Participant;
 import edu.virginia.psyc.mindtrails.domain.RestExceptions.NoModelForFormException;
-import edu.virginia.psyc.pi.persistence.ParticipantDAO;
-import edu.virginia.psyc.pi.persistence.ParticipantRepository;
+import edu.virginia.psyc.mindtrails.persistence.ParticipantRepository;
+import edu.virginia.psyc.mindtrails.service.RsaEncryptionService;
+import edu.virginia.psyc.pi.domain.PiParticipant;
+import edu.virginia.psyc.pi.persistence.PiParticipantRepository;
 import edu.virginia.psyc.pi.persistence.Questionnaire.*;
-import edu.virginia.psyc.pi.persistence.TaskLogDAO;
 import edu.virginia.psyc.pi.service.EmailService;
 import edu.virginia.psyc.pi.service.ExportService;
-import edu.virginia.psyc.mindtrails.service.RsaEncryptionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +62,9 @@ public class QuestionController extends BaseController {
     private OARepository oaRepository;
 
     @Autowired
+    private PiParticipantRepository piParticipantRepository;
+
+    @Autowired
     private EmailService emailService;
 
     /**
@@ -73,7 +76,7 @@ public class QuestionController extends BaseController {
 
     @RequestMapping(value = "ImageryPrime", method = RequestMethod.GET)
     public String showIP(ModelMap model, Principal principal) {
-        PiParticipant p = getParticipant(principal);
+        PiParticipant p = piParticipantRepository.findByEmail(principal.getName());
         boolean notFirst = p.getStudy().getCurrentSession().getIndex() > 1;
         model.addAttribute("notFirst", notFirst);
         model.addAttribute("prime", p.getPrime().toString());
@@ -88,7 +91,7 @@ public class QuestionController extends BaseController {
      */
     @RequestMapping(value = "OA", method = RequestMethod.GET)
     public String showOA(ModelMap model, Principal principal) {
-        PiParticipant p = getParticipant(principal);
+        PiParticipant p = piParticipantRepository.findByEmail(principal.getName());
         model.addAttribute("inSessions", p.inSession());
         model.addAttribute("participant", getParticipant(principal));
         return ("/questions/OA");
@@ -99,22 +102,21 @@ public class QuestionController extends BaseController {
                           BindingResult result, Principal principal) throws MessagingException {
 
         // Connect this object to the Participant, as we will need to reference it later.
-        ParticipantDAO dao      = getParticipantDAO(principal);
-        PiParticipant participant = participantRepository.entityToDomain(dao);
-        oa.setParticipantDAO(dao);
+        PiParticipant participant = piParticipantRepository.findByEmail(principal.getName());
+        oa.setParticipant(participant);
         recordSessionProgress(oa);
         oaRepository.save(oa);
 
         // If the users score differs from there original score and places the user
         // "at-risk", then send a message to the administrator.
-        List<OA> previous = oaRepository.findByParticipantDAO(oa.getParticipantDAO());
+        List<OA> previous = oaRepository.findByParticipant(oa.getParticipant());
         OA firstEntry = Collections.min(previous);
 
         if(oa.atRisk(firstEntry)) {
             if(!participant.isIncrease30()) { // alert admin the first time.
                 emailService.sendAtRiskAdminEmail(participant, firstEntry, oa);
-                dao.setIncrease30(true);
-                participantRepository.save(dao);
+                participant.setIncrease30(true);
+                participantRepository.save(participant);
             }
             return new RedirectView("/session/atRisk");
         }
@@ -172,34 +174,23 @@ public class QuestionController extends BaseController {
      */
     private void recordSessionProgress(QuestionnaireData data) {
 
-        PiParticipant participant;
-        ParticipantDAO dao;
+        Participant participant;
 
-        dao = (ParticipantDAO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if(participantRepository.findByEmail(dao.getEmail()) != null)
-            dao = participantRepository.findByEmail(dao.getEmail()); // Refresh session object from database.
+        participant = (Participant) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(participantRepository.findByEmail(participant.getEmail()) != null)
+            participant = participantRepository.findByEmail(participant.getEmail()); // Refresh session object from database.
 
         // Attempt to set the participant link, depending on sub-class type
         if(data instanceof LinkedQuestionnaireData)
-            ((LinkedQuestionnaireData) data).setParticipantDAO(dao);
+            ((LinkedQuestionnaireData) data).setParticipant(participant);
         if(data instanceof SecureQuestionnaireData)
-            ((SecureQuestionnaireData) data).setParticipantRSA(encryptService.encryptIfEnabled(dao.getId()));
+            ((SecureQuestionnaireData) data).setParticipantRSA(encryptService.encryptIfEnabled(participant.getId()));
 
-
-        participant = participantRepository.entityToDomain(dao);
-
-        // Record the session for which this questionnaire was completed.
         data.setSession(participant.getStudy().getCurrentSession().getName());
-
-        // Log the completion of the task
-        TaskLogDAO taskDao = new TaskLogDAO(dao, participant.getStudy().getCurrentSession().getName(),
-                participant.getStudy().getCurrentSession().getCurrentTask().getName());
-        dao.addTaskLog(taskDao);
 
         // Update the participant's session status, and save back to the database.
         participant.getStudy().completeCurrentTask();
-        participantRepository.domainToEntity(participant, dao);
-        participantRepository.save(dao);
+        participantRepository.save(participant);
 
         data.setDate(new Date());
     }

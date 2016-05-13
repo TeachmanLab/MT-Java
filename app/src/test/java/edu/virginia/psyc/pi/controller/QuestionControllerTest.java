@@ -17,6 +17,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
 import org.springframework.security.web.FilterChainProxy;
 import org.springframework.security.web.method.annotation.AuthenticationPrincipalArgumentResolver;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -41,6 +42,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
+@ActiveProfiles("test")
 public class QuestionControllerTest extends BaseControllerTest {
 
     @Autowired
@@ -183,7 +185,7 @@ public class QuestionControllerTest extends BaseControllerTest {
         undeleteableRepository.flush();
         List<TestUndeleteable> dataList = undeleteableRepository.findAll();
         TestUndeleteable last = dataList.get(dataList.size() - 1);
-        assertNotNull(last.getParticipantDAO());
+        assertNotNull(last.getParticipant());
 
     }
 }

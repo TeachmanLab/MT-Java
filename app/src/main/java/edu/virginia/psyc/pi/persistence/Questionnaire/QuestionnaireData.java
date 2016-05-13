@@ -1,7 +1,7 @@
 package edu.virginia.psyc.pi.persistence.Questionnaire;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import edu.virginia.psyc.pi.domain.Exportable;
+import edu.virginia.psyc.mindtrails.domain.Exportable;
 import lombok.Data;
 
 import javax.persistence.*;
