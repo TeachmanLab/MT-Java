@@ -1,4 +1,4 @@
-package edu.virginia.psyc.pi.domain.tango;
+package edu.virginia.psyc.mindtrails.domain.tango;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

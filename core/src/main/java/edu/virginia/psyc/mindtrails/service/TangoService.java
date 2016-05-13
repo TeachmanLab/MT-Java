@@ -1,9 +1,9 @@
-package edu.virginia.psyc.pi.service;
+package edu.virginia.psyc.mindtrails.service;
 
 import edu.virginia.psyc.mindtrails.domain.tracking.GiftLog;
 import edu.virginia.psyc.mindtrails.domain.Participant;
 import edu.virginia.psyc.mindtrails.persistence.ParticipantRepository;
-import edu.virginia.psyc.pi.domain.tango.*;
+import edu.virginia.psyc.mindtrails.domain.tango.*;
 import lombok.Data;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.slf4j.Logger;

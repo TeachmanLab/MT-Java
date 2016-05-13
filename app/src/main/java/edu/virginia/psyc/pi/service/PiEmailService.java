@@ -6,7 +6,7 @@ import edu.virginia.psyc.mindtrails.domain.Study;
 import edu.virginia.psyc.mindtrails.persistence.ParticipantRepository;
 import edu.virginia.psyc.mindtrails.service.EmailService;
 import edu.virginia.psyc.pi.domain.CBMStudy;
-import edu.virginia.psyc.pi.domain.tango.Reward;
+import edu.virginia.psyc.mindtrails.domain.tango.Reward;
 import edu.virginia.psyc.pi.persistence.Questionnaire.OA;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

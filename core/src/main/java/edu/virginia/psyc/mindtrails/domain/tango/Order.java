@@ -1,4 +1,4 @@
-package edu.virginia.psyc.pi.domain.tango;
+package edu.virginia.psyc.mindtrails.domain.tango;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
