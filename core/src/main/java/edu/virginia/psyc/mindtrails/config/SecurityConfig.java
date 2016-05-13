@@ -1,4 +1,4 @@
-package edu.virginia.psyc.pi.configuration;
+package edu.virginia.psyc.mindtrails.config;
 
 import edu.virginia.psyc.mindtrails.domain.Participant;
 import edu.virginia.psyc.mindtrails.persistence.ParticipantRepository;
@@ -16,12 +16,19 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
+/**
+ * Resticts who can log into the system, connecting user authentication to the
+ * Participant table of the database.  Allows anyone to view the public facing parts
+ * of a study, including the public/* pages and js/** and css/** directories.
+ * Access to any path under admin/** requires the user be marked as an admin in the
+ * database.
+ */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true, proxyTargetClass = true)
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SecurityConfiguration.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SecurityConfig.class);
 
     @Autowired
     private ParticipantRepository participantRepository;
