@@ -1,4 +1,4 @@
-package edu.virginia.psyc.pi.service;
+package edu.virginia.psyc.mindtrails.service;
 
 import edu.virginia.psyc.mindtrails.domain.Participant;
 import edu.virginia.psyc.mindtrails.persistence.ParticipantRepository;
