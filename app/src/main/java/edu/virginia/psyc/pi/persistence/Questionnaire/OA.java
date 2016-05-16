@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import edu.virginia.psyc.mindtrails.domain.DoNotDelete;
 import edu.virginia.psyc.mindtrails.domain.Participant;
 import edu.virginia.psyc.mindtrails.domain.questionnaire.SecureQuestionnaireData;
+import edu.virginia.psyc.pi.domain.PiParticipant;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.slf4j.Logger;
@@ -16,6 +17,8 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This Oasis questionnaire is used over time in the study to determine
@@ -87,6 +90,19 @@ public class OA extends SecureQuestionnaireData implements Comparable<OA> {
     @Override
     public int compareTo(OA o) {
         return date.compareTo(o.date);
+    }
+
+    @Override
+    public Map<String,Object> modelAttributes(Participant p) {
+        Map<String, Object> attributes = new HashMap<>();
+        PiParticipant piP;
+        if (p instanceof PiParticipant) {
+            piP = (PiParticipant)p;
+            attributes.put("inSessions", piP.inSession());
+        } else {
+            attributes.put("inSessions", false);
+        }
+        return attributes;
     }
 
 }

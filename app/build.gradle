@@ -39,8 +39,6 @@ dependencies {
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
 
     // Tests
-    testCompile("org.springframework.boot:spring-boot-starter-test")
-    testCompile("org.springframework.security:spring-security-test")
 //    testCompile("org.mockito:mockito-all:1.8.4")
 //    testCompile("org.springframework:spring-test")
 //    testCompile('org.hamcrest:hamcrest-all:1.3')

@@ -1,13 +1,13 @@
-package edu.virginia.psyc.pi.controller;
+package edu.virginia.psyc.mindtrails.controllers;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.virginia.psyc.pi.Application;
-import edu.virginia.psyc.pi.MockClasses.TestQuestionnaire;
-import edu.virginia.psyc.pi.MockClasses.TestQuestionnaireRepository;
-import edu.virginia.psyc.pi.MockClasses.TestUndeleteable;
-import edu.virginia.psyc.pi.MockClasses.TestUndeleteableRepository;
+import edu.virginia.psyc.mindtrails.Application;
+import edu.virginia.psyc.mindtrails.MockClasses.TestQuestionnaire;
+import edu.virginia.psyc.mindtrails.MockClasses.TestQuestionnaireRepository;
+import edu.virginia.psyc.mindtrails.MockClasses.TestUndeleteable;
+import edu.virginia.psyc.mindtrails.MockClasses.TestUndeleteableRepository;
+import edu.virginia.psyc.mindtrails.controller.QuestionController;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +15,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.security.web.FilterChainProxy;
 import org.springframework.security.web.method.annotation.AuthenticationPrincipalArgumentResolver;
 import org.springframework.test.context.ActiveProfiles;
@@ -31,9 +32,9 @@ import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
@@ -55,10 +56,7 @@ public class QuestionControllerTest extends BaseControllerTest {
     private TestUndeleteableRepository undeleteableRepository;
 
     @Autowired
-    private QuestionController formController;
-
-    @Autowired
-    private ExportController exportController;
+    private QuestionController questionController;
 
     private MockMvc mockMvc;
 
@@ -69,7 +67,7 @@ public class QuestionControllerTest extends BaseControllerTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
 
-        this.mockMvc = MockMvcBuilders.standaloneSetup(formController,exportController)
+        this.mockMvc = MockMvcBuilders.standaloneSetup(questionController)
                 .setCustomArgumentResolvers(new AuthenticationPrincipalArgumentResolver())
                 .addFilters(this.springSecurityFilterChain)
                 .build();
@@ -96,17 +94,27 @@ public class QuestionControllerTest extends BaseControllerTest {
 
     @Test
     public void testGetForm() throws Exception {
-        MvcResult result = mockMvc.perform(get("/questions/TestForm")
-                .with(user(getUser())))
+        MvcResult result = mockMvc.perform(get("/questions/TestQuestionnaire")
+                .with(SecurityMockMvcRequestPostProcessors.user(getUser())))
                 .andExpect((status().is2xxSuccessful()))
                 .andReturn();
     }
 
     @Test
+    public void testGetFormContainsCustomParameters() throws Exception {
+        MvcResult result = mockMvc.perform(get("/questions/TestQuestionnaire")
+                .with(SecurityMockMvcRequestPostProcessors.user(getUser())))
+                .andExpect((status().is2xxSuccessful()))
+                .andExpect(model().attribute("test", "pickles"))
+                .andReturn();
+    }
+
+
+    @Test
     public void testPostDataForm() throws Exception {
         ResultActions result = mockMvc.perform(post("/questions/TestQuestionnaire")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .with(user(getUser()))
+                .with(SecurityMockMvcRequestPostProcessors.user(getUser()))
                 .param("value", "cheese")
                 .param("multiValue", "cheddar")
                 .param("multiValue", "havarti"))
@@ -117,7 +125,7 @@ public class QuestionControllerTest extends BaseControllerTest {
     public void testPostBadData() throws Exception {
         ResultActions result = mockMvc.perform(post("/questions/NoSuchForm")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .with(user(getUser()))
+                .with(SecurityMockMvcRequestPostProcessors.user(getUser()))
                 .param("value", "cheese")
                 .param("multiValue", "cheddar")
                 .param("multiValue", "havarti"))
@@ -127,43 +135,7 @@ public class QuestionControllerTest extends BaseControllerTest {
     @Test
     public void testThatPostedDataIsStored() throws Exception {
         testPostDataForm();
-        assertEquals("cheese", getLastQuestionnaire().getValue());
-    }
-
-    /** Make sure that when the data is exported, the values are correctly encoded
-     * @throws Exception
-     */
-    @Test
-    public void testThatPostedDataIsExportedAsJSon() throws Exception {
-        testPostDataForm();
-        repository.flush();
-        MvcResult result = mockMvc.perform(get("/api/export/TestQuestionnaire")
-                .with(user(getAdmin())))
-                .andExpect((status().is2xxSuccessful()))
-                .andReturn();
-
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode actualObj = mapper.readTree(result.getResponse().getContentAsString());
-        assertEquals("Value is a top level object that contains the string 'cheese'", "cheese", actualObj.get(0).path("value").asText());
-        System.out.println(actualObj);
-    }
-
-    @Test
-    public void testMultiValueElementsCorrectlyPassedThrough() throws Exception {
-        testPostDataForm();
-        repository.flush();
-        MvcResult result = mockMvc.perform(get("/api/export/TestQuestionnaire")
-                .with(user(getAdmin())))
-                .andExpect((status().is2xxSuccessful()))
-                .andReturn();
-
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode actualObj = mapper.readTree(result.getResponse().getContentAsString());
-        assertThat(actualObj.findValue("multiValue").isArray(), is(true));
-        Iterator<JsonNode> values = actualObj.findValue("multiValue").iterator();
-        assertThat(values.next().textValue(), is("cheddar"));
-        assertThat(values.next().textValue(), is("havarti"));
-        System.out.println(actualObj);
+        Assert.assertEquals("cheese", getLastQuestionnaire().getValue());
     }
 
     @Test
@@ -178,7 +150,7 @@ public class QuestionControllerTest extends BaseControllerTest {
     public void testParticipantIdIsPopulatedIfItExists() throws Exception {
         ResultActions result = mockMvc.perform(post("/questions/TestUndeleteable")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .with(user(getUser()))
+                .with(SecurityMockMvcRequestPostProcessors.user(getUser()))
                 .param("value", "cheese"))
                 .andExpect((status().is3xxRedirection()));
 

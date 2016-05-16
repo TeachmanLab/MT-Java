@@ -1,6 +1,5 @@
 package edu.virginia.psyc.pi.controller;
 
-import edu.virginia.psyc.mindtrails.controller.BaseController;
 import edu.virginia.psyc.mindtrails.domain.Participant;
 import edu.virginia.psyc.mindtrails.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.domain.PiParticipant;
@@ -34,16 +33,17 @@ import java.security.Principal;
  */
 @Controller
 @RequestMapping("/playerScript")
-public class PIPlayerController extends BaseController {
+public class PIPlayerController {
 
     @Autowired private static final Logger LOG = LoggerFactory.getLogger(PIPlayerController.class);
 
     @Autowired private PiParticipantRepository piParticipantRepository;
 
-
     @Autowired
-    public PIPlayerController(ParticipantRepository participantRepository) {
-        this.participantRepository = participantRepository;
+    private ParticipantRepository participantRepository;
+
+    private Participant getParticipant(Principal p) {
+        return participantRepository.findByEmail(p.getName());
     }
 
     @RequestMapping(value="{scriptName}", method=RequestMethod.GET)

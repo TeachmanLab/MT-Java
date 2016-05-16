@@ -1,12 +1,15 @@
 package edu.virginia.psyc.mindtrails.MockClasses;
 
+import edu.virginia.psyc.mindtrails.domain.Participant;
 import edu.virginia.psyc.mindtrails.domain.questionnaire.SecureQuestionnaireData;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by dan on 10/26/15.
@@ -28,6 +31,13 @@ public class TestQuestionnaire extends SecureQuestionnaireData {
     public TestQuestionnaire(String value) {
         this.value = value;
         this.date = new Date();
+    }
+
+    @Override
+    public Map<String,Object> modelAttributes(Participant p) {
+        Map<String,Object> atts = new HashMap<>();
+        atts.put("test", "pickles");
+        return atts;
     }
 
 }

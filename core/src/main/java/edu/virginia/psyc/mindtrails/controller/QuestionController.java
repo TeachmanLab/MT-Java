@@ -1,18 +1,13 @@
-package edu.virginia.psyc.pi.controller;
+package edu.virginia.psyc.mindtrails.controller;
 
-import edu.virginia.psyc.mindtrails.controller.BaseController;
-import edu.virginia.psyc.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 import edu.virginia.psyc.mindtrails.domain.Participant;
-import edu.virginia.psyc.mindtrails.domain.questionnaire.QuestionnaireData;
 import edu.virginia.psyc.mindtrails.domain.RestExceptions.NoModelForFormException;
+import edu.virginia.psyc.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
+import edu.virginia.psyc.mindtrails.domain.questionnaire.QuestionnaireData;
 import edu.virginia.psyc.mindtrails.domain.questionnaire.SecureQuestionnaireData;
 import edu.virginia.psyc.mindtrails.persistence.ParticipantRepository;
-import edu.virginia.psyc.mindtrails.service.RsaEncryptionService;
-import edu.virginia.psyc.pi.domain.PiParticipant;
-import edu.virginia.psyc.pi.persistence.PiParticipantRepository;
-import edu.virginia.psyc.pi.persistence.Questionnaire.*;
-import edu.virginia.psyc.pi.service.PiEmailService;
 import edu.virginia.psyc.mindtrails.service.ExportService;
+import edu.virginia.psyc.mindtrails.service.RsaEncryptionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,17 +15,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.WebRequestDataBinder;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.view.RedirectView;
 
-import javax.mail.MessagingException;
 import java.security.Principal;
-import java.util.Collections;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Handles Form postings from Questionnaires. Expects the following:
@@ -39,17 +33,17 @@ import java.util.List;
  * 3. A Repository Class that allows the entity to be saved to the database.
  *
  * If these things exist on the class path, then any data posted to the form
- * will to saved to the datbase and accessible through the export routine.
+ * will to saved to the database and accessible through the export routine.
  * You do not need to add anything to this class for that to work.
  *
- * If you need custom data provided to your form, or if you need to peform
+ * If you need custom data provided to your form, or if you need to perform
  * a custom action after the form is submitted, you can add your own endpoint
  * to this class.  use "recordSessionProgress" method to record your data
  * if you override the submission behavior.
  *
  * */
 @Controller@RequestMapping("/questions")
-public class QuestionController extends BaseController {
+public class QuestionController {
     @Autowired
     private static final Logger LOG = LoggerFactory.getLogger(QuestionController.class);
 
@@ -60,94 +54,45 @@ public class QuestionController extends BaseController {
     private ExportService exportService;
 
     @Autowired
-    private ImageryPrimeRepository imageryPrimeRepository;
+    private ParticipantRepository participantRepository;
 
-    @Autowired
-    private OARepository oaRepository;
-
-    @Autowired
-    private PiParticipantRepository piParticipantRepository;
-
-    @Autowired
-    private PiEmailService emailService;
-
-    /**
-     * ImageryPrime
-     * This can be either an AIP (Anxious Imagery Prime) or NIP (Neutral Imagery Prime) depending
-     * on the status of the participant.
-     * ---------*
-     */
-
-    @RequestMapping(value = "ImageryPrime", method = RequestMethod.GET)
-    public String showIP(ModelMap model, Principal principal) {
-        PiParticipant p = piParticipantRepository.findByEmail(principal.getName());
-        boolean notFirst = p.getStudy().getCurrentSession().getIndex() > 1;
-        model.addAttribute("notFirst", notFirst);
-        model.addAttribute("prime", p.getPrime().toString());
-        model.addAttribute("participant", p);
-        return ("/questions/ImageryPrime");
-    }
-
-
-    /**
-     * OA
-     * ---------*
-     */
-    @RequestMapping(value = "OA", method = RequestMethod.GET)
-    public String showOA(ModelMap model, Principal principal) {
-        PiParticipant p = piParticipantRepository.findByEmail(principal.getName());
-        model.addAttribute("inSessions", p.inSession());
-        model.addAttribute("participant", getParticipant(principal));
-        return ("/questions/OA");
-    }
-
-    @RequestMapping(value = "OA", method = RequestMethod.POST)
-    RedirectView handleOA(@ModelAttribute("OA") OA oa,
-                          BindingResult result, Principal principal) throws MessagingException {
-
-        // Connect this object to the Participant, as we will need to reference it later.
-        PiParticipant participant = piParticipantRepository.findByEmail(principal.getName());
-        oa.setParticipant(participant);
-        recordSessionProgress(oa);
-        oaRepository.save(oa);
-
-        // If the users score differs from there original score and places the user
-        // "at-risk", then send a message to the administrator.
-        List<OA> previous = oaRepository.findByParticipant(oa.getParticipant());
-        OA firstEntry = Collections.min(previous);
-
-        if(oa.atRisk(firstEntry)) {
-            if(!participant.isIncrease30()) { // alert admin the first time.
-                emailService.sendAtRiskAdminEmail(participant, firstEntry, oa);
-                participant.setIncrease30(true);
-                participantRepository.save(participant);
-            }
-            return new RedirectView("/session/atRisk");
-        }
-        return new RedirectView("/session/next");
-    }
-
-
-    /**
-     * Spring automatically configures this object.
-     * You can modify the location of this database by editing the application.properties file.
-     */
-    @Autowired
-    public QuestionController(ParticipantRepository repository) {
-        this.participantRepository   = repository;
+    private Participant getParticipant(Principal principal) {
+        return participantRepository.findByEmail(principal.getName());
     }
 
     @RequestMapping(value = "{form}", method = RequestMethod.GET)
     public String showForm(ModelMap model, Principal principal, @PathVariable("form") String formName) {
-        model.addAttribute("participant", getParticipant(principal));
+
+        Participant participant = getParticipant(principal);
+        model.addAttribute("participant", participant);
+
+        // It is possible that the Quesionnaire Data object will want to add some additional
+        // parameters to the web form.
+        try {
+            QuestionnaireData data = (QuestionnaireData) exportService.getDomainType(formName).newInstance();
+            model.addAllAttributes(data.modelAttributes(participant));
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
         return ("questions/" + formName);
     }
 
 
     @RequestMapping(value = "{form}", method = RequestMethod.POST)
     public @ResponseBody
-    RedirectView saveForm(@PathVariable("form") String formName,
+    RedirectView handleForm(@PathVariable("form") String formName,
                     WebRequest request) throws Exception {
+        saveForm(formName, request);
+        return new RedirectView("/session/next");
+   }
+
+    /**
+     * Handles a form submission in a standardized way.  This is useful if
+     * you extend this class to handle a custom form submission.
+     */
+    protected void saveForm(String formName, WebRequest request) throws Exception {
 
         JpaRepository repository = exportService.getRepositoryForName(formName);
         if(repository == null) {
@@ -164,8 +109,7 @@ public class QuestionController extends BaseController {
             LOG.error("Failed to save model '" + formName + "' : " + e.getMessage());
             throw new NoModelForFormException(e);
         }
-        return new RedirectView("/session/next");
-   }
+    }
 
     /**
      * Does some tasks common to all forms:
@@ -176,7 +120,7 @@ public class QuestionController extends BaseController {
      *
      * @param data
      */
-    private void recordSessionProgress(QuestionnaireData data) {
+    protected void recordSessionProgress(QuestionnaireData data) {
 
         Participant participant;
 

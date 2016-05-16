@@ -1,20 +1,19 @@
 package edu.virginia.psyc.pi.controller;
 
-import edu.virginia.psyc.mindtrails.controller.BaseController;
 import edu.virginia.psyc.mindtrails.domain.Participant;
-import edu.virginia.psyc.mindtrails.persistence.ParticipantRepository;
-import edu.virginia.psyc.pi.domain.ParticipantForm;
-import edu.virginia.psyc.pi.domain.ParticipantListForm;
-import edu.virginia.psyc.pi.domain.PiParticipant;
 import edu.virginia.psyc.mindtrails.domain.tango.Account;
 import edu.virginia.psyc.mindtrails.domain.tango.Order;
 import edu.virginia.psyc.mindtrails.domain.tango.Reward;
+import edu.virginia.psyc.mindtrails.persistence.ParticipantRepository;
+import edu.virginia.psyc.mindtrails.service.ExportService;
+import edu.virginia.psyc.mindtrails.service.TangoService;
+import edu.virginia.psyc.pi.domain.ParticipantForm;
+import edu.virginia.psyc.pi.domain.ParticipantListForm;
+import edu.virginia.psyc.pi.domain.PiParticipant;
 import edu.virginia.psyc.pi.persistence.PiParticipantRepository;
 import edu.virginia.psyc.pi.persistence.Questionnaire.OA;
 import edu.virginia.psyc.pi.persistence.TrialRepository;
 import edu.virginia.psyc.pi.service.PiEmailService;
-import edu.virginia.psyc.mindtrails.service.ExportService;
-import edu.virginia.psyc.mindtrails.service.TangoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +38,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/admin")
-public class AdminController extends BaseController {
+public class AdminController {
 
     private static final Logger LOG = LoggerFactory.getLogger(AdminController.class);
 
@@ -63,16 +62,11 @@ public class AdminController extends BaseController {
     @Value("${export.disableDownloads}")
     private String downloadsDisabled;
 
-
-
-
-    /**
-     * Spring automatically configures this object.
-     * You can modify the location of this database by editing the application.properties file.
-     */
     @Autowired
-    public AdminController(ParticipantRepository repository) {
-        this.participantRepository   = repository;
+    private ParticipantRepository participantRepository;
+
+    private Participant getParticipant(Principal p) {
+        return participantRepository.findByEmail(p.getName());
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -194,7 +188,7 @@ public class AdminController extends BaseController {
         }
 
         participant = form.toPiParticipant();
-        saveParticipant(participant);
+        participantRepository.save(participant);
 
         LOG.info("Participant created.");
         return "redirect:/admin";

@@ -2,10 +2,13 @@ package edu.virginia.psyc.mindtrails.domain.questionnaire;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import edu.virginia.psyc.mindtrails.domain.Exportable;
+import edu.virginia.psyc.mindtrails.domain.Participant;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created a secure Questionnaire with an ecnrypted link to the Participant.
@@ -23,5 +26,15 @@ public abstract class QuestionnaireData {
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="EEE, dd MMM yyyy HH:mm:ss Z", timezone="EST")
     protected Date date;
     protected String session;
+
+
+    /**
+     * Override this method to add custom information that should
+     * be passed through to your html web form before it is displayed.
+     * @param p Participant.
+     */
+    public Map<String,Object> modelAttributes(Participant p) {
+        return new HashMap<>();
+    }
 
 }

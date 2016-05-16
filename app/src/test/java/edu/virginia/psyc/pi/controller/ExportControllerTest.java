@@ -1,5 +1,8 @@
 package edu.virginia.psyc.pi.controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.virginia.psyc.mindtrails.controller.QuestionController;
 import edu.virginia.psyc.mindtrails.domain.DoNotDelete;
 import edu.virginia.psyc.mindtrails.domain.RestExceptions.NotDeleteableException;
 import edu.virginia.psyc.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
@@ -9,6 +12,7 @@ import edu.virginia.psyc.pi.MockClasses.TestQuestionnaire;
 import edu.virginia.psyc.pi.MockClasses.TestQuestionnaireRepository;
 import edu.virginia.psyc.pi.MockClasses.TestUndeleteable;
 import edu.virginia.psyc.pi.MockClasses.TestUndeleteableRepository;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -19,6 +23,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.http.MediaType;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.security.web.FilterChainProxy;
 import org.springframework.security.web.method.annotation.AuthenticationPrincipalArgumentResolver;
 import org.springframework.test.context.ActiveProfiles;
@@ -26,18 +32,24 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.hasItem;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.beans.HasPropertyWithValue.hasProperty;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
@@ -55,6 +67,10 @@ public class ExportControllerTest extends BaseControllerTest {
     private FilterChainProxy springSecurityFilterChain;
     @Autowired
     private ExportController exportController;
+    @Autowired
+    private QuestionController questionController;
+    @Autowired
+    private TestQuestionnaireRepository repository;
     @Autowired
     private TestQuestionnaireRepository repo;
     @Autowired
@@ -77,11 +93,25 @@ public class ExportControllerTest extends BaseControllerTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
 
-        this.mockMvc = MockMvcBuilders.standaloneSetup(exportController)
+        this.mockMvc = MockMvcBuilders.standaloneSetup(exportController, questionController)
                 .setCustomArgumentResolvers(new AuthenticationPrincipalArgumentResolver())
                 .addFilters(this.springSecurityFilterChain)
                 .build();
     }
+
+
+    @Test
+    public void testPostDataForm() throws Exception {
+        ResultActions result = mockMvc.perform(post("/questions/TestQuestionnaire")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .with(SecurityMockMvcRequestPostProcessors.user(getUser()))
+                .param("value", "cheese")
+                .param("multiValue", "cheddar")
+                .param("multiValue", "havarti"))
+                .andExpect((status().is3xxRedirection()));
+    }
+
+
 
     @Test
     public void testEntryDataIsReturned() {
@@ -141,5 +171,42 @@ public class ExportControllerTest extends BaseControllerTest {
                 .andReturn();
 
     }
+
+    /** Make sure that when the data is exported, the values are correctly encoded
+     * @throws Exception
+     */
+    @Test
+    public void testThatPostedDataIsExportedAsJSon() throws Exception {
+        testPostDataForm();
+        repository.flush();
+        MvcResult result = mockMvc.perform(get("/api/export/TestQuestionnaire")
+                .with(SecurityMockMvcRequestPostProcessors.user(getAdmin())))
+                .andExpect((status().is2xxSuccessful()))
+                .andReturn();
+
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode actualObj = mapper.readTree(result.getResponse().getContentAsString());
+        assertEquals("Value is a top level object that contains the string 'cheese'", "cheese", actualObj.get(0).path("value").asText());
+        System.out.println(actualObj);
+    }
+
+    @Test
+    public void testMultiValueElementsCorrectlyPassedThrough() throws Exception {
+        testPostDataForm();
+        repository.flush();
+        MvcResult result = mockMvc.perform(get("/api/export/TestQuestionnaire")
+                .with(SecurityMockMvcRequestPostProcessors.user(getAdmin())))
+                .andExpect((status().is2xxSuccessful()))
+                .andReturn();
+
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode actualObj = mapper.readTree(result.getResponse().getContentAsString());
+        Assert.assertThat(actualObj.findValue("multiValue").isArray(), is(true));
+        Iterator<JsonNode> values = actualObj.findValue("multiValue").iterator();
+        Assert.assertThat(values.next().textValue(), is("cheddar"));
+        Assert.assertThat(values.next().textValue(), is("havarti"));
+        System.out.println(actualObj);
+    }
+
 
 }

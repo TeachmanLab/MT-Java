@@ -1,19 +1,18 @@
 package edu.virginia.psyc.pi.controller;
 
-import edu.virginia.psyc.mindtrails.controller.BaseController;
 import edu.virginia.psyc.mindtrails.domain.Participant;
 import edu.virginia.psyc.mindtrails.domain.Session;
 import edu.virginia.psyc.mindtrails.domain.Study;
+import edu.virginia.psyc.mindtrails.domain.tango.Reward;
 import edu.virginia.psyc.mindtrails.persistence.ParticipantRepository;
+import edu.virginia.psyc.mindtrails.service.ExportService;
+import edu.virginia.psyc.mindtrails.service.TangoService;
 import edu.virginia.psyc.pi.domain.CBMStudy;
 import edu.virginia.psyc.pi.domain.PiParticipant;
-import edu.virginia.psyc.mindtrails.domain.tango.Reward;
 import edu.virginia.psyc.pi.persistence.PiParticipantRepository;
 import edu.virginia.psyc.pi.persistence.Questionnaire.OA;
 import edu.virginia.psyc.pi.persistence.Questionnaire.OARepository;
 import edu.virginia.psyc.pi.service.PiEmailService;
-import edu.virginia.psyc.mindtrails.service.ExportService;
-import edu.virginia.psyc.mindtrails.service.TangoService;
 import org.apache.commons.math3.stat.regression.SimpleRegression;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -41,7 +40,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/session")
-public class SessionController extends BaseController {
+public class SessionController {
 
     private static final Logger LOG = LoggerFactory.getLogger(SessionController.class);
 
@@ -51,13 +50,12 @@ public class SessionController extends BaseController {
     @Autowired private ExportService exportService;
     @Autowired private PiParticipantRepository piParticipantRepository;
 
-    /**
-     * Spring automatically configures this object.
-     * You can modify the location of this database by editing the application.properties file.
-     */
+
     @Autowired
-    public SessionController(ParticipantRepository participantRepository) {
-        this.participantRepository = participantRepository;
+    private ParticipantRepository participantRepository;
+
+    private Participant getParticipant(Principal p) {
+        return participantRepository.findByEmail(p.getName());
     }
 
     private PiParticipant getPiParticipant(Principal principal) {

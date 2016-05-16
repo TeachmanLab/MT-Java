@@ -1,6 +1,5 @@
 package edu.virginia.psyc.pi.controller;
 
-import edu.virginia.psyc.mindtrails.controller.BaseController;
 import edu.virginia.psyc.mindtrails.domain.Participant;
 import edu.virginia.psyc.mindtrails.domain.PasswordToken;
 import edu.virginia.psyc.mindtrails.persistence.ParticipantRepository;
@@ -41,7 +40,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Controller
-public class LoginController extends BaseController {
+public class LoginController {
 
     private static final Logger LOG = LoggerFactory.getLogger(LoginController.class);
 
@@ -54,13 +53,11 @@ public class LoginController extends BaseController {
     @Autowired
     private DASS21_ASRepository dass21_asRepository;
 
-    /**
-     * Spring automatically configures this object.
-     * You can modify the location of this database by editing the application.properties file.
-     */
     @Autowired
-    public LoginController(ParticipantRepository repository) {
-        this.participantRepository   = repository;
+    private ParticipantRepository participantRepository;
+
+    private Participant getParticipant(Principal p) {
+        return participantRepository.findByEmail(p.getName());
     }
 
     @RequestMapping(value="/", method = RequestMethod.GET)
@@ -232,7 +229,7 @@ public class LoginController extends BaseController {
         }
 
         participant = participantForm.toPiParticipant();
-        saveParticipant(participant);
+        participantRepository.save(participant);
 
         // Log this new person in.
         Authentication auth = new UsernamePasswordAuthenticationToken( participant.getEmail(), participant.getPassword());
@@ -275,7 +272,7 @@ public class LoginController extends BaseController {
 
         Participant p;
 
-        p = getParticipant(email);
+        p = participantRepository.findByEmail(email);
 
         if(null == p) {
             model.addAttribute("invalidEmail", true);
@@ -283,7 +280,7 @@ public class LoginController extends BaseController {
         }
 
         p.setPasswordToken(new PasswordToken());
-        saveParticipant(p);
+        participantRepository.save(p);
 
         emailService.sendPasswordReset(p);
         return("redirect:login");
@@ -345,7 +342,7 @@ public class LoginController extends BaseController {
          participant.updatePassword(password); // save the password.
          participant.setPasswordToken(null);  // clear out hte token so it can't be used again.
          participant.setLastLoginDate(new Date()); // Set the last login date, as we will auto-login.
-         saveParticipant(participant);
+         participantRepository.save(participant);
          participantRepository.flush();
          // Log this person in, so they don't have to type the password again.
          Authentication auth = new UsernamePasswordAuthenticationToken( participant.getEmail(), participant.getPassword());

@@ -1,6 +1,5 @@
 package edu.virginia.psyc.pi.controller;
 
-import edu.virginia.psyc.mindtrails.controller.BaseController;
 import edu.virginia.psyc.mindtrails.domain.Participant;
 import edu.virginia.psyc.mindtrails.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.domain.ParticipantForm;
@@ -31,17 +30,15 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/account")
-public class AccountController extends BaseController {
+public class AccountController {
 
     private static final Logger LOG = LoggerFactory.getLogger(AccountController.class);
 
-    /**
-     * Spring automatically configures this object.
-     * You can modify the location of this database by editing the application.properties file.
-     */
     @Autowired
-    public AccountController(ParticipantRepository repository) {
-        this.participantRepository   = repository;
+    private ParticipantRepository participantRepository;
+
+    private Participant getParticipant(Principal p) {
+        return participantRepository.findByEmail(p.getName());
     }
 
     @RequestMapping
@@ -135,7 +132,7 @@ public class AccountController extends BaseController {
         participant.updatePassword(password); // save the password.
         participant.setPasswordToken(null);  // clear out hte token so it can't be used again.
         participant.setLastLoginDate(new Date()); // Set the last login date, as we will auto-login.
-        saveParticipant(participant);
+        participantRepository.save(participant);
         participantRepository.flush();
         model.addAttribute("participant", participant);
         model.addAttribute("updated", true);

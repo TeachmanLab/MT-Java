@@ -32,6 +32,9 @@ subprojects {
         compile("org.springframework:spring-context-support") //  Email
         compile("javax.mail:mail:1.4.7") // also Email
 
+        testCompile("org.springframework.boot:spring-boot-starter-test")
+        testCompile("org.springframework.security:spring-security-test")
+
     }
 }
 
