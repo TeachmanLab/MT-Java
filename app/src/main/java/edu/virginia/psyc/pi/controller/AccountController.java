@@ -1,5 +1,6 @@
 package edu.virginia.psyc.pi.controller;
 
+import edu.virginia.psyc.mindtrails.controller.BaseController;
 import edu.virginia.psyc.mindtrails.domain.Participant;
 import edu.virginia.psyc.mindtrails.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.domain.ParticipantForm;

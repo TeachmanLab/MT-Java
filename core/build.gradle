@@ -23,6 +23,8 @@ dependencies {
     testCompile('com.jayway.jsonpath:json-path:0.9.1')
     testCompile('com.jayway.jsonpath:json-path-assert:0.9.1')
 
+    testCompile(group: 'com.icegreen', name: 'greenmail', version: '1.5.0')
+
     runtime("mysql:mysql-connector-java")
 
 }

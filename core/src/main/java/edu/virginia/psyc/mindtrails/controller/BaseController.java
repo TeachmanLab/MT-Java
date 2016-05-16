@@ -1,4 +1,4 @@
-package edu.virginia.psyc.pi.controller;
+package edu.virginia.psyc.mindtrails.controller;
 
 import edu.virginia.psyc.mindtrails.domain.Participant;
 import edu.virginia.psyc.mindtrails.persistence.ParticipantRepository;
@@ -19,15 +19,15 @@ public class BaseController {
     protected ParticipantRepository participantRepository;
     private static final Logger LOG = LoggerFactory.getLogger(BaseController.class);
 
-    Participant getParticipant(Principal principal) {
+    protected Participant getParticipant(Principal principal) {
         return participantRepository.findByEmail(principal.getName());
     }
 
-    Participant getParticipant(String email) {
+    protected Participant getParticipant(String email) {
         return participantRepository.findByEmail(email);
     }
 
-    void saveParticipant(Participant participant) {
+    protected void saveParticipant(Participant participant) {
         participantRepository.save(participant);
     }
 
