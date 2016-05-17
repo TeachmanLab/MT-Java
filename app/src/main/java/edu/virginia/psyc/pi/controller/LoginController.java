@@ -2,10 +2,10 @@ package edu.virginia.psyc.pi.controller;
 
 import edu.virginia.psyc.mindtrails.domain.Participant;
 import edu.virginia.psyc.mindtrails.domain.PasswordToken;
+import edu.virginia.psyc.mindtrails.domain.forms.ParticipantForm;
 import edu.virginia.psyc.mindtrails.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.domain.CBMStudy;
 import edu.virginia.psyc.pi.domain.Dass21FromPi;
-import edu.virginia.psyc.pi.domain.ParticipantForm;
 import edu.virginia.psyc.pi.domain.PiParticipant;
 import edu.virginia.psyc.pi.persistence.Questionnaire.DASS21_AS;
 import edu.virginia.psyc.pi.persistence.Questionnaire.DASS21_ASRepository;
@@ -228,7 +228,7 @@ public class LoginController {
             return "consent";
         }
 
-        participant = participantForm.toPiParticipant();
+        participant = participantForm.toParticipant();
         participantRepository.save(participant);
 
         // Log this new person in.

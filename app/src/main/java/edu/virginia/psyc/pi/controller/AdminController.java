@@ -1,13 +1,13 @@
 package edu.virginia.psyc.pi.controller;
 
 import edu.virginia.psyc.mindtrails.domain.Participant;
+import edu.virginia.psyc.mindtrails.domain.forms.ParticipantForm;
 import edu.virginia.psyc.mindtrails.domain.tango.Account;
 import edu.virginia.psyc.mindtrails.domain.tango.Order;
 import edu.virginia.psyc.mindtrails.domain.tango.Reward;
 import edu.virginia.psyc.mindtrails.persistence.ParticipantRepository;
 import edu.virginia.psyc.mindtrails.service.ExportService;
 import edu.virginia.psyc.mindtrails.service.TangoService;
-import edu.virginia.psyc.pi.domain.ParticipantForm;
 import edu.virginia.psyc.pi.domain.ParticipantListForm;
 import edu.virginia.psyc.pi.domain.PiParticipant;
 import edu.virginia.psyc.pi.persistence.PiParticipantRepository;
@@ -187,7 +187,7 @@ public class AdminController {
             return "admin/new_participant";
         }
 
-        participant = form.toPiParticipant();
+        participant = form.toParticipant();
         participantRepository.save(participant);
 
         LOG.info("Participant created.");
