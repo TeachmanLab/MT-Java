@@ -9,16 +9,8 @@ import javax.persistence.*;
 import java.util.*;
 
 /**
- * Created with IntelliJ IDEA.
- * User: dan
- * Date: 4/29/14
- * Time: 4:50 PM
- * This is used to create a new participant in the MVC login controller, and
- * for modifying participants in the admin interface.  And will be used to
- * reset passwords when that get's implemented.
- *
- * This is also used for displaying details about the Participant, and for housing
- * general business logic specific to the Participant.
+ * A customized Participant for the CBM Study.  Tracks CBM Condition and Prime settings,
+ * and flags users that see an increase of 30% in their Oasis scores.
  */
 @Entity
 @Table(name = "participant")
