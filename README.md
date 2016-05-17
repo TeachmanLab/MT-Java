@@ -2,14 +2,77 @@
 About 
 =========
 
-A Server for hosting PIPlayer Trials.  Please see (https://github.com/ProjectImplicit/PIPlayer)
-This server provides:
+MindTrails is a library for constructing online [Cognitive Behavioral Therapy]
+(psychcentral.com/lib/in-depth-cognitive-behavioral-therapy/) studies 
+with tools to address major concerns for such studies - such as reducing
+attrition and secure data handling.  
 
-* User Authentication
-* Participant Assignments
-* Data Collection
-* Data Reporting
-* Session management
+MindTrails provides a core library, and a default implementation for 
+creating new Studies. It provides the following basic tools:
+
+**1. Study / Task Management**
+
+MindTrails provides an open framework for organizing html web forms
+and Javascript applications (such as the [Project Implicit Player]
+(https://github.com/ProjectImplicit/PIPlayer) ) as *Tasks* within a 
+series of *sessions*.  Each session is completed in a single sitting. 
+
+Participants are provided with a series of attractive (but highly 
+customizable) views of their progress.  And are moved through the tasks
+rapidly to create a streamlined and pleasant progression.
+
+We chose to use standard HTTP POST as the basis for handling form 
+submissions, as this  provided the most open model for extension and
+expansion.  If the tool you want to use for data collection can POST that
+back to a web server, it should integrate well into this application.
+
+**2. Email Reminder System.**
+
+The system can be configured to remind participants to return to complete
+later sessions on a regular schedule.  Participants can easily opt out of
+these emails if they choose to do so.
+
+**3. Gift Card Support**
+
+Integrated with [Tango](https://www.tangocard.com/) - MindTrails can 
+fully automate the awarding of Gift Cards to help encourage participants
+to complete sessions.
+
+**4. Secure data storage**
+
+MindTrails is currently in use at the University of Virginia where it
+collects Highly Sensitive Data.  The system has a robust export system
+to allow collected information to be pulled from the main web server - 
+creating a clean separation between identifying data (email addresses) 
+and medical or other information. 
+
+A seperate application, the [MindTrails Exporter](https://github.com/Diheng/PIExporter) 
+can be used to pull all submitted data from the system on a tight interval
+(say every 5 minutes) onto a separate server behind a firewall.  If the
+main web server is compromised no medical information will be available.
+
+
+In addition, email alerts can be configured to notify administrators in
+cases where sensitive data might be left on a web accessible server for
+an extended period of time.
+
+**5. Simple Data Architecture**
+
+Data is collected in a relational database where the records are stored
+in a table(s)-per-form format that can be easy customized.  If the data
+is not secure, working with a study's collected information is easy
+and straight forward.  If the data is sensitive in nature, it can
+be exported in the same configurable format. Implementations have 
+full control over the format of the json / excel.  There is a companion
+project that can be used to extract the data to a private server and 
+generate spreadsheets for later analysis - see secure data storage above.
+
+**6. A Secure, modern web application**
+Our Security Model is build on the popular Spring Security Framework.  
+We currently use a form based authentication (a web login form) that
+provides projects against CSRF Attacks, Session Fixation Protection, 
+and Security header integration.
+
 
 It is built in Java using the Spring Framework and Spring Boot.  There is exceptional documentation
 on these technologies here:  http://spring.io/guides#gs
@@ -159,9 +222,6 @@ if you place the encrypted string in a file, you can decrypt it with
 base64 -d encrypted.txt  | openssl rsautl -decrypt -inkey private_key.pem
 If you are copying the key from a file, you can deocde it directly with
 echo myEncryptedString | base64 -d | openssl rsautl -decrypt -inkey private_key.pem
-
-
-
 
 Testing
 --------
