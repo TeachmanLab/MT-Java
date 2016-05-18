@@ -1,18 +1,18 @@
 package edu.virginia.psyc.pi.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.virginia.psyc.pi.domain.*;
+import edu.virginia.psyc.pi.domain.CBMStudy;
+import edu.virginia.psyc.pi.domain.Dass21FromPi;
+import edu.virginia.psyc.pi.domain.Participant;
+import edu.virginia.psyc.pi.domain.PasswordToken;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.persistence.Questionnaire.DASS21_AS;
 import edu.virginia.psyc.pi.persistence.Questionnaire.DASS21_ASRepository;
 import edu.virginia.psyc.pi.service.EmailService;
-// import jdk.internal.org.objectweb.asm.tree.analysis.Value;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,11 +26,12 @@ import org.springframework.web.bind.support.SessionStatus;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+// import jdk.internal.org.objectweb.asm.tree.analysis.Value;
 
 /**
  * Created with IntelliJ IDEA.
@@ -49,6 +50,9 @@ public class LoginController extends BaseController {
 
     @Autowired
     private EmailService emailService;
+
+    @Value("${tango.maxParticipants}")
+    private long maxParticipantsForGiftCards;
 
     @Autowired
     private DASS21_ASRepository dass21_asRepository;
@@ -221,6 +225,11 @@ public class LoginController extends BaseController {
                                        final SessionStatus status,
                                        HttpSession session
                                        ) {
+
+        long totalParticipants = participantRepository.count();
+        LOG.info("The total Participants in this study are:" + totalParticipants);
+        LOG.info("The max Participants in this study are:" + maxParticipantsForGiftCards);
+        participant.setReceiveGiftCards(maxParticipantsForGiftCards > totalParticipants);
 
         model.addAttribute("participant", participant);
 

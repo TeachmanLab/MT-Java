@@ -4,7 +4,6 @@ import edu.virginia.psyc.pi.domain.*;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 /**
  * Created with IntelliJ IDEA.
@@ -32,6 +31,7 @@ public class ParticipantRepositoryImpl implements ParticipantRepositoryCustom {
         p.setTheme(dao.getTheme());
         p.setOver18(dao.isOver18());
         p.setIncrease30(dao.isIncrease30());
+        p.setReceiveGiftCards(dao.isReceiveGiftCards());
 
         // Password Tokens
         if(dao.getPasswordTokenDAO() != null) {
@@ -85,6 +85,7 @@ public class ParticipantRepositoryImpl implements ParticipantRepositoryCustom {
         dao.setTheme(p.getTheme());
         dao.setOver18(p.isOver18());
         dao.setIncrease30(p.isIncrease30());
+        dao.setReceiveGiftCards(p.isReceiveGiftCards());
 
         // Encrypt Password if it is set.
         if(p.getPassword() != null) {
