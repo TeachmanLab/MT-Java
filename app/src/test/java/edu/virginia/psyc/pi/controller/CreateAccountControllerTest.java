@@ -37,7 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @ActiveProfiles("test")
-public class LoginControllerTest {
+public class CreateAccountControllerTest {
 
     private static String PASSWD = "1234!@#$qwerQWER";
 

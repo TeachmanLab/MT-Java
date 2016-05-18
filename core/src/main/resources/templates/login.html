@@ -1,0 +1,38 @@
+<html>
+<body>
+<h2 class="page-title">Log In</h2>
+<form name="f" th:action="@{/login}" method="post">
+    <fieldset>
+        <div th:if="${param.error}" class="alert alert-error">
+            Invalid username and password.
+        </div>
+        <div th:if="${param.logout}" class="alert alert-success">
+            You have been logged out.
+        </div>
+        <div th:if="${param.created}" class="alert alert-success">
+            Account created. Please log in.
+        </div>
+        <div th:if="${invalidCode}" class="alert alert-success">
+            The password reset code you provided is not valid.
+        </div>
+        <p>
+            <label class="standard" for="email">Email</label>
+            <input type="email" id="email" name="username"/>
+        </p>
+
+        <p>
+            <label class="standard" for="password">Password</label>
+            <input type="password" id="password" name="password"/>
+        </p>
+
+        <div class="fineprint">
+            <a th:href="@{/resetPass}">Forgot your password?</a><br/>
+        </div>
+        <p>
+            <button>Log in</button>
+        </p>
+
+    </fieldset>
+</form>
+</body>
+</html>

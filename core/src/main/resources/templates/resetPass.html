@@ -1,0 +1,20 @@
+<html>
+<body>
+<div class="col-md-8">
+    <h2 class="page-title">Reset your password</h2>
+
+    <div th:if="${invalidEmail}" class="alert alert-error">
+        Sorry, we have no account with that email address in our system.
+    </div>
+    <p>Enter your email address below and we will email you a link that you can follow to reset your password.</p>
+    <form action="#" th:action="@{'/resetPass'}" method="post">
+        <p>
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email"/>
+        </p>
+        <button>Reset Password</button>
+    </form>
+
+</div>
+</body>
+</html>

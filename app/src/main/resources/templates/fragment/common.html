@@ -54,7 +54,7 @@
 
         </div>
     </div>
-    <div class="account-bar" th:unless="${hideAccountBar}">
+    <div class="account-bar" th:unless="${visiting}">
         <div class="container" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
             <span th:if="${participant}" class="item">Logged in as ( <span th:text="${participant.fullName}"/> )</span> |<a href="/session/overview">My Progress</a> | <a
                 href="/account">Account Settings</a> | <a href="/logout">Logout</a>

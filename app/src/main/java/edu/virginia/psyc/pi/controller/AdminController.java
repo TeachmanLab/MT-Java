@@ -95,7 +95,7 @@ public class AdminController {
             form.add(participant.getStudy().getCurrentSession().getName());
         }
 
-        model.addAttribute("hideAccountBar", true);
+        model.addAttribute("visiting", true);
         model.addAttribute("participantForm", form);
         model.addAttribute("search", search);
         model.addAttribute("paging", daoList);
@@ -109,7 +109,7 @@ public class AdminController {
         Participant p;
         p = participantRepository.findOne(id);
 
-        model.addAttribute("hideAccountBar", true);
+        model.addAttribute("visiting", true);
         model.addAttribute("participant", p);
         return "admin/participant_form";
     }
@@ -168,7 +168,7 @@ public class AdminController {
     public String showNewForm(ModelMap model) {
         PiParticipant p;
         p = new PiParticipant();
-        model.addAttribute("hideAccountBar", true);
+        model.addAttribute("visiting", true);
         model.addAttribute("participant", p);
         return "admin/new_participant";
     }
@@ -180,7 +180,7 @@ public class AdminController {
                                     BindingResult bindingResult) {
 
         Participant participant;
-        model.addAttribute("hideAccountBar", true);
+        model.addAttribute("visiting", true);
         form.setOver18(true);
 
         if(!form.validParticipant(bindingResult, participantRepository)) {
@@ -198,7 +198,7 @@ public class AdminController {
     @RequestMapping(value="/listEmails", method=RequestMethod.GET)
     public String listEmails(ModelMap model, Principal principal) {
         Participant p = getParticipant(principal);
-        model.addAttribute("hideAccountBar", true);
+        model.addAttribute("visiting", true);
         model.addAttribute("participant", p);
         return "admin/listEmails";
     }
@@ -228,7 +228,7 @@ public class AdminController {
         Participant p = getParticipant(principal);
         model.addAttribute("participant", p);
         model.addAttribute("sessions", p.getStudy().getSessions());
-        model.addAttribute("hideAccountBar", true);
+        model.addAttribute("visiting", true);
         return "admin/listSessions";
     }
 
@@ -245,7 +245,7 @@ public class AdminController {
 
         model.addAttribute("participant", p);
         model.addAttribute("sessions", p.getStudy().getSessions());
-        model.addAttribute("hideAccountBar", true);
+        model.addAttribute("visiting", true);
         return "admin/export";
     }
 
@@ -255,7 +255,7 @@ public class AdminController {
     public String checkFunds(ModelMap model, Principal principal){
         Account a = tangoService.getAccountInfo();
         model.addAttribute("tango",a);
-        model.addAttribute("hideAccountBar", true);
+        model.addAttribute("loggedIn", true);
         return "admin/checkFunds";
     }
 
@@ -267,7 +267,7 @@ public class AdminController {
         Reward r = tangoService.createGiftCard(p, "AdminAwarded",100);
         this.emailService.sendGiftCardEmail(p, r, 100);
         model.addAttribute("participant", p);
-        model.addAttribute("hideAccountBar", true);
+        model.addAttribute("visiting", true);
         return "/admin/participant_form";
     }
 
@@ -277,7 +277,7 @@ public class AdminController {
     public String showRewardInfo(ModelMap model, Principal principal, @PathVariable ("orderId") String orderId) {
         Order order = tangoService.getOrderInfo(orderId);
         model.addAttribute("order",order);
-        model.addAttribute("hideAccountBar", true);
+        model.addAttribute("visiting", true);
         return "admin/rewardInfo";
     }
 
