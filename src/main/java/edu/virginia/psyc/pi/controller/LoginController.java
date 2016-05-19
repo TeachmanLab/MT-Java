@@ -1,18 +1,20 @@
 package edu.virginia.psyc.pi.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.virginia.psyc.pi.domain.*;
+import edu.virginia.psyc.pi.domain.CBMStudy;
+import edu.virginia.psyc.pi.domain.Dass21FromPi;
+import edu.virginia.psyc.pi.domain.Participant;
+import edu.virginia.psyc.pi.domain.PasswordToken;
+import edu.virginia.psyc.pi.persistence.NotifyDAO;
+import edu.virginia.psyc.pi.persistence.NotifyRepository;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.persistence.Questionnaire.DASS21_AS;
 import edu.virginia.psyc.pi.persistence.Questionnaire.DASS21_ASRepository;
 import edu.virginia.psyc.pi.service.EmailService;
-// import jdk.internal.org.objectweb.asm.tree.analysis.Value;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,11 +28,12 @@ import org.springframework.web.bind.support.SessionStatus;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+// import jdk.internal.org.objectweb.asm.tree.analysis.Value;
 
 /**
  * Created with IntelliJ IDEA.
@@ -53,6 +56,13 @@ public class LoginController extends BaseController {
     @Autowired
     private DASS21_ASRepository dass21_asRepository;
 
+    @Autowired
+    private NotifyRepository notifyRepository;
+
+    @Value("${study.maxParticipants}")
+    private long maxParticipants;
+
+
     /**
      * Spring automatically configures this object.
      * You can modify the location of this database by editing the application.properties file.
@@ -63,15 +73,32 @@ public class LoginController extends BaseController {
     }
 
     @RequestMapping(value="/", method = RequestMethod.GET)
-    public String printWelcome(Principal principal) {
+    public String printWelcome(ModelMap model, Principal principal) {
+
         Authentication auth = (Authentication) principal;
         // Show the Rationale / Login page if the user is not logged in
         // otherwise redirect them to the session page.
-        if(auth == null || !auth.isAuthenticated())
+        if(auth == null || !auth.isAuthenticated()) {
+            model.addAttribute("disabled",participantRepository.count() > maxParticipants);
             return "rationale";
-        else
+        } else
             return "redirect:/session";
     }
+
+    @RequestMapping(value="public/notify", method = RequestMethod.POST)
+    public String notify(@ModelAttribute("NotifyDAO") NotifyDAO notify,
+                                   ModelMap model,
+                                   BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("error", true);
+            return "rationale";
+        }
+
+        this.notifyRepository.save(notify);
+        return "notify";
+    }
+
 
     @RequestMapping(value="/login", method = RequestMethod.GET)
     public String showLogin(ModelMap model) {
