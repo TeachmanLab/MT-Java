@@ -161,6 +161,13 @@ public class LoginController extends BaseController {
     public String eligable(@ModelAttribute Dass21FromPi data,
                                    ModelMap model,
                                    HttpSession session) throws Exception {
+
+        // Send people to the main page if we have exceeded the total number of participants
+        // we can support in the Study.
+        if(participantRepository.count() > maxParticipants) {
+            return "redirect:/";
+        }
+
         model.addAttribute("hideAccountBar", true);
         DASS21_AS dass21 = data.asDass21Object();
         if(dass21.eligibleScore()) {
