@@ -62,6 +62,13 @@ public class LoginController extends BaseController {
     @Value("${study.maxParticipants}")
     private long maxParticipants;
 
+    /**
+     * Tests to see if we should disable the creation of new accounts on the system.
+     * @return
+     */
+    private boolean disableNewAccounts() {
+        return participantRepository.count() > maxParticipants;
+    }
 
     /**
      * Spring automatically configures this object.
@@ -79,7 +86,7 @@ public class LoginController extends BaseController {
         // Show the Rationale / Login page if the user is not logged in
         // otherwise redirect them to the session page.
         if(auth == null || !auth.isAuthenticated()) {
-            model.addAttribute("disabled",participantRepository.count() > maxParticipants);
+            model.addAttribute("disabled", disableNewAccounts());
             return "rationale";
         } else
             return "redirect:/session";
@@ -164,7 +171,7 @@ public class LoginController extends BaseController {
 
         // Send people to the main page if we have exceeded the total number of participants
         // we can support in the Study.
-        if(participantRepository.count() > maxParticipants) {
+        if(disableNewAccounts()) {
             return "redirect:/";
         }
 
@@ -255,6 +262,14 @@ public class LoginController extends BaseController {
                                        final SessionStatus status,
                                        HttpSession session
                                        ) {
+
+        // Send people to the main page if we have exceeded the total number of participants
+        // we can support in the Study.  This is a fail-safe final check to prevent
+        // folks from bypassing our other checks.  This will prevent the new participant
+        // form from ever getting executed.
+        if(disableNewAccounts()) {
+            return "redirect:/";
+        }
 
         model.addAttribute("participant", participant);
 
