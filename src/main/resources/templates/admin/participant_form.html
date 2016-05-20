@@ -85,7 +85,8 @@
 
             <div class="sidebar span4">
             <h4>Emails sent:</h4>
-                <table width="400px" cellpadding="2px">
+                <div class="logs">
+                <table class="logs">
                 <tr>
                     <th width="120px">Type</th>
                     <th>Date</th>
@@ -94,10 +95,12 @@
                     <td style="width:50px;" th:text="${log.type}"/>
                     <td th:text="${log.date}"/>
                 </tr>
-            </table>
+               </table>
+                </div>
             <br/><br/>
                 <h4>Gift Cards Awarded:</h4>
-                <table width="400px" cellpadding="2px">
+                <div class="logs">
+                <table>
                     <tr>
                         <th>Order ID</th>
                         <th>Date</th>
@@ -107,11 +110,25 @@
                         <td th:text="${log.date}"/>
                     </tr>
                 </table>
+                </div>
             </div>
-
-
+            <br/><br/>
+            <h4>Task Completion History:</h4>
+            <div class="logs">
+            <table>
+                <tr>
+                    <th>Session</th>
+                    <th>Task</th>
+                    <th>Date Completed</th>
+                </tr>
+                <tr th:each="log : ${participant.taskLogs}">
+                    <td style="width:50px;" th:text="${log.sessionName}"/>
+                    <td style="width:50px;" th:text="${log.taskName}"/>
+                    <td th:text="${log.dateCompleted}"/>
+                </tr>
+            </table>
+            </div>
         </div>
-
                 <!--divider here-->
                 <div class="spacer-40px"></div>
 
