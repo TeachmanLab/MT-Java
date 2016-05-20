@@ -3,7 +3,6 @@ package edu.virginia.psyc.pi.persistence;
 import com.fasterxml.jackson.annotation.*;
 import edu.virginia.psyc.pi.domain.DoNotDelete;
 import edu.virginia.psyc.pi.domain.Exportable;
-import edu.virginia.psyc.pi.service.EmailService;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -20,7 +19,7 @@ import java.util.Date;
 @Exportable
 @DoNotDelete
 @Data
-public class GiftLogDAO {
+public class GiftLogDAO implements Comparable<GiftLogDAO>{
 
     @Id
     @GeneratedValue
@@ -43,5 +42,10 @@ public class GiftLogDAO {
         this.orderId = orderId;
         this.sessionName = sessionName;
         this.dateSent = new Date();
+    }
+
+    @Override
+    public int compareTo(GiftLogDAO o) {
+        return this.dateSent.compareTo(o.dateSent);
     }
 }

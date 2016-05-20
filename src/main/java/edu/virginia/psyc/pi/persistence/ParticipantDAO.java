@@ -72,13 +72,16 @@ public class ParticipantDAO implements UserDetails {
     // these relationships are setup with a FetchType.LAZY. Please
     // leave this eager, or address that problem.
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "participantDAO")
-    private Set<EmailLogDAO> emailLogDAOs = new HashSet<EmailLogDAO>();
+    @OrderBy("dateSent DESC")
+    private SortedSet<EmailLogDAO> emailLogDAOs = new TreeSet<EmailLogDAO>();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "participantDAO")
-    private Set<GiftLogDAO> giftLogDAOs = new HashSet<>();
+    @OrderBy("dateSent DESC")
+    private SortedSet<GiftLogDAO> giftLogDAOs = new TreeSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "participantDAO")
-        private Set<TaskLogDAO> taskLogDAOs = new HashSet<>();
+    @OrderBy("dateCompleted DESC")
+    private SortedSet<TaskLogDAO> taskLogDAOs = new TreeSet<>();
 
 
     @Override
@@ -195,12 +198,12 @@ public class ParticipantDAO implements UserDetails {
         return emailLogDAOs;
     }
 
-    public void setEmailLogDAOs(HashSet<EmailLogDAO> emailLogDAOs) {
+    public void setEmailLogDAOs(SortedSet<EmailLogDAO> emailLogDAOs) {
         this.emailLogDAOs = emailLogDAOs;
     }
 
     public void addEmailLog(EmailLogDAO log) {
-        if(this.emailLogDAOs == null) this.emailLogDAOs = new HashSet<>();
+        if(this.emailLogDAOs == null) this.emailLogDAOs = new TreeSet<>();
         this.emailLogDAOs.add(log);
     }
 
@@ -208,12 +211,12 @@ public class ParticipantDAO implements UserDetails {
         return giftLogDAOs;
     }
 
-    public void setGiftLogDAOs(Set<GiftLogDAO> giftLogDAOs) {
+    public void setGiftLogDAOs(SortedSet<GiftLogDAO> giftLogDAOs) {
         this.giftLogDAOs = giftLogDAOs;
     }
 
     public void addGiftLog(GiftLogDAO log) {
-        if(this.giftLogDAOs == null) this.giftLogDAOs = new HashSet<GiftLogDAO>();
+        if(this.giftLogDAOs == null) this.giftLogDAOs = new TreeSet<>();
         this.giftLogDAOs.add(log);
     }
 
@@ -221,12 +224,12 @@ public class ParticipantDAO implements UserDetails {
         return taskLogDAOs;
     }
 
-    public void setTaskLogDAOs(Set<TaskLogDAO> taskLogDAOs) {
+    public void setTaskLogDAOs(SortedSet<TaskLogDAO> taskLogDAOs) {
         this.taskLogDAOs = taskLogDAOs;
     }
 
     public void addTaskLog(TaskLogDAO log) {
-        if(this.taskLogDAOs == null) this.taskLogDAOs = new HashSet<TaskLogDAO>();
+        if(this.taskLogDAOs == null) this.taskLogDAOs = new TreeSet<>();
         this.taskLogDAOs.add(log);
     }
 

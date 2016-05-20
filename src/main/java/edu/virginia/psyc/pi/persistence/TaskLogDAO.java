@@ -11,7 +11,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name="task_log")
-public class TaskLogDAO {
+public class TaskLogDAO implements Comparable<TaskLogDAO>{
 
     @Id
     @GeneratedValue
@@ -75,5 +75,10 @@ public class TaskLogDAO {
 
     public void setDateCompleted(Date dateCompleted) {
         this.dateCompleted = dateCompleted;
+    }
+
+    @Override
+    public int compareTo(TaskLogDAO o) {
+        return this.dateCompleted.compareTo(o.dateCompleted);
     }
 }
