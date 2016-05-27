@@ -1,26 +1,21 @@
 package edu.virginia.psyc.pi.controller;
 
 import edu.virginia.psyc.pi.domain.Participant;
+import edu.virginia.psyc.pi.domain.RestExceptions.WrongFormException;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
-import edu.virginia.psyc.pi.persistence.Questionnaire.*;
 import edu.virginia.psyc.pi.persistence.TaskLogDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
-import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.
@@ -73,6 +68,14 @@ public class PIPlayerController extends BaseController {
 
         Participant participant = getParticipant(principal);
         ParticipantDAO dao = participantRepository.findByEmail(participant.getEmail());
+
+        // If the data submitted, isn't the data the user should be completeing right now,
+        // thown an exception and prevent them from moving forward.
+        String currentTaskName = participant.getStudy().getCurrentSession().getCurrentTask().getName();
+        if(!currentTaskName.equals(scriptName)) {
+            LOG.info("The current task for this participant is : " + currentTaskName + " however, they submitted the script:" + scriptName);
+            throw new WrongFormException();
+        }
 
         // Log the completion of the task
         TaskLogDAO taskDao = new TaskLogDAO(dao, participant.getStudy().getCurrentSession().getName(),

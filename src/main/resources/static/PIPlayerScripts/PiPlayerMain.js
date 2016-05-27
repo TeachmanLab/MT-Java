@@ -260,13 +260,13 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
     }
 
     // When the training session is complete, move on to the next Questionnaire
-    API.addSettings('redirect', "../playerScript/completed/int_train");
+    API.addSettings('redirect', "../playerScript/completed/" + API.getGlobal().script);
 
     // Removes the warning about leaving the page.
     API.addSettings("hooks", {
         endTask: function () {
             window.onbeforeunload = null;
-            window.location = "../playerScript/completed/int_train";
+            window.location = "../playerScript/completed/" + API.getGlobal().script;
         }
     })
 
