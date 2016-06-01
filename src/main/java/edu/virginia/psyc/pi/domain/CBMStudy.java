@@ -1,16 +1,12 @@
 package edu.virginia.psyc.pi.domain;
 
-import edu.virginia.psyc.pi.persistence.GiftLogDAO;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 
-import javax.xml.datatype.Duration;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,6 +21,7 @@ public class CBMStudy implements Study {
     private int taskIndex;
     private Date lastSessionDate;
     private List<TaskLog> taskLogs;
+    private boolean receiveGiftCards;
 
     private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(CBMStudy.class);
 
@@ -40,6 +37,8 @@ public class CBMStudy implements Study {
     /** This specifies the gift amount, in dollars, that should be awarded when a user completes a session.
      */
     private int giftAmountCents(NAME name) {
+
+        if(receiveGiftCards == false) return 0;
         if(name.equals(NAME.PRE) || name.equals(NAME.SESSION3) || name.equals(NAME.SESSION6) || name.equals(NAME.SESSION8))
             return 500; // $5
         if(name.equals(NAME.POST))
@@ -47,11 +46,12 @@ public class CBMStudy implements Study {
         return 0;
     }
 
-    public CBMStudy(String currentName, int taskIndex, Date lastSessionDate, List<TaskLog> taskLogs) {
+    public CBMStudy(String currentName, int taskIndex, Date lastSessionDate, List<TaskLog> taskLogs, boolean receiveGiftCards) {
         this.currentName = currentName;
         this.taskIndex = taskIndex;
         this.lastSessionDate = lastSessionDate;
         this.taskLogs = taskLogs;
+        this.receiveGiftCards = receiveGiftCards;
     }
 
     public List<Session> getSessions() {
@@ -358,6 +358,16 @@ public class CBMStudy implements Study {
         return false;
     }
 
+    @Override
+    public boolean isReceiveGiftCards() {
+        return receiveGiftCards;
+    }
+
+    @Override
+    public void setReceiveGiftCards(boolean value) {
+        receiveGiftCards = value;
+    }
+
     public void completeCurrentTask() {
 
 
@@ -384,6 +394,8 @@ public class CBMStudy implements Study {
     public void setLastSessionDate(Date date) {
         this.lastSessionDate = date;
     }
+
+
 
     @Override
     public STUDY_STATE getState() {
@@ -426,5 +438,16 @@ public class CBMStudy implements Study {
         this.taskIndex = 0;
         this.currentName = nextSession.getName();
         this.lastSessionDate = new Date();
+    }
+
+    @Override
+    public String   toString() {
+        return "CBMStudy{" +
+                "currentName='" + currentName + '\'' +
+                ", taskIndex=" + taskIndex +
+                ", lastSessionDate=" + lastSessionDate +
+                ", taskLogs=" + taskLogs +
+                ", receiveGiftCards=" + receiveGiftCards +
+                '}';
     }
 }

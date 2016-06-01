@@ -54,6 +54,7 @@ public class ParticipantDAO implements UserDetails {
 
     private boolean over18;
 
+    private boolean receiveGiftCards;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private PasswordTokenDAO  passwordTokenDAO;
@@ -301,6 +302,14 @@ public class ParticipantDAO implements UserDetails {
     public boolean isIncrease30() {return increase30;}
 
     public void setIncrease30(boolean increase30) {this.increase30 = increase30;}
+
+    public boolean isReceiveGiftCards() {
+        return receiveGiftCards;
+    }
+
+    public void setReceiveGiftCards(boolean receiveGiftCards) {
+        this.receiveGiftCards = receiveGiftCards;
+    }
 
     @Override
     public String toString() {

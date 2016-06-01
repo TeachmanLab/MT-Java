@@ -26,7 +26,7 @@
         <p style="margin:2px 0 0 0; font-style: italic">Project Director</p>
         <p style="margin:10px 0 0 0; ">and the MindTrails team</p>
 
-        <p style="margin-top:40px">
+        <p th:if="${giftCards}" style="margin-top:40px">
             <img style="float:left; padding: 10px;" th:src="${url} + '/images/gift_card_sm.png'" alt="" border="none"/>
             P.S. As a reminder, there are 8 sessions of training total,
             and each one is a little different.

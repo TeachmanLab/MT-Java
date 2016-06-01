@@ -29,4 +29,9 @@ public interface Study {
     public STUDY_STATE getState();  // returns the current state of the paricipant in the study.
 
     public boolean completed(String sessionName); // returns true if the given session is completed.
+
+    public boolean isReceiveGiftCards();
+
+    public void setReceiveGiftCards(boolean value);
+
 }
