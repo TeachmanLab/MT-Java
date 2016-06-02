@@ -77,12 +77,13 @@ public class PIPlayerController extends BaseController {
             throw new WrongFormException();
         }
 
+        participant.getStudy().completeCurrentTask();
+
         // Log the completion of the task
         TaskLogDAO taskDao = new TaskLogDAO(dao, participant.getStudy().getCurrentSession().getName(),
                 participant.getStudy().getCurrentSession().getCurrentTask().getName());
         dao.addTaskLog(taskDao);
 
-        participant.getStudy().completeCurrentTask();
         participantRepository.domainToEntity(participant, dao);
         participantRepository.save(dao);
 
