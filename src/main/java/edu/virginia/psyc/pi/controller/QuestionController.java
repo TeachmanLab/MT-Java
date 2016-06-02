@@ -578,7 +578,9 @@ public ModelAndView showSUDS(Principal principal) {
         // "at-risk", then send a message to the administrator.
         List<OA> previous = oa_repository.findByParticipantDAO(oa.getParticipantDAO());
         OA firstEntry = Collections.min(previous);
+        Participant p = getParticipant(principal);
 
+      if(p.inSession()){
         if(oa.atRisk(firstEntry)) {
             if(!participant.isIncrease30()) { // alert admin the first time.
                 emailService.sendAtRiskAdminEmail(participant, firstEntry, oa);
@@ -587,6 +589,7 @@ public ModelAndView showSUDS(Principal principal) {
             }
             return new RedirectView("/session/atRisk");
         }
+      }
         return new RedirectView("/session/next");
     }
 
@@ -749,4 +752,3 @@ public ModelAndView showSUDS(Principal principal) {
     }
 
 }
-
