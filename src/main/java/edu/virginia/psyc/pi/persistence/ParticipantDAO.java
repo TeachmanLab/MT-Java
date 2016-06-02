@@ -298,6 +298,10 @@ public class ParticipantDAO implements UserDetails {
         this.over18 = over18;
     }
 
+    public String getRiskSession() {return riskSession;}
+
+    public void setRiskSession(String riskSession) {this.riskSession = riskSession;}
+
     public boolean isIncrease30() {return increase30;}
 
     public void setIncrease30(boolean increase30) {this.increase30 = increase30;}

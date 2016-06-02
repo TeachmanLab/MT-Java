@@ -62,6 +62,8 @@ public class Participant {
 
     private boolean        increase30 = false;
 
+    private String         riskSession;
+
     private Date           lastLoginDate;
 
     private List<EmailLog> emailLogs = new ArrayList<>();

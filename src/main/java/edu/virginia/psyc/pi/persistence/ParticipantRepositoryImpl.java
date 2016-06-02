@@ -32,6 +32,7 @@ public class ParticipantRepositoryImpl implements ParticipantRepositoryCustom {
         p.setTheme(dao.getTheme());
         p.setOver18(dao.isOver18());
         p.setIncrease30(dao.isIncrease30());
+        p.setRiskSession(dao.getRiskSession());
 
         // Password Tokens
         if(dao.getPasswordTokenDAO() != null) {

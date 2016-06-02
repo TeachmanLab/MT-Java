@@ -598,6 +598,7 @@ public ModelAndView showSUDS(Principal principal) {
             if(!participant.isIncrease30()) { // alert admin the first time.
                 emailService.sendAtRiskAdminEmail(participant, firstEntry, oa);
                 dao.setIncrease30(true);
+                dao.setRiskSession(dao.getCurrentSession());
                 participantRepository.save(dao);
             }
             return new RedirectView("/session/atRisk");
