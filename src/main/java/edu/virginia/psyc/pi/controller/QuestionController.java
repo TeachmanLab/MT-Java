@@ -1,6 +1,7 @@
 package edu.virginia.psyc.pi.controller;
 
 import edu.virginia.psyc.pi.domain.Participant;
+import edu.virginia.psyc.pi.domain.RestExceptions.WrongFormException;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.persistence.Questionnaire.*;
@@ -14,13 +15,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.mail.MessagingException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.security.Principal;
 import java.util.*;
 
@@ -37,6 +39,7 @@ public class QuestionController extends BaseController {
 
     @Autowired private static final Logger LOG = LoggerFactory.getLogger(QuestionController.class);
 
+    private static final String BY_PASS_SESSION_CHECK = "BY_PASS_CHECK";
 
     @Autowired private DASS21_ASRepository dass21_asRepository;
     @Autowired private DASS21_DSRepository dass21_dsRepository;
@@ -83,11 +86,23 @@ public class QuestionController extends BaseController {
      *
      * @param data
      */
-    private void recordSessionProgress(QuestionnaireData data) {
+    private void recordSessionProgress(String formName, QuestionnaireData data) {
+
 
         ParticipantDAO dao = (ParticipantDAO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         dao = participantRepository.findByEmail(dao.getEmail()); // Refresh session object from database.
         Participant participant = participantRepository.entityToDomain(dao);
+
+        // If the data submitted, isn't the data the user should be completeing right now,
+        // thown an exception and prevent them from moving forward.
+        String currentTaskName = participant.getStudy().getCurrentSession().getCurrentTask().getName();
+        if(!currentTaskName.equals(formName) && !formName.equals(BY_PASS_SESSION_CHECK)) {
+            LOG.info("The current task for this participant is : " + currentTaskName + " however, they submitted the form:" + formName);
+            throw new WrongFormException();
+        }
+
+        // Update the participant's session status, and save back to the database.
+        participant.getStudy().completeCurrentTask();
 
         // Record the session for which this questionnaire was completed.
         data.setSession(participant.getStudy().getCurrentSession().getName());
@@ -98,8 +113,6 @@ public class QuestionController extends BaseController {
         dao.addTaskLog(taskDao);
 
 
-        // Update the participant's session status, and save back to the database.
-        participant.getStudy().completeCurrentTask();
         participantRepository.domainToEntity(participant, dao);
         participantRepository.save(dao);
 
@@ -132,7 +145,7 @@ public class QuestionController extends BaseController {
 
         // Connect this object to the Participant, as we will need to reference it later.
         dass21_as.setParticipantDAO(getParticipantDAO(principal));
-        recordSessionProgress(dass21_as);
+        recordSessionProgress("DASS21_AS",dass21_as);
         dass21_asRepository.save(dass21_as);
         return new RedirectView("/session/next");
     }
@@ -160,7 +173,7 @@ public class QuestionController extends BaseController {
     RedirectView handleDASS21_DS(@ModelAttribute("DASS21_DS") DASS21_DS dass21_ds,
                                  BindingResult result) {
 
-        recordSessionProgress(dass21_ds);
+        recordSessionProgress("DASS21_DS",dass21_ds);
         dass21_dsRepository.save(dass21_ds);
         return new RedirectView("/session/next");
     }
@@ -186,7 +199,7 @@ public class QuestionController extends BaseController {
     RedirectView handleqol(@ModelAttribute("qol") QOL qol,
                            BindingResult result) {
 
-        recordSessionProgress(qol);
+        recordSessionProgress("QOL",qol);
         qol_Repository.save(qol);
         return new RedirectView("/session/next");
     }
@@ -207,11 +220,11 @@ public class QuestionController extends BaseController {
         return modelAndView(principal, "/questions/audit", "aduit", new AUDIT());
     }
 
-    @RequestMapping(value = "aduit", method = RequestMethod.POST)
+    @RequestMapping(value = "audit", method = RequestMethod.POST)
     RedirectView handleaudit(@ModelAttribute("audit") AUDIT audit,
                              BindingResult result) {
 
-        recordSessionProgress(audit);
+        recordSessionProgress("audit",audit);
         audit_Repository.save(audit);
         return new RedirectView("/session/next");
     }
@@ -236,7 +249,7 @@ public class QuestionController extends BaseController {
     RedirectView handleCredibility(@ModelAttribute("credibility") Credibility credibility,
                                    BindingResult result) {
 
-        recordSessionProgress(credibility);
+        recordSessionProgress("credibility",credibility);
         credibilityRepository.save(credibility);
         return new RedirectView("/session/next");
     }
@@ -262,7 +275,7 @@ public class QuestionController extends BaseController {
     RedirectView handleFollowUp(@ModelAttribute("FU") FollowUp_ChangeInTreatment followup,
                                 BindingResult result) {
 
-        recordSessionProgress(followup);
+        recordSessionProgress("FU", followup);
         followup_Repository.save(followup);
         return new RedirectView("/session/next");
     }
@@ -287,7 +300,7 @@ public class QuestionController extends BaseController {
     RedirectView handleMentalHealthHxTx(@ModelAttribute("MH") MentalHealthHxTx mh,
                                         BindingResult result) {
 
-        recordSessionProgress(mh);
+        recordSessionProgress("MH",mh);
         mh_Repository.save(mh);
         return new RedirectView("/session/next");
     }
@@ -311,7 +324,7 @@ public class QuestionController extends BaseController {
     @RequestMapping(value = "CIHS", method = RequestMethod.POST)
     RedirectView handleCIHS(@ModelAttribute("CIHS") CIHS cihs,
                             BindingResult result) {
-        recordSessionProgress(cihs);
+        recordSessionProgress("CIHS",cihs);
         cihsRepository.save(cihs);
         return new RedirectView("/session/next");
     }
@@ -334,7 +347,7 @@ public class QuestionController extends BaseController {
     RedirectView handleMultiUserExperience(@ModelAttribute("MUE") MultiUserExperience mue,
                                            BindingResult result) {
 
-        recordSessionProgress(mue);
+        recordSessionProgress("MUE",mue);
         mue_Repository.save(mue);
         return new RedirectView("/session/next");
     }
@@ -360,7 +373,7 @@ public class QuestionController extends BaseController {
     RedirectView handlePilotUserExperience(@ModelAttribute("PUE") PilotUserExperience pue,
                                            BindingResult result) {
 
-        recordSessionProgress(pue);
+        recordSessionProgress("PUE",pue);
         pue_Repository.save(pue);
         return new RedirectView("/session/next");
     }
@@ -385,7 +398,7 @@ public ModelAndView showSUDS(Principal principal) {
     RedirectView handleSUDS(@ModelAttribute("SUDS") SUDS suds,
                                            BindingResult result) {
 
-        recordSessionProgress(suds);
+        recordSessionProgress("SUDS",suds);
         sudsRepository.save(suds);
         return new RedirectView("/session/next");
     }
@@ -410,7 +423,7 @@ public ModelAndView showSUDS(Principal principal) {
     RedirectView handleVivid(@ModelAttribute("Vivid") Vivid vivid,
                             BindingResult result) {
 
-        recordSessionProgress(vivid);
+        recordSessionProgress("Vivid",vivid);
         vividRepository.save(vivid);
         return new RedirectView("/session/next");
     }
@@ -435,7 +448,7 @@ public ModelAndView showSUDS(Principal principal) {
     RedirectView handleImpact(@ModelAttribute("Impact") ImpactAnxiousImagery impact,
                               BindingResult result) {
 
-        recordSessionProgress(impact);
+        recordSessionProgress("Impact",impact);
         impact_Repository.save(impact);
         return new RedirectView("/session/next");
     }
@@ -466,7 +479,7 @@ public ModelAndView showSUDS(Principal principal) {
     @RequestMapping(value = "ImageryPrime", method = RequestMethod.POST)
     RedirectView handleIP(@ModelAttribute("IP") ImageryPrime prime,
                               BindingResult result) {
-        recordSessionProgress(prime);
+        recordSessionProgress("ImageryPrime",prime);
         imageryPrimeRepository.save(prime);
         return new RedirectView("/session/next");
     }
@@ -490,7 +503,7 @@ public ModelAndView showSUDS(Principal principal) {
     RedirectView handleDemographics(@ModelAttribute("demographics") Demographic demographic,
                                     BindingResult result) {
 
-        recordSessionProgress(demographic);
+        recordSessionProgress("demographics",demographic);
         demographicRepository.save(demographic);
         return new RedirectView("/session/next");
     }
@@ -515,7 +528,7 @@ public ModelAndView showSUDS(Principal principal) {
     RedirectView handleRR(@ModelAttribute("RR") RR rr,
                                  BindingResult result) {
 
-        recordSessionProgress(rr);
+        recordSessionProgress("RR",rr);
         rr_repository.save(rr);
         return new RedirectView("/session/next");
     }
@@ -540,7 +553,7 @@ public ModelAndView showSUDS(Principal principal) {
     RedirectView handleRR(@ModelAttribute("CC") CC cc,
                           BindingResult result) {
 
-        recordSessionProgress(cc);
+        recordSessionProgress("CC",cc);
         cc_repository.save(cc);
         return new RedirectView("/session/next");
     }
@@ -571,7 +584,7 @@ public ModelAndView showSUDS(Principal principal) {
         ParticipantDAO dao      = getParticipantDAO(principal);
         Participant participant = participantRepository.entityToDomain(dao);
         oa.setParticipantDAO(dao);
-        recordSessionProgress(oa);
+        recordSessionProgress("OA",oa);
         oa_repository.save(oa);
 
         // If the users score differs from there original score and places the user
@@ -613,7 +626,7 @@ public ModelAndView showSUDS(Principal principal) {
     RedirectView handleDD(@ModelAttribute("DD") DD dd,
                           BindingResult result) {
 
-        recordSessionProgress(dd);
+        recordSessionProgress("DD",dd);
         dd_repository.save(dd);
         return new RedirectView("/session/next");
     }
@@ -637,7 +650,7 @@ public ModelAndView showSUDS(Principal principal) {
     RedirectView handleDD(@ModelAttribute("DD_FU") DD_FU dd_fu,
                           BindingResult result) {
 
-        recordSessionProgress(dd_fu);
+        recordSessionProgress("DD_FU", dd_fu);
         dd_fu_repository.save(dd_fu);
         return new RedirectView("/session/next");
     }
@@ -662,7 +675,7 @@ public ModelAndView showSUDS(Principal principal) {
     RedirectView handleDD(@ModelAttribute("BBSIQ") BBSIQ bbsiq,
                           BindingResult result) {
 
-        recordSessionProgress(bbsiq);
+        recordSessionProgress("BBSIQ",bbsiq);
         bbsiqRepository.save(bbsiq);
         return new RedirectView("/session/next");
     }
@@ -686,7 +699,7 @@ public ModelAndView showSUDS(Principal principal) {
     RedirectView handleAnxietyTriggers(@ModelAttribute("AnxietyTriggers") AnxietyTriggers triggers,
                             BindingResult result) {
 
-        recordSessionProgress(triggers);
+        recordSessionProgress("AnxietyTriggers", triggers);
         anxietyTriggersRepository.save(triggers);
         return new RedirectView("/session/next");
     }
@@ -711,7 +724,7 @@ public ModelAndView showSUDS(Principal principal) {
     String handleReasonsForEnding(@ModelAttribute("ReasonsForEnding") ReasonsForEnding reasons,
                                        BindingResult result) {
 
-        recordSessionProgress(reasons);
+        recordSessionProgress(BY_PASS_SESSION_CHECK,reasons);
         reasonsForEndingRepository.save(reasons);
         return "debriefing";
     }

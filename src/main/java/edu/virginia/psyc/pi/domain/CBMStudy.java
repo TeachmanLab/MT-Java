@@ -1,16 +1,13 @@
 package edu.virginia.psyc.pi.domain;
 
-import edu.virginia.psyc.pi.persistence.GiftLogDAO;
+import edu.virginia.psyc.pi.domain.RestExceptions.WaitException;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 
-import javax.xml.datatype.Duration;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * Created with IntelliJ IDEA.
@@ -358,8 +355,13 @@ public class CBMStudy implements Study {
         return false;
     }
 
+    @Override
     public void completeCurrentTask() {
 
+        if(getState().equals(STUDY_STATE.WAIT_A_DAY) ||
+                getState().equals(STUDY_STATE.WAIT_FOR_FOLLOWUP)) {
+            throw new WaitException();
+        }
 
         // If this is the last task in a session, then we move to the next session.
         if(taskIndex +1 >= getCurrentSession().getTasks().size()) {
@@ -405,7 +407,7 @@ public class CBMStudy implements Study {
             return STUDY_STATE.WAIT_FOR_FOLLOWUP;
         }
 
-        // Otherwise, you must wait at least one day before starting the next
+        // Otherwise, you must wait at least one dacomply before starting the next
         // session.
         if(daysSinceLastSession() == 0 && lastSessionDate != null) return STUDY_STATE.WAIT_A_DAY;
 
@@ -414,6 +416,7 @@ public class CBMStudy implements Study {
     }
 
     void completeSession() {
+
         List<Session> sessions = getSessions();
         boolean next = false;
 

@@ -20,7 +20,7 @@ import java.util.Date;
 @Exportable
 @DoNotDelete
 @Data
-public class EmailLogDAO {
+public class EmailLogDAO implements Comparable<EmailLogDAO>{
 
     @Id
     @GeneratedValue
@@ -44,5 +44,10 @@ public class EmailLogDAO {
         this.participantDAO = participantDAO;
         this.emailType = type;
         this.dateSent  = new Date();
+    }
+
+    @Override
+    public int compareTo(EmailLogDAO o) {
+        return this.dateSent.compareTo(o.dateSent);
     }
 }

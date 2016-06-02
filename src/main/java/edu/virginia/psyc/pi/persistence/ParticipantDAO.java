@@ -1,7 +1,6 @@
 package edu.virginia.psyc.pi.persistence;
 
 import edu.virginia.psyc.pi.domain.Participant;
-import edu.virginia.psyc.pi.domain.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
@@ -9,9 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -74,14 +71,17 @@ public class ParticipantDAO implements UserDetails {
     // IMPORTANT: Automatic email notifications start failing when
     // these relationships are setup with a FetchType.LAZY. Please
     // leave this eager, or address that problem.
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Collection<EmailLogDAO> emailLogDAOs = new ArrayList<EmailLogDAO>();
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "participantDAO")
+    @OrderBy("dateSent DESC")
+    private SortedSet<EmailLogDAO> emailLogDAOs = new TreeSet<EmailLogDAO>();
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Collection<GiftLogDAO> giftLogDAOs = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "participantDAO")
+    @OrderBy("dateSent DESC")
+    private SortedSet<GiftLogDAO> giftLogDAOs = new TreeSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Collection<TaskLogDAO> taskLogDAOs = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "participantDAO")
+    @OrderBy("dateCompleted DESC")
+    private SortedSet<TaskLogDAO> taskLogDAOs = new TreeSet<>();
 
 
     @Override
@@ -198,12 +198,12 @@ public class ParticipantDAO implements UserDetails {
         return emailLogDAOs;
     }
 
-    public void setEmailLogDAOs(Collection<EmailLogDAO> emailLogDAOs) {
+    public void setEmailLogDAOs(SortedSet<EmailLogDAO> emailLogDAOs) {
         this.emailLogDAOs = emailLogDAOs;
     }
 
     public void addEmailLog(EmailLogDAO log) {
-        if(this.emailLogDAOs == null) this.emailLogDAOs = new ArrayList<EmailLogDAO>();
+        if(this.emailLogDAOs == null) this.emailLogDAOs = new TreeSet<>();
         this.emailLogDAOs.add(log);
     }
 
@@ -211,12 +211,12 @@ public class ParticipantDAO implements UserDetails {
         return giftLogDAOs;
     }
 
-    public void setGiftLogDAOs(Collection<GiftLogDAO> giftLogDAOs) {
+    public void setGiftLogDAOs(SortedSet<GiftLogDAO> giftLogDAOs) {
         this.giftLogDAOs = giftLogDAOs;
     }
 
     public void addGiftLog(GiftLogDAO log) {
-        if(this.giftLogDAOs == null) this.giftLogDAOs = new ArrayList<GiftLogDAO>();
+        if(this.giftLogDAOs == null) this.giftLogDAOs = new TreeSet<>();
         this.giftLogDAOs.add(log);
     }
 
@@ -224,12 +224,12 @@ public class ParticipantDAO implements UserDetails {
         return taskLogDAOs;
     }
 
-    public void setTaskLogDAOs(Collection<TaskLogDAO> taskLogDAOs) {
+    public void setTaskLogDAOs(SortedSet<TaskLogDAO> taskLogDAOs) {
         this.taskLogDAOs = taskLogDAOs;
     }
 
     public void addTaskLog(TaskLogDAO log) {
-        if(this.taskLogDAOs == null) this.taskLogDAOs = new ArrayList<TaskLogDAO>();
+        if(this.taskLogDAOs == null) this.taskLogDAOs = new TreeSet<>();
         this.taskLogDAOs.add(log);
     }
 
