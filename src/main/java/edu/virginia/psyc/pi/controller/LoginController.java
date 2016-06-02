@@ -53,9 +53,6 @@ public class LoginController extends BaseController {
     @Autowired
     private EmailService emailService;
 
-    @Value("${tango.maxParticipants}")
-    private long maxParticipantsForGiftCards;
-
     @Autowired
     private DASS21_ASRepository dass21_asRepository;
 
@@ -64,6 +61,14 @@ public class LoginController extends BaseController {
 
     @Value("${study.maxParticipants}")
     private long maxParticipants;
+
+    /**
+     * Tests to see if we should disable the creation of new accounts on the system.
+     * @return
+     */
+    private boolean disableNewAccounts() {
+        return participantRepository.count() > maxParticipants;
+    }
 
     /**
      * Spring automatically configures this object.
@@ -81,6 +86,7 @@ public class LoginController extends BaseController {
         // Show the Rationale / Login page if the user is not logged in
         // otherwise redirect them to the session page.
         if(auth == null || !auth.isAuthenticated()) {
+            model.addAttribute("disabled", disableNewAccounts());
             return "rationale";
         } else
             return "redirect:/session";
@@ -162,6 +168,12 @@ public class LoginController extends BaseController {
     public String eligable(@ModelAttribute Dass21FromPi data,
                                    ModelMap model,
                                    HttpSession session) throws Exception {
+
+        // Send people to the main page if we have exceeded the total number of participants
+        // we can support in the Study.
+        if(disableNewAccounts()) {
+            return "redirect:/";
+        }
 
         model.addAttribute("hideAccountBar", true);
         DASS21_AS dass21 = data.asDass21Object();
@@ -251,10 +263,13 @@ public class LoginController extends BaseController {
                                        HttpSession session
                                        ) {
 
-        long totalParticipants = participantRepository.count();
-        LOG.info("The total Participants in this study are:" + totalParticipants);
-        LOG.info("The max Participants in this study are:" + maxParticipantsForGiftCards);
-        participant.setReceiveGiftCards(maxParticipantsForGiftCards > totalParticipants);
+        // Send people to the main page if we have exceeded the total number of participants
+        // we can support in the Study.  This is a fail-safe final check to prevent
+        // folks from bypassing our other checks.  This will prevent the new participant
+        // form from ever getting executed.
+        if(disableNewAccounts()) {
+            return "redirect:/";
+        }
 
         model.addAttribute("participant", participant);
 

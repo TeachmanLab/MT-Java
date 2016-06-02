@@ -33,8 +33,6 @@ public class Participant {
 
     public enum CBM_CONDITION {FIFTY_FIFTY, POSITIVE, NEUTRAL}
     public enum PRIME {NEUTRAL, ANXIETY}
-    public enum StudyType {NEUTRAL, ANXIETY}
-
     private static final Random RANDOM = new Random();  // For generating random CBM and Prime values.
     private static final Logger LOG = LoggerFactory.getLogger(Participant.class);
 
@@ -57,8 +55,6 @@ public class Participant {
     private String         password;
     @NotNull
     private String         passwordAgain;
-
-    private boolean        receiveGiftCards;
 
     private boolean        emailOptout = false;  // User required to receive no more emails.
 
@@ -92,12 +88,11 @@ public class Participant {
         this.setStudy(cbmCondition, CBMStudy.NAME.ELIGIBLE.toString(), 0, null, new ArrayList<TaskLog>());
     }
 
-    public Participant(long id, String fullName, String email, boolean admin, boolean awardGifts) {
+    public Participant(long id, String fullName, String email, boolean admin) {
         this.id = id;
         this.fullName = fullName;
         this.email = email;
         this.admin = admin;
-        this.receiveGiftCards = awardGifts;
         cbmCondition = randomCondition();
         prime        = randomPrime();
         this.setStudy(cbmCondition, CBMStudy.NAME.ELIGIBLE.toString(), 0, null, new ArrayList<TaskLog>());
@@ -113,12 +108,10 @@ public class Participant {
      */
     public void setStudy(CBM_CONDITION condition, String session, int taskIndex, Date lastSession, List<TaskLog> taskLogs) {
         if(condition == CBM_CONDITION.NEUTRAL) {
-            this.study = new CBMNeutralStudy(session, taskIndex, lastSession, taskLogs, this.receiveGiftCards);
+            this.study = new CBMNeutralStudy(session, taskIndex, lastSession, taskLogs);
         } else {
-            this.study = new CBMStudy(session, taskIndex, lastSession, taskLogs, this.receiveGiftCards);
+            this.study = new CBMStudy(session, taskIndex, lastSession, taskLogs);
         }
-        LOG.info("SETTING Participant Study To:" + study);
-        LOG.info("For Participant:" + this);
     }
 
     /**
@@ -235,11 +228,6 @@ public class Participant {
         return (!this.getStudy().getCurrentSession().getName().equals(CBMStudy.NAME.PRE.toString()) &&
                 !this.getStudy().getCurrentSession().getName().equals(CBMStudy.NAME.POST.toString()) &&
                 !this.getStudy().getCurrentSession().getName().equals(CBMStudy.NAME.SESSION1.toString()));
-    }
-
-    public void setReceiveGiftCards(boolean value) {
-        this.receiveGiftCards = value;
-        this.study.setReceiveGiftCards(value);
     }
 
 

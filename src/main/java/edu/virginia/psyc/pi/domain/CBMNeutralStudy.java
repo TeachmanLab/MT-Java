@@ -1,5 +1,9 @@
 package edu.virginia.psyc.pi.domain;
 
+import org.joda.time.DateTime;
+import org.joda.time.Days;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,8 +17,8 @@ import java.util.List;
  */
 public class CBMNeutralStudy extends CBMStudy implements Study {
 
-    public CBMNeutralStudy(String currentName, int taskIndex, Date lastSessionDate, List<TaskLog> taskLogs, boolean awardGifts) {
-        super(currentName,taskIndex,lastSessionDate,taskLogs, awardGifts);
+    public CBMNeutralStudy(String currentName, int taskIndex, Date lastSessionDate, List<TaskLog> taskLogs) {
+        super(currentName,taskIndex,lastSessionDate,taskLogs);
     }
 
     @Override

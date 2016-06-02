@@ -19,10 +19,11 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 import java.text.SimpleDateFormat;
 import java.util.List;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 
 
 /**
@@ -134,7 +135,6 @@ public class EmailService {
 
         // Prepare the evaluation context
         ctx.setVariable("name", participant.getFullName());
-        ctx.setVariable("giftCards", participant.isReceiveGiftCards());
         ctx.setVariable("url", this.siteUrl);
         ctx.setVariable("respondTo", this.respondTo);
 

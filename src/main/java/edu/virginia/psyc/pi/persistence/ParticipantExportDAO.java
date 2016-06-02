@@ -33,5 +33,4 @@ public class ParticipantExportDAO {
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="EEE, dd MMM yyyy HH:mm:ss Z", timezone="EST")
     private Date   lastLogin;
     private String currentSession;
-    private boolean receiveGiftCards;
 }
