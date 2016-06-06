@@ -84,6 +84,8 @@ public class Participant {
 
     private boolean        over18;
 
+    private String reference;
+
     public Participant() {
         cbmCondition = randomCondition();
         prime        = randomPrime();

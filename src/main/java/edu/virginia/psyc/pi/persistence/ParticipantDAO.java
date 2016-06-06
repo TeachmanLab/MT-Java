@@ -54,6 +54,10 @@ public class ParticipantDAO implements UserDetails {
 
     private boolean over18;
 
+    private String reference;
+
+    private String riskSession;
+
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private PasswordTokenDAO  passwordTokenDAO;
@@ -305,6 +309,14 @@ public class ParticipantDAO implements UserDetails {
     public boolean isIncrease30() {return increase30;}
 
     public void setIncrease30(boolean increase30) {this.increase30 = increase30;}
+
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
+    }
 
     @Override
     public String toString() {

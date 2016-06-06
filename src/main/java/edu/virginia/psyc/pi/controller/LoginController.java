@@ -154,6 +154,7 @@ public class LoginController extends BaseController {
             // Save the DASS21_AS object in the session, so we can grab it when the
             // user is logged in.
             session.setAttribute("dass21", dass21_as);
+            session.setAttribute("reference", "MindTrails");
             model.addAttribute("participant", new Participant());
             return "invitation";
         } else {
@@ -181,6 +182,7 @@ public class LoginController extends BaseController {
             // Save the DASS21_AS object in the session, so we can grab it when the
             // user is logged in.
             session.setAttribute("dass21", dass21);
+            session.setAttribute("reference","PIMH");
             model.addAttribute("participant", new Participant());
             return "invitation";
         } else {
@@ -292,6 +294,7 @@ public class LoginController extends BaseController {
         }
 
         participant.setLastLoginDate(new Date()); // Set the last login date.
+        participant.setReference((String)session.getAttribute("reference"));
         saveParticipant(participant);
 
         // Log this new person in.
