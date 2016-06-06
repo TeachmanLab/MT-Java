@@ -184,7 +184,7 @@ public class LoginController extends BaseController {
             session.setAttribute("dass21", dass21);
             session.setAttribute("reference","PIMH");
             model.addAttribute("participant", new Participant());
-            return "invitation";
+            return "invitationPIMH";
         } else {
             return "ineligible";
         }
@@ -226,6 +226,12 @@ public class LoginController extends BaseController {
     public String showInvitation(ModelMap model, Principal principal) {
         model.addAttribute("hideAccountBar", true);
         return "invitation";
+    }
+
+    @RequestMapping("invitationPIMH")
+    public String showInvitationPIMH(ModelMap model, Principal principal) {
+        model.addAttribute("hideAccountBar", true);
+        return "invitationPIMH";
     }
 
     @RequestMapping(value="/consent", method = RequestMethod.GET)
