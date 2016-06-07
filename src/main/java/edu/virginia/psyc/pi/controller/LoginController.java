@@ -257,6 +257,7 @@ public class LoginController extends BaseController {
 
     @RequestMapping(value="/consent", method = RequestMethod.GET)
     public String showConsent (ModelMap model, Principal principal) {
+        model.addAttribute("participantCreateForm", new ParticipantCreateForm());
         model.addAttribute("hideAccountBar", true);
         model.addAttribute("recaptchaSiteKey", recaptchaSiteKey);
         return "consent";
