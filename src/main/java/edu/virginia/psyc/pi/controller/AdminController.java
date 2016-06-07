@@ -1,6 +1,7 @@
 package edu.virginia.psyc.pi.controller;
 
 import edu.virginia.psyc.pi.domain.Participant;
+import edu.virginia.psyc.pi.domain.ParticipantCreateForm;
 import edu.virginia.psyc.pi.domain.ParticipantForm;
 import edu.virginia.psyc.pi.domain.tango.Account;
 import edu.virginia.psyc.pi.domain.tango.Order;
@@ -182,21 +183,21 @@ public class AdminController extends BaseController {
 
     @RequestMapping(value="/participant/", method=RequestMethod.POST)
     public String createParticipant(ModelMap model,
-                                       @Valid Participant participant,
+                                       @Valid ParticipantCreateForm pForm,
                                        BindingResult bindingResult) {
 
         ParticipantDAO dao;
         model.addAttribute("hideAccountBar", true);
 
-        if(participantRepository.findByEmail(participant.getEmail()) != null) {
+        if(participantRepository.findByEmail(pForm.getEmail()) != null) {
             bindingResult.addError(new FieldError("Participant","email", "This email already exists."));
         }
 
-        if(!participant.getPassword().equals(participant.getPasswordAgain())) {
+        if(!pForm.getPassword().equals(pForm.getPasswordAgain())) {
             bindingResult.addError(new FieldError("Participant","passwordAgain", "Passwords do not match."));
         }
 
-        if(participant.isAdmin() && participant.getPassword().length() < 20) {
+        if(pForm.isAdmin() && pForm.getPassword().length() < 20) {
             bindingResult.addError(new FieldError("Participant", "admin", "Admin users must have a password of at least 20 characters."));
         }
 
@@ -204,6 +205,8 @@ public class AdminController extends BaseController {
             LOG.error("Invalid participant:" + bindingResult.getAllErrors());
             return "admin/new_participant";
         }
+
+        Participant participant = pForm.toParticipant();
 
         participant.setLastLoginDate(new Date()); // Set the last login date.
         saveParticipant(participant);

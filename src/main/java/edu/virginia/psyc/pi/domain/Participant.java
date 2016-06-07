@@ -2,15 +2,10 @@ package edu.virginia.psyc.pi.domain;
 
 import edu.virginia.psyc.pi.service.EmailService;
 import lombok.Data;
-import org.hibernate.validator.constraints.Email;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 
 import java.util.*;
 
@@ -36,25 +31,14 @@ public class Participant {
     private static final Random RANDOM = new Random();  // For generating random CBM and Prime values.
     private static final Logger LOG = LoggerFactory.getLogger(Participant.class);
 
-    public static final String PASSWORD_REGEX = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!#\\$@_'\\+\\?\\[\\]\\.\\- ])(?=.+$).{8,}$";
-    public static final String PASSWORD_MESSAGE = "Password must be at least 8 digits long.  It must contain one digit, a lower case letter, an upper case letter, and a special character.";
 
-
-    @Size(min=2, max=100, message="Please specify your full name.")
     private String fullName;
 
-    @Email
-    @NotNull
     private String email;
 
-    @NotNull
     private boolean admin;
 
-    @NotNull
-    @Pattern(regexp=PASSWORD_REGEX, message = PASSWORD_MESSAGE)
     private String         password;
-    @NotNull
-    private String         passwordAgain;
 
     private boolean        emailOptout = false;  // User required to receive no more emails.
 
@@ -130,16 +114,6 @@ public class Participant {
         List<PRIME> values =
                 Collections.unmodifiableList(Arrays.asList(PRIME.values()));
         return values.get(RANDOM.nextInt(values.size()));
-    }
-
-
-    /**
-     * Checks to see if the given password matches some standard criteria:
-     * @param password
-     * @return
-     */
-    public static boolean validPassword(String password) {
-        return password.matches(PASSWORD_REGEX);
     }
 
     /**

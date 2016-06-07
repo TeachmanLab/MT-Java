@@ -1,9 +1,7 @@
 package edu.virginia.psyc.pi.controller;
 
-import edu.virginia.psyc.pi.domain.CBMStudy;
-import edu.virginia.psyc.pi.domain.Dass21FromPi;
-import edu.virginia.psyc.pi.domain.Participant;
-import edu.virginia.psyc.pi.domain.PasswordToken;
+import edu.virginia.psyc.pi.domain.*;
+import edu.virginia.psyc.pi.domain.recaptcha.RecaptchaFormValidator;
 import edu.virginia.psyc.pi.persistence.NotifyDAO;
 import edu.virginia.psyc.pi.persistence.NotifyRepository;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
@@ -22,8 +20,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.support.SessionStatus;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
@@ -61,6 +59,19 @@ public class LoginController extends BaseController {
 
     @Value("${study.maxParticipants}")
     private long maxParticipants;
+
+    @Value("${recaptcha.site-key}")
+    private String recaptchaSiteKey;
+
+    @Autowired
+    private RecaptchaFormValidator recaptchaFormValidator;
+
+
+    @InitBinder("participantCreateForm")
+    public void initBinder(WebDataBinder binder) {
+        binder.addValidators(recaptchaFormValidator);
+    }
+
 
     /**
      * Tests to see if we should disable the creation of new accounts on the system.
@@ -226,42 +237,32 @@ public class LoginController extends BaseController {
         return "invitation";
     }
 
-    @RequestMapping(value="/consent", method = RequestMethod.GET)
-    public String showConsent (ModelMap model, Principal principal) {
-        model.addAttribute("participant", new Participant());
-        model.addAttribute("hideAccountBar", true);
-        return "consent";
-
-    }
-
-/**
- *
- * Privacy Policy
- *
- * */
     @RequestMapping("public/privacy")
     public String showPrivacy(ModelMap model, Principal principal) {
         return "privacy";
     }
-
-
-    /**
-     *  Disclaimer
-     *
-     */
 
     @RequestMapping("public/disclaimer")
     public String showDisclaimer(ModelMap model, Principal principal) {
         return "disclaimer";
     }
 
+    @RequestMapping(value="/consent", method = RequestMethod.GET)
+    public String showConsent (ModelMap model, Principal principal) {
+        model.addAttribute("participant", new Participant());
+        model.addAttribute("hideAccountBar", true);
+        model.addAttribute("recaptchaSiteKey", recaptchaSiteKey);
+        return "consent";
+    }
+
     @RequestMapping(value = "/newParticipant", method = RequestMethod.POST)
     public String createNewParticipant(ModelMap model,
-                                       @Valid Participant participant,
+                                       @ModelAttribute("participantCreateForm") @Valid ParticipantCreateForm pForm,
                                        final BindingResult bindingResult,
-                                       final SessionStatus status,
                                        HttpSession session
                                        ) {
+
+
 
         // Send people to the main page if we have exceeded the total number of participants
         // we can support in the Study.  This is a fail-safe final check to prevent
@@ -271,17 +272,18 @@ public class LoginController extends BaseController {
             return "redirect:/";
         }
 
-        model.addAttribute("participant", participant);
+//        model.addAttribute("participant", pForm);
+        model.addAttribute("recaptchaSiteKey", recaptchaSiteKey);
 
-        if(!participant.isOver18()) {
+        if(!pForm.isOver18()) {
             bindingResult.addError(new ObjectError("over18", "You must be over 18 to participate in this Study."));
         }
 
-        if(participantRepository.findByEmail(participant.getEmail()) != null) {
+        if(participantRepository.findByEmail(pForm.getEmail()) != null) {
             bindingResult.addError(new ObjectError("email", "This email already exists."));
         }
 
-        if(!participant.getPassword().equals(participant.getPasswordAgain())) {
+        if(!pForm.getPassword().equals(pForm.getPasswordAgain())) {
             bindingResult.addError(new ObjectError("password", "Passwords do not match."));
         }
 
@@ -290,6 +292,8 @@ public class LoginController extends BaseController {
             model.addAttribute("hideAccountBar", true);
             return "consent";
         }
+
+        Participant participant = pForm.toParticipant();
 
         participant.setLastLoginDate(new Date()); // Set the last login date.
         saveParticipant(participant);
@@ -392,8 +396,8 @@ public class LoginController extends BaseController {
         if (!password.equals(passwordAgain)) {
             errors.add("Passwords do not match.");
         }
-        if(!Participant.validPassword(password)) {
-            errors.add(Participant.PASSWORD_MESSAGE);
+        if(!ParticipantCreateForm.validPassword(password)) {
+            errors.add(ParticipantCreateForm.PASSWORD_MESSAGE);
         }
 
         if(errors.size() > 0) {
