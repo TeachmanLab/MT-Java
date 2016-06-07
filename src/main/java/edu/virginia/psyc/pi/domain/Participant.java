@@ -2,15 +2,10 @@ package edu.virginia.psyc.pi.domain;
 
 import edu.virginia.psyc.pi.service.EmailService;
 import lombok.Data;
-import org.hibernate.validator.constraints.Email;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 
 import java.util.*;
 
@@ -33,28 +28,21 @@ public class Participant {
 
     public enum CBM_CONDITION {FIFTY_FIFTY, POSITIVE, NEUTRAL}
     public enum PRIME {NEUTRAL, ANXIETY}
+    public enum StudyType {NEUTRAL, ANXIETY}
+
     private static final Random RANDOM = new Random();  // For generating random CBM and Prime values.
     private static final Logger LOG = LoggerFactory.getLogger(Participant.class);
 
-    public static final String PASSWORD_REGEX = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!#\\$@_'\\+\\?\\[\\]\\.\\- ])(?=.+$).{8,}$";
-    public static final String PASSWORD_MESSAGE = "Password must be at least 8 digits long.  It must contain one digit, a lower case letter, an upper case letter, and a special character.";
 
-
-    @Size(min=2, max=100, message="Please specify your full name.")
     private String fullName;
 
-    @Email
-    @NotNull
     private String email;
 
-    @NotNull
     private boolean admin;
 
-    @NotNull
-    @Pattern(regexp=PASSWORD_REGEX, message = PASSWORD_MESSAGE)
     private String         password;
-    @NotNull
-    private String         passwordAgain;
+
+    private boolean        receiveGiftCards;
 
     private boolean        emailOptout = false;  // User required to receive no more emails.
 
@@ -92,11 +80,12 @@ public class Participant {
         this.setStudy(cbmCondition, CBMStudy.NAME.ELIGIBLE.toString(), 0, null, new ArrayList<TaskLog>());
     }
 
-    public Participant(long id, String fullName, String email, boolean admin) {
+    public Participant(long id, String fullName, String email, boolean admin, boolean awardGifts) {
         this.id = id;
         this.fullName = fullName;
         this.email = email;
         this.admin = admin;
+        this.receiveGiftCards = awardGifts;
         cbmCondition = randomCondition();
         prime        = randomPrime();
         this.setStudy(cbmCondition, CBMStudy.NAME.ELIGIBLE.toString(), 0, null, new ArrayList<TaskLog>());
@@ -112,10 +101,12 @@ public class Participant {
      */
     public void setStudy(CBM_CONDITION condition, String session, int taskIndex, Date lastSession, List<TaskLog> taskLogs) {
         if(condition == CBM_CONDITION.NEUTRAL) {
-            this.study = new CBMNeutralStudy(session, taskIndex, lastSession, taskLogs);
+            this.study = new CBMNeutralStudy(session, taskIndex, lastSession, taskLogs, this.receiveGiftCards);
         } else {
-            this.study = new CBMStudy(session, taskIndex, lastSession, taskLogs);
+            this.study = new CBMStudy(session, taskIndex, lastSession, taskLogs, this.receiveGiftCards);
         }
+        LOG.info("SETTING Participant Study To:" + study);
+        LOG.info("For Participant:" + this);
     }
 
     /**
@@ -134,16 +125,6 @@ public class Participant {
         List<PRIME> values =
                 Collections.unmodifiableList(Arrays.asList(PRIME.values()));
         return values.get(RANDOM.nextInt(values.size()));
-    }
-
-
-    /**
-     * Checks to see if the given password matches some standard criteria:
-     * @param password
-     * @return
-     */
-    public static boolean validPassword(String password) {
-        return password.matches(PASSWORD_REGEX);
     }
 
     /**
@@ -232,6 +213,11 @@ public class Participant {
         return (!this.getStudy().getCurrentSession().getName().equals(CBMStudy.NAME.PRE.toString()) &&
                 !this.getStudy().getCurrentSession().getName().equals(CBMStudy.NAME.POST.toString()) &&
                 !this.getStudy().getCurrentSession().getName().equals(CBMStudy.NAME.SESSION1.toString()));
+    }
+
+    public void setReceiveGiftCards(boolean value) {
+        this.receiveGiftCards = value;
+        this.study.setReceiveGiftCards(value);
     }
 
 

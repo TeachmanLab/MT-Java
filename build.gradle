@@ -46,6 +46,7 @@ dependencies {
     compile("org.projectlombok:lombok:1.16.4")  // avoid boiler plate constructors, getter/setter, hash, toString
     compile("org.apache.commons:commons-math3:3.5") // Calculate linear regressions
     compile('commons-codec:commons-codec:1.10') // Base64 encoding / decoding to help with storing encrypted data.
+    compile("org.apache.httpcomponents:httpclient")  // For calling google's recaptcha api
 
     // Deployment
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")

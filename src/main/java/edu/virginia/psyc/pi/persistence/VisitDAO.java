@@ -1,22 +1,25 @@
 package edu.virginia.psyc.pi.persistence;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import edu.virginia.psyc.pi.domain.DoNotDelete;
+import edu.virginia.psyc.pi.domain.Exportable;
 import lombok.Data;
-import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
- * Restore the times that the image is requested.
+ * A table for storing visits - likely related to "pixel tracking".  Where a remote
+ * site requests an image from a web service, and we log that request.
  */
 @Entity
 @Table(name="Visit")
 @Data
+@Exportable
+@DoNotDelete
 public class VisitDAO {
 
     @Id

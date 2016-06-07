@@ -11,6 +11,13 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/public/track")
+/**
+ * Provides a way for external web sites to notify us of information we want to track.
+ * For instance, if we have a partner that is doing some validation on a remote form,
+ * and we want to keep track of the number of people that were not accepted into the
+ * study, they could include a image that references http://[domain name]/public/track/notvalid.gif and
+ * we can log the fact that they were not accepted.
+ */
 public class CounterController extends BaseController {
 
   private static final Logger LOG = LoggerFactory.getLogger(CounterController.class);
@@ -19,7 +26,6 @@ public class CounterController extends BaseController {
 
   @RequestMapping("{name}.gif")
   public String countEligible(@PathVariable String name) {
-    LOG.info("Increment that counter right here!");
     VisitDAO counter = new VisitDAO(name);
     visitRepository.save(counter);
   return "redirect:/images/empty.gif";

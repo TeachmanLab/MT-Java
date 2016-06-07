@@ -1,7 +1,7 @@
 package edu.virginia.psyc.pi.controller;
 
 import edu.virginia.psyc.pi.domain.Participant;
-import edu.virginia.psyc.pi.domain.ParticipantForm;
+import edu.virginia.psyc.pi.domain.ParticipantCreateForm;
 import edu.virginia.psyc.pi.domain.ParticipantUpdateForm;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import edu.virginia.psyc.pi.persistence.ParticipantRepository;
@@ -11,18 +11,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.mail.MessagingException;
-import javax.validation.*;
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -131,8 +129,8 @@ public class AccountController extends BaseController {
         if (!password.equals(passwordAgain)) {
             errors.add("Passwords do not match.");
         }
-        if(!Participant.validPassword(password)) {
-            errors.add(Participant.PASSWORD_MESSAGE);
+        if(!ParticipantCreateForm.validPassword(password)) {
+            errors.add(ParticipantCreateForm.PASSWORD_MESSAGE);
         }
 
         if(errors.size() > 0) {

@@ -58,6 +58,7 @@ public class ParticipantDAO implements UserDetails {
 
     private String riskSession;
 
+    private boolean receiveGiftCards;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private PasswordTokenDAO  passwordTokenDAO;
@@ -316,6 +317,14 @@ public class ParticipantDAO implements UserDetails {
 
     public void setReference(String reference) {
         this.reference = reference;
+    }
+
+    public boolean isReceiveGiftCards() {
+        return receiveGiftCards;
+    }
+
+    public void setReceiveGiftCards(boolean receiveGiftCards) {
+        this.receiveGiftCards = receiveGiftCards;
     }
 
     @Override

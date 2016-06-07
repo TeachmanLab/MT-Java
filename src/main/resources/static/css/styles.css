@@ -276,6 +276,11 @@ label.standard {
     text-align: right;
 }
 
+div#g-recaptcha {
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
 
 .user-theme-blue label:hover { background-color: #00ACE4; color: #000;}
 .user-theme-orange label:hover { background-color: #F77D38;  color: #000;}
@@ -792,8 +797,6 @@ form#wizard {
     display:none;
     z-index: 100;
     position:absolute;
-    bottom:-135px;
-    bottom: -115px\9; /* IE Specific */
     left:187px;
     width:350px;
     padding:15px;
