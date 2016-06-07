@@ -80,7 +80,7 @@ public class OA extends QuestionnaireData implements Comparable<OA> {
 
     public boolean atRisk(OA original) {
       if(original.score() != 0) {
-        return (score() / original.score()) > 1.3;
+        return (score() / original.score()) > 1.5;
       } else { return false; }
     }
 

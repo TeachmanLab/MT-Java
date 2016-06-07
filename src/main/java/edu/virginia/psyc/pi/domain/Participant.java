@@ -46,6 +46,8 @@ public class Participant {
 
     private boolean        increase30 = false;
 
+    private String         riskSession;
+
     private Date           lastLoginDate;
 
     private List<EmailLog> emailLogs = new ArrayList<>();
@@ -65,6 +67,8 @@ public class Participant {
     private String theme = "blue";
 
     private boolean        over18;
+
+    private String reference;
 
     public Participant() {
         cbmCondition = randomCondition();

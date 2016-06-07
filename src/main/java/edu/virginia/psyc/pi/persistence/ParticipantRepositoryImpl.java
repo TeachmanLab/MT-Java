@@ -32,6 +32,8 @@ public class ParticipantRepositoryImpl implements ParticipantRepositoryCustom {
         p.setTheme(dao.getTheme());
         p.setOver18(dao.isOver18());
         p.setIncrease30(dao.isIncrease30());
+        p.setRiskSession(dao.getRiskSession());
+        p.setReference(dao.getReference());
 
         // Password Tokens
         if(dao.getPasswordTokenDAO() != null) {
@@ -85,6 +87,8 @@ public class ParticipantRepositoryImpl implements ParticipantRepositoryCustom {
         dao.setTheme(p.getTheme());
         dao.setOver18(p.isOver18());
         dao.setIncrease30(p.isIncrease30());
+        dao.setRiskSession(p.getRiskSession());
+        dao.setReference(p.getReference());
 
         // Encrypt Password if it is set.
         if(p.getPassword() != null) {

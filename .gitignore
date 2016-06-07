@@ -11,4 +11,5 @@ build/
 src/main/resources/static/bower
 **/.DS_Store
 src/.DS_Store
+src/main/resources/public_key.dir
 out

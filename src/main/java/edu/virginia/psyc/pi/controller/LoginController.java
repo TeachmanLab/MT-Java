@@ -165,6 +165,7 @@ public class LoginController extends BaseController {
             // Save the DASS21_AS object in the session, so we can grab it when the
             // user is logged in.
             session.setAttribute("dass21", dass21_as);
+            session.setAttribute("reference", "MindTrails");
             model.addAttribute("participant", new Participant());
             return "invitation";
         } else {
@@ -192,8 +193,9 @@ public class LoginController extends BaseController {
             // Save the DASS21_AS object in the session, so we can grab it when the
             // user is logged in.
             session.setAttribute("dass21", dass21);
+            session.setAttribute("reference","PIMH");
             model.addAttribute("participant", new Participant());
-            return "invitation";
+            return "invitationPIMH";
         } else {
             return "ineligible";
         }
@@ -237,6 +239,12 @@ public class LoginController extends BaseController {
         return "invitation";
     }
 
+    @RequestMapping("invitationPIMH")
+    public String showInvitationPIMH(ModelMap model, Principal principal) {
+        model.addAttribute("hideAccountBar", true);
+        return "invitationPIMH";
+    }
+
     @RequestMapping("public/privacy")
     public String showPrivacy(ModelMap model, Principal principal) {
         return "privacy";
@@ -249,7 +257,6 @@ public class LoginController extends BaseController {
 
     @RequestMapping(value="/consent", method = RequestMethod.GET)
     public String showConsent (ModelMap model, Principal principal) {
-        model.addAttribute("participant", new Participant());
         model.addAttribute("hideAccountBar", true);
         model.addAttribute("recaptchaSiteKey", recaptchaSiteKey);
         return "consent";
@@ -296,6 +303,7 @@ public class LoginController extends BaseController {
         Participant participant = pForm.toParticipant();
 
         participant.setLastLoginDate(new Date()); // Set the last login date.
+        participant.setReference((String)session.getAttribute("reference"));
         saveParticipant(participant);
 
         // Log this new person in.
