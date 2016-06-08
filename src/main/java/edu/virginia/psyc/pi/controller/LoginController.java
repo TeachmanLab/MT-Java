@@ -141,7 +141,6 @@ public class LoginController extends BaseController {
         Participant p = new Participant();
         p.setTheme("blue");
         model.addAttribute("participant",p);
-
         return "questions/DASS21_AS";
     }
 
@@ -152,12 +151,17 @@ public class LoginController extends BaseController {
                                    ModelMap model,
                                    HttpSession session) {
 
+        // Save the DASS21_AS so we can track the number of failed attempts.  If the
+        // user returns and tries to complete the session more than one time, record
+        // this and save all attempts.
+        dass21_as.setSessionId(session.getId());
+        dass21_as.setDate(new Date());
+        dass21_asRepository.save(dass21_as);
+        session.setAttribute("reference", "MindTrails");
+        model.addAttribute("participant", new Participant());
+
+        // Redirect as appropriate
         if(dass21_as.eligibleScore()) {
-            // Save the DASS21_AS object in the session, so we can grab it when the
-            // user is logged in.
-            session.setAttribute("dass21", dass21_as);
-            session.setAttribute("reference", "MindTrails");
-            model.addAttribute("participant", new Participant());
             return "invitation";
         } else {
             return "ineligible";
@@ -177,7 +181,9 @@ public class LoginController extends BaseController {
         if(dass21.eligibleScore()) {
             // Save the DASS21_AS object in the session, so we can grab it when the
             // user is logged in.
-            session.setAttribute("dass21", dass21);
+            dass21.setSessionId(session.getId());
+            dass21.setDate(new Date());
+            dass21_asRepository.save(dass21);
             session.setAttribute("reference","PIMH");
             model.addAttribute("participant", new Participant());
             return "invitationPIMH";
@@ -291,7 +297,7 @@ public class LoginController extends BaseController {
         SecurityContextHolder.getContext().setAuthentication(auth);
 
         // Save the Eligibility form
-        saveEligibilityForm(participant, session);
+        saveEligibilityForms(participant, session);
 
         LOG.info("Participant authenticated.");
         return "redirect:/account/theme";
@@ -305,17 +311,15 @@ public class LoginController extends BaseController {
      * @param participant
      * @param session
      */
-    private void saveEligibilityForm(Participant participant, HttpSession session) {
-        DASS21_AS dass21_as;
+    private void saveEligibilityForms(Participant participant, HttpSession session) {
         ParticipantDAO   participantDAO = participantRepository.findByEmail(participant.getEmail());
 
-        // Save their dass21 score to the Database
-        dass21_as = (DASS21_AS)session.getAttribute(DASS21_SESSION);
-        if(dass21_as == null) return;   // No eligiblity form exists in the session.
-        dass21_as.setParticipantDAO(participantDAO);
-        dass21_as.setDate(new Date());
-        dass21_as.setSession(CBMStudy.NAME.ELIGIBLE.toString());
-        dass21_asRepository.save(dass21_as);
+        List<DASS21_AS> forms = dass21_asRepository.findBySessionId(session.getId());
+        for(DASS21_AS dass21_as: forms) {
+            dass21_as.setParticipantDAO(participantDAO);
+            dass21_as.setSession(CBMStudy.NAME.ELIGIBLE.toString());
+            dass21_asRepository.save(dass21_as);
+        }
     }
 
     @RequestMapping(value="/resetPass", method = RequestMethod.GET)
