@@ -46,6 +46,9 @@ public  class Participant implements UserDetails {
     protected String randomToken;
     protected String theme = "blue";
     protected boolean isOver18;
+    protected String reference; // The site the user came from when creating their account
+    protected boolean receiveGiftCards;
+
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     protected PasswordToken passwordToken;
@@ -115,25 +118,9 @@ public  class Participant implements UserDetails {
      *  Logging.   *
      * ********************* */
 
-    public Collection<EmailLog> getEmailLogs() {
-        return emailLogs;
-    }
-
-    public void setEmailLogs(Collection<EmailLog> emailLogs) {
-        this.emailLogs = emailLogs;
-    }
-
     public void addEmailLog(EmailLog log) {
         if (this.emailLogs == null) this.emailLogs = new ArrayList<EmailLog>();
         this.emailLogs.add(log);
-    }
-
-    public Collection<GiftLog> getGiftLogs() {
-        return giftLogs;
-    }
-
-    public void setGiftLogs(Collection<GiftLog> giftLogs) {
-        this.giftLogs = giftLogs;
     }
 
     public void addGiftLog(GiftLog log) {

@@ -2,25 +2,29 @@ package edu.virginia.psyc.pi.controller;
 
 import edu.virginia.psyc.mindtrails.domain.Participant;
 import edu.virginia.psyc.mindtrails.domain.forms.ParticipantForm;
+import edu.virginia.psyc.mindtrails.domain.recaptcha.RecaptchaFormValidator;
 import edu.virginia.psyc.mindtrails.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.domain.CBMStudy;
 import edu.virginia.psyc.pi.domain.Dass21FromPi;
 import edu.virginia.psyc.pi.domain.PiParticipant;
+import edu.virginia.psyc.pi.persistence.PiParticipantRepository;
 import edu.virginia.psyc.pi.persistence.Questionnaire.DASS21_AS;
 import edu.virginia.psyc.pi.persistence.Questionnaire.DASS21_ASRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.support.SessionStatus;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -48,20 +52,25 @@ public class CreateAccountController {
     @Autowired
     private DASS21_ASRepository dass21_asRepository;
 
+    @Value("${recaptcha.site-key}")
+    private String recaptchaSiteKey;
+
+    @Value("${tango.maxParticipants}")
+    private long maxParticipantsForGiftCards;
+
+    @Autowired
+    private RecaptchaFormValidator recaptchaFormValidator;
+
+
     @Autowired
     private ParticipantRepository participantRepository;
 
-    private Participant getParticipant(Principal p) {
-        return participantRepository.findByEmail(p.getName());
+    @Autowired
+    private PiParticipantRepository piParticipantRepository;
+
+    private PiParticipant getParticipant(Principal p) {
+        return piParticipantRepository.findByEmail(p.getName());
     }
-
-
-    // Added by Diheng, linking to login page
-   // @RequestMapping(value = "/loginPage", method = RequestMethod.GET)
-   // public String goLoginPage(){
-   //     return "loginPage";
-   // }
-
 
 
     @RequestMapping("public/eligibility")
@@ -110,36 +119,58 @@ public class CreateAccountController {
         return "invitation";
     }
 
+    /** This will assure that any form submissions for the participant Form
+     * are validated for a proper recaptcha response.
+     * @param binder
+     */
+    @InitBinder("participantForm")
+    public void initBinder(WebDataBinder binder) {
+        binder.addValidators(recaptchaFormValidator);
+    }
+
     @RequestMapping(value="/consent", method = RequestMethod.GET)
     public String showConsent (ModelMap model, Principal principal) {
-        model.addAttribute("participant", new PiParticipant());
+        model.addAttribute("participantForm", new ParticipantForm());
         model.addAttribute("visiting", true);
+        model.addAttribute("recaptchaSiteKey", recaptchaSiteKey);
         return "consent";
-
     }
 
 
     @RequestMapping(value = "/newParticipant", method = RequestMethod.POST)
     public String createNewParticipant(ModelMap model,
-                                       @Valid ParticipantForm participantForm,
+                                       @ModelAttribute("participantForm") @Valid ParticipantForm participantForm,
                                        final BindingResult bindingResult,
-                                       final SessionStatus status,
                                        HttpSession session
                                        ) {
 
-        Participant participant;
-        model.addAttribute("participant", participantForm);
+        PiParticipant participant;
 
         if(!participantForm.validParticipant(bindingResult, participantRepository)) {
+            LOG.error("Invalid participant:" + bindingResult.getAllErrors());
             model.addAttribute("visiting", true);
+            model.addAttribute("recaptchaSiteKey", recaptchaSiteKey);
             return "consent";
         }
 
-        participant = participantForm.toParticipant();
-        participantRepository.save(participant);
+        participant = new PiParticipant(participantForm.getFullName(),
+                participantForm.getEmail(),
+                participantForm.isAdmin());
+
+        // Disable Gift Cards, if the max number is reached.
+        long totalParticipants = participantRepository.count();
+        participant.setReceiveGiftCards(maxParticipantsForGiftCards > totalParticipants);
+
+        participant.updatePassword(participantForm.getPassword());
+        if(participantForm.getTheme()!=null)
+            participant.setTheme(participantForm.getTheme());
+        participant.setOver18(participantForm.isOver18());
+        participant.setLastLoginDate(new Date());
+
+        piParticipantRepository.save(participant);
 
         // Log this new person in.
-        Authentication auth = new UsernamePasswordAuthenticationToken( participant.getEmail(), participant.getPassword());
+        Authentication auth = new UsernamePasswordAuthenticationToken( participantForm.getEmail(), participantForm.getPassword());
         SecurityContextHolder.getContext().setAuthentication(auth);
 
         // Save the Eligibility form

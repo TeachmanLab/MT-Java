@@ -5,6 +5,7 @@ import edu.virginia.psyc.pi.domain.PiParticipant;
 import edu.virginia.psyc.pi.persistence.PiParticipantRepository;
 import edu.virginia.psyc.pi.persistence.Questionnaire.OA;
 import edu.virginia.psyc.pi.persistence.Questionnaire.OARepository;
+import edu.virginia.psyc.pi.persistence.Questionnaire.ReasonsForEnding;
 import edu.virginia.psyc.pi.service.PiEmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -77,6 +78,20 @@ public class OAController extends QuestionController {
             return new RedirectView("/session/atRisk");
         }
         return new RedirectView("/session/next");
+    }
+
+
+    /**
+     * Bypass the session check, this form can be completed at
+     * any time.
+     */
+    @RequestMapping(value = "ReasonsForEnding", method = RequestMethod.POST)
+    String handleReasonsForEnding(@ModelAttribute("ReasonsForEnding") ReasonsForEnding reasons,
+                                  WebRequest request) throws Exception {
+
+        recordSessionProgress("ReasonsForEnding",reasons, true);
+        saveForm("reasons", request, false);
+        return "debriefing";
     }
 
 

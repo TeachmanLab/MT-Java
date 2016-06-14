@@ -137,7 +137,7 @@ define([], function() {
                     "negativeWord": "care[ ]ess",
                     "positiveKey": "m",
                     "positiveWord": "com[ ]endable",
-                    "statement": " You have started a new job and you are given a task to do that normally takes a few days. You manage to finish it the same day. As you go over it, you boss finds only one mistake in your work. You expect he thinks your work is "
+                    "statement": " You have started a new job and you are given a task to do that normally takes a few days. You manage to finish it the same day. As you go over it, your boss finds only one mistake in your work. You expect he thinks your work is "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -417,7 +417,7 @@ define([], function() {
                     "negativeWord": "wea[ ]ness",
                     "positiveKey": "p",
                     "positiveWord": "com[ ]etence",
-                    "statement": " At your computer class you finish your work early and so the teacher gives you a new task to do. You read through it and cannot think how to start, so you ask for advice. Your teacher probably sees you asking for help as a sign of  "
+                    "statement": " At your computer class you finish your work early and so the teacher gives you a new task to do. You read through it and cannot think of how to start, so you ask for advice. Your teacher probably sees you asking for help as a sign of  "
                 },
                 "handle": "paragraph",
                 "media": {

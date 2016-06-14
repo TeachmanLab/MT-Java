@@ -1,9 +1,9 @@
 package edu.virginia.psyc.mindtrails.service;
 
 import edu.virginia.psyc.mindtrails.domain.DoNotDelete;
-import edu.virginia.psyc.mindtrails.domain.tracking.ExportLog;
 import edu.virginia.psyc.mindtrails.domain.Exportable;
 import edu.virginia.psyc.mindtrails.domain.questionnaire.QuestionnaireInfo;
+import edu.virginia.psyc.mindtrails.domain.tracking.ExportLog;
 import edu.virginia.psyc.mindtrails.persistence.ExportLogRepository;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
@@ -87,8 +87,18 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
         return sum;
     }
 
+    /**
+     * Returns the last export.  If no exports exist in the database, then
+     * it creates an initial export and saves it, so we can start the timers.
+     */
     private ExportLog lastExport() {
-       return exportLogRepository.findFirstByOrderByIdDesc();
+        ExportLog log;
+        log = exportLogRepository.findFirstByOrderByIdDesc();
+        if(log == null) {
+            log = new ExportLog(0);
+            exportLogRepository.save(log);
+       }
+        return log;
     }
 
 

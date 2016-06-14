@@ -2,6 +2,7 @@ package edu.virginia.psyc.mindtrails.controller;
 
 import edu.virginia.psyc.mindtrails.domain.Participant;
 import edu.virginia.psyc.mindtrails.domain.RestExceptions.NoModelForFormException;
+import edu.virginia.psyc.mindtrails.domain.RestExceptions.WrongFormException;
 import edu.virginia.psyc.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 import edu.virginia.psyc.mindtrails.domain.questionnaire.QuestionnaireData;
 import edu.virginia.psyc.mindtrails.domain.questionnaire.SecureQuestionnaireData;
@@ -44,8 +45,9 @@ import java.util.Date;
  * */
 @Controller@RequestMapping("/questions")
 public class QuestionController {
-    @Autowired
+
     private static final Logger LOG = LoggerFactory.getLogger(QuestionController.class);
+    public static final String BY_PASS_SESSION_CHECK = "BY_PASS_CHECK";
 
     @Autowired
     private RsaEncryptionService encryptService;
@@ -88,11 +90,12 @@ public class QuestionController {
         return new RedirectView("/session/next");
    }
 
+
     /**
      * Handles a form submission in a standardized way.  This is useful if
      * you extend this class to handle a custom form submission.
      */
-    protected void saveForm(String formName, WebRequest request) throws Exception {
+    protected void saveForm(String formName, WebRequest request, boolean sessionProgress) throws Exception {
 
         JpaRepository repository = exportService.getRepositoryForName(formName);
         if(repository == null) {
@@ -101,7 +104,7 @@ public class QuestionController {
         }
         try {
             QuestionnaireData data = (QuestionnaireData) exportService.getDomainType(formName).newInstance();
-            recordSessionProgress(data);
+            recordSessionProgress(formName, data, sessionProgress);
             WebRequestDataBinder binder = new WebRequestDataBinder(data);
             binder.bind(request);
             repository.save(data);
@@ -110,6 +113,10 @@ public class QuestionController {
             throw new NoModelForFormException(e);
         }
     }
+    protected void saveForm(String formName, WebRequest request) throws Exception {
+        saveForm(formName, request, true);
+    }
+
 
     /**
      * Does some tasks common to all forms:
@@ -120,13 +127,21 @@ public class QuestionController {
      *
      * @param data
      */
-    protected void recordSessionProgress(QuestionnaireData data) {
+    protected void recordSessionProgress(String formName, QuestionnaireData data, boolean sessionProgress) {
 
         Participant participant;
 
         participant = (Participant) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(participantRepository.findByEmail(participant.getEmail()) != null)
             participant = participantRepository.findByEmail(participant.getEmail()); // Refresh session object from database.
+
+        // If the data submitted, isn't the data the user should be completeing right now,
+        // thown an exception and prevent them from moving forward.
+        String currentTaskName = participant.getStudy().getCurrentSession().getCurrentTask().getName();
+        if(!currentTaskName.equals(formName) && sessionProgress) {
+            LOG.info("The current task for this participant is : " + currentTaskName + " however, they submitted the form:" + formName);
+            throw new WrongFormException();
+        }
 
         // Attempt to set the participant link, depending on sub-class type
         if(data instanceof LinkedQuestionnaireData)
@@ -137,8 +152,10 @@ public class QuestionController {
         data.setSession(participant.getStudy().getCurrentSession().getName());
 
         // Update the participant's session status, and save back to the database.
-        participant.getStudy().completeCurrentTask();
-        participantRepository.save(participant);
+        if(sessionProgress) {
+            participant.getStudy().completeCurrentTask();
+            participantRepository.save(participant);
+        }
 
         data.setDate(new Date());
     }

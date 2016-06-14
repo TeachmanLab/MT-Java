@@ -22,5 +22,5 @@ import java.util.List;
 public interface DASS21_ASRepository extends QuestionnaireRepository<DASS21_AS> {
 
     List<DASS21_AS> findByParticipant(Participant p);
-
+    List<DASS21_AS> findBySessionId(String sessionId);
 }

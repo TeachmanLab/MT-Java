@@ -20,7 +20,7 @@ import java.util.Date;
 @Exportable
 @DoNotDelete
 @Data
-public class GiftLog {
+public class GiftLog implements Comparable<GiftLog> {
 
     @Id
     @GeneratedValue
@@ -34,14 +34,18 @@ public class GiftLog {
     private String sessionName;
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="EEE, dd MMM yyyy HH:mm:ss Z", timezone="EST")
     private Date dateSent;
+
     public GiftLog() {};
-
-
 
     public GiftLog(Participant participant, String orderId, String sessionName) {
         this.participant = participant;
         this.orderId = orderId;
         this.sessionName = sessionName;
         this.dateSent = new Date();
+    }
+
+    @Override
+    public int compareTo(GiftLog o) {
+        return this.dateSent.compareTo(o.dateSent);
     }
 }

@@ -15,7 +15,7 @@
 <section id="header-btm" class="clearfix">
     <div class="container">
         <div class="row">
-                <h2 class="page-title heading-icon clearfix"> <img th:src="@{/images/map-arrow-orange.png}" alt="icon" class="icon-small-bg" /><br/>Welcome!</h2>
+            <h2 class="page-title heading-icon clearfix"> <img th:src="@{/images/map-arrow-orange.png}" alt="icon" class="icon-small-bg" /><br/>Welcome!</h2>
         </div>
     </div>
 </section>
@@ -28,6 +28,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
+                <p class="error" th:if="${error}" >Please enter a valid email address.</p>
+
                 <p>In this study, we are going to focus on the way you think, and how that may affect your anxiety.
                     Specifically, we will focus on the way you interpret everyday events. </p>
                 <p>It’s not always clear why anxiety persists over time, but one reason appears to be the way
@@ -46,7 +48,28 @@
                 <p>We have people trying different versions of the computer program for this study to see which version
                     works best – we think some of these computer programs will reduce anxiety by changing the way people
                     interpret situations.</p>
-                <p>    <a th:href="@{public/eligibility}"><button>Am I Eligible?</button></a> </p>
+                <p th:unless="${disabled}">
+                    <a th:href="@{public/eligibility}"><button>Am I Eligible?</button></a>
+                </p>
+                <div th:if="${disabled}">
+                    <h3>Already participating?</h3>
+                    <p>Then please <a href="login">Login</a> to continue to study.</p>
+
+                    <h3>New visitor?</h3>
+                    <p>We have completed enrollment for the current study, but expect to launch a new study soon.
+                        If you would like to be notified when a new study launches, please provide your email
+                        address and we will contact you when we are enrolling again.</p>
+
+                    <form  th:action="@{/public/notify}" method="post">
+                        <p>
+                            <label class="standard" for="email">Email</label>
+                            <input type="email" id="email" name="email"/>
+                            <button>Notify Me!</button>
+                        </p>
+                    </form>
+
+                </div>
+
             </div>
         </div>
 

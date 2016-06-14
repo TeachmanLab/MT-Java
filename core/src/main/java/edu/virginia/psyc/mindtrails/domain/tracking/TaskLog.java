@@ -17,7 +17,7 @@ import java.util.Date;
 @Entity
 @Table(name="task_log")
 @Data
-public class TaskLog {
+public class TaskLog implements Comparable<TaskLog> {
 
     @Id
     @GeneratedValue
@@ -37,6 +37,11 @@ public class TaskLog {
         this.sessionName = study.getCurrentSession().getName();
         this.taskName = study.getCurrentSession().getCurrentTask().getName();
         this.dateCompleted = new Date();
+    }
+
+    @Override
+    public int compareTo(TaskLog o) {
+        return this.dateCompleted.compareTo(o.dateCompleted);
     }
 
 }

@@ -12,4 +12,6 @@ app/src/main/resources/static/bower
 **/.DS_Store
 src/.DS_Store
 _site
+app/src/main/resources/public_key.dir
+dz8t@ws02-s.psyc.virginia.edu
 out

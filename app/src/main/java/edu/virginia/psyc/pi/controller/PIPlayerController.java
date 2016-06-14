@@ -1,6 +1,7 @@
 package edu.virginia.psyc.pi.controller;
 
 import edu.virginia.psyc.mindtrails.domain.Participant;
+import edu.virginia.psyc.mindtrails.domain.RestExceptions.WrongFormException;
 import edu.virginia.psyc.mindtrails.persistence.ParticipantRepository;
 import edu.virginia.psyc.pi.domain.PiParticipant;
 import edu.virginia.psyc.pi.persistence.PiParticipantRepository;
@@ -71,9 +72,16 @@ public class PIPlayerController {
 
         Participant participant = getParticipant(principal);
 
+        // If the data submitted, isn't the data the user should be completeing right now,
+        // thown an exception and prevent them from moving forward.
+        String currentTaskName = participant.getStudy().getCurrentSession().getCurrentTask().getName();
+        if(!currentTaskName.equals(scriptName)) {
+            LOG.info("The current task for this participant is : " + currentTaskName + " however, they submitted the script:" + scriptName);
+            throw new WrongFormException();
+        }
+
         participant.getStudy().completeCurrentTask();
         participantRepository.save(participant);
-
         return new RedirectView("/session/next");
     }
 

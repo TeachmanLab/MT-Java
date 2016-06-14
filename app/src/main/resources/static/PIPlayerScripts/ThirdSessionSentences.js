@@ -275,7 +275,7 @@ define([], function() {
                     "negativeWord": "anno[ ]ing",
                     "positiveKey": "n",
                     "positiveWord": "ki[ ]d",
-                    "statement": " You notice an elderly neighbor carrying in bags of grocers from her car to her house. You decide to ask if she needs help, and she turns to stare at you. This is because she probably views you as "
+                    "statement": " You notice an elderly neighbor carrying in bags of groceries from her car to her house. You decide to ask if she needs help, and she turns to stare at you. This is because she probably views you as "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -513,7 +513,7 @@ define([], function() {
                     "negativeWord": "sil[ ]y",
                     "positiveKey": "c",
                     "positiveWord": "ni[ ]e",
-                    "statement": " You buy a new suit, which is very different from your usual style of clothes. You try it one to show your friend. When she sees you, she pauses, and then comments that it makes you look "
+                    "statement": " You buy a new suit, which is very different from your usual style of clothes. You try it on to show your friend. When she sees you, she pauses, and then comments that it makes you look "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -853,7 +853,7 @@ define([], function() {
                     "negativeWord": "u[ ]helpful",
                     "positiveKey": "p",
                     "positiveWord": "hel[ ]ful",
-                    "statement": " You spend an eventing with a friend and end up talking about her relationship problems. As you give her some advice, you notice she is quiet. Once you get home later, you reflect on the evening and you think that she found your advice "
+                    "statement": " You spend an evening with a friend and end up talking about her relationship problems. As you give her some advice, you notice she is quiet. Once you get home later, you reflect on the evening and you think that she found your advice "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -1234,7 +1234,7 @@ define([], function() {
                     "negativeWord": "fa[ ]l",
                     "positiveKey": "s",
                     "positiveWord": "pa[ ]s",
-                    "statement": " You are almost done with college, and preparing for you last final exam. You heard from other people that the exam is incredibly difficult. You studied a lot and think it is likely you will "
+                    "statement": " You are almost done with college, and preparing for your last final exam. You heard from other people that the exam is incredibly difficult. You studied a lot and think it is likely you will "
                 },
                 "handle": "paragraph",
                 "media": {
@@ -1744,7 +1744,7 @@ define([], function() {
             {
                 "data": {
                     "negativeKey": "c",
-                    "negativeWord": "infe[ ]ted  ",
+                    "negativeWord": "infe[ ]ted",
                     "positiveKey": "a",
                     "positiveWord": "he[ ]led",
                     "statement": " While at a picnic with some friends, you accidentally cut your finger while slicing fruit. Because you are outside, you are not able to wash it out immediately with soap and water. In a few days, your cut will be "
@@ -1767,12 +1767,17 @@ define([], function() {
         ]
     }
     ]
+
         },
-    {
-        "inherit": {"set": "vivid"},
-        layout: [{media : {template:"/PIPlayerScripts/vividness_last.html"}}]
-    }
-        ]});
+        {
+            "inherit": {"set": "vivid"},
+            layout: [{media: {template: "/PIPlayerScripts/vividness_last.html"}}]
+        },
+        {
+            "inherit": {"set": "results"},
+            layout: [{media: {template: "/PIPlayerScripts/results.html"}}]
+        }
+    ]});
 });
 
 

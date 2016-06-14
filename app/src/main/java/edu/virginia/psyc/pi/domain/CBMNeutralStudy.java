@@ -25,11 +25,10 @@ import java.util.List;
 @DiscriminatorValue("CBM Neutral")
 public class CBMNeutralStudy extends CBMStudy implements Study {
 
-
     public CBMNeutralStudy() {}
 
-    public CBMNeutralStudy(String currentName, int taskIndex, Date lastSessionDate, List<TaskLog> taskLogs) {
-        super(currentName,taskIndex,lastSessionDate,taskLogs);
+    public CBMNeutralStudy(String currentName, int taskIndex, Date lastSessionDate, List<TaskLog> taskLogs, boolean awardGifts) {
+        super(currentName,taskIndex,lastSessionDate,taskLogs, awardGifts);
     }
 
     @Override

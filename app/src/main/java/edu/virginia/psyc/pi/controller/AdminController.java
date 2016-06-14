@@ -176,20 +176,18 @@ public class AdminController {
 
     @RequestMapping(value="/participant/", method=RequestMethod.POST)
     public String createParticipant(ModelMap model,
-                                    @Valid ParticipantForm form,
-                                    BindingResult bindingResult) {
-
+                                       @Valid ParticipantForm pForm,
+                                       BindingResult bindingResult) {
         Participant participant;
         model.addAttribute("visiting", true);
-        form.setOver18(true);
+        pForm.setOver18(true);
 
-        if(!form.validParticipant(bindingResult, participantRepository)) {
+        if(!pForm.validParticipant(bindingResult, participantRepository)) {
             return "admin/new_participant";
         }
 
-        participant = form.toParticipant();
+        participant = pForm.toParticipant();
         participantRepository.save(participant);
-
         LOG.info("Participant created.");
         return "redirect:/admin";
     }
@@ -209,8 +207,7 @@ public class AdminController {
         Participant p = participantRepository.findByEmail(principal.getName());
 
         if(type.equals(PiEmailService.TYPE.giftCard)) {
-            // Reward reward = tangoService.createGiftCard(p);  This would actually award a gift card, if you need to do some testing.
-            Reward reward = new Reward("111-111-111-111", "1234-2345-2345", "123", "https://www.google.com", "12345");
+            Reward reward = tangoService.createGiftCard(p, "test", 1);  // This would actually award a gift card, if you need to do some testing.
             this.emailService.sendGiftCardEmail(p, reward, 100);
         } else if(type.equals(PiEmailService.TYPE.alertAdmin)) {
             OA d1 = new OA(1,2,3,4,5);

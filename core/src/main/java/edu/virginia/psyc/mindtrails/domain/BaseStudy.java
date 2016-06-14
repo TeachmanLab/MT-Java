@@ -1,5 +1,6 @@
 package edu.virginia.psyc.mindtrails.domain;
 
+import edu.virginia.psyc.mindtrails.domain.RestExceptions.WaitException;
 import edu.virginia.psyc.mindtrails.domain.tracking.TaskLog;
 import lombok.Data;
 import org.joda.time.DateTime;
@@ -29,17 +30,19 @@ public abstract class BaseStudy implements Study {
     protected String currentSession;
     protected int currentTaskIndex = 0;
     protected Date lastSessionDate;
+    protected boolean receiveGiftCards;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "study")
     protected Collection<TaskLog> taskLogs = new ArrayList<>();
 
     public BaseStudy() {}
 
-    public BaseStudy(String currentName, int taskIndex, Date lastSessionDate, Collection<TaskLog> taskLogs) {
+    public BaseStudy(String currentName, int taskIndex, Date lastSessionDate, Collection<TaskLog> taskLogs, boolean receiveGiftCards) {
         this.currentSession = currentName;
         this.currentTaskIndex = taskIndex;
         this.lastSessionDate = lastSessionDate;
         this.taskLogs = new ArrayList<>();
+        this.receiveGiftCards = receiveGiftCards;
     }
 
     @Override
@@ -70,6 +73,11 @@ public abstract class BaseStudy implements Study {
     public void completeCurrentTask() {
         // Log the completion of the task
         this.taskLogs.add(new TaskLog(this));
+
+        if (getState().equals(STUDY_STATE.WAIT_A_DAY) ||
+                getState().equals(STUDY_STATE.WAIT_FOR_FOLLOWUP)) {
+            throw new WaitException();
+        }
 
         // If this is the last task in a session, then we move to the next session.
         if(currentTaskIndex +1 >= getCurrentSession().getTasks().size()) {

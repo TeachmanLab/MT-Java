@@ -276,6 +276,11 @@ label.standard {
     text-align: right;
 }
 
+div#g-recaptcha {
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
 
 .user-theme-blue label:hover { background-color: #00ACE4; color: #000;}
 .user-theme-orange label:hover { background-color: #F77D38;  color: #000;}
@@ -792,8 +797,6 @@ form#wizard {
     display:none;
     z-index: 100;
     position:absolute;
-    bottom:-135px;
-    bottom: -115px\9; /* IE Specific */
     left:187px;
     width:350px;
     padding:15px;
@@ -861,3 +864,111 @@ li.valid {
     display: flex;
     align-items: center;
 }
+
+/*************
+   Log Reports on the Admin page
+   *********/
+table.logs {
+    border-collapse: collapse;
+    text-align: left; width: 100%;
+}
+
+div.logs {
+    font: normal 12px/150% Arial, Helvetica, sans-serif;
+    background: #fff;
+    overflow: hidden;
+    border: 1px solid #006699;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+div.logs table td, .datagrid table th {
+    padding: 3px 10px;
+}
+
+div.logs  table thead th {
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #006699), color-stop(1, #00557F));
+    background: -moz-linear-gradient(center top, #006699 5%, #00557F 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#006699', endColorstr='#00557F');
+    background-color: #006699;
+    color: #FFFFFF;
+    font-size: 15px;
+    font-weight: bold;
+    border-left: 1px solid #0070A8;
+}
+
+div.logs  table thead th:first-child {
+    border: none;
+}
+
+div.logs  table tbody td {
+    color: #00557F;
+    border-left: 1px solid #E1EEF4;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+div.logs table tbody .alt td {
+    background: #E1EEf4;
+    color: #00557F;
+}
+
+div.logs  table tbody td:first-child {
+    border-left: none;
+}
+
+div.logs table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+div.logs table tfoot td div {
+    border-top: 1px solid #006699;
+    background: #E1EEf4;
+}
+
+div.logs table tfoot td {
+    padding: 0;
+    font-size: 12px
+}
+
+div.log table tfoot td div {
+    padding: 2px;
+}
+
+div.log table tfoot td ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-align: right;
+}
+
+div.log table tfoot li {
+    display: inline;
+}
+
+div.log table tfoot li a {
+    text-decoration: none;
+    display: inline-block;
+    padding: 2px 8px;
+    margin: 1px;
+    color: #FFFFFF;
+    border: 1px solid #006699;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #006699), color-stop(1, #00557F));
+    background: -moz-linear-gradient(center top, #006699 5%, #00557F 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#006699', endColorstr='#00557F');
+    background-color: #006699;
+}
+
+div.log table tfoot ul.active, .datagrid table tfoot ul a:hover {
+    text-decoration: none;
+    border-color: #00557F;
+    color: #FFFFFF;
+    background: none;
+    background-color: #006699;
+}
+
+

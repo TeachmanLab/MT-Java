@@ -4,7 +4,6 @@ import edu.virginia.psyc.mindtrails.domain.DoNotDelete;
 import edu.virginia.psyc.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
 import javax.persistence.*;
 
 /**
@@ -35,6 +34,8 @@ public class DASS21_AS extends LinkedQuestionnaireData {
     private int heart;
     @Column(name="SCA")
     private int scared;
+
+    private String sessionId;
 
 
     public DASS21_AS() {}

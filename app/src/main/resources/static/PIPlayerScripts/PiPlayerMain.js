@@ -260,13 +260,13 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
     }
 
     // When the training session is complete, move on to the next Questionnaire
-    API.addSettings('redirect', "../playerScript/completed/int_train");
+    API.addSettings('redirect', "../playerScript/completed/" + API.getGlobal().script);
 
     // Removes the warning about leaving the page.
     API.addSettings("hooks", {
         endTask: function () {
             window.onbeforeunload = null;
-            window.location = "../playerScript/completed/int_train";
+            window.location = "../playerScript/completed/" + API.getGlobal().script;
         }
     })
 
@@ -748,10 +748,14 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
                             vivid_text = 'Thanks. Really try to use your imagination!';
                         }
                         else if (inputData.handle == "Very vivid" ||
-                            inputData.handle == "Totally vivid" ||
-                            inputData.handle == "Prefer not to answer") {
+                            inputData.handle == "Totally vivid") {
                             vivid_text = "Thanks. It's great you're really using your imagination!";
                         }
+                        else if (inputData.handle == "Prefer not to answer")
+                        {
+                            vivid_text = '';
+                        }
+                        console.log(vivid_text);
                         return ( inputData.handle == "Not at all vivid" ||
                         inputData.handle == "Somewhat vivid" ||
                         inputData.handle == "Moderately vivid" ||
@@ -889,7 +893,7 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
             {
                 vivid_afs.push(seq[i])
             }
-            else if (seq[i].inherit.set == 'posneg')
+            else if (seq[i].inherit.set == 'posneg' & scens.indexOf(seq[i]) == -1 )
             {
                 scens.push(seq[i])
             }

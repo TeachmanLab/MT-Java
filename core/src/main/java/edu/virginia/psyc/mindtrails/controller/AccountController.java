@@ -116,6 +116,7 @@ public class AccountController {
         if (!password.equals(passwordAgain)) {
             errors.add("Passwords do not match.");
         }
+
         if(!ParticipantForm.validPassword(password)) {
             errors.add(ParticipantForm.PASSWORD_MESSAGE);
         }

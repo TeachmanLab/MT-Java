@@ -75,29 +75,29 @@ public class PiEmailService implements EmailService {
 
         switch (type) {
             case day2:
-                return "Update from the Project Implicit Mental Health training team";
+                return "Update from the MindTrails project team";
             case day4:
-                return "Update from the Project Implicit Mental Health training team";
+                return "Update from the MindTrails project team";
             case day7:
-                return "Important reminder from the Project Implicit Mental Health training team";
+                return "Important reminder from the MindTrails project team";
             case day11:
-                return "Continuation in the Project Implicit Mental Health training study";
+                return "Continuation in the MindTrails project study";
             case day15:
-                return "Final reminder re. continuation in the Project Implicit Mental Health training study";
+                return "Final reminder re. continuation in the MindTrails project study";
             case day18:
-                return "Closure of account in Project Implicit Mental Health training study";
+                return "Closure of account in MindTrails project study";
             case followup:
-                return "Follow-up from the Project Implicit Mental Health training team";
+                return "Follow-up from the MindTrails project team";
             case followup2:
-                return "Follow-up reminder from the Project Implicit Mental Health training team";
+                return "Follow-up reminder from the MindTrails project team";
             case followup3:
-                return "Final reminder from the Project Implicit Mental Health training team";
+                return "Final reminder from the MindTrails project team";
             case resetPass:
-                return "Project Implicit Mental Health - Account Request";
+                return "MindTrails - Account Request";
             case alertAdmin:
-                return "PIMH Alert! a participants score is raising";
+                return "MindTrails Alert! a participants score is raising";
             case giftCard:
-                return "Project Implicit Mental Health - Your gift card!";
+                return "MindTrails - Your gift card!";
             case exportError:
                 return "MindTrails - Export Failure!";
             default:
@@ -134,6 +134,7 @@ public class PiEmailService implements EmailService {
 
         // Prepare the evaluation context
         ctx.setVariable("name", participant.getFullName());
+        ctx.setVariable("giftCards", participant.isReceiveGiftCards());
         ctx.setVariable("url", this.siteUrl);
         ctx.setVariable("respondTo", this.respondTo);
 

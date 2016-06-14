@@ -1,9 +1,11 @@
 package edu.virginia.psyc.mindtrails.domain.forms;
 
 import edu.virginia.psyc.mindtrails.domain.Participant;
+import edu.virginia.psyc.mindtrails.domain.recaptcha.RecaptchaForm;
 import edu.virginia.psyc.mindtrails.persistence.ParticipantRepository;
 import lombok.Data;
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindingResult;
@@ -23,7 +25,7 @@ import java.util.Date;
  * For updating a participant.
  */
 @Data
-public class ParticipantForm {
+public class ParticipantForm implements RecaptchaForm {
 
     private static final Logger LOG = LoggerFactory.getLogger(ParticipantForm.class);
 
@@ -50,6 +52,10 @@ public class ParticipantForm {
     private String         password;
     @NotNull
     private String         passwordAgain;
+
+    @NotEmpty(message = "Please complete the Captcha challenge.")
+    @NotNull(message = "Please complete the Captcha challenge.")
+    private String recaptchaResponse;
 
 
     /**

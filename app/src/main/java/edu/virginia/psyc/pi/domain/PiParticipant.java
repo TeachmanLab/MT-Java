@@ -24,11 +24,13 @@ public class PiParticipant extends Participant {
     private boolean        increase30 = false;
     private CBM_CONDITION  cbmCondition;
     private PRIME          prime;
+    protected String       riskSession;  // The session that saw an increase in risk factor.
+
 
     public PiParticipant() {
         cbmCondition = randomCondition();
         prime        = randomPrime();
-        this.setStudy(cbmCondition, CBMStudy.NAME.ELIGIBLE.toString(), 0, null, new ArrayList<TaskLog>());
+        this.createStudy(cbmCondition, CBMStudy.NAME.ELIGIBLE.toString(), 0, null, new ArrayList<TaskLog>());
     }
 
     public PiParticipant(String fullName, String email, boolean admin) {
@@ -36,7 +38,7 @@ public class PiParticipant extends Participant {
 
         cbmCondition = randomCondition();
         prime        = randomPrime();
-        this.setStudy(cbmCondition, CBMStudy.NAME.ELIGIBLE.toString(), 0, null, new ArrayList<TaskLog>());
+        this.createStudy(cbmCondition, CBMStudy.NAME.ELIGIBLE.toString(), 0, null, new ArrayList<TaskLog>());
     }
 
     /**
@@ -47,11 +49,11 @@ public class PiParticipant extends Participant {
      * @param lastSession
      * @param taskLogs
      */
-    public void setStudy(CBM_CONDITION condition, String session, int taskIndex, Date lastSession, List<TaskLog> taskLogs) {
+    public void createStudy(CBM_CONDITION condition, String session, int taskIndex, Date lastSession, List<TaskLog> taskLogs) {
         if(condition == CBM_CONDITION.NEUTRAL) {
-            this.study = new CBMNeutralStudy(session, taskIndex, lastSession, taskLogs);
+            this.study = new CBMNeutralStudy(session, taskIndex, lastSession, taskLogs, this.receiveGiftCards);
         } else {
-            this.study = new CBMStudy(session, taskIndex, lastSession, taskLogs);
+            this.study = new CBMStudy(session, taskIndex, lastSession, taskLogs, this.receiveGiftCards);
         }
     }
 
