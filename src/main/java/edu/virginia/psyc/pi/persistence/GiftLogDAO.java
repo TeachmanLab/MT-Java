@@ -46,6 +46,7 @@ public class GiftLogDAO implements Comparable<GiftLogDAO>{
 
     @Override
     public int compareTo(GiftLogDAO o) {
+        if(this.dateSent == null) return 0;
         return this.dateSent.compareTo(o.dateSent);
     }
 }

@@ -79,6 +79,7 @@ public class TaskLogDAO implements Comparable<TaskLogDAO>{
 
     @Override
     public int compareTo(TaskLogDAO o) {
+        if(this.dateCompleted == null) return 0;
         return this.dateCompleted.compareTo(o.dateCompleted);
     }
 }

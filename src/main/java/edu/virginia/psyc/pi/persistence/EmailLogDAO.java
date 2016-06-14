@@ -48,6 +48,7 @@ public class EmailLogDAO implements Comparable<EmailLogDAO>{
 
     @Override
     public int compareTo(EmailLogDAO o) {
+        if(this.dateSent == null) return 0;
         return this.dateSent.compareTo(o.dateSent);
     }
 }
