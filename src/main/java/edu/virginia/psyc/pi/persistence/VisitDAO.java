@@ -1,6 +1,6 @@
 package edu.virginia.psyc.pi.persistence;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import edu.virginia.psyc.pi.domain.DoNotDelete;
 import edu.virginia.psyc.pi.domain.Exportable;
 import lombok.Data;
@@ -24,10 +24,10 @@ public class VisitDAO {
 
     @Id
     @GeneratedValue
-    @JsonIgnore
     private int id;
 
     private String name;
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="EEE, dd MMM yyyy HH:mm:ss Z", timezone="EST")
     private Date date;
 
     public VisitDAO() {}
