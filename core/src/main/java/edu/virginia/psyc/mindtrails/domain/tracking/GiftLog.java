@@ -46,6 +46,7 @@ public class GiftLog implements Comparable<GiftLog> {
 
     @Override
     public int compareTo(GiftLog o) {
+        if(this.dateSent == null) return 0;
         return this.dateSent.compareTo(o.dateSent);
     }
 }

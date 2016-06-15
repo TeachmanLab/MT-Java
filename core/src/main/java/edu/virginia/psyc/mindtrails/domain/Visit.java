@@ -1,6 +1,6 @@
 package edu.virginia.psyc.mindtrails.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -22,9 +22,9 @@ public class Visit {
 
     @Id
     @GeneratedValue
-    @JsonIgnore
     private int id;
     private String name;
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="EEE, dd MMM yyyy HH:mm:ss Z", timezone="EST")
     private Date date;
 
     public Visit() {}

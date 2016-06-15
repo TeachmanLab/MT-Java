@@ -41,6 +41,7 @@ public class TaskLog implements Comparable<TaskLog> {
 
     @Override
     public int compareTo(TaskLog o) {
+        if(this.dateCompleted == null) return 0;
         return this.dateCompleted.compareTo(o.dateCompleted);
     }
 

@@ -53,6 +53,7 @@ public class EmailLog implements Comparable<EmailLog> {
 
     @Override
     public int compareTo(EmailLog o) {
+        if(this.dateSent == null) return 0;
         return this.dateSent.compareTo(o.dateSent);
     }
 }
