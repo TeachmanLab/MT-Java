@@ -1,4 +1,4 @@
-package edu.virginia.psyc.mindtrails.MockClasses;
+package edu.virginia.psyc.pi.MockClasses;
 
 
 import edu.virginia.psyc.mindtrails.domain.BaseStudy;
@@ -49,6 +49,7 @@ public class TestStudy extends BaseStudy implements Study {
         List<Task> tasks = new ArrayList<>();
         tasks.add(new Task("TestQuestionnaire", "Test Question", Task.TYPE.questions, 3));
         tasks.add(new Task("TestUndeleteable", "Test Undeleteable Question", Task.TYPE.questions, 3));
+        tasks.add(new Task("OA", "OA", Task.TYPE.questions, 3));
         setTaskStates(session, tasks, taskIndex);
         return tasks;
     }

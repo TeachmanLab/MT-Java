@@ -3,17 +3,23 @@ package edu.virginia.psyc.mindtrails.controller;
 import edu.virginia.psyc.mindtrails.domain.Participant;
 import edu.virginia.psyc.mindtrails.domain.forms.ParticipantForm;
 import edu.virginia.psyc.mindtrails.domain.forms.ParticipantUpdateForm;
-import edu.virginia.psyc.mindtrails.persistence.ParticipantRepository;
+import edu.virginia.psyc.mindtrails.domain.recaptcha.RecaptchaFormValidator;
+import edu.virginia.psyc.mindtrails.service.ParticipantService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.ArrayList;
@@ -33,48 +39,114 @@ public class AccountController {
 
     private static final Logger LOG = LoggerFactory.getLogger(AccountController.class);
 
-    @Autowired
-    private ParticipantRepository participantRepository;
+    @Value("${recaptcha.site-key}")
+    private String recaptchaSiteKey;
 
-    private Participant getParticipant(Principal p) {
-        return participantRepository.findByEmail(p.getName());
+    @Value("${tango.maxParticipants}")
+    private long maxParticipantsForGiftCards;
+
+    @Autowired
+    private RecaptchaFormValidator recaptchaFormValidator;
+
+    @Autowired
+    private ParticipantService participantService;
+
+    /** This will assure that any form submissions for the participant Form
+     * are validated for a proper recaptcha response.
+     * @param binder
+     */
+    @InitBinder("participantForm")
+    public void initBinder(WebDataBinder binder) {
+        binder.addValidators(recaptchaFormValidator);
+    }
+
+    @RequestMapping(value="create", method = RequestMethod.GET)
+    public String createForm (ModelMap model, Principal principal) {
+        model.addAttribute("participantForm", new ParticipantForm());
+        model.addAttribute("visiting", true);
+        model.addAttribute("recaptchaSiteKey", recaptchaSiteKey);
+        return "account/create";
+    }
+
+    @RequestMapping(value="create", method = RequestMethod.POST)
+    public String createNewParticipant(ModelMap model,
+                                       @ModelAttribute("participantForm") @Valid ParticipantForm participantForm,
+                                       final BindingResult bindingResult,
+                                       HttpSession session
+    ) {
+
+        Participant participant;
+
+        if(!participantForm.validParticipant(bindingResult, participantService)) {
+            LOG.error("Invalid participant:" + bindingResult.getAllErrors());
+            model.addAttribute("visiting", true);
+            model.addAttribute("recaptchaSiteKey", recaptchaSiteKey);
+            return "account/create";
+        }
+
+        participant = participantService.create();
+        participant.setFullName(participantForm.getFullName());
+        participant.setEmail(participantForm.getEmail());
+        participant.setAdmin(participantForm.isAdmin());
+
+        // Disable Gift Cards, if the max number is reached.
+        long totalParticipants = participantService.count();
+        participant.setReceiveGiftCards(maxParticipantsForGiftCards > totalParticipants);
+
+        participant.updatePassword(participantForm.getPassword());
+        if(participantForm.getTheme()!=null)
+            participant.setTheme(participantForm.getTheme());
+        participant.setOver18(participantForm.isOver18());
+        participant.setLastLoginDate(new Date());
+
+        // Be sure to call saveNew rather than save, allowing
+        // any data associated with the session to get
+        // captured.
+        participantService.saveNew(participant, session);
+
+        // Log this new person in.
+        Authentication auth = new UsernamePasswordAuthenticationToken( participantForm.getEmail(), participantForm.getPassword());
+        SecurityContextHolder.getContext().setAuthentication(auth);
+
+        LOG.info("Participant authenticated.");
+        return "redirect:/account/theme";
     }
 
     @RequestMapping
     public String showAccount(ModelMap model, Principal principal) {
-        Participant p = getParticipant(principal);
+        Participant p = participantService.get(principal);
         model.addAttribute("participant", p);
         return "account";
     }
 
     @RequestMapping("theme")
     public String showTheme(ModelMap model, Principal principal) {
-        Participant p = getParticipant(principal);
+        Participant p = participantService.get(principal);
         model.addAttribute("participant", p);
         return "theme";
     }
 
     @RequestMapping(value="updateTheme", method = RequestMethod.POST)
     public String updateTheme(ModelMap model, String theme, Principal principal) {
-        Participant p = getParticipant(principal);
+        Participant p = participantService.get(principal);
         p.setTheme(theme);
-        participantRepository.save(p);
+        participantService.save(p);
         model.addAttribute("participant", p);
         return "redirect:/session/next";
     }
 
     @RequestMapping("exitStudy")
     public String exitStudy(ModelMap model, Principal principal) {
-        Participant p      = getParticipant(principal);
+        Participant p      = participantService.get(principal);
         p.setActive(false);
-        participantRepository.save(p);
+        participantService.save(p);
         model.addAttribute("participant", p);
         return "debriefing";
     }
 
     @RequestMapping("debriefing")
     public String showDebriefing(ModelMap model, Principal principal) {
-        Participant p = getParticipant(principal);
+        Participant p = participantService.get(principal);
         model.addAttribute("participant", p);
         return "debriefing";
     }
@@ -83,12 +155,12 @@ public class AccountController {
     public String update(ModelMap model, Principal principal,
                          @Valid ParticipantUpdateForm form) {
 
-            Participant p = getParticipant(principal);
+            Participant p = participantService.get(principal);
             p.setEmail(form.getEmail());
             p.setFullName(form.getFullName());
             p.setEmailOptout(form.isEmailOptout());
             p.setTheme(form.getTheme());
-            participantRepository.save(p);
+            participantService.save(p);
             model.addAttribute("updated", true);
             model.addAttribute("participant", p);
         return "/account";
@@ -96,7 +168,7 @@ public class AccountController {
 
     @RequestMapping("changePass")
     public String changePassword(ModelMap model, Principal principal) {
-        model.addAttribute("participant", getParticipant(principal));
+        model.addAttribute("participant", participantService.get(principal));
         return "changePassword";
     }
 
@@ -110,7 +182,7 @@ public class AccountController {
         Participant participant;
         List<String> errors;
 
-        participant =  getParticipant(principal);
+        participant =  participantService.get(principal);
         errors      = new ArrayList<String>();
 
         if (!password.equals(passwordAgain)) {
@@ -131,8 +203,8 @@ public class AccountController {
         participant.updatePassword(password); // save the password.
         participant.setPasswordToken(null);  // clear out hte token so it can't be used again.
         participant.setLastLoginDate(new Date()); // Set the last login date, as we will auto-login.
-        participantRepository.save(participant);
-        participantRepository.flush();
+        participantService.save(participant);
+        participantService.flush();
         model.addAttribute("participant", participant);
         model.addAttribute("updated", true);
         return "account";

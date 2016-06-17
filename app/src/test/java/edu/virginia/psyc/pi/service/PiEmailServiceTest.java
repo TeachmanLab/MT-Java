@@ -141,7 +141,7 @@ public class PiEmailServiceTest {
     public void testShouldNotSendEmailAfter3_7_11_15_and_18_postSession8() {
 
         // Set up the sessions so we are past Session 8, but not finished with the Post session.
-        Study study = new CBMStudy(CBMStudy.NAME.POST.toString(), 0, new Date(), new ArrayList<TaskLog>());
+        Study study = new CBMStudy(CBMStudy.NAME.POST.toString(), 0, new Date(), new ArrayList<TaskLog>(), false);
         participant.setStudy(study);
 
         study.setLastSessionDate(xDaysAgo(2));
@@ -164,7 +164,7 @@ public class PiEmailServiceTest {
         // Set up the sessions so we are past Session 8, but not finished with the Post session.
         // Set up the sessions so we are past Session 8, but not finished with the Post session.
 
-        Study study = new CBMStudy(CBMStudy.NAME.POST.toString(), 0, new Date(), new ArrayList<TaskLog>());
+        Study study = new CBMStudy(CBMStudy.NAME.POST.toString(), 0, new Date(), new ArrayList<TaskLog>(), false);
         participant.setStudy(study);
 
         study.setLastSessionDate(xDaysAgo(60));

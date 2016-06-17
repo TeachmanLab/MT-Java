@@ -6,8 +6,8 @@ import edu.virginia.psyc.mindtrails.domain.RestExceptions.WrongFormException;
 import edu.virginia.psyc.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 import edu.virginia.psyc.mindtrails.domain.questionnaire.QuestionnaireData;
 import edu.virginia.psyc.mindtrails.domain.questionnaire.SecureQuestionnaireData;
-import edu.virginia.psyc.mindtrails.persistence.ParticipantRepository;
 import edu.virginia.psyc.mindtrails.service.ExportService;
+import edu.virginia.psyc.mindtrails.service.ParticipantService;
 import edu.virginia.psyc.mindtrails.service.RsaEncryptionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,16 +56,12 @@ public class QuestionController {
     private ExportService exportService;
 
     @Autowired
-    private ParticipantRepository participantRepository;
-
-    private Participant getParticipant(Principal principal) {
-        return participantRepository.findByEmail(principal.getName());
-    }
+    private ParticipantService participantService;
 
     @RequestMapping(value = "{form}", method = RequestMethod.GET)
     public String showForm(ModelMap model, Principal principal, @PathVariable("form") String formName) {
 
-        Participant participant = getParticipant(principal);
+        Participant participant = participantService.get(principal);
         model.addAttribute("participant", participant);
 
         // It is possible that the Quesionnaire Data object will want to add some additional
@@ -132,8 +128,8 @@ public class QuestionController {
         Participant participant;
 
         participant = (Participant) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if(participantRepository.findByEmail(participant.getEmail()) != null)
-            participant = participantRepository.findByEmail(participant.getEmail()); // Refresh session object from database.
+        if(participantService.findByEmail(participant.getEmail()) != null)
+            participant = participantService.findByEmail(participant.getEmail()); // Refresh session object from database.
 
         // If the data submitted, isn't the data the user should be completeing right now,
         // thown an exception and prevent them from moving forward.
@@ -154,7 +150,7 @@ public class QuestionController {
         // Update the participant's session status, and save back to the database.
         if(sessionProgress) {
             participant.getStudy().completeCurrentTask();
-            participantRepository.save(participant);
+            participantService.save(participant);
         }
 
         data.setDate(new Date());

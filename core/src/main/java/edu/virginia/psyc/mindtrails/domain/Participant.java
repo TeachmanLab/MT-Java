@@ -45,7 +45,7 @@ public  class Participant implements UserDetails {
     protected Date lastLoginDate;
     protected String randomToken;
     protected String theme = "blue";
-    protected boolean isOver18;
+    protected boolean over18;
     protected String reference; // The site the user came from when creating their account
     protected boolean receiveGiftCards;
 

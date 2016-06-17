@@ -1,11 +1,11 @@
 package edu.virginia.psyc.mindtrails.controllers;
 
 import edu.virginia.psyc.mindtrails.Application;
-import edu.virginia.psyc.mindtrails.MockClasses.TestQuestionnaire;
-import edu.virginia.psyc.mindtrails.MockClasses.TestQuestionnaireRepository;
-import edu.virginia.psyc.mindtrails.MockClasses.TestUndeleteable;
-import edu.virginia.psyc.mindtrails.MockClasses.TestUndeleteableRepository;
+import edu.virginia.psyc.mindtrails.MockClasses.*;
 import edu.virginia.psyc.mindtrails.controller.QuestionController;
+import edu.virginia.psyc.mindtrails.domain.Participant;
+import edu.virginia.psyc.mindtrails.persistence.ParticipantRepository;
+import edu.virginia.psyc.mindtrails.service.ParticipantService;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -27,11 +27,9 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.util.Iterator;
 import java.util.List;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
@@ -44,7 +42,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @ActiveProfiles("test")
-public class QuestionControllerTest extends BaseControllerTest {
+public class QuestionControllerTest {
 
     @Autowired
     private FilterChainProxy springSecurityFilterChain;
@@ -58,10 +56,16 @@ public class QuestionControllerTest extends BaseControllerTest {
     @Autowired
     private QuestionController questionController;
 
+    @Autowired
+    private ParticipantService participantService;
+
+
     private MockMvc mockMvc;
 
     @Autowired
     WebApplicationContext wac;
+
+    private Participant participant;
 
     @Before
     public void setup() {
@@ -71,14 +75,15 @@ public class QuestionControllerTest extends BaseControllerTest {
                 .setCustomArgumentResolvers(new AuthenticationPrincipalArgumentResolver())
                 .addFilters(this.springSecurityFilterChain)
                 .build();
-
-        /*
-        // Process mock annotations
-        this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac)
-                .addFilters(this.springSecurityFilterChain).build();
-    */
-
         repository.deleteAll();
+    }
+
+    @Before
+    public void veryifyParticipant() {
+        participant = participantService.findByEmail("test@test.com");
+        if(participant == null) participant = new Participant("John", "test@test.com", false);
+        participant.setStudy(new TestStudy());
+        participantService.save(participant);
     }
 
     @After
@@ -95,7 +100,7 @@ public class QuestionControllerTest extends BaseControllerTest {
     @Test
     public void testGetForm() throws Exception {
         MvcResult result = mockMvc.perform(get("/questions/TestQuestionnaire")
-                .with(SecurityMockMvcRequestPostProcessors.user(getUser())))
+                .with(SecurityMockMvcRequestPostProcessors.user(participant)))
                 .andExpect((status().is2xxSuccessful()))
                 .andReturn();
     }
@@ -103,7 +108,7 @@ public class QuestionControllerTest extends BaseControllerTest {
     @Test
     public void testGetFormContainsCustomParameters() throws Exception {
         MvcResult result = mockMvc.perform(get("/questions/TestQuestionnaire")
-                .with(SecurityMockMvcRequestPostProcessors.user(getUser())))
+                .with(SecurityMockMvcRequestPostProcessors.user(participant)))
                 .andExpect((status().is2xxSuccessful()))
                 .andExpect(model().attribute("test", "pickles"))
                 .andReturn();
@@ -111,10 +116,23 @@ public class QuestionControllerTest extends BaseControllerTest {
 
 
     @Test
+    public void testPostDataFormFailsIfWrongSession() throws Exception {
+        // TestUndeleteable is at task index 1, not task index 0.
+        participant.getStudy().forceToSession("SessionOne");
+        ResultActions result = mockMvc.perform(post("/questions/TestUndeleteable")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .with(SecurityMockMvcRequestPostProcessors.user(participant))
+                .param("value", "cheese")
+                .param("multiValue", "cheddar")
+                .param("multiValue", "havarti"))
+                .andExpect((status().is4xxClientError()));
+    }
+
+    @Test
     public void testPostDataForm() throws Exception {
         ResultActions result = mockMvc.perform(post("/questions/TestQuestionnaire")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .with(SecurityMockMvcRequestPostProcessors.user(getUser()))
+                .with(SecurityMockMvcRequestPostProcessors.user(participant))
                 .param("value", "cheese")
                 .param("multiValue", "cheddar")
                 .param("multiValue", "havarti"))
@@ -125,7 +143,7 @@ public class QuestionControllerTest extends BaseControllerTest {
     public void testPostBadData() throws Exception {
         ResultActions result = mockMvc.perform(post("/questions/NoSuchForm")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .with(SecurityMockMvcRequestPostProcessors.user(getUser()))
+                .with(SecurityMockMvcRequestPostProcessors.user(participant))
                 .param("value", "cheese")
                 .param("multiValue", "cheddar")
                 .param("multiValue", "havarti"))
@@ -148,9 +166,13 @@ public class QuestionControllerTest extends BaseControllerTest {
 
     @Test
     public void testParticipantIdIsPopulatedIfItExists() throws Exception {
+        // Force Participant to task 1 (which is TestUndeleteable)
+//        participant.getStudy().getCurrentSession().setIndex(1);
+        ((TestStudy) participant.getStudy()).setCurrentTaskIndex(1);
+        participantService.save(participant);
         ResultActions result = mockMvc.perform(post("/questions/TestUndeleteable")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .with(SecurityMockMvcRequestPostProcessors.user(getUser()))
+                .with(SecurityMockMvcRequestPostProcessors.user(participant))
                 .param("value", "cheese"))
                 .andExpect((status().is3xxRedirection()));
 

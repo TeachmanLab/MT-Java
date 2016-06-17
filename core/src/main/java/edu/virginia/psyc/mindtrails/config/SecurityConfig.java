@@ -89,11 +89,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .authorizeRequests() //Authorize Request Configuration
                     .antMatchers("/",
                             "/public/**",
-                            "/newParticipant/**",
+                            "/account/create",
                             "/resetPass",
                             "/resetPassStep2/**",
-                            "/changePassword/**",
-                            "/consent").permitAll()
+                            "/changePassword/**").permitAll()
                     .antMatchers("/admin", "/admin/**", "/questions/*/export").hasRole("ADMIN")
                     .antMatchers("/**").hasRole("USER")
                     .anyRequest().authenticated()

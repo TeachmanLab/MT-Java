@@ -54,7 +54,7 @@ public class ParticipantRepositoryTest {
 
         // Create a participant
         p = new PiParticipant("John", email, false);
-        study = new CBMStudy(CBMStudy.NAME.PRE.toString(), 0, new Date(), new ArrayList<>());
+        study = new CBMStudy(CBMStudy.NAME.PRE.toString(), 0, new Date(), new ArrayList<>(), true);
         p.setStudy(study);
 
         // Save that participant

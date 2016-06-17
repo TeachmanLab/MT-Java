@@ -2,7 +2,7 @@ package edu.virginia.psyc.mindtrails.domain.forms;
 
 import edu.virginia.psyc.mindtrails.domain.Participant;
 import edu.virginia.psyc.mindtrails.domain.recaptcha.RecaptchaForm;
-import edu.virginia.psyc.mindtrails.persistence.ParticipantRepository;
+import edu.virginia.psyc.mindtrails.service.ParticipantService;
 import lombok.Data;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -68,13 +68,13 @@ public class ParticipantForm implements RecaptchaForm {
     }
 
 
-    public boolean validParticipant(BindingResult bindingResult, ParticipantRepository repository) {
+    public boolean validParticipant(BindingResult bindingResult, ParticipantService service) {
 
         if(!over18) {
             bindingResult.addError(new ObjectError("over18", "You must be over 18 to participate in this Study."));
         }
 
-        if(repository.findByEmail(email) != null) {
+        if(service.findByEmail(email) != null) {
             bindingResult.addError(new ObjectError("email", "This email already exists."));
         }
 

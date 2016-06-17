@@ -33,7 +33,7 @@ public class CBMStudyTest {
 
     @Before
     public void setup() {
-        study = new CBMStudy(CBMStudy.NAME.SESSION1.toString(), 0, new Date(), new ArrayList<TaskLog>());
+        study = new CBMStudy(CBMStudy.NAME.SESSION1.toString(), 0, new Date(), new ArrayList<TaskLog>(), true);
         sessionList = study.getSessions();
     }
 
@@ -43,7 +43,7 @@ public class CBMStudyTest {
         CBMStudy study;
         List<Session> sessionList;
 
-        study = new CBMStudy(CBMStudy.NAME.SESSION1.toString(), 0, new Date(), new ArrayList<TaskLog>());
+        study = new CBMStudy(CBMStudy.NAME.SESSION1.toString(), 0, new Date(), new ArrayList<TaskLog>(), true);
         sessionList = study.getSessions();
 
         assertEquals(11, sessionList.size());  // Should be one less, since not all are displayable.
@@ -76,7 +76,7 @@ public class CBMStudyTest {
 
         List<Task> tasks;
 
-        study = new CBMStudy(CBMStudy.NAME.PRE.toString(), 1, new Date(), new ArrayList<TaskLog>());
+        study = new CBMStudy(CBMStudy.NAME.PRE.toString(), 1, new Date(), new ArrayList<TaskLog>(), true);
         tasks = study.getCurrentSession().getTasks();
 
         assertNotNull(tasks);
@@ -99,7 +99,7 @@ public class CBMStudyTest {
     @Test
     public void testCompleteCurrentTask() {
 
-        study = new CBMStudy(CBMStudy.NAME.PRE.toString(), 0, null, new ArrayList<TaskLog>());
+        study = new CBMStudy(CBMStudy.NAME.PRE.toString(), 0, null, new ArrayList<TaskLog>(), true);
 
         assertEquals(CBMStudy.NAME.PRE.toString(), study.getCurrentSession().getName());
         assertEquals("Credibility", study.getCurrentSession().getCurrentTask().getName());
@@ -130,7 +130,7 @@ public class CBMStudyTest {
     @Test
     public void testSessionState() {
 
-        study = new CBMStudy(CBMStudy.NAME.PRE.toString(), 0, new Date(), new ArrayList<TaskLog>());
+        study = new CBMStudy(CBMStudy.NAME.PRE.toString(), 0, new Date(), new ArrayList<TaskLog>(), true);
 
         // By default the session state should be ready
         assertEquals(Study.STUDY_STATE.READY, study.getState());

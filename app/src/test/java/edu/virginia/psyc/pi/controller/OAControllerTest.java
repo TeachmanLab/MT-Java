@@ -1,12 +1,12 @@
 package edu.virginia.psyc.pi.controller;
 
-import edu.virginia.psyc.mindtrails.controller.QuestionController;
+import edu.virginia.psyc.mindtrails.domain.Participant;
+import edu.virginia.psyc.mindtrails.service.ParticipantService;
 import edu.virginia.psyc.pi.Application;
-import edu.virginia.psyc.pi.MockClasses.TestQuestionnaireRepository;
-import edu.virginia.psyc.pi.MockClasses.TestUndeleteableRepository;
+import edu.virginia.psyc.pi.MockClasses.TestStudy;
+import edu.virginia.psyc.pi.domain.PiParticipant;
 import edu.virginia.psyc.pi.persistence.Questionnaire.OARepository;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,10 +26,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.util.List;
-
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
@@ -59,6 +56,11 @@ public class OAControllerTest extends BaseControllerTest {
     @Autowired
     WebApplicationContext wac;
 
+    @Autowired
+    private ParticipantService participantService;
+    private PiParticipant participant;
+
+
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
@@ -69,6 +71,15 @@ public class OAControllerTest extends BaseControllerTest {
                 .build();
     }
 
+    @Before
+    public void veryifyParticipant() {
+        participant = (PiParticipant)participantService.findByEmail("test@test.com");
+        if(participant == null) participant = new PiParticipant("John", "test@test.com", false);
+        participant.setStudy(new TestStudy());
+        participantService.save(participant);
+    }
+
+
     @After
     public void cleanup() {
     //formRepository.deleteAll();
@@ -77,9 +88,9 @@ public class OAControllerTest extends BaseControllerTest {
     @Test
     public void testGetFormContainsCustomParameters() throws Exception {
         MvcResult result = mockMvc.perform(get("/questions/OA")
-                .with(SecurityMockMvcRequestPostProcessors.user(getUser())))
+                .with(SecurityMockMvcRequestPostProcessors.user(participant)))
                 .andExpect((status().is2xxSuccessful()))
-                .andExpect(model().attribute("inSessions", false))
+                .andExpect(model().attribute("inSessions", true))
                 .andReturn();
     }
 
@@ -88,10 +99,12 @@ public class OAControllerTest extends BaseControllerTest {
     public void testPostDataForm() throws Exception {
 
         assertEquals(0, oaRepository.findAll().size());
-
+        // Set the task index to OA
+        ((TestStudy)participant.getStudy()).setCurrentTaskIndex(2);
+        participantService.save(participant);
         ResultActions result = mockMvc.perform(post("/questions/OA")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .with(SecurityMockMvcRequestPostProcessors.user(getUser()))
+                .with(SecurityMockMvcRequestPostProcessors.user(participant))
                 .param("anxious_freq", "0")
                 .param("anxious_sev", "0")
                 .param("avoid", "0")

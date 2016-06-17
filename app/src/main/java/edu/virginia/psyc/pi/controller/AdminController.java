@@ -7,6 +7,7 @@ import edu.virginia.psyc.mindtrails.domain.tango.Order;
 import edu.virginia.psyc.mindtrails.domain.tango.Reward;
 import edu.virginia.psyc.mindtrails.persistence.ParticipantRepository;
 import edu.virginia.psyc.mindtrails.service.ExportService;
+import edu.virginia.psyc.mindtrails.service.ParticipantService;
 import edu.virginia.psyc.mindtrails.service.TangoService;
 import edu.virginia.psyc.pi.domain.ParticipantListForm;
 import edu.virginia.psyc.pi.domain.PiParticipant;
@@ -64,6 +65,10 @@ public class AdminController {
 
     @Autowired
     private ParticipantRepository participantRepository;
+
+    @Autowired
+    private ParticipantService participantService;
+
 
     private Participant getParticipant(Principal p) {
         return participantRepository.findByEmail(p.getName());
@@ -182,7 +187,7 @@ public class AdminController {
         model.addAttribute("visiting", true);
         pForm.setOver18(true);
 
-        if(!pForm.validParticipant(bindingResult, participantRepository)) {
+        if(!pForm.validParticipant(bindingResult, participantService)) {
             return "admin/new_participant";
         }
 

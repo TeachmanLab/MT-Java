@@ -4,7 +4,10 @@ import edu.virginia.psyc.mindtrails.domain.DoNotDelete;
 import edu.virginia.psyc.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * This DASS21 questionnaire is used to gage eligibility in the study

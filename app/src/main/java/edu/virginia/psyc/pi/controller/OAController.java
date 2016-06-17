@@ -51,6 +51,8 @@ public class OAController extends QuestionController {
      */
     @RequestMapping(method = RequestMethod.GET)
     public String showOA(ModelMap model, Principal principal) {
+        PiParticipant p = piParticipantRepository.findByEmail(principal.getName());
+        model.addAttribute("inSessions", p.inSession());
         return showForm(model,principal,"OA");
     }
 

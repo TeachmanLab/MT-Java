@@ -75,13 +75,14 @@ public class CreateAccountControllerTest {
     public void testCreateAccountController() throws Exception {
         Participant p;
 
-        this.mockMvc.perform(post("/newParticipant")
+        this.mockMvc.perform(post("/account/create")
                 .param("fullName", "Dan Funk")
                 .param("email", "some_crazy2@email.com")
                 .param("password", PASSWD)
                 .param("passwordAgain" +
                         "", PASSWD)
-                .param("over18", "true"))
+                .param("over18", "true")
+                .param("recaptchaResponse", "someresponse"))
                 .andDo(print())
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/account/theme"));

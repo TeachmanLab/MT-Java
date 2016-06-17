@@ -4,14 +4,14 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.virginia.psyc.mindtrails.controller.QuestionController;
 import edu.virginia.psyc.mindtrails.domain.DoNotDelete;
+import edu.virginia.psyc.mindtrails.domain.Participant;
 import edu.virginia.psyc.mindtrails.domain.RestExceptions.NotDeleteableException;
 import edu.virginia.psyc.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 import edu.virginia.psyc.mindtrails.domain.questionnaire.SecureQuestionnaireData;
+import edu.virginia.psyc.mindtrails.service.ParticipantService;
 import edu.virginia.psyc.pi.Application;
-import edu.virginia.psyc.pi.MockClasses.TestQuestionnaire;
-import edu.virginia.psyc.pi.MockClasses.TestQuestionnaireRepository;
-import edu.virginia.psyc.pi.MockClasses.TestUndeleteable;
-import edu.virginia.psyc.pi.MockClasses.TestUndeleteableRepository;
+import edu.virginia.psyc.pi.MockClasses.*;
+import edu.virginia.psyc.pi.domain.PiParticipant;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -76,6 +76,11 @@ public class ExportControllerTest extends BaseControllerTest {
     @Autowired
     private TestUndeleteableRepository repoU;
 
+    @Autowired
+    private ParticipantService participantService;
+    private PiParticipant participant;
+
+
     @Rule
     public ExpectedException thrown= ExpectedException.none();
 
@@ -99,12 +104,20 @@ public class ExportControllerTest extends BaseControllerTest {
                 .build();
     }
 
+    @Before
+    public void veryifyParticipant() {
+        participant = (PiParticipant)participantService.findByEmail("test@test.com");
+        if(participant == null) participant = new PiParticipant("John", "test@test.com", false);
+        participant.setStudy(new TestStudy());
+        participantService.save(participant);
+    }
+
 
     @Test
     public void testPostDataForm() throws Exception {
         ResultActions result = mockMvc.perform(post("/questions/TestQuestionnaire")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .with(SecurityMockMvcRequestPostProcessors.user(getUser()))
+                .with(SecurityMockMvcRequestPostProcessors.user(participant))
                 .param("value", "cheese")
                 .param("multiValue", "cheddar")
                 .param("multiValue", "havarti"))
