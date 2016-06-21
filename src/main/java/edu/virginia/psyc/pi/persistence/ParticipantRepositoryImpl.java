@@ -31,6 +31,7 @@ public class ParticipantRepositoryImpl implements ParticipantRepositoryCustom {
         p.setTheme(dao.getTheme());
         p.setOver18(dao.isOver18());
         p.setIncrease30(dao.isIncrease30());
+        p.setIncrease50(dao.isIncrease50());
         p.setRiskSession(dao.getRiskSession());
         p.setReference(dao.getReference());
         p.setReceiveGiftCards(dao.isReceiveGiftCards());
@@ -87,6 +88,7 @@ public class ParticipantRepositoryImpl implements ParticipantRepositoryCustom {
         dao.setTheme(p.getTheme());
         dao.setOver18(p.isOver18());
         dao.setIncrease30(p.isIncrease30());
+        dao.setIncrease50(p.isIncrease50());
         dao.setRiskSession(p.getRiskSession());
         dao.setReference(p.getReference());
         dao.setReceiveGiftCards(p.isReceiveGiftCards());

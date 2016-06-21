@@ -50,6 +50,8 @@ public class Participant {
 
     private boolean        increase30 = false;
 
+    private boolean        increase50 = false;
+
     private String         riskSession;
 
     private Date           lastLoginDate;

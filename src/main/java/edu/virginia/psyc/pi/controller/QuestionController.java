@@ -595,16 +595,16 @@ public ModelAndView showSUDS(Principal principal) {
 
       if(p.inSession()){
         if(oa.atRisk(firstEntry)) {
-            if(!participant.isIncrease30()) { // alert admin the first time.
-                emailService.sendAtRiskAdminEmail(participant, firstEntry, oa);
-                dao.setIncrease30(true);
+            if(!participant.isIncrease50()) { // alert admin the first time.
+                dao.setIncrease50(true);
                 dao.setRiskSession(dao.getCurrentSession());
                 participantRepository.save(dao);
+                emailService.sendAtRiskAdminEmail(participant, firstEntry, oa);
             }
             return new RedirectView("/session/atRisk");
         }
       }
-        return new RedirectView("/session/next");
+            return new RedirectView("/session/next");
     }
 
     @RequestMapping(value = "OA/export", method = RequestMethod.GET, produces = "text/csv")

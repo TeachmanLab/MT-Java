@@ -43,6 +43,7 @@ public class ParticipantDAO implements UserDetails {
     private boolean active;
 
     private boolean increase30;
+    private boolean increase50;
 
     private Date          lastLoginDate;
 
@@ -311,6 +312,10 @@ public class ParticipantDAO implements UserDetails {
 
     public void setIncrease30(boolean increase30) {this.increase30 = increase30;}
 
+    public boolean isIncrease50() {  return increase50; }
+
+    public void setIncrease50(boolean increase50) {this.increase50 = increase50;}
+
     public String getReference() {
         return reference;
     }
@@ -341,4 +346,6 @@ public class ParticipantDAO implements UserDetails {
                 ", active=" + active +
                 '}';
     }
+
+
 }

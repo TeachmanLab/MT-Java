@@ -4,18 +4,17 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import edu.virginia.psyc.pi.domain.DoNotDelete;
-import edu.virginia.psyc.pi.domain.Session;
 import edu.virginia.psyc.pi.persistence.ParticipantDAO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.apache.commons.math3.stat.regression.SimpleRegression;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.persistence.*;
-import java.util.ArrayList;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.util.Date;
-import java.util.List;
 
 /**
  * This Oasis questionnaire is used over time in the study to determine
@@ -78,10 +77,19 @@ public class OA extends QuestionnaireData implements Comparable<OA> {
         return(sum / total) * 5;
     }
 
+    private boolean noAnswers() {
+        return(
+                anxious_freq == NO_ANSWER &&
+                anxious_sev == NO_ANSWER &&
+                avoid == NO_ANSWER &&
+                interfere == NO_ANSWER &&
+                interfere_social == NO_ANSWER
+        );
+    }
+
     public boolean atRisk(OA original) {
-      if(original.score() != 0) {
-        return (score() / original.score()) > 1.5;
-      } else { return false; }
+      if(original.noAnswers()) return false;
+      return (score() / original.score()) > 1.5;
     }
 
     @Override
