@@ -499,9 +499,18 @@ table.questionnaire td:last-child {
     border-left: 1px solid #ddd;
 }
 
-.section > label, .scale > label {
+
+.section-H > label, .scale > label {
     width: 18%;
     max-width: 170px;
+    font-weight: 400;
+    vertical-align: middle;
+    color: #5f5f5f;
+}
+
+.section-V > label {
+    width: 90%;
+
     font-weight: 400;
     vertical-align: middle;
     color: #5f5f5f;
@@ -865,6 +874,7 @@ li.valid {
     align-items: center;
 }
 
+
 /*************
    Log Reports on the Admin page
    *********/
@@ -970,5 +980,12 @@ div.log table tfoot ul.active, .datagrid table tfoot ul a:hover {
     background: none;
     background-color: #006699;
 }
+
+
+
+/*******
+    END OF ORIGINAL CONTENT
+*********/
+
 
 
