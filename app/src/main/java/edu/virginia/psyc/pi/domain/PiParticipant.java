@@ -22,6 +22,7 @@ public class PiParticipant extends Participant {
 
 
     private boolean        increase30 = false;
+    private boolean        increase50 = false;
     private CBM_CONDITION  cbmCondition;
     private PRIME          prime;
     protected String       riskSession;  // The session that saw an increase in risk factor.

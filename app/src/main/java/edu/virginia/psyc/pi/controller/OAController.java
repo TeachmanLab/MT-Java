@@ -72,9 +72,9 @@ public class OAController extends QuestionController {
 
         PiParticipant participant = piParticipantRepository.findByEmail(principal.getName());
         if(oa.atRisk(firstEntry)) {
-            if(!participant.isIncrease30()) { // alert admin the first time.
+            if(!participant.isIncrease50()) { // alert admin the first time.
                 emailService.sendAtRiskAdminEmail(participant, firstEntry, oa);
-                participant.setIncrease30(true);
+                participant.setIncrease50(true);
                 piParticipantRepository.save(participant);
             }
             return new RedirectView("/session/atRisk");

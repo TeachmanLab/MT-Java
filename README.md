@@ -73,6 +73,12 @@ We currently use a form based authentication (a web login form) that
 provides projects against CSRF Attacks, Session Fixation Protection, 
 and Security header integration.
 
+* User Authentication
+* Participant Assignments
+* Data Collection
+* Data Reporting
+* Session management
+* A new bullet
 
 It is built in Java using the Spring Framework and Spring Boot.  There is exceptional documentation
 on these technologies here:  http://spring.io/guides#gs

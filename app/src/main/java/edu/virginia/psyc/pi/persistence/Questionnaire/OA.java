@@ -81,10 +81,19 @@ public class OA extends SecureQuestionnaireData implements Comparable<OA> {
         return(sum / total) * 5;
     }
 
+    private boolean noAnswers() {
+        return(
+                anxious_freq == NO_ANSWER &&
+                anxious_sev == NO_ANSWER &&
+                avoid == NO_ANSWER &&
+                interfere == NO_ANSWER &&
+                interfere_social == NO_ANSWER
+        );
+    }
+
     public boolean atRisk(OA original) {
-      if(original.score() != 0) {
-        return (score() / original.score()) > 1.5;
-      } else { return false; }
+      if(original.noAnswers()) return false;
+      return (score() / original.score()) > 1.5;
     }
 
     @Override

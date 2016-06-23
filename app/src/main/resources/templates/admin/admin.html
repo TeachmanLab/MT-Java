@@ -57,6 +57,7 @@
                         <th>Active?</th>
                         <th>Admin?</th>
                         <th>30% Increase?</th>
+                        <th>50% Increase?</th>
                         <th>Prime</th>
                         <th>CBM Condition</th>
                         <th></th>
@@ -80,6 +81,7 @@
                         <td><input type="checkbox"  th:field="*{participants[__${status.index}__].active}" /></td>
                         <td><span th:if="*{participants[__${status.index}__].admin}">Admin</span></td>
                         <td><img th:if="*{participants[__${status.index}__].increase30}" th:src="@{images/alert.png}"/></td>
+                        <td><img th:if="*{participants[__${status.index}__].increase50}" th:src="@{images/alert.png}"/></td>
                         <td>
                             <select th:field="*{participants[__${status.index}__].prime}" >
                                 <option th:each="elem: ${T(edu.virginia.psyc.pi.domain.PiParticipant.PRIME).values()}" th:value="${elem.name()}" th:text="${elem.name()}" value="BAZ">BAZ</option>
