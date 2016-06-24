@@ -12,7 +12,7 @@ public interface ParticipantService {
 
     /**
      * Creates a new object that is an instance of, or extension of
-     * Participant.
+     * Participant.  Be certain it set's the participants Study!
      */
     Participant create();
 
