@@ -1,3 +1,3 @@
-include 'app'
+include 'r34'
 include 'core'
-include 'basicApp'
+include 'templeton'

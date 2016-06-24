@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="fragment/common :: headerFragment"/>
+<body>
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
+
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+    <div class="container">
+
+
+        <!--spacer here-->
+        <div class="spacer-30px"></div>
+        <div class="row">
+
+            <div class="main-content span8">
+
+
+                <h1>Create Participant</h1>
+
+                <form action="#" th:action="@{'/admin/participant/'}" th:object="${participant}"
+                      method="post">
+
+
+                    <table>
+                        <tr>
+                            <td>Full Name:</td>
+                            <td><input type="text" th:field="*{fullName}" /></td>
+                            <td class="error" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">Name Error</td>
+                        </tr>
+                        <tr>
+                            <td>Email Address:</td>
+                            <td><input type="text" th:field="*{email}"/></td>
+                            <td class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</td>
+                        </tr>
+                        <tr>
+                            <td>Password</td>
+                            <td><input type="password" id="password" name="password"  th:errorclass="error"/></td>
+                            <td class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
+                        </tr>
+                        <tr>
+                            <td>Password</td>
+                            <td><input type="password" id="passwordAgain" name="passwordAgain"  th:errorclass="error"/></td>
+                            <td class="error" th:if="${#fields.hasErrors('passwordAgain')}" th:errors="*{passwordAgain}">Password Error</td>
+                        </tr>
+                        <tr>
+                            <td>Opt out of emails?:</td>
+                            <td><input type="checkbox" th:field="*{emailOptout}"/></td>
+                            <td  class="error" th:if="${#fields.hasErrors('emailOptout')}" th:errors="*{emailOptout}">Optout Error</td>
+                        </tr>
+                        <tr>
+                            <td>Is Active:</td>
+                            <td><input type="checkbox" th:field="*{active}"/></td>
+                            <td  class="error" th:if="${#fields.hasErrors('active')}" th:errors="*{active}">Admin Error</td>
+                        </tr>
+                        <tr>
+                            <td>Is Admin:</td>
+                            <td><input type="checkbox" th:field="*{admin}"/></td>
+                            <td  class="error" th:if="${#fields.hasErrors('admin')}" th:errors="*{admin}">Admin Error</td>
+                        </tr>
+                        <tr>
+                            <td>Prime:</td>
+                            <td>
+                                <select name="prime" th:field="*{prime}">
+                                    <option th:each="elem: ${T(edu.virginia.psyc.r34.domain.PiParticipant.PRIME).values()}" th:value="${elem.name()}" th:text="${elem.name()}" value="BAZ">BAZ</option>
+                                </select>
+                            </td>
+                            <td class="error"  th:if="${#fields.hasErrors('prime')}" th:errors="*{prime}">Admin Error</td>
+                        </tr>
+                        <tr>
+                            <td>CDM Condition:</td>
+                            <td>
+                                <select name="cbmCondition" th:field="*{cbmCondition}">
+                                <option th:each="elem: ${T(edu.virginia.psyc.r34.domain.PiParticipant.CBM_CONDITION).values()}" th:value="${elem.name()}" th:text="${elem.name()}" value="BAZ">BAZ</option>
+                            </select>
+                            </td>
+                            <td class="error"  th:if="${#fields.hasErrors('cbmCondition')}" th:errors="*{cbmCondition}">Admin Error</td>
+                        </tr>
+
+                    </table>
+                    <button type="submit">Submit</button>
+                </form>
+
+            </div>
+        </div>
+
+                <!--divider here-->
+                <div class="spacer-40px"></div>
+
+                <!--spacer here-->
+                <div class="spacer-30px"></div>
+
+            </div>
+</section>
+
+
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>

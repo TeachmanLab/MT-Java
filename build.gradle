@@ -2,7 +2,7 @@
 allprojects {
     apply plugin: 'idea'
 
-    group = 'mh.dev.blog'
+    group = 'org.mindtrails'
     version = '0.0.1-SNAPSHOT'
 }
 
