@@ -35,7 +35,7 @@ public class CBMStudy extends BaseStudy implements Study {
      * Changing the order here will impact the order in which
      * sessions occur in the interface and in their progression.
      */
-    public static enum NAME {
+    public enum NAME {
         ELIGIBLE, PRE, SESSION1, SESSION2, SESSION3, SESSION4, SESSION5, SESSION6, SESSION7, SESSION8, POST, COMPLETE
     }
 
@@ -313,16 +313,6 @@ public class CBMStudy extends BaseStudy implements Study {
     }
 
 
-    @Override
-    public boolean isReceiveGiftCards() {
-        return receiveGiftCards;
-    }
-
-    @Override
-    public void setReceiveGiftCards(boolean value) {
-        receiveGiftCards = value;
-    }
-
 
     @Override
     public STUDY_STATE getState() {
@@ -338,7 +328,7 @@ public class CBMStudy extends BaseStudy implements Study {
                 getCurrentSession().getName().equals(NAME.SESSION1.toString()))
             return STUDY_STATE.READY;
 
-        // If you are on the POST assessment, you n     eed to wait 60 days after completing
+        // If you are on the POST assessment, you need to wait 60 days after completing
         // session8
         if (getCurrentSession().getName().equals(NAME.POST.toString()) && daysSinceLastSession() < 60) {
             return STUDY_STATE.WAIT_FOR_FOLLOWUP;

@@ -42,9 +42,6 @@ public class AccountController {
     @Value("${recaptcha.site-key}")
     private String recaptchaSiteKey;
 
-    @Value("${tango.maxParticipants}")
-    private long maxParticipantsForGiftCards;
-
     @Autowired
     private RecaptchaFormValidator recaptchaFormValidator;
 
@@ -89,10 +86,6 @@ public class AccountController {
         participant.setEmail(participantForm.getEmail());
         participant.setAdmin(participantForm.isAdmin());
 
-        // Disable Gift Cards, if the max number is reached.
-        long totalParticipants = participantService.count();
-        participant.setReceiveGiftCards(maxParticipantsForGiftCards > totalParticipants);
-
         participant.updatePassword(participantForm.getPassword());
         if(participantForm.getTheme()!=null)
             participant.setTheme(participantForm.getTheme());
@@ -123,7 +116,7 @@ public class AccountController {
     public String showTheme(ModelMap model, Principal principal) {
         Participant p = participantService.get(principal);
         model.addAttribute("participant", p);
-        return "theme";
+        return "account/theme";
     }
 
     @RequestMapping(value="updateTheme", method = RequestMethod.POST)

@@ -1,10 +1,10 @@
 package org.mindtrails.domain;
 
-import org.mindtrails.domain.tracking.EmailLog;
-import org.mindtrails.domain.tracking.GiftLog;
 import lombok.Data;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+import org.mindtrails.domain.tracking.EmailLog;
+import org.mindtrails.domain.tracking.GiftLog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,7 +16,6 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.Random;
 
 /**
  * This class manages the storage and basic business logic
@@ -29,7 +28,6 @@ public  class Participant implements UserDetails {
 
     private static final Logger LOG = LoggerFactory.getLogger(Participant.class);
 
-    protected static final Random RANDOM = new Random();  // For generating random CBM and Prime values.
 
     @Id
     @TableGenerator(name = "PARTICIPANT_GEN", table = "ID_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 1)

@@ -1,0 +1,24 @@
+<html>
+<body th:class="|user-theme-${participant.theme}|">
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+    <div class="container">
+                <form action="#" th:action="@{/account/updateTheme}" th:object="${participant}" method="post">
+                    <section id="theme" class="clearfix" th:include="fragment/theme :: themeSelection"/>
+                </form>
+    </div>
+</section>
+
+
+<!--Javascript
+================================================== -->
+<script language="JavaScript">
+    function enableEdit() {
+        document.getElementById("name").disabled = false;
+        document.getElementById("name").style.backgroundColor = "#FFFFFF";
+    }
+</script>
+
+</body>
+</html>

@@ -1,5 +1,6 @@
 package edu.virginia.psyc.r34.service;
 
+import edu.virginia.psyc.r34.MockClasses.TestStudy;
 import org.mindtrails.domain.Study;
 import org.mindtrails.domain.tracking.TaskLog;
 import edu.virginia.psyc.r34.domain.CBMStudy;
@@ -29,7 +30,10 @@ public class PiEmailServiceTest {
 
     @Before
     public void setup() {
-        participant = new PiParticipant("Dan Funk", "daniel.h.funk@gmail.com", false);
+        participant = new PiParticipant();
+        participant.setEmail("tester@test.com");
+        participant.setFullName("Tester McTest");
+        participant.setStudy(new TestStudy());
         service     = new PiEmailService();
     }
 

@@ -69,9 +69,9 @@ public class AdminControllerTest {
     @Test
     public void testAdminListUsers() throws Exception {
 
-        Participant p1 = new PiParticipant( "Dan Funk", "daniel.h.funk@gmail.com", false);
-        Participant p2 = new PiParticipant( "John Smith", "john.h.funk@gmail.com", false);
-        Participant p3 = new PiParticipant( "Frank Jones", "frank.h.funk@gmail.com", false);
+        Participant p1 = new PiParticipant();
+        Participant p2 = new PiParticipant();
+        Participant p3 = new PiParticipant();
 
         when(participantRepository.findAll()).thenReturn(Arrays.asList(p1,p2,p3));
 

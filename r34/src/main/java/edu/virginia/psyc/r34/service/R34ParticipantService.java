@@ -1,34 +1,56 @@
 package edu.virginia.psyc.r34.service;
 
-import org.mindtrails.domain.Participant;
-import org.mindtrails.service.ParticipantService;
+import edu.virginia.psyc.r34.domain.CBMNeutralStudy;
 import edu.virginia.psyc.r34.domain.CBMStudy;
 import edu.virginia.psyc.r34.domain.PiParticipant;
 import edu.virginia.psyc.r34.persistence.PiParticipantRepository;
 import edu.virginia.psyc.r34.persistence.Questionnaire.DASS21_AS;
 import edu.virginia.psyc.r34.persistence.Questionnaire.DASS21_ASRepository;
+import org.mindtrails.domain.Participant;
+import org.mindtrails.domain.tracking.TaskLog;
+import org.mindtrails.service.ParticipantService;
+import org.mindtrails.service.ParticipantServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
-import java.util.List;
+import java.util.*;
 
 /**
  * Largely a wrapper around the Participant Repository.  Allows us to
  * save, create, and find customized participant objects.
  */
 @Service
-public class R34ParticipantService implements ParticipantService {
+public class R34ParticipantService extends ParticipantServiceImpl implements ParticipantService {
+
+    protected static final Random RANDOM = new Random();  // For generating random CBM and Prime values.
 
     @Autowired
     PiParticipantRepository repository;
     @Autowired
     DASS21_ASRepository dass21_asRepository;
 
+    List<PiParticipant.CBM_CONDITION> CONDITION_VALUES =
+            Collections.unmodifiableList(Arrays.asList(PiParticipant.CBM_CONDITION.values()));
+    List<PiParticipant.PRIME> PRIME_VALUES =
+            Collections.unmodifiableList(Arrays.asList(PiParticipant.PRIME.values()));
+
+
     @Override
-    public Participant create() {
-        return new PiParticipant();
+    public PiParticipant create() {
+        PiParticipant p = new PiParticipant();
+
+        // Set the randome condition and prime.
+        p.setCbmCondition(CONDITION_VALUES.get(RANDOM.nextInt(CONDITION_VALUES.size())));
+        p.setPrime(PRIME_VALUES.get(RANDOM.nextInt(PRIME_VALUES.size())));
+
+        if(p.getCbmCondition() == PiParticipant.CBM_CONDITION.NEUTRAL) {
+           p.setStudy(new CBMNeutralStudy(CBMStudy.NAME.ELIGIBLE.toString(), 0, null, new ArrayList<TaskLog>(), this.receiveGiftCards()));
+        } else {
+            p.setStudy(new CBMStudy(CBMStudy.NAME.ELIGIBLE.toString(), 0, null, new ArrayList<TaskLog>(), this.receiveGiftCards()));
+        }
+        return p;
     }
 
     @Override

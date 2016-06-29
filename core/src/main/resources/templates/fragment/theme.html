@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en">
+<!--<![endif]-->
+<head>
+</head>
+<body>
+<section id="themeSelection" class="clearfix"  th:fragment="themeSelection">
+    <h3>Select a Theme</h3>
+    <p>To customize the appearance of MindTrails select one of the options below. You can change your
+        theme at any time under "Account Settings" in the menu bar above. </p>
+    <fieldset>
+        <label>
+            <div class="themeSection blue">
+                <input type="radio" th:field="*{theme}" value="blue" required="true"/>
+                <div class="themeOption">
+                    <label>Blue</label>
+                </div>
+            </div>
+        </label>
+        <br/>
+        <label>
+        <div class="themeSection orange">
+            <input type="radio" th:field="*{theme}" value="orange" required="true"/>
+
+            <div class="themeOption">
+                <label>Orange</label>
+            </div>
+        </div>
+        </label>
+        <br/>
+        <label>
+        <div class="themeSection green">
+            <input type="radio" th:field="*{theme}" value="green"/>
+
+            <div class="themeOption">
+                <label>Green</label>
+            </div>
+        </div>
+        </label>
+        <br/>
+        <label>
+        <div class="themeSection purple">
+            <input type="radio" th:field="*{theme}" value="purple"/>
+
+            <div class="themeOption">
+                <label>Purple</label>
+            </div>
+        </div>
+        </label>
+        <br/>
+        <label>
+        <div class="themeSection gold">
+            <input type="radio" th:field="*{theme}" value="gold"/>
+
+            <div class="themeOption">
+                <label>Gold</label>
+            </div>
+        </div>
+        </label>
+    </fieldset>
+    <button>Update Theme</button>
+</section>
+</body>
+</html>

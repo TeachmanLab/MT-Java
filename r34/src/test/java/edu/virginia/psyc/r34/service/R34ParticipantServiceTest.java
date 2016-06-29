@@ -1,18 +1,28 @@
-package edu.virginia.psyc.r34.domain;
+package edu.virginia.psyc.r34.service;
 
+import edu.virginia.psyc.r34.Application;
+import edu.virginia.psyc.r34.domain.CBMNeutralStudy;
+import edu.virginia.psyc.r34.domain.PiParticipant;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-/**
- * Created with IntelliJ IDEA.
- * User: dan
- * Date: 6/26/14
- * Time: 12:00 PM
- * To change this template use File | Settings | File Templates.
- */
-public class PiParticipantTest {
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringApplicationConfiguration(classes = Application.class)
+@WebAppConfiguration
+@ActiveProfiles("test")
+public class R34ParticipantServiceTest {
+
+    @Autowired
+    R34ParticipantService service;
+
 
     @Test
     public void testNewParticipantGetsRandomCBMCondition() {
@@ -22,12 +32,11 @@ public class PiParticipantTest {
         boolean isPos = false;
         boolean isNeutral = false;
 
-        p = new PiParticipant("Dan Funk", "daniel.h.funk@gmail.com", false);
-
+        p = service.create();
         assertNotNull(p.getCbmCondition());
 
         for(int i = 0; i< 100; i++)  {
-            p = new PiParticipant("Dan Funk", "daniel.h.funk@gmail.com", false);
+            p = service.create();
             if(p.getCbmCondition().equals(PiParticipant.CBM_CONDITION.FIFTY_FIFTY)) is50 = true;
             if(p.getCbmCondition().equals(PiParticipant.CBM_CONDITION.POSITIVE)) isPos = true;
             if(p.getCbmCondition().equals(PiParticipant.CBM_CONDITION.NEUTRAL)) isNeutral = true;
@@ -46,12 +55,12 @@ public class PiParticipantTest {
         boolean isAnxious = false;
         boolean isNeutral = false;
 
-        p = new PiParticipant("Dan Funk", "daniel.h.funk@gmail.com", false);
+        p = service.create();
 
         assertNotNull(p.getPrime());
 
         for(int i = 0; i< 100; i++)  {
-            p = new PiParticipant("Dan Funk", "daniel.h.funk@gmail.com", false);
+            p = service.create();
             if(p.getPrime().equals(PiParticipant.PRIME.ANXIETY)) isAnxious = true;
             if(p.getPrime().equals(PiParticipant.PRIME.NEUTRAL)) isNeutral = true;
         }
@@ -68,7 +77,7 @@ public class PiParticipantTest {
         boolean isNeutral = false;
 
         for(int i = 0; i< 100; i++)  {
-            p = new PiParticipant("Dan Funk", "daniel.h.funk@gmail.com", false);
+            p = service.create();
             if(p.getCbmCondition().equals(PiParticipant.CBM_CONDITION.NEUTRAL)) {
                 isNeutral = true;
                 assertTrue(p.getStudy() instanceof CBMNeutralStudy);

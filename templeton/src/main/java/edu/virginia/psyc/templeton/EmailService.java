@@ -1,4 +1,4 @@
-package org.mindtrails.basic;
+package edu.virginia.psyc.templeton;
 
 import org.mindtrails.domain.Participant;
 import org.springframework.stereotype.Service;

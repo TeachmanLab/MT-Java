@@ -55,6 +55,16 @@ public abstract class BaseStudy implements Study {
         return null;
     }
 
+    @Override
+    public boolean isReceiveGiftCards() {
+        return receiveGiftCards;
+    }
+
+    @Override
+    public void setReceiveGiftCards(boolean value) {
+        receiveGiftCards = value;
+    }
+
     /**
      * @return Number of days since the last completed session.
      * Returns 99 if the user never logged in or completed a session.

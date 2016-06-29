@@ -1,16 +1,15 @@
 package edu.virginia.psyc.r34.DAO;
 
-import org.mindtrails.domain.Participant;
-import org.mindtrails.domain.Study;
-import org.mindtrails.persistence.ParticipantRepository;
 import edu.virginia.psyc.r34.Application;
 import edu.virginia.psyc.r34.domain.CBMStudy;
-import edu.virginia.psyc.r34.domain.PiParticipant;
 import edu.virginia.psyc.r34.persistence.ParticipantExportDAO;
 import edu.virginia.psyc.r34.persistence.ParticipantExportRepository;
+import edu.virginia.psyc.r34.service.R34ParticipantService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mindtrails.domain.Participant;
+import org.mindtrails.domain.Study;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ActiveProfiles;
@@ -38,8 +37,9 @@ import static org.junit.Assert.assertEquals;
 public class ParticipantRepositoryTest {
 
 
+
     @Autowired
-    protected ParticipantRepository participantRepository;
+    protected R34ParticipantService participantService;
 
     @Autowired
     protected ParticipantExportRepository exportRepository;
@@ -47,20 +47,22 @@ public class ParticipantRepositoryTest {
     @Test
     public void bugWhereParticipantSessionIsWonky() {
 
-        PiParticipant p;
+        Participant p;
         Participant pSaved;
         Study study;
         String email = "john@x.com";
 
         // Create a participant
-        p = new PiParticipant("John", email, false);
+        p = participantService.create();
+        p.setEmail(email);
+        p.setFullName("John");
         study = new CBMStudy(CBMStudy.NAME.PRE.toString(), 0, new Date(), new ArrayList<>(), true);
         p.setStudy(study);
 
         // Save that participant
-        participantRepository.save(p);
-        participantRepository.flush();
-        pSaved = participantRepository.findOne(p.getId());
+        participantService.save(p);
+        participantService.flush();
+        pSaved = participantService.findByEmail(email);
 
         // Assure that the participant's current session is pre
         assertEquals(CBMStudy.NAME.PRE.toString(), pSaved.getStudy().getCurrentSession().getName());
@@ -69,9 +71,9 @@ public class ParticipantRepositoryTest {
         pSaved.getStudy().forceToSession(CBMStudy.NAME.SESSION5.toString());
 
         // Get that participant back.
-        participantRepository.save(pSaved);
-        participantRepository.flush();
-        pSaved = participantRepository.getOne(pSaved.getId());
+        participantService.save(pSaved);
+        participantService.flush();
+        pSaved = participantService.findByEmail(email);
 
         // Assure that the participant's current session is set to 5
         assertEquals(CBMStudy.NAME.SESSION5.toString(), pSaved.getStudy().getCurrentSession().getName());
@@ -87,13 +89,13 @@ public class ParticipantRepositoryTest {
 
         // Change the participant's session back to Session1.
         p.getStudy().forceToSession(CBMStudy.NAME.SESSION1.toString());
-        participantRepository.save(p);
-        participantRepository.flush();
-        pSaved = participantRepository.getOne(pSaved.getId());
+        participantService.save(p);
+        participantService.flush();
+        pSaved = participantService.findByEmail(email);
 
-        assertEquals(CBMStudy.NAME.SESSION1.toString(), p.getStudy().getCurrentSession().getName());
-        p.getStudy().completeCurrentTask();
-        assertEquals(CBMStudy.NAME.SESSION1.toString(), p.getStudy().getCurrentSession().getName());
+        assertEquals(CBMStudy.NAME.SESSION1.toString(), pSaved.getStudy().getCurrentSession().getName());
+        pSaved.getStudy().completeCurrentTask();
+        assertEquals(CBMStudy.NAME.SESSION1.toString(), pSaved.getStudy().getCurrentSession().getName());
 
     }
 
@@ -104,12 +106,14 @@ public class ParticipantRepositoryTest {
         Participant participant;
         ParticipantExportDAO exportDAO = null;
         List<ParticipantExportDAO> exportList;
+        String email =  "john@x.com";
 
         // Create a participant
-        participant = new PiParticipant("John Export", "john@x.com",  false);
+        participant = participantService.create();
+        participant.setEmail(email);
         participant.setTheme("green");
-        participantRepository.save(participant);
-        participantRepository.flush();
+        participantService.save(participant);
+        participantService.flush();
 
         Assert.assertNotNull(participant.getId());
         Assert.assertNotEquals(0, participant.getId());

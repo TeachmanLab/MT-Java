@@ -106,7 +106,9 @@ public class ExportControllerTest extends BaseControllerTest {
     @Before
     public void veryifyParticipant() {
         participant = (PiParticipant)participantService.findByEmail("test@test.com");
-        if(participant == null) participant = new PiParticipant("John", "test@test.com", false);
+        if(participant == null) participant = new PiParticipant();
+        participant.setEmail("test@test.com");
+        participant.setFullName("McTesty Tester-Mister");
         participant.setStudy(new TestStudy());
         participantService.save(participant);
     }

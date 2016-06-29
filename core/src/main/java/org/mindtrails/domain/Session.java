@@ -32,6 +32,13 @@ public class Session {
     public Session() {
     }
 
+    public Session(int index, String name, String displayName, int giftAmount) {
+        this.index = index;
+        this.name = name;
+        this.displayName = displayName;
+        this.giftAmount = giftAmount;
+    }
+
     public Session(int index, String name, String displayName, boolean complete, boolean current, int giftAmount, List<Task> tasks) {
         this.index = index;
         this.name = name;
@@ -40,6 +47,10 @@ public class Session {
         this.displayName = displayName;
         this.giftAmount = giftAmount;
         this.tasks = tasks;
+    }
+
+    public void addTask(Task t) {
+        this.tasks.add(t);
     }
 
     /**

@@ -22,6 +22,8 @@ public class TestParticipantService implements ParticipantService {
 
     @Override
     public Participant create() {
+        Participant p = new Participant();
+        p.setStudy(new TestStudy());
         return new Participant();
     }
 
