@@ -8,7 +8,7 @@
 <head th:include="/fragment/common :: headerFragment" />
 <body th:class="|user-theme-${participant.theme}|">
 <section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
-
+<script type="text/javascript" th:src="@{/js/firstQuestionSlider.js}"></script>
 
 <!-- content starts
 ================================================== -->
@@ -209,10 +209,11 @@
                             </div>
                         </label>
                     </div>
+                    <div class="question">
                     <div id="submit">
                         <button onclick="check()" type="button">Next</button>
                     </div>
-
+                    </div>
                 </form>
                 <script>
 

@@ -8,7 +8,7 @@
 <head th:include="/fragment/common :: headerFragment" />
 <body th:class="|user-theme-${participant.theme}|">
 <section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
-
+<script type="text/javascript" th:src="@{/js/firstQuestionSlider.js}"></script>
 
 <!-- content starts
 ================================================== -->
@@ -24,6 +24,7 @@
                     applied to you <i><span th:text="${pastX}"/></i>.</p>
                     <div class="section">
                         <div class="question">1. <span th:text="${pastX}"/>, how often have you felt anxious?</div>
+
                         <label class="radioListNoAnswer">Prefer not to answer<br/><input type="radio" name="anxious_freq" value="555" required="true"/></label>
                         <label class="radioList"><input type="radio" name="anxious_freq" value="0" required="true"/><b>No anxiety.</b></label>
                         <label class="radioList"><input type="radio" name="anxious_freq" value="1" required="true"/><b>Infrequent anxiety.</b> Felt anxious a few times.</label>
@@ -31,6 +32,7 @@
                         <label class="radioList"><input type="radio" name="anxious_freq" value="3" required="true"/><b>Frequent anxiety.</b> Felt anxious most of the time. It was very difficult to relax.</label>
                         <label class="radioList"><input type="radio" name="anxious_freq" value="4" required="true"/><b>Constant anxiety.</b> Felt anxious all of the time and never really relaxed.</label>
                         </div>
+
                     <div class="section">
                         <div class="question">2. <span th:text="${pastX}"/>, when you have felt anxious, how intense or severe was your anxiety?</div>
                         <label class="radioListNoAnswer">Prefer not to answer<br/><input type="radio" name="anxious_sev" value="555" required="true"/></label>
@@ -67,9 +69,11 @@
                         <label class="radioList"><input type="radio" name="interfere_social" value="3" required="true"/><b>Severe.</b> My friendships and other relationships have suffered a lot because of anxiety. I do not enjoy social activities. I socialize very little.</label>
                         <label class="radioList"><input type="radio" name="interfere_social" value="4" required="true"/><b>Extreme.</b> My anxiety has completely disrupted my social activities. All of my relationships have suffered or ended. My family life is extremely strained.</label>
                     </div>
+                    <div class="question">
                     <div class="submit">
                         <button type="submit">Next</button>
                     </div>
+                        </div>
                 </form>
             </div>
         </div>
