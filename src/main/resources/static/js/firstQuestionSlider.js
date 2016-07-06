@@ -21,6 +21,11 @@ $(document).on('click', '.option', function(e){
 
 });
 
+$(document).on('click', '.radioList', function(e){
+    scrollTo($(this).closest(".section").next());
+
+});
+
 $(document).ready(adapt);
 
 $(window).resize(adapt);
