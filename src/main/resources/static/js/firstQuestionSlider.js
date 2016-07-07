@@ -21,6 +21,10 @@ $(document).on('click', '.option', function(e){
 
 });
 
+$(document).on('click', 'table tr:last-child', function(e){
+    scrollTo($(this).closest(".section").next());
+
+});
 $(document).ready(adapt);
 
 $(window).resize(adapt);
