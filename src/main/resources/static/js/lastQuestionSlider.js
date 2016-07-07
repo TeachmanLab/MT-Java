@@ -12,7 +12,7 @@ function scrollTo(elem){console.log(elem)
 $('html,body').animate({
 scrollTop: elem.offset().top},'slow');}
 
-$(document).on('click', '#last', function(e){
+$(document).on('click', 'table tr:last-child', function(e){
     scrollTo($(this).closest(".section").next());
 
 });
