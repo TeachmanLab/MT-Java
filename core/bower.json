@@ -1,0 +1,19 @@
+{
+  "name": "r34",
+  "version": "0.0.1",
+  "homepage": "https://github.com/danfunk/PIServer",
+  "authors": [
+    "Dan Funk <daniel.h.funk@gmail.com>"
+  ],
+  "description": "MindTrails",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+          "jsPsych":"git@github.com:jodeleeuw/jsPsych.git",
+  		  "PIPlayer":"v0.3.15",
+          "bootstrap":"v3.3.5",
+          "jqueryui":"v1.11",
+          "jquery-flot": "0.8.3",
+          "jquery-csv": "0.70"
+  }
+}
