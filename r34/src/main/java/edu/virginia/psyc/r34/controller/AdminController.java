@@ -213,7 +213,7 @@ public class AdminController {
 
         if(type.equals(PiEmailService.TYPE.giftCard)) {
             Reward reward = tangoService.createGiftCard(p, "test", 1);  // This would actually award a gift card, if you need to do some testing.
-            this.emailService.sendGiftCardEmail(p, reward, 100);
+            this.emailService.sendGiftCard(p, reward, 100);
         } else if(type.equals(PiEmailService.TYPE.alertAdmin)) {
             OA d1 = new OA(1,2,3,4,5);
             OA d2 = new OA(3,3,4,5,5);
@@ -267,7 +267,7 @@ public class AdminController {
     public String giftCard(ModelMap model, Principal principal) throws Exception {
         Participant p = participantRepository.findByEmail(principal.getName());
         Reward r = tangoService.createGiftCard(p, "AdminAwarded",100);
-        this.emailService.sendGiftCardEmail(p, r, 100);
+        this.emailService.sendGiftCard(p, r, 100);
         model.addAttribute("participant", p);
         model.addAttribute("visiting", true);
         return "/admin/participant_form";

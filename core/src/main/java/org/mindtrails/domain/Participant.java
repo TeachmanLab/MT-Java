@@ -213,5 +213,14 @@ public  class Participant implements UserDetails {
         return false;
     }
 
+    public boolean giftAwardedForSession(Session s) {
+        for(GiftLog log : this.getGiftLogs()) {
+            if (log.getSessionName().equals(s.getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
 

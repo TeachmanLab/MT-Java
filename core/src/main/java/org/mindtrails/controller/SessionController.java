@@ -1,22 +1,16 @@
-package edu.virginia.psyc.r34.controller;
+package org.mindtrails.controller;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.Session;
 import org.mindtrails.domain.Study;
 import org.mindtrails.domain.tango.Reward;
-import org.mindtrails.persistence.ParticipantRepository;
+import org.mindtrails.service.EmailService;
 import org.mindtrails.service.ExportService;
+import org.mindtrails.service.ParticipantService;
 import org.mindtrails.service.TangoService;
-import edu.virginia.psyc.r34.domain.CBMStudy;
-import edu.virginia.psyc.r34.domain.PiParticipant;
-import edu.virginia.psyc.r34.persistence.PiParticipantRepository;
-import edu.virginia.psyc.r34.persistence.Questionnaire.OA;
-import edu.virginia.psyc.r34.persistence.Questionnaire.OARepository;
-import edu.virginia.psyc.r34.service.PiEmailService;
-import org.apache.commons.math3.stat.regression.SimpleRegression;
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +21,6 @@ import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -45,27 +36,19 @@ public class SessionController {
     private static final Logger LOG = LoggerFactory.getLogger(SessionController.class);
 
     @Autowired private TangoService tangoService;
-    @Autowired private PiEmailService emailService;
-    @Autowired private OARepository oaRepository;
+    @Autowired private EmailService emailService;
     @Autowired private ExportService exportService;
-    @Autowired private PiParticipantRepository piParticipantRepository;
-
-
-    @Autowired
-    private ParticipantRepository participantRepository;
+    @Autowired private ParticipantService participantService;
 
     private Participant getParticipant(Principal p) {
-        return participantRepository.findByEmail(p.getName());
+        return participantService.findByEmail(p.getName());
     }
 
-    private PiParticipant getPiParticipant(Principal principal) {
-        return piParticipantRepository.findByEmail(principal.getName());
-    }
 
     @RequestMapping("")
     public String sessionHome(ModelMap model, Principal principal) throws Exception {
 
-        PiParticipant p = getPiParticipant(principal);
+        Participant p = getParticipant(principal);
         Study study = p.getStudy();
         Session session = study.getCurrentSession();
         Session last = study.getLastSession();
@@ -101,7 +84,7 @@ public class SessionController {
         // Determine if a gift should be awarded, and award it.
         if (last.getGiftAmount() > 0 && !p.giftAwardedForSession(last)) {
             Reward reward = tangoService.createGiftCard(p, last.getName(), last.getGiftAmount());
-            this.emailService.sendGiftCardEmail(p, reward, last.getGiftAmount());
+            this.emailService.sendGiftCard(p, reward, last.getGiftAmount());
             model.addAttribute("giftAwarded", true);
             model.addAttribute("giftAmount", last.getGiftAmount()/100);
         }
@@ -134,64 +117,6 @@ public class SessionController {
         return "overview";
     }
 
-    @RequestMapping("/graph")
-    public String graph(ModelMap model, Principal principal) {
-
-        Participant p = getParticipant(principal);
-        List<OA> oaList    = oaRepository.findByParticipant(p);
-        List<List<Object>> points = new ArrayList();
-        List<List<Object>> regressionPoints = new ArrayList();
-
-        Collections.sort(oaList);
-        SimpleRegression regression;
-
-        OA original = oaList.get(0);
-        OA last     = oaList.get(oaList.size() - 1);
-
-        regression = new SimpleRegression();
-        double counter = 0;
-        for(OA oa : oaList) {
-                // don't include the post assessment when calculating the regression.
-                 if (!oa.getSession().startsWith("POST")) {
-                    regression.addData(counter, oa.score());
-                    counter++;
-                }
-            }
-
-        // Create plot points
-        List<Object> point;
-        for(OA oa : oaList) {
-            point = new ArrayList<>();
-            point.add(CBMStudy.calculateDisplayName(oa.getSession()));
-            point.add(oa.score());
-            points.add(point);
-            if(oa.equals(original)) {
-                ArrayList<Object> rPoint = new ArrayList<>(point);
-                rPoint.set(1, regression.getIntercept());
-                regressionPoints.add(rPoint);
-            }
-            if(oa.equals(last)) {
-                ArrayList<Object> rPoint = new ArrayList<>(point);
-                rPoint.set(1, regression.predict(oaList.size()));
-                regressionPoints.add(rPoint);
-            }
-        }
-
-        int improvement = new Double((regression.getIntercept() - regression.predict(oaList.size()))/regression.getIntercept() * 100).intValue();
-        String status = "";
-        if(Math.abs(improvement) < 15) status = "same";
-        else if (improvement > 30) status = "lot";
-        else if (improvement > 15) status = "little";
-        else if (improvement < -15) status = "worse";
-
-        model.addAttribute("participant", p);
-        model.addAttribute("points", points);
-        model.addAttribute("regressionPoints", regressionPoints);
-        model.addAttribute("improvement", improvement);
-        model.addAttribute("status", status);
-
-        return "graph";
-    }
 
     @RequestMapping("/next")
     public View nextStepInSession(ModelMap model, Principal principal) {

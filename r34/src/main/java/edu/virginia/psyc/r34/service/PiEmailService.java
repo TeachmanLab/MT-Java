@@ -182,7 +182,8 @@ public class PiEmailService implements EmailService {
         }
     }
 
-    public void sendGiftCardEmail(Participant participant, Reward reward, int amount) throws MessagingException {
+    @Override
+    public void sendGiftCard(Participant participant, Reward reward, int amount) throws MessagingException {
         // Prepare the evaluation context
         final Context ctx = new Context();
 

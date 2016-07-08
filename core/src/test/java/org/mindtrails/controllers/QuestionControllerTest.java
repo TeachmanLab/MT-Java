@@ -37,11 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Created by dan on 10/23/15.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
-@WebAppConfiguration
-@ActiveProfiles("test")
-public class QuestionControllerTest {
+public class QuestionControllerTest extends BaseControllerTest {
 
     @Autowired
     private FilterChainProxy springSecurityFilterChain;
@@ -56,38 +52,11 @@ public class QuestionControllerTest {
     private QuestionController questionController;
 
     @Autowired
-    private ParticipantService participantService;
-
-
-    private MockMvc mockMvc;
-
-    @Autowired
     WebApplicationContext wac;
 
-    private Participant participant;
-
-    @Before
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-
-        this.mockMvc = MockMvcBuilders.standaloneSetup(questionController)
-                .setCustomArgumentResolvers(new AuthenticationPrincipalArgumentResolver())
-                .addFilters(this.springSecurityFilterChain)
-                .build();
-        repository.deleteAll();
-    }
-
-    @Before
-    public void veryifyParticipant() {
-        participant = participantService.findByEmail("test@test.com");
-        if(participant == null) participant = new Participant("John", "test@test.com", false);
-        participant.setStudy(new TestStudy());
-        participantService.save(participant);
-    }
-
-    @After
-    public void cleanup() {
-    //formRepository.deleteAll();
+    @Override
+    public Object[] getControllers() {
+        return(new Object[]{questionController});
     }
 
     private TestQuestionnaire getLastQuestionnaire() {

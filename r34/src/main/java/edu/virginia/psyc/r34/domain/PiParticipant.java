@@ -2,8 +2,6 @@ package edu.virginia.psyc.r34.domain;
 
 import lombok.Data;
 import org.mindtrails.domain.Participant;
-import org.mindtrails.domain.Session;
-import org.mindtrails.domain.tracking.GiftLog;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -26,15 +24,6 @@ public class PiParticipant extends Participant {
     private PRIME          prime;
     protected String       riskSession;  // The session that saw an increase in risk factor.
 
-
-    public boolean giftAwardedForSession(Session s) {
-        for(GiftLog log : this.getGiftLogs()) {
-            if (log.getSessionName().equals(s.getName())) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     /**
      * Returns true if the participant is in a session, versus being in a pre-assessment or
