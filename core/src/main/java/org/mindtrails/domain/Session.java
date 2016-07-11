@@ -21,31 +21,29 @@ public class Session {
     public enum STATE {COMPLETE, CURRENT, INCOMPLETE}
     private static final Task nullTask = new Task("null", "no task", Task.TYPE.questions, 0, false, false, new Date());
 
-    private int index;
+    private int index; // Used to reference image links in the r34 study, need to clean this up or remove it at some point.
     private String name;
     private String displayName;
-    private boolean complete;
-    private boolean current;
+    private boolean complete = false;
+    private boolean current = false;
     private int giftAmount;
+    private int daysToWait;  // Number of days to wait before user can start session.
     private List<Task> tasks = new ArrayList<Task>();
 
     public Session() {
     }
 
-    public Session(int index, String name, String displayName, int giftAmount) {
-        this.index = index;
+    public Session(String name, String displayName, int giftAmount) {
         this.name = name;
         this.displayName = displayName;
         this.giftAmount = giftAmount;
     }
 
-    public Session(int index, String name, String displayName, boolean complete, boolean current, int giftAmount, List<Task> tasks) {
-        this.index = index;
+    public Session(String name, String displayName, int giftAmount, int daysToWait, List<Task> tasks) {
         this.name = name;
-        this.complete = complete;
-        this.current = current;
         this.displayName = displayName;
         this.giftAmount = giftAmount;
+        this.daysToWait = daysToWait;
         this.tasks = tasks;
     }
 

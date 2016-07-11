@@ -1,4 +1,4 @@
-package edu.virginia.psyc.r34.persistence.Questionnaire;
+package org.mindtrails.persistence;
 
 import org.mindtrails.domain.questionnaire.QuestionnaireData;
 import org.springframework.data.jpa.repository.JpaRepository;

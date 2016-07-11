@@ -96,10 +96,8 @@ public class SessionController {
                 return "sessionHome/allDone"; // check
             case READY:
                 return "sessionHome/ready";       // Check
-            case WAIT_A_DAY:
-                return "sessionHome/waitADay"; // check
-            case WAIT_FOR_FOLLOWUP:
-                return "sessionHome/waitFollowup";  
+            case WAIT:
+                return "sessionHome/wait"; // check
             default:
                 return "sessionHome/inProgress";
         }

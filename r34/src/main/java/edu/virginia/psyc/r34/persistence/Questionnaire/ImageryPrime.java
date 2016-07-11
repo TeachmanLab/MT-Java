@@ -1,5 +1,6 @@
 package edu.virginia.psyc.r34.persistence.Questionnaire;
 
+import edu.virginia.psyc.r34.domain.CBMStudy;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.questionnaire.SecureQuestionnaireData;
 import edu.virginia.psyc.r34.domain.PiParticipant;
@@ -31,7 +32,7 @@ public class ImageryPrime extends SecureQuestionnaireData {
 
         if(p instanceof PiParticipant) {
             participant = (PiParticipant)p;
-            boolean notFirst = p.getStudy().getCurrentSession().getIndex() > 1;
+            boolean notFirst = p.getStudy().getCurrentSession().getName() != CBMStudy.NAME.SESSION1.toString();
 
             attributes.put("notFirst", notFirst);
             attributes.put("prime", participant.getPrime().toString());

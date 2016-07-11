@@ -144,7 +144,7 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
     public Class<?> getDomainType(String name) {
         if(repositories == null) return null;
         for (  Class<?> domainType : repositories) {
-            if (domainType.getSimpleName().equals(name)) {
+            if (domainType.getSimpleName().toLowerCase().equals(name.toLowerCase())) {
                 return domainType;
             }
         }

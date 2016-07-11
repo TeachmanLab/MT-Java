@@ -1,0 +1,19 @@
+<html>
+  <body>
+    <h2>Welcome back <span th:text="${participant.fullName}">Jim</span>.</h2>
+    <p>You are ready to begin <span th:text="${currentSession.displayName}"/></p>
+    <p>This includes ...</p>
+    <img th:src="|/images/clock-20-${participant.theme}.png|"/>
+    <p>A 20-minute Training</p>
+    <img th:src="|/images/clock-1-${participant.theme}.png|"/>
+    <p>A Brief Followup</p>
+    <div th:if="${giftAwarded}">
+        <h3>Congratulations! You have earned a $5 gift card.</h3> Please check your email for information on
+        how to redeem it.
+    </div>
+    <p class="session-note">For best results, complete <span th:text="${currentSession.displayName}"/> by
+        <span class="date" th:text="${completeBy}">July 10, 2015</span>
+    </p>
+    <a href="/session/overview" th:unless="${currentSession.name =='PRE'}">Program Overview</a>
+  </body>
+</html>

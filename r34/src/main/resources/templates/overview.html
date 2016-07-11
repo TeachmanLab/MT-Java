@@ -24,8 +24,8 @@
             This will give you a chance to practice the new thinking style between sessions.
             When you're done reviewing, head back to <a th:href="@{/session}">home</a> to start your next session.</p>
 
-        <div class="sessionGrouping" th:each="session,iterStat : ${study.sessions}"  th:unless="${session.name == 'COMPLETE'}">
-            <img class="sessionMarker" th:src="|/images/marker-${iterStat.index}-${participant.theme}.png|"/>
+        <div class="sessionGrouping" th:each="session,iterStat : ${study.sessions}"  th:unless="${session.name == 'COMPLETE' || session.name == 'ELIGIBLE'}">
+            <img class="sessionMarker" th:src="|/images/marker-${session.index}-${participant.theme}.png|"/>
 
             <div class="gift">
                 <div th:if="${session.giftAmount >0}">$<span th:text="${session.giftAmount/100}"/> Gift Card!<img th:src="@{/images/gift_card.png}"/></div>

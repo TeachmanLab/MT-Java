@@ -13,11 +13,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: dan
- * Date: 6/12/14
- * Time: 8:21 AM
- * The Participants progress through a series of sessions
+* Identical in many ways to the CBMStudy, with exactly the same sessions.  But removing all the
+ * training sessions so it's just a series of questionniare.
  */
 @Entity
 @Table(name = "study")
@@ -31,7 +28,6 @@ public class CBMNeutralStudy extends CBMStudy implements Study {
         super(currentName,taskIndex,lastSessionDate,taskLogs, awardGifts);
     }
 
-    @Override
     protected List<Task> getTasks(NAME name, int taskIndex) {
 
         List<Task> tasks = new ArrayList<Task>();
@@ -151,7 +147,6 @@ public class CBMNeutralStudy extends CBMStudy implements Study {
                 tasks.add(new Task("MUE", "Evaluating the program", Task.TYPE.questions, 2));
 
         }
-        setTaskStates(name.toString(), tasks, taskIndex);
         return tasks;
     }
 

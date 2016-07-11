@@ -9,7 +9,7 @@ import org.mindtrails.domain.tracking.ExportLog;
 import org.mindtrails.persistence.ExportLogRepository;
 import org.mindtrails.persistence.ParticipantRepository;
 import org.mindtrails.service.ExportService;
-import edu.virginia.psyc.r34.persistence.Questionnaire.QuestionnaireRepository;
+import org.mindtrails.persistence.QuestionnaireRepository;
 import edu.virginia.psyc.r34.persistence.TrialDAO;
 import edu.virginia.psyc.r34.persistence.TrialRepository;
 import org.slf4j.Logger;

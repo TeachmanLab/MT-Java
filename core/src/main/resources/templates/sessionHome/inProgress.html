@@ -1,0 +1,12 @@
+<html>
+<body>
+    <h2>Welcome back <span th:text="${participant.fullName}">Jim</span>.</h2>
+
+    <p>You are part way through the <span th:text="${currentSession.displayName}"/>. You can now pick back
+        up where you left off.</p>
+    <a th:href="${currentTask.requestMapping}" th:if="${currentTask}">
+        <button>Continue</button>
+    </a>
+</body>
+</html>
+

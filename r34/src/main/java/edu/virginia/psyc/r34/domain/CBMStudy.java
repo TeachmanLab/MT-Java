@@ -20,7 +20,7 @@ import java.util.List;
  * User: dan
  * Date: 6/12/14
  * Time: 8:21 AM
- * The Participants progress through a series of sessions
+ * The Participants progress through a series of sessions, made up of individual tasks, described here in code.
  */
 @Entity
 @Table(name = "study")
@@ -30,13 +30,8 @@ public class CBMStudy extends BaseStudy implements Study {
 
     private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(CBMStudy.class);
 
-    /**
-     * This is an ordered enumeration, and is used that way.
-     * Changing the order here will impact the order in which
-     * sessions occur in the interface and in their progression.
-     */
     public enum NAME {
-        ELIGIBLE, PRE, SESSION1, SESSION2, SESSION3, SESSION4, SESSION5, SESSION6, SESSION7, SESSION8, POST, COMPLETE
+        ELIGIBLE, PRE, SESSION1, SESSION2, SESSION3, SESSION4, SESSION5, SESSION6, SESSION7, SESSION8, POST
     }
 
     public CBMStudy() {}
@@ -45,42 +40,35 @@ public class CBMStudy extends BaseStudy implements Study {
         super(currentSession, taskIndex, lastSessionDate, taskLogs, receiveGiftCards);
     }
 
-    /**
-     * This specifies the gift amount, in dollars, that should be awarded when a user completes a session.
-     */
-    private int giftAmountCents(NAME name) {
+    @Override
+    public List<Session> getStatelessSessions() {
+        List<Session> sessions = new ArrayList<Session>();
 
-        if (receiveGiftCards == false) return 0;
-        if (name.equals(NAME.PRE) || name.equals(NAME.SESSION3) || name.equals(NAME.SESSION6) || name.equals(NAME.SESSION8))
-            return 500; // $5
-        if (name.equals(NAME.POST))
-            return 1000; // $10
-        return 0;
+        sessions.add(new Session(NAME.ELIGIBLE.toString(), "Eligible", 0, 0, getTasks(NAME.ELIGIBLE)));
+        sessions.add(new Session(NAME.PRE.toString(), "Initial Assessment", 500, 0, getTasks(NAME.PRE)));
+        sessions.add(new Session(NAME.SESSION1.toString(), "Day 1 Training", 0, 0, getTasks(NAME.SESSION1)));
+        sessions.add(new Session(NAME.SESSION2.toString(), "Day 2 Training", 0, 2, getTasks(NAME.SESSION2)));
+        sessions.add(new Session(NAME.SESSION3.toString(), "Day 3 Training", 500, 2, getTasks(NAME.SESSION3)));
+        sessions.add(new Session(NAME.SESSION4.toString(), "Day 4 Training", 0, 2, getTasks(NAME.SESSION4)));
+        sessions.add(new Session(NAME.SESSION5.toString(), "Day 5 Training", 0, 2, getTasks(NAME.SESSION5)));
+        sessions.add(new Session(NAME.SESSION6.toString(), "Day 6 Training", 500, 2, getTasks(NAME.SESSION6)));
+        sessions.add(new Session(NAME.SESSION7.toString(), "Day 7 Training", 0, 2, getTasks(NAME.SESSION7)));
+        sessions.add(new Session(NAME.SESSION8.toString(), "Day 8 Training", 500, 2, getTasks(NAME.SESSION8)));
+        sessions.add(new Session(NAME.POST.toString(), "2 Months Post Training", 1000, 60, getTasks(NAME.POST)));
+
+        // Little messyness here, add an index value to each session as this is used to set the image to
+        // display in some of the templates for the r34 study.
+        int i = -1;
+        for(Session s: sessions) { s.setIndex(i); i++; }
+
+        return sessions;
     }
 
-    @Override
-    public List<Session> getSessions() {
-        List<Session> sessions = new ArrayList<Session>();
-        boolean completed = true;
-        boolean current = false;
-        boolean gift;
-        Session session;
-        NAME curName = NAME.valueOf(this.currentSession);
-
-        for (NAME name : NAME.values()) {
-            if (name == curName) {
-                completed = false;
-                current = true;
-            }
-            gift = false;
-            if (giftAmountCents(name) > 0) gift = true;
-            if (!name.equals(NAME.ELIGIBLE)) {
-                session = new Session(calcIndex(name), name.toString(), calculateDisplayName(name), completed, current, giftAmountCents(name), getTasks(name, currentTaskIndex));
-                sessions.add(session);
-            }
-            current = false;  // only one can be current.
+    public String getDisplayName(String name) {
+        for(Session s : getStatelessSessions()) {
+            if(s.getName().equals(name)) return s.getDisplayName();
         }
-        return sessions;
+        return "";
     }
 
     /**
@@ -97,7 +85,7 @@ public class CBMStudy extends BaseStudy implements Study {
      * @param name The Name of a given session.
      * @return
      */
-    protected List<Task> getTasks(NAME name, int taskIndex) {
+    protected List<Task> getTasks(NAME name) {
 
         List<Task> tasks = new ArrayList<Task>();
         switch (name) {
@@ -216,142 +204,8 @@ public class CBMStudy extends BaseStudy implements Study {
                 tasks.add(new Task("MultiUserExperience", "Evaluating the program", Task.TYPE.questions, 2));
 
         }
-        setTaskStates(name.toString(), tasks, taskIndex);
         return tasks;
     }
 
-
-    public static String calculateDisplayName(String name) {
-        return calculateDisplayName(NAME.valueOf(name));
-    }
-
-
-    private static String calculateDisplayName(NAME name) {
-        String displayName = "UNKNOWN";
-        switch (name) {
-            case ELIGIBLE:
-                displayName = "Eligible";
-                break;
-            case PRE:
-                displayName = "Initial Assessment";
-                break;
-            case SESSION1:
-                displayName = "Day 1 Training";
-                break;
-            case SESSION2:
-                displayName = "Day 2 Training";
-                break;
-            case SESSION3:
-                displayName = "Day 3 Training";
-                break;
-            case SESSION4:
-                displayName = "Day 4 Training";
-                break;
-            case SESSION5:
-                displayName = "Day 5 Training";
-                break;
-            case SESSION6:
-                displayName = "Day 6 Training";
-                break;
-            case SESSION7:
-                displayName = "Day 7 Training";
-                break;
-            case SESSION8:
-                displayName = "Day 8 Training";
-                break;
-            case POST:
-                displayName = "2 Months Post Training";
-                break;
-            case COMPLETE:
-                displayName = "Complete";
-                break;
-        }
-        return displayName;
-    }
-
-    private static int calcIndex(NAME name) {
-        int index = -1;
-        switch (name) {
-            case ELIGIBLE:
-                index = -1;
-                break;
-            case PRE:
-                index = -0;
-                break;
-            case SESSION1:
-                index = 1;
-                break;
-            case SESSION2:
-                index = 2;
-                break;
-            case SESSION3:
-                index = 3;
-                break;
-            case SESSION4:
-                index = 4;
-                break;
-            case SESSION5:
-                index = 5;
-                break;
-            case SESSION6:
-                index = 6;
-                break;
-            case SESSION7:
-                index = 7;
-                break;
-            case SESSION8:
-                index = 8;
-                break;
-            case POST:
-                index = 9;
-                break;
-            case COMPLETE:
-                index = 10;
-                break;
-        }
-        return index;
-    }
-
-
-
-    @Override
-    public STUDY_STATE getState() {
-
-        if (getCurrentSession().getName().equals(NAME.COMPLETE.toString())) {
-            return STUDY_STATE.ALL_DONE;
-        }
-
-        if (currentTaskIndex != 0) return STUDY_STATE.IN_PROGRESS;
-
-        // Pre Assessment, Session 1, and 'Complete' can be accessed immediately.
-        if (getCurrentSession().getName().equals(NAME.PRE.toString()) ||
-                getCurrentSession().getName().equals(NAME.SESSION1.toString()))
-            return STUDY_STATE.READY;
-
-        // If you are on the POST assessment, you need to wait 60 days after completing
-        // session8
-        if (getCurrentSession().getName().equals(NAME.POST.toString()) && daysSinceLastSession() < 60) {
-            return STUDY_STATE.WAIT_FOR_FOLLOWUP;
-        }
-
-        // Otherwise, you must wait at least one dacomply before starting the next
-        // session.
-        if (daysSinceLastSession() == 0 && lastSessionDate != null) return STUDY_STATE.WAIT_A_DAY;
-
-        // Otherwise it's time to start.
-        return STUDY_STATE.READY;
-    }
-
-
-    @Override
-    public String toString() {
-        return "CBMStudy{" +
-                "currentSession='" + currentSession + '\'' +
-                ", taskIndex=" + currentTaskIndex +
-                ", lastSessionDate=" + lastSessionDate +
-                ", taskLogs=" + taskLogs +
-                ", receiveGiftCards=" + receiveGiftCards +
-                '}';
-    }
 
 }

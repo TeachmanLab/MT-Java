@@ -22,6 +22,8 @@ import java.util.List;
 @DiscriminatorColumn(name="studyType")
 public abstract class BaseStudy implements Study {
 
+    private static final Session COMPLETE = new Session("COMPLETE", "Complete", 0, 2, new ArrayList<Task>());
+
     @Id
     @TableGenerator(name = "STUDY_GEN", table = "ID_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "STUDY_GEN")
@@ -44,6 +46,33 @@ public abstract class BaseStudy implements Study {
         this.taskLogs = new ArrayList<>();
         this.receiveGiftCards = receiveGiftCards;
     }
+
+    @Override
+    public List<Session> getSessions() {
+        List<Session> sessions = getStatelessSessions();
+        sessions.add(COMPLETE);
+        // Add state to the sessions
+        boolean complete = true;
+        for(Session s : sessions) {
+            if (s.getName().equals(currentSession)) {
+                s.setCurrent(true);
+                complete = false;
+            }
+            s.setComplete(complete);
+            setTaskStates(s.getName(), s.getTasks(), currentTaskIndex);
+        }
+
+        return sessions;
+    }
+
+
+    /**
+     * This should return a full list of sessions that define the study, but
+     * does not need to mark them correctly with regards to being completed,
+     * or inprogress.
+     * @return
+     */
+    public abstract List<Session> getStatelessSessions();
 
     @Override
     public Session nextGiftSession() {
@@ -84,8 +113,7 @@ public abstract class BaseStudy implements Study {
         // Log the completion of the task
         this.taskLogs.add(new TaskLog(this));
 
-        if (getState().equals(STUDY_STATE.WAIT_A_DAY) ||
-                getState().equals(STUDY_STATE.WAIT_FOR_FOLLOWUP)) {
+        if (getState().equals(STUDY_STATE.WAIT)){
             throw new WaitException();
         }
 
@@ -170,7 +198,7 @@ public abstract class BaseStudy implements Study {
         Session last = sessions.get(0);
 
         for(Session s: sessions) {
-            if (s.getName() == currentSession) break;
+            if (s.getName().equals(currentSession)) break;
             last = s;
         }
         return last;
@@ -181,7 +209,34 @@ public abstract class BaseStudy implements Study {
         this.currentSession = sessionName;
         this.currentTaskIndex = 0;
         this.lastSessionDate = null;
+    }
 
+    @Override
+    public STUDY_STATE getState() {
+
+        if (currentTaskIndex != 0) return STUDY_STATE.IN_PROGRESS;
+
+        if (this.currentSession.equals(COMPLETE.getName())) {
+            return STUDY_STATE.ALL_DONE;
+        }
+
+        if(daysSinceLastSession() < getCurrentSession().getDaysToWait()) {
+            return STUDY_STATE.WAIT;
+        }
+
+        return STUDY_STATE.READY;
+    }
+
+    @Override
+    public String toString() {
+        return "BaseStudy{" +
+                "id=" + id +
+                ", currentSession='" + currentSession + '\'' +
+                ", currentTaskIndex=" + currentTaskIndex +
+                ", lastSessionDate=" + lastSessionDate +
+                ", receiveGiftCards=" + receiveGiftCards +
+                ", taskLogs=" + taskLogs +
+                '}';
     }
 
 }

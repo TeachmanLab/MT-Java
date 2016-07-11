@@ -14,6 +14,8 @@ import java.util.List;
 
 /**
  * A barebones implementation of Study to aid in testing other structures.
+ * There are two sessions each with two tasks.  There is a 2 day wait before
+ * starting the second session.
  */
 @Entity
 @Data
@@ -32,24 +34,18 @@ public class TestStudy extends BaseStudy implements Study {
     }
 
     @Override
-    public List<Session> getSessions() {
+    public List<Session> getStatelessSessions() {
         List<Session> sessions = new ArrayList<>();
-        sessions.add(new Session(0, "SessionOne","Session One",false,false,0, testTasks(currentSession, currentTaskIndex)));
-        sessions.add(new Session(1, "SessionTwo","Session Two",false,false,0, testTasks(currentSession, currentTaskIndex)));
+        sessions.add(new Session("SessionOne","Session One", 0, 0, testTasks(currentSession, currentTaskIndex)));
+        sessions.add(new Session("SessionTwo","Session Two", 0, 2, testTasks(currentSession, currentTaskIndex)));
         return sessions;
     }
 
-    @Override
-    public STUDY_STATE getState() {
-        return STUDY_STATE.IN_PROGRESS;
-    }
 
     private List<Task> testTasks(String session, int taskIndex) {
-
         List<Task> tasks = new ArrayList<>();
         tasks.add(new Task("TestQuestionnaire", "Test Question", Task.TYPE.questions, 3));
         tasks.add(new Task("TestUndeleteable", "Test Undeleteable Question", Task.TYPE.questions, 3));
-        setTaskStates(session, tasks, taskIndex);
         return tasks;
     }
 

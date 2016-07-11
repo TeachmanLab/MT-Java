@@ -1,14 +1,13 @@
 package edu.virginia.psyc.r34.service;
 
-import edu.virginia.psyc.r34.MockClasses.TestStudy;
-import org.mindtrails.domain.Study;
-import org.mindtrails.domain.tracking.TaskLog;
 import edu.virginia.psyc.r34.domain.CBMStudy;
 import edu.virginia.psyc.r34.domain.PiParticipant;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.junit.Before;
 import org.junit.Test;
+import org.mindtrails.domain.Study;
+import org.mindtrails.domain.tracking.TaskLog;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,7 +32,7 @@ public class PiEmailServiceTest {
         participant = new PiParticipant();
         participant.setEmail("tester@test.com");
         participant.setFullName("Tester McTest");
-        participant.setStudy(new TestStudy());
+        participant.setStudy(new CBMStudy());
         service     = new PiEmailService();
     }
 

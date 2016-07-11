@@ -1,4 +1,4 @@
-package edu.virginia.psyc.r34.persistence.Questionnaire;
+package edu.virginia.psyc.templeton.persistence;
 
 import org.mindtrails.persistence.QuestionnaireRepository;
 
@@ -14,6 +14,6 @@ import org.mindtrails.persistence.QuestionnaireRepository;
  *    findOne(ID id) which returns the entity using the id given a parameter as a search criteria.
  *    save(T entity) which saves the entity given as a parameter.
  * Additional methods will be provided automatically by following a standard
- * naming convention, as is the case with findByEmailAddress
+ * naming convention, as is the case with findByParticipantDAO
  */
-public interface FollowUp_ChangeInTreatment_Repository extends QuestionnaireRepository<FollowUp_ChangeInTreatment> {}
+public interface MyWebFormRepository extends QuestionnaireRepository<MyWebForm> {}

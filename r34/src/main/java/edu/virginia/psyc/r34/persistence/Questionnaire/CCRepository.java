@@ -1,5 +1,7 @@
 package edu.virginia.psyc.r34.persistence.Questionnaire;
 
+import org.mindtrails.persistence.QuestionnaireRepository;
+
 /**
  * Created with IntelliJ IDEA.
  * User: dan

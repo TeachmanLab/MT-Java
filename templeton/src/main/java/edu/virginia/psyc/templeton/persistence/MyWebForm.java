@@ -1,4 +1,4 @@
-package edu.virginia.psyc.templeton;
+package edu.virginia.psyc.templeton.persistence;
 
 import org.mindtrails.domain.questionnaire.SecureQuestionnaireData;
 import lombok.Data;

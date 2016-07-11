@@ -45,6 +45,7 @@ public class GraphController {
         List<OA> oaList    = oaRepository.findByParticipant(p);
         List<List<Object>> points = new ArrayList();
         List<List<Object>> regressionPoints = new ArrayList();
+        CBMStudy study = (CBMStudy)p.getStudy();
 
         Collections.sort(oaList);
         SimpleRegression regression;
@@ -66,7 +67,7 @@ public class GraphController {
         List<Object> point;
         for(OA oa : oaList) {
             point = new ArrayList<>();
-            point.add(CBMStudy.calculateDisplayName(oa.getSession()));
+            point.add(study.getDisplayName(oa.getSession()));
             point.add(oa.score());
             points.add(point);
             if(oa.equals(original)) {

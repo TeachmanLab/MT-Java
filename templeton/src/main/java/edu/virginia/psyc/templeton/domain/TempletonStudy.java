@@ -37,13 +37,11 @@ public class TempletonStudy extends BaseStudy {
         Session session1, session2;
 
         session1 = new Session(0, "firstSession", "The First Session", 10);
-        session1.addTask(new Task("simpleFormOne","Basic Questions", Task.TYPE.questions, 1));
-        session1.addTask(new Task("simpleFormTwo","More Questions", Task.TYPE.questions, 2));
+        session1.addTask(new Task("MyWebForm","Web Form", Task.TYPE.questions, 1));
         sessions.add(session1);
 
         session2 = new Session(1, "secondSession", "The Second Session", 20);
-        session2.addTask(new Task("simpleFormTwo","More Questions", Task.TYPE.questions, 2));
-        session2.addTask(new Task("simpleFormOne","Basic Questions", Task.TYPE.questions, 1));
+        session1.addTask(new Task("MyWebForm","Web Form", Task.TYPE.questions, 1));
         sessions.add(session2);
 
         return sessions;
@@ -71,7 +69,7 @@ public class TempletonStudy extends BaseStudy {
 
     @Override
     public STUDY_STATE getState() {
+        // Otherwise it's time to start.
         return STUDY_STATE.IN_PROGRESS;
     }
-
 }

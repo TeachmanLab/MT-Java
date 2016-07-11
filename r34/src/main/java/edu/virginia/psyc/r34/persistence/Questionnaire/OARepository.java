@@ -2,6 +2,7 @@ package edu.virginia.psyc.r34.persistence.Questionnaire;
 
 
 import org.mindtrails.domain.Participant;
+import org.mindtrails.persistence.QuestionnaireRepository;
 
 import java.util.List;
 

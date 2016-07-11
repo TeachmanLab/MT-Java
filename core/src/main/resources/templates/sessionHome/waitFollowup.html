@@ -1,0 +1,9 @@
+<html>
+<body>
+    <h2>Great Job, <span th:text="${participant.fullName}">Jim</span>.<br/>You have completed the <span
+            th:text="${lastSession.displayName}"/>. </h2>
+    You have completed all the Sessions! We will email you in a few months, when it is time to complete the
+    follow up <span th:if="${participant.receiveGiftCards}">and get your bonus gift card</span>.
+</body>
+</html>
+
