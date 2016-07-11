@@ -23,7 +23,7 @@ public class TempletonStudy extends BaseStudy {
     // A Base Study has : currentSession, currentTaskIndex, lastSessionDate and receiveGiftCards
 
     public TempletonStudy() {
-        this.currentSession = "firstSession";
+        this.currentSession = "PreTest";
     }
 
     public TempletonStudy(String currentSession, int taskIndex, Date lastSessionDate, List<TaskLog> taskLogs, boolean receiveGiftCards) {
@@ -37,14 +37,19 @@ public class TempletonStudy extends BaseStudy {
     @Override
     public List<Session> getStatelessSessions() {
         List<Session> sessions = new ArrayList<>();
-        Session session1, session2;
+        Session pretest, session1, session2;
+
+        pretest = new Session ("PreTest", "Initial Assessment", 0);
+        pretest.addTask(new Task("Demographics","Demographics", Task.TYPE.questions, 1));
+        pretest.addTask(new Task("Optimism","Optimism", Task.TYPE.questions, 3));
+        sessions.add(pretest);
 
         session1 = new Session("firstSession", "The First Session", 0);
         session1.addTask(new Task("MyWebForm","Web Form", Task.TYPE.questions, 1));
         sessions.add(session1);
 
         session2 = new Session("secondSession", "The Second Session", 0);
-        session1.addTask(new Task("MyWebForm","Web Form", Task.TYPE.questions, 1));
+        session2.addTask(new Task("MyWebForm","Web Form", Task.TYPE.questions, 1));
         sessions.add(session2);
 
         return sessions;

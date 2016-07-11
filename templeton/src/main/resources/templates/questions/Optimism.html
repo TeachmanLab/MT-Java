@@ -1,0 +1,212 @@
+<html>
+<body>
+<form th:action="@{/questions/Optimism}" method="POST">
+
+    <h1> Instructions </h1>
+
+    <p> Please answer the following questions about yourself by indicating the extent
+        of your agreement using the scale below </p>
+
+    <p> In uncertain times, I usually expect the best </p>
+    <label> Strongly Disagree
+        <input type="radio" name="UncertainTimes" value = "0"/>
+    </label>
+    <label> Disagree
+         <input type="radio"  name="UncertainTimes" value = "1"/>
+    </label>
+    <label> Neutral
+        <input type="radio" name="UncertainTimes" value= "2"/>
+    </label>
+    <label> Agree
+        <input type="radio" name="UncertainTimes" value = "3"/>
+    </label>
+    <label> Strongly agree
+    <input type="radio"  name="UncertainTimes" value = "4"/>
+    </label>
+
+    <br/>
+    <br/>
+
+    <p> It's easy for me to relax </p>
+    <label > Strongly Disagree
+    <input type="radio"  name="EasyRelax" value = "0"/>
+    </label>
+    <label > Disagree
+    <input type="radio"  name="EasyRelax" value = "1"/>
+    </label>
+    <label > Neutral
+    <input type="radio" name="EasyRelax" value = "2"/>
+    </label>
+    <label> Agree
+    <input type="radio" name="EasyRelax" value = "3"/>
+    </label>
+    <label> Strongly Agree
+    <input type="radio" name="EasyRelax" value = "4"/>
+    </label>
+
+    <br/>
+    <br/>
+
+    <p> If something can go wrong with me, it will </p>
+    <label > Strongly Disagree
+        <input type="radio"  name="WrongWill" value = "0"/>
+    </label>
+    <label > Disagree
+        <input type="radio"  name="WrongWill" value = "1"/>
+    </label>
+    <label > Neutral
+        <input type="radio" name="WrongWill" value = "2"/>
+    </label>
+    <label> Agree
+        <input type="radio" name="WrongWill" value = "3"/>
+    </label>
+    <label> Strongly Agree
+        <input type="radio" name="WrongWill" value = "4"/>
+    </label>
+
+    <br/>
+    <br/>
+
+    <p> I'm always optimistic about my future </p>
+    <label > Strongly Disagree
+        <input type="radio"  name="AlwaysOptimistic" value = "0"/>
+    </label>
+    <label > Disagree
+        <input type="radio"  name="AlwaysOptimistic" value = "1"/>
+    </label>
+    <label > Neutral
+        <input type="radio" name="AlwaysOptimistic" value = "2"/>
+    </label>
+    <label> Agree
+        <input type="radio" name="AlwaysOptimistic" value = "3"/>
+    </label>
+    <label> Strongly Agree
+        <input type="radio" name="AlwaysOptimistic" value = "4"/>
+    </label>
+
+    <br/>
+    <br/>
+
+    <p> I enjoy my friends a lot </p>
+    <label > Strongly Disagree
+        <input type="radio"  name="EnjoyFriends" value = "0"/>
+    </label>
+    <label > Disagree
+        <input type="radio"  name="EnjoyFriends" value = "1"/>
+    </label>
+    <label > Neutral
+        <input type="radio" name="EnjoyFriends" value = "2"/>
+    </label>
+    <label> Agree
+        <input type="radio" name="EnjoyFriends" value = "3"/>
+    </label>
+    <label> Strongly Agree
+        <input type="radio" name="EnjoyFriends" value = "4"/>
+    </label>
+
+    <br/>
+    <br/>
+
+    <p> It's important for me to keep busy </p>
+    <label > Strongly Disagree
+        <input type="radio"  name="KeepBusy" value = "0"/>
+    </label>
+    <label > Disagree
+        <input type="radio"  name="KeepBusy" value = "1"/>
+    </label>
+    <label > Neutral
+        <input type="radio" name="KeepBusy" value = "2"/>
+    </label>
+    <label> Agree
+        <input type="radio" name="KeepBusy" value = "3"/>
+    </label>
+    <label> Strongly Agree
+        <input type="radio" name="KeepBusy" value = "4"/>
+    </label>
+
+
+    <br/>
+    <br/>
+
+    <p> I hardly ever expect things to go my way </p>
+    <label > Strongly Disagree
+        <input type="radio"  name="HardlyEvery" value = "0"/>
+    </label>
+    <label > Disagree
+        <input type="radio"  name="HardlyEvery" value = "1"/>
+    </label>
+    <label > Neutral
+        <input type="radio" name="HardlyEvery" value = "2"/>
+    </label>
+    <label> Agree
+        <input type="radio" name="HardlyEvery" value = "3"/>
+    </label>
+    <label> Strongly Agree
+        <input type="radio" name="HardlyEvery" value = "4"/>
+    </label>
+
+    <br/>
+
+    <p> I don't get upset too easily </p>
+    <label > Strongly Disagree
+        <input type="radio"  name="EasilyUpset" value = "0"/>
+    </label>
+    <label > Disagree
+        <input type="radio"  name="EasilyUpset" value = "1"/>
+    </label>
+    <label > Neutral
+        <input type="radio" name="EasilyUpset" value = "2"/>
+    </label>
+    <label> Agree
+        <input type="radio" name="EasilyUpset" value = "3"/>
+    </label>
+    <label> Strongly Agree
+        <input type="radio" name="EasilyUpset" value = "4"/>
+    </label>
+
+    <br/>
+    <br/>
+
+    <p> I rarely count on good things happening to me </p>
+    <label > Strongly Disagree
+        <input type="radio"  name="GoodThings" value = "0"/>
+    </label>
+    <label > Disagree
+        <input type="radio"  name="GoodThings" value = "1"/>
+    </label>
+    <label > Neutral
+        <input type="radio" name="GoodThings" value = "2"/>
+    </label>
+    <label> Agree
+        <input type="radio" name="GoodThings" value = "3"/>
+    </label>
+    <label> Strongly Agree
+        <input type="radio" name="GoodThings" value = "4"/>
+    </label>
+
+    <br/>
+    <br/>
+
+    <p> Overall, I expect more good things to happen to me than bad </p>
+    <label > Strongly Disagree
+        <input type="radio"  name="Overall" value = "0"/>
+    </label>
+    <label > Disagree
+        <input type="radio"  name="Overall" value = "1"/>
+    </label>
+    <label > Neutral
+        <input type="radio" name="Overall" value = "2"/>
+    </label>
+    <label> Agree
+        <input type="radio" name="Overall" value = "3"/>
+    </label>
+    <label> Strongly Agree
+        <input type="radio" name="Overall" value = "4"/>
+    </label>
+
+    <br/><br/>
+    <input type="submit"/>
+
+</form>
+</body>
+</html>
