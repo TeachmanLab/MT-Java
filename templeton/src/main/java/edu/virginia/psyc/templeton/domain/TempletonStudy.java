@@ -22,7 +22,9 @@ public class TempletonStudy extends BaseStudy {
 
     // A Base Study has : currentSession, currentTaskIndex, lastSessionDate and receiveGiftCards
 
-    public TempletonStudy() {}
+    public TempletonStudy() {
+        this.currentSession = "firstSession";
+    }
 
     public TempletonStudy(String currentSession, int taskIndex, Date lastSessionDate, List<TaskLog> taskLogs, boolean receiveGiftCards) {
         super(currentSession, taskIndex, lastSessionDate, taskLogs, receiveGiftCards);
@@ -32,44 +34,19 @@ public class TempletonStudy extends BaseStudy {
      * Returns the list of sessions and tasks that define the study.
      * @return
      */
-    public static List<Session> studyDefinition() {
+    @Override
+    public List<Session> getStatelessSessions() {
         List<Session> sessions = new ArrayList<>();
         Session session1, session2;
 
-        session1 = new Session(0, "firstSession", "The First Session", 10);
+        session1 = new Session("firstSession", "The First Session", 0);
         session1.addTask(new Task("MyWebForm","Web Form", Task.TYPE.questions, 1));
         sessions.add(session1);
 
-        session2 = new Session(1, "secondSession", "The Second Session", 20);
+        session2 = new Session("secondSession", "The Second Session", 0);
         session1.addTask(new Task("MyWebForm","Web Form", Task.TYPE.questions, 1));
         sessions.add(session2);
 
         return sessions;
-    }
-
-    @Override
-    public List<Session> getSessions() {
-        List<Session> sessions = studyDefinition();
-
-        boolean completed = true;
-        boolean current = false;
-
-        for(Session s : sessions) {
-            if(s.getName().equals(currentSession)) {
-                completed = false;
-                current = true;
-            }
-            s.setComplete(completed);
-            s.setCurrent(current);
-            setTaskStates(s.getName(), s.getTasks(), currentTaskIndex);
-            current = false;
-        }
-       return sessions;
-    }
-
-    @Override
-    public STUDY_STATE getState() {
-        // Otherwise it's time to start.
-        return STUDY_STATE.IN_PROGRESS;
     }
 }
