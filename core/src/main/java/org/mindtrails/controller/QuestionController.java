@@ -67,6 +67,10 @@ public class QuestionController {
         // It is possible that the Quesionnaire Data object will want to add some additional
         // parameters to the web form.
         try {
+            if(exportService.getDomainType(formName) == null) {
+                throw new RuntimeException("You are missing a model for storing data for the form " +
+                        "'" + formName + "'");
+            }
             QuestionnaireData data = (QuestionnaireData) exportService.getDomainType(formName).newInstance();
             model.addAllAttributes(data.modelAttributes(participant));
         } catch (InstantiationException e) {
