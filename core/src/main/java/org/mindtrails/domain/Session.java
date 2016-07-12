@@ -33,10 +33,11 @@ public class Session {
     public Session() {
     }
 
-    public Session(String name, String displayName, int giftAmount) {
+    public Session(String name, String displayName, int giftAmount, int daysToWait) {
         this.name = name;
         this.displayName = displayName;
         this.giftAmount = giftAmount;
+        this.daysToWait = daysToWait;
     }
 
     public Session(String name, String displayName, int giftAmount, int daysToWait, List<Task> tasks) {

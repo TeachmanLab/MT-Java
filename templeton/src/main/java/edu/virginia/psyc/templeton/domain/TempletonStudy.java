@@ -39,16 +39,16 @@ public class TempletonStudy extends BaseStudy {
         List<Session> sessions = new ArrayList<>();
         Session pretest, session1, session2;
 
-        pretest = new Session ("PreTest", "Initial Assessment", 0);
+        pretest = new Session ("PreTest", "Initial Assessment", 0, 0);
         pretest.addTask(new Task("Demographics","Demographics", Task.TYPE.questions, 1));
         pretest.addTask(new Task("Optimism","Optimism", Task.TYPE.questions, 3));
         sessions.add(pretest);
 
-        session1 = new Session("firstSession", "The First Session", 0);
+        session1 = new Session("firstSession", "The First Session", 0, 0);
         session1.addTask(new Task("MyWebForm","Web Form", Task.TYPE.questions, 1));
         sessions.add(session1);
 
-        session2 = new Session("secondSession", "The Second Session", 0);
+        session2 = new Session("secondSession", "The Second Session", 0, 0);
         session2.addTask(new Task("MyWebForm","Web Form", Task.TYPE.questions, 1));
         sessions.add(session2);
 
