@@ -28,10 +28,10 @@
 
                 <h1>Create Participant</h1>
 
+
+
                 <form action="#" th:action="@{'/admin/participant/'}" th:object="${participant}"
                       method="post">
-
-
                     <table>
                         <tr>
                             <td>Full Name:</td>
@@ -44,12 +44,12 @@
                             <td class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</td>
                         </tr>
                         <tr>
-                            <td>Password</td>
+                            <td>Password:</td>
                             <td><input type="password" id="password" name="password"  th:errorclass="error"/></td>
                             <td class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
                         </tr>
                         <tr>
-                            <td>Password</td>
+                            <td>Password (again):</td>
                             <td><input type="password" id="passwordAgain" name="passwordAgain"  th:errorclass="error"/></td>
                             <td class="error" th:if="${#fields.hasErrors('passwordAgain')}" th:errors="*{passwordAgain}">Password Error</td>
                         </tr>

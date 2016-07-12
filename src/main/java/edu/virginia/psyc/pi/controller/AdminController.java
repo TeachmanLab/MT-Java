@@ -1,7 +1,7 @@
 package edu.virginia.psyc.pi.controller;
 
 import edu.virginia.psyc.pi.domain.Participant;
-import edu.virginia.psyc.pi.domain.ParticipantCreateForm;
+import edu.virginia.psyc.pi.domain.ParticipantAdminCreateForm;
 import edu.virginia.psyc.pi.domain.ParticipantForm;
 import edu.virginia.psyc.pi.domain.tango.Account;
 import edu.virginia.psyc.pi.domain.tango.Order;
@@ -173,21 +173,20 @@ public class AdminController extends BaseController {
 
     @RequestMapping(value="/new_participant", method=RequestMethod.GET)
     public String showNewForm(ModelMap model) {
-        Participant p;
-        p = new Participant();
+        ParticipantAdminCreateForm form = new ParticipantAdminCreateForm();
         model.addAttribute("hideAccountBar", true);
-        model.addAttribute("participant", p);
+        model.addAttribute("participant", form);
         return "admin/new_participant";
     }
 
 
     @RequestMapping(value="/participant/", method=RequestMethod.POST)
     public String createParticipant(ModelMap model,
-                                       @Valid ParticipantCreateForm pForm,
-                                       BindingResult bindingResult) {
+                                    @ModelAttribute("participant") @Valid ParticipantAdminCreateForm pForm,
+                                    BindingResult bindingResult) {
 
-        ParticipantDAO dao;
         model.addAttribute("hideAccountBar", true);
+        model.addAttribute("participant", pForm);
 
         if(participantRepository.findByEmail(pForm.getEmail()) != null) {
             bindingResult.addError(new FieldError("Participant","email", "This email already exists."));
