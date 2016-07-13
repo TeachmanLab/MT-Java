@@ -11,6 +11,8 @@ import org.mindtrails.domain.tracking.TaskLog;
 import org.mindtrails.service.ParticipantService;
 import org.mindtrails.service.ParticipantServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
@@ -62,6 +64,18 @@ public class R34ParticipantService extends ParticipantServiceImpl implements Par
     public Participant findByEmail(String email) {
         return repository.findByEmail(email);
     }
+
+    @Override
+    public Participant findOne(long id) { return repository.findOne(id); };
+
+    @Override
+    public Page findAll(PageRequest pageRequest) {return repository.findAll(pageRequest);}
+
+    @Override
+    public Page search(String search, PageRequest pageRequest) {
+        return repository.search(search, pageRequest);
+    }
+
 
     @Override
     public void saveNew(Participant p, HttpSession session) {

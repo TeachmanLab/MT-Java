@@ -23,6 +23,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -192,6 +193,21 @@ public class PiEmailService implements EmailService {
         sendMail(participant, TYPE.giftCard, ctx);
     }
 
+    @Override
+    public void sendAtRiskAlertToAdmin(Participant participant, String details) {
+
+    }
+
+    @Override
+    public void sendEmail(Participant participant, String type) {
+
+    }
+
+    @Override
+    public Map<String, String> emailTypes() {
+        return null;
+    }
+
     public void sendSimpleMail(Participant participant, TYPE type) throws MessagingException {
         // Prepare the evaluation context
         LOG.info("SENDING MAIL: " + participant.getEmail() + "\t" + type + "\t" + participant.isEmailOptout());
@@ -306,6 +322,8 @@ public class PiEmailService implements EmailService {
 
         return type;
     }
+
+
 
 
 }

@@ -50,4 +50,8 @@ public class TestStudy extends BaseStudy implements Study {
     }
 
 
+    @Override
+    public String getName() {
+        return "Test Study";
+    }
 }

@@ -5,6 +5,8 @@ import edu.virginia.psyc.r34.domain.CBMStudy;
 import edu.virginia.psyc.r34.persistence.ParticipantExportDAO;
 import edu.virginia.psyc.r34.persistence.ParticipantExportRepository;
 import edu.virginia.psyc.r34.service.R34ParticipantService;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -79,6 +81,7 @@ public class ParticipantRepositoryTest {
         assertEquals(CBMStudy.NAME.SESSION5.toString(), pSaved.getStudy().getCurrentSession().getName());
 
         // Increment the current task.
+        p.getStudy().setLastSessionDate(DateTime.now().minus(Days.days(3)).toDate());
         p.getStudy().completeCurrentTask();
         assertEquals(1, p.getStudy().getCurrentTaskIndex());
         p.getStudy().completeCurrentTask();

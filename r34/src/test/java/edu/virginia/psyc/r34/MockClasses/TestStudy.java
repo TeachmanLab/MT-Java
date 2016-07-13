@@ -40,6 +40,11 @@ public class TestStudy extends BaseStudy implements Study {
     }
 
     @Override
+    public String getName() {
+        return "Test Study";
+    }
+
+    @Override
     public STUDY_STATE getState() {
         return STUDY_STATE.IN_PROGRESS;
     }

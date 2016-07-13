@@ -30,6 +30,11 @@ public class CBMStudy extends BaseStudy implements Study {
 
     private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(CBMStudy.class);
 
+    @Override
+    public String getName() {
+        return "CBM";
+    }
+
     public enum NAME {
         ELIGIBLE, PRE, SESSION1, SESSION2, SESSION3, SESSION4, SESSION5, SESSION6, SESSION7, SESSION8, POST
     }

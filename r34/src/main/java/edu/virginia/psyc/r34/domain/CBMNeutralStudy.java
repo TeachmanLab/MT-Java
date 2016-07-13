@@ -28,6 +28,11 @@ public class CBMNeutralStudy extends CBMStudy implements Study {
         super(currentName,taskIndex,lastSessionDate,taskLogs, awardGifts);
     }
 
+    @Override
+    public String getName() {
+        return "CBM Neutral";
+    }
+
     protected List<Task> getTasks(NAME name, int taskIndex) {
 
         List<Task> tasks = new ArrayList<Task>();
