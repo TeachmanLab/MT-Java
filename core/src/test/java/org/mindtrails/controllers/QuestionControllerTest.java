@@ -51,9 +51,6 @@ public class QuestionControllerTest extends BaseControllerTest {
     @Autowired
     private QuestionController questionController;
 
-    @Autowired
-    WebApplicationContext wac;
-
     @Override
     public Object[] getControllers() {
         return(new Object[]{questionController});

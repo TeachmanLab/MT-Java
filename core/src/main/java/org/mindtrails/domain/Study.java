@@ -10,6 +10,8 @@ public interface Study {
 
     public enum STUDY_STATE {READY, IN_PROGRESS, WAIT, ALL_DONE}
 
+    public String getName(); // A human readable descriptive name for this Study.
+
     public List<Session> getSessions();  // Returns all sessions, including the participants progress.
 
     public Session getLastSession(); // returns the last completed session .

@@ -51,6 +51,9 @@ public abstract class BaseControllerTest {
 
     protected Participant participant;
 
+    protected Participant admin;
+
+
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
@@ -68,14 +71,20 @@ public abstract class BaseControllerTest {
      */
     public abstract Object[] getControllers();
 
-    @Before
-    public void veryifyParticipant() {
-        participant = participantService.findByEmail("test@test.com");
-        if(participant == null) participant = new Participant("John", "test@test.com", false);
-        participant.setStudy(new TestStudy());
-        participantService.save(participant);
+    public Participant createParticipant(String name, String email, boolean admin) {
+        Participant p;
+        p = participantService.findByEmail(email);
+        if(p == null) p = new Participant(name, email, admin);
+        p.setStudy(new TestStudy());
+        participantService.save(p);
+        return p;
     }
 
+    @Before
+    public void establishParticipants() {
+        participant = createParticipant("john", "test@test.com", false);
+        admin = createParticipant("J McAdmin", "admin@test.com", true);
+    }
 
 
 

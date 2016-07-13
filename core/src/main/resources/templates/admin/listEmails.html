@@ -1,0 +1,12 @@
+<html>
+<body>
+
+<h1>Emails</h1>
+<p>Here are the major reminder emails sent by the system.  Clicking on any of these
+will cause the reminder email to be sent to your email address: <span th:text="${participant.email}"> dan@sartography.com</span></p>
+<ul th:each="email : ${emails}">
+  <li><a th:href="${email.key}" th:text="${email.value}"/></li>
+</ul>
+
+</body>
+</html>

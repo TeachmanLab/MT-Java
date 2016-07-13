@@ -1,0 +1,52 @@
+<html>
+<body>
+
+
+<!-- content starts
+================================================== -->
+
+
+<section id="content" class="clearfix">
+    <div class="container">
+
+
+        <!--spacer here-->
+        <div class="spacer-30px"></div>
+
+
+
+                <h1>Tango Account Information</h1>
+                <table style="width:100%">
+                    <tr>
+                        <td>Tango Identifier:</td>
+                        <td th:text="${tango.identifier}"> blablabla </td>
+                    </tr>
+                    <tr>
+                        <td>Tango Account:</td>
+                        <td th:text="${tango.customer}"> whatever </td>
+                    </tr>
+                    <tr>
+                        <td>Tango Email:</td>
+                        <td th:text="${tango.email}"> soandso </td>
+                    </tr>
+                    <tr>
+                        <td>Tango Account Balance:</td>
+                        <td th:text="${tango.available_balance}"> 0 </td>
+                    </tr>
+                </table>
+
+
+
+        <!--divider here-->
+        <div class="spacer-40px"></div>
+
+        <!--spacer here-->
+        <div class="spacer-30px"></div>
+
+    </div>
+
+    </section>
+
+
+</body>
+</html>

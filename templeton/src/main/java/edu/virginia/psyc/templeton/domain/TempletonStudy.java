@@ -22,6 +22,9 @@ public class TempletonStudy extends BaseStudy {
 
     // A Base Study has : currentSession, currentTaskIndex, lastSessionDate and receiveGiftCards
 
+    @Override
+    public String getName() {return "Templeton";}
+
     public TempletonStudy() {
         this.currentSession = "PreTest";
     }
