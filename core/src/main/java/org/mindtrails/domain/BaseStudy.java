@@ -22,7 +22,8 @@ import java.util.List;
 @DiscriminatorColumn(name="studyType")
 public abstract class BaseStudy implements Study {
 
-    private static final Session COMPLETE = new Session("COMPLETE", "Complete", 0, 2, new ArrayList<Task>());
+    private static final Session NOT_STARTED  = new Session("NOT_STARTED", "Not Started", 0, 0, new ArrayList<Task>());
+    private static final Session COMPLETE     = new Session("COMPLETE", "Complete", 0, 2, new ArrayList<Task>());
 
     @Id
     @TableGenerator(name = "STUDY_GEN", table = "ID_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 1)
@@ -191,11 +192,14 @@ public abstract class BaseStudy implements Study {
         }
     }
 
+    /**
+     * May return null if there is no previous session.
+     */
     @Override
     public Session getLastSession() {
 
         List<Session> sessions = getSessions();
-        Session last = sessions.get(0);
+        Session last = NOT_STARTED;
 
         for(Session s: sessions) {
             if (s.getName().equals(currentSession)) break;

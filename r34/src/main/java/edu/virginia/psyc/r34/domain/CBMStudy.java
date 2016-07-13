@@ -36,7 +36,7 @@ public class CBMStudy extends BaseStudy implements Study {
     }
 
     public enum NAME {
-        ELIGIBLE, PRE, SESSION1, SESSION2, SESSION3, SESSION4, SESSION5, SESSION6, SESSION7, SESSION8, POST
+        PRE, SESSION1, SESSION2, SESSION3, SESSION4, SESSION5, SESSION6, SESSION7, SESSION8, POST
     }
 
     public CBMStudy() {}
@@ -49,7 +49,6 @@ public class CBMStudy extends BaseStudy implements Study {
     public List<Session> getStatelessSessions() {
         List<Session> sessions = new ArrayList<Session>();
 
-        sessions.add(new Session(NAME.ELIGIBLE.toString(), "Eligible", 0, 0, getTasks(NAME.ELIGIBLE)));
         sessions.add(new Session(NAME.PRE.toString(), "Initial Assessment", 500, 0, getTasks(NAME.PRE)));
         sessions.add(new Session(NAME.SESSION1.toString(), "Day 1 Training", 0, 0, getTasks(NAME.SESSION1)));
         sessions.add(new Session(NAME.SESSION2.toString(), "Day 2 Training", 0, 2, getTasks(NAME.SESSION2)));
@@ -63,9 +62,8 @@ public class CBMStudy extends BaseStudy implements Study {
 
         // Little messyness here, add an index value to each session as this is used to set the image to
         // display in some of the templates for the r34 study.
-        int i = -1;
+        int i = 0;
         for(Session s: sessions) { s.setIndex(i); i++; }
-
         return sessions;
     }
 

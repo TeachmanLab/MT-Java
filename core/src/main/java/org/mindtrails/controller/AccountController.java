@@ -125,7 +125,7 @@ public class AccountController {
         p.setTheme(theme);
         participantService.save(p);
         model.addAttribute("participant", p);
-        return "redirect:/session/next";
+        return "redirect:/session";
     }
 
     @RequestMapping("exitStudy")

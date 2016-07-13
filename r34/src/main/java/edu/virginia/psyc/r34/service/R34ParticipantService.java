@@ -48,9 +48,9 @@ public class R34ParticipantService extends ParticipantServiceImpl implements Par
         p.setPrime(PRIME_VALUES.get(RANDOM.nextInt(PRIME_VALUES.size())));
 
         if(p.getCbmCondition() == PiParticipant.CBM_CONDITION.NEUTRAL) {
-           p.setStudy(new CBMNeutralStudy(CBMStudy.NAME.ELIGIBLE.toString(), 0, null, new ArrayList<TaskLog>(), this.receiveGiftCards()));
+           p.setStudy(new CBMNeutralStudy(CBMStudy.NAME.PRE.toString(), 0, null, new ArrayList<TaskLog>(), this.receiveGiftCards()));
         } else {
-            p.setStudy(new CBMStudy(CBMStudy.NAME.ELIGIBLE.toString(), 0, null, new ArrayList<TaskLog>(), this.receiveGiftCards()));
+            p.setStudy(new CBMStudy(CBMStudy.NAME.PRE.toString(), 0, null, new ArrayList<TaskLog>(), this.receiveGiftCards()));
         }
         return p;
     }
@@ -87,7 +87,7 @@ public class R34ParticipantService extends ParticipantServiceImpl implements Par
         List<DASS21_AS> forms = dass21_asRepository.findBySessionId(session.getId());
         for(DASS21_AS dass21_as: forms) {
             dass21_as.setParticipant(p);
-            dass21_as.setSession(CBMStudy.NAME.ELIGIBLE.toString());
+            dass21_as.setSession("ELIGIBLE");
             dass21_asRepository.save(dass21_as);
         }
     }

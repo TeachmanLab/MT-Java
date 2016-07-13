@@ -5,8 +5,7 @@ import org.joda.time.Days;
 import org.junit.Test;
 import org.mindtrails.MockClasses.TestStudy;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Created by dan on 7/8/16.
@@ -55,6 +54,14 @@ public class BaseStudyTest {
         assertEquals(Study.STUDY_STATE.ALL_DONE, s.getState());
     }
 
+    @Test
+    public void testLastSessionIsNOT_STARTEDIfThereIsnotOne() {
+        Study s = new TestStudy();
+        assertEquals("NOT_STARTED", s.getLastSession().getName());
+        Session one = s.getCurrentSession();
+        s.forceToSession("SessionTwo");
+        assertEquals("SessionOne", s.getLastSession().getName());
+    }
 
 
 }
