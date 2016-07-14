@@ -1,7 +1,7 @@
 package edu.virginia.psyc.r34.DAO;
 
 import edu.virginia.psyc.r34.Application;
-import edu.virginia.psyc.r34.domain.CBMStudy;
+import edu.virginia.psyc.r34.domain.R34Study;
 import edu.virginia.psyc.r34.persistence.ParticipantExportDAO;
 import edu.virginia.psyc.r34.persistence.ParticipantExportRepository;
 import edu.virginia.psyc.r34.service.R34ParticipantService;
@@ -58,7 +58,7 @@ public class ParticipantRepositoryTest {
         p = participantService.create();
         p.setEmail(email);
         p.setFullName("John");
-        study = new CBMStudy(CBMStudy.NAME.PRE.toString(), 0, new Date(), new ArrayList<>(), true);
+        study = new R34Study(R34Study.NAME.PRE.toString(), 0, new Date(), new ArrayList<>(), true);
         p.setStudy(study);
 
         // Save that participant
@@ -67,10 +67,10 @@ public class ParticipantRepositoryTest {
         pSaved = participantService.findByEmail(email);
 
         // Assure that the participant's current session is pre
-        assertEquals(CBMStudy.NAME.PRE.toString(), pSaved.getStudy().getCurrentSession().getName());
+        assertEquals(R34Study.NAME.PRE.toString(), pSaved.getStudy().getCurrentSession().getName());
 
         // Change the participant's session.
-        pSaved.getStudy().forceToSession(CBMStudy.NAME.SESSION5.toString());
+        pSaved.getStudy().forceToSession(R34Study.NAME.SESSION5.toString());
 
         // Get that participant back.
         participantService.save(pSaved);
@@ -78,7 +78,7 @@ public class ParticipantRepositoryTest {
         pSaved = participantService.findByEmail(email);
 
         // Assure that the participant's current session is set to 5
-        assertEquals(CBMStudy.NAME.SESSION5.toString(), pSaved.getStudy().getCurrentSession().getName());
+        assertEquals(R34Study.NAME.SESSION5.toString(), pSaved.getStudy().getCurrentSession().getName());
 
         // Increment the current task.
         p.getStudy().setLastSessionDate(DateTime.now().minus(Days.days(3)).toDate());
@@ -88,17 +88,17 @@ public class ParticipantRepositoryTest {
         p.getStudy().completeCurrentTask();
         p.getStudy().completeCurrentTask();
         assertEquals(0, p.getStudy().getCurrentTaskIndex());
-        assertEquals(CBMStudy.NAME.SESSION6.toString(), p.getStudy().getCurrentSession().getName());
+        assertEquals(R34Study.NAME.SESSION6.toString(), p.getStudy().getCurrentSession().getName());
 
         // Change the participant's session back to Session1.
-        p.getStudy().forceToSession(CBMStudy.NAME.SESSION1.toString());
+        p.getStudy().forceToSession(R34Study.NAME.SESSION1.toString());
         participantService.save(p);
         participantService.flush();
         pSaved = participantService.findByEmail(email);
 
-        assertEquals(CBMStudy.NAME.SESSION1.toString(), pSaved.getStudy().getCurrentSession().getName());
+        assertEquals(R34Study.NAME.SESSION1.toString(), pSaved.getStudy().getCurrentSession().getName());
         pSaved.getStudy().completeCurrentTask();
-        assertEquals(CBMStudy.NAME.SESSION1.toString(), pSaved.getStudy().getCurrentSession().getName());
+        assertEquals(R34Study.NAME.SESSION1.toString(), pSaved.getStudy().getCurrentSession().getName());
 
     }
 

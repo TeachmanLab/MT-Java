@@ -5,7 +5,7 @@ import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.Study;
 import org.mindtrails.persistence.ParticipantRepository;
 import org.mindtrails.service.EmailService;
-import edu.virginia.psyc.r34.domain.CBMStudy;
+import edu.virginia.psyc.r34.domain.R34Study;
 import org.mindtrails.domain.tango.Reward;
 import edu.virginia.psyc.r34.persistence.Questionnaire.OA;
 import org.slf4j.Logger;
@@ -273,7 +273,7 @@ public class PiEmailService implements EmailService {
         Study s = p.getStudy();
 
         // Remind people between sessions until they complete session 8.
-        if (!s.completed(CBMStudy.NAME.SESSION8.toString())) {
+        if (!s.completed(R34Study.NAME.SESSION8.toString())) {
            switch (days) {
                 case 1: // noop;
                     break;
@@ -300,7 +300,7 @@ public class PiEmailService implements EmailService {
 
         // Follow up emails should only be send if session 8 was completed, and
         // the POST Session was not yet completed.
-        if (s.completed(CBMStudy.NAME.SESSION8.toString()) && !s.completed(CBMStudy.NAME.POST.toString())) {
+        if (s.completed(R34Study.NAME.SESSION8.toString()) && !s.completed(R34Study.NAME.POST.toString())) {
             switch (days) {
                 case 60:
                     type = TYPE.followup;

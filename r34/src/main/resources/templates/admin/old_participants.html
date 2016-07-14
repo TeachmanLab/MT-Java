@@ -74,7 +74,7 @@
                         <td th:text="*{participants[__${status.index}__].email}">daniel.h.funk@gmail.com</td>
                         <td>
                             <select th:field="*{sessionNames[__${status.index}__]}">
-                                <option th:each="elem: ${T(edu.virginia.psyc.r34.domain.CBMStudy.NAME).values()}" th:value="${elem.name()}" th:text="${elem.name()}" value="BAZ" width="20">BAZ</option>
+                                <option th:each="elem: ${T(edu.virginia.psyc.r34.domain.R34Study.NAME).values()}" th:value="${elem.name()}" th:text="${elem.name()}" value="BAZ" width="20">BAZ</option>
                             </select>
                         </td>
                         <td><input type="checkbox"  th:field="*{participants[__${status.index}__].emailOptout}" /></td>
@@ -84,12 +84,12 @@
                         <td><img th:if="*{participants[__${status.index}__].increase50}" th:src="@{images/alert.png}"/></td>
                         <td>
                             <select th:field="*{participants[__${status.index}__].prime}" >
-                                <option th:each="elem: ${T(edu.virginia.psyc.r34.domain.PiParticipant.PRIME).values()}" th:value="${elem.name()}" th:text="${elem.name()}" value="BAZ">BAZ</option>
+                                <option th:each="elem: ${T(edu.virginia.psyc.r34.domain.R34Participant.PRIME).values()}" th:value="${elem.name()}" th:text="${elem.name()}" value="BAZ">BAZ</option>
                             </select>
                         </td>
                         <td>
-                            <select th:field="*{participants[__${status.index}__].cbmCondition}" >
-                                <option th:each="elem: ${T(edu.virginia.psyc.r34.domain.PiParticipant.CBM_CONDITION).values()}" th:value="${elem.name()}" th:text="${elem.name()}" value="BAZ">BAZ</option>
+                            <select th:field="*{participants[__${status.index}__].condition}" >
+                                <option th:each="elem: ${T(edu.virginia.psyc.r34.domain.R34Participant.CBM_CONDITION).values()}" th:value="${elem.name()}" th:text="${elem.name()}" value="BAZ">BAZ</option>
                             </select>
                         </td>
                         <td>

@@ -26,9 +26,9 @@ import java.util.List;
 @Table(name = "study")
 @Data
 @DiscriminatorValue("CBM")
-public class CBMStudy extends BaseStudy implements Study {
+public class R34Study extends BaseStudy implements Study {
 
-    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(CBMStudy.class);
+    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(R34Study.class);
 
     @Override
     public String getName() {
@@ -39,9 +39,9 @@ public class CBMStudy extends BaseStudy implements Study {
         PRE, SESSION1, SESSION2, SESSION3, SESSION4, SESSION5, SESSION6, SESSION7, SESSION8, POST
     }
 
-    public CBMStudy() {}
+    public R34Study() {}
 
-    public CBMStudy(String currentSession, int taskIndex, Date lastSessionDate, List<TaskLog> taskLogs, boolean receiveGiftCards) {
+    public R34Study(String currentSession, int taskIndex, Date lastSessionDate, List<TaskLog> taskLogs, boolean receiveGiftCards) {
         super(currentSession, taskIndex, lastSessionDate, taskLogs, receiveGiftCards);
     }
 

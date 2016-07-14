@@ -85,11 +85,11 @@
                         <tr>
                             <td>CDM Condition:</td>
                             <td>
-                                <select name="cbmCondition" th:field="*{cbmCondition}">
+                                <select name="condition" th:field="*{condition}">
                                 <option th:each="elem: ${T(edu.virginia.psyc.r34.domain.PiParticipant.CBM_CONDITION).values()}" th:value="${elem.name()}" th:text="${elem.name()}" value="BAZ">BAZ</option>
                             </select>
                             </td>
-                            <td class="error"  th:if="${#fields.hasErrors('cbmCondition')}" th:errors="*{cbmCondition}">Admin Error</td>
+                            <td class="error"  th:if="${#fields.hasErrors('condition')}" th:errors="*{condition}">Admin Error</td>
                         </tr>
     -->
 

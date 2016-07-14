@@ -15,12 +15,12 @@ import javax.persistence.Table;
 @Data
 public class R34Participant extends Participant {
 
-    public enum CBM_CONDITION {FIFTY_FIFTY, POSITIVE, NEUTRAL}
+    public enum CONDITION {FIFTY_FIFTY, POSITIVE, NEUTRAL}
     public enum PRIME {NEUTRAL, ANXIETY}
 
     private boolean        increase30 = false;
     private boolean        increase50 = false;
-    private CBM_CONDITION  cbmCondition;
+    private CONDITION      condition;
     private PRIME          prime;
     protected String       riskSession;  // The session that saw an increase in risk factor.
 
@@ -30,9 +30,9 @@ public class R34Participant extends Participant {
      * post assessment period.
      */
     public boolean inSession() {
-        return (!this.getStudy().getCurrentSession().getName().equals(CBMStudy.NAME.PRE.toString()) &&
-                !this.getStudy().getCurrentSession().getName().equals(CBMStudy.NAME.POST.toString()) &&
-                !this.getStudy().getCurrentSession().getName().equals(CBMStudy.NAME.SESSION1.toString()));
+        return (!this.getStudy().getCurrentSession().getName().equals(R34Study.NAME.PRE.toString()) &&
+                !this.getStudy().getCurrentSession().getName().equals(R34Study.NAME.POST.toString()) &&
+                !this.getStudy().getCurrentSession().getName().equals(R34Study.NAME.SESSION1.toString()));
     }
 
 }

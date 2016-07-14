@@ -38,7 +38,7 @@ public class ConditionController {
                 participant = piParticipantRepository.findOne(p.getId());
                 participant.setActive(p.isActive());
                 participant.setPrime(p.getPrime());
-                participant.setCbmCondition(p.getCbmCondition());
+                participant.setCondition(p.getCondition());
                 // Only if the session was change in the ui, update the session
                 // current session for the participant, and reset their progress.
                 // set the last session date to null so they don't get a timeout

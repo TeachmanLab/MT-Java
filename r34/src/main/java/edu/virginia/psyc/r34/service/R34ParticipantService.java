@@ -1,7 +1,7 @@
 package edu.virginia.psyc.r34.service;
 
-import edu.virginia.psyc.r34.domain.CBMNeutralStudy;
-import edu.virginia.psyc.r34.domain.CBMStudy;
+import edu.virginia.psyc.r34.domain.R34NeutralStudy;
+import edu.virginia.psyc.r34.domain.R34Study;
 import edu.virginia.psyc.r34.domain.R34Participant;
 import edu.virginia.psyc.r34.persistence.PiParticipantRepository;
 import edu.virginia.psyc.r34.persistence.Questionnaire.DASS21_AS;
@@ -33,8 +33,8 @@ public class R34ParticipantService extends ParticipantServiceImpl implements Par
     @Autowired
     DASS21_ASRepository dass21_asRepository;
 
-    List<R34Participant.CBM_CONDITION> CONDITION_VALUES =
-            Collections.unmodifiableList(Arrays.asList(R34Participant.CBM_CONDITION.values()));
+    List<R34Participant.CONDITION> CONDITION_VALUES =
+            Collections.unmodifiableList(Arrays.asList(R34Participant.CONDITION.values()));
     List<R34Participant.PRIME> PRIME_VALUES =
             Collections.unmodifiableList(Arrays.asList(R34Participant.PRIME.values()));
 
@@ -44,13 +44,13 @@ public class R34ParticipantService extends ParticipantServiceImpl implements Par
         R34Participant p = new R34Participant();
 
         // Set the randome condition and prime.
-        p.setCbmCondition(CONDITION_VALUES.get(RANDOM.nextInt(CONDITION_VALUES.size())));
+        p.setCondition(CONDITION_VALUES.get(RANDOM.nextInt(CONDITION_VALUES.size())));
         p.setPrime(PRIME_VALUES.get(RANDOM.nextInt(PRIME_VALUES.size())));
 
-        if(p.getCbmCondition() == R34Participant.CBM_CONDITION.NEUTRAL) {
-           p.setStudy(new CBMNeutralStudy(CBMStudy.NAME.PRE.toString(), 0, null, new ArrayList<TaskLog>(), this.receiveGiftCards()));
+        if(p.getCondition() == R34Participant.CONDITION.NEUTRAL) {
+           p.setStudy(new R34NeutralStudy(R34Study.NAME.PRE.toString(), 0, null, new ArrayList<TaskLog>(), this.receiveGiftCards()));
         } else {
-            p.setStudy(new CBMStudy(CBMStudy.NAME.PRE.toString(), 0, null, new ArrayList<TaskLog>(), this.receiveGiftCards()));
+            p.setStudy(new R34Study(R34Study.NAME.PRE.toString(), 0, null, new ArrayList<TaskLog>(), this.receiveGiftCards()));
         }
         return p;
     }

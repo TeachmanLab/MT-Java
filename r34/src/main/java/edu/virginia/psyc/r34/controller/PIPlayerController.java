@@ -55,7 +55,7 @@ public class PIPlayerController {
         // The Neutral condition requires a completely different file.
         LOG.debug("The Script name: " + scriptName + "!=" +  "RecognitionRatings?" + (scriptName != "RecognitionRatings"));
 
-        if(p.getCbmCondition().equals(R34Participant.CBM_CONDITION.NEUTRAL) &&
+        if(p.getCondition().equals(R34Participant.CONDITION.NEUTRAL) &&
                 !scriptName.equals("RecognitionRatings")) {
             scriptName = scriptName + "NT";
         }
@@ -63,7 +63,7 @@ public class PIPlayerController {
         model.addAttribute("script", scriptName);
         model.addAttribute("sessionName", p.getStudy().getCurrentSession().getName());
         model.addAttribute("participantId", p.getId());
-        model.addAttribute("cbmCondition", p.getCbmCondition().toString());
+        model.addAttribute("condition", p.getCondition().toString());
         return "PIPlayer";
     }
 

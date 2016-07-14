@@ -20,11 +20,11 @@ import java.util.List;
 @Table(name = "study")
 @Data
 @DiscriminatorValue("CBM Neutral")
-public class CBMNeutralStudy extends CBMStudy implements Study {
+public class R34NeutralStudy extends R34Study implements Study {
 
-    public CBMNeutralStudy() {}
+    public R34NeutralStudy() {}
 
-    public CBMNeutralStudy(String currentName, int taskIndex, Date lastSessionDate, List<TaskLog> taskLogs, boolean awardGifts) {
+    public R34NeutralStudy(String currentName, int taskIndex, Date lastSessionDate, List<TaskLog> taskLogs, boolean awardGifts) {
         super(currentName,taskIndex,lastSessionDate,taskLogs, awardGifts);
     }
 

@@ -4,7 +4,7 @@ import org.mindtrails.domain.Session;
 import org.mindtrails.domain.Study;
 import org.mindtrails.domain.Task;
 import org.mindtrails.domain.tracking.TaskLog;
-import edu.virginia.psyc.r34.domain.CBMStudy;
+import edu.virginia.psyc.r34.domain.R34Study;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.junit.Before;
@@ -26,29 +26,29 @@ import static org.junit.Assert.assertTrue;
  * Time: 6:58 AM
  * Checks that we can create a List of Session objects that will work correctly in the view layer.
  */
-public class CBMStudyTest {
+public class R34StudyTest {
 
-    private CBMStudy study;
+    private R34Study study;
     private List<Session> sessionList;
 
     @Before
     public void setup() {
-        study = new CBMStudy(CBMStudy.NAME.SESSION1.toString(), 0, new Date(), new ArrayList<TaskLog>(), true);
+        study = new R34Study(R34Study.NAME.SESSION1.toString(), 0, new Date(), new ArrayList<TaskLog>(), true);
         sessionList = study.getSessions();
     }
 
     @Test
     public void testCreateSessionListView() {
 
-        CBMStudy study;
+        R34Study study;
         List<Session> sessionList;
 
-        study = new CBMStudy(CBMStudy.NAME.SESSION1.toString(), 0, new Date(), new ArrayList<TaskLog>(), true);
+        study = new R34Study(R34Study.NAME.SESSION1.toString(), 0, new Date(), new ArrayList<TaskLog>(), true);
         sessionList = study.getSessions();
 
         assertEquals(11, sessionList.size());
-        assertEquals("incorrect order.", CBMStudy.NAME.PRE.toString(), sessionList.get(0).getName());
-        assertEquals("incorrect order.", CBMStudy.NAME.POST.toString(), sessionList.get(9).getName());
+        assertEquals("incorrect order.", R34Study.NAME.PRE.toString(), sessionList.get(0).getName());
+        assertEquals("incorrect order.", R34Study.NAME.POST.toString(), sessionList.get(9).getName());
 
         // Complete is marked appropriately.
         assertTrue(sessionList.get(0).isComplete());
@@ -76,7 +76,7 @@ public class CBMStudyTest {
 
         List<Task> tasks;
 
-        study = new CBMStudy(CBMStudy.NAME.PRE.toString(), 1, new Date(), new ArrayList<TaskLog>(), true);
+        study = new R34Study(R34Study.NAME.PRE.toString(), 1, new Date(), new ArrayList<TaskLog>(), true);
         tasks = study.getCurrentSession().getTasks();
 
         assertNotNull(tasks);
@@ -99,19 +99,19 @@ public class CBMStudyTest {
     @Test
     public void testCompleteCurrentTask() {
 
-        study = new CBMStudy(CBMStudy.NAME.PRE.toString(), 0, null, new ArrayList<TaskLog>(), true);
+        study = new R34Study(R34Study.NAME.PRE.toString(), 0, null, new ArrayList<TaskLog>(), true);
 
-        assertEquals(CBMStudy.NAME.PRE.toString(), study.getCurrentSession().getName());
+        assertEquals(R34Study.NAME.PRE.toString(), study.getCurrentSession().getName());
         assertEquals("Credibility", study.getCurrentSession().getCurrentTask().getName());
 
         study.completeCurrentTask();
 
-        assertEquals(CBMStudy.NAME.PRE.toString(), study.getCurrentSession().getName());
+        assertEquals(R34Study.NAME.PRE.toString(), study.getCurrentSession().getName());
         assertEquals("Demographic", study.getCurrentSession().getCurrentTask().getName());
 
         study.completeCurrentTask();
 
-        assertEquals(CBMStudy.NAME.PRE.toString(), study.getCurrentSession().getName());
+        assertEquals(R34Study.NAME.PRE.toString(), study.getCurrentSession().getName());
         assertEquals("MentalHealthHxTx", study.getCurrentSession().getCurrentTask().getName());
 
         assertNull(study.getLastSessionDate());
@@ -120,7 +120,7 @@ public class CBMStudyTest {
         for(int i =0; i<9; i++) {
             study.completeCurrentTask();
         }
-        assertEquals(CBMStudy.NAME.SESSION1.toString(), study.getCurrentSession().getName());
+        assertEquals(R34Study.NAME.SESSION1.toString(), study.getCurrentSession().getName());
         assertNotNull("The last session date should get updated when completing a session.", study.getLastSessionDate());
 
         assertEquals("Task index is set to 0 when a completing a session.", 0, study.getCurrentTaskIndex());
@@ -130,7 +130,7 @@ public class CBMStudyTest {
     @Test
     public void testSessionState() {
 
-        study = new CBMStudy(CBMStudy.NAME.PRE.toString(), 0, new Date(), new ArrayList<TaskLog>(), true);
+        study = new R34Study(R34Study.NAME.PRE.toString(), 0, new Date(), new ArrayList<TaskLog>(), true);
 
         // By default the session state should be ready
         assertEquals(Study.STUDY_STATE.READY, study.getState());

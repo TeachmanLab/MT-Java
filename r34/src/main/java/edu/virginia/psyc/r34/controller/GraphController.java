@@ -1,6 +1,6 @@
 package edu.virginia.psyc.r34.controller;
 
-import edu.virginia.psyc.r34.domain.CBMStudy;
+import edu.virginia.psyc.r34.domain.R34Study;
 import edu.virginia.psyc.r34.persistence.Questionnaire.OA;
 import edu.virginia.psyc.r34.persistence.Questionnaire.OARepository;
 import org.apache.commons.math3.stat.regression.SimpleRegression;
@@ -45,7 +45,7 @@ public class GraphController {
         List<OA> oaList    = oaRepository.findByParticipant(p);
         List<List<Object>> points = new ArrayList();
         List<List<Object>> regressionPoints = new ArrayList();
-        CBMStudy study = (CBMStudy)p.getStudy();
+        R34Study study = (R34Study)p.getStudy();
 
         Collections.sort(oaList);
         SimpleRegression regression;
