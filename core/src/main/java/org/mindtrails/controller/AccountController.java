@@ -1,8 +1,8 @@
 package org.mindtrails.controller;
 
 import org.mindtrails.domain.Participant;
-import org.mindtrails.domain.forms.ParticipantForm;
-import org.mindtrails.domain.forms.ParticipantUpdateForm;
+import org.mindtrails.domain.forms.ParticipantCreate;
+import org.mindtrails.domain.forms.ParticipantUpdate;
 import org.mindtrails.domain.recaptcha.RecaptchaFormValidator;
 import org.mindtrails.service.ParticipantService;
 import org.slf4j.Logger;
@@ -59,7 +59,7 @@ public class AccountController {
 
     @RequestMapping(value="create", method = RequestMethod.GET)
     public String createForm (ModelMap model, Principal principal) {
-        model.addAttribute("participantForm", new ParticipantForm());
+        model.addAttribute("participantForm", new ParticipantCreate());
         model.addAttribute("visiting", true);
         model.addAttribute("recaptchaSiteKey", recaptchaSiteKey);
         return "account/create";
@@ -67,14 +67,14 @@ public class AccountController {
 
     @RequestMapping(value="create", method = RequestMethod.POST)
     public String createNewParticipant(ModelMap model,
-                                       @ModelAttribute("participantForm") @Valid ParticipantForm participantForm,
+                                       @ModelAttribute("participantForm") @Valid ParticipantCreate participantCreate,
                                        final BindingResult bindingResult,
                                        HttpSession session
     ) {
 
         Participant participant;
 
-        if(!participantForm.validParticipant(bindingResult, participantService)) {
+        if(!participantCreate.validParticipant(bindingResult, participantService)) {
             LOG.error("Invalid participant:" + bindingResult.getAllErrors());
             model.addAttribute("visiting", true);
             model.addAttribute("recaptchaSiteKey", recaptchaSiteKey);
@@ -82,14 +82,7 @@ public class AccountController {
         }
 
         participant = participantService.create();
-        participant.setFullName(participantForm.getFullName());
-        participant.setEmail(participantForm.getEmail());
-        participant.setAdmin(participantForm.isAdmin());
-
-        participant.updatePassword(participantForm.getPassword());
-        if(participantForm.getTheme()!=null)
-            participant.setTheme(participantForm.getTheme());
-        participant.setOver18(participantForm.isOver18());
+        participantCreate.updateParticipant(participant);
         participant.setLastLoginDate(new Date());
 
         // Be sure to call saveNew rather than save, allowing
@@ -98,7 +91,7 @@ public class AccountController {
         participantService.saveNew(participant, session);
 
         // Log this new person in.
-        Authentication auth = new UsernamePasswordAuthenticationToken( participantForm.getEmail(), participantForm.getPassword());
+        Authentication auth = new UsernamePasswordAuthenticationToken( participantCreate.getEmail(), participantCreate.getPassword());
         SecurityContextHolder.getContext().setAuthentication(auth);
 
         LOG.info("Participant authenticated.");
@@ -146,13 +139,10 @@ public class AccountController {
 
     @RequestMapping(value="update", method = RequestMethod.POST)
     public String update(ModelMap model, Principal principal,
-                         @Valid ParticipantUpdateForm form) {
+                         @Valid ParticipantUpdate form) {
 
             Participant p = participantService.get(principal);
-            p.setEmail(form.getEmail());
-            p.setFullName(form.getFullName());
-            p.setEmailOptout(form.isEmailOptout());
-            p.setTheme(form.getTheme());
+            form.updateParticipant(p);
             participantService.save(p);
             model.addAttribute("updated", true);
             model.addAttribute("participant", p);
@@ -182,8 +172,8 @@ public class AccountController {
             errors.add("Passwords do not match.");
         }
 
-        if(!ParticipantForm.validPassword(password)) {
-            errors.add(ParticipantForm.PASSWORD_MESSAGE);
+        if(!ParticipantCreate.validPassword(password)) {
+            errors.add(ParticipantCreate.PASSWORD_MESSAGE);
         }
 
         if(errors.size() > 0) {

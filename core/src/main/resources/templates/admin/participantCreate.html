@@ -12,7 +12,6 @@
 <body>
 <section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
 
-
 <!-- content starts
 ================================================== -->
 <section id="content" class="clearfix">
@@ -28,13 +27,13 @@
 
                 <h1>Create Participant</h1>
 
-                <form action="#" th:action="@{'/admin/participant/'}" th:object="${participant}"
+                <form action="#" th:action="@{'/admin/participant/'}" th:object="${participantCreateAdmin}"
                       method="post">
 
 
                     <table>
                         <tr>
-                            <td>Full Name:</td>
+                            <td>Nick Name:</td>
                             <td><input type="text" th:field="*{fullName}" /></td>
                             <td class="error" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">Name Error</td>
                         </tr>
@@ -69,6 +68,12 @@
                             <td  class="error" th:if="${#fields.hasErrors('admin')}" th:errors="*{admin}">Admin Error</td>
                         </tr>
                         <tr>
+                            <td>Is Over 18:</td>
+                            <td><input type="checkbox" th:field="*{over18}"/></td>
+                            <td  class="error" th:if="${#fields.hasErrors('over18')}" th:errors="*{over18}">Admin Error</td>
+                        </tr>
+    <!--
+                        <tr>
                             <td>Prime:</td>
                             <td>
                                 <select name="prime" th:field="*{prime}">
@@ -86,35 +91,18 @@
                             </td>
                             <td class="error"  th:if="${#fields.hasErrors('cbmCondition')}" th:errors="*{cbmCondition}">Admin Error</td>
                         </tr>
+    -->
 
                     </table>
                     <button type="submit">Submit</button>
                 </form>
-
             </div>
         </div>
 
-                <!--divider here-->
-                <div class="spacer-40px"></div>
-
-                <!--spacer here-->
-                <div class="spacer-30px"></div>
 
             </div>
 </section>
 
-
-<!-- footer starts
-================================================== -->
-<footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
-
-<!-- copyright starts
-================================================== -->
-<section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
-
-<!--Javascript
-================================================== -->
-<div th:include="fragment/common :: scripts"/>
 
 </body>
 </html>

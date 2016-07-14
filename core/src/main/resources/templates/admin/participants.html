@@ -1,6 +1,19 @@
-<html>
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="fragment/common :: headerFragment"/>
 <body>
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
 
+<section id="content" class="clearfix">
+    <div class="container sessionSection">
         <h1>Participants</h1>
 
         <div class="row">
@@ -15,7 +28,7 @@
                 <p>Found <span th:text="${paging.totalElements}"> 100</span> participants. Showing page <span
                         th:text="${paging.number + 1}">1</span> of <span
                         th:text="${paging.totalPages}">10</span><br/>
-                    <a th:href="@{/admin/new_participant}">New Participant / Admin</a>
+                    <a th:href="@{/admin/participant/}">New Participant / Admin</a>
                 </p>
             </div>
         </div>
@@ -71,7 +84,8 @@
 
         <!--spacer here-->
         <div class="spacer-30px"></div>
-
+</div>
+    </section>
 
 </body>
 </html>

@@ -46,23 +46,22 @@ public class CBMStudyTest {
         study = new CBMStudy(CBMStudy.NAME.SESSION1.toString(), 0, new Date(), new ArrayList<TaskLog>(), true);
         sessionList = study.getSessions();
 
-        assertEquals(12, sessionList.size());
-        assertEquals("incorrect order.", CBMStudy.NAME.ELIGIBLE.toString(), sessionList.get(0).getName());
-        assertEquals("incorrect order.", CBMStudy.NAME.PRE.toString(), sessionList.get(1).getName());
-        assertEquals("incorrect order.", CBMStudy.NAME.POST.toString(), sessionList.get(10).getName());
+        assertEquals(11, sessionList.size());
+        assertEquals("incorrect order.", CBMStudy.NAME.PRE.toString(), sessionList.get(0).getName());
+        assertEquals("incorrect order.", CBMStudy.NAME.POST.toString(), sessionList.get(9).getName());
 
         // Complete is marked appropriately.
         assertTrue(sessionList.get(0).isComplete());
-        assertTrue(sessionList.get(1).isComplete());
+        assertFalse(sessionList.get(1).isComplete());
         assertFalse(sessionList.get(2).isComplete());
         assertFalse(sessionList.get(3).isComplete());
         assertFalse(sessionList.get(4).isComplete());
         assertFalse(sessionList.get(5).isComplete());
 
         // current is correctly identified and set.
-        assertTrue(sessionList.get(2).isCurrent());
+        assertTrue(sessionList.get(1).isCurrent());
         assertFalse(sessionList.get(0).isCurrent());
-        assertFalse(sessionList.get(1).isCurrent());
+        assertFalse(sessionList.get(2).isCurrent());
         assertFalse(sessionList.get(3).isCurrent());
         assertFalse(sessionList.get(4).isCurrent());
         assertFalse(sessionList.get(5).isCurrent());

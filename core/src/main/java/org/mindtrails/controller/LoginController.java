@@ -2,7 +2,7 @@ package org.mindtrails.controller;
 
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.PasswordToken;
-import org.mindtrails.domain.forms.ParticipantForm;
+import org.mindtrails.domain.forms.ParticipantCreate;
 import org.mindtrails.persistence.ParticipantRepository;
 import org.mindtrails.service.EmailService;
 import org.slf4j.Logger;
@@ -140,8 +140,8 @@ public class LoginController {
         if (!password.equals(passwordAgain)) {
             errors.add("Passwords do not match.");
         }
-        if(!ParticipantForm.validPassword(password)) {
-            errors.add(ParticipantForm.PASSWORD_MESSAGE);
+        if(!ParticipantCreate.validPassword(password)) {
+            errors.add(ParticipantCreate.PASSWORD_MESSAGE);
         }
 
         if(errors.size() > 0) {

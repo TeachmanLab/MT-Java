@@ -1,7 +1,9 @@
 package org.mindtrails.controller;
 
 import org.mindtrails.domain.Participant;
-import org.mindtrails.domain.forms.ParticipantListForm;
+import org.mindtrails.domain.forms.ParticipantCreate;
+import org.mindtrails.domain.forms.ParticipantCreateAdmin;
+import org.mindtrails.domain.forms.ParticipantUpdateAdmin;
 import org.mindtrails.domain.tango.Account;
 import org.mindtrails.domain.tango.Order;
 import org.mindtrails.domain.tango.Reward;
@@ -17,11 +19,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.security.Principal;
 
 /**
@@ -60,25 +65,15 @@ public class AdminController {
                             final @RequestParam(value = "search", required = false, defaultValue = "") String search,
                             final @RequestParam(value = "page", required = false, defaultValue = "0") String pageParam) {
 
-        Participant p = participantService.get(principal);
-
-        ParticipantListForm form;
         Page<Participant> daoList;
         PageRequest pageRequest;
 
         int page = Integer.parseInt(pageParam);
-
         pageRequest = new PageRequest(page, PER_PAGE);
-
         if(search.isEmpty()) {
             daoList = participantService.findAll(pageRequest);
         } else {
             daoList = participantService.search(search, pageRequest);
-        }
-
-        form = new ParticipantListForm();
-        for(Participant participant : daoList) {
-            form.add(participant.getStudy().getCurrentSession().getName());
         }
 
         model.addAttribute("visiting", true);
@@ -87,6 +82,71 @@ public class AdminController {
         model.addAttribute("paging", daoList);
         return "admin/participants";
     }
+
+    @RequestMapping(value="/participant/{id}", method=RequestMethod.GET)
+    public String participantUpdateForm(ModelMap model,
+                           @PathVariable("id") long id) {
+        Participant p;
+        ParticipantUpdateAdmin form;
+        p    = participantService.findOne(id);
+        form = new ParticipantUpdateAdmin(p);
+
+        model.addAttribute("hideAccountBar", true);
+        model.addAttribute("participantUpdateAdmin", form);
+        model.addAttribute("participant", p);
+
+        return "admin/participantUpdate";
+    }
+
+    @RequestMapping(value="/participant/{id}", method=RequestMethod.POST)
+    public String updateParticipant(ModelMap model,
+                                       @PathVariable("id") long id,
+                                       @Valid ParticipantUpdateAdmin form,
+                                       BindingResult bindingResult) {
+        Participant p;
+        p = participantService.findOne(id);
+        if(bindingResult.hasErrors()) {
+            model.addAttribute("hideAccountBar", true);
+            model.addAttribute("participantAdminForm", form);
+            model.addAttribute("participant", p);
+            return "admin/participantUpdate";
+        } else {
+            form.updateParticipant(p);
+            participantService.save(p);
+            return "redirect:/admin";
+        }
+    }
+
+    @RequestMapping(value="/participant/", method=RequestMethod.GET)
+    public String participantCreateForm(ModelMap model) {
+
+        ParticipantCreate form = new ParticipantCreate();
+
+        model.addAttribute("visiting", true);
+        model.addAttribute("participantCreateAdmin", form);
+        return "admin/participantCreate";
+    }
+
+    @RequestMapping(value="/participant/", method=RequestMethod.POST)
+    public String createParticipant(ModelMap model,
+                                    @Valid ParticipantCreateAdmin participantCreateAdmin,
+                                    BindingResult bindingResult,
+                                    HttpSession session) {
+        Participant participant;
+        model.addAttribute("visiting", true);
+
+        if(!participantCreateAdmin.validParticipant(bindingResult, participantService)) {
+            model.addAttribute("participantCreateAdmin", participantCreateAdmin);
+            return "admin/participantCreate";
+        }
+
+        participant = participantService.create();
+        participant = participantCreateAdmin.updateParticipant(participant);
+        participantService.save(participant);
+        LOG.info("Participant created.");
+        return "redirect:/admin";
+    }
+
 
     @RequestMapping(value="/listEmails", method=RequestMethod.GET)
     public String listEmails(ModelMap model, Principal principal) {

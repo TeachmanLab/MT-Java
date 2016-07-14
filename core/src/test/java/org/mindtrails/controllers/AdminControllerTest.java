@@ -2,17 +2,14 @@ package org.mindtrails.controllers;
 
 import org.junit.Test;
 import org.mindtrails.controller.AdminController;
+import org.mindtrails.domain.Participant;
 import org.mindtrails.service.ParticipantService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.http.MediaType;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
-import org.springframework.test.web.servlet.MvcResult;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -26,7 +23,7 @@ public class AdminControllerTest extends BaseControllerTest {
 
     @Override
     public Object[] getControllers() {
-        return(new Object[]{adminController});
+        return (new Object[]{adminController});
     }
 
     @Test
@@ -86,5 +83,40 @@ public class AdminControllerTest extends BaseControllerTest {
                 .andExpect(status().isOk());
     }
 
+    @Test
+    public void editParticipant() throws Exception {
+        Participant p = createParticipant("John Doe", "john@doe.com", false);
+
+        mockMvc.perform(get("/admin/participant/" + p.getId())
+                .with(SecurityMockMvcRequestPostProcessors.user(admin)))
+                .andExpect(model().attributeExists("participant"))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(post("/admin/participant/" + p.getId())
+                .with(SecurityMockMvcRequestPostProcessors.user(admin))
+                .param("fullName", "John Q. Doe")
+                .param("email", "new@email.com"));
+
+        Participant p2 = participantService.findOne(p.getId());
+        assertEquals("John Q. Doe", p2.getFullName());
+        assertEquals("new@email.com", p2.getEmail());
+
+    }
+
+    @Test
+    public void createParticipant() throws Exception {
+        mockMvc.perform(get("/admin/participant/")
+                .with(SecurityMockMvcRequestPostProcessors.user(admin)))
+                .andExpect(model().attributeExists("participantCreateAdmin"))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(post("/admin/participant/")
+                .with(SecurityMockMvcRequestPostProcessors.user(admin))
+                .param("fullName", "John Q. Doe")
+                .param("email", "a_new_admin@test.com")
+                .param("password", "1234!@#Abc")
+                .param("passwordAgain", "1234!@$Abc"));
+
+    }
 
 }
