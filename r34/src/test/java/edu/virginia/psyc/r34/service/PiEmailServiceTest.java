@@ -1,7 +1,7 @@
 package edu.virginia.psyc.r34.service;
 
 import edu.virginia.psyc.r34.domain.CBMStudy;
-import edu.virginia.psyc.r34.domain.PiParticipant;
+import edu.virginia.psyc.r34.domain.R34Participant;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.junit.Before;
@@ -24,12 +24,12 @@ import static junit.framework.Assert.assertNull;
  */
 public class PiEmailServiceTest {
 
-    PiParticipant participant;
+    R34Participant participant;
     PiEmailService service;
 
     @Before
     public void setup() {
-        participant = new PiParticipant();
+        participant = new R34Participant();
         participant.setEmail("tester@test.com");
         participant.setFullName("Tester McTest");
         participant.setStudy(new CBMStudy());

@@ -1,7 +1,7 @@
 package edu.virginia.psyc.r34.controller;
 
 import org.mindtrails.controller.QuestionController;
-import edu.virginia.psyc.r34.domain.PiParticipant;
+import edu.virginia.psyc.r34.domain.R34Participant;
 import edu.virginia.psyc.r34.persistence.PiParticipantRepository;
 import edu.virginia.psyc.r34.persistence.Questionnaire.OA;
 import edu.virginia.psyc.r34.persistence.Questionnaire.OARepository;
@@ -51,7 +51,7 @@ public class OAController extends QuestionController {
      */
     @RequestMapping(method = RequestMethod.GET)
     public String showOA(ModelMap model, Principal principal) {
-        PiParticipant p = piParticipantRepository.findByEmail(principal.getName());
+        R34Participant p = piParticipantRepository.findByEmail(principal.getName());
         model.addAttribute("inSessions", p.inSession());
         return showForm(model,principal,"OA");
     }
@@ -70,7 +70,7 @@ public class OAController extends QuestionController {
         List<OA> previous = oaRepository.findByParticipant(oa.getParticipant());
         OA firstEntry = Collections.min(previous);
 
-        PiParticipant participant = piParticipantRepository.findByEmail(principal.getName());
+        R34Participant participant = piParticipantRepository.findByEmail(principal.getName());
         if(oa.atRisk(firstEntry)) {
             if(!participant.isIncrease50()) { // alert admin the first time.
                 emailService.sendAtRiskAdminEmail(participant, firstEntry, oa);

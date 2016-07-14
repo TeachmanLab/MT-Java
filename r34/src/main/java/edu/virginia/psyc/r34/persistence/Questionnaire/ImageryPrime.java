@@ -3,7 +3,7 @@ package edu.virginia.psyc.r34.persistence.Questionnaire;
 import edu.virginia.psyc.r34.domain.CBMStudy;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.questionnaire.SecureQuestionnaireData;
-import edu.virginia.psyc.r34.domain.PiParticipant;
+import edu.virginia.psyc.r34.domain.R34Participant;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -27,11 +27,11 @@ public class ImageryPrime extends SecureQuestionnaireData {
 
     @Override
     public Map<String,Object> modelAttributes(Participant p) {
-        PiParticipant participant;
+        R34Participant participant;
         Map<String,Object> attributes = new HashMap<>();
 
-        if(p instanceof PiParticipant) {
-            participant = (PiParticipant)p;
+        if(p instanceof R34Participant) {
+            participant = (R34Participant)p;
             boolean notFirst = p.getStudy().getCurrentSession().getName() != CBMStudy.NAME.SESSION1.toString();
 
             attributes.put("notFirst", notFirst);

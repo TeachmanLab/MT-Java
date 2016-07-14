@@ -2,7 +2,7 @@ package edu.virginia.psyc.r34.service;
 
 import edu.virginia.psyc.r34.Application;
 import edu.virginia.psyc.r34.domain.CBMNeutralStudy;
-import edu.virginia.psyc.r34.domain.PiParticipant;
+import edu.virginia.psyc.r34.domain.R34Participant;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class R34ParticipantServiceTest {
     @Test
     public void testNewParticipantGetsRandomCBMCondition() {
 
-        PiParticipant p;
+        R34Participant p;
         boolean is50 = false;
         boolean isPos = false;
         boolean isNeutral = false;
@@ -37,9 +37,9 @@ public class R34ParticipantServiceTest {
 
         for(int i = 0; i< 100; i++)  {
             p = service.create();
-            if(p.getCbmCondition().equals(PiParticipant.CBM_CONDITION.FIFTY_FIFTY)) is50 = true;
-            if(p.getCbmCondition().equals(PiParticipant.CBM_CONDITION.POSITIVE)) isPos = true;
-            if(p.getCbmCondition().equals(PiParticipant.CBM_CONDITION.NEUTRAL)) isNeutral = true;
+            if(p.getCbmCondition().equals(R34Participant.CBM_CONDITION.FIFTY_FIFTY)) is50 = true;
+            if(p.getCbmCondition().equals(R34Participant.CBM_CONDITION.POSITIVE)) isPos = true;
+            if(p.getCbmCondition().equals(R34Participant.CBM_CONDITION.NEUTRAL)) isNeutral = true;
         }
 
         assertTrue("after 100 iterations, 50/50 should have occurred at least once", is50);
@@ -51,7 +51,7 @@ public class R34ParticipantServiceTest {
     @Test
     public void testNewParticipantGetsRandomPrime() {
 
-        PiParticipant p;
+        R34Participant p;
         boolean isAnxious = false;
         boolean isNeutral = false;
 
@@ -61,8 +61,8 @@ public class R34ParticipantServiceTest {
 
         for(int i = 0; i< 100; i++)  {
             p = service.create();
-            if(p.getPrime().equals(PiParticipant.PRIME.ANXIETY)) isAnxious = true;
-            if(p.getPrime().equals(PiParticipant.PRIME.NEUTRAL)) isNeutral = true;
+            if(p.getPrime().equals(R34Participant.PRIME.ANXIETY)) isAnxious = true;
+            if(p.getPrime().equals(R34Participant.PRIME.NEUTRAL)) isNeutral = true;
         }
 
         assertTrue("after 100 iterations, ANXIETY should have occurred at least once", isAnxious);
@@ -73,12 +73,12 @@ public class R34ParticipantServiceTest {
     @Test
     public void testNeutralParticipantInNeutralStudy() {
 
-        PiParticipant p;
+        R34Participant p;
         boolean isNeutral = false;
 
         for(int i = 0; i< 100; i++)  {
             p = service.create();
-            if(p.getCbmCondition().equals(PiParticipant.CBM_CONDITION.NEUTRAL)) {
+            if(p.getCbmCondition().equals(R34Participant.CBM_CONDITION.NEUTRAL)) {
                 isNeutral = true;
                 assertTrue(p.getStudy() instanceof CBMNeutralStudy);
             }

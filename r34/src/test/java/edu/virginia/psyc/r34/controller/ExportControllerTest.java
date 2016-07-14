@@ -10,7 +10,7 @@ import org.mindtrails.domain.questionnaire.SecureQuestionnaireData;
 import org.mindtrails.service.ParticipantService;
 import edu.virginia.psyc.r34.Application;
 import edu.virginia.psyc.r34.MockClasses.*;
-import edu.virginia.psyc.r34.domain.PiParticipant;
+import edu.virginia.psyc.r34.domain.R34Participant;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -77,7 +77,7 @@ public class ExportControllerTest extends BaseControllerTest {
 
     @Autowired
     private ParticipantService participantService;
-    private PiParticipant participant;
+    private R34Participant participant;
 
 
     @Rule
@@ -105,8 +105,8 @@ public class ExportControllerTest extends BaseControllerTest {
 
     @Before
     public void veryifyParticipant() {
-        participant = (PiParticipant)participantService.findByEmail("test@test.com");
-        if(participant == null) participant = new PiParticipant();
+        participant = (R34Participant)participantService.findByEmail("test@test.com");
+        if(participant == null) participant = new R34Participant();
         participant.setEmail("test@test.com");
         participant.setFullName("McTesty Tester-Mister");
         participant.setStudy(new TestStudy());

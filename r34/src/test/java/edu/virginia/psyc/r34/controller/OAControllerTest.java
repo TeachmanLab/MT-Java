@@ -3,7 +3,7 @@ package edu.virginia.psyc.r34.controller;
 import org.mindtrails.service.ParticipantService;
 import edu.virginia.psyc.r34.Application;
 import edu.virginia.psyc.r34.MockClasses.TestStudy;
-import edu.virginia.psyc.r34.domain.PiParticipant;
+import edu.virginia.psyc.r34.domain.R34Participant;
 import edu.virginia.psyc.r34.persistence.Questionnaire.OARepository;
 import org.junit.After;
 import org.junit.Before;
@@ -57,7 +57,7 @@ public class OAControllerTest extends BaseControllerTest {
 
     @Autowired
     private ParticipantService participantService;
-    private PiParticipant participant;
+    private R34Participant participant;
 
 
     @Before
@@ -72,8 +72,8 @@ public class OAControllerTest extends BaseControllerTest {
 
     @Before
     public void veryifyParticipant() {
-        participant = (PiParticipant)participantService.findByEmail("test@test.com");
-        if(participant == null) participant = new PiParticipant();
+        participant = (R34Participant)participantService.findByEmail("test@test.com");
+        if(participant == null) participant = new R34Participant();
         participant.setEmail("test@test.com");
         participant.setFullName("Tester McTestFace");
         participant.setStudy(new TestStudy());

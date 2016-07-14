@@ -3,7 +3,7 @@ package edu.virginia.psyc.r34.controller;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.RestExceptions.WrongFormException;
 import org.mindtrails.persistence.ParticipantRepository;
-import edu.virginia.psyc.r34.domain.PiParticipant;
+import edu.virginia.psyc.r34.domain.R34Participant;
 import edu.virginia.psyc.r34.persistence.PiParticipantRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,12 +50,12 @@ public class PIPlayerController {
     @RequestMapping(value="{scriptName}", method=RequestMethod.GET)
     public String showPlayer(ModelMap model, Principal principal, @PathVariable String scriptName) {
 
-        PiParticipant p = piParticipantRepository.findByEmail(principal.getName());
+        R34Participant p = piParticipantRepository.findByEmail(principal.getName());
 
         // The Neutral condition requires a completely different file.
         LOG.debug("The Script name: " + scriptName + "!=" +  "RecognitionRatings?" + (scriptName != "RecognitionRatings"));
 
-        if(p.getCbmCondition().equals(PiParticipant.CBM_CONDITION.NEUTRAL) &&
+        if(p.getCbmCondition().equals(R34Participant.CBM_CONDITION.NEUTRAL) &&
                 !scriptName.equals("RecognitionRatings")) {
             scriptName = scriptName + "NT";
         }

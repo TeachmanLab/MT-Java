@@ -2,7 +2,7 @@ package edu.virginia.psyc.r34.controller;
 
 import org.mindtrails.domain.Participant;
 import edu.virginia.psyc.r34.domain.Dass21FromPi;
-import edu.virginia.psyc.r34.domain.PiParticipant;
+import edu.virginia.psyc.r34.domain.R34Participant;
 import edu.virginia.psyc.r34.persistence.Questionnaire.DASS21_AS;
 import edu.virginia.psyc.r34.persistence.Questionnaire.DASS21_ASRepository;
 import org.slf4j.Logger;
@@ -42,7 +42,7 @@ public class EligibleController {
     public String showEligibility(ModelMap model) {
         // Template will set a difference form action if this variable is set to true.
         model.addAttribute("eligibility",true);
-        PiParticipant p = new PiParticipant();
+        R34Participant p = new R34Participant();
         p.setTheme("blue");
         model.addAttribute("participant",p);
 

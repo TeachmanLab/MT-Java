@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.mindtrails.domain.DoNotDelete;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.questionnaire.SecureQuestionnaireData;
-import edu.virginia.psyc.r34.domain.PiParticipant;
+import edu.virginia.psyc.r34.domain.R34Participant;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.slf4j.Logger;
@@ -104,9 +104,9 @@ public class OA extends SecureQuestionnaireData implements Comparable<OA> {
     @Override
     public Map<String,Object> modelAttributes(Participant p) {
         Map<String, Object> attributes = new HashMap<>();
-        PiParticipant piP;
-        if (p instanceof PiParticipant) {
-            piP = (PiParticipant)p;
+        R34Participant piP;
+        if (p instanceof R34Participant) {
+            piP = (R34Participant)p;
             attributes.put("inSessions", piP.inSession());
         } else {
             attributes.put("inSessions", false);

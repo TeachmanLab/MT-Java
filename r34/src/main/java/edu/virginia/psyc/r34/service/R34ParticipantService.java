@@ -2,7 +2,7 @@ package edu.virginia.psyc.r34.service;
 
 import edu.virginia.psyc.r34.domain.CBMNeutralStudy;
 import edu.virginia.psyc.r34.domain.CBMStudy;
-import edu.virginia.psyc.r34.domain.PiParticipant;
+import edu.virginia.psyc.r34.domain.R34Participant;
 import edu.virginia.psyc.r34.persistence.PiParticipantRepository;
 import edu.virginia.psyc.r34.persistence.Questionnaire.DASS21_AS;
 import edu.virginia.psyc.r34.persistence.Questionnaire.DASS21_ASRepository;
@@ -33,21 +33,21 @@ public class R34ParticipantService extends ParticipantServiceImpl implements Par
     @Autowired
     DASS21_ASRepository dass21_asRepository;
 
-    List<PiParticipant.CBM_CONDITION> CONDITION_VALUES =
-            Collections.unmodifiableList(Arrays.asList(PiParticipant.CBM_CONDITION.values()));
-    List<PiParticipant.PRIME> PRIME_VALUES =
-            Collections.unmodifiableList(Arrays.asList(PiParticipant.PRIME.values()));
+    List<R34Participant.CBM_CONDITION> CONDITION_VALUES =
+            Collections.unmodifiableList(Arrays.asList(R34Participant.CBM_CONDITION.values()));
+    List<R34Participant.PRIME> PRIME_VALUES =
+            Collections.unmodifiableList(Arrays.asList(R34Participant.PRIME.values()));
 
 
     @Override
-    public PiParticipant create() {
-        PiParticipant p = new PiParticipant();
+    public R34Participant create() {
+        R34Participant p = new R34Participant();
 
         // Set the randome condition and prime.
         p.setCbmCondition(CONDITION_VALUES.get(RANDOM.nextInt(CONDITION_VALUES.size())));
         p.setPrime(PRIME_VALUES.get(RANDOM.nextInt(PRIME_VALUES.size())));
 
-        if(p.getCbmCondition() == PiParticipant.CBM_CONDITION.NEUTRAL) {
+        if(p.getCbmCondition() == R34Participant.CBM_CONDITION.NEUTRAL) {
            p.setStudy(new CBMNeutralStudy(CBMStudy.NAME.PRE.toString(), 0, null, new ArrayList<TaskLog>(), this.receiveGiftCards()));
         } else {
             p.setStudy(new CBMStudy(CBMStudy.NAME.PRE.toString(), 0, null, new ArrayList<TaskLog>(), this.receiveGiftCards()));
@@ -94,8 +94,8 @@ public class R34ParticipantService extends ParticipantServiceImpl implements Par
 
     @Override
     public void save(Participant p) {
-        if(p instanceof PiParticipant) {
-            repository.save((PiParticipant)p);
+        if(p instanceof R34Participant) {
+            repository.save((R34Participant)p);
         } else {
             throw new IllegalArgumentException("Participant must be a r34 participant.");
         }

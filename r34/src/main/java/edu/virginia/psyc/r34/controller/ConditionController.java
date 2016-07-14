@@ -1,6 +1,6 @@
 package edu.virginia.psyc.r34.controller;
 
-import edu.virginia.psyc.r34.domain.PiParticipant;
+import edu.virginia.psyc.r34.domain.R34Participant;
 import edu.virginia.psyc.r34.domain.forms.PiParticipantListForm;
 import edu.virginia.psyc.r34.persistence.PiParticipantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,15 +25,15 @@ public class ConditionController {
     public String updateParticipants(ModelMap model,
                                      @ModelAttribute("participants") PiParticipantListForm participantForm) {
 
-        List<PiParticipant> participants = participantForm.getParticipants();
+        List<R34Participant> participants = participantForm.getParticipants();
         List<String> sessions = participantForm.getSessionNames();
         int     index;
-        PiParticipant participant;
+        R34Participant participant;
 
         // We only want to update a very limited set of fields on the participant
         // data model.
         if(null != participants && participants.size() > 0) {
-            for (PiParticipant p : participants) {
+            for (R34Participant p : participants) {
                 index = participants.indexOf(p);
                 participant = piParticipantRepository.findOne(p.getId());
                 participant.setActive(p.isActive());

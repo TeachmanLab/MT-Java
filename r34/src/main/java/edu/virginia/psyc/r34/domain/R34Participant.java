@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "participant")
 @Data
-public class PiParticipant extends Participant {
+public class R34Participant extends Participant {
 
     public enum CBM_CONDITION {FIFTY_FIFTY, POSITIVE, NEUTRAL}
     public enum PRIME {NEUTRAL, ANXIETY}

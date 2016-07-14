@@ -1,6 +1,6 @@
 package edu.virginia.psyc.r34.persistence;
 
-import edu.virginia.psyc.r34.domain.PiParticipant;
+import edu.virginia.psyc.r34.domain.R34Participant;
 import org.mindtrails.domain.Participant;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,8 +12,8 @@ import org.springframework.data.repository.query.Param;
  * Spring Data provides basic Crud operations (find, save, delete ...)
  * on PiParticipant when it finds this interface.
  */
-public interface PiParticipantRepository extends JpaRepository<PiParticipant, Long> {
-    PiParticipant findByEmail(String email);
+public interface PiParticipantRepository extends JpaRepository<R34Participant, Long> {
+    R34Participant findByEmail(String email);
 
     @Query(" select p from PiParticipant as p" +
             " where lower(p.fullName) like '%' || lower(:search) || '%'" +

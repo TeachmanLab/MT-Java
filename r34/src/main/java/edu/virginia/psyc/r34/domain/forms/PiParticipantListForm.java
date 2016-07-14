@@ -1,6 +1,6 @@
 package edu.virginia.psyc.r34.domain.forms;
 
-import edu.virginia.psyc.r34.domain.PiParticipant;
+import edu.virginia.psyc.r34.domain.R34Participant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,20 +11,20 @@ import java.util.List;
  */
 public class PiParticipantListForm {
 
-    private List<PiParticipant> participants;
+    private List<R34Participant> participants;
 
     private List<String> sessionNames;
 
-    public List<PiParticipant> getParticipants() {
+    public List<R34Participant> getParticipants() {
         return participants;
     }
 
-    public void setParticipants(List<PiParticipant> participants) {
+    public void setParticipants(List<R34Participant> participants) {
         this.participants = participants;
     }
 
-    public void add(PiParticipant p) {
-        if(null == this.participants) this.participants = new ArrayList<PiParticipant>();
+    public void add(R34Participant p) {
+        if(null == this.participants) this.participants = new ArrayList<R34Participant>();
         this.participants.add(p);
     }
 
