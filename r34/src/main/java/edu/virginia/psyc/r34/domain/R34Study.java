@@ -1,13 +1,14 @@
 package edu.virginia.psyc.r34.domain;
 
+import lombok.Data;
 import org.mindtrails.domain.BaseStudy;
 import org.mindtrails.domain.Session;
 import org.mindtrails.domain.Study;
 import org.mindtrails.domain.Task;
 import org.mindtrails.domain.tracking.TaskLog;
-import lombok.Data;
 import org.slf4j.LoggerFactory;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -22,21 +23,41 @@ import java.util.List;
  * Time: 8:21 AM
  * The Participants progress through a series of sessions, made up of individual tasks, described here in code.
  */
+
+@Data
 @Entity
 @Table(name = "study")
-@Data
-@DiscriminatorValue("CBM")
+@DiscriminatorValue("R34")
 public class R34Study extends BaseStudy implements Study {
 
     private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(R34Study.class);
 
+    public enum CONDITION {FIFTY_FIFTY, POSITIVE, NEUTRAL}
+    public enum PRIME {NEUTRAL, ANXIETY}
+
+    private boolean        increase30 = false;
+    private boolean        increase50 = false;
+    @Column(name="studyCondition") private CONDITION      condition;
+    private PRIME          prime;
+    protected String       riskSession;  // The session that saw an increase in risk factor.
+
     @Override
     public String getName() {
-        return "CBM";
+        return "R34";
     }
 
     public enum NAME {
         PRE, SESSION1, SESSION2, SESSION3, SESSION4, SESSION5, SESSION6, SESSION7, SESSION8, POST
+    }
+
+    /**
+    * Returns true if the participant is in a session, versus being in a pre-assessment or
+    * post assessment period.
+    */
+    public boolean inSession() {
+        return (!getCurrentSession().getName().equals(R34Study.NAME.PRE.toString()) &&
+                !getCurrentSession().getName().equals(R34Study.NAME.POST.toString()) &&
+                !getCurrentSession().getName().equals(R34Study.NAME.SESSION1.toString()));
     }
 
     public R34Study() {}

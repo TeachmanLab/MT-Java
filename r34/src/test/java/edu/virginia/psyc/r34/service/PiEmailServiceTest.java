@@ -1,11 +1,11 @@
 package edu.virginia.psyc.r34.service;
 
 import edu.virginia.psyc.r34.domain.R34Study;
-import edu.virginia.psyc.r34.domain.R34Participant;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.junit.Before;
 import org.junit.Test;
+import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.Study;
 import org.mindtrails.domain.tracking.TaskLog;
 
@@ -24,12 +24,12 @@ import static junit.framework.Assert.assertNull;
  */
 public class PiEmailServiceTest {
 
-    R34Participant participant;
+    Participant participant;
     PiEmailService service;
 
     @Before
     public void setup() {
-        participant = new R34Participant();
+        participant = new Participant();
         participant.setEmail("tester@test.com");
         participant.setFullName("Tester McTest");
         participant.setStudy(new R34Study());

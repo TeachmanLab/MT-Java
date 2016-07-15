@@ -28,8 +28,6 @@ public class ParticipantExportDAO {
     private boolean admin;
     private boolean emailOptout;
     private boolean active;
-    private boolean increase30;
-    private String riskSession;
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="EEE, dd MMM yyyy HH:mm:ss Z", timezone="EST")
     private Date   lastLogin;
     private boolean receiveGiftCards;

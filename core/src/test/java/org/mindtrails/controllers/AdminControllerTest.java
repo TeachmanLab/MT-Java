@@ -3,6 +3,7 @@ package org.mindtrails.controllers;
 import org.junit.Test;
 import org.mindtrails.controller.AdminController;
 import org.mindtrails.domain.Participant;
+import org.mindtrails.persistence.ParticipantRepository;
 import org.mindtrails.service.ParticipantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
@@ -20,6 +21,9 @@ public class AdminControllerTest extends BaseControllerTest {
 
     @Autowired
     private ParticipantService participantService;
+
+    @Autowired
+    private ParticipantRepository participantRepository;
 
     @Override
     public Object[] getControllers() {
@@ -97,7 +101,7 @@ public class AdminControllerTest extends BaseControllerTest {
                 .param("fullName", "John Q. Doe")
                 .param("email", "new@email.com"));
 
-        Participant p2 = participantService.findOne(p.getId());
+        Participant p2 = participantRepository.findOne(p.getId());
         assertEquals("John Q. Doe", p2.getFullName());
         assertEquals("new@email.com", p2.getEmail());
 

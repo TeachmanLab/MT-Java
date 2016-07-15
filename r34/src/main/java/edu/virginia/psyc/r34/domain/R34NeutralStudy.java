@@ -1,9 +1,9 @@
 package edu.virginia.psyc.r34.domain;
 
+import lombok.Data;
 import org.mindtrails.domain.Study;
 import org.mindtrails.domain.Task;
 import org.mindtrails.domain.tracking.TaskLog;
-import lombok.Data;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -16,10 +16,10 @@ import java.util.List;
 * Identical in many ways to the CBMStudy, with exactly the same sessions.  But removing all the
  * training sessions so it's just a series of questionniare.
  */
+@Data
 @Entity
 @Table(name = "study")
-@Data
-@DiscriminatorValue("CBM Neutral")
+@DiscriminatorValue("R34Neutral")
 public class R34NeutralStudy extends R34Study implements Study {
 
     public R34NeutralStudy() {}
@@ -30,7 +30,7 @@ public class R34NeutralStudy extends R34Study implements Study {
 
     @Override
     public String getName() {
-        return "CBM Neutral";
+        return "R34 Neutral";
     }
 
     protected List<Task> getTasks(NAME name, int taskIndex) {

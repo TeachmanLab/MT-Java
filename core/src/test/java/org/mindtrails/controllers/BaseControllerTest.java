@@ -5,6 +5,7 @@ import org.junit.runner.RunWith;
 import org.mindtrails.Application;
 import org.mindtrails.MockClasses.TestStudy;
 import org.mindtrails.domain.Participant;
+import org.mindtrails.persistence.ParticipantRepository;
 import org.mindtrails.service.ParticipantService;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,7 @@ public abstract class BaseControllerTest {
     WebApplicationContext wac;
 
     @Autowired
-    protected ParticipantService participantService;
+    protected ParticipantRepository participantRepository;
 
     protected Participant participant;
 
@@ -73,10 +74,10 @@ public abstract class BaseControllerTest {
 
     public Participant createParticipant(String name, String email, boolean admin) {
         Participant p;
-        p = participantService.findByEmail(email);
+        p = participantRepository.findByEmail(email);
         if(p == null) p = new Participant(name, email, admin);
         p.setStudy(new TestStudy());
-        participantService.save(p);
+        participantRepository.save(p);
         return p;
     }
 

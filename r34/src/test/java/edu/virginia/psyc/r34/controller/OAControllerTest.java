@@ -1,14 +1,15 @@
 package edu.virginia.psyc.r34.controller;
 
-import org.mindtrails.service.ParticipantService;
 import edu.virginia.psyc.r34.Application;
-import edu.virginia.psyc.r34.MockClasses.TestStudy;
-import edu.virginia.psyc.r34.domain.R34Participant;
+import edu.virginia.psyc.r34.domain.R34Study;
 import edu.virginia.psyc.r34.persistence.Questionnaire.OARepository;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mindtrails.domain.Participant;
+import org.mindtrails.persistence.ParticipantRepository;
+import org.mindtrails.service.ParticipantService;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -57,7 +58,10 @@ public class OAControllerTest extends BaseControllerTest {
 
     @Autowired
     private ParticipantService participantService;
-    private R34Participant participant;
+
+    @Autowired
+    private ParticipantRepository participantRepository;
+    private Participant participant;
 
 
     @Before
@@ -72,12 +76,11 @@ public class OAControllerTest extends BaseControllerTest {
 
     @Before
     public void veryifyParticipant() {
-        participant = (R34Participant)participantService.findByEmail("test@test.com");
-        if(participant == null) participant = new R34Participant();
+        participant = participantRepository.findByEmail("test@test.com");
+        if(participant == null) participant = participantService.create();
         participant.setEmail("test@test.com");
         participant.setFullName("Tester McTestFace");
-        participant.setStudy(new TestStudy());
-        participantService.save(participant);
+        participantRepository.save(participant);
     }
 
 
@@ -88,6 +91,9 @@ public class OAControllerTest extends BaseControllerTest {
 
     @Test
     public void testGetFormContainsCustomParameters() throws Exception {
+        ((R34Study)participant.getStudy()).setCurrentSession(R34Study.NAME.SESSION2.toString());
+        participantRepository.save(participant);
+
         MvcResult result = mockMvc.perform(get("/questions/OA")
                 .with(SecurityMockMvcRequestPostProcessors.user(participant)))
                 .andExpect((status().is2xxSuccessful()))
@@ -101,8 +107,8 @@ public class OAControllerTest extends BaseControllerTest {
 
         assertEquals(0, oaRepository.findAll().size());
         // Set the task index to OA
-        ((TestStudy)participant.getStudy()).setCurrentTaskIndex(2);
-        participantService.save(participant);
+        ((R34Study)participant.getStudy()).setCurrentTaskIndex(9);
+        participantRepository.save(participant);
         ResultActions result = mockMvc.perform(post("/questions/OA")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .with(SecurityMockMvcRequestPostProcessors.user(participant))

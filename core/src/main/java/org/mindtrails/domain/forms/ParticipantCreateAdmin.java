@@ -41,13 +41,13 @@ public class ParticipantCreateAdmin extends ParticipantUpdate {
     }
 
 
-    public boolean validParticipant(BindingResult bindingResult, ParticipantService service) {
+    public boolean validParticipant(BindingResult bindingResult, ParticipantService participantService) {
 
         if(!over18) {
             bindingResult.rejectValue("over18", "error.over18", "You must be over 18 to participate in this Study.");
         }
 
-        if(service.findByEmail(email) != null) {
+        if(participantService.findByEmail(email) != null) {
             bindingResult.rejectValue("email", "error.emailExists", "This email already exists.");
         }
 

@@ -7,6 +7,7 @@ import org.mindtrails.domain.forms.ParticipantUpdateAdmin;
 import org.mindtrails.domain.tango.Account;
 import org.mindtrails.domain.tango.Order;
 import org.mindtrails.domain.tango.Reward;
+import org.mindtrails.persistence.ParticipantRepository;
 import org.mindtrails.service.EmailService;
 import org.mindtrails.service.ExportService;
 import org.mindtrails.service.ParticipantService;
@@ -59,6 +60,9 @@ public class AdminController {
     @Autowired
     private ParticipantService participantService;
 
+    @Autowired
+    private ParticipantRepository participantRepository;
+
 
     @RequestMapping(method = RequestMethod.GET)
     public String listParticipants(ModelMap model,Principal principal,
@@ -71,9 +75,9 @@ public class AdminController {
         int page = Integer.parseInt(pageParam);
         pageRequest = new PageRequest(page, PER_PAGE);
         if(search.isEmpty()) {
-            daoList = participantService.findAll(pageRequest);
+            daoList = participantRepository.findAll(pageRequest);
         } else {
-            daoList = participantService.search(search, pageRequest);
+            daoList = participantRepository.search(search, pageRequest);
         }
 
         model.addAttribute("visiting", true);
@@ -88,7 +92,7 @@ public class AdminController {
                            @PathVariable("id") long id) {
         Participant p;
         ParticipantUpdateAdmin form;
-        p    = participantService.findOne(id);
+        p    = participantRepository.findOne(id);
         form = new ParticipantUpdateAdmin(p);
 
         model.addAttribute("hideAccountBar", true);
@@ -104,7 +108,7 @@ public class AdminController {
                                        @Valid ParticipantUpdateAdmin form,
                                        BindingResult bindingResult) {
         Participant p;
-        p = participantService.findOne(id);
+        p = participantRepository.findOne(id);
         if(bindingResult.hasErrors()) {
             model.addAttribute("hideAccountBar", true);
             model.addAttribute("participantAdminForm", form);
@@ -160,7 +164,7 @@ public class AdminController {
     @RequestMapping(value="/sendEmail/{type}")
     public String sendEmail(ModelMap model, Principal principal,
                             @PathVariable("type") String type) throws Exception {
-        Participant p = participantService.findByEmail(principal.getName());
+        Participant p = participantService.get(principal);
 
         if(type.equals(EmailService.TYPE.GIFTCARD.toString())) {
             Reward reward = tangoService.createGiftCard(p, "test", 1);  // This would actually award a gift card, if you need to do some testing.
@@ -193,7 +197,7 @@ public class AdminController {
 
     @RequestMapping(value="/participant/giftCard")
     public String giftCard(ModelMap model, Principal principal) throws Exception {
-        Participant p = participantService.findByEmail(principal.getName());
+        Participant p = participantService.get(principal);
         Reward r = tangoService.createGiftCard(p, "AdminAwarded",100);
         this.emailService.sendGiftCard(p, r, 100);
         model.addAttribute("participant", p);

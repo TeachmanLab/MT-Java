@@ -134,7 +134,7 @@ public class QuestionControllerTest extends BaseControllerTest {
         // Force Participant to task 1 (which is TestUndeleteable)
 //        participant.getStudy().getCurrentSession().setIndex(1);
         ((TestStudy) participant.getStudy()).setCurrentTaskIndex(1);
-        participantService.save(participant);
+        participantRepository.save(participant);
         ResultActions result = mockMvc.perform(post("/questions/TestUndeleteable")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .with(SecurityMockMvcRequestPostProcessors.user(participant))

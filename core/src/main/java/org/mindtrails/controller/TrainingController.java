@@ -28,7 +28,7 @@ public class TrainingController {
     @RequestMapping(value="{scriptName}", method= RequestMethod.GET)
     public String showTraining(ModelMap model, Principal principal, @PathVariable String scriptName) {
 
-        Participant p = participantService.findByEmail(principal.getName());
+        Participant p = participantService.get(principal);
 
         model.addAttribute("script", scriptName);
         model.addAttribute("sessionName", p.getStudy().getCurrentSession().getName());

@@ -1,8 +1,6 @@
 package org.mindtrails.service;
 
 import org.mindtrails.domain.Participant;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
@@ -23,13 +21,9 @@ public interface ParticipantService {
      */
     Participant get(Principal p);
 
+    /** Returns a participant associated with given email
+     */
     Participant findByEmail(String email);
-
-    Participant findOne(long id);
-
-    Page findAll(PageRequest pageRequest);
-
-    Page search(String search, PageRequest pageRequest);
 
     /**
      * When saving an object for the first time, there may

@@ -1,10 +1,9 @@
 package edu.virginia.psyc.r34.controller;
 
+import edu.virginia.psyc.r34.domain.R34Study;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.RestExceptions.WrongFormException;
-import org.mindtrails.persistence.ParticipantRepository;
-import edu.virginia.psyc.r34.domain.R34Participant;
-import edu.virginia.psyc.r34.persistence.PiParticipantRepository;
+import org.mindtrails.service.ParticipantService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,24 +37,20 @@ public class PIPlayerController {
 
     @Autowired private static final Logger LOG = LoggerFactory.getLogger(PIPlayerController.class);
 
-    @Autowired private PiParticipantRepository piParticipantRepository;
-
     @Autowired
-    private ParticipantRepository participantRepository;
+    private ParticipantService participantService;
 
-    private Participant getParticipant(Principal p) {
-        return participantRepository.findByEmail(p.getName());
-    }
 
     @RequestMapping(value="{scriptName}", method=RequestMethod.GET)
     public String showPlayer(ModelMap model, Principal principal, @PathVariable String scriptName) {
 
-        R34Participant p = piParticipantRepository.findByEmail(principal.getName());
+        Participant p = participantService.findByEmail(principal.getName());
+        R34Study study   = (R34Study)p.getStudy();
 
         // The Neutral condition requires a completely different file.
         LOG.debug("The Script name: " + scriptName + "!=" +  "RecognitionRatings?" + (scriptName != "RecognitionRatings"));
 
-        if(p.getCondition().equals(R34Participant.CONDITION.NEUTRAL) &&
+        if(study.getCondition().equals(R34Study.CONDITION.NEUTRAL) &&
                 !scriptName.equals("RecognitionRatings")) {
             scriptName = scriptName + "NT";
         }
@@ -63,14 +58,14 @@ public class PIPlayerController {
         model.addAttribute("script", scriptName);
         model.addAttribute("sessionName", p.getStudy().getCurrentSession().getName());
         model.addAttribute("participantId", p.getId());
-        model.addAttribute("condition", p.getCondition().toString());
+        model.addAttribute("condition", study.getCondition().toString());
         return "PIPlayer";
     }
 
     @RequestMapping("/completed/{scriptName}")
     public RedirectView markComplete(Principal principal, @PathVariable String scriptName) {
 
-        Participant participant = getParticipant(principal);
+        Participant participant = participantService.get(principal);
 
         // If the data submitted, isn't the data the user should be completeing right now,
         // thown an exception and prevent them from moving forward.
@@ -81,7 +76,7 @@ public class PIPlayerController {
         }
 
         participant.getStudy().completeCurrentTask();
-        participantRepository.save(participant);
+        participantService.save(participant);
         return new RedirectView("/session/next");
     }
 

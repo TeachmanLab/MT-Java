@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.Study;
+import org.mindtrails.persistence.ParticipantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ActiveProfiles;
@@ -44,6 +45,9 @@ public class ParticipantRepositoryTest {
     protected R34ParticipantService participantService;
 
     @Autowired
+    protected ParticipantRepository participantRepository;
+
+    @Autowired
     protected ParticipantExportRepository exportRepository;
 
     @Test
@@ -64,7 +68,7 @@ public class ParticipantRepositoryTest {
         // Save that participant
         participantService.save(p);
         participantService.flush();
-        pSaved = participantService.findByEmail(email);
+        pSaved = participantRepository.findByEmail(email);
 
         // Assure that the participant's current session is pre
         assertEquals(R34Study.NAME.PRE.toString(), pSaved.getStudy().getCurrentSession().getName());
@@ -75,7 +79,7 @@ public class ParticipantRepositoryTest {
         // Get that participant back.
         participantService.save(pSaved);
         participantService.flush();
-        pSaved = participantService.findByEmail(email);
+        pSaved = participantRepository.findByEmail(email);
 
         // Assure that the participant's current session is set to 5
         assertEquals(R34Study.NAME.SESSION5.toString(), pSaved.getStudy().getCurrentSession().getName());
@@ -94,7 +98,7 @@ public class ParticipantRepositoryTest {
         p.getStudy().forceToSession(R34Study.NAME.SESSION1.toString());
         participantService.save(p);
         participantService.flush();
-        pSaved = participantService.findByEmail(email);
+        pSaved = participantRepository.findByEmail(email);
 
         assertEquals(R34Study.NAME.SESSION1.toString(), pSaved.getStudy().getCurrentSession().getName());
         pSaved.getStudy().completeCurrentTask();

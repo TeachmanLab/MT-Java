@@ -34,14 +34,10 @@ public class GraphController {
     @Autowired private OARepository oaRepository;
     @Autowired private ParticipantService participantService;
 
-    private Participant getParticipant(Principal p) {
-        return participantService.findByEmail(p.getName());
-    }
-
     @RequestMapping
     public String graph(ModelMap model, Principal principal) {
 
-        Participant p = getParticipant(principal);
+        Participant p = participantService.get(principal);
         List<OA> oaList    = oaRepository.findByParticipant(p);
         List<List<Object>> points = new ArrayList();
         List<List<Object>> regressionPoints = new ArrayList();

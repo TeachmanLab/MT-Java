@@ -2,21 +2,23 @@ package edu.virginia.psyc.r34.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.mindtrails.controller.QuestionController;
-import org.mindtrails.domain.DoNotDelete;
-import org.mindtrails.domain.RestExceptions.NotDeleteableException;
-import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
-import org.mindtrails.domain.questionnaire.SecureQuestionnaireData;
-import org.mindtrails.service.ParticipantService;
 import edu.virginia.psyc.r34.Application;
 import edu.virginia.psyc.r34.MockClasses.*;
-import edu.virginia.psyc.r34.domain.R34Participant;
+import edu.virginia.psyc.r34.domain.R34Study;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
+import org.mindtrails.controller.QuestionController;
+import org.mindtrails.domain.DoNotDelete;
+import org.mindtrails.domain.Participant;
+import org.mindtrails.domain.RestExceptions.NotDeleteableException;
+import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
+import org.mindtrails.domain.questionnaire.SecureQuestionnaireData;
+import org.mindtrails.persistence.ParticipantRepository;
+import org.mindtrails.service.ParticipantService;
 import org.mockito.MockitoAnnotations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,8 +78,12 @@ public class ExportControllerTest extends BaseControllerTest {
     private TestUndeleteableRepository repoU;
 
     @Autowired
+    private ParticipantRepository participantRepository;
+
+    @Autowired
     private ParticipantService participantService;
-    private R34Participant participant;
+
+    private Participant participant;
 
 
     @Rule
@@ -105,12 +111,11 @@ public class ExportControllerTest extends BaseControllerTest {
 
     @Before
     public void veryifyParticipant() {
-        participant = (R34Participant)participantService.findByEmail("test@test.com");
-        if(participant == null) participant = new R34Participant();
+        participant = participantRepository.findByEmail("test@test.com");
+        if(participant == null) participant = participantService.create();
         participant.setEmail("test@test.com");
         participant.setFullName("McTesty Tester-Mister");
-        participant.setStudy(new TestStudy());
-        participantService.save(participant);
+        participantRepository.save(participant);
     }
 
 

@@ -1,12 +1,13 @@
 package edu.virginia.psyc.r34.controller;
 
-import org.mindtrails.controller.QuestionController;
-import edu.virginia.psyc.r34.domain.R34Participant;
-import edu.virginia.psyc.r34.persistence.PiParticipantRepository;
+import edu.virginia.psyc.r34.domain.R34Study;
 import edu.virginia.psyc.r34.persistence.Questionnaire.OA;
 import edu.virginia.psyc.r34.persistence.Questionnaire.OARepository;
 import edu.virginia.psyc.r34.persistence.Questionnaire.ReasonsForEnding;
 import edu.virginia.psyc.r34.service.PiEmailService;
+import org.mindtrails.controller.QuestionController;
+import org.mindtrails.domain.Participant;
+import org.mindtrails.service.ParticipantService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class OAController extends QuestionController {
     private OARepository oaRepository;
 
     @Autowired
-    private PiParticipantRepository piParticipantRepository;
+    private ParticipantService participantService;
 
     @Autowired
     private PiEmailService emailService;
@@ -51,8 +52,9 @@ public class OAController extends QuestionController {
      */
     @RequestMapping(method = RequestMethod.GET)
     public String showOA(ModelMap model, Principal principal) {
-        R34Participant p = piParticipantRepository.findByEmail(principal.getName());
-        model.addAttribute("inSessions", p.inSession());
+        Participant p = participantService.get(principal);
+        R34Study study = (R34Study)p.getStudy();
+        model.addAttribute("inSessions", study.inSession());
         return showForm(model,principal,"OA");
     }
 
@@ -69,13 +71,13 @@ public class OAController extends QuestionController {
         // "at-risk", then send a message to the administrator.
         List<OA> previous = oaRepository.findByParticipant(oa.getParticipant());
         OA firstEntry = Collections.min(previous);
-
-        R34Participant participant = piParticipantRepository.findByEmail(principal.getName());
+        Participant participant = participantService.get(principal);
+        R34Study study = (R34Study)participant.getStudy();
         if(oa.atRisk(firstEntry)) {
-            if(!participant.isIncrease50()) { // alert admin the first time.
+            if(!study.isIncrease50()) { // alert admin the first time.
                 emailService.sendAtRiskAdminEmail(participant, firstEntry, oa);
-                participant.setIncrease50(true);
-                piParticipantRepository.save(participant);
+                study.setIncrease50(true);
+                participantService.save(participant);
             }
             return new RedirectView("/session/atRisk");
         }

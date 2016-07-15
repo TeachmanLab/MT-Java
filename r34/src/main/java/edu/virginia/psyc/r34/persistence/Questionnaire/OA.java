@@ -3,12 +3,12 @@ package edu.virginia.psyc.r34.persistence.Questionnaire;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import edu.virginia.psyc.r34.domain.R34Study;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.mindtrails.domain.DoNotDelete;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.questionnaire.SecureQuestionnaireData;
-import edu.virginia.psyc.r34.domain.R34Participant;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -104,10 +104,10 @@ public class OA extends SecureQuestionnaireData implements Comparable<OA> {
     @Override
     public Map<String,Object> modelAttributes(Participant p) {
         Map<String, Object> attributes = new HashMap<>();
-        R34Participant piP;
-        if (p instanceof R34Participant) {
-            piP = (R34Participant)p;
-            attributes.put("inSessions", piP.inSession());
+
+        if (p.getStudy() instanceof R34Study) {
+            R34Study study = (R34Study) p.getStudy();
+            attributes.put("inSessions", study.inSession());
         } else {
             attributes.put("inSessions", false);
         }

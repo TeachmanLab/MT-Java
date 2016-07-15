@@ -41,7 +41,7 @@ public class SessionController {
     @Autowired private ParticipantService participantService;
 
     private Participant getParticipant(Principal p) {
-        return participantService.findByEmail(p.getName());
+        return participantService.get(p);
     }
 
 

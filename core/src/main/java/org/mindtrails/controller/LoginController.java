@@ -5,6 +5,7 @@ import org.mindtrails.domain.PasswordToken;
 import org.mindtrails.domain.forms.ParticipantCreate;
 import org.mindtrails.persistence.ParticipantRepository;
 import org.mindtrails.service.EmailService;
+import org.mindtrails.service.ParticipantService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,8 @@ public class LoginController {
     @Autowired
     private EmailService emailService;
 
+    @Autowired
+    private ParticipantService participantService;
 
     @Autowired
     private ParticipantRepository participantRepository;
@@ -84,7 +87,7 @@ public class LoginController {
 
         Participant p;
 
-        p = participantRepository.findByEmail(email);
+        p = participantService.findByEmail(email);
 
         if(null == p) {
             model.addAttribute("invalidEmail", true);
@@ -92,7 +95,7 @@ public class LoginController {
         }
 
         p.setPasswordToken(new PasswordToken());
-        participantRepository.save(p);
+        participantService.save(p);
 
         emailService.sendPasswordReset(p);
         return("redirect:login");
@@ -154,8 +157,8 @@ public class LoginController {
         participant.updatePassword(password); // save the password.
         participant.setPasswordToken(null);  // clear out hte token so it can't be used again.
         participant.setLastLoginDate(new Date()); // Set the last login date, as we will auto-login.
-        participantRepository.save(participant);
-        participantRepository.flush();
+        participantService.save(participant);
+        participantService.flush();
         // Log this person in, so they don't have to type the password again.
         Authentication auth = new UsernamePasswordAuthenticationToken( participant.getEmail(), participant.getPassword());
         SecurityContextHolder.getContext().setAuthentication(auth);
