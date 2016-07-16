@@ -8,10 +8,7 @@ import org.mindtrails.domain.Task;
 import org.mindtrails.domain.tracking.TaskLog;
 import org.slf4j.LoggerFactory;
 
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -37,8 +34,8 @@ public class R34Study extends BaseStudy implements Study {
 
     private boolean        increase30 = false;
     private boolean        increase50 = false;
-    @Column(name="studyCondition") private CONDITION      condition;
-    private PRIME          prime;
+    @Enumerated(EnumType.STRING) @Column(name="studyCondition") private CONDITION      condition;
+    @Enumerated(EnumType.STRING) private PRIME          prime;
     protected String       riskSession;  // The session that saw an increase in risk factor.
 
     @Override

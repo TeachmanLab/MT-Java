@@ -1,4 +1,4 @@
-package edu.virginia.psyc.r34.controller;
+package edu.virginia.psyc.r34;
 
 import org.mindtrails.domain.Session;
 import org.mindtrails.domain.Study;

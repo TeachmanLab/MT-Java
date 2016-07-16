@@ -1,18 +1,15 @@
-package edu.virginia.psyc.r34.controller;
+package org.mindtrails.controllers;
 
-import org.mindtrails.domain.Participant;
-import org.mindtrails.persistence.ParticipantRepository;
-import edu.virginia.psyc.r34.Application;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.mindtrails.controller.AccountController;
+import org.mindtrails.controller.AdminController;
+import org.mindtrails.controller.LoginController;
+import org.mindtrails.domain.Participant;
+import org.mindtrails.persistence.ParticipantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.security.web.FilterChainProxy;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -33,31 +30,22 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Time: 10:31 AM
  * To change this template use File | Settings | File Templates.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
-@WebAppConfiguration
-@ActiveProfiles("test")
-public class CreateAccountControllerTest {
+
+public class CreateAccountControllerTest extends BaseControllerTest {
 
     private static String PASSWD = "1234!@#$qwerQWER";
 
     @Autowired
-    private FilterChainProxy springSecurityFilterChain;
-
-    @Autowired
-    private WebApplicationContext wac;
-
-    private MockMvc mockMvc;
-
-    @Autowired
     protected ParticipantRepository participantRepository;
 
+    @Autowired
+    private AccountController accountController;
 
-    @Before
-    public void setup() {
-        this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac)
-                .addFilters(this.springSecurityFilterChain).build();
+    @Override
+    public Object[] getControllers() {
+        return (new Object[]{accountController});
     }
+
 
     @After
     public void teardown() {
@@ -68,8 +56,8 @@ public class CreateAccountControllerTest {
         } catch (IndexOutOfBoundsException ioe) {
             // participant doesn't exist, but that isn't an actual error.
         }
-
     }
+
 
     @Test
     public void testCreateAccountController() throws Exception {

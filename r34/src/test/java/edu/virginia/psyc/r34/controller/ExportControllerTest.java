@@ -65,8 +65,6 @@ public class ExportControllerTest extends BaseControllerTest {
     private static final Logger LOG = LoggerFactory.getLogger(ExportControllerTest.class);
 
     @Autowired
-    private FilterChainProxy springSecurityFilterChain;
-    @Autowired
     private ExportController exportController;
     @Autowired
     private QuestionController questionController;
@@ -85,11 +83,8 @@ public class ExportControllerTest extends BaseControllerTest {
 
     private Participant participant;
 
-
     @Rule
     public ExpectedException thrown= ExpectedException.none();
-
-    private MockMvc mockMvc;
 
     private void createTestEntry() {
         TestQuestionnaire q = new TestQuestionnaire();
@@ -99,25 +94,10 @@ public class ExportControllerTest extends BaseControllerTest {
         repo.flush();
     }
 
-    @Before
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-
-        this.mockMvc = MockMvcBuilders.standaloneSetup(exportController, questionController)
-                .setCustomArgumentResolvers(new AuthenticationPrincipalArgumentResolver())
-                .addFilters(this.springSecurityFilterChain)
-                .build();
+    @Override
+    public Object[] getControllers() {
+        return (new Object[]{exportController, questionController});
     }
-
-    @Before
-    public void veryifyParticipant() {
-        participant = participantRepository.findByEmail("test@test.com");
-        if(participant == null) participant = participantService.create();
-        participant.setEmail("test@test.com");
-        participant.setFullName("McTesty Tester-Mister");
-        participantRepository.save(participant);
-    }
-
 
     @Test
     public void testPostDataForm() throws Exception {
@@ -129,8 +109,6 @@ public class ExportControllerTest extends BaseControllerTest {
                 .param("multiValue", "havarti"))
                 .andExpect((status().is3xxRedirection()));
     }
-
-
 
     @Test
     public void testEntryDataIsReturned() {
@@ -185,7 +163,7 @@ public class ExportControllerTest extends BaseControllerTest {
     @Test
     public void unknownFormsReturn404() throws Exception {
         MvcResult result = mockMvc.perform(get("/api/export/ThisDoesNotExist")
-                .with(user(getAdmin())))
+                .with(user(admin)))
                 .andExpect((status().is4xxClientError()))
                 .andReturn();
 
@@ -199,7 +177,7 @@ public class ExportControllerTest extends BaseControllerTest {
         testPostDataForm();
         repository.flush();
         MvcResult result = mockMvc.perform(get("/api/export/TestQuestionnaire")
-                .with(SecurityMockMvcRequestPostProcessors.user(getAdmin())))
+                .with(SecurityMockMvcRequestPostProcessors.user(admin)))
                 .andExpect((status().is2xxSuccessful()))
                 .andReturn();
 
@@ -214,7 +192,7 @@ public class ExportControllerTest extends BaseControllerTest {
         testPostDataForm();
         repository.flush();
         MvcResult result = mockMvc.perform(get("/api/export/TestQuestionnaire")
-                .with(SecurityMockMvcRequestPostProcessors.user(getAdmin())))
+                .with(SecurityMockMvcRequestPostProcessors.user(admin)))
                 .andExpect((status().is2xxSuccessful()))
                 .andReturn();
 

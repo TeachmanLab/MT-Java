@@ -1,4 +1,4 @@
-package edu.virginia.psyc.r34.MockClasses;
+package org.mindtrails.MockClasses;
 
 import org.mindtrails.service.RecaptchaService;
 import org.springframework.context.annotation.Primary;

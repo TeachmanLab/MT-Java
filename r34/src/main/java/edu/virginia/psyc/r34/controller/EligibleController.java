@@ -1,9 +1,9 @@
 package edu.virginia.psyc.r34.controller;
 
-import org.mindtrails.domain.Participant;
 import edu.virginia.psyc.r34.domain.Dass21FromPi;
 import edu.virginia.psyc.r34.persistence.Questionnaire.DASS21_AS;
 import edu.virginia.psyc.r34.persistence.Questionnaire.DASS21_ASRepository;
+import org.mindtrails.domain.Participant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +40,8 @@ public class EligibleController {
     @RequestMapping("public/eligibility")
     public String showEligibility(ModelMap model) {
         // Template will set a difference form action if this variable is set to true.
+        // fixme: this is because of participant.theme reference in the template, which should be set everywhere
+        model.addAttribute("participant", new Participant());
         model.addAttribute("eligibility",true);
         return "questions/DASS21_AS";
     }

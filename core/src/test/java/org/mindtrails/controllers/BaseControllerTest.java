@@ -1,10 +1,12 @@
 package org.mindtrails.controllers;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.mindtrails.Application;
 import org.mindtrails.MockClasses.TestStudy;
 import org.mindtrails.domain.Participant;
+import org.mindtrails.domain.forms.ParticipantCreateAdmin;
 import org.mindtrails.persistence.ParticipantRepository;
 import org.mindtrails.service.ParticipantService;
 import org.mockito.MockitoAnnotations;
@@ -50,6 +52,9 @@ public abstract class BaseControllerTest {
     @Autowired
     protected ParticipantRepository participantRepository;
 
+    @Autowired
+    protected ParticipantService participantService;
+
     protected Participant participant;
 
     protected Participant admin;
@@ -65,6 +70,8 @@ public abstract class BaseControllerTest {
                 .build();
     }
 
+
+
     /**
      * Returns a array of controllers that should be loaded into
      * context for running tests against.
@@ -75,8 +82,12 @@ public abstract class BaseControllerTest {
     public Participant createParticipant(String name, String email, boolean admin) {
         Participant p;
         p = participantRepository.findByEmail(email);
-        if(p == null) p = new Participant(name, email, admin);
-        p.setStudy(new TestStudy());
+        if(p == null) {
+            p = participantService.create();
+            p.setFullName(name);
+            p.setEmail(email);
+            p.setAdmin(admin);
+        }
         participantRepository.save(p);
         return p;
     }
@@ -85,8 +96,13 @@ public abstract class BaseControllerTest {
     public void establishParticipants() {
         participant = createParticipant("john", "test@test.com", false);
         admin = createParticipant("J McAdmin", "admin@test.com", true);
-    }
 
+        // Reset progress for participant
+        TestStudy s = (TestStudy)participant.getStudy();
+        s.setCurrentSession("SessionOne");
+        s.setCurrentTaskIndex(0);
+        participantService.save(participant);
+    }
 
 
 

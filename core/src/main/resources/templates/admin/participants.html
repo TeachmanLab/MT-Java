@@ -49,6 +49,7 @@
                         <th>Active?</th>
                         <th>Admin?</th>
                         <th></th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -63,7 +64,10 @@
                         <td><span th:if="${p.active}">Active</span></td>
                         <td><span th:if="${p.admin}">Admin</span></td>
                         <td>
-                            <a th:href="@{'/admin/participant/'+${p.id}}">Edit</a>
+                            <a th:href="@{'/admin/participant/'+${p.id}}">Edit Participant</a>
+                        </td>
+                        <td>
+                            <a th:href="@{'/admin/study/'+${p.id}}">Edit Study</a>
                         </td>
                     </tr>
                     </tbody>

@@ -24,12 +24,17 @@ public class TestParticipantService implements ParticipantService {
     public Participant create() {
         Participant p = new Participant();
         p.setStudy(new TestStudy());
-        return new Participant();
+        return p;
     }
 
     @Override
     public Participant get(Principal p) {
         return repository.findByEmail(p.getName());
+    }
+
+    @Override
+    public Participant findByEmail(String email) {
+        return repository.findByEmail(email);
     }
 
     @Override
