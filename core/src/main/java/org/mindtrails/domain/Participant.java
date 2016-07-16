@@ -135,8 +135,6 @@ public  class Participant implements UserDetails {
                 ", password='" + password + '\'' +
                 ", admin=" + admin +
                 ", emailOptout=" + emailOptout +
-                ", currentSession=" + study.getCurrentSession() +
-                ", taskIndex=" + study.getCurrentTaskIndex() +
                 ", active=" + active +
                 '}';
     }
