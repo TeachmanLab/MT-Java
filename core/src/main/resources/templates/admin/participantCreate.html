@@ -10,19 +10,15 @@
 <!--<![endif]-->
 <head th:include="fragment/common :: headerFragment"/>
 <body>
+
 <section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
 
 <!-- content starts
 ================================================== -->
 <section id="content" class="clearfix">
     <div class="container">
-
-
-        <!--spacer here-->
-        <div class="spacer-30px"></div>
         <div class="row">
-
-            <div class="main-content span8">
+            <div class="span12">
 
 
                 <h1>Create Participant</h1>
@@ -99,9 +95,13 @@
             </div>
         </div>
 
-
-            </div>
+</div>
 </section>
+
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+<div th:include="fragment/common :: scripts" />
+
 
 
 </body>

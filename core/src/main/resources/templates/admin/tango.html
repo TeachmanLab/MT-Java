@@ -10,54 +10,46 @@
 <!--<![endif]-->
 <head th:include="fragment/common :: headerFragment"/>
 <body>
+
 <section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
 
 
 <!-- content starts
 ================================================== -->
-
-
 <section id="content" class="clearfix">
     <div class="container">
-
-
-        <!--spacer here-->
-        <div class="spacer-30px"></div>
-
+        <div class="row">
+            <div class="span12">
 
 
                 <h1>Tango Account Information</h1>
                 <table style="width:100%">
                     <tr>
                         <td>Tango Identifier:</td>
-                        <td th:text="${tango.identifier}"> blablabla </td>
+                        <td th:text="${tango.identifier}"> blablabla</td>
                     </tr>
                     <tr>
                         <td>Tango Account:</td>
-                        <td th:text="${tango.customer}"> whatever </td>
+                        <td th:text="${tango.customer}"> whatever</td>
                     </tr>
                     <tr>
                         <td>Tango Email:</td>
-                        <td th:text="${tango.email}"> soandso </td>
+                        <td th:text="${tango.email}"> soandso</td>
                     </tr>
                     <tr>
                         <td>Tango Account Balance:</td>
-                        <td th:text="${tango.available_balance}"> 0 </td>
+                        <td th:text="${tango.available_balance}"> 0</td>
                     </tr>
                 </table>
 
-
-
-        <!--divider here-->
-        <div class="spacer-40px"></div>
-
-        <!--spacer here-->
-        <div class="spacer-30px"></div>
-
+            </div>
+        </div>
     </div>
+</section>
 
-    </section>
-
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+<div th:include="fragment/common :: scripts" />
 
 </body>
 </html>

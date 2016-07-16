@@ -12,118 +12,128 @@
 <body>
 <section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
 
-<div class="row">
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
 
-    <div class="main-content span8">
+                <h1 th:unless="${participantUpdateAdmin.admin}">Edit Participant</h1>
+                <h1 th:if="${participantUpdateAdmin.admin}">Edit Administrator</h1>
 
-        <h1 th:unless="${participantUpdateAdmin.admin}">Edit Participant</h1>
-        <h1 th:if="${participantUpdateAdmin.admin}">Edit Administrator</h1>
+                <form action="#" th:action="@{'/admin/participant/'+${participant.id}}"
+                      th:object="${participantUpdateAdmin}"
+                      method="post">
 
-        <form action="#" th:action="@{'/admin/participant/'+${participant.id}}" th:object="${participantUpdateAdmin}"
-              method="post">
+                    <table>
+                        <tr>
+                            <td>Nick Name:</td>
+                            <td width="70%"><input type="text" th:field="*{fullName}"/></td>
+                            <td th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">Name Error</td>
+                        </tr>
+                        <tr>
+                            <td>Email Address:</td>
+                            <td><input type="text" th:field="*{email}"/></td>
+                            <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</td>
+                        </tr>
+                        <tr>
+                            <td>Opt out of emails?:</td>
+                            <td><input type="checkbox" th:field="*{emailOptout}"/></td>
+                            <td th:if="${#fields.hasErrors('emailOptout')}" th:errors="*{emailOptout}">Optout Error</td>
+                        </tr>
+                        <tr>
+                            <td>Is Active:</td>
+                            <td><input type="checkbox" th:field="*{active}"/></td>
+                            <td th:if="${#fields.hasErrors('active')}" th:errors="*{active}">Admin Error</td>
+                        </tr>
+                        <tr>
+                            <td>Is Admin:</td>
+                            <td><input type="hidden" th:field="*{admin}"/><span th:if="*{admin}">True</span></td>
+                            <td th:if="${#fields.hasErrors('admin')}" th:errors="*{admin}">Admin Error</td>
+                        </tr>
+                        <!--
+                        <tr>
+                            <td>Prime:</td>
+                            <td>
+                                <select name="prime" th:field="*{prime}">
+                                    <option th:each="elem: ${T(edu.virginia.psyc.r34.domain.PiParticipant.PRIME).values()}"
+           r                                 th:value="${elem.name()}" th:text="${elem.name()}" value="BAZ">BAZ
+                                    </option>
+                                </select>
+                            </td>
+                            <td th:if="${#fields.hasErrors('prime')}" th:errors="*{admin}">Admin Error</td>
+                        </tr>
+                        <tr>
+                            <td>CDM Condition:</td>
+                            <td>
+                                <select name="condition" th:field="*{condition}">
+                                    <option th:each="elem: ${T(edu.virginia.psyc.r34.domain.PiParticipant.CBM_CONDITION).values()}"
+                                            th:value="${elem.name()}" th:text="${elem.name()}" value="BAZ">BAZ
+                                    </option>
+                                </select>
+                            </td>
+                            <td th:if="${#fields.hasErrors('condition')}" th:errors="*{admin}">Admin Error</td>
+                        </tr>
+                        -->
+                    </table>
+                    <button type="submit">Submit</button>
+                    <button type="button" onclick="location.href='/admin/participant/giftCard'">Send Gift Card</button>
+                </form>
 
-            <table>
-                <tr>
-                    <td>Nick Name:</td>
-                    <td width="70%"><input type="text" th:field="*{fullName}"/></td>
-                    <td th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">Name Error</td>
-                </tr>
-                <tr>
-                    <td>Email Address:</td>
-                    <td><input type="text" th:field="*{email}"/></td>
-                    <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</td>
-                </tr>
-                <tr>
-                    <td>Opt out of emails?:</td>
-                    <td><input type="checkbox" th:field="*{emailOptout}"/></td>
-                    <td th:if="${#fields.hasErrors('emailOptout')}" th:errors="*{emailOptout}">Optout Error</td>
-                </tr>
-                <tr>
-                    <td>Is Active:</td>
-                    <td><input type="checkbox" th:field="*{active}"/></td>
-                    <td th:if="${#fields.hasErrors('active')}" th:errors="*{active}">Admin Error</td>
-                </tr>
-                <tr>
-                    <td>Is Admin:</td>
-                    <td><input type="hidden" th:field="*{admin}"/><span th:if="*{admin}">True</span></td>
-                    <td th:if="${#fields.hasErrors('admin')}" th:errors="*{admin}">Admin Error</td>
-                </tr>
-                <!--
-                <tr>
-                    <td>Prime:</td>
-                    <td>
-                        <select name="prime" th:field="*{prime}">
-                            <option th:each="elem: ${T(edu.virginia.psyc.r34.domain.PiParticipant.PRIME).values()}"
-   r                                 th:value="${elem.name()}" th:text="${elem.name()}" value="BAZ">BAZ
-                            </option>
-                        </select>
-                    </td>
-                    <td th:if="${#fields.hasErrors('prime')}" th:errors="*{admin}">Admin Error</td>
-                </tr>
-                <tr>
-                    <td>CDM Condition:</td>
-                    <td>
-                        <select name="condition" th:field="*{condition}">
-                            <option th:each="elem: ${T(edu.virginia.psyc.r34.domain.PiParticipant.CBM_CONDITION).values()}"
-                                    th:value="${elem.name()}" th:text="${elem.name()}" value="BAZ">BAZ
-                            </option>
-                        </select>
-                    </td>
-                    <td th:if="${#fields.hasErrors('condition')}" th:errors="*{admin}">Admin Error</td>
-                </tr>
-                -->
-            </table>
-            <button type="submit">Submit</button>
-            <button type="button" onclick="location.href='/admin/participant/giftCard'">Send Gift Card</button>
-        </form>
+            </div>
 
-    </div>
-
-    <div class="sidebar span4">
-        <h4>Emails sent:</h4>
-        <div class="logs">
-            <table class="logs">
-                <tr>
-                    <th width="120px">Type</th>
-                    <th>Date</th>
-                </tr>
-                <tr th:each="log : ${participant.emailLogs}">
-                    <td style="width:50px;" th:text="${log.type}"/>
-                    <td th:text="${log.dateSent}"/>
-                </tr>
-            </table>
+            <div class="sidebar span4">
+                <h4>Emails sent:</h4>
+                <div class="logs">
+                    <table class="logs">
+                        <tr>
+                            <th width="120px">Type</th>
+                            <th>Date</th>
+                        </tr>
+                        <tr th:each="log : ${participant.emailLogs}">
+                            <td style="width:50px;" th:text="${log.type}"/>
+                            <td th:text="${log.dateSent}"/>
+                        </tr>
+                    </table>
+                </div>
+                <br/><br/>
+                <h4>Gift Cards Awarded:</h4>
+                <div class="logs">
+                    <table>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Date</th>
+                        </tr>
+                        <tr th:each="log : ${participant.giftLogs}">
+                            <td style="width:100px;"><a th:href="@{'/admin/rewardInfo/'+${log.orderId}}"
+                                                        th:text="${log.orderId}"/></td>
+                            <td th:text="${log.dateSent}"/>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <br/><br/>
+            <h4>Task Completion History:</h4>
+            <div class="logs" th:each="session : ${participant.study.sessions}">
+                <b th:text="${session.displayName}"></b>
+                <table>
+                    <tr>
+                        <th>Task</th>
+                        <th>Date Completed</th>
+                    </tr>
+                    <tr th:each="task : ${session.tasks}" th:if="${task.complete}">
+                        <td style="width:50px;" th:text="${task.displayName}"/>
+                        <td th:text="${task.dateCompleted}"/>
+                    </tr>
+                </table>
+            </div>
         </div>
-        <br/><br/>
-        <h4>Gift Cards Awarded:</h4>
-        <div class="logs">
-            <table>
-                <tr>
-                    <th>Order ID</th>
-                    <th>Date</th>
-                </tr>
-                <tr th:each="log : ${participant.giftLogs}">
-                    <td style="width:100px;"><a th:href="@{'/admin/rewardInfo/'+${log.orderId}}"
-                                                th:text="${log.orderId}"/></td>
-                    <td th:text="${log.dateSent}"/>
-                </tr>
-            </table>
-        </div>
     </div>
-    <br/><br/>
-    <h4>Task Completion History:</h4>
-    <div class="logs" th:each="session : ${participant.study.sessions}">
-        <b th:text="${session.displayName}"></b>
-        <table>
-            <tr>
-                <th>Task</th>
-                <th>Date Completed</th>
-            </tr>
-            <tr th:each="task : ${session.tasks}" th:if="${task.complete}">
-                <td style="width:50px;" th:text="${task.displayName}"/>
-                <td th:text="${task.dateCompleted}"/>
-            </tr>
-        </table>
-    </div>
-</div>
+</section>
+
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+<div th:include="fragment/common :: scripts" />
+
+
 </body>
 </html>

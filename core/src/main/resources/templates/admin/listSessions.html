@@ -13,37 +13,35 @@
 <section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
 
 
-
 <!-- content starts
 ================================================== -->
 <section id="content" class="clearfix">
     <div class="container">
+        <div class="row">
+            <div class="span12">
 
-        <!--spacer here-->
-        <div class="spacer-30px"></div>
+                <h1>Sessions</h1>
+                <p>Here are all the sessions recorded in the system, with links into all the content within each
+                    session.</p>
+                <ul class="list-4col team">
+                    <li th:each="session : ${sessions}">
+                        <h5 th:text="${session.name}"></h5>
+                        <ul>
+                            <li th:each="task : ${session.tasks}">
+                                <a th:href="@{${task.requestMapping}}" th:text="${task.displayName}"></a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
 
-        <h1>Sessions</h1>
-        <p>Here are all the sessions recorded in the system, with links into all the content within each session.</p>
-            <ul class="list-4col team">
-                <li th:each="session : ${sessions}">
-                    <h5 th:text="${session.name}"></h5>
-                    <ul>
-                        <li th:each="task : ${session.tasks}">
-                          <a th:href="@{${task.requestMapping}}" th:text="${task.displayName}"></a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-
-        <!--divider here-->
-        <div class="spacer-40px"></div>
-
-        <!--spacer here-->
-        <div class="spacer-30px"></div>
-
+            </div>
+        </div>
     </div>
 </section>
 
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+<div th:include="fragment/common :: scripts" />
 
 
 </body>

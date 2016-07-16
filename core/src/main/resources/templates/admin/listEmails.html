@@ -12,12 +12,25 @@
 <body>
 <section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
 
-<h1>Emails</h1>
-<p>Here are the major reminder emails sent by the system.  Clicking on any of these
-will cause the reminder email to be sent to your email address: <span th:text="${participant.email}"> dan@sartography.com</span></p>
-<ul th:each="email : ${emails}">
-  <li><a th:href="${email.key}" th:text="${email.value}"/></li>
-</ul>
+<section id="content" class="clearfix">
+  <div class="container">
+    <div class="row">
+      <div class="span12">
+        <h1>Emails</h1>
+        <p>Here are the major reminder emails sent by the system. Clicking on any of these
+          will cause the reminder email to be sent to your email address: <span th:text="${participant.email}"> dan@sartography.com</span>
+        </p>
+        <ul th:each="email : ${emails}">
+          <li><a th:href="${email.key}" th:text="${email.value}"/></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+<div th:include="fragment/common :: scripts" />
 
 </body>
 </html>
