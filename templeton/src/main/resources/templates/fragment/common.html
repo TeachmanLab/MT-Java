@@ -7,34 +7,61 @@
 <!--<![endif]-->
 <head id="headerFragment" th:fragment="headerFragment">
     <meta charset="utf-8"/>
-    <meta name="description" content="Mind Trails - A Project Implicit Study" />
-    <meta name="keywords" content="virginia psychology implicit mind trails"/>
+    <meta name="description" content="Templeton Study" />
+    <meta name="keywords" content="virginia psychology implicit mind trails templeton"/>
     <meta name="author" content="virginia.edu" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-    <title>Mind Trails</title>
+    <title>Templeton Study</title>
 
-    <!--style sheet-->
-    <link rel="stylesheet" media="screen" th:href="@{/css/styles.css}" />
+    <!--Google Font-->
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,700,700italic,600' rel='stylesheet' type='text/css'/>
 
+    <!--style sheets-->
+    <link rel="stylesheet" media="screen" th:href="@{/css/bootstrap.min.css}" href="../../static/css/bootstrap.min.css"/> <!-- Themed bootstream -->
+    <link rel="stylesheet" media="screen" th:href="@{/css/mindtrails.css}"/>
+    <link rel="stylesheet" media="screen" th:href="@{/css/templeton.css}" href="../../static/css/templeton.css"/>
+
+    <!-- JavaScript -->
+    <script type="text/javascript" th:src="@{/bower/jquery/dist/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/bower/jqueryui/jquery-ui.min.js}"></script>
+    <script type="text/javascript" th:src="@{/bower/bootstrap/dist/js/bootstrap.min.js}"></script>
+
+    <!-- Google Analytics -->
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-77944674-2', 'auto');
+        ga('send', 'pageview');
+    </script>
 </head>
-<body >
+
+<body>
+
 <section id="header" class="clearfix" th:fragment="topFragment" >
     <div class="container">
-        <!--logo starts-->
-        <div class="span4 logo"><a th:href="@{/}"></a></div>
-        <!--logo ends-->
+        <div class="logo"><a th:href="@{/}"><img th:src="@{/images/header_logo.png}" src="../../static/images/header_logo.png"/></a></div>
 
         <div class="span8 clearfix">
+
             <!--menu starts-->
                 <ul id="nav">
-                    <li th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}"><a href="/session">HOME</a></li>
+                    <li th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
+                        <a href="/session">HOME</a></li>
                     <li><a href="/public/about">ABOUT</a></li>
                     <li><a href="/public/faq">FAQ</a></li>
+                    <li><a href="/public/contact">CONTACT</a></li>
+                    <li><a href="/public/team">MEET THE TEAM</a></li>
+                    <li><a target="new" href="https://implicit.harvard.edu/implicit/user/pimh/linkinfo.html">MENTAL&nbsp;HEALTH&nbsp;RESOURCES</a></li>
+                    <li><a href="/public/researchSupport">RESEARCH&nbsp;SUPPORT</a></li>
+
                 </ul>
             <!--menu ends-->
+
         </div>
     </div>
-
     <div class="account-bar" th:unless="${visiting}">
         <div class="container" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
             <span th:if="${participant}" class="item">Logged in as ( <span th:text="${participant.fullName}"/> )</span> |<a href="/session/overview">My Progress</a> | <a
@@ -50,20 +77,6 @@
 
 </section>
 <!-- header ends
-================================================== -->
-
-<!-- header-btm starts
-================================================== -->
-<section id="header-btm" class="clearfix">
-    <div class="container">
-        <div class="row">
-            <div class="span12">
-                <h2 class="page-title heading-icon clearfix"> <img th:src="@{/images/map-arrow-orange.png}" width="40" height="40" alt="icon" class="icon-small-bg"/><br/>Welcome!</h2>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- header-btm ends
 ================================================== -->
 
 <!-- content starts
@@ -111,7 +124,7 @@
 
 <!-- footer starts
 ================================================== -->
-<footer id="footer" class="clearfix" th:fragment="footerFragment">
+<footer id="footer" th:fragment="footerFragment">
     <div class="container">
 
         <!--row starts-->
@@ -137,7 +150,7 @@
     </div>
 
     <!--column two starts-->
-    <div class="adminTools" sec:authorize="hasRole('ROLE_ADMIN')">
+    <div class="adminTools container" sec:authorize="hasRole('ROLE_ADMIN')">
         <h5>Administration Tools</h5>
 
         <p>This section is only visible to you because you have been granted administrative access.</p>
@@ -157,6 +170,17 @@
     </div>
     <div class="copyright">&copy; Copyright 2016 &bull; All rights reserved</div>
 </footer>
+
+
+<!--other jqueries required-->
+<div id="scripts"  th:fragment="scripts">
+    <script th:src="@{/bower/bootstrap/dist/js/bootstrap.min.js}" type="text/javascript" ></script>
+    <script>
+        var bootstrapButton = $.fn.button.noConflict() // return $.fn.button to previously assigned value
+        $.fn.bootstrapBtn = bootstrapButton            // give $().bootstrapBtn the Bootstrap functionality
+    </script>
+
+</div>
 
 </body>
 </html>

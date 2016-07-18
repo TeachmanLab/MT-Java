@@ -54,7 +54,7 @@ button:hover {
 
 button:active { background:#666;
     -webkit-box-shadow: 0px 0px 0px #888;
-    -moz-box-shadow: 0px 0px 0px #888;
+    -moz-box-shadcoow: 0px 0px 0px #888;
     box-shadow: 0px 0px 0px #888;
     }
 
@@ -390,75 +390,6 @@ div.piIntro p, div.piIntro h3, div.piIntro ul {
 }
 
 
-/**
-Session Overview
-**/
-
-img.sessionMarker {
-    position:absolute;
-    left: 20px;
-    margin: 20px;
-}
-
-div.sessionGrouping {
-    width: 850px;
-    clear:both;
-    margin: 50px 0 0 0;
-    position:relative;
-}
-
-div.sessionOverview {
-    left: 120px;
-    background:#21336B;
-    margin: 0 0 0 120px;
-    padding: 0;
-    width: 600px;
-}
-
-div.sessionOverview h3 {
-    color: white;
-    font-size: 92%;
-    margin: 5px 20px;
-}
-
-div.sessionOverview span.date {
-    margin-left: 10px;
-}
-
-div.gift {
-    position:absolute;
-    width: 100px;
-    bottom:0px;
-    right:0px;
-    text-align: center;
-}
-
-div.gift img {
-    margin-left:-20px;
-}
-
-
-br.clear {
-    clear:both;
-}
-
-div.sessionOverview table {
-    background-color: white;
-    min-width: 598px;
-}
-
-div.sessionOverview table td {
-    background-color: white;
-    border: 1px solid #BBB;
-    padding-left: 20px;
-    height: 40px;
-}
-
-.allow2days {
-    color: #5f5f5f;
-    font-size: 83%;
-    margin: 0 0 0 175px;
-}
 
 
 /**
@@ -793,60 +724,7 @@ form#wizard {
     margin: auto;
 }
 
-/*************** Password validation */
-#pswd_info ul, #passwd_inf0 li {
-    margin:0;
-    padding:0;
-    list-style-type: none;
-}
 
-
-
-#pswd_info {
-    display:none;
-    z-index: 100;
-    position:absolute;
-    left:187px;
-    width:350px;
-    padding:15px;
-    background:#fefefe;
-    font-size:.875em;
-    border-radius:5px;
-    box-shadow:0 1px 3px #ccc;
-    border:1px solid #ddd;
-}
-
-
-#pswd_info h4 {
-    margin:0 0 10px 0;
-    padding:0;
-    font-weight:normal;
-}
-
-#pswd_info::before {
-    content: "\25B2";
-    position:absolute;
-    top:-12px;
-    left:45%;
-    font-size:14px;
-    line-height:14px;
-    color:#ddd;
-    text-shadow:none;
-    display:block;
-}
-
-li.invalid {
-    background:url(../images/invalid.png) no-repeat 0 50%;
-    padding-left:22px;
-    line-height:24px;
-    color:#ec3f41;
-}
-li.valid {
-    background:url(../images/valid.png) no-repeat 0 50%;
-    padding-left:22px;
-    line-height:24px;
-    color:#3a7d34;
-}
 
 /******
   DIALOG BOXES

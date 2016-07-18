@@ -12,23 +12,23 @@
 <body>
 <section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
 
-<div class="container sessionSection">
-    <div class="row">
-        <div class="col-md-4">
-            <img th:src="@{/images/map-arrow-orange.png}" alt="icon" class="icon-small-bg"/>
-        </div>
-        <div class="col-md-8 session">
-            <h2>Please try again in a few hours.</h2>
-            It is time for you to complete another Session. Unfortunately, we are experiencing
-            some technical difficulties. Administrators were notified
-            of the issue, and we hope to have the site working shortly.
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <h1>Select your theme from the options below ...</h1>
+                <form action="#" th:action="@{/account/updateTheme}" th:object="${participant}" method="post">
+                    <section  th:include="fragment/account :: themeSelection"/>
+                </form>
+            </div>
         </div>
     </div>
-</div>
+
+</section>
 
 <footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
 <section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
 <div th:include="fragment/common :: scripts"/>
+
 </body>
 </html>
-

@@ -5,11 +5,10 @@
 <section id="content" class="clearfix">
     <div class="container">
                 <form action="#" th:action="@{/account/updateTheme}" th:object="${participant}" method="post">
-                    <section id="theme" class="clearfix" th:include="fragment/theme :: themeSelection"/>
+                    <section id="theme" class="clearfix" th:include="fragment/account :: themeSelection"/>
                 </form>
     </div>
 </section>
-
 
 <!--Javascript
 ================================================== -->

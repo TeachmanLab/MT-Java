@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="fragment/common :: headerFragment"/>
+<body>
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
+
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <h1>Welcome to the Templeton Study</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pellentesque erat erat, vel ullamcorper turpis malesuada et. Pellentesque iaculis consequat sapien sit amet finibus. Ut faucibus efficitur sapien at feugiat. Nullam posuere felis sit amet ornare tincidunt. Suspendisse non justo libero. Suspendisse quis nisi vel tortor congue convallis. Nam at tortor pellentesque, scelerisque diam pharetra, pellentesque sapien. Nulla pellentesque nunc ac vestibulum blandit. Nulla facilisi. Nulla eget interdum massa. Aenean ut dapibus purus. Quisque vitae lorem est. Fusce nec est sit amet mauris interdum pellentesque at nec massa. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
+
+                <p>Sed malesuada, purus vitae posuere congue, enim mauris interdum est, vel vulputate tellus lacus sed eros. Duis mollis leo quis sollicitudin laoreet. Cras mattis nisl a quam congue dignissim. Integer eu sagittis ipsum. Nulla sed rutrum dolor, sit amet interdum nisl. Nulla vulputate tortor et est gravida placerat. Nullam at elit sed risus efficitur feugiat eget eget massa. Ut elementum metus quis libero molestie hendrerit. Nunc ullamcorper cursus erat ac viverra. Duis felis erat, pharetra id pharetra non, consectetur quis ipsum. Vivamus et nibh consequat, elementum magna non, elementum quam.</p>
+            </div>
+
+            <div class="col-md-4">
+                <h4>Let's get started!</h4>
+                <p><a href="/account/create"><button>Create Account</button> </a></p>
+            </div>
+        </div>
+     </div>
+</section>
+
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>

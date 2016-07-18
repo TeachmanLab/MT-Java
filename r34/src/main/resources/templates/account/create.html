@@ -11,12 +11,11 @@
 <head th:include="fragment/common :: headerFragment"/>
 
 <body>
-<script th:src="@{/js/password.js}"></script>
+
 <section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
 
 <!-- content starts
 ================================================== -->
-<form name="f" th:action="@{/account/create}" method="post" th:object="${participantForm}">
     <section id="content" class="clearfix">
         <div class="container longSection">
             <div class="row">
@@ -24,7 +23,6 @@
                     <img th:src="@{/images/map-arrow-blue.png}" alt="icon" class="icon-small-bg"/>
                 </div>
                 <div class="col-md-12">
-                    <fieldset>
                         <h2 class="page-title">Consent and Create an Account</h2>
 
                         <div class="row">
@@ -139,81 +137,12 @@
                             <br/>
 
                             <br/>
-                        </div>
-                </div>
-
-                        <h3>Create an account</h3>
-                        <div class="formErrors">
-                            <ul class="errors">
-                                <li th:each="err : ${#fields.errors('*')}" th:text="${err}" class="alert alert-error">
-                                    Input is incorrect
-                                </li>
-                            </ul>
-                            <div class="spacer-20px"></div>
-                        </div>
-
-                        <p>
-                            <label class="standard" for="fullName" >Name / Nickname</label>
-                            <input type="text" id="fullName" name="fullName" th:errorclass="error" th:field="*{fullName}"/>
-                        </p>
-
-                        <p>
-                            <label class="standard" for="email">Email</label>
-                            <input type="email" id="email" name="email" th:errorclass="error"  th:field="*{email}"/>
-                        </p>
-
-                        <p>
-                            <label class="standard" for="password" >Password</label>
-                            <input type="password" id="password" name="password" th:field="*{password}" th:errorclass="error"/>
-                        </p>
-                        <div id="pswd_info">
-                            <h4>Password must meet the following requirements:</h4>
-                            <ul>
-                                <li id="letter" class="invalid">At least <strong>one letter</strong></li>
-                                <li id="capital" class="invalid">At least <strong>one capital letter</strong></li>
-                                <li id="number" class="invalid">At least <strong>one number</strong></li>
-                                <li id="symbol"  class="invalid">At least <strong>one symbol</strong><br/>( ! # $ @ _ ' + , ? [ ] . - and space)</li>
-                                <li id="length" class="invalid">Be at least <strong>8 characters</strong></li>
-                            </ul>
-                        </div>
-                        <p>
-                            <label class="standard" for="passwordAgain" >Confirm Password</label>
-                            <input type="password" id="passwordAgain" th:field="*{passwordAgain}" name="passwordAgain"/>
-                        </p>
-                        <p>
-                            <label class="standard" for="over18">I am over 18</label>
-                            <input type="checkbox" id="over18" name="over18"/>
-                        </p>
-                        <div id="g-recaptcha"></div>
-                        <input type="hidden" th:field="*{recaptchaResponse}" name="recaptchaResponse" id="recaptchaResponse"/>
-                        <script type="text/javascript" th:inline="javascript">
-                            /*<![CDATA[*/
-                            var siteKey = /*[[${recaptchaSiteKey}]]*/;
-                            var onloadCallback = function() {
-                                grecaptcha.render('g-recaptcha', {
-                                    'sitekey' : siteKey,
-                                    'callback' : function(response) {
-                                        document.getElementById('recaptchaResponse').value = response;
-                                    },
-                                    'theme' : 'light'
-                                });
-                            }
-                            /*]]>*/
-                        </script>
-                        <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&amp;render=explicit" async="true" defer="true"></script>
-
-                        <p><b>By clicking the button below you are indicating that you have read the informed consent
-                            statement above and agree to participate.</b></p>
-                    </fieldset>
-
+                            <form name="create" th:action="@{/account/create}" method="post" th:object="${participantForm}"
+                                  th:include="fragment/account :: create"/>
                 </div>
             </div>
         </div>
     </section>
-    <div style="text-align: center;">
-        <button>Give Consent and Create Account</button>
-    </div>
-</form>
 
 
 <!-- footer starts

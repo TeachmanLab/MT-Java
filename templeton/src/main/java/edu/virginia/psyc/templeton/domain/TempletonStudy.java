@@ -47,7 +47,7 @@ public class TempletonStudy extends BaseStudy {
         pretest.addTask(new Task("Optimism","Optimism", Task.TYPE.questions, 3));
         sessions.add(pretest);
 
-        session1 = new Session("firstSession", "The First Session", 0, 0);
+        session1 = new Session("firstSession", "The First Session", 0, 2);
         session1.addTask(new Task("MyWebForm","Web Form", Task.TYPE.questions, 1));
         sessions.add(session1);
 

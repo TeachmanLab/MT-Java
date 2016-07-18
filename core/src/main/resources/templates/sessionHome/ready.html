@@ -12,6 +12,15 @@
 <body>
 <section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
 
+<section id="content" class="clearfix">
+<div class="container sessionSection">
+    <div class="row">
+        <div class="col-md-4">
+            <img th:src="@{/images/map-0-orange.png}" alt="icon" class="icon-small-bg"/>
+        </div>
+
+        <div class="col-md-8 session">
+
     <h2>Welcome back <span th:text="${participant.fullName}">Jim</span>.</h2>
     <p>You are ready to begin <span th:text="${currentSession.displayName}"/></p>
     <p>This includes ...</p>
@@ -31,17 +40,13 @@
       <button>Start</button>
     </a>
     <a href="/session/overview" th:unless="${currentSession.name =='PRE'}">Program Overview</a>
-  </body>
+</div>
+        </div>
+    </div>
+</section>
 
-<!-- footer starts
-================================================== -->
 <footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
-
-<!-- copyright starts
-================================================== -->
 <section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
-
-<!--Javascript
-================================================== -->
 <div th:include="fragment/common :: scripts"/>
+</body>
 </html>

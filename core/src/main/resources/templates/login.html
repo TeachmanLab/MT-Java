@@ -12,9 +12,13 @@
 <body>
 <section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
 
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
 
 <h2 class="page-title">Log In</h2>
-<form name="f" th:action="@{/login}" method="post">
+                <form name="f" th:action="@{/login}" method="post">
     <fieldset>
         <div th:if="${param.error}" class="alert alert-error">
             Invalid username and password.
@@ -47,16 +51,14 @@
 
     </fieldset>
 </form>
-<!-- footer starts
-================================================== -->
+
+                </div>
+            </div>
+        </div>
+    </section>
+
 <footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
-
-<!-- copyright starts
-================================================== -->
 <section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
-
-<!--Javascript
-================================================== -->
 <div th:include="fragment/common :: scripts"/>
 
 </body>
