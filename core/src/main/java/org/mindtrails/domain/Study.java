@@ -2,6 +2,7 @@ package org.mindtrails.domain;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Models a Study, and the participant's progress in that Study.
@@ -38,4 +39,10 @@ public interface Study {
 
     public void setReceiveGiftCards(boolean value);
 
+    /**
+     *     Parameters to pass into the PIPlayer Script.  Frequenty
+     *     includes details about the current study, such as
+     *     the participants Condition or Prime.
+     */
+    public Map<String,String> getPiPlayerParameters();
 }

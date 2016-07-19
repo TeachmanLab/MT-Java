@@ -1,8 +1,7 @@
-package edu.virginia.psyc.r34.persistence;
+package org.mindtrails.domain.piPlayer;
 
-import org.mindtrails.domain.Exportable;
-import edu.virginia.psyc.r34.domain.json.TrialJson;
 import lombok.Data;
+import org.mindtrails.domain.Exportable;
 
 import javax.persistence.*;
 import java.util.*;
@@ -36,7 +35,7 @@ import java.util.*;
 @Table(name="trial")
 @Data
 @Exportable
-public class TrialDAO {
+public class Trial {
 
     @TableGenerator(name = "QUESTION_GEN", table = "ID_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 1)
     @Id
@@ -52,11 +51,11 @@ public class TrialDAO {
     private int participantId;
     private int latency;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "trial")
-    private Collection<StimuliDAO> stimuli;
+    private Collection<PiStimuli> piStimuli;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "trial")
-    private Collection<MediaDAO> media;
+    private Collection<PiMedia> media;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "trial")
-    private Collection<DataDAO> data;
+    private Collection<PiData> data;
 
     @Override
     public String toString() {
@@ -65,22 +64,22 @@ public class TrialDAO {
                 ", trial_id=" + trial_id +
                 ", name='" + name + '\'' +
                 ", responseHandle='" + responseHandle + '\'' +
-                ", stimuliDAO=" + stimuli +
+                ", stimuliDAO=" + piStimuli +
                 ", mediaDAO=" + media +
                 ", dataDAO=" + data +
                 '}';
     }
 
-    public TrialDAO() {}
+    public Trial() {}
 
-    public TrialDAO(TrialJson j) {
+    public Trial(TrialJson j) {
         this.setId(j.getId());
         this. setLog_serial(j.getLog_serial());
         this. setTrial_id(j.getTrial_id());
         this. setName(j.getName());
         this. setResponseHandle(j.getResponseHandle());
         this. setLatency(j.getLatency());
-        this. setStimuli(j.getStimuli());
+        this.setPiStimuli(j.getStimuli());
         this. setMedia(j.getMedia());
         this. setData(j.getData());
         this.setParticipantId(j.getParticipant());
@@ -108,67 +107,67 @@ public class TrialDAO {
 
     public List<String> getStimuliAsList() {
         List l = new ArrayList<String>();
-        for(StimuliDAO s : stimuli) {
+        for(PiStimuli s : piStimuli) {
             l.add(s.getValue());
         }
         return l;
     }
 
-    public void setstimuli(Collection<StimuliDAO> stimuli) {
-        this.stimuli = stimuli;
+    public void setstimuli(Collection<PiStimuli> piStimuli) {
+        this.piStimuli = piStimuli;
     }
 
-    public void setStimuli(List<String> stimuliIn) {
-        this.stimuli = new ArrayList<StimuliDAO>();
+    public void setPiStimuli(List<String> stimuliIn) {
+        this.piStimuli = new ArrayList<PiStimuli>();
         for(String s: stimuliIn) {
-            this.stimuli.add(new StimuliDAO(s, this));
+            this.piStimuli.add(new PiStimuli(s, this));
         }
     }
 
 
-    public Collection<MediaDAO> getMedia() {
+    public Collection<PiMedia> getMedia() {
         return media;
     }
 
     public List<String> getMediaAsList() {
         List l = new ArrayList<String>();
-        for(MediaDAO m : media) {
+        for(PiMedia m : media) {
             l.add(m.getValue());
         }
         return l;
     }
 
-    public void setMediaDAO(Collection<MediaDAO> media) {
+    public void setMediaDAO(Collection<PiMedia> media) {
         this.media = media;
     }
 
     public void setMedia(List<String> mediaIn) {
-        this.media = new ArrayList<MediaDAO>();
+        this.media = new ArrayList<PiMedia>();
         for(String s: mediaIn) {
-            this.media.add(new MediaDAO(s, this));
+            this.media.add(new PiMedia(s, this));
         }
     }
 
-    public Collection<DataDAO> getDataDAO() {
+    public Collection<PiData> getDataDAO() {
         return data;
     }
 
     public Map<String,String> getDataAsMap() {
         Map<String,String> dataMap = new HashMap();
-        for(DataDAO d : this.data) {
+        for(PiData d : this.data) {
             dataMap.put(d.getKey(), d.getValue());
         }
         return dataMap;
     }
 
-    public void setDataDAO(Collection<DataDAO> dataDAO) {
-        this.data = dataDAO;
+    public void setDataDAO(Collection<PiData> piData) {
+        this.data = piData;
     }
 
     public void setData(Map<String, String> data) {
-        this.data = new ArrayList<DataDAO>();
+        this.data = new ArrayList<PiData>();
         for(String key : data.keySet()) {
-            this.data.add(new DataDAO(key, data.get(key), this));
+            this.data.add(new PiData(key, data.get(key), this));
         }
     }
 

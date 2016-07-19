@@ -9,9 +9,7 @@ import org.mindtrails.domain.tracking.TaskLog;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -46,6 +44,14 @@ public class R34Study extends BaseStudy implements Study {
     public enum NAME {
         PRE, SESSION1, SESSION2, SESSION3, SESSION4, SESSION5, SESSION6, SESSION7, SESSION8, POST
     }
+
+    @Override
+    public Map<String,String> getPiPlayerParameters(){
+        Map<String,String> params = new HashMap<>();
+        params.put("condition", getCondition().toString());
+        return params;
+    }
+
 
     /**
     * Returns true if the participant is in a session, versus being in a pre-assessment or

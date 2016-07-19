@@ -1,7 +1,7 @@
-package edu.virginia.psyc.r34.DAO;
+package org.mindtrails.domain;
 
-import edu.virginia.psyc.r34.persistence.TrialDAO;
-import edu.virginia.psyc.r34.domain.json.TrialJson;
+import org.mindtrails.domain.piPlayer.Trial;
+import org.mindtrails.domain.piPlayer.TrialJson;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -13,7 +13,7 @@ import org.junit.Test;
  * Time: 6:58 AM
  * Assure that Trials are correctly stored and retrieved from the database.
  */
-public class TrialDAOTest {
+public class TrialTest {
 
     // Here is a typical Json string, as provided by the PiPlayer
     public static final String JSON_STRING = "{\"log_serial\":22,\"trial_id\":24,\"name\":\"IAT\",\"responseHandle\":\"left\",\"latency\":897302,\"stimuli\":[\"Good Words\"],\"media\":[\"Happy\"],\"data\":{\"score\":0,\"block\":2,\"left1\":\"Good Words\",\"right1\":\"Bad Words\",\"condition\":\"Good Words/Bad Words\"}}";
@@ -26,13 +26,13 @@ public class TrialDAOTest {
     @Test
     public void testCovertingTrailJson() {
 
-        TrialDAO trialDao = new TrialDAO(getTrial());
-        Assert.assertEquals(22, trialDao.getLog_serial());
-        Assert.assertEquals(897302, trialDao.getLatency());
-        Assert.assertEquals(1, trialDao.getStimuliAsList().size());
-        Assert.assertEquals("Good Words", trialDao.getStimuliAsList().get(0));
-        Assert.assertEquals(5, trialDao.getDataAsMap().size());
-        Assert.assertEquals("0", trialDao.getDataAsMap().get("score"));
+        Trial trial = new Trial(getTrial());
+        Assert.assertEquals(22, trial.getLog_serial());
+        Assert.assertEquals(897302, trial.getLatency());
+        Assert.assertEquals(1, trial.getStimuliAsList().size());
+        Assert.assertEquals("Good Words", trial.getStimuliAsList().get(0));
+        Assert.assertEquals(5, trial.getDataAsMap().size());
+        Assert.assertEquals("0", trial.getDataAsMap().get("score"));
     }
 
 

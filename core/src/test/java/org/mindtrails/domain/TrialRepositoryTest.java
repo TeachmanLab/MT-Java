@@ -1,11 +1,11 @@
-package edu.virginia.psyc.r34.DAO;
+package org.mindtrails.domain;
 
-import edu.virginia.psyc.r34.Application;
-import edu.virginia.psyc.r34.persistence.TrialDAO;
-import edu.virginia.psyc.r34.persistence.TrialRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mindtrails.Application;
+import org.mindtrails.domain.piPlayer.Trial;
+import org.mindtrails.persistence.TrialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ActiveProfiles;
@@ -35,20 +35,20 @@ public class TrialRepositoryTest {
     @Test
     @Transactional
     public void findTrials() {
-        List<TrialDAO> trialDAOs;
+        List<Trial> trials;
 
         Assert.assertTrue(true);
-        trialDAOs = trialRepository.findAll();
-        Assert.assertNotNull(trialDAOs);
+        trials = trialRepository.findAll();
+        Assert.assertNotNull(trials);
     }
 
     @Test
     @Transactional
     public void saveAndRetrieveTrial() {
 
-        TrialDAO t, tout;
+        Trial t, tout;
 
-        t = new TrialDAO();
+        t = new Trial();
         Map data = new HashMap<String,String>();
         data.put("myKey", "myVal");
 

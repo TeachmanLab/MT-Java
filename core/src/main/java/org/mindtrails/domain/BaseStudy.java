@@ -7,10 +7,7 @@ import org.joda.time.DateTime;
 import org.joda.time.Days;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * You can use this class to get some basic features
@@ -241,6 +238,12 @@ public abstract class BaseStudy implements Study {
                 ", receiveGiftCards=" + receiveGiftCards +
                 ", taskLogs=" + taskLogs +
                 '}';
+    }
+
+    @Override
+    public Map<String,String> getPiPlayerParameters(){
+        Map<String,String> params = new HashMap<>();
+        return params;
     }
 
 }

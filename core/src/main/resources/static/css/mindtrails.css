@@ -1,4 +1,8 @@
 
+body {font-family: 'Source Sans Pro', sans-serif; font-size:20px; box-sizing:border-box; background-color: #f6f5ea}
+.clear-both {clear:both;}
+
+
 /*************** Sections */
 
 div.sessionSection,  div.sessionOverview {
@@ -133,7 +137,65 @@ li.invalid {
     color:#ec3f41;
 }
 li.valid {
-    background:url(../images/valid.png) no-repeat 0 50%;
-    padding-left:22px;
-    line-height:24px;
-    color:#3a7d34;
+    background: url(../images/valid.png) no-repeat 0 50%;
+    padding-left: 22px;
+    line-height: 24px;
+    color: #3a7d34;
+}
+
+/**  PIPlayer styling **/
+
+div.piPlayerHeader {
+    width:100%;
+    background: #21336B;
+}
+
+div#canvas {
+    position: relative;
+    color:black;
+    background: white;
+    box-sizing:border-box;
+    border-radius: 25px;
+    margin: 40px auto;
+    border: 1px solid #bbb;
+}
+
+div#canvas div {
+    padding: 0px 20px;
+}
+
+div#canvas div.sentence {
+}
+
+div#canvas div.sentence p {
+    margin: 0px;
+}
+
+div.thanks {
+    position: absolute;
+    font-size: 1.2em;
+    top: 300px;
+}
+
+div.stimulus {
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+div.piIntro {
+    text-align:left;
+    font-size: .7em;
+}
+
+div.piIntro img {
+    float:left;
+    margin:25px;
+    padding-right: 20px;
+}
+
+div.piIntro p, div.piIntro h3, div.piIntro ul {
+    margin-left: 20px;
+}
+
+
+

@@ -1,4 +1,4 @@
-package edu.virginia.psyc.r34.persistence;
+package org.mindtrails.domain.piPlayer;
 
 import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
@@ -10,12 +10,12 @@ import javax.persistence.*;
  * User: dan
  * Date: 3/20/14
  * Time: 9:33 AM
- * Basically a list of strings representing media shown to the participant..
+ * A list of strings representing stimuli presented in a trialDAO.
  */
 @Entity
-@Table(name="data")
+@Table(name="stimuli")
 @Data
-public class DataDAO {
+public class PiStimuli {
 
     @Id
     @GeneratedValue
@@ -26,20 +26,15 @@ public class DataDAO {
     @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
     @JsonIdentityReference(alwaysAsId=true)
     @JsonProperty("trialId")
-    private TrialDAO trial;
-
-    @Column(name="myKey")
-    private String key;
+    private Trial trial;
 
     @Lob
     private String value;
 
-    public DataDAO() {}
+    public PiStimuli() {}
 
-    public DataDAO(String k, String v, TrialDAO trial) {
-        this.value = v;
-        this.key   = k;
+    public PiStimuli(String s, Trial trial) {
         this.trial = trial;
+        this.value = s;
     }
-
 }

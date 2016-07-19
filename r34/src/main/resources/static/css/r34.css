@@ -335,62 +335,6 @@ span.form-note {
     font-style: italic;
 }
 
-/**  PIPlayer styling **/
-
-div.piPlayerHeader {
-    width:100%;
-    background: #21336B;
-}
-
-div#canvas {
-    position: relative;
-    color:black;
-    background: white;
-    box-sizing:border-box;
-    border-radius: 25px;
-    margin: 40px auto;
-    border: 1px solid #bbb;
-}
-
-div#canvas div {
-    padding: 0px 20px;
-}
-
-div#canvas div.sentence {
-}
-
-div#canvas div.sentence p {
-    margin: 0px;
-}
-
-div.thanks {
-    position: absolute;
-    font-size: 1.2em;
-    top: 300px;
-}
-
-div.stimulus {
-    text-align: center;
-    padding-bottom: 20px;
-}
-
-div.piIntro {
-    text-align:left;
-    font-size: .7em;
-}
-
-div.piIntro img {
-    float:left;
-    margin:25px;
-    padding-right: 20px;
-}
-
-div.piIntro p, div.piIntro h3, div.piIntro ul {
-    margin-left: 20px;
-}
-
-
-
 
 /**
 Questionnaires

@@ -49,6 +49,8 @@ public class TempletonStudy extends BaseStudy {
 
         session1 = new Session("firstSession", "The First Session", 0, 2);
         session1.addTask(new Task("MyWebForm","Web Form", Task.TYPE.questions, 1));
+        session1.addTask(new Task("RecognitionRatings", "Recognition Ratings", Task.TYPE.playerScript, 10));
+        session1.addTask(new Task("TrainingExample", "A Basic Example", Task.TYPE.playerScript, 10));
         sessions.add(session1);
 
         session2 = new Session("secondSession", "The Second Session", 0, 0);

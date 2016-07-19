@@ -1,5 +1,6 @@
-package edu.virginia.psyc.r34.persistence;
+package org.mindtrails.persistence;
 
+import org.mindtrails.domain.piPlayer.Trial;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -14,4 +15,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *    findOne(ID id) which returns the entity using the id given a parameter as a search criteria.
  *    save(T entity) which saves the entity given as a parameter.
  */
-public interface TrialRepository extends JpaRepository<TrialDAO, Long> {}
+public interface TrialRepository extends JpaRepository<Trial, Long> {}

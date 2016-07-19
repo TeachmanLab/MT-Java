@@ -1,8 +1,8 @@
-package edu.virginia.psyc.r34.controller;
+package org.mindtrails.controller;
 
-import edu.virginia.psyc.r34.domain.R34Study;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.RestExceptions.WrongFormException;
+import org.mindtrails.domain.Study;
 import org.mindtrails.service.ParticipantService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,20 +45,17 @@ public class PIPlayerController {
     public String showPlayer(ModelMap model, Principal principal, @PathVariable String scriptName) {
 
         Participant p = participantService.findByEmail(principal.getName());
-        R34Study study   = (R34Study)p.getStudy();
+        Study study   = p.getStudy();
 
         // The Neutral condition requires a completely different file.
         LOG.debug("The Script name: " + scriptName + "!=" +  "RecognitionRatings?" + (scriptName != "RecognitionRatings"));
 
-        if(study.getCondition().equals(R34Study.CONDITION.NEUTRAL) &&
-                !scriptName.equals("RecognitionRatings")) {
-            scriptName = scriptName + "NT";
-        }
-
         model.addAttribute("script", scriptName);
         model.addAttribute("sessionName", p.getStudy().getCurrentSession().getName());
         model.addAttribute("participantId", p.getId());
-        model.addAttribute("condition", study.getCondition().toString());
+        for(String key : study.getPiPlayerParameters().keySet()) {
+            model.addAttribute(key, study.getPiPlayerParameters().get(key));
+        }
         return "PIPlayer";
     }
 

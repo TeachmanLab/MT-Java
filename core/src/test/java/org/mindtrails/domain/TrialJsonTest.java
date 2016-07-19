@@ -1,10 +1,10 @@
-package edu.virginia.psyc.r34.DAO;
+package org.mindtrails.domain;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.virginia.psyc.r34.domain.json.InterpretationReport;
-import edu.virginia.psyc.r34.domain.json.TrialJson;
+import org.mindtrails.domain.piPlayer.InterpretationReport;
+import org.mindtrails.domain.piPlayer.TrialJson;
 import junit.framework.Assert;
 import org.junit.Test;
 

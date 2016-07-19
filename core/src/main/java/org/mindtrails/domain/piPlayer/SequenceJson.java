@@ -1,4 +1,4 @@
-package edu.virginia.psyc.r34.domain.json;
+package org.mindtrails.domain.piPlayer;
 
 import java.util.ArrayList;
 

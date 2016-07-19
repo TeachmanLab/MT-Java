@@ -1,12 +1,12 @@
-package edu.virginia.psyc.r34.controller;
+package org.mindtrails.controller;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.virginia.psyc.r34.persistence.TrialDAO;
-import edu.virginia.psyc.r34.persistence.TrialRepository;
-import edu.virginia.psyc.r34.domain.json.SequenceJson;
-import edu.virginia.psyc.r34.domain.json.TrialJson;
+import org.mindtrails.domain.piPlayer.SequenceJson;
+import org.mindtrails.domain.piPlayer.Trial;
+import org.mindtrails.domain.piPlayer.TrialJson;
+import org.mindtrails.persistence.TrialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 
 /**
- * Created with IntelliJ IDEA.
- * User: dan
- * Date: 2/27/14
- * Time: 11:21 AM
  * This provides the web interface for accepting data from PI Player.
  */
 @Controller
@@ -59,7 +55,7 @@ public class TrialController {
         SequenceJson sequenceJson = toSequence(json);
         for(TrialJson trialJson: sequenceJson) {
             System.out.println("Recieved Data:" + trialJson);
-            this.trialRepository.save(new TrialDAO(trialJson));
+            this.trialRepository.save(new Trial(trialJson));
         }
         return "Thank you.";
     }

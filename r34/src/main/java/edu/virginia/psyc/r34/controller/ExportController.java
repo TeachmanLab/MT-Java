@@ -10,8 +10,8 @@ import org.mindtrails.persistence.ExportLogRepository;
 import org.mindtrails.persistence.ParticipantRepository;
 import org.mindtrails.service.ExportService;
 import org.mindtrails.persistence.QuestionnaireRepository;
-import edu.virginia.psyc.r34.persistence.TrialDAO;
-import edu.virginia.psyc.r34.persistence.TrialRepository;
+import org.mindtrails.domain.piPlayer.Trial;
+import org.mindtrails.persistence.TrialRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,10 +92,10 @@ public class ExportController  {
      * @return
      */
     public List<Object> getTrialSummary(TrialRepository trialRepository) {
-        List<TrialDAO> trialData = trialRepository.findAll();
+        List<Trial> trialData = trialRepository.findAll();
         List<Object> reports = new ArrayList<>();
         // Convert to trial summary
-        for (TrialDAO data : trialData) {
+        for (Trial data : trialData) {
             reports.add(data.toTrialJson().toInterpretationReport());
         }
         return reports;
