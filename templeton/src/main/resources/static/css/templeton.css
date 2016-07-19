@@ -28,12 +28,4 @@ body {font-family: 'Source Sans Pro', sans-serif; font-size:20px; box-sizing:bor
     line-height: 25px;
 }
 
-#footer {background:#21336B; font-size:0.6em; color: #ffffff}
-.footer-logo { float:left; margin: 10px;}
 
-.footer-links {float:right; list-style:none; padding:15px;}
-.footer-links li {float:left; padding:0px 10px;}
-.footer-links a {color:#5ECCDE; text-decoration:none; font-weight:700}
-
-
-}

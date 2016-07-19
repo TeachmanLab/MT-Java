@@ -42,6 +42,9 @@
 
 <section id="header" class="clearfix" th:fragment="topFragment" >
     <div class="container">
+        <div class="row">
+
+
         <div class="logo"><a th:href="@{/}"><img th:src="@{/images/header_logo.png}" src="../../static/images/header_logo.png"/></a></div>
 
         <div class="span8 clearfix">
@@ -62,6 +65,7 @@
 
         </div>
     </div>
+        </div>
     <div class="account-bar" th:unless="${visiting}">
         <div class="container" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
             <span th:if="${participant}" class="item">Logged in as ( <span th:text="${participant.fullName}"/> )</span> |<a href="/session/overview">My Progress</a> | <a
@@ -76,11 +80,20 @@
     <div class="clear-both"></div>
 
 </section>
-<!-- header ends
-================================================== -->
 
-<!-- content starts
-================================================== -->
+<section id="title" class="clearfix" th:fragment="titleBar">
+    <div class="container">
+        <div class="row">
+            <h2 class="page-title heading-icon clearfix"> <img th:src="@{/images/map-arrow-orange.png}" alt="icon" class="icon-small-bg" />
+                <br/>
+                <span th:text="${title}"/>
+            </h2>
+
+        </div>
+    </div>
+</section>
+
+
 <section id="content" class="clearfix">
     <div class="container">
 

@@ -81,8 +81,6 @@ button:active { background:#666;
 .user-theme-gold .account-bar { background:#ECB800; }
 .account-bar a, .account-bar span.item {color:#000000; padding: 0 10px 0 10px; font-weight:400}
 .account-bar .login {}
-.page-title {font-size:1.45em; color:#00ACE4; font-weight:bold; }
-.page-title img {margin-bottom:20px;}
 .user-theme-orange .page-title { color:#F77D38; }
 .user-theme-green .page-title { color:#77B46D; }
 .user-theme-purple .page-title { color:#C98ABB; }
@@ -111,12 +109,6 @@ li.alert {
     color: darkred;
 }
 
-#footer {background:#21336B; font-size:0.6em;}
-.footer-logo { float:left; margin: 10px;}
-
-.footer-links {float:right; list-style:none; padding:15px;}
-.footer-links li {float:left; padding:0px 10px;}
-.footer-links a {color:#5ECCDE; text-decoration:none; font-weight:700}
 .user-theme-orange .footer-links a { color:#F99A65;}
 .user-theme-green .footer-links a { color:#99C38D; }
 .user-theme-purple .footer-links a { color:#D4A4CA; }

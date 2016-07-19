@@ -2,6 +2,18 @@
 body {font-family: 'Source Sans Pro', sans-serif; font-size:20px; box-sizing:border-box; background-color: #f6f5ea}
 .clear-both {clear:both;}
 
+/*************** Header   */
+.page-title {font-size:1.45em; color:#00ACE4; font-weight:bold; }
+.page-title img {margin-top: -10px; margin-bottom:20px;}
+
+
+/*************** Footer   */
+#footer { margin-top: 20px; background:#21336B; font-size:0.6em; color: #ffffff}
+.footer-logo { float:left; margin: 10px;}
+
+.footer-links {float:right; list-style:none; padding:15px;}
+.footer-links li {float:left; padding:0px 10px;}
+.footer-links a {color:#5ECCDE; text-decoration:none; font-weight:700}
 
 /*************** Sections */
 
