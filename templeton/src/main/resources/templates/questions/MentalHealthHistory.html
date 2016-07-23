@@ -2,89 +2,67 @@
 <!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
 <!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
 <!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!-->
-<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
-<!--<![endif]-->
-<head th:include="/fragment/common :: headerFragment" />
-<style>
-    form label.error
-    {
-    font-size: 16px;
-    }
-</style>
-<body th:class="|user-theme-${participant.theme}|">
-<section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
+<!--[if (gte IE 9)|!(IE)]><!--><html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
 
-<!-- header-btm starts
-================================================== -->
-<section id="header-btm" class="clearfix">
-    <div class="container">
-        <div class="row">
-            <h2 class="page-title heading-icon clearfix"><img th:src="@{/images/map-arrow-orange.png}" alt="icon"
-                                                              class="icon-small-bg"/><br/>Mental Health History</h2>
-        </div>
-    </div>
-</section>
+<head th:replace="fragment/common :: headerFragment"/>
+<body>
+<section th:replace="fragment/common :: topFragment"/>
+<section th:replace="fragment/common :: titleBar (title='Mental Health History')"/>
 
-<!-- content starts
-================================================== -->
 <section id="content" class="clearfix">
     <div class="container">
-
-        <!--spacer here-->
-        <div class="spacer-30px"></div>
-
-        <!--features starts-->
         <div class="row">
             <div class="span12">
-                <form id="MHFORM" th:action="@{/questions/MentalHealthHxTx}" method="POST">
+
+
+                <form th:action="@{/questions/MentalHealthHistory}" method="POST">
+
                     <div class="longSection">
                         <div class="question">
                             Do you <b>CURRENTLY</b> have a disorder diagnosis (i.e., diagnosed by a health
-                                professional, such as a social worker, psychologist, psychiatrist, or a general practitioner)
-                                for any of the following disorders? (Check all that apply)
-
+                            professional, such as a social worker, psychologist, psychiatrist, or a general practitioner)
+                            for any of the following disorders? (Check all that apply)
                         </div>
                         <br/>
                         <div class="row">
                             <table>
-                            <td><div class="radioList">
-                                <ul>
-                                     <li><label class="radioList"><input id="Q1_1" type="checkbox" name="disorders" value="GAD">Generalized anxiety disorder (GAD)</input></label></li>
-                                     <li><label class="radioList"><input id="Q1_2" type="checkbox" name="disorders" value="OCD">Obsessive-compulsive disorder (OCD)</input> </label></li>
-                                     <li><label class="radioList"><input id="Q1_3" type="checkbox" name="disorders" value="Panic">Panic disorder</input> </label></li>
-                                     <li><label class="radioList"><input id="Q1_4" type="checkbox" name="disorders" value="Agor">Agoraphobia</input> </label></li>
-                                     <li><label class="radioList"><input id="Q1_5" type="checkbox" name="disorders" value="PSTD">Posttraumatic stress disorder</input> </label></li>
-                                     <li><label class="radioList"><input id="Q1_6" type="checkbox" name="disorders" value="SAD">Social anxiety disorder</input> </label></li>
-                                     <li><label class="radioList"><input id="Q1_7" type="checkbox" name="disorders" value="Phobias">Specific phobia(s)</input> </label></li>
-                                     <li><label class="radioList"><input id="Q1_8" type="checkbox" name="disorders" value="dem">Dementia or other cognitive disorder</input> </label></li>
-                                     <li><label class="radioList"><input id="Q1_9" type="checkbox" name="disorders" value="subst">Substance-related disorder</input> </label></li>
-                                     <li><label class="radioList"><input id="Q1_10" type="checkbox" name="disorders" value="schiz">Schizophrenia or other related disorder</input> </label></li>
-                                     <li><label class="radioList"><input id="Q1_11" type="checkbox" name="disorders" value="depression">Depression or depressive disorder</input> </label></li>
-                                     <li><label class="radioList"><input id="Q1_12" type="checkbox" name="disorders" value="bipolar">Bipolar disorder</input> </label></li>
-                                     <li><label class="radioList"><input id="Q1_13" type="checkbox" name="disorders" value="eating">Eating disorder</input> </label></li>
-                                     <li><label class="radioList"><input id="Q1_14" type="checkbox" name="disorders" value="personality">Personality disorder</input> </label></li>
-                                    <br />
-                                 <li><label class="radioList"><input id="Q1_15" type="checkbox" name="disorders" value="Other" onchange="spec('Q1_15')">Other</input>  (Please specify)<input id="Q1_15_spec" type="text" name="OtherDesc" /> </label></li>
+                                <td><div class="radioList">
+                                    <ul>
+                                        <li><label class="radioList"><input id="Q1_1" type="checkbox" name="Disorders" value="GAD">Generalized anxiety disorder (GAD)</input></label></li>
+                                        <li><label class="radioList"><input id="Q1_2" type="checkbox" name="Disorders" value="OCD">Obsessive-compulsive disorder (OCD)</input> </label></li>
+                                        <li><label class="radioList"><input id="Q1_3" type="checkbox" name="Disorders" value="Panic">Panic disorder</input> </label></li>
+                                        <li><label class="radioList"><input id="Q1_4" type="checkbox" name="Disorders" value="Agor">Agoraphobia</input> </label></li>
+                                        <li><label class="radioList"><input id="Q1_5" type="checkbox" name="Disorders" value="PSTD">Posttraumatic stress disorder</input> </label></li>
+                                        <li><label class="radioList"><input id="Q1_6" type="checkbox" name="Disorders" value="SAD">Social anxiety disorder</input> </label></li>
+                                        <li><label class="radioList"><input id="Q1_7" type="checkbox" name="Disorders" value="Phobias">Specific phobia(s)</input> </label></li>
+                                        <li><label class="radioList"><input id="Q1_8" type="checkbox" name="Disorders" value="dem">Dementia or other cognitive disorder</input> </label></li>
+                                        <li><label class="radioList"><input id="Q1_9" type="checkbox" name="Disorders" value="subst">Substance-related disorder</input> </label></li>
+                                        <li><label class="radioList"><input id="Q1_10" type="checkbox" name="Disorders" value="schiz">Schizophrenia or other related disorder</input> </label></li>
+                                        <li><label class="radioList"><input id="Q1_11" type="checkbox" name="Disorders" value="depression">Depression or depressive disorder</input> </label></li>
+                                        <li><label class="radioList"><input id="Q1_12" type="checkbox" name="Disorders" value="bipolar">Bipolar disorder</input> </label></li>
+                                        <li><label class="radioList"><input id="Q1_13" type="checkbox" name="Disorders" value="eating">Eating disorder</input> </label></li>
+                                        <li><label class="radioList"><input id="Q1_14" type="checkbox" name="Disorders" value="personality">Personality disorder</input> </label></li>
+                                        <br />
+                                        <li><label class="radioList"><input id="Q1_15" type="checkbox" name="Disorders" value="Other" onchange="spec('Q1_15')">Other</input>  (Please specify)<input id="Q1_15_spec" type="text" name="Other_Desc" /> </label></li>
                                     </ul>
-                            </div>
-                            </td>
+                                </div>
+                                </td>
                                 <td>
-                            <div class="listNoAnswer">
-                                <label>
-                                <p>Prefer not to answer</p>
-                                <input id="Q1_noAns" type="checkbox" name="disorders" value="Notanswer" onchange="hide_Q1_noAns()"/>
-                                </label>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <label>
-                                <p>No diagnosis</p>
-                                <input id="Q1_noDiag" type="checkbox" name="disorders" value="noDiagnosis" onchange="hide_Q1_noDiag();show()"/>
-                                </label>
-                            </div>
+                                    <div class="listNoAnswer">
+                                        <label>
+                                            <p>Prefer not to answer</p>
+                                            <input id="Q1_noAns" type="checkbox" name="Disorders" value="Notanswer" onchange="hide_Q1_noAns()"/>
+                                        </label>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <label>
+                                            <p>No diagnosis</p>
+                                            <input id="Q1_noDiag" type="checkbox" name="Disorders" value="noDiagnosis" onchange="hide_Q1_noDiag();show()"/>
+                                        </label>
+                                    </div>
                                 </td>
                             </table>
                         </div>
@@ -93,48 +71,48 @@
                         <div class="question">
                             Have you been diagnosed with an anxiety disorder <b>IN THE PAST</b> that you no longer have? (Check all that apply)
                         </div>
-                            <div class="row">
-                                <table>
-                                    <td><div class="radioList">
-                                        <ul>
-                                             <li><label class="radioList"><input id="Q2_1" type="checkbox" name="disorders_past" value="GAD">Generalized anxiety disorder (GAD)</input> </label></li>
-                                             <li><label class="radioList"><input id="Q2_2" type="checkbox" name="disorders_past" value="OCD">Obsessive-compulsive disorder (OCD)</input> </label></li>
-                                             <li><label class="radioList"><input id="Q2_3" type="checkbox" name="disorders_past" value="Panic">Panic disorder</input> </label></li>
-                                             <li><label class="radioList"><input id="Q2_4" type="checkbox" name="disorders_past" value="Agor">Agoraphobia</input> </label></li>
-                                             <li><label class="radioList"><input id="Q2_5" type="checkbox" name="disorders_past" value="PSTD">Posttraumatic stress disorder</input> </label></li>
-                                             <li><label class="radioList"><input id="Q2_6" type="checkbox" name="disorders_past" value="SAD">Social anxiety disorder</input> </label></li>
-                                             <li><label class="radioList"><input id="Q2_7" type="checkbox" name="disorders_past" value="Phobias">Specific phobia(s)</input> </label></li>
-                                             <li><label class="radioList"><input id="Q2_8" type="checkbox" name="disorders_past" value="dem">Dementia or other cognitive disorder</input> </label></li>
-                                             <li><label class="radioList"><input id="Q2_9" type="checkbox" name="disorders_past" value="subst">Substance-related disorder</input> </label></li>
-                                             <li><label class="radioList"><input id="Q2_10" type="checkbox" name="disorders_past" value="schiz">Schizophrenia or other related disorder</input> </label></li>
-                                             <li><label class="radioList"><input id="Q2_11" type="checkbox" name="disorders_past" value="depression">Depression or depressive disorder</input> </label></li>
-                                             <li><label class="radioList"><input id="Q2_12" type="checkbox" name="disorders_past" value="bipolar">Bipolar disorder</input> </label></li>
-                                             <li><label class="radioList"><input id="Q2_13" type="checkbox" name="disorders_past" value="eating">Eating disorder</input> </label></li>
-                                             <li><label class="radioList"><input id="Q2_14" type="checkbox" name="disorders_past" value="personality">Personality disorder</input> </label></li>
-                                            <br />
-                                             <li><label class="radioList"><input id="Q2_15" onchange="spec('Q2_15')" type="checkbox" name="disorders_past" value="Other">Other</input>  (Please specify)<input id="Q2_15_spec" type="text" name="OtherDescNo" /> </label></li>
-                                        </ul>
-                                    </div>
-                                    </td>
-                                    <td>
-                                        <div class="listNoAnswer">
-                                            <label>
+                        <div class="row">
+                            <table>
+                                <td><div class="radioList">
+                                    <ul>
+                                        <li><label class="radioList"><input id="Q2_1" type="checkbox" name="PastDisorders" value="GAD">Generalized anxiety disorder (GAD)</input> </label></li>
+                                        <li><label class="radioList"><input id="Q2_2" type="checkbox" name="PastDisorders" value="OCD">Obsessive-compulsive disorder (OCD)</input> </label></li>
+                                        <li><label class="radioList"><input id="Q2_3" type="checkbox" name="PastDisorders" value="Panic">Panic disorder</input> </label></li>
+                                        <li><label class="radioList"><input id="Q2_4" type="checkbox" name="PastDisorders" value="Agor">Agoraphobia</input> </label></li>
+                                        <li><label class="radioList"><input id="Q2_5" type="checkbox" name="PastDisorders" value="PSTD">Posttraumatic stress disorder</input> </label></li>
+                                        <li><label class="radioList"><input id="Q2_6" type="checkbox" name="PastDisorders" value="SAD">Social anxiety disorder</input> </label></li>
+                                        <li><label class="radioList"><input id="Q2_7" type="checkbox" name="PastDisorders" value="Phobias">Specific phobia(s)</input> </label></li>
+                                        <li><label class="radioList"><input id="Q2_8" type="checkbox" name="PastDisorders" value="dem">Dementia or other cognitive disorder</input> </label></li>
+                                        <li><label class="radioList"><input id="Q2_9" type="checkbox" name="PastDisorders" value="subst">Substance-related disorder</input> </label></li>
+                                        <li><label class="radioList"><input id="Q2_10" type="checkbox" name="PastDisorders" value="schiz">Schizophrenia or other related disorder</input> </label></li>
+                                        <li><label class="radioList"><input id="Q2_11" type="checkbox" name="PastDisorders" value="depression">Depression or depressive disorder</input> </label></li>
+                                        <li><label class="radioList"><input id="Q2_12" type="checkbox" name="PastDisorders" value="bipolar">Bipolar disorder</input> </label></li>
+                                        <li><label class="radioList"><input id="Q2_13" type="checkbox" name="PastDisorders" value="eating">Eating disorder</input> </label></li>
+                                        <li><label class="radioList"><input id="Q2_14" type="checkbox" name="PastDisorders" value="personality">Personality disorder</input> </label></li>
+                                        <br />
+                                        <li><label class="radioList"><input id="Q2_15" onchange="spec('Q2_15')" type="checkbox" name="PastDisorders" value="Other">Other</input>  (Please specify)<input id="Q2_15_spec" type="text" name="Other_DescNo" /> </label></li>
+                                    </ul>
+                                </div>
+                                </td>
+                                <td>
+                                    <div class="listNoAnswer">
+                                        <label>
                                             <p>Prefer not to answer</p>
-                                            <input type="checkbox" id="Q2_noAns" name="disorders_past" value="Notanswer" onchange="hide_Q2_noAns()"/>
-                                            </label>
-                                            <br />
-                                            <br />
-                                            <br />
-                                            <br />
-                                            <br />
-                                            <label>
+                                            <input type="checkbox" id="Q2_noAns" name="PastDisorders" value="Notanswer" onchange="hide_Q2_noAns()"/>
+                                        </label>
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <label>
                                             <p>No diagnosis</p>
-                                            <input type="checkbox" id="Q2_noDiag" name="disorders_past" value="noDiagnosis" onchange="hide_Q2_noDiag()" />
-                                            </label>
-                                        </div>
-                                    </td>
-                                </table>
-                            </div>
+                                            <input type="checkbox" id="Q2_noDiag" name="PastDisorders" value="noDiagnosis" onchange="hide_Q2_noDiag()" />
+                                        </label>
+                                    </div>
+                                </td>
+                            </table>
+                        </div>
                     </div>
                     <div class="longSection">
                         <div class="question">
@@ -147,7 +125,7 @@
                                 <td><div class="radioList">
                                     <ul >
 
-                                        <li><label class="radioList"><input id="Q3-1" onchange="sub('Q3-1')" type="checkbox" name="help" value="psychiatrist">Psychiatrist</input> </label></li>
+                                        <li><label class="radioList"><input id="Q3-1" onchange="sub('Q3-1')" type="checkbox" name="Help" value="psychiatrist">Psychiatrist</input> </label></li>
                                         <div class="oneToSeven" id="Q3-1-1"> <label >Has this been helpful? </label>
                                             <select name="psychiatrist">
                                                 <option value="">Please select one</option>
@@ -163,7 +141,7 @@
 
                                         </div>
 
-                                         <li><label class="radioList"><input id="Q3-2" onchange="sub('Q3-2')" type="checkbox" name="help" value="psychologist">Psychologist</input> </label></li>
+                                        <li><label class="radioList"><input id="Q3-2" onchange="sub('Q3-2')" type="checkbox" name="Help" value="psychologist">Psychologist</input> </label></li>
                                         <div class="oneToSeven" id="Q3-2-1"><label >Has this been helpful? </label>
                                             <select name="psychologist">
                                                 <option value="">Please select one</option>
@@ -177,7 +155,7 @@
                                                 <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
-                                         <li><label class="radioList"><input id="Q3-3" onchange="sub('Q3-3')" type="checkbox" name="help" value="school_counselor">School counselor</input> </label></li>
+                                        <li><label class="radioList"><input id="Q3-3" onchange="sub('Q3-3')" type="checkbox" name="Help" value="school_counselor">School counselor</input> </label></li>
                                         <div class="oneToSeven" id="Q3-3-1"><label >Has this been helpful? </label>
                                             <select name="school_counselor">
                                                 <option value="">Please select one</option>
@@ -191,7 +169,7 @@
                                                 <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
-                                         <li><label class="radioList"><input id="Q3-4" onchange="sub('Q3-4')" type="checkbox" name="help" value="LMHC">Licensed mental health practitioner</input> </label></li>
+                                        <li><label class="radioList"><input id="Q3-4" onchange="sub('Q3-4')" type="checkbox" name="Help" value="LMHC">Licensed mental health practitioner</input> </label></li>
                                         <div class="oneToSeven" id="Q3-4-1"><label >Has this been helpful? </label>
                                             <select name="LMHC">
                                                 <option value="">Please select one</option>
@@ -205,7 +183,7 @@
                                                 <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
-                                         <li><label class="radioList"><input id="Q3-5" onchange="sub('Q3-5')" type="checkbox" name="help" value="general_practitioner">General practitioner (e.g. family doctor)</input> </label></li>
+                                        <li><label class="radioList"><input id="Q3-5" onchange="sub('Q3-5')" type="checkbox" name="Help" value="general_practitioner">General practitioner (e.g. family doctor)</input> </label></li>
                                         <div class="oneToSeven" id="Q3-5-1"><label >Has this been helpful? </label>
                                             <select name="general_practitioner">
                                                 <option value="">Please select one</option>
@@ -219,7 +197,7 @@
                                                 <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
-                                         <li><label class="radioList"><input id="Q3-6" onchange="sub('Q3-6')" type="checkbox" name="help" value="teacher">Teacher</input> </label></li>
+                                        <li><label class="radioList"><input id="Q3-6" onchange="sub('Q3-6')" type="checkbox" name="Help" value="teacher">Teacher</input> </label></li>
                                         <div class="oneToSeven" id="Q3-6-1"><label >Has this been helpful? </label>
                                             <select name="teacher">
                                                 <option value="">Please select one</option>
@@ -233,7 +211,7 @@
                                                 <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
-                                         <li><label class="radioList"><input id="Q3-7" onchange="sub('Q3-7')" type="checkbox" name="help" value="family">Family member</input> </label></li>
+                                        <li><label class="radioList"><input id="Q3-7" onchange="sub('Q3-7')" type="checkbox" name="Help" value="family">Family member</input> </label></li>
                                         <div class="oneToSeven" id="Q3-7-1"><label >Has this been helpful? </label>
                                             <select name="family">
                                                 <option value="">Please select one</option>
@@ -247,7 +225,7 @@
                                                 <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
-                                         <li><label class="radioList"><input id="Q3-8" onchange="sub('Q3-8')" type="checkbox" name="help" value="">Friend</input> </label></li>
+                                        <li><label class="radioList"><input id="Q3-8" onchange="sub('Q3-8')" type="checkbox" name="Help" value="">Friend</input> </label></li>
                                         <div class="oneToSeven" id="Q3-8-1"><label >Has this been helpful? </label>
                                             <select name="friend">
                                                 <option value="">Please select one</option>
@@ -261,7 +239,7 @@
                                                 <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
-                                         <li><label class="radioList"><input id="Q3-9" onchange="sub('Q3-9')" type="checkbox" name="help" value="religious_leader">Religious leader</input> </label></li>
+                                        <li><label class="radioList"><input id="Q3-9" onchange="sub('Q3-9')" type="checkbox" name="Help" value="religious_leader">Religious leader</input> </label></li>
                                         <div class="oneToSeven" id="Q3-9-1"><label >Has this been helpful? </label>
                                             <select name="religious_leader">
                                                 <option value="">Please select one</option>
@@ -275,7 +253,7 @@
                                                 <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
-                                         <li><label class="radioList"><input id="Q3-10" onchange="sub('Q3-10')" type="checkbox" name="help" value="coach">Coach</input> </label></li>
+                                        <li><label class="radioList"><input id="Q3-10" onchange="sub('Q3-10')" type="checkbox" name="Help" value="coach">Coach</input> </label></li>
                                         <div class="oneToSeven" id="Q3-10-1"><label >Has this been helpful? </label>
                                             <select name="coach">
                                                 <option value="">Please select one</option>
@@ -289,7 +267,7 @@
                                                 <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
-                                         <li><label class="radioList"><input id="Q3-11" onchange="sub('Q3-11')" type="checkbox" name="help" value="book">Self-help book or blog/online post</input> </label></li>
+                                        <li><label class="radioList"><input id="Q3-11" onchange="sub('Q3-11')" type="checkbox" name="Help" value="book">Self-help book or blog/online post</input> </label></li>
                                         <div class="oneToSeven" id="Q3-11-1"><label >Has this been helpful? </label>
                                             <select name="book">
                                                 <option value="">Please select one</option>
@@ -303,7 +281,7 @@
                                                 <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
-                                         <li><label class="radioList"><input id="Q3-12" onchange="sub('Q3-12')" type="checkbox" name="help" value="medicine">Prescription medicine</input> </label></li>
+                                        <li><label class="radioList"><input id="Q3-12" onchange="sub('Q3-12')" type="checkbox" name="Help" value="medicine">Prescription medicine</input> </label></li>
                                         <div class="oneToSeven" id="Q3-12-1"><label >Has this been helpful? </label>
                                             <select name="medicine">
                                                 <option value="">Please select one</option>
@@ -317,7 +295,7 @@
                                                 <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
-                                         <li><label class="radioList"><input id="Q3-13" onchange="sub('Q3-13')" type="checkbox" name="help" value="online">Online treatment</input> </label></li>
+                                        <li><label class="radioList"><input id="Q3-13" onchange="sub('Q3-13')" type="checkbox" name="Help" value="online">Online treatment</input> </label></li>
                                         <div class="oneToSeven" id="Q3-13-1"><label >Has this been helpful? </label>
                                             <select name="online">
                                                 <option value="">Please select one</option>
@@ -331,36 +309,36 @@
                                                 <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
-                                        <li><label class="radioList"><input id="Q3-15" onchange="sub('Q3-15')" type="checkbox" name="help" value="app">Mobile (phone or tablet) application</input> </label></li>
-                                       <div class="oneToSeven" id="Q3-15-1"><label >Has this been helpful? </label>
-                                           <select name="online">
-                                               <option value="">Please select one</option>
-                                               <option value="1">1 (Not helpful at all)</option>
-                                               <option> 2 </option>
-                                               <option> 3 </option>
-                                               <option> 4 (Somewhat helpful)</option>
-                                               <option> 5 </option>
-                                               <option> 6 </option>
-                                               <option value="7"> 7 (Extremely helpful) </option>
-                                               <option value="555"> Prefer not to answer </option>
-                                           </select></div>
+                                        <li><label class="radioList"><input id="Q3-15" onchange="sub('Q3-15')" type="checkbox" name="Help" value="app">Mobile (phone or tablet) application</input> </label></li>
+                                        <div class="oneToSeven" id="Q3-15-1"><label >Has this been helpful? </label>
+                                            <select name="online">
+                                                <option value="">Please select one</option>
+                                                <option value="1">1 (Not helpful at all)</option>
+                                                <option> 2 </option>
+                                                <option> 3 </option>
+                                                <option> 4 (Somewhat helpful)</option>
+                                                <option> 5 </option>
+                                                <option> 6 </option>
+                                                <option value="7"> 7 (Extremely helpful) </option>
+                                                <option value="555"> Prefer not to answer </option>
+                                            </select></div>
 
-                                           <li><label class="radioList"><input id="Q3-16" onchange="sub('Q3-16')" type="checkbox" name="help" value="support_group">Support group</input> </label></li>
-                                          <div class="oneToSeven" id="Q3-16-1"><label >Has this been helpful? </label>
-                                              <select name="online">
-                                                  <option value="">Please select one</option>
-                                                  <option value="1">1 (Not helpful at all)</option>
-                                                  <option> 2 </option>
-                                                  <option> 3 </option>
-                                                  <option> 4 (Somewhat helpful)</option>
-                                                  <option> 5 </option>
-                                                  <option> 6 </option>
-                                                  <option value="7"> 7 (Extremely helpful) </option>
-                                                  <option value="555"> Prefer not to answer </option>
-                                              </select></div>
+                                        <li><label class="radioList"><input id="Q3-16" onchange="sub('Q3-16')" type="checkbox" name="Help" value="support_group">Support group</input> </label></li>
+                                        <div class="oneToSeven" id="Q3-16-1"><label >Has this been helpful? </label>
+                                            <select name="online">
+                                                <option value="">Please select one</option>
+                                                <option value="1">1 (Not helpful at all)</option>
+                                                <option> 2 </option>
+                                                <option> 3 </option>
+                                                <option> 4 (Somewhat helpful)</option>
+                                                <option> 5 </option>
+                                                <option> 6 </option>
+                                                <option value="7"> 7 (Extremely helpful) </option>
+                                                <option value="555"> Prefer not to answer </option>
+                                            </select></div>
 
-                                       <br />
-                                         <li><label class="radioList"><input id="Q3-14" onchange="sub('Q3-14');spec('Q3-14');" type="checkbox" name="help" value="Other">Other</input>  (Please specify)<input id="Q3-14_spec" type="text" name="OtherHelpCurrent" /> </label></li>
+                                        <br />
+                                        <li><label class="radioList"><input id="Q3-14" onchange="sub('Q3-14');spec('Q3-14');" type="checkbox" name="Help" value="Other">Other</input>  (Please specify)<input id="Q3-14_spec" type="text" name="Other_HelpCurrent" /> </label></li>
                                         <div class="oneToSeven" id="Q3-14-1"><label >Has this been helpful? </label>
                                             <select name="other">
                                                 <option value="">Please select one</option>
@@ -380,7 +358,7 @@
                                     <div class="listNoAnswer">
                                         <label>
                                             <p>Prefer not to answer</p>
-                                            <input type="checkbox" name="help" value="Notanswer" id="Q3_noAns" onchange="hide_Q3_noAns()"/>
+                                            <input type="checkbox" name="Help" value="Notanswer" id="Q3_noAns" onchange="hide_Q3_noAns()"/>
                                         </label>
                                         <br />
                                         <br />
@@ -388,8 +366,8 @@
                                         <br />
                                         <br />
                                         <label>
-                                        <p>I am not receiving help</p>
-                                        <input id="helps" onchange="show();hide_Q3_noHelp();"  type="checkbox" name="help" value="notHelp" />
+                                            <p>I am not receiving help</p>
+                                            <input id="helps" onchange="show();hide_Q3_noHelp();"  type="checkbox" name="Help" value="notHelp" />
                                         </label>
                                     </div>
                                 </td>
@@ -398,15 +376,15 @@
                     </div>
                     <div class="longSection">
                         <div class="question">
-						    Have you sought help for anxiety or other mental or emotional difficulties from any of the following
-						<b>IN THE PAST</b>? (Check all that apply)
+                            Have you sought help for anxiety or other mental or emotional difficulties from any of the following
+                            <b>IN THE PAST</b>? (Check all that apply)
                         </div>
                         <div class="row">
                             <table>
                                 <td><div  class="radioList">
                                     <ul >
 
-										 <li><label class="radioList"><input id="Q4-1" onchange="sub('Q4-1')" type="checkbox" name="helps_past" value="psychiatrist" >Psychiatrist</input> </label></li>
+                                        <li><label class="radioList"><input id="Q4-1" onchange="sub('Q4-1')" type="checkbox" name="PastHelp" value="psychiatrist" >Psychiatrist</input> </label></li>
                                         <div class="oneToSeven" id="Q4-1-1"><label >Was this helpful? </label>
                                             <select name="psychiatrist_past">
                                                 <option value="">Please select one</option>
@@ -420,7 +398,7 @@
                                                 <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
-                                         <li><label class="radioList"><input id="Q4-2" onchange="sub('Q4-2')" type="checkbox" name="helps_past" value="psychologist">Psychologist</input> </label></li>
+                                        <li><label class="radioList"><input id="Q4-2" onchange="sub('Q4-2')" type="checkbox" name="PastHelp" value="psychologist">Psychologist</input> </label></li>
                                         <div class="oneToSeven" id="Q4-2-1"><label >Was this helpful? </label>
                                             <select name="psychology_past">
                                                 <option value="">Please select one</option>
@@ -434,7 +412,7 @@
                                                 <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
-                                         <li><label class="radioList"><input id="Q4-3" onchange="sub('Q4-3')" type="checkbox" name="helps_past" value="school_counselor">School counselor</input> </label></li>
+                                        <li><label class="radioList"><input id="Q4-3" onchange="sub('Q4-3')" type="checkbox" name="PastHelp" value="school_counselor">School counselor</input> </label></li>
                                         <div class="oneToSeven" id="Q4-3-1"><label >Was this helpful? </label>
                                             <select name="school_counselor_past">
                                                 <option value="">Please select one</option>
@@ -448,7 +426,7 @@
                                                 <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
-                                         <li><label class="radioList"><input id="Q4-4" onchange="sub('Q4-4')" type="checkbox" name="helps_past" value="LMHC">Licensed mental health practitioner</input> </label></li>
+                                        <li><label class="radioList"><input id="Q4-4" onchange="sub('Q4-4')" type="checkbox" name="PastHelp" value="LMHC">Licensed mental health practitioner</input> </label></li>
                                         <div class="oneToSeven" id="Q4-4-1"><label >Was this helpful? </label>
                                             <select name="LMHC_past">
                                                 <option value="">Please select one</option>
@@ -462,7 +440,7 @@
                                                 <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
-                                         <li><label class="radioList"><input id="Q4-5" onchange="sub('Q4-5')" type="checkbox" name="helps_past" value="general_practitioner">General practitioner (e.g. family doctor)</input> </label></li>
+                                        <li><label class="radioList"><input id="Q4-5" onchange="sub('Q4-5')" type="checkbox" name="PastHelp" value="general_practitioner">General practitioner (e.g. family doctor)</input> </label></li>
                                         <div class="oneToSeven" id="Q4-5-1"><label >Was this helpful? </label>
                                             <select name="general_practitioner_past">
                                                 <option value="">Please select one</option>
@@ -476,7 +454,7 @@
                                                 <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
-                                         <li><label class="radioList"><input id="Q4-6" onchange="sub('Q4-6')" type="checkbox" name="helps_past" value="teacher">Teacher</input> </label></li>
+                                        <li><label class="radioList"><input id="Q4-6" onchange="sub('Q4-6')" type="checkbox" name="PastHelp" value="teacher">Teacher</input> </label></li>
                                         <div class="oneToSeven" id="Q4-6-1"><label >Was this helpful? </label>
                                             <select name="teacher_past">
                                                 <option value="">Please select one</option>
@@ -490,7 +468,7 @@
                                                 <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
-                                         <li><label class="radioList"><input id="Q4-7" onchange="sub('Q4-7')" type="checkbox" name="helps_past" value="family">Family member</input> </label></li>
+                                        <li><label class="radioList"><input id="Q4-7" onchange="sub('Q4-7')" type="checkbox" name="PastHelp" value="family">Family member</input> </label></li>
                                         <div class="oneToSeven" id="Q4-7-1"><label >Was this helpful? </label>
                                             <select name="family_past">
                                                 <option value="">Please select one</option>
@@ -504,7 +482,7 @@
                                                 <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
-                                         <li><label class="radioList"><input id="Q4-8" onchange="sub('Q4-8')" type="checkbox" name="helps_past" value="friend">Friend</input> </label></li>
+                                        <li><label class="radioList"><input id="Q4-8" onchange="sub('Q4-8')" type="checkbox" name="PastHelp" value="friend">Friend</input> </label></li>
                                         <div class="oneToSeven" id="Q4-8-1"><label >Was this helpful? </label>
                                             <select name="friend_past">
                                                 <option value="">Please select one</option>
@@ -518,7 +496,7 @@
                                                 <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
-                                         <li><label class="radioList"><input id="Q4-9" onchange="sub('Q4-9')" type="checkbox" name="helps_past" value="religious_leader">Religious leader</input> </label></li>
+                                        <li><label class="radioList"><input id="Q4-9" onchange="sub('Q4-9')" type="checkbox" name="PastHelp" value="religious_leader">Religious leader</input> </label></li>
                                         <div class="oneToSeven" id="Q4-9-1"><label >Was this helpful? </label>
                                             <select name="religious_leader_past">
                                                 <option value="">Please select one</option>
@@ -532,7 +510,7 @@
                                                 <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
-                                         <li><label class="radioList"><input id="Q4-10" onchange="sub('Q4-10')" type="checkbox" name="helps_past" value="coach">Coach</input> </label></li>
+                                        <li><label class="radioList"><input id="Q4-10" onchange="sub('Q4-10')" type="checkbox" name="PastHelp" value="coach">Coach</input> </label></li>
                                         <div class="oneToSeven" id="Q4-10-1"><label >Was this helpful? </label>
                                             <select name="coach_past">
                                                 <option value="">Please select one</option>
@@ -546,7 +524,7 @@
                                                 <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
-                                         <li><label class="radioList"><input id="Q4-11" onchange="sub('Q4-11')" type="checkbox" name="helps_past" value="book">Self-help book or blog/online post</input> </label></li>
+                                        <li><label class="radioList"><input id="Q4-11" onchange="sub('Q4-11')" type="checkbox" name="PastHelp" value="book">Self-help book or blog/online post</input> </label></li>
                                         <div class="oneToSeven" id="Q4-11-1"><label >Was this helpful? </label>
                                             <select name="book_past">
                                                 <option value="">Please select one</option>
@@ -560,7 +538,7 @@
                                                 <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
-                                         <li><label class="radioList"><input id="Q4-12" onchange="sub('Q4-12')" type="checkbox" name="helps_past" value="medicine">Prescription medicine</input> </label></li>
+                                        <li><label class="radioList"><input id="Q4-12" onchange="sub('Q4-12')" type="checkbox" name="PastHelp" value="medicine">Prescription medicine</input> </label></li>
                                         <div class="oneToSeven" id="Q4-12-1"><label >Was this helpful? </label>
                                             <select name="medicine_past">
                                                 <option value="">Please select one</option>
@@ -574,7 +552,7 @@
                                                 <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
-                                         <li><label class="radioList"><input id="Q4-13" onchange="sub('Q4-13')" type="checkbox" name="helps_past" value="online">Online treatment</input> </label></li>
+                                        <li><label class="radioList"><input id="Q4-13" onchange="sub('Q4-13')" type="checkbox" name="PastHelp" value="online">Online treatment</input> </label></li>
                                         <div class="oneToSeven" id="Q4-13-1"><label >Was this helpful? </label>
                                             <select name="online_past">
                                                 <option value="">Please select one</option>
@@ -588,7 +566,7 @@
                                                 <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
-                                         <li><label class="radioList"><input id="Q4-15" onchange="sub('Q4-15')" type="checkbox" name="helps_past" value="app">Mobile (phone or tablet) application</input> </label></li>
+                                        <li><label class="radioList"><input id="Q4-15" onchange="sub('Q4-15')" type="checkbox" name="PastHelp" value="app">Mobile (phone or tablet) application</input> </label></li>
                                         <div class="oneToSeven" id="Q4-15-1"><label >Was this helpful? </label>
                                             <select name="online_past">
                                                 <option value="">Please select one</option>
@@ -602,7 +580,7 @@
                                                 <option value="555"> Prefer not to answer </option>
                                             </select></div>
 
-                                         <li><label class="radioList"><input id="Q4-16" onchange="sub('Q4-16')" type="checkbox" name="helps_past" value="support_group">Support group</input> </label></li>
+                                        <li><label class="radioList"><input id="Q4-16" onchange="sub('Q4-16')" type="checkbox" name="PastHelp" value="support_group">Support group</input> </label></li>
                                         <div class="oneToSeven" id="Q4-16-1"><label >Was this helpful? </label>
                                             <select name="online_past">
                                                 <option value="">Please select one</option>
@@ -616,7 +594,7 @@
                                                 <option value="555"> Prefer not to answer </option>
                                             </select></div>
                                         <br />
-                                         <li><label class="radioList"><input id="Q4-14" onchange="sub('Q4-14');spec('Q4-14');" type="checkbox" name="helps_past" value="Other">Other</input>  (Please specify)<input id="Q4-14_spec" type="text" name="OtherHelpPast" /> </label></li>
+                                        <li><label class="radioList"><input id="Q4-14" onchange="sub('Q4-14');spec('Q4-14');" type="checkbox" name="PastHelp" value="Other">Other</input>  (Please specify)<input id="Q4-14_spec" type="text" name="Other_HelpPast" /> </label></li>
                                         <div class="oneToSeven" id="Q4-14-1"><label >Was this helpful? </label>
                                             <select name="other_past">
                                                 <option value="">Please select one</option>
@@ -636,7 +614,7 @@
                                     <div class="listNoAnswer">
                                         <label>
                                             <p>Prefer not to answer</p>
-                                            <input type="checkbox" name="helps_past" value="Notanswer" id="Q4_noAns" onchange="hide_Q4_noAns()"/>
+                                            <input type="checkbox" name="PastHelp" value="Notanswer" id="Q4_noAns" onchange="hide_Q4_noAns()"/>
                                         </label>
                                         <br />
                                         <br />
@@ -644,8 +622,8 @@
                                         <br />
                                         <br />
                                         <label>
-                                        <p>I have not gotten help</p>
-                                        <input id="helps_past" type="checkbox" name="helps_past" value="NotGottenHelp" onchange="hide_Q4_noHelp()"/>
+                                            <p>I have not gotten help</p>
+                                            <input id="helps_past" type="checkbox" name="PastHelp" value="NotGottenHelp" onchange="hide_Q4_noHelp()"/>
                                         </label>
                                     </div>
                                 </td>
@@ -662,19 +640,19 @@
                                 <td><div class="radioList">
                                     <ul >
 
-                                         <li><label class="radioList"><input id="Q5_1" type="checkbox" name="NoHelp_Reason" value="medNotHelp">I don’t think a prescription medication would help my anxiety</input> </label></li>
-                                         <li><label class="radioList"><input id="Q5_2" type="checkbox" name="NoHelp_Reason" value="doNotLikeMed">I don’t like the idea of taking prescription medication</input> </label></li>
-                                         <li><label class="radioList"><input id="Q5_3" type="checkbox" name="NoHelp_Reason" value="cannotAffordMed">I can’t afford to pay for prescription medication</input> </label></li>
-                                         <li><label class="radioList"><input id="Q5_4" type="checkbox" name="NoHelp_Reason" value="doNotLikeTherapy">I don’t want to talk to a mental health professional (e.g., a therapist)</input> </label></li>
-                                         <li><label class="radioList"><input id="Q5_5" type="checkbox" name="NoHelp_Reason" value="therapyNotHelp">I don’t think that a mental health professional can help me</input> </label></li>
-                                         <li><label class="radioList"><input id="Q5_6" type="checkbox" name="NoHelp_Reason" value="doNotLikeFace">I don’t want to be asked to face my fears (e.g., not wanting to interact with a spider for a person with spider fear)</input> </label></li>
-                                         <li><label class="radioList"><input id="Q5_7" type="checkbox" name="NoHelp_Reason" value="cannotAffordTherapy">I can’t afford to pay for therapy</input> </label></li>
-                                         <li><label class="radioList"><input id="Q5_8" type="checkbox" name="NoHelp_Reason" value="therapyNotConven">Going to therapy is too inconvenient</input> </label></li>
-                                         <li><label class="radioList"><input id="Q5_9" type="checkbox" name="NoHelp_Reason" value="embarrassed">I am embarrassed to seek treatment</input> </label></li>
-                                         <li><label class="radioList"><input id="Q5_10" type="checkbox" name="NoHelp_Reason" value="thinkLess">I think people might think less of me if I sought treatment</input> </label></li>
-                                         <li><label class="radioList"><input id="Q5_11" type="checkbox" name="NoHelp_Reason" value="noTime">I don’t have time to seek treatment</input> </label></li>
+                                        <li><label class="radioList"><input id="Q5_1" type="checkbox" name="NoHelp_Reason" value="medNotHelp">I don’t think a prescription medication would help my anxiety</input> </label></li>
+                                        <li><label class="radioList"><input id="Q5_2" type="checkbox" name="NoHelp_Reason" value="doNotLikeMed">I don’t like the idea of taking prescription medication</input> </label></li>
+                                        <li><label class="radioList"><input id="Q5_3" type="checkbox" name="NoHelp_Reason" value="cannotAffordMed">I can’t afford to pay for prescription medication</input> </label></li>
+                                        <li><label class="radioList"><input id="Q5_4" type="checkbox" name="NoHelp_Reason" value="doNotLikeTherapy">I don’t want to talk to a mental health professional (e.g., a therapist)</input> </label></li>
+                                        <li><label class="radioList"><input id="Q5_5" type="checkbox" name="NoHelp_Reason" value="therapyNotHelp">I don’t think that a mental health professional can help me</input> </label></li>
+                                        <li><label class="radioList"><input id="Q5_6" type="checkbox" name="NoHelp_Reason" value="doNotLikeFace">I don’t want to be asked to face my fears (e.g., not wanting to interact with a spider for a person with spider fear)</input> </label></li>
+                                        <li><label class="radioList"><input id="Q5_7" type="checkbox" name="NoHelp_Reason" value="cannotAffordTherapy">I can’t afford to pay for therapy</input> </label></li>
+                                        <li><label class="radioList"><input id="Q5_8" type="checkbox" name="NoHelp_Reason" value="therapyNotConven">Going to therapy is too inconvenient</input> </label></li>
+                                        <li><label class="radioList"><input id="Q5_9" type="checkbox" name="NoHelp_Reason" value="embarrassed">I am embarrassed to seek treatment</input> </label></li>
+                                        <li><label class="radioList"><input id="Q5_10" type="checkbox" name="NoHelp_Reason" value="thinkLess">I think people might think less of me if I sought treatment</input> </label></li>
+                                        <li><label class="radioList"><input id="Q5_11" type="checkbox" name="NoHelp_Reason" value="noTime">I don’t have time to seek treatment</input> </label></li>
                                         <br />
-                                         <li><label class="radioList"><input id="Q5_12" type="checkbox" name="NoHelp_Reason" value="Other" onchange="spec('Q5_12')">Other</input>  (Please specify)<input id="Q5_12_spec" type="text" name="OtherReason" /> </label></li>
+                                        <li><label class="radioList"><input id="Q5_12" type="checkbox" name="NoHelp_Reason" value="Other" onchange="spec('Q5_12')">Other</input>  (Please specify)<input id="Q5_12_spec" type="text" name="Other_HelpReason" /> </label></li>
 
                                     </ul>
                                 </div>
@@ -683,7 +661,7 @@
                                     <div class="listNoAnswer">
                                         <label>
                                             <p>Prefer not to answer</p>
-                                        <input id="Q5_noAns" type="checkbox" name="NoHelp_Reason" value="Notanswer" onchange="hide_Q5_noAns()"/>
+                                            <input id="Q5_noAns" type="checkbox" name="NoHelp_Reason" value="Notanswer" onchange="hide_Q5_noAns()"/>
                                         </label>
                                     </div>
                                 </td>
@@ -691,7 +669,7 @@
                         </div>
                     </div>
                     <div style="text-align:center">
-                    <button type="submit" >Continue</button>
+                        <button type="submit" >Continue</button>
                     </div>
                 </form>
                 <script src="http://cdn.jsdelivr.net/jquery.validation/1.14.0/jquery.validate.min.js">
@@ -723,12 +701,12 @@
 
     function show() {
         if (document.getElementById("helps").checked) {
-          if (!document.getElementById("Q1_noDiag").checked) {
-            document.getElementById("Q5").style.display = "block";}
-         else {
+            if (!document.getElementById("Q1_noDiag").checked) {
+                document.getElementById("Q5").style.display = "block";}
+            else {
+                document.getElementById("Q5").style.display = "none";
+            }} else {
             document.getElementById("Q5").style.display = "none";
-        }} else {
-             document.getElementById("Q5").style.display = "none";
         }
     }
 
@@ -1082,7 +1060,7 @@
         }
     }
 
-     function hide_Q5_noAns(){
+    function hide_Q5_noAns(){
         if (document.getElementById("Q5_noAns").checked) {
             document.getElementById("Q5_1").disabled = true;
             document.getElementById("Q5_2").disabled = true;
