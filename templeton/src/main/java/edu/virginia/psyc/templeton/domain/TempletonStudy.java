@@ -46,6 +46,7 @@ public class TempletonStudy extends BaseStudy {
         pretest.addTask(new Task("Demographics","Demographics", Task.TYPE.questions, 2));
         pretest.addTask(new Task("MentalHealthHistory","Mental Health History", Task.TYPE.questions, 2));
         pretest.addTask(new Task("ExpectancyBias","Expectancy Bias", Task.TYPE.questions, 4));
+        pretest.addTask(new Task("NGSES","Self Esteem Scale", Task.TYPE.questions, 2));
         pretest.addTask(new Task("Optimism","Optimism", Task.TYPE.questions, 3));
         sessions.add(pretest);
 
