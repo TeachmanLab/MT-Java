@@ -7,7 +7,7 @@
 <head th:replace="fragment/common :: headerFragment"/>
 <body>
 <section th:replace="fragment/common :: topFragment"/>
-<section th:replace="fragment/common :: titleBar (title='Example Web Form')"/>
+<section th:replace="fragment/common :: titleBar (title='Help Seeking')"/>
 
 <section id="content" class="clearfix">
     <div class="container">
@@ -15,10 +15,47 @@
             <div class="span12">
 
 
-                <form th:action="@{/questions/MyWebForm}" method="POST">
-                    <label for="flowers">Do you like flowers? </label>
-                    <input type="checkbox" id="flowers" name="values"/>
+                <form th:action="@{/questions/HelpSeeking}" method="POST">
+
+                    <p> Over the course of this program, did you start/stop/change a dose of medication, therapy, or other intervention to help your anxiety difficulties?(Check all that apply)
+                        (If you are on the same dose of medication or same appointment schedule for therapy or intervention as you were when you began this program, please choose “No change.”)</p>
+
+                    <br/>
+                    <br/>
+                    <label> I seek in-person therapy more now
+                        <input type="checkbox" id="MorePerson" name="MorePerson"/>
+                    </label>
+                    <label> I seek in-person therapy less now
+                        <input type="checkbox" id="LessPerson" name="LessPerson"/>
+                    </label>
+                    <label> I use prescription medication more now
+                         <input type="checkbox" id="MoreMeds" name="MoreMeds"/>
+                    </label>
+                    <label> I use prescription medication less now
+                        <input type="checkbox" id="LessMeds" name="LessMeds"/>
+                    </label>
+                    <label> I use online computer programs (other than MindTrails) or mobile apps more now
+                        <input type="checkbox" id="MoreApps" name="MoreApps"/>
+                    </label>
+                    <label> I use online computer programs (other than MindTrails) or mobile apps less now
+                        <input type="checkbox" id="LessApps" name="LessApps"/>
+                    </label>
+                    <br/>
+                    <label> Other (please specify)
+                        <input type="checkbox" id="OtherChange" name="OtherChange" />
+                    </label>
+                    <br/>
+                    <label> No Change
+                        <input type="checkbox" id="NoChange" name="NoChange" />
+                    </label>
+
+                    <br/>
+                    <br/>
+                    <br/>
+
                     <input type="submit"/>
+
+
                 </form>
 
 

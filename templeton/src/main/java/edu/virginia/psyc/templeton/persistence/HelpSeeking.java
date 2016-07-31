@@ -1,20 +1,25 @@
 package edu.virginia.psyc.templeton.persistence;
 
-import org.mindtrails.domain.questionnaire.SecureQuestionnaireData;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.mindtrails.domain.questionnaire.SecureQuestionnaireData;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-/**
- * Created by dan on 8/27/15.
- */
 @Entity
-@Table(name="MyWebForm")
+@Table(name="HelpSeeking")
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class HelpSeeking extends SecureQuestionnaireData {
-    private boolean flowers;
+    private boolean MorePerson;
+    private boolean LessPerson;
+    private boolean MoreMeds;
+    private boolean LessMeds;
+    private boolean MoreApps;
+    private boolean LessApps;
+    private boolean OtherChange;
+    private boolean NoChange;
+
 }
 
