@@ -1,47 +1,45 @@
-package edu.virginia.psyc.r34.persistence.Questionnaire;
+package edu.virginia.psyc.templeton.persistence;
 
-import org.mindtrails.domain.questionnaire.SecureQuestionnaireData;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.mindtrails.domain.questionnaire.SecureQuestionnaireData;
 
 import javax.persistence.*;
 import java.util.List;
 
 /**
- * Created by samportnow on 7/23/14.
+ * Created by dan on 8/27/15.
  */
 @Entity
-@Table(name="MentalHealthHxTx")
+@Table(name="MentalHealthHistory")
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class MentalHealthHxTx extends SecureQuestionnaireData {
-
-    private String OtherDesc;
-    private String OtherDescNo;
-    private String OtherHelp;
-    private String OtherHelpCurrent;
-    private String OtherHelpPast;
-    private String OtherReason;
+public class MentalHealthHistory extends SecureQuestionnaireData {
+    private String Other_Desc;
+    private String Other_DescNo;
+    private String Other_HelpCurrent;
+    private String Other_HelpPast;
+    private String Other_HelpReason;
 
     @ElementCollection
     @CollectionTable(name = "mental_health_disorders", joinColumns = @JoinColumn(name = "id"))
-    @Column(name = "disorder")
-    private List<String> disorders;
+    @Column(name = "Disorder")
+    private List<String> Disorders;
 
     @ElementCollection
     @CollectionTable(name = "mental_health_disorders_past", joinColumns = @JoinColumn(name = "id"))
-    @Column(name = "disorder_past")
-    private List<String> disorders_past;
+    @Column(name = "PastDisorders")
+    private List<String> PastDisorders;
 
     @ElementCollection
     @CollectionTable(name = "help", joinColumns = @JoinColumn(name = "id"))
-    @Column(name = "help")
-    private List<String> help;
+    @Column(name = "Help")
+    private List<String> Help;
 
     @ElementCollection
     @CollectionTable(name = "helps_past", joinColumns = @JoinColumn(name = "id"))
-    @Column(name = "helps_past")
-    private List<String> helps_past;
+    @Column(name = "PastHelp")
+    private List<String> PastHelp;
 
 
     private int psychiatrist = 0;
@@ -76,4 +74,5 @@ public class MentalHealthHxTx extends SecureQuestionnaireData {
 
 
 }
+
 

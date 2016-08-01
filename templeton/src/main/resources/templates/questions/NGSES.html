@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
+
+<head th:replace="fragment/common :: headerFragment"/>
+<body>
+<section th:replace="fragment/common :: topFragment"/>
+<section th:replace="fragment/common :: titleBar (title='Self Esteem Scale')"/>
+
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+
+
+                <form th:action="@{/questions/NGSES}" method="POST">
+
+                    <h1> Instructions </h1>
+                    <p> (Write instructions in here) </p>
+
+                    <p> I will be able to achieve most of the goals that I have set for myself. </p>
+                    <label> Not at all True
+                        <input type="radio" name="AchieveGoals" value = "1"/>
+                    </label>
+                    <label> Hardly True
+                        <input type="radio"  name="AchieveGoals" value = "2"/>
+                    </label>
+                    <label> Moderately True
+                        <input type="radio" name="AchieveGoals" value= "3"/>
+                    </label>
+                    <label> Exactly True
+                        <input type="radio" name="AchieveGoals" value = "4"/>
+                    </label>
+
+                    <br/>
+                    <br/>
+
+                    <p> When facing difficult tasks, I am certain I will accomplish them. </p>
+                    <label> Not at all True
+                        <input type="radio" name="DifficultTasks" value = "1"/>
+                    </label>
+                    <label> Hardly True
+                        <input type="radio"  name="DifficultTasks" value = "2"/>
+                    </label>
+                    <label> Moderately True
+                        <input type="radio" name="DifficultTasks" value= "3"/>
+                    </label>
+                    <label> Exactly True
+                        <input type="radio" name="DifficultTasks" value = "4"/>
+                    </label>
+
+                    <br/>
+                    <br/>
+
+                    <p> In general, I think I can obtain outcomes that are important to me. </p>
+                    <label> Not at all True
+                        <input type="radio" name="ObtainOutcomes" value = "1"/>
+                    </label>
+                    <label> Hardly True
+                        <input type="radio"  name="ObtainOutcomes" value = "2"/>
+                    </label>
+                    <label> Moderately True
+                        <input type="radio" name="ObtainOutcomes" value= "3"/>
+                    </label>
+                    <label> Exactly True
+                        <input type="radio" name="ObtainOutcomes" value = "4"/>
+                    </label>
+
+                    <br/>
+                    <br/>
+
+                    <p> I believe I can succeed at most any endeavor to which I set my mind. </p>
+                    <label> Not at all True
+                        <input type="radio" name="AnyEndeavor" value = "1"/>
+                    </label>
+                    <label> Hardly True
+                        <input type="radio"  name="AnyEndeavor" value = "2"/>
+                    </label>
+                    <label> Moderately True
+                        <input type="radio" name="AnyEndeavor" value= "3"/>
+                    </label>
+                    <label> Exactly True
+                        <input type="radio" name="AnyEndeavor" value = "4"/>
+                    </label>
+
+                    <br/>
+                    <br/>
+
+                    <p>I will be able to successfully overcome many challenges. </p>
+                    <label> Not at all True
+                        <input type="radio" name="SuccessfullyOvercome" value = "1"/>
+                    </label>
+                    <label> Hardly True
+                        <input type="radio"  name="SuccessfullyOvercome" value = "2"/>
+                    </label>
+                    <label> Moderately True
+                        <input type="radio" name="SuccessfullyOvercome" value= "3"/>
+                    </label>
+                    <label> Exactly True
+                        <input type="radio" name="SuccessfullyOvercome" value = "4"/>
+                    </label>
+
+                    <br/>
+                    <br/>
+
+                    <p>I am confident that I can perform effectively on many different tasks. </p>
+                    <label> Not at all True
+                        <input type="radio" name="PerformEffectively" value = "1"/>
+                    </label>
+                    <label> Hardly True
+                        <input type="radio"  name="PerformEffectively" value = "2"/>
+                    </label>
+                    <label> Moderately True
+                        <input type="radio" name="PerformEffectively" value= "3"/>
+                    </label>
+                    <label> Exactly True
+                        <input type="radio" name="PerformEffectively" value = "4"/>
+                    </label>
+
+                    <br/>
+                    <br/>
+
+                    <p>Compared to other people, I can do most tasks very well. </p>
+                    <label> Not at all True
+                        <input type="radio" name="Compared" value = "1"/>
+                    </label>
+                    <label> Hardly True
+                        <input type="radio"  name="Compared" value = "2"/>
+                    </label>
+                    <label> Moderately True
+                        <input type="radio" name="Compared" value= "3"/>
+                    </label>
+                    <label> Exactly True
+                        <input type="radio" name="Compared" value = "4"/>
+                    </label>
+
+                    <br/>
+                    <br/>
+
+                    <p>Even when things are tough, I can perform quite well. </p>
+                    <label> Not at all True
+                        <input type="radio" name="ToughThings" value = "1"/>
+                    </label>
+                    <label> Hardly True
+                        <input type="radio"  name="ToughThings" value = "2"/>
+                    </label>
+                    <label> Moderately True
+                        <input type="radio" name="ToughThings" value= "3"/>
+                    </label>
+                    <label> Exactly True
+                        <input type="radio" name="ToughThings" value = "4"/>
+                    </label>
+
+                    <br/>
+                    <br/>
+
+                    <input type="submit"/>
+
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+<footer th:replace="fragment/common :: footer"/>
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>

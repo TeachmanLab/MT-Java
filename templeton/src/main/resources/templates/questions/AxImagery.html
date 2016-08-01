@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
+
+<head th:replace="fragment/common :: headerFragment"/>
+<body>
+<section th:replace="fragment/common :: topFragment"/>
+<section th:replace="fragment/common :: titleBar (title='AxImagery')"/>
+
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+
+
+                <form th:action="@{/questions/AxImagery}" method="POST">
+
+                    <h1>Use Your Imagination</h1>
+
+                    <p>Pick a situation that you worry might go badly, or that you expect will evoke symptoms related to anxiety (e.g., racing heart, sweating).</p>
+                    <p>Any situation that will make you feel anxious or scared will work.</p>
+                    <p>If no specific situation is upcoming, then just select a situation that you expect would make you feel anxious or scared IF you were to be that situation.</p>
+
+                    <label class="standard"> Please describe the situation in a few words: </label>
+                        <input type="text" name="AxSituation" id="AxSituation"/>
+
+                    <p> Please imagine the situation as vividly as possible (i.e., so that it feels very real).
+                    Try to imagine you are actually in the situation.
+                    Play out the specific parts of the situation in your head.
+                    Try to imagine using all the things you would see, hear, and smell if you were really in that situation.
+                    Think about what thoughts or feelings you would experience if you were actually there. </p>
+
+                    <p> Please click the button below and play this situation in your head for the next 20 seconds. We will tell you when the 20 seconds are up. </p>
+
+                    <button onclick="setTimeout(myFunction, 20000);"> Begin </button>
+                    <script>
+                        function myFunction() {
+                            alert('20 seconds are now up. Please click CONTINUE.');
+                        }
+                    </script>
+
+                    <p> Now, answer the following questions about the situation you imagined. </p>
+                    <br/>
+
+                    <p> How vividly did you imagine the situation? </p>
+                    <label > 1 Not at all vivid
+                        <input type="radio"  name="Vividness" value = "1"/>
+                    </label>
+                    <label > 2
+                        <input type="radio"  name="Vividness" value = "2"/>
+                    </label>
+                    <label > 3 Somewhat vivid
+                        <input type="radio" name="Vividness" value = "3"/>
+                    </label>
+                    <label> 4
+                        <input type="radio" name="Vividness" value = "4"/>
+                    </label>
+                    <label> 5 Extremely vivid
+                        <input type="radio" name="Vividness" value = "5"/>
+                    </label>
+
+                    <br/><br/>
+
+                    <p> What was your highest level of anxiety as you completed the imagery task? </p>
+
+                    <!--uses a slider from 0 to 100 set to start at 50 with steps of 1 with "Not at all Anxious 0",
+                    "Moderately Anxious 50", and "Totally Anxious 100"-->
+
+
+                    <p> How likely is it that this situation will turn out well vs. turn out badly? </p>
+
+                    <label > 1 Very likely to turn out well
+                        <input type="radio"  name="TurnOut" value = "1"/>
+                    </label>
+                    <label > 2 Somewhat likely to turn out well
+                        <input type="radio"  name="TurnOut" value = "2"/>
+                    </label>
+                    <label > 3 Neutral
+                        <input type="radio" name="TurnOut" value = "3"/>
+                    </label>
+                    <label> 4 Somewhat likely to turn out badly
+                        <input type="radio" name="TurnOut" value = "4"/>
+                    </label>
+                    <label> 5 Very likely to turn out badly
+                        <input type="radio" name="TurnOut" value = "5"/>
+                    </label>
+
+                    <br/><br/>
+
+                    <p> If this situation did turn out badly, how manageable vs. unmanageable would the consequences be? </p>
+
+                    <label > 1 Very manageable
+                        <input type="radio"  name="Manageable" value = "1"/>
+                    </label>
+                    <label > 2 Somewhat manageable
+                        <input type="radio"  name="Manageable" value = "2"/>
+                    </label>
+                    <label > 3 Neutral
+                        <input type="radio" name="Manageable" value = "3"/>
+                    </label>
+                    <label> 4 Somewhat unmanageable
+                        <input type="radio" name="Manageable" value = "4"/>
+                    </label>
+                    <label> 5 Very unmanageable
+                        <input type="radio" name="Manageable" value = "5"/>
+                    </label>
+
+                    <br/><br/>
+
+                    <input type="submit"/>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+</section>
+<footer th:replace="fragment/common :: footer"/>
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>
+
+
+

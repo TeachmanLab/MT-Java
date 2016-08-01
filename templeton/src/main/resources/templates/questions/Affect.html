@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
+
+<head th:replace="fragment/common :: headerFragment"/>
+<body>
+<section th:replace="fragment/common :: topFragment"/>
+<section th:replace="fragment/common :: titleBar (title='Affect')"/>
+
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+
+                <form th:action="@{/questions/Affect}" method="POST">
+
+                    <h1> Instructions </h1>
+
+                    <p>The following questions will ask you about different feelings and emotions.
+                        Read each item and then move the slider to indicate to what extent you feel each emotion right now, that is, at the present moment.
+                        Once you have selected an answer for all of the questions, please click Continue. </p>
+
+                    <br/>
+                    <br/>
+                    <p> To what extent do you feel positive feelings right now, that is, at the present moment? </p>
+                    <label> Not at all positive
+                        <input type="radio" name="PosFeelings" value="-3">
+                    </label>
+                    <label> Moderately positive
+                        <input type="radio" name="PosFeelings" value="0">
+                    </label>
+                    <label> Totally positive
+                        <input type="radio" name="PosFeelings" value="3">
+                    </label>
+
+                    <br/>
+                    <br/>
+
+                    <p> To what extent do you feel negative feelings right now, that is, at the present moment? </p>
+                    <label> Not at all positive
+                        <input type="radio" name="NegFeelings" value="-3">
+                    </label>
+                    <label> Moderately positive
+                        <input type="radio" name="NegFeelings" value="0">
+                    </label>
+                    <label> Totally positive
+                        <input type="radio" name="NegFeelings" value="3">
+                    </label>
+
+                    <br/>
+                    <br/>
+
+                    <p> How anxious do you feel right now, that is, at the present moment? </p>
+                    <label> Not at all positive
+                        <input type="radio" name="Anxious" value="-3">
+                    </label>
+                    <label> Moderately positive
+                        <input type="radio" name="Anxious" value="0">
+                    </label>
+                    <label> Totally positive
+                        <input type="radio" name="Anxious" value="3">
+                    </label>
+
+                    <input type="submit"/>
+
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+<footer th:replace="fragment/common :: footer"/>
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>
