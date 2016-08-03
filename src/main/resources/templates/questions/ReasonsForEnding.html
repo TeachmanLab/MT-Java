@@ -24,14 +24,16 @@
                     <p>Note that <b>assessment sessions</b> were sessions in which you completed questionnaires about your feelings and thoughts. <b>Training sessions</b> were sessions in which you completed words at the end of sentences.</p>
 
                     <div class="section group-required">
-                        <div class="question">1. Why did you decided to end the program? (please check all that apply) </div>
+                        <div class="question">1. Why did you decide to end the program? (please check all that apply) </div>
                         <label class="radioList"><input type="checkbox" name="reasons" value="not enough time" />I did not have enough time to complete the program.</label>
                         <label class="radioList"><input type="checkbox" name="reasons" value="not helpful" />I did not find the program helpful for reducing my anxiety.</label>
-                        <label class="radioList"><input type="checkbox" name="reasons" value="not interesting" />I did not find the program interesting</label>
-                        <label class="radioList"><input type="checkbox" name="reasons" value="not believe" />I did not believe a program like this could work </label>
-                        <label class="radioList"><input type="checkbox" name="reasons" value="frustrating" />I found the program frustrating to use</label>
-                        <label class="radioList"><input type="checkbox" name="reasons" value="not needed" />I no longer needed the program (i.e., I no longer felt anxious)</label>
-                        <label class="radioList"><input type="checkbox" name="reasons" value="in control" />I believe I was assigned to the control condition (i.e., the condition that was not expected to change anxiety) </label>
+                        <label class="radioList"><input type="checkbox" name="reasons" value="not interesting" />I did not find the program interesting.</label>
+                        <label class="radioList"><input type="checkbox" name="reasons" value="not believe" />I did not believe a program like this could work. </label>
+                        <label class="radioList"><input type="checkbox" name="reasons" value="frustrating" />I found the program frustrating to use.</label>
+                        <label class="radioList"><input type="checkbox" name="reasons" value="not needed" />I no longer needed the program (i.e., I no longer felt anxious).</label>
+                        <label class="radioList"><input type="checkbox" name="reasons" value="in control" />I believe I was assigned to a control condition (i.e., the condition that was not expected to change anxiety). </label>
+                        <label class="radioList"><input type="checkbox" name="reasons" value="other" />Other, please specify: <input type="text" name="reasons"/></label>
+                        <label class="radioList"><input type="checkbox" name="reasons" value="no answer" />Prefer not to answer</label>
                     </div>
                     <div class="section">
                         <div class="question">2. Even if it was not your reason for ending the program, do you believe that you were assigned to the control condition? </div>
@@ -42,10 +44,11 @@
                             <label class="radioList"><input type="radio" name="pointInControl" value="early" /><b>Early</b> in the training program (within the first 3 sessions)</label>
                             <label class="radioList"><input type="radio" name="pointInControl" value="mid-way" /><b>Mid-way</b> through the training program (around the 4th or 5th session)</label>
                             <label class="radioList"><input type="radio" name="pointInControl" value="later" /><b>Later</b> in the training program (within the last 3 sessions)</label>
+                            <label class="radioList"><input type="radio" name="pointInControl" value="noAnswer" />Prefer not to answer</label>
 
                             <div class="question">What made you think you were in the control condition? Check all that apply.</div>
-                            <label class="radioList"><input type="radio" name="whyInControl" value="not relieved" />My anxiety wasn’t being relieved</label>
-                            <label class="radioList"><input type="radio" name="whyInControl" value="not helpful" />I didn’t think that the program that I was completing could help my anxiety</label>
+                            <label class="radioList"><input type="radio" name="whyInControl" value="not relieved" />My anxiety wasn’t being relieved.</label>
+                            <label class="radioList"><input type="radio" name="whyInControl" value="not helpful" />I didn’t think that the program that I was completing could help my anxiety.</label>
                             <label class="radioList"><input type="radio" name="whyInControl" value="other" />Other, please specify: <input type="text" name="whyInControl"/></label>
                         </div>
                         <script>
@@ -62,7 +65,7 @@
                     </div>
 
                     <div class="section">
-                        <div class="question">3. To the extent you completed the program ...</div>
+                        <div class="question">3. To the extent you completed the program...</div>
                         <table class="questionnaire">
                             <tr>
                                 <th></th>
@@ -183,6 +186,7 @@
                         <label class="radioList"><input type="checkbox" name="location" value="commuting" />While commuting/travelling (e.g., on the train to work)</label>
                         <label class="radioList"><input type="checkbox" name="location" value="vacation" />On vacation</label>
                         <label class="radioList"><input type="checkbox" name="location" value="other" />Other:  <input type="text" name="location"/></label>
+                        <label class="radioList"><input type="checkbox" name="location" value="noAnswer" />Prefer not to answer</label>
                     </div>
 
                     <div class="section">
@@ -246,6 +250,7 @@
                                 <th>Little problem</th>
                                 <th>Major problem </th>
                                 <th>Not Applicable</th>
+                                <th>Prefer not to answer</th>
                             </tr>
                             <tr>
                                 <td class="statement">My Internet connection did not work (i.e., I could not connect to the Internet).</td>
@@ -253,6 +258,7 @@
                                 <td><label class="radioBox"><input type="radio" name="internet" class="form-control" value="1" />1</label></td>
                                 <td><label class="radioBox"><input type="radio" name="internet" class="form-control" value="2" />2</label></td>
                                 <td><label class="radioBox"><input type="radio" name="internet" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="internet" class="form-control" value="555" /></label></td>
                             </tr>
                             <tr>
                                 <td class="statement">My internet connection worked, but I could not get connected to the web program.</td>
@@ -260,6 +266,7 @@
                                 <td><label class="radioBox"><input type="radio" name="connected" class="form-control" value="1" />1</label></td>
                                 <td><label class="radioBox"><input type="radio" name="connected" class="form-control" value="2" />2</label></td>
                                 <td><label class="radioBox"><input type="radio" name="connected" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="connected" class="form-control" value="555" /></label></td>
                             </tr>
                             <tr>
                                 <td class="statement">I just forgot to go to the web program.</td>
@@ -267,6 +274,7 @@
                                 <td><label class="radioBox"><input type="radio" name="forgot" class="form-control" value="1" />1</label></td>
                                 <td><label class="radioBox"><input type="radio" name="forgot" class="form-control" value="2" />2</label></td>
                                 <td><label class="radioBox"><input type="radio" name="forgot" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="forgot" class="form-control" value="555" /></label></td>
                             </tr>
                             <tr>
                                 <td class="statement">Personal issues stopped me from using the web program.</td>
@@ -274,6 +282,7 @@
                                 <td><label class="radioBox"><input type="radio" name="personalIssues" class="form-control" value="1" />1</label></td>
                                 <td><label class="radioBox"><input type="radio" name="personalIssues" class="form-control" value="2" />2</label></td>
                                 <td><label class="radioBox"><input type="radio" name="personalIssues" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="personalIssues" class="form-control" value="555" /></label></td>
                             </tr>
                             <tr>
                                 <td class="statement">The web program was too hard to navigate.</td>
@@ -281,6 +290,7 @@
                                 <td><label class="radioBox"><input type="radio" name="navigationHard" class="form-control" value="1" />1</label></td>
                                 <td><label class="radioBox"><input type="radio" name="navigationHard" class="form-control" value="2" />2</label></td>
                                 <td><label class="radioBox"><input type="radio" name="navigationHard" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="navigationHard" class="form-control" value="555" /></label></td>
                             </tr>
                             <tr>
                                 <th></th>
@@ -288,6 +298,7 @@
                                 <th>Little problem</th>
                                 <th>Major problem </th>
                                 <th>Not Applicable</th>
+                                <th>Prefer not to answer</th>
                             </tr>
                             <tr>
                                 <td class="statement">The web program was too hard to understand.</td>
@@ -295,6 +306,7 @@
                                 <td><label class="radioBox"><input type="radio" name="hardToUnderstand" class="form-control" value="1" />1</label></td>
                                 <td><label class="radioBox"><input type="radio" name="hardToUnderstand" class="form-control" value="2" />2</label></td>
                                 <td><label class="radioBox"><input type="radio" name="hardToUnderstand" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="hardToUnderstand" class="form-control" value="555" /></label></td>
                             </tr>
                             <tr>
                                 <td class="statement">The web program did not seem very useful.</td>
@@ -302,6 +314,7 @@
                                 <td><label class="radioBox"><input type="radio" name="notUseful" class="form-control" value="1" />1</label></td>
                                 <td><label class="radioBox"><input type="radio" name="notUseful" class="form-control" value="2" />2</label></td>
                                 <td><label class="radioBox"><input type="radio" name="notUseful" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="notUseful" class="form-control" value="555" /></label></td>
                             </tr>
                             <tr>
                                 <td class="statement">I thought the program was going to take too long.</td>
@@ -309,6 +322,7 @@
                                 <td><label class="radioBox"><input type="radio" name="takeTooLong" class="form-control" value="1" />1</label></td>
                                 <td><label class="radioBox"><input type="radio" name="takeTooLong" class="form-control" value="2" />2</label></td>
                                 <td><label class="radioBox"><input type="radio" name="takeTooLong" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="takeTooLong" class="form-control" value="555" /></label></td>
                             </tr>
                             <tr>
                                 <td class="statement">The web program had too many words.</td>
@@ -316,6 +330,7 @@
                                 <td><label class="radioBox"><input type="radio" name="tooManyWords" class="form-control" value="1" />1</label></td>
                                 <td><label class="radioBox"><input type="radio" name="tooManyWords" class="form-control" value="2" />2</label></td>
                                 <td><label class="radioBox"><input type="radio" name="tooManyWords" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="tooManyWords" class="form-control" value="555" /></label></td>
                             </tr>
                             <tr>
                                 <td class="statement">The screen was hard to read (e.g., words were too small).</td>
@@ -323,6 +338,7 @@
                                 <td><label class="radioBox"><input type="radio" name="hardToRead" class="form-control" value="1" />1</label></td>
                                 <td><label class="radioBox"><input type="radio" name="hardToRead" class="form-control" value="2" />2</label></td>
                                 <td><label class="radioBox"><input type="radio" name="hardToRead" class="form-control" value="3" />3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="hardToRead" class="form-control" value="555" /></label></td>
                             </tr>
                         </table>
                         </div>
@@ -334,7 +350,9 @@
                         <label class="radioList"><input type="checkbox" name="changeMed" value="medsLess" />I use prescription medication less now</label>
                         <label class="radioList"><input type="checkbox" name="changeMed" value="onlineMore" />I use online computer programs (other than MindTrails) or mobile apps more now</label>
                         <label class="radioList"><input type="checkbox" name="changeMed" value="onlineLess" />I use online computer programs (other than MindTrails) or mobile apps less now</label>
+                        <label class="radioList"><input type="checkbox" name="changeMed" value="noChange" />I did not change my intervention habits</label>
                         <label class="radioList"><input type="checkbox" name="other" value="other" />Other:  <input type="text" name=""/></label>
+                        <label class="radioList"><input type="checkbox" name="changeMed" value="noAnswer" />Prefer not to answer</label>
                     </div>
 
                     <div class="submit">
@@ -383,6 +401,3 @@
 
 </body>
 </html>
-
-
-
