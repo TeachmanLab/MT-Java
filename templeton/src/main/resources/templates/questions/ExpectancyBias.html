@@ -12,7 +12,7 @@
 <section id="content" class="clearfix">
     <div class="container">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-10">
 
                 <form th:action="@{/questions/ExpectancyBias}" method="POST">
 
@@ -47,7 +47,7 @@
                     <div class="section">
                         <p class="statement"> You remain healthy for a long time </p>
                         <div class="radio">
-                            <label> <input type="radio" name="LongHealthy" value = "1"/> Very Unlikely </label>
+                            <label> <input type="radio" name="LongHealthy" value = "1" required="true"/> Very Unlikely </label>
                         </div>
                         <div class="radio">
                             <label> <input type="radio"  name="LongHealthy" value = "2"/>Somewhat Unlikely </label>
@@ -72,7 +72,7 @@
                     <div class="section">
                         <p class="statement">You rate your doctor online </p>
                         <div class="radio">
-                            <label> <input type="radio" name="DoctorRate" value = "1"/> Very Unlikely </label>
+                            <label> <input type="radio" name="DoctorRate" value = "1" required="true"/> Very Unlikely </label>
                         </div>
                         <div class="radio">
                             <label> <input type="radio"  name="DoctorRate" value = "2"/>Somewhat Unlikely </label>
@@ -97,7 +97,7 @@
                     <div class="section">
                     <p class="statement">You develop a terrible medical condition </p>
                         <div class="radio">
-                            <label> <input type="radio" name="TerribleCondition" value = "1"/> Very Unlikely </label>
+                            <label> <input type="radio" name="TerribleCondition" value = "1" required="true"/> Very Unlikely </label>
                         </div>
                         <div class="radio">
                             <label> <input type="radio"  name="TerribleCondition" value = "2"/>Somewhat Unlikely </label>
@@ -138,7 +138,7 @@
                     <div class="section">
                         <p class="statement"> After a short rest, you feel much better </p>
                         <div class="radio">
-                            <label> <input type="radio" name="TerribleCondition" value = "1"/> Very Unlikely </label>
+                            <label> <input type="radio" name="TerribleCondition" value = "1" required="true"/> Very Unlikely </label>
                         </div>
                         <div class="radio">
                             <label> <input type="radio"  name="TerribleCondition" value = "2"/>Somewhat Unlikely </label>
@@ -163,7 +163,7 @@
                     <div class="section">
                         <p class="statement"> You end up watching a lot of reruns on TV </p>
                         <div class="radio">
-                            <label> <input type="radio" name="Reruns" value = "1"/> Very Unlikely </label>
+                            <label> <input type="radio" name="Reruns" value = "1" required="true"/> Very Unlikely </label>
                         </div>
                         <div class="radio">
                             <label> <input type="radio"  name="Reruns" value = "2"/>Somewhat Unlikely </label>
@@ -188,7 +188,7 @@
                     <div class="section">
                         <p class="statement"> You feel very sick for the next few days </p>
                         <div class="radio">
-                            <label> <input type="radio" name="VerySick" value = "1"/> Very Unlikely </label>
+                            <label> <input type="radio" name="VerySick" value = "1" required="true"/> Very Unlikely </label>
                         </div>
                         <div class="radio">
                             <label> <input type="radio"  name="VerySick" value = "2"/>Somewhat Unlikely </label>
@@ -229,7 +229,7 @@
                     <div class="section">
                         <p class="statement"> You and your partner work out your differences and you see potential for this to develop a meaningful relationship </p>
                         <div class="radio">
-                            <label> <input type="radio" name="PotentialRelationship" value = "1"/> Very Unlikely </label>
+                            <label> <input type="radio" name="PotentialRelationship" value = "1" required="true"/> Very Unlikely </label>
                         </div>
                         <div class="radio">
                             <label> <input type="radio"  name="PotentialRelationship" value = "2"/>Somewhat Unlikely </label>
@@ -254,7 +254,7 @@
                     <div class="section">
                         <p class="statement"> You come back to the same restaurant next week. </p>
                         <div class="radio">
-                            <label> <input type="radio" name="ComeBack" value = "1"/> Very Unlikely </label>
+                            <label> <input type="radio" name="ComeBack" value = "1" required="true"/> Very Unlikely </label>
                         </div>
                         <div class="radio">
                             <label> <input type="radio"  name="ComeBack" value = "2"/>Somewhat Unlikely </label>
@@ -279,7 +279,7 @@
                     <div class="section">
                         <p class="statement"> This relationship will not work out, and you fear you will end up alone </p>
                         <div class="radio">
-                            <label> <input type="radio" name="EndUpAlone" value = "1"/> Very Unlikely </label>
+                            <label> <input type="radio" name="EndUpAlone" value = "1" required="true"/> Very Unlikely </label>
                         </div>
                         <div class="radio">
                             <label> <input type="radio"  name="EndUpAlone" value = "2"/>Somewhat Unlikely </label>
@@ -319,7 +319,7 @@
                     <div class="section">
                         <p class="statement">You and your partner feel that your conversation suggests great potential for your relationship </p>
                         <div class="radio">
-                            <label> <input type="radio" name="SuggestsPotential" value = "1"/> Very Unlikely </label>
+                            <label> <input type="radio" name="SuggestsPotential" value = "1" required="true" /> Very Unlikely </label>
                         </div>
                         <div class="radio">
                             <label> <input type="radio"  name="SuggestsPotential" value = "2"/>Somewhat Unlikely </label>
@@ -344,7 +344,7 @@
                     <div class="section">
                         <p class="statement">You do the dishes </p>
                         <div class="radio">
-                            <label> <input type="radio" name="Dishes" value = "1"/> Very Unlikely </label>
+                            <label> <input type="radio" name="Dishes" value = "1" required="true"/> Very Unlikely </label>
                         </div>
                         <div class="radio">
                             <label> <input type="radio"  name="Dishes" value = "2"/>Somewhat Unlikely </label>
@@ -369,7 +369,7 @@
                     <div class="section">
                         <p class="statement">Your conversation with your partner turns into an argument </p>
                         <div class="radio">
-                            <label> <input type="radio" name="Argument" value = "1"/> Very Unlikely </label>
+                            <label> <input type="radio" name="Argument" value = "1" required="true"/> Very Unlikely </label>
                         </div>
                         <div class="radio">
                             <label> <input type="radio"  name="Argument" value = "2"/>Somewhat Unlikely </label>
@@ -411,7 +411,7 @@
                     <div class="section">
                         <p class="statement">The next day, you have a bagel for breakfast </p>
                         <div class="radio">
-                            <label> <input type="radio" name="Bagel" value = "1"/> Very Unlikely </label>
+                            <label> <input type="radio" name="Bagel" value = "1" required="true"/> Very Unlikely </label>
                         </div>
                         <div class="radio">
                             <label> <input type="radio"  name="Bagel" value = "2"/>Somewhat Unlikely </label>
@@ -436,7 +436,7 @@
                     <div class="section">
                         <p class="statement">After the party, you quickly settle in and make new friends in town </p>
                         <div class="radio">
-                            <label> <input type="radio" name="SettleIn" value = "1"/> Very Unlikely </label>
+                            <label> <input type="radio" name="SettleIn" value = "1" required="true"/> Very Unlikely </label>
                         </div>
                         <div class="radio">
                             <label> <input type="radio"  name="SettleIn" value = "2"/>Somewhat Unlikely </label>
@@ -461,7 +461,7 @@
                     <div class="section">
                         <p class="statement">You offend someone at the party </p>
                         <div class="radio">
-                            <label> <input type="radio" name="Offend" value = "1"/> Very Unlikely </label>
+                            <label> <input type="radio" name="Offend" value = "1" required="true"/> Very Unlikely </label>
                         </div>
                         <div class="radio">
                             <label> <input type="radio"  name="Offend" value = "2"/>Somewhat Unlikely </label>
@@ -502,7 +502,7 @@
                     <div class="section">
                         <p class="statement">After you move to your new city, you lose touch with your old friends </p>
                         <div class="radio">
-                            <label> <input type="radio" name="LoseTouch" value = "1"/> Very Unlikely </label>
+                            <label> <input type="radio" name="LoseTouch" value = "1" required="true"/> Very Unlikely </label>
                         </div>
                         <div class="radio">
                             <label> <input type="radio"  name="LoseTouch" value = "2"/>Somewhat Unlikely </label>
@@ -527,7 +527,7 @@
                     <div class="section">
                         <p class="statement">When you unpack, you keep the boxes in case you need them again </p>
                         <div class="radio">
-                            <label> <input type="radio" name="Boxes" value = "1"/> Very Unlikely </label>
+                            <label> <input type="radio" name="Boxes" value = "1" required="true"/> Very Unlikely </label>
                         </div>
                         <div class="radio">
                             <label> <input type="radio"  name="Boxes" value = "2"/>Somewhat Unlikely </label>
@@ -552,7 +552,7 @@
                     <div class="section">
                         <p class="statement">You make plans to see your friends again before you leave town </p>
                         <div class="radio">
-                            <label> <input type="radio" name="MakePlans" value = "1"/> Very Unlikely </label>
+                            <label> <input type="radio" name="MakePlans" value = "1" required="true"/> Very Unlikely </label>
                         </div>
                         <div class="radio">
                             <label> <input type="radio"  name="MakePlans" value = "2"/>Somewhat Unlikely </label>
@@ -592,7 +592,7 @@
                     <div class="section">
                         <p class="statement">You will bring your lunch from home this week </p>
                         <div class="radio">
-                            <label> <input type="radio" name="Lunch" value = "1"/> Very Unlikely </label>
+                            <label> <input type="radio" name="Lunch" value = "1" required="true"/> Very Unlikely </label>
                         </div>
                         <div class="radio">
                             <label> <input type="radio"  name="Lunch" value = "2"/>Somewhat Unlikely </label>
@@ -617,7 +617,7 @@
                     <div class="section">
                         <p class="statement">You think you will be considered for advancement in your company. </p>
                         <div class="radio">
-                            <label> <input type="radio" name="ConsideredAdvancement" value = "1"/> Very Unlikely </label>
+                            <label> <input type="radio" name="ConsideredAdvancement" value = "1" required="true"/> Very Unlikely </label>
                         </div>
                         <div class="radio">
                             <label> <input type="radio"  name="ConsideredAdvancement" value = "2"/>Somewhat Unlikely </label>
@@ -642,7 +642,7 @@
                     <div class="section">
                         <p class="statement">You think you will be stuck in your current position and passed up for promotions </p>
                         <div class="radio">
-                            <label> <input type="radio" name="Stuck" value = "1"/> Very Unlikely </label>
+                            <label> <input type="radio" name="Stuck" value = "1" required="true"/> Very Unlikely </label>
                         </div>
                         <div class="radio">
                             <label> <input type="radio"  name="Stuck" value = "2"/>Somewhat Unlikely </label>
@@ -681,7 +681,7 @@
                     <div class="section">
                         <p class="statement">You hear a phone ring on your way out of the manager’s office </p>
                         <div class="radio">
-                            <label> <input type="radio" name="Phone" value = "1"/> Very Unlikely </label>
+                            <label> <input type="radio" name="Phone" value = "1" required="true"/> Very Unlikely </label>
                         </div>
                         <div class="radio">
                             <label> <input type="radio"  name="Phone" value = "2"/>Somewhat Unlikely </label>
@@ -706,7 +706,7 @@
                     <div class="section">
                         <p class="statement">The manager sends you an email the next day saying that you were not selected for the job </p>
                         <div class="radio">
-                            <label> <input type="radio" name="NotSelected" value = "1"/> Very Unlikely </label>
+                            <label> <input type="radio" name="NotSelected" value = "1" required="true"/> Very Unlikely </label>
                         </div>
                         <div class="radio">
                             <label> <input type="radio"  name="NotSelected" value = "2"/>Somewhat Unlikely </label>
@@ -731,7 +731,7 @@
                     <div class="section">
                         <p class="statement">The manager is impressed with the reference letters you provided </p>
                         <div class="radio">
-                            <label> <input type="radio" name="Impressed" value = "1"/> Very Unlikely </label>
+                            <label> <input type="radio" name="Impressed" value = "1" required="true"/> Very Unlikely </label>
                         </div>
                         <div class="radio">
                             <label> <input type="radio"  name="Impressed" value = "2"/>Somewhat Unlikely </label>
@@ -770,7 +770,7 @@
                     <div class="section">
                         <p class="statement">You remember you have a meeting later in the day </p>
                         <div class="radio">
-                            <label> <input type="radio" name="Meeting" value = "1"/> Very Unlikely </label>
+                            <label> <input type="radio" name="Meeting" value = "1" required="true"/> Very Unlikely </label>
                         </div>
                         <div class="radio">
                             <label> <input type="radio"  name="Meeting" value = "2"/>Somewhat Unlikely </label>
@@ -795,7 +795,7 @@
                     <div class="section">
                         <p class="statement">You feel that each month is going to leave you more financially pinched </p>
                         <div class="radio">
-                            <label> <input type="radio" name="Pinched" value = "1"/> Very Unlikely </label>
+                            <label> <input type="radio" name="Pinched" value = "1" required="true"/> Very Unlikely </label>
                         </div>
                         <div class="radio">
                             <label> <input type="radio"  name="Pinched" value = "2"/>Somewhat Unlikely </label>
@@ -820,7 +820,7 @@
                     <div class="section">
                         <p class="statement">You feel you will soon be able to start saving more </p>
                         <div class="radio">
-                            <label> <input type="radio" name="Saving" value = "1"/> Very Unlikely </label>
+                            <label> <input type="radio" name="Saving" value = "1" required="true"/> Very Unlikely </label>
                         </div>
                         <div class="radio">
                             <label> <input type="radio"  name="Saving" value = "2"/>Somewhat Unlikely </label>
@@ -862,7 +862,7 @@
                     <div class="section">
                         <p class="statement">You readjust the thermostat </p>
                         <div class="radio">
-                            <label> <input type="radio" name="Thermostat" value = "1"/> Very Unlikely </label>
+                            <label> <input type="radio" name="Thermostat" value = "1" required="true"/> Very Unlikely </label>
                         </div>
                         <div class="radio">
                             <label> <input type="radio"  name="Thermostat" value = "2"/>Somewhat Unlikely </label>
@@ -887,7 +887,7 @@
                     <div class="section">
                         <p class="statement">Your stock market investments eventually help you become financially secure </p>
                         <div class="radio">
-                            <label> <input type="radio" name="FinanciallySecure" value = "1"/> Very Unlikely </label>
+                            <label> <input type="radio" name="FinanciallySecure" value = "1" required="true"/> Very Unlikely </label>
                         </div>
                         <div class="radio">
                             <label> <input type="radio"  name="FinanciallySecure" value = "2"/>Somewhat Unlikely </label>
@@ -912,7 +912,7 @@
                     <div class="section">
                         <p class="statement">You end up losing a lot of money on the stock market, ruining you financially </p>
                         <div class="radio">
-                            <label> <input type="radio" name="Ruining" value = "1"/> Very Unlikely </label>
+                            <label> <input type="radio" name="Ruining" value = "1" required="true"/> Very Unlikely </label>
                         </div>
                         <div class="radio">
                             <label> <input type="radio"  name="Ruining" value = "2"/>Somewhat Unlikely </label>
@@ -951,7 +951,7 @@
                     <div class="section">
                         <p class="statement">You get some food before you go home </p>
                         <div class="radio">
-                            <label> <input type="radio" name="Food" value = "1"/> Very Unlikely </label>
+                            <label> <input type="radio" name="Food" value = "1" required="true"/> Very Unlikely </label>
                         </div>
                         <div class="radio">
                             <label> <input type="radio"  name="Food" value = "2"/>Somewhat Unlikely </label>
@@ -976,7 +976,7 @@
                     <div class="section">
                         <p class="statement">After the birthday party, your friends ask you to go to karaoke much more often </p>
                         <div class="radio">
-                            <label> <input type="radio" name="KaraokeOften" value = "1"/> Very Unlikely </label>
+                            <label> <input type="radio" name="KaraokeOften" value = "1" required="true"/> Very Unlikely </label>
                         </div>
                         <div class="radio">
                             <label> <input type="radio"  name="KaraokeOften" value = "2"/>Somewhat Unlikely </label>
@@ -1001,7 +1001,7 @@
                     <div class="section">
                         <p class="statement"> When you go up to sing again, some of your friends make fun of you </p>
                         <div class="radio">
-                            <label> <input type="radio" name="MakeFun" value = "1"/> Very Unlikely </label>
+                            <label> <input type="radio" name="MakeFun" value = "1" required="true"/> Very Unlikely </label>
                         </div>
                         <div class="radio">
                             <label> <input type="radio"  name="MakeFun" value = "2"/>Somewhat Unlikely </label>
@@ -1038,7 +1038,7 @@
                     <div class="section">
                         <p class="statement"> You stop by the grocery store on the way home </p>
                         <div class="radio">
-                            <label> <input type="radio" name="GroceryStore" value = "1"/> Very Unlikely </label>
+                            <label> <input type="radio" name="GroceryStore" value = "1" required="true"/> Very Unlikely </label>
                         </div>
                         <div class="radio">
                             <label> <input type="radio"  name="GroceryStore" value = "2"/>Somewhat Unlikely </label>
@@ -1063,7 +1063,7 @@
                     <div class="section">
                         <p class="statement">You fall down and seriously hurt your leg </p>
                         <div class="radio">
-                            <label> <input type="radio" name="FallDown" value = "1"/> Very Unlikely </label>
+                            <label> <input type="radio" name="FallDown" value = "1" required="true"/> Very Unlikely </label>
                         </div>
                         <div class="radio">
                             <label> <input type="radio"  name="FallDown" value = "2"/>Somewhat Unlikely </label>
@@ -1088,7 +1088,7 @@
                     <div class="section">
                         <p class="statement">You finish the race having beaten your prior best time </p>
                         <div class="radio">
-                            <label> <input type="radio" name="BestTime" value = "1"/> Very Unlikely </label>
+                            <label> <input type="radio" name="BestTime" value = "1" required="true"/> Very Unlikely </label>
                         </div>
                         <div class="radio">
                             <label> <input type="radio"  name="BestTime" value = "2"/>Somewhat Unlikely </label>
