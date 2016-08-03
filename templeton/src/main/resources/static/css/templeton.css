@@ -28,4 +28,17 @@ body {font-family: 'Source Sans Pro', sans-serif; font-size:20px; box-sizing:bor
     line-height: 25px;
 }
 
+div.section {
+    position: relative;
+    margin: 50px auto;
+    padding: 15px;
+    border-radius: 15px;
+    border: 1px solid #bbb;
+    background: #FFF;
+    font-weight: 400;
+}
 
+.statement{
+    font-weight: 600;
+    font-size: 1.2em;
+}
