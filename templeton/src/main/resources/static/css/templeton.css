@@ -47,3 +47,11 @@ div.section {
     font-weight: 600;
     font-size: 1.0em;
 }
+
+.standard {
+    display: inline-block;
+    font-weight: 100;
+    font-size: 1.0em;
+    margin-bottom: 3px;
+
+}

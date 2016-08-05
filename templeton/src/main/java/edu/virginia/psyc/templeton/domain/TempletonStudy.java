@@ -56,6 +56,7 @@ public class TempletonStudy extends BaseStudy {
         session1 = new Session("firstSession", "The First Session", 0, 2);
         session1.addTask(new Task("Affect","Affect", Task.TYPE.questions, 1));
         session1.addTask(new Task("Relatability","Relatability Follow Up", Task.TYPE.questions, 1));
+        session1.addTask(new Task("FirstSessionStories", "First Training", Task.TYPE.playerScript, 10));
         session1.addTask(new Task("RecognitionRatings", "Recognition Ratings", Task.TYPE.playerScript, 10));
         session1.addTask(new Task("TrainingExample", "A Basic Example", Task.TYPE.playerScript, 10));
         sessions.add(session1);
@@ -74,6 +75,7 @@ public class TempletonStudy extends BaseStudy {
 
         post = new Session("PostFollowUp", "Follow Up", 0, 0);
         post.addTask(new Task("MyWebForm","Web Form", Task.TYPE.questions, 1));
+        post.addTask(new Task("Evaluation","Evaluating the Program", Task.TYPE.questions, 1));
         post.addTask(new Task("HelpSeeking","Change in Help Seeking", Task.TYPE.questions, 1));
         sessions.add(post);
 

@@ -18,7 +18,9 @@
                 script : /*[[${script}]]*/ int_train.js,
                 session : /*[[${sessionName}]]*/ PRE,
                 participant : /*[[${participantId}]]*/ 1,
-                cbmCondition : /*[[${condition}]]*/ "FITFY_FIFTY"
+                cbmCondition : /*[[${condition}]]*/ "FITFY_FIFTY",
+                negate : true,
+                multipleChoice : true
             }
 
             require(['/bower/PIPlayer/dist/js/config.js'], function() {
