@@ -62,6 +62,27 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
     }
 
     /**
+     * Replaces the string [negation] in the statement with the negation value in the trial,
+     * or removes it depending on the global value of 'negate'.
+     * @param trial
+     */
+    function handleNegation(trial) {
+        if(API.getGlobal().state != STATE_RESET) return false;
+
+        // Get the value of negate.
+        var p = jQuery.grep(trial._stimulus_collection.models, function (e, i) {
+            return e.attributes.handle == "paragraph"
+        })[0];
+        var negate = p.attributes.data.negation;
+
+        // Replace negate in the sentence if negate is turned on.
+        if(negate === undefined || API.getGlobal()["negate"] == false) negate = "";
+        var sentence = $("div.sentence");
+        sentence.text(sentence.text().replace("[negation]", negate));
+    }
+
+
+    /**
      * Divides up the content so that statements in the sequence are displayed one at a time, rather than all
      * at once.
      */
@@ -399,7 +420,10 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
             // Show the paragraph with missing letters as soon as the trial starts.
             {
                 conditions: [{type: 'begin'},
-                            {type: 'function', value: function (trial, inputData) { return(splitSentences(trial)); }}
+                            {type: 'function', value: function (trial, inputData) {
+                                handleNegation(trial);
+                                return(splitSentences(trial));
+                            }}
                             ],
                 actions: [
                     {type: 'setGlobalAttr', setter: {state: STATE_SHOW_SENTENCES}}, // We are now showing sentences.
