@@ -16,18 +16,17 @@
 <section id="content" class="clearfix">
     <div class="container">
         <div class="row">
-            <div class="col-md-10">
+            <div class="span12">
 
                 <form th:action="@{/questions/Demographics}" method="POST">
 
-                    <p class="question"> We’d like to start with a few questions to get to know you better. Answers to
+                    <p class="statement"> We’d like to start with a few questions to get to know you better. Answers to
                         these personal
                         questions are kept confidential,
                         but they help us to improve MindTrails by figuring out for whom it works well.</p>
 
                     <div class="section">
-                        <div><label class="standard"> What is your gender identity? <select name="GenderId"
-                                                                                            required="true">
+                        <div><label class="question"> What is your gender identity? <select name="GenderId" required="true">
                             <option value="">Please select one</option>
                             <option>Female</option>
                             <option>Male</option>
@@ -37,13 +36,14 @@
                         </select> </label>
                         </div>
 
-                        <div><label class="standard"> Birth year <input type="number" min="1900" name="BirthYear"
-                                                                        required="true"/>
-                        </label>
+                        <br/>
 
+                        <div><label class="question"> Birth year <input type="number" min="1900" name="BirthYear" required="true"/> </label>
                         </div>
 
-                        <div><label class="standard"> Race <select name="Race" required="true">
+                        <br/>
+
+                        <div><label class="question"> Race <select name="Race" required="true">
                             <option value="">Please select one</option>
                             <option>American Indian/Alaska Native</option>
                             <option>East Asian</option>
@@ -56,7 +56,9 @@
                         </select> </label>
                         </div>
 
-                        <div><label class="standard"> Ethnicity <select name="Ethnicity" required="true">
+                        <br/>
+
+                        <div><label class="question"> Ethnicity <select name="Ethnicity" required="true">
                             <option value="">Please select one</option>
                             <option>Hispanic or Latino</option>
                             <option>Not Hispanic or Latino</option>
@@ -65,10 +67,9 @@
                         </select> </label>
                         </div>
 
-                        <div><label class="standard"> Country of Residence <select required="true" class="auto-selector"
-                                                                                   placeholder="Type your country of residence"
-                                                                                   name="Country" autofocus="autofocus"
-                                                                                   autocorrect="off" autocomplete="off">
+                        <br/>
+
+                        <div><label class="question"> Country of Residence <select required="true" class="auto-selector" placeholder="Type your country of residence" name="Country" autofocus="autofocus" autocorrect="off" autocomplete="off">
                             <option value="" selected="selected"></option>
                             <option value="United States" data-relevancy-booster="3.5"
                                     data-alternative-spellings="US USA United States of America">United States
@@ -540,7 +541,9 @@
                         </select> </label>
                         </div>
 
-                        <div><label class="standard"> Please indicate your highest educational attainment <select
+                        <br/>
+
+                        <div><label class="question"> Please indicate your highest educational attainment <select
                                 required="true" name="Education">
                             <option value="">Please select one</option>
                             <option>Elementary School</option>
@@ -561,7 +564,9 @@
                         </select> </label>
                         </div>
 
-                        <div><label class="standard"> What is your marital status? <select name="MaritalStat"
+                        <br/>
+
+                        <div><label class="question"> What is your marital status? <select name="MaritalStat"
                                                                                            required="true">
                             <option value="">Please select one</option>
                             <option>Single</option>
@@ -579,7 +584,9 @@
                         </select> </label>
                         </div>
 
-                        <div><label class="standard"> What is your employment status? <select name="EmploymentStat"
+                        <br/>
+
+                        <div><label class="question"> What is your employment status? <select name="EmploymentStat"
                                                                                               required="true">
                             <option value="">Please select one</option>
                             <option>Working full-time</option>
@@ -594,7 +601,9 @@
                         </select> </label>
                         </div>
 
-                        <div><label class="standard"> What is your household annual income (before taxes and other
+                        <br/>
+
+                        <div><label class="question"> What is your household annual income (before taxes and other
                             deductions)?<select name="Income" required="true">
                                 <option value="">Please select one</option>
                                 <option>Less than $5,000</option>
@@ -614,7 +623,9 @@
                             </select> </label>
                         </div>
 
-                        <div><label class="standard"> What brought you to this website? <select name="PtpReason"
+                        <br/>
+
+                        <div><label class="question"> What brought you to this website? <select name="PtpReason"
                                                                                                 required="true">
                             <option value="">Please select one</option>
                             <option>Recommendation of teacher</option>
@@ -638,9 +649,9 @@
 
                     </div>
 
-                    <br/>
-                    <br/>
-                    <button type="submit">Continue</button>
+                    <div style="text-align:center">
+                        <button type="submit"> Continue </button>
+                    </div>
 
                 </form>
 
