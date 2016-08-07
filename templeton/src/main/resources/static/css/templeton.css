@@ -52,6 +52,124 @@ div.section {
     display: inline-block;
     font-weight: 100;
     font-size: 1.0em;
-    margin-bottom: 3px;
+    margin-bottom: 7px;
 
 }
+
+div.divider {
+    vertical-align: middle;
+    display: inline-block;
+    width: 2px;
+    height: 100px;
+    background: #ccc;
+    margin: 0 5px;
+}
+
+label.radioList {
+    cursor: pointer;
+    text-indent: -25px;
+    font-size: 85%;
+    margin: 0 0 0 20px;
+    padding: 0px 0px 0px 25px;
+    display: block;
+    width:70%;
+    max-width: 100%;
+}
+
+div.listNoAnswer {
+    width: 150px;
+    margin: 20px;
+    text-align: center;
+    font-size: .8em;
+}
+
+div.oneToSeven {
+    display: none;
+    font-size: .9em;
+    margin-left: 40px;
+}
+
+button {
+    box-shadow: 0 1px 3px #666;
+    border-top: 1px solid #3399FF;
+    border-left: 1px solid #5FBCEA;
+    border-bottom: 1px solid #0084AE;
+    border-right: 1px solid #0084AE;
+    color: #ffffff;
+    background: #00ACE4;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+    font-size: 20px;
+    margin: 10px 0px;
+    font-weight: 700;
+    border-radius: 5px;
+    font-family: inherit;
+    line-height: inherit;
+    cursor: pointer;
+
+}
+
+#slider {
+    border: 1px solid #ccc;
+    width: 475px;
+    margin: 20px 0 90px 100px;
+}
+#slider label.slider {
+    font-width: 400;
+    font-size:72%;
+    position: absolute;
+    width: 100px;
+    min-width: 100px;
+    margin-top: 20px;
+    margin-left: -10px;
+    text-align: center;
+}
+
+#slider2 {
+    border: 1px solid #ccc;
+    width: 475px;
+    margin: 20px 0 90px 100px;
+}
+#slider2 label.slider {
+    font-width: 400;
+    font-size:72%;
+    position: absolute;
+    width: 100px;
+    min-width: 100px;
+    margin-top: 20px;
+    margin-left: -10px;
+    text-align: center;
+}
+
+
+.ui-state-default, .ui-widget-content .ui-state-default {
+    border: 1px solid #5FBCEA;
+    background: #00ACE4;
+    font-weight: normal;
+    color: #FFFFFF;
+}
+
+.ui-slider-range {
+    top: 0px;
+    height: 100px;
+}
+
+
+.ui-widget-header {
+    color: #444444;
+    font-weight: bold;
+    background: transparent;
+    margin: 10px auto;
+}
+
+.ui-corner-all {
+    border-top-right-radius: 6px;
+}
+
+
+.ui-slider-range-min {
+    left: 0px;
+}
+
+
+
