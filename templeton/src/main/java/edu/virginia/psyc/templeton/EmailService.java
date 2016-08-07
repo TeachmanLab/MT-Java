@@ -29,10 +29,6 @@ public class EmailService implements org.mindtrails.service.EmailService {
         // Meh.
     }
 
-    @Override
-    public void sendAtRiskAlertToAdmin(Participant participant, String details) {
-
-    }
 
     @Override
     public void sendEmail(Participant participant, String type) {

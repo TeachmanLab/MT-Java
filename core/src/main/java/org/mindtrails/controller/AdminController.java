@@ -166,11 +166,14 @@ public class AdminController {
                             @PathVariable("type") String type) throws Exception {
         Participant p = participantService.get(principal);
 
-        if(type.equals(EmailService.TYPE.GIFTCARD.toString())) {
+        if(type.equals(EmailService.TYPE.giftCard.toString())) {
             Reward reward = tangoService.createGiftCard(p, "test", 1);  // This would actually award a gift card, if you need to do some testing.
             this.emailService.sendGiftCard(p, reward, 100);
-        } else if(type.equals(EmailService.TYPE.ALERT_ADMIN)) {
+        // Fixme: need to handle the alert email for R34 somehow.
+        /*
+        } else if(type.equals(EmailService.TYPE.alertAdmin)) {
             this.emailService.sendAtRiskAlertToAdmin(p, "Test Message about a dropping score.");
+        */
         } else {
             this.emailService.sendEmail(p, type);
         }

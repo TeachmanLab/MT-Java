@@ -4,7 +4,7 @@ import edu.virginia.psyc.r34.domain.R34Study;
 import edu.virginia.psyc.r34.persistence.Questionnaire.OA;
 import edu.virginia.psyc.r34.persistence.Questionnaire.OARepository;
 import edu.virginia.psyc.r34.persistence.Questionnaire.ReasonsForEnding;
-import edu.virginia.psyc.r34.service.PiEmailService;
+import edu.virginia.psyc.r34.service.R34EmailService;
 import org.mindtrails.controller.QuestionController;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.service.ParticipantService;
@@ -42,7 +42,7 @@ public class OAController extends QuestionController {
     private ParticipantService participantService;
 
     @Autowired
-    private PiEmailService emailService;
+    private R34EmailService emailService;
 
     /**
      * Nothing much here, this just redirects back to the main QuestionControllers GET Form logic.

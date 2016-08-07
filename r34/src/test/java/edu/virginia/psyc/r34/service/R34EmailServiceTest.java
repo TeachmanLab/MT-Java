@@ -11,9 +11,12 @@ import org.mindtrails.domain.tracking.TaskLog;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNull;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasEntry;
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,10 +25,10 @@ import static junit.framework.Assert.assertNull;
  * Time: 2:20 PM
  * To change this template use File | Settings | File Templates.
  */
-public class PiEmailServiceTest {
+public class R34EmailServiceTest {
 
     Participant participant;
-    PiEmailService service;
+    R34EmailService service;
 
     @Before
     public void setup() {
@@ -33,9 +36,14 @@ public class PiEmailServiceTest {
         participant.setEmail("tester@test.com");
         participant.setFullName("Tester McTest");
         participant.setStudy(new R34Study());
-        service     = new PiEmailService();
+        service     = new R34EmailService();
     }
 
+    @Test
+    public void testEmailList() {
+        Map<String,String> emails = service.emailTypes();
+        assertThat(emails, hasEntry("day2","Update from the MindTrails project team"));
+    }
 
     /**
      * Returns a date from i number of days ago.
@@ -60,7 +68,7 @@ public class PiEmailServiceTest {
 
         // Send an email two days after login, if no sessions were completed.
         participant.setLastLoginDate(xDaysAgo(2));
-        assertEquals(PiEmailService.TYPE.day2, service.getEmailToSend(participant));
+        assertEquals(R34EmailService.R34_EMAIL.day2, service.getEmailToSend(participant));
 
         // Don't send an email two days after login, if a session was completed.
         participant.setLastLoginDate(xDaysAgo(2));
@@ -78,13 +86,13 @@ public class PiEmailServiceTest {
         assertNull(service.getEmailToSend(participant));
 
         study.setLastSessionDate(xDaysAgo(2));
-        assertEquals(PiEmailService.TYPE.day2, service.getEmailToSend(participant));
+        assertEquals(R34EmailService.R34_EMAIL.day2, service.getEmailToSend(participant));
 
         study.setLastSessionDate(xDaysAgo(3));
         assertNull(service.getEmailToSend(participant));
 
         study.setLastSessionDate(xDaysAgo(4));
-        assertEquals(PiEmailService.TYPE.day4, service.getEmailToSend(participant));
+        assertEquals(R34EmailService.R34_EMAIL.day4, service.getEmailToSend(participant));
 
         study.setLastSessionDate(xDaysAgo(5));
         assertNull(service.getEmailToSend(participant));
@@ -93,7 +101,7 @@ public class PiEmailServiceTest {
         assertNull(service.getEmailToSend(participant));
 
         study.setLastSessionDate(xDaysAgo(7));
-        assertEquals(PiEmailService.TYPE.day7, service.getEmailToSend(participant));
+        assertEquals(R34EmailService.R34_EMAIL.day7, service.getEmailToSend(participant));
 
         study.setLastSessionDate(xDaysAgo(8));
         assertNull(service.getEmailToSend(participant));
@@ -105,7 +113,7 @@ public class PiEmailServiceTest {
         assertNull(service.getEmailToSend(participant));
 
         study.setLastSessionDate(xDaysAgo(11));
-        assertEquals(PiEmailService.TYPE.day11, service.getEmailToSend(participant));
+        assertEquals(R34EmailService.R34_EMAIL.day11, service.getEmailToSend(participant));
 
         study.setLastSessionDate(xDaysAgo(12));
         assertNull(service.getEmailToSend(participant));
@@ -117,7 +125,7 @@ public class PiEmailServiceTest {
         assertNull(service.getEmailToSend(participant));
 
         study.setLastSessionDate(xDaysAgo(15));
-        assertEquals(PiEmailService.TYPE.day15, service.getEmailToSend(participant));
+        assertEquals(R34EmailService.R34_EMAIL.day15, service.getEmailToSend(participant));
 
         study.setLastSessionDate(xDaysAgo(16));
         assertNull(service.getEmailToSend(participant));
@@ -126,7 +134,7 @@ public class PiEmailServiceTest {
         assertNull(service.getEmailToSend(participant));
 
         study.setLastSessionDate(xDaysAgo(18));
-        assertEquals(PiEmailService.TYPE.day18, service.getEmailToSend(participant));
+        assertEquals(R34EmailService.R34_EMAIL.day18, service.getEmailToSend(participant));
 
         study.setLastSessionDate(xDaysAgo(19));
         assertNull(service.getEmailToSend(participant));
@@ -171,19 +179,19 @@ public class PiEmailServiceTest {
         participant.setStudy(study);
 
         study.setLastSessionDate(xDaysAgo(60));
-        assertEquals(PiEmailService.TYPE.followup, service.getEmailToSend(participant));
+        assertEquals(R34EmailService.R34_EMAIL.followup, service.getEmailToSend(participant));
 
         study.setLastSessionDate(xDaysAgo(63));
-        assertEquals(PiEmailService.TYPE.followup2, service.getEmailToSend(participant));
+        assertEquals(R34EmailService.R34_EMAIL.followup2, service.getEmailToSend(participant));
 
         study.setLastSessionDate(xDaysAgo(67));
-        assertEquals(PiEmailService.TYPE.followup2, service.getEmailToSend(participant));
+        assertEquals(R34EmailService.R34_EMAIL.followup2, service.getEmailToSend(participant));
 
         study.setLastSessionDate(xDaysAgo(70));
-        assertEquals(PiEmailService.TYPE.followup2, service.getEmailToSend(participant));
+        assertEquals(R34EmailService.R34_EMAIL.followup2, service.getEmailToSend(participant));
 
         study.setLastSessionDate(xDaysAgo(75));
-        assertEquals(PiEmailService.TYPE.followup3, service.getEmailToSend(participant));
+        assertEquals(R34EmailService.R34_EMAIL.followup3, service.getEmailToSend(participant));
 
     }
 
