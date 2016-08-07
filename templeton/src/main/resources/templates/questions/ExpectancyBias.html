@@ -16,25 +16,27 @@
 
                 <form th:action="@{/questions/ExpectancyBias}" method="POST">
 
-                    <h2> Instructions </h2>
 
-                    <p> During this task, you will see a number of paragraphs that describe different situations.
+                    <p class="question"> During this task, you will see a number of paragraphs that describe different situations.
                         Please read each paragraph carefully, and imagine yourself in the situation described. </p>
 
-                    <p> After each paragraph, you will see a set of sentences describing an event that might happen next.
+                    <p class="question"> After each paragraph, you will see a set of sentences describing an event that might happen next.
                         Although we know that you can't be sure what would happen next, and there is no right or wrong answers,
                         we would like you to judge the likelihood of each of the events occurring next, given all the information that has already happened in the paragraph. </p>
 
-                    <p> Please rate to what extent each of the sentences presented is likely to come next in the situation using a scale from 1 (very unlikely) to 7 (very likely).
+                    <p class="question"> Please rate to what extent each of the sentences presented is likely to come next in the situation using a scale from 1 (very unlikely) to 7 (very likely).
                         Rate each sentence separately, ignoring the other sentences that followed the paragraph; in other words, just think about whether the sentences you are rating would be likely to come next after the paragraph.
                     Please click "continue" to begin. </p>
                     <br/>
-                    <input value="Continue" name="Question1" id="Question1" type="submit"/>
+
+                    <div style="text-align:center">
+                        <button type="submit"> Continue </button>
+                    </div>
                     <br/>
                     <br/>
 
                     <h3> Doctor's Appointment:</h3>
-                    <p>You go into the examination room at your doctor’s office for a routine checkup. </p>
+                    <p >You go into the examination room at your doctor’s office for a routine checkup. </p>
 
                     <p> Your doctor tells you that she is slightly concerned about a mole on your shoulder and would like to get a biopsy.
                         She also says she is concerned about the increase in your blood pressure since your last visit. </p>
@@ -118,9 +120,12 @@
                             <label> <input type="radio"  name="TerribleCondition" value = "7"/> Very Likely </label>
                         </div>
                     </div>
+
                     <br/>
                     <br/>
-                    <input value="Continue" name="Question2" id="Question2"  type="submit"/>
+                    <div style="text-align:center">
+                        <button type="submit"> Continue </button>
+                    </div>
                     <br/>
                     <br/>
 
@@ -209,9 +214,12 @@
                             <label> <input type="radio"  name="VerySick" value = "7"/> Very Likely </label>
                         </div>
                     </div>
+
                     <br/>
                     <br/>
-                    <input value="Continue" name="Question3" id="Question3" type="submit"/>
+                    <div style="text-align:center">
+                        <button type="submit"> Continue </button>
+                    </div>
                     <br/>
                     <br/>
 
@@ -303,7 +311,9 @@
 
                     <br/>
                     <br/>
-                    <input value="Continue" name="Question4" id="Question4" type="submit"/>
+                    <div style="text-align:center">
+                        <button type="submit"> Continue </button>
+                    </div>
                     <br/>
                     <br/>
 
@@ -393,7 +403,9 @@
 
                     <br/>
                     <br/>
-                    <input value="Continue" name="Question5" id="Question5" type="submit"/>
+                    <div style="text-align:center">
+                        <button type="submit"> Continue </button>
+                    </div>
                     <br/>
                     <br/>
 
@@ -485,7 +497,9 @@
 
                     <br/>
                     <br/>
-                    <input value="Continue" name="Question6" id="Question6" type="submit"/>
+                    <div style="text-align:center">
+                        <button type="submit"> Continue </button>
+                    </div>
                     <br/>
                     <br/>
 
@@ -576,7 +590,9 @@
 
                     <br/>
                     <br/>
-                    <input value="Continue" name="Question7" id="Question7" type="submit"/>
+                    <div style="text-align:center">
+                        <button type="submit"> Continue </button>
+                    </div>
                     <br/>
                     <br/>
 
@@ -663,9 +679,12 @@
                             <label> <input type="radio"  name="Stuck" value = "7"/> Very Likely </label>
                         </div>
                     </div>
+
                     <br/>
                     <br/>
-                    <input value="Continue" name="Question8" id="Question8" type="submit"/>
+                    <div style="text-align:center">
+                        <button type="submit"> Continue </button>
+                    </div>
                     <br/>
                     <br/>
 
@@ -755,9 +774,12 @@
 
                     <br/>
                     <br/>
-                    <input value="Continue" name="Question9" id="Question9" type="submit"/>
+                    <div style="text-align:center">
+                        <button type="submit"> Continue </button>
+                    </div>
                     <br/>
                     <br/>
+
                     <h3> Home Finances: </h3>
                     <p>You are going over your finances and budgeting for the next month. </p>
 
@@ -844,7 +866,9 @@
 
                     <br/>
                     <br/>
-                    <input value="Continue" name="Question10" id="Question10" type="submit"/>
+                    <div style="text-align:center">
+                        <button type="submit"> Continue </button>
+                    </div>
                     <br/>
                     <br/>
 
@@ -936,9 +960,12 @@
 
                     <br/>
                     <br/>
-                    <input value="Continue" name="Question11" id="Question11" type="submit"/>
+                    <div style="text-align:center">
+                        <button type="submit"> Continue </button>
+                    </div>
                     <br/>
                     <br/>
+
                     <h3> Karaoke Lounge: </h3>
                     <p>Some friends have invited you to join them at a karaoke lounge for a birthday party. </p>
 
@@ -1025,9 +1052,12 @@
 
                     <br/>
                     <br/>
-                    <input value="Continue" name="Question12" id="Question12" type="submit"/>
+                    <div style="text-align:center">
+                        <button type="submit"> Continue </button>
+                    </div>
                     <br/>
                     <br/>
+
                     <h3>The Race: </h3>
                     <p>You are running in a 10K race for a local charity. </p>
                     <p>So far, you have been keeping pace very well and feel set to run for the whole 10 kilometers. You get to a water stop and feel refreshed and invigorated. </p>
@@ -1112,7 +1142,9 @@
 
                     <br/>
                     <br/>
-                    <input type="submit"/>
+                    <div style="text-align:center">
+                        <button type="submit"> Continue </button>
+                    </div>
 
 
                 </form>
