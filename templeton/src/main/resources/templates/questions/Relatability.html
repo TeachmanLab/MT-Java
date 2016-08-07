@@ -1,8 +1,12 @@
 <!DOCTYPE html>
-<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
-<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
-<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!--><html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
 
 <head th:replace="fragment/common :: headerFragment"/>
 <body>
@@ -12,50 +16,66 @@
 <section id="content" class="clearfix">
     <div class="container">
         <div class="row">
-            <div class="span12">
+            <div class="col-md-10">
 
 
                 <form th:action="@{/questions/Relatability}" method="POST">
 
 
-                    <p> While reading the brief stories in the training program,
-                        to what extent did you feel that you could relate to the situations thata were presented? </p>
-                    <label> 1 Not at all
-                        <input type="radio" name="Relate" value="1"/>
-                    </label>
-                    <label> 2 Slightly
-                        <input type="radio" name="Relate" value="2"/>
-                    </label>
-                    <label> 3 Somewhat
-                        <input type="radio" name="Relate" value="3"/>
-                    </label>
-                    <label> 4 Mostly
-                        <input type="radio" name="Relate" value="4"/>
-                    </label>
-                    <label> 5 Very Much
-                        <input type="radio" name="Relate" value="5"/>
-                    </label>
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="section">
+                                <p class="statement"> While reading the brief stories in the training program,
+                                    to what extent did you feel that you could relate to the situations that were
+                                    presented? </p>
+                                <div class="radio">
+                                    <label class="standard"> <input type="radio" name="Relate" value="1"/> 1 Not at all
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input type="radio" name="Relate" value="2"/> 2 Slightly </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input type="radio" name="Relate" value="3"/> 3 Somewhat </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input type="radio" name="Relate" value="4"/> 4 Mostly </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input type="radio" name="Relate" value="5"/> 5 Very Much </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                    <p> While reading the brief stories in the training program,
-                        to what extent did you feel like it could be you behaving that way in those stories? </p>
-                    <label> 1 Not at all
-                        <input type="radio" name="Behaving" value="1"/>
-                    </label>
-                    <label> 2 Slightly
-                        <input type="radio" name="Behaving" value="2"/>
-                    </label>
-                    <label> 3 Somewhat
-                        <input type="radio" name="Behaving" value="3"/>
-                    </label>
-                    <label> 4 Mostly
-                        <input type="radio" name="Behaving" value="4"/>
-                    </label>
-                    <label> 5 Very Much
-                        <input type="radio" name="Behaving" value="5"/>
-                    </label>
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="section">
+                                <p class="statement"> While reading the brief stories in the training program,
+                                    to what extent did you feel like it could be you behaving that way in those
+                                    stories? </p>
+                                <div class="radio">
+                                    <label> <input type="radio" name="Behaving" value="1"/> 1 Not at all </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input type="radio" name="Behaving" value="2"/> 2 Slightly </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input type="radio" name="Behaving" value="3"/> 3 Somewhat </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input type="radio" name="Behaving" value="4"/> 4 Mostly </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input type="radio" name="Behaving" value="5"/> 5 Very Much </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-
-                        <input type="submit"/>
+                    <div style="text-align:center">
+                        <button type="submit"> Continue</button>
+                    </div>
 
 
                 </form>
