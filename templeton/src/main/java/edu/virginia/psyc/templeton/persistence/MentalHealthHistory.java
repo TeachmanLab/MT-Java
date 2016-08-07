@@ -20,6 +20,7 @@ public class MentalHealthHistory extends SecureQuestionnaireData {
     private String Other_HelpCurrent;
     private String Other_HelpPast;
     private String Other_HelpReason;
+    private String no_past_help_reason;
 
     @ElementCollection
     @CollectionTable(name = "mental_health_disorders", joinColumns = @JoinColumn(name = "id"))
@@ -70,6 +71,8 @@ public class MentalHealthHistory extends SecureQuestionnaireData {
     private int book_past = 0;
     private int medicine_past = 0;
     private int online_past = 0;
+    private int app_past= 0;
+    private int support_group_past=0;
     private int other_past = 0;
 
 
