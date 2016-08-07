@@ -12,134 +12,160 @@
 <section id="content" class="clearfix">
     <div class="container">
         <div class="row">
-            <div class="span12">
+            <div class="col-md-10">
 
 
                 <form th:action="@{/questions/DASS21AS}" method="POST">
 
-                    <h1> Instructions </h1>
 
-                    <p> Please read each statement and select a number 0, 1, 2 or 3 that indicates how much the statement applied to you over the past week.
-                        There are no right or wrong answers. Do not spend too much time on any statement.</p>
+                    <p class="statement"> Please read each statement and select a number 0, 1, 2 or 3 that indicates how much the statement applied to you over the past week. </p>
+                    <p class="statement"> There are no right or wrong answers. Do not spend too much time on any statement.</p>
 
-                    <br/>
-                    <br/>
-                    <p>I was aware of dryness of my mouth </p>
-                    <label> 0 Did not apply to me at all
-                        <input type="radio"  name="Dryness" value = "0"/>
-                    </label>
-                    <label > 1 Applied to me to some degree, or some of the time
-                        <input type="radio"  name="Dryness" value = "1"/>
-                    </label>
-                    <label > 2 Applied to me to a considerable degree, or a good part of time
-                        <input type="radio" name="Dryness" value = "2"/>
-                    </label>
-                    <label> 3 Applied to me very much, or most of the time
-                        <input type="radio" name="Dryness" value = "3"/>
-                    </label>
 
-                    <br/>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="section">
+                                <p class="question"> I was aware of dryness of my mouth </p>
+                                <div class="radio">
+                                    <label> <input type="radio" name="Dryness" value = "0" required="required"/> Did not apply to me at all </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input type="radio" name="Dryness" value = "1" required="required"/> Applied to me to some degree, or some of the time </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input type="radio" name="Dryness" value = "2" required="required"/> Applied to me to a considerable degree, or a good part of time </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input type="radio" name="Dryness" value = "3" required="required"/> Applied to me very much, or most of the time </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                    <p>I experienced breathing difficulty (e.g,, excessively rapid breathing,
-                    breathlessness in the absence of physical exertion).</p>
-                    <label>0 Did not apply to me at all
-                    <input type="radio"  name="DifficultyBreathing" value = "0"/>
-                    </label>
-                    <label > 1 Applied to me to some degree, or some of the time
-                        <input type="radio"  name="DifficultyBreathing" value = "1"/>
-                    </label>
-                    <label > 2 Applied to me to a considerable degree, or a good part of time
-                        <input type="radio" name="DifficultyBreathing" value = "2"/>
-                    </label>
-                    <label> 3 Applied to me very much, or most of the time
-                        <input type="radio" name="DifficultyBreathing" value = "3"/>
-                    </label>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="section">
+                                <p class="question">I experienced breathing difficulty (e.g,, excessively rapid breathing, breathlessness in the absence of physical exertion) </p>
+                                <div class="radio">
+                                    <label> <input type="radio" name="DifficultyBreathing" value = "0" required="required"/> Did not apply to me at all </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input type="radio" name="DifficultyBreathing" value = "1" required="required"/> Applied to me to some degree, or some of the time </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input type="radio" name="DifficultyBreathing" value = "2" required="required"/> Applied to me to a considerable degree, or a good part of time </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input type="radio" name="DifficultyBreathing" value = "3" required="required"/> Applied to me very much, or most of the time </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                    <br/>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="section">
+                                <p class="question"> I experienced trembling (e.g., in the hands) </p>
+                                <div class="radio">
+                                    <label> <input type="radio" name="Trembling" value = "0" required="required"/> Did not apply to me at all </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input type="radio" name="Trembling" value = "1" required="required"/> Applied to me to some degree, or some of the time </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input type="radio" name="Trembling" value = "2" required="required"/> Applied to me to a considerable degree, or a good part of time </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input type="radio" name="Trembling" value = "3" required="required"/> Applied to me very much, or most of the time </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                    <p>I experienced trembling (e.g., in the hands).</p>
-                    <label>0 Did not apply to me at all
-                    <input type="radio"  name="Trembling" value = "0"/>
-                    </label>
-                    <label > 1 Applied to me to some degree, or some of the time
-                        <input type="radio"  name="Trembling" value = "1"/>
-                    </label>
-                    <label > 2 Applied to me to a considerable degree, or a good part of time
-                        <input type="radio" name="Trembling" value = "2"/>
-                    </label>
-                    <label> 3 Applied to me very much, or most of the time
-                        <input type="radio" name="Trembling" value = "3"/>
-                    </label>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="section">
+                                <p class="statement"> I was worried about situations in which I might panic and make a fool of myself </p>
+                                <div class="radio">
+                                    <label> <input type="radio" name="WorryPanic" value = "0" required="required"/> Did not apply to me at all </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input type="radio" name="WorryPanic" value = "1" required="required"/> Applied to me to some degree, or some of the time </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input type="radio" name="WorryPanic" value = "2" required="required"/> Applied to me to a considerable degree, or a good part of time </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input type="radio" name="WorryPanic" value = "3" required="required"/> Applied to me very much, or most of the time </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                    <br/>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="section">
+                                <p class="question"> I felt I was close to panic  </p>
+                                <div class="radio">
+                                    <label> <input type="radio" name="PanicFelt" value = "0" required="required"/> Did not apply to me at all </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input type="radio" name="PanicFelt" value = "1" required="required"/> Applied to me to some degree, or some of the time </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input type="radio" name="PanicFelt" value = "2" required="required"/> Applied to me to a considerable degree, or a good part of time </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input type="radio" name="PanicFelt" value = "3" required="required"/> Applied to me very much, or most of the time </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                    <p>I was worried about situations in which I might panic and make
-                        a fool of myself.</p>
-                    <label>0 Did not apply to me at all
-                    <input type="radio"  name="WorryPanic" value = "0"/>
-                    </label>
-                    <label > 1 Applied to me to some degree, or some of the time
-                        <input type="radio"  name="WorryPanic" value = "1"/>
-                    </label>
-                    <label > 2 Applied to me to a considerable degree, or a good part of time
-                        <input type="radio" name="WorryPanic" value = "2"/>
-                    </label>
-                    <label> 3 Applied to me very much, or most of the time
-                        <input type="radio" name="WorryPanic" value = "3"/>
-                    </label>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="section">
+                                <p class="question"> I was aware of the action of my heart in the absence of physical exertion (e.g., sense of heart rate increase, heart missing a beat)  </p>
+                                <div class="radio">
+                                    <label> <input type="radio" name="HeartAware" value = "0" required="required"/> Did not apply to me at all </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input type="radio" name="HeartAware" value = "1" required="required"/> Applied to me to some degree, or some of the time </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input type="radio" name="HeartAware" value = "2" required="required"/> Applied to me to a considerable degree, or a good part of time </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input type="radio" name="HeartAware" value = "3" required="required"/> Applied to me very much, or most of the time </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                    <br/>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="section">
+                                <p class="question"> I felt scared without any good reason  </p>
+                                <div class="radio">
+                                    <label> <input type="radio" name="ScaredNoReason" value = "0" required="required"/> Did not apply to me at all </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input type="radio" name="ScaredNoReason" value = "1" required="required"/> Applied to me to some degree, or some of the time </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input type="radio" name="ScaredNoReason" value = "2" required="required"/> Applied to me to a considerable degree, or a good part of time </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input type="radio" name="ScaredNoReason" value = "3" required="required"/> Applied to me very much, or most of the time </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                    <p>I felt I was close to panic.</p>
-                    <label>0 Did not apply to me at all
-                    <input type="radio"  name="PanicFelt" value = "0"/>
-                    </label>
-                    <label > 1 Applied to me to some degree, or some of the time
-                        <input type="radio"  name="PanicFelt" value = "1"/>
-                    </label>
-                    <label > 2 Applied to me to a considerable degree, or a good part of time
-                        <input type="radio" name="PanicFelt" value = "2"/>
-                    </label>
-                    <label> 3 Applied to me very much, or most of the time
-                        <input type="radio" name="PanicFelt" value = "3"/>
-                    </label>
 
-                    <br/>
-
-                    <p>I was aware of the action of my heart in the absence of physical
-                        exertion (e.g., sense of heart rate increase, heart missing a beat).</p>
-                    <label>0 Did not apply to me at all
-                    <input type="radio"  name="HeartAware" value = "0"/>
-                    </label>
-                    <label > 1 Applied to me to some degree, or some of the time
-                        <input type="radio"  name="HeartAware" value = "1"/>
-                    </label>
-                    <label > 2 Applied to me to a considerable degree, or a good part of time
-                        <input type="radio" name="HeartAware" value = "2"/>
-                    </label>
-                    <label> 3 Applied to me very much, or most of the time
-                        <input type="radio" name="HeartAware" value = "3"/>
-                    </label>
-
-                    <br/>
-
-                    <p>I felt scared without any good reason.</p>
-                    <label>0 Did not apply to me at all
-                    <input type="radio"  name="ScaredNoReason" value = "0"/>
-                    </label>
-                    <label > 1 Applied to me to some degree, or some of the time
-                        <input type="radio"  name="ScaredNoReason" value = "1"/>
-                    </label>
-                    <label > 2 Applied to me to a considerable degree, or a good part of time
-                        <input type="radio" name="ScaredNoReason" value = "2"/>
-                    </label>
-                    <label> 3 Applied to me very much, or most of the time
-                        <input type="radio" name="ScaredNoReason" value = "3"/>
-                    </label>
-
-                    <br/>
-                    <br/>
-                    <input type="submit"/>
+                    <div style="text-align:center">
+                        <button type="submit"> Continue </button>
+                    </div>
 
                 </form>
 

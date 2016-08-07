@@ -19,6 +19,7 @@ public class HelpSeeking extends SecureQuestionnaireData {
     private boolean MoreApps;
     private boolean LessApps;
     private boolean OtherChange;
+    private String other;
     private boolean NoChange;
 
 }

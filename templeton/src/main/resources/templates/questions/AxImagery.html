@@ -12,25 +12,29 @@
 <section id="content" class="clearfix">
     <div class="container">
         <div class="row">
-            <div class="span12">
+            <div class="col-md-8">
 
 
                 <form th:action="@{/questions/AxImagery}" method="POST">
 
-                    <h1>Use Your Imagination</h1>
+                    <h3>Use Your Imagination</h3>
 
-                    <p>Pick a situation that you worry might go badly, or that you expect will evoke symptoms related to anxiety (e.g., racing heart, sweating).</p>
-                    <p>Any situation that will make you feel anxious or scared will work.</p>
+                    <p>Pick a situation that you worry might go badly, or that you expect will evoke symptoms related to anxiety (e.g., racing heart, sweating).
+                        Any situation that will make you feel anxious or scared will work.</p>
+
                     <p>If no specific situation is upcoming, then just select a situation that you expect would make you feel anxious or scared IF you were to be that situation.</p>
 
-                    <label class="standard"> Please describe the situation in a few words: </label>
-                        <input type="text" name="AxSituation" id="AxSituation"/>
 
-                    <p> Please imagine the situation as vividly as possible (i.e., so that it feels very real).
-                    Try to imagine you are actually in the situation.
-                    Play out the specific parts of the situation in your head.
-                    Try to imagine using all the things you would see, hear, and smell if you were really in that situation.
-                    Think about what thoughts or feelings you would experience if you were actually there. </p>
+                    <div class="section">
+                        <p class="question"> Please describe the situation in a few words </p>
+                            <input type="text" name="AxSituation" id="AxSituation" required="true"/>
+                    </div>
+
+                    <p> Please imagine the situation as vividly as possible (i.e., so that it feels very real).</p>
+                    <p>Try to imagine you are actually in the situation.</p>
+                    <p>Play out the specific parts of the situation in your head. </p>
+                    <p>Try to imagine using all the things you would see, hear, and smell if you were really in that situation. </p>
+                    <p>Think about what thoughts or feelings you would experience if you were actually there. </p>
 
                     <p> Please click the button below and play this situation in your head for the next 20 seconds. We will tell you when the 20 seconds are up. </p>
 
@@ -41,25 +45,27 @@
                         }
                     </script>
 
-                    <p> Now, answer the following questions about the situation you imagined. </p>
-                    <br/>
+                    <h4> Now, answer the following questions about the situation you imagined. </h4>
 
-                    <p> How vividly did you imagine the situation? </p>
-                    <label > 1 Not at all vivid
-                        <input type="radio"  name="Vividness" value = "1"/>
-                    </label>
-                    <label > 2
-                        <input type="radio"  name="Vividness" value = "2"/>
-                    </label>
-                    <label > 3 Somewhat vivid
-                        <input type="radio" name="Vividness" value = "3"/>
-                    </label>
-                    <label> 4
-                        <input type="radio" name="Vividness" value = "4"/>
-                    </label>
-                    <label> 5 Extremely vivid
-                        <input type="radio" name="Vividness" value = "5"/>
-                    </label>
+                    <div class="section">
+                        <p class="question"> How vividly do you imagine the situation? </p>
+                        <div class="radio">
+                            <label> <input type="radio" name="Vividness" value = "1" required="true"/> 1 Not at all vivid </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Vividness" value="2"/> 2 </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Vividness" value="3"/> 3 Somewhat vivid </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Vividness" value="4"/> 4 </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Vividness" value="5"/> 5 Extremely vivid </label>
+                        </div>
+                    </div>
+
 
                     <br/><br/>
 
@@ -68,46 +74,43 @@
                     <!--uses a slider from 0 to 100 set to start at 50 with steps of 1 with "Not at all Anxious 0",
                     "Moderately Anxious 50", and "Totally Anxious 100"-->
 
+                    <div class="section">
+                        <p class="question"> How likely is it that this situation will turn out well vs. turn out badly? </p>
+                        <div class="radio">
+                            <label> <input type="radio" name="TurnOut" value="1" required="true"/> 1 Very likely to turn out well </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="TurnOut" value="2"/> 2 Somewhat likely to turn out well </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="TurnOut" value="3"/> 3 Neutral </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="TurnOut" value="4"/> 4 Somewhat likely to turn out badly </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="TurnOut" value="5"/> 5 Very likely to turn out badly </label>
+                        </div>
+                    </div>
 
-                    <p> How likely is it that this situation will turn out well vs. turn out badly? </p>
-
-                    <label > 1 Very likely to turn out well
-                        <input type="radio"  name="TurnOut" value = "1"/>
-                    </label>
-                    <label > 2 Somewhat likely to turn out well
-                        <input type="radio"  name="TurnOut" value = "2"/>
-                    </label>
-                    <label > 3 Neutral
-                        <input type="radio" name="TurnOut" value = "3"/>
-                    </label>
-                    <label> 4 Somewhat likely to turn out badly
-                        <input type="radio" name="TurnOut" value = "4"/>
-                    </label>
-                    <label> 5 Very likely to turn out badly
-                        <input type="radio" name="TurnOut" value = "5"/>
-                    </label>
-
-                    <br/><br/>
-
-                    <p> If this situation did turn out badly, how manageable vs. unmanageable would the consequences be? </p>
-
-                    <label > 1 Very manageable
-                        <input type="radio"  name="Manageable" value = "1"/>
-                    </label>
-                    <label > 2 Somewhat manageable
-                        <input type="radio"  name="Manageable" value = "2"/>
-                    </label>
-                    <label > 3 Neutral
-                        <input type="radio" name="Manageable" value = "3"/>
-                    </label>
-                    <label> 4 Somewhat unmanageable
-                        <input type="radio" name="Manageable" value = "4"/>
-                    </label>
-                    <label> 5 Very unmanageable
-                        <input type="radio" name="Manageable" value = "5"/>
-                    </label>
-
-                    <br/><br/>
+                    <div class="section">
+                        <p class="question"> If this situation did turn out badly, how manageable vs. unmanageable would the consequences be? </p>
+                        <div class="radio">
+                            <label> <input type="radio" name="Manageable" value="1" required="true"/> 1 Very manageable </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Manageable" value="2"/> 2 Somewhat manageable </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Manageable" value="3"/> 3 Neutral </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Manageable" value="4"/> 4 Somewhat unmanageable </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Manageable" value="5"/> 5 Very unmanageable </label>
+                        </div>
+                    </div>
 
                     <input type="submit"/>
                 </form>

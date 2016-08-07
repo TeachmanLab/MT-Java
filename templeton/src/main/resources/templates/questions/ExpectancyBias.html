@@ -12,1047 +12,1142 @@
 <section id="content" class="clearfix">
     <div class="container">
         <div class="row">
-            <div class="span12">
+            <div class="col-md-10">
 
                 <form th:action="@{/questions/ExpectancyBias}" method="POST">
 
-                    <h1> Instructions </h1>
 
-                    <p> During this task, you will see a number of paragraphs that describe different situations.
-                        Please read each paragraph carefully, and imagine yourself in the situation described.
-                        After each paragraph, you will see a set of sentences describing an event that might happen next.
+                    <p class="question"> During this task, you will see a number of paragraphs that describe different situations.
+                        Please read each paragraph carefully, and imagine yourself in the situation described. </p>
+
+                    <p class="question"> After each paragraph, you will see a set of sentences describing an event that might happen next.
                         Although we know that you can't be sure what would happen next, and there is no right or wrong answers,
-                        we would like you to judge the likelihood of each of the events occurring next, given all the information that has already happened in the paragraph.
-                        Please rate to what extent each of the sentences presented is likely to come next in the situation using a scale from 1 (very unlikely) to 7(very likely).
+                        we would like you to judge the likelihood of each of the events occurring next, given all the information that has already happened in the paragraph. </p>
+
+                    <p class="question"> Please rate to what extent each of the sentences presented is likely to come next in the situation using a scale from 1 (very unlikely) to 7 (very likely).
                         Rate each sentence separately, ignoring the other sentences that followed the paragraph; in other words, just think about whether the sentences you are rating would be likely to come next after the paragraph.
                     Please click "continue" to begin. </p>
-
-                    <br/>
-                    <input value="Continue" name="Question1" id="Question1" type="submit"/>
-                    <br/>
                     <br/>
 
-                    <h4> Doctor's Appointment:</h4>
-                    <p>You go into the examination room at your doctor’s office for a routine checkup.
-                        Your doctor tells you that she is slightly concerned about a mole on your shoulder and would like to get a biopsy.
-                        She also says she is concerned about the increase in your blood pressure since your last visit.
-                        When she checks your heartbeat, your doctor tells you that she likes what she hears.
-                        She adds that your lipid levels have improved since she last saw you.</p>
-                    <br/>
-                    <br/>
-                    <p> How likely are each of the following sentences to occur next in this situation? </p>
-
-                    <br/>
-                    <p>You remain healthy for a long time </p>
-                        <label> Very Unlikely
-                            <input type="radio" name="LongHealthy" value = "1"/>
-                        </label>
-                        <label> Somewhat Unlikely
-                            <input type="radio"  name="LongHealthy" value = "2"/>
-                        </label>
-                        <label> A Little Unlikely
-                            <input type="radio" name="LongHealthy" value= "3"/>
-                        </label>
-                        <label> Neither Likely Nor Unlikely
-                            <input type="radio" name="LongHealthy" value = "4"/>
-                        </label>
-                        <label> A Little Likely
-                            <input type="radio"  name="LongHealthy" value = "5"/>
-                        </label>
-                        <label> Somewhat Likely
-                            <input type="radio" name="LongHealthy" value = "6"/>
-                        </label>
-                        <label> Very Likely
-                            <input type="radio"  name="LongHealthy" value = "7"/>
-                        </label>
-                    <br/>
-                    <br/>
-                    <p>You rate your doctor online </p>
-                    <label> Very Unlikely
-                        <input type="radio" name="DoctorRate" value = "1"/>
-                    </label>
-                    <label> Somewhat Unlikely
-                        <input type="radio"  name="DoctorRate" value = "2"/>
-                    </label>
-                    <label> A Little Unlikely
-                        <input type="radio" name="DoctorRate" value= "3"/>
-                    </label>
-                    <label> Neither Likely Nor Unlikely
-                        <input type="radio" name="DoctorRate" value = "4"/>
-                    </label>
-                    <label> A Little Likely
-                        <input type="radio"  name="DoctorRate" value = "5"/>
-                    </label>
-                    <label> Somewhat Likely
-                        <input type="radio" name="DoctorRate" value = "6"/>
-                    </label>
-                    <label> Very Likely
-                        <input type="radio"  name="DoctorRate" value = "7"/>
-                    </label>
-                    <br/>
-                    <br/>
-                    <p>You develop a terrible medical condition </p>
-                    <label> Very Unlikely
-                        <input type="radio" name="TerribleCondition" value = "1"/>
-                    </label>
-                    <label> Somewhat Unlikely
-                        <input type="radio"  name="TerribleCondition" value = "2"/>
-                    </label>
-                    <label> A Little Unlikely
-                        <input type="radio" name="TerribleCondition" value= "3"/>
-                    </label>
-                    <label> Neither Likely Nor Unlikely
-                        <input type="radio" name="TerribleCondition" value = "4"/>
-                    </label>
-                    <label> A Little Likely
-                        <input type="radio"  name="TerribleCondition" value = "5"/>
-                    </label>
-                    <label> Somewhat Likely
-                        <input type="radio" name="TerribleCondition" value = "6"/>
-                    </label>
-                    <label> Very Likely
-                        <input type="radio"  name="TerribleCondition" value = "7"/>
-                    </label>
-                    <br/>
-                    <br/>
-                    <input value="Continue" name="Question2" id="Question2"  type="submit"/>
+                    <div style="text-align:center">
+                        <button type="submit"> Continue </button>
+                    </div>
                     <br/>
                     <br/>
 
+                    <h3> Doctor's Appointment:</h3>
+                    <p >You go into the examination room at your doctor’s office for a routine checkup. </p>
 
-                    <h4> Urge to Lie Down:</h4>
-                    <p>You are at home and feel you want to lie down for a moment. First, you check your phone for text messages and missed calls while you turn on the dishwasher.
-                        Then, you turn on the TV and hear the evening news begin. You begin to feel very tired and start to feel slightly under the weather.
+                    <p> Your doctor tells you that she is slightly concerned about a mole on your shoulder and would like to get a biopsy.
+                        She also says she is concerned about the increase in your blood pressure since your last visit. </p>
+
+                    <p> When she checks your heartbeat, your doctor tells you that she likes what she hears.
+                        She adds that your lipid levels have improved since she last saw you. </p>
+                    <br/>
+                    <h4> How likely are each of the following sentences to occur next in this situation? </h4>
+
+                    <div class="section">
+                        <p class="statement"> You remain healthy for a long time </p>
+                        <div class="radio">
+                            <label> <input type="radio" name="LongHealthy" value = "1" required="true"/> Very Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="LongHealthy" value = "2"/>Somewhat Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="LongHealthy" value= "3"/> A Little Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="LongHealthy" value = "4"/> Neither Likely Nor Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="LongHealthy" value = "5"/>  A Little Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="LongHealthy" value = "6"/> Somewhat Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="LongHealthy" value = "7"/> Very Likely </label>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <p class="statement">You rate your doctor online </p>
+                        <div class="radio">
+                            <label> <input type="radio" name="DoctorRate" value = "1" required="true"/> Very Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="DoctorRate" value = "2"/>Somewhat Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="DoctorRate" value= "3"/> A Little Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="DoctorRate" value = "4"/> Neither Likely Nor Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="DoctorRate" value = "5"/>  A Little Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="DoctorRate" value = "6"/> Somewhat Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="DoctorRate" value = "7"/> Very Likely </label>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                    <p class="statement">You develop a terrible medical condition </p>
+                        <div class="radio">
+                            <label> <input type="radio" name="TerribleCondition" value = "1" required="true"/> Very Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="TerribleCondition" value = "2"/>Somewhat Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="TerribleCondition" value= "3"/> A Little Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="TerribleCondition" value = "4"/> Neither Likely Nor Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="TerribleCondition" value = "5"/>  A Little Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="TerribleCondition" value = "6"/> Somewhat Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="TerribleCondition" value = "7"/> Very Likely </label>
+                        </div>
+                    </div>
+
+                    <br/>
+                    <br/>
+                    <div style="text-align:center">
+                        <button type="submit"> Continue </button>
+                    </div>
+                    <br/>
+                    <br/>
+
+                    <h3> Urge to Lie Down:</h3>
+                    <p>You are at home and feel you want to lie down for a moment.</p>
+
+                    <p>First, you check your phone for text messages and missed calls while you turn on the dishwasher.
+                        Then, you turn on the TV and hear the evening news begin. </p>
+
+                    <p>You begin to feel very tired and start to feel slightly under the weather.
                         You start to wonder if you might have caught a nasty virus you have heard is going around.</p>
                     <br/>
-                    <p> How likely are each of the following sentences to occur next in this situation? </p>
+                    <h4> How likely are each of the following sentences to occur next in this situation? </h4>
+
+                    <div class="section">
+                        <p class="statement"> After a short rest, you feel much better </p>
+                        <div class="radio">
+                            <label> <input type="radio" name="TerribleCondition" value = "1" required="true"/> Very Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="TerribleCondition" value = "2"/>Somewhat Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="TerribleCondition" value= "3"/> A Little Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="TerribleCondition" value = "4"/> Neither Likely Nor Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="TerribleCondition" value = "5"/>  A Little Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="TerribleCondition" value = "6"/> Somewhat Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="TerribleCondition" value = "7"/> Very Likely </label>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <p class="statement"> You end up watching a lot of reruns on TV </p>
+                        <div class="radio">
+                            <label> <input type="radio" name="Reruns" value = "1" required="true"/> Very Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Reruns" value = "2"/>Somewhat Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Reruns" value= "3"/> A Little Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Reruns" value = "4"/> Neither Likely Nor Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Reruns" value = "5"/>  A Little Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Reruns" value = "6"/> Somewhat Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Reruns" value = "7"/> Very Likely </label>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <p class="statement"> You feel very sick for the next few days </p>
+                        <div class="radio">
+                            <label> <input type="radio" name="VerySick" value = "1" required="true"/> Very Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="VerySick" value = "2"/>Somewhat Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="VerySick" value= "3"/> A Little Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="VerySick" value = "4"/> Neither Likely Nor Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="VerySick" value = "5"/>  A Little Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="VerySick" value = "6"/> Somewhat Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="VerySick" value = "7"/> Very Likely </label>
+                        </div>
+                    </div>
+
                     <br/>
-                    <p>After a short rest, you feel much better </p>
-                    <label> Very Unlikely
-                        <input type="radio" name="ShortRest" value = "1"/>
-                    </label>
-                    <label> Somewhat Unlikely
-                        <input type="radio"  name="ShortRest" value = "2"/>
-                    </label>
-                    <label> A Little Unlikely
-                        <input type="radio" name="ShortRest" value= "3"/>
-                    </label>
-                    <label> Neither Likely Nor Unlikely
-                        <input type="radio" name="ShortRest" value = "4"/>
-                    </label>
-                    <label> A Little Likely
-                        <input type="radio"  name="ShortRest" value = "5"/>
-                    </label>
-                    <label> Somewhat Likely
-                        <input type="radio" name="ShortRest" value = "6"/>
-                    </label>
-                    <label> Very Likely
-                        <input type="radio"  name="ShortRest" value = "7"/>
-                    </label>
                     <br/>
-                    <br/>
-                    <p>You end up watching a lot of reruns on TV </p>
-                    <label> Very Unlikely
-                        <input type="radio" name="Reruns" value = "1"/>
-                    </label>
-                    <label> Somewhat Unlikely
-                        <input type="radio"  name="Reruns" value = "2"/>
-                    </label>
-                    <label> A Little Unlikely
-                        <input type="radio" name="Reruns" value= "3"/>
-                    </label>
-                    <label> Neither Likely Nor Unlikely
-                        <input type="radio" name="Reruns" value = "4"/>
-                    </label>
-                    <label> A Little Likely
-                        <input type="radio"  name="Reruns" value = "5"/>
-                    </label>
-                    <label> Somewhat Likely
-                        <input type="radio" name="Reruns" value = "6"/>
-                    </label>
-                    <label> Very Likely
-                        <input type="radio"  name="Reruns" value = "7"/>
-                    </label>
-                    <br/>
-                    <br/>
-                    <p>You feel very sick for the next few days </p>
-                    <label> Very Unlikely
-                        <input type="radio" name="VerySick" value = "1"/>
-                    </label>
-                    <label> Somewhat Unlikely
-                        <input type="radio"  name="VerySick" value = "2"/>
-                    </label>
-                    <label> A Little Unlikely
-                        <input type="radio" name="VerySick" value= "3"/>
-                    </label>
-                    <label> Neither Likely Nor Unlikely
-                        <input type="radio" name="VerySick" value = "4"/>
-                    </label>
-                    <label> A Little Likely
-                        <input type="radio"  name="VerySick" value = "5"/>
-                    </label>
-                    <label> Somewhat Likely
-                        <input type="radio" name="VerySick" value = "6"/>
-                    </label>
-                    <label> Very Likely
-                        <input type="radio"  name="VerySick" value = "7"/>
-                    </label>
-                    <br/>
-                    <br/>
-                    <input value="Continue" name="Question3" id="Question3" type="submit"/>
+                    <div style="text-align:center">
+                        <button type="submit"> Continue </button>
+                    </div>
                     <br/>
                     <br/>
 
-                    <h4> Meeting Your Partner for Dinner: </h4>
-                    <p>You have recently started a new relationship, and you are meeting your partner for a dinner date.
-                        When you go to sit down, your partner mentions that you are not dressed appropriately for this restaurant, which makes you feel embarrassed.
-                        Later, you tell your partner about an argument you had with a mutual friend, and your partner doesn't approve of how you handled the situation.
-                        While looking over the menu, you notice that a new soup has been added, and you think about trying it.
-                        A waiter comes over to refill your waters.</p>
+                    <h3> Meeting Your Partner for Dinner: </h3>
+                    <p>You have recently started a new relationship, and you are meeting your partner for a dinner date. </p>
+
+                    <p>When you go to sit down, your partner mentions that you are not dressed appropriately for this restaurant, which makes you feel embarrassed.
+                        Later, you tell your partner about an argument you had with a mutual friend, and your partner doesn't approve of how you handled the situation. </p>
+
+                    <p>While looking over the menu, you notice that a new soup has been added, and you think about trying it.
+                        A waiter comes over to refill your waters. </p>
                     <br/>
-                    <p> How likely are each of the following sentences to occur next in this situation? </p>
+                    <h4> How likely are each of the following sentences to occur next in this situation? </h4>
+
+                    <div class="section">
+                        <p class="statement"> You and your partner work out your differences and you see potential for this to develop a meaningful relationship </p>
+                        <div class="radio">
+                            <label> <input type="radio" name="PotentialRelationship" value = "1" required="true"/> Very Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="PotentialRelationship" value = "2"/>Somewhat Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="PotentialRelationship" value= "3"/> A Little Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="PotentialRelationship" value = "4"/> Neither Likely Nor Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="PotentialRelationship" value = "5"/>  A Little Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="PotentialRelationship" value = "6"/> Somewhat Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="PotentialRelationship" value = "7"/> Very Likely </label>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <p class="statement"> You come back to the same restaurant next week. </p>
+                        <div class="radio">
+                            <label> <input type="radio" name="ComeBack" value = "1" required="true"/> Very Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="ComeBack" value = "2"/>Somewhat Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="ComeBack" value= "3"/> A Little Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="ComeBack" value = "4"/> Neither Likely Nor Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="ComeBack" value = "5"/>  A Little Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="ComeBack" value = "6"/> Somewhat Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="ComeBack" value = "7"/> Very Likely </label>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <p class="statement"> This relationship will not work out, and you fear you will end up alone </p>
+                        <div class="radio">
+                            <label> <input type="radio" name="EndUpAlone" value = "1" required="true"/> Very Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="EndUpAlone" value = "2"/>Somewhat Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="EndUpAlone" value= "3"/> A Little Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="EndUpAlone" value = "4"/> Neither Likely Nor Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="EndUpAlone" value = "5"/>  A Little Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="EndUpAlone" value = "6"/> Somewhat Likely </label>
+                         </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="EndUpAlone" value = "7"/> Very Likely </label>
+                        </div>
+                    </div>
+
                     <br/>
-                    <p>You and your partner work out your differences and you see potential for this to develop a meaningful relationship </p>
-                    <label> Very Unlikely
-                        <input type="radio" name="PotentialRelationship" value = "1"/>
-                    </label>
-                    <label> Somewhat Unlikely
-                        <input type="radio"  name="PotentialRelationship" value = "2"/>
-                    </label>
-                    <label> A Little Unlikely
-                        <input type="radio" name="PotentialRelationship" value= "3"/>
-                    </label>
-                    <label> Neither Likely Nor Unlikely
-                        <input type="radio" name="PotentialRelationship" value = "4"/>
-                    </label>
-                    <label> A Little Likely
-                        <input type="radio"  name="PotentialRelationship" value = "5"/>
-                    </label>
-                    <label> Somewhat Likely
-                        <input type="radio" name="PotentialRelationship" value = "6"/>
-                    </label>
-                    <label> Very Likely
-                        <input type="radio"  name="PotentialRelationship" value = "7"/>
-                    </label>
                     <br/>
-                    <br/>
-                    <p> You come back to the same restaurant next week. </p>
-                    <label> Very Unlikely
-                        <input type="radio" name="ComeBack" value = "1"/>
-                    </label>
-                    <label> Somewhat Unlikely
-                        <input type="radio"  name="ComeBack" value = "2"/>
-                    </label>
-                    <label> A Little Unlikely
-                        <input type="radio" name="ComeBack" value= "3"/>
-                    </label>
-                    <label> Neither Likely Nor Unlikely
-                        <input type="radio" name="ComeBack" value = "4"/>
-                    </label>
-                    <label> A Little Likely
-                        <input type="radio"  name="ComeBack" value = "5"/>
-                    </label>
-                    <label> Somewhat Likely
-                        <input type="radio" name="ComeBack" value = "6"/>
-                    </label>
-                    <label> Very Likely
-                        <input type="radio"  name="ComeBack" value = "7"/>
-                    </label>
-                    <br/>
-                    <br/>
-                    <p>This relationship will not work out, and you fear you will end up alone </p>
-                    <label> Very Unlikely
-                        <input type="radio" name="EndUpAlone" value = "1"/>
-                    </label>
-                    <label> Somewhat Unlikely
-                        <input type="radio"  name="EndUpAlone" value = "2"/>
-                    </label>
-                    <label> A Little Unlikely
-                        <input type="radio" name="EndUpAlone" value= "3"/>
-                    </label>
-                    <label> Neither Likely Nor Unlikely
-                        <input type="radio" name="EndUpAlone" value = "4"/>
-                    </label>
-                    <label> A Little Likely
-                        <input type="radio"  name="EndUpAlone" value = "5"/>
-                    </label>
-                    <label> Somewhat Likely
-                        <input type="radio" name="EndUpAlone" value = "6"/>
-                    </label>
-                    <label> Very Likely
-                        <input type="radio"  name="EndUpAlone" value = "7"/>
-                    </label>
-                    <br/>
-                    <br/>
-                    <input value="Continue" name="Question4" id="Question4" type="submit"/>
+                    <div style="text-align:center">
+                        <button type="submit"> Continue </button>
+                    </div>
                     <br/>
                     <br/>
 
+                    <h3>Conversation About Values: </h3>
+                    <p>You and your romantic partner are watching TV at your place, and start having a conversation about what values are important to the two of you. </p>
 
-                    <h4>Conversation About Values: </h4>
-                    <p>You and your romantic partner are watching TV at your place, and start having a conversation about what values are important to the two of you.
-                        You both agree that you would like to start a family one day. Also, when you bring up your long term career goals, your partner responds with a lot of support.
-                        You see a mug on the coffee table and decide to put it in the sink. Just then, you hear the neighbor’s dog bark outside.</p>
+                    <p>You both agree that you would like to start a family one day. Also, when you bring up your long term career goals, your partner responds with a lot of support.</p>
+
+                     <p>You see a mug on the coffee table and decide to put it in the sink. Just then, you hear the neighbor’s dog bark outside.</p>
                     <br/>
-                    <p> How likely are each of the following sentences to occur next in this situation? </p>
+                    <h4> How likely are each of the following sentences to occur next in this situation? </h4>
+
+                    <div class="section">
+                        <p class="statement">You and your partner feel that your conversation suggests great potential for your relationship </p>
+                        <div class="radio">
+                            <label> <input type="radio" name="SuggestsPotential" value = "1" required="true" /> Very Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="SuggestsPotential" value = "2"/>Somewhat Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="SuggestsPotential" value= "3"/> A Little Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="SuggestsPotential" value = "4"/> Neither Likely Nor Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="SuggestsPotential" value = "5"/>  A Little Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="SuggestsPotential" value = "6"/> Somewhat Likely </label>
+                        </div>
+                        <div class="radio">
+                             <label> <input type="radio"  name="SuggestsPotential" value = "7"/> Very Likely </label>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <p class="statement">You do the dishes </p>
+                        <div class="radio">
+                            <label> <input type="radio" name="Dishes" value = "1" required="true"/> Very Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Dishes" value = "2"/>Somewhat Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Dishes" value= "3"/> A Little Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Dishes" value = "4"/> Neither Likely Nor Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Dishes" value = "5"/>  A Little Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Dishes" value = "6"/> Somewhat Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Dishes" value = "7"/> Very Likely </label>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <p class="statement">Your conversation with your partner turns into an argument </p>
+                        <div class="radio">
+                            <label> <input type="radio" name="Argument" value = "1" required="true"/> Very Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Argument" value = "2"/>Somewhat Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Argument" value= "3"/> A Little Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Argument" value = "4"/> Neither Likely Nor Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Argument" value = "5"/>  A Little Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Argument" value = "6"/> Somewhat Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Argument" value = "7"/> Very Likely </label>
+                        </div>
+                    </div>
+
                     <br/>
-                    <p>You and your partner feel that your conversation suggests great potential for your relationship </p>
-                    <label> Very Unlikely
-                        <input type="radio" name="SuggestsPotential" value = "1"/>
-                    </label>
-                    <label> Somewhat Unlikely
-                        <input type="radio"  name="SuggestsPotential" value = "2"/>
-                    </label>
-                    <label> A Little Unlikely
-                        <input type="radio" name="SuggestsPotential" value= "3"/>
-                    </label>
-                    <label> Neither Likely Nor Unlikely
-                        <input type="radio" name="SuggestsPotential" value = "4"/>
-                    </label>
-                    <label> A Little Likely
-                        <input type="radio"  name="SuggestsPotential" value = "5"/>
-                    </label>
-                    <label> Somewhat Likely
-                        <input type="radio" name="SuggestsPotential" value = "6"/>
-                    </label>
-                    <label> Very Likely
-                        <input type="radio"  name="SuggestsPotential" value = "7"/>
-                    </label>
                     <br/>
-                    <br/>
-                    <p> You do the dishes </p>
-                    <label> Very Unlikely
-                        <input type="radio" name="Dishes" value = "1"/>
-                    </label>
-                    <label> Somewhat Unlikely
-                        <input type="radio"  name="Dishes" value = "2"/>
-                    </label>
-                    <label> A Little Unlikely
-                        <input type="radio" name="Dishes" value= "3"/>
-                    </label>
-                    <label> Neither Likely Nor Unlikely
-                        <input type="radio" name="Dishes" value = "4"/>
-                    </label>
-                    <label> A Little Likely
-                        <input type="radio"  name="Dishes" value = "5"/>
-                    </label>
-                    <label> Somewhat Likely
-                        <input type="radio" name="Dishes" value = "6"/>
-                    </label>
-                    <label> Very Likely
-                        <input type="radio"  name="Dishes" value = "7"/>
-                    </label>
-                    <br/>
-                    <br/>
-                    <p>Your conversation with your partner turns into an argument </p>
-                    <label> Very Unlikely
-                        <input type="radio" name="Argument" value = "1"/>
-                    </label>
-                    <label> Somewhat Unlikely
-                        <input type="radio"  name="Argument" value = "2"/>
-                    </label>
-                    <label> A Little Unlikely
-                        <input type="radio" name="Argument" value= "3"/>
-                    </label>
-                    <label> Neither Likely Nor Unlikely
-                        <input type="radio" name="Argument" value = "4"/>
-                    </label>
-                    <label> A Little Likely
-                        <input type="radio"  name="Argument" value = "5"/>
-                    </label>
-                    <label> Somewhat Likely
-                        <input type="radio" name="Argument" value = "6"/>
-                    </label>
-                    <label> Very Likely
-                        <input type="radio"  name="Argument" value = "7"/>
-                    </label>
-                    <br/>
-                    <br/>
-                    <input value="Continue" name="Question5" id="Question5" type="submit"/>
+                    <div style="text-align:center">
+                        <button type="submit"> Continue </button>
+                    </div>
                     <br/>
                     <br/>
 
+                    <h3>The Party: </h3>
+                    <p>You have recently moved to a new town and attend a party hosted by a coworker. </p>
 
-                    <h4>The Party: </h4>
-                    <p>You have recently moved to a new town and attend a party hosted by a coworker.
-                        One of the other guests strikes up a conversation with you, and he offers to help orient you to your new town when he finds out you’ve just moved here.
-                        Another guest overhears that you are a fan of her favorite TV show, and she offers to have you over to watch the season premiere.
-                        A little while later, you tell a joke to a group of partygoers, but none of them laugh.
+                    <p>One of the other guests strikes up a conversation with you, and he offers to help orient you to your new town when he finds out you’ve just moved here.
+                        Another guest overhears that you are a fan of her favorite TV show, and she offers to have you over to watch the season premiere.</p>
+
+                    <p> A little while later, you tell a joke to a group of partygoers, but none of them laugh.
                         You find it difficult to join the group’s conversation because it is full of stories you weren't a part of.</p>
                     <br/>
-                    <p> How likely are each of the following sentences to occur next in this situation? </p>
+                    <h4> How likely are each of the following sentences to occur next in this situation? </h4>
+
+                    <div class="section">
+                        <p class="statement">The next day, you have a bagel for breakfast </p>
+                        <div class="radio">
+                            <label> <input type="radio" name="Bagel" value = "1" required="true"/> Very Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Bagel" value = "2"/>Somewhat Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Bagel" value= "3"/> A Little Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Bagel" value = "4"/> Neither Likely Nor Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Bagel" value = "5"/>  A Little Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Bagel" value = "6"/> Somewhat Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Bagel" value = "7"/> Very Likely </label>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <p class="statement">After the party, you quickly settle in and make new friends in town </p>
+                        <div class="radio">
+                            <label> <input type="radio" name="SettleIn" value = "1" required="true"/> Very Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="SettleIn" value = "2"/>Somewhat Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="SettleIn" value= "3"/> A Little Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="SettleIn" value = "4"/> Neither Likely Nor Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="SettleIn" value = "5"/>  A Little Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="SettleIn" value = "6"/> Somewhat Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="SettleIn" value = "7"/> Very Likely </label>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <p class="statement">You offend someone at the party </p>
+                        <div class="radio">
+                            <label> <input type="radio" name="Offend" value = "1" required="true"/> Very Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Offend" value = "2"/>Somewhat Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Offend" value= "3"/> A Little Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Offend" value = "4"/> Neither Likely Nor Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Offend" value = "5"/>  A Little Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Offend" value = "6"/> Somewhat Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Offend" value = "7"/> Very Likely </label>
+                        </div>
+                    </div>
+
                     <br/>
-                    <p>The next day, you have a bagel for breakfast </p>
-                    <label> Very Unlikely
-                        <input type="radio" name="Bagel" value = "1"/>
-                    </label>
-                    <label> Somewhat Unlikely
-                        <input type="radio"  name="Bagel" value = "2"/>
-                    </label>
-                    <label> A Little Unlikely
-                        <input type="radio" name="Bagel" value= "3"/>
-                    </label>
-                    <label> Neither Likely Nor Unlikely
-                        <input type="radio" name="Bagel" value = "4"/>
-                    </label>
-                    <label> A Little Likely
-                        <input type="radio"  name="Bagel" value = "5"/>
-                    </label>
-                    <label> Somewhat Likely
-                        <input type="radio" name="Bagel" value = "6"/>
-                    </label>
-                    <label> Very Likely
-                        <input type="radio"  name="Bagel" value = "7"/>
-                    </label>
+                    <br/>
+                    <div style="text-align:center">
+                        <button type="submit"> Continue </button>
+                    </div>
                     <br/>
                     <br/>
-                    <p> After the party, you quickly settle in and make new friends in town </p>
-                    <label> Very Unlikely
-                        <input type="radio" name="SettleIn" value = "1"/>
-                    </label>
-                    <label> Somewhat Unlikely
-                        <input type="radio"  name="SettleIn" value = "2"/>
-                    </label>
-                    <label> A Little Unlikely
-                        <input type="radio" name="SettleIn" value= "3"/>
-                    </label>
-                    <label> Neither Likely Nor Unlikely
-                        <input type="radio" name="SettleIn" value = "4"/>
-                    </label>
-                    <label> A Little Likely
-                        <input type="radio"  name="SettleIn" value = "5"/>
-                    </label>
-                    <label> Somewhat Likely
-                        <input type="radio" name="SettleIn" value = "6"/>
-                    </label>
-                    <label> Very Likely
-                        <input type="radio"  name="SettleIn" value = "7"/>
-                    </label>
+
+                    <h3> Moving Away: </h3>
+                    <p>You are preparing to move to a new city for your job, and your friends are helping you pack. </p>
+
+                    <p>You carefully wrap your dishes in bubble wrap before boxing them up. You and your friends take a little break, and you offer everyone some water. </p>
+
+                    <p>When you start packing again, one of your friends mentions that she frequently visits the city you’re moving to for work, and she suggests you guys should get lunch when she is in town.
+                     You start thinking about your friends from college who also moved away, and how you have kept in touch despite the distance.</p>
+                    <br/>
+                    <h4> How likely are each of the following sentences to occur next in this situation? </h4>
+
+                    <div class="section">
+                        <p class="statement">After you move to your new city, you lose touch with your old friends </p>
+                        <div class="radio">
+                            <label> <input type="radio" name="LoseTouch" value = "1" required="true"/> Very Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="LoseTouch" value = "2"/>Somewhat Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="LoseTouch" value= "3"/> A Little Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="LoseTouch" value = "4"/> Neither Likely Nor Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="LoseTouch" value = "5"/>  A Little Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="LoseTouch" value = "6"/> Somewhat Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="LoseTouch" value = "7"/> Very Likely </label>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <p class="statement">When you unpack, you keep the boxes in case you need them again </p>
+                        <div class="radio">
+                            <label> <input type="radio" name="Boxes" value = "1" required="true"/> Very Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Boxes" value = "2"/>Somewhat Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Boxes" value= "3"/> A Little Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Boxes" value = "4"/> Neither Likely Nor Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Boxes" value = "5"/>  A Little Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Boxes" value = "6"/> Somewhat Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Boxes" value = "7"/> Very Likely </label>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <p class="statement">You make plans to see your friends again before you leave town </p>
+                        <div class="radio">
+                            <label> <input type="radio" name="MakePlans" value = "1" required="true"/> Very Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="MakePlans" value = "2"/>Somewhat Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="MakePlans" value= "3"/> A Little Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="MakePlans" value = "4"/> Neither Likely Nor Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="MakePlans" value = "5"/>  A Little Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="MakePlans" value = "6"/> Somewhat Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="MakePlans" value = "7"/> Very Likely </label>
+                        </div>
+                    </div>
+
                     <br/>
                     <br/>
-                    <p>You offend someone at the party </p>
-                    <label> Very Unlikely
-                        <input type="radio" name="Offend" value = "1"/>
-                    </label>
-                    <label> Somewhat Unlikely
-                        <input type="radio"  name="Offend" value = "2"/>
-                    </label>
-                    <label> A Little Unlikely
-                        <input type="radio" name="Offend" value= "3"/>
-                    </label>
-                    <label> Neither Likely Nor Unlikely
-                        <input type="radio" name="Offend" value = "4"/>
-                    </label>
-                    <label> A Little Likely
-                        <input type="radio"  name="Offend" value = "5"/>
-                    </label>
-                    <label> Somewhat Likely
-                        <input type="radio" name="Offend" value = "6"/>
-                    </label>
-                    <label> Very Likely
-                        <input type="radio"  name="Offend" value = "7"/>
-                    </label>
+                    <div style="text-align:center">
+                        <button type="submit"> Continue </button>
+                    </div>
                     <br/>
                     <br/>
-                    <input value="Continue" name="Question6" id="Question6" type="submit"/>
+
+                    <h3> Performance Review: </h3>
+                    <p>Your boss asks you to come into her office for your first annual performance review. </p>
+
+                    <p> When you walk in, the air conditioner switches on in your boss’s office. You sit down in front of your boss’s desk and notice she has a red stapler. </p>
+
+                    <p> Your boss starts by saying that she thinks you have adjusted effectively to the company’s way of doing things. She goes on to say that she thinks you have added valuable expertise to the office.</p>
+                    <br/>
+                    <h4> How likely are each of the following sentences to occur next in this situation? </h4>
+
+                    <div class="section">
+                        <p class="statement">You will bring your lunch from home this week </p>
+                        <div class="radio">
+                            <label> <input type="radio" name="Lunch" value = "1" required="true"/> Very Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Lunch" value = "2"/>Somewhat Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Lunch" value= "3"/> A Little Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Lunch" value = "4"/> Neither Likely Nor Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Lunch" value = "5"/>  A Little Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Lunch" value = "6"/> Somewhat Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Lunch" value = "7"/> Very Likely </label>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <p class="statement">You think you will be considered for advancement in your company. </p>
+                        <div class="radio">
+                            <label> <input type="radio" name="ConsideredAdvancement" value = "1" required="true"/> Very Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="ConsideredAdvancement" value = "2"/>Somewhat Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="ConsideredAdvancement" value= "3"/> A Little Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="ConsideredAdvancement" value = "4"/> Neither Likely Nor Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="ConsideredAdvancement" value = "5"/>  A Little Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="ConsideredAdvancement" value = "6"/> Somewhat Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="ConsideredAdvancement" value = "7"/> Very Likely </label>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <p class="statement">You think you will be stuck in your current position and passed up for promotions </p>
+                        <div class="radio">
+                            <label> <input type="radio" name="Stuck" value = "1" required="true"/> Very Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Stuck" value = "2"/>Somewhat Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Stuck" value= "3"/> A Little Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Stuck" value = "4"/> Neither Likely Nor Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Stuck" value = "5"/>  A Little Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Stuck" value = "6"/> Somewhat Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Stuck" value = "7"/> Very Likely </label>
+                        </div>
+                    </div>
+
+                    <br/>
+                    <br/>
+                    <div style="text-align:center">
+                        <button type="submit"> Continue </button>
+                    </div>
+                    <br/>
+                    <br/>
+
+                    <h3> Job Interview: </h3>
+                    <p>You sit down with a hiring manager to interview for a new job. </p>
+
+                    <p>He points out that you do not have much experience in your field. He also lets you know that there are many applicants going out for this position. </p>
+
+                    <p>You notice that the manager is wearing a blue jacket. You also hear a bird chirping outside the office window.</p>
+                    <br/>
+                    <h4> How likely are each of the following sentences to occur next in this situation? </h4>
+
+                    <div class="section">
+                        <p class="statement">You hear a phone ring on your way out of the manager’s office </p>
+                        <div class="radio">
+                            <label> <input type="radio" name="Phone" value = "1" required="true"/> Very Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Phone" value = "2"/>Somewhat Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Phone" value= "3"/> A Little Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Phone" value = "4"/> Neither Likely Nor Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Phone" value = "5"/>  A Little Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Phone" value = "6"/> Somewhat Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Phone" value = "7"/> Very Likely </label>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <p class="statement">The manager sends you an email the next day saying that you were not selected for the job </p>
+                        <div class="radio">
+                            <label> <input type="radio" name="NotSelected" value = "1" required="true"/> Very Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="NotSelected" value = "2"/>Somewhat Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="NotSelected" value= "3"/> A Little Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="NotSelected" value = "4"/> Neither Likely Nor Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="NotSelected" value = "5"/>  A Little Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="NotSelected" value = "6"/> Somewhat Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="NotSelected" value = "7"/> Very Likely </label>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <p class="statement">The manager is impressed with the reference letters you provided </p>
+                        <div class="radio">
+                            <label> <input type="radio" name="Impressed" value = "1" required="true"/> Very Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Impressed" value = "2"/>Somewhat Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Impressed" value= "3"/> A Little Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Impressed" value = "4"/> Neither Likely Nor Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Impressed" value = "5"/>  A Little Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Impressed" value = "6"/> Somewhat Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Impressed" value = "7"/> Very Likely </label>
+                        </div>
+                    </div>
+
+                    <br/>
+                    <br/>
+                    <div style="text-align:center">
+                        <button type="submit"> Continue </button>
+                    </div>
+                    <br/>
+                    <br/>
+
+                    <h3> Home Finances: </h3>
+                    <p>You are going over your finances and budgeting for the next month. </p>
+
+                    <p>You feel reassured to see a solid paycheck every two weeks in your bank statements. You also think about how much more stable your finances are now that you have paid off your student loans.</p>
+
+                    <p>However, when you look at your rent and utilities’ costs, you notice that you are spending more than the recommended percentage of your income. Then, you look at your credit card purchases and worry they’re too high.</p>
+                    <br/>
+                    <h4> How likely are each of the following sentences to occur next in this situation? </h4>
+
+                    <div class="section">
+                        <p class="statement">You remember you have a meeting later in the day </p>
+                        <div class="radio">
+                            <label> <input type="radio" name="Meeting" value = "1" required="true"/> Very Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Meeting" value = "2"/>Somewhat Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Meeting" value= "3"/> A Little Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Meeting" value = "4"/> Neither Likely Nor Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Meeting" value = "5"/>  A Little Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Meeting" value = "6"/> Somewhat Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Meeting" value = "7"/> Very Likely </label>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <p class="statement">You feel that each month is going to leave you more financially pinched </p>
+                        <div class="radio">
+                            <label> <input type="radio" name="Pinched" value = "1" required="true"/> Very Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Pinched" value = "2"/>Somewhat Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Pinched" value= "3"/> A Little Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Pinched" value = "4"/> Neither Likely Nor Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Pinched" value = "5"/>  A Little Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Pinched" value = "6"/> Somewhat Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Pinched" value = "7"/> Very Likely </label>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <p class="statement">You feel you will soon be able to start saving more </p>
+                        <div class="radio">
+                            <label> <input type="radio" name="Saving" value = "1" required="true"/> Very Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Saving" value = "2"/>Somewhat Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Saving" value= "3"/> A Little Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Saving" value = "4"/> Neither Likely Nor Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Saving" value = "5"/>  A Little Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Saving" value = "6"/> Somewhat Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Saving" value = "7"/> Very Likely </label>
+                        </div>
+                    </div>
+
+                    <br/>
+                    <br/>
+                    <div style="text-align:center">
+                        <button type="submit"> Continue </button>
+                    </div>
                     <br/>
                     <br/>
 
 
-                    <h4> Moving Away: </h4>
-                    <p>You are preparing to move to a new city for your job, and your friends are helping you pack.
-                        You carefully wrap your dishes in bubble wrap before boxing them up. You and your friends take a little break, and you offer everyone some water.
-                        When you start packing again, one of your friends mentions that she frequently visits the city you’re moving to for work, and she suggests you guys should get lunch when she is in town.
-                        You start thinking about your friends from college who also moved away, and how you have kept in touch despite the distance.</p>
-                    <br/>
-                    <p> How likely are each of the following sentences to occur next in this situation? </p>
-                    <br/>
-                    <p>After you move to your new city, you lose touch with your old friends </p>
-                    <label> Very Unlikely
-                        <input type="radio" name="LoseTouch" value = "1"/>
-                    </label>
-                    <label> Somewhat Unlikely
-                        <input type="radio"  name="LoseTouch" value = "2"/>
-                    </label>
-                    <label> A Little Unlikely
-                        <input type="radio" name="LoseTouch" value= "3"/>
-                    </label>
-                    <label> Neither Likely Nor Unlikely
-                        <input type="radio" name="LoseTouch" value = "4"/>
-                    </label>
-                    <label> A Little Likely
-                        <input type="radio"  name="LoseTouch" value = "5"/>
-                    </label>
-                    <label> Somewhat Likely
-                        <input type="radio" name="LoseTouch" value = "6"/>
-                    </label>
-                    <label> Very Likely
-                        <input type="radio"  name="LoseTouch" value = "7"/>
-                    </label>
-                    <br/>
-                    <br/>
-                    <p> When you unpack, you keep the boxes in case you need them again </p>
-                    <label> Very Unlikely
-                        <input type="radio" name="Boxes" value = "1"/>
-                    </label>
-                    <label> Somewhat Unlikely
-                        <input type="radio"  name="Boxes" value = "2"/>
-                    </label>
-                    <label> A Little Unlikely
-                        <input type="radio" name="Boxes" value= "3"/>
-                    </label>
-                    <label> Neither Likely Nor Unlikely
-                        <input type="radio" name="Boxes" value = "4"/>
-                    </label>
-                    <label> A Little Likely
-                        <input type="radio"  name="Boxes" value = "5"/>
-                    </label>
-                    <label> Somewhat Likely
-                        <input type="radio" name="Boxes" value = "6"/>
-                    </label>
-                    <label> Very Likely
-                        <input type="radio"  name="Boxes" value = "7"/>
-                    </label>
-                    <br/>
-                    <br/>
-                    <p>You make plans to see your friends again before you leave town </p>
-                    <label> Very Unlikely
-                        <input type="radio" name="MakePlans" value = "1"/>
-                    </label>
-                    <label> Somewhat Unlikely
-                        <input type="radio"  name="MakePlans" value = "2"/>
-                    </label>
-                    <label> A Little Unlikely
-                        <input type="radio" name="MakePlans" value= "3"/>
-                    </label>
-                    <label> Neither Likely Nor Unlikely
-                        <input type="radio" name="MakePlans" value = "4"/>
-                    </label>
-                    <label> A Little Likely
-                        <input type="radio"  name="MakePlans" value = "5"/>
-                    </label>
-                    <label> Somewhat Likely
-                        <input type="radio" name="MakePlans" value = "6"/>
-                    </label>
-                    <label> Very Likely
-                        <input type="radio"  name="MakePlans" value = "7"/>
-                    </label>
-                    <br/>
-                    <br/>
-                    <input value="Continue" name="Question7" id="Question7" type="submit"/>
-                    <br/>
-                    <br/>
+                    <h3> Stock Market: </h3>
+                    <p>You have decided to invest some of your money in the stock market and are doing some research to try to decide what stocks to buy.</p>
 
+                    <p>While you are looking over some stock information, your heater turns on. You notice that your cell phone battery is at about 75%.</p>
 
-                    <h4> Performance Review: </h4>
-                    <p>Your boss asks you to come into her office for your first annual performance review.When you walk in, the air conditioner switches on in your boss’s office.
-                        You sit down in front of your boss’s desk and notice she has a red stapler. Your boss starts by saying that she thinks you have adjusted effectively to the company’s way of doing things.
-                        She goes on to say that she thinks you have added valuable expertise to the office.</p>
-                    <br/>
-                    <p> How likely are each of the following sentences to occur next in this situation? </p>
-                    <br/>
-                    <p>You will bring your lunch from home this week </p>
-                    <label> Very Unlikely
-                        <input type="radio" name="Lunch" value = "1"/>
-                    </label>
-                    <label> Somewhat Unlikely
-                        <input type="radio"  name="Lunch" value = "2"/>
-                    </label>
-                    <label> A Little Unlikely
-                        <input type="radio" name="Lunch" value= "3"/>
-                    </label>
-                    <label> Neither Likely Nor Unlikely
-                        <input type="radio" name="Lunch" value = "4"/>
-                    </label>
-                    <label> A Little Likely
-                        <input type="radio"  name="Lunch" value = "5"/>
-                    </label>
-                    <label> Somewhat Likely
-                        <input type="radio" name="Lunch" value = "6"/>
-                    </label>
-                    <label> Very Likely
-                        <input type="radio"  name="Lunch" value = "7"/>
-                    </label>
-                    <br/>
-                    <br/>
-                    <p> You think you will be considered for advancement in your company. </p>
-                    <label> Very Unlikely
-                        <input type="radio" name="ConsideredAdvancement" value = "1"/>
-                    </label>
-                    <label> Somewhat Unlikely
-                        <input type="radio"  name="ConsideredAdvancement" value = "2"/>
-                    </label>
-                    <label> A Little Unlikely
-                        <input type="radio" name="ConsideredAdvancement" value= "3"/>
-                    </label>
-                    <label> Neither Likely Nor Unlikely
-                        <input type="radio" name="ConsideredAdvancement" value = "4"/>
-                    </label>
-                    <label> A Little Likely
-                        <input type="radio"  name="ConsideredAdvancement" value = "5"/>
-                    </label>
-                    <label> Somewhat Likely
-                        <input type="radio" name="ConsideredAdvancement" value = "6"/>
-                    </label>
-                    <label> Very Likely
-                        <input type="radio"  name="ConsideredAdvancement" value = "7"/>
-                    </label>
-                    <br/>
-                    <br/>
-                    <p>You think you will be stuck in your current position and passed up for promotions </p>
-                    <label> Very Unlikely
-                        <input type="radio" name="Stuck" value = "1"/>
-                    </label>
-                    <label> Somewhat Unlikely
-                        <input type="radio"  name="Stuck" value = "2"/>
-                    </label>
-                    <label> A Little Unlikely
-                        <input type="radio" name="Stuck" value= "3"/>
-                    </label>
-                    <label> Neither Likely Nor Unlikely
-                        <input type="radio" name="Stuck" value = "4"/>
-                    </label>
-                    <label> A Little Likely
-                        <input type="radio"  name="Stuck" value = "5"/>
-                    </label>
-                    <label> Somewhat Likely
-                        <input type="radio" name="Stuck" value = "6"/>
-                    </label>
-                    <label> Very Likely
-                        <input type="radio"  name="Stuck" value = "7"/>
-                    </label>
-                    <br/>
-                    <br/>
-                    <input value="Continue" name="Question8" id="Question8" type="submit"/>
-                    <br/>
-                    <br/>
-
-
-                    <h4> Job Interview: </h4>
-                    <p>You sit down with a hiring manager to interview for a new job. He points out that you do not have much experience in your field.
-                        He also lets you know that there are many applicants going out for this position. You notice that the manager is wearing a blue jacket.
-                        You also hear a bird chirping outside the office window.</p>
-                    <br/>
-                    <p> How likely are each of the following sentences to occur next in this situation? </p>
-                    <br/>
-                    <p>You hear a phone ring on your way out of the manager’s office </p>
-                    <label> Very Unlikely
-                        <input type="radio" name="Phone" value = "1"/>
-                    </label>
-                    <label> Somewhat Unlikely
-                        <input type="radio"  name="Phone" value = "2"/>
-                    </label>
-                    <label> A Little Unlikely
-                        <input type="radio" name="Phone" value= "3"/>
-                    </label>
-                    <label> Neither Likely Nor Unlikely
-                        <input type="radio" name="Phone" value = "4"/>
-                    </label>
-                    <label> A Little Likely
-                        <input type="radio"  name="Phone" value = "5"/>
-                    </label>
-                    <label> Somewhat Likely
-                        <input type="radio" name="Phone" value = "6"/>
-                    </label>
-                    <label> Very Likely
-                        <input type="radio"  name="Phone" value = "7"/>
-                    </label>
-                    <br/>
-                    <br/>
-                    <p> The manager sends you an email the next day saying that you were not selected for the job </p>
-                    <label> Very Unlikely
-                        <input type="radio" name="NotSelected" value = "1"/>
-                    </label>
-                    <label> Somewhat Unlikely
-                        <input type="radio"  name="NotSelected" value = "2"/>
-                    </label>
-                    <label> A Little Unlikely
-                        <input type="radio" name="NotSelected" value= "3"/>
-                    </label>
-                    <label> Neither Likely Nor Unlikely
-                        <input type="radio" name="NotSelected" value = "4"/>
-                    </label>
-                    <label> A Little Likely
-                        <input type="radio"  name="NotSelected" value = "5"/>
-                    </label>
-                    <label> Somewhat Likely
-                        <input type="radio" name="NotSelected" value = "6"/>
-                    </label>
-                    <label> Very Likely
-                        <input type="radio"  name="NotSelected" value = "7"/>
-                    </label>
-                    <br/>
-                    <br/>
-                    <p>The manager is impressed with the reference letters you provided </p>
-                    <label> Very Unlikely
-                        <input type="radio" name="Impressed" value = "1"/>
-                    </label>
-                    <label> Somewhat Unlikely
-                        <input type="radio"  name="Impressed" value = "2"/>
-                    </label>
-                    <label> A Little Unlikely
-                        <input type="radio" name="Impressed" value= "3"/>
-                    </label>
-                    <label> Neither Likely Nor Unlikely
-                        <input type="radio" name="Impressed" value = "4"/>
-                    </label>
-                    <label> A Little Likely
-                        <input type="radio"  name="Impressed" value = "5"/>
-                    </label>
-                    <label> Somewhat Likely
-                        <input type="radio" name="Impressed" value = "6"/>
-                    </label>
-                    <label> Very Likely
-                        <input type="radio"  name="Impressed" value = "7"/>
-                    </label>
-                    <br/>
-                    <br/>
-                    <input value="Continue" name="Question9" id="Question9" type="submit"/>
-                    <br/>
-                    <br/>
-
-
-                    <h4> Home Finances: </h4>
-                    <p>You are going over your finances and budgeting for the next month. You feel reassured to see a solid paycheck every two weeks in your bank statements.
-                        You also think about how much more stable your finances are now that you have paid off your student loans.
-                        However, when you look at your rent and utilities’ costs, you notice that you are spending more than the recommended percentage of your income.
-                        Then, you look at your credit card purchases and worry they’re too high.</p>
-                    <br/>
-                    <p> How likely are each of the following sentences to occur next in this situation? </p>
-                    <br/>
-                    <p>You remember you have a meeting later in the day </p>
-                    <label> Very Unlikely
-                        <input type="radio" name="Meeting" value = "1"/>
-                    </label>
-                    <label> Somewhat Unlikely
-                        <input type="radio"  name="Meeting" value = "2"/>
-                    </label>
-                    <label> A Little Unlikely
-                        <input type="radio" name="Meeting" value= "3"/>
-                    </label>
-                    <label> Neither Likely Nor Unlikely
-                        <input type="radio" name="Meeting" value = "4"/>
-                    </label>
-                    <label> A Little Likely
-                        <input type="radio"  name="Meeting" value = "5"/>
-                    </label>
-                    <label> Somewhat Likely
-                        <input type="radio" name="Meeting" value = "6"/>
-                    </label>
-                    <label> Very Likely
-                        <input type="radio"  name="Meeting" value = "7"/>
-                    </label>
-                    <br/>
-                    <br/>
-                    <p>You feel that each month is going to leave you more financially pinched </p>
-                    <label> Very Unlikely
-                        <input type="radio" name="Pinched" value = "1"/>
-                    </label>
-                    <label> Somewhat Unlikely
-                        <input type="radio"  name="Pinched" value = "2"/>
-                    </label>
-                    <label> A Little Unlikely
-                        <input type="radio" name="Pinched" value= "3"/>
-                    </label>
-                    <label> Neither Likely Nor Unlikely
-                        <input type="radio" name="Pinched" value = "4"/>
-                    </label>
-                    <label> A Little Likely
-                        <input type="radio"  name="Pinched" value = "5"/>
-                    </label>
-                    <label> Somewhat Likely
-                        <input type="radio" name="NotSelected" value = "6"/>
-                    </label>
-                    <label> Very Likely
-                        <input type="radio"  name="Pinched" value = "7"/>
-                    </label>
-                    <br/>
-                    <br/>
-                    <p>You feel you will soon be able to start saving more</p>
-                    <label> Very Unlikely
-                        <input type="radio" name="Saving" value = "1"/>
-                    </label>
-                    <label> Somewhat Unlikely
-                        <input type="radio"  name="Saving" value = "2"/>
-                    </label>
-                    <label> A Little Unlikely
-                        <input type="radio" name="Saving" value= "3"/>
-                    </label>
-                    <label> Neither Likely Nor Unlikely
-                        <input type="radio" name="Saving" value = "4"/>
-                    </label>
-                    <label> A Little Likely
-                        <input type="radio"  name="Saving" value = "5"/>
-                    </label>
-                    <label> Somewhat Likely
-                        <input type="radio" name="Saving" value = "6"/>
-                    </label>
-                    <label> Very Likely
-                        <input type="radio"  name="Saving" value = "7"/>
-                    </label>
-                    <br/>
-                    <br/>
-                    <input value="Continue" name="Question10" id="Question10" type="submit"/>
-                    <br/>
-                    <br/>
-
-
-                    <h4> Stock Market: </h4>
-                    <p>You have decided to invest some of your money in the stock market and are doing some research to try to decide what stocks to buy.
-                        While you are looking over some stock information, your heater turns on. You notice that your cell phone battery is at about 75%.
-                        During your research, you find some of the stock market jargon difficult to understand, and you worry if you are in over your heard.
+                    <p>During your research, you find some of the stock market jargon difficult to understand, and you worry if you are in over your head.
                         You remember a family friend who lost almost all of his savings after a stock market crash. </p>
                     <br/>
-                    <p> How likely are each of the following sentences to occur next in this situation? </p>
+                    <h4> How likely are each of the following sentences to occur next in this situation? </h4>
+
+                    <div class="section">
+                        <p class="statement">You readjust the thermostat </p>
+                        <div class="radio">
+                            <label> <input type="radio" name="Thermostat" value = "1" required="true"/> Very Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Thermostat" value = "2"/>Somewhat Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Thermostat" value= "3"/> A Little Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Thermostat" value = "4"/> Neither Likely Nor Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Thermostat" value = "5"/>  A Little Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Thermostat" value = "6"/> Somewhat Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Thermostat" value = "7"/> Very Likely </label>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <p class="statement">Your stock market investments eventually help you become financially secure </p>
+                        <div class="radio">
+                            <label> <input type="radio" name="FinanciallySecure" value = "1" required="true"/> Very Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="FinanciallySecure" value = "2"/>Somewhat Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="FinanciallySecure" value= "3"/> A Little Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="FinanciallySecure" value = "4"/> Neither Likely Nor Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="FinanciallySecure" value = "5"/>  A Little Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="FinanciallySecure" value = "6"/> Somewhat Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="FinanciallySecure" value = "7"/> Very Likely </label>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <p class="statement">You end up losing a lot of money on the stock market, ruining you financially </p>
+                        <div class="radio">
+                            <label> <input type="radio" name="Ruining" value = "1" required="true"/> Very Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Ruining" value = "2"/>Somewhat Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Ruining" value= "3"/> A Little Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Ruining" value = "4"/> Neither Likely Nor Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Ruining" value = "5"/>  A Little Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Ruining" value = "6"/> Somewhat Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Ruining" value = "7"/> Very Likely </label>
+                        </div>
+                    </div>
+
                     <br/>
-                    <p>You readjust the thermostat </p>
-                    <label> Very Unlikely
-                        <input type="radio" name="Thermostat" value = "1"/>
-                    </label>
-                    <label> Somewhat Unlikely
-                        <input type="radio"  name="Thermostat" value = "2"/>
-                    </label>
-                    <label> A Little Unlikely
-                        <input type="radio" name="Thermostat" value= "3"/>
-                    </label>
-                    <label> Neither Likely Nor Unlikely
-                        <input type="radio" name="Thermostat" value = "4"/>
-                    </label>
-                    <label> A Little Likely
-                        <input type="radio"  name="Thermostat" value = "5"/>
-                    </label>
-                    <label> Somewhat Likely
-                        <input type="radio" name="Thermostat" value = "6"/>
-                    </label>
-                    <label> Very Likely
-                        <input type="radio"  name="Thermostat" value = "7"/>
-                    </label>
                     <br/>
-                    <br/>
-                    <p>Your stock market investments eventually help you become financially secure </p>
-                    <label> Very Unlikely
-                        <input type="radio" name="FinanciallySecure" value = "1"/>
-                    </label>
-                    <label> Somewhat Unlikely
-                        <input type="radio"  name="FinanciallySecure" value = "2"/>
-                    </label>
-                    <label> A Little Unlikely
-                        <input type="radio" name="FinanciallySecure" value= "3"/>
-                    </label>
-                    <label> Neither Likely Nor Unlikely
-                        <input type="radio" name="FinanciallySecure" value = "4"/>
-                    </label>
-                    <label> A Little Likely
-                        <input type="radio"  name="FinanciallySecure" value = "5"/>
-                    </label>
-                    <label> Somewhat Likely
-                        <input type="radio" name="FinanciallySecure" value = "6"/>
-                    </label>
-                    <label> Very Likely
-                        <input type="radio"  name="FinanciallySecure" value = "7"/>
-                    </label>
-                    <br/>
-                    <br/>
-                    <p>You end up losing a lot of money on the stock market, ruining you financially </p>
-                    <label> Very Unlikely
-                        <input type="radio" name="Ruining" value = "1"/>
-                    </label>
-                    <label> Somewhat Unlikely
-                        <input type="radio"  name="Ruining" value = "2"/>
-                    </label>
-                    <label> A Little Unlikely
-                        <input type="radio" name="Ruining" value= "3"/>
-                    </label>
-                    <label> Neither Likely Nor Unlikely
-                        <input type="radio" name="Ruining" value = "4"/>
-                    </label>
-                    <label> A Little Likely
-                        <input type="radio"  name="Ruining" value = "5"/>
-                    </label>
-                    <label> Somewhat Likely
-                        <input type="radio" name="Ruining" value = "6"/>
-                    </label>
-                    <label> Very Likely
-                        <input type="radio"  name="Ruining" value = "7"/>
-                    </label>
-                    <br/>
-                    <br/>
-                    <input value="Continue" name="Question11" id="Question11" type="submit"/>
+                    <div style="text-align:center">
+                        <button type="submit"> Continue </button>
+                    </div>
                     <br/>
                     <br/>
 
+                    <h3> Karaoke Lounge: </h3>
+                    <p>Some friends have invited you to join them at a karaoke lounge for a birthday party. </p>
 
-                    <h4> Karaoke Lounge: </h4>
-                    <p>Some friends have invited you to join them at a karaoke lounge for a birthday party.
-                        On your first song, you are out of tune during a difficult part and feel very embarrassed.
-                        Also, you are worried that because people did not recognize the song, it was a bad choice for karaoke.
-                        However, another of your performances ends with all of your friends cheering and applauding.
-                        One of your friends turns to you and says, “I didn’t know you have such a good voice. </p>
-                    <br/>
-                    <p> How likely are each of the following sentences to occur next in this situation? </p>
-                    <br/>
-                    <p>You get some food before you go home </p>
-                    <label> Very Unlikely
-                        <input type="radio" name="Food" value = "1"/>
-                    </label>
-                    <label> Somewhat Unlikely
-                        <input type="radio"  name="Food" value = "2"/>
-                    </label>
-                    <label> A Little Unlikely
-                        <input type="radio" name="Food" value= "3"/>
-                    </label>
-                    <label> Neither Likely Nor Unlikely
-                        <input type="radio" name="Food" value = "4"/>
-                    </label>
-                    <label> A Little Likely
-                        <input type="radio"  name="Food" value = "5"/>
-                    </label>
-                    <label> Somewhat Likely
-                        <input type="radio" name="Food" value = "6"/>
-                    </label>
-                    <label> Very Likely
-                        <input type="radio"  name="Food" value = "7"/>
-                    </label>
-                    <br/>
-                    <br/>
-                    <p>After the birthday party, your friends ask you to go to karaoke much more often </p>
-                    <label> Very Unlikely
-                        <input type="radio" name="KaraokeOften" value = "1"/>
-                    </label>
-                    <label> Somewhat Unlikely
-                        <input type="radio"  name="KaraokeOften" value = "2"/>
-                    </label>
-                    <label> A Little Unlikely
-                        <input type="radio" name="KaraokeOften" value= "3"/>
-                    </label>
-                    <label> Neither Likely Nor Unlikely
-                        <input type="radio" name="KaraokeOften" value = "4"/>
-                    </label>
-                    <label> A Little Likely
-                        <input type="radio"  name="KaraokeOften" value = "5"/>
-                    </label>
-                    <label> Somewhat Likely
-                        <input type="radio" name="KaraokeOften" value = "6"/>
-                    </label>
-                    <label> Very Likely
-                        <input type="radio"  name="KaraokeOften" value = "7"/>
-                    </label>
-                    <br/>
-                    <br/>
-                    <p>When you go up to sing again, some of your friends make fun of you </p>
-                    <label> Very Unlikely
-                        <input type="radio" name="MakeFun" value = "1"/>
-                    </label>
-                    <label> Somewhat Unlikely
-                        <input type="radio"  name="MakeFun" value = "2"/>
-                    </label>
-                    <label> A Little Unlikely
-                        <input type="radio" name="MakeFun" value= "3"/>
-                    </label>
-                    <label> Neither Likely Nor Unlikely
-                        <input type="radio" name="MakeFun" value = "4"/>
-                    </label>
-                    <label> A Little Likely
-                        <input type="radio"  name="MakeFun" value = "5"/>
-                    </label>
-                    <label> Somewhat Likely
-                        <input type="radio" name="MakeFun" value = "6"/>
-                    </label>
-                    <label> Very Likely
-                        <input type="radio"  name="MakeFun" value = "7"/>
-                    </label>
-                    <br/>
-                    <br/>
-                    <input value="Continue" name="Question12" id="Question12" type="submit"/>
-                    <br/>
-                    <br/>
+                    <p> On your first song, you are out of tune during a difficult part and feel very embarrassed. Also, you are worried that because people did not recognize the song, it was a bad choice for karaoke. </p>
 
+                    <p>However, another of your performances ends with all of your friends cheering and applauding. One of your friends turns to you and says, “I didn’t know you have such a good voice. </p>
+                    <br/>
+                    <h4> How likely are each of the following sentences to occur next in this situation? </h4>
 
-                    <h4>The Race: </h4>
-                    <p>You are running in a 10K race for a local charity. So far, you have been keeping pace very well and feel set to run for the whole 10 kilometers.
-                        You get to a water stop and feel refreshed and invigorated. As you are running, you pass by a bookstore that you sometimes visit.
-                        You also see your neighbor walking his dog, and wave hello. </p>
+                    <div class="section">
+                        <p class="statement">You get some food before you go home </p>
+                        <div class="radio">
+                            <label> <input type="radio" name="Food" value = "1" required="true"/> Very Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Food" value = "2"/>Somewhat Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Food" value= "3"/> A Little Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Food" value = "4"/> Neither Likely Nor Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Food" value = "5"/>  A Little Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="Food" value = "6"/> Somewhat Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="Food" value = "7"/> Very Likely </label>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <p class="statement">After the birthday party, your friends ask you to go to karaoke much more often </p>
+                        <div class="radio">
+                            <label> <input type="radio" name="KaraokeOften" value = "1" required="true"/> Very Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="KaraokeOften" value = "2"/>Somewhat Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="KaraokeOften" value= "3"/> A Little Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="KaraokeOften" value = "4"/> Neither Likely Nor Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="KaraokeOften" value = "5"/>  A Little Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="KaraokeOften" value = "6"/> Somewhat Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="KaraokeOften" value = "7"/> Very Likely </label>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <p class="statement"> When you go up to sing again, some of your friends make fun of you </p>
+                        <div class="radio">
+                            <label> <input type="radio" name="MakeFun" value = "1" required="true"/> Very Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="MakeFun" value = "2"/>Somewhat Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="MakeFun" value= "3"/> A Little Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="MakeFun" value = "4"/> Neither Likely Nor Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="MakeFun" value = "5"/>  A Little Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="MakeFun" value = "6"/> Somewhat Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="MakeFun" value = "7"/> Very Likely </label>
+                        </div>
+                    </div>
+
                     <br/>
-                    <p> How likely are each of the following sentences to occur next in this situation? </p>
                     <br/>
-                    <p>You stop by the grocery store on the way home </p>
-                    <label> Very Unlikely
-                        <input type="radio" name="GroceryStore" value = "1"/>
-                    </label>
-                    <label> Somewhat Unlikely
-                        <input type="radio"  name="GroceryStore" value = "2"/>
-                    </label>
-                    <label> A Little Unlikely
-                        <input type="radio" name="GroceryStore" value= "3"/>
-                    </label>
-                    <label> Neither Likely Nor Unlikely
-                        <input type="radio" name="GroceryStore" value = "4"/>
-                    </label>
-                    <label> A Little Likely
-                        <input type="radio"  name="GroceryStore" value = "5"/>
-                    </label>
-                    <label> Somewhat Likely
-                        <input type="radio" name="GroceryStore" value = "6"/>
-                    </label>
-                    <label> Very Likely
-                        <input type="radio"  name="GroceryStore" value = "7"/>
-                    </label>
-                    <br/>
-                    <br/>
-                    <p>You fall down and seriously hurt your leg </p>
-                    <label> Very Unlikely
-                        <input type="radio" name="FallDown" value = "1"/>
-                    </label>
-                    <label> Somewhat Unlikely
-                        <input type="radio"  name="FallDown" value = "2"/>
-                    </label>
-                    <label> A Little Unlikely
-                        <input type="radio" name="FallDown" value= "3"/>
-                    </label>
-                    <label> Neither Likely Nor Unlikely
-                        <input type="radio" name="FallDown" value = "4"/>
-                    </label>
-                    <label> A Little Likely
-                        <input type="radio"  name="FallDown" value = "5"/>
-                    </label>
-                    <label> Somewhat Likely
-                        <input type="radio" name="FallDown" value = "6"/>
-                    </label>
-                    <label> Very Likely
-                        <input type="radio"  name="FallDown" value = "7"/>
-                    </label>
-                    <br/>
-                    <br/>
-                    <p>You finish the race having beaten your prior best time </p>
-                    <label> Very Unlikely
-                        <input type="radio" name="BestTime" value = "1"/>
-                    </label>
-                    <label> Somewhat Unlikely
-                        <input type="radio"  name="BestTime" value = "2"/>
-                    </label>
-                    <label> A Little Unlikely
-                        <input type="radio" name="BestTime" value= "3"/>
-                    </label>
-                    <label> Neither Likely Nor Unlikely
-                        <input type="radio" name="BestTime" value = "4"/>
-                    </label>
-                    <label> A Little Likely
-                        <input type="radio"  name="BestTime" value = "5"/>
-                    </label>
-                    <label> Somewhat Likely
-                        <input type="radio" name="BestTime" value = "6"/>
-                    </label>
-                    <label> Very Likely
-                        <input type="radio"  name="BestTime" value = "7"/>
-                    </label>
+                    <div style="text-align:center">
+                        <button type="submit"> Continue </button>
+                    </div>
                     <br/>
                     <br/>
 
-                    <input type="submit"/>
+                    <h3>The Race: </h3>
+                    <p>You are running in a 10K race for a local charity. </p>
+                    <p>So far, you have been keeping pace very well and feel set to run for the whole 10 kilometers. You get to a water stop and feel refreshed and invigorated. </p>
+                    <p> As you are running, you pass by a bookstore that you sometimes visit. You also see your neighbor walking his dog, and wave hello. </p>
+                    <br/>
+                    <h4> How likely are each of the following sentences to occur next in this situation? </h4>
+
+                    <div class="section">
+                        <p class="statement"> You stop by the grocery store on the way home </p>
+                        <div class="radio">
+                            <label> <input type="radio" name="GroceryStore" value = "1" required="true"/> Very Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="GroceryStore" value = "2"/>Somewhat Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="GroceryStore" value= "3"/> A Little Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="GroceryStore" value = "4"/> Neither Likely Nor Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="GroceryStore" value = "5"/>  A Little Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="GroceryStore" value = "6"/> Somewhat Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="GroceryStore" value = "7"/> Very Likely </label>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <p class="statement">You fall down and seriously hurt your leg </p>
+                        <div class="radio">
+                            <label> <input type="radio" name="FallDown" value = "1" required="true"/> Very Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="FallDown" value = "2"/>Somewhat Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="FallDown" value= "3"/> A Little Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="FallDown" value = "4"/> Neither Likely Nor Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="FallDown" value = "5"/>  A Little Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="FallDown" value = "6"/> Somewhat Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="FallDown" value = "7"/> Very Likely </label>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <p class="statement">You finish the race having beaten your prior best time </p>
+                        <div class="radio">
+                            <label> <input type="radio" name="BestTime" value = "1" required="true"/> Very Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="BestTime" value = "2"/>Somewhat Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="BestTime" value= "3"/> A Little Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="BestTime" value = "4"/> Neither Likely Nor Unlikely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="BestTime" value = "5"/>  A Little Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio" name="BestTime" value = "6"/> Somewhat Likely </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="radio"  name="BestTime" value = "7"/> Very Likely </label>
+                        </div>
+                    </div>
+
+                    <br/>
+                    <br/>
+                    <div style="text-align:center">
+                        <button type="submit"> Continue </button>
+                    </div>
 
 
                 </form>
-
 
             </div>
         </div>
