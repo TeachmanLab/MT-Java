@@ -75,14 +75,6 @@ public class ExportControllerTest extends BaseControllerTest {
     @Autowired
     private TestUndeleteableRepository repoU;
 
-    @Autowired
-    private ParticipantRepository participantRepository;
-
-    @Autowired
-    private ParticipantService participantService;
-
-    private Participant participant;
-
     @Rule
     public ExpectedException thrown= ExpectedException.none();
 

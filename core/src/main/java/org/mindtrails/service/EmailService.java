@@ -11,7 +11,8 @@ import java.util.Map;
  */
 public interface EmailService {
 
-    enum TYPE { GIFTCARD, PASSWORD_RESET, ALERT_ADMIN }
+    // Email types
+    enum TYPE { resetPass, alertAdmin, giftCard, exportError }
 
     /**
      * This should send an email to an administrative account
@@ -37,18 +38,12 @@ public interface EmailService {
     void sendGiftCard(Participant participant, Reward reward, int amountCents) throws MessagingException;
 
     /**
-     * Send an atRisk email message if the participant is performing
-     * low on some metric.
-     */
-    void sendAtRiskAlertToAdmin(Participant participant, String details);
-
-    /**
      * Send a custom email message, of the specified type to
      * the Participant.
-     * @param participant
-     * @param type
+     * @param participant The participant that should receive this email
+     * @param template The template (located in /resources/templates/email) that will hold the content
      */
-    void sendEmail(Participant participant, String type);
+    void sendEmail(Participant participant, String template) throws MessagingException ;
 
     /**
      * Returns a list of email messages this system can produce.  Along with
