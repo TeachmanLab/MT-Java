@@ -213,3 +213,47 @@ div.piIntro p, div.piIntro h3, div.piIntro ul {
     color: darkred;
 }
 
+/**** Theme selection */
+div.themeSection {
+    display: inline-block;
+    max-width: 100%;
+    border-radius: 15px;
+    border: 1px solid #BBB;
+    background: #FFF;
+    margin: 15px;
+}
+
+div.themeSection img {
+}
+
+div.themeSection input {
+    margin: 20px 0 0 20px;
+}
+
+div.themeSection label {
+    margin:0px;
+    min-width: 100px;
+    font-weight: 700;
+}
+
+
+div.themeSection div.themeOption {
+    background: #ffffff;
+    border-bottom: 1px solid #BBB;
+}
+
+div.blue  {
+    background-color: #00ACE4;
+}
+div.orange  {
+    background-color: #ef7b40;
+}
+div.green {
+    background-color: #7bb76f;
+}
+div.purple  {
+    background-color: #c686ba;
+}
+div.gold  {
+    background-color: #e6ba21;
+}

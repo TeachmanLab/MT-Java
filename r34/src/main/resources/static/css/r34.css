@@ -238,23 +238,7 @@ div.session .date { color:#00ACE4; font-weight: 600 }
 Account Theme Section
 **/
 
-div.themeSection {
-    max-width: 900px;
-    border-bottom-left-radius: 15px;
-    border-top-left-radius: 15px;
-    border: 1px solid #BBB;
-    background: #FFF;
-    height: 200px;
-    min-width:924px;
-}
 
-div.themeSection img {
-    float:right;
-}
-
-div.themeSection input {
-    margin: 20px 0 0 20px;
-}
 
 label {
     font-weight: 400;
@@ -282,39 +266,7 @@ div#g-recaptcha {
 
 
 
-div.themeSection label {
-    float:right;
-    margin:0px;
-    min-width: 100px;
-    font-weight: 700;
-}
 
-
-div.themeSection div.themeOption {
-    float:right;
-    background: #ffffff;
-    height: 200px;
-    min-width:824px;
-    margin-left: 20px;
-    border-bottom: 1px solid #BBB;
-    padding: 10px 20px 0 20px;
-}
-
-div.blue  {
-    background-color: #00ACE4;
-}
-div.orange  {
-    background-color: #ef7b40;
-}
-div.green {
-    background-color: #7bb76f;
-}
-div.purple  {
-    background-color: #c686ba;
-}
-div.gold  {
-    background-color: #e6ba21;
-}
 
 div.adminTools {
     background-color: #fff;

@@ -92,60 +92,116 @@
 </form>
 
 <section id="themeSelection" class="clearfix" th:fragment="themeSelection">
-    <h3>Select a Theme</h3>
-    <p>To customize the appearance of MindTrails select one of the options below. You can change your
-        theme at any time under "Account Settings" in the menu bar above. </p>
-    <fieldset>
-        <label>
-            <div class="themeSection blue">
-                <input type="radio" th:field="*{theme}" value="blue" required="true"/>
-                <div class="themeOption">
-                    <label>Blue</label>
-                </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Select a Theme</h3>
+                <p>To customize the appearance of MindTrails select one of the options below. You can change your
+                    theme at any time under "Account Settings" in the menu bar above. </p>
             </div>
-        </label>
-        <br/>
-        <label>
-            <div class="themeSection orange">
-                <input type="radio" th:field="*{theme}" value="orange" required="true"/>
-
-                <div class="themeOption">
-                    <label>Orange</label>
+        </div>
+        <div class="row">
+            <label>
+                <div class="themeSection blue">
+                <div class="col-md-1">
+                    <input type="radio" th:field="*{theme}" value="blue" required="true"/>
+                    Blue
                 </div>
-            </div>
-        </label>
-        <br/>
-        <label>
-            <div class="themeSection green">
-                <input type="radio" th:field="*{theme}" value="green"/>
-
-                <div class="themeOption">
-                    <label>Green</label>
+                <div class="col-md-11">
+                    <div class="themeOption">
+                        <div class="hidden-xs hidden-sm">
+                            <img th:src="@{/images/settings-blue.png}" alt="Blue Theme"/>
+                        </div>
+                        <div class="hidden-md hidden-lg">
+                            <img th:src="@{/images/settings-blue-sm.png}" alt="Blue Theme"/>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </label>
-        <br/>
-        <label>
-            <div class="themeSection purple">
-                <input type="radio" th:field="*{theme}" value="purple"/>
-
-                <div class="themeOption">
-                    <label>Purple</label>
                 </div>
-            </div>
-        </label>
-        <br/>
-        <label>
-            <div class="themeSection gold">
-                <input type="radio" th:field="*{theme}" value="gold"/>
-
-                <div class="themeOption">
-                    <label>Gold</label>
+            </label>
+    </div>
+        <div class="row">
+            <label>
+                <div class="themeSection orange">
+                    <div class="col-md-1">
+                        <input type="radio" th:field="*{theme}" value="orange" required="true"/>
+                        Orange
+                    </div>
+                    <div class="col-md-11">
+                        <div class="themeOption">
+                            <div class="hidden-xs hidden-sm">
+                                <img th:src="@{/images/settings-orange.png}" alt="Orange Theme"/>
+                            </div>
+                            <div class="hidden-md hidden-lg">
+                                <img th:src="@{/images/settings-orange-sm.png}" alt="Orange Theme"/>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </label>
-    </fieldset>
+            </label>
+        </div>
+        <div class="row">
+            <label>
+                <div class="themeSection green">
+                    <div class="col-md-1">
+                        <input type="radio" th:field="*{theme}" value="green" required="true"/>
+                        Green
+                    </div>
+                    <div class="col-md-11">
+                        <div class="themeOption">
+                            <div class="hidden-xs hidden-sm">
+                                <img th:src="@{/images/settings-green.png}" alt="Green Theme"/>
+                            </div>
+                            <div class="hidden-md hidden-lg">
+                                <img th:src="@{/images/settings-green-sm.png}" alt="Green Theme"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </label>
+        </div>
+        <div class="row">
+            <label>
+                <div class="themeSection purple">
+                    <div class="col-md-1">
+                        <input type="radio" th:field="*{theme}" value="purple" required="true"/>
+                        Purple
+                    </div>
+                    <div class="col-md-11">
+                        <div class="themeOption">
+                            <div class="hidden-xs hidden-sm">
+                                <img th:src="@{/images/settings-purple.png}" alt="purple Theme"/>
+                            </div>
+                            <div class="hidden-md hidden-lg">
+                                <img th:src="@{/images/settings-purple-sm.png}" alt="purple Theme"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </label>
+        </div>
+        <div class="row">
+            <label>
+                <div class="themeSection gold">
+                    <div class="col-md-1">
+                        <input type="radio" th:field="*{theme}" value="gold" required="true"/>
+                        Gold
+                    </div>
+                    <div class="col-md-11">
+                        <div class="themeOption">
+                            <div class="hidden-xs hidden-sm">
+                                <img th:src="@{/images/settings-gold.png}" alt="gold Theme"/>
+                            </div>
+                            <div class="hidden-md hidden-lg">
+                                <img th:src="@{/images/settings-gold-sm.png}" alt="gold Theme"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </label>
+        </div>
     <button>Update Theme</button>
+</div>
 </section>
 
 
