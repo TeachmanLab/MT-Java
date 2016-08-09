@@ -15,47 +15,48 @@
 <section id="content" class="clearfix">
     <div class="container">
         <div class="row">
-            <div class="span12">
+            <div class="col-md-12">
 
-<h2 class="page-title">Log In</h2>
-                <form name="f" th:action="@{/login}" method="post">
-    <fieldset>
-        <div th:if="${param.error}" class="alert alert-error">
-            Invalid username and password.
-        </div>
-        <div th:if="${param.logout}" class="alert alert-success">
-            You have been logged out.
-        </div>
-        <div th:if="${param.created}" class="alert alert-success">
-            Account created. Please log in.
-        </div>
-        <div th:if="${invalidCode}" class="alert alert-success">
-            The password reset code you provided is not valid.
-        </div>
-        <p>
-            <label class="standard" for="email">Email</label>
-            <input type="email" id="email" name="username"/>
-        </p>
+                <h2 class="page-title">Log In</h2>
+                <form  role="form" class="form-horizontal" name="f" th:action="@{/login}" method="post">
+                        <div th:if="${param.error}" class="alert alert-error">
+                            Invalid username and password.
+                        </div>
+                        <div th:if="${param.logout}" class="alert alert-success">
+                            You have been logged out.
+                        </div>
+                        <div th:if="${param.created}" class="alert alert-success">
+                            Account created. Please log in.
+                        </div>
+                        <div th:if="${invalidCode}" class="alert alert-success">
+                            The password reset code you provided is not valid.
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="email">Email</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="email" id="email" name="username"/>
+                            </div>
+                        </div>
 
-        <p>
-            <label class="standard" for="password">Password</label>
-            <input type="password" id="password" name="password"/>
-        </p>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="password">Password</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="password" id="password" name="password"/>
+                            </div>
+                        </div>
 
-        <div class="fineprint">
-            <a th:href="@{/resetPass}">Forgot your password?</a><br/>
-        </div>
-        <p>
-            <button>Log in</button>
-        </p>
+                        <div class="fineprint">
+                            <a th:href="@{/resetPass}">Forgot your password?</a><br/>
+                        </div>
+                        <p>
+                            <button>Log in</button>
+                        </p>
+                </form>
 
-    </fieldset>
-</form>
-
-                </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
 <footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
 <section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
