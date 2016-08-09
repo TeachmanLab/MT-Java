@@ -1,31 +1,41 @@
 <html>
 <body>
-<form name="f" th:action="@{/account/create}" method="post" th:object="${participantForm}"  th:fragment="create">
+<form name="f" class="form-horizontal" th:action="@{/account/create}" method="post" th:object="${participantForm}"
+      th:fragment="create">
     <script th:src="@{/js/password.js}"></script>
     <h3>Create an account</h3>
     <div class="formErrors">
         <ul class="errors">
-            <li th:each="err : ${#fields.errors('*')}" th:text="${err}" class="alert alert-error">
+            <li th:each="err : ${#fields.errors('*')}" th:text="${err}" class="alert-error">
                 Input is incorrect
             </li>
         </ul>
         <div class="spacer-20px"></div>
     </div>
 
-    <p>
-        <label class="standard" for="fullName">Name / Nickname</label>
-        <input type="text" id="fullName" name="fullName" th:errorclass="error" th:field="*{fullName}"/>
-    </p>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="fullName">Name / Nickname</label>
+        <div class="col-sm-10">
+            <input class="form-control" type="text" id="fullName" name="fullName" th:errorclass="error"
+                   th:field="*{fullName}"/>
+        </div>
+    </div>
 
-    <p>
-        <label class="standard" for="email">Email</label>
-        <input type="email" id="email" name="email" th:errorclass="error" th:field="*{email}"/>
-    </p>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="email">Email</label>
+        <div class="col-sm-10">
+            <input class="form-control" type="email" id="email" name="email" th:errorclass="error" th:field="*{email}"/>
+        </div>
+    </div>
 
-    <p>
-        <label class="standard" for="password">Password</label>
-        <input type="password" id="password" name="password" th:field="*{password}" th:errorclass="error"/>
-    </p>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="password">Password</label>
+        <div class="col-sm-10">
+            <input class="form-control" type="password" id="password" name="password" th:field="*{password}"
+                   th:errorclass="error"/>
+        </div>
+    </div>
+
     <div id="pswd_info">
         <h4>Password must meet the following requirements:</h4>
         <ul>
@@ -38,14 +48,22 @@
             <li id="length" class="invalid">Be at least <strong>8 characters</strong></li>
         </ul>
     </div>
-    <p>
-        <label class="standard" for="passwordAgain">Confirm Password</label>
-        <input type="password" id="passwordAgain" th:field="*{passwordAgain}" name="passwordAgain"/>
-    </p>
-    <p>
-        <label class="standard" for="over18">I am over 18</label>
-        <input type="checkbox" id="over18" name="over18"/>
-    </p>
+
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="passwordAgain">Confirm Password</label>
+        <div class="col-sm-10">
+            <input class="form-control" type="password" id="passwordAgain" th:field="*{passwordAgain}"
+                   name="passwordAgain"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="over18">I am over 18</label>
+        <div class="col-sm-10">
+            <input class="form-control" type="checkbox" id="over18" name="over18"/>
+        </div>
+    </div>
+
     <div id="g-recaptcha"></div>
     <input type="hidden" th:field="*{recaptchaResponse}" name="recaptchaResponse" id="recaptchaResponse"/>
     <script type="text/javascript" th:inline="javascript">
@@ -71,9 +89,9 @@
     <div style="text-align: center;">
         <button>Give Consent and Create Account</button>
     </div>
-    </form>
+</form>
 
-<section id="themeSelection" class="clearfix"  th:fragment="themeSelection">
+<section id="themeSelection" class="clearfix" th:fragment="themeSelection">
     <h3>Select a Theme</h3>
     <p>To customize the appearance of MindTrails select one of the options below. You can change your
         theme at any time under "Account Settings" in the menu bar above. </p>
@@ -129,8 +147,6 @@
     </fieldset>
     <button>Update Theme</button>
 </section>
-
-
 
 
 </body>
