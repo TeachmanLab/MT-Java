@@ -19,7 +19,7 @@ $(document).on('click', '.option', function(e){
  * when the widow width is moves beyond 414 pixels.
  */
 function adapt(){
-    if ($(window).width() < 414) {
+    if ($(window).width() < 500) {
         $('.section').removeClass('section-H');
         $('.section').addClass('section-V');
     } else {

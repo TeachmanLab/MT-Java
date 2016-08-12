@@ -15,7 +15,7 @@
 
 <section id="content" class="clearfix">
 
-    <form th:action="@{/questions/MentalHealthHistory}" method="POST">
+    <form th:action="@{/questions/MentalHealthHistory}" method="POST" id="MHFORM">
         <div class="container">
             <div class="section">
                 <div class="row">
@@ -33,74 +33,74 @@
                     <div class="col-md-6">
 
                         <div class="radio">
-                            <label class="question"> <input id="Q1_1" type="checkbox" name="Disorders" value="GAD"/>
+                            <label class="question"> <input type="checkbox" name="Disorders" value="GAD"/>
                                 Generalized anxiety disorder (GAD) </label>
                         </div>
                         <div class="radio">
-                            <label class="question"> <input id="Q1_2" type="checkbox" name="Disorders" value="OCD"/>
+                            <label class="question"> <input type="checkbox" name="Disorders" value="OCD"/>
                                 Obsessive-compulsive
                                 disorder (OCD) </label>
                         </div>
                         <div class="radio">
-                            <label class="question"> <input id="Q1_3" type="checkbox" name="Disorders" value="Panic"/>
+                            <label class="question"> <input type="checkbox" name="Disorders" value="Panic"/>
                                 Panic
                                 disorder </label>
                         </div>
                         <div class="radio">
-                            <label class="question"> <input id="Q1_4" type="checkbox" name="Disorders" value="Agor"/>
+                            <label class="question"> <input type="checkbox" name="Disorders" value="Agor"/>
                                 Agoraphobia </label>
                         </div>
                         <div class="radio">
-                            <label class="question"> <input id="Q1_5" type="checkbox" name="Disorders" value="PSTD"/>
+                            <label class="question"> <input type="checkbox" name="Disorders" value="PSTD"/>
                                 Posttraumatic
                                 stress disorder </label>
                         </div>
                         <div class="radio">
-                            <label class="question"> <input id="Q1_6" type="checkbox" name="Disorders" value="SAD"/>
+                            <label class="question"> <input type="checkbox" name="Disorders" value="SAD"/>
                                 Social
                                 anxiety disorder </label>
                         </div>
                         <div class="radio">
-                            <label class="question"> <input id="Q1_7" type="checkbox" name="Disorders"
+                            <label class="question"> <input type="checkbox" name="Disorders"
                                                             value="Phobias"/> Specific
                                 phobia(s) </label>
                         </div>
                         <div class="radio">
-                            <label class="question"> <input id="Q1_8" type="checkbox" name="Disorders" value="dem"/>
+                            <label class="question"> <input type="checkbox" name="Disorders" value="dem"/>
                                 Dementia
                                 or other cognitive disorder </label>
                         </div>
                         <div class="radio">
-                            <label class="question"> <input id="Q1_9" type="checkbox" name="Disorders" value="subst"/>
+                            <label class="question"> <input type="checkbox" name="Disorders" value="subst"/>
                                 Substance-related
                                 disorder </label>
                         </div>
                         <div class="radio">
-                            <label class="question"> <input id="Q1_10" type="checkbox" name="Disorders" value="schiz"/>
+                            <label class="question"> <input type="checkbox" name="Disorders" value="schiz"/>
                                 Schizophrenia
                                 or other related disorder </label>
                         </div>
                         <div class="radio">
-                            <label class="question"> <input id="Q1_11" type="checkbox" name="Disorders"
+                            <label class="question"> <input type="checkbox" name="Disorders"
                                                             value="depression"/> Depression or depressive
                                 disorder </label>
                         </div>
                         <div class="radio">
-                            <label class="question"> <input id="Q1_12" type="checkbox" name="Disorders"
+                            <label class="question"> <input type="checkbox" name="Disorders"
                                                             value="bipolar"/> Bipolar disorder </label>
                         </div>
                         <div class="radio">
-                            <label class="question"> <input id="Q1_13" type="checkbox" name="Disorders"
+                            <label class="question"> <input type="checkbox" name="Disorders"
                                                             value="eating"/> Eating
                                 disorder </label>
                         </div>
                         <div class="radio">
-                            <label class="question"> <input id="Q1_14" type="checkbox" name="Disorders"
+                            <label class="question"> <input type="checkbox" name="Disorders"
                                                             value="personality"/> Personality disorder </label>
                         </div>
                         <br/>
                         <div class="radio">
-                            <label class="question"> <input id="Q1_15" type="checkbox" name="Disorders" value="Other"
+                            <label class="question"> <input type="checkbox" name="Disorders" value="Other"
                                                             onchange="spec('Q1_15')"/> Other (Please specify) <input
                                     id="Q1_15_spec" type="text" name="Other_Desc"/> </label>
                         </div>
@@ -110,16 +110,14 @@
                         <br/>
                         <br/>
                         <div class="radio">
-                            <label class="question"><input id="Q1_noAns" type="checkbox" name="Disorders"
-                                                           value="Notanswer" onchange="hide_Q1_noAns()"/> Prefer not to
-                                answer </label>
+                            <label class="question"><input type="checkbox" name="Disorders" value="Notanswer"
+                                                           onchange="disableSection(this)"/> Prefer not to answer </label>
                         </div>
                         <br/>
                         <br/>
                         <div class="radio">
-                            <label class="question"> <input id="Q1_noDiag" type="checkbox" name="Disorders"
-                                                            value="noDiagnosis"
-                                                            onchange="hide_Q1_noDiag();show()"/> No Diagnosis </label>
+                            <label class="question"> <input type="checkbox" name="Disorders" value="noDiagnosis"
+                                                            onchange="disableSection(this)"/> No Diagnosis </label>
                         </div>
                     </div>
                 </div>
@@ -138,64 +136,64 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="radio">
-                            <label> <input id="Q2_1" type="checkbox" name="PastDisorders" value="GAD"/> Generalized
+                            <label> <input type="checkbox" name="PastDisorders" value="GAD"/> Generalized
                                 anxiety disorder (GAD) </label>
                         </div>
                         <div class="radio">
-                            <label><input id="Q2_2" type="checkbox" name="PastDisorders" value="OCD"/>
+                            <label><input type="checkbox" name="PastDisorders" value="OCD"/>
                                 Obsessive-compulsive disorder (OCD) </label>
                         </div>
                         <div class="radio">
-                            <label> <input id="Q2_3" type="checkbox" name="PastDisorders" value="Panic"/> Panic disorder
+                            <label> <input type="checkbox" name="PastDisorders" value="Panic"/> Panic disorder
                             </label>
                         </div>
                         <div class="radio">
-                            <label> <input id="Q2_4" type="checkbox" name="PastDisorders" value="Agor"/> Agoraphobia
+                            <label> <input type="checkbox" name="PastDisorders" value="Agor"/> Agoraphobia
                             </label>
                         </div>
                         <div class="radio">
-                            <label> <input id="Q2_5" type="checkbox" name="PastDisorders" value="PSTD"/> Posttraumatic
+                            <label> <input type="checkbox" name="PastDisorders" value="PSTD"/> Posttraumatic
                                 stress disorder </label>
                         </div>
                         <div class="radio">
-                            <label> <input id="Q2_6" type="checkbox" name="PastDisorders" value="SAD"/> Social anxiety
+                            <label> <input type="checkbox" name="PastDisorders" value="SAD"/> Social anxiety
                                 disorder </label>
                         </div>
                         <div class="radio">
-                            <label> <input id="Q2_7" type="checkbox" name="PastDisorders" value="Phobias"/> Specific
+                            <label> <input type="checkbox" name="PastDisorders" value="Phobias"/> Specific
                                 phobia(s) </label>
                         </div>
                         <div class="radio">
-                            <label> <input id="Q2_8" type="checkbox" name="PastDisorders" value="dem"/> Dementia or
+                            <label> <input type="checkbox" name="PastDisorders" value="dem"/> Dementia or
                                 other cognitive disorder </label>
                         </div>
                         <div class="radio">
-                            <label> <input id="Q2_9" type="checkbox" name="PastDisorders" value="subst"/>
+                            <label> <input type="checkbox" name="PastDisorders" value="subst"/>
                                 Substance-related disorder </label>
                         </div>
                         <div class="radio">
-                            <label> <input id="Q2_10" type="checkbox" name="PastDisorders" value="schiz"/> Schizophrenia
+                            <label> <input type="checkbox" name="PastDisorders" value="schiz"/> Schizophrenia
                                 or other related disorder </label>
                         </div>
                         <div class="radio">
-                            <label> <input id="Q2_11" type="checkbox" name="PastDisorders" value="depression"/>
+                            <label> <input type="checkbox" name="PastDisorders" value="depression"/>
                                 Depression or depressive disorder </label>
                         </div>
                         <div class="radio">
-                            <label> <input id="Q2_12" type="checkbox" name="PastDisorders" value="bipolar"/> Bipolar
+                            <label> <input type="checkbox" name="PastDisorders" value="bipolar"/> Bipolar
                                 disorder </label>
                         </div>
                         <div class="radio">
-                            <label> <input id="Q2_13" type="checkbox" name="PastDisorders" value="eating"/> Eating
+                            <label> <input type="checkbox" name="PastDisorders" value="eating"/> Eating
                                 disorder </label>
                         </div>
                         <div class="radio">
-                            <label> <input id="Q2_14" type="checkbox" name="PastDisorders" value="personality"/>
+                            <label> <input type="checkbox" name="PastDisorders" value="personality"/>
                                 Personality disorder </label>
                         </div>
                         <br/>
                         <div class="radio">
-                            <label><input id="Q2_15" onchange="spec('Q2_15')" type="checkbox" name="PastDisorders"
+                            <label><input onchange="spec('Q2_15')" type="checkbox" name="PastDisorders"
                                           value="Other"/> Other (Please specify) <input id="Q2_15_spec" type="text"
                                                                                         name="Other_DescNo"/></label>
                         </div>
@@ -205,14 +203,14 @@
                         <br/>
                         <br/>
                         <div class="radio">
-                            <label> <input type="checkbox" id="Q2_noAns" name="PastDisorders" value="Notanswer"
-                                           onchange="hide_Q2_noAns()"/> Prefer not to answer </label>
+                            <label class="question"><input type="checkbox" name="PastDisorders" value="Notanswer"
+                                                           onchange="disableSection(this)"/> Prefer not to answer </label>
                         </div>
                         <br/>
                         <br/>
                         <div class="radio">
-                            <label> <input type="checkbox" id="Q2_noDiag" name="PastDisorders" value="noDiagnosis"
-                                           onchange="hide_Q2_noDiag()"/> No diagnosis </label>
+                            <label class="question"> <input type="checkbox" name="PastDisorders" value="noDiagnosis"
+                                                            onchange="disableSection(this)"/> No Diagnosis </label>
                         </div>
                     </div>
                 </div>
@@ -526,19 +524,17 @@
                         <br/>
                         <br/>
                         <div class="radio">
-                            <label class="question"> <input id="Q3_noAns" type="checkbox" name="Help"
-                                                            value="Notanswer" onchange="hide_Q3_noAns()"/> Prefer not to
-                                answer </label>
+                            <label class="question"><input type="checkbox" name="Help" value="Notanswer"
+                                                           onchange="disableSection(this)"/> Prefer not to answer </label>
                         </div>
                         <br/>
                         <br/>
                         <div class="radio">
-                            <label class="question"> <input id="helps" type="checkbox" name="Help"
-                                                            value="notHelp"
-                                                            onchange="show();hide_Q3_noHelp();"/> I am not receiving
-                                help </label>
+                            <label class="question"> <input type="checkbox" name="Help" value="noDiagnosis"
+                                                            onchange="disableSection(this)"/> No Diagnosis </label>
                         </div>
                     </div>
+
                 </div>
             </div>
 
@@ -851,79 +847,79 @@
                         <br/>
                         <br/>
                         <div class="radio">
-                            <label class="question"> <input id="Q4_noAns" type="checkbox" name="PastHelp"
-                                                            value="Notanswer" onchange="hide_Q4_noAns()"/> Prefer not to
+                            <label class="question"> <input type="checkbox" name="PastHelp"
+                                                            value="Notanswer" onchange="disableSection(this)"/> Prefer not to
                                 answer </label>
                         </div>
                         <br/>
                         <br/>
                         <div class="radio">
-                            <label class="question"> <input id="helps_past" type="checkbox" name="PastHelp"
+                            <label class="question"> <input id="Q4-17" type="checkbox" name="PastHelp"
                                                             value="NotGottenHelp"
-                                                            onchange="sub('Q5')"/> I have not gotten help
+                                                            onchange="sub('Q4-17')"/> I have not gotten help
                             </label>
-                            <div id="Q5" class="oneToSeven" > <label> There are lots of reasons people
+                            <div id="Q4-17-1" class="oneToSeven" > <label> There are lots of reasons people
                                 choose not to seek treatment. Please let us know why you have not
                                 pursued treatment for your anxiety symptoms in the past. (Check all that apply) </label>
                                 <div class="radio">
-                                    <label class="question"> <input id="Q5_1" type="checkbox" name="NoHelp_Reason"
+                                    <label class="question"> <input type="checkbox" name="NoHelp_Reason"
                                                                     value="medNotHelp"/> I don’t think a prescription
                                         medication would help my anxiety </label>
                                 </div>
                                 <div class="radio">
-                                    <label class="question"> <input id="Q5_2" type="checkbox" name="NoHelp_Reason"
+                                    <label class="question"> <input type="checkbox" name="NoHelp_Reason"
                                                                     value="doNotLikeMed"/> I don’t like the idea of
                                         taking prescription medication </label>
                                 </div>
                                 <div class="radio">
-                                    <label class="question"> <input id="Q5_3" type="checkbox" name="NoHelp_Reason"
+                                    <label class="question"> <input type="checkbox" name="NoHelp_Reason"
                                                                     value="cannotAffordMed"/>I can’t afford to pay
                                         for prescription medication</label>
                                 </div>
                                 <div class="radio">
-                                    <label class="question"><input id="Q5_4" type="checkbox" name="NoHelp_Reason"
+                                    <label class="question"><input type="checkbox" name="NoHelp_Reason"
                                                                    value="doNotLikeTherapy"/>I don’t want to talk to
                                         a mental health professional (e.g., a therapist) </label>
                                 </div>
                                 <div class="radio">
-                                    <label class="question"> <input id="Q5_5" type="checkbox" name="NoHelp_Reason"
+                                    <label class="question"> <input type="checkbox" name="NoHelp_Reason"
                                                                     value="therapyNotHelp"/> I don’t think that a mental health professional can help me </label>
                                 </div>
                                 <div class="radio">
-                                    <label class="question"> <input id="Q5_6" type="checkbox" name="NoHelp_Reason"
+                                    <label class="question"> <input type="checkbox" name="NoHelp_Reason"
                                                                     value="doNotLikeFace"/> I don’t want to be asked to
                                         face my fears (e.g., not wanting to interact with a spider for a person with
                                         spider
                                         fear) </label>
                                 </div>
                                 <div class="radio">
-                                    <label class="question"><input id="Q5_7" type="checkbox" name="NoHelp_Reason"
+                                    <label class="question"><input type="checkbox" name="NoHelp_Reason"
                                                                    value="cannotAffordTherapy"/> I can’t afford to pay
                                         for therapy </label>
                                 </div>
                                 <div class="radio">
-                                    <label class="question"><input id="Q5_8" type="checkbox" name="NoHelp_Reason"
+                                    <label class="question"><input type="checkbox" name="NoHelp_Reason"
                                                                    value="therapyNotConven"/> Going to therapy is too
                                         inconvenient </label>
                                 </div>
                                 <div class="radio">
-                                    <label class="question"><input id="Q5_9" type="checkbox" name="NoHelp_Reason"
+                                    <label class="question"><input type="checkbox" name="NoHelp_Reason"
                                                                    value="embarrassed"/> I am embarrassed to seek
                                         treatment </label>
                                 </div>
                                 <div class="radio">
-                                    <label class="question"> <input id="Q5_10" type="checkbox" name="NoHelp_Reason"
+                                    <label class="question"> <input type="checkbox" name="NoHelp_Reason"
                                                                     value="thinkLess"/> I think people might think less
                                         of
                                         me if I sought treatment </label>
                                 </div>
                                 <div class="radio">
-                                    <label class="question"><input id="Q5_11" type="checkbox" name="NoHelp_Reason"
+                                    <label class="question"><input type="checkbox" name="NoHelp_Reason"
                                                                    value="noTime"/> I don’t have time to seek
                                         treatment </label>
                                 </div>
                                 <div class="radio">
-                                    <label class="question"> <input id="Q5_12" type="checkbox" name="NoHelp_Reason"
+                                    <label class="question"> <input type="checkbox" name="NoHelp_Reason"
                                                                     value="Other"
                                                                     onchange="spec('Q5_12')"/> Other (please specify)
                                         <input id="Q5_12_spec" type="text" name="Other_HelpReason"/> </label>
@@ -1002,434 +998,32 @@
         }
     }
 
-    function hide_Q1_noAns() {
-        if (document.getElementById("Q1_noAns").checked) {
-            document.getElementById("Q1_1").disabled = true;
-            document.getElementById("Q1_2").disabled = true;
-            document.getElementById("Q1_3").disabled = true;
-            document.getElementById("Q1_4").disabled = true;
-            document.getElementById("Q1_5").disabled = true;
-            document.getElementById("Q1_6").disabled = true;
-            document.getElementById("Q1_7").disabled = true;
-            document.getElementById("Q1_8").disabled = true;
-            document.getElementById("Q1_9").disabled = true;
-            document.getElementById("Q1_10").disabled = true;
-            document.getElementById("Q1_11").disabled = true;
-            document.getElementById("Q1_12").disabled = true;
-            document.getElementById("Q1_13").disabled = true;
-            document.getElementById("Q1_14").disabled = true;
-            document.getElementById("Q1_15").disabled = true;
-            document.getElementById("Q1_15_spec").disabled = true;
-            document.getElementById("Q1_noDiag").disabled = true;
+    /**
+     * Disables all other input boxes in the same section as the input
+     * selected.
+     * @param input
+     */
+    function disableSection(input) {
+        if(input.checked) {
+            $(input).closest('.section').find("input").attr("disabled", true);
+            $(input).removeAttr("disabled");
         } else {
-            document.getElementById("Q1_1").disabled = false;
-            document.getElementById("Q1_2").disabled = false;
-            document.getElementById("Q1_3").disabled = false;
-            document.getElementById("Q1_4").disabled = false;
-            document.getElementById("Q1_5").disabled = false;
-            document.getElementById("Q1_6").disabled = false;
-            document.getElementById("Q1_7").disabled = false;
-            document.getElementById("Q1_8").disabled = false;
-            document.getElementById("Q1_9").disabled = false;
-            document.getElementById("Q1_10").disabled = false;
-            document.getElementById("Q1_11").disabled = false;
-            document.getElementById("Q1_12").disabled = false;
-            document.getElementById("Q1_13").disabled = false;
-            document.getElementById("Q1_14").disabled = false;
-            document.getElementById("Q1_15").disabled = false;
-            document.getElementById("Q1_15_spec").disabled = false;
-            document.getElementById("Q1_noDiag").disabled = false;
+            $(input).closest('.section').find("input").removeAttr("disabled");
         }
     }
 
-    function hide_Q1_noDiag() {
-        if (document.getElementById("Q1_noDiag").checked) {
-            document.getElementById("Q1_1").disabled = true;
-            document.getElementById("Q1_2").disabled = true;
-            document.getElementById("Q1_3").disabled = true;
-            document.getElementById("Q1_4").disabled = true;
-            document.getElementById("Q1_5").disabled = true;
-            document.getElementById("Q1_6").disabled = true;
-            document.getElementById("Q1_7").disabled = true;
-            document.getElementById("Q1_8").disabled = true;
-            document.getElementById("Q1_9").disabled = true;
-            document.getElementById("Q1_10").disabled = true;
-            document.getElementById("Q1_11").disabled = true;
-            document.getElementById("Q1_12").disabled = true;
-            document.getElementById("Q1_13").disabled = true;
-            document.getElementById("Q1_14").disabled = true;
-            document.getElementById("Q1_15").disabled = true;
-            document.getElementById("Q1_15_spec").disabled = true;
-            document.getElementById("Q1_noAns").disabled = true;
-        } else {
-            document.getElementById("Q1_1").disabled = false;
-            document.getElementById("Q1_2").disabled = false;
-            document.getElementById("Q1_3").disabled = false;
-            document.getElementById("Q1_4").disabled = false;
-            document.getElementById("Q1_5").disabled = false;
-            document.getElementById("Q1_6").disabled = false;
-            document.getElementById("Q1_7").disabled = false;
-            document.getElementById("Q1_8").disabled = false;
-            document.getElementById("Q1_9").disabled = false;
-            document.getElementById("Q1_10").disabled = false;
-            document.getElementById("Q1_11").disabled = false;
-            document.getElementById("Q1_12").disabled = false;
-            document.getElementById("Q1_13").disabled = false;
-            document.getElementById("Q1_14").disabled = false;
-            document.getElementById("Q1_15").disabled = false;
-            document.getElementById("Q1_15_spec").disabled = false;
-            document.getElementById("Q1_noAns").disabled = false;
-        }
-    }
-
-    function hide_Q2_noAns() {
-        if (document.getElementById("Q2_noAns").checked) {
-            document.getElementById("Q2_1").disabled = true;
-            document.getElementById("Q2_2").disabled = true;
-            document.getElementById("Q2_3").disabled = true;
-            document.getElementById("Q2_4").disabled = true;
-            document.getElementById("Q2_5").disabled = true;
-            document.getElementById("Q2_6").disabled = true;
-            document.getElementById("Q2_7").disabled = true;
-            document.getElementById("Q2_8").disabled = true;
-            document.getElementById("Q2_9").disabled = true;
-            document.getElementById("Q2_10").disabled = true;
-            document.getElementById("Q2_11").disabled = true;
-            document.getElementById("Q2_12").disabled = true;
-            document.getElementById("Q2_13").disabled = true;
-            document.getElementById("Q2_14").disabled = true;
-            document.getElementById("Q2_15").disabled = true;
-            document.getElementById("Q2_15_spec").disabled = true;
-            document.getElementById("Q2_noDiag").disabled = true;
-        } else {
-            document.getElementById("Q2_1").disabled = false;
-            document.getElementById("Q2_2").disabled = false;
-            document.getElementById("Q2_3").disabled = false;
-            document.getElementById("Q2_4").disabled = false;
-            document.getElementById("Q2_5").disabled = false;
-            document.getElementById("Q2_6").disabled = false;
-            document.getElementById("Q2_7").disabled = false;
-            document.getElementById("Q2_8").disabled = false;
-            document.getElementById("Q2_9").disabled = false;
-            document.getElementById("Q2_10").disabled = false;
-            document.getElementById("Q2_11").disabled = false;
-            document.getElementById("Q2_12").disabled = false;
-            document.getElementById("Q2_13").disabled = false;
-            document.getElementById("Q2_14").disabled = false;
-            document.getElementById("Q2_15").disabled = false;
-            document.getElementById("Q2_15_spec").disabled = false;
-            document.getElementById("Q2_noDiag").disabled = false;
-        }
-    }
-
-    function hide_Q2_noDiag() {
-        if (document.getElementById("Q2_noDiag").checked) {
-            document.getElementById("Q2_1").disabled = true;
-            document.getElementById("Q2_2").disabled = true;
-            document.getElementById("Q2_3").disabled = true;
-            document.getElementById("Q2_4").disabled = true;
-            document.getElementById("Q2_5").disabled = true;
-            document.getElementById("Q2_6").disabled = true;
-            document.getElementById("Q2_7").disabled = true;
-            document.getElementById("Q2_8").disabled = true;
-            document.getElementById("Q2_9").disabled = true;
-            document.getElementById("Q2_10").disabled = true;
-            document.getElementById("Q2_11").disabled = true;
-            document.getElementById("Q2_12").disabled = true;
-            document.getElementById("Q2_13").disabled = true;
-            document.getElementById("Q2_14").disabled = true;
-            document.getElementById("Q2_15").disabled = true;
-            document.getElementById("Q2_15_spec").disabled = true;
-            document.getElementById("Q2_noAns").disabled = true;
-        } else {
-            document.getElementById("Q2_1").disabled = false;
-            document.getElementById("Q2_2").disabled = false;
-            document.getElementById("Q2_3").disabled = false;
-            document.getElementById("Q2_4").disabled = false;
-            document.getElementById("Q2_5").disabled = false;
-            document.getElementById("Q2_6").disabled = false;
-            document.getElementById("Q2_7").disabled = false;
-            document.getElementById("Q2_8").disabled = false;
-            document.getElementById("Q2_9").disabled = false;
-            document.getElementById("Q2_10").disabled = false;
-            document.getElementById("Q2_11").disabled = false;
-            document.getElementById("Q2_12").disabled = false;
-            document.getElementById("Q2_13").disabled = false;
-            document.getElementById("Q2_14").disabled = false;
-            document.getElementById("Q2_15").disabled = false;
-            document.getElementById("Q2_15_spec").disabled = false;
-            document.getElementById("Q2_noAns").disabled = false;
-        }
-    }
-
-
-    function hide_Q3_noAns() {
-        if (document.getElementById("Q3_noAns").checked) {
-            document.getElementById("Q3-1").disabled = true;
-            document.getElementById("Q3-2").disabled = true;
-            document.getElementById("Q3-3").disabled = true;
-            document.getElementById("Q3-4").disabled = true;
-            document.getElementById("Q3-5").disabled = true;
-            document.getElementById("Q3-6").disabled = true;
-            document.getElementById("Q3-7").disabled = true;
-            document.getElementById("Q3-8").disabled = true;
-            document.getElementById("Q3-9").disabled = true;
-            document.getElementById("Q3-10").disabled = true;
-            document.getElementById("Q3-11").disabled = true;
-            document.getElementById("Q3-12").disabled = true;
-            document.getElementById("Q3-13").disabled = true;
-            document.getElementById("Q3-14").disabled = true;
-            document.getElementById("Q3-14_spec").disabled = true;
-            document.getElementById("Q3-15").disabled = true;
-            document.getElementById("Q3-16").disabled = true;
-            document.getElementById("helps").disabled = true;
-        } else {
-            document.getElementById("Q3-1").disabled = false;
-            document.getElementById("Q3-2").disabled = false;
-            document.getElementById("Q3-3").disabled = false;
-            document.getElementById("Q3-4").disabled = false;
-            document.getElementById("Q3-5").disabled = false;
-            document.getElementById("Q3-6").disabled = false;
-            document.getElementById("Q3-7").disabled = false;
-            document.getElementById("Q3-8").disabled = false;
-            document.getElementById("Q3-9").disabled = false;
-            document.getElementById("Q3-10").disabled = false;
-            document.getElementById("Q3-11").disabled = false;
-            document.getElementById("Q3-12").disabled = false;
-            document.getElementById("Q3-13").disabled = false;
-            document.getElementById("Q3-14").disabled = false;
-            document.getElementById("Q3-15").disabled = false;
-            document.getElementById("Q3-16").disabled = false;
-            document.getElementById("Q3-14_spec").disabled = false;
-            document.getElementById("helps").disabled = false;
-        }
-    }
-
-    function hide_Q3_noHelp() {
-        if (document.getElementById("helps").checked) {
-            document.getElementById("Q3-1").disabled = true;
-            document.getElementById("Q3-2").disabled = true;
-            document.getElementById("Q3-3").disabled = true;
-            document.getElementById("Q3-4").disabled = true;
-            document.getElementById("Q3-5").disabled = true;
-            document.getElementById("Q3-6").disabled = true;
-            document.getElementById("Q3-7").disabled = true;
-            document.getElementById("Q3-8").disabled = true;
-            document.getElementById("Q3-9").disabled = true;
-            document.getElementById("Q3-10").disabled = true;
-            document.getElementById("Q3-11").disabled = true;
-            document.getElementById("Q3-12").disabled = true;
-            document.getElementById("Q3-13").disabled = true;
-            document.getElementById("Q3-14").disabled = true;
-            document.getElementById("Q3-15").disabled = true;
-            document.getElementById("Q3-16").disabled = true;
-            document.getElementById("Q3-14_spec").disabled = true;
-            document.getElementById("Q3_noAns").disabled = true;
-        } else {
-            document.getElementById("Q3-1").disabled = false;
-            document.getElementById("Q3-2").disabled = false;
-            document.getElementById("Q3-3").disabled = false;
-            document.getElementById("Q3-4").disabled = false;
-            document.getElementById("Q3-5").disabled = false;
-            document.getElementById("Q3-6").disabled = false;
-            document.getElementById("Q3-7").disabled = false;
-            document.getElementById("Q3-8").disabled = false;
-            document.getElementById("Q3-9").disabled = false;
-            document.getElementById("Q3-10").disabled = false;
-            document.getElementById("Q3-11").disabled = false;
-            document.getElementById("Q3-12").disabled = false;
-            document.getElementById("Q3-13").disabled = false;
-            document.getElementById("Q3-14").disabled = false;
-            document.getElementById("Q3-15").disabled = false;
-            document.getElementById("Q3-16").disabled = false;
-            document.getElementById("Q3-14_spec").disabled = false;
-            document.getElementById("Q3_noAns").disabled = false;
-        }
-    }
-
-
-    function hide_Q4_noAns() {
-        if (document.getElementById("Q4_noAns").checked) {
-            document.getElementById("Q4-1").disabled = true;
-            document.getElementById("Q4-2").disabled = true;
-            document.getElementById("Q4-3").disabled = true;
-            document.getElementById("Q4-4").disabled = true;
-            document.getElementById("Q4-5").disabled = true;
-            document.getElementById("Q4-6").disabled = true;
-            document.getElementById("Q4-7").disabled = true;
-            document.getElementById("Q4-8").disabled = true;
-            document.getElementById("Q4-9").disabled = true;
-            document.getElementById("Q4-10").disabled = true;
-            document.getElementById("Q4-11").disabled = true;
-            document.getElementById("Q4-12").disabled = true;
-            document.getElementById("Q4-13").disabled = true;
-            document.getElementById("Q4-14").disabled = true;
-            document.getElementById("Q4-15").disabled = true;
-            document.getElementById("Q4-16").disabled = true;
-            document.getElementById("Q4-14_spec").disabled = true;
-            document.getElementById("helps_past").disabled = true;
-        } else {
-            document.getElementById("Q4-1").disabled = false;
-            document.getElementById("Q4-2").disabled = false;
-            document.getElementById("Q4-3").disabled = false;
-            document.getElementById("Q4-4").disabled = false;
-            document.getElementById("Q4-5").disabled = false;
-            document.getElementById("Q4-6").disabled = false;
-            document.getElementById("Q4-7").disabled = false;
-            document.getElementById("Q4-8").disabled = false;
-            document.getElementById("Q4-9").disabled = false;
-            document.getElementById("Q4-10").disabled = false;
-            document.getElementById("Q4-11").disabled = false;
-            document.getElementById("Q4-12").disabled = false;
-            document.getElementById("Q4-13").disabled = false;
-            document.getElementById("Q4-14").disabled = false;
-            document.getElementById("Q4-15").disabled = false;
-            document.getElementById("Q4-16").disabled = false;
-            document.getElementById("Q4-14_spec").disabled = false;
-            document.getElementById("helps_past").disabled = false;
-        }
-    }
-
-    function hide_Q4_noHelp() {
-        if (document.getElementById("helps_past").checked) {
-            document.getElementById("Q4-1").disabled = true;
-            document.getElementById("Q4-2").disabled = true;
-            document.getElementById("Q4-3").disabled = true;
-            document.getElementById("Q4-4").disabled = true;
-            document.getElementById("Q4-5").disabled = true;
-            document.getElementById("Q4-6").disabled = true;
-            document.getElementById("Q4-7").disabled = true;
-            document.getElementById("Q4-8").disabled = true;
-            document.getElementById("Q4-9").disabled = true;
-            document.getElementById("Q4-10").disabled = true;
-            document.getElementById("Q4-11").disabled = true;
-            document.getElementById("Q4-12").disabled = true;
-            document.getElementById("Q4-13").disabled = true;
-            document.getElementById("Q4-14").disabled = true;
-            document.getElementById("Q4-15").disabled = true;
-            document.getElementById("Q4-16").disabled = true;
-            document.getElementById("Q4-14_spec").disabled = true;
-            document.getElementById("Q4_noAns").disabled = true;
-        } else {
-            document.getElementById("Q4-1").disabled = false;
-            document.getElementById("Q4-2").disabled = false;
-            document.getElementById("Q4-3").disabled = false;
-            document.getElementById("Q4-4").disabled = false;
-            document.getElementById("Q4-5").disabled = false;
-            document.getElementById("Q4-6").disabled = false;
-            document.getElementById("Q4-7").disabled = false;
-            document.getElementById("Q4-8").disabled = false;
-            document.getElementById("Q4-9").disabled = false;
-            document.getElementById("Q4-10").disabled = false;
-            document.getElementById("Q4-11").disabled = false;
-            document.getElementById("Q4-12").disabled = false;
-            document.getElementById("Q4-13").disabled = false;
-            document.getElementById("Q4-14").disabled = false;
-            document.getElementById("Q4-15").disabled = false;
-            document.getElementById("Q4-16").disabled = false;
-            document.getElementById("Q4-14_spec").disabled = false;
-            document.getElementById("Q4_noAns").disabled = false;
-        }
-    }
-
-    function hide_Q5_noAns() {
-        if (document.getElementById("Q5_noAns").checked) {
-            document.getElementById("Q5_1").disabled = true;
-            document.getElementById("Q5_2").disabled = true;
-            document.getElementById("Q5_3").disabled = true;
-            document.getElementById("Q5_4").disabled = true;
-            document.getElementById("Q5_5").disabled = true;
-            document.getElementById("Q5_6").disabled = true;
-            document.getElementById("Q5_7").disabled = true;
-            document.getElementById("Q5_8").disabled = true;
-            document.getElementById("Q5_9").disabled = true;
-            document.getElementById("Q5_10").disabled = true;
-            document.getElementById("Q5_11").disabled = true;
-            document.getElementById("Q5_12").disabled = true;
-            document.getElementById("Q5_12_spec").disabled = true;
-        } else {
-            document.getElementById("Q5_1").disabled = false;
-            document.getElementById("Q5_2").disabled = false;
-            document.getElementById("Q5_3").disabled = false;
-            document.getElementById("Q5_4").disabled = false;
-            document.getElementById("Q5_5").disabled = false;
-            document.getElementById("Q5_6").disabled = false;
-            document.getElementById("Q5_7").disabled = false;
-            document.getElementById("Q5_8").disabled = false;
-            document.getElementById("Q5_9").disabled = false;
-            document.getElementById("Q5_10").disabled = false;
-            document.getElementById("Q5_11").disabled = false;
-            document.getElementById("Q5_12").disabled = false;
-            document.getElementById("Q5_12_spec").disabled = false;
-        }
-    }
-
-    $('#MHFORM').validate({
+    $(document).ready(function(){
+        $('#MHFORM').validate({
         rules: {
-            'helps_past': {required: true, minlength: 1},
-            'help': {required: true, minlength: 1},
-            'disorders': {required: true, minlength: 1},
-            'disorders_past': {required: true, minlength: 1}
+            'Disorders': {required: true, minlength: 1},
+            'PastDisorders': {required: true, minlength: 1},
+            'Help': {required: true, minlength: 1},
+            'PastHelp': {required: true, minlength: 1}
         }
+        });
     });
 
 </script>
 
-
 </body>
 </html>
-
-<!--TODO NEED TO FINISH THIS. REQUIRES SOME PROGRAMMING.-->
-<!--5.	Are you currently seeking help for anxiety or other mental or emotional difficulties from any of the following? Please select all that apply, or select “I am not receiving help.”-->
-<!--	Psychiatrist-->
-<!--	Psychologist-->
-<!--	School counselor-->
-<!--	Licensed mental health practitioner (LMHC)-->
-<!--	General practitioner (e.g. family doctor)-->
-<!--	Teacher-->
-<!--	Family member-->
-<!--	Friend-->
-<!--	Religious Leader-->
-<!--	Coach-->
-<!--	Self-help book-->
-<!--	Prescription medication-->
-<!--	Online treatment-->
-<!--	Other ___________________________________-->
-<!--	I am not receiving help-->
-<!--[After selecting all responses, for each response selected, individuals will see this question:] On a scale from 1 (not helpful at all) to 7 (extremely helpful), to what extent has this form of treatment been helpful for your anxiety?-->
-<!--Not at all helpful						Extremely helpful-->
-<!--1	2	3	4	5	6	7-->
-
-
-<!--6.	Have you sought help for mental or emotional difficulties for anxiety or other mental or emotional difficulties from any of the following in the past? Please select all that apply, or select “I have not gotten help.”-->
-<!--	Psychiatrist-->
-<!--	Psychologist-->
-<!--	School counselor-->
-<!--	Licensed mental health practitioner (LMHC)-->
-<!--	General practitioner (e.g. family doctor)-->
-<!--	Teacher-->
-<!--	Family member-->
-<!--	Friend-->
-<!--	Religious Leader-->
-<!--	Coach-->
-<!--	Self-help book-->
-<!--	Prescription medication-->
-<!--	Non-prescription medication-->
-<!--	Online treatment-->
-<!--	Other-->
-<!--	I have not gotten help-->
-<!--[After selecting all responses, for each response selected, individuals will see this question:] On a scale from 1 (not helpful at all) to 7 (extremely helpful), to what extent has this form of treatment been helpful for your anxiety?-->
-<!--7.	 [Display for only individuals that selected “I am not receiving help” on 5] There are lots of reasons people choose not to seek treatment.  Please let us know why you have not pursued treatment for your anxiety symptoms in the past.-->
-<!--Check all that apply-->
-<!--	I don’t think a prescription medication would help my anxiety-->
-<!--	I don’t like the idea of taking prescription medication-->
-<!--	I can’t afford to pay for prescription medication-->
-<!--	I don’t want to talk to a mental health professional (e.g., a therapist)-->
-<!--	I don’t think that a mental health professional can help me-->
-<!--	I don’t want to be asked to face my fears (e.g., not wanting to interact with a spider for a person with spider fear)-->
-<!--	I can’t afford to pay for therapy-->
-<!--	Going to therapy is too inconvenient-->
-<!--	I am embarrassed to seek treatment-->
-<!--	I think people might think less of me if I sought treatment-->
-<!--	I don’t have time to seek treatment-->
-<!--	Other (please describe: _____________)-->

@@ -257,3 +257,10 @@ div.purple  {
 div.gold  {
     background-color: #e6ba21;
 }
+
+/** Errors from jQuery **/
+label.error {
+    display: block;
+    color: darkred;
+    float: right;
+}
