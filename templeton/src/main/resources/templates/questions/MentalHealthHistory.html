@@ -20,12 +20,12 @@
             <div class="section">
                 <div class="row">
                     <div class="col-md-10">
-                        <p class="statement"> Do you <b>CURRENTLY</b> have a disorder diagnosis (i.e., diagnosed by a
+                        <p> Do you <b>CURRENTLY</b> have a disorder diagnosis (i.e., diagnosed by a
                             health
                             professional, such as a social worker, psychologist, psychiatrist, or a general
                             practitioner)
                             for any of the following disorders? </p>
-                        <p class="statement"> Check all that apply </p>
+                        <p > Check all that apply. </p>
                     </div>
                 </div>
 
@@ -111,7 +111,8 @@
                         <br/>
                         <div class="radio">
                             <label class="question"><input type="checkbox" name="Disorders" value="Notanswer"
-                                                           onchange="disableSection(this)"/> Prefer not to answer </label>
+                                                           onchange="disableSection(this)"/> Prefer not to answer
+                            </label>
                         </div>
                         <br/>
                         <br/>
@@ -121,8 +122,8 @@
                         </div>
                     </div>
                 </div>
-
             </div>
+
 
             <div class="section">
                 <div class="row">
@@ -204,7 +205,8 @@
                         <br/>
                         <div class="radio">
                             <label class="question"><input type="checkbox" name="PastDisorders" value="Notanswer"
-                                                           onchange="disableSection(this)"/> Prefer not to answer </label>
+                                                           onchange="disableSection(this)"/> Prefer not to answer
+                            </label>
                         </div>
                         <br/>
                         <br/>
@@ -525,7 +527,8 @@
                         <br/>
                         <div class="radio">
                             <label class="question"><input type="checkbox" name="Help" value="Notanswer"
-                                                           onchange="disableSection(this)"/> Prefer not to answer </label>
+                                                           onchange="disableSection(this)"/> Prefer not to answer
+                            </label>
                         </div>
                         <br/>
                         <br/>
@@ -848,7 +851,8 @@
                         <br/>
                         <div class="radio">
                             <label class="question"> <input type="checkbox" name="PastHelp"
-                                                            value="Notanswer" onchange="disableSection(this)"/> Prefer not to
+                                                            value="Notanswer" onchange="disableSection(this)"/> Prefer
+                                not to
                                 answer </label>
                         </div>
                         <br/>
@@ -858,7 +862,7 @@
                                                             value="NotGottenHelp"
                                                             onchange="sub('Q4-17')"/> I have not gotten help
                             </label>
-                            <div id="Q4-17-1" class="oneToSeven" > <label> There are lots of reasons people
+                            <div id="Q4-17-1" class="oneToSeven"><label> There are lots of reasons people
                                 choose not to seek treatment. Please let us know why you have not
                                 pursued treatment for your anxiety symptoms in the past. (Check all that apply) </label>
                                 <div class="radio">
@@ -883,7 +887,8 @@
                                 </div>
                                 <div class="radio">
                                     <label class="question"> <input type="checkbox" name="NoHelp_Reason"
-                                                                    value="therapyNotHelp"/> I don’t think that a mental health professional can help me </label>
+                                                                    value="therapyNotHelp"/> I don’t think that a mental
+                                        health professional can help me </label>
                                 </div>
                                 <div class="radio">
                                     <label class="question"> <input type="checkbox" name="NoHelp_Reason"
@@ -937,9 +942,9 @@
             </div>
         </div>
 
-                <div style="text-align:center">
-                    <button type="submit"> Continue </button>
-                </div>
+        <div style="text-align:center">
+            <button type="submit"> Continue</button>
+        </div>
     </form>
     <script src="http://cdn.jsdelivr.net/jquery.validation/1.14.0/jquery.validate.min.js">
     </script>
@@ -1004,7 +1009,7 @@
      * @param input
      */
     function disableSection(input) {
-        if(input.checked) {
+        if (input.checked) {
             $(input).closest('.section').find("input").attr("disabled", true);
             $(input).removeAttr("disabled");
         } else {
@@ -1012,14 +1017,14 @@
         }
     }
 
-    $(document).ready(function(){
+    $(document).ready(function () {
         $('#MHFORM').validate({
-        rules: {
-            'Disorders': {required: true, minlength: 1},
-            'PastDisorders': {required: true, minlength: 1},
-            'Help': {required: true, minlength: 1},
-            'PastHelp': {required: true, minlength: 1}
-        }
+            rules: {
+                'Disorders': {required: true, minlength: 1},
+                'PastDisorders': {required: true, minlength: 1},
+                'Help': {required: true, minlength: 1},
+                'PastHelp': {required: true, minlength: 1}
+            }
         });
     });
 
