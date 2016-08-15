@@ -1,10 +1,11 @@
 package org.mindtrails.domain.tracking;
 
 import com.fasterxml.jackson.annotation.*;
+import lombok.Data;
 import org.mindtrails.domain.DoNotDelete;
+import org.mindtrails.domain.Email;
 import org.mindtrails.domain.Exportable;
 import org.mindtrails.domain.Participant;
-import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -37,19 +38,34 @@ public class EmailLog implements Comparable<EmailLog> {
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="EEE, dd MMM yyyy HH:mm:ss Z", timezone="EST")
     private Date dateSent;
 
+    private boolean successful = true;
+    private String exception = "";
+
     public EmailLog() {};
 
-    public EmailLog(Participant participant, String type) {
-        this.participant = participant;
+    public EmailLog(Email email) {
+        this.participant = email.getParticipant();
+        this.emailType = email.getType();
+        this.dateSent  = new Date();
+    }
+
+    public EmailLog(Participant p, String type) {
+        this.participant = p;
         this.emailType = type;
         this.dateSent  = new Date();
     }
 
-    public EmailLog(Participant participant, String type, Date date) {
-        this.participant = participant;
+    public EmailLog(Participant p, String type, Date date) {
+        this.participant = p;
         this.emailType = type;
-        this.dateSent = date;
+        this.dateSent  = date;
     }
+
+    public void setError(Exception e) {
+        this.successful = false;
+        this.exception = e.getLocalizedMessage();
+    }
+
 
     @Override
     public int compareTo(EmailLog o) {

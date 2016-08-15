@@ -45,9 +45,9 @@ public class BaseStudyTest {
     @Test
     public void testAllDoneWhenLastSessionIsComplete() {
         Study s = new TestStudy();
-        // Assumes that the TestStudy has two sessions, and each session has two tasks.
-        for(int i=0; i<14; i++) {
-            s.setLastSessionDate(new DateTime().minus(Days.days(2)).toDate());
+        // Assumes that the TestStudy has three sessions, and each session has two tasks.
+        for(int i=0; i<6; i++) {
+            s.setLastSessionDate(new DateTime().minus(Days.days(60)).toDate());
             s.completeCurrentTask();
         }
         assertTrue(s.completed("SessionTwo"));
