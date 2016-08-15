@@ -13,34 +13,45 @@
 <section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
 
 <section id="content" class="clearfix">
-<div class="container sessionSection">
-    <div class="row">
-        <div class="col-md-4">
-            <img th:src="@{/images/map-0-orange.png}" alt="icon" class="icon-small-bg"/>
-        </div>
+    <div class="container sessionSection">
+        <div class="row">
+            <div class="col-md-4">
+                <img th:src="@{/images/map-0-orange.png}" alt="icon" class="icon-small-bg"/>
+            </div>
 
-        <div class="col-md-8 session">
+            <div class="col-md-8 session">
 
-    <h2>Welcome back <span th:text="${participant.fullName}">Jim</span>.</h2>
-    <p>You are ready to begin <span th:text="${currentSession.displayName}"/></p>
-    <p>This includes ...</p>
-    <img th:src="|/images/clock-20-${participant.theme}.png|"/>
-    <p>A 20-minute Training</p>
-    <img th:src="|/images/clock-1-${participant.theme}.png|"/>
-    <p>A Brief Followup</p>
+                <div th:if="${currentSession.index} == 0">
+                    <h2><span th:text="${participant.fullName}">Jim</span>, you're ready to
+                        begin your initial asessment.</h2>
+                    <p>This is an information gathering session that will take approximately 20 minutes to complete.</p>
+                </div>
 
-    <div th:if="${giftAwarded}">
-        <h3>Congratulations! You have earned a $5 gift card.</h3> Please check your email for information on
-        how to redeem it.
-    </div>
-    <p class="session-note">For best results, complete <span th:text="${currentSession.displayName}"/> by
-        <span class="date" th:text="${completeBy}">July 10, 2015</span>
-    </p>
-    <a th:href="${currentTask.requestMapping}" th:if="${currentTask}">
-      <button>Start</button>
-    </a>
-    <a href="/session/overview" th:unless="${currentSession.name =='PRE'}">Program Overview</a>
-</div>
+                <div th:if="${currentSession.index} > 0">
+                    <h2 th:if="#{participant.study.index == 0}">Welcome back <span
+                            th:text="${participant.fullName}">Jim</span>.
+                    </h2>
+                    <p>You are ready to begin <span th:text="${currentSession.displayName}"/></p>
+                    <p>This includes ...</p>
+                    <img th:src="|/images/clock-20-${participant.theme}.png|"/>
+                    <p>A 20-minute Training</p>
+                    <img th:src="|/images/clock-1-${participant.theme}.png|"/>
+                    <p>A Brief Followup</p>
+                </div>
+
+
+                <div th:if="${giftAwarded}">
+                    <h3>Congratulations! You have earned a $5 gift card.</h3> Please check your email for information on
+                    how to redeem it.
+                </div>
+                <p class="session-note">For best results, complete the <span th:text="${currentSession.displayName}"/> by
+                    <span class="date" th:text="${completeBy}">July 10, 2015</span>
+                </p>
+                <a th:href="${currentTask.requestMapping}" th:if="${currentTask}">
+                    <button>Start</button>
+                </a>
+                <a href="/session/overview" th:unless="${currentSession.name =='PRE'}">Program Overview</a>
+            </div>
         </div>
     </div>
 </section>
