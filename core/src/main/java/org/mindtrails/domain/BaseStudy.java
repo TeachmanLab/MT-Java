@@ -1,5 +1,6 @@
 package org.mindtrails.domain;
 
+import lombok.EqualsAndHashCode;
 import org.mindtrails.domain.RestExceptions.WaitException;
 import org.mindtrails.domain.tracking.TaskLog;
 import lombok.Data;
@@ -17,6 +18,8 @@ import java.util.*;
 @Entity
 @Table(name = "study")
 @DiscriminatorColumn(name="studyType")
+@EqualsAndHashCode(exclude={"taskLogs"})
+
 public abstract class BaseStudy implements Study {
 
     private static final Session NOT_STARTED  = new Session("NOT_STARTED", "Not Started", 0, 0, new ArrayList<Task>());

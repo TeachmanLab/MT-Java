@@ -1,6 +1,7 @@
 package org.mindtrails.domain;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.mindtrails.domain.tracking.EmailLog;
@@ -22,6 +23,7 @@ import java.util.*;
 @Entity
 @Table(name = "participant")
 @Data
+@EqualsAndHashCode(exclude={"emailLogs", "giftLogs","passwordToken"})
 public  class Participant implements UserDetails {
 
     private static final Logger LOG = LoggerFactory.getLogger(Participant.class);
