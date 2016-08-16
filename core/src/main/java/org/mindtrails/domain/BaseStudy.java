@@ -33,7 +33,7 @@ public abstract class BaseStudy implements Study {
     protected boolean receiveGiftCards;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "study")
-    protected Collection<TaskLog> taskLogs = new ArrayList<>();
+    protected Set<TaskLog> taskLogs = new HashSet<>();
 
     public BaseStudy() {}
 
@@ -41,7 +41,7 @@ public abstract class BaseStudy implements Study {
         this.currentSession = currentName;
         this.currentTaskIndex = taskIndex;
         this.lastSessionDate = lastSessionDate;
-        this.taskLogs = new ArrayList<>();
+        this.taskLogs = new HashSet<>();
         this.receiveGiftCards = receiveGiftCards;
     }
 
