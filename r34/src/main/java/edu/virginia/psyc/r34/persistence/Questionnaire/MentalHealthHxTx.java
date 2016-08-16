@@ -19,7 +19,9 @@ public class MentalHealthHxTx extends SecureQuestionnaireData {
     private String OtherDesc;
     private String OtherDescNo;
     private String OtherHelp;
+    private String OtherHelpCurrent;
     private String OtherHelpPast;
+    private String OtherReason;
 
     @ElementCollection
     @CollectionTable(name = "mental_health_disorders", joinColumns = @JoinColumn(name = "id"))
@@ -28,7 +30,7 @@ public class MentalHealthHxTx extends SecureQuestionnaireData {
 
     @ElementCollection
     @CollectionTable(name = "mental_health_disorders_past", joinColumns = @JoinColumn(name = "id"))
-    @Column(name = "Disorder_past")
+    @Column(name = "disorder_past")
     private List<String> disorders_past;
 
     @ElementCollection

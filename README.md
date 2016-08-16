@@ -95,6 +95,11 @@ You must have the following applications installed in order to build and run the
 * Bower (Javascript package management tool - just run "npm install bower -global")
 * Mysql (Relational Database - http://dev.mysql.com/doc/refman/5.1/en/installing.html)
 
+Intelij Development
+-------------------
+* You need to enable the annotation preprocessor for lombok annotations to work correctly. https://www.jetbrains.com/idea/help/configuring-annotation-processing.html
+
+
 Database Setup
 ---------------
 Install MySQL, and execute the following commands to establish
@@ -114,15 +119,19 @@ Installing Javascript Dependencies
 -------------------
 Javascript dependencies, including the PIPlayer are installed using Bower, just run `bower install`
 
+> cd core
+> bower install
+> cd ..
+
 Because of the way the PIPlayer script is currently designed, you will need to install the PIPlayer dependencies
 manually,  you can do this by:
 
-> cd src/main/resources/static/bower/PIPlayer
+> cd core/src/main/resources/static/bower/PIPlayer
 > bower install
 
 **Please Note:**  if you run into problems with PI Player scripts not executing you might try editing the file
-/PIServer/src/main/resources/static/bower/PIPlayer/dist/js/config.js
-Set the baseUrl:'../bower/PIPlayer/dist/js',
+> vim core/src/main/resources/static/bower/PIPlayer/dist/js/config.js
+> Set the baseUrl:'../bower/PIPlayer/dist/js',
 
 
 Running

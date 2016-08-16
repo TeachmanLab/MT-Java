@@ -15,8 +15,16 @@ import javax.persistence.Table;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class Demographics extends SecureQuestionnaireData {
-    private String name;
-    private String born;
+    private String GenderId;
+    private int BirthYear;
+    private String Race;
+    private String Ethnicity;
+    private String Country;
+    private String Education;
+    private String MaritalStat;
+    private String EmploymentStat;
+    private String Income;
+    private String PtpReason;
 
 }
 

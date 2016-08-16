@@ -1,6 +1,8 @@
 package org.mindtrails.controller;
 
+import org.mindtrails.domain.Email;
 import org.mindtrails.domain.Participant;
+import org.mindtrails.domain.PasswordToken;
 import org.mindtrails.domain.forms.ParticipantCreate;
 import org.mindtrails.domain.forms.ParticipantCreateAdmin;
 import org.mindtrails.domain.forms.ParticipantUpdateAdmin;
@@ -25,6 +27,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.thymeleaf.context.Context;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -166,13 +169,20 @@ public class AdminController {
                             @PathVariable("type") String type) throws Exception {
         Participant p = participantService.get(principal);
 
-        if(type.equals(EmailService.TYPE.GIFTCARD.toString())) {
+        if(type.equals(EmailService.TYPE.giftCard.toString())) {
             Reward reward = tangoService.createGiftCard(p, "test", 1);  // This would actually award a gift card, if you need to do some testing.
             this.emailService.sendGiftCard(p, reward, 100);
-        } else if(type.equals(EmailService.TYPE.ALERT_ADMIN)) {
-            this.emailService.sendAtRiskAlertToAdmin(p, "Test Message about a dropping score.");
+        } else if(type.equals(EmailService.TYPE.resetPass.toString())) {
+            p.setPasswordToken(new PasswordToken());
+            this.emailService.sendPasswordReset(p);
+        } else if(type.equals(EmailService.TYPE.alertAdmin.toString())) {
+            this.emailService.sendAdminEmail("Example", "This is an example alert message normally sent to the administrator with a custom subject and message");
         } else {
-            this.emailService.sendEmail(p, type);
+            Email email = emailService.getEmailForType(type);
+            email.setParticipant(p);
+            email.setTo(p.getEmail());
+            email.setContext(new Context());
+            emailService.sendExample(email);
         }
         return "redirect:/admin/listEmails";
     }

@@ -1,25 +1,32 @@
 package org.mindtrails.service;
 
+import org.mindtrails.domain.Email;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.tango.Reward;
 
-import javax.mail.MessagingException;
-import java.util.Map;
+import java.util.List;
 
 /**
  * Created by dan on 5/13/16.
  */
 public interface EmailService {
 
-    enum TYPE { GIFTCARD, PASSWORD_RESET, ALERT_ADMIN }
+    /**
+     * Each of these types should have a corresponding template
+     * in resources/templates/email
+     */
+    public enum TYPE {
+        resetPass, alertAdmin, giftCard,
+        day2, day4, day7, day11, day15, day18,
+        followup, followup2, followup3
+    }
 
     /**
      * This should send an email to an administrative account
-     * notifying them that data is not being exported from the
-     * system and is starting to pile up.
+     * notifying them of some problem with the system.
      * @param message
      */
-    void sendExportAlertEmail(String message);
+    void sendAdminEmail(String subject, String message);
 
     /**
      * Executed when someone asks to reset their password.
@@ -27,28 +34,22 @@ public interface EmailService {
      * on the given password.
      * @param participant
      */
-    void sendPasswordReset(Participant participant) throws MessagingException;
+    void sendPasswordReset(Participant participant);
 
     /**
      * Executed when someone should receive a new gift card.  Reward object should
      * contain details on how to obtain the gift card.
      * @param participant
      */
-    void sendGiftCard(Participant participant, Reward reward, int amountCents) throws MessagingException;
-
-    /**
-     * Send an atRisk email message if the participant is performing
-     * low on some metric.
-     */
-    void sendAtRiskAlertToAdmin(Participant participant, String details);
+    void sendGiftCard(Participant participant, Reward reward, int amountCents);
 
     /**
      * Send a custom email message, of the specified type to
      * the Participant.
-     * @param participant
-     * @param type
+     * @param email The email object should have a type, subject, address, and context.  If a
+     *              participant is specified, it will be passed on to the view.
      */
-    void sendEmail(Participant participant, String type);
+    void sendEmail(Email email);
 
     /**
      * Returns a list of email messages this system can produce.  Along with
@@ -56,7 +57,17 @@ public interface EmailService {
      * by the admin interface to provide links so custom email messages
      * can be sent out.
      */
-    Map<String,String> emailTypes();
+    List<Email> emailTypes();
 
+    /**
+     * Sends an exame email message to an administrator, so they can see what the
+     * recipient will see.
+     */
+    void sendExample(Email email);
+
+    /**
+     * Returns an email for a given type
+     */
+    Email getEmailForType(String type);
 
 }
