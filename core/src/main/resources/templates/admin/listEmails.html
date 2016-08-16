@@ -20,8 +20,8 @@
         <p>Here are the major reminder emails sent by the system. Clicking on any of these
           will cause the reminder email to be sent to your email address: <span th:text="${participant.email}"> dan@sartography.com</span>
         </p>
-        <ul th:each="key : ${#lists.sort(emails.keys)}">
-          <li><a th:href="${'/admin/sendEmail/' + key}" th:text="#{emails.get(key) + '(' + key + ')'}"/></li>
+        <ul th:each="email : ${emails}">
+          <li><a th:href="${'/admin/sendEmail/' + email.type}" th:text="${email.subject + '   (' + email.type + ')'}"/></li>
         </ul>
       </div>
     </div>

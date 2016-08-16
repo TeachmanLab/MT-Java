@@ -38,6 +38,7 @@ public class TestStudy extends BaseStudy implements Study {
         List<Session> sessions = new ArrayList<>();
         sessions.add(new Session("SessionOne","Session One", 0, 0, testTasks(currentSession, currentTaskIndex)));
         sessions.add(new Session("SessionTwo","Session Two", 0, 2, testTasks(currentSession, currentTaskIndex)));
+        sessions.add(new Session("PostSession","Two Month Follow Up", 0, 60, testTasks(currentSession, currentTaskIndex)));
         return sessions;
     }
 

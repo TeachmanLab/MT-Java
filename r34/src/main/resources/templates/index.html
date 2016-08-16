@@ -1,21 +1,25 @@
 <!DOCTYPE html>
-<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
-<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
-<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!-->
 <html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
 <!--<![endif]-->
-<head th:include="fragment/common :: headerFragment" />
+<head th:include="fragment/common :: headerFragment"/>
 
 <body>
-<section id="header" class="clearfix" th:include="fragment/common :: topFragment" />
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
 
 <!-- header-btm starts
 ================================================== -->
 <section id="header-btm" class="clearfix">
     <div class="container">
         <div class="row">
-            <h2 class="page-title heading-icon clearfix"> <img th:src="@{/images/map-arrow-orange.png}" alt="icon" class="icon-small-bg" /><br/>Welcome!</h2>
+            <h2 class="page-title heading-icon clearfix"><img th:src="@{/images/map-arrow-orange.png}" alt="icon"
+                                                              class="icon-small-bg"/><br/>Welcome to MindTrails!</h2>
         </div>
     </div>
 </section>
@@ -27,49 +31,38 @@
 <section id="content" class="clearfix">
     <div class="container">
         <div class="row">
-            <div class="col-md-8">
-                <p class="error" th:if="${error}" >Please enter a valid email address.</p>
-
-                <p>In this study, we are going to focus on the way you think, and how that may affect your anxiety.
-                    Specifically, we will focus on the way you interpret everyday events. </p>
-                <p>It’s not always clear why anxiety persists over time, but one reason appears to be the way
-                    people think about the things they are anxious about.</p>
-                <b>For example:</b>
-                <ul>
-                    <li>People may think they are more likely to
-                    be negatively judged by others than they actually are.</li>
-                    <li>People may think that they will not be
-                    able to cope with being in scary situations.</li>
-                </ul>
-                <p>Past studies have shown that changing the way we think can affect our anxiety. In fact, studies have
-                    shown that practice thinking about things in new ways may reduce anxiety symptoms. In this study,
-                    you will complete a computer program that will describe different situations and encourage you to
+            <div class="col-md-12">
+                <p>Past studies have shown that changing the way we think can affect our mood, improve our relationships,
+                    and make it easier to achieve our goals.  For instance, many studies have shown that practice
+                    thinking about things in new ways can reduce anxiety symptoms. In the studies below,
+                    you can complete a computer program that will describe different situations and encourage you to
                     think about them in particular ways.</p>
-                <p>We have people trying different versions of the computer program for this study to see which version
-                    works best – we think some of these computer programs will reduce anxiety by changing the way people
-                    interpret situations.</p>
-                <p th:unless="${disabled}">
-                    <a th:href="@{public/eligibility}"><button>Am I Eligible?</button></a>
+                <p>We have people trying different versions of the computer program for these studies to see which
+                    version works best – we think some of these computer programs can improve mental health by changing
+                    the way people interpret situations.
                 </p>
-                <div th:if="${disabled}">
-                    <h3>Already participating?</h3>
-                    <p>Then please <a href="login">Login</a> to continue to study.</p>
+                <p>We are currently running two different studies: one to reduce anxiety for people who frequently
+                    become anxious or scared, and one to encourage healthier thinking about the future for people
+                    who tend to expect things will not turn out well. Select the study that seems the most beneficial
+                    to you.
 
-                    <h3>New visitor?</h3>
-                    <p>We have completed enrollment for the current study, but expect to launch a new study soon.
-                        If you would like to be notified when a new study launches, please provide your email
-                        address and we will contact you when we are enrolling again.</p>
-
-                    <form  th:action="@{/public/notify}" method="post">
-                        <p>
-                            <label class="standard" for="email">Email</label>
-                            <input type="email" id="email" name="email"/>
-                            <button>Notify Me!</button>
-                        </p>
-                    </form>
-
-                </div>
-
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <p th:unless="${disabled}">
+                    <a th:href="@{public/intro}">
+                        <button>Managing Anxiety</button>
+                    </a>
+                </p>
+            </div>
+            <div class="col-md-6">
+                <p th:unless="${disabled}">
+                    <a href="http://www.mindtrails.org/templeton">
+                        <button>Future Thinking</button>
+                    </a>
+                </p>
             </div>
         </div>
 
@@ -79,15 +72,15 @@
 
 <!-- footer starts
 ================================================== -->
-<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
 
 <!-- copyright starts
 ================================================== -->
-<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
 
 <!--Javascript
 ================================================== -->
-<div th:include="fragment/common :: scripts" />
+<div th:include="fragment/common :: scripts"/>
 
 </body>
 </html>
