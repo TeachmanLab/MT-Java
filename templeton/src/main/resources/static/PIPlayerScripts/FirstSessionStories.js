@@ -47,7 +47,7 @@ define([], function () {
                         }
                     },
                     {
-                        "handle": "question",
+                        "handle": "y/nQuestion",
                         data: {
 
                             positiveAnswer: "y",
@@ -58,7 +58,7 @@ define([], function () {
                         }
                     },
                     {
-                        "handle": "multipleChoice",
+                        "handle": "multipleChoice1",
                         data: {
 
                             positiveAnswer: "a",
@@ -68,8 +68,27 @@ define([], function () {
                             "inlineTemplate": "<div> <p> Your performance will likely: </p> " +
                             "<p> a) help your team win </p>" +
                             "<p> b) drag your team down </p> </div>"
-                        }
+
+
+                        },
                     },
+
+                    {
+                        "handle": "multipleChoice2",
+                        data: {
+
+                            positiveAnswer: "b",
+                            negativeAnswer: "a"
+
+                        },
+                        "media": {
+
+                            "inlineTemplate": "<div> <p> At the end of the game, your teammates are likely to be thinking:</p>" +
+                            "<p> a) 'You blew it!'</p>" +
+                            "<p> b) 'You played great today!'</p> </div>"
+                        },
+                    },
+
                     {"inherit": {"set": "yesno"}},
                     {"inherit": {"set": "stall"}}, {"inherit": {"set": "greatjob"}},
                     {"inherit": {"set": "press_space"}},
