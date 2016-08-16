@@ -114,6 +114,10 @@ If you are running the tests, that is configured to use a seperate database
 > CREATE DATABASE pi_test CHARACTER SET utf8 COLLATE utf8_general_ci;
 > GRANT ALL PRIVILEGES ON pi_test.* TO 'pi_user'@'localhost' IDENTIFIED BY 'pi_password' WITH GRANT OPTION;
 
+The templeton project requires its own database
+> CREATE DATABASE templeton CHARACTER SET utf8 COLLATE utf8_general_ci;
+> GRANT ALL PRIVILEGES ON templeton.* TO 'pi_user'@'localhost' IDENTIFIED BY 'pi_password' WITH GRANT OPTION;
+
 
 Installing Javascript Dependencies
 -------------------
