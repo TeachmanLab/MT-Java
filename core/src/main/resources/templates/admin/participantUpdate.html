@@ -90,7 +90,7 @@
                             <th>Date</th>
                         </tr>
                         <tr th:each="log : ${participant.emailLogs}">
-                            <td style="width:50px;" th:text="${log.type}"/>
+                            <td style="width:50px;" th:text="${log.emailType}"/>
                             <td th:text="${log.dateSent}"/>
                         </tr>
                     </table>

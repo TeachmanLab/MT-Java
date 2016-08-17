@@ -5,42 +5,40 @@
 
 <body style="font-family: 'Source Sans Pro', sans-serif; font-size:20px; box-sizing:border-box; background-color: #FFF">
 
-<div style="padding:15px" border="5px solid #767676">
+<div id="body_style" style="padding:15px">
 
-    <table cellpadding="0" cellspacing="0" width="600" align="center" th:include="fragment/email :: logoFragment"/>
+    <table cellpadding="0" cellspacing="0" width="400" align="center" th:include="fragment/email :: logoFragment"/>
 
     <table cellpadding="0" cellspacing="0" width="600" align="center" style="margin-top:20px">
         <tr>
             <td width="400">
-                <p th:text="'Hi ' +  ${name} + ','" style="margin-top:0; margin-bottom:10px">
+                <p th:text="'Hi ' +  ${participant.fullName} + ','" style="margin-top:0; margin-bottom:10px">
                     Hi Fred,
                 </p>
-                <p style="margin-top:5px">Thanks for completing your earlier training session(s)! We haven't heard from you for almost 2 weeks.</p>
+                <p style="margin-top:5px">We haven’t heard from you for over 2 weeks regarding completion of the
+                    follow-up assessment for the study, so this is a final request to please login and complete your surveys.</p>
                 <div style="border-radius: 15px; background: #fff; text-align:center; border: 1px solid #666; margin: 20px;">
                     <div style="border-top-right-radius: 15px; border-top-left-radius: 15px; width:100%; height:20px; background: #F77D38"> </div>
                     <div style="padding:20px; font-weight:700">JUST A REMINDER</div>
-                    <p style="margin:5px 20px; text-align: left">Your next session should be completed as soon as possible.  You can still catch up.
-                        Simply click "Start" below.</p>
+                    <p style="margin:5px 20px; text-align: left">It’s time to complete your final set of surveys and tasks for
+                        this study. As you may recall, we ask all participants
+                        to let us know how they've been doing now that the
+                        training program is over.</p>
+                    <p>To login and complete your final surveys, click “Start” below.</p>
                     <a href="/session" th:href="${url} + '/session'" style="color: #637580ff; text-decoration: none; font-weight: bold"><button style="border-radius: 5px; background:#F77D38; border-top:#F99A65; border-left:#F99A65; border-bottom:#B36B42; border-right:#B36B42;text-decoration: none; font-size:20px; margin:10px 0px; padding: 15px; font-weight: 700; color: #fff">Start</button></a>
                 </div>
 
-                <p style="margin-top:5px">If we don’t hear from you in the next few days, we will assume you
-                    are no longer interested in participating in the study and will close
-                    your account, but we very much hope you will continue completing
-                    the program.</p>
-
-                <p style="margin-top:5px">Please let us know if you have any concerns about your
-                    participation that we can address. You can contact the study team
-                    at studyteam@mindtrails.org.</p>
-
-                <p style="margin-top:5px">Thank you for your participation in the study and we hope you’re
-                    having a good week.</p>
+                <p style="margin-top:5px">Thank you for your participation in the study!</p>
 
                 <div id="footer" th:include="fragment/email :: footerFragment"/>
 
             </td>
         </tr>
     </table>
+
+    <p style="margin-top:0"></p>
+
+
 
 </div>
 

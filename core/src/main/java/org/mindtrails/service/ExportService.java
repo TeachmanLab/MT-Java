@@ -169,7 +169,7 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
         long minutesSinceLastExport = minutesSinceLastExport();
         int totalRecords = totalDeleteableRecords();
         if(totalRecords > 0 && minutesSinceLastExport > 30 && minutesSinceLastExport < 60) {
-            emailService.sendExportAlertEmail(getAlertMessage(minutesSinceLastExport, totalRecords));
+            emailService.sendAdminEmail("Export Error!", getAlertMessage(minutesSinceLastExport, totalRecords));
         }
     }
 
@@ -184,7 +184,7 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
         long minutesSinceLastExport = minutesSinceLastExport();
         int totalRecords = totalDeleteableRecords();
         if(totalRecords > 0 && minutesSinceLastExport > 120 && minutesSinceLastExport < 1440) {
-            emailService.sendExportAlertEmail(getAlertMessage(minutesSinceLastExport, totalRecords));
+            emailService.sendAdminEmail("Exporter Issue.", getAlertMessage(minutesSinceLastExport, totalRecords));
         }
     }
 
@@ -199,11 +199,11 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
         long minutesSinceLastExport = minutesSinceLastExport();
         int totalRecords = totalDeleteableRecords();
         if(disableAdditionalFormSubmissions()) {
-            emailService.sendExportAlertEmail("The site is currently disabled.  Too many " +
+            emailService.sendAdminEmail("MINDTRAILS IS DISABLED!", "The site is currently disabled.  Too many " +
                     "records exist, and they need to be exported." +
                     getAlertMessage(minutesSinceLastExport, totalRecords));
         } else if(totalRecords > 0 && minutesSinceLastExport > 1440) {
-            emailService.sendExportAlertEmail(getAlertMessage(minutesSinceLastExport, totalRecords));
+            emailService.sendAdminEmail("Exporter Issue.", getAlertMessage(minutesSinceLastExport, totalRecords));
         }
     }
 

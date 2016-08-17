@@ -1,6 +1,7 @@
 package org.mindtrails.domain;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.mindtrails.domain.tracking.EmailLog;
@@ -13,9 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
+import java.util.*;
 
 /**
  * This class manages the storage and basic business logic
@@ -24,6 +23,7 @@ import java.util.Date;
 @Entity
 @Table(name = "participant")
 @Data
+@EqualsAndHashCode(exclude={"emailLogs", "giftLogs","passwordToken"})
 public  class Participant implements UserDetails {
 
     private static final Logger LOG = LoggerFactory.getLogger(Participant.class);
@@ -58,10 +58,10 @@ public  class Participant implements UserDetails {
     // these relationships are setup with a FetchType.LAZY. Please
     // leave this eager, or address that problem.
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "participant")
-    protected Collection<EmailLog> emailLogs = new ArrayList<EmailLog>();
+    protected Set<EmailLog> emailLogs = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "participant")
-    protected Collection<GiftLog> giftLogs = new ArrayList<>();
+    protected Set<GiftLog> giftLogs = new HashSet<>();
 
 
     @Override
@@ -117,12 +117,12 @@ public  class Participant implements UserDetails {
      * ********************* */
 
     public void addEmailLog(EmailLog log) {
-        if (this.emailLogs == null) this.emailLogs = new ArrayList<EmailLog>();
+        if (this.emailLogs == null) this.emailLogs = new HashSet<EmailLog>();
         this.emailLogs.add(log);
     }
 
     public void addGiftLog(GiftLog log) {
-        if (this.giftLogs == null) this.giftLogs = new ArrayList<GiftLog>();
+        if (this.giftLogs == null) this.giftLogs = new HashSet<GiftLog>();
         this.giftLogs.add(log);
     }
 
