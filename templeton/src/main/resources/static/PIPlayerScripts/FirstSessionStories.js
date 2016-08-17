@@ -1,7 +1,9 @@
 define([], function () {
     return ({
         display_length: 9,
-        add_extra_missing_letter: false,
+        add_extra_missing_letter: true,
+        frag: 'first',
+        quest: 'mc1',
         sequence: [
             {
                 input: [
@@ -34,16 +36,17 @@ define([], function () {
                     {"inherit": {"set": "error"}},
                     {
                         "data": {
-                            "negativeKey": "l",
-                            "negativeWord": "fai[ ]ure",
-                            "positiveKey": "u",
-                            "positiveWord": "s[ ]ccess",
+                            "negativeKey": ["l", "e"],
+                            "negativeWord": ["fai[ ]ure", "d[ ]feat"],
+                            "positiveKey": ["u", "i"],
+                            "positiveWord": ["s[ ]ccess", "victory"],
+                            "stimulus": '[stimulus]',
                             "negation": "you will not let your teammates down, and",
                             "statement": "After being inactive for a few years, you recently joined a recreational soccer league. There is a tournament at the end of the season. You believe that [negation] you will contribute to your team’s "
                         },
                         "handle": "paragraph",
                         "media": {
-                            "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= trialData.positive ? stimulusData.positiveWord : stimulusData.negativeWord %></span></div>"
+                            "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= stimulusData.stimulus %></span></div>"
                         }
                     },
                     {
@@ -58,7 +61,9 @@ define([], function () {
                         }
                     },
                     {
-                        "handle": "multipleChoice1",
+
+              "handle": "mc1",
+
                         data: {
 
                             positiveAnswer: "a",
@@ -71,23 +76,22 @@ define([], function () {
 
 
                         },
-                    },
 
-                    {
-                        "handle": "multipleChoice2",
+                },
+    {
+                        "handle": "mc2",
                         data: {
 
-                            positiveAnswer: "b",
-                            negativeAnswer: "a"
-
+                            positiveAnswer: "a",
+                            negativeAnswer: "b"
                         },
                         "media": {
-
-                            "inlineTemplate": "<div> <p> At the end of the game, your teammates are likely to be thinking:</p>" +
-                            "<p> a) 'You blew it!'</p>" +
-                            "<p> b) 'You played great today!'</p> </div>"
-                        },
+                            "inlineTemplate": "<div> <p> Your performance will likely: </p> " +
+                            "<p> a) help your team win </p>" +
+                            "<p> b) drag your team down </p> </div>"
+                        }
                     },
+                    {"inherit": {"set": "ab"}},
 
                     {"inherit": {"set": "yesno"}},
                     {"inherit": {"set": "stall"}}, {"inherit": {"set": "greatjob"}},
