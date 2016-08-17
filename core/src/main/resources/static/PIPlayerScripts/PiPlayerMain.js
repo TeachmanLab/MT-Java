@@ -20,6 +20,8 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
 
     API.getGlobal().state = STATE_RESET;
 
+    API.getGlobal().quest = Sequence.quest;
+
     var scorer = new Scorer();
     var break_up = [];
     var where_at = 1;
@@ -78,9 +80,55 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
         // Replace negate in the sentence if negate is turned on.
         if(negate === undefined || API.getGlobal()["negate"] == false) negate = "";
         var sentence = $("div.sentence");
+        console.log(negate);
+        console.log('HI');
         sentence.text(sentence.text().replace("[negation]", negate));
     }
 
+    function chooseWords(trial)
+    {
+        if(API.getGlobal().state != STATE_RESET) return false;
+
+        // Get the value of negate.
+        var p = jQuery.grep(trial._stimulus_collection.models, function (e, i) {
+            return e.attributes.handle == "paragraph"
+        })[0];
+        console.log(API.getGlobal());
+        if (Sequence.frag == 'first'){
+            p.attributes.data.negativeKey = p.attributes.data.negativeKey[0];
+            p.attributes.data.negativeWord = p.attributes.data.negativeWord[0];
+            p.attributes.data.positiveKey = p.attributes.data.positiveKey[0];
+            p.attributes.data.positiveWord = p.attributes.data.positiveWord[0];
+        }
+        else {
+            p.attributes.data.negativeKey = p.attributes.data.negativeKey[1];
+            p.attributes.data.negativeWord = p.attributes.data.negativeWord[1];
+            p.attributes.data.positiveKey = p.attributes.data.positiveKey[1];
+            p.attributes.data.positiveWord = p.attributes.data.positiveWord[1];
+        }
+    }
+
+    function getWord(trial)
+    {
+        if(API.getGlobal().state != STATE_RESET) return false;
+
+        var sentence = $("div.sentence");
+
+        // Get the value of negate.
+        var p = jQuery.grep(trial._stimulus_collection.models, function (e, i) {
+            return e.attributes.handle == "paragraph"
+        })[0];
+        if (p.trial.data.positive)
+        {
+            sentence.text(sentence.text().replace("[stimulus]", p.attributes.data.positiveWord));
+            return p.attributes.data.positiveWord;
+        }
+        else
+        {
+            sentence.text(sentence.text().replace("[stimulus]", p.attributes.data.negativeWord));
+            return p.attributes.data.negativeWord;
+        }
+    }
 
     /**
      * Divides up the content so that statements in the sequence are displayed one at a time, rather than all
@@ -90,9 +138,8 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
         if(API.getGlobal().state != STATE_RESET) return false;
         var sentence = $("div.sentence");
         break_up = sentence.text().split('.');
-        last_word = break_up[break_up.length - 1].split(' ');
-        last_word = last_word[last_word.length - 2] + ' ' + last_word[last_word.length - 1];
-        break_up[break_up.length - 1] = break_up[break_up.length - 1].replace(last_word, "");
+        last_word = getWord(trial);
+        break_up[break_up.length - 1] = break_up[break_up.length - 1].replace("[stimulus]", "");
         // Randomly select an extra letter to include as the missing letter, if an extra letter should be missing.
         if(Sequence.add_extra_missing_letter) {
             p = jQuery.grep(trial._stimulus_collection.models, function (e, i) {
@@ -105,7 +152,6 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
             if (pick == 0) {
                 index = last_word.indexOf(brackets[pick]);
                 letter = last_word[index - 1];
-                console.log("FIRST");
                 last_word = last_word.replace(letter + brackets[pick], brackets[pick] + " ][");
                 if (p.attributes.data.neutralKey) {
                     p.attributes.data.neutralKey = letter + p.attributes.data.neutralKey;
@@ -115,7 +161,6 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
                 }
             }
             else {
-                console.log("SECOND");
                 index = last_word.indexOf(brackets[pick]);
                 letter = last_word[index + 1];
                 last_word = last_word.replace(brackets[pick] + letter, "][ " + brackets[pick]);
@@ -127,11 +172,9 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
                 }
             }
         }
-
         break_up.push(last_word);
         for (i = 0; i < break_up.length; i++) {
             if (i == break_up.length - 1) {
-                break_up[i][0].innerText = '';
                 break_up[i] = $("<p class='incomplete'>" + break_up[i] + '.</p>')
             }
             else if (i == break_up.length - 2) {
@@ -144,7 +187,6 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
         }
         sentence.html(break_up);
         break_up[0].visible();
-
         return true;
     }
 
@@ -158,7 +200,6 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
         var p = jQuery.grep(trial._stimulus_collection.models, function (e, i) {
             return e.attributes.handle == "paragraph"
         })[0];
-
         if (trial.data.neutral) {
             var letter = (p.attributes.data.neutralKey);
         } else if (trial.data.positive) {
@@ -174,10 +215,17 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
      * checking against the correct positive, negative, or neutral condition.
      */
     function correct_answer(trial, inputData) {
-        if (inputData.handle != 'y' && inputData.handle != 'n') return false;
         var q = jQuery.grep(trial._stimulus_collection.models, function (e, i) {
-            return e.attributes.handle == "question"
+            return e.attributes.handle == Sequence.quest;
         })[0];
+        if (Sequence.quest == 'mc1' || Sequence.quest == 'mc2')
+        {
+            if (inputData.handle != 'a' && inputData.handle != 'b') return false;
+        }
+        else
+        {
+            if (inputData.handle != 'y' && inputData.handle != 'n') return false;
+        }
         if(trial.data.neutral) {
             console.log("Correct answer to neutral.");
             return(q.attributes.data.neutralAnswer == inputData.handle);
@@ -194,12 +242,17 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
      * taking the condition of positive, neutral, or negative into account.
      */
     function incorrect_answer(trial, inputData) {
-        if (inputData.handle != 'y' && inputData.handle != 'n') return false;
-        console.log("The input data is:");
-        console.log(inputData);
         var q = jQuery.grep(trial._stimulus_collection.models, function (e, i) {
-            return e.attributes.handle == "question"
+            return e.attributes.handle == Sequence.quest;
         })[0];
+        if (Sequence.quest == 'mc1' || Sequence.quest == 'mc2')
+        {
+            if (inputData.handle != 'a' && inputData.handle != 'b') return false;
+        }
+        else
+        {
+            if (inputData.handle != 'y' && inputData.handle != 'n') return false;
+        }
         if(trial.data.neutral) {
             console.log("Incorrect answer to neutral.");
             if (! already_wrong_c)
@@ -343,6 +396,14 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
                 location: {bottom: 1}
             }
         ],
+        ab: [
+            {
+                handle: 'ab',
+                media: {html: "<div class='stim'>Please Type <b>A</b> &nbsp;  &nbsp;  &nbsp; <b>B</b></div>"},
+                css: {color: '#333', fontSize: '.8em', position: 'absolute'},
+                location: {bottom: 1}
+            }
+        ],
         stall: [
             {
                 handle: 'stall',
@@ -422,6 +483,7 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
                 conditions: [{type: 'begin'},
                             {type: 'function', value: function (trial, inputData) {
                                 handleNegation(trial);
+                                chooseWords(trial);
                                 return(splitSentences(trial));
                             }}
                             ],
@@ -577,7 +639,7 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
                     // Remove all keys but 'y' and 'n'
                     {
                         type: 'removeInput',
-                        handle: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'v', 'w', 'x', 'z']
+                        handle: ['c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'v', 'w', 'x', 'z']
                     },
                     {type: 'setGlobalAttr', setter: {state: STATE_PAUSE}}, // sentence completed, pause.
                     {type: 'setInput', input: {handle: 'askQuestion', on: 'timeout', duration: 500}}
@@ -586,7 +648,7 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
             // After the statement is correctly completed, hide it, and show the question.
             {
                 // Trigger when input handle is "end".
-                conditions: [{type:'inputEquals',value:'askQuestion'}],
+                conditions: [{type:'inputEquals',value:'askQuestion'}, {type:'globalEquals', property: 'quest', value:'yn'}],
                 actions: [
                     {type: 'setGlobalAttr', setter: {state: STATE_ASK_QUESTION}}, // sentence completed, show question.
                     {type:'custom',fn:function(options,eventData){
@@ -594,6 +656,34 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
                     }},
                     {type:'showStim',handle : 'question'},
                     {type:'showStim',handle:'yesno'},
+                    {type:'setTrialAttr',setter:{correctOnQuestion:"true"}},  // set to true - will get set to false later if incorrectly answered.
+                ]
+            },
+            // After the statement is correctly completed, hide it, and show the question.
+            {
+                // Trigger when input handle is "end".
+                conditions: [{type:'inputEquals',value:'askQuestion'}, {type:'globalEquals', property: 'quest', value:'mc1'}],
+                actions: [
+                    {type: 'setGlobalAttr', setter: {state: STATE_ASK_QUESTION}}, // sentence completed, show question.
+                    {type:'custom',fn:function(options,eventData){
+                        $("div.sentence").empty();
+                    }},
+                    {type:'showStim',handle : 'mc1'},
+                    {type:'showStim',handle:'ab'},
+                    {type:'setTrialAttr',setter:{correctOnQuestion:"true"}},  // set to true - will get set to false later if incorrectly answered.
+                ]
+            },
+            // After the statement is correctly completed, hide it, and show the question.
+            {
+                // Trigger when input handle is "end".
+                conditions: [{type:'inputEquals',value:'askQuestion'}, {type:'globalEquals', property: 'quest', value:'mc2'}],
+                actions: [
+                    {type: 'setGlobalAttr', setter: {state: STATE_ASK_QUESTION}}, // sentence completed, show question.
+                    {type:'custom',fn:function(options,eventData){
+                        $("div.sentence").empty();
+                    }},
+                    {type:'showStim',handle : 'mc2'},
+                    {type:'showStim',handle:'ab'},
                     {type:'setTrialAttr',setter:{correctOnQuestion:"true"}},  // set to true - will get set to false later if incorrectly answered.
                 ]
             },
@@ -609,6 +699,7 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
                 actions: [
                     {type: 'hideStim', handle: 'question'},
                     {type: 'hideStim', handle: 'yesno'},
+                    {type: 'hideStim', handle: 'ab'},
                     {type: 'hideStim', handle: 'counter'},
                     {type: 'showStim', handle: 'greatjob'},
                     {type: 'trigger', handle: 'answered', duration: 1000}
@@ -634,6 +725,7 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
                     {type: 'removeInput', handle: 'y'},
                     {type: 'removeInput', handle: 'n'},
                     {type: 'hideStim', handle: 'yesno'},
+                    {type: 'hideStim', handle: 'ab'},
                     {type: 'showStim', handle: 'error'},
                     {type: 'showStim', handle: 'stall'},
                     {type: 'setInput', input: {handle: 'delay', on: 'timeout', duration: 5000}},
@@ -663,7 +755,7 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
                         increase_count();
                     }
                     },
-                    {type: 'removeInput', handle: ['y', 'n']},
+                    {type: 'removeInput', handle: ['y', 'n', 'a', 'b']},
                     {
                         type: 'setTrialAttr', setter: function (trialData, eventData) {
                           console.log("We have reached answered.");
