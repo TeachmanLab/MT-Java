@@ -1,7 +1,29 @@
 package org.mindtrails.controller;
 
+import org.mindtrails.domain.Participant;
+import org.mindtrails.service.ParticipantService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ModelAttribute;
+
+import java.security.Principal;
+
 /**
- * Created by dan on 8/17/16.
+ * Adds model attributes to all views for common parameters.
  */
 public class BaseController {
+
+    @Autowired
+    private ParticipantService participantService;
+
+    @ModelAttribute("participant")
+    public Participant getParticipant(Principal principal) {
+        return participantService.get(principal);
+    }
+
+    @ModelAttribute("visiting")
+    public boolean visiting(Principal principal) {
+        return participantService.get(principal) == null;
+    }
+
+
 }

@@ -47,6 +47,7 @@ public abstract class ParticipantServiceImpl implements ParticipantService {
 
     @Override
     public Participant get(Principal p) {
+        if (p == null) return null;
         return participantRepository.findByEmail(p.getName());
     }
 
