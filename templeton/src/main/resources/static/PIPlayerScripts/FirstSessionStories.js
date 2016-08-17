@@ -1,7 +1,7 @@
 define([], function () {
     return ({
         display_length: 9,
-        add_extra_missing_letter: false,
+        add_extra_missing_letter: true,
         frag: 'first',
         quest: 'mc1',
         sequence: [

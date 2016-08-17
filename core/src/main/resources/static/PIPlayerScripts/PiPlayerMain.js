@@ -85,7 +85,10 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
         sentence.text(sentence.text().replace("[negation]", negate));
     }
 
-    function chooseWords(trial)
+    /**
+     * Replaces the string arrays in with the first or second element of the array.
+     * @param trial
+     */    function chooseWords(trial)
     {
         if(API.getGlobal().state != STATE_RESET) return false;
 
@@ -108,6 +111,10 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
         }
     }
 
+    /**
+     * Replaces the string [stimulus] in the statement with chosen element of the array.
+     * @param trial
+     */
     function getWord(trial)
     {
         if(API.getGlobal().state != STATE_RESET) return false;
@@ -213,6 +220,7 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
 
     /** Returns true if the input data matches the correct answer to question,
      * checking against the correct positive, negative, or neutral condition.
+     * Also now first checks to see which type of question you are on.
      */
     function correct_answer(trial, inputData) {
         var q = jQuery.grep(trial._stimulus_collection.models, function (e, i) {
@@ -240,6 +248,7 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
 
     /** Counterpart to the correct_answer, checks to see if the wrong input is provided
      * taking the condition of positive, neutral, or negative into account.
+     * Also now first checks to see which type of question you are on.
      */
     function incorrect_answer(trial, inputData) {
         var q = jQuery.grep(trial._stimulus_collection.models, function (e, i) {
@@ -659,7 +668,7 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
                     {type:'setTrialAttr',setter:{correctOnQuestion:"true"}},  // set to true - will get set to false later if incorrectly answered.
                 ]
             },
-            // After the statement is correctly completed, hide it, and show the question.
+            // After the statement is correctly completed, hide it, and show the mc1.
             {
                 // Trigger when input handle is "end".
                 conditions: [{type:'inputEquals',value:'askQuestion'}, {type:'globalEquals', property: 'quest', value:'mc1'}],
@@ -673,7 +682,7 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
                     {type:'setTrialAttr',setter:{correctOnQuestion:"true"}},  // set to true - will get set to false later if incorrectly answered.
                 ]
             },
-            // After the statement is correctly completed, hide it, and show the question.
+            // After the statement is correctly completed, hide it, and show the mc2.
             {
                 // Trigger when input handle is "end".
                 conditions: [{type:'inputEquals',value:'askQuestion'}, {type:'globalEquals', property: 'quest', value:'mc2'}],
