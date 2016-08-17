@@ -39,6 +39,14 @@
         ga('create', 'UA-77944674-2', 'auto');
         ga('send', 'pageview');
     </script>
+
+    <!-- Themes -->
+    <script type="text/javascript" th:if="${participant}" th:inline="javascript">
+        $(document).ready(function() {
+            $("body").addClass("user-theme-" + /*[[${participant.theme}]]*/)
+        });
+    </script>
+
 </head>
 
 <body>
