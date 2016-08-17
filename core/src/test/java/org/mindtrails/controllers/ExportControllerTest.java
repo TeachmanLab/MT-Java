@@ -1,40 +1,34 @@
-package edu.virginia.psyc.r34.controller;
+package org.mindtrails.controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.virginia.psyc.r34.Application;
-import edu.virginia.psyc.r34.MockClasses.*;
-import edu.virginia.psyc.r34.domain.R34Study;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
+import org.mindtrails.Application;
+import org.mindtrails.MockClasses.TestQuestionnaire;
+import org.mindtrails.MockClasses.TestQuestionnaireRepository;
+import org.mindtrails.MockClasses.TestUndeleteable;
+import org.mindtrails.MockClasses.TestUndeleteableRepository;
+import org.mindtrails.controller.ExportController;
 import org.mindtrails.controller.QuestionController;
 import org.mindtrails.domain.DoNotDelete;
-import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.RestExceptions.NotDeleteableException;
 import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 import org.mindtrails.domain.questionnaire.SecureQuestionnaireData;
-import org.mindtrails.persistence.ParticipantRepository;
-import org.mindtrails.service.ParticipantService;
-import org.mockito.MockitoAnnotations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
-import org.springframework.security.web.FilterChainProxy;
-import org.springframework.security.web.method.annotation.AuthenticationPrincipalArgumentResolver;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Date;
 import java.util.Iterator;
@@ -68,8 +62,6 @@ public class ExportControllerTest extends BaseControllerTest {
     private ExportController exportController;
     @Autowired
     private QuestionController questionController;
-    @Autowired
-    private TestQuestionnaireRepository repository;
     @Autowired
     private TestQuestionnaireRepository repo;
     @Autowired
@@ -167,7 +159,7 @@ public class ExportControllerTest extends BaseControllerTest {
     @Test
     public void testThatPostedDataIsExportedAsJSon() throws Exception {
         testPostDataForm();
-        repository.flush();
+        repo.flush();
         MvcResult result = mockMvc.perform(get("/api/export/TestQuestionnaire")
                 .with(SecurityMockMvcRequestPostProcessors.user(admin)))
                 .andExpect((status().is2xxSuccessful()))
@@ -182,7 +174,7 @@ public class ExportControllerTest extends BaseControllerTest {
     @Test
     public void testMultiValueElementsCorrectlyPassedThrough() throws Exception {
         testPostDataForm();
-        repository.flush();
+        repo.flush();
         MvcResult result = mockMvc.perform(get("/api/export/TestQuestionnaire")
                 .with(SecurityMockMvcRequestPostProcessors.user(admin)))
                 .andExpect((status().is2xxSuccessful()))

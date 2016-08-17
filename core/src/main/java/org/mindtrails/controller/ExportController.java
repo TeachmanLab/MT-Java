@@ -1,4 +1,4 @@
-package edu.virginia.psyc.r34.controller;
+package org.mindtrails.controller;
 
 import org.mindtrails.domain.DoNotDelete;
 import org.mindtrails.domain.RestExceptions.NoSuchIdException;
