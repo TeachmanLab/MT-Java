@@ -40,7 +40,7 @@ public class ParticipantUpdate {
         p.setFullName(this.getFullName());
         p.setEmail(this.getEmail());
         p.setEmailOptout(this.isEmailOptout());
-        p.setTheme(this.getTheme());
+        if(this.theme != null) p.setTheme(this.getTheme());
         return p;
     }
 }

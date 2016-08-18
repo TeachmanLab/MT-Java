@@ -3,6 +3,7 @@ package edu.virginia.psyc.r34.controller;
 import edu.virginia.psyc.r34.domain.Dass21FromPi;
 import edu.virginia.psyc.r34.persistence.Questionnaire.DASS21_AS;
 import edu.virginia.psyc.r34.persistence.Questionnaire.DASS21_ASRepository;
+import org.mindtrails.controller.BaseController;
 import org.mindtrails.domain.Participant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +27,7 @@ import java.util.Date;
  * To change this template use File | Settings | File Templates.
  */
 @Controller
-public class EligibleController {
+public class EligibleController extends BaseController {
 
     private static final Logger LOG = LoggerFactory.getLogger(EligibleController.class);
 
@@ -71,8 +72,6 @@ public class EligibleController {
     public String eligable(@ModelAttribute Dass21FromPi data,
                                    ModelMap model,
                                    HttpSession session) throws Exception {
-
-        model.addAttribute("visiting", true);
         DASS21_AS dass21 = data.asDass21Object();
         return checkEligibility(dass21,model,session);
     }

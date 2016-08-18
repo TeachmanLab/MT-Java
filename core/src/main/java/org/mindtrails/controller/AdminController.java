@@ -23,10 +23,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.context.Context;
 
 import javax.servlet.http.HttpSession;
@@ -42,7 +39,7 @@ import java.security.Principal;
  */
 @Controller
 @RequestMapping("/admin")
-public class AdminController {
+public class AdminController extends BaseController {
 
     private static final Logger LOG = LoggerFactory.getLogger(AdminController.class);
 
@@ -66,6 +63,11 @@ public class AdminController {
     @Autowired
     private ParticipantRepository participantRepository;
 
+    @Override
+    @ModelAttribute("visiting")
+    public boolean visiting(Principal principal) {
+        return true;
+    }
 
     @RequestMapping(method = RequestMethod.GET)
     public String listParticipants(ModelMap model,Principal principal,
@@ -82,11 +84,9 @@ public class AdminController {
         } else {
             daoList = participantRepository.search(search, pageRequest);
         }
-
-        model.addAttribute("visiting", true);
-        model.addAttribute("participants", daoList);
         model.addAttribute("search", search);
         model.addAttribute("paging", daoList);
+        model.addAttribute("participants", daoList);
         return "admin/participants";
     }
 
@@ -97,11 +97,8 @@ public class AdminController {
         ParticipantUpdateAdmin form;
         p    = participantRepository.findOne(id);
         form = new ParticipantUpdateAdmin(p);
-
-        model.addAttribute("hideAccountBar", true);
         model.addAttribute("participantUpdateAdmin", form);
-        model.addAttribute("participant", p);
-
+        model.addAttribute("participantEdit", p);
         return "admin/participantUpdate";
     }
 
@@ -113,9 +110,8 @@ public class AdminController {
         Participant p;
         p = participantRepository.findOne(id);
         if(bindingResult.hasErrors()) {
-            model.addAttribute("hideAccountBar", true);
             model.addAttribute("participantAdminForm", form);
-            model.addAttribute("participant", p);
+            model.addAttribute("participantEdit", p);
             return "admin/participantUpdate";
         } else {
             form.updateParticipant(p);
@@ -129,7 +125,6 @@ public class AdminController {
 
         ParticipantCreate form = new ParticipantCreate();
 
-        model.addAttribute("visiting", true);
         model.addAttribute("participantCreateAdmin", form);
         return "admin/participantCreate";
     }
@@ -140,7 +135,6 @@ public class AdminController {
                                     BindingResult bindingResult,
                                     HttpSession session) {
         Participant participant;
-        model.addAttribute("visiting", true);
 
         if(!participantCreateAdmin.validParticipant(bindingResult, participantService)) {
             model.addAttribute("participantCreateAdmin", participantCreateAdmin);
@@ -158,8 +152,6 @@ public class AdminController {
     @RequestMapping(value="/listEmails", method=RequestMethod.GET)
     public String listEmails(ModelMap model, Principal principal) {
         Participant p = participantService.get(principal);
-        model.addAttribute("visiting", true);
-        model.addAttribute("participant", p);
         model.addAttribute("emails", emailService.emailTypes());
         return "admin/listEmails";
     }
@@ -190,9 +182,7 @@ public class AdminController {
     @RequestMapping(value="/listSessions", method=RequestMethod.GET)
     public String listSessions(ModelMap model, Principal principal) {
         Participant p = participantService.get(principal);
-        model.addAttribute("participant", p);
         model.addAttribute("sessions", p.getStudy().getSessions());
-        model.addAttribute("visiting", true);
         return "admin/listSessions";
     }
 
@@ -210,8 +200,6 @@ public class AdminController {
         Participant p = participantService.get(principal);
         Reward r = tangoService.createGiftCard(p, "AdminAwarded",100);
         this.emailService.sendGiftCard(p, r, 100);
-        model.addAttribute("participant", p);
-        model.addAttribute("visiting", true);
         return "/admin/participant_form";
     }
 
@@ -219,7 +207,6 @@ public class AdminController {
     public String showRewardInfo(ModelMap model, Principal principal, @PathVariable ("orderId") String orderId) {
         Order order = tangoService.getOrderInfo(orderId);
         model.addAttribute("order",order);
-        model.addAttribute("visiting", true);
         return "admin/rewardInfo";
     }
 

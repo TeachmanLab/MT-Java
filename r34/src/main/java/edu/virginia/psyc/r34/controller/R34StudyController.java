@@ -2,6 +2,7 @@ package edu.virginia.psyc.r34.controller;
 
 import edu.virginia.psyc.r34.domain.R34Study;
 import edu.virginia.psyc.r34.domain.forms.R34StudyForm;
+import org.mindtrails.controller.BaseController;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.persistence.ParticipantRepository;
 import org.mindtrails.service.ParticipantService;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * Created by dan on 7/12/16.
  */
 @Controller
-public class R34StudyController {
+public class R34StudyController extends BaseController {
 
     @Autowired
     ParticipantService participantService;
@@ -33,7 +34,6 @@ public class R34StudyController {
         Participant p = participantRepository.findOne(id);
         R34StudyForm form = new R34StudyForm((R34Study)p.getStudy());
         model.addAttribute("r34StudyForm", form);
-        model.addAttribute("participant", p);
         return "admin/studyUpdate";
     }
 

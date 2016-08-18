@@ -18,7 +18,7 @@ import java.security.Principal;
  */
 @Controller
 @RequestMapping("/training")
-public class TrainingController {
+public class TrainingController extends BaseController {
 
     @Autowired
     ParticipantService participantService;
@@ -32,7 +32,6 @@ public class TrainingController {
 
         model.addAttribute("script", scriptName);
         model.addAttribute("sessionName", p.getStudy().getCurrentSession().getName());
-        model.addAttribute("participantId", p.getId());
         return "training/template";
     }
 

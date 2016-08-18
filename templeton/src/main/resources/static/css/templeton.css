@@ -1,7 +1,5 @@
 @charset "UTF-8";
 
-body {font-family: 'Source Sans Pro', sans-serif; font-size:20px; box-sizing:border-box; background-color: #f6f5ea}
-.clear-both {clear:both;}
 
 #header {
     background: #192b6c url(/images/bg-header.png) top left repeat-x;
@@ -11,10 +9,6 @@ body {font-family: 'Source Sans Pro', sans-serif; font-size:20px; box-sizing:bor
     background:url(/images/header-logo.png) top left no-repeat;
     width:365px; height:135px; float:left;
     margin-left:-35px; margin-right: 150px;}
-
-#nav {font-size:0.6em; list-style:none; padding:15px 0 15px 20px; text-align: right; }
-#nav li {float:left; padding:0px 10px;}
-#nav a {color:#5ECCDE; text-decoration:none; font-weight: 700}
 
 .account-bar {
     background: #21336B;
@@ -87,26 +81,6 @@ div.oneToSeven {
     display: none;
     font-size: .9em;
     margin-left: 40px;
-}
-
-button {
-    box-shadow: 0 1px 3px #666;
-    border-top: 1px solid #3399FF;
-    border-left: 1px solid #5FBCEA;
-    border-bottom: 1px solid #0084AE;
-    border-right: 1px solid #0084AE;
-    color: #ffffff;
-    background: #00ACE4;
-    padding: 10px 20px 10px 20px;
-    text-decoration: none;
-    font-size: 20px;
-    margin: 10px 0px;
-    font-weight: 700;
-    border-radius: 5px;
-    font-family: inherit;
-    line-height: inherit;
-    cursor: pointer;
-
 }
 
 #slider {

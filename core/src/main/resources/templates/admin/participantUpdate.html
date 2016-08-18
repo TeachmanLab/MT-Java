@@ -20,7 +20,7 @@
                 <h1 th:unless="${participantUpdateAdmin.admin}">Edit Participant</h1>
                 <h1 th:if="${participantUpdateAdmin.admin}">Edit Administrator</h1>
 
-                <form action="#" th:action="@{'/admin/participant/'+${participant.id}}"
+                <form action="#" th:action="@{'/admin/participant/'+${participantEdit.id}}"
                       th:object="${participantUpdateAdmin}"
                       method="post">
 
@@ -89,7 +89,7 @@
                             <th width="120px">Type</th>
                             <th>Date</th>
                         </tr>
-                        <tr th:each="log : ${participant.emailLogs}">
+                        <tr th:each="log : ${participantEdit.emailLogs}">
                             <td style="width:50px;" th:text="${log.emailType}"/>
                             <td th:text="${log.dateSent}"/>
                         </tr>
@@ -103,7 +103,7 @@
                             <th>Order ID</th>
                             <th>Date</th>
                         </tr>
-                        <tr th:each="log : ${participant.giftLogs}">
+                        <tr th:each="log : ${participantEdit.giftLogs}">
                             <td style="width:100px;"><a th:href="@{'/admin/rewardInfo/'+${log.orderId}}"
                                                         th:text="${log.orderId}"/></td>
                             <td th:text="${log.dateSent}"/>
@@ -113,7 +113,7 @@
             </div>
             <br/><br/>
             <h4>Task Completion History:</h4>
-            <div class="logs" th:each="session : ${participant.study.sessions}">
+            <div class="logs" th:each="session : ${participantEdit.study.sessions}">
                 <b th:text="${session.displayName}"></b>
                 <table>
                     <tr>
