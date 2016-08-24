@@ -2,6 +2,8 @@ package edu.virginia.psyc.templeton.service;
 
 import edu.virginia.psyc.templeton.domain.TempletonParticipant;
 import edu.virginia.psyc.templeton.domain.TempletonStudy;
+import edu.virginia.psyc.templeton.persistence.ExpectancyBias;
+import edu.virginia.psyc.templeton.persistence.ExpectancyBiasRepository;
 import edu.virginia.psyc.templeton.persistence.TempletonParticipantRepository;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.service.ParticipantService;
@@ -27,6 +29,10 @@ public class TempletonParticipantService implements ParticipantService {
     @Autowired
     TempletonParticipantRepository repository;
 
+    @Autowired
+    ExpectancyBiasRepository biasRepository;
+
+
     List<TempletonParticipant.CONDITION> CONDITION_VALUES =
             Collections.unmodifiableList(Arrays.asList(TempletonParticipant.CONDITION.values()));
     List<TempletonParticipant.PRIME> PRIME_VALUES =
@@ -44,6 +50,7 @@ public class TempletonParticipantService implements ParticipantService {
 
     @Override
     public Participant get(Principal p) {
+        if (p == null) return null;
         return repository.findByEmail(p.getName());
     }
 
@@ -52,9 +59,28 @@ public class TempletonParticipantService implements ParticipantService {
         return repository.findByEmail(email);
     }
 
+
+    @Override
+    public boolean isEligible(HttpSession session) {
+        List<ExpectancyBias> forms = biasRepository.findBySessionId(session.getId());
+        for(ExpectancyBias e: forms) {
+            if(e.eligible()) return true;
+        }
+        return false;
+    }
+
     @Override
     public void saveNew(Participant p, HttpSession session) {
         save(p);
+
+        // Now that p is saved, connect any Expectancy Bias eligibility data back to the
+        // session.
+        List<ExpectancyBias> forms = biasRepository.findBySessionId(session.getId());
+        for(ExpectancyBias e: forms) {
+            e.setParticipant(p);
+            e.setSession("ELIGIBLE");
+            biasRepository.save(e);
+        }
     }
 
     @Override

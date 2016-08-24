@@ -1,5 +1,12 @@
 package edu.virginia.psyc.templeton.persistence;
 
+import org.mindtrails.domain.Participant;
 import org.mindtrails.persistence.QuestionnaireRepository;
 
-public interface ExpectancyBiasRepository extends QuestionnaireRepository<ExpectancyBias> {}
+import java.util.List;
+
+
+public interface ExpectancyBiasRepository extends QuestionnaireRepository<ExpectancyBias> {
+    List<ExpectancyBias> findByParticipant(Participant p);
+    List<ExpectancyBias> findBySessionId(String sessionId);
+}

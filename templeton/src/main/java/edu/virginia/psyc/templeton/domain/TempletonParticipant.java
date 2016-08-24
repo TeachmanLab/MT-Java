@@ -6,8 +6,8 @@ import org.mindtrails.domain.Participant;
 import javax.persistence.Entity;
 
 /**
- * A customized Participant for the CBM Study.  Tracks CBM Condition and Prime settings,
- * and flags users that see an increase of 30% in their Oasis scores.
+ * A customized Participant for the Templeton Study, very simple
+ * right now - just adding some basic conditions and primes.
  */
 @Entity
 @Data
