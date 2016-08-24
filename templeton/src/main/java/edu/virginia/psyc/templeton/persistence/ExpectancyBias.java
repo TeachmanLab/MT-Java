@@ -25,7 +25,7 @@ import java.lang.reflect.Field;
  negative interpretation bias, and a score of 0 indicates not bias.
  Pre-selection Expectancy Bias Cut-off: 1.1111
  */
-public class ExpectancyBias extends LinkedQuestionnaireData {
+public class ExpectancyBias extends LinkedQuestionnaireData implements Comparable<ExpectancyBias>{
 
     public static int NO_ANSWER = 555;
     public static double MAX_ELIGIBLE_SCORE = 1.1111;
@@ -132,6 +132,11 @@ public class ExpectancyBias extends LinkedQuestionnaireData {
      */
     public boolean atRisk(ExpectancyBias original) {
         return (score() / original.score()) > 1.5;
+    }
+
+    @Override
+    public int compareTo(ExpectancyBias o) {
+        return this.date.compareTo(o.getDate());
     }
 }
 

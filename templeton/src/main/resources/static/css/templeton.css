@@ -145,5 +145,11 @@ div.oneToSeven {
     left: 0px;
 }
 
-
-
+/* Final graph displayed to the user  */
+#graph {
+    width: 600px;
+    height: 400px;
+    font-size: 14px;
+    line-height: 1.2em;
+    margin: auto;
+}

@@ -155,6 +155,16 @@ public abstract class BaseStudy implements Study {
         return sessions.get(0);
     }
 
+    @Override
+    public Session getSession(String sessionName) {
+        for(Session s  : getSessions()) {
+            if (s.getName().equals(sessionName)) {
+                return s;
+            }
+        }
+        return null;
+    }
+
     /**
      * Returns true if the session is completed, false otherwise.
      * @param session

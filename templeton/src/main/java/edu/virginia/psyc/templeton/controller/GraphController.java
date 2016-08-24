@@ -1,11 +1,13 @@
-package edu.virginia.psyc.r34.controller;
+package edu.virginia.psyc.templeton.controller;
 
-import edu.virginia.psyc.r34.domain.R34Study;
-import edu.virginia.psyc.r34.persistence.Questionnaire.OA;
-import edu.virginia.psyc.r34.persistence.Questionnaire.OARepository;
+import edu.virginia.psyc.templeton.domain.TempletonParticipant;
+import edu.virginia.psyc.templeton.domain.TempletonStudy;
+import edu.virginia.psyc.templeton.persistence.ExpectancyBias;
+import edu.virginia.psyc.templeton.persistence.ExpectancyBiasRepository;
+import edu.virginia.psyc.templeton.persistence.TempletonParticipantRepository;
 import org.apache.commons.math3.stat.regression.SimpleRegression;
 import org.mindtrails.controller.BaseController;
-import org.mindtrails.domain.Participant;
+import org.mindtrails.domain.Session;
 import org.mindtrails.service.ParticipantService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,11 +22,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: dan
- * Date: 3/26/14
- * Time: 10:04 PM
- * To change this template use File | Settings | File Templates.
+ * Provides a graph of the the Expectancy Bias results from a participant over time.
  */
 @Controller
 @RequestMapping("/graph")
@@ -32,54 +30,58 @@ public class GraphController extends BaseController {
 
     private static final Logger LOG = LoggerFactory.getLogger(GraphController.class);
 
-    @Autowired private OARepository oaRepository;
+    @Autowired private ExpectancyBiasRepository biasRepository;
+    @Autowired private TempletonParticipantRepository repository;
     @Autowired private ParticipantService participantService;
 
     @RequestMapping
     public String graph(ModelMap model, Principal principal) {
 
-        Participant p = participantService.get(principal);
-        List<OA> oaList    = oaRepository.findByParticipant(p);
-        List<List<Object>> points = new ArrayList();
+        TempletonParticipant p = repository.findByEmail(principal.getName());
+        List<ExpectancyBias> list    = biasRepository.findByParticipant(p);
+        List<List<Object>> points    = new ArrayList();
         List<List<Object>> regressionPoints = new ArrayList();
-        R34Study study = (R34Study)p.getStudy();
+        TempletonStudy study = (TempletonStudy)p.getStudy();
 
-        Collections.sort(oaList);
+        Collections.sort(list);
         SimpleRegression regression;
 
-        OA original = oaList.get(0);
-        OA last     = oaList.get(oaList.size() - 1);
+        ExpectancyBias original = list.get(0);
+        ExpectancyBias last     = list.get(list.size() - 1);
 
         regression = new SimpleRegression();
         double counter = 0;
-        for(OA oa : oaList) {
+        for(ExpectancyBias eb : list) {
                 // don't include the post assessment when calculating the regression.
-                 if (!oa.getSession().startsWith("POST")) {
-                    regression.addData(counter, oa.score());
+                 if (!eb.getSession().startsWith("POST")) {
+                    regression.addData(counter, eb.score());
                     counter++;
                 }
             }
 
         // Create plot points
         List<Object> point;
-        for(OA oa : oaList) {
+        for(ExpectancyBias eb : list) {
             point = new ArrayList<>();
-            point.add(study.getDisplayName(oa.getSession()));
-            point.add(oa.score());
+            Session session = study.getSession(eb.getSession());
+
+            point.add(session.getDisplayName());
+            point.add(eb.score());
             points.add(point);
-            if(oa.equals(original)) {
+
+            if(eb.equals(original)) {
                 ArrayList<Object> rPoint = new ArrayList<>(point);
                 rPoint.set(1, regression.getIntercept());
                 regressionPoints.add(rPoint);
             }
-            if(oa.equals(last)) {
+            if(eb.equals(last)) {
                 ArrayList<Object> rPoint = new ArrayList<>(point);
-                rPoint.set(1, regression.predict(oaList.size()));
+                rPoint.set(1, regression.predict(list.size()));
                 regressionPoints.add(rPoint);
             }
         }
 
-        int improvement = new Double((regression.getIntercept() - regression.predict(oaList.size()))/regression.getIntercept() * 100).intValue();
+        int improvement = new Double((regression.getIntercept() - regression.predict(list.size()))/regression.getIntercept() * 100).intValue();
         String status = "";
         if(Math.abs(improvement) < 15) status = "same";
         else if (improvement > 30) status = "lot";
@@ -90,9 +92,12 @@ public class GraphController extends BaseController {
         model.addAttribute("regressionPoints", regressionPoints);
         model.addAttribute("improvement", improvement);
         model.addAttribute("status", status);
+        model.addAttribute("participant", p);
 
         return "graph";
+
     }
+
 
 }
 
