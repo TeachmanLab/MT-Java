@@ -44,7 +44,7 @@ public class TempletonParticipantService extends ParticipantServiceImpl implemen
         p.setStudy(study);
 
         study.setPrime(PRIME_VALUES.get(RANDOM.nextInt(PRIME_VALUES.size())));
-        study.setCondition(CONDITION_VALUES.get(RANDOM.nextInt(CONDITION_VALUES.size())));
+        study.setConditioning(CONDITION_VALUES.get(RANDOM.nextInt(CONDITION_VALUES.size())));
 
         return p;
     }

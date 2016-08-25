@@ -24,7 +24,7 @@ public class TempletonStudy extends BaseStudy {
     public enum CONDITION {POSITIVE, NEUTRAL}
     public enum PRIME {NEUTRAL, ANXIETY}
 
-    private CONDITION      condition;
+    private CONDITION conditioning;
     private PRIME          prime;
 
 
