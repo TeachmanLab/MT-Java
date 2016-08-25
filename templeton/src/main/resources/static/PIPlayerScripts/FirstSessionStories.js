@@ -50,7 +50,7 @@ define([], function () {
                         }
                     },
                     {
-                        "handle": "question",
+                        "handle": "y/nQuestion",
                         data: {
 
                             positiveAnswer: "y",
@@ -61,7 +61,9 @@ define([], function () {
                         }
                     },
                     {
-                        "handle": "mc1",
+
+              "handle": "mc1",
+
                         data: {
 
                             positiveAnswer: "a",
@@ -71,9 +73,12 @@ define([], function () {
                             "inlineTemplate": "<div> <p> Your performance will likely: </p> " +
                             "<p> a) help your team win </p>" +
                             "<p> b) drag your team down </p> </div>"
-                        }
-                    },
-                    {
+
+
+                        },
+
+                },
+    {
                         "handle": "mc2",
                         data: {
 
@@ -87,6 +92,7 @@ define([], function () {
                         }
                     },
                     {"inherit": {"set": "ab"}},
+
                     {"inherit": {"set": "yesno"}},
                     {"inherit": {"set": "stall"}}, {"inherit": {"set": "greatjob"}},
                     {"inherit": {"set": "press_space"}},
