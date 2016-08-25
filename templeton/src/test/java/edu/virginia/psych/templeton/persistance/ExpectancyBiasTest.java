@@ -80,14 +80,16 @@ public class ExpectancyBiasTest {
         bias.setEndUpAlone(1);
         assertTrue("Slight positive bias not there.", bias.score() > 0);
 
-        // back to zero, when possible and negative match up
+        // back to zero, when positive and negative match up
         bias.setSaving(1);
         assertEquals(0, bias.score(), 0.0001);  // Everything is at seven, so diff of averages is 0.
 
-        // Enough to be over the limit at 1.11111
-
+        // Having some low scores on a few negative answers should be
+        // enough to be over the limit at 1.11111 towards the positive.
+        bias.setSaving(7);
+        bias.setFallDown(1);
+        bias.setMakeFun(1);
         assertTrue(bias.score() > 1.1111);
-
 
     }
 

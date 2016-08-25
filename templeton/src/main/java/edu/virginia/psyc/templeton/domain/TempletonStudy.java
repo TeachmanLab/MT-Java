@@ -21,6 +21,12 @@ import java.util.List;
 public class TempletonStudy extends BaseStudy {
 
     // A Base Study has : currentSession, currentTaskIndex, lastSessionDate and receiveGiftCards
+    public enum CONDITION {POSITIVE, NEUTRAL}
+    public enum PRIME {NEUTRAL, ANXIETY}
+
+    private CONDITION      condition;
+    private PRIME          prime;
+
 
     @Override
     public String getName() {return "Templeton";}

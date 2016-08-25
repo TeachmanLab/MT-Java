@@ -63,13 +63,13 @@
             that is a good match for you.
         </p>
 
-        <p th:if="${participant.conditioning.name() == 'POSITIVE'}">When reviewing this graph, we'd like to let you
+        <p th:if="${participant.study.condition.name() == 'POSITIVE'}">When reviewing this graph, we'd like to let you
             know that you were in an active training group (rather than a control group, which we did not expect to
             be as effective). However, if you’re not happy with your progress and/or wish to seek further care for
             your anxiety difficulties, we strongly encourage you to review the Mental Health Resources page, which
             can help you find other independent (e.g., books, computer, or mobile app) or therapist-guided treatment
             options.</p>
-        <p th:unless="${participant.conditioning.name() == 'POSITIVE'}">
+        <p th:unless="${participant.study.condition.name() == 'POSITIVE'}">
             When reviewing this graph, we'd like to let you know that you were in a control group, and did not
             receive the training sessions that we expected would best improve your anxiety. So, if you’re not happy
             with your progress, you may now complete the training that we expect will be most helpful. We will

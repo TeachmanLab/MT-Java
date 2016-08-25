@@ -1,12 +1,11 @@
 package edu.virginia.psyc.templeton.controller;
 
-import edu.virginia.psyc.templeton.domain.TempletonParticipant;
 import edu.virginia.psyc.templeton.domain.TempletonStudy;
 import edu.virginia.psyc.templeton.persistence.ExpectancyBias;
 import edu.virginia.psyc.templeton.persistence.ExpectancyBiasRepository;
-import edu.virginia.psyc.templeton.persistence.TempletonParticipantRepository;
 import org.apache.commons.math3.stat.regression.SimpleRegression;
 import org.mindtrails.controller.BaseController;
+import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.Session;
 import org.mindtrails.service.ParticipantService;
 import org.slf4j.Logger;
@@ -31,13 +30,12 @@ public class GraphController extends BaseController {
     private static final Logger LOG = LoggerFactory.getLogger(GraphController.class);
 
     @Autowired private ExpectancyBiasRepository biasRepository;
-    @Autowired private TempletonParticipantRepository repository;
     @Autowired private ParticipantService participantService;
 
     @RequestMapping
     public String graph(ModelMap model, Principal principal) {
 
-        TempletonParticipant p = repository.findByEmail(principal.getName());
+        Participant p = participantService.findByEmail(principal.getName());
         List<ExpectancyBias> list    = biasRepository.findByParticipant(p);
         List<List<Object>> points    = new ArrayList();
         List<List<Object>> regressionPoints = new ArrayList();
