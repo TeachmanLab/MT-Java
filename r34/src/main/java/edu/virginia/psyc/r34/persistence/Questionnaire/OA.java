@@ -1,20 +1,16 @@
 package edu.virginia.psyc.r34.persistence.Questionnaire;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import edu.virginia.psyc.r34.domain.R34Study;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.mindtrails.domain.DoNotDelete;
 import org.mindtrails.domain.Participant;
-import org.mindtrails.domain.questionnaire.SecureQuestionnaireData;
+import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.util.Date;
 import java.util.HashMap;
@@ -32,14 +28,9 @@ import java.util.Map;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @DoNotDelete
-public class OA extends SecureQuestionnaireData implements Comparable<OA> {
+public class OA extends LinkedQuestionnaireData implements Comparable<OA> {
 
     private static final Logger LOG = LoggerFactory.getLogger(OA.class);
-
-    @ManyToOne
-    @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
-    @JsonIdentityReference(alwaysAsId=true) // otherwise first ref as POJO, others as id
-    protected Participant participant;
 
     public static int NO_ANSWER = 555;
     public static final int MAX_SCORE = 4;
