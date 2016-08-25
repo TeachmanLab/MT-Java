@@ -15,11 +15,13 @@ import org.mindtrails.domain.PasswordToken;
 import org.mindtrails.domain.Study;
 import org.mindtrails.domain.tango.Reward;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.subethamail.wiser.Wiser;
 import org.subethamail.wiser.WiserMessage;
+import org.thymeleaf.context.Context;
 
 import javax.mail.internet.MimeMessage;
 import java.util.Date;
@@ -37,6 +39,9 @@ import static org.junit.Assert.*;
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 public class EmailServiceImplTest {
+
+    @Value("${server.url}")
+    private String serverUrl;
 
     private Wiser wiser;
 
@@ -73,6 +78,33 @@ public class EmailServiceImplTest {
             assertTrue(msg.getContent().toString().contains("Something wicked this way comes"));
             assertEquals("'To' address did not match", "test@test.com",
                     msg.getRecipients(MimeMessage.RecipientType.TO)[0].toString());
+
+
+        }
+    }
+
+    @Test
+    public void send2DayUsesSiteUrl() throws Exception {
+
+        Email e = emailService.getEmailForType(EmailService.TYPE.day2.toString());
+        e.setTo("test@test.com");
+        Participant p = new Participant();
+        p.setEmail("test@test.com");
+        e.setParticipant(p);
+        e.setContext(new Context());
+        emailService.sendEmail(e);
+
+        // assert
+        assertEquals("No mail messages found", 1, wiser.getMessages().size());
+
+        if (wiser.getMessages().size() > 0) {
+            WiserMessage wMsg = wiser.getMessages().get(0);
+            MimeMessage msg = wMsg.getMimeMessage();
+            assertNotNull("message was null", msg);
+            assertEquals("'Subject' did not match", "Update from the MindTrails project team", msg.getSubject());
+            assertNotNull(serverUrl);
+            assertFalse(serverUrl.isEmpty());
+            assertTrue(msg.getContent().toString().contains(serverUrl));
         }
     }
 
