@@ -21,49 +21,117 @@
                 <form th:action="@{/questions/Affect}" method="POST">
 
 
-                    <p class="statement"> The following questions will ask you about different feelings and emotions.
+                    <p> The following questions will ask you about different feelings and emotions.
                         Read each item and then move the slider to indicate to what extent you feel each emotion <b>right
-                            now</b>, that is, <b>at the present</b> moment.</p>
+                            now </b>, that is, <b>at the present</b> moment.</p>
 
-                    <p class="statement"> Once you have selected an answer for all of the questions, please click
+                    <p> Once you have selected an answer for all of the questions, please click
                         'Continue'. </p>
 
                     <div class="section">
-                        <p class="question"> To what extent do you feel positive feelings right now, that is, at the
-                            present moment? </p>
-                        <input style="display:none" id="checkPosFeelings" name="checkPosFeelings" type="checkbox"
-                               value="1"/>
-                        <input style="display:none" id="PosFeelings" type="text" name="PosFeelings"
-                               required="required"/>
 
-                        <div id="slider">
-                            <label class="slider" style="left: -50px"> Not at all Positive <br/> -3 </label>
-                            <label class="slider" style="left: 200px"> Moderately Positive <br/> 0 </label>
-                            <label class="slider" style="left: 450px"> Totally Positive <br/> 3 </label>
-                            <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"
-                                 style="width: 51%;"></div>
-                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"
-                                  style="left:51%;"> </span>
+                        <div class="question"> To what extent do you feel positive feelings right now, that is, at the
+                            present moment? </div>
+                        <div class="rangeWrapper">
+                            <input  id ="slide2" type="range" name="PosFeelings" required="true" value="0" min="-3" max="3"/>
+                            <p id="slide_text2" class="rangeLabel"> Moderately Positive </p>
                         </div>
+
+                        <script> /*<![CDATA[*/
+                        $(document).ready(function(){
+
+                            $("input[type='range']").change(function() {
+                                slider = $(this);
+                                value = (slider.val() -1);
+
+                                $('p.rangeLabel').removeClass('selected');
+                                if(value <= -1) $("#slide_text2").text("Not at all Positive");
+                                if(value > -1 && value < 1) $("#slide_text2").text("Moderately Positive");
+                                if(value >= 1) $("#slide_text2").text("Totally Positive");
+
+                            });
+
+
+                            $('p.rangeLabel').bind('click', function(){
+                                label = $(this);
+                                value = label.index();
+                                $("input[type='range']").attr('value', value)
+                                        .trigger('change');
+                            });
+
+                        });
+                        /*]]>*/
+                        </script>
+
+                        <style>
+                            input[type="range"] {
+                                width: 100%;
+                            }
+
+                            p.rangeLabel {
+                                font-family: "Arial", sans-serif;
+                                padding: 5px;
+                                margin: 5px 0;
+                                background: #ccc;
+                                font-size: 15px;
+                                line-height: 20px;
+                                text-align: center;
+                            }
+
+                        </style>
+
                     </div>
 
                     <div class="section">
-                        <p class="question"> To what extent do you feel negative feelings right now, that is, at the
-                            present moment? </p>
-                        <input style="display:none" id="checkNegFeelings" name="checkNegFeelings" type="checkbox"
-                               value="1"/>
-                        <input style="display:none" id="NegFeelings" type="text" name="NegFeelings"
-                               required="required"/>
-
-                        <div id="slider2">
-                            <label class="slider" style="left: -50px"> Not at all Positive <br/> -3 </label>
-                            <label class="slider" style="left: 200px"> Moderately Positive <br/> 0 </label>
-                            <label class="slider" style="left: 450px"> Totally Positive <br/> 3 </label>
-                            <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"
-                                 style="width: 51%;"></div>
-                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"
-                                  style="left:51%;"> </span>
+                        <div class="question"> To what extent do you feel negative feelings right now, that is, at the present moment? </div>
+                        <div class="rangeWrapper">
+                            <input  id="slide3" type="range" name = "NegFeelings" required="true" value="0" min="-3" max="3"/>
+                            <p id="slide_text3" class="rangeLabel"> Moderately Positive </p>
                         </div>
+
+                        <script> /*<![CDATA[*/
+                        $(document).ready(function(){
+
+                            $("input[type='range']").change(function() {
+                                slider = $(this);
+                                value = (slider.val() -1);
+
+                                $('p.rangeLabel').removeClass('selected');
+                                if(value <= -1) $("#slide_text3").text("Not at all Positive");
+                                if(value > -1 && value < 1) $("#slide_text3").text("Moderately Positive");
+                                if(value >= 1) $("#slide_text3").text("Totally Positive");
+
+                            });
+
+
+                            $('p.rangeLabel').bind('click', function(){
+                                label = $(this);
+                                value = label.index();
+                                $("input[type='range']").attr('value', value)
+                                        .trigger('change');
+                            });
+
+                        });
+                        /*]]>*/
+                        </script>
+
+                        <style>
+                            input[type="range"] {
+                                width: 100%;
+                            }
+
+                            p.rangeLabel {
+                                font-family: "Arial", sans-serif;
+                                padding: 5px;
+                                margin: 5px 0;
+                                background: #ccc;
+                                font-size: 15px;
+                                line-height: 20px;
+                                text-align: center;
+                            }
+
+                        </style>
+
                     </div>
 
 
@@ -71,56 +139,9 @@
                         <button type="submit"> Continue</button>
                     </div>
 
+
                 </form>
-                <script th:inline="javascript">
-                    /*<![CDATA[*/
 
-                    $(function () {
-                        $("#slider").slider({
-                            range: "min",
-                            min: -3,
-                            max: 3,
-                            value: 0,
-                            step: 0.1,
-                            slide: function (event, ui) {
-                                $("#NoPositiveFeeling").val(ui.value);
-                                document.getElementById("checkPosFeelings").checked = true;
-                            }
-                        });
-                        $("#NoPositiveFeeling").val($("#slider").slider("value"))
-                    });
-                    function check() {
-                        if (document.getElementById("checkPosFeelings").checked != true) {
-                            $("#dialog").dialog();
-                        } else {
-                            $("#form").submit();
-                        }
-                    }
-
-                    $(function () {
-                        $("#slider2").slider({
-                            range: "min",
-                            min: -3,
-                            max: 3,
-                            value: 0,
-                            step: 0.1,
-                            slide: function (event, ui) {
-                                $("#NegFeelings").val(ui.value);
-                                document.getElementById("checkNegFeelings").checked = true;
-                            }
-                        });
-                        $("#NegFeelings").val($("#slider").slider("value"))
-                    });
-                    function check() {
-                        if (document.getElementById("checkNegFeelings").checked != true) {
-                            $("#dialog").dialog();
-                        } else {
-                            $("#form").submit();
-                        }
-                    }
-
-                    /*]]>*/
-                </script>
             </div>
         </div>
         <!--features ends-->
