@@ -67,7 +67,7 @@ public class CreateAccountControllerTest extends BaseControllerTest {
                 .param("password", PASSWD))
                 .andDo(print())
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrlPattern("*public/eligibility*"));
+                .andExpect(redirectedUrlPattern("/public/eligibility*"));
     }
 
     @Test
