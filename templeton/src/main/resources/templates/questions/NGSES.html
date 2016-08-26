@@ -16,148 +16,353 @@
 <section id="content" class="clearfix">
     <div class="container">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-10">
 
 
                 <form th:action="@{/questions/NGSES}" method="POST">
 
 
                     <div class="section">
-                        <p class="question"> I will be able to achieve most of the goals that I have set for
-                            myself. </p>
-                        <div class="radio">
-                            <label> <input class="option" type="radio" name="AchieveGoals" value="1" required="true"/> Not at all True
-                            </label>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="question"> I will be able to achieve most of the goals that I have set for
+                                    myself. </p>
+                            </div>
                         </div>
-                        <div class="radio">
-                            <label> <input class="option" type="radio" name="AchieveGoals" value="2"/> Hardly True </label>
-                        </div>
-                        <div class="radio">
-                            <label> <input class="option" type="radio" name="AchieveGoals" value="3"/> Moderately true </label>
-                        </div>
-                        <div class="radio">
-                            <label> <input class="option" type="radio" name="AchieveGoals" value="4"/> Exactly true </label>
-                        </div>
-                    </div>
-
-                    <div class="section">
-                        <p class="question"> When facing difficult tasks, I am certain I will accomplish them. </p>
-                        <div class="radio">
-                            <label> <input class="option" type="radio" name="DifficultTasks" value="1" required="true"/> Not at all
-                                True </label>
-                        </div>
-                        <div class="radio">
-                            <label> <input class="option" type="radio" name="DifficultTasks" value="2"/> Hardly True </label>
-                        </div>
-                        <div class="radio">
-                            <label> <input class="option" type="radio" name="DifficultTasks" value="3"/> Moderately true </label>
-                        </div>
-                        <div class="radio">
-                            <label> <input class="option" type="radio" name="DifficultTasks" value="4"/> Exactly true </label>
-                        </div>
-                    </div>
-
-                    <div class="section">
-                        <p class="question"> In general, I think I can obtain outcomes that are important to me. </p>
-                        <div class="radio">
-                            <label> <input class="option" type="radio" name="ObtainOutcomes" value="1" required="true"/> Not at all
-                                True </label>
-                        </div>
-                        <div class="radio">
-                            <label> <input class="option" type="radio" name="ObtainOutcomes" value="2"/> Hardly True </label>
-                        </div>
-                        <div class="radio">
-                            <label> <input class="option" type="radio" name="ObtainOutcomes" value="3"/> Moderately true </label>
-                        </div>
-                        <div class="radio">
-                            <label> <input class="option" type="radio" name="ObtainOutcomes" value="4"/> Exactly true </label>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="AchieveGoals" value="1"
+                                                   required="true"/> Not at all True
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="AchieveGoals" value="2"/> Hardly
+                                        True </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="AchieveGoals" value="3"/>
+                                        Moderately true </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="AchieveGoals" value="4"/> Exactly
+                                        true </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="AchieveGoals" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not
+                                        to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <div class="section">
-                        <p class="question"> I believe I can succeed at most any endeavor to which I set my mind. </p>
-                        <div class="radio">
-                            <label> <input class="option" type="radio" name="AnyEndeavor" value="1" required="true"/> Not at all True
-                            </label>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="question"> When facing difficult tasks, I am certain I will accomplish
+                                    them. </p>
+                            </div>
                         </div>
-                        <div class="radio">
-                            <label> <input class="option" type="radio" name="AnyEndeavor" value="2"/> Hardly True </label>
-                        </div>
-                        <div class="radio">
-                            <label> <input class="option" type="radio" name="AnyEndeavor" value="3"/> Moderately true </label>
-                        </div>
-                        <div class="radio">
-                            <label> <input class="option" type="radio" name="AnyEndeavor" value="4"/> Exactly true </label>
-                        </div>
-                    </div>
-
-                    <div class="section">
-                        <p class="question"> I will be able to successfully overcome many challenges. </p>
-                        <div class="radio">
-                            <label> <input class="option" type="radio" name="SuccessfullyOvercome" value="1" required="true"/> Not at
-                                all True </label>
-                        </div>
-                        <div class="radio">
-                            <label> <input class="option" type="radio" name="SuccessfullyOvercome" value="2"/> Hardly True </label>
-                        </div>
-                        <div class="radio">
-                            <label> <input class="option" type="radio" name="SuccessfullyOvercome" value="3"/> Moderately true </label>
-                        </div>
-                        <div class="radio">
-                            <label> <input class="option" type="radio" name="SuccessfullyOvercome" value="4"/> Exactly true </label>
-                        </div>
-                    </div>
-
-                    <div class="section">
-                        <p class="question"> I am confident that I can perform effectively on many different tasks. </p>
-                        <div class="radio">
-                            <label> <input class="option" type="radio" name="PerformEffectively" value="1" required="true"/> Not at all
-                                True </label>
-                        </div>
-                        <div class="radio">
-                            <label> <input class="option" type="radio" name="PerformEffectively" value="2"/> Hardly True </label>
-                        </div>
-                        <div class="radio">
-                            <label> <input class="option" type="radio" name="PerformEffectively" value="3"/> Moderately true </label>
-                        </div>
-                        <div class="radio">
-                            <label> <input class="option" type="radio" name="PerformEffectively" value="4"/> Exactly true </label>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="DifficultTasks" value="1"
+                                                   required="true"/>
+                                        Not at all
+                                        True </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="DifficultTasks" value="2"/> Hardly
+                                        True
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="DifficultTasks" value="3"/>
+                                        Moderately true
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="DifficultTasks" value="4"/> Exactly
+                                        true
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="DifficultTasks" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not
+                                        to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <div class="section">
-                        <p class="question"> Compared to other people, I can do most tasks very well. </p>
-                        <div class="radio">
-                            <label> <input class="option" type="radio" name="Compared" value="1" required="true"/> Not at all True
-                            </label>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="question"> In general, I think I can obtain outcomes that are important to
+                                    me. </p>
+                            </div>
                         </div>
-                        <div class="radio">
-                            <label> <input class="option" type="radio" name="Compared" value="2"/> Hardly True </label>
-                        </div>
-                        <div class="radio">
-                            <label> <input class="option" type="radio" name="Compared" value="3"/> Moderately true </label>
-                        </div>
-                        <div class="radio">
-                            <label> <input class="option" type="radio" name="Compared" value="4"/> Exactly true </label>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="ObtainOutcomes" value="1"
+                                                   required="true"/>
+                                        Not at all
+                                        True </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="ObtainOutcomes" value="2"/> Hardly
+                                        True
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="ObtainOutcomes" value="3"/>
+                                        Moderately true
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="ObtainOutcomes" value="4"/> Exactly
+                                        true
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="ObtainOutcomes" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not
+                                        to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <div class="section">
-                        <p class="question"> Even when things are tough, I can perform quite well. </p>
-                        <div class="radio">
-                            <label> <input class="option" type="radio" name="ToughThings" value="1" required="true"/> Not at all True
-                            </label>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="question"> I believe I can succeed at most any endeavor to which I set my
+                                    mind. </p>
+                            </div>
                         </div>
-                        <div class="radio">
-                            <label> <input class="option" type="radio" name="ToughThings" value="2"/> Hardly True </label>
-                        </div>
-                        <div class="radio">
-                            <label> <input class="option" type="radio" name="ToughThings" value="3"/> Moderately true </label>
-                        </div>
-                        <div class="radio">
-                            <label> <input class="option" type="radio" name="ToughThings" value="4"/> Exactly true </label>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="AnyEndeavor" value="1"
+                                                   required="true"/>
+                                        Not at all True
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="AnyEndeavor" value="2"/> Hardly
+                                        True
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="AnyEndeavor" value="3"/> Moderately
+                                        true
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="AnyEndeavor" value="4"/> Exactly
+                                        true
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="AnyEndeavor" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not
+                                        to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="question"> I will be able to successfully overcome many challenges. </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="SuccessfullyOvercome" value="1"
+                                                   required="true"/> Not at
+                                        all True </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="SuccessfullyOvercome" value="2"/>
+                                        Hardly
+                                        True </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="SuccessfullyOvercome" value="3"/>
+                                        Moderately true </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="SuccessfullyOvercome" value="4"/>
+                                        Exactly
+                                        true </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="SuccessfullyOvercome"
+                                                                   value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not
+                                        to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="question"> I am confident that I can perform effectively on many different
+                                    tasks. </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="PerformEffectively" value="1"
+                                                   required="true"/> Not at all
+                                        True </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="PerformEffectively" value="2"/>
+                                        Hardly True
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="PerformEffectively" value="3"/>
+                                        Moderately
+                                        true </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="PerformEffectively" value="4"/>
+                                        Exactly
+                                        true </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="PerformEffectively" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not
+                                        to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="question"> Compared to other people, I can do most tasks very well. </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="Compared" value="1"
+                                                   required="true"/> Not
+                                        at all True
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="Compared" value="2"/> Hardly True
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="Compared" value="3"/> Moderately
+                                        true
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="Compared" value="4"/> Exactly true
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="Compared" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not
+                                        to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="question"> Even when things are tough, I can perform quite well. </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="ToughThings" value="1"
+                                                   required="true"/>
+                                        Not at all True
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="ToughThings" value="2"/> Hardly
+                                        True
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="ToughThings" value="3"/> Moderately
+                                        true
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="ToughThings" value="4"/> Exactly
+                                        true
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="ToughThings" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not
+                                        to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
 
                     <div style="text-align:center">
                         <button type="submit"> Continue</button>
