@@ -58,13 +58,18 @@ public class AccountController extends BaseController {
     }
 
     @RequestMapping(value="create", method = RequestMethod.GET)
-    public String createForm (ModelMap model, Principal principal) {
+    public String createForm (ModelMap model, HttpSession session) {
         model.addAttribute("participantForm", new ParticipantCreate());
         model.addAttribute("recaptchaSiteKey", recaptchaSiteKey);
-        return "account/create";
+        if(participantService.isEligible(session)) {
+            return "account/create";
+        } else {
+            return "redirect:/public/eligibility";
+        }
+
     }
 
-    @RequestMapping(value="create", method = RequestMethod.POST)
+    @RequestMapping(value="create", method = RequestMethod.POST )
     public String createNewParticipant(ModelMap model,
                                        @ModelAttribute("participantForm") @Valid ParticipantCreate participantCreate,
                                        final BindingResult bindingResult,

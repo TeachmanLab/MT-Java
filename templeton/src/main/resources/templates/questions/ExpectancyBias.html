@@ -7,16 +7,19 @@
 <head th:replace="fragment/common :: headerFragment"/>
 <body>
 <section th:replace="fragment/common :: topFragment"/>
-<section th:replace="fragment/common :: titleBar (title='Expectancy Bias')"/>
+<section th:include="fragment/common :: titleBar (title='Expectancy Bias')" th:unless="${eligibility}"/>
+<section th:include="fragment/common :: titleBar (title='Eligibility Questionnaire')" th:if="${eligibility}"/>
 
 <section id="content" class="clearfix">
     <div class="container">
         <div class="row">
             <div class="col-md-10">
 
-                <form th:action="@{/questions/ExpectancyBias}" method="POST">
+                <form th:action="${eligibility}? @{/public/eligibilityCheck} : @{/questions/ExpectancyBias}" method="POST">
 
 
+
+                    <div class="introduction">
                     <p> During this task, you will see a number of paragraphs that describe different situations.
                         Please read each paragraph carefully, and imagine yourself in the situation described. </p>
 
@@ -27,7 +30,7 @@
                     <p> Please rate to what extent each of the sentences presented is likely to come next in the situation using a scale from 1 (very unlikely) to 7 (very likely).
                         Rate each sentence separately, ignoring the other sentences that followed the paragraph; in other words, just think about whether the sentences you are rating would be likely to come next after the paragraph.
                     </p>
-                    <br/>
+                    </div>
 
                     <h3 class="sectionHeading"> Doctor's Appointment:</h3>
                     <p >You go into the examination room at your doctor’s office for a routine checkup. </p>

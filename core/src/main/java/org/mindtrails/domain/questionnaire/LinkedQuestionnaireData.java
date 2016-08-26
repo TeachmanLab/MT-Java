@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.EqualsAndHashCode;
 import org.mindtrails.domain.Exportable;
 import org.mindtrails.domain.Participant;
 import lombok.Data;
@@ -19,6 +20,7 @@ import javax.persistence.MappedSuperclass;
  */
 @MappedSuperclass
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Exportable // All Quetionnaire data should be exportable.
 public abstract class LinkedQuestionnaireData extends QuestionnaireData {
 

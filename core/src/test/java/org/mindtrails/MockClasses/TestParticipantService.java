@@ -39,6 +39,11 @@ public class TestParticipantService implements ParticipantService {
     }
 
     @Override
+    public boolean isEligible(HttpSession session) {
+        return false;
+    }
+
+    @Override
     public void saveNew(Participant p, HttpSession session) {
         save(p);
     }
