@@ -483,7 +483,7 @@
                     </div>
 
                 </form>
-                
+
             </div>
         </div>
     </div>
@@ -495,3 +495,22 @@
 
 </body>
 </html>
+
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts"/>
+
+<script type="text/javascript">
+
+
+    function disableSection(input) {
+        if (input.checked) {
+            $(input).closest('.section').find("input").attr("disabled", true);
+            $(input).removeAttr("disabled");
+        } else {
+            $(input).closest('.section').find("input").removeAttr("disabled");
+        }
+    }
+
+</script>
