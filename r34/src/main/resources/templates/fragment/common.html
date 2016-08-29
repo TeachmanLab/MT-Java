@@ -57,13 +57,13 @@
             <!--menu starts-->
                 <ul id="nav">
                     <li th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
-                        <a href="/session">HOME</a></li>
-                    <li><a href="/public/about">ABOUT</a></li>
-                    <li><a href="/public/faq">FAQ</a></li>
-                    <li><a href="/public/contact">CONTACT</a></li>
-                    <li><a href="/public/team">MEET THE TEAM</a></li>
+                        <a th:href="@{/session}">HOME</a></li>
+                    <li><a th:href="@{/public/about}">ABOUT</a></li>
+                    <li><a th:href="@{/public/faq}">FAQ</a></li>
+                    <li><a th:href="@{/public/contact}">CONTACT</a></li>
+                    <li><a th:href="@{/public/team}">MEET THE TEAM</a></li>
                     <li><a target="new" href="https://implicit.harvard.edu/implicit/user/pimh/linkinfo.html">MENTAL&nbsp;HEALTH&nbsp;RESOURCES</a></li>
-                    <li><a href="/public/researchSupport">RESEARCH&nbsp;SUPPORT</a></li>
+                    <li><a th:href="@{/public/researchSupport}">RESEARCH&nbsp;SUPPORT</a></li>
 
                 </ul>
             <!--menu ends-->
@@ -72,13 +72,12 @@
     </div>
     <div class="account-bar" th:unless="${visiting}">
         <div class="container" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
-            <span th:if="${participant}" class="item">Logged in as ( <span th:text="${participant.fullName}"/> )</span> |<a href="/session/overview">My Progress</a> | <a
+            <span th:if="${participant}" class="item">Logged in as ( <span th:text="${participant.fullName}"/> )</span> |<a th:href="@{/session/overview}">My Progress</a> | <a
                 href="/account">Account Settings</a> | <a href="/logout">Logout</a>
         </div>
         <div class="container login" th:unless="${#authorization.expression('hasRole(''ROLE_USER'')')}">
-            Already Participating? <a href="/">
+            Already Participating?
             <a th:href="@{/login}"><button>Log In</button></a>
-        </a>
         </div>
     </div>
     <div class="clear-both"></div>
@@ -174,15 +173,15 @@
 
                 <p>This section is only visible to you because you have been granted administrative access.</p>
                 <ul class="list-info">
-                    <li><a href="/admin">User Administration</a>: provides a way to view all accounts created on the system.
+                    <li><a th:href="@{/admin}">User Administration</a>: provides a way to view all accounts created on the system.
                     </li>
-                    <li><a href="/admin/listEmails">Email Messages</a>: allows you to send yourself a copy of all email messages
+                    <li><a th:href="@{/admin/listEmails}">Email Messages</a>: allows you to send yourself a copy of all email messages
                         coming from the system.
                     </li>
-                    <li><a href="/admin/listSessions">Sessions</a>: allows you to view all available sessions, and jump into any
+                    <li><a th:href="@{/admin/listSessions}">Sessions</a>: allows you to view all available sessions, and jump into any
                         content within a session.
                     </li>
-                    <li><a href="/admin/tango">Gift Cards Account</a>: allows you to check information about the gift card
+                    <li><a th:href="@{/admin/tango}">Gift Cards Account</a>: allows you to check information about the gift card
                         account for your study.
                     </li>
                 </ul>
