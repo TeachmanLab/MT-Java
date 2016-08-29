@@ -50,7 +50,7 @@
                 <a th:href="${currentTask.requestMapping}" th:if="${currentTask}">
                     <button>Start</button>
                 </a>
-                <a href="/session/overview" th:unless="${currentSession.name =='PRE'}">Program Overview</a>
+                <a th:href="@{/session/overview}" th:unless="${currentSession.name =='PRE'}">Program Overview</a>
             </div>
         </div>
     </div>

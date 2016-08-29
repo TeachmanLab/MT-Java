@@ -53,7 +53,7 @@
                 </p>
                 <div th:if="${disabled}">
                     <h3>Already participating?</h3>
-                    <p>Then please <a href="login">Login</a> to continue to study.</p>
+                    <p>Then please <a th:href="@{/login}">Login</a> to continue to study.</p>
 
                     <h3>New visitor?</h3>
                     <p>We have completed enrollment for the current study, but expect to launch a new study soon.

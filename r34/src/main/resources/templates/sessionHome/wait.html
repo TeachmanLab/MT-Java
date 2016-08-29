@@ -52,7 +52,7 @@
 
         <p>UP NEXT: For best results, plan to begin the <span th:text="${currentSession.displayName}"/> between
             <br/><em th:text="${dateRange}">July 7 - July 10, 2015</em>
-            <br/><a href="/session/overview">Program Overview</a>
+            <br/><a th:href="@{/session/overview}">Program Overview</a>
         </p>
 
         <p class="detour"><img th:src="|/images/detour-${participant.theme}.png|"/>
