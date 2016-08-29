@@ -36,6 +36,12 @@
                             <input  id ="slide2" type="range" name="PosFeelings" required="true" value="0" min="-3" max="3"/>
                             <p id="slide_text2" class="rangeLabel"> Moderately Positive </p>
                         </div>
+                        <br/>
+                        <div><label class="standard"> <input type="checkbox" name="PosFeelings" value="555"
+                                                             onchange="disableSection(this)"/> Prefer not
+                            to
+                            answer
+                        </label></div>
 
                         <script> /*<![CDATA[*/
                         $(document).ready(function(){
@@ -88,6 +94,12 @@
                             <input  id="slide3" type="range" name = "NegFeelings" required="true" value="0" min="-3" max="3"/>
                             <p id="slide_text3" class="rangeLabel"> Moderately Positive </p>
                         </div>
+                        <br/>
+                        <div><label class="standard"> <input type="checkbox" name="NegFeelings" value="555"
+                                                             onchange="disableSection(this)"/> Prefer not
+                            to
+                            answer
+                        </label></div>
 
                         <script> /*<![CDATA[*/
                         $(document).ready(function(){
