@@ -54,11 +54,11 @@
                         var timer;
 
                         function waitForNow() {
-                            if($("#AxSituation").val().length == 0) {
+                            if ($("#AxSituation").val().length == 0) {
                                 alert("Please describe the situation.")
                             } else {
                                 $("#waitButton").html(" ... please wait ... ");
-                                $("#waitButton").attr("disabled","disabled");
+                                $("#waitButton").attr("disabled", "disabled");
                                 timer = setTimeout(moveAlong, 2000);
                             }
                         }
@@ -69,7 +69,8 @@
                             elem = $("#followupQuestions");
                             elem.show();
                             $('html,body').animate({
-                                scrollTop: elem.offset().top},'slow');
+                                scrollTop: elem.offset().top
+                            }, 'slow');
                         }
                     </script>
 
@@ -79,55 +80,89 @@
                         <h4> Now, answer the following questions about the situation you imagined. </h4>
 
                         <div class="section">
-                            <p class="question"> How vividly do you imagine the situation? </p>
-                            <div class="radio">
-                                <label> <input class="option" type="radio" name="Vividness" value="1" required="true"/> 1 Not at all
-                                    vivid </label>
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <p class="question"> How vividly do you imagine the situation? </p>
+                                </div>
                             </div>
-                            <div class="radio">
-                                <label> <input class="option" type="radio" name="Vividness" value="2"/> 2 </label>
-                            </div>
-                            <div class="radio">
-                                <label> <input class="option" type="radio" name="Vividness" value="3"/> 3 Somewhat vivid </label>
-                            </div>
-                            <div class="radio">
-                                <label> <input class="option" type="radio" name="Vividness" value="4"/> 4 </label>
-                            </div>
-                            <div class="radio">
-                                <label> <input class="option" type="radio" name="Vividness" value="5"/> 5 Extremely vivid </label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="radio">
+                                        <label> <input class="option" type="radio" name="Vividness" value="1"
+                                                       required="true"/> 1 Not at all
+                                            vivid </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label> <input class="option" type="radio" name="Vividness" value="2"/> 2
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label> <input class="option" type="radio" name="Vividness" value="3"/> 3
+                                            Somewhat vivid </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label> <input class="option" type="radio" name="Vividness" value="4"/> 4
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label> <input class="option" type="radio" name="Vividness" value="5"/> 5
+                                            Extremely vivid </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <br/>
+                                    <div class="radio">
+                                        <label class="question"><input type="checkbox" name="Vividness" value="555"
+                                                                       onchange="disableSection(this)"/> Prefer not
+                                            to
+                                            answer
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
+
                         <div class="section">
 
-                            <div class="question">How anxious did you feel (at the highest level of anxiety) as you completed the imagery task?</div>
+
+                            <div class="question">How anxious did you feel (at the highest level of anxiety) as you
+                                completed the imagery task?
+                            </div>
                             <div class="rangeWrapper">
-                               <input  id ="slide" type="range" name="anxiety" required="true" value="50" min="0" max="100"/>
+                                <input id="slide" type="range" name="anxiety" required="true" value="50" min="0"
+                                       max="100"/>
                                 <p id="slide_text" class="rangeLabel">Moderately Anxious</p>
                             </div>
+                            <br/>
+                            <div><label class="standard"> <input type="checkbox" name="anxiety" value="555"
+                                                                 onchange="disableSection(this)"/> Prefer not
+                                to
+                                answer
+                            </label></div>
 
                             <script> /*<![CDATA[*/
-                                $(document).ready(function(){
+                            $(document).ready(function () {
 
-                                    $("input[type='range']").change(function() {
-                                        slider = $(this);
-                                        value = (slider.val() -1);
+                                $("input[type='range']").change(function () {
+                                    slider = $(this);
+                                    value = (slider.val() - 1);
 
-                                        $('p.rangeLabel').removeClass('selected');
-                                        if(value <= 33) $("#slide_text").text("Low Anxiety");
-                                        if(value > 33 && value < 66) $("#slide_text").text("Moderately Anxious");
-                                        if(value >= 66) $("#slide_text").text("Very Anxious");
-
-                                    });
-
-                                    $('p.rangeLabel').bind('click', function(){
-                                        label = $(this);
-                                        value = label.index();
-                                        $("input[type='range']").attr('value', value)
-                                                .trigger('change');
-                                    });
+                                    $('p.rangeLabel').removeClass('selected');
+                                    if (value <= 33) $("#slide_text").text("Low Anxiety");
+                                    if (value > 33 && value < 66) $("#slide_text").text("Moderately Anxious");
+                                    if (value >= 66) $("#slide_text").text("Very Anxious");
 
                                 });
+
+                                $('p.rangeLabel').bind('click', function () {
+                                    label = $(this);
+                                    value = label.index();
+                                    $("input[type='range']").attr('value', value)
+                                            .trigger('change');
+                                });
+
+                            });
                             /*]]>*/
                             </script>
                             <style>
@@ -154,54 +189,109 @@
                         "Moderately Anxious 50", and "Totally Anxious 100"-->
 
                         <div class="section">
-                            <p class="question"> How likely is it that this situation will turn out well vs. turn out
-                                badly? </p>
-                            <div class="radio">
-                                <label> <input class="option" type="radio" name="TurnOut" value="1" required="true"/> 1 Very likely to
-                                    turn out well </label>
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <p class="question"> How likely is it that this situation will turn out well vs.
+                                        turn out
+                                        badly? </p>
+                                </div>
                             </div>
-                            <div class="radio">
-                                <label> <input class="option" type="radio" name="TurnOut" value="2"/> 2 Somewhat likely to turn out
-                                    well </label>
-                            </div>
-                            <div class="radio">
-                                <label> <input class="option" type="radio" name="TurnOut" value="3"/> 3 Neutral </label>
-                            </div>
-                            <div class="radio">
-                                <label> <input class="option" type="radio" name="TurnOut" value="4"/> 4 Somewhat likely to turn out
-                                    badly </label>
-                            </div>
-                            <div class="radio">
-                                <label> <input class="option" type="radio" name="TurnOut" value="5"/> 5 Very likely to turn out badly
-                                </label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="radio">
+                                        <label> <input class="option" type="radio" name="TurnOut" value="1"
+                                                       required="true"/>
+                                            Very likely to
+                                            turn out well </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label> <input class="option" type="radio" name="TurnOut" value="2"/> Somewhat
+                                            likely to
+                                            turn out
+                                            well </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label> <input class="option" type="radio" name="TurnOut" value="3"/> Neutral
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label> <input class="option" type="radio" name="TurnOut" value="4"/> Somewhat
+                                            likely to
+                                            turn out
+                                            badly </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label> <input class="option" type="radio" name="TurnOut" value="5"/> Very
+                                            likely to
+                                            turn out badly
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <br/>
+                                    <div class="radio">
+                                        <label class="question"><input type="checkbox" name="TurnOut" value="555"
+                                                                       onchange="disableSection(this)"/> Prefer not
+                                            to
+                                            answer
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
                         <div class="section">
-                            <p class="question"> If this situation did turn out badly, how manageable vs. unmanageable
-                                would the consequences be? </p>
-                            <div class="radio">
-                                <label> <input class="option" type="radio" name="Manageable" value="1" required="true"/> 1 Very
-                                    manageable </label>
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <p class="question"> If this situation did turn out badly, how manageable vs.
+                                        unmanageable
+                                        would the consequences be? </p>
+                                </div>
                             </div>
-                            <div class="radio">
-                                <label> <input class="option" type="radio" name="Manageable" value="2"/> 2 Somewhat manageable </label>
-                            </div>
-                            <div class="radio">
-                                <label> <input class="option" type="radio" name="Manageable" value="3"/> 3 Neutral </label>
-                            </div>
-                            <div class="radio">
-                                <label> <input class="option" type="radio" name="Manageable" value="4"/> 4 Somewhat unmanageable
-                                </label>
-                            </div>
-                            <div class="radio">
-                                <label> <input class="option" type="radio" name="Manageable" value="5"/> 5 Very unmanageable </label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="radio">
+                                        <label> <input class="option" type="radio" name="Manageable" value="1"
+                                                       required="true"/>
+                                            Very
+                                            manageable </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label> <input class="option" type="radio" name="Manageable" value="2"/>
+                                            Somewhat
+                                            manageable </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label> <input class="option" type="radio" name="Manageable" value="3"/> Neutral
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label> <input class="option" type="radio" name="Manageable" value="4"/>
+                                            Somewhat
+                                            unmanageable
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label> <input class="option" type="radio" name="Manageable" value="5"/> Very
+                                            unmanageable </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <br/>
+                                    <div class="radio">
+                                        <label class="question"><input type="checkbox" name="Manageable" value="555"
+                                                                       onchange="disableSection(this)"/> Prefer not
+                                            to
+                                            answer
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
                         <div style="text-align:center">
                             <button type="submit"> Continue</button>
-                        </div>
+                        </div><!---->
 
                     </div>
 
@@ -218,4 +308,20 @@
 </html>
 
 
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts"/>
 
+<script type="text/javascript">
+
+
+    function disableSection(input) {
+        if (input.checked) {
+            $(input).closest('.section').find("input").attr("disabled", true);
+            $(input).removeAttr("disabled");
+        } else {
+            $(input).closest('.section').find("input").removeAttr("disabled");
+        }
+    }
+
+</script>

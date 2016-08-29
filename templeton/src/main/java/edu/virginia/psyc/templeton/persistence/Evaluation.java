@@ -55,7 +55,8 @@ public class Evaluation extends SecureQuestionnaireData {
     private boolean Vacation;
     private boolean OtherComplete;
     private String Other_Place;
-    private boolean NoAns_where;
+    private int NoAns_where;
+    private int Condition;
 
 
 }

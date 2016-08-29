@@ -40,7 +40,7 @@ public class EmailServiceImpl implements EmailService {
     @Autowired
     protected ParticipantRepository participantRepository;
 
-    @Value("${email.imageServerUrl}")
+    @Value("${server.url}")
     protected String siteUrl;
 
     @Value("${email.respondTo}")

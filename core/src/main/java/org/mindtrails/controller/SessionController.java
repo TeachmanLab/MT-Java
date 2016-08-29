@@ -31,7 +31,7 @@ import java.security.Principal;
  */
 @Controller
 @RequestMapping("/session")
-public class SessionController {
+public class SessionController extends BaseController {
 
     private static final Logger LOG = LoggerFactory.getLogger(SessionController.class);
 
@@ -39,10 +39,6 @@ public class SessionController {
     @Autowired private EmailService emailService;
     @Autowired private ExportService exportService;
     @Autowired private ParticipantService participantService;
-
-    private Participant getParticipant(Principal p) {
-        return participantService.get(p);
-    }
 
 
     @RequestMapping("")
@@ -60,7 +56,6 @@ public class SessionController {
         DateTimeFormatter startFormat = DateTimeFormat.forPattern("MMMM d - ");
         DateTimeFormatter endFormat = DateTimeFormat.forPattern("MMMM d, YYYY");
 
-        model.addAttribute("participant", p);
         model.addAttribute("lastSession", study.getLastSession());
         model.addAttribute("currentSession", session);
         model.addAttribute("nextGiftSession", study.nextGiftSession());
@@ -108,7 +103,6 @@ public class SessionController {
         Participant p = getParticipant(principal);
         Study study  = p.getStudy();
 
-        model.addAttribute("participant", p);
         model.addAttribute("study", study);
         model.addAttribute("complete", p.getStudy().getCurrentSession().getName().equals("COMPLETE"));
 
@@ -135,7 +129,6 @@ public class SessionController {
 
         Participant p = getParticipant(principal);
         Study study = p.getStudy();
-        model.addAttribute("participant", p);
         model.addAttribute("study", study);
         return "atRisk";
     }

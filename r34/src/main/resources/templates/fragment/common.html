@@ -41,8 +41,8 @@
 
         ga('create', 'UA-77944674-1', 'auto');
         ga('send', 'pageview');
-
     </script>
+
 
 </head>
 <body >
@@ -169,27 +169,29 @@
             <div class="clear-both"></div>
         </div>
 
+        <div class="row adminTools" sec:authorize="hasRole('ROLE_ADMIN')">
+                <h5>Administration Tools</h5>
+
+                <p>This section is only visible to you because you have been granted administrative access.</p>
+                <ul class="list-info">
+                    <li><a href="/admin">User Administration</a>: provides a way to view all accounts created on the system.
+                    </li>
+                    <li><a href="/admin/listEmails">Email Messages</a>: allows you to send yourself a copy of all email messages
+                        coming from the system.
+                    </li>
+                    <li><a href="/admin/listSessions">Sessions</a>: allows you to view all available sessions, and jump into any
+                        content within a session.
+                    </li>
+                    <li><a href="/admin/tango">Gift Cards Account</a>: allows you to check information about the gift card
+                        account for your study.
+                    </li>
+                </ul>
+        </div>
+
+
     </div>
 
-    <!--column two starts-->
-    <div class="adminTools" sec:authorize="hasRole('ROLE_ADMIN')">
-        <h5>Administration Tools</h5>
 
-        <p>This section is only visible to you because you have been granted administrative access.</p>
-        <ul class="list-info">
-            <li><a href="/admin">User Administration</a>: provides a way to view all accounts created on the system.
-            </li>
-            <li><a href="/admin/listEmails">Email Messages</a>: allows you to send yourself a copy of all email messages
-                coming from the system.
-            </li>
-            <li><a href="/admin/listSessions">Sessions</a>: allows you to view all available sessions, and jump into any
-                content within a session.
-            </li>
-            <li><a href="/admin/tango">Gift Cards Account</a>: allows you to check information about the gift card
-                account for your study.
-            </li>
-        </ul>
-    </div>
     <div class="copyright">&copy; Copyright 2016 &bull; All rights reserved</div>
 </footer>
 

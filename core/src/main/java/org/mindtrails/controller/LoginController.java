@@ -67,13 +67,11 @@ public class LoginController {
 
     @RequestMapping(value="/login", method = RequestMethod.GET)
     public String showLogin(ModelMap model) {
-        model.addAttribute("hideAccountBar", true);
         return "login";
     }
 
     @RequestMapping(value="/public/{page}", method = RequestMethod.GET)
     public String showLogin(ModelMap model, @PathVariable("page") String page) {
-        model.addAttribute("visiting", true);
         return page;
     }
 
@@ -106,15 +104,13 @@ public class LoginController {
 
         Participant participant;
         participant =  getParticipantByToken(token);
-        model.addAttribute("visiting", true);
+        model.addAttribute("participant", participant);
 
         if(participant != null) {
-            model.addAttribute("participant", participant);
             model.addAttribute("token", token);
             return "/changePassword";
         } else {
             model.addAttribute("invalidCode", true);
-            model.addAttribute("participant", new Participant());
             return "login";
         }
     }
@@ -130,13 +126,13 @@ public class LoginController {
         List<String> errors;
 
         participant =  getParticipantByToken(token);
+
         errors      = new ArrayList<String>();
 
         // If the participant is null, then the token is invalid, send them back to the login page.
         if(null == participant || participant.getId() != id) {
             LOG.error("Change Password Page accessed with an invalid code, or the id's don't match");
             model.addAttribute("invalidCode", true);
-            model.addAttribute("participant", new Participant());
             return "login";
         }
 
@@ -149,8 +145,8 @@ public class LoginController {
 
         if(errors.size() > 0) {
             model.addAttribute("errors", errors);
-            model.addAttribute("participant", participant);
             model.addAttribute("token", token);
+            model.addAttribute("participant", participant);
             return "changePassword";
         }
 

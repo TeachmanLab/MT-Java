@@ -1,5 +1,6 @@
 package org.mindtrails.domain;
 
+import lombok.EqualsAndHashCode;
 import org.mindtrails.domain.RestExceptions.WaitException;
 import org.mindtrails.domain.tracking.TaskLog;
 import lombok.Data;
@@ -17,6 +18,8 @@ import java.util.*;
 @Entity
 @Table(name = "study")
 @DiscriminatorColumn(name="studyType")
+@EqualsAndHashCode(exclude={"taskLogs"})
+
 public abstract class BaseStudy implements Study {
 
     private static final Session NOT_STARTED  = new Session("NOT_STARTED", "Not Started", 0, 0, new ArrayList<Task>());
@@ -33,7 +36,7 @@ public abstract class BaseStudy implements Study {
     protected boolean receiveGiftCards;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "study")
-    protected Collection<TaskLog> taskLogs = new ArrayList<>();
+    protected Set<TaskLog> taskLogs = new HashSet<>();
 
     public BaseStudy() {}
 
@@ -41,7 +44,7 @@ public abstract class BaseStudy implements Study {
         this.currentSession = currentName;
         this.currentTaskIndex = taskIndex;
         this.lastSessionDate = lastSessionDate;
-        this.taskLogs = new ArrayList<>();
+        this.taskLogs = new HashSet<>();
         this.receiveGiftCards = receiveGiftCards;
     }
 
@@ -150,6 +153,16 @@ public abstract class BaseStudy implements Study {
         // If there is no current session, return the first session.
         sessions.get(0).setCurrent(true);
         return sessions.get(0);
+    }
+
+    @Override
+    public Session getSession(String sessionName) {
+        for(Session s  : getSessions()) {
+            if (s.getName().equals(sessionName)) {
+                return s;
+            }
+        }
+        return null;
     }
 
     /**
