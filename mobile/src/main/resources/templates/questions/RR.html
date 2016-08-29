@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<!--<![endif]-->
+<head th:include="/fragment/common :: headerFragment"/>
+<body th:class="|user-theme-${participant.theme}|">
+<section id="header" class="clearfix" th:include="/fragment/common :: topFragment"/>
+
+<!-- header-btm starts
+================================================== -->
+<section id="header-btm" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <h2 class="page-title heading-icon clearfix"><img th:src="@{/images/map-arrow-orange.png}" alt="icon"
+                                                              class="icon-small-bg"/><br/>Completing Short Stories - Continued</h2>
+        </div>
+    </div>
+</section>
+
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+    <div class="container">
+        <!--features starts-->
+        <div class="row">
+            <div class="span12 wide">
+                <form th:action="@{/questions/RR}" method="POST">
+
+                    <p>Below you will see the titles of the nine short stories you just read and four sentences about each
+                        story. None of these sentences are worded identically to the sentences in the stories.
+                        Please rate each sentence for how similar it is to the way you understood the original story.</p>
+
+                    <div class="section">
+                        <div class="question">THE ELEVATOR: The building looks old, and as you get on the elevator...</div>
+                        <table class="questionnaire">
+                            <tr>
+                                <th>Question </th>
+                                <th>Very different</th>
+                                <th>Different</th>
+                                <th>Similar</th>
+                                <th>Very similar</th>
+                                <th>Prefer not<br/> to answer</th>
+                            </tr>
+
+                            <tr>
+                                <td class="statement">you think that the elevator will probably break down while you are on it.</td>
+                                <td><label class="radioBox"><input type="radio" name="elevator_NS" class="form-control" value="0"
+                                           required="true"/>0</label></td>
+                                <td><label class="radioBox"><input type="radio" name="elevator_NS" class="form-control" value="1"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="elevator_NS" class="form-control" value="2"/>2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="elevator_NS" class="form-control" value="3"/>3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="elevator_NS" class="form-control" value="-1"/></label></td>
+                            </tr>
+                            <tr>
+                                <td class="statement">you think that you are going to like your friend’s new apartment.</td>
+                                <td><label class="radioBox"><input type="radio" name="elevator_PF" class="form-control" value="0"
+                                           required="true"/>0</label></td>
+                                <td><label class="radioBox"><input type="radio" name="elevator_PF" class="form-control" value="1"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="elevator_PF" class="form-control" value="2"/>2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="elevator_PF" class="form-control" value="3"/>3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="elevator_PF" class="form-control" value="-1"/></label></td>
+                            </tr>
+                            <tr>
+                                <td class="statement">you think about how smelly the lobby is.</td>
+                                <td><label class="radioBox"><input type="radio" name="elevator_NF" class="form-control" value="0"
+                                           required="true"/>0</label></td>
+                                <td><label class="radioBox"><input type="radio" name="elevator_NF" class="form-control" value="1"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="elevator_NF" class="form-control" value="2"/>2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="elevator_NF" class="form-control" value="3"/>3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="elevator_NF" class="form-control" value="-1"/></label></td>
+                            </tr>
+                            <tr>
+                            <td class="statement">you think that riding the elevator will be safe.</td>
+                            <td><label class="radioBox"><input type="radio" name="elevator_PS" class="form-control" value="0"  required="true"/>0</label></td>
+                            <td><label class="radioBox"><input type="radio" name="elevator_PS" class="form-control" value="1"/>1</label></td>
+                            <td><label class="radioBox"><input type="radio" name="elevator_PS" class="form-control" value="2"/>2</label></td>
+                            <td><label class="radioBox"><input type="radio" name="elevator_PS" class="form-control" value="3"/>3</label></td>
+                            <td><label class="radioBox"><input type="radio" name="elevator_PS" class="form-control" value="-1"/></label></td>
+                        </tr>
+                        </table>
+                    </div>
+                    <div class="section">
+                        <div class="question">THE WEDDING RECEPTION: As you enter the room</div>
+                        <table class="questionnaire">
+                            <tr>
+
+                                <th>Question </th>
+                                <th>Very different</th>
+                                <th>Different</th>
+                                <th>Similar</th>
+                                <th>Very similar</th>
+                                <th>Prefer not<br/> to answer</th>
+
+                            </tr>
+                        <tr>
+                            <td class="statement">people in the audience laugh appreciatively.</td>
+                            <td><label class="radioBox"><input type="radio" name="wedding1" class="form-control" value="0" required="true"/>0</label>
+                            </td>
+                            <td><label class="radioBox"><input type="radio" name="wedding1" class="form-control" value="1"/>1</label></td>
+                            <td><label class="radioBox"><input type="radio" name="wedding1" class="form-control" value="2"/>2</label></td>
+                            <td><label class="radioBox"><input type="radio" name="wedding1" class="form-control" value="3"/>3</label></td>
+                            <td><label class="radioBox"><input type="radio" name="wedding1" class="form-control" value="-1"/></label></td>
+                        </tr>
+
+                            <tr>
+                                <td class="statement">you notice a friend you were hoping to see walk into the reception.</td>
+                                <td><label class="radioBox"><input type="radio" name="wedding_PF" class="form-control" value="0" required="true"/>0</label>
+                                </td>
+                                <td><label class="radioBox"><input type="radio" name="wedding_PF" class="form-control" value="1"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="wedding_PF" class="form-control" value="2"/>2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="wedding_PF" class="form-control" value="3"/>3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="wedding_PF" class="form-control" value="-1"/></label></td>
+                            </tr>
+                            <tr>
+                                <td class="statement">people in the audience find your efforts laughable.</td>
+                                <td><label class="radioBox"><input type="radio" name="wedding_NS" class="form-control" value="0" required="true"/>0</label>
+                                </td>
+                                <td><label class="radioBox"><input type="radio" name="wedding_NS" class="form-control" value="1"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="wedding_NS" class="form-control" value="2"/>2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="wedding_NS" class="form-control" value="3"/>3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="wedding_NS" class="form-control" value="-1"/></label></td>
+                            </tr>
+                            <tr>
+                                <td class="statement">you notice someone you do not like just walked into the reception.</td>
+                                <td><label class="radioBox"><input type="radio" name="wedding_NF" class="form-control" value="0" required="true"/>0</label>
+                                </td>
+                                <td><label class="radioBox"><input type="radio" name="wedding_NF" class="form-control" value="1"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="wedding_NF" class="form-control" value="2"/>2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="wedding_NF" class="form-control" value="3"/>3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="wedding_NF" class="form-control" value="-1"/></label></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="section">
+                        <div class="question">THE JOB: You think about not having an income for a few weeks...</div>
+                        <table class="questionnaire">
+                            <tr>
+
+                                <th>Question </th>
+                                <th>Very different</th>
+                                <th>Different</th>
+                                <th>Similar</th>
+                                <th>Very similar</th>
+                                <th>Prefer not<br/> to answer</th>
+
+                            </tr>                          <tr>
+                            <td class="statement">and know that you can rely on your savings.</td>
+                            <td><label class="radioBox"><input type="radio" name="job_PS" class="form-control" value="0" required="true"/>0</label>
+                            </td>
+                            <td><label class="radioBox"><input type="radio" name="job_PS" class="form-control" value="1"/>1</label></td>
+                            <td><label class="radioBox"><input type="radio" name="job_PS" class="form-control" value="2"/>2</label></td>
+                            <td><label class="radioBox"><input type="radio" name="job_PS" class="form-control" value="3"/>3</label></td>
+                            <td><label class="radioBox"><input type="radio" name="job_PS" class="form-control" value="-1"/></label></td>
+                        </tr>
+
+                            <tr>
+                                <td class="statement">and are excited about not having to set an alarm.</td>
+                                <td><label class="radioBox"><input type="radio" name="job_PF" class="form-control" value="0" required="true"/>0</label>
+                                </td>
+                                <td><label class="radioBox"><input type="radio" name="job_PF" class="form-control" value="1"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="job_PF" class="form-control" value="2"/>2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="job_PF" class="form-control" value="3"/>3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="job_PF" class="form-control" value="-1"/></label></td>
+                            </tr>
+                            <tr>
+                                <td class="statement">and worry about becoming broke.</td>
+                                <td><label class="radioBox"><input type="radio" name="job_NS" class="form-control" value="0" required="true"/>0</label>
+                                </td>
+                                <td><label class="radioBox"><input type="radio" name="job_NS" class="form-control" value="1"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="job_NS" class="form-control" value="2"/>2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="job_NS" class="form-control" value="3"/>3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="job_NS" class="form-control" value="-1"/></label></td>
+                            </tr>
+                            <tr>
+                                <td class="statement">and are sad about leaving your current coworkers.</td>
+                                <td><label class="radioBox"><input type="radio" name="job_NF" class="form-control" value="0" required="true"/>0</label>
+                                </td>
+                                <td><label class="radioBox"><input type="radio" name="job_NF" class="form-control" value="1"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="job_NF" class="form-control" value="2"/>2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="job_NF" class="form-control" value="3"/>3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="job_NF" class="form-control" value="-1"/></label></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="section">
+                        <div class="question">THE LOUD NOISE: As you walk downstairs...</div>
+                        <table class="questionnaire">
+                            <tr>
+                                <th>Question </th>
+                                <th>Very different</th>
+                                <th>Different</th>
+                                <th>Similar</th>
+                                <th>Very similar</th>
+                                <th>Prefer not<br/> to answer</th>
+                            </tr>
+                            <tr>
+                                <td class="statement">you feel happy, and think about how lovely your house is.</td>
+                                <td><label class="radioBox"><input type="radio" name="noise_PF" class="form-control" value="0" required="true"/>0</label>
+                                </td>
+                                <td><label class="radioBox"><input type="radio" name="noise_PF" class="form-control" value="1"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="noise_PF" class="form-control" value="2"/>2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="noise_PF" class="form-control" value="3"/>3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="noise_PF" class="form-control" value="-1"/></label></td>
+                            </tr>
+                            <tr>
+                            <td class="statement">you feel afraid, and worry that you cannot handle the fear.</td>
+                            <td><label class="radioBox"><input type="radio" name="noise_NS" class="form-control" value="0" required="true"/>0</label>
+                            </td>
+                            <td><label class="radioBox"><input type="radio" name="noise_NS" class="form-control" value="1"/>1</label></td>
+                            <td><label class="radioBox"><input type="radio" name="noise_NS" class="form-control" value="2"/>2</label></td>
+                            <td><label class="radioBox"><input type="radio" name="noise_NS" class="form-control" value="3"/>3</label></td>
+                            <td><label class="radioBox"><input type="radio" name="noise_NS" class="form-control" value="-1"/></label></td>
+                        </tr>
+                            <tr>
+                                <td class="statement">you feel afraid, but you know that you can tolerate the feeling.</td>
+                                <td><label class="radioBox"><input type="radio" name="noise_PS" class="form-control" value="0" required="true"/>0</label>
+                                </td>
+                                <td><label class="radioBox"><input type="radio" name="noise_PS" class="form-control" value="1"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="noise_PS" class="form-control" value="2"/>2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="noise_PS" class="form-control" value="3"/>3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="noise_PS" class="form-control" value="-1"/></label></td>
+                            </tr>
+
+                            <tr>
+                                <td class="statement">you feel cold, and think about how the house needs better heating.</td>
+                                <td><label class="radioBox"><input type="radio" name="noise_NF" class="form-control" value="0" required="true"/>0</label>
+                                </td>
+                                <td><label class="radioBox"><input type="radio" name="noise_NF" class="form-control" value="1"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="noise_NF" class="form-control" value="2"/>2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="noise_NF" class="form-control" value="3"/>3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="noise_NF" class="form-control" value="-1"/></label></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="section">
+                        <div class="question">MEETING A FRIEND: You arrive a little late, and...</div>
+                        <table class="questionnaire">
+                            <tr>
+                                <th>Question </th>
+                                <th>Very different</th>
+                                <th>Different</th>
+                                <th>Similar</th>
+                                <th>Very similar</th>
+                                <th>Prefer not<br/> to answer</th>
+                            </tr>
+                            <tr>
+                                <td class="statement">order your favorite snack.</td>
+                                <td><label class="radioBox"><input type="radio" name="meeting_friend_PF" class="form-control" value="0"
+                                           required="true"/>0</label></td>
+                                <td><label class="radioBox"><input type="radio" name="meeting_friend_PF" class="form-control" value="1"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="meeting_friend_PF" class="form-control" value="2"/>2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="meeting_friend_PF" class="form-control" value="3"/>3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="meeting_friend_PF" class="form-control" value="-1"/></label></td>
+                            </tr>
+                            <tr>
+                                <td class="statement">notice the bar smells gross.</td>
+                                <td><label class="radioBox"><input type="radio" name="meeting_friend_NF" class="form-control" value="0"
+                                           required="true"/>0</label></td>
+                                <td><label class="radioBox"><input type="radio" name="meeting_friend_NF" class="form-control" value="1"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="meeting_friend_NF" class="form-control" value="2"/>2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="meeting_friend_NF" class="form-control" value="3"/>3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="meeting_friend_NF" class="form-control" value="-1"/></label></td>
+                            </tr>
+                            <tr>
+                                <td  class="statement">get a call from your friend who is on her way, but running late.</td>
+                                <td><label class="radioBox"><input type="radio" name="meeting_friend_PS" class="form-control" value="0"
+                                           required="true"/>0</label></td>
+                                <td><label class="radioBox"><input type="radio" name="meeting_friend_PS" class="form-control" value="1"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="meeting_friend_PS" class="form-control" value="2"/>2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="meeting_friend_PS" class="form-control" value="3"/>3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="meeting_friend_PS" class="form-control" value="-1"/></label></td>
+                            </tr>
+                            <tr>
+                                <td class="statement">think your friend decided she did not want to see you.</td>
+                                <td><label class="radioBox"><input type="radio" name="meeting_friend_NS" class="form-control" value="0"
+                                           required="true"/>0</label></td>
+                                <td><label class="radioBox"><input type="radio" name="meeting_friend_NS" class="form-control" value="1"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="meeting_friend_NS" class="form-control" value="2"/>2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="meeting_friend_NS" class="form-control" value="3"/>3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="meeting_friend_NS" class="form-control" value="-1"/></label></td>
+                            </tr>
+
+                        </table>
+                    </div>
+                   <div class="section">
+                        <div class="question">THE LUNCH: You friend looks at you...</div>
+                        <table class="questionnaire">
+                            <tr>
+                                <th>Question </th>
+                                <th>Very different</th>
+                                <th>Different</th>
+                                <th>Similar</th>
+                                <th>Very similar</th>
+                                <th>Prefer not<br/> to answer</th>
+                            </tr>                            <tr>
+                                <td class="statement">because she thinks you are a slob.</td>
+                                <td><label class="radioBox"><input type="radio" name="lunch_NS" class="form-control" value="0" required="true"/>0</label>
+                                </td>
+                                <td><label class="radioBox"><input type="radio" name="lunch_NS" class="form-control" value="1"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="lunch_NS" class="form-control" value="2"/>2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="lunch_NS" class="form-control" value="3"/>3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="lunch_NS" class="form-control" value="-1"/></label></td>
+                            </tr>
+
+                            <tr>
+                                <td class="statement">and you frown because you forgot to bring water to lunch.</td>
+                                <td><label class="radioBox"><input type="radio" name="lunch_NF" class="form-control" value="0" required="true"/>0</label>
+                                </td>
+                                <td><label class="radioBox"><input type="radio" name="lunch_NF" class="form-control" value="1"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="lunch_NF" class="form-control" value="2"/>2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="lunch_NF" class="form-control" value="3"/>3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="lunch_NF" class="form-control" value="-1"/></label></td>
+                            </tr>
+                            <tr>
+                                <td class="statement">because she is paying attention as you describe your weekend plans.</td>
+                                <td><label class="radioBox"><input type="radio" name="lunch_PS" class="form-control" value="0" required="true"/>0</label>
+                                </td>
+                                <td><label class="radioBox"><input type="radio" name="lunch_PS" class="form-control" value="1"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="lunch_PS" class="form-control" value="2"/>2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="lunch_PS" class="form-control" value="3"/>3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="lunch_PS" class="form-control" value="-1"/></label></td>
+                            </tr>
+                            <tr>
+                                <td class="statement">and you smile because your lunch tastes good.</td>
+                                <td><label class="radioBox"><input type="radio" name="lunch_PF" class="form-control" value="0" required="true"/>0</label>
+                                </td>
+                                <td><label class="radioBox"><input type="radio" name="lunch_PF" class="form-control" value="1"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="lunch_PF" class="form-control" value="2"/>2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="lunch_PF" class="form-control" value="3"/>3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="lunch_PF" class="form-control" value="-1"/></label></td>
+                            </tr>
+                        </table>
+                    </div>
+                   <div class="section">
+                        <div class="question">THE SCRAPE: The scrape hurts a bit...</div>
+                        <table class="questionnaire">
+                            <tr>
+                                <th>Question </th>
+                                <th>Very different</th>
+                                <th>Different</th>
+                                <th>Similar</th>
+                                <th>Very similar</th>
+                                <th>Prefer not<br/> to answer</th>
+                            </tr>                            <tr>
+                                <td class="statement">and you think it will probably get seriously infected.</td>
+                                <td><label class="radioBox"><input type="radio" name="scrape_NS" class="form-control" value="0"
+                                           required="true"/>0</label></td>
+                                <td><label class="radioBox"><input type="radio" name="scrape_NS" class="form-control" value="1"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="scrape_NS" class="form-control" value="2"/>2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="scrape_NS" class="form-control" value="3"/>3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="scrape_NS" class="form-control" value="-1"/></label></td>
+                            </tr>
+                            <tr>
+                                <td class="statement">and you are frustrated because you tore your shorts.</td>
+                                <td><label class="radioBox"><input type="radio" name="scrape_NF" class="form-control" value="0"
+                                           required="true"/>0</label></td>
+                                <td><label class="radioBox"><input type="radio" name="scrape_NF" class="form-control" value="1"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="scrape_NF" class="form-control" value="2"/>2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="scrape_NF" class="form-control" value="3"/>3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="scrape_NF" class="form-control" value="-1"/></label></td>
+                            </tr>
+                            <tr>
+                                <td class="statement">but you know you will be ok.</td>
+                                <td><label class="radioBox"><input type="radio" name="scrape_PS" class="form-control" value="0"
+                                           required="true"/>0</label></td>
+                                <td><label class="radioBox"><input type="radio" name="scrape_PS" class="form-control" value="1"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="scrape_PS" class="form-control" value="2"/>2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="scrape_PS" class="form-control" value="3"/>3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="scrape_PS" class="form-control" value="-1"/></label></td>
+                            </tr>
+                            <tr>
+                                <td class="statement">but you are happy that you are getting exercise.</td>
+                                <td><label class="radioBox"><input type="radio" name="scrape_PF" class="form-control" value="0"
+                                           required="true"/>0</label></td>
+                                <td><label class="radioBox"><input type="radio" name="scrape_PF" class="form-control" value="1"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="scrape_PF" class="form-control" value="2"/>2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="scrape_PF" class="form-control" value="3"/>3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="scrape_PF" class="form-control" value="-1"/></label></td>
+                            </tr>
+
+                        </table>
+                    </div>
+                    <div class="section">
+                         <div class="question">THE SHOPPING TRIP: You think about your recent health...</div>
+                         <table class="questionnaire">
+                             <tr>
+                                 <th>Question </th>
+                                 <th>Very different</th>
+                                 <th>Different</th>
+                                 <th>Similar</th>
+                                 <th>Very similar</th>
+                                 <th>Prefer not<br/> to answer</th>
+                             </tr>                            <tr>
+                                 <td class="statement">and think you are probably coming down with the strange illness.</td>
+                                 <td><label class="radioBox"><input type="radio" name="shopping_NS" class="form-control" value="0" required="true"/>0</label>
+                                 </td>
+                                 <td><label class="radioBox"><input type="radio" name="shopping_NS" class="form-control" value="1"/>1</label></td>
+                                 <td><label class="radioBox"><input type="radio" name="shopping_NS" class="form-control" value="2"/>2</label></td>
+                                 <td><label class="radioBox"><input type="radio" name="shopping_NS" class="form-control" value="3"/>3</label></td>
+                                 <td><label class="radioBox"><input type="radio" name="shopping_NS" class="form-control" value="-1"/></label></td>
+                             </tr>
+                             <tr>
+                                 <td class="statement">and think you are unlikely to catch the strange illness.</td>
+                                 <td><label class="radioBox"><input type="radio" name="shopping_PS" class="form-control" value="0" required="true"/>0</label>
+                                 </td>
+                                 <td><label class="radioBox"><input type="radio" name="shopping_PS" class="form-control" value="1"/>1</label></td>
+                                 <td><label class="radioBox"><input type="radio" name="shopping_PS" class="form-control" value="2"/>2</label></td>
+                                 <td><label class="radioBox"><input type="radio" name="shopping_PS" class="form-control" value="3"/>3</label></td>
+                                 <td><label class="radioBox"><input type="radio" name="shopping_PS" class="form-control" value="-1"/></label></td>
+                             </tr>
+                             <tr>
+                                 <td class="statement">and smile because you enjoy shopping.</td>
+                                 <td><label class="radioBox"><input type="radio" name="shopping_PF" class="form-control" value="0" required="true"/>0</label>
+                                 </td>
+                                 <td><label class="radioBox"><input type="radio" name="shopping_PF" class="form-control" value="1"/>1</label></td>
+                                 <td><label class="radioBox"><input type="radio" name="shopping_PF" class="form-control" value="2"/>2</label></td>
+                                 <td><label class="radioBox"><input type="radio" name="shopping_PF" class="form-control" value="3"/>3</label></td>
+                                 <td><label class="radioBox"><input type="radio" name="shopping_PF" class="form-control" value="-1"/></label></td>
+                             </tr>
+                             <tr>
+                                 <td class="statement">and feel bored of shopping.</td>
+                                 <td><label class="radioBox"><input type="radio" name="shopping_NF" class="form-control" value="0" required="true"/>0</label>
+                                 </td>
+                                 <td><label class="radioBox"><input type="radio" name="shopping_NF" class="form-control" value="1"/>1</label></td>
+                                 <td><label class="radioBox"><input type="radio" name="shopping_NF" class="form-control" value="2"/>2</label></td>
+                                 <td><label class="radioBox"><input type="radio" name="shopping_NF" class="form-control" value="3"/>3</label></td>
+                                 <td><label class="radioBox"><input type="radio" name="shopping_NF" class="form-control" value="-1"/></label></td>
+                             </tr>
+                         </table>
+                     </div>
+                     <div class="section">
+                          <div class="question">THE BLOOD TEST: The doctor says he will call you in a few weeks...</div>
+                          <table class="questionnaire">
+                              <tr>
+                                  <th>Question </th>
+                                  <th>Very different</th>
+                                  <th>Different</th>
+                                  <th>Similar</th>
+                                  <th>Very similar</th>
+                                  <th>Prefer not<br/> to answer</th>
+                              </tr>
+                              <tr>
+                                  <td class="statement">and you think about how nice your doctor is.</td>
+                                  <td><label class="radioBox"><input type="radio" name="blood_test_PF" class="form-control" value="0" required="true"/>0</label>
+                                  </td>
+                                  <td><label class="radioBox"><input type="radio" name="blood_test_PF" class="form-control" value="1"/>1</label></td>
+                                  <td><label class="radioBox"><input type="radio" name="blood_test_PF" class="form-control" value="2"/>2</label></td>
+                                  <td><label class="radioBox"><input type="radio" name="blood_test_PF" class="form-control" value="3"/>3</label></td>
+                                  <td><label class="radioBox"><input type="radio" name="blood_test_PF" class="form-control" value="-1"/></label></td>
+                              </tr>
+                              <tr>
+                                  <td class="statement">and you are annoyed because your doctor is not very friendly.</td>
+                                  <td><label class="radioBox"><input type="radio" name="blood_test_NF" class="form-control" value="0" required="true"/>0</label>
+                                  </td>
+                                  <td><label class="radioBox"><input type="radio" name="blood_test_NF" class="form-control" value="1"/>1</label></td>
+                                  <td><label class="radioBox"><input type="radio" name="blood_test_NF" class="form-control" value="2"/>2</label></td>
+                                  <td><label class="radioBox"><input type="radio" name="blood_test_NF" class="form-control" value="3"/>3</label></td>
+                                  <td><label class="radioBox"><input type="radio" name="blood_test_NF" class="form-control" value="-1"/></label></td>
+                              </tr>
+                              <tr>
+                                <td class="statement">and you think that you will not be able to tolerate your anxiety while you wait.</td>
+                                <td><label class="radioBox"><input type="radio" name="blood_test_NS" class="form-control" value="0" required="true"/>0</label>
+                                </td>
+                                <td><label class="radioBox"><input type="radio" name="blood_test_NS" class="form-control" value="1"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="blood_test_NS" class="form-control" value="2"/>2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="blood_test_NS" class="form-control" value="3"/>3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="blood_test_NS" class="form-control" value="-1"/></label></td>
+                              </tr>
+                              <tr>
+                                <td class="statement">and you know that you can handle your anxiety while you wait.</td>
+                                <td><label class="radioBox"><input type="radio" name="blood_test_PS" class="form-control" value="0" required="true"/>0</label>
+                                </td>
+                                <td><label class="radioBox"><input type="radio" name="blood_test_PS" class="form-control" value="1"/>1</label></td>
+                                <td><label class="radioBox"><input type="radio" name="blood_test_PS" class="form-control" value="2"/>2</label></td>
+                                <td><label class="radioBox"><input type="radio" name="blood_test_PS" class="form-control" value="3"/>3</label></td>
+                                <td><label class="radioBox"><input type="radio" name="blood_test_PS" class="form-control" value="-1"/></label></td>
+                              </tr>
+                          </table>
+                      </div>
+                    <div id="submit">
+                        <button>Next</button>
+                    </div>
+
+                </form>
+                <script src="http://cdn.jsdelivr.net/jquery.validation/1.14.0/jquery.validate.min.js">
+                </script>
+            </div>
+        </div>
+        <!--features ends-->
+
+        <!--divider here-->
+        <div class="spacer-40px"></div>
+
+    </div>
+</section>
+
+
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>
+
+
+<!--Over the course of this program, did you start/stop/change a dose of medication, therapy, or other intervention to help your anxiety difficulties?  (If you are on the same dose of medication or same appointment schedule for therapy or intervention as you were when you began this program, please choose “no.”)-->
+<!--	Yes-->
+<!--	No-->
+<!--If yes: Please describe: ________________-->

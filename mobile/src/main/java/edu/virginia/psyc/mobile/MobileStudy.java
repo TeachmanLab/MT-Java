@@ -43,8 +43,10 @@ public class MobileStudy extends BaseStudy {
 
         pretest = new Session ("PreTest", "Initial Assessment", 0, 0);
         pretest.addTask(new Task("Demographics","Demographics", Task.TYPE.questions, 2));
+        pretest.addTask(new Task("OA","Mood Assessment", Task.TYPE.questions,2));
         pretest.addTask(new Task("DASS21AS","Anxiety Subscale", Task.TYPE.questions, 2));
-        pretest.addTask(new Task("DASS21DS","Depression Subscale", Task.TYPE.questions, 2));
+        pretest.addTask(new Task("RR","Recognition Rating", Task.TYPE.questions, 2));
+        pretest.addTask(new Task("BBSIQ","Story evaluation", Task.TYPE.questions, 2));
         sessions.add(pretest);
 
         session1 = new Session("firstSession", "The First Session", 0, 2);
@@ -63,8 +65,10 @@ public class MobileStudy extends BaseStudy {
         sessions.add(session5);
 
         post = new Session("PostFollowUp", "Follow Up", 0, 0);
+        post.addTask(new Task("OA","Mood Assessment", Task.TYPE.questions,2));
         post.addTask(new Task("DASS21AS","Anxiety Subscale", Task.TYPE.questions, 2));
-        post.addTask(new Task("DASS21DS","Depression Subscale", Task.TYPE.questions, 2));
+        post.addTask(new Task("RR","Recognition Rating", Task.TYPE.questions, 2));
+        post.addTask(new Task("BBSIQ","Story evaluation", Task.TYPE.questions, 2));
         sessions.add(post);
 
         return sessions;
