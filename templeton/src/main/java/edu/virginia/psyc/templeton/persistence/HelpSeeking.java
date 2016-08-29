@@ -21,6 +21,7 @@ public class HelpSeeking extends SecureQuestionnaireData {
     private boolean OtherChange;
     private String other;
     private boolean NoChange;
+    private int ChangeInHelp_noAns;
 
 }
 
