@@ -23,8 +23,8 @@ body {font-family: 'Source Sans Pro', sans-serif; font-size:20px; box-sizing:bor
     padding:0px 20px;
     line-height: 25px;
 }
-.account-bar {clear:both; width:100%; background: #00ACE4; font-size:.66em; text-align:right; padding:0px 20px; line-height: 25px}
-.account-bar a, .account-bar span.item {color:#000000; padding: 0 10px 0 10px; font-weight:400}
+
+.account-bar a, .account-bar span.item {color:#ffffff; padding: 0 10px 0 10px; font-weight:400}
 .account-bar .login {}
 
 /*************** Footer   */
