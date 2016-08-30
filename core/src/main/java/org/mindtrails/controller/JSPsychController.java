@@ -62,7 +62,7 @@ public class JSPsychController extends BaseController {
 
         participant.getStudy().completeCurrentTask();
         participantService.save(participant);
-        return new RedirectView("/session/next");
+        return new RedirectView("/session/next", true);
     }
 
 }

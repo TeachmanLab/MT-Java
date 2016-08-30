@@ -80,10 +80,10 @@ public class OAController extends QuestionController {
                     study.setIncrease50(true);
                     participantService.save(participant);
                 }
-                return new RedirectView("/session/atRisk");
+                return new RedirectView("/session/atRisk", true);
             }
         }
-        return new RedirectView("/session/next");
+        return new RedirectView("/session/next", true);
     }
 
 

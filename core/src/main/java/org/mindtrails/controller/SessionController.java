@@ -118,9 +118,9 @@ public class SessionController extends BaseController {
 
         // Re-direct to the next step the current session is in progress.
         if(study.getState() == Study.STUDY_STATE.IN_PROGRESS) {
-            return new RedirectView(study.getCurrentSession().getCurrentTask().getRequestMapping());
+            return new RedirectView(study.getCurrentSession().getCurrentTask().getRequestMapping(), true);
         } else {
-            return new RedirectView("/session");
+            return new RedirectView("/session", true);
         }
     }
 

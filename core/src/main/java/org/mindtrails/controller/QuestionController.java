@@ -86,7 +86,7 @@ public class QuestionController extends BaseController {
     RedirectView handleForm(@PathVariable("form") String formName,
                     WebRequest request) throws Exception {
         saveForm(formName, request);
-        return new RedirectView("/session/next");
+        return new RedirectView("/session/next", true);
    }
 
 
