@@ -15,8 +15,8 @@ apply plugin: 'war'
 description = 'MindTrails Site'
 
 war {
-    baseName = 'mindtrailsBasic'
-    version =  '0.1.0'
+    baseName = 'templeton'
+    version =  '0.8.0'
 }
 
 configurations {
