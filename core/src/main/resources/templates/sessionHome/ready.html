@@ -47,7 +47,7 @@
                 <p class="session-note">For best results, complete the <span th:text="${currentSession.displayName}"/> by
                     <span class="date" th:text="${completeBy}">July 10, 2015</span>
                 </p>
-                <a th:href="${currentTask.requestMapping}" th:if="${currentTask}">
+                <a th:href="@{${currentTask.requestMapping}}" th:if="${currentTask}">
                     <button>Start</button>
                 </a>
                 <a th:href="@{/session/overview}" th:unless="${currentSession.name =='PRE'}">Program Overview</a>
