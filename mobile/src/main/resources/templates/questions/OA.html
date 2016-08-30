@@ -5,9 +5,11 @@
 <!--[if (gte IE 9)|!(IE)]><!-->
 <html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
 <!--<![endif]-->
-<head th:include="/fragment/common :: headerFragment" />
-<body th:class="|user-theme-${participant.theme}|">
-<section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
+
+<head th:replace="fragment/common :: headerFragment"/>
+<body>
+<section th:replace="fragment/common :: topFragment"/>
+<section th:replace="fragment/common :: titleBar (title='Mood Assessment')"/>
 
 
 <!-- content starts
@@ -22,52 +24,158 @@
                     <h2>Anxiety Review</h2>
                     <p>Please read each statement below and select the option that indicates how much the statement
                     applied to you <i><span th:text="${pastX}"/></i>.</p>
+
                     <div class="section">
-                        <div class="question">1. <span th:text="${pastX}"/>, how often have you felt anxious?</div>
-                        <label class="radioListNoAnswer">Prefer not to answer<br/><input type="radio" name="anxious_freq" value="555" required="true"/></label>
-                        <label class="radioList"><input type="radio" name="anxious_freq" value="0" required="true"/><b>No anxiety.</b></label>
-                        <label class="radioList"><input type="radio" name="anxious_freq" value="1" required="true"/><b>Infrequent anxiety.</b> Felt anxious a few times.</label>
-                        <label class="radioList"><input type="radio" name="anxious_freq" value="2" required="true"/><b>Occasional anxiety.</b> Felt anxious as much of the time as not. It was hard to relax.</label>
-                        <label class="radioList"><input type="radio" name="anxious_freq" value="3" required="true"/><b>Frequent anxiety.</b> Felt anxious most of the time. It was very difficult to relax.</label>
-                        <label class="radioList"><input type="radio" name="anxious_freq" value="4" required="true"/><b>Constant anxiety.</b> Felt anxious all of the time and never really relaxed.</label>
+                        <div class="row">
+                            <div class="col-md-10">
+                            <p class="question">1. <span th:text="${pastX}"/>, how often have you felt anxious?</p>
+                            </div>
                         </div>
-                    <div class="section">
-                        <div class="question">2. <span th:text="${pastX}"/>, when you have felt anxious, how intense or severe was your anxiety?</div>
-                        <label class="radioListNoAnswer">Prefer not to answer<br/><input type="radio" name="anxious_sev" value="555" required="true"/></label>
-                        <label class="radioList"><input type="radio" name="anxious_sev" value="0" required="true"/><b>Little or None.</b> Anxiety was absent or barely noticeable.</label>
-                        <label class="radioList"><input type="radio" name="anxious_sev" value="1" required="true"/><b>Mild.</b> Anxiety was at a low level. It was possible to relax when I tried. Physical symptoms were only slightly uncomfortable.</label>
-                        <label class="radioList"><input type="radio" name="anxious_sev" value="2" required="true"/><b>Moderate.</b> Anxiety was distressing at times. It was hard to relax or concentrate, but I could do it if I tried.</label>
-                        <label class="radioList"><input type="radio" name="anxious_sev" value="3" required="true"/><b>Severe.</b> Anxiety was intense much of the time. It was very difficult to relax or focus on anything else. Physical symptoms were extremely uncomfortable.</label>
-                        <label class="radioList"><input type="radio" name="anxious_sev" value="4" required="true"/><b>Extreme.</b> Anxiety was overwhelming. It was impossible to relax at all. Physical symptoms were unbearable.</label>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="anxious_freq" value="0" required="true"/><b>No anxiety.</b></label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="anxious_freq" value="1" required="true"/><b>Infrequent anxiety.</b> Felt anxious a few times.</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="anxious_freq" value="2" required="true"/><b>Occasional anxiety.</b> Felt anxious as much of the time as not. It was hard to relax.</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="anxious_freq" value="3" required="true"/><b>Frequent anxiety.</b> Felt anxious most of the time. It was very difficult to relax.</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="anxious_freq" value="4" required="true"/><b>Constant anxiety.</b> Felt anxious all of the time and never really relaxed.</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio"  name="anxious_freq" value="555" required="true"/><b>Prefer not to answer</b></label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
                     <div class="section">
-                        <div class="question">3. <span th:text="${pastX}"/>, how often did you avoid situations, places, objects, or activities because of anxiety or fear?</div>
-                        <label class="radioListNoAnswer">Prefer not to answer<br/><input type="radio" name="avoid" value="555" required="true"/></label>
-                        <label class="radioList"><input type="radio" name="avoid" value="0" required="true"/><b>None.</b> I do not avoid places, situations, activities, or things because of fear.</label>
-                        <label class="radioList"><input type="radio" name="avoid" value="1" required="true"/><b>Infrequent.</b> I avoid something once in a while, but will usually face the situation or confront the object. My lifestyle is not affected.</label>
-                        <label class="radioList"><input type="radio" name="avoid" value="2" required="true"/><b>Occasional.</b> I have some fear of certain situations, places, or objects, but it is still manageable. My lifestyle has only changed in minor ways. I always or almost always avoid the things I fear when I’m alone, but can handle them if someone comes with me.</label>
-                        <label class="radioList"><input type="radio" name="avoid" value="3" required="true"/><b>Frequent.</b> I have considerable fear and really try to avoid the things that frighten me. I have made significant changes in my lifestyle to avoid the object, situation, activity, or place.</label>
-                        <label class="radioList"><input type="radio" name="avoid" value="4" required="true"/><b>All the Time.</b> Avoiding objects, situations, activities, or places has taken over my life. My lifestyle has been extensively affected and I no longer do things that I used to enjoy.</label>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="question">2. <span th:text="${pastX}"/>, when you have felt anxious, how intense or severe was your anxiety?</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="anxious_sev" value="0" required="true"/><b>Little or None.</b> Anxiety was absent or barely noticeable.</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="anxious_sev" value="1" required="true"/><b>Mild.</b> Anxiety was at a low level. It was possible to relax when I tried. Physical symptoms were only slightly uncomfortable.</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="anxious_sev" value="2" required="true"/><b>Moderate.</b> Anxiety was distressing at times. It was hard to relax or concentrate, but I could do it if I tried.</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="anxious_sev" value="3" required="true"/><b>Severe.</b> Anxiety was intense much of the time. It was very difficult to relax or focus on anything else. Physical symptoms were extremely uncomfortable.</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="anxious_sev" value="4" required="true"/><b>Extreme.</b> Anxiety was overwhelming. It was impossible to relax at all. Physical symptoms were unbearable.</label>
+                                </div>
+                                <div class="radio">
+                                <label> <input class="option" type="radio" name="anxious_sev" value="555" required="true"/><b>Prefer not to answer</b></label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
                     <div class="section">
-                        <div class="question">4. <span th:text="${pastX}"/>, how much did your anxiety interfere with your ability to do the things you needed to do at work, at school, or at home?</div>
-                        <label class="radioListNoAnswer">Prefer not to answer<br/><input type="radio" name="interfere" value="555" required="true"/></label>
-                        <label class="radioList"><input type="radio" name="interfere" value="0" required="true"/><b>None.</b> No interference at work/home/school from anxiety</label>
-                        <label class="radioList"><input type="radio" name="interfere" value="1" required="true"/><b>Mild.</b> My anxiety has caused some interference at work/home/school. Things are more difficult, but everything that needs to be done is still getting done.</label>
-                        <label class="radioList"><input type="radio" name="interfere" value="2" required="true"/><b>Moderate.</b> My anxiety definitely interferes with tasks. Most things are still getting done, but few things are being done as well as in the past.</label>
-                        <label class="radioList"><input type="radio" name="interfere" value="3" required="true"/><b>Severe.</b> My anxiety has really changed my ability to get things done. Some tasks are still being done, but many things are not. My performance has definitely suffered.</label>
-                        <label class="radioList"><input type="radio" name="interfere" value="4" required="true"/><b>Extreme.</b> My anxiety has become incapacitating. I am unable to complete tasks and have had to leave school, have quit or been fired from my job, or have been unable to complete tasks at home and have faced consequences like bill collectors, eviction, etc.</label>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="question">3. <span th:text="${pastX}"/>, how often did you avoid situations, places, objects, or activities because of anxiety or fear?</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="avoid" value="0" required="true"/><b>None.</b> I do not avoid places, situations, activities, or things because of fear.</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="avoid" value="1" required="true"/><b>Infrequent.</b> I avoid something once in a while, but will usually face the situation or confront the object. My lifestyle is not affected.</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="avoid" value="2" required="true"/><b>Occasional.</b> I have some fear of certain situations, places, or objects, but it is still manageable. My lifestyle has only changed in minor ways. I always or almost always avoid the things I fear when I’m alone, but can handle them if someone comes with me.</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="avoid" value="3" required="true"/><b>Frequent.</b> I have considerable fear and really try to avoid the things that frighten me. I have made significant changes in my lifestyle to avoid the object, situation, activity, or place.</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="avoid" value="4" required="true"/><b>All the Time.</b> Avoiding objects, situations, activities, or places has taken over my life. My lifestyle has been extensively affected and I no longer do things that I used to enjoy.</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="avoid" value="555" required="true"/><b>Prefer not to answer</b></label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
                     <div class="section">
-                        <div class="question">5. <span th:text="${pastX}"/>, how much has anxiety interfered with your social life and relationships?</div>
-                        <label class="radioListNoAnswer">Prefer not to answer<br/><input type="radio" name="interfere_social" value="555" required="true"/></label>
-                        <label class="radioList"><input type="radio" name="interfere_social" value="0" required="true"/><b>None.</b> My anxiety doesn’t affect my relationships.</label>
-                        <label class="radioList"><input type="radio" name="interfere_social" value="1" required="true"/><b>Mild.</b> My anxiety slightly interferes with my relationships. Some of my friendships and other relationships have suffered, but, overall, my social life is still fulfilling.</label>
-                        <label class="radioList"><input type="radio" name="interfere_social" value="2" required="true"/><b>Moderate.</b> I have experienced some interference with my social life, but I still have a few close relationships. I don’t spend as much time with others as in the past, but I still socialize sometimes.</label>
-                        <label class="radioList"><input type="radio" name="interfere_social" value="3" required="true"/><b>Severe.</b> My friendships and other relationships have suffered a lot because of anxiety. I do not enjoy social activities. I socialize very little.</label>
-                        <label class="radioList"><input type="radio" name="interfere_social" value="4" required="true"/><b>Extreme.</b> My anxiety has completely disrupted my social activities. All of my relationships have suffered or ended. My family life is extremely strained.</label>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="question">4. <span th:text="${pastX}"/>, how much did your anxiety interfere with your ability to do the things you needed to do at work, at school, or at home?</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="interfere" value="0" required="true"/><b>None.</b> No interference at work/home/school from anxiety</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="interfere" value="1" required="true"/><b>Mild.</b> My anxiety has caused some interference at work/home/school. Things are more difficult, but everything that needs to be done is still getting done.</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="interfere" value="2" required="true"/><b>Moderate.</b> My anxiety definitely interferes with tasks. Most things are still getting done, but few things are being done as well as in the past.</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="interfere" value="3" required="true"/><b>Severe.</b> My anxiety has really changed my ability to get things done. Some tasks are still being done, but many things are not. My performance has definitely suffered.</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="interfere" value="4" required="true"/><b>Extreme.</b> My anxiety has become incapacitating. I am unable to complete tasks and have had to leave school, have quit or been fired from my job, or have been unable to complete tasks at home and have faced consequences like bill collectors, eviction, etc.</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="interfere" value="555" required="true"/><b>Prefer not to answer</b></label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="submit">
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="question">5. <span th:text="${pastX}"/>, how much has anxiety interfered with your social life and relationships?</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="interfere_social" value="0" required="true"/><b>None.</b> My anxiety doesn’t affect my relationships.</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="interfere_social" value="1" required="true"/><b>Mild.</b> My anxiety slightly interferes with my relationships. Some of my friendships and other relationships have suffered, but, overall, my social life is still fulfilling.</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="interfere_social" value="2" required="true"/><b>Moderate.</b> I have experienced some interference with my social life, but I still have a few close relationships. I don’t spend as much time with others as in the past, but I still socialize sometimes.</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="interfere_social" value="3" required="true"/><b>Severe.</b> My friendships and other relationships have suffered a lot because of anxiety. I do not enjoy social activities. I socialize very little.</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="interfere_social" value="4" required="true"/><b>Extreme.</b> My anxiety has completely disrupted my social activities. All of my relationships have suffered or ended. My family life is extremely strained.</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="interfere_social" value="555" required="true"/><b>Prefer not to answer</b></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center">
                         <button type="submit">Next</button>
                     </div>
                 </form>
