@@ -1,9 +1,10 @@
 package edu.virginia.psyc.templeton.persistence;
 
-import org.mindtrails.domain.questionnaire.SecureQuestionnaireData;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.mindtrails.domain.questionnaire.SecureQuestionnaireData;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -56,6 +57,7 @@ public class Evaluation extends SecureQuestionnaireData {
     private boolean OtherComplete;
     private String Other_Place;
     private int NoAns_where;
+    @Column(name="evalCondition") // 'Condition' is a reserved word in some databases.
     private int Condition;
 
 
