@@ -133,7 +133,7 @@ manually,  you can do this by:
 > cd core/src/main/resources/static/bower/PIPlayer
 > bower install
 
-**Please Note:**  if you run into problems with PI Player scripts not executing you might try editing the file
+**Please Note:**  if you run into problems with PI Player scripts not executing you might try editing the file (This is only required for r34, Templeton has a better configuration)
 > vim core/src/main/resources/static/bower/PIPlayer/dist/js/config.js
 > Set the baseUrl:'../bower/PIPlayer/dist/js',
 
