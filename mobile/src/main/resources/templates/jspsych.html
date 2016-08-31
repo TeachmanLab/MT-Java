@@ -116,7 +116,7 @@
 					// if it's not the last element of the array
 					if (k < split_sentences.length - 1)
 					{
-						stim = stim + split_sentences[k] + '.';
+						stim = stim + '<p>' + split_sentences[k] + '.' + '</p>';
 					}
 					// if it's the last element it's the word; so don't add a period
 					else
@@ -126,7 +126,7 @@
 					// here's the trial
 					var trial = {
 						type: 'button-response',
-						stimulus: "<p class='center-content'>" + stim + "</p>",
+						stimulus: "<div class='center-content'>" + stim + "</div>",
 						is_html: true,
 						timing_post_trial: 0,
 						// dynamic part of the trial, always add the div where the feedback is going to show
@@ -160,7 +160,7 @@
 				// here's the trial; we'll put this in a while loop
 				var trial = {
 					type: 'button-response',
-					stimulus: "<p id='stim'; class='center-content'>" + stim + ' ' + last + ".</p>",
+					stimulus: "<div id='stim'; class='center-content'>" + stim + ' ' + last + ".</div>",
 					is_html: true,
 					index:index,
 					timing_post_trial: 0,
