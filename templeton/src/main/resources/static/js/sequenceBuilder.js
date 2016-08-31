@@ -30,6 +30,7 @@ intro =
 
 // this is the function to remove a random letter
 function removeRandomLetter(str) {
+    if(str == null) return "";
     var pos = Math.floor(Math.random() * str.length);
     return [str.substring(0, pos) + "[ ]" + str.substring(pos + 1), str.charAt(pos)];
 }
@@ -66,6 +67,7 @@ function processCSV(scenarios) {
                         "positiveKey": [p1[1].toLowerCase(), p2[1].toLowerCase()],
                         "positiveWord": [p1[0].toLowerCase(), p2[0].toLowerCase()],
                         "stimulus": '[stimulus]',
+                        "negation": merged[i].Negation,
                         "statement": merged[i].Scenario
                     },
                     "handle": "paragraph",

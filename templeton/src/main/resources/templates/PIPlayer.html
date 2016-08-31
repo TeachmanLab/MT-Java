@@ -29,7 +29,11 @@
         }
 
         var contextRoot = /*[[@{/}]]*/ '';
+        var condition = /*[[${condition}]]*/ "NEUTRAL";
         var script = /*[[@{${script}}]]*/ "scenerio";
+        if(condition == "NEUTRAL") {
+            script = script + "_neutral"
+        }
         var csvFile = contextRoot + "piPlayerCSV/" + script + ".csv";
 
         Papa.parse(csvFile, {

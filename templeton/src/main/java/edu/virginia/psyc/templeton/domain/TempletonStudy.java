@@ -102,16 +102,15 @@ public class TempletonStudy extends BaseStudy {
 
         session1 = new Session(FIRST_SESSION, "The First Session", 0, 2);
         session1.addTask(new Task("Affect","Affect", Task.TYPE.questions, 1));
-        session1.addTask(new Task("FirstSessionStories", "First Training", Task.TYPE.playerScript, 10));
+        session1.addTask(new Task("scenarios", "First Training", Task.TYPE.playerScript, 10));
         session1.addTask(new Task("Affect","Affect", Task.TYPE.questions, 1));
         session1.addTask(new Task("Relatability","Relatability Follow Up", Task.TYPE.questions, 1));
         session1.addTask(new Task("ExpectancyBias","Expectancy Bias", Task.TYPE.questions, 1));
-        session1.addTask(new Task("RecognitionRatings", "Recognition Ratings", Task.TYPE.playerScript, 10));
         sessions.add(session1);
 
         session2 = new Session(SECOND_SESSION, "The Second Session", 0, 0);
         session2.addTask(new Task("Affect","Affect", Task.TYPE.questions, 1));
-        session2.addTask(new Task("MyWebForm","Second Training", Task.TYPE.questions, 1));
+        session1.addTask(new Task("scenarios", "Second Training", Task.TYPE.playerScript, 10));
         session2.addTask(new Task("Affect","Affect", Task.TYPE.questions, 1));
         session2.addTask(new Task("ExpectancyBias","Expectancy Bias", Task.TYPE.questions, 1));
         session2.addTask(new Task("NGSES","Self Esteem Scale", Task.TYPE.questions, 2));
@@ -119,14 +118,14 @@ public class TempletonStudy extends BaseStudy {
 
         session3 = new Session(THIRD_SESSION, "The Third Session", 0, 0);
         session3.addTask(new Task("Affect","Affect", Task.TYPE.questions, 1));
-        session3.addTask(new Task("MyWebForm","Third Training", Task.TYPE.questions, 1));
+        session1.addTask(new Task("scenarios", "Third Training", Task.TYPE.playerScript, 10));
         session3.addTask(new Task("Affect","Affect", Task.TYPE.questions, 1));
         session3.addTask(new Task("ExpectancyBias","Expectancy Bias", Task.TYPE.questions, 1));
         sessions.add(session3);
 
         session4 = new Session(FOURTH_SESSION, "The Fourth Session", 0, 0);
         session4.addTask(new Task("Affect","Affect", Task.TYPE.questions, 1));
-        session4.addTask(new Task("MyWebForm","Fourth Training", Task.TYPE.questions, 1));
+        session1.addTask(new Task("scenarios", "Fourth Training", Task.TYPE.playerScript, 10));
         session4.addTask(new Task("Affect","Affect", Task.TYPE.questions, 1));
         session4.addTask(new Task("Relatability","Relatability Follow Up", Task.TYPE.questions, 1));
         session4.addTask(new Task("ExpectancyBias","Expectancy Bias", Task.TYPE.questions, 1));
