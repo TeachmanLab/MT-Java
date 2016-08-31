@@ -31,11 +31,11 @@ public class TempletonParticipantService extends ParticipantServiceImpl implemen
     @Autowired
     ExpectancyBiasRepository biasRepository;
 
+    public enum CONDITION_TYPE  {POSITIVE, FIFTY_FIFTY, NEUTRAL}
+    public enum CONDITION_SPLIT {A,B}
 
-    List<TempletonStudy.CONDITION> CONDITION_VALUES =
-            Collections.unmodifiableList(Arrays.asList(TempletonStudy.CONDITION.values()));
-    List<TempletonStudy.PRIME> PRIME_VALUES =
-            Collections.unmodifiableList(Arrays.asList(TempletonStudy.PRIME.values()));
+    List<CONDITION_TYPE> CONDITION_VALUES =
+            Collections.unmodifiableList(Arrays.asList(CONDITION_TYPE.values()));
 
     @Override
     public Participant create() {
@@ -43,8 +43,16 @@ public class TempletonParticipantService extends ParticipantServiceImpl implemen
         TempletonStudy study = new TempletonStudy();
         p.setStudy(study);
 
-        study.setPrime(PRIME_VALUES.get(RANDOM.nextInt(PRIME_VALUES.size())));
-        study.setConditioning(CONDITION_VALUES.get(RANDOM.nextInt(CONDITION_VALUES.size())));
+        CONDITION_TYPE type = CONDITION_VALUES.get(RANDOM.nextInt(CONDITION_VALUES.size()));
+        if(type == CONDITION_TYPE.POSITIVE) {
+            if (RANDOM.nextInt(2) == 1) study.setConditioning(TempletonStudy.CONDITION.POSITIVE);
+            else study.setConditioning(TempletonStudy.CONDITION.POSITIVE_NEGATION);
+        } else if (type == CONDITION_TYPE.FIFTY_FIFTY) {
+            if (RANDOM.nextInt(2) == 1) study.setConditioning(TempletonStudy.CONDITION.FIFTY_FIFTY_RANDOM);
+            else study.setConditioning(TempletonStudy.CONDITION.FIFTY_FIFTY_BLOCKED);
+        } else {
+            study.setConditioning(TempletonStudy.CONDITION.NEUTRAL);
+        }
 
         return p;
     }

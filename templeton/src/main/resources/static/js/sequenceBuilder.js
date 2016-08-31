@@ -12,7 +12,7 @@ intro =
     layout: [
         // This is a stimulus object
         {
-            media: {template: "/PIPlayerScripts/introRecognition.html"}
+            media: {template: "../PIPlayerScripts/introRecognition.html"}
         }
     ],
     interactions: [

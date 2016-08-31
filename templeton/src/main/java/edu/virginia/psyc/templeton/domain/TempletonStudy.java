@@ -18,12 +18,14 @@ import java.util.*;
 @DiscriminatorValue("Templeton")
 public class TempletonStudy extends BaseStudy {
 
-    // A Base Study has : currentSession, currentTaskIndex, lastSessionDate and receiveGiftCards
-    public enum CONDITION {POSITIVE, NEUTRAL}
-    public enum PRIME {NEUTRAL, ANXIETY}
+    // positive (all positive words)
+    // positive (all postivie words, w/ negation statement
+    // 50/50 (half positive, half negative, completely random)
+    // 50/50 (half positive, half negative, chunks - first 5 pos, next x are negative ....)
+    // Neutral condition (likely alternate content)
+    public enum CONDITION {POSITIVE, POSITIVE_NEGATION, FIFTY_FIFTY_RANDOM, FIFTY_FIFTY_BLOCKED, NEUTRAL }
 
-    private CONDITION conditioning;
-    private PRIME          prime;
+    private CONDITION     conditioning;
 
     public static final String FIRST_SESSION = "firstSession";
     public static final String SECOND_SESSION = "secondSession";
@@ -53,6 +55,8 @@ public class TempletonStudy extends BaseStudy {
         Map<String,String> map = super.getPiPlayerParameters();
         String sessionName = this.getCurrentSession().getName();
 
+        map.put("negate",(conditioning.equals(CONDITION.POSITIVE_NEGATION))? "true" : "false");
+
         switch(sessionName) {
             case FIRST_SESSION:
                 map.put("fragment","first");
@@ -73,7 +77,6 @@ public class TempletonStudy extends BaseStudy {
 
         }
         map.put("condition", this.conditioning.toString());
-        map.put("prime", this.prime.toString());
         return map;
     }
 

@@ -47,7 +47,7 @@ public class PIPlayerController extends BaseController {
         Participant p = participantService.findByEmail(principal.getName());
         Study study   = p.getStudy();
 
-        model.addAttribute("participantId", p.getId()1);
+        model.addAttribute("participantId", p.getId());
         model.addAttribute("script", scriptName);
         model.addAttribute("sessionName", p.getStudy().getCurrentSession().getName());
         for(String key : study.getPiPlayerParameters().keySet()) {
