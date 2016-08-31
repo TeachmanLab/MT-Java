@@ -1,0 +1,1749 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+
+<head th:replace="fragment/common :: headerFragment"/>
+<body>
+<section th:replace="fragment/common :: topFragment"/>
+<section th:replace="fragment/common :: titleBar (title='Situations')"/>
+
+
+
+
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+    <div class="container">
+
+        <!--spacer here-->
+        <div class="spacer-30px"></div>
+
+        <!--features starts-->
+        <div class="row">
+            <div class="col-md-10">
+
+                <div class="introduction">
+                <p>Here are some situations in which it is not quite clear what is happening.  After each statement,
+                    you will see three possible explanations for the situation.  Please rate each one for how likely it
+                    could be the explanation for that situation. </p>
+                <p>Do not think too long before deciding.  We want your first impressions, and do not worry if none of
+                    them fits with what you actually think is the explanation.</p>
+                </div>
+                <form th:action="@{/questions/BBSIQ}" method="POST">
+                        <br />
+<!-- Question 1 -->
+                        <p><b>1. You have visitors over for dinner and they leave sooner than you expected. Why?</b></p>
+                        <div class="section">
+                            <div class="row">
+                                <div class="col-md-10">
+                                <p class="statement">They did not wish to outstay their welcome.</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="radio">
+                                        <label> <input class="option" type="radio" name="visitors_outstay" value="0"
+                                                       required="true"/>Not at all likely</label>
+                                    </div>
+                                    <div class="radio">
+                                        <label> <input class="option" type="radio" name="visitors_outstay" value="1"/>A little likely</label>
+                                    </div>
+                                    <div class="radio">
+                                        <label> <input class="option" type="radio" name="visitors_outstay" value="2"/>Moderately likely</label>
+                                    </div>
+                                    <div class="radio">
+                                        <label> <input class="option" type="radio" name="visitors_outstay" value="3"/>Very likely</label>
+                                    </div>
+                                    <div class="radio">
+                                        <label> <input class="option" type="radio" name="visitors_outstay" value="4"/>Extremely likely</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <br/>
+                                    <br/>
+                                    <div class="radio">
+                                        <label class="question"><input type="checkbox" name="visitors_outstay" value="555"
+                                                                       onchange="disableSection(this)"/> Prefer not to
+                                            answer
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="section">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <p class="statement">They had another pressing engagement to go to.</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="radio">
+                                        <label> <input class="option" type="radio" name="visitors_engagement" value="0"
+                                                       required="true"/>Not at all likely</label>
+                                    </div>
+                                    <div class="radio">
+                                        <label> <input class="option" type="radio" name="visitors_engagement" value="1"/>A little likely</label>
+                                    </div>
+                                    <div class="radio">
+                                        <label> <input class="option" type="radio" name="visitors_engagement" value="2"/>Moderately likely</label>
+                                    </div>
+                                    <div class="radio">
+                                        <label> <input class="option" type="radio" name="visitors_engagement" value="3"/>Very likely</label>
+                                    </div>
+                                    <div class="radio">
+                                        <label> <input class="option" type="radio" name="visitors_engagement" value="4"/>Extremely likely</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <br/>
+                                    <br/>
+                                    <div class="radio">
+                                        <label class="question"><input type="checkbox" name="visitors_engagement" value="555"
+                                                                       onchange="disableSection(this)"/> Prefer not to
+                                            answer
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="section">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <p class="statement">They did not enjoy the visit and were bored with your company.</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="radio">
+                                        <label> <input class="option" type="radio" name="visitors_bored" value="0"
+                                                       required="true"/>Not at all likely</label>
+                                    </div>
+                                    <div class="radio">
+                                        <label> <input class="option" type="radio" name="visitors_bored" value="1"/>A little likely</label>
+                                    </div>
+                                    <div class="radio">
+                                        <label> <input class="option" type="radio" name="visitors_bored" value="2"/>Moderately likely</label>
+                                    </div>
+                                    <div class="radio">
+                                        <label> <input class="option" type="radio" name="visitors_bored" value="3"/>Very likely</label>
+                                    </div>
+                                    <div class="radio">
+                                        <label> <input class="option" type="radio" name="visitors_bored" value="4"/>Extremely likely</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <br/>
+                                    <br/>
+                                    <div class="radio">
+                                        <label class="question"><input type="checkbox" name="visitors_bored" value="555"
+                                                                       onchange="disableSection(this)"/> Prefer not to
+                                            answer
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+<!-- Question 2 -->
+                    <br />
+                    <p><b>2. You feel short of breath.  Why?</b></p>
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="statement">You are developing the flu.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="breath_flu" value="0"
+                                                   required="true"/>Not at all likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="breath_flu" value="1"/>A little likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="breath_flu" value="2"/>Moderately likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="breath_flu" value="3"/>Very likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="breath_flu" value="4"/>Extremely likely</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="breath_flu" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="statement">You are about to suffocate or stop breathing. </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="breath_suffocate" value="0"
+                                                   required="true"/>Not at all likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="breath_suffocate" value="1"/>A little likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="breath_suffocate" value="2"/>Moderately likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="breath_suffocate" value="3"/>Very likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="breath_suffocate" value="4"/>Extremely likely</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="breath_suffocate" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="statement">You are physically “out of shape”.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="breath_physically" value="0"
+                                                   required="true"/>Not at all likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="breath_physically" value="1"/>A little likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="breath_physically" value="2"/>Moderately likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="breath_physically" value="3"/>Very likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="breath_physically" value="4"/>Extremely likely</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="breath_physically" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+<!-- Question 3 -->
+                    <br />
+                    <p><b>3. Your vision has become slightly blurred.  Why?</b></p>
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="statement">You have strained your eyes slightly.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="vision_strained" value="0"
+                                                   required="true"/>Not at all likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="vision_strained" value="1"/>A little likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="vision_strained" value="2"/>Moderately likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="vision_strained" value="3"/>Very likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="vision_strained" value="4"/>Extremely likely</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="vision_strained" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="statement">You need to get glasses or change your existing glasses.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="vision_glasses" value="0"
+                                                   required="true"/>Not at all likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="vision_glasses" value="1"/>A little likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="vision_glasses" value="2"/>Moderately likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="vision_glasses" value="3"/>Very likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="vision_glasses" value="4"/>Extremely likely</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="vision_glasses" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="statement">This is the sign of a serious illness.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="vision_illness" value="0"
+                                                   required="true"/>Not at all likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="vision_illness" value="1"/>A little likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="vision_illness" value="2"/>Moderately likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="vision_illness" value="3"/>Very likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="vision_illness" value="4"/>Extremely likely</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="vision_illness" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+<!-- Question 4 -->
+                    <br />
+                    <p><b>4. You go into a shop and the assistant ignores you.  Why?</b></p>
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="statement">They are bored with their job, and this makes them rude.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="shop_bored" value="0"
+                                                   required="true"/>Not at all likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="shop_bored" value="1"/>A little likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="shop_bored" value="2"/>Moderately likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="shop_bored" value="3"/>Very likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="shop_bored" value="4"/>Extremely likely</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="shop_bored" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="statement">They are concentrating very hard on something else.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="shop_concentrating" value="0"
+                                                   required="true"/>Not at all likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="shop_concentrating" value="1"/>A little likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="shop_concentrating" value="2"/>Moderately likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="shop_concentrating" value="3"/>Very likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="shop_concentrating" value="4"/>Extremely likely</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="shop_concentrating" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="statement">They find you irritating and resent your presence.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="shop_irritating" value="0"
+                                                   required="true"/>Not at all likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="shop_irritating" value="1"/>A little likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="shop_irritating" value="2"/>Moderately likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="shop_irritating" value="3"/>Very likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="shop_irritating" value="4"/>Extremely likely</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="shop_irritating" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+<!-- Question 5 -->
+                    <br />
+                    <p><b>5. You feel lightheaded and weak.  Why?</b></p>
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="statement">You are about to faint.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="lightheaded_faint" value="0"
+                                                   required="true"/>Not at all likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="lightheaded_faint" value="1"/>A little likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="lightheaded_faint" value="2"/>Moderately likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="lightheaded_faint" value="3"/>Very likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="lightheaded_faint" value="4"/>Extremely likely</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="lightheaded_faint" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="statement">You need to get something to eat.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="lightheaded_eat" value="0"
+                                                   required="true"/>Not at all likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="lightheaded_eat" value="1"/>A little likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="lightheaded_eat" value="2"/>Moderately likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="lightheaded_eat" value="3"/>Very likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="lightheaded_eat" value="4"/>Extremely likely</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="lightheaded_eat" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="statement">You didn’t get enough sleep last night.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="lightheaded_sleep" value="0"
+                                                   required="true"/>Not at all likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="lightheaded_sleep" value="1"/>A little likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="lightheaded_sleep" value="2"/>Moderately likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="lightheaded_sleep" value="3"/>Very likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="lightheaded_sleep" value="4"/>Extremely likely</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="lightheaded_sleep" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+<!-- Question 6 -->
+                    <br />
+                    <p><b>6. You smell smoke. What's burning?</b></p>
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="statement">Your house is on fire.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="smoke_house" value="0"
+                                                   required="true"/>Not at all likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="smoke_house" value="1"/>A little likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="smoke_house" value="2"/>Moderately likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="smoke_house" value="3"/>Very likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="smoke_house" value="4"/>Extremely likely</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="smoke_house" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="statement">Some food is burning.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="smoke_food" value="0"
+                                                   required="true"/>Not at all likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="smoke_food" value="1"/>A little likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="smoke_food" value="2"/>Moderately likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="smoke_food" value="3"/>Very likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="smoke_food" value="4"/>Extremely likely</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="smoke_food" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="statement">Someone is smoking a cigarette.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="smoke_cig" value="0"
+                                                   required="true"/>Not at all likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="smoke_cig" value="1"/>A little likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="smoke_cig" value="2"/>Moderately likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="smoke_cig" value="3"/>Very likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="smoke_cig" value="4"/>Extremely likely</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="smoke_cig" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+<!-- Question 7 -->
+                    <br />
+                    <p><b>7. A friend suggests that you change the way that you're doing a job in your own house.  Why?</b></p>
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="statement">They are trying to be helpful.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="friend_helpful" value="0"
+                                                   required="true"/>Not at all likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="friend_helpful" value="1"/>A little likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="friend_helpful" value="2"/>Moderately likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="friend_helpful" value="3"/>Very likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="friend_helpful" value="4"/>Extremely likely</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="friend_helpful" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="statement">They think you’re incompetent.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="friend_incompetent" value="0"
+                                                   required="true"/>Not at all likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="friend_incompetent" value="1"/>A little likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="friend_incompetent" value="2"/>Moderately likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="friend_incompetent" value="3"/>Very likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="friend_incompetent" value="4"/>Extremely likely</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="friend_incompetent" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="statement">They have done the job more often and know an easier way.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="friend_moreoften" value="0"
+                                                   required="true"/>Not at all likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="friend_moreoften" value="1"/>A little likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="friend_moreoften" value="2"/>Moderately likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="friend_moreoften" value="3"/>Very likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="friend_moreoften" value="4"/>Extremely likely</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="friend_moreoften" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+<!-- Question 8 -->
+                    <br />
+                    <p><b>8. Your chest feels uncomfortable and tight.  Why?</b></p>
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="statement">You have indigestion.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="chest_indigestion" value="0"
+                                                   required="true"/>Not at all likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="chest_indigestion" value="1"/>A little likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="chest_indigestion" value="2"/>Moderately likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="chest_indigestion" value="3"/>Very likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="chest_indigestion" value="4"/>Extremely likely</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="chest_indigestion" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="statement">You have a sore muscle.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="chest_sore" value="0"
+                                                   required="true"/>Not at all likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="chest_sore" value="1"/>A little likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="chest_sore" value="2"/>Moderately likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="chest_sore" value="3"/>Very likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="chest_sore" value="4"/>Extremely likely</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="chest_sore" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="statement">Something is wrong with your heart.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="chest_heart" value="0"
+                                                   required="true"/>Not at all likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="chest_heart" value="1"/>A little likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="chest_heart" value="2"/>Moderately likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="chest_heart" value="3"/>Very likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="chest_heart" value="4"/>Extremely likely</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="chest_heart" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+<!-- Question 9 -->
+                    <br />
+                    <p><b>9. You wake with a jolt in the middle of the night, thinking you heard a noise, but all is quiet. What woke you up?</b></p>
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="statement">You were woken by a dream.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="jolt_dream" value="0"
+                                                   required="true"/>Not at all likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="jolt_dream" value="1"/>A little likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="jolt_dream" value="2"/>Moderately likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="jolt_dream" value="3"/>Very likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="jolt_dream" value="4"/>Extremely likely</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="jolt_dream" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="statement">A burglar broke into your house.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="jolt_burglar" value="0"
+                                                   required="true"/>Not at all likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="jolt_burglar" value="1"/>A little likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="jolt_burglar" value="2"/>Moderately likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="jolt_burglar" value="3"/>Very likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="jolt_burglar" value="4"/>Extremely likely</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="jolt_burglar" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="statement">A door or window rattled in the wind.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="jolt_wind" value="0"
+                                                   required="true"/>Not at all likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="jolt_wind" value="1"/>A little likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="jolt_wind" value="2"/>Moderately likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="jolt_wind" value="3"/>Very likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="jolt_wind" value="4"/>Extremely likely</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="jolt_wind" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Question 10 -->
+                    <br />
+                    <p><b>10. You are introduced to someone at a party who fails to reply to a question you ask.  Why?</b></p>
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="statement">They did not hear the question.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="party_hear" value="0"
+                                                   required="true"/>Not at all likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="party_hear" value="1"/>A little likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="party_hear" value="2"/>Moderately likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="party_hear" value="3"/>Very likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="party_hear" value="4"/>Extremely likely</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="party_hear" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="statement">They think you are uninteresting and boring.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="party_boring" value="0"
+                                                   required="true"/>Not at all likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="party_boring" value="1"/>A little likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="party_boring" value="2"/>Moderately likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="party_boring" value="3"/>Very likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="party_boring" value="4"/>Extremely likely</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="party_boring" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="statement">They were preoccupied with something else at the time.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="party_preoccupied" value="0"
+                                                   required="true"/>Not at all likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="party_preoccupied" value="1"/>A little likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="party_preoccupied" value="2"/>Moderately likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="party_preoccupied" value="3"/>Very likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="party_preoccupied" value="4"/>Extremely likely</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="party_preoccupied" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Question 11 -->
+                    <br />
+                    <p><b>11.	You notice that your heart is beating quickly and pounding.  Why?</b></p>
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="statement">Because you have been physically active.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="heart_active" value="0"
+                                                   required="true"/>Not at all likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="heart_active" value="1"/>A little likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="heart_active" value="2"/>Moderately likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="heart_active" value="3"/>Very likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="heart_active" value="4"/>Extremely likely</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="heart_active" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="statement">Because there is something wrong with your heart.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="heart_wrong" value="0"
+                                                   required="true"/>Not at all likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="heart_wrong" value="1"/>A little likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="heart_wrong" value="2"/>Moderately likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="heart_wrong" value="3"/>Very likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="heart_wrong" value="4"/>Extremely likely</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="heart_wrong" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="statement">Because you are feeling excited.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="heart_excited" value="0"
+                                                   required="true"/>Not at all likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="heart_excited" value="1"/>A little likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="heart_excited" value="2"/>Moderately likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="heart_excited" value="3"/>Very likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="heart_excited" value="4"/>Extremely likely</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="heart_excited" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Question 12 -->
+
+                    <br />
+                    <p><b>12.	You suddenly feel confused and are having difficulty thinking straight.  Why?</b></p>
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="statement">You are going out of your mind.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="confused_outofmind" value="0"
+                                                   required="true"/>Not at all likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="confused_outofmind" value="1"/>A little likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="confused_outofmind" value="2"/>Moderately likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="confused_outofmind" value="3"/>Very likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="confused_outofmind" value="4"/>Extremely likely</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="confused_outofmind" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="statement">You are coming down with a cold.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="confused_cold" value="0"
+                                                   required="true"/>Not at all likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="confused_cold" value="1"/>A little likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="confused_cold" value="2"/>Moderately likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="confused_cold" value="3"/>Very likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="confused_cold" value="4"/>Extremely likely</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="confused_cold" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="statement">You’ve been working too hard and need a rest.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="confused_work" value="0"
+                                                   required="true"/>Not at all likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="confused_work" value="1"/>A little likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="confused_work" value="2"/>Moderately likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="confused_work" value="3"/>Very likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="confused_work" value="4"/>Extremely likely</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="confused_work" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Question 13 -->
+                    <br />
+                    <p><b>13.	A letter marked “URGENT” arrives.  What is in the letter?</b></p>
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="statement">It is junk mail designed to attract your attention.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="urgent_junk" value="0"
+                                                   required="true"/>Not at all likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="urgent_junk" value="1"/>A little likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="urgent_junk" value="2"/>Moderately likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="urgent_junk" value="3"/>Very likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="urgent_junk" value="4"/>Extremely likely</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="urgent_junk" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="statement">You forgot to pay a bill.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="urgent_bill" value="0"
+                                                   required="true"/>Not at all likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="urgent_bill" value="1"/>A little likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="urgent_bill" value="2"/>Moderately likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="urgent_bill" value="3"/>Very likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="urgent_bill" value="4"/>Extremely likely</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="urgent_bill" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="statement">News that someone you know has died or is seriously ill.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="urgent_died" value="0"
+                                                   required="true"/>Not at all likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="urgent_died" value="1"/>A little likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="urgent_died" value="2"/>Moderately likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="urgent_died" value="3"/>Very likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="urgent_died" value="4"/>Extremely likely</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="urgent_died" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Question 14 -->
+                    <br />
+                    <p><b>14.	You notice that your heart is pounding, you feel breathless, dizzy and unreal.  Why?</b></p>
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="statement">You have been overdoing it and are overtired.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="dizzy_overtired" value="0"
+                                                   required="true"/>Not at all likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="dizzy_overtired" value="1"/>A little likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="dizzy_overtired" value="2"/>Moderately likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="dizzy_overtired" value="3"/>Very likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="dizzy_overtired" value="4"/>Extremely likely</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="dizzy_overtired" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="statement">Something you ate disagreed with you.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="dizzy_ate" value="0"
+                                                   required="true"/>Not at all likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="dizzy_ate" value="1"/>A little likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="dizzy_ate" value="2"/>Moderately likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="dizzy_ate" value="3"/>Very likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="dizzy_ate" value="4"/>Extremely likely</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="dizzy_ate" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="statement">You are dangerously ill or going mad.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="dizzy_ill" value="0"
+                                                   required="true"/>Not at all likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="dizzy_ill" value="1"/>A little likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="dizzy_ill" value="2"/>Moderately likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="dizzy_ill" value="3"/>Very likely</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="dizzy_ill" value="4"/>Extremely likely</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="dizzy_ill" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center">
+                        <button type="submit">Next</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+        <!--features ends-->
+
+        <!--divider here-->
+        <div class="spacer-40px"></div>
+
+    </div>
+</section>
+
+
+
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+
+<!--Javascript
+================================================== -->
+
+<div th:include="fragment/common :: scripts" />
+
+<script type="text/javascript">
+
+
+    function disableSection(input) {
+        if (input.checked) {
+            $(input).closest('.section').find("input").attr("disabled", true);
+            $(input).removeAttr("disabled");
+        } else {
+            $(input).closest('.section').find("input").removeAttr("disabled");
+        }
+    }
+
+</script>
+
+</body>
+</html>
+
+<!--
+Depression, Anxiety, Stress Scales-Short Form: Anxiety Subscale (DASS21-AS)
+Lovibond & Lovibond (1995; [9])
+
+[Initial assessment instructions:]  Please read each statement and circle a number 0, 1, 2 or 3 that indicates how much the statement applied to you over the past week. There are no right or wrong answers.  Do not spend too much time on any statement.
+
+[Instructions for assessments completed following training sessions:] Please read each statement and circle a number 0, 1, 2 or 3 that indicates how much the statement applied to you since your last session (or over the past week if your last session was more than a week ago). There are no right or wrong answers.  Do not spend too much time on any statement.
+The rating scale is as follows:
+0  Did not apply to me at all
+1  Applied to me to some degree, or some of the time
+2  Applied to me to a considerable degree, or a good part of time
+3  Applied to me very much, or most of the time
+
+1
+I was aware of dryness of my mouth.
+0      1      2      3
+2
+I experienced breathing difficulty (e.g., excessively rapid breathing,
+breathlessness in the absence of physical exertion).
+0      1      2      3
+3
+I experienced trembling (e.g., in the hands).
+0      1      2      3
+4
+I was worried about situations in which I might panic and make
+a fool of myself.
+0      1      2      3
+5
+I felt I was close to panic.
+0      1      2      3
+6
+I was aware of the action of my heart in the absence of physical
+exertion (e.g., sense of heart rate increase, heart missing a beat).
+0      1      2      3
+7
+I felt scared without any good reason.
+0      1      2      3
+-->
+

@@ -72,9 +72,7 @@
 	  return array;
 	}
 
-
-
-        // this is the function to pick an answer for question
+	// this is the function to pick an answer for question
         function pickAnswer(str) {
             if (str == 'Yes') {
                 return 0
@@ -96,10 +94,9 @@
 
     // Add instruction here:
 
-
     var intro_1 = {
         type: 'html',
-        url : '/jspsychCSV/intro_1.html',
+        url : '/jspsychCSV/intro.html',
         cont_btn: 'next'
     };
 
@@ -250,10 +247,10 @@
 				}
 		    	timeline.push(trial);
 
+
                 var answer = pickAnswer(scenarios[i].PositiveQ);
 
-
-        // same code for the question
+				// same code for the question
 				var trial = {
 					type: 'button-response',
 					stimulus: "<p class='center-content'>" + scenarios[i].Questions + "</p>",
@@ -261,9 +258,8 @@
 					timing_post_trial: 0,
 					correct: false,
 					incorrect:false,
-					end: false,
-                    answer: answer,
-
+					end: false,					
+					answer: answer,
 
 					do_it: function()
 					{

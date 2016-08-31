@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="fragment/common :: headerFragment"/>
+<body>
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
+
+<section id="content" class="clearfix">
+    <div class="container">
+
+        <div class="row">
+            <div class="span12">
+                <h1>Create Your Account</h1>
+
+                <p>The purpose of this study is to modify materials for a new, experimental fear reduction intervention.</p>
+
+                <p>You may be presented with experimental fear reduction interventions. Alternatively, you may be asked to
+                    complete “control” tasks, which are tasks that are similar to experimental fear reduction techniques,
+                    but not designed to reduce fear. You may be asked to complete questionnaires in which you describe your
+                    thoughts and mood, a task that requires you to look at words and determine where targets appear, and a
+                    task in which you read brief stories, answer questions, and complete word fragments. For some participants,
+                    being asked questions about their thoughts and mood can be temporarily distressing. At the end of the
+                    study, you will receive more detail about the study's rationale and design.</p>
+
+                <p>You are part of a “pilot” group, which is designed to help us edit our materials and procedures. You
+                    will not be asked to complete the full experiment. Rather, you will be asked to do some of the tasks
+                    listed above and we will ask your opinions about some of the procedures via questionnaires and interviews.</p>
+
+                <p>Remember that participation in this study is voluntary, and you may end your individual session participation
+                    at any time. Please ask the researcher, or contact studyteam@mindtrails.org if you have any questions
+                    about the study, or wish to withdraw from the study. You will not be penalized for withdrawing from the study.</p>
+
+                <p>MindTrails does not provide specific diagnostic or medical advice on our website. The study you are
+                    about to complete is an experimental anxiety intervention study. All data collected through the Project
+                    Implicit Mental Health website are confidential and are only accessible by the research team.</p>
+
+                <p>Privacy Policy. Mobile CBM uses the same secure hypertext transfer protocol (HTTPS) that banks and
+                    other commercial websites use to transfer credit card information in an encrypted format. This provides
+                    strong security for data transfer to and from our website, though privacy is necessarily limited by
+                    the security of the technology that is being used. To view the entire privacy policy in a separate
+                    pop up window, please click here.</p>
+
+
+
+                <p>You will receive $40 compensation for participating in the study, which is expected to take 2 hours.</p>
+
+                <p>MindTrails is not able to offer financial compensation nor to absorb the costs of treatment should you
+                    feel you have been injured as a result of participating in this research study.</p>
+
+                <p>Who to contact about your rights in the study: Tonya Moon, Chair, Institutional Review Board for the
+                    Social and Behavioral Sciences , One Morton Dr Suite 500 University of Virginia, P.O. Box 800392,
+                    Charlottesville, VA 22908-0392 Telephone: (434) 924-5999; Email: irbsbshelp@virginia.edu; Website: www.virginia.edu/vprgs/irb</p>
+
+                <p>By clicking the button below you are indicating that you have read the informed consent statement above and agree to participate.</p>
+
+
+
+                <p>Please use the form below to create your new Mobile Study account.</p>
+                <form th:replace="fragment/account :: create"/>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>

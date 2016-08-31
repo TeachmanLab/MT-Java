@@ -43,29 +43,39 @@ public class MobileStudy extends BaseStudy {
 
         pretest = new Session ("PreTest", "Initial Assessment", 0, 0);
         pretest.addTask(new Task("Demographics","Demographics", Task.TYPE.questions, 2));
+        pretest.addTask(new Task("OA","Mood Assessment", Task.TYPE.questions,2));
         pretest.addTask(new Task("DASS21AS","Anxiety Subscale", Task.TYPE.questions, 2));
-        pretest.addTask(new Task("DASS21DS","Depression Subscale", Task.TYPE.questions, 2));
+        pretest.addTask(new Task("RecognitionRating","Recognition Rating", Task.TYPE.jspsych, 2));
+        pretest.addTask(new Task("RR","Recognition Rating", Task.TYPE.questions, 2));
+        pretest.addTask(new Task("BBSIQ","Story evaluation", Task.TYPE.questions, 2));
         sessions.add(pretest);
 
         session1 = new Session("firstSession", "The First Session", 0, 2);
-        pretest.addTask(new Task("trainingOne","Training Session One", Task.TYPE.jspsych, 2));
+        session1.addTask(new Task("trainingOne","Training Session One", Task.TYPE.jspsych, 2));
         sessions.add(session1);
 
         session2 = new Session("secondSession", "The Second Session", 0, 0);
+        session2.addTask(new Task("trainingTwo","Training Session Two", Task.TYPE.jspsych, 2));
         sessions.add(session2);
 
         session3 = new Session("thirdSession", "The Third Session", 0, 0);
+        session3.addTask(new Task("trainingThree","Training Session Three", Task.TYPE.jspsych, 2));
         sessions.add(session3);
 
         session4 = new Session("fourthSession", "The Fourth Session", 0, 0);
+        session4.addTask(new Task("trainingFour","Training Session Four", Task.TYPE.jspsych, 2));
         sessions.add(session4);
 
         session5 = new Session("fifthSession", "The Fifth Session", 0, 0);
+        session5.addTask(new Task("trainingFive","Training Session Five", Task.TYPE.jspsych, 2));
         sessions.add(session5);
 
         post = new Session("PostFollowUp", "Follow Up", 0, 0);
+        post.addTask(new Task("OA","Mood Assessment", Task.TYPE.questions,2));
         post.addTask(new Task("DASS21AS","Anxiety Subscale", Task.TYPE.questions, 2));
-        post.addTask(new Task("DASS21DS","Depression Subscale", Task.TYPE.questions, 2));
+        post.addTask(new Task("RecognitionRating","Recognition Rating", Task.TYPE.jspsych, 2));
+        post.addTask(new Task("RR","Recognition Rating", Task.TYPE.questions, 2));
+        post.addTask(new Task("BBSIQ","Story evaluation", Task.TYPE.questions, 2));
         sessions.add(post);
 
         return sessions;
