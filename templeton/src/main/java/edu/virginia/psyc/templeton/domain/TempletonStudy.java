@@ -8,9 +8,7 @@ import org.mindtrails.domain.tracking.TaskLog;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * This is where you define the sessions and tasks that make up the study.
@@ -27,6 +25,10 @@ public class TempletonStudy extends BaseStudy {
     private CONDITION conditioning;
     private PRIME          prime;
 
+    public static final String FIRST_SESSION = "firstSession";
+    public static final String SECOND_SESSION = "secondSession";
+    public static final String THIRD_SESSION = "thirdSession";
+    public static final String FOURTH_SESSION = "fourthSession";
 
     @Override
     public String getName() {return "Templeton";}
@@ -37,6 +39,42 @@ public class TempletonStudy extends BaseStudy {
 
     public TempletonStudy(String currentSession, int taskIndex, Date lastSessionDate, List<TaskLog> taskLogs, boolean receiveGiftCards) {
         super(currentSession, taskIndex, lastSessionDate, taskLogs, receiveGiftCards);
+    }
+
+    @Override
+    /**
+      Settings for Templeton are based on the session.
+       session 1:  use first word fragment ending, followed by Comprehension Question [y/n]
+       session 2:  use second word fragment ending, followed by Comprehension Question [mc1]:
+       session 3:  use first word fragment ending, followed by second Comprehension Question [mc2]
+       session 4:  use second word fragment ending, followed by Comprehension Question [y/n]:
+     */
+    public Map<String,String> getPiPlayerParameters() {
+        Map<String,String> map = super.getPiPlayerParameters();
+        String sessionName = this.getCurrentSession().getName();
+
+        switch(sessionName) {
+            case FIRST_SESSION:
+                map.put("fragment","first");
+                map.put("question","question");
+                break;
+            case SECOND_SESSION:
+                map.put("fragment","second");
+                map.put("question","mc1");
+                break;
+            case THIRD_SESSION:
+                map.put("fragment","first");
+                map.put("question","mc2");
+                break;
+            case FOURTH_SESSION:
+                map.put("fragment","second");
+                map.put("question","question");
+                break;
+
+        }
+        map.put("condition", this.conditioning.toString());
+        map.put("prime", this.prime.toString());
+        return map;
     }
 
     /**
@@ -59,7 +97,7 @@ public class TempletonStudy extends BaseStudy {
         pretest.addTask(new Task("DASS21DS","Depression Subscale", Task.TYPE.questions, 2));
         sessions.add(pretest);
 
-        session1 = new Session("firstSession", "The First Session", 0, 2);
+        session1 = new Session(FIRST_SESSION, "The First Session", 0, 2);
         session1.addTask(new Task("Affect","Affect", Task.TYPE.questions, 1));
         session1.addTask(new Task("FirstSessionStories", "First Training", Task.TYPE.playerScript, 10));
         session1.addTask(new Task("Affect","Affect", Task.TYPE.questions, 1));
@@ -68,7 +106,7 @@ public class TempletonStudy extends BaseStudy {
         session1.addTask(new Task("RecognitionRatings", "Recognition Ratings", Task.TYPE.playerScript, 10));
         sessions.add(session1);
 
-        session2 = new Session("secondSession", "The Second Session", 0, 0);
+        session2 = new Session(SECOND_SESSION, "The Second Session", 0, 0);
         session2.addTask(new Task("Affect","Affect", Task.TYPE.questions, 1));
         session2.addTask(new Task("MyWebForm","Second Training", Task.TYPE.questions, 1));
         session2.addTask(new Task("Affect","Affect", Task.TYPE.questions, 1));
@@ -76,14 +114,14 @@ public class TempletonStudy extends BaseStudy {
         session2.addTask(new Task("NGSES","Self Esteem Scale", Task.TYPE.questions, 2));
         sessions.add(session2);
 
-        session3 = new Session("thirdSession", "The Third Session", 0, 0);
+        session3 = new Session(THIRD_SESSION, "The Third Session", 0, 0);
         session3.addTask(new Task("Affect","Affect", Task.TYPE.questions, 1));
         session3.addTask(new Task("MyWebForm","Third Training", Task.TYPE.questions, 1));
         session3.addTask(new Task("Affect","Affect", Task.TYPE.questions, 1));
         session3.addTask(new Task("ExpectancyBias","Expectancy Bias", Task.TYPE.questions, 1));
         sessions.add(session3);
 
-        session4 = new Session("fourthSession", "The Fourth Session", 0, 0);
+        session4 = new Session(FOURTH_SESSION, "The Fourth Session", 0, 0);
         session4.addTask(new Task("Affect","Affect", Task.TYPE.questions, 1));
         session4.addTask(new Task("MyWebForm","Fourth Training", Task.TYPE.questions, 1));
         session4.addTask(new Task("Affect","Affect", Task.TYPE.questions, 1));

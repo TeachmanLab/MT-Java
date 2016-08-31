@@ -1,5 +1,5 @@
 /* The script wrapper */
-define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Sequence) {
+define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
 
     jQuery.fn.visible = function () {
         return this.css('visibility', 'visible');
@@ -20,6 +20,7 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
 
     API.getGlobal().state = STATE_RESET;
 
+    Sequence =  API.getGlobal().sequence;
     API.getGlobal().quest = Sequence.quest;
 
     var scorer = new Scorer();
@@ -88,7 +89,8 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
     /**
      * Replaces the string arrays in with the first or second element of the array.
      * @param trial
-     */    function chooseWords(trial)
+     */
+    function chooseWords(trial)
     {
         if(API.getGlobal().state != STATE_RESET) return false;
 
@@ -657,7 +659,7 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
             // After the statement is correctly completed, hide it, and show the question.
             {
                 // Trigger when input handle is "end".
-                conditions: [{type:'inputEquals',value:'askQuestion'}, {type:'globalEquals', property: 'quest', value:'yn'}],
+                conditions: [{type:'inputEquals',value:'askQuestion'}, {type:'globalEquals', property: 'quest', value:'question'}],
                 actions: [
                     {type: 'setGlobalAttr', setter: {state: STATE_ASK_QUESTION}}, // sentence completed, show question.
                     {type:'custom',fn:function(options,eventData){
@@ -851,7 +853,7 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
         ],
         layout: [
             {
-                media: {template: "vividness.html"}
+                media: {template: "../PIPlayerScripts/vividness.html"}
             }
         ],
         stimuli: [
