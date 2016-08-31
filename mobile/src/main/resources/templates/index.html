@@ -12,7 +12,10 @@
 <body>
 <section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
 
-
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
     <h1>Welcome to the Mobile CBM Pilot Study</h1>
     <p>In this study, we are going to focus on the way you think,
         and how that may affect your anxiety. Specifically, we will focus
@@ -36,6 +39,10 @@
     <a href="/login"><button>Log In</button></a>
     <a href="/account/create"><button>Create Account</button></a>
 
+            </div>
+        </div>
+    </div>
+</section>
 
 <footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
 <section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
