@@ -48,6 +48,7 @@ function processCSV(scenarios) {
     var remake = [];
     remake.push(intro);
     for (i = 0; i < merged.length; i++) {
+        if(!merged[i].Scenario) continue;
         n1 = removeRandomLetter(merged[i].NegativeS);
         n2 = removeRandomLetter(merged[i].NegativeS2);
         p1 = removeRandomLetter(merged[i].PositiveS);

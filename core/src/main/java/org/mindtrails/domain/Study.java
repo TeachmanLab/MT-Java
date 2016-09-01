@@ -46,5 +46,5 @@ public interface Study {
      *     includes details about the current study, such as
      *     the participants Condition or Prime.
      */
-    public Map<String,String> getPiPlayerParameters();
+    public Map<String,Object> getPiPlayerParameters();
 }

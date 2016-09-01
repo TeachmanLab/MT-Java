@@ -43,8 +43,8 @@
             complete: function (results) {
 
                 var scriptData = {
-                    display_length: 9,
-                    add_extra_missing_letter:true,
+                    display_length: results.data.length,
+                    add_extra_missing_letter: /*[[${addMissingLetter}]]*/ true,
                     frag:  /*[[${fragment}]]*/ "first",
                     quest: /*[[${question}]]*/ "mc1",
                     sequence: processCSV(results.data)

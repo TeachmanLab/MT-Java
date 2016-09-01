@@ -254,8 +254,8 @@ public abstract class BaseStudy implements Study {
     }
 
     @Override
-    public Map<String,String> getPiPlayerParameters(){
-        Map<String,String> params = new HashMap<>();
+    public Map<String,Object> getPiPlayerParameters(){
+        Map<String,Object> params = new HashMap<>();
         return params;
     }
 

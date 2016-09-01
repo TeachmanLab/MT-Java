@@ -51,28 +51,32 @@ public class TempletonStudy extends BaseStudy {
        session 3:  use first word fragment ending, followed by second Comprehension Question [mc2]
        session 4:  use second word fragment ending, followed by Comprehension Question [y/n]:
      */
-    public Map<String,String> getPiPlayerParameters() {
-        Map<String,String> map = super.getPiPlayerParameters();
+    public Map<String,Object> getPiPlayerParameters() {
+        Map<String,Object> map = super.getPiPlayerParameters();
         String sessionName = this.getCurrentSession().getName();
 
-        map.put("negate",(conditioning.equals(CONDITION.POSITIVE_NEGATION))? "true" : "false");
+        map.put("negate",(conditioning.equals(CONDITION.POSITIVE_NEGATION)));
 
         switch(sessionName) {
             case FIRST_SESSION:
                 map.put("fragment","first");
                 map.put("question","question");
+                map.put("addMissingLetter",Boolean.FALSE);
                 break;
             case SECOND_SESSION:
                 map.put("fragment","second");
                 map.put("question","mc1");
+                map.put("addMissingLetter",Boolean.FALSE);
                 break;
             case THIRD_SESSION:
                 map.put("fragment","first");
                 map.put("question","mc2");
+                map.put("addMissingLetter",Boolean.TRUE);
                 break;
             case FOURTH_SESSION:
                 map.put("fragment","second");
                 map.put("question","question");
+                map.put("addMissingLetter",Boolean.TRUE);
                 break;
 
         }

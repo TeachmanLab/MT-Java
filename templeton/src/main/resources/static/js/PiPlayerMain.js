@@ -150,7 +150,7 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
         last_word = getWord(trial);
         break_up[break_up.length - 1] = break_up[break_up.length - 1].replace("[stimulus]", "");
         // Randomly select an extra letter to include as the missing letter, if an extra letter should be missing.
-        if(Sequence.add_extra_missing_letter) {
+        if(Sequence.add_extra_missing_letter && last_word.length > 0) {
             p = jQuery.grep(trial._stimulus_collection.models, function (e, i) {
                 return e.attributes.handle == "paragraph";})[0];
             pick = Math.floor(Math.random() * (1 + 1));
