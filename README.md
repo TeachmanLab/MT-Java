@@ -118,6 +118,10 @@ The templeton project requires its own database
 > CREATE DATABASE templeton CHARACTER SET utf8 COLLATE utf8_general_ci;
 > GRANT ALL PRIVILEGES ON templeton.* TO 'pi_user'@'%' IDENTIFIED BY 'pi_password' WITH GRANT OPTION;
 
+The mobile project requires its own database as well
+> CREATE DATABASE mobile CHARACTER SET utf8 COLLATE utf8_general_ci;
+> GRANT ALL PRIVILEGES ON mobile.* TO 'pi_user'@'%' IDENTIFIED BY 'pi_password' WITH GRANT OPTION;
+
 
 Installing Javascript Dependencies
 -------------------

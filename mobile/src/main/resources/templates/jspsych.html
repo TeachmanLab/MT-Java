@@ -37,7 +37,8 @@
 	    });
 	}
 
-	parseData("./jspsychCSV/" + csvFile + ".csv", doStuff)
+	var contextRoot = /*[[@{/}]]*/ '';
+	parseData(contextRoot + "jspsychCSV/" + csvFile + ".csv", doStuff)
 
 
     // function to hide a div
@@ -96,7 +97,7 @@
 
     var intro_1 = {
         type: 'html',
-        url : '/jspsychCSV/intro.html',
+        url : contextRoot + 'jspsychCSV/intro.html',
         cont_btn: 'next'
     };
 
