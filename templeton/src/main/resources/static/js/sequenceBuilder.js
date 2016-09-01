@@ -30,14 +30,14 @@ intro =
 
 // this is the function to remove a random letter
 function removeRandomLetter(str) {
-    if(str == null) return "";
+    if(str == null) return ["",""];
     var pos = Math.floor(Math.random() * str.length);
     return [str.substring(0, pos) + "[ ]" + str.substring(pos + 1), str.charAt(pos)];
 }
 
 function getAnswer(str)
 {
-    if(str.indexOf('Y') > -1)
+    if(str == null || str.indexOf('Y') > -1)
     { return 'y' }
     else
     { return 'n' }
