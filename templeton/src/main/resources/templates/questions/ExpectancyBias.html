@@ -17,7 +17,7 @@
 <section id="content" class="clearfix">
     <div class="container">
         <div class="row">
-            <div class="col-md-10">
+            <div class="col-md-12">
 
                 <form th:action="${eligibility}? @{/public/eligibilityCheck} : @{/questions/ExpectancyBias}"
                       method="POST">
@@ -56,166 +56,205 @@
                     <h4> How likely are each of the following sentences to occur next in this situation? </h4>
 
                     <div class="section">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <p class="statement"> You remain healthy for a long time </p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="LongHealthy" value="1"
-                                                   required="true"/> Very Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="LongHealthy" value="2"/>Somewhat
-                                        Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="LongHealthy" value="3"/> A Little
-                                        Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="LongHealthy" value="4"/> Neither
-                                        Likely Nor Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="LongHealthy" value="5"/> A Little
-                                        Likely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="LongHealthy" value="6"/> Somewhat
-                                        Likely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="LongHealthy" value="7"/> Very
-                                        Likely </label>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <div class="col-md-3 text-center" id="HowLikely"><p class="question">How likely are
+                                        each of the
+                                        following sentences to occur next in this situation? </p>
+                                    </div>
+                                    <div class="col-md-1"><p class="tableOptions"> Very Unlikely</p></div>
+                                    <div class="col-md-1"><p class="tableOptions"> Somewhat Unlikely</p></div>
+                                    <div class="col-md-1"><p class="tableOptions">A Little Unlikely</p></div>
+                                    <div class="col-md-1"><p class="tableOptions">Neither Likely Nor Unlikely</p></div>
+                                    <div class="col-md-1"><p class="tableOptions">A Little Likely</p></div>
+                                    <div class="col-md-1"><p class="tableOptions">Somewhat Likely</p></div>
+                                    <div class="col-md-1"><p class="tableOptions">Very Likely</p></div>
+                                    <div class="col-md-2"><p class="tableOptions">Prefer not to answer</p></div>
+
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <br/>
-                                <br/>
-                                <div class="radio">
-                                    <label class="question"><input type="checkbox" name="LongHealthy" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer not to
-                                        answer
-                                    </label>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-3">
+                                        <p> You remain healthy for a long time </p>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <label class="radio-inline"> <input class="option" type="radio"
+                                                                            name="LongHealthy" value="1"
+                                                                            required="true"/> 1 </label>
+                                    </div>
+                                    <div class="col-md-1">
+
+                                        <label class="radio-inline"> <input class="option" type="radio"
+                                                                            name="LongHealthy" value="2"/> 2
+                                        </label>
+                                    </div>
+                                    <div class="col-md-1">
+
+                                        <label class="radio-inline"> <input class="option" type="radio"
+                                                                            name="LongHealthy" value="3"/> 3
+                                        </label>
+                                    </div>
+                                    <div class="col-md-1">
+
+                                        <label class="radio-inline"> <input class="option" type="radio"
+                                                                            name="LongHealthy" value="4"/> 4
+                                        </label>
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        <label class="radio-inline"> <input class="option" type="radio"
+                                                                            name="LongHealthy" value="5"/> 5
+                                        </label>
+                                    </div>
+                                    <div class="col-md-1">
+
+                                        <label class="radio-inline"> <input class="option" type="radio"
+                                                                            name="LongHealthy" value="6"/> 6
+                                        </label>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <label class="radio-inline"> <input class="option" type="radio"
+                                                                            name="LongHealthy" value="7"/> 7
+                                        </label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div>
+                                            <label class="checkbox-inline"> <input type="checkbox"
+                                                                                   name="LongHealthy" value="555"
+                                                                                   onchange="disableSection(this)"/>
+                                                Prefer not to
+                                                answer
+                                            </label>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-3">
+                                        <p> You rate your doctor online </p>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <label class="radio-inline"> <input class="option" type="radio"
+                                                                            name="DoctorRate" value="1"
+                                                                            required="true"/> 1 </label>
+                                    </div>
+                                    <div class="col-md-1">
+
+                                        <label class="radio-inline"> <input class="option" type="radio"
+                                                                            name="DoctorRate" value="2"/> 2
+                                        </label>
+                                    </div>
+                                    <div class="col-md-1">
+
+                                        <label class="radio-inline"> <input class="option" type="radio"
+                                                                            name="DoctorRate" value="3"/> 3
+                                        </label>
+                                    </div>
+                                    <div class="col-md-1">
+
+                                        <label class="radio-inline"> <input class="option" type="radio"
+                                                                            name="DoctorRate" value="4"/> 4
+                                        </label>
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        <label class="radio-inline"> <input class="option" type="radio"
+                                                                            name="DoctorRate" value="5"/> 5
+                                        </label>
+                                    </div>
+                                    <div class="col-md-1">
+
+                                        <label class="radio-inline"> <input class="option" type="radio"
+                                                                            name="DoctorRate" value="6"/> 6
+                                        </label>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <label class="radio-inline"> <input class="option" type="radio"
+                                                                            name="DoctorRate" value="7"/> 7
+                                        </label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div>
+                                            <label class="checkbox-inline"> <input type="checkbox"
+                                                                                   name="DoctorRate" value="555"
+                                                                                   onchange="disableSection(this)"/>
+                                                Prefer not to
+                                                answer
+                                            </label>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-3">
+                                        <p> You develop a terrible medical condition</p>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <label class="radio-inline"> <input class="option" type="radio"
+                                                                            name="TerribleCondition" value="1"
+                                                                            required="true"/> 1 </label>
+                                    </div>
+                                    <div class="col-md-1">
+
+                                        <label class="radio-inline"> <input class="option" type="radio"
+                                                                            name="TerribleCondition" value="2"/> 2
+                                        </label>
+                                    </div>
+                                    <div class="col-md-1">
+
+                                        <label class="radio-inline"> <input class="option" type="radio"
+                                                                            name="TerribleCondition" value="3"/> 3
+                                        </label>
+                                    </div>
+                                    <div class="col-md-1">
+
+                                        <label class="radio-inline"> <input class="option" type="radio"
+                                                                            name="TerribleCondition" value="4"/> 4
+                                        </label>
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        <label class="radio-inline"> <input class="option" type="radio"
+                                                                            name="TerribleCondition" value="5"/> 5
+                                        </label>
+                                    </div>
+                                    <div class="col-md-1">
+
+                                        <label class="radio-inline"> <input class="option" type="radio"
+                                                                            name="TerribleCondition" value="6"/> 6
+                                        </label>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <label class="radio-inline"> <input class="option" type="radio"
+                                                                            name="TerribleCondition" value="7"/> 7
+                                        </label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div>
+                                            <label class="checkbox-inline"> <input type="checkbox"
+                                                                                   name="TerribleCondition" value="555"
+                                                                                   onchange="disableSection(this)"/>
+                                                Prefer not to
+                                                answer
+                                            </label>
+
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
-                    <div class="section">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <p class="statement">You rate your doctor online </p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="DoctorRate" value="1"
-                                                   required="true"/>
-                                        Very Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="DoctorRate" value="2"/>Somewhat
-                                        Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="DoctorRate" value="3"/> A Little
-                                        Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="DoctorRate" value="4"/> Neither
-                                        Likely
-                                        Nor Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="DoctorRate" value="5"/> A Little
-                                        Likely
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="DoctorRate" value="6"/> Somewhat
-                                        Likely
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="DoctorRate" value="7"/> Very Likely
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <br/>
-                                <br/>
-                                <div class="radio">
-                                    <label class="question"><input type="checkbox" name="DoctorRate" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer not to
-                                        answer
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="section">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <p class="statement">You develop a terrible medical condition </p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="TerribleCondition" value="1"
-                                                   required="true"/> Very Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="TerribleCondition" value="2"/>Somewhat
-                                        Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="TerribleCondition" value="3"/>
-                                        A Little
-                                        Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="TerribleCondition" value="4"/>
-                                        Neither
-                                        Likely Nor Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="TerribleCondition" value="5"/>
-                                        A Little
-                                        Likely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="TerribleCondition" value="6"/>
-                                        Somewhat
-                                        Likely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="TerribleCondition" value="7"/>
-                                        Very
-                                        Likely </label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <br/>
-                                <br/>
-                                <div class="radio">
-                                    <label class="question"><input type="checkbox" name="TerribleCondition"
-                                                                   value="555"
-                                                                   onchange="disableSection(this)"/> Prefer not to
-                                        answer
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                    
 
                     <h3> Urge to Lie Down:</h3>
                     <p>You are at home and feel you want to lie down for a moment.</p>
@@ -228,8 +267,8 @@
                         You start to wonder if you might have caught a nasty virus you have heard is going
                         around.</p>
                     <br/>
-                    <h4> How likely are each of the following sentences to occur next in this situation? </h4>
-
+                    <h4> How likely are each of the following sentences to occur next in this
+                        situation? </h4>
 
                     <div class="section">
                         <div class="row">
@@ -248,16 +287,19 @@
                                         Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="BetterRest" value="3"/> A
+                                    <label> <input class="option" type="radio" name="BetterRest" value="3"/>
+                                        A
                                         Little
                                         Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="BetterRest" value="4"/> Neither
+                                    <label> <input class="option" type="radio" name="BetterRest" value="4"/>
+                                        Neither
                                         Likely Nor Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="BetterRest" value="5"/> A
+                                    <label> <input class="option" type="radio" name="BetterRest" value="5"/>
+                                        A
                                         Little
                                         Likely </label>
                                 </div>
@@ -267,7 +309,8 @@
                                         Likely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="BetterRest" value="7"/> Very
+                                    <label> <input class="option" type="radio" name="BetterRest" value="7"/>
+                                        Very
                                         Likely </label>
                                 </div>
                             </div>
@@ -275,8 +318,11 @@
                                 <br/>
                                 <br/>
                                 <div class="radio">
-                                    <label class="question"><input type="checkbox" name="BetterRest" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer not to
+                                    <label class="question"><input type="checkbox" name="BetterRest"
+                                                                   value="555"
+                                                                   onchange="disableSection(this)"/> Prefer
+                                        not
+                                        to
                                         answer
                                     </label>
                                 </div>
@@ -309,7 +355,8 @@
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Reruns" value="4"/> Neither
+                                    <label> <input class="option" type="radio" name="Reruns" value="4"/>
+                                        Neither
                                         Likely Nor
                                         Unlikely </label>
                                 </div>
@@ -324,7 +371,8 @@
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Reruns" value="7"/> Very
+                                    <label> <input class="option" type="radio" name="Reruns" value="7"/>
+                                        Very
                                         Likely
                                     </label>
                                 </div>
@@ -334,7 +382,8 @@
                                 <br/>
                                 <div class="radio">
                                     <label class="question"><input type="checkbox" name="Reruns" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer not
+                                                                   onchange="disableSection(this)"/> Prefer
+                                        not
                                         to
                                         answer
                                     </label>
@@ -386,7 +435,8 @@
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="VerySick" value="7"/> Very
+                                    <label> <input class="option" type="radio" name="VerySick" value="7"/>
+                                        Very
                                         Likely
                                     </label>
                                 </div>
@@ -395,8 +445,10 @@
                                 <br/>
                                 <br/>
                                 <div class="radio">
-                                    <label class="question"><input type="checkbox" name="VerySick" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer not
+                                    <label class="question"><input type="checkbox" name="VerySick"
+                                                                   value="555"
+                                                                   onchange="disableSection(this)"/> Prefer
+                                        not
                                         to
                                         answer
                                     </label>
@@ -410,9 +462,11 @@
                         dinner
                         date. </p>
 
-                    <p>When you go to sit down, your partner mentions that you are not dressed appropriately for
+                    <p>When you go to sit down, your partner mentions that you are not dressed appropriately
+                        for
                         this restaurant, which makes you feel embarrassed.
-                        Later, you tell your partner about an argument you had with a mutual friend, and your
+                        Later, you tell your partner about an argument you had with a mutual friend, and
+                        your
                         partner doesn't approve of how you handled the situation. </p>
 
                     <p>While looking over the menu, you notice that a new soup has been added, and you think
@@ -420,12 +474,14 @@
                         trying it.
                         A waiter comes over to refill your waters. </p>
                     <br/>
-                    <h4> How likely are each of the following sentences to occur next in this situation? </h4>
+                    <h4> How likely are each of the following sentences to occur next in this
+                        situation? </h4>
 
                     <div class="section">
                         <div class="row">
                             <div class="col-md-10">
-                                <p class="statement"> You and your partner work out your differences and you see
+                                <p class="statement"> You and your partner work out your differences and you
+                                    see
                                     potential
                                     for this to develop a meaningful relationship </p>
                             </div>
@@ -433,33 +489,40 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="PotentialRelationship" value="1"
+                                    <label> <input class="option" type="radio" name="PotentialRelationship"
+                                                   value="1"
                                                    required="true"/> Very Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="PotentialRelationship" value="2"/>Somewhat
+                                    <label> <input class="option" type="radio" name="PotentialRelationship"
+                                                   value="2"/>Somewhat
                                         Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="PotentialRelationship" value="3"/>
+                                    <label> <input class="option" type="radio" name="PotentialRelationship"
+                                                   value="3"/>
                                         A
                                         Little Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="PotentialRelationship" value="4"/>
+                                    <label> <input class="option" type="radio" name="PotentialRelationship"
+                                                   value="4"/>
                                         Neither Likely Nor Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="PotentialRelationship" value="5"/>
+                                    <label> <input class="option" type="radio" name="PotentialRelationship"
+                                                   value="5"/>
                                         A
                                         Little Likely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="PotentialRelationship" value="6"/>
+                                    <label> <input class="option" type="radio" name="PotentialRelationship"
+                                                   value="6"/>
                                         Somewhat Likely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="PotentialRelationship" value="7"/>
+                                    <label> <input class="option" type="radio" name="PotentialRelationship"
+                                                   value="7"/>
                                         Very
                                         Likely </label>
                                 </div>
@@ -468,8 +531,11 @@
                                 <br/>
                                 <br/>
                                 <div class="radio">
-                                    <label class="question"><input type="checkbox" name="PotentialRelationship" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer not
+                                    <label class="question"><input type="checkbox"
+                                                                   name="PotentialRelationship"
+                                                                   value="555"
+                                                                   onchange="disableSection(this)"/> Prefer
+                                        not
                                         to
                                         answer
                                     </label>
@@ -497,27 +563,33 @@
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="ComeBack" value="3"/> A Little
+                                    <label> <input class="option" type="radio" name="ComeBack" value="3"/> A
+                                        Little
                                         Unlikely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="ComeBack" value="4"/> Neither
+                                    <label> <input class="option" type="radio" name="ComeBack" value="4"/>
+                                        Neither
                                         Likely
                                         Nor Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="ComeBack" value="5"/> A Little
+                                    <label> <input class="option" type="radio" name="ComeBack" value="5"/> A
+                                        Little
                                         Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="ComeBack" value="6"/> Somewhat
+                                    <label> <input class="option" type="radio" name="ComeBack" value="6"/>
+                                        Somewhat
                                         Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="ComeBack" value="7"/> Very Likely
+                                    <label> <input class="option" type="radio" name="ComeBack" value="7"/>
+                                        Very
+                                        Likely
                                     </label>
                                 </div>
                             </div>
@@ -525,8 +597,10 @@
                                 <br/>
                                 <br/>
                                 <div class="radio">
-                                    <label class="question"><input type="checkbox" name="ComeBack" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer not
+                                    <label class="question"><input type="checkbox" name="ComeBack"
+                                                                   value="555"
+                                                                   onchange="disableSection(this)"/> Prefer
+                                        not
                                         to
                                         answer
                                     </label>
@@ -538,7 +612,9 @@
                     <div class="section">
                         <div class="row">
                             <div class="col-md-10">
-                                <p class="statement"> This relationship will not work out, and you fear you will end up
+                                <p class="statement"> This relationship will not work out, and you fear you
+                                    will
+                                    end up
                                     alone </p>
                             </div>
                         </div>
@@ -554,26 +630,33 @@
                                         Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="EndUpAlone" value="3"/> A Little
+                                    <label> <input class="option" type="radio" name="EndUpAlone" value="3"/>
+                                        A
+                                        Little
                                         Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="EndUpAlone" value="4"/> Neither
+                                    <label> <input class="option" type="radio" name="EndUpAlone" value="4"/>
+                                        Neither
                                         Likely
                                         Nor Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="EndUpAlone" value="5"/> A Little
+                                    <label> <input class="option" type="radio" name="EndUpAlone" value="5"/>
+                                        A
+                                        Little
                                         Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="EndUpAlone" value="6"/> Somewhat
+                                    <label> <input class="option" type="radio" name="EndUpAlone" value="6"/>
+                                        Somewhat
                                         Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="EndUpAlone" value="7"/> Very Likely
+                                    <label> <input class="option" type="radio" name="EndUpAlone" value="7"/>
+                                        Very Likely
                                     </label>
                                 </div>
                             </div>
@@ -581,8 +664,10 @@
                                 <br/>
                                 <br/>
                                 <div class="radio">
-                                    <label class="question"><input type="checkbox" name="EndUpAlone" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer not
+                                    <label class="question"><input type="checkbox" name="EndUpAlone"
+                                                                   value="555"
+                                                                   onchange="disableSection(this)"/> Prefer
+                                        not
                                         to
                                         answer
                                     </label>
@@ -600,51 +685,62 @@
                         your
                         long term career goals, your partner responds with a lot of support.</p>
 
-                    <p>You see a mug on the coffee table and decide to put it in the sink. Just then, you hear
+                    <p>You see a mug on the coffee table and decide to put it in the sink. Just then, you
+                        hear
                         the
                         neighbor’s dog bark outside.</p>
                     <br/>
-                    <h4> How likely are each of the following sentences to occur next in this situation? </h4>
+                    <h4> How likely are each of the following sentences to occur next in this
+                        situation? </h4>
 
                     <div class="section">
                         <div class="row">
                             <div class="col-md-10">
-                                <p class="statement">You and your partner feel that your conversation suggests great
+                                <p class="statement">You and your partner feel that your conversation
+                                    suggests
+                                    great
                                     potential for your relationship </p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="SuggestsPotential" value="1"
+                                    <label> <input class="option" type="radio" name="SuggestsPotential"
+                                                   value="1"
                                                    required="true"/> Very Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="SuggestsPotential" value="2"/>Somewhat
+                                    <label> <input class="option" type="radio" name="SuggestsPotential"
+                                                   value="2"/>Somewhat
                                         Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="SuggestsPotential" value="3"/> A
+                                    <label> <input class="option" type="radio" name="SuggestsPotential"
+                                                   value="3"/> A
                                         Little
                                         Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="SuggestsPotential" value="4"/>
+                                    <label> <input class="option" type="radio" name="SuggestsPotential"
+                                                   value="4"/>
                                         Neither
                                         Likely Nor Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="SuggestsPotential" value="5"/> A
+                                    <label> <input class="option" type="radio" name="SuggestsPotential"
+                                                   value="5"/> A
                                         Little
                                         Likely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="SuggestsPotential" value="6"/>
+                                    <label> <input class="option" type="radio" name="SuggestsPotential"
+                                                   value="6"/>
                                         Somewhat
                                         Likely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="SuggestsPotential" value="7"/> Very
+                                    <label> <input class="option" type="radio" name="SuggestsPotential"
+                                                   value="7"/> Very
                                         Likely </label>
                                 </div>
                             </div>
@@ -652,8 +748,10 @@
                                 <br/>
                                 <br/>
                                 <div class="radio">
-                                    <label class="question"><input type="checkbox" name="SuggestsPotential" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer not
+                                    <label class="question"><input type="checkbox" name="SuggestsPotential"
+                                                                   value="555"
+                                                                   onchange="disableSection(this)"/> Prefer
+                                        not
                                         to
                                         answer
                                     </label>
@@ -671,7 +769,8 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Dishes" value="1" required="true"/>
+                                    <label> <input class="option" type="radio" name="Dishes" value="1"
+                                                   required="true"/>
                                         Very Unlikely </label>
                                 </div>
                                 <div class="radio">
@@ -680,25 +779,32 @@
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Dishes" value="3"/> A Little
+                                    <label> <input class="option" type="radio" name="Dishes" value="3"/> A
+                                        Little
                                         Unlikely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Dishes" value="4"/> Neither Likely
+                                    <label> <input class="option" type="radio" name="Dishes" value="4"/>
+                                        Neither
+                                        Likely
                                         Nor
                                         Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Dishes" value="5"/> A Little Likely
+                                    <label> <input class="option" type="radio" name="Dishes" value="5"/> A
+                                        Little Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Dishes" value="6"/> Somewhat Likely
+                                    <label> <input class="option" type="radio" name="Dishes" value="6"/>
+                                        Somewhat Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Dishes" value="7"/> Very Likely
+                                    <label> <input class="option" type="radio" name="Dishes" value="7"/>
+                                        Very
+                                        Likely
                                     </label>
                                 </div>
                             </div>
@@ -707,7 +813,8 @@
                                 <br/>
                                 <div class="radio">
                                     <label class="question"><input type="checkbox" name="Dishes" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer not
+                                                                   onchange="disableSection(this)"/> Prefer
+                                        not
                                         to
                                         answer
                                     </label>
@@ -719,7 +826,8 @@
                     <div class="section">
                         <div class="row">
                             <div class="col-md-10">
-                                <p class="statement">Your conversation with your partner turns into an argument </p>
+                                <p class="statement">Your conversation with your partner turns into an
+                                    argument </p>
                             </div>
                         </div>
                         <div class="row">
@@ -735,27 +843,33 @@
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Argument" value="3"/> A Little
+                                    <label> <input class="option" type="radio" name="Argument" value="3"/> A
+                                        Little
                                         Unlikely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Argument" value="4"/> Neither
+                                    <label> <input class="option" type="radio" name="Argument" value="4"/>
+                                        Neither
                                         Likely
                                         Nor Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Argument" value="5"/> A Little
+                                    <label> <input class="option" type="radio" name="Argument" value="5"/> A
+                                        Little
                                         Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Argument" value="6"/> Somewhat
+                                    <label> <input class="option" type="radio" name="Argument" value="6"/>
+                                        Somewhat
                                         Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Argument" value="7"/> Very Likely
+                                    <label> <input class="option" type="radio" name="Argument" value="7"/>
+                                        Very
+                                        Likely
                                     </label>
                                 </div>
                             </div>
@@ -763,8 +877,10 @@
                                 <br/>
                                 <br/>
                                 <div class="radio">
-                                    <label class="question"><input type="checkbox" name="Argument" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer not
+                                    <label class="question"><input type="checkbox" name="Argument"
+                                                                   value="555"
+                                                                   onchange="disableSection(this)"/> Prefer
+                                        not
                                         to
                                         answer
                                     </label>
@@ -774,22 +890,26 @@
                     </div>
 
 
-
                     <h3>The Party: </h3>
                     <p>You have recently moved to a new town and attend a party hosted by a coworker. </p>
 
-                    <p>One of the other guests strikes up a conversation with you, and he offers to help orient
+                    <p>One of the other guests strikes up a conversation with you, and he offers to help
+                        orient
                         you
                         to your new town when he finds out you’ve just moved here.
-                        Another guest overhears that you are a fan of her favorite TV show, and she offers to
+                        Another guest overhears that you are a fan of her favorite TV show, and she offers
+                        to
                         have
                         you over to watch the season premiere.</p>
 
-                    <p> A little while later, you tell a joke to a group of partygoers, but none of them laugh.
-                        You find it difficult to join the group’s conversation because it is full of stories you
+                    <p> A little while later, you tell a joke to a group of partygoers, but none of them
+                        laugh.
+                        You find it difficult to join the group’s conversation because it is full of stories
+                        you
                         weren't a part of.</p>
                     <br/>
-                    <h4> How likely are each of the following sentences to occur next in this situation? </h4>
+                    <h4> How likely are each of the following sentences to occur next in this
+                        situation? </h4>
 
                     <div class="section">
                         <div class="row">
@@ -800,34 +920,44 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Bagel" value="1" required="true"/>
+                                    <label> <input class="option" type="radio" name="Bagel" value="1"
+                                                   required="true"/>
                                         Very
                                         Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Bagel" value="2"/>Somewhat Unlikely
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Bagel" value="3"/> A Little
+                                    <label> <input class="option" type="radio" name="Bagel" value="2"/>Somewhat
                                         Unlikely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Bagel" value="4"/> Neither Likely
+                                    <label> <input class="option" type="radio" name="Bagel" value="3"/> A
+                                        Little
+                                        Unlikely
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="Bagel" value="4"/>
+                                        Neither
+                                        Likely
                                         Nor
                                         Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Bagel" value="5"/> A Little Likely
+                                    <label> <input class="option" type="radio" name="Bagel" value="5"/> A
+                                        Little
+                                        Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Bagel" value="6"/> Somewhat Likely
+                                    <label> <input class="option" type="radio" name="Bagel" value="6"/>
+                                        Somewhat
+                                        Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Bagel" value="7"/> Very Likely
+                                    <label> <input class="option" type="radio" name="Bagel" value="7"/> Very
+                                        Likely
                                     </label>
                                 </div>
                             </div>
@@ -836,7 +966,8 @@
                                 <br/>
                                 <div class="radio">
                                     <label class="question"><input type="checkbox" name="Bagel" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer not
+                                                                   onchange="disableSection(this)"/> Prefer
+                                        not
                                         to
                                         answer
                                     </label>
@@ -848,7 +979,9 @@
                     <div class="section">
                         <div class="row">
                             <div class="col-md-10">
-                                <p class="statement">After the party, you quickly settle in and make new friends in
+                                <p class="statement">After the party, you quickly settle in and make new
+                                    friends
+                                    in
                                     town </p>
                             </div>
                         </div>
@@ -865,27 +998,33 @@
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="SettleIn" value="3"/> A Little
+                                    <label> <input class="option" type="radio" name="SettleIn" value="3"/> A
+                                        Little
                                         Unlikely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="SettleIn" value="4"/> Neither
+                                    <label> <input class="option" type="radio" name="SettleIn" value="4"/>
+                                        Neither
                                         Likely
                                         Nor Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="SettleIn" value="5"/> A Little
+                                    <label> <input class="option" type="radio" name="SettleIn" value="5"/> A
+                                        Little
                                         Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="SettleIn" value="6"/> Somewhat
+                                    <label> <input class="option" type="radio" name="SettleIn" value="6"/>
+                                        Somewhat
                                         Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="SettleIn" value="7"/> Very Likely
+                                    <label> <input class="option" type="radio" name="SettleIn" value="7"/>
+                                        Very
+                                        Likely
                                     </label>
                                 </div>
                             </div>
@@ -893,8 +1032,10 @@
                                 <br/>
                                 <br/>
                                 <div class="radio">
-                                    <label class="question"><input type="checkbox" name="SettleIn" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer not
+                                    <label class="question"><input type="checkbox" name="SettleIn"
+                                                                   value="555"
+                                                                   onchange="disableSection(this)"/> Prefer
+                                        not
                                         to
                                         answer
                                     </label>
@@ -912,7 +1053,8 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Offend" value="1" required="true"/>
+                                    <label> <input class="option" type="radio" name="Offend" value="1"
+                                                   required="true"/>
                                         Very Unlikely </label>
                                 </div>
                                 <div class="radio">
@@ -921,25 +1063,32 @@
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Offend" value="3"/> A Little
+                                    <label> <input class="option" type="radio" name="Offend" value="3"/> A
+                                        Little
                                         Unlikely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Offend" value="4"/> Neither Likely
+                                    <label> <input class="option" type="radio" name="Offend" value="4"/>
+                                        Neither
+                                        Likely
                                         Nor
                                         Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Offend" value="5"/> A Little Likely
+                                    <label> <input class="option" type="radio" name="Offend" value="5"/> A
+                                        Little Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Offend" value="6"/> Somewhat Likely
+                                    <label> <input class="option" type="radio" name="Offend" value="6"/>
+                                        Somewhat Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Offend" value="7"/> Very Likely
+                                    <label> <input class="option" type="radio" name="Offend" value="7"/>
+                                        Very
+                                        Likely
                                     </label>
                                 </div>
                             </div>
@@ -948,7 +1097,8 @@
                                 <br/>
                                 <div class="radio">
                                     <label class="question"><input type="checkbox" name="Offend" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer not
+                                                                   onchange="disableSection(this)"/> Prefer
+                                        not
                                         to
                                         answer
                                     </label>
@@ -958,25 +1108,33 @@
                     </div>
 
                     <h3> Moving Away: </h3>
-                    <p>You are preparing to move to a new city for your job, and your friends are helping you
+                    <p>You are preparing to move to a new city for your job, and your friends are helping
+                        you
                         pack. </p>
 
-                    <p>You carefully wrap your dishes in bubble wrap before boxing them up. You and your friends
+                    <p>You carefully wrap your dishes in bubble wrap before boxing them up. You and your
+                        friends
                         take a little break, and you offer everyone some water. </p>
 
-                    <p>When you start packing again, one of your friends mentions that she frequently visits the
-                        city you’re moving to for work, and she suggests you guys should get lunch when she is
+                    <p>When you start packing again, one of your friends mentions that she frequently visits
+                        the
+                        city you’re moving to for work, and she suggests you guys should get lunch when she
+                        is
                         in
                         town.
-                        You start thinking about your friends from college who also moved away, and how you have
+                        You start thinking about your friends from college who also moved away, and how you
+                        have
                         kept in touch despite the distance.</p>
                     <br/>
-                    <h4> How likely are each of the following sentences to occur next in this situation? </h4>
+                    <h4> How likely are each of the following sentences to occur next in this
+                        situation? </h4>
 
                     <div class="section">
                         <div class="row">
                             <div class="col-md-10">
-                                <p class="statement">After you move to your new city, you lose touch with your old
+                                <p class="statement">After you move to your new city, you lose touch with
+                                    your
+                                    old
                                     friends </p>
                             </div>
                         </div>
@@ -993,26 +1151,34 @@
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="LoseTouch" value="3"/> A Little
+                                    <label> <input class="option" type="radio" name="LoseTouch" value="3"/>
+                                        A
+                                        Little
                                         Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="LoseTouch" value="4"/> Neither
+                                    <label> <input class="option" type="radio" name="LoseTouch" value="4"/>
+                                        Neither
                                         Likely
                                         Nor Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="LoseTouch" value="5"/> A Little
+                                    <label> <input class="option" type="radio" name="LoseTouch" value="5"/>
+                                        A
+                                        Little
                                         Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="LoseTouch" value="6"/> Somewhat
+                                    <label> <input class="option" type="radio" name="LoseTouch" value="6"/>
+                                        Somewhat
                                         Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="LoseTouch" value="7"/> Very Likely
+                                    <label> <input class="option" type="radio" name="LoseTouch" value="7"/>
+                                        Very
+                                        Likely
                                     </label>
                                 </div>
                             </div>
@@ -1020,8 +1186,10 @@
                                 <br/>
                                 <br/>
                                 <div class="radio">
-                                    <label class="question"><input type="checkbox" name="LoseTouch" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer not
+                                    <label class="question"><input type="checkbox" name="LoseTouch"
+                                                                   value="555"
+                                                                   onchange="disableSection(this)"/> Prefer
+                                        not
                                         to
                                         answer
                                     </label>
@@ -1033,41 +1201,52 @@
                     <div class="section">
                         <div class="row">
                             <div class="col-md-10">
-                                <p class="statement">When you unpack, you keep the boxes in case you need them
+                                <p class="statement">When you unpack, you keep the boxes in case you need
+                                    them
                                     again </p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Boxes" value="1" required="true"/>
+                                    <label> <input class="option" type="radio" name="Boxes" value="1"
+                                                   required="true"/>
                                         Very
                                         Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Boxes" value="2"/>Somewhat Unlikely
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Boxes" value="3"/> A Little
+                                    <label> <input class="option" type="radio" name="Boxes" value="2"/>Somewhat
                                         Unlikely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Boxes" value="4"/> Neither Likely
+                                    <label> <input class="option" type="radio" name="Boxes" value="3"/> A
+                                        Little
+                                        Unlikely
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="Boxes" value="4"/>
+                                        Neither
+                                        Likely
                                         Nor
                                         Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Boxes" value="5"/> A Little Likely
+                                    <label> <input class="option" type="radio" name="Boxes" value="5"/> A
+                                        Little
+                                        Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Boxes" value="6"/> Somewhat Likely
+                                    <label> <input class="option" type="radio" name="Boxes" value="6"/>
+                                        Somewhat
+                                        Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Boxes" value="7"/> Very Likely
+                                    <label> <input class="option" type="radio" name="Boxes" value="7"/> Very
+                                        Likely
                                     </label>
                                 </div>
                             </div>
@@ -1076,7 +1255,8 @@
                                 <br/>
                                 <div class="radio">
                                     <label class="question"><input type="checkbox" name="Boxes" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer not
+                                                                   onchange="disableSection(this)"/> Prefer
+                                        not
                                         to
                                         answer
                                     </label>
@@ -1088,7 +1268,9 @@
                     <div class="section">
                         <div class="row">
                             <div class="col-md-10">
-                                <p class="statement">You make plans to see your friends again before you leave town </p>
+                                <p class="statement">You make plans to see your friends again before you
+                                    leave
+                                    town </p>
                             </div>
                         </div>
                         <div class="row">
@@ -1104,26 +1286,34 @@
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="MakePlans" value="3"/> A Little
+                                    <label> <input class="option" type="radio" name="MakePlans" value="3"/>
+                                        A
+                                        Little
                                         Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="MakePlans" value="4"/> Neither
+                                    <label> <input class="option" type="radio" name="MakePlans" value="4"/>
+                                        Neither
                                         Likely
                                         Nor Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="MakePlans" value="5"/> A Little
+                                    <label> <input class="option" type="radio" name="MakePlans" value="5"/>
+                                        A
+                                        Little
                                         Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="MakePlans" value="6"/> Somewhat
+                                    <label> <input class="option" type="radio" name="MakePlans" value="6"/>
+                                        Somewhat
                                         Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="MakePlans" value="7"/> Very Likely
+                                    <label> <input class="option" type="radio" name="MakePlans" value="7"/>
+                                        Very
+                                        Likely
                                     </label>
                                 </div>
                             </div>
@@ -1131,8 +1321,10 @@
                                 <br/>
                                 <br/>
                                 <div class="radio">
-                                    <label class="question"><input type="checkbox" name="MakePlans" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer not
+                                    <label class="question"><input type="checkbox" name="MakePlans"
+                                                                   value="555"
+                                                                   onchange="disableSection(this)"/> Prefer
+                                        not
                                         to
                                         answer
                                     </label>
@@ -1142,9 +1334,11 @@
                     </div>
 
                     <h3> Performance Review: </h3>
-                    <p>Your boss asks you to come into her office for your first annual performance review. </p>
+                    <p>Your boss asks you to come into her office for your first annual performance
+                        review. </p>
 
-                    <p> When you walk in, the air conditioner switches on in your boss’s office. You sit down in
+                    <p> When you walk in, the air conditioner switches on in your boss’s office. You sit
+                        down in
                         front of your boss’s desk and notice she has a red stapler. </p>
 
                     <p> Your boss starts by saying that she thinks you have adjusted effectively to the
@@ -1153,7 +1347,8 @@
                         expertise to
                         the office.</p>
                     <br/>
-                    <h4> How likely are each of the following sentences to occur next in this situation? </h4>
+                    <h4> How likely are each of the following sentences to occur next in this
+                        situation? </h4>
 
                     <div class="section">
                         <div class="row">
@@ -1164,34 +1359,44 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Lunch" value="1" required="true"/>
+                                    <label> <input class="option" type="radio" name="Lunch" value="1"
+                                                   required="true"/>
                                         Very
                                         Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Lunch" value="2"/>Somewhat Unlikely
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Lunch" value="3"/> A Little
+                                    <label> <input class="option" type="radio" name="Lunch" value="2"/>Somewhat
                                         Unlikely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Lunch" value="4"/> Neither Likely
+                                    <label> <input class="option" type="radio" name="Lunch" value="3"/> A
+                                        Little
+                                        Unlikely
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="Lunch" value="4"/>
+                                        Neither
+                                        Likely
                                         Nor
                                         Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Lunch" value="5"/> A Little Likely
+                                    <label> <input class="option" type="radio" name="Lunch" value="5"/> A
+                                        Little
+                                        Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Lunch" value="6"/> Somewhat Likely
+                                    <label> <input class="option" type="radio" name="Lunch" value="6"/>
+                                        Somewhat
+                                        Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Lunch" value="7"/> Very Likely
+                                    <label> <input class="option" type="radio" name="Lunch" value="7"/> Very
+                                        Likely
                                     </label>
                                 </div>
                             </div>
@@ -1200,7 +1405,8 @@
                                 <br/>
                                 <div class="radio">
                                     <label class="question"><input type="checkbox" name="Lunch" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer not
+                                                                   onchange="disableSection(this)"/> Prefer
+                                        not
                                         to
                                         answer
                                     </label>
@@ -1212,40 +1418,48 @@
                     <div class="section">
                         <div class="row">
                             <div class="col-md-10">
-                                <p class="statement">You think you will be considered for advancement in your
+                                <p class="statement">You think you will be considered for advancement in
+                                    your
                                     company. </p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="ConsideredAdvancement" value="1"
+                                    <label> <input class="option" type="radio" name="ConsideredAdvancement"
+                                                   value="1"
                                                    required="true"/> Very Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="ConsideredAdvancement" value="2"/>Somewhat
+                                    <label> <input class="option" type="radio" name="ConsideredAdvancement"
+                                                   value="2"/>Somewhat
                                         Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="ConsideredAdvancement" value="3"/>
+                                    <label> <input class="option" type="radio" name="ConsideredAdvancement"
+                                                   value="3"/>
                                         A
                                         Little Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="ConsideredAdvancement" value="4"/>
+                                    <label> <input class="option" type="radio" name="ConsideredAdvancement"
+                                                   value="4"/>
                                         Neither Likely Nor Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="ConsideredAdvancement" value="5"/>
+                                    <label> <input class="option" type="radio" name="ConsideredAdvancement"
+                                                   value="5"/>
                                         A
                                         Little Likely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="ConsideredAdvancement" value="6"/>
+                                    <label> <input class="option" type="radio" name="ConsideredAdvancement"
+                                                   value="6"/>
                                         Somewhat Likely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="ConsideredAdvancement" value="7"/>
+                                    <label> <input class="option" type="radio" name="ConsideredAdvancement"
+                                                   value="7"/>
                                         Very
                                         Likely </label>
                                 </div>
@@ -1254,8 +1468,11 @@
                                 <br/>
                                 <br/>
                                 <div class="radio">
-                                    <label class="question"><input type="checkbox" name="ConsideredAdvancement" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer not
+                                    <label class="question"><input type="checkbox"
+                                                                   name="ConsideredAdvancement"
+                                                                   value="555"
+                                                                   onchange="disableSection(this)"/> Prefer
+                                        not
                                         to
                                         answer
                                     </label>
@@ -1267,7 +1484,9 @@
                     <div class="section">
                         <div class="row">
                             <div class="col-md-10">
-                                <p class="statement">You think you will be stuck in your current position and passed up
+                                <p class="statement">You think you will be stuck in your current position
+                                    and
+                                    passed up
                                     for
                                     promotions </p>
                             </div>
@@ -1275,34 +1494,44 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Stuck" value="1" required="true"/>
+                                    <label> <input class="option" type="radio" name="Stuck" value="1"
+                                                   required="true"/>
                                         Very
                                         Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Stuck" value="2"/>Somewhat Unlikely
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Stuck" value="3"/> A Little
+                                    <label> <input class="option" type="radio" name="Stuck" value="2"/>Somewhat
                                         Unlikely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Stuck" value="4"/> Neither Likely
+                                    <label> <input class="option" type="radio" name="Stuck" value="3"/> A
+                                        Little
+                                        Unlikely
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="Stuck" value="4"/>
+                                        Neither
+                                        Likely
                                         Nor
                                         Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Stuck" value="5"/> A Little Likely
+                                    <label> <input class="option" type="radio" name="Stuck" value="5"/> A
+                                        Little
+                                        Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Stuck" value="6"/> Somewhat Likely
+                                    <label> <input class="option" type="radio" name="Stuck" value="6"/>
+                                        Somewhat
+                                        Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Stuck" value="7"/> Very Likely
+                                    <label> <input class="option" type="radio" name="Stuck" value="7"/> Very
+                                        Likely
                                     </label>
                                 </div>
                             </div>
@@ -1311,7 +1540,8 @@
                                 <br/>
                                 <div class="radio">
                                     <label class="question"><input type="checkbox" name="Stuck" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer not
+                                                                   onchange="disableSection(this)"/> Prefer
+                                        not
                                         to
                                         answer
                                     </label>
@@ -1323,7 +1553,8 @@
                     <h3> Job Interview: </h3>
                     <p>You sit down with a hiring manager to interview for a new job. </p>
 
-                    <p>He points out that you do not have much experience in your field. He also lets you know
+                    <p>He points out that you do not have much experience in your field. He also lets you
+                        know
                         that
                         there are many applicants going out for this position. </p>
 
@@ -1331,45 +1562,57 @@
                         outside
                         the office window.</p>
                     <br/>
-                    <h4> How likely are each of the following sentences to occur next in this situation? </h4>
+                    <h4> How likely are each of the following sentences to occur next in this
+                        situation? </h4>
 
                     <div class="section">
                         <div class="row">
                             <div class="col-md-10">
-                                <p class="statement">You hear a phone ring on your way out of the manager’s office </p>
+                                <p class="statement">You hear a phone ring on your way out of the manager’s
+                                    office </p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Phone" value="1" required="true"/>
+                                    <label> <input class="option" type="radio" name="Phone" value="1"
+                                                   required="true"/>
                                         Very
                                         Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Phone" value="2"/>Somewhat Unlikely
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Phone" value="3"/> A Little
+                                    <label> <input class="option" type="radio" name="Phone" value="2"/>Somewhat
                                         Unlikely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Phone" value="4"/> Neither Likely
+                                    <label> <input class="option" type="radio" name="Phone" value="3"/> A
+                                        Little
+                                        Unlikely
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="Phone" value="4"/>
+                                        Neither
+                                        Likely
                                         Nor
                                         Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Phone" value="5"/> A Little Likely
+                                    <label> <input class="option" type="radio" name="Phone" value="5"/> A
+                                        Little
+                                        Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Phone" value="6"/> Somewhat Likely
+                                    <label> <input class="option" type="radio" name="Phone" value="6"/>
+                                        Somewhat
+                                        Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Phone" value="7"/> Very Likely
+                                    <label> <input class="option" type="radio" name="Phone" value="7"/> Very
+                                        Likely
                                     </label>
                                 </div>
                             </div>
@@ -1378,7 +1621,8 @@
                                 <br/>
                                 <div class="radio">
                                     <label class="question"><input type="checkbox" name="Phone" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer not
+                                                                   onchange="disableSection(this)"/> Prefer
+                                        not
                                         to
                                         answer
                                     </label>
@@ -1390,7 +1634,9 @@
                     <div class="section">
                         <div class="row">
                             <div class="col-md-10">
-                                <p class="statement">The manager sends you an email the next day saying that you were
+                                <p class="statement">The manager sends you an email the next day saying that
+                                    you
+                                    were
                                     not
                                     selected for the job </p>
                             </div>
@@ -1402,28 +1648,39 @@
                                                    required="true"/> Very Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="NotSelected" value="2"/>Somewhat
+                                    <label> <input class="option" type="radio" name="NotSelected"
+                                                   value="2"/>Somewhat
                                         Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="NotSelected" value="3"/> A Little
+                                    <label> <input class="option" type="radio" name="NotSelected"
+                                                   value="3"/> A
+                                        Little
                                         Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="NotSelected" value="4"/> Neither
+                                    <label> <input class="option" type="radio" name="NotSelected"
+                                                   value="4"/>
+                                        Neither
                                         Likely
                                         Nor Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="NotSelected" value="5"/> A Little
+                                    <label> <input class="option" type="radio" name="NotSelected"
+                                                   value="5"/> A
+                                        Little
                                         Likely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="NotSelected" value="6"/> Somewhat
+                                    <label> <input class="option" type="radio" name="NotSelected"
+                                                   value="6"/>
+                                        Somewhat
                                         Likely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="NotSelected" value="7"/> Very
+                                    <label> <input class="option" type="radio" name="NotSelected"
+                                                   value="7"/>
+                                        Very
                                         Likely
                                     </label>
                                 </div>
@@ -1432,8 +1689,10 @@
                                 <br/>
                                 <br/>
                                 <div class="radio">
-                                    <label class="question"><input type="checkbox" name="NotSelected" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer not
+                                    <label class="question"><input type="checkbox" name="NotSelected"
+                                                                   value="555"
+                                                                   onchange="disableSection(this)"/> Prefer
+                                        not
                                         to
                                         answer
                                     </label>
@@ -1462,26 +1721,34 @@
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Impressed" value="3"/> A Little
+                                    <label> <input class="option" type="radio" name="Impressed" value="3"/>
+                                        A
+                                        Little
                                         Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Impressed" value="4"/> Neither
+                                    <label> <input class="option" type="radio" name="Impressed" value="4"/>
+                                        Neither
                                         Likely
                                         Nor Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Impressed" value="5"/> A Little
+                                    <label> <input class="option" type="radio" name="Impressed" value="5"/>
+                                        A
+                                        Little
                                         Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Impressed" value="6"/> Somewhat
+                                    <label> <input class="option" type="radio" name="Impressed" value="6"/>
+                                        Somewhat
                                         Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Impressed" value="7"/> Very Likely
+                                    <label> <input class="option" type="radio" name="Impressed" value="7"/>
+                                        Very
+                                        Likely
                                     </label>
                                 </div>
                             </div>
@@ -1489,8 +1756,10 @@
                                 <br/>
                                 <br/>
                                 <div class="radio">
-                                    <label class="question"><input type="checkbox" name="Impressed" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer not
+                                    <label class="question"><input type="checkbox" name="Impressed"
+                                                                   value="555"
+                                                                   onchange="disableSection(this)"/> Prefer
+                                        not
                                         to
                                         answer
                                     </label>
@@ -1503,7 +1772,8 @@
                     <h3> Home Finances: </h3>
                     <p>You are going over your finances and budgeting for the next month. </p>
 
-                    <p>You feel reassured to see a solid paycheck every two weeks in your bank statements. You
+                    <p>You feel reassured to see a solid paycheck every two weeks in your bank statements.
+                        You
                         also
                         think about how much more stable your finances are now that you have paid off your
                         student
@@ -1511,10 +1781,12 @@
 
                     <p>However, when you look at your rent and utilities’ costs, you notice that you are
                         spending
-                        more than the recommended percentage of your income. Then, you look at your credit card
+                        more than the recommended percentage of your income. Then, you look at your credit
+                        card
                         purchases and worry they’re too high.</p>
                     <br/>
-                    <h4> How likely are each of the following sentences to occur next in this situation? </h4>
+                    <h4> How likely are each of the following sentences to occur next in this
+                        situation? </h4>
 
                     <div class="section">
                         <div class="row">
@@ -1535,27 +1807,33 @@
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Meeting" value="3"/> A Little
+                                    <label> <input class="option" type="radio" name="Meeting" value="3"/> A
+                                        Little
                                         Unlikely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Meeting" value="4"/> Neither Likely
+                                    <label> <input class="option" type="radio" name="Meeting" value="4"/>
+                                        Neither Likely
                                         Nor
                                         Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Meeting" value="5"/> A Little
+                                    <label> <input class="option" type="radio" name="Meeting" value="5"/> A
+                                        Little
                                         Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Meeting" value="6"/> Somewhat
+                                    <label> <input class="option" type="radio" name="Meeting" value="6"/>
+                                        Somewhat
                                         Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Meeting" value="7"/> Very Likely
+                                    <label> <input class="option" type="radio" name="Meeting" value="7"/>
+                                        Very
+                                        Likely
                                     </label>
                                 </div>
                             </div>
@@ -1563,8 +1841,10 @@
                                 <br/>
                                 <br/>
                                 <div class="radio">
-                                    <label class="question"><input type="checkbox" name="Meeting" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer not
+                                    <label class="question"><input type="checkbox" name="Meeting"
+                                                                   value="555"
+                                                                   onchange="disableSection(this)"/> Prefer
+                                        not
                                         to
                                         answer
                                     </label>
@@ -1576,7 +1856,8 @@
                     <div class="section">
                         <div class="row">
                             <div class="col-md-10">
-                                <p class="statement">You feel that each month is going to leave you more financially
+                                <p class="statement">You feel that each month is going to leave you more
+                                    financially
                                     pinched </p>
                             </div>
                         </div>
@@ -1593,27 +1874,33 @@
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Pinched" value="3"/> A Little
+                                    <label> <input class="option" type="radio" name="Pinched" value="3"/> A
+                                        Little
                                         Unlikely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Pinched" value="4"/> Neither Likely
+                                    <label> <input class="option" type="radio" name="Pinched" value="4"/>
+                                        Neither Likely
                                         Nor
                                         Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Pinched" value="5"/> A Little
+                                    <label> <input class="option" type="radio" name="Pinched" value="5"/> A
+                                        Little
                                         Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Pinched" value="6"/> Somewhat
+                                    <label> <input class="option" type="radio" name="Pinched" value="6"/>
+                                        Somewhat
                                         Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Pinched" value="7"/> Very Likely
+                                    <label> <input class="option" type="radio" name="Pinched" value="7"/>
+                                        Very
+                                        Likely
                                     </label>
                                 </div>
                             </div>
@@ -1621,8 +1908,10 @@
                                 <br/>
                                 <br/>
                                 <div class="radio">
-                                    <label class="question"><input type="checkbox" name="Pinched" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer not
+                                    <label class="question"><input type="checkbox" name="Pinched"
+                                                                   value="555"
+                                                                   onchange="disableSection(this)"/> Prefer
+                                        not
                                         to
                                         answer
                                     </label>
@@ -1634,13 +1923,15 @@
                     <div class="section">
                         <div class="row">
                             <div class="col-md-10">
-                                <p class="statement">You feel you will soon be able to start saving more </p>
+                                <p class="statement">You feel you will soon be able to start saving
+                                    more </p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Saving" value="1" required="true"/>
+                                    <label> <input class="option" type="radio" name="Saving" value="1"
+                                                   required="true"/>
                                         Very Unlikely </label>
                                 </div>
                                 <div class="radio">
@@ -1649,25 +1940,32 @@
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Saving" value="3"/> A Little
+                                    <label> <input class="option" type="radio" name="Saving" value="3"/> A
+                                        Little
                                         Unlikely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Saving" value="4"/> Neither Likely
+                                    <label> <input class="option" type="radio" name="Saving" value="4"/>
+                                        Neither
+                                        Likely
                                         Nor
                                         Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Saving" value="5"/> A Little Likely
+                                    <label> <input class="option" type="radio" name="Saving" value="5"/> A
+                                        Little Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Saving" value="6"/> Somewhat Likely
+                                    <label> <input class="option" type="radio" name="Saving" value="6"/>
+                                        Somewhat Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Saving" value="7"/> Very Likely
+                                    <label> <input class="option" type="radio" name="Saving" value="7"/>
+                                        Very
+                                        Likely
                                     </label>
                                 </div>
                             </div>
@@ -1676,7 +1974,8 @@
                                 <br/>
                                 <div class="radio">
                                     <label class="question"><input type="checkbox" name="Saving" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer not
+                                                                   onchange="disableSection(this)"/> Prefer
+                                        not
                                         to
                                         answer
                                     </label>
@@ -1691,17 +1990,20 @@
                         research
                         to try to decide what stocks to buy.</p>
 
-                    <p>While you are looking over some stock information, your heater turns on. You notice that
+                    <p>While you are looking over some stock information, your heater turns on. You notice
+                        that
                         your
                         cell phone battery is at about 75%.</p>
 
-                    <p>During your research, you find some of the stock market jargon difficult to understand,
+                    <p>During your research, you find some of the stock market jargon difficult to
+                        understand,
                         and
                         you worry if you are in over your head.
                         You remember a family friend who lost almost all of his savings after a stock market
                         crash. </p>
                     <br/>
-                    <h4> How likely are each of the following sentences to occur next in this situation? </h4>
+                    <h4> How likely are each of the following sentences to occur next in this
+                        situation? </h4>
 
                     <div class="section">
                         <div class="row">
@@ -1721,26 +2023,33 @@
                                         Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Thermostat" value="3"/> A Little
+                                    <label> <input class="option" type="radio" name="Thermostat" value="3"/>
+                                        A
+                                        Little
                                         Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Thermostat" value="4"/> Neither
+                                    <label> <input class="option" type="radio" name="Thermostat" value="4"/>
+                                        Neither
                                         Likely
                                         Nor Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Thermostat" value="5"/> A Little
+                                    <label> <input class="option" type="radio" name="Thermostat" value="5"/>
+                                        A
+                                        Little
                                         Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Thermostat" value="6"/> Somewhat
+                                    <label> <input class="option" type="radio" name="Thermostat" value="6"/>
+                                        Somewhat
                                         Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Thermostat" value="7"/> Very Likely
+                                    <label> <input class="option" type="radio" name="Thermostat" value="7"/>
+                                        Very Likely
                                     </label>
                                 </div>
                             </div>
@@ -1748,8 +2057,10 @@
                                 <br/>
                                 <br/>
                                 <div class="radio">
-                                    <label class="question"><input type="checkbox" name="Thermostat" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer not
+                                    <label class="question"><input type="checkbox" name="Thermostat"
+                                                                   value="555"
+                                                                   onchange="disableSection(this)"/> Prefer
+                                        not
                                         to
                                         answer
                                     </label>
@@ -1761,7 +2072,8 @@
                     <div class="section">
                         <div class="row">
                             <div class="col-md-10">
-                                <p class="statement">Your stock market investments eventually help you become
+                                <p class="statement">Your stock market investments eventually help you
+                                    become
                                     financially
                                     secure </p>
                             </div>
@@ -1769,35 +2081,42 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="FinanciallySecure" value="1"
+                                    <label> <input class="option" type="radio" name="FinanciallySecure"
+                                                   value="1"
                                                    required="true"/> Very Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="FinanciallySecure" value="2"/>Somewhat
+                                    <label> <input class="option" type="radio" name="FinanciallySecure"
+                                                   value="2"/>Somewhat
                                         Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="FinanciallySecure" value="3"/> A
+                                    <label> <input class="option" type="radio" name="FinanciallySecure"
+                                                   value="3"/> A
                                         Little
                                         Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="FinanciallySecure" value="4"/>
+                                    <label> <input class="option" type="radio" name="FinanciallySecure"
+                                                   value="4"/>
                                         Neither
                                         Likely Nor Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="FinanciallySecure" value="5"/> A
+                                    <label> <input class="option" type="radio" name="FinanciallySecure"
+                                                   value="5"/> A
                                         Little
                                         Likely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="FinanciallySecure" value="6"/>
+                                    <label> <input class="option" type="radio" name="FinanciallySecure"
+                                                   value="6"/>
                                         Somewhat
                                         Likely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="FinanciallySecure" value="7"/> Very
+                                    <label> <input class="option" type="radio" name="FinanciallySecure"
+                                                   value="7"/> Very
                                         Likely </label>
                                 </div>
                             </div>
@@ -1805,8 +2124,10 @@
                                 <br/>
                                 <br/>
                                 <div class="radio">
-                                    <label class="question"><input type="checkbox" name="FinanciallySecure" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer not
+                                    <label class="question"><input type="checkbox" name="FinanciallySecure"
+                                                                   value="555"
+                                                                   onchange="disableSection(this)"/> Prefer
+                                        not
                                         to
                                         answer
                                     </label>
@@ -1818,7 +2139,8 @@
                     <div class="section">
                         <div class="row">
                             <div class="col-md-10">
-                                <p class="statement">You end up losing a lot of money on the stock market, ruining you
+                                <p class="statement">You end up losing a lot of money on the stock market,
+                                    ruining you
                                     financially </p>
                             </div>
                         </div>
@@ -1835,27 +2157,33 @@
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Ruining" value="3"/> A Little
+                                    <label> <input class="option" type="radio" name="Ruining" value="3"/> A
+                                        Little
                                         Unlikely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Ruining" value="4"/> Neither Likely
+                                    <label> <input class="option" type="radio" name="Ruining" value="4"/>
+                                        Neither Likely
                                         Nor
                                         Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Ruining" value="5"/> A Little
+                                    <label> <input class="option" type="radio" name="Ruining" value="5"/> A
+                                        Little
                                         Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Ruining" value="6"/> Somewhat
+                                    <label> <input class="option" type="radio" name="Ruining" value="6"/>
+                                        Somewhat
                                         Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Ruining" value="7"/> Very Likely
+                                    <label> <input class="option" type="radio" name="Ruining" value="7"/>
+                                        Very
+                                        Likely
                                     </label>
                                 </div>
                             </div>
@@ -1863,8 +2191,10 @@
                                 <br/>
                                 <br/>
                                 <div class="radio">
-                                    <label class="question"><input type="checkbox" name="Ruining" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer not
+                                    <label class="question"><input type="checkbox" name="Ruining"
+                                                                   value="555"
+                                                                   onchange="disableSection(this)"/> Prefer
+                                        not
                                         to
                                         answer
                                     </label>
@@ -1875,7 +2205,8 @@
 
 
                     <h3> Karaoke Lounge: </h3>
-                    <p>Some friends have invited you to join them at a karaoke lounge for a birthday party. </p>
+                    <p>Some friends have invited you to join them at a karaoke lounge for a birthday
+                        party. </p>
 
                     <p> On your first song, you are out of tune during a difficult part and feel very
                         embarrassed.
@@ -1888,7 +2219,8 @@
                         One of your friends turns to you and says, “I didn’t know you have such a good
                         voice. </p>
                     <br/>
-                    <h4> How likely are each of the following sentences to occur next in this situation? </h4>
+                    <h4> How likely are each of the following sentences to occur next in this
+                        situation? </h4>
 
                     <div class="section">
                         <div class="row">
@@ -1899,33 +2231,44 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Food" value="1" required="true"/>
+                                    <label> <input class="option" type="radio" name="Food" value="1"
+                                                   required="true"/>
                                         Very
                                         Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Food" value="2"/>Somewhat Unlikely
+                                    <label> <input class="option" type="radio" name="Food" value="2"/>Somewhat
+                                        Unlikely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Food" value="3"/> A Little Unlikely
+                                    <label> <input class="option" type="radio" name="Food" value="3"/> A
+                                        Little
+                                        Unlikely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Food" value="4"/> Neither Likely
+                                    <label> <input class="option" type="radio" name="Food" value="4"/>
+                                        Neither
+                                        Likely
                                         Nor
                                         Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Food" value="5"/> A Little Likely
+                                    <label> <input class="option" type="radio" name="Food" value="5"/> A
+                                        Little
+                                        Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Food" value="6"/> Somewhat Likely
+                                    <label> <input class="option" type="radio" name="Food" value="6"/>
+                                        Somewhat
+                                        Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="Food" value="7"/> Very Likely
+                                    <label> <input class="option" type="radio" name="Food" value="7"/> Very
+                                        Likely
                                     </label>
                                 </div>
                             </div>
@@ -1934,7 +2277,8 @@
                                 <br/>
                                 <div class="radio">
                                     <label class="question"><input type="checkbox" name="Food" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer not
+                                                                   onchange="disableSection(this)"/> Prefer
+                                        not
                                         to
                                         answer
                                     </label>
@@ -1946,7 +2290,8 @@
                     <div class="section">
                         <div class="row">
                             <div class="col-md-10">
-                                <p class="statement">After the birthday party, your friends ask you to go to karaoke
+                                <p class="statement">After the birthday party, your friends ask you to go to
+                                    karaoke
                                     much
                                     more often </p>
                             </div>
@@ -1958,27 +2303,38 @@
                                                    required="true"/> Very Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="KaraokeOften" value="2"/>Somewhat
+                                    <label> <input class="option" type="radio" name="KaraokeOften"
+                                                   value="2"/>Somewhat
                                         Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="KaraokeOften" value="3"/> A Little
+                                    <label> <input class="option" type="radio" name="KaraokeOften"
+                                                   value="3"/> A
+                                        Little
                                         Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="KaraokeOften" value="4"/> Neither
+                                    <label> <input class="option" type="radio" name="KaraokeOften"
+                                                   value="4"/>
+                                        Neither
                                         Likely Nor Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="KaraokeOften" value="5"/> A Little
+                                    <label> <input class="option" type="radio" name="KaraokeOften"
+                                                   value="5"/> A
+                                        Little
                                         Likely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="KaraokeOften" value="6"/> Somewhat
+                                    <label> <input class="option" type="radio" name="KaraokeOften"
+                                                   value="6"/>
+                                        Somewhat
                                         Likely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="KaraokeOften" value="7"/> Very
+                                    <label> <input class="option" type="radio" name="KaraokeOften"
+                                                   value="7"/>
+                                        Very
                                         Likely
                                     </label>
                                 </div>
@@ -1987,8 +2343,10 @@
                                 <br/>
                                 <br/>
                                 <div class="radio">
-                                    <label class="question"><input type="checkbox" name="KaraokeOften" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer not
+                                    <label class="question"><input type="checkbox" name="KaraokeOften"
+                                                                   value="555"
+                                                                   onchange="disableSection(this)"/> Prefer
+                                        not
                                         to
                                         answer
                                     </label>
@@ -2000,7 +2358,9 @@
                     <div class="section">
                         <div class="row">
                             <div class="col-md-10">
-                                <p class="statement"> When you go up to sing again, some of your friends make fun of
+                                <p class="statement"> When you go up to sing again, some of your friends
+                                    make
+                                    fun of
                                     you </p>
                             </div>
                         </div>
@@ -2017,27 +2377,33 @@
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="MakeFun" value="3"/> A Little
+                                    <label> <input class="option" type="radio" name="MakeFun" value="3"/> A
+                                        Little
                                         Unlikely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="MakeFun" value="4"/> Neither Likely
+                                    <label> <input class="option" type="radio" name="MakeFun" value="4"/>
+                                        Neither Likely
                                         Nor
                                         Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="MakeFun" value="5"/> A Little
+                                    <label> <input class="option" type="radio" name="MakeFun" value="5"/> A
+                                        Little
                                         Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="MakeFun" value="6"/> Somewhat
+                                    <label> <input class="option" type="radio" name="MakeFun" value="6"/>
+                                        Somewhat
                                         Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="MakeFun" value="7"/> Very Likely
+                                    <label> <input class="option" type="radio" name="MakeFun" value="7"/>
+                                        Very
+                                        Likely
                                     </label>
                                 </div>
                             </div>
@@ -2045,8 +2411,10 @@
                                 <br/>
                                 <br/>
                                 <div class="radio">
-                                    <label class="question"><input type="checkbox" name="MakeFun" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer not
+                                    <label class="question"><input type="checkbox" name="MakeFun"
+                                                                   value="555"
+                                                                   onchange="disableSection(this)"/> Prefer
+                                        not
                                         to
                                         answer
                                     </label>
@@ -2061,10 +2429,12 @@
                     <p>So far, you have been keeping pace very well and feel set to run for the whole 10
                         kilometers.
                         You get to a water stop and feel refreshed and invigorated. </p>
-                    <p> As you are running, you pass by a bookstore that you sometimes visit. You also see your
+                    <p> As you are running, you pass by a bookstore that you sometimes visit. You also see
+                        your
                         neighbor walking his dog, and wave hello. </p>
                     <br/>
-                    <h4> How likely are each of the following sentences to occur next in this situation? </h4>
+                    <h4> How likely are each of the following sentences to occur next in this
+                        situation? </h4>
 
                     <div class="section">
                         <div class="row">
@@ -2079,27 +2449,38 @@
                                                    required="true"/> Very Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="GroceryStore" value="2"/>Somewhat
+                                    <label> <input class="option" type="radio" name="GroceryStore"
+                                                   value="2"/>Somewhat
                                         Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="GroceryStore" value="3"/> A Little
+                                    <label> <input class="option" type="radio" name="GroceryStore"
+                                                   value="3"/> A
+                                        Little
                                         Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="GroceryStore" value="4"/> Neither
+                                    <label> <input class="option" type="radio" name="GroceryStore"
+                                                   value="4"/>
+                                        Neither
                                         Likely Nor Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="GroceryStore" value="5"/> A Little
+                                    <label> <input class="option" type="radio" name="GroceryStore"
+                                                   value="5"/> A
+                                        Little
                                         Likely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="GroceryStore" value="6"/> Somewhat
+                                    <label> <input class="option" type="radio" name="GroceryStore"
+                                                   value="6"/>
+                                        Somewhat
                                         Likely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="GroceryStore" value="7"/> Very
+                                    <label> <input class="option" type="radio" name="GroceryStore"
+                                                   value="7"/>
+                                        Very
                                         Likely
                                     </label>
                                 </div>
@@ -2108,8 +2489,10 @@
                                 <br/>
                                 <br/>
                                 <div class="radio">
-                                    <label class="question"><input type="checkbox" name="GrocerySore" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer not
+                                    <label class="question"><input type="checkbox" name="GrocerySore"
+                                                                   value="555"
+                                                                   onchange="disableSection(this)"/> Prefer
+                                        not
                                         to
                                         answer
                                     </label>
@@ -2137,27 +2520,33 @@
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="FallDown" value="3"/> A Little
+                                    <label> <input class="option" type="radio" name="FallDown" value="3"/> A
+                                        Little
                                         Unlikely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="FallDown" value="4"/> Neither
+                                    <label> <input class="option" type="radio" name="FallDown" value="4"/>
+                                        Neither
                                         Likely
                                         Nor Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="FallDown" value="5"/> A Little
+                                    <label> <input class="option" type="radio" name="FallDown" value="5"/> A
+                                        Little
                                         Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="FallDown" value="6"/> Somewhat
+                                    <label> <input class="option" type="radio" name="FallDown" value="6"/>
+                                        Somewhat
                                         Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="FallDown" value="7"/> Very Likely
+                                    <label> <input class="option" type="radio" name="FallDown" value="7"/>
+                                        Very
+                                        Likely
                                     </label>
                                 </div>
                             </div>
@@ -2165,8 +2554,10 @@
                                 <br/>
                                 <br/>
                                 <div class="radio">
-                                    <label class="question"><input type="checkbox" name="FallDown" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer not
+                                    <label class="question"><input type="checkbox" name="FallDown"
+                                                                   value="555"
+                                                                   onchange="disableSection(this)"/> Prefer
+                                        not
                                         to
                                         answer
                                     </label>
@@ -2178,7 +2569,8 @@
                     <div class="section">
                         <div class="row">
                             <div class="col-md-10">
-                                <p class="statement">You finish the race having beaten your prior best time </p>
+                                <p class="statement">You finish the race having beaten your prior best
+                                    time </p>
                             </div>
                         </div>
                         <div class="row">
@@ -2194,27 +2586,33 @@
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="BestTime" value="3"/> A Little
+                                    <label> <input class="option" type="radio" name="BestTime" value="3"/> A
+                                        Little
                                         Unlikely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="BestTime" value="4"/> Neither
+                                    <label> <input class="option" type="radio" name="BestTime" value="4"/>
+                                        Neither
                                         Likely
                                         Nor Unlikely </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="BestTime" value="5"/> A Little
+                                    <label> <input class="option" type="radio" name="BestTime" value="5"/> A
+                                        Little
                                         Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="BestTime" value="6"/> Somewhat
+                                    <label> <input class="option" type="radio" name="BestTime" value="6"/>
+                                        Somewhat
                                         Likely
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="BestTime" value="7"/> Very Likely
+                                    <label> <input class="option" type="radio" name="BestTime" value="7"/>
+                                        Very
+                                        Likely
                                     </label>
                                 </div>
                             </div>
@@ -2222,8 +2620,10 @@
                                 <br/>
                                 <br/>
                                 <div class="radio">
-                                    <label class="question"><input type="checkbox" name="BetterRest" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer not
+                                    <label class="question"><input type="checkbox" name="BetterRest"
+                                                                   value="555"
+                                                                   onchange="disableSection(this)"/> Prefer
+                                        not
                                         to
                                         answer
                                     </label>
