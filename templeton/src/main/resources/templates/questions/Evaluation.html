@@ -21,14 +21,16 @@
 
                 <form th:action="@{/questions/Evaluation}" method="POST">
 
-                    <p> Thank you for taking the time to go through our program!
-                        We are interested in your feedback and reactions to the training programs, assessments, and
+                    <p> Thank you for taking the time to go through our program! </p>
+                    <p> We are interested in your feedback and reactions to the training programs, assessments, and
                         other aspects of the website.
                         Please answer the following questions openly and honestly. Your feedback will help us improve
-                        the program.
-                        *Note that assessment sessions were sessions in which you completed questionnaires about your
+                        the program. </p>
+                    <p> Note that <b>assessment sessions</b> were sessions in which you completed questionnaires about
+                        your
                         feelings and thoughts.
-                        Training sessions were sessions in which you either completed words at the end of sentences OR
+                        <b>Training sessions</b> were sessions in which you either completed words at the end of
+                        sentences OR
                         saw two words on the screen
                         and then a letter that you had to identify by pressing a button on the keyboard. </p>
 
@@ -66,8 +68,11 @@
                             </div>
 
                             <div class=" cold-md-4">
+                                <br/>
+                                <br/>
                                 <div class="radio">
-                                    <label><input type="checkbox" name="Helpful" value="555"/> Prefer not to
+                                    <label><input type="checkbox" name="Helpful" value="555"
+                                                  onchange="disableSection(this)"/> Prefer not to
                                         answer </label>
                                 </div>
                             </div>
@@ -106,8 +111,11 @@
                             </div>
 
                             <div class=" cold-md-4">
+                                <br/>
+                                <br/>
                                 <div class="radio">
-                                    <label><input type="checkbox" name="Quality" value="555"/> Prefer not to
+                                    <label><input type="checkbox" name="Quality" value="555"
+                                                  onchange="disableSection(this)"/> Prefer not to
                                         answer </label>
                                 </div>
                             </div>
@@ -148,7 +156,10 @@
 
                             <div class=" cold-md-4">
                                 <div class="radio">
-                                    <label><input type="checkbox" name="OverallMood" value="555"/> Prefer not to
+                                    <br/>
+                                    <br/>
+                                    <label><input type="checkbox" name="OverallMood" value="555"
+                                                  onchange="disableSection(this)"/> Prefer not to
                                         answer </label>
                                 </div>
                             </div>
@@ -168,7 +179,7 @@
                             <div class="col-md-6">
                                 <div class="radio">
                                     <label><input class="option" type="radio" name="Recommend" value="0"
-                                                  required="required"/> Not at all </label>
+                                                  required="required"/>Not at all </label>
                                 </div>
                                 <div class="radio">
                                     <label><input class="option" type="radio" name="Recommend" value="1"/> Slightly
@@ -190,7 +201,10 @@
 
                             <div class=" cold-md-4">
                                 <div class="radio">
-                                    <label><input type="checkbox" name="Recommend" value="555"/> Prefer not
+                                    <br/>
+                                    <br/>
+                                    <label><input type="checkbox" name="Recommend" value="555"
+                                                  onchange="disableSection(this)"/> Prefer not
                                         to
                                         answer </label>
                                 </div>
@@ -229,8 +243,11 @@
                             </div>
 
                             <div class=" cold-md-4">
+                                <br/>
+                                <br/>
                                 <div class="radio">
-                                    <label><input type="checkbox" name="Easy" value="555"/> Prefer not to
+                                    <label><input type="checkbox" name="Easy" value="555"
+                                                  onchange="disableSection(this)"/> Prefer not to
                                         answer </label>
                                 </div>
                             </div>
@@ -269,8 +286,11 @@
                             </div>
 
                             <div class=" cold-md-4">
+                                <br/>
+                                <br/>
                                 <div class="radio">
-                                    <label><input type="checkbox" name="Interest" value="555"/> Prefer not to
+                                    <label><input type="checkbox" name="Interest" value="555"
+                                                  onchange="disableSection(this)"/> Prefer not to
                                         answer </label>
                                 </div>
                             </div>
@@ -309,8 +329,11 @@
                             </div>
 
                             <div class=" cold-md-4">
+                                <br/>
+                                <br/>
                                 <div class="radio">
-                                    <label><input type="checkbox" name="LikeGral" value="555"/> Prefer not to
+                                    <label><input type="checkbox" name="LikeGral" value="555"
+                                                  onchange="disableSection(this)"/> Prefer not to
                                         answer </label>
                                 </div>
                             </div>
@@ -349,8 +372,11 @@
                             </div>
 
                             <div class=" cold-md-4">
+                                <br/>
+                                <br/>
                                 <div class="radio">
-                                    <label><input type="checkbox" name="likedLooks" value="555"/> Prefer not to
+                                    <label><input type="checkbox" name="likedLooks" value="555"
+                                                  onchange="disableSection(this)"/> Prefer not to
                                         answer </label>
                                 </div>
                             </div>
@@ -389,8 +415,11 @@
                             </div>
 
                             <div class=" cold-md-4">
+                                <br/>
+                                <br/>
                                 <div class="radio">
-                                    <label><input type="checkbox" name="Privacy" value="555"/> Prefer not to
+                                    <label><input type="checkbox" name="Privacy" value="555"
+                                                  onchange="disableSection(this)"/> Prefer not to
                                         answer </label>
                                 </div>
                             </div>
@@ -432,9 +461,11 @@
                             </div>
 
                             <div class=" cold-md-4">
+                                <br/>
+                                <br/>
                                 <div class="radio">
                                     <label><input type="checkbox" name="UnderstandAssessment"
-                                                  value="555"/> Prefer not to
+                                                  value="555" onchange="disableSection(this)"/> Prefer not to
                                         answer </label>
                                 </div>
                             </div>
@@ -476,9 +507,11 @@
                             </div>
 
                             <div class=" cold-md-4">
+                                <br/>
+                                <br/>
                                 <div class="radio">
                                     <label><input type="checkbox" name="UnderstandTraining"
-                                                  value="555"/> Prefer not to
+                                                  value="555" onchange="disableSection(this)"/> Prefer not to
                                         answer </label>
                                 </div>
                             </div>
@@ -516,8 +549,11 @@
                                 </div>
                             </div>
                             <div class=" cold-md-4">
+                                <br/>
+                                <br/>
                                 <div class="radio">
-                                    <label><input type="checkbox" name="TrustInfo" value="555"/> Prefer not
+                                    <label><input type="checkbox" name="TrustInfo" value="555"
+                                                  onchange="disableSection(this)"/> Prefer not
                                         to
                                         answer </label>
                                 </div>
@@ -558,8 +594,11 @@
                             </div>
 
                             <div class=" cold-md-4">
+                                <br/>
+                                <br/>
                                 <div class="radio">
-                                    <label><input type="checkbox" name="Problems" value="555"/> Prefer not to
+                                    <label><input type="checkbox" name="Problems" value="555"
+                                                  onchange="disableSection(this)"/> Prefer not to
                                         answer </label>
                                 </div>
                             </div>
@@ -570,22 +609,28 @@
                         <div class="row">
                             <div class="col-md-8">
                                 <p class="question"> This training program was 4 sessions.</p>
+                                <div></div>
                                 <label> How many sessions do you think would have been ideal? <input type="text"
                                                                                                      name="IdealSessions"
                                                                                                      required="required"/>
-                                </label>
-                                <label> Why is that number ideal? <input type="text" name="WhyIdeal"
-                                                                         required="required"/></label>
-                            </div>
+                                </label></div>
+                            <div><label> Why is that number ideal?
+                                <input type="text" name="WhyIdeal"
+                                       required="required"/>
+                            </label></div>
+                        </div>
 
-                            <div class=" cold-md-4">
-                                <div class="radio">
-                                    <label><input type="checkbox" name="IdealSessions" value="555"/> Prefer not to
-                                        answer </label>
-                                </div>
+                        <div class=" cold-md-4">
+                            <br/>
+                            <br/>
+                            <div class="radio">
+                                <label><input type="checkbox" name="IdealSessions" value="555"
+                                              onchange="disableSection(this)"/> Prefer not to
+                                    answer </label>
                             </div>
                         </div>
                     </div>
+
                     <div class="section">
                         <div class="row">
                             <div class="col-md-10">
@@ -617,8 +662,12 @@
                             </div>
 
                             <div class=" cold-md-4">
+                                <br/>
+                                <br/>
                                 <div class="radio">
-                                    <label><input type="checkbox" name="Tiring" value="555"/> Prefer not to
+                                    <label><input type="checkbox" name="Tiring" value="555"
+                                                  onchange="disableSection(this)"/>
+                                        Prefer not to
                                         answer </label>
                                 </div>
                             </div>
@@ -659,8 +708,11 @@
                             </div>
 
                             <div class=" cold-md-4">
+                                <br/>
+                                <br/>
                                 <div class="radio">
-                                    <label><input type="checkbox" name="Distracted" value="555"/> Prefer
+                                    <label><input type="checkbox" name="Distracted" value="555"
+                                                  onchange="disableSection(this)"/> Prefer
                                         not to
                                         answer </label>
                                 </div>
@@ -700,8 +752,12 @@
                             </div>
 
                             <div class=" cold-md-4">
+                                <br/>
+                                <br/>
                                 <div class="radio">
-                                    <label><input type="checkbox" name="Similar" value="555"/> Prefer not to
+                                    <label><input type="checkbox" name="Similar" value="555"
+                                                  onchange="disableSection(this)"/>
+                                        Prefer not to
                                         answer </label>
                                 </div>
                             </div>
@@ -745,8 +801,11 @@
                             </div>
 
                             <div class=" cold-md-4">
+                                <br/>
+                                <br/>
                                 <div class="radio">
-                                    <label><input type="checkbox" name="OtherTreatment" value="555"/>
+                                    <label><input type="checkbox" name="OtherTreatment" value="555"
+                                                  onchange="disableSection(this)"/>
                                         Prefer not to
                                         answer </label>
                                 </div>
@@ -792,8 +851,11 @@
                             </div>
 
                             <div class=" cold-md-4">
+                                <br/>
+                                <br/>
                                 <div class="radio">
-                                    <label><input type="checkbox" name="NoAns_where" value="555"/> Prefer not to
+                                    <label><input type="checkbox" name="NoAns_where" value="555"
+                                                  onchange="disableSection(this)"/> Prefer not to
                                         answer </label>
                                 </div>
                             </div>
@@ -824,8 +886,11 @@
                                 </div>
                             </div>
                             <div class=" cold-md-4">
+                                <br/>
+                                <br/>
                                 <div class="radio">
-                                    <label><input type="checkbox" name="Condition" value="555"/>
+                                    <label><input type="checkbox" name="Condition" value="555"
+                                                  onchange="disableSection(this)"/>
                                         Prefer not to
                                         answer </label>
                                 </div>
@@ -839,6 +904,7 @@
                     <div style="text-align:center">
                         <button type="submit"> Continue</button>
                     </div>
+
                 </form>
 
 
@@ -851,3 +917,22 @@
 
 </body>
 </html>
+
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts"/>
+
+<script type="text/javascript">
+
+
+    function disableSection(input) {
+        if (input.checked) {
+            $(input).closest('.section').find("input").attr("disabled", true);
+            $(input).removeAttr("disabled");
+        } else {
+            $(input).closest('.section').find("input").removeAttr("disabled");
+        }
+    }
+
+</script>

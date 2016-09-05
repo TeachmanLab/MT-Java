@@ -37,6 +37,10 @@ div.section {
     font-size: 1.2em;
 }
 
+.tableOptions{
+    font-weight: 500;
+    font-size: 0.9em;
+}
 .question {
     font-weight: 600;
     font-size: 1.0em;
