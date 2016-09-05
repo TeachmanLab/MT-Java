@@ -13,6 +13,11 @@ $(document).on('click', '.option', function(e){
     scrollTo($(this).closest(".section").next());
 });
 
+$(document).on('click', '.scrollNextSection', function(e){
+    scrollTo($(this).closest(".section").next());
+});
+
+
 
 /**
  * Change the class associated with section-V and section-H tags
