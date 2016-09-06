@@ -11,14 +11,14 @@
 <head th:replace="fragment/common :: headerFragment"/>
 <body>
 <section th:replace="fragment/common :: topFragment"/>
-<section th:replace="fragment/common :: titleBar (title='Demographics')"/>
+<section th:replace="fragment/common :: titleBar (title='Personal Background')"/>
 
 <section id="content" class="clearfix">
     <div class="container">
         <div class="row">
             <div class="col-md-10">
 
-                <form th:action="@{/questions/Demographics}" method="POST">
+                <form th:action="@{/questions/Personal Background}" method="POST">
 
                     <p> We would like to start with a few questions to get to know you better. Answers to
                         these personal questions are kept confidential, but they help us improve

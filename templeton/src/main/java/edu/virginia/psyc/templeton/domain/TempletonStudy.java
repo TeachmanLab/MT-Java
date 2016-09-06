@@ -94,61 +94,61 @@ public class TempletonStudy extends BaseStudy {
         Session pretest, session1, session2, session3, session4, post;
 
         pretest = new Session ("PreTest", "Initial Assessment", 0, 0);
-        pretest.addTask(new Task("Demographics","Demographics", Task.TYPE.questions, 2));
+        pretest.addTask(new Task("Demographics","Personal Background", Task.TYPE.questions, 2));
         pretest.addTask(new Task("MentalHealthHistory","Mental Health History", Task.TYPE.questions, 2));
-        pretest.addTask(new Task("ExpectancyBias","Expectancy Bias", Task.TYPE.questions, 4));
-        pretest.addTask(new Task("NGSES","Self Esteem Scale", Task.TYPE.questions, 2));
-        pretest.addTask(new Task("Optimism","Optimism", Task.TYPE.questions, 3));
+        pretest.addTask(new Task("ExpectancyBias","What Happens Next", Task.TYPE.questions, 4));
+        pretest.addTask(new Task("NGSES","Making Plans", Task.TYPE.questions, 2));
+        pretest.addTask(new Task("Optimism","Feelings About the Future", Task.TYPE.questions, 3));
         pretest.addTask(new Task("AxImagery","Imagery", Task.TYPE.questions, 2));
-        pretest.addTask(new Task("DASS21AS","Anxiety Subscale", Task.TYPE.questions, 2));
-        pretest.addTask(new Task("DASS21DS","Depression Subscale", Task.TYPE.questions, 2));
+        pretest.addTask(new Task("Mood","Mood", Task.TYPE.questions, 2));
         sessions.add(pretest);
 
-        session1 = new Session(FIRST_SESSION, "The First Session", 0, 2);
+        session1 = new Session(FIRST_SESSION, "Day 1 Training", 0, 2);
         session1.addTask(new Task("Affect","Affect", Task.TYPE.questions, 1));
-        session1.addTask(new Task("scenarios", "First Training", Task.TYPE.playerScript, 10));
+        session1.addTask(new Task("scenarios", "Training Stories", Task.TYPE.playerScript, 15-20));
         session1.addTask(new Task("Affect","Affect", Task.TYPE.questions, 1));
         session1.addTask(new Task("Relatability","Relatability Follow Up", Task.TYPE.questions, 1));
-        session1.addTask(new Task("ExpectancyBias","Expectancy Bias", Task.TYPE.questions, 1));
+        session1.addTask(new Task("ExpectancyBias","What Happens Next", Task.TYPE.questions, 2));
         sessions.add(session1);
 
-        session2 = new Session(SECOND_SESSION, "The Second Session", 0, 0);
+        session2 = new Session(SECOND_SESSION, "Day 2 Training", 0, 0);
         session2.addTask(new Task("Affect","Affect", Task.TYPE.questions, 1));
-        session1.addTask(new Task("scenarios", "Second Training", Task.TYPE.playerScript, 10));
+        session2.addTask(new Task("scenarios", "Training Stories", Task.TYPE.playerScript, 15-20));
         session2.addTask(new Task("Affect","Affect", Task.TYPE.questions, 1));
-        session2.addTask(new Task("ExpectancyBias","Expectancy Bias", Task.TYPE.questions, 1));
-        session2.addTask(new Task("NGSES","Self Esteem Scale", Task.TYPE.questions, 2));
+        session2.addTask(new Task("ExpectancyBias","What Happens Next", Task.TYPE.questions, 2));
+        session2.addTask(new Task("NGSES","Making Plans", Task.TYPE.questions, 1));
         sessions.add(session2);
 
-        session3 = new Session(THIRD_SESSION, "The Third Session", 0, 0);
+        session3 = new Session(THIRD_SESSION, "Day 3 Training", 0, 0);
         session3.addTask(new Task("Affect","Affect", Task.TYPE.questions, 1));
-        session1.addTask(new Task("scenarios", "Third Training", Task.TYPE.playerScript, 10));
+        session3.addTask(new Task("scenarios", "Training Stories", Task.TYPE.playerScript, 15-20));
         session3.addTask(new Task("Affect","Affect", Task.TYPE.questions, 1));
-        session3.addTask(new Task("ExpectancyBias","Expectancy Bias", Task.TYPE.questions, 1));
+        session3.addTask(new Task("ExpectancyBias","What Happens Next", Task.TYPE.questions, 2));
         sessions.add(session3);
 
-        session4 = new Session(FOURTH_SESSION, "The Fourth Session", 0, 0);
+        session4 = new Session(FOURTH_SESSION, "Day 4 Training", 0, 0);
         session4.addTask(new Task("Affect","Affect", Task.TYPE.questions, 1));
-        session1.addTask(new Task("scenarios", "Fourth Training", Task.TYPE.playerScript, 10));
+        session4.addTask(new Task("scenarios", "Training Stories", Task.TYPE.playerScript, 15-20));
         session4.addTask(new Task("Affect","Affect", Task.TYPE.questions, 1));
         session4.addTask(new Task("Relatability","Relatability Follow Up", Task.TYPE.questions, 1));
-        session4.addTask(new Task("ExpectancyBias","Expectancy Bias", Task.TYPE.questions, 1));
+        session4.addTask(new Task("ExpectancyBias","What Happens Next", Task.TYPE.questions, 2));
         session4.addTask(new Task("NGSES","Self Esteem Scale", Task.TYPE.questions, 2));
         session4.addTask(new Task("Optimism","Optimism", Task.TYPE.questions, 3));
         session4.addTask(new Task("AxImagery","Imagery", Task.TYPE.questions, 2));
         session4.addTask(new Task("DASS21AS","Anxiety Subscale", Task.TYPE.questions, 2));
         session4.addTask(new Task("DASS21DS","Depression Subscale", Task.TYPE.questions, 2));
+        session4.addTask(new Task("HelpSeeking","Change in Help Seeking", Task.TYPE.questions, 1));
         sessions.add(session4);
 
-        post = new Session("PostFollowUp", "Follow Up", 0, 0);
-        post.addTask(new Task("ExpectancyBias","Expectancy Bias", Task.TYPE.questions, 1));
+        post = new Session("PostFollowUp", "1 Month Post Training", 0, 0);
+        post.addTask(new Task("ExpectancyBias","What Happens Next", Task.TYPE.questions, 2));
         post.addTask(new Task("NGSES","Self Esteem Scale", Task.TYPE.questions, 2));
         post.addTask(new Task("Optimism","Optimism", Task.TYPE.questions, 3));
         post.addTask(new Task("AxImagery","Imagery", Task.TYPE.questions, 2));
         post.addTask(new Task("DASS21AS","Anxiety Subscale", Task.TYPE.questions, 2));
         post.addTask(new Task("DASS21DS","Depression Subscale", Task.TYPE.questions, 2));
         post.addTask(new Task("HelpSeeking","Change in Help Seeking", Task.TYPE.questions, 1));
-        post.addTask(new Task("Evaluation","Evaluating the Program", Task.TYPE.questions, 1));
+        post.addTask(new Task("Evaluation","Evaluating the Program", Task.TYPE.questions, 2));
         sessions.add(post);
 
         return sessions;

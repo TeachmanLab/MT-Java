@@ -11,7 +11,7 @@
 <head th:replace="fragment/common :: headerFragment"/>
 <body>
 <section th:replace="fragment/common :: topFragment"/>
-<section th:include="fragment/common :: titleBar (title='Expectancy Bias')" th:unless="${eligibility}"/>
+<section th:include="fragment/common :: titleBar (title='What Happens Next')" th:unless="${eligibility}"/>
 <section th:include="fragment/common :: titleBar (title='Eligibility Questionnaire')" th:if="${eligibility}"/>
 
 <section id="content" class="clearfix">
@@ -19,7 +19,7 @@
         <div class="row">
             <div class="col-md-12">
 
-                <form th:action="${eligibility}? @{/public/eligibilityCheck} : @{/questions/ExpectancyBias}"
+                <form th:action="${eligibility}? @{/public/eligibilityCheck} : @{/questions/WhatHappensNext}"
                       method="POST">
 
 
