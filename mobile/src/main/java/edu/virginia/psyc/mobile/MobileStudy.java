@@ -50,7 +50,7 @@ public class MobileStudy extends BaseStudy {
         pretest.addTask(new Task("BBSIQ","Story evaluation", Task.TYPE.questions, 2));
         sessions.add(pretest);
 
-        session1 = new Session("firstSession", "The First Session", 0, 2);
+        session1 = new Session("firstSession", "The First Session", 0, 0);
         session1.addTask(new Task("trainingOne","Training Session One", Task.TYPE.jspsych, 2));
         sessions.add(session1);
 
