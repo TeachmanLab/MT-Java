@@ -44,7 +44,6 @@ public class MobileStudy extends BaseStudy {
         pretest = new Session ("PreTest", "Initial Assessment", 0, 0);
         pretest.addTask(new Task("Demographics","Demographics", Task.TYPE.questions, 2));
         pretest.addTask(new Task("OA","Mood Assessment", Task.TYPE.questions,2));
-        pretest.addTask(new Task("DASS21AS","Anxiety Subscale", Task.TYPE.questions, 2));
         pretest.addTask(new Task("RecognitionRating","Recognition Rating", Task.TYPE.jspsych, 2));
         pretest.addTask(new Task("RR","Recognition Rating", Task.TYPE.questions, 2));
         pretest.addTask(new Task("BBSIQ","Story evaluation", Task.TYPE.questions, 2));
@@ -72,7 +71,7 @@ public class MobileStudy extends BaseStudy {
 
         post = new Session("PostFollowUp", "Follow Up", 0, 0);
         post.addTask(new Task("OA","Mood Assessment", Task.TYPE.questions,2));
-        post.addTask(new Task("DASS21AS","Anxiety Subscale", Task.TYPE.questions, 2));
+        post.addTask(new Task("DASS21AS","My Feelings", Task.TYPE.questions, 2));
         post.addTask(new Task("RecognitionRating","Recognition Rating", Task.TYPE.jspsych, 2));
         post.addTask(new Task("RR","Recognition Rating", Task.TYPE.questions, 2));
         post.addTask(new Task("BBSIQ","Story evaluation", Task.TYPE.questions, 2));
