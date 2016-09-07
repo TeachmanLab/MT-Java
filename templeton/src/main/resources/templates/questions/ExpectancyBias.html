@@ -52,82 +52,93 @@
 
                     <p> When she checks your heartbeat, your doctor tells you that she likes what she hears.
                         She adds that your lipid levels have improved since she last saw you. </p>
-                    <br/>
-                    <h4> How likely are each of the following sentences to occur next in this situation? </h4>
 
-                    <div class="section">
-                        <div class="container">
-                            <div class="row">
+                        <div class="container section compactQuestion">
+                            <div class="row title">
+                                <div class="col-md-12" id="HowLikely"><h4>How likely are
+                                    each of the
+                                    following sentences to occur next in this situation? </h4>
+                                </div>
+                            </div>
+
+                            <div class="row header">
                                 <div class="col-md-12">
-
-                                    <div class="col-md-3 text-center" id="HowLikely"><p class="question">How likely are
-                                        each of the
-                                        following sentences to occur next in this situation? </p>
-                                    </div>
-                                    <div class="col-md-1"><p class="tableOptions"> Very unlikely</p></div>
-                                    <div class="col-md-1"><p class="tableOptions"> Somewhat unlikely</p></div>
+                                    <div class="col-md-3"></div>
+                                    <div class="col-md-1"><p class="tableOptions">Very unlikely</p></div>
+                                    <div class="col-md-1"><p class="tableOptions">Somewhat unlikely</p></div>
                                     <div class="col-md-1"><p class="tableOptions">A little unlikely</p></div>
                                     <div class="col-md-1"><p class="tableOptions">Neither likely nor unlikely</p></div>
                                     <div class="col-md-1"><p class="tableOptions">A Little Likely</p></div>
                                     <div class="col-md-1"><p class="tableOptions">Somewhat likely</p></div>
                                     <div class="col-md-1"><p class="tableOptions">Very likely</p></div>
-                                    <div class="col-md-2"><p class="tableOptions">Prefer not to answer</p></div>
+                                    <div class="col-md-1"><p class="tableOptions">Prefer not to answer</p></div>
 
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="col-md-3">
+                                    <div class="col-md-3 statement">
                                         <p> You remain healthy for a long time </p>
                                     </div>
                                     <div class="col-md-1">
-                                        <label class="radio-inline"> <input class="option" type="radio"
+                                        <label class="radio-inline"> <input type="radio"
                                                                             name="LongHealthy" value="1"
-                                                                            required="true"/> 1 </label>
+                                                                            required="true"/>
+                                            <span class="shortDesc">1</span> <span class="fullDesc">Very unlikely</span></label>
                                     </div>
                                     <div class="col-md-1">
 
-                                        <label class="radio-inline"> <input class="option" type="radio"
-                                                                            name="LongHealthy" value="2"/> 2
-                                        </label>
-                                    </div>
-                                    <div class="col-md-1">
-
-                                        <label class="radio-inline"> <input class="option" type="radio"
-                                                                            name="LongHealthy" value="3"/> 3
+                                        <label class="radio-inline"> <input type="radio"
+                                                                            name="LongHealthy" value="2"/>
+                                            <span class="shortDesc">2</span> <span class="fullDesc">Somewhat unlikely</span>
                                         </label>
                                     </div>
                                     <div class="col-md-1">
 
-                                        <label class="radio-inline"> <input class="option" type="radio"
-                                                                            name="LongHealthy" value="4"/> 4
-                                        </label>
-                                    </div>
+                                        <label class="radio-inline"> <input type="radio"
+                                                                            name="LongHealthy" value="3"/>
+                                            <span class="shortDesc">3</span> <span class="fullDesc">A little unlikely</span>
 
-                                    <div class="col-md-1">
-                                        <label class="radio-inline"> <input class="option" type="radio"
-                                                                            name="LongHealthy" value="5"/> 5
                                         </label>
                                     </div>
                                     <div class="col-md-1">
 
-                                        <label class="radio-inline"> <input class="option" type="radio"
-                                                                            name="LongHealthy" value="6"/> 6
+                                        <label class="radio-inline"> <input type="radio"
+                                                                            name="LongHealthy" value="4"/>
+                                            <span class="shortDesc"> 4</span> <span class="fullDesc">Neither likely nor unlikely</span>
+
+                                        </label>
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        <label class="radio-inline"> <input type="radio"
+                                                                            name="LongHealthy" value="5"/>
+                                            <span class="shortDesc">5</span> <span class="fullDesc">A Little Likely</span>
                                         </label>
                                     </div>
                                     <div class="col-md-1">
-                                        <label class="radio-inline"> <input class="option" type="radio"
-                                                                            name="LongHealthy" value="7"/> 7
+
+                                        <label class="radio-inline"> <input type="radio"
+                                                                            name="LongHealthy" value="6"/>
+                                            <span class="shortDesc">6</span> <span class="fullDesc">Somewhat likely</span>
+
                                         </label>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-1">
+                                        <label class="radio-inline"> <input type="radio"
+                                                                            name="LongHealthy" value="7"/>
+                                            <span class="shortDesc">7</span> <span class="fullDesc">Very likely</span>
+
+                                        </label>
+                                    </div>
+                                    <div class="col-md-1">
                                         <div>
-                                            <label class="checkbox-inline"> <input type="checkbox"
+                                            <label class="radio-inline"> <input type="radio"
                                                                                    name="LongHealthy" value="555"
-                                                                                   onchange="disableSection(this)"/>
-                                                Prefer not to
-                                                answer
+                                                                                   />
+                                                <span class="shortDesc"></span> <span class="fullDesc">Prefer not to answer</span>
+
                                             </label>
 
                                         </div>
@@ -137,56 +148,62 @@
 
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="col-md-3">
+                                    <div class="col-md-3 statement">
                                         <p> You rate your doctor online </p>
                                     </div>
                                     <div class="col-md-1">
-                                        <label class="radio-inline"> <input class="option" type="radio"
+                                        <label class="radio-inline"> <input type="radio"
                                                                             name="DoctorRate" value="1"
-                                                                            required="true"/> 1 </label>
-                                    </div>
-                                    <div class="col-md-1">
-
-                                        <label class="radio-inline"> <input class="option" type="radio"
-                                                                            name="DoctorRate" value="2"/> 2
+                                                                            required="true"/>
+                                            <span class="shortDesc">1</span> <span class="fullDesc">Very unlikely</span>
                                         </label>
                                     </div>
                                     <div class="col-md-1">
 
-                                        <label class="radio-inline"> <input class="option" type="radio"
-                                                                            name="DoctorRate" value="3"/> 3
+                                        <label class="radio-inline"> <input type="radio"
+                                                                            name="DoctorRate" value="2"/>
+                                            <span class="shortDesc">2</span> <span class="fullDesc">Somewhat unlikely</span>
                                         </label>
                                     </div>
                                     <div class="col-md-1">
 
-                                        <label class="radio-inline"> <input class="option" type="radio"
-                                                                            name="DoctorRate" value="4"/> 4
-                                        </label>
-                                    </div>
-
-                                    <div class="col-md-1">
-                                        <label class="radio-inline"> <input class="option" type="radio"
-                                                                            name="DoctorRate" value="5"/> 5
+                                        <label class="radio-inline"> <input type="radio"
+                                                                            name="DoctorRate" value="3"/>
+                                            <span class="shortDesc">3</span> <span class="fullDesc">A little unlikely</span>
                                         </label>
                                     </div>
                                     <div class="col-md-1">
 
-                                        <label class="radio-inline"> <input class="option" type="radio"
-                                                                            name="DoctorRate" value="6"/> 6
+                                        <label class="radio-inline"> <input type="radio"
+                                                                            name="DoctorRate" value="4"/>
+                                            <span class="shortDesc">4</span> <span class="fullDesc">Neither likely nor unlikely</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        <label class="radio-inline"> <input type="radio"
+                                                                            name="DoctorRate" value="5"/>
+                                            <span class="shortDesc">5</span> <span class="fullDesc">A Little Likely</span>
                                         </label>
                                     </div>
                                     <div class="col-md-1">
-                                        <label class="radio-inline"> <input class="option" type="radio"
-                                                                            name="DoctorRate" value="7"/> 7
+
+                                        <label class="radio-inline"> <input type="radio"
+                                                                            name="DoctorRate" value="6"/>
+                                            <span class="shortDesc">6</span> <span class="fullDesc">Somewhat likely</span>
                                         </label>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-1">
+                                        <label class="radio-inline"> <input type="radio"
+                                                                            name="DoctorRate" value="7"/>
+                                            <span class="shortDesc">7</span> <span class="fullDesc">Very likely</span>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-1">
                                         <div>
-                                            <label class="checkbox-inline"> <input type="checkbox"
-                                                                                   name="DoctorRate" value="555"
-                                                                                   onchange="disableSection(this)"/>
-                                                Prefer not to
-                                                answer
+                                            <label class="radio-inline"> <input  class="option" type="radio"
+                                                                                   name="DoctorRate" value="555"/>
+                                                <span class="shortDesc"></span> <span class="fullDesc">Prefer not to answer</span>
                                             </label>
 
                                         </div>
@@ -196,56 +213,62 @@
 
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="col-md-3">
+                                    <div class="col-md-3 statement">
                                         <p> You develop a terrible medical condition</p>
                                     </div>
                                     <div class="col-md-1">
-                                        <label class="radio-inline"> <input class="option" type="radio"
+                                        <label class="radio-inline"> <input class="scrollNextSection" type="radio"
                                                                             name="TerribleCondition" value="1"
-                                                                            required="true"/> 1 </label>
-                                    </div>
-                                    <div class="col-md-1">
-
-                                        <label class="radio-inline"> <input class="option" type="radio"
-                                                                            name="TerribleCondition" value="2"/> 2
+                                                                            required="true"/>
+                                            <span class="shortDesc">1</span> <span class="fullDesc">Very unlikely</span>
                                         </label>
                                     </div>
                                     <div class="col-md-1">
 
-                                        <label class="radio-inline"> <input class="option" type="radio"
-                                                                            name="TerribleCondition" value="3"/> 3
+                                        <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                            name="TerribleCondition" value="2"/>
+                                            <span class="shortDesc">2</span> <span class="fullDesc">Somewhat unlikely</span>
                                         </label>
                                     </div>
                                     <div class="col-md-1">
 
-                                        <label class="radio-inline"> <input class="option" type="radio"
-                                                                            name="TerribleCondition" value="4"/> 4
-                                        </label>
-                                    </div>
-
-                                    <div class="col-md-1">
-                                        <label class="radio-inline"> <input class="option" type="radio"
-                                                                            name="TerribleCondition" value="5"/> 5
+                                        <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                            name="TerribleCondition" value="3"/>
+                                            <span class="shortDesc">3</span> <span class="fullDesc">A little unlikely</span>
                                         </label>
                                     </div>
                                     <div class="col-md-1">
 
-                                        <label class="radio-inline"> <input class="option" type="radio"
-                                                                            name="TerribleCondition" value="6"/> 6
+                                        <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                            name="TerribleCondition" value="4"/>
+                                            <span class="shortDesc">4</span> <span class="fullDesc">Neither likely nor unlikely</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                            name="TerribleCondition" value="5"/>
+                                            <span class="shortDesc">5</span> <span class="fullDesc">A Little Likely</span>
                                         </label>
                                     </div>
                                     <div class="col-md-1">
-                                        <label class="radio-inline"> <input class="option" type="radio"
-                                                                            name="TerribleCondition" value="7"/> 7
+
+                                        <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                            name="TerribleCondition" value="6"/>
+                                            <span class="shortDesc">6</span> <span class="fullDesc">Somewhat likely</span>
                                         </label>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-1">
+                                        <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                            name="TerribleCondition" value="7"/>
+                                            <span class="shortDesc">7</span> <span class="fullDesc">Very likely</span>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-1">
                                         <div>
-                                            <label class="checkbox-inline"> <input type="checkbox"
-                                                                                   name="TerribleCondition" value="555"
-                                                                                   onchange="disableSection(this)"/>
-                                                Prefer not to
-                                                answer
+                                            <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                                   name="TerribleCondition" value="555"/>
+                                                <span class="shortDesc"></span> <span class="fullDesc">Prefer not to answer</span>
                                             </label>
 
                                         </div>
@@ -253,7 +276,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
 
 
                     <h3> Urge to Lie Down:</h3>
@@ -266,192 +288,226 @@
                     <p>You begin to feel very tired and start to feel slightly under the weather.
                         You start to wonder if you might have caught a nasty virus you have heard is going
                         around.</p>
-                    <br/>
-                    <h4> How likely are each of the following sentences to occur next in this
-                        situation? </h4>
 
-                    <div class="section">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <p class="statement"> After a short rest, you feel much better </p>
+                    <div class="container section compactQuestion">
+                        <div class="row title">
+                            <div class="col-md-12"><h4>How likely are
+                                each of the
+                                following sentences to occur next in this situation? </h4>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="BetterRest" value="1"
-                                                   required="true"/> Very Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="BetterRest" value="2"/>Somewhat
-                                        Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="BetterRest" value="3"/>
-                                        A
-                                        Little
-                                        Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="BetterRest" value="4"/>
-                                        Neither
-                                        Likely Nor Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="BetterRest" value="5"/>
-                                        A
-                                        Little
-                                        Likely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="BetterRest" value="6"/>
-                                        Somewhat
-                                        Likely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="BetterRest" value="7"/>
-                                        Very
-                                        Likely </label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <br/>
-                                <br/>
-                                <div class="radio">
-                                    <label class="question"><input type="checkbox" name="BetterRest"
-                                                                   value="555"
-                                                                   onchange="disableSection(this)"/> Prefer
-                                        not
-                                        to
-                                        answer
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
+                        <div class="row header">
+                            <div class="col-md-12">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-1"><p class="tableOptions">Very unlikely</p></div>
+                                <div class="col-md-1"><p class="tableOptions">Somewhat unlikely</p></div>
+                                <div class="col-md-1"><p class="tableOptions">A little unlikely</p></div>
+                                <div class="col-md-1"><p class="tableOptions">Neither likely nor unlikely</p></div>
+                                <div class="col-md-1"><p class="tableOptions">A Little Likely</p></div>
+                                <div class="col-md-1"><p class="tableOptions">Somewhat likely</p></div>
+                                <div class="col-md-1"><p class="tableOptions">Very likely</p></div>
+                                <div class="col-md-1"><p class="tableOptions">Prefer not to answer</p></div>
 
-                    <div class="section">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <p class="statement"> You end up watching a lot of reruns on TV </p>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Reruns" value="1"
-                                                   required="true"/>
-                                        Very Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Reruns" value="2"/>Somewhat
-                                        Unlikely
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Reruns" value="3"/> A
-                                        Little Unlikely
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Reruns" value="4"/>
-                                        Neither
-                                        Likely Nor
-                                        Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Reruns" value="5"/> A
-                                        Little Likely
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Reruns" value="6"/>
-                                        Somewhat Likely
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Reruns" value="7"/>
-                                        Very
-                                        Likely
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <br/>
-                                <br/>
-                                <div class="radio">
-                                    <label class="question"><input type="checkbox" name="Reruns" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer
-                                        not
-                                        to
-                                        answer
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="section">
                         <div class="row">
-                            <div class="col-md-10">
-                                <p class="statement"> You feel very sick for the next few days </p>
+                            <div class="col-md-12">
+                                <div class="col-md-3 statement">
+                                    <p> After a short rest, you feel much better </p>
+                                </div>
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="BetterRest" value="1"
+                                                                        required="true"/>
+                                        <span class="shortDesc">1</span> <span class="fullDesc">Very unlikely</span></label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="BetterRest" value="2"/>
+                                        <span class="shortDesc">2</span> <span class="fullDesc">Somewhat unlikely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="BetterRest" value="3"/>
+                                        <span class="shortDesc">3</span> <span class="fullDesc">A little unlikely</span>
+
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="BetterRest" value="4"/>
+                                        <span class="shortDesc"> 4</span> <span class="fullDesc">Neither likely nor unlikely</span>
+
+                                    </label>
+                                </div>
+
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="BetterRest" value="5"/>
+                                        <span class="shortDesc">5</span> <span class="fullDesc">A Little Likely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="BetterRest" value="6"/>
+                                        <span class="shortDesc">6</span> <span class="fullDesc">Somewhat likely</span>
+
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="BetterRest" value="7"/>
+                                        <span class="shortDesc">7</span> <span class="fullDesc">Very likely</span>
+
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+                                    <div>
+                                        <label class="radio-inline"> <input type="radio"
+                                                                            name="BetterRest" value="555"
+                                        />
+                                            <span class="shortDesc"></span> <span class="fullDesc">Prefer not to answer</span>
+
+                                        </label>
+
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="VerySick" value="1"
-                                                   required="true"/>
-                                        Very Unlikely </label>
+                            <div class="col-md-12">
+                                <div class="col-md-3 statement">
+                                    <p> You end up watching a lot of reruns on TV </p>
                                 </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="VerySick" value="2"/>Somewhat
-                                        Unlikely
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="Reruns" value="1"
+                                                                        required="true"/>
+                                        <span class="shortDesc">1</span> <span class="fullDesc">Very unlikely</span>
                                     </label>
                                 </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="VerySick" value="3"/> A
-                                        Little
-                                        Unlikely
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="Reruns" value="2"/>
+                                        <span class="shortDesc">2</span> <span class="fullDesc">Somewhat unlikely</span>
                                     </label>
                                 </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="VerySick" value="4"/>
-                                        Neither
-                                        Likely
-                                        Nor Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="VerySick" value="5"/> A
-                                        Little
-                                        Likely
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="Reruns" value="3"/>
+                                        <span class="shortDesc">3</span> <span class="fullDesc">A little unlikely</span>
                                     </label>
                                 </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="VerySick" value="6"/>
-                                        Somewhat
-                                        Likely
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="Reruns" value="4"/>
+                                        <span class="shortDesc">4</span> <span class="fullDesc">Neither likely nor unlikely</span>
                                     </label>
                                 </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="VerySick" value="7"/>
-                                        Very
-                                        Likely
+
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="Reruns" value="5"/>
+                                        <span class="shortDesc">5</span> <span class="fullDesc">A Little Likely</span>
                                     </label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="Reruns" value="6"/>
+                                        <span class="shortDesc">6</span> <span class="fullDesc">Somewhat likely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="Reruns" value="7"/>
+                                        <span class="shortDesc">7</span> <span class="fullDesc">Very likely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+                                    <div>
+                                        <label class="radio-inline"> <input  class="option" type="radio"
+                                                                             name="Reruns" value="555"/>
+                                            <span class="shortDesc"></span> <span class="fullDesc">Prefer not to answer</span>
+                                        </label>
+
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <br/>
-                                <br/>
-                                <div class="radio">
-                                    <label class="question"><input type="checkbox" name="VerySick"
-                                                                   value="555"
-                                                                   onchange="disableSection(this)"/> Prefer
-                                        not
-                                        to
-                                        answer
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-3 statement">
+                                    <p> You feel very sick for the next few days </p>
+                                </div>
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                        name="VerySick" value="1"
+                                                                        required="true"/>
+                                        <span class="shortDesc">1</span> <span class="fullDesc">Very unlikely</span>
                                     </label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                        name="VerySick" value="2"/>
+                                        <span class="shortDesc">2</span> <span class="fullDesc">Somewhat unlikely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                        name="VerySick" value="3"/>
+                                        <span class="shortDesc">3</span> <span class="fullDesc">A little unlikely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                        name="VerySick" value="4"/>
+                                        <span class="shortDesc">4</span> <span class="fullDesc">Neither likely nor unlikely</span>
+                                    </label>
+                                </div>
+
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                        name="VerySick" value="5"/>
+                                        <span class="shortDesc">5</span> <span class="fullDesc">A Little Likely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                        name="VerySick" value="6"/>
+                                        <span class="shortDesc">6</span> <span class="fullDesc">Somewhat likely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                        name="VerySick" value="7"/>
+                                        <span class="shortDesc">7</span> <span class="fullDesc">Very likely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+                                    <div>
+                                        <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                            name="VerySick" value="555"/>
+                                            <span class="shortDesc"></span> <span class="fullDesc">Prefer not to answer</span>
+                                        </label>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -473,204 +529,232 @@
                         about
                         trying it.
                         A waiter comes over to refill your waters. </p>
-                    <br/>
-                    <h4> How likely are each of the following sentences to occur next in this
-                        situation? </h4>
 
-                    <div class="section">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <p class="statement"> You and your partner work out your differences and you
-                                    see
-                                    potential
-                                    for this to develop a meaningful relationship </p>
+                    <div class="container section compactQuestion">
+                        <div class="row title">
+                            <div class="col-md-12"><h4>How likely are
+                                each of the
+                                following sentences to occur next in this situation? </h4>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="PotentialRelationship"
-                                                   value="1"
-                                                   required="true"/> Very Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="PotentialRelationship"
-                                                   value="2"/>Somewhat
-                                        Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="PotentialRelationship"
-                                                   value="3"/>
-                                        A
-                                        Little Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="PotentialRelationship"
-                                                   value="4"/>
-                                        Neither Likely Nor Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="PotentialRelationship"
-                                                   value="5"/>
-                                        A
-                                        Little Likely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="PotentialRelationship"
-                                                   value="6"/>
-                                        Somewhat Likely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="PotentialRelationship"
-                                                   value="7"/>
-                                        Very
-                                        Likely </label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <br/>
-                                <br/>
-                                <div class="radio">
-                                    <label class="question"><input type="checkbox"
-                                                                   name="PotentialRelationship"
-                                                                   value="555"
-                                                                   onchange="disableSection(this)"/> Prefer
-                                        not
-                                        to
-                                        answer
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="section">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <p class="statement"> You come back to the same restaurant next week. </p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="ComeBack" value="1"
-                                                   required="true"/>
-                                        Very Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="ComeBack" value="2"/>Somewhat
-                                        Unlikely
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="ComeBack" value="3"/> A
-                                        Little
-                                        Unlikely
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="ComeBack" value="4"/>
-                                        Neither
-                                        Likely
-                                        Nor Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="ComeBack" value="5"/> A
-                                        Little
-                                        Likely
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="ComeBack" value="6"/>
-                                        Somewhat
-                                        Likely
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="ComeBack" value="7"/>
-                                        Very
-                                        Likely
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <br/>
-                                <br/>
-                                <div class="radio">
-                                    <label class="question"><input type="checkbox" name="ComeBack"
-                                                                   value="555"
-                                                                   onchange="disableSection(this)"/> Prefer
-                                        not
-                                        to
-                                        answer
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                        <div class="row header">
+                            <div class="col-md-12">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-1"><p class="tableOptions">Very unlikely</p></div>
+                                <div class="col-md-1"><p class="tableOptions">Somewhat unlikely</p></div>
+                                <div class="col-md-1"><p class="tableOptions">A little unlikely</p></div>
+                                <div class="col-md-1"><p class="tableOptions">Neither likely nor unlikely</p></div>
+                                <div class="col-md-1"><p class="tableOptions">A Little Likely</p></div>
+                                <div class="col-md-1"><p class="tableOptions">Somewhat likely</p></div>
+                                <div class="col-md-1"><p class="tableOptions">Very likely</p></div>
+                                <div class="col-md-1"><p class="tableOptions">Prefer not to answer</p></div>
 
-                    <div class="section">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <p class="statement"> This relationship will not work out, and you fear you
-                                    will
-                                    end up
-                                    alone </p>
                             </div>
                         </div>
+
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="EndUpAlone" value="1"
-                                                   required="true"/>
-                                        Very Unlikely </label>
+                            <div class="col-md-12">
+                                <div class="col-md-3 statement">
+                                    <p> You and your partner work out your differences and you
+                                        see
+                                        potential
+                                        for this to develop a meaningful relationship </p>
                                 </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="EndUpAlone" value="2"/>Somewhat
-                                        Unlikely </label>
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="PotentialRelationship" value="1"
+                                                                        required="true"/>
+                                        <span class="shortDesc">1</span> <span class="fullDesc">Very unlikely</span></label>
                                 </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="EndUpAlone" value="3"/>
-                                        A
-                                        Little
-                                        Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="EndUpAlone" value="4"/>
-                                        Neither
-                                        Likely
-                                        Nor Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="EndUpAlone" value="5"/>
-                                        A
-                                        Little
-                                        Likely
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="PotentialRelationship" value="2"/>
+                                        <span class="shortDesc">2</span> <span class="fullDesc">Somewhat unlikely</span>
                                     </label>
                                 </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="EndUpAlone" value="6"/>
-                                        Somewhat
-                                        Likely
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="PotentialRelationship" value="3"/>
+                                        <span class="shortDesc">3</span> <span class="fullDesc">A little unlikely</span>
+
                                     </label>
                                 </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="EndUpAlone" value="7"/>
-                                        Very Likely
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="PotentialRelationship" value="4"/>
+                                        <span class="shortDesc"> 4</span> <span class="fullDesc">Neither likely nor unlikely</span>
+
                                     </label>
+                                </div>
+
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="PotentialRelationship" value="5"/>
+                                        <span class="shortDesc">5</span> <span class="fullDesc">A Little Likely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="PotentialRelationship" value="6"/>
+                                        <span class="shortDesc">6</span> <span class="fullDesc">Somewhat likely</span>
+
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="PotentialRelationship" value="7"/>
+                                        <span class="shortDesc">7</span> <span class="fullDesc">Very likely</span>
+
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+                                    <div>
+                                        <label class="radio-inline"> <input type="radio"
+                                                                            name="PotentialRelationship" value="555"
+                                        />
+                                            <span class="shortDesc"></span> <span class="fullDesc">Prefer not to answer</span>
+
+                                        </label>
+
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <br/>
-                                <br/>
-                                <div class="radio">
-                                    <label class="question"><input type="checkbox" name="EndUpAlone"
-                                                                   value="555"
-                                                                   onchange="disableSection(this)"/> Prefer
-                                        not
-                                        to
-                                        answer
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-3 statement">
+                                    <p> You come back to the same restaurant next week. </p>
+                                </div>
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="ComeBack" value="1"
+                                                                        required="true"/>
+                                        <span class="shortDesc">1</span> <span class="fullDesc">Very unlikely</span>
                                     </label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="ComeBack" value="2"/>
+                                        <span class="shortDesc">2</span> <span class="fullDesc">Somewhat unlikely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="ComeBack" value="3"/>
+                                        <span class="shortDesc">3</span> <span class="fullDesc">A little unlikely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="ComeBack" value="4"/>
+                                        <span class="shortDesc">4</span> <span class="fullDesc">Neither likely nor unlikely</span>
+                                    </label>
+                                </div>
+
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="ComeBack" value="5"/>
+                                        <span class="shortDesc">5</span> <span class="fullDesc">A Little Likely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="ComeBack" value="6"/>
+                                        <span class="shortDesc">6</span> <span class="fullDesc">Somewhat likely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="ComeBack" value="7"/>
+                                        <span class="shortDesc">7</span> <span class="fullDesc">Very likely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+                                    <div>
+                                        <label class="radio-inline"> <input  class="option" type="radio"
+                                                                             name="ComeBack" value="555"/>
+                                            <span class="shortDesc"></span> <span class="fullDesc">Prefer not to answer</span>
+                                        </label>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-3 statement">
+                                    <p> This relationship will not work out, and you fear you
+                                        will
+                                        end up
+                                        alone </p>
+                                </div>
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                        name="EndUpAlone" value="1"
+                                                                        required="true"/>
+                                        <span class="shortDesc">1</span> <span class="fullDesc">Very unlikely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                        name="EndUpAlone" value="2"/>
+                                        <span class="shortDesc">2</span> <span class="fullDesc">Somewhat unlikely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                        name="EndUpAlone" value="3"/>
+                                        <span class="shortDesc">3</span> <span class="fullDesc">A little unlikely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                        name="EndUpAlone" value="4"/>
+                                        <span class="shortDesc">4</span> <span class="fullDesc">Neither likely nor unlikely</span>
+                                    </label>
+                                </div>
+
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                        name="EndUpAlone" value="5"/>
+                                        <span class="shortDesc">5</span> <span class="fullDesc">A Little Likely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                        name="EndUpAlone" value="6"/>
+                                        <span class="shortDesc">6</span> <span class="fullDesc">Somewhat likely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                        name="EndUpAlone" value="7"/>
+                                        <span class="shortDesc">7</span> <span class="fullDesc">Very likely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+                                    <div>
+                                        <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                            name="EndUpAlone" value="555"/>
+                                            <span class="shortDesc"></span> <span class="fullDesc">Prefer not to answer</span>
+                                        </label>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -689,206 +773,233 @@
                         hear
                         the
                         neighbor’s dog bark outside.</p>
-                    <br/>
-                    <h4> How likely are each of the following sentences to occur next in this
-                        situation? </h4>
 
-                    <div class="section">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <p class="statement">You and your partner feel that your conversation
-                                    suggests
-                                    great
-                                    potential for your relationship </p>
+                    <div class="container section compactQuestion">
+                        <div class="row title">
+                            <div class="col-md-12"><h4>How likely are
+                                each of the
+                                following sentences to occur next in this situation? </h4>
                             </div>
                         </div>
+
+                        <div class="row header">
+                            <div class="col-md-12">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-1"><p class="tableOptions">Very unlikely</p></div>
+                                <div class="col-md-1"><p class="tableOptions">Somewhat unlikely</p></div>
+                                <div class="col-md-1"><p class="tableOptions">A little unlikely</p></div>
+                                <div class="col-md-1"><p class="tableOptions">Neither likely nor unlikely</p></div>
+                                <div class="col-md-1"><p class="tableOptions">A Little Likely</p></div>
+                                <div class="col-md-1"><p class="tableOptions">Somewhat likely</p></div>
+                                <div class="col-md-1"><p class="tableOptions">Very likely</p></div>
+                                <div class="col-md-1"><p class="tableOptions">Prefer not to answer</p></div>
+
+                            </div>
+                        </div>
+
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="SuggestsPotential"
-                                                   value="1"
-                                                   required="true"/> Very Unlikely </label>
+                            <div class="col-md-12">
+                                <div class="col-md-3 statement">
+                                    <p> You and your partner feel that your conversation
+                                        suggests
+                                        great
+                                        potential for your relationship </p>
                                 </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="SuggestsPotential"
-                                                   value="2"/>Somewhat
-                                        Unlikely </label>
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="SuggestsPotential" value="1"
+                                                                        required="true"/>
+                                        <span class="shortDesc">1</span> <span class="fullDesc">Very unlikely</span></label>
                                 </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="SuggestsPotential"
-                                                   value="3"/> A
-                                        Little
-                                        Unlikely </label>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="SuggestsPotential" value="2"/>
+                                        <span class="shortDesc">2</span> <span class="fullDesc">Somewhat unlikely</span>
+                                    </label>
                                 </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="SuggestsPotential"
-                                                   value="4"/>
-                                        Neither
-                                        Likely Nor Unlikely </label>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="SuggestsPotential" value="3"/>
+                                        <span class="shortDesc">3</span> <span class="fullDesc">A little unlikely</span>
+
+                                    </label>
                                 </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="SuggestsPotential"
-                                                   value="5"/> A
-                                        Little
-                                        Likely </label>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="SuggestsPotential" value="4"/>
+                                        <span class="shortDesc"> 4</span> <span class="fullDesc">Neither likely nor unlikely</span>
+
+                                    </label>
                                 </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="SuggestsPotential"
-                                                   value="6"/>
-                                        Somewhat
-                                        Likely </label>
+
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="SuggestsPotential" value="5"/>
+                                        <span class="shortDesc">5</span> <span class="fullDesc">A Little Likely</span>
+                                    </label>
                                 </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="SuggestsPotential"
-                                                   value="7"/> Very
-                                        Likely </label>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="SuggestsPotential" value="6"/>
+                                        <span class="shortDesc">6</span> <span class="fullDesc">Somewhat likely</span>
+
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="SuggestsPotential" value="7"/>
+                                        <span class="shortDesc">7</span> <span class="fullDesc">Very likely</span>
+
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+                                    <div>
+                                        <label class="radio-inline"> <input type="radio"
+                                                                            name="SuggestsPotential" value="555"
+                                        />
+                                            <span class="shortDesc"></span> <span class="fullDesc">Prefer not to answer</span>
+
+                                        </label>
+
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <br/>
-                                <br/>
-                                <div class="radio">
-                                    <label class="question"><input type="checkbox" name="SuggestsPotential"
-                                                                   value="555"
-                                                                   onchange="disableSection(this)"/> Prefer
-                                        not
-                                        to
-                                        answer
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-3 statement">
+                                    <p> You do the dishes </p>
+                                </div>
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="Dishes" value="1"
+                                                                        required="true"/>
+                                        <span class="shortDesc">1</span> <span class="fullDesc">Very unlikely</span>
                                     </label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="Dishes" value="2"/>
+                                        <span class="shortDesc">2</span> <span class="fullDesc">Somewhat unlikely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="Dishes" value="3"/>
+                                        <span class="shortDesc">3</span> <span class="fullDesc">A little unlikely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="Dishes" value="4"/>
+                                        <span class="shortDesc">4</span> <span class="fullDesc">Neither likely nor unlikely</span>
+                                    </label>
+                                </div>
+
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="Dishes" value="5"/>
+                                        <span class="shortDesc">5</span> <span class="fullDesc">A Little Likely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="Dishes" value="6"/>
+                                        <span class="shortDesc">6</span> <span class="fullDesc">Somewhat likely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="Dishes" value="7"/>
+                                        <span class="shortDesc">7</span> <span class="fullDesc">Very likely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+                                    <div>
+                                        <label class="radio-inline"> <input  class="option" type="radio"
+                                                                             name="Dishes" value="555"/>
+                                            <span class="shortDesc"></span> <span class="fullDesc">Prefer not to answer</span>
+                                        </label>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-3 statement">
+                                    <p> Your conversation with your partner turns into an argument </p>
+                                </div>
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                        name="Argument" value="1"
+                                                                        required="true"/>
+                                        <span class="shortDesc">1</span> <span class="fullDesc">Very unlikely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                        name="Argument" value="2"/>
+                                        <span class="shortDesc">2</span> <span class="fullDesc">Somewhat unlikely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                        name="Argument" value="3"/>
+                                        <span class="shortDesc">3</span> <span class="fullDesc">A little unlikely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                        name="Argument" value="4"/>
+                                        <span class="shortDesc">4</span> <span class="fullDesc">Neither likely nor unlikely</span>
+                                    </label>
+                                </div>
+
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                        name="Argument" value="5"/>
+                                        <span class="shortDesc">5</span> <span class="fullDesc">A Little Likely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                        name="Argument" value="6"/>
+                                        <span class="shortDesc">6</span> <span class="fullDesc">Somewhat likely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                        name="Argument" value="7"/>
+                                        <span class="shortDesc">7</span> <span class="fullDesc">Very likely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+                                    <div>
+                                        <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                            name="Argument" value="555"/>
+                                            <span class="shortDesc"></span> <span class="fullDesc">Prefer not to answer</span>
+                                        </label>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="section">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <p class="statement">You do the dishes </p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Dishes" value="1"
-                                                   required="true"/>
-                                        Very Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Dishes" value="2"/>Somewhat
-                                        Unlikely
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Dishes" value="3"/> A
-                                        Little
-                                        Unlikely
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Dishes" value="4"/>
-                                        Neither
-                                        Likely
-                                        Nor
-                                        Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Dishes" value="5"/> A
-                                        Little Likely
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Dishes" value="6"/>
-                                        Somewhat Likely
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Dishes" value="7"/>
-                                        Very
-                                        Likely
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <br/>
-                                <br/>
-                                <div class="radio">
-                                    <label class="question"><input type="checkbox" name="Dishes" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer
-                                        not
-                                        to
-                                        answer
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="section">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <p class="statement">Your conversation with your partner turns into an
-                                    argument </p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Argument" value="1"
-                                                   required="true"/>
-                                        Very Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Argument" value="2"/>Somewhat
-                                        Unlikely
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Argument" value="3"/> A
-                                        Little
-                                        Unlikely
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Argument" value="4"/>
-                                        Neither
-                                        Likely
-                                        Nor Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Argument" value="5"/> A
-                                        Little
-                                        Likely
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Argument" value="6"/>
-                                        Somewhat
-                                        Likely
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Argument" value="7"/>
-                                        Very
-                                        Likely
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <br/>
-                                <br/>
-                                <div class="radio">
-                                    <label class="question"><input type="checkbox" name="Argument"
-                                                                   value="555"
-                                                                   onchange="disableSection(this)"/> Prefer
-                                        not
-                                        to
-                                        answer
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
 
                     <h3>The Party: </h3>
                     <p>You have recently moved to a new town and attend a party hosted by a coworker. </p>
@@ -907,201 +1018,226 @@
                         You find it difficult to join the group’s conversation because it is full of stories
                         you
                         weren't a part of.</p>
-                    <br/>
-                    <h4> How likely are each of the following sentences to occur next in this
-                        situation? </h4>
 
-                    <div class="section">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <p class="statement">The next day, you have a bagel for breakfast </p>
+                    <div class="container section compactQuestion">
+                        <div class="row title">
+                            <div class="col-md-12"><h4>How likely are
+                                each of the
+                                following sentences to occur next in this situation? </h4>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Bagel" value="1"
-                                                   required="true"/>
-                                        Very
-                                        Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Bagel" value="2"/>Somewhat
-                                        Unlikely
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Bagel" value="3"/> A
-                                        Little
-                                        Unlikely
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Bagel" value="4"/>
-                                        Neither
-                                        Likely
-                                        Nor
-                                        Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Bagel" value="5"/> A
-                                        Little
-                                        Likely
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Bagel" value="6"/>
-                                        Somewhat
-                                        Likely
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Bagel" value="7"/> Very
-                                        Likely
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <br/>
-                                <br/>
-                                <div class="radio">
-                                    <label class="question"><input type="checkbox" name="Bagel" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer
-                                        not
-                                        to
-                                        answer
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="section">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <p class="statement">After the party, you quickly settle in and make new
-                                    friends
-                                    in
-                                    town </p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="SettleIn" value="1"
-                                                   required="true"/>
-                                        Very Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="SettleIn" value="2"/>Somewhat
-                                        Unlikely
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="SettleIn" value="3"/> A
-                                        Little
-                                        Unlikely
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="SettleIn" value="4"/>
-                                        Neither
-                                        Likely
-                                        Nor Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="SettleIn" value="5"/> A
-                                        Little
-                                        Likely
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="SettleIn" value="6"/>
-                                        Somewhat
-                                        Likely
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="SettleIn" value="7"/>
-                                        Very
-                                        Likely
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <br/>
-                                <br/>
-                                <div class="radio">
-                                    <label class="question"><input type="checkbox" name="SettleIn"
-                                                                   value="555"
-                                                                   onchange="disableSection(this)"/> Prefer
-                                        not
-                                        to
-                                        answer
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                        <div class="row header">
+                            <div class="col-md-12">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-1"><p class="tableOptions">Very unlikely</p></div>
+                                <div class="col-md-1"><p class="tableOptions">Somewhat unlikely</p></div>
+                                <div class="col-md-1"><p class="tableOptions">A little unlikely</p></div>
+                                <div class="col-md-1"><p class="tableOptions">Neither likely nor unlikely</p></div>
+                                <div class="col-md-1"><p class="tableOptions">A Little Likely</p></div>
+                                <div class="col-md-1"><p class="tableOptions">Somewhat likely</p></div>
+                                <div class="col-md-1"><p class="tableOptions">Very likely</p></div>
+                                <div class="col-md-1"><p class="tableOptions">Prefer not to answer</p></div>
 
-                    <div class="section">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <p class="statement">You offend someone at the party </p>
                             </div>
                         </div>
+
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Offend" value="1"
-                                                   required="true"/>
-                                        Very Unlikely </label>
+                            <div class="col-md-12">
+                                <div class="col-md-3 statement">
+                                    <p> The next day, you have a bagel for breakfast </p>
                                 </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Offend" value="2"/>Somewhat
-                                        Unlikely
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="Bagel" value="1"
+                                                                        required="true"/>
+                                        <span class="shortDesc">1</span> <span class="fullDesc">Very unlikely</span></label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="Bagel" value="2"/>
+                                        <span class="shortDesc">2</span> <span class="fullDesc">Somewhat unlikely</span>
                                     </label>
                                 </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Offend" value="3"/> A
-                                        Little
-                                        Unlikely
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="Bagel" value="3"/>
+                                        <span class="shortDesc">3</span> <span class="fullDesc">A little unlikely</span>
+
                                     </label>
                                 </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Offend" value="4"/>
-                                        Neither
-                                        Likely
-                                        Nor
-                                        Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Offend" value="5"/> A
-                                        Little Likely
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="Bagel" value="4"/>
+                                        <span class="shortDesc"> 4</span> <span class="fullDesc">Neither likely nor unlikely</span>
+
                                     </label>
                                 </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Offend" value="6"/>
-                                        Somewhat Likely
+
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="Bagel" value="5"/>
+                                        <span class="shortDesc">5</span> <span class="fullDesc">A Little Likely</span>
                                     </label>
                                 </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Offend" value="7"/>
-                                        Very
-                                        Likely
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="Bagel" value="6"/>
+                                        <span class="shortDesc">6</span> <span class="fullDesc">Somewhat likely</span>
+
                                     </label>
+                                </div>
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="Bagel" value="7"/>
+                                        <span class="shortDesc">7</span> <span class="fullDesc">Very likely</span>
+
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+                                    <div>
+                                        <label class="radio-inline"> <input type="radio"
+                                                                            name="Bagel" value="555"
+                                        />
+                                            <span class="shortDesc"></span> <span class="fullDesc">Prefer not to answer</span>
+
+                                        </label>
+
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <br/>
-                                <br/>
-                                <div class="radio">
-                                    <label class="question"><input type="checkbox" name="Offend" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer
-                                        not
-                                        to
-                                        answer
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-3 statement">
+                                    <p> After the party, you quickly settle in and make new friends in town </p>
+                                </div>
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="SettleIn" value="1"
+                                                                        required="true"/>
+                                        <span class="shortDesc">1</span> <span class="fullDesc">Very unlikely</span>
                                     </label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="SettleIn" value="2"/>
+                                        <span class="shortDesc">2</span> <span class="fullDesc">Somewhat unlikely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="SettleIn" value="3"/>
+                                        <span class="shortDesc">3</span> <span class="fullDesc">A little unlikely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="SettleIn" value="4"/>
+                                        <span class="shortDesc">4</span> <span class="fullDesc">Neither likely nor unlikely</span>
+                                    </label>
+                                </div>
+
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="SettleIn" value="5"/>
+                                        <span class="shortDesc">5</span> <span class="fullDesc">A Little Likely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="SettleIn" value="6"/>
+                                        <span class="shortDesc">6</span> <span class="fullDesc">Somewhat likely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="SettleIn" value="7"/>
+                                        <span class="shortDesc">7</span> <span class="fullDesc">Very likely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+                                    <div>
+                                        <label class="radio-inline"> <input  class="option" type="radio"
+                                                                             name="SettleIn" value="555"/>
+                                            <span class="shortDesc"></span> <span class="fullDesc">Prefer not to answer</span>
+                                        </label>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-3 statement">
+                                    <p> You offend someone at the party </p>
+                                </div>
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                        name="Offend" value="1"
+                                                                        required="true"/>
+                                        <span class="shortDesc">1</span> <span class="fullDesc">Very unlikely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                        name="Offend" value="2"/>
+                                        <span class="shortDesc">2</span> <span class="fullDesc">Somewhat unlikely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                        name="Offend" value="3"/>
+                                        <span class="shortDesc">3</span> <span class="fullDesc">A little unlikely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                        name="Offend" value="4"/>
+                                        <span class="shortDesc">4</span> <span class="fullDesc">Neither likely nor unlikely</span>
+                                    </label>
+                                </div>
+
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                        name="Offend" value="5"/>
+                                        <span class="shortDesc">5</span> <span class="fullDesc">A Little Likely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                        name="Offend" value="6"/>
+                                        <span class="shortDesc">6</span> <span class="fullDesc">Somewhat likely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                        name="Offend" value="7"/>
+                                        <span class="shortDesc">7</span> <span class="fullDesc">Very likely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+                                    <div>
+                                        <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                            name="Offend" value="555"/>
+                                            <span class="shortDesc"></span> <span class="fullDesc">Prefer not to answer</span>
+                                        </label>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1125,209 +1261,226 @@
                         You start thinking about your friends from college who also moved away, and how you
                         have
                         kept in touch despite the distance.</p>
-                    <br/>
-                    <h4> How likely are each of the following sentences to occur next in this
-                        situation? </h4>
 
-                    <div class="section">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <p class="statement">After you move to your new city, you lose touch with
-                                    your
-                                    old
-                                    friends </p>
+                    <div class="container section compactQuestion">
+                        <div class="row title">
+                            <div class="col-md-12"><h4>How likely are
+                                each of the
+                                following sentences to occur next in this situation? </h4>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="LoseTouch" value="1"
-                                                   required="true"/>
-                                        Very Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="LoseTouch" value="2"/>Somewhat
-                                        Unlikely
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="LoseTouch" value="3"/>
-                                        A
-                                        Little
-                                        Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="LoseTouch" value="4"/>
-                                        Neither
-                                        Likely
-                                        Nor Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="LoseTouch" value="5"/>
-                                        A
-                                        Little
-                                        Likely
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="LoseTouch" value="6"/>
-                                        Somewhat
-                                        Likely
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="LoseTouch" value="7"/>
-                                        Very
-                                        Likely
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <br/>
-                                <br/>
-                                <div class="radio">
-                                    <label class="question"><input type="checkbox" name="LoseTouch"
-                                                                   value="555"
-                                                                   onchange="disableSection(this)"/> Prefer
-                                        not
-                                        to
-                                        answer
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="section">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <p class="statement">When you unpack, you keep the boxes in case you need
-                                    them
-                                    again </p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Boxes" value="1"
-                                                   required="true"/>
-                                        Very
-                                        Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Boxes" value="2"/>Somewhat
-                                        Unlikely
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Boxes" value="3"/> A
-                                        Little
-                                        Unlikely
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Boxes" value="4"/>
-                                        Neither
-                                        Likely
-                                        Nor
-                                        Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Boxes" value="5"/> A
-                                        Little
-                                        Likely
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Boxes" value="6"/>
-                                        Somewhat
-                                        Likely
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="Boxes" value="7"/> Very
-                                        Likely
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <br/>
-                                <br/>
-                                <div class="radio">
-                                    <label class="question"><input type="checkbox" name="Boxes" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer
-                                        not
-                                        to
-                                        answer
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                        <div class="row header">
+                            <div class="col-md-12">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-1"><p class="tableOptions">Very unlikely</p></div>
+                                <div class="col-md-1"><p class="tableOptions">Somewhat unlikely</p></div>
+                                <div class="col-md-1"><p class="tableOptions">A little unlikely</p></div>
+                                <div class="col-md-1"><p class="tableOptions">Neither likely nor unlikely</p></div>
+                                <div class="col-md-1"><p class="tableOptions">A Little Likely</p></div>
+                                <div class="col-md-1"><p class="tableOptions">Somewhat likely</p></div>
+                                <div class="col-md-1"><p class="tableOptions">Very likely</p></div>
+                                <div class="col-md-1"><p class="tableOptions">Prefer not to answer</p></div>
 
-                    <div class="section">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <p class="statement">You make plans to see your friends again before you
-                                    leave
-                                    town </p>
                             </div>
                         </div>
+
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="MakePlans" value="1"
-                                                   required="true"/>
-                                        Very Unlikely </label>
+                            <div class="col-md-12">
+                                <div class="col-md-3 statement">
+                                    <p> After you move to your new city, you lose touch with old friends </p>
                                 </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="MakePlans" value="2"/>Somewhat
-                                        Unlikely
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="LoseTouch" value="1"
+                                                                        required="true"/>
+                                        <span class="shortDesc">1</span> <span class="fullDesc">Very unlikely</span></label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="LoseTouch" value="2"/>
+                                        <span class="shortDesc">2</span> <span class="fullDesc">Somewhat unlikely</span>
                                     </label>
                                 </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="MakePlans" value="3"/>
-                                        A
-                                        Little
-                                        Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="MakePlans" value="4"/>
-                                        Neither
-                                        Likely
-                                        Nor Unlikely </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="MakePlans" value="5"/>
-                                        A
-                                        Little
-                                        Likely
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="LoseTouch" value="3"/>
+                                        <span class="shortDesc">3</span> <span class="fullDesc">A little unlikely</span>
+
                                     </label>
                                 </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="MakePlans" value="6"/>
-                                        Somewhat
-                                        Likely
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="LoseTouch" value="4"/>
+                                        <span class="shortDesc"> 4</span> <span class="fullDesc">Neither likely nor unlikely</span>
+
                                     </label>
                                 </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="MakePlans" value="7"/>
-                                        Very
-                                        Likely
+
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="LoseTouch" value="5"/>
+                                        <span class="shortDesc">5</span> <span class="fullDesc">A Little Likely</span>
                                     </label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="LoseTouch" value="6"/>
+                                        <span class="shortDesc">6</span> <span class="fullDesc">Somewhat likely</span>
+
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="LoseTouch" value="7"/>
+                                        <span class="shortDesc">7</span> <span class="fullDesc">Very likely</span>
+
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+                                    <div>
+                                        <label class="radio-inline"> <input type="radio"
+                                                                            name="LoseTouch" value="555"
+                                        />
+                                            <span class="shortDesc"></span> <span class="fullDesc">Prefer not to answer</span>
+
+                                        </label>
+
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <br/>
-                                <br/>
-                                <div class="radio">
-                                    <label class="question"><input type="checkbox" name="MakePlans"
-                                                                   value="555"
-                                                                   onchange="disableSection(this)"/> Prefer
-                                        not
-                                        to
-                                        answer
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-3 statement">
+                                    <p> When you unpack, you keep the boxes in case you need them again </p>
+                                </div>
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="Boxes" value="1"
+                                                                        required="true"/>
+                                        <span class="shortDesc">1</span> <span class="fullDesc">Very unlikely</span>
                                     </label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="Boxes" value="2"/>
+                                        <span class="shortDesc">2</span> <span class="fullDesc">Somewhat unlikely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="Boxes" value="3"/>
+                                        <span class="shortDesc">3</span> <span class="fullDesc">A little unlikely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="Boxes" value="4"/>
+                                        <span class="shortDesc">4</span> <span class="fullDesc">Neither likely nor unlikely</span>
+                                    </label>
+                                </div>
+
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="Boxes" value="5"/>
+                                        <span class="shortDesc">5</span> <span class="fullDesc">A Little Likely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="Boxes" value="6"/>
+                                        <span class="shortDesc">6</span> <span class="fullDesc">Somewhat likely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input type="radio"
+                                                                        name="Boxes" value="7"/>
+                                        <span class="shortDesc">7</span> <span class="fullDesc">Very likely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+                                    <div>
+                                        <label class="radio-inline"> <input  class="option" type="radio"
+                                                                             name="Boxes" value="555"/>
+                                            <span class="shortDesc"></span> <span class="fullDesc">Prefer not to answer</span>
+                                        </label>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-3 statement">
+                                    <p> You make plans to see your friends again before you leave town </p>
+                                </div>
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                        name="MakePlans" value="1"
+                                                                        required="true"/>
+                                        <span class="shortDesc">1</span> <span class="fullDesc">Very unlikely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                        name="MakePlans" value="2"/>
+                                        <span class="shortDesc">2</span> <span class="fullDesc">Somewhat unlikely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                        name="MakePlans" value="3"/>
+                                        <span class="shortDesc">3</span> <span class="fullDesc">A little unlikely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                        name="MakePlans" value="4"/>
+                                        <span class="shortDesc">4</span> <span class="fullDesc">Neither likely nor unlikely</span>
+                                    </label>
+                                </div>
+
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                        name="MakePlans" value="5"/>
+                                        <span class="shortDesc">5</span> <span class="fullDesc">A Little Likely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+
+                                    <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                        name="MakePlans" value="6"/>
+                                        <span class="shortDesc">6</span> <span class="fullDesc">Somewhat likely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+                                    <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                        name="MakePlans" value="7"/>
+                                        <span class="shortDesc">7</span> <span class="fullDesc">Very likely</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+                                    <div>
+                                        <label class="radio-inline"> <input class="scrollNextSection" type="radio"
+                                                                            name="MakePlans" value="555"/>
+                                            <span class="shortDesc"></span> <span class="fullDesc">Prefer not to answer</span>
+                                        </label>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
