@@ -94,13 +94,14 @@ public class TempletonStudy extends BaseStudy {
         Session pretest, session1, session2, session3, session4, post;
 
         pretest = new Session ("PreTest", "Initial Assessment", 0, 0);
+        pretest.addTask(new Task("Consent","Consent to Participate", Task.TYPE.questions, 2));
         pretest.addTask(new Task("Demographics","Personal Background", Task.TYPE.questions, 2));
         pretest.addTask(new Task("MentalHealthHistory","Mental Health History", Task.TYPE.questions, 2));
-        pretest.addTask(new Task("ExpectancyBias","What Happens Next", Task.TYPE.questions, 4));
         pretest.addTask(new Task("NGSES","Making Plans", Task.TYPE.questions, 2));
         pretest.addTask(new Task("Optimism","Feelings About the Future", Task.TYPE.questions, 3));
         pretest.addTask(new Task("AxImagery","Imagery", Task.TYPE.questions, 2));
         pretest.addTask(new Task("Mood","Mood", Task.TYPE.questions, 2));
+        pretest.addTask(new Task("ExpectancyBias","What Happens Next", Task.TYPE.questions, 4));
         sessions.add(pretest);
 
         session1 = new Session(FIRST_SESSION, "Day 1 Training", 0, 2);
@@ -132,23 +133,22 @@ public class TempletonStudy extends BaseStudy {
         session4.addTask(new Task("Affect","Affect", Task.TYPE.questions, 1));
         session4.addTask(new Task("Relatability","Relatability Follow Up", Task.TYPE.questions, 1));
         session4.addTask(new Task("ExpectancyBias","What Happens Next", Task.TYPE.questions, 2));
-        session4.addTask(new Task("NGSES","Self Esteem Scale", Task.TYPE.questions, 2));
-        session4.addTask(new Task("Optimism","Optimism", Task.TYPE.questions, 3));
+        session4.addTask(new Task("NGSES","Making Plans", Task.TYPE.questions, 2));
+        session4.addTask(new Task("Optimism","Feelings About the Future", Task.TYPE.questions, 3));
         session4.addTask(new Task("AxImagery","Imagery", Task.TYPE.questions, 2));
-        session4.addTask(new Task("DASS21AS","Anxiety Subscale", Task.TYPE.questions, 2));
-        session4.addTask(new Task("DASS21DS","Depression Subscale", Task.TYPE.questions, 2));
+        session4.addTask(new Task("Mood","Mood", Task.TYPE.questions, 2));
         session4.addTask(new Task("HelpSeeking","Change in Help Seeking", Task.TYPE.questions, 1));
         sessions.add(session4);
 
         post = new Session("PostFollowUp", "1 Month Post Training", 0, 0);
-        post.addTask(new Task("ExpectancyBias","What Happens Next", Task.TYPE.questions, 2));
         post.addTask(new Task("NGSES","Self Esteem Scale", Task.TYPE.questions, 2));
         post.addTask(new Task("Optimism","Optimism", Task.TYPE.questions, 3));
         post.addTask(new Task("AxImagery","Imagery", Task.TYPE.questions, 2));
-        post.addTask(new Task("DASS21AS","Anxiety Subscale", Task.TYPE.questions, 2));
-        post.addTask(new Task("DASS21DS","Depression Subscale", Task.TYPE.questions, 2));
+        post.addTask(new Task("Mood","Mood", Task.TYPE.questions, 2));
+        post.addTask(new Task("ExpectancyBias","What Happens Next", Task.TYPE.questions, 2));
         post.addTask(new Task("HelpSeeking","Change in Help Seeking", Task.TYPE.questions, 1));
         post.addTask(new Task("Evaluation","Evaluating the Program", Task.TYPE.questions, 2));
+        post.addTask(new Task("Debriefing","Program Information", Task.TYPE.questions, 2));
         sessions.add(post);
 
         return sessions;
