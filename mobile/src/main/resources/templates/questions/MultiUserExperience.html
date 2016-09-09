@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<!--<![endif]-->
+<head th:include="/fragment/common :: headerFragment" />
+<body th:class="|user-theme-${participant.theme}|">
+<section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
+
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+    <div class="container">
+
+        <!--spacer here-->
+        <div class="spacer-30px"></div>
+
+        <!--features starts-->
+        <div class="row">
+            <div class="col-md-12">
+                <form th:action="@{/questions/MultiUserExperience}" method="POST">
+                    <h2>Evaluating the Program</h2>
+                    <p> Thank you for taking the time to go through our program! We are interested in your feedback and reactions to the training programs, assessments, and other aspects of the website. Please answer the following questions openly and honestly. Your feedback will help us improve the program.
+                    </p>
+                    <p>
+                    *Note that assessment sessions were sessions in which you completed questionnaires about your feelings and thoughts. Training sessions were sessions in which you either completed words at the end of sentences OR saw two words on the screen and then a letter that you had to identify by pressing a button on the keyboard.
+                    </p>
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="question">How helpful did you find the web program for reducing your anxiety?</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="helpful" value="1"
+                                                   required="required"/>Not at all</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="helpful" value="2"
+                                                   required="required"/>Slightly</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="helpful" value="3"
+                                                   required="required"/>Somewhat</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="helpful" value="4"
+                                                   required="required"/>Mostly</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="helpful" value="5"
+                                                   required="required"/>Very</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="helpful" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not
+                                        to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="question">How much did the web program improve your overall quality of life?</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="qol" value="1"
+                                                   required="required"/>Not at all</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="qol" value="2"
+                                                   required="required"/>Slightly</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="qol" value="3"
+                                                   required="required"/>Somewhat</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="qol" value="4"
+                                                   required="required"/>Mostly</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="qol" value="5"
+                                                   required="required"/>Very</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="qol" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not
+                                        to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="question">How much did the web program help improve your overall mood (e.g., feeling happier)?</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="mood" value="1"
+                                                   required="required"/>Not at all</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="mood" value="2"
+                                                   required="required"/>Slightly</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="mood" value="3"
+                                                   required="required"/>Somewhat</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="mood" value="4"
+                                                   required="required"/>Mostly</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="mood" value="5"
+                                                   required="required"/>Very</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="mood" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not
+                                        to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="question">How likely would you be to recommend this web program to others with similar anxiety difficulties?</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="recommend" value="1"
+                                                   required="required"/>Not at all</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="recommend" value="2"
+                                                   required="required"/>Slightly</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="recommend" value="3"
+                                                   required="required"/>Somewhat</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="recommend" value="4"
+                                                   required="required"/>Mostly</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="recommend" value="5"
+                                                   required="required"/>Very</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="recommend" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not
+                                        to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="question">How easy was the web program to use?</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="ease" value="1"
+                                                   required="required"/>Not at all</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="ease" value="2"
+                                                   required="required"/>Slightly</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="ease" value="3"
+                                                   required="required"/>Somewhat</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="ease" value="4"
+                                                   required="required"/>Mostly</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="ease" value="5"
+                                                   required="required"/>Very</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="ease" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not
+                                        to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="question">How much did the web program keep your interest and attention?</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="interest" value="1"
+                                                   required="required"/>Not at all</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="interest" value="2"
+                                                   required="required"/>Slightly</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="interest" value="3"
+                                                   required="required"/>Somewhat</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="interest" value="4"
+                                                   required="required"/>Mostly</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="interest" value="5"
+                                                   required="required"/>Very</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="interest" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not
+                                        to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="question">How much did you like the web program in general?</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="like" value="1"
+                                                   required="required"/>Not at all</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="like" value="2"
+                                                   required="required"/>Slightly</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="like" value="3"
+                                                   required="required"/>Somewhat</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="like" value="4"
+                                                   required="required"/>Mostly</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="like" value="5"
+                                                   required="required"/>Very</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="like" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not
+                                        to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="question">How much did you like the way the web program looked?</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="look" value="1"
+                                                   required="required"/>Not at all</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="look" value="2"
+                                                   required="required"/>Slightly</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="look" value="3"
+                                                   required="required"/>Somewhat</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="look" value="4"
+                                                   required="required"/>Mostly</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="look" value="5"
+                                                   required="required"/>Very</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="look" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not
+                                        to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="question">How worried were you about your privacy in using this web program?</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="privacy" value="1"
+                                                   required="required"/>Not at all</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="privacy" value="2"
+                                                   required="required"/>Slightly</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="privacy" value="3"
+                                                   required="required"/>Somewhat</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="privacy" value="4"
+                                                   required="required"/>Mostly</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="privacy" value="5"
+                                                   required="required"/>Very</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="privacy" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not
+                                        to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="question">How easy were the assessments to understand?</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="understand" value="1"
+                                                   required="required"/>Not at all</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="understand" value="2"
+                                                   required="required"/>Slightly</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="understand" value="3"
+                                                   required="required"/>Somewhat</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="understand" value="4"
+                                                   required="required"/>Mostly</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="understand" value="5"
+                                                   required="required"/>Very</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="understand" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not
+                                        to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="question">How easy was the training program (including instructions and materials) to understand?</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="training_ease" value="1"
+                                                   required="required"/>Not at all</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="training_ease" value="2"
+                                                   required="required"/>Slightly</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="training_ease" value="3"
+                                                   required="required"/>Somewhat</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="training_ease" value="4"
+                                                   required="required"/>Mostly</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="training_ease" value="5"
+                                                   required="required"/>Very</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="training_ease" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not
+                                        to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="question">How much did you feel you could trust the information?</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="trust" value="1"
+                                                   required="required"/>Not at all</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="trust" value="2"
+                                                   required="required"/>Slightly</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="trust" value="3"
+                                                   required="required"/>Somewhat</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="trust" value="4"
+                                                   required="required"/>Mostly</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="trust" value="5"
+                                                   required="required"/>Very</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="trust" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not
+                                        to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="question">To what extent did Internet or computer problems affect your use of the web program?</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="internet" value="1"
+                                                   required="required"/>Not at all</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="internet" value="2"
+                                                   required="required"/>Slightly</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="internet" value="3"
+                                                   required="required"/>Somewhat</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="internet" value="4"
+                                                   required="required"/>Mostly</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="internet" value="5"
+                                                   required="required"/>Very</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="internet" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not
+                                        to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="longSection">
+                        <p>
+                            <label>This training program was 8 sessions. How many sessions do you think would have been ideal?</label>
+                            <input type="text" name="ideal" required="true"/>
+                        </p>
+                        <p>
+                            <label>Why is that number ideal?</label>
+                            <input type="text" name="describe" required="true"/>
+                        </p>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="question">How tiring did you find the training sessions?</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="tiring_training" value="1"
+                                                   required="required"/>Not at all</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="tiring_training" value="2"
+                                                   required="required"/>Slightly</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="tiring_training" value="3"
+                                                   required="required"/>Somewhat</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="tiring_training" value="4"
+                                                   required="required"/>Mostly</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="tiring_training" value="5"
+                                                   required="required"/>Very</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="tiring_training" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not
+                                        to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="question">How tiring did you find the assessments? </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="tiring_assessments" value="1"
+                                                   required="required"/>Not at all</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="tiring_assessments" value="2"
+                                                   required="required"/>Slightly</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="tiring_assessments" value="3"
+                                                   required="required"/>Somewhat</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="tiring_assessments" value="4"
+                                                   required="required"/>Mostly</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="tiring_assessments" value="5"
+                                                   required="required"/>Very</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="tiring_assessments" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not
+                                        to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="question">On average, while you were completing the training sessions, how focused or distracted were you?  </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="distracted" value="1"
+                                                   required="required"/>Extremely Distracted</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="distracted" value="2"
+                                                   required="required"/>Distracted</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="distracted" value="3"
+                                                   required="required"/>Somewhat Distracted</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="distracted" value="4"
+                                                   required="required"/>Neither Distracted Nor Focused</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="distracted" value="5"
+                                                   required="required"/>Somewhat Focused</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="distracted" value="6"
+                                                   required="required"/>Focused</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="distracted" value="7"
+                                                   required="required"/>Extremely Focused</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="distracted" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not
+                                        to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="question">If you were to seek help for your anxiety again, would you seek a similar program?</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="similar_program" value="1"
+                                                   required="required"/>Not at all</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="similar_program" value="2"
+                                                   required="required"/>Slightly</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="similar_program" value="3"
+                                                   required="required"/>Somewhat</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="similar_program" value="4"
+                                                   required="required"/>Mostly</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="similar_program" value="5"
+                                                   required="required"/>Very</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="tiring_assessments" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not
+                                        to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="question">If you were to experience moderate to severe anxiety in the future, does this program make you more or less likely to consider other forms of therapy (e.g., medications, therapy)?</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="other_therapy" value="1"
+                                                   required="required"/>Not at all</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="other_therapy" value="2"
+                                                   required="required"/>Slightly</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="other_therapy" value="3"
+                                                   required="required"/>Somewhat</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="other_therapy" value="4"
+                                                   required="required"/>Mostly</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="other_therapy" value="5"
+                                                   required="required"/>Very</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="other_therapy" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not
+                                        to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="question">Where did you complete the training sessions? Select all that apply</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input type="checkbox" name="where_home" value="home"
+                                                   id="Q1_1"/>At home</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input type="checkbox" name="where_work" value="work"
+                                                   id="Q1_2"/>At work</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input type="checkbox" name="where_public" value="public"
+                                                   id="Q1_3"/>At a public space, such as a library, coffee shop, or restaurant</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input type="checkbox" name="where_commuting" value="commuting"
+                                                   id="Q1_4"/>While commuting/travelling (e.g., on the train to work)</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input type="checkbox" name="where_vacation" value="vacation"
+                                                   id="Q1_5"/>On Vacation</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input type="checkbox" name="where_other_selected" value="other"
+                                                   id="Q1_6" onchange="spec()"/>On Vacation</label>
+                                </div>
+                                <div class="radio">
+                                    <label> If other, please specify<input type="text" name="where_other" id="Q1_7" disabled="true"/></label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="where_no_answer" value="555"
+                                                                   id="Q1_noAns" onchange="hide_Q1_noAns()"/> Prefer not
+                                        to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="question">Did you think you were in the active training condition (designed to change your anxious thinking) or the “control” condition (not designed to change your anxious thinking)?</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="cntrl_tx" value="active_training"
+                                                   required="required"/>activing training condition</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="cntrl_tx" value="control"
+                                                   required="required"/>control condition</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="cntrl_tx" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not
+                                        to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="submit">
+                        <button type="submit">Next</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--features ends-->
+        <!--divider here-->
+        <div class="spacer-40px"></div>
+        </div>
+</section>
+
+
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts" />
+<script type="text/javascript">
+
+    function spec(){
+        if (document.getElementById("Q1_6").checked) {
+            document.getElementById("Q1_7").disabled = false;
+            document.getElementById("Q1_7").required = true;
+        } else {
+            document.getElementById("Q1_7").disabled = true;
+            document.getElementById("Q1_7").required = false;
+        }
+    }
+
+function hide_Q1_noAns(){
+    if (document.getElementById("Q1_noAns").checked) {
+        document.getElementById("Q1_1").disabled = true;
+        document.getElementById("Q1_2").disabled = true;
+        document.getElementById("Q1_3").disabled = true;
+        document.getElementById("Q1_4").disabled = true;
+        document.getElementById("Q1_5").disabled = true;
+        document.getElementById("Q1_6").disabled = true;
+        document.getElementById("Q1_7").disabled = true;
+    } else {
+        document.getElementById("Q1_1").disabled = false;
+        document.getElementById("Q1_2").disabled = false;
+        document.getElementById("Q1_3").disabled = false;
+        document.getElementById("Q1_4").disabled = false;
+        document.getElementById("Q1_5").disabled = false;
+        document.getElementById("Q1_6").disabled = false;
+        document.getElementById("Q1_7").disabled = false;
+    }
+  }
+
+
+            function disableSection(input) {
+                if (input.checked) {
+                    $(input).closest('.section').find("input").attr("disabled", true);
+                    $(input).removeAttr("disabled");
+                } else {
+                    $(input).closest('.section').find("input").removeAttr("disabled");
+                }
+            }
+
+
+</script>
+</body>
+</html>
+
+
+
+
+<!--TODO THIS IS PROGRAMMING TOO-->
+<!--[If the participant indicated the control condition] At what point did you think you were in the control condition?-->
+<!--	Early in the training program (within the first 3 sessions)-->
+<!--	Mid-way through the training program (around the 4th or 5th session)-->
+<!--	Later in the training program (within the last 3 sessions)-->
+<!--Why do you believe you were in the control condition? Check all that apply.-->
+<!--	My anxiety wasn’t improving-->
+<!--	I didn’t think that the program that I was completing could help my anxiety-->
+<!--	Other, please specify ______________-->
+<!--22.	Over the course of this program, did you start/stop/change a dose of medication, therapy, or other intervention to help your anxiety difficulties?  (If you are on the same dose of medication or same appointment schedule for therapy or intervention as you were when you began this program, please choose “no.”)-->
+<!--	Yes-->
+<!--	No-->
+<!--If yes: Please describe: ________________-->

@@ -75,6 +75,7 @@ public class MobileStudy extends BaseStudy {
         post.addTask(new Task("RecognitionRating","Recognition Rating", Task.TYPE.jspsych, 2));
         post.addTask(new Task("RR","Recognition Rating", Task.TYPE.questions, 2));
         post.addTask(new Task("BBSIQ","Story evaluation", Task.TYPE.questions, 2));
+        post.addTask(new Task("MultiUserExperience","User Experience", Task.TYPE.questions, 2));
         sessions.add(post);
 
         return sessions;
