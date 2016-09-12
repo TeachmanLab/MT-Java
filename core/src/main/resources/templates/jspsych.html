@@ -37,8 +37,8 @@
 	    });
 	}
 
-	parseData("/jspsychCSV/" + csvFile + ".csv", doStuff)
-
+	var contextRoot = /*[[@{/}]]*/ '';
+    parseData(contextRoot + "jspsychCSV/" + csvFile + ".csv", doStuff)
 
     // function to hide a div
 	jQuery.fn.invisible = function() {
@@ -85,8 +85,22 @@
 
         }
 
-	// the possible letters to choose from
-    var possible = "abcdefghijklmnopqrstuvwxyz";
+
+        // This is the function to create non-repeated counter options for missing letter
+        function fakeLetter(answer) {
+            // the possible letters to choose from
+            var possible = "abcdefghijklmnopqrstuvwxyz";
+            var exAns = [answer,answer,answer];
+            var i = 0;
+            while (exAns.indexOf(answer)>=0) {
+                t = possible.charAt(Math.floor(Math.random() * possible.length));
+                if (exAns.indexOf(t)<0) {
+                    exAns[i] = t;
+                    i += 1;
+                }
+            }
+            return exAns;
+        }
 
 	function doStuff(scenarios) 
 	{
@@ -99,7 +113,7 @@
 
     var intro_1 = {
         type: 'html',
-        url : '/jspsychCSV/intro_1.html',
+        url : contextRoot + '/jspsychCSV/intro.html',
         cont_btn: 'next'
     };
 
@@ -147,15 +161,14 @@
 					// add the trial to the timeline
 					timeline.push(trial);
 				}
-				// remove the letter; store the word and the letter
-				var removal = removeRandomLetter(scenarios[i].PositiveS);	
-				// here's the word
-				last = removal[0].toLowerCase();
+                // remove the letter; store the word and the letter; set the word to lowerCase first.
+                var removal = removeRandomLetter(scenarios[i].PositiveS.toLowerCase());
+                // here's the word
+                last = removal[0];
 				var feedback = 'Correct!';
 				// put the letter and random letters as a choice
-				choice = [removal[1], possible.charAt(Math.floor(Math.random() * possible.length)), 
-									   possible.charAt(Math.floor(Math.random() * possible.length)),
-									   possible.charAt(Math.floor(Math.random() * possible.length))];
+                var options = fakeLetter(removal[1]);
+                choice = [removal[1], options[0], options[1], options[2]];
 				// shuffle the choices
 				choice = shuffle(choice);	
 				// get the answer
