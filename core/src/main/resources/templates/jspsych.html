@@ -355,7 +355,7 @@
 
 	jsPsych.init({
 	  timeline: timeline,
-        on_finish: function(data){window.location.assign("/jspsych/completed/" + csvFile);}
+        on_finish: function(data){window.location.assign(contextRoot + "jspsych/completed/" + csvFile);}
             //saveData("DutchArticles"+SubjectID+".csv", jsPsych.data.dataAsCSV())}
 	});
 	}
