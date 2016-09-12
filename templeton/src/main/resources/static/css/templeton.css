@@ -225,6 +225,11 @@ div.oneToSeven {
     display: inline;
 }
 
+.shortDesc {
+    display: inline-block;
+    margin-top: 6px;
+}
+
 .compactQuestion.section-V .shortDesc {
     display: none;
 }
