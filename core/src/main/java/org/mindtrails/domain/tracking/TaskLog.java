@@ -1,6 +1,8 @@
 package org.mindtrails.domain.tracking;
 
 import org.mindtrails.domain.BaseStudy;
+import org.mindtrails.domain.DoNotDelete;
+import org.mindtrails.domain.Exportable;
 import org.mindtrails.domain.Study;
 import lombok.Data;
 
@@ -16,6 +18,8 @@ import java.util.Date;
  */
 @Entity
 @Table(name="task_log")
+@Exportable
+@DoNotDelete
 @Data
 public class TaskLog implements Comparable<TaskLog> {
 
