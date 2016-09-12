@@ -48,7 +48,7 @@
     // this is the function to remove a random letter
     function removeRandomLetter(str) {
 	    var pos = Math.floor(Math.random()*str.length);
-	    return [str.substring(0, pos) + "[  ]"+ str.substring(pos+1), str.charAt(pos)];
+	    return [str.substring(0, pos) + "[&nbsp;&nbsp;]"+ str.substring(pos+1), str.charAt(pos)];
 	}
 
 	// this is the function used to shuffle letters
@@ -113,7 +113,7 @@
 
     var intro_1 = {
         type: 'html',
-        url : contextRoot + '/jspsychCSV/intro.html',
+        url : contextRoot + 'jspsychCSV/intro.html',
         cont_btn: 'next'
     };
 
