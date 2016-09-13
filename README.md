@@ -15,6 +15,11 @@ This server provides:
 It is built in Java using the Spring Framework and Spring Boot.  There is exceptional documentation
 on these technologies here:  http://spring.io/guides#gs
 
+RELEASES
+==========
+We are currently working on a beta release of our core libraries in the "split_sites" branch, with an expected
+launch in early September 2016. 
+
 
 Getting Started
 ===============
