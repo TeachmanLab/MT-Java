@@ -1,4 +1,7 @@
 define([], function () {
+
+    
+
     return ({
         display_length: 9,
         add_extra_missing_letter: true,
