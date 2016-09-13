@@ -70,18 +70,20 @@ public class OAController extends QuestionController {
         // If the users score differs from there original score and places the user
         // "at-risk", then send a message to the administrator.
         List<OA> previous = oaRepository.findByParticipant(oa.getParticipant());
-        OA firstEntry = Collections.min(previous);
-        Participant participant = participantService.get(principal);
-        R34Study study = (R34Study)participant.getStudy();
-        if(oa.atRisk(firstEntry)) {
-            if(!study.isIncrease50()) { // alert admin the first time.
-                emailService.sendAtRiskAdminEmail(participant, firstEntry, oa);
-                study.setIncrease50(true);
-                participantService.save(participant);
+        if(previous.size() > 0) {
+            OA firstEntry = Collections.min(previous);
+            Participant participant = participantService.get(principal);
+            R34Study study = (R34Study)participant.getStudy();
+            if(oa.atRisk(firstEntry)) {
+                if (!study.isIncrease50()) { // alert admin the first time.
+                    emailService.sendAtRiskAdminEmail(participant, firstEntry, oa);
+                    study.setIncrease50(true);
+                    participantService.save(participant);
+                }
+                return new RedirectView("/session/atRisk", true);
             }
-            return new RedirectView("/session/atRisk");
         }
-        return new RedirectView("/session/next");
+        return new RedirectView("/session/next", true);
     }
 
 

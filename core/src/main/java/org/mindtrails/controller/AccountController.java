@@ -35,7 +35,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/account")
-public class AccountController {
+public class AccountController extends BaseController {
 
     private static final Logger LOG = LoggerFactory.getLogger(AccountController.class);
 
@@ -58,14 +58,18 @@ public class AccountController {
     }
 
     @RequestMapping(value="create", method = RequestMethod.GET)
-    public String createForm (ModelMap model, Principal principal) {
+    public String createForm (ModelMap model, HttpSession session) {
         model.addAttribute("participantForm", new ParticipantCreate());
-        model.addAttribute("visiting", true);
         model.addAttribute("recaptchaSiteKey", recaptchaSiteKey);
-        return "account/create";
+        if(participantService.isEligible(session)) {
+            return "account/create";
+        } else {
+            return "redirect:/public/eligibility";
+        }
+
     }
 
-    @RequestMapping(value="create", method = RequestMethod.POST)
+    @RequestMapping(value="create", method = RequestMethod.POST )
     public String createNewParticipant(ModelMap model,
                                        @ModelAttribute("participantForm") @Valid ParticipantCreate participantCreate,
                                        final BindingResult bindingResult,
@@ -76,7 +80,6 @@ public class AccountController {
 
         if(!participantCreate.validParticipant(bindingResult, participantService)) {
             LOG.error("Invalid participant:" + bindingResult.getAllErrors());
-            model.addAttribute("visiting", true);
             model.addAttribute("recaptchaSiteKey", recaptchaSiteKey);
             return "account/create";
         }
@@ -100,15 +103,11 @@ public class AccountController {
 
     @RequestMapping
     public String showAccount(ModelMap model, Principal principal) {
-        Participant p = participantService.get(principal);
-        model.addAttribute("participant", p);
         return "account";
     }
 
     @RequestMapping("theme")
     public String showTheme(ModelMap model, Principal principal) {
-        Participant p = participantService.get(principal);
-        model.addAttribute("participant", p);
         return "account/theme";
     }
 
@@ -117,7 +116,6 @@ public class AccountController {
         Participant p = participantService.get(principal);
         p.setTheme(theme);
         participantService.save(p);
-        model.addAttribute("participant", p);
         return "redirect:/session";
     }
 
@@ -126,14 +124,12 @@ public class AccountController {
         Participant p      = participantService.get(principal);
         p.setActive(false);
         participantService.save(p);
-        model.addAttribute("participant", p);
         return "debriefing";
     }
 
     @RequestMapping("debriefing")
     public String showDebriefing(ModelMap model, Principal principal) {
         Participant p = participantService.get(principal);
-        model.addAttribute("participant", p);
         return "debriefing";
     }
 
@@ -145,13 +141,11 @@ public class AccountController {
             form.updateParticipant(p);
             participantService.save(p);
             model.addAttribute("updated", true);
-            model.addAttribute("participant", p);
         return "/account";
     }
 
     @RequestMapping("changePass")
     public String changePassword(ModelMap model, Principal principal) {
-        model.addAttribute("participant", participantService.get(principal));
         return "changePassword";
     }
 
@@ -178,7 +172,6 @@ public class AccountController {
 
         if(errors.size() > 0) {
             model.addAttribute("errors", errors);
-            model.addAttribute("participant", participant);
             model.addAttribute("token", token);
             return "changePassword";
         }
@@ -188,7 +181,6 @@ public class AccountController {
         participant.setLastLoginDate(new Date()); // Set the last login date, as we will auto-login.
         participantService.save(participant);
         participantService.flush();
-        model.addAttribute("participant", participant);
         model.addAttribute("updated", true);
         return "account";
     }

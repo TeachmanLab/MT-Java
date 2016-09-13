@@ -851,7 +851,7 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
         ],
         layout: [
             {
-                media: {template: "/PIPlayerScripts/vividness.html"}
+                media: {template: "vividness.html"}
             }
         ],
         stimuli: [

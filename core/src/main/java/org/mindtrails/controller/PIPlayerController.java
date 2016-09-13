@@ -33,7 +33,7 @@ import java.security.Principal;
  */
 @Controller
 @RequestMapping("/playerScript")
-public class PIPlayerController {
+public class PIPlayerController extends BaseController {
 
     @Autowired private static final Logger LOG = LoggerFactory.getLogger(PIPlayerController.class);
 
@@ -47,12 +47,9 @@ public class PIPlayerController {
         Participant p = participantService.findByEmail(principal.getName());
         Study study   = p.getStudy();
 
-        // The Neutral condition requires a completely different file.
-        LOG.debug("The Script name: " + scriptName + "!=" +  "RecognitionRatings?" + (scriptName != "RecognitionRatings"));
-
+        model.addAttribute("participantId", p.getId());
         model.addAttribute("script", scriptName);
         model.addAttribute("sessionName", p.getStudy().getCurrentSession().getName());
-        model.addAttribute("participantId", p.getId());
         for(String key : study.getPiPlayerParameters().keySet()) {
             model.addAttribute(key, study.getPiPlayerParameters().get(key));
         }
@@ -74,7 +71,7 @@ public class PIPlayerController {
 
         participant.getStudy().completeCurrentTask();
         participantService.save(participant);
-        return new RedirectView("/session/next");
+        return new RedirectView("/session/next", true);
     }
 
 }

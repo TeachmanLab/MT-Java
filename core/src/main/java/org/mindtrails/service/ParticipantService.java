@@ -26,6 +26,12 @@ public interface ParticipantService {
     Participant findByEmail(String email);
 
     /**
+     * Checks for eligibility - usually with a form
+     * stored against the current users session
+     */
+    boolean isEligible(HttpSession session);
+
+    /**
      * When saving an object for the first time, there may
      * be data lingering in the session that needs to be
      * collected and associated with the Participant.  This

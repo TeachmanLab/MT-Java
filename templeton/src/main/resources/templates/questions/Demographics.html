@@ -11,17 +11,17 @@
 <head th:replace="fragment/common :: headerFragment"/>
 <body>
 <section th:replace="fragment/common :: topFragment"/>
-<section th:replace="fragment/common :: titleBar (title='Demographics')"/>
+<section th:replace="fragment/common :: titleBar (title='Personal Background')"/>
 
 <section id="content" class="clearfix">
     <div class="container">
         <div class="row">
-            <div class="span12">
+            <div class="col-md-10">
 
                 <form th:action="@{/questions/Demographics}" method="POST">
 
-                    <p> We’d like to start with a few questions to get to know you better. Answers to
-                        these personal questions are kept confidential, but they help us to improve
+                    <p> We would like to start with a few questions to get to know you better. Answers to
+                        these personal questions are kept confidential, but they help us improve
                         MindTrails by figuring out for whom it works well.</p>
 
                     <div class="section">
@@ -603,7 +603,7 @@
                         <br/>
 
                         <div><label class="question"> What is your household annual income (before taxes and other
-                            deductions)?<select name="Income" required="true">
+                            deductions)? <select name="Income" required="true">
                                 <option value="">Please select one</option>
                                 <option>Less than $5,000</option>
                                 <option>$5,000 through $11,999</option>
@@ -643,6 +643,7 @@
                             <option>Planned search for this topic in particular</option>
                             <option>Just surfing the web</option>
                             <option>Other</option>
+                            <option>Prefer not to answer</option>
                         </select> </label>
                         </div>
 

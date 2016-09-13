@@ -4,6 +4,7 @@ import edu.virginia.psyc.r34.domain.R34Study;
 import edu.virginia.psyc.r34.persistence.Questionnaire.OA;
 import edu.virginia.psyc.r34.persistence.Questionnaire.OARepository;
 import org.apache.commons.math3.stat.regression.SimpleRegression;
+import org.mindtrails.controller.BaseController;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.service.ParticipantService;
 import org.slf4j.Logger;
@@ -27,7 +28,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/graph")
-public class GraphController {
+public class GraphController extends BaseController {
 
     private static final Logger LOG = LoggerFactory.getLogger(GraphController.class);
 
@@ -85,7 +86,6 @@ public class GraphController {
         else if (improvement > 15) status = "little";
         else if (improvement < -15) status = "worse";
 
-        model.addAttribute("participant", p);
         model.addAttribute("points", points);
         model.addAttribute("regressionPoints", regressionPoints);
         model.addAttribute("improvement", improvement);

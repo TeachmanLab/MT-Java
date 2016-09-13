@@ -128,7 +128,7 @@
                 <p class="session-note">For best results, complete <span th:text="${currentSession.displayName}"/> by
                     <span class="date" th:text="${completeBy}">July 10, 2015</span>
                 </p>
-                <a href="/session/overview" th:unless="${currentSession.name =='PRE'}">Program Overview</a>
+                <a th:href="@{/session/overview}" th:unless="${currentSession.name =='PRE'}">Program Overview</a>
             </div>
         </div>
     </div>

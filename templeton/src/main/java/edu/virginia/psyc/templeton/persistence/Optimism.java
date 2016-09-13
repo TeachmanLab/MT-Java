@@ -22,7 +22,7 @@ public class Optimism extends SecureQuestionnaireData {
     private int AlwaysOptimistic;
     private int EnjoyFriends;
     private int KeepBusy;
-    private int HardlyEvery;
+    private int HardlyEver;
     private int EasilyUpset;
     private int GoodThings;
     private int Overall;

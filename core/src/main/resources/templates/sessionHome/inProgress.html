@@ -25,7 +25,7 @@
 
                 <p>You are part way through the <span th:text="${currentSession.displayName}"/>. You can now pick back
                     up where you left off.</p>
-                <a th:href="${currentTask.requestMapping}" th:if="${currentTask}">
+                <a th:href="@{${currentTask.requestMapping}}" th:if="${currentTask}">
                     <button>Continue</button>
                 </a>
 

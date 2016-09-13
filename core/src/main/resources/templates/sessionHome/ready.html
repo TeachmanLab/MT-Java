@@ -23,7 +23,7 @@
 
                 <div th:if="${currentSession.index} == 0">
                     <h2><span th:text="${participant.fullName}">Jim</span>, you're ready to
-                        begin your initial asessment.</h2>
+                        begin your initial assessment.</h2>
                     <p>This is an information gathering session that will take approximately 20 minutes to complete.</p>
                 </div>
 
@@ -47,10 +47,10 @@
                 <p class="session-note">For best results, complete the <span th:text="${currentSession.displayName}"/> by
                     <span class="date" th:text="${completeBy}">July 10, 2015</span>
                 </p>
-                <a th:href="${currentTask.requestMapping}" th:if="${currentTask}">
+                <a th:href="@{${currentTask.requestMapping}}" th:if="${currentTask}">
                     <button>Start</button>
                 </a>
-                <a href="/session/overview" th:unless="${currentSession.name =='PRE'}">Program Overview</a>
+                <a th:href="@{/session/overview}" th:unless="${currentSession.name =='PRE'}">Program Overview</a>
             </div>
         </div>
     </div>

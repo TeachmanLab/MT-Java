@@ -68,27 +68,6 @@
                             <td><input type="checkbox" th:field="*{over18}"/></td>
                             <td  class="error" th:if="${#fields.hasErrors('over18')}" th:errors="*{over18}">Admin Error</td>
                         </tr>
-    <!--
-                        <tr>
-                            <td>Prime:</td>
-                            <td>
-                                <select name="prime" th:field="*{prime}">
-                                    <option th:each="elem: ${T(edu.virginia.psyc.r34.domain.PiParticipant.PRIME).values()}" th:value="${elem.name()}" th:text="${elem.name()}" value="BAZ">BAZ</option>
-                                </select>
-                            </td>
-                            <td class="error"  th:if="${#fields.hasErrors('prime')}" th:errors="*{prime}">Admin Error</td>
-                        </tr>
-                        <tr>
-                            <td>CDM Condition:</td>
-                            <td>
-                                <select name="condition" th:field="*{condition}">
-                                <option th:each="elem: ${T(edu.virginia.psyc.r34.domain.PiParticipant.CBM_CONDITION).values()}" th:value="${elem.name()}" th:text="${elem.name()}" value="BAZ">BAZ</option>
-                            </select>
-                            </td>
-                            <td class="error"  th:if="${#fields.hasErrors('condition')}" th:errors="*{condition}">Admin Error</td>
-                        </tr>
-    -->
-
                     </table>
                     <button type="submit">Submit</button>
                 </form>

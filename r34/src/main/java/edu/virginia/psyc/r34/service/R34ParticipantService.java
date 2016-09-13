@@ -60,6 +60,15 @@ public class R34ParticipantService extends ParticipantServiceImpl implements Par
     }
 
     @Override
+    public boolean isEligible(HttpSession session) {
+        List<DASS21_AS> forms = dass21_asRepository.findBySessionId(session.getId());
+        for(DASS21_AS dass21_as: forms) {
+            if(dass21_as.eligibleScore()) return true;
+        }
+        return false;
+    }
+
+    @Override
     public void saveNew(Participant p, HttpSession session) {
 
         save(p);

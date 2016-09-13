@@ -13,24 +13,7 @@ h3 { font-size:100%; font-weight: 700 }
 
 .fineprint p { font-size: 75%; margin: 0 }
 
-button  {  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  -webkit-box-shadow: 0px 1px 3px #666;
-  -moz-box-shadow: 0px 1px 3px #666;
-  box-shadow: 0px 1px 3px #666;
-  border-top:1px solid #3399FF;
-  border-left:1px solid #5FBCEA;
-  border-bottom:1px solid #0084AE;
-  border-right:1px solid #0084AE;
-  color: #ffffff;
-  background: #00ACE4;
-  padding: 10px 20px 10px 20px;
-  text-decoration: none;
-  font-size:20px;
-  margin:10px 0px;
-    font-weight: 700;
-}
+
 
 button.jw-button-finish:disabled {
     color: #bbb;
@@ -40,25 +23,6 @@ button.jw-button-finish:disabled span.ui-icon-circle-check {
     display: none;
 }
 
-
-.user-theme-orange button { background:#F77D38; border-top:#F99A65; border-left:#F99A65; border-bottom:#B36B42; border-right:#B36B42;}
-.user-theme-green button { background:#7bb76f; border-top:#99C38D; border-left:#99C38D; border-bottom:#698D63; border-right:#698D63;}
-.user-theme-purple button { background:#C98ABB; border-top:#D4A4CA; border-left:#D4A4CA; border-bottom:#9A7490; border-right:#9A7490;}
-.user-theme-gold button { background:#ECB800; border-top:#F1C657; border-left:#F1C657; border-bottom:#AF8A00; border-right:#AF8A00;}
-
-button:hover {
-    -webkit-box-shadow: 0 3px 8px #000;
-    -moz-box-shadow: 0 3px 8px #000;
-    box-shadow: 0 3px 8px #000;
-}
-
-button:active { background:#666;
-    -webkit-box-shadow: 0px 0px 0px #888;
-    -moz-box-shadcoow: 0px 0px 0px #888;
-    box-shadow: 0px 0px 0px #888;
-    }
-
-
 #header {background:url(/images/bg-header.png) top left repeat-x; }
 .logo {
     background:url(/images/header-logo.png) top left no-repeat;
@@ -66,32 +30,12 @@ button:active { background:#666;
     margin-left:-35px; margin-right: 150px;}
 .logo a {height:135px; width:365px; display:block;}
 
-#nav {font-size:0.6em; list-style:none; padding:15px 0 15px 20px; text-align: right;}
-#nav li {float:left; padding:0px 10px;}
-#nav a {color:#5ECCDE; text-decoration:none; font-weight: 700}
-.user-theme-orange #nav a { color:#F99A65;}
-.user-theme-green #nav a { color:#99C38D; }
-.user-theme-purple #nav a { color:#D4A4CA; }
-.user-theme-gold #nav a { color:#F1C657;}
 
-.account-bar {clear:both; width:100%; background: #00ACE4; font-size:.66em; text-align:right; padding:0px 20px; line-height: 25px}
-.user-theme-orange .account-bar { background:#F77D38; }
-.user-theme-green .account-bar { background:#77B46D; }
-.user-theme-purple .account-bar { background:#C98ABB; }
-.user-theme-gold .account-bar { background:#ECB800; }
-.account-bar a, .account-bar span.item {color:#000000; padding: 0 10px 0 10px; font-weight:400}
-.account-bar .login {}
-.user-theme-orange .page-title { color:#F77D38; }
-.user-theme-green .page-title { color:#77B46D; }
-.user-theme-purple .page-title { color:#C98ABB; }
-.user-theme-gold .page-title { color:#ECB800; }
+
 .heading-icon {margin-top:-10px; }
 
 em {font-style: normal; color:#5ECCDE; font-weight: 800;}
-.user-theme-orange em { color:#F77D38; }
-.user-theme-green em { color:#77B46D; }
-.user-theme-purple em { color:#C98ABB; }
-.user-theme-gold em { color:#ECB800; }
+
 
 ul.errors {
 }
@@ -122,7 +66,7 @@ h2 {font-size:1.45em; color:#00ACE4; font-weight:bold }
 
 
 
-.copyright {width:100%; padding:15px; text-align:center; background:#FFFFFF;}
+.copyright {width:100%; padding:15px; text-align:center; background:#FFFFFF; color:#0070a3}
 
 /**
   Mainly used for all-in-one forms, such as the login form, reset password, etc...
@@ -269,7 +213,7 @@ div#g-recaptcha {
 
 
 div.adminTools {
-    background-color: #fff;
+/*    background-color: #fff; */
     font-size: 1.2em;
 }
 
@@ -626,111 +570,6 @@ form#wizard {
 }
 
 
-/*************
-   Log Reports on the Admin page
-   *********/
-table.logs {
-    border-collapse: collapse;
-    text-align: left; width: 100%;
-}
-
-div.logs {
-    font: normal 12px/150% Arial, Helvetica, sans-serif;
-    background: #fff;
-    overflow: hidden;
-    border: 1px solid #006699;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-}
-
-div.logs table td, .datagrid table th {
-    padding: 3px 10px;
-}
-
-div.logs  table thead th {
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #006699), color-stop(1, #00557F));
-    background: -moz-linear-gradient(center top, #006699 5%, #00557F 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#006699', endColorstr='#00557F');
-    background-color: #006699;
-    color: #FFFFFF;
-    font-size: 15px;
-    font-weight: bold;
-    border-left: 1px solid #0070A8;
-}
-
-div.logs  table thead th:first-child {
-    border: none;
-}
-
-div.logs  table tbody td {
-    color: #00557F;
-    border-left: 1px solid #E1EEF4;
-    font-size: 12px;
-    font-weight: normal;
-}
-
-div.logs table tbody .alt td {
-    background: #E1EEf4;
-    color: #00557F;
-}
-
-div.logs  table tbody td:first-child {
-    border-left: none;
-}
-
-div.logs table tbody tr:last-child td {
-    border-bottom: none;
-}
-
-div.logs table tfoot td div {
-    border-top: 1px solid #006699;
-    background: #E1EEf4;
-}
-
-div.logs table tfoot td {
-    padding: 0;
-    font-size: 12px
-}
-
-div.log table tfoot td div {
-    padding: 2px;
-}
-
-div.log table tfoot td ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    text-align: right;
-}
-
-div.log table tfoot li {
-    display: inline;
-}
-
-div.log table tfoot li a {
-    text-decoration: none;
-    display: inline-block;
-    padding: 2px 8px;
-    margin: 1px;
-    color: #FFFFFF;
-    border: 1px solid #006699;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #006699), color-stop(1, #00557F));
-    background: -moz-linear-gradient(center top, #006699 5%, #00557F 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#006699', endColorstr='#00557F');
-    background-color: #006699;
-}
-
-div.log table tfoot ul.active, .datagrid table tfoot ul a:hover {
-    text-decoration: none;
-    border-color: #00557F;
-    color: #FFFFFF;
-    background: none;
-    background-color: #006699;
-}
 
 
 

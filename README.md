@@ -108,15 +108,19 @@ the datasource.password setting in src/main/resources/application.properties
 
 > CREATE DATABASE pi CHARACTER SET utf8 COLLATE utf8_general_ci;
 > CREATE USER 'pi_user'@'localhost' IDENTIFIED BY 'pi_password';
-> GRANT ALL PRIVILEGES ON pi.* TO 'pi_user'@'localhost' IDENTIFIED BY 'pi_password' WITH GRANT OPTION;
+> GRANT ALL PRIVILEGES ON pi.* TO 'pi_user'@'%' IDENTIFIED BY 'pi_password' WITH GRANT OPTION;
 
 If you are running the tests, that is configured to use a seperate database
 > CREATE DATABASE pi_test CHARACTER SET utf8 COLLATE utf8_general_ci;
-> GRANT ALL PRIVILEGES ON pi_test.* TO 'pi_user'@'localhost' IDENTIFIED BY 'pi_password' WITH GRANT OPTION;
+> GRANT ALL PRIVILEGES ON pi_test.* TO 'pi_user'@'%' IDENTIFIED BY 'pi_password' WITH GRANT OPTION;
 
 The templeton project requires its own database
 > CREATE DATABASE templeton CHARACTER SET utf8 COLLATE utf8_general_ci;
-> GRANT ALL PRIVILEGES ON templeton.* TO 'pi_user'@'localhost' IDENTIFIED BY 'pi_password' WITH GRANT OPTION;
+> GRANT ALL PRIVILEGES ON templeton.* TO 'pi_user'@'%' IDENTIFIED BY 'pi_password' WITH GRANT OPTION;
+
+The mobile project requires its own database as well
+> CREATE DATABASE mobile CHARACTER SET utf8 COLLATE utf8_general_ci;
+> GRANT ALL PRIVILEGES ON mobile.* TO 'pi_user'@'%' IDENTIFIED BY 'pi_password' WITH GRANT OPTION;
 
 
 Installing Javascript Dependencies
@@ -133,7 +137,7 @@ manually,  you can do this by:
 > cd core/src/main/resources/static/bower/PIPlayer
 > bower install
 
-**Please Note:**  if you run into problems with PI Player scripts not executing you might try editing the file
+**Please Note:**  if you run into problems with PI Player scripts not executing you might try editing the file (This is only required for r34, Templeton has a better configuration)
 > vim core/src/main/resources/static/bower/PIPlayer/dist/js/config.js
 > Set the baseUrl:'../bower/PIPlayer/dist/js',
 

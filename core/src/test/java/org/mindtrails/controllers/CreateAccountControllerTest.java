@@ -19,9 +19,9 @@ import java.util.Date;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -51,13 +51,24 @@ public class CreateAccountControllerTest extends BaseControllerTest {
     public void teardown() {
         try {
             Participant p = participantRepository.findByEmail("some_crazy2@email.com");
-            participantRepository.delete(p);
-            participantRepository.flush();
+            if(p != null) {
+                participantRepository.delete(p);
+                participantRepository.flush();
+            }
         } catch (IndexOutOfBoundsException ioe) {
             // participant doesn't exist, but that isn't an actual error.
         }
     }
 
+    @Test
+    public void testCheckEligibilityForLoginForm() throws Exception {
+        this.mockMvc.perform(get("/account/create")
+                .param("username", "some_crazy2@email.com")
+                .param("password", PASSWD))
+                .andDo(print())
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrlPattern("/public/eligibility*"));
+    }
 
     @Test
     public void testCreateAccountController() throws Exception {

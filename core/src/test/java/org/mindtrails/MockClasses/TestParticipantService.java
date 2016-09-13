@@ -29,12 +29,18 @@ public class TestParticipantService implements ParticipantService {
 
     @Override
     public Participant get(Principal p) {
+        if(p == null) return null;
         return repository.findByEmail(p.getName());
     }
 
     @Override
     public Participant findByEmail(String email) {
         return repository.findByEmail(email);
+    }
+
+    @Override
+    public boolean isEligible(HttpSession session) {
+        return false;
     }
 
     @Override

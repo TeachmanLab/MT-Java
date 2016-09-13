@@ -44,7 +44,7 @@ import java.util.Date;
  *
  * */
 @Controller@RequestMapping("/questions")
-public class QuestionController {
+public class QuestionController extends BaseController {
 
     private static final Logger LOG = LoggerFactory.getLogger(QuestionController.class);
     public static final String BY_PASS_SESSION_CHECK = "BY_PASS_CHECK";
@@ -62,7 +62,6 @@ public class QuestionController {
     public String showForm(ModelMap model, Principal principal, @PathVariable("form") String formName) {
 
         Participant participant = participantService.get(principal);
-        model.addAttribute("participant", participant);
 
         // It is possible that the Quesionnaire Data object will want to add some additional
         // parameters to the web form.
@@ -87,7 +86,7 @@ public class QuestionController {
     RedirectView handleForm(@PathVariable("form") String formName,
                     WebRequest request) throws Exception {
         saveForm(formName, request);
-        return new RedirectView("/session/next");
+        return new RedirectView("/session/next", true);
    }
 
 

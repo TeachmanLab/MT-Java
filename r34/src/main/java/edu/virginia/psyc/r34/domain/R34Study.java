@@ -46,8 +46,8 @@ public class R34Study extends BaseStudy implements Study {
     }
 
     @Override
-    public Map<String,String> getPiPlayerParameters(){
-        Map<String,String> params = new HashMap<>();
+    public Map<String,Object> getPiPlayerParameters(){
+        Map<String,Object> params = new HashMap<>();
         params.put("condition", getCondition().toString());
         return params;
     }
