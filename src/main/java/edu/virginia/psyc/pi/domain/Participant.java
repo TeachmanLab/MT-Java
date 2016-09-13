@@ -26,7 +26,11 @@ public class Participant {
 
     private long id;
 
-    public enum CBM_CONDITION {FIFTY_FIFTY, POSITIVE, NEUTRAL}
+
+    /* Added NEUTRAL twice so that the ratio of enrollment become 1:1:2 to make up participants who are in NEUTRAL but has
+    no baseline RR. By Diheng and Dan please check if it is making sense. Thanks!
+    */
+    public enum CBM_CONDITION {FIFTY_FIFTY, POSITIVE, NEUTRAL, NEUTRAL}
     public enum PRIME {NEUTRAL, ANXIETY}
     public enum StudyType {NEUTRAL, ANXIETY}
 
