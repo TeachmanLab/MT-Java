@@ -1350,7 +1350,7 @@ define([], function() {
                 	negativeAnswer:"n"
                 },
                 "media": {
-                    "inlineTemplate": "<div>Do you think that you job is safe? </div>"
+                    "inlineTemplate": "<div>Do you think that your job is safe? </div>"
                      }
             },
             {"inherit": {"set": "yesno"}},
