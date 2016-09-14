@@ -42,7 +42,7 @@ public class TangoServiceTest {
     @Before
     public void setup() {
         // Create a participant
-        participant = new Participant(0, "Dan", "j.q.tester@gmail.com", true);
+        participant = new Participant(0, "Dan", "j.q.tester@gmail.com", true, true);
     }
 
     @Test

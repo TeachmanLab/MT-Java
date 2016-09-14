@@ -98,7 +98,7 @@ public class ParticipantRepositoryTest {
         ParticipantDAO dao = new ParticipantDAO();
         ParticipantRepositoryImpl repository = new ParticipantRepositoryImpl();
 
-        p = new Participant(1, "Dan Funk", "daniel.h.funk@gmail.com", false);
+        p = new Participant(1, "Dan Funk", "daniel.h.funk@gmail.com", false, false);
         p.setPasswordToken(new PasswordToken());
 
         repository.domainToEntity(p, dao);
@@ -117,7 +117,7 @@ public class ParticipantRepositoryTest {
 
         StandardPasswordEncoder encoder = new StandardPasswordEncoder();
 
-        p = new Participant(1, "Dan Funk", "daniel.h.funk@gmail.com", false);
+        p = new Participant(1, "Dan Funk", "daniel.h.funk@gmail.com", false, false);
         p.setPassword(password);
 
         repository.domainToEntity(p, dao);
@@ -141,9 +141,9 @@ public class ParticipantRepositoryTest {
         Participant p;
         ParticipantDAO dao = new ParticipantDAO();
         ParticipantRepositoryImpl repository = new ParticipantRepositoryImpl();
-        Study study = new CBMStudy(CBMStudy.NAME.SESSION1.toString(), 1, new Date(), new ArrayList<TaskLog>());
+        Study study = new CBMStudy(CBMStudy.NAME.SESSION1.toString(), 1, new Date(), new ArrayList<TaskLog>(),false);
 
-        p = new Participant(1, "Dan Funk", "daniel.h.funk@gmail.com", false);
+        p = new Participant(1, "Dan Funk", "daniel.h.funk@gmail.com", false,false);
         p.setStudy(study);
         p.setLastLoginDate(new Date());
 
@@ -272,8 +272,8 @@ public class ParticipantRepositoryTest {
         String email = "john@x.com";
 
         // Create a participant
-        p = new Participant(1000000, email, "23452354", false);
-        study = new CBMStudy(CBMStudy.NAME.PRE.toString(), 0, new Date(), p.getTaskLogs());
+        p = new Participant(1000000, email, "23452354", false, false);
+        study = new CBMStudy(CBMStudy.NAME.PRE.toString(), 0, new Date(), p.getTaskLogs(), false);
         p.setStudy(study);
 
         // Save that participant
