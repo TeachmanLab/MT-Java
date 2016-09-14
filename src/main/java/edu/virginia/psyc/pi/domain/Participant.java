@@ -26,6 +26,7 @@ public class Participant {
 
     private long id;
 
+
     public enum CBM_CONDITION {FIFTY_FIFTY, POSITIVE, NEUTRAL}
     public enum PRIME {NEUTRAL, ANXIETY}
     public enum StudyType {NEUTRAL, ANXIETY}
@@ -113,10 +114,12 @@ public class Participant {
 
     /**
      * Generates a Random CBM Condition from the list of conditions.
+     * 50% of new participants should be neutral, 25% positive and 25% 50/50?
      */
     public static CBM_CONDITION randomCondition()  {
-        List<CBM_CONDITION> values =
-                Collections.unmodifiableList(Arrays.asList(CBM_CONDITION.values()));
+        List<CBM_CONDITION> values = new ArrayList<>();
+        values.addAll(Arrays.asList(CBM_CONDITION.values()));
+        values.add(CBM_CONDITION.NEUTRAL); // Add Neutral a second time.
         return values.get(RANDOM.nextInt(values.size()));
     }
 

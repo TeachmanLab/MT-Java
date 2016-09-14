@@ -27,8 +27,8 @@ public class CBMNeutralStudy extends CBMStudy implements Study {
                 tasks.add(new Task("demographics", "Demographics", Task.TYPE.questions, 2));
                 tasks.add(new Task("MH", "Mental health history", Task.TYPE.questions, 2));
                 tasks.add(new Task("QOL", "Satisfaction", Task.TYPE.questions, 0));
-                //tasks.add(new Task("RecognitionRatings", "Completing short stories", Task.TYPE.playerScript, 0));
-                //tasks.add(new Task("RR", "Completing short stories - Continued", Task.TYPE.questions, 0));
+                tasks.add(new Task("RecognitionRatings", "Completing short stories", Task.TYPE.playerScript, 0));
+                tasks.add(new Task("RR", "Completing short stories - Continued", Task.TYPE.questions, 0));
                 tasks.add(new Task("BBSIQ", "Why things happen", Task.TYPE.questions, 0));
                 tasks.add(new Task("DASS21_DS", "Mood assessment", Task.TYPE.questions, 0));
                 tasks.add(new Task("DD", "Assessment", Task.TYPE.questions, 15));

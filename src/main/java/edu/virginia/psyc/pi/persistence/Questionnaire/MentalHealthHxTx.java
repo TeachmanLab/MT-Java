@@ -21,8 +21,9 @@ public class MentalHealthHxTx extends QuestionnaireData {
 
     private String OtherDesc;
     private String OtherDescNo;
-    private String OtherHelp;
+    private String OtherHelpCurrent;
     private String OtherHelpPast;
+    private String OtherReason;
 
     @ElementCollection
     @CollectionTable(name = "mental_health_disorders", joinColumns = @JoinColumn(name = "id"))
@@ -44,6 +45,10 @@ public class MentalHealthHxTx extends QuestionnaireData {
     @Column(name = "helps_past")
     private List<String> helps_past;
 
+    @ElementCollection
+    @CollectionTable(name = "NoHelp_Reason", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "NoHelp_Reason")
+    private List<String> NoHelp_Reason;
 
     private int psychiatrist = 0;
     private int psychologist = 0;

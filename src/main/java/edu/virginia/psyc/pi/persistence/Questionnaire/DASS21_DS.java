@@ -16,7 +16,7 @@ public class DASS21_DS extends QuestionnaireData {
 
     private int nopositive;
     private int difficult;
-    private int nervous;
+    private int hopeless;
     private int blue;
     private int noenthusiastic;
     private int noworth;
