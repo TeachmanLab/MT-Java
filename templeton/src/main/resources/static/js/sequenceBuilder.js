@@ -3,6 +3,8 @@
 // a json model suitable for the PiPlayer.
 
 
+
+
 // A hard coded scenerio for showing introductions.
 intro =
 {
@@ -28,7 +30,29 @@ intro =
     ]
 };
 
+// to shuffle the scenarios
+
+function shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+}
+
 // this is the function to remove a random letter
+
 function removeRandomLetter(str) {
     if(str == null) return ["",""];
     var pos = Math.floor(Math.random() * str.length);
@@ -45,6 +69,7 @@ function getAnswer(str)
 
 function processCSV(scenarios) {
     var merged = [].concat.apply([], scenarios);
+    var merged =  shuffle(merged);
     var remake = [];
     remake.push(intro);
     for (i = 0; i < merged.length; i++) {
@@ -119,6 +144,21 @@ function processCSV(scenarios) {
             ]
         }
         remake.push(scenario);
+
+        if (i == 0 | i == merged.length/2)
+        {
+            vivid = {"inherit": {"set": "vivid"}};
+            vivid_after = { "inherit": { "set": "vivid_after" }};
+            remake.push(vivid);
+            remake.push(vivid_after);
+        }
+        if (i === merged.length - 1)
+        {
+            vivid_lst =  {"inherit": {"set": "vivid"},
+                layout: [{media: {template: "/PIPlayerScripts/vividness_last.html"}}]};
+            remake.push(vivid_lst);
+        }
+
     }
     return remake;
 }

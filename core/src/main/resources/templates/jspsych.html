@@ -189,7 +189,8 @@
 						// if correct
 						if (trial.timeline[0].correct)
 						{
-					      	display_element.append($('<div>', {
+						    display_element.replace('[ ]', '[ ' + last + ' ]');
+						    display_element.append($('<div>', {
 					      	"id": 'feedback',
 					        "class": 'center-content block-center',
 					        "html": 'Great job!'
@@ -355,6 +356,7 @@
 
 	jsPsych.init({
 	  timeline: timeline,
+        show_progress_bar: true,
         on_finish: function(data){window.location.assign(contextRoot + "jspsych/completed/" + csvFile);}
             //saveData("DutchArticles"+SubjectID+".csv", jsPsych.data.dataAsCSV())}
 	});
