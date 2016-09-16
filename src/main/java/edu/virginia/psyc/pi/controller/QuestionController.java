@@ -101,8 +101,6 @@ public class QuestionController extends BaseController {
             throw new WrongFormException();
         }
 
-        // Update the participant's session status, and save back to the database.
-        participant.getStudy().completeCurrentTask();
 
         // Record the session for which this questionnaire was completed.
         data.setSession(participant.getStudy().getCurrentSession().getName());
@@ -111,6 +109,10 @@ public class QuestionController extends BaseController {
         TaskLogDAO taskDao = new TaskLogDAO(dao, participant.getStudy().getCurrentSession().getName(),
                                             participant.getStudy().getCurrentSession().getCurrentTask().getName());
         dao.addTaskLog(taskDao);
+
+        // Update the participant's session status, and save back to the database.
+        // DO THIS *AFTER* you log progress and set the session on the model. NOT BEFORE.
+        participant.getStudy().completeCurrentTask();
 
 
         participantRepository.domainToEntity(participant, dao);
