@@ -51,6 +51,7 @@
                 };
 
                 piGlobal.sequence = scriptData;
+
                 require([contextRoot + 'js/config.js'], function () {
                     require(["activatePIP", contextRoot + 'js/PiPlayerMain.js'], function (activatePIP, script) {
                         activatePIP(script);

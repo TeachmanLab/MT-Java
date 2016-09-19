@@ -94,7 +94,6 @@ public class TempletonStudy extends BaseStudy {
         Session pretest, session1, session2, session3, session4, post;
 
         pretest = new Session ("PreTest", "Initial Assessment", 0, 0);
-        pretest.addTask(new Task("Consent","Consent to Participate", Task.TYPE.questions, 2));
         pretest.addTask(new Task("Demographics","Personal Background", Task.TYPE.questions, 2));
         pretest.addTask(new Task("MentalHealthHistory","Mental Health History", Task.TYPE.questions, 2));
         pretest.addTask(new Task("NGSES","Assessment", Task.TYPE.questions, 6));
