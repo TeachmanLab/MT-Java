@@ -119,7 +119,9 @@ public class Participant {
     public static CBM_CONDITION randomCondition()  {
         List<CBM_CONDITION> values = new ArrayList<>();
         values.addAll(Arrays.asList(CBM_CONDITION.values()));
-        values.add(CBM_CONDITION.NEUTRAL); // Add Neutral a second time.
+        // We added values a second time below to account for lower numbers part way through the
+        // trial.  We are now reversing this and going back to normal.
+        //values.add(CBM_CONDITION.NEUTRAL); // Add Neutral a second time.
         return values.get(RANDOM.nextInt(values.size()));
     }
 

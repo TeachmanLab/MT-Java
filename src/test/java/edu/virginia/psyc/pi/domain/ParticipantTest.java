@@ -114,7 +114,8 @@ public class ParticipantTest {
         assertTrue("after 100 iterations, Positive should have occurred at least once", pos > 0);
         assertTrue("after 100 iterations, Neutral should have occurred at least once", neut > 0);
 
-        assertTrue("Neutral condition should make up nearly 1/2 of the total", neut/100f > .4 && neut/100f < .6);
+        assertTrue("Neutral condition should make up roughly 1/3 of the total.", neut/100f > .2 && neut/100f < .4);
+        //  assertTrue("Neutral condition should make up nearly 1/2 of the total", neut/100f > .4 && neut/100f < .6);
 
     }
 
