@@ -25,7 +25,7 @@ public class TempletonStudy extends BaseStudy {
     // Neutral condition (likely alternate content)
     public enum CONDITION {POSITIVE, POSITIVE_NEGATION, FIFTY_FIFTY_RANDOM, FIFTY_FIFTY_BLOCKED, NEUTRAL }
 
-    private CONDITION     conditioning;
+    private CONDITION conditioning;
 
     public static final String FIRST_SESSION = "firstSession";
     public static final String SECOND_SESSION = "secondSession";
@@ -54,7 +54,6 @@ public class TempletonStudy extends BaseStudy {
     public Map<String,Object> getPiPlayerParameters() {
         Map<String,Object> map = super.getPiPlayerParameters();
         String sessionName = this.getCurrentSession().getName();
-
         map.put("negate",(conditioning.equals(CONDITION.POSITIVE_NEGATION)));
 
         switch(sessionName) {
