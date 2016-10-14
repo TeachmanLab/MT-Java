@@ -27,16 +27,18 @@ public class TempletonStudy extends BaseStudy {
 
     private CONDITION     conditioning;
 
+    public static final String PRE_TEST = "preTest";
     public static final String FIRST_SESSION = "firstSession";
     public static final String SECOND_SESSION = "secondSession";
     public static final String THIRD_SESSION = "thirdSession";
     public static final String FOURTH_SESSION = "fourthSession";
+    public static final String POST_FOLLOWUP = "PostFollowUp";
 
     @Override
     public String getName() {return "Templeton";}
 
     public TempletonStudy() {
-        this.currentSession = "PreTest";
+        this.currentSession = PRE_TEST;
     }
 
     public TempletonStudy(String currentSession, int taskIndex, Date lastSessionDate, List<TaskLog> taskLogs, boolean receiveGiftCards) {
@@ -78,7 +80,10 @@ public class TempletonStudy extends BaseStudy {
                 map.put("question","question");
                 map.put("addMissingLetter",Boolean.TRUE);
                 break;
-
+            default:  // This should only occur in testing / accessing admin etc...
+                map.put("fragment","first");
+                map.put("question","question");
+                map.put("addMissingLetter",Boolean.FALSE);
         }
         map.put("condition", this.conditioning.toString());
         return map;
@@ -93,7 +98,7 @@ public class TempletonStudy extends BaseStudy {
         List<Session> sessions = new ArrayList<>();
         Session pretest, session1, session2, session3, session4, post;
 
-        pretest = new Session ("PreTest", "Initial Assessment", 0, 0);
+        pretest = new Session (PRE_TEST, "Initial Assessment", 0, 0);
         pretest.addTask(new Task("Demographics","Personal Background", Task.TYPE.questions, 2));
         pretest.addTask(new Task("MentalHealthHistory","Mental Health History", Task.TYPE.questions, 2));
         pretest.addTask(new Task("NGSES","Assessment", Task.TYPE.questions, 6));
@@ -141,7 +146,7 @@ public class TempletonStudy extends BaseStudy {
         session4.addTask(new Task("HelpSeeking","Change in Help Seeking", Task.TYPE.questions, 1));
         sessions.add(session4);
 
-        post = new Session("PostFollowUp", "1 Month Post Training", 0, 0);
+        post = new Session(POST_FOLLOWUP, "1 Month Post Training", 0, 0);
         post.addTask(new Task("NGSES","Assessment", Task.TYPE.questions, 6));
         post.addTask(new Task("Optimism","Optimism", Task.TYPE.questions, 0));
         post.addTask(new Task("AxImagery","Imagery", Task.TYPE.questions, 0));
