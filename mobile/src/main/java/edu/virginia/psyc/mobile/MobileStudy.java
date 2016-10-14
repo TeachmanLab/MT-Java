@@ -39,16 +39,16 @@ public class MobileStudy extends BaseStudy {
     @Override
     public List<Session> getStatelessSessions() {
         List<Session> sessions = new ArrayList<>();
-        Session pretest, session1, session2, session3, session4, session5, post;
+        Session /*pretest,*/ session1, session2, session3, session4, session5 /*, post */;
 
-        pretest = new Session ("PreTest", "Initial Assessment", 0, 0);
-        pretest.addTask(new Task("Demographics","Demographics", Task.TYPE.questions, 2));
-        pretest.addTask(new Task("OA","Mood Assessment", Task.TYPE.questions,2));
-        pretest.addTask(new Task("RecognitionRating","Recognition Rating", Task.TYPE.jspsych, 2));
-        pretest.addTask(new Task("RR","Recognition Rating", Task.TYPE.questions, 2));
-        pretest.addTask(new Task("BBSIQ","Story evaluation", Task.TYPE.questions, 2));
-        pretest.setIndex(0);
-        sessions.add(pretest);
+//        pretest = new Session ("PreTest", "Initial Assessment", 0, 0);
+//        pretest.addTask(new Task("Demographics","Demographics", Task.TYPE.questions, 2));
+//        pretest.addTask(new Task("OA","Mood Assessment", Task.TYPE.questions,2));
+//        pretest.addTask(new Task("RecognitionRating","Recognition Rating", Task.TYPE.jspsych, 2));
+//        pretest.addTask(new Task("RR","Recognition Rating", Task.TYPE.questions, 2));
+//        pretest.addTask(new Task("BBSIQ","Story evaluation", Task.TYPE.questions, 2));
+//        pretest.setIndex(0);
+//        sessions.add(pretest);
 
         session1 = new Session("firstSession", "The First Session", 0, 0);
         session1.addTask(new Task("trainingOne","Training Session One", Task.TYPE.jspsych, 2));
@@ -75,15 +75,15 @@ public class MobileStudy extends BaseStudy {
         session5.setIndex(5);
         sessions.add(session5);
 
-        post = new Session("PostFollowUp", "Follow Up", 0, 0);
-        post.addTask(new Task("OA","Mood Assessment", Task.TYPE.questions,2));
-        post.addTask(new Task("DASS21AS","My Feelings", Task.TYPE.questions, 2));
-        post.addTask(new Task("RecognitionRating","Recognition Rating", Task.TYPE.jspsych, 2));
-        post.addTask(new Task("RR","Recognition Rating", Task.TYPE.questions, 2));
-        post.addTask(new Task("BBSIQ","Story evaluation", Task.TYPE.questions, 2));
-        post.addTask(new Task("MultiUserExperience","User Experience", Task.TYPE.questions, 2));
-        post.setIndex(6);
-        sessions.add(post);
+//        post = new Session("PostFollowUp", "Follow Up", 0, 0);
+//        post.addTask(new Task("OA","Mood Assessment", Task.TYPE.questions,2));
+//        post.addTask(new Task("DASS21AS","My Feelings", Task.TYPE.questions, 2));
+//        post.addTask(new Task("RecognitionRating","Recognition Rating", Task.TYPE.jspsych, 2));
+//        post.addTask(new Task("RR","Recognition Rating", Task.TYPE.questions, 2));
+//        post.addTask(new Task("BBSIQ","Story evaluation", Task.TYPE.questions, 2));
+//        post.addTask(new Task("MultiUserExperience","User Experience", Task.TYPE.questions, 2));
+//        post.setIndex(6);
+//        sessions.add(post);
 
         return sessions;
     }
