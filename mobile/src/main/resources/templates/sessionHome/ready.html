@@ -20,6 +20,7 @@
             </div>
 
             <div class="col-md-8 session">
+                
 
                 <div th:if="${currentSession.index} == 0">
                     <h2><span th:text="${participant.fullName}">Jim</span>, you're ready to
@@ -28,19 +29,21 @@
                 </div>
 
                 <div th:if="${currentSession.index} > 0">
-                    <h2 th:if="#{participant.study.index == 0}">Welcome back <span
+                    <h2 th:if="#{participant.study.index == 0}">Welcome
+                        <!--back -->
+                        <span
                             th:text="${participant.fullName}">Jim</span>.
                     </h2>
                     <p>You are ready to begin <span th:text="${currentSession.displayName}"/></p>
                     <p>This includes ...</p>
                     <img th:src="|/images/clock-20-${participant.theme}.png|"/>
-                    <p>A 20-minute Training</p>
-                    <img th:src="|/images/clock-1-${participant.theme}.png|"/>
-                    <p>A Brief Followup</p>
+                    <p>A 10<!--20-->-minute Training</p>
+<!--                    <img th:src="|/images/clock-1-${participant.theme}.png|"/>
+                    <p>A Brief Followup</p>-->
                 </div>
 
 
-                <div th:if="${giftAwarded}">
+<!--                <div th:if="${giftAwarded}">
                     <h3>Congratulations! You have earned a $5 gift card.</h3> Please check your email for information on
                     how to redeem it.
                 </div>
@@ -49,8 +52,10 @@
                 </p>
                 <a th:href="@{${currentTask.requestMapping}}" th:if="${currentTask}">
                     <button>Start</button>
-                </a>
+                </a>-->
+<!--
                 <a th:href="@{/session/overview}" th:unless="${currentSession.name =='PRE'}">Program Overview</a>
+-->
             </div>
         </div>
     </div>

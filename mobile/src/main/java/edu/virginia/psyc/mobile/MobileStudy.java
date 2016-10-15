@@ -25,7 +25,7 @@ public class MobileStudy extends BaseStudy {
     public String getName() {return "Mobile";}
 
     public MobileStudy() {
-        this.currentSession = "PreTest";
+        this.currentSession = /*"preTest"*/ "firstSession";
     }
 
     public MobileStudy(String currentSession, int taskIndex, Date lastSessionDate, List<TaskLog> taskLogs, boolean receiveGiftCards) {
@@ -39,7 +39,7 @@ public class MobileStudy extends BaseStudy {
     @Override
     public List<Session> getStatelessSessions() {
         List<Session> sessions = new ArrayList<>();
-        Session /*pretest,*/ session1, session2, session3, session4, session5 /*, post */;
+        Session /*pretest,*/ session1, session2, session3, session4, session5, session6 /*, post */;
 
 //        pretest = new Session ("PreTest", "Initial Assessment", 0, 0);
 //        pretest.addTask(new Task("Demographics","Demographics", Task.TYPE.questions, 2));
@@ -74,6 +74,11 @@ public class MobileStudy extends BaseStudy {
         session5.addTask(new Task("trainingFive","Training Session Five", Task.TYPE.jspsych, 2));
         session5.setIndex(5);
         sessions.add(session5);
+
+        session6 = new Session("sixthSession", "The  Sixth Session", 0, 0);
+        session6.addTask(new Task("trainingSix","Training Session Six", Task.TYPE.jspsych, 2));
+        session6.setIndex(6);
+        sessions.add(session6);
 
 //        post = new Session("PostFollowUp", "Follow Up", 0, 0);
 //        post.addTask(new Task("OA","Mood Assessment", Task.TYPE.questions,2));
