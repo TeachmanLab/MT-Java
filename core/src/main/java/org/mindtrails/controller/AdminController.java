@@ -210,4 +210,21 @@ public class AdminController extends BaseController {
         return "admin/rewardInfo";
     }
 
+    @RequestMapping(value="/export", method=RequestMethod.GET)
+    public String export(ModelMap model, Principal principal) {
+        Participant p = getParticipant(principal);
+
+        model.addAttribute("downloadsDisabled", Boolean.parseBoolean(downloadsDisabled));
+        model.addAttribute("exportMaxMinutes", exportService.getMaxMinutes());
+        model.addAttribute("exportMaxRecords", exportService.getMaxRecords());
+        model.addAttribute("totalRecords", exportService.totalDeleteableRecords());
+        model.addAttribute("minutesSinceLastExport", exportService.minutesSinceLastExport());
+        model.addAttribute("formsDisabled", exportService.disableAdditionalFormSubmissions());
+
+        model.addAttribute("participant", p);
+        model.addAttribute("sessions", p.getStudy().getSessions());
+        model.addAttribute("hideAccountBar", true);
+        return "admin/export";
+    }
+
 }
