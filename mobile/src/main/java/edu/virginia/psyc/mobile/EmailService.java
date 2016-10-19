@@ -2,6 +2,7 @@ package edu.virginia.psyc.mobile;
 
 import org.mindtrails.domain.Email;
 import org.mindtrails.domain.Participant;
+import org.mindtrails.domain.Session;
 import org.mindtrails.domain.tango.Reward;
 import org.springframework.stereotype.Service;
 
@@ -48,4 +49,7 @@ public class EmailService implements org.mindtrails.service.EmailService{
     public Email getEmailForType(String type) {
         return null;
     }
+
+    @Override
+    public void sendSessionCompletedEmail(Participant participant) { return; }
 }

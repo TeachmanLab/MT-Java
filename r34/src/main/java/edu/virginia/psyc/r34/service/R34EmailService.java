@@ -3,6 +3,7 @@ package edu.virginia.psyc.r34.service;
 import edu.virginia.psyc.r34.persistence.Questionnaire.OA;
 import org.mindtrails.domain.Email;
 import org.mindtrails.domain.Participant;
+import org.mindtrails.domain.Session;
 import org.mindtrails.service.EmailService;
 import org.mindtrails.service.EmailServiceImpl;
 import org.slf4j.Logger;
@@ -59,6 +60,12 @@ public class R34EmailService extends EmailServiceImpl implements EmailService {
         } else {
             super.sendExample(email);
         }
+    }
+
+    @Override
+    public void sendSessionCompletedEmail(Participant participant) {
+
+        return;
     }
 
 }

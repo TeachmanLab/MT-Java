@@ -2,6 +2,7 @@ package org.mindtrails.service;
 
 import org.mindtrails.domain.Email;
 import org.mindtrails.domain.Participant;
+import org.mindtrails.domain.Session;
 import org.mindtrails.domain.tango.Reward;
 
 import java.util.List;
@@ -18,7 +19,8 @@ public interface EmailService {
     public enum TYPE {
         resetPass, alertAdmin, giftCard,
         day2, day4, day7, day11, day15, day18,
-        followup, followup2, followup3
+        followup, followup2, followup3, preTest, firstSession,
+        secondSession, thirdSession, fourthSession, postFollowUp
     }
 
     /**
@@ -69,5 +71,7 @@ public interface EmailService {
      * Returns an email for a given type
      */
     Email getEmailForType(String type);
+
+    void sendSessionCompletedEmail(Participant participant);
 
 }

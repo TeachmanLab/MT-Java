@@ -67,6 +67,12 @@ public class EmailServiceImpl implements EmailService {
         emails.add(new Email(TYPE.followup.toString(), "Follow-up from the MindTrails project team"));
         emails.add(new Email(TYPE.followup2.toString(), "Follow-up reminder from the MindTrails project team"));
         emails.add(new Email(TYPE.followup3.toString(), "Final reminder from the MindTrails project team"));
+        emails.add(new Email(TYPE.preTest.toString(), "Bonus feature from the MindTrails team"));
+        emails.add(new Email(TYPE.firstSession.toString(), "Bonus feature from the MindTrails team"));
+        emails.add(new Email(TYPE.secondSession.toString(), "Bonus feature from the MindTrails team"));
+        emails.add(new Email(TYPE.thirdSession.toString(), "Bonus feature from the MindTrails team"));
+        emails.add(new Email(TYPE.fourthSession.toString(), "Bonus feature from the MindTrails team"));
+        emails.add(new Email(TYPE.postFollowUp.toString(), "Bonus feature from the MindTrails team"));
         return emails;
     }
 
@@ -75,6 +81,12 @@ public class EmailServiceImpl implements EmailService {
             if(e.getType().equals(type)) return e;
         }
         throw new RuntimeException("Unknown Email type:" + type);
+    }
+
+    @Override
+    public void sendSessionCompletedEmail(Participant participant) {
+
+        return;
     }
 
     public void sendEmail(Email email) {
