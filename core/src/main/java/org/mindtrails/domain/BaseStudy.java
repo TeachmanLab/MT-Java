@@ -23,7 +23,7 @@ import java.util.*;
 public abstract class BaseStudy implements Study {
 
     private static final Session NOT_STARTED  = new Session("NOT_STARTED", "Not Started", 0, 0, new ArrayList<Task>());
-    private static final Session COMPLETE     = new Session("COMPLETE", "Complete", 0, 2, new ArrayList<Task>());
+    private static final Session COMPLETE     = new Session("COMPLETE", "Complete", 0, 0, new ArrayList<Task>());
 
     @Id
     @TableGenerator(name = "STUDY_GEN", table = "ID_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 1)
@@ -120,8 +120,8 @@ public abstract class BaseStudy implements Study {
 
         // If this is the last task in a session, then we move to the next session.
         if(currentTaskIndex +1 >= getCurrentSession().getTasks().size()) {
-
-            completeSession();
+            this.taskLogs.add(TaskLog.completedSession(this));
+z            completeSession();
         } else { // otherwise we just increment the task index.
             this.currentTaskIndex = currentTaskIndex + 1;
         }

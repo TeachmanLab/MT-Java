@@ -55,27 +55,27 @@ public class MobileStudy extends BaseStudy {
         session1.setIndex(1);
         sessions.add(session1);
 
-        session2 = new Session("secondSession", "The Second Session", 0, 0);
+        session2 = new Session("secondSession", "The Second Session", 0, 1);
         session2.addTask(new Task("trainingTwo","Training Session Two", Task.TYPE.jspsych, 2));
         session2.setIndex(2);
         sessions.add(session2);
 
-        session3 = new Session("thirdSession", "The Third Session", 0, 0);
+        session3 = new Session("thirdSession", "The Third Session", 0, 1);
         session3.addTask(new Task("trainingThree","Training Session Three", Task.TYPE.jspsych, 2));
         session3.setIndex(3);
         sessions.add(session3);
 
-        session4 = new Session("fourthSession", "The Fourth Session", 0, 0);
+        session4 = new Session("fourthSession", "The Fourth Session", 0, 1);
         session4.addTask(new Task("trainingFour","Training Session Four", Task.TYPE.jspsych, 2));
         session4.setIndex(4);
         sessions.add(session4);
 
-        session5 = new Session("fifthSession", "The Fifth Session", 0, 0);
+        session5 = new Session("fifthSession", "The Fifth Session", 0, 1);
         session5.addTask(new Task("trainingFive","Training Session Five", Task.TYPE.jspsych, 2));
         session5.setIndex(5);
         sessions.add(session5);
 
-        session6 = new Session("sixthSession", "The  Sixth Session", 0, 0);
+        session6 = new Session("sixthSession", "The  Sixth Session", 0, 1);
         session6.addTask(new Task("trainingSix","Training Session Six", Task.TYPE.jspsych, 2));
         session6.setIndex(6);
         sessions.add(session6);
