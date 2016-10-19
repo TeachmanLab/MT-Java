@@ -23,6 +23,8 @@ import java.util.Date;
 @Data
 public class TaskLog implements Comparable<TaskLog> {
 
+    private static String SESSION_COMPLETE = "SESSION_COMPLETE";
+
     @Id
     @GeneratedValue
     private int id;
@@ -42,6 +44,16 @@ public class TaskLog implements Comparable<TaskLog> {
         this.taskName = study.getCurrentSession().getCurrentTask().getName();
         this.dateCompleted = new Date();
     }
+
+    public static TaskLog completedSession(Study study) {
+        TaskLog log = new TaskLog();
+        log.study = study;
+        log.sessionName = study.getCurrentSession().getName();
+        log.taskName = SESSION_COMPLETE;
+        log.dateCompleted = new Date();
+        return(log);
+    }
+
 
     @Override
     public int compareTo(TaskLog o) {
