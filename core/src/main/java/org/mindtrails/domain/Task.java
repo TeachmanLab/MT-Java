@@ -74,6 +74,7 @@ public class Task {
                 ", type=" + type +
                 ", complete=" + complete +
                 ", current=" + current +
+                ", dateCompleted=" + dateCompleted +
                 '}';
     }
 }

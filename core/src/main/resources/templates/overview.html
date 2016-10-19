@@ -39,7 +39,7 @@
                         <td th:text="${task.displayName}">Session Title</td>
                         <td th:if="${task.dateCompleted}">
                             <img th:src="@{'/images/check-'+${participant.theme}+'.png'}"/>
-                            <span class="date" th:text="${#calendars.format(task.dateCompleted,'MMM d, YYYY')}">10/05/2015</span>
+                            <span class="date" th:text="${#calendars.format(task.dateCompleted,'YYYY-MM-dd')}">10/05/2015</span>
                         </td>
                         <td th:unless="${task.dateCompleted}"
                             th:text="'Est ' + ${task.duration} + ' min. duration'"></td>
