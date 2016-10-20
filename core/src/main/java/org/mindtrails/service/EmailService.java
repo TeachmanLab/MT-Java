@@ -70,4 +70,6 @@ public interface EmailService {
      */
     Email getEmailForType(String type);
 
+    void sendSessionCompletedEmail(Participant participant);
+
 }
