@@ -26,7 +26,6 @@ public class TempletonStudy extends BaseStudy {
     public enum CONDITION {POSITIVE, POSITIVE_NEGATION, FIFTY_FIFTY_RANDOM, FIFTY_FIFTY_BLOCKED, NEUTRAL }
 
     private CONDITION     conditioning;
-
     public static final String PRE_TEST = "preTest";
     public static final String FIRST_SESSION = "firstSession";
     public static final String SECOND_SESSION = "secondSession";

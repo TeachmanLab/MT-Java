@@ -13,13 +13,13 @@ import javax.persistence.Table;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class DASS21AS extends SecureQuestionnaireData {
-    private int Dryness;
-    private int DifficultyBreathing;
-    private int Trembling;
-    private int WorryPanic;
-    private int PanicFelt;
-    private int HeartAware;
-    private int ScaredNoReason;
+    private int dryness;
+    private int breathing;
+    private int trembling;
+    private int worry;
+    private int panic;
+    private int heart;
+    private int scared;
 
 }
 
