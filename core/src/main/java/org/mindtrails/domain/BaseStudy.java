@@ -121,7 +121,7 @@ public abstract class BaseStudy implements Study {
         // If this is the last task in a session, then we move to the next session.
         if(currentTaskIndex +1 >= getCurrentSession().getTasks().size()) {
             this.taskLogs.add(TaskLog.completedSession(this));
-z            completeSession();
+            completeSession();
         } else { // otherwise we just increment the task index.
             this.currentTaskIndex = currentTaskIndex + 1;
         }
