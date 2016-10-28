@@ -10,13 +10,25 @@ function scrollTo(elem){console.log(elem)
 }
 
 $(document).on('click', '.option', function(e){
-    scrollTo($(this).closest(".section").next());
+    var row = $(this.closest(".row"));
+    var section = $(this).closest(".section");
+    var allChecked =
+        ($(section).find('.row').filter(':has(:radio)').length ===
+         $(section).find('.row').filter(':has(:radio:checked)').length);
+
+    if(allChecked) {
+        scrollTo($(section).next());
+    } else if($(row).next().hasClass("row")) {
+        if($(this).closest(".section").hasClass("section-V"))
+        scrollTo($(this).closest(".row").next());
+    }
 });
 
+/*
 $(document).on('click', '.scrollNextSection', function(e){
     scrollTo($(this).closest(".section").next());
 });
-
+*/
 
 
 /**
