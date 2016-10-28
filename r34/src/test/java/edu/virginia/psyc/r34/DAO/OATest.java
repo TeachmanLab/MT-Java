@@ -15,7 +15,7 @@ public class OATest {
         data1 = new OA(1,1,1,1,1);
         data2 = new OA(4,4,4,4,4);
         data3 = new OA(0,0,0,0,0);
-        data4 = new OA(4,4,4,555,4);
+        data4 = new OA(4,4,4,-1,4);
 
         assertEquals(data1.score(), 5, 0);
         assertEquals(data2.score(), 20, 0);

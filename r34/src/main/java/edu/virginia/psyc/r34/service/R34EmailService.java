@@ -61,4 +61,9 @@ public class R34EmailService extends EmailServiceImpl implements EmailService {
         }
     }
 
+    @Override
+    public void sendSessionCompletedEmail(Participant participant) {
+        return;
+    }
+
 }

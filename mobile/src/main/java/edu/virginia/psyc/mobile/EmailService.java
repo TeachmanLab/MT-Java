@@ -48,4 +48,9 @@ public class EmailService implements org.mindtrails.service.EmailService{
     public Email getEmailForType(String type) {
         return null;
     }
+
+    @Override
+    public void sendSessionCompletedEmail(Participant participant) {
+        return;
+    }
 }

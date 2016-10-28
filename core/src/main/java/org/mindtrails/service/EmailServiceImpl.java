@@ -77,6 +77,11 @@ public class EmailServiceImpl implements EmailService {
         throw new RuntimeException("Unknown Email type:" + type);
     }
 
+    @Override
+    public void sendSessionCompletedEmail(Participant participant) {
+        return;
+    }
+
     public void sendEmail(Email email) {
         // Prepare message using a Spring helper
         final MimeMessage mimeMessage = this.mailSender.createMimeMessage();
