@@ -80,7 +80,7 @@
         </div>
     <div class="account-bar" th:unless="${visiting}">
         <div class="container" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
-            <span th:if="${participant}" class="item">Logged in as ( <span th:text="${participant.fullName}"/> )</span> |<a href="/session/overview">My Progress</a> | <a
+            <span th:if="${participant}" class="item">Logged in as ( <span th:text="${participant.fullName}"/> )</span> |<a th:href="@{/session/overview}">My Progress</a> | <a
                 th:href="@{/account}">Account Settings</a> | <a th:href="@{/logout}">Logout</a>
         </div>
         <div class="container login" th:unless="${#authorization.expression('hasRole(''ROLE_USER'')')}">

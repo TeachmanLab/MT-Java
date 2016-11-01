@@ -120,6 +120,7 @@ public class SessionController extends BaseController {
         if(study.getState() == Study.STUDY_STATE.IN_PROGRESS) {
             return new RedirectView(study.getCurrentSession().getCurrentTask().getRequestMapping(), true);
         } else {
+            emailService.sendSessionCompletedEmail(p);
             return new RedirectView("/session", true);
         }
     }

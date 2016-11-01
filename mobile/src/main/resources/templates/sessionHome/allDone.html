@@ -12,10 +12,24 @@
 <body>
 <section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
 
+<section id="content" class="clearfix">
+    <div class="container sessionSection">
+        <div class="row">
+            <div class="col-md-4">
+                <img th:src="@{/images/map-0-orange.png}" alt="icon" class="icon-small-bg"/>
+            </div>
 
-<h2>Thank you <span th:text="${participant.fullName}">Jim</span>!<br/> you have reached the end of the Study.</h2>
+            <div class="col-md-8 session">
 
-<p>You are all finished!</p>
+                <h2>Thank you <span th:text="${participant.fullName}">Jim</span>!<br/> you have reached the end of the
+                    Study.</h2>
+
+                <p>You are all finished!</p>
+
+            </div>
+        </div>
+    </div>
+</section>
 
 <!--
 <p>Please read the <a th:href="/@{debriefing}">debriefing</a>, now that have completed your study.</p>

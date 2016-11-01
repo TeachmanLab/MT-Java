@@ -32,7 +32,7 @@ public class OA extends LinkedQuestionnaireData implements Comparable<OA> {
 
     private static final Logger LOG = LoggerFactory.getLogger(OA.class);
 
-    public static int NO_ANSWER = 555;
+    public static int NO_ANSWER = -1;
     public static final int MAX_SCORE = 4;
 
     @Column(name="AXF")

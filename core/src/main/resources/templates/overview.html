@@ -20,11 +20,12 @@
         <h1>Overview for <span th:text="${participant.fullName}"/></h1>
 
         <p>This shows your progress through the MindTrails program. You must wait a minimum of 24 hours between
-            training sessions. We encourage you to begin a new session 3-4 days after completing the previous session.
+            training sessions. We encourage you to begin a new session a few days after completing the previous session.
             This will give you a chance to practice the new thinking style between sessions.
             When you're done reviewing, head back to <a th:href="@{/session}">home</a> to start your next session.</p>
 
         <div class="sessionGrouping" th:each="session,iterStat : ${study.sessions}"  th:unless="${session.name == 'COMPLETE' || session.name == 'ELIGIBLE'}">
+
             <img class="sessionMarker" th:src="@{'/images/marker-'+${session.index}+'-'+${participant.theme}+'.png'}"/>
 
             <div class="gift">
@@ -38,16 +39,20 @@
                         <td th:text="${task.displayName}">Session Title</td>
                         <td th:if="${task.dateCompleted}">
                             <img th:src="@{'/images/check-'+${participant.theme}+'.png'}"/>
-                            <span class="date" th:text="${#calendars.format(task.dateCompleted,'MMM d, YYYY')}">10/05/2015</span>
+                            <span class="date" th:text="${#calendars.format(task.dateCompleted,'YYYY-MM-dd')}">10/05/2015</span>
                         </td>
                         <td th:unless="${task.dateCompleted}"
                             th:text="'Est ' + ${task.duration} + ' min. duration'"></td>
                     </tr>
                 </table>
             </div>
-            <p class="allow2days" th:unless="${session.index==8 or session.index==9}"> Allow 3 to 4 days between each session.</p>
+            <p class="allow2days" th:if="${iterStat.index &lt; iterStat.size and study.sessions[iterStat.index + 1].daysToWait > 0}">
+                Allow <span th:text="${study.sessions[iterStat.index + 1].daysToWait}"/> to
+                      <span th:text="${study.sessions[iterStat.index + 1].daysToWait + 1}"/>
+                days between each session.</p>
+
         </div>
-        <br/>
+    <br/>
 
         <p th:if="${complete}">You can now  <a th:href="@{/graph}">review your progress</a> through the study, to see how you
             performed, and find out if you were part of the control group, or if you received the full treatment.</p>

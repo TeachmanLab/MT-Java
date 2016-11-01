@@ -42,50 +42,6 @@
                             to
                             answer
                         </label></div>
-
-                        <script> /*<![CDATA[*/
-                        $(document).ready(function(){
-
-                            $("input[type='range']").change(function() {
-                                slider = $(this);
-                                value = (slider.val() -1);
-
-                                $('p.rangeLabel').removeClass('selected');
-                                if(value <= -1) $("#slide_text2").text("Not at all Positive");
-                                if(value > -1 && value < 1) $("#slide_text2").text("Moderately Positive");
-                                if(value >= 1) $("#slide_text2").text("Totally Positive");
-
-                            });
-
-
-                            $('p.rangeLabel').bind('click', function(){
-                                label = $(this);
-                                value = label.index();
-                                $("input[type='range']").attr('value', value)
-                                        .trigger('change');
-                            });
-
-                        });
-                        /*]]>*/
-                        </script>
-
-                        <style>
-                            input[type="range"] {
-                                width: 100%;
-                            }
-
-                            p.rangeLabel {
-                                font-family: "Arial", sans-serif;
-                                padding: 5px;
-                                margin: 5px 0;
-                                background: #ccc;
-                                font-size: 15px;
-                                line-height: 20px;
-                                text-align: center;
-                            }
-
-                        </style>
-
                     </div>
 
                     <div class="section">
@@ -101,49 +57,6 @@
                             answer
                         </label></div>
 
-                        <script> /*<![CDATA[*/
-                        $(document).ready(function(){
-
-                            $("input[type='range']").change(function() {
-                                slider = $(this);
-                                value = (slider.val() -1);
-
-                                $('p.rangeLabel').removeClass('selected');
-                                if(value <= -1) $("#slide_text3").text("Not at all Positive");
-                                if(value > -1 && value < 1) $("#slide_text3").text("Moderately Positive");
-                                if(value >= 1) $("#slide_text3").text("Totally Positive");
-
-                            });
-
-
-                            $('p.rangeLabel').bind('click', function(){
-                                label = $(this);
-                                value = label.index();
-                                $("input[type='range']").attr('value', value)
-                                        .trigger('change');
-                            });
-
-                        });
-                        /*]]>*/
-                        </script>
-
-                        <style>
-                            input[type="range"] {
-                                width: 100%;
-                            }
-
-                            p.rangeLabel {
-                                font-family: "Arial", sans-serif;
-                                padding: 5px;
-                                margin: 5px 0;
-                                background: #ccc;
-                                font-size: 15px;
-                                line-height: 20px;
-                                text-align: center;
-                            }
-
-                        </style>
-
                     </div>
 
 
@@ -151,8 +64,52 @@
                         <button type="submit"> Continue</button>
                     </div>
 
-
                 </form>
+
+                <script> /*<![CDATA[*/
+                $(document).ready(function(){
+                    setupSlider($("#slide2"), $("#slide_text2"));
+                    setupSlider($("#slide3"), $("#slide_text3"));
+                });
+
+                function setupSlider(slider, text) {
+                    slider.change(function() {
+                        slider = $(this);
+                        value = (slider.val() -1);
+                        text.removeClass('selected');
+                        if(value <= -1) text.text("Not at all Positive");
+                        if(value > -1 && value < 1) text.text("Moderately Positive");
+                        if(value >= 1) text.text("Totally Positive");
+
+                    });
+
+                    slider.bind('click', function(){
+                        label = $(this);
+                        value = label.index();
+                        slider.attr('value', value)
+                                .trigger('change');
+                    });
+                }
+                /*]]>*/
+                </script>
+
+                <style>
+                    input[type="range"] {
+                        width: 100%;
+                    }
+
+                    p.rangeLabel {
+                        font-family: "Arial", sans-serif;
+                        padding: 5px;
+                        margin: 5px 0;
+                        background: #ccc;
+                        font-size: 15px;
+                        line-height: 20px;
+                        text-align: center;
+                    }
+
+                </style>
+
 
             </div>
         </div>

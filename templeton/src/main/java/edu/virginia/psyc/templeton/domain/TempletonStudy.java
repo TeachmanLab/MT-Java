@@ -25,18 +25,20 @@ public class TempletonStudy extends BaseStudy {
     // Neutral condition (likely alternate content)
     public enum CONDITION {POSITIVE, POSITIVE_NEGATION, FIFTY_FIFTY_RANDOM, FIFTY_FIFTY_BLOCKED, NEUTRAL }
 
-    private CONDITION conditioning;
+    private CONDITION     conditioning;
+    public static final String PRE_TEST = "preTest";
 
     public static final String FIRST_SESSION = "firstSession";
     public static final String SECOND_SESSION = "secondSession";
     public static final String THIRD_SESSION = "thirdSession";
     public static final String FOURTH_SESSION = "fourthSession";
+    public static final String POST_FOLLOWUP = "PostFollowUp";
 
     @Override
     public String getName() {return "Templeton";}
 
     public TempletonStudy() {
-        this.currentSession = "PreTest";
+        this.currentSession = PRE_TEST;
     }
 
     public TempletonStudy(String currentSession, int taskIndex, Date lastSessionDate, List<TaskLog> taskLogs, boolean receiveGiftCards) {
@@ -77,7 +79,10 @@ public class TempletonStudy extends BaseStudy {
                 map.put("question","question");
                 map.put("addMissingLetter",Boolean.TRUE);
                 break;
-
+            default:  // This should only occur in testing / accessing admin etc...
+                map.put("fragment","first");
+                map.put("question","question");
+                map.put("addMissingLetter",Boolean.FALSE);
         }
         map.put("condition", this.conditioning.toString());
         return map;
@@ -92,7 +97,8 @@ public class TempletonStudy extends BaseStudy {
         List<Session> sessions = new ArrayList<>();
         Session pretest, session1, session2, session3, session4, post;
 
-        pretest = new Session ("PreTest", "Initial Assessment", 0, 0);
+        pretest = new Session (PRE_TEST, "Initial Assessment", 0, 0);
+        pretest.setIndex(0);
         pretest.addTask(new Task("Demographics","Personal Background", Task.TYPE.questions, 2));
         pretest.addTask(new Task("MentalHealthHistory","Mental Health History", Task.TYPE.questions, 2));
         pretest.addTask(new Task("NGSES","Assessment", Task.TYPE.questions, 6));
@@ -100,10 +106,10 @@ public class TempletonStudy extends BaseStudy {
         pretest.addTask(new Task("AxImagery","Imagery", Task.TYPE.questions, 0));
         pretest.addTask(new Task("DASS21AS","Mood", Task.TYPE.questions, 0));
         pretest.addTask(new Task("DASS21DS","Mood (part 2)", Task.TYPE.questions, 0));
-        pretest.addTask(new Task("ExpectancyBias","What Happens Next", Task.TYPE.questions, 2));
         sessions.add(pretest);
 
-        session1 = new Session(FIRST_SESSION, "Day 1 Training", 0, 2);
+        session1 = new Session(FIRST_SESSION, "Day 1 Training", 0, 0);
+        session1.setIndex(1);
         session1.addTask(new Task("Affect","Affect", Task.TYPE.questions, 0));
         session1.addTask(new Task("scenarios", "Training Stories", Task.TYPE.playerScript, 20));
         session1.addTask(new Task("Affect","Affect", Task.TYPE.questions, 0));
@@ -111,7 +117,8 @@ public class TempletonStudy extends BaseStudy {
         session1.addTask(new Task("ExpectancyBias","What Happens Next", Task.TYPE.questions, 2));
         sessions.add(session1);
 
-        session2 = new Session(SECOND_SESSION, "Day 2 Training", 0, 0);
+        session2 = new Session(SECOND_SESSION, "Day 2 Training", 0, 2);
+        session2.setIndex(2);
         session2.addTask(new Task("Affect","Affect", Task.TYPE.questions, 0));
         session2.addTask(new Task("scenarios", "Training Stories", Task.TYPE.playerScript, 20));
         session2.addTask(new Task("Affect","Affect", Task.TYPE.questions, 0));
@@ -119,14 +126,16 @@ public class TempletonStudy extends BaseStudy {
         session2.addTask(new Task("NGSES","Making Plans", Task.TYPE.questions, 1));
         sessions.add(session2);
 
-        session3 = new Session(THIRD_SESSION, "Day 3 Training", 0, 0);
+        session3 = new Session(THIRD_SESSION, "Day 3 Training", 0, 2);
+        session3.setIndex(3);
         session3.addTask(new Task("Affect","Affect", Task.TYPE.questions, 0));
         session3.addTask(new Task("scenarios", "Training Stories", Task.TYPE.playerScript, 20));
         session3.addTask(new Task("Affect","Affect", Task.TYPE.questions, 0));
         session3.addTask(new Task("ExpectancyBias","What Happens Next", Task.TYPE.questions, 2));
         sessions.add(session3);
 
-        session4 = new Session(FOURTH_SESSION, "Day 4 Training", 0, 0);
+        session4 = new Session(FOURTH_SESSION, "Day 4 Training", 0, 2);
+        session4.setIndex(4);
         session4.addTask(new Task("Affect","Affect", Task.TYPE.questions, 0));
         session4.addTask(new Task("scenarios", "Training Stories", Task.TYPE.playerScript, 20));
         session4.addTask(new Task("Affect","Affect", Task.TYPE.questions, 0));
@@ -140,7 +149,8 @@ public class TempletonStudy extends BaseStudy {
         session4.addTask(new Task("HelpSeeking","Change in Help Seeking", Task.TYPE.questions, 1));
         sessions.add(session4);
 
-        post = new Session("PostFollowUp", "1 Month Post Training", 0, 0);
+        post = new Session(POST_FOLLOWUP, "1 Month Post Training", 0, 30);
+        post.setIndex(5);
         post.addTask(new Task("NGSES","Assessment", Task.TYPE.questions, 6));
         post.addTask(new Task("Optimism","Optimism", Task.TYPE.questions, 0));
         post.addTask(new Task("AxImagery","Imagery", Task.TYPE.questions, 0));
