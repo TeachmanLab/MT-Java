@@ -306,7 +306,7 @@ To Create a new Questionnaire you will to do 4 things:
 4. Add details to the Questionnaire controller to allow you to correctly handle the form.
 
 The questionnaire must have a unique name from all other questionnaires.  It should not contain
-spaces, or special characters, thought in a pinch it could use an underscore "_". A good convention
+spaces, or special characters, thought in a pinch it could use an underscore " _ ". A good convention
 is camelCase, where you upper case individual terms in your unique name, such as "UniqueName"
 
 You will see references to **myForm** in the steps below.  Please replace this with the name of the form you are creating.  You may also see **MyForm** at which point you should upper case the first letter.  
@@ -434,3 +434,31 @@ Creating a Basic Application
 3. Generate a public and private key.  Hold onto to the private key.  (keep it secret, keep it safe)  Place the public key in resources.
 4. Create a service that implements the EmailService interface.
 5.
+
+A Word on Good Practice
+===========
+
+Here is a list of things that we will recommend doing when you create your study:
+
+1. *Pay very close attention to the Standard Scale Sheet.*
+
+  Once you successfully launch a study, you will be able to export a *Standard Scale Sheet* from api/export. It looks like this:
+
+  ```json
+
+  ```
+  Please make sure that it reflects what your actual study schedule. *If a task is not in this sheet, it is not in the program.* Tools like MTData report rely on this sheet as well, so if the SSS is wrong, you can rely on the result from automate data checking tools.
+
+2. *Make sure that you go over all the tasks at least once and you are getting the data you want.*
+
+  ...variables' names, database issues, MTData setup, etc... You want to catch them before you run actual participants.
+
+  Tools like [MTData report]() can help on checking overall missing data, but can't tell you very detail information.
+
+3.
+
+Resources
+==========
+
+  - [PI Note]()
+  - [Significant Update]()
