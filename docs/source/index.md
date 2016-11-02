@@ -43,7 +43,7 @@ to allow collected information to be pulled from the main web server -
 creating a clean separation between identifying data (email addresses)
 and medical or other information.
 
-A seperate application, the [MindTrails Exporter](https://github.com/Diheng/PIExporter)
+A seperate application, the [MindTrails Data](http://mtdata.readthedocs.io/en/latest/)
 can be used to pull all submitted data from the system on a tight interval
 (say every 5 minutes) onto a separate server behind a firewall.  If the
 main web server is compromised no medical information will be available.
@@ -235,29 +235,39 @@ Generating a key
 http://stackoverflow.com/questions/11410770/load-rsa-public-key-from-file)
 
 1. Generate a 2048-bit RSA private key
-```$ openssl genrsa -out private_key.pem 2048```
+```
+$ openssl genrsa -out private_key.pem 2048
+```
 2. Convert private Key to PKCS#8 format (so Java can read it)
-```$ openssl pkcs8 -topk8 -inform PEM -outform DER -in private_key.pem \ -out private_key.der -nocrypt```
+```
+$ openssl pkcs8 -topk8 -inform PEM -outform DER -in private_key.pem \ -out private_key.der -nocrypt
+```
 3. Output public key portion in DER format (so Java can read it)
-```$ openssl rsa -in private_key.pem -pubout -outform DER -out public_key.der```
+```
+$ openssl rsa -in private_key.pem -pubout -outform DER -out public_key.der
+```
 4. Place the public key in the resources directory of the WAR file, and place the
-private key on the server running the PIExport script.
+private key on the server running the MTData script.
 
 Manually Decrypting a link from the command line
 --------------------------
 if you place the encrypted string in a file, you can decrypt it with
+```sh
 base64 -d encrypted.txt  | openssl rsautl -decrypt -inkey private_key.pem
+```
 If you are copying the key from a file, you can deocde it directly with
+```sh
 echo myEncryptedString | base64 -d | openssl rsautl -decrypt -inkey private_key.pem
-
+```
 Testing
 --------
+```sh
 $ ./gradlew test
-
+```
 Test results can be found in  ...PIServer/build/reports/tests/index.html
 
 
-MTData - A secure package for MindTrails data handling
+MTData - package for data handling
 ==============
 We also wrote a python command line tool designed to handle sensitive data for MindTrails library. You can install it on your back end server or laptop, configure the server.config files and keys for decrypting. It comes with tools that take care of most of the data issue.
 
@@ -296,7 +306,7 @@ To Create a new Questionnaire you will to do 4 things:
 4. Add details to the Questionnaire controller to allow you to correctly handle the form.
 
 The questionnaire must have a unique name from all other questionnaires.  It should not contain
-spaces, or special characters, thought in a pinch it could use an underscore "_".  A good convention
+spaces, or special characters, thought in a pinch it could use an underscore "_". A good convention
 is camelCase, where you upper case individual terms in your unique name, such as "UniqueName"
 
 You will see references to **myForm** in the steps below.  Please replace this with the name of the form you are creating.  You may also see **MyForm** at which point you should upper case the first letter.  
@@ -414,3 +424,13 @@ covert it to our model in step 2, then use the repository in step 3 to store it 
 ```																 
 
 That is it.  When participants fill out your new form, it will be stored in a new table named **MY_FORM** in the database.  From here we can create various reports to present this data which will be covered shortly.
+
+
+Creating a Basic Application
+==========
+
+1. Create an Application class to start the Spring Boot framework.
+2. Create an application.properties file that contains some basic settings
+3. Generate a public and private key.  Hold onto to the private key.  (keep it secret, keep it safe)  Place the public key in resources.
+4. Create a service that implements the EmailService interface.
+5.
