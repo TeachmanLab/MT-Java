@@ -1,27 +1,28 @@
+See http://piserver.readthedocs.io/en/documentation/ for the most updated documentation
 
-About 
+About
 =========
 
 MindTrails is a library for constructing online [Cognitive Behavioral Therapy]
-(psychcentral.com/lib/in-depth-cognitive-behavioral-therapy/) studies 
+(psychcentral.com/lib/in-depth-cognitive-behavioral-therapy/) studies
 with tools to address major concerns for such studies - such as reducing
 attrition and secure data handling.  
 
-MindTrails provides a core library, and a default implementation for 
+MindTrails provides a core library, and a default implementation for
 creating new Studies. It provides the following basic tools:
 
 **1. Study / Task Management**
 
 MindTrails provides an open framework for organizing html web forms
 and Javascript applications (such as the [Project Implicit Player]
-(https://github.com/ProjectImplicit/PIPlayer) ) as *Tasks* within a 
-series of *sessions*.  Each session is completed in a single sitting. 
+(https://github.com/ProjectImplicit/PIPlayer) ) as *Tasks* within a
+series of *sessions*.  Each session is completed in a single sitting.
 
-Participants are provided with a series of attractive (but highly 
+Participants are provided with a series of attractive (but highly
 customizable) views of their progress.  And are moved through the tasks
 rapidly to create a streamlined and pleasant progression.
 
-We chose to use standard HTTP POST as the basis for handling form 
+We chose to use standard HTTP POST as the basis for handling form
 submissions, as this  provided the most open model for extension and
 expansion.  If the tool you want to use for data collection can POST that
 back to a web server, it should integrate well into this application.
@@ -34,7 +35,7 @@ these emails if they choose to do so.
 
 **3. Gift Card Support**
 
-Integrated with [Tango](https://www.tangocard.com/) - MindTrails can 
+Integrated with [Tango](https://www.tangocard.com/) - MindTrails can
 fully automate the awarding of Gift Cards to help encourage participants
 to complete sessions.
 
@@ -42,11 +43,11 @@ to complete sessions.
 
 MindTrails is currently in use at the University of Virginia where it
 collects Highly Sensitive Data.  The system has a robust export system
-to allow collected information to be pulled from the main web server - 
-creating a clean separation between identifying data (email addresses) 
-and medical or other information. 
+to allow collected information to be pulled from the main web server -
+creating a clean separation between identifying data (email addresses)
+and medical or other information.
 
-A seperate application, the [MindTrails Exporter](https://github.com/Diheng/PIExporter) 
+A seperate application, the [MindTrails Exporter](https://github.com/Diheng/PIExporter)
 can be used to pull all submitted data from the system on a tight interval
 (say every 5 minutes) onto a separate server behind a firewall.  If the
 main web server is compromised no medical information will be available.
@@ -62,15 +63,15 @@ Data is collected in a relational database where the records are stored
 in a table(s)-per-form format that can be easy customized.  If the data
 is not secure, working with a study's collected information is easy
 and straight forward.  If the data is sensitive in nature, it can
-be exported in the same configurable format. Implementations have 
+be exported in the same configurable format. Implementations have
 full control over the format of the json / excel.  There is a companion
-project that can be used to extract the data to a private server and 
+project that can be used to extract the data to a private server and
 generate spreadsheets for later analysis - see secure data storage above.
 
 **6. A Secure, modern web application**
 Our Security Model is build on the popular Spring Security Framework.  
 We currently use a form based authentication (a web login form) that
-provides projects against CSRF Attacks, Session Fixation Protection, 
+provides projects against CSRF Attacks, Session Fixation Protection,
 and Security header integration.
 
 * User Authentication
@@ -152,7 +153,7 @@ You can now visit the website at : http://localhost:9000
 
 Deploying
 --------
-You can generate a WAR file suitable for deployment in a web server with 
+You can generate a WAR file suitable for deployment in a web server with
 $ ./gradlew war
 Then you will find the war file in ./build/lib/piServer-0.1.0.war
 
@@ -195,7 +196,7 @@ For example: *curl -u admin@email.com:passwd localhost:9000/api/export* would re
    }
    ...
 ]
-   
+
 ```
 **GET** *SERVER/api/export/NAME*:  Returns all the data available on the server at that moment.
 For example: *curl -u admin@email.com:passwd localhost:9000/api/export/ImageryPrime* would return:
@@ -282,7 +283,7 @@ To Create a new Questionnaire you will to do 4 things:
 1. Create an HTML web form to ask your questions.
 2. Create a Java Model that represents the data from the form. (I promise this is simple)
 3. A repository for storing your form data (Extremely simple)
-4. Add details to the Questionnaire controller to allow you to correctly handle the form. 
+4. Add details to the Questionnaire controller to allow you to correctly handle the form.
 
 The questionnaire must have a unique name from all other questionnaires.  It should not contain
 spaces, or special characters, thought in a pinch it could use an underscore "_".  A good convention
@@ -292,11 +293,11 @@ You will see references to **myForm** in the steps below.  Please replace this w
 
 Step 1:
 -------
-Create the html form.  New forms should be placed in 
+Create the html form.  New forms should be placed in
 
 /src/main/resources/templates/questions/**myForm**.html
 
-It's a good idea to start with an existing form you like, and modify it.  However, there is nothing to prevent you from creating the page you want from scratch.  "Credibility" offers a good example of a simple one page form.  "Demographics" shows a multi-page form.  "DASS21" is a multi-page form with validation. 
+It's a good idea to start with an existing form you like, and modify it.  However, there is nothing to prevent you from creating the page you want from scratch.  "Credibility" offers a good example of a simple one page form.  "Demographics" shows a multi-page form.  "DASS21" is a multi-page form with validation.
 
 Be sure to give the HTML <Form> tag a unique action.  
 This will be used over again to wire your new questionnaire into the system, so make it unique and descriptive.  Making this the same as the file name of the form you are creating is recommended.
@@ -368,7 +369,7 @@ import java.util.List;
  public interface **MyForm**Repository extends JpaRepository<**MyForm**, Long> {
      List<**MyForm**> findByParticipantDAO(ParticipantDAO p);				 
  }
-				 
+
 ```
 
 Step 4:
@@ -382,7 +383,7 @@ There is a Questionnaire controller located at:
 You aren't creating a new file this time, just adding a new method to an existing file.
 
 You need to define an additional method on this controller, that will take the data from the form
-covert it to our model in step 2, then use the repository in step 3 to store it in the Database. While this sounds complicated, the code is shown in full below. 
+covert it to our model in step 2, then use the repository in step 3 to store it in the Database. While this sounds complicated, the code is shown in full below.
 
 ```java
     @Autowired private **MyForm**Repository **myForm**Repository;
@@ -403,4 +404,3 @@ covert it to our model in step 2, then use the repository in step 3 to store it 
 ```																 
 
 That is it.  When participants fill out your new form, it will be stored in a new table named **MY_FORM** in the database.  From here we can create various reports to present this data which will be covered shortly.
-
