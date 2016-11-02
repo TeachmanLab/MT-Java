@@ -1,34 +1,29 @@
-* See http://piserver.readthedocs.io/en/latest/ for most updated documentation
-
-
-About 
+About MindTrails
 =========
 
-MindTrails is a library for constructing online [Cognitive Behavioral Therapy]
-(psychcentral.com/lib/in-depth-cognitive-behavioral-therapy/) studies 
+MindTrails is a library for constructing online [Cognitive Behavioral Therapy](psychcentral.com/lib/in-depth-cognitive-behavioral-therapy/) studies
 with tools to address major concerns for such studies - such as reducing
 attrition and secure data handling.  
 
-MindTrails provides a core library, and a default implementation for 
+MindTrails provides a core library, and a default implementation for
 creating new Studies. It provides the following basic tools:
 
 **1. Study / Task Management**
 
 MindTrails provides an open framework for organizing html web forms
-and Javascript applications (such as the [Project Implicit Player]
-(https://github.com/ProjectImplicit/PIPlayer) ) as *Tasks* within a 
-series of *sessions*.  Each session is completed in a single sitting. 
+and Javascript applications (such as the [Project Implicit Player](https://github.com/ProjectImplicit/PIPlayer) ) as *Tasks* within a
+series of *sessions*.  Each session is completed in a single sitting.
 
-Participants are provided with a series of attractive (but highly 
+Participants are provided with a series of attractive (but highly
 customizable) views of their progress.  And are moved through the tasks
 rapidly to create a streamlined and pleasant progression.
 
-We chose to use standard HTTP POST as the basis for handling form 
+We chose to use standard HTTP POST as the basis for handling form
 submissions, as this  provided the most open model for extension and
 expansion.  If the tool you want to use for data collection can POST that
 back to a web server, it should integrate well into this application.
 
-**2. Email Reminder System.**
+**2. Email Reminder System**
 
 The system can be configured to remind participants to return to complete
 later sessions on a regular schedule.  Participants can easily opt out of
@@ -36,7 +31,7 @@ these emails if they choose to do so.
 
 **3. Gift Card Support**
 
-Integrated with [Tango](https://www.tangocard.com/) - MindTrails can 
+Integrated with [Tango](https://www.tangocard.com/) - MindTrails can
 fully automate the awarding of Gift Cards to help encourage participants
 to complete sessions.
 
@@ -44,11 +39,11 @@ to complete sessions.
 
 MindTrails is currently in use at the University of Virginia where it
 collects Highly Sensitive Data.  The system has a robust export system
-to allow collected information to be pulled from the main web server - 
-creating a clean separation between identifying data (email addresses) 
-and medical or other information. 
+to allow collected information to be pulled from the main web server -
+creating a clean separation between identifying data (email addresses)
+and medical or other information.
 
-A seperate application, the [MindTrails Exporter](https://github.com/Diheng/PIExporter) 
+A seperate application, the [MindTrails Exporter](https://github.com/Diheng/PIExporter)
 can be used to pull all submitted data from the system on a tight interval
 (say every 5 minutes) onto a separate server behind a firewall.  If the
 main web server is compromised no medical information will be available.
@@ -64,15 +59,15 @@ Data is collected in a relational database where the records are stored
 in a table(s)-per-form format that can be easy customized.  If the data
 is not secure, working with a study's collected information is easy
 and straight forward.  If the data is sensitive in nature, it can
-be exported in the same configurable format. Implementations have 
+be exported in the same configurable format. Implementations have
 full control over the format of the json / excel.  There is a companion
-project that can be used to extract the data to a private server and 
+project that can be used to extract the data to a private server and
 generate spreadsheets for later analysis - see secure data storage above.
 
 **6. A Secure, modern web application**
 Our Security Model is build on the popular Spring Security Framework.  
 We currently use a form based authentication (a web login form) that
-provides projects against CSRF Attacks, Session Fixation Protection, 
+provides projects against CSRF Attacks, Session Fixation Protection,
 and Security header integration.
 
 * User Authentication
@@ -107,42 +102,46 @@ Database Setup
 Install MySQL, and execute the following commands to establish
 a user account.  You can use a different password if you change
 the datasource.password setting in src/main/resources/application.properties
-
+```sql
 > CREATE DATABASE pi CHARACTER SET utf8 COLLATE utf8_general_ci;
 > CREATE USER 'pi_user'@'localhost' IDENTIFIED BY 'pi_password';
 > GRANT ALL PRIVILEGES ON pi.* TO 'pi_user'@'%' IDENTIFIED BY 'pi_password' WITH GRANT OPTION;
-
+```
 If you are running the tests, that is configured to use a seperate database
+```sql
 > CREATE DATABASE pi_test CHARACTER SET utf8 COLLATE utf8_general_ci;
 > GRANT ALL PRIVILEGES ON pi_test.* TO 'pi_user'@'%' IDENTIFIED BY 'pi_password' WITH GRANT OPTION;
-
+```
 The templeton project requires its own database
+```sql
 > CREATE DATABASE templeton CHARACTER SET utf8 COLLATE utf8_general_ci;
 > GRANT ALL PRIVILEGES ON templeton.* TO 'pi_user'@'%' IDENTIFIED BY 'pi_password' WITH GRANT OPTION;
-
+```
 The mobile project requires its own database as well
+```sql
 > CREATE DATABASE mobile CHARACTER SET utf8 COLLATE utf8_general_ci;
 > GRANT ALL PRIVILEGES ON mobile.* TO 'pi_user'@'%' IDENTIFIED BY 'pi_password' WITH GRANT OPTION;
-
+```
 
 Installing Javascript Dependencies
 -------------------
 Javascript dependencies, including the PIPlayer are installed using Bower, just run `bower install`
-
+```sh
 > cd core
 > bower install
 > cd ..
-
+```
 Because of the way the PIPlayer script is currently designed, you will need to install the PIPlayer dependencies
 manually,  you can do this by:
-
+```sh
 > cd core/src/main/resources/static/bower/PIPlayer
 > bower install
-
+```
 **Please Note:**  if you run into problems with PI Player scripts not executing you might try editing the file (This is only required for r34, Templeton has a better configuration)
+```sh
 > vim core/src/main/resources/static/bower/PIPlayer/dist/js/config.js
 > Set the baseUrl:'../bower/PIPlayer/dist/js',
-
+```
 
 Running
 --------
@@ -154,7 +153,7 @@ You can now visit the website at : http://localhost:9000
 
 Deploying
 --------
-You can generate a WAR file suitable for deployment in a web server with 
+You can generate a WAR file suitable for deployment in a web server with
 $ ./gradlew war
 Then you will find the war file in ./build/lib/piServer-0.1.0.war
 
@@ -197,7 +196,7 @@ For example: *curl -u admin@email.com:passwd localhost:9000/api/export* would re
    }
    ...
 ]
-   
+
 ```
 **GET** *SERVER/api/export/NAME*:  Returns all the data available on the server at that moment.
 For example: *curl -u admin@email.com:passwd localhost:9000/api/export/ImageryPrime* would return:
@@ -216,7 +215,9 @@ For example: *curl -u admin@email.com:passwd localhost:9000/api/export/ImageryPr
    {
       "id" : 2,
       "vivid" : 0,
+   ...}
    ...
+ ]
 ```
 **DELETE** *SERVER/api/export/NAME/ID*:  Removes a record from the Database.
 For example: *curl -u admin@email.com:passwd  -X DELETE localhost:9000/api/export/ImageryPrime/1* would remove the item above.  This is secure delete, where the id linking the record to a participant is first overwritten, then deleted.
@@ -228,7 +229,7 @@ You can enable encryption of the link between questionnaire data and the partici
 When you do so, the system will use a public key to encrypt the participant id
 when recording the questionnaire.
 
-Generating a key:
+Generating a key
 --------------------------
 (Taken from:
 http://stackoverflow.com/questions/11410770/load-rsa-public-key-from-file)
@@ -255,6 +256,14 @@ $ ./gradlew test
 
 Test results can be found in  ...PIServer/build/reports/tests/index.html
 
+
+MTData - A secure package for MindTrails data handling
+==============
+We also wrote a python command line tool designed to handle sensitive data for MindTrails library. You can install it on your back end server or laptop, configure the server.config files and keys for decrypting. It comes with tools that take care of most of the data issue.
+
+You can find out more here: [MTData](http://mtdata.readthedocs.io/en/latest/)
+
+
 Security Overview
 ==================
 
@@ -263,8 +272,8 @@ Our Security Model is build on the popular Spring Security Framework.  Specifica
 basic projections and features:
 
 * Every URL in the site requires authentication.
-* CSRF attach prevention (http://en.wikipedia.org/wiki/Cross-site_request_forgery)
-* Session Fixation Protection (http://en.wikipedia.org/wiki/Session_fixation)
+* [CSRF attach prevention](http://en.wikipedia.org/wiki/Cross-site_request_forgery)
+* [Session Fixation Protection](http://en.wikipedia.org/wiki/Session_fixation)
 * Security header integration
     * HTTP Strict Transport Security for secure requests
     * X-Content-Type-Options integration
@@ -284,7 +293,7 @@ To Create a new Questionnaire you will to do 4 things:
 1. Create an HTML web form to ask your questions.
 2. Create a Java Model that represents the data from the form. (I promise this is simple)
 3. A repository for storing your form data (Extremely simple)
-4. Add details to the Questionnaire controller to allow you to correctly handle the form. 
+4. Add details to the Questionnaire controller to allow you to correctly handle the form.
 
 The questionnaire must have a unique name from all other questionnaires.  It should not contain
 spaces, or special characters, thought in a pinch it could use an underscore "_".  A good convention
@@ -292,35 +301,36 @@ is camelCase, where you upper case individual terms in your unique name, such as
 
 You will see references to **myForm** in the steps below.  Please replace this with the name of the form you are creating.  You may also see **MyForm** at which point you should upper case the first letter.  
 
-Step 1:
+Step 1: Create the html form
 -------
-Create the html form.  New forms should be placed in 
-
+New forms should be placed in
+```
 /src/main/resources/templates/questions/**myForm**.html
-
-It's a good idea to start with an existing form you like, and modify it.  However, there is nothing to prevent you from creating the page you want from scratch.  "Credibility" offers a good example of a simple one page form.  "Demographics" shows a multi-page form.  "DASS21" is a multi-page form with validation. 
+```
+It's a good idea to start with an existing form you like, and modify it.  However, there is nothing to prevent you from creating the page you want from scratch.  "Credibility" offers a good example of a simple one page form.  "Demographics" shows a multi-page form.  "DASS21" is a multi-page form with validation.
 
 Be sure to give the HTML <Form> tag a unique action.  
 This will be used over again to wire your new questionnaire into the system, so make it unique and descriptive.  Making this the same as the file name of the form you are creating is recommended.
-```
+```html
 <form id="wizard" th:action="@{/questions/**myForm**}" method="POST">
 ```
 From here, you just create your HTML form elements.  Give thoughtful names to these elements, you will be using them again in the next step.
 
 You can see your form as you develop it.  Just execute:
-```prompt
+```sh
 gradlew bootrun
 ```
 and visit http:\\localhost:9000/questions/**myForm**
 
 Any changes you make will be automatically visible by refreshing the page.  You don't need to stop and start the server to see your changes.
 
-Step 2:
+Step 2: Create a Java class for containing your form
 ---------
 
-Create a Java class for containing your form.  This should be located at:
-
+This should be located at:
+```
 /src/main/java/edu/virginia/psyc/pi/persistence/Questionnaire/**MyForm**.java
+```
 (please note the upper casing of the name)
 
 This file defines how your data will be stored in the database.  While this looks an awful lot like programming, it is a very boilerplate format, that can be quickly implemented over and over again.
@@ -351,9 +361,9 @@ public class MyForm extends QuestionnaireData { // 3. Be sure to extend Question
 
 ```
 
-Step 3:
+Step 3: Define a Java Repository
 ---------
-Define a Java Repository - this file will be located here:
+this file will be located here:
 ```
 /src/main/java/edu/virginia/psyc/pi/persistence/Questionnaire/**MyForm**Repository.java
 ```
@@ -370,12 +380,11 @@ import java.util.List;
  public interface **MyForm**Repository extends JpaRepository<**MyForm**, Long> {
      List<**MyForm**> findByParticipantDAO(ParticipantDAO p);				 
  }
-				 
+
 ```
 
-Step 4:
+Step 4: Wire up the Controller
 ---------
-Wire up the Controller
 
 There is a Questionnaire controller located at:
 ```
@@ -384,7 +393,7 @@ There is a Questionnaire controller located at:
 You aren't creating a new file this time, just adding a new method to an existing file.
 
 You need to define an additional method on this controller, that will take the data from the form
-covert it to our model in step 2, then use the repository in step 3 to store it in the Database. While this sounds complicated, the code is shown in full below. 
+covert it to our model in step 2, then use the repository in step 3 to store it in the Database. While this sounds complicated, the code is shown in full below.
 
 ```java
     @Autowired private **MyForm**Repository **myForm**Repository;
@@ -405,4 +414,3 @@ covert it to our model in step 2, then use the repository in step 3 to store it 
 ```																 
 
 That is it.  When participants fill out your new form, it will be stored in a new table named **MY_FORM** in the database.  From here we can create various reports to present this data which will be covered shortly.
-
