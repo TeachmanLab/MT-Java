@@ -1,15 +1,17 @@
 package edu.virginia.psyc.r34.service;
 
+import edu.virginia.psyc.r34.domain.R34Study;
 import edu.virginia.psyc.r34.persistence.Questionnaire.OA;
 import org.mindtrails.domain.Email;
 import org.mindtrails.domain.Participant;
+import org.mindtrails.domain.Session;
 import org.mindtrails.service.EmailService;
 import org.mindtrails.service.EmailServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
-
+import edu.virginia.psyc.r34.domain.forms.R34StudyForm;
 import java.util.List;
 
 
@@ -27,10 +29,25 @@ public class R34EmailService extends EmailServiceImpl implements EmailService {
 
     private String RISING_SCORE = "risingScore";
 
+
+    private String SESSION1 = "SESSION1";
+    private String SESSION2 = "SESSION2";
+    private String SESSION3 = "SESSION3";
+    private String SESSION4 = "SESSION$";
+    private String SESSION5 = "SESSION5";
+    private String SESSION6 = "SESSION6";
+
+
     @Override
     public List<Email> emailTypes() {
         List<Email> emails = super.emailTypes();
         emails.add(new Email(RISING_SCORE, "MindTrails Alert! Participant score is rising"));
+        emails.add(new Email(SESSION1, "Bonus feature from the MindTrails team"));
+        emails.add(new Email(SESSION2, "Bonus feature from the MindTrails team"));
+        emails.add(new Email(SESSION3, "Bonus feature from the MindTrails team"));
+        emails.add(new Email(SESSION4, "Bonus feature from the MindTrails team"));
+        emails.add(new Email(SESSION5, "Bonus feature from the MindTrails team"));
+        emails.add(new Email(SESSION6, "Bonus feature from the MindTrails team"));
         return emails;
     }
 
@@ -63,7 +80,27 @@ public class R34EmailService extends EmailServiceImpl implements EmailService {
 
     @Override
     public void sendSessionCompletedEmail(Participant participant) {
-        return;
+        Session currentSession = participant.getStudy().getCurrentSession();
+        Email email = null;
+        if (currentSession.getName().equals(R34Study.NAME.SESSION1.toString())) {
+            email = new Email("SESSION1","Bonus feature from the MindTrails team");
+        } else if (currentSession.getName().equals(R34Study.NAME.SESSION2.toString())) {
+            email = new Email("SESSION2","Bonus feature from the MindTrails team");
+        } else if (currentSession.getName().equals(R34Study.NAME.SESSION3.toString())) {
+            email = new Email("SESSION3","Bonus feature from the MindTrails team");
+        } else if (currentSession.getName().equals(R34Study.NAME.SESSION4.toString())) {
+            email = new Email("SESSION4","Bonus feature from the MindTrails team");
+        } else if (currentSession.getName().equals(R34Study.NAME.SESSION5.toString())) {
+            email = new Email("SESSION5","Bonus feature from the MindTrails team");
+        } else if (currentSession.getName().equals(R34Study.NAME.SESSION6.toString())) {
+            email = new Email("SESSION6","Bonus feature from the MindTrails team");
+        }
+        if (email != null) {
+            email.setTo(participant.getEmail());
+            email.setParticipant(participant);
+            email.setContext(new Context());
+            sendEmail(email);
+        }
     }
 
 }
