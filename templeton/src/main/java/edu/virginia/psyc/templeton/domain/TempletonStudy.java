@@ -27,6 +27,7 @@ public class TempletonStudy extends BaseStudy {
 
     private CONDITION     conditioning;
     public static final String PRE_TEST = "preTest";
+
     public static final String FIRST_SESSION = "firstSession";
     public static final String SECOND_SESSION = "secondSession";
     public static final String THIRD_SESSION = "thirdSession";
@@ -55,7 +56,6 @@ public class TempletonStudy extends BaseStudy {
     public Map<String,Object> getPiPlayerParameters() {
         Map<String,Object> map = super.getPiPlayerParameters();
         String sessionName = this.getCurrentSession().getName();
-
         map.put("negate",(conditioning.equals(CONDITION.POSITIVE_NEGATION)));
 
         switch(sessionName) {
