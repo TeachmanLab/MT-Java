@@ -27,7 +27,7 @@ import java.lang.reflect.Field;
  */
 public class ExpectancyBias extends LinkedQuestionnaireData implements Comparable<ExpectancyBias>{
 
-    public static int NO_ANSWER = 555;
+    public static int NO_ANSWER = -1;
     public static double MAX_ELIGIBLE_SCORE = 1.1111;
     public static double AT_RISK_DIFFERENCE = 1.5;
 
