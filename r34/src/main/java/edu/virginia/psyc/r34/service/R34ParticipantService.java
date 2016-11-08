@@ -5,6 +5,7 @@ import edu.virginia.psyc.r34.domain.R34Study;
 import edu.virginia.psyc.r34.persistence.Questionnaire.DASS21_AS;
 import edu.virginia.psyc.r34.persistence.Questionnaire.DASS21_ASRepository;
 import org.mindtrails.domain.Participant;
+import org.mindtrails.domain.Study;
 import org.mindtrails.domain.tracking.TaskLog;
 import org.mindtrails.persistence.ParticipantRepository;
 import org.mindtrails.service.ParticipantService;
@@ -57,6 +58,14 @@ public class R34ParticipantService extends ParticipantServiceImpl implements Par
         p.setStudy(study);
 
         return p;
+    }
+
+    @Override
+    public List<Study> getStudies() {
+        List<Study> studies = new ArrayList<>();
+        studies.add(new R34Study(R34Study.NAME.PRE.toString(), 0, null, new ArrayList<TaskLog>(), this.receiveGiftCards()));
+        studies.add(new R34NeutralStudy(R34Study.NAME.PRE.toString(), 0, null, new ArrayList<TaskLog>(), this.receiveGiftCards()));
+        return studies;
     }
 
     @Override

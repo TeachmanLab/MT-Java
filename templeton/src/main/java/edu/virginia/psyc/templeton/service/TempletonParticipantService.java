@@ -4,6 +4,7 @@ import edu.virginia.psyc.templeton.domain.TempletonStudy;
 import edu.virginia.psyc.templeton.persistence.ExpectancyBias;
 import edu.virginia.psyc.templeton.persistence.ExpectancyBiasRepository;
 import org.mindtrails.domain.Participant;
+import org.mindtrails.domain.Study;
 import org.mindtrails.persistence.ParticipantRepository;
 import org.mindtrails.service.ParticipantService;
 import org.mindtrails.service.ParticipantServiceImpl;
@@ -11,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Largely a wrapper around the Participant Repository.  Allows us to
@@ -55,6 +53,13 @@ public class TempletonParticipantService extends ParticipantServiceImpl implemen
         }
 
         return p;
+    }
+
+    @Override
+    public List<Study> getStudies() {
+        List<Study> studies = new ArrayList<>();
+        studies.add(new TempletonStudy());
+        return studies;
     }
 
 

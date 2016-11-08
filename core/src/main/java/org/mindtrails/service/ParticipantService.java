@@ -1,9 +1,11 @@
 package org.mindtrails.service;
 
 import org.mindtrails.domain.Participant;
+import org.mindtrails.domain.Study;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.util.List;
 
 /**
  * Provides a means to create and save participants in custom ways.
@@ -15,6 +17,11 @@ public interface ParticipantService {
      * Participant.  Be certain it set's the participants Study!
      */
     Participant create();
+
+    /**
+     * Returns a list of Possible Studies this service would assign a Participant.
+     */
+    List<Study> getStudies();
 
     /** Returns a participant associated with given spring security
      * model.

@@ -1,6 +1,7 @@
 package org.mindtrails.MockClasses;
 
 import org.mindtrails.domain.Participant;
+import org.mindtrails.domain.Study;
 import org.mindtrails.persistence.ParticipantRepository;
 import org.mindtrails.service.ParticipantService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Largely a wrapper around the Participant Repository.  Allows us to
@@ -25,6 +28,13 @@ public class TestParticipantService implements ParticipantService {
         Participant p = new Participant();
         p.setStudy(new TestStudy());
         return p;
+    }
+
+    @Override
+    public List<Study> getStudies() {
+        List<Study> studies = new ArrayList<>();
+        studies.add(new TestStudy());
+        return studies;
     }
 
     @Override
