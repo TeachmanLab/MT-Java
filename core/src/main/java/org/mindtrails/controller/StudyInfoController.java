@@ -1,6 +1,10 @@
 package org.mindtrails.controller;
 
-import org.mindtrails.domain.StudyInfo;
+import org.mindtrails.domain.DoNotDelete;
+import org.mindtrails.domain.StudyInformation.SessionInfo;
+import org.mindtrails.domain.StudyInformation.StudyInfo;
+import org.mindtrails.domain.StudyInformation.TaskInfo;
+import org.mindtrails.service.ExportService;
 import org.mindtrails.service.ParticipantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,17 +25,40 @@ public class StudyInfoController {
 
     private ParticipantService participantService;
 
+    private ExportService exportService;
+
     @Autowired
-    public StudyInfoController(ParticipantService service) {
-        this.participantService = service;
+    public StudyInfoController(ParticipantService participantService, ExportService exportService) {
+        this.participantService = participantService;
+        this.exportService = exportService;
     }
 
     @RequestMapping(method= RequestMethod.GET)
     public @ResponseBody List<StudyInfo> getStudies() {
         List<StudyInfo> studyInfos =
             participantService.getStudies().stream().map(s -> new StudyInfo(s)).collect(Collectors.toList());
+        updateDeleteableFlag(studyInfos);
         return (studyInfos);
     }
 
+    /**
+     * Churns through the list of studys and checks for a deletable flag on all the tasks.
+     * @param studyInfos
+     */
+    private void updateDeleteableFlag(List<StudyInfo> studyInfos) {
+        for (StudyInfo s : studyInfos) {
+            for (SessionInfo si : s.getSessions()) {
+                for (TaskInfo taskInfo : si.getTasks()) {
+                    taskInfo.setDeleteable(true);
+                    Class<?> domainType = exportService.getDomainType(taskInfo.getName());
+                    if (domainType != null) {
+                        if (domainType.isAnnotationPresent(DoNotDelete.class)) {
+                            taskInfo.setDeleteable(false);
+                        }
+                    }
+                }
+            }
+        }
+    }
 
 }

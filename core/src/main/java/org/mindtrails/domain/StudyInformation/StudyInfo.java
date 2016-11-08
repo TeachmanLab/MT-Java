@@ -1,6 +1,7 @@
-package org.mindtrails.domain;
+package org.mindtrails.domain.StudyInformation;
 
 import lombok.Data;
+import org.mindtrails.domain.Study;
 import org.springframework.beans.BeanUtils;
 
 import java.util.ArrayList;
@@ -26,30 +27,3 @@ public class StudyInfo {
     }
 }
 
-@Data
-class SessionInfo {
-    private String name;
-    private String displayName;
-    private List <TaskInfo> tasks = new ArrayList<>();
-
-    public SessionInfo() {}
-
-    public SessionInfo(Session session) {
-        BeanUtils.copyProperties(session, this);
-        this.setTasks(session.getTasks().stream().map(task -> new TaskInfo(task)).collect(Collectors.toList()));
-    }
-}
-
-@Data
-class TaskInfo {
-    private String name;
-    private String displayName;
-    private Task.TYPE type;
-    private int duration;
-
-    public TaskInfo() {}
-
-    public TaskInfo(Task task) {
-        BeanUtils.copyProperties(task, this);
-    }
-}
