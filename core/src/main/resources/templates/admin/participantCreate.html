@@ -68,6 +68,11 @@
                             <td><input type="checkbox" th:field="*{over18}"/></td>
                             <td  class="error" th:if="${#fields.hasErrors('over18')}" th:errors="*{over18}">Admin Error</td>
                         </tr>
+                        <tr>
+                            <td>Is Test:</td>
+                            <td><input type="checkbox" th:field="*{isTest}"/></td>
+                            <td  class="error" th:if="${#fields.hasErrors('isTest')}" th:errors="*{isTest}">Admin Error</td>
+                        </tr>
                     </table>
                     <button type="submit">Submit</button>
                 </form>

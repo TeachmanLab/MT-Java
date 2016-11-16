@@ -24,6 +24,7 @@ public class ParticipantCreateAdmin extends ParticipantUpdate {
     private boolean over18;
     private boolean admin;
     private boolean active = true;
+    private boolean isTest = false;
 
     @NotNull
     @Pattern(regexp=PASSWORD_REGEX, message = PASSWORD_MESSAGE)
@@ -72,6 +73,7 @@ public class ParticipantCreateAdmin extends ParticipantUpdate {
         this.setOver18(p.isOver18());
         this.setActive(p.isActive());
         this.setAdmin(p.isAdmin());
+        this.setTest(p.isTest());
     }
 
     @Override
@@ -81,6 +83,7 @@ public class ParticipantCreateAdmin extends ParticipantUpdate {
         p.setOver18(over18);
         p.setActive(active);
         p.setAdmin(admin);
+        p.setTest(isTest);
         return(p);
     }
 

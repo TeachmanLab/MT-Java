@@ -24,11 +24,14 @@ public class ParticipantUpdate {
 
     protected String theme;
 
+    protected boolean isTest = false;
+
     public void fromParticipant(Participant p) {
         this.email = p.getEmail();
         this.fullName = p.getFullName();
         this.emailOptout = p.isEmailOptout();
         this.theme = p.getTheme();
+        this.isTest = p.isTest();
     }
 
     public Participant toParticipant() {
@@ -40,6 +43,7 @@ public class ParticipantUpdate {
         p.setFullName(this.getFullName());
         p.setEmail(this.getEmail());
         p.setEmailOptout(this.isEmailOptout());
+        p.setTest(this.isTest);
         if(this.theme != null) p.setTheme(this.getTheme());
         return p;
     }
