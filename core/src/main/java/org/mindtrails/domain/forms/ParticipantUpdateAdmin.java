@@ -11,7 +11,7 @@ public class ParticipantUpdateAdmin extends ParticipantUpdate {
 
     private boolean active;  // User required to receive no more emails.
     private boolean admin;  // User required to receive no more emails.
-    private boolean isTest;
+    private boolean test;
     public ParticipantUpdateAdmin() {}
 
     public ParticipantUpdateAdmin(Participant p) {
@@ -23,7 +23,7 @@ public class ParticipantUpdateAdmin extends ParticipantUpdate {
         super.fromParticipant(p);
         this.active = p.isActive();
         this.admin = p.isAdmin();
-        this.isTest = p.isTest();
+        this.test = p.isTest();
     }
 
     @Override

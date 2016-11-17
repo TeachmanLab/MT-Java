@@ -46,7 +46,7 @@ public  class Participant implements UserDetails {
     protected boolean over18;
     protected String reference; // The site the user came from when creating their account
     protected boolean receiveGiftCards;
-    protected boolean isTest;
+    protected boolean test;
 
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -85,8 +85,8 @@ public  class Participant implements UserDetails {
     }
 
     public boolean testJudge(String emailName) {
-        isTest = emailName.contains("test") || emailName.contains("Test") || emailName.contains("TEST");
-        return isTest;
+        test = emailName.contains("test") || emailName.contains("Test") || emailName.contains("TEST");
+        return test;
     }
 
 
