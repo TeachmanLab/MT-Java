@@ -47,7 +47,7 @@
                     add_extra_missing_letter: /*[[${addMissingLetter}]]*/ true,
                     frag:  /*[[${fragment}]]*/ "first",
                     quest: /*[[${question}]]*/ "mc1",
-                    sequence: processCSV(results.data)
+                    sequence: processCSV(results.data, piGlobal.cbmCondition)
                 };
 
                 piGlobal.sequence = scriptData;

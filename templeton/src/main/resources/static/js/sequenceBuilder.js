@@ -67,7 +67,11 @@ function getAnswer(str)
     { return 'n' }
 }
 
-function processCSV(scenarios) {
+function processCSV(scenarios, condition) {
+    if (condition == 'FIFTY_FIFTY_BLOCKED')
+    {
+        console.log('NO');
+    }
     var merged = [].concat.apply([], scenarios);
     var merged =  shuffle(merged);
     var remake = [];

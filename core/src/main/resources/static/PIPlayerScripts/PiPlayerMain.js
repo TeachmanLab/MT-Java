@@ -36,6 +36,7 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
     var already_wrong_c = false;
     var scorer = {  count: 1, ct_s: 0, ct_c: 0};
     var on_question = false;
+    var count_block = 1;
 
 
     var pct_ct_s = 0;
@@ -96,7 +97,6 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
         var p = jQuery.grep(trial._stimulus_collection.models, function (e, i) {
             return e.attributes.handle == "paragraph"
         })[0];
-        console.log(API.getGlobal());
         if (Sequence.frag == 'first'){
             p.attributes.data.negativeKey = p.attributes.data.negativeKey[0];
             p.attributes.data.negativeWord = p.attributes.data.negativeWord[0];
@@ -130,11 +130,11 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
             sentence.text(sentence.text().replace("[stimulus]", p.attributes.data.positiveWord));
             return p.attributes.data.positiveWord;
         }
-        else
-        {
+        else {
             sentence.text(sentence.text().replace("[stimulus]", p.attributes.data.negativeWord));
             return p.attributes.data.negativeWord;
         }
+
     }
 
     /**
@@ -805,7 +805,7 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
      * true, and one false, it will be a 50/50 split.  If it is 3 true, and 1 false
      * if would then be a 75% positive, 25% negative split.
      */
-    if (API.getGlobal()["cbmCondition"] == "FIFTY_FIFTY") {
+    if (API.getGlobal()["cbmCondition"] == "FIFTY_FIFTY" | API.getGlobal()["cbmCondition"] == "FIFTY_FIFTY_BLOCKED) {
         API.addTrialSets('posneg', [
             {inherit: 'base', data: {positive: true}},
             {inherit: 'base', data: {positive: false}}

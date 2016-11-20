@@ -37,6 +37,7 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
     var already_wrong_c = false;
     var scorer = {  count: 1, ct_s: 0, ct_c: 0};
     var on_question = false;
+    var count_block = 1;
 
 
     var pct_ct_s = 0;
@@ -47,6 +48,7 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
 
     var last_word = ""; // The word with missing letters in it.
     var letters = ""; // The letters that are missing
+
 
     function increase_count() {
         scorer.count = scorer.count + 1;
@@ -93,12 +95,10 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
     function chooseWords(trial)
     {
         if(API.getGlobal().state != STATE_RESET) return false;
-
         // Get the value of negate.
         var p = jQuery.grep(trial._stimulus_collection.models, function (e, i) {
             return e.attributes.handle == "paragraph"
         })[0];
-        console.log(API.getGlobal());
         if (Sequence.frag == 'first'){
             p.attributes.data.negativeKey = p.attributes.data.negativeKey[0];
             p.attributes.data.negativeWord = p.attributes.data.negativeWord[0];
@@ -127,16 +127,33 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
         var p = jQuery.grep(trial._stimulus_collection.models, function (e, i) {
             return e.attributes.handle == "paragraph"
         })[0];
-        if (p.trial.data.positive)
+
+        console.log('OH HI');
+        console.log(p.trial.data);
+
+        if (API.getGlobal()["cbmCondition"] == "FIFTY_FIFTY_BLOCKED")
         {
+            if (count_block % 11 <= 5)
+            {
+                p.trial.data.positive = true;
+            }
+            else if (count_block % 11 >= 6)
+            {
+                p.trial.data.positive = false;
+            }
+
+            count_block += 1;
+        }
+
+        if (p.trial.data.positive) {
             sentence.text(sentence.text().replace("[stimulus]", p.attributes.data.positiveWord));
             return p.attributes.data.positiveWord;
         }
-        else
-        {
+        else {
             sentence.text(sentence.text().replace("[stimulus]", p.attributes.data.negativeWord));
             return p.attributes.data.negativeWord;
         }
+
     }
 
     /**
@@ -249,7 +266,7 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
     }
 
     /** Counterpart to the correct_answer, checks to see if the wrong input is provided
-     * taking the condition of positive, neutral, or negative into account.
+ * taking the condition of positive, neutral, or neg                                                    ative into account.
      * Also now first checks to see which type of question you are on.
      */
     function incorrect_answer(trial, inputData) {
@@ -534,7 +551,7 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
                         break_up[where_at].visible();
                         where_at += 1;
                         if(where_at >= break_up.length) {
-                            console.log("Last sentence is visible, moving on.");
+                            console.log("Last sentence is visible, moving on?.");
                             API.getGlobal().state = STATE_FILL_LETTERS;
                             if (Sequence.add_extra_missing_letter)
                             {
