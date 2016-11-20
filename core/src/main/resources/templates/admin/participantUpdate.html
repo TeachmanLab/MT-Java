@@ -50,6 +50,11 @@
                             <td><input type="hidden" th:field="*{admin}"/><span th:if="*{admin}">True</span></td>
                             <td th:if="${#fields.hasErrors('admin')}" th:errors="*{admin}">Admin Error</td>
                         </tr>
+                        <tr>
+                            <td>Is Test:</td>
+                            <td><input type="checkbox" th:field="*{test}"/></td>
+                            <td th:if="${#fields.hasErrors('test')}" th:errors="*{test}">IsTest Error</td>
+                        </tr>
                     </table>
                     <button type="submit">Submit</button>
                     <button type="button" onclick="location.href='/admin/participant/giftCard'">Send Gift Card</button>

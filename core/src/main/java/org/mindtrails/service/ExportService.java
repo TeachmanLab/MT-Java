@@ -2,6 +2,7 @@ package org.mindtrails.service;
 
 import org.mindtrails.domain.DoNotDelete;
 import org.mindtrails.domain.Exportable;
+import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.questionnaire.QuestionnaireInfo;
 import org.mindtrails.domain.tracking.ExportLog;
 import org.mindtrails.persistence.ExportLogRepository;
@@ -129,6 +130,7 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
             if(domainType.isAnnotationPresent(Exportable.class)) {
                 deleteableFlag = !domainType.isAnnotationPresent(DoNotDelete.class);
                 JpaRepository rep = (JpaRepository)repository;
+                Participant p = new Participant();
                 QuestionnaireInfo info = new QuestionnaireInfo(domainType.getSimpleName(), rep.count(), deleteableFlag);
                 names.add(info);
             }

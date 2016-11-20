@@ -20,7 +20,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableAutoConfiguration  // Automatically configure everything ala Spring Boot
 @EntityScan(basePackages = {"edu.virginia.psyc.r34", "org.mindtrails"}) // So we can find the other entities in the core controller.
 @EnableScheduling
-public class Application {
+public class
+Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
