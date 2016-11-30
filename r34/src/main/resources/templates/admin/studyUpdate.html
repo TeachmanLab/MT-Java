@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="fragment/common :: headerFragment"/>
+<body>
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
+
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+
+        <h1>Alter Study Settings for <span th:text="${participant.getFullName()}"/></h1>
+
+        <form action="#" th:action="@{'/admin/study/'+${participant.id}}"
+              th:object="${r34StudyForm}" method="post">
+            <table>
+                <tr>
+                    <td>Prime:</td>
+                    <td>
+                        <select name="prime" th:field="*{prime}">
+                            <option th:each="elem: ${T(edu.virginia.psyc.r34.domain.R34Study.PRIME).values()}"
+                                   th:value="${elem.name()}" th:text="${elem.name()}" value="BAZ">BAZ
+                            </option>
+                        </select>
+                    </td>
+                    <td th:if="${#fields.hasErrors('prime')}" th:errors="*{admin}">Admin Error</td>
+                </tr>
+                <tr>
+                    <td>CDM Condition:</td>
+                    <td>
+                        <select name="condition" th:field="*{condition}">
+                            <option th:each="elem: ${T(edu.virginia.psyc.r34.domain.R34Study.CONDITION).values()}"
+                                    th:value="${elem.name()}" th:text="${elem.name()}" value="BAZ">BAZ
+                            </option>
+                        </select>
+                    </td>
+                    <td th:if="${#fields.hasErrors('condition')}" th:errors="*{admin}">Admin Error</td>
+                </tr>
+1            </table>Participant
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+            </div>
+        </div>
+    </section>
+
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+<div th:include="fragment/common :: scripts" />
+
+
+</body>
+</html>

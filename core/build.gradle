@@ -1,0 +1,31 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url "http://repo.spring.io/libs-snapshot" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:$project.ext.springBootVersion")
+    }
+}
+apply plugin: 'spring-boot'
+
+description = 'MindTrails Core Library'
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+    compile("org.thymeleaf.extras:thymeleaf-extras-springsecurity4")
+    compile("org.mindrot:jbcrypt:0.3m")
+    compile("commons-codec:commons-codec:1.10")
+    compile('org.apache.commons:commons-lang3:3.4')  // Lots of useful code, used for random number generation.
+    // Tests
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+    testCompile('com.jayway.jsonpath:json-path:0.9.1')
+    testCompile('com.jayway.jsonpath:json-path-assert:0.9.1')
+    testCompile("org.subethamail:subethasmtp:3.1.7") // Testing Email messages
+    testCompile(group: 'com.icegreen', name: 'greenmail', version: '1.5.0')
+
+    runtime("mysql:mysql-connector-java")
+
+}

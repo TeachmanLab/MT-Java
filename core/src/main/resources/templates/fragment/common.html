@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en">
+<!--<![endif]-->
+<head id="headerFragment" th:fragment="headerFragment">
+    <meta charset="utf-8"/>
+    <meta name="description" content="Mind Trails - A Project Implicit Study" />
+    <meta name="keywords" content="virginia psychology implicit mind trails"/>
+    <meta name="author" content="virginia.edu" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <title>Mind Trails</title>
+
+    <!--style sheet-->
+    <link rel="stylesheet" media="screen" th:href="@{/css/styles.css}" />
+
+</head>
+<body >
+<section id="header" class="clearfix" th:fragment="topFragment" >
+    <div class="container">
+        <!--logo starts-->
+        <div class="span4 logo"><a th:href="@{/}"></a></div>
+        <!--logo ends-->
+
+        <div class="span8 clearfix">
+            <!--menu starts-->
+                <ul id="nav">
+                    <li th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}"><a th:href="@{/session}">HOME</a></li>
+                    <li><a th:href="@{/public/about}">ABOUT</a></li>
+                    <li><a th:href="@{/public/faq}">FAQ</a></li>
+                </ul>
+            <!--menu ends-->
+        </div>
+    </div>
+
+    <div class="account-bar" th:unless="${visiting}">
+        <div class="container" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
+            <span th:if="${participant}" class="item">Logged in as ( <span th:text="${participant.fullName}"/> )</span> |<a th:href="@{/session/overview}">My Progress</a> | <a
+                th:href="@{/account}">Account Settings</a> | <a href="/logout">Logout</a>
+        </div>
+        <div class="container login" th:unless="${#authorization.expression('hasRole(''ROLE_USER'')')}">
+            Already Participating?
+            <a th:href="@{/login}"><button>Log In</button></a>
+        </div>
+    </div>
+    <div class="clear-both"></div>
+
+</section>
+<!-- header ends
+================================================== -->
+
+<!-- header-btm starts
+================================================== -->
+<section id="header-btm" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <h2 class="page-title heading-icon clearfix"> <img th:src="@{/images/map-arrow-orange.png}" width="40" height="40" alt="icon" class="icon-small-bg"/><br/>Welcome!</h2>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- header-btm ends
+================================================== -->
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+    <div class="container">
+
+
+        <!--spacer here-->
+        <div class="spacer-30px"></div>
+
+        <!--features starts-->
+        <div class="row">
+            <div class="span12">
+                <h1>This is a Template:</h1>
+                <ul class="list-3col">
+                    <li>
+                        <h4>Welcome</h4>
+                        <p>Please see home.html for an example of how to grab poritions of this template to use within a page.</p></li>
+                </ul>
+            </div>
+        </div>
+        <!--features ends-->
+
+        <!--divider here-->
+        <div class="spacer-40px"></div>
+
+
+        <!--spacer here-->
+        <div class="spacer-30px"></div>
+
+        <!--box starts-->
+        <div class="row">
+            <div class="span12">
+                <div class="dark-box">
+                    <h1>And that's it <span class="color">folks</span>! </h1>
+                    <p>but I hope to have more to show soon.</p>
+                </div>
+            </div>
+        </div>
+        <!--box ends-->
+
+    </div>
+</section>
+
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:fragment="footerFragment">
+    <div class="container">
+
+        <!--row starts-->
+        <div class="row">
+
+
+            <!--column one starts-->
+            <div class="footer-logo">
+                <img th:src="@{/images/pimh.png}" alt="Project Implicit Mental Health" />
+            </div>
+
+            <!--column three starts-->
+            <ul class="footer-links">
+                <li><a th:href="@{/public/disclaimer}">Terms and Conditions</a></li>
+                <li><a th:href="@{/public/privacy}">Privacy Policy</a></li>
+                <li><a href="https://implicit.harvard.edu/implicit/user/pimh/index.jsp">Project Implicit Mental
+                    Health</a></li>
+            </ul>
+
+            <div class="clear-both"></div>
+        </div>
+
+    </div>
+
+    <!--column two starts-->
+    <div class="adminTools" sec:authorize="hasRole('ROLE_ADMIN')">
+        <h5>Administration Tools</h5>
+
+        <p>This section is only visible to you because you have been granted administrative access.</p>
+        <ul class="list-info">
+            <li><a th:href="@{/admin}">User Administration</a>: provides a way to view all accounts created on the system.
+            </li>
+            <li><a th:href="@{/admin/listEmails}">Email Messages</a>: allows you to send yourself a copy of all email messages
+                coming from the system.
+            </li>
+            <li><a th:href="@{/admin/listSessions}">Sessions</a>: allows you to view all available sessions, and jump into any
+                content within a session.
+            </li>
+            <li><a th:href="@{/admin/tango}">Gift Cards Account</a>: allows you to check information about the gift card
+                account for your study.
+            </li>
+            <li><a th:href="@{/admin/export}">Export</a>: allows you to export questionnaire data.
+            </li>
+        </ul>
+    </div>
+    <div class="copyright">&copy; Copyright 2016 &bull; All rights reserved</div>
+</footer>
+
+</body>
+</html>

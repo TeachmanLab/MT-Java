@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1" />
+
+        <link type="text/css" rel="Stylesheet" th:href="@{/bower/PIPlayer/dist/css/main.css}"/>
+        <link rel="stylesheet" media="screen" th:href="@{/css/mindtrails.css}" />
+
+		<script th:src="@{/bower/PIPlayer/bower_components/requirejs/require.js}"></script>
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            var scriptName = /*[[${script}]]*/ int_train.js;
+            var scriptFile = "/PIPlayerScripts/" + scriptName + ".js";
+
+            var piGlobal = { // create the global object
+                script : /*[[${script}]]*/ int_train.js,
+                session : /*[[${sessionName}]]*/ PRE,
+                participant : /*[[${participantId}]]*/ 1,
+                cbmCondition : /*[[${condition}]]*/ "FITFY_FIFTY",
+                negate : true,
+                multipleChoice : true
+            }
+
+            require(['/bower/PIPlayer/dist/js/config.js'], function() {
+                require(['activatePIP',"/PIPlayerScripts/PiPlayerMain.js", scriptFile], function(activatePIP, script, sequence) {
+                    activatePIP(script);
+                })
+                });
+            /*]]>*/
+        </script>
+	</head>
+	<body>
+        <div class="piPlayerHeader">
+            <img th:src="@{/images/header-minimal.png}"/>
+        </div>
+	</body>
+</html>

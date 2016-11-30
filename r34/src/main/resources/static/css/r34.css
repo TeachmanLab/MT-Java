@@ -1,0 +1,581 @@
+@charset "UTF-8";
+/* CSS Document */
+
+* {box-sizing:border-box;}
+
+body {font-family: 'Source Sans Pro', sans-serif; font-size:20px; box-sizing:border-box; background-color: #f6f5ea}
+.clear-both {clear:both;}
+
+p, ul {margin-bottom: 25px;}
+
+h3 { font-size:100%; font-weight: 700 }
+.longSection h3 {font-size:92%;  color:#3399FF}
+
+.fineprint p { font-size: 75%; margin: 0 }
+
+
+
+button.jw-button-finish:disabled {
+    color: #bbb;
+}
+
+button.jw-button-finish:disabled span.ui-icon-circle-check {
+    display: none;
+}
+
+#header {background:url(/images/bg-header.png) top left repeat-x; }
+.logo {
+    background:url(/images/header-logo.png) top left no-repeat;
+    width:365px; height:135px; float:left;
+    margin-left:-35px; margin-right: 150px;}
+.logo a {height:135px; width:365px; display:block;}
+
+
+
+.heading-icon {margin-top:-10px; }
+
+em {font-style: normal; color:#5ECCDE; font-weight: 800;}
+
+
+ul.errors {
+}
+
+td.error {
+    font-size: .8em;
+    color: darkred;
+    max-width: 500px;
+    padding-left: 10px;
+}
+
+li.alert {
+    margin: 0px;
+    padding: 0px;
+    color: darkred;
+}
+
+.user-theme-orange .footer-links a { color:#F99A65;}
+.user-theme-green .footer-links a { color:#99C38D; }
+.user-theme-purple .footer-links a { color:#D4A4CA; }
+.user-theme-gold .footer-links a { color:#F1C657;}
+
+h2 {font-size:1.45em; color:#00ACE4; font-weight:bold }
+.user-theme-orange h2 { color:#F77D38;}
+.user-theme-green h2 { color:#77B46D; }
+.user-theme-purple h2 { color:#C98ABB; }
+.user-theme-gold h2 { olor:#ECB800; }
+
+
+
+.copyright {width:100%; padding:15px; text-align:center; background:#FFFFFF; color:#0070a3}
+
+/**
+  Mainly used for all-in-one forms, such as the login form, reset password, etc...
+**/
+div.longSection, div.sessionSection, div.sessionOverview {
+    margin: 40px auto;
+    padding: 20px 20px 20px 20px;
+    max-width: 900px;
+    border-radius: 15px;
+    border: 1px solid #BBB;
+    background: #FFF;
+}
+
+/**
+  For the main landing page for participants
+**/
+div.sessionSection{  padding: 20px 0px; align-content: center text-align: center;}
+div.sessionSection .col-md-4 { padding: 0 0 0 100px; }
+div.sessionSection .col-md-8 { padding: 0 100px 0 100px; }
+
+div.sessionSection p {
+    text-align: center;
+}
+
+div.sessionSection div.sessionHeader {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    background: #00ACE4;
+    margin: -20px 0 0 0;
+    padding: 10px 40px;
+    color: #FFF;
+    min-height: 180px;
+}
+div.sessionSection div.sessionHeader h2 {
+    color: #FFF;
+    font-weight: bold;
+    text-align: center;
+    max-width: 600px;
+    margin: 20px 100px 20px 300px;
+}
+
+
+div.sessionSection img.sessionImage {
+    float:left;
+    padding-left: 50px;
+}
+
+div.sessionSection p.detour {
+    margin: 0px;
+    min-height: 80px;
+    border-top: 1px solid #5f5f5f;
+    padding: 10px 75px 10px 75px;
+    font-size: .9em;
+    text-align: left;
+}
+div.sessionSection p.detour img {
+    float: left;
+    padding: 0px 20px;
+}
+
+.reminder {
+  font-size: .55em;
+  text-align: left;
+  margin: 0px;
+  padding: 10px 75px 10px 75px;
+
+}
+
+div.sessionSection div.nextGift img, div.sessionSection div.giftAwarded img {
+    float: left;
+    padding: 0px 20px;
+}
+
+
+div.sessionSection div.nextGift {
+    margin: 0px;
+    border-top: 1px solid #DDD;
+    padding: 10px 75px 10px 75px;
+    font-size: .9em;
+    text-align: left;
+}
+
+div.sessionSection div.giftAwarded {
+    border-top: none;
+    border-bottom: 1px solid #5f5f5f;
+    text-align: left;
+    padding: 20px 100px 20px 150px;
+}
+
+div.sessionSection div.giftAwarded div.message {
+    padding-left: 100px;
+}
+
+
+
+
+/**
+Session Home / Status Page
+**/
+div.session {text-align: center}
+div.session p { font-size: 1.16em; }
+div.session p.session-note {
+    border-top: 2px solid #5f5f5f;
+    width:100%;
+    padding: 30px 0 0 0;
+    margin: 20px 0 0 0;
+    font-size: 1em;
+}
+div.session .date { color:#00ACE4; font-weight: 600 }
+
+
+/**
+Account Theme Section
+**/
+
+
+
+label {
+    font-weight: 400;
+    border-radius: 7px;
+    padding:2px;
+}
+
+label.standard {
+    font-weight: 600;
+    width: 180px;
+    text-align: right;
+}
+
+div#g-recaptcha {
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+
+.user-theme-blue label:hover { background-color: #00ACE4; color: #000;}
+.user-theme-orange label:hover { background-color: #F77D38;  color: #000;}
+.user-theme-green label:hover { background-color: #77B46D;  color: #000;}
+.user-theme-purple label:hover { background-color: #C98ABB; color: #000; }
+.user-theme-gold label:hover { background-color: #ECB800;  color: #000;}
+
+
+
+
+
+div.adminTools {
+/*    background-color: #fff; */
+    font-size: 1.2em;
+}
+
+span.form-note {
+    display: block;
+    margin-left: 170px;
+    font-style: italic;
+}
+
+
+/**
+Questionnaires
+**/
+
+table.questionnaire {
+    width:100%;
+    font-size: 75%;
+    margin: 10px auto;
+}
+
+table.questionnaire th {
+    font-weight: 400;
+    text-align: center;
+    width: 120px;
+    background-color: #ddd;
+}
+
+table.questionnaire td {
+  text-align: center;
+}
+
+
+table.questionnaire td.statement,table.questionnaire td.statementLong {
+    text-align: left;
+    min-width: 200px;
+    padding-bottom: 20px;
+    padding-left: 5px;
+}
+
+table.questionnaire td.statementLong {
+    min-width: 300px;
+}
+
+
+table.questionnaire td:last-child {
+    border-left: 1px solid #ddd;
+}
+
+
+.section-H > label, .scale > label {
+    width: 18%;
+    max-width: 170px;
+    font-weight: 400;
+    vertical-align: middle;
+    color: #5f5f5f;
+}
+
+.section-V > label {
+    width: 90%;
+
+    font-weight: 400;
+    vertical-align: middle;
+    color: #5f5f5f;
+}
+
+.section > label.six, .scale > label.six {
+    width: 15%;
+}
+
+
+td > label {
+    width: 90%;
+    max-width: 170px;
+    height: 65px;
+    font-weight: 400;
+    vertical-align: middle;
+    color: #5f5f5f;
+}
+
+input.radioBox {
+    cursor: pointer;
+}
+
+label.radioBox {
+    padding: 5px;
+    margin: 5px 0 10px 5px;
+    background-color: #eee;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+input[type="radio"]:checked + label {
+    background-color:#bbb;
+}
+
+label.radioBox::selection {
+    background-color: greenyellow;
+}
+
+label.radioBox5 {
+    min-width: 18%;
+    width: 18%;
+}
+
+label.radioBox7 {
+    min-width: 13%;
+    width: 13%;
+}
+
+div.section label.radioBox7 div.desc1, div.section label.radioBox5 div.desc1{
+    width: 100%;
+    text-align: center;
+}
+
+label.radioBox div.option div.desc2 {
+    height: 15px;
+}
+
+div.radioList {
+    padding:0;
+    margin:0;
+    border-right: solid 2px #bbb;
+    width: 550px
+}
+
+div.radioList > ul {
+    list-style-type: none;
+}
+
+label.radioList {
+    cursor: pointer;
+    text-indent: -25px;
+    font-size: 85%;
+    margin: 0 0 0 20px;
+    padding: 0px 0px 0px 25px;
+    display: block;
+    width:70%;
+    max-width: 100%;
+}
+
+label.radioList:hover { background-color: #00ACE4;  color: #000;}
+.user-theme-orange label.radioList:hover { background-color: #F77D38;  color: #000;}
+.user-theme-green label.radioList:hover { background-color: #77B46D;  color: #000;}
+.user-theme-purple label.radioList:hover { background-color: #C98ABB;  color: #000;}
+.user-theme-gold label.radioList:hover { background-color: #ECB800;  color: #000;}
+
+
+label.radioList input[type="radio"], label.radioList input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+div.listNoAnswer {
+    width: 150px;
+    margin: 20px;
+    text-align: center;
+    font-size: .8em;
+}
+
+label.radioListNoAnswer {
+    position: absolute;
+    height: 75%;
+    width: 20%;
+    right:0;
+    font-size: 85%;
+    display: block;
+    padding: 15px;
+    border-left: 1px solid #BBB;
+    text-align: center;
+}
+
+div.oneToSeven {
+    display: none;
+    font-size: .7em;
+    margin-left: 40px;
+     }
+
+
+label.radioList b {
+    font-weight: 600;
+}
+
+label label.error {
+    padding: 0px 10px 0px 24px;
+    color: darkred;
+}
+
+input[type="number"] {
+    width: 60px;
+    margin-left: 10px;
+}
+
+div.wide {
+    width:900px;
+}
+
+div.section, div.sectionLong, div.scale, form#wizard{
+    position: relative;
+    margin: 50px auto;
+    padding: 0px;
+    border-radius: 15px;
+    border: 1px solid #bbb;
+    background: #FFF;
+    font-weight:400;
+    max-width: 900px;
+}
+
+
+
+div.scale .title {
+    background-color:#00ACE4;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    font-size:92%;
+    color: #fff;
+    padding: 5px 0 5px 0;
+}
+
+div.scale div.option, div.scale div.optionLast {
+    font-weight:600;
+}
+
+div.option, div.optionLast {
+    font-size: 75%;
+   align-content: center;
+    text-align: center;
+    line-height: 1.1em;
+}
+
+div.option, div.optionLast {
+    font-weight: 400;
+}
+
+div.divider {
+    vertical-align: middle;
+    display: inline-block;
+    width: 2px;
+    height: 100px;
+    background: #ccc;
+    margin: 0 5px;
+}
+
+input[type="radio"] {
+    margin: 10px auto;
+    width: auto;
+    height: auto;
+    border: none;
+}
+
+div.optionLast {
+    border-right: solid 2px #bbb;
+}
+
+div.section div.desc1, div.scale div.desc1 {
+    height: 40px;
+    margin: auto;
+}
+
+
+div.scale div.desc1 {
+    height: 50px;
+}
+
+div.scale div.desc2 {
+    font-weight: 700;
+}
+
+div.desc {
+    height: 70px;
+}
+
+div.question {
+    font-size: 92%;
+    padding: 5px 0 10px 15px;
+    font-weight: 600;
+}
+
+div.section select {
+    margin: 0 0 10px 20px;
+}
+
+div#submit, div.submit {
+    margin: 20px auto;
+    width: 100%;
+    padding: 0;
+    text-align: center;
+    align-content: center;
+}
+
+table.daysOfWeek {
+    width: 90%;
+    font-size: 85%;
+    margin: 10px auto;
+    padding-left: 10px;
+}
+
+table.daysOfWeek td {
+    width: 40px;
+}
+
+table.daysOfWeek th {
+    width: 40px;
+    font-weight: 400;
+    padding-left: 10px;
+}
+
+
+/**
+Wizards
+**/
+form#wizard {
+    margin: 20px 0px;
+    padding: 20px;
+}
+
+#wizard th {
+    text-align: center;
+}
+
+
+#graph {
+    width: 600px;
+    height: 400px;
+    font-size: 14px;
+    line-height: 1.2em;
+    margin: auto;
+}
+
+
+
+/******
+  DIALOG BOXES
+  ***/
+#dialog {
+    display:none;
+}
+
+/******
+  Admin Export Page
+  ***/
+.bigNumber {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+/*************
+   Error Page
+*************/
+.vertical-center {
+    min-height: 70%;  /* Fallback for browsers do NOT support vh unit */
+    min-height: 70vh; /* These two lines are counted as one :-)       */
+
+    display: flex;
+    align-items: center;
+}
+
+
+
+
+
+/*******
+    END OF ORIGINAL CONTENT
+*********/
+
+
+

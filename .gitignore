@@ -8,9 +8,10 @@ PIPlayer
 .settings/
 PIServer.iml
 build/
-src/main/resources/static/bower
+**/bower
 **/.DS_Store
 src/.DS_Store
-src/main/resources/public_key.dir
+_site
+app/src/main/resources/public_key.dir
 dz8t@ws02-s.psyc.virginia.edu
 out

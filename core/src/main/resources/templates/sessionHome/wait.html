@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="fragment/common :: headerFragment"/>
+<body th:class="|user-theme-${participant.theme}|">
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+
+    <div class="container sessionSection" th:if="${session.daysToWait > 2}">
+        <div class="row">
+            <div class="col-md-4">
+                <img th:src="@{/images/map-arrow-orange.png}" alt="icon" class="icon-small-bg"/>
+            </div>
+
+            <div class="col-md-8 session">
+                <h2>Great Job, <span th:text="${participant.fullName}">Jim</span>.<br/>You have completed the <span
+                        th:text="${lastSession.displayName}"/>. </h2>
+                You have completed all the Sessions! We will email you in a few months, when it is time to complete the
+                follow up <span th:if="${participant.receiveGiftCards}">and get your bonus gift card</span>.
+            </div>
+        </div>
+    </div>
+
+    <div class="container sessionSection" th:if="${currentSession.daysToWait &gt; 0 and currentSession.daysToWait &lt; 3}">
+        <div class="sessionHeader">
+            <img class="sessionImage" th:src="|/images/map-${lastSession.index}-${participant.theme}.png|" alt="icon"/>
+
+            <h2>Good work, <span th:text="${participant.fullName}">Jim</span>.<br/>You have completed the <span
+                    th:text="${lastSession.displayName}"/>. </h2>
+        </div>
+
+        <div class="giftAwarded" th:if="${giftAwarded}">
+            <img th:src="@{/images/gift_card_sm.png}"/>
+
+            <div class="message">
+                <em>Congratulations! You have earned a $<span th:text="${giftAmount}"/> gift card.</em><br/>
+                Please check your email for information on how to redeem it.
+                <span th:if="${nextGiftSession}"><b>Your next gift card</b> will be available when you complete <span
+                        th:text="${nextGiftSession.displayName}"/></span>
+            </div>
+        </div>
+
+        <p>UP NEXT: For best results, plan to begin the <span th:text="${currentSession.displayName}"/> between
+            <br/><em th:text="${dateRange}">July 7 - July 10, 2015</em>
+            <br/><a th:href="@{/session/overview}">Program Overview</a>
+        </p>
+
+        <div class="nextGift" th:unless="${giftAwarded}" th:if="${nextGiftSession}">
+            <img th:src="@{/images/gift_card_sm.png}"/>
+            <span>Your next gift card will be available when you complete <span
+                    th:text="${nextGiftSession.displayName}"/></span>
+        </div>
+    </div>
+</section>
+
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>

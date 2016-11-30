@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
+
+<head th:replace="fragment/common :: headerFragment"/>
+<body>
+<section th:replace="fragment/common :: topFragment"/>
+<section th:replace="fragment/common :: titleBar (title='Affect')"/>
+
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10">
+
+                <form th:action="@{/questions/Affect}" method="POST">
+
+
+                    <p> The following questions will ask you about different feelings and emotions.
+                        Read each item and then move the slider to indicate to what extent you feel each emotion <b>right
+                            now </b>, that is, <b>at the present</b> moment.</p>
+
+                    <p> Once you have selected an answer for all of the questions, please click
+                        'Continue'. </p>
+
+                    <div class="section">
+
+                        <div class="question"> To what extent do you feel positive feelings right now, that is, at the
+                            present moment? </div>
+                        <div class="rangeWrapper">
+                            <input  id ="slide2" type="range" name="PosFeelings" required="true" value="0" min="-3" max="3"/>
+                            <p id="slide_text2" class="rangeLabel"> Moderately Positive </p>
+                        </div>
+                        <br/>
+                        <div><label class="standard"> <input type="checkbox" name="PosFeelings" value="555"
+                                                             onchange="disableSection(this)"/> Prefer not
+                            to
+                            answer
+                        </label></div>
+                    </div>
+
+                    <div class="section">
+                        <div class="question"> To what extent do you feel negative feelings right now, that is, at the present moment? </div>
+                        <div class="rangeWrapper">
+                            <input  id="slide3" type="range" name = "NegFeelings" required="true" value="0" min="-3" max="3"/>
+                            <p id="slide_text3" class="rangeLabel"> Moderately Positive </p>
+                        </div>
+                        <br/>
+                        <div><label class="standard"> <input type="checkbox" name="NegFeelings" value="555"
+                                                             onchange="disableSection(this)"/> Prefer not
+                            to
+                            answer
+                        </label></div>
+
+                    </div>
+
+
+                    <div style="text-align:center">
+                        <button type="submit"> Continue</button>
+                    </div>
+
+                </form>
+
+                <script> /*<![CDATA[*/
+                $(document).ready(function(){
+                    setupSlider($("#slide2"), $("#slide_text2"));
+                    setupSlider($("#slide3"), $("#slide_text3"));
+                });
+
+                function setupSlider(slider, text) {
+                    slider.change(function() {
+                        slider = $(this);
+                        value = (slider.val() -1);
+                        text.removeClass('selected');
+                        if(value <= -1) text.text("Not at all Positive");
+                        if(value > -1 && value < 1) text.text("Moderately Positive");
+                        if(value >= 1) text.text("Totally Positive");
+
+                    });
+
+                    slider.bind('click', function(){
+                        label = $(this);
+                        value = label.index();
+                        slider.attr('value', value)
+                                .trigger('change');
+                    });
+                }
+                /*]]>*/
+                </script>
+
+                <style>
+                    input[type="range"] {
+                        width: 100%;
+                    }
+
+                    p.rangeLabel {
+                        font-family: "Arial", sans-serif;
+                        padding: 5px;
+                        margin: 5px 0;
+                        background: #ccc;
+                        font-size: 15px;
+                        line-height: 20px;
+                        text-align: center;
+                    }
+
+                </style>
+
+
+            </div>
+        </div>
+        <!--features ends-->
+
+        <!--divider here-->
+        <div class="spacer-40px"></div>
+
+    </div>
+</section>
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts"/>
+</body>
+</html>

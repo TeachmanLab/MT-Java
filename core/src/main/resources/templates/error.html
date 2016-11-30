@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[i  f IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
+
+<head th:replace="fragment/common :: headerFragment"/>
+<body>
+<section th:replace="fragment/common :: topFragment"/>
+<section th:replace="fragment/common :: titleBar (title='We encountered a problem with your request')"/>
+
+<section id="content" class="clearfix">
+    <div class="container">
+
+        <!--features starts-->
+        <div class="row vertical-center" th:if="${status == 404}">
+            <div class="span12">
+            <h1><span th:text="${status}"/> Not Found.</h1>
+            <p>Sorry, but the page you are looking for is not here. </p>
+            <h2>Please return to the <a th:href="@{/}">main site</a> to continue.</h2>
+            </div>
+        </div>
+
+        <div class="row vertical-center" th:unless="${status == 404}">
+            <div class="span12">
+                <h1>Sorry! There was a problem processing your request.</h1>
+                <p>This was an '<span th:text="${error}"/>'.  <span th:text="${message}"></span></p>
+                <h2>Please return to the <a th:href="@{/}">main site</a> to continue.</h2>
+            </div>
+
+        </div>
+    </div>
+</section>
+<footer th:replace="fragment/common :: footer"/>
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>
