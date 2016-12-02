@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
+
+<head th:replace="fragment/common :: headerFragment"/>
+<body>
+<section th:replace="fragment/common :: topFragment"/>
+<section th:replace="fragment/common :: titleBar (title='Growth Mindset')"/>
+
+
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10">
+
+
+                <form th:action="@{/questions/GrowthMindset}" method="POST">
+
+                    <p> Please answer the following questions about yourself by indicating the extent
+                        of your agreement using the scale below: </p>
+
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="question"> You can learn new things, but you can't really change how you think.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="learn" value="1"
+                                                   required="true"/> Strongly Agree
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="learn" value="2"/> Agree
+                                        true </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="learn" value="3"/>
+                                        Disagree </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="learn" value="4"/> Strongly
+                                        Disagree </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="learn" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not
+                                        to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="question"> You can always change basic things about the kind of person you are.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="basic" value="1"
+                                                   required="true"/> Strongly Agree
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="basic" value="2"/> Agree
+                                        true </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="basic" value="3"/>
+                                        Disagree </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="basic" value="4"/> Strongly
+                                        Disagree </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="basic" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not
+                                        to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="question"> No matter how much you have been thinking a particular way, you can always change it quite a bit.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="particularThinking" value="1"
+                                                   required="true"/> Strongly Agree
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="particularThinking" value="2"/> Agree
+                                        true </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="particularThinking" value="3"/>
+                                        Disagree </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="particularThinking" value="4"/> Strongly
+                                        Disagree </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="particularThinking" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not
+                                        to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="question"> You can do things differently, but the important parts of who you are can't really be changed.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="importantParts" value="1"
+                                                   required="true"/> Strongly Agree
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="importantParts" value="2"/> Agree
+                                        true </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="importantParts" value="3"/>
+                                        Disagree </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="importantParts" value="4"/> Strongly
+                                        Disagree </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="importantParts" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not
+                                        to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="question"> No matter what kind of person you are, you can always change substantially.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="substantially" value="1"
+                                                   required="true"/> Strongly Agree
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="substantially" value="2"/> Agree
+                                        true </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="substantially" value="3"/>
+                                        Disagree </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="substantially" value="4"/> Strongly
+                                        Disagree </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="substantially" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not
+                                        to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p class="question">You are a certain kind of person, and there is not much that can really be done to change that.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="certainKindOfPerson" value="1"
+                                                   required="true"/> Strongly Agree
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="certainKindOfPerson" value="2"/> Agree
+                                        true </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="certainKindOfPerson" value="3"/>
+                                        Disagree </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="certainKindOfPerson" value="4"/> Strongly
+                                        Disagree </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="certainKindOfPerson" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not
+                                        to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                <div class="section">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <p class="question"> You can always substantially change how you think.</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="radio">
+                                <label> <input class="option" type="radio" name="alwaysChangeThinking" value="1"
+                                               required="true"/> Strongly Agree
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label> <input class="option" type="radio" name="alwaysChangeThinking" value="2"/> Agree
+                                    true </label>
+                            </div>
+                            <div class="radio">
+                                <label> <input class="option" type="radio" name="alwaysChangeThinking" value="3"/>
+                                    Disagree </label>
+                            </div>
+                            <div class="radio">
+                                <label> <input class="option" type="radio" name="alwaysChangeThinking" value="4"/> Strongly
+                                    Disagree </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <br/>
+                            <div class="radio">
+                                <label class="question"><input type="checkbox" name="alwaysChangeThinking" value="555"
+                                                               onchange="disableSection(this)"/> Prefer not
+                                    to
+                                    answer
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="section">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <p class="question"> Your thinking style is something very basic about you that can't change very much.</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="radio">
+                                <label> <input class="option" type="radio" name="style" value="1"
+                                               required="true"/> Strongly Agree
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label> <input class="option" type="radio" name="style" value="2"/> Agree
+                                    true </label>
+                            </div>
+                            <div class="radio">
+                                <label> <input class="option" type="radio" name="style" value="3"/>
+                                    Disagree </label>
+                            </div>
+                            <div class="radio">
+                                <label> <input class="option" type="radio" name="style" value="4"/> Strongly
+                                    Disagree </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <br/>
+                            <div class="radio">
+                                <label class="question"><input type="checkbox" name="style" value="555"
+                                                               onchange="disableSection(this)"/> Prefer not
+                                    to
+                                    answer
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    <div style="text-align:center">
+                        <button type="submit"> Continue</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<footer th:replace="fragment/common :: footer"/>
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>
+
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts"/>
+
+<script type="text/javascript">
+
+
+    function disableSection(input) {
+        if (input.checked) {
+            $(input).closest('.section').find("input").attr("disabled", true);
+            $(input).removeAttr("disabled");
+        } else {
+            $(input).closest('.section').find("input").removeAttr("disabled");
+        }
+    }
+
+</script>

@@ -106,6 +106,7 @@ public class TempletonStudy extends BaseStudy {
         pretest.addTask(new Task("AxImagery","Imagery", Task.TYPE.questions, 0));
         pretest.addTask(new Task("DASS21AS","Mood", Task.TYPE.questions, 0));
         pretest.addTask(new Task("DASS21DS","Mood (part 2)", Task.TYPE.questions, 0));
+        pretest.addTask(new Task("GrowthMindset","Growth Mindset", Task.TYPE.questions, 0));
         sessions.add(pretest);
 
         session1 = new Session(FIRST_SESSION, "Day 1 Training", 0, 0);
