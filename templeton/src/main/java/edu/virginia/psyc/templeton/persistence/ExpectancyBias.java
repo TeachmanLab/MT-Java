@@ -31,53 +31,25 @@ public class ExpectancyBias extends LinkedQuestionnaireData implements Comparabl
     public static double MAX_ELIGIBLE_SCORE = 1.1111;
     public static double AT_RISK_DIFFERENCE = 1.5;
 
-    @pos private int LongHealthy;
-    @nut private int DoctorRate;
-    @neg private int TerribleCondition;
-
+    // Urge to lie down
     @pos private int ShortRest;
     @nut private int Reruns;
     @neg private int VerySick;
 
-    @pos private int PotentialRelationship;
-    @nut private int ComeBack;
-    @neg private int EndUpAlone;
-
-    @pos private int SuggestPotential;
-    @nut private int Dishes;
-    @neg private int Argument;
-
+    // Party
     @nut private int Bagel;
     @pos private int SettleIn;
     @neg private int Offend;
 
-    @neg private int LoseTouch;
-    @nut private int Boxes;
-    @pos private int MakePlans;
-
+    // Performance Review
     @nut private int Lunch;
     @pos private int ConsideredAdvancement;
     @neg private int Stuck;
 
-    @nut private int Phone;
-    @neg private int NotSelected;
-    @pos private int Impressed;
-
-    @nut private int Meeting;
-    @neg private int Pinched;
-    @pos private int Saving;
-
+    // Stock Market
     @nut private int Thermostat;
     @pos private int FinanciallySecure;
     @neg private int Ruining;
-
-    @nut private int Food;
-    @pos private int KaraokeOften;
-    @neg private int MakeFun;
-
-    @nut private int GroceryStore;
-    @neg private int FallDown;
-    @pos private int BestTime;
 
     private String sessionId;
 
