@@ -96,16 +96,20 @@ button  {  -webkit-border-radius: 5px;
 .user-theme-purple em { color:#C98ABB; }
 .user-theme-gold em { color:#ECB800; }
 
-div.radio:hover {
+div.radio label {
+    padding-right: 20px;
+}
+
+div.radio label:hover {
     background:#5FBCEA;
     -webkit-box-shadow: 0 3px 8px #000;
     -moz-box-shadow: 0 3px 8px #000;
     box-shadow: 0 3px 8px #000;
 }
-.user-theme-orange div.radio:hover { background:#F77D38; }
-.user-theme-green div.radio:hover { background:#77B46D; }
-.user-theme-purple div.radio:hover { background:#C98ABB; }
-.user-theme-gold div.radio:hover { background:#ECB800; }
+.user-theme-orange div.radio label:hover { background:#F77D38; }
+.user-theme-green div.radio label:hover { background:#77B46D; }
+.user-theme-purple div.radio label:hover { background:#C98ABB; }
+.user-theme-gold div.radio label:hover { background:#ECB800; }
 
 button:hover {
     -webkit-box-shadow: 0 3px 8px #000;
