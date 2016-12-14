@@ -57,8 +57,11 @@ div#canvas div.piIntro {
 div.piIntro img {
     float:left;
     margin:15px;
-    margin-bottom: 10px;
     padding-right: 20px;
+}
+
+div.piIntro ul {
+    padding: 10px 0 20px 0;
 }
 
 div.piIntro p, div.piIntro h3, div.piIntro ul {
