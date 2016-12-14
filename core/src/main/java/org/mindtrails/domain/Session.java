@@ -85,7 +85,16 @@ public class Session {
         return 0;
     }
 
-
+    /**
+     * Returns the total time in minutes it should take to complete the session
+     */
+    public int getDuration() {
+        int total = 0;
+        for (Task t : tasks) {
+            total += t.getDuration();
+        }
+        return total;
+    }
 
 }
 
