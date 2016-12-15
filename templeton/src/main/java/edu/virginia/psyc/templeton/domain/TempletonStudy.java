@@ -104,8 +104,7 @@ public class TempletonStudy extends BaseStudy {
         pretest.addTask(new Task("NGSES","Assessment", Task.TYPE.questions, 6));
         pretest.addTask(new Task("Optimism","Feelings About the Future", Task.TYPE.questions, 0));
         pretest.addTask(new Task("AxImagery","Imagery", Task.TYPE.questions, 0));
-        pretest.addTask(new Task("DASS21AS","Mood", Task.TYPE.questions, 0));
-        pretest.addTask(new Task("DASS21DS","Mood (part 2)", Task.TYPE.questions, 0));
+        pretest.addTask(new Task("Phq4","Mood", Task.TYPE.questions, 0));
         pretest.addTask(new Task("GrowthMindset","Growth Mindset", Task.TYPE.questions, 0));
         sessions.add(pretest);
 
@@ -144,8 +143,7 @@ public class TempletonStudy extends BaseStudy {
         session4.addTask(new Task("NGSES","Making Plans", Task.TYPE.questions, 0));
         session4.addTask(new Task("Optimism","Feelings About the Future", Task.TYPE.questions, 0));
         session4.addTask(new Task("AxImagery","Imagery", Task.TYPE.questions, 0));
-        session4.addTask(new Task("DASS21AS","Mood", Task.TYPE.questions, 0));
-        session4.addTask(new Task("DASS21DS","Mood (part 2)", Task.TYPE.questions, 0));
+        session4.addTask(new Task("Phq4","Mood", Task.TYPE.questions, 0));
         session4.addTask(new Task("ExpectancyBias","What Happens Next", Task.TYPE.questions, 2));
         session4.addTask(new Task("HelpSeeking","Change in Help Seeking", Task.TYPE.questions, 1));
         sessions.add(session4);
