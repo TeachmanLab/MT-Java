@@ -13,14 +13,20 @@ import javax.persistence.Table;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class NGSES extends SecureQuestionnaireData {
-    private int AchieveGoals;
+
+
     private int DifficultTasks;
-    private int ObtainOutcomes;
-    private int AnyEndeavor;
-    private int SuccessfullyOvercome;
     private int PerformEffectively;
     private int Compared;
-    private int ToughThings;
+
+    // The following items were removed,as three questions
+    // were as much as we needed to get a statistically
+    // significant output.
+//    private int AchieveGoals;
+//    private int ObtainOutcomes;
+//    private int AnyEndeavor;
+//    private int SuccessfullyOvercome;
+//    private int ToughThings;
 
 }
 

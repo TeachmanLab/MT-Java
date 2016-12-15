@@ -9,17 +9,12 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="DASS21AS")
+@Table(name="Affect")
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class DASS21AS extends SecureQuestionnaireData {
-    private int dryness;
-    private int breathing;
-    private int trembling;
-    private int worry;
-    private int panic;
-    private int heart;
-    private int scared;
-
+public class Affect extends SecureQuestionnaireData {
+    private int PosFeelings;
+    private int NegFeelings;
+    private int Anxious;
 }
 

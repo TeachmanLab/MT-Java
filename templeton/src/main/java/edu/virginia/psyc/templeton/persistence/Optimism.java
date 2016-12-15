@@ -16,16 +16,16 @@ import javax.persistence.Table;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class Optimism extends SecureQuestionnaireData {
-    private int UncertainTimes;
-    private int EasyRelax;
+//    private int UncertainTimes;
+//    private int EasyRelax;
     private int WrongWill;
-    private int AlwaysOptimistic;
-    private int EnjoyFriends;
-    private int KeepBusy;
+//    private int AlwaysOptimistic;
+//    private int EnjoyFriends;
+//    private int KeepBusy;
     private int HardlyEver;
-    private int EasilyUpset;
-    private int GoodThings;
-    private int Overall;
+//    private int EasilyUpset;
+//    private int GoodThings;
+//    private int Overall;
 
 }
 
