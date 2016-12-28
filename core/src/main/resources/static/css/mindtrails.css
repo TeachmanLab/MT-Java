@@ -419,3 +419,16 @@ table.logs tr:nth-child(even) td { background: #F1F1F1; }
 table.logs tr:nth-child(odd) td { background: #FEFEFE; }
 
 table.logs tr td:hover { background: #666; color: #FFF; } /* Hover cell effect! */
+
+
+/* **********************************
+Re-sizing for forms and displays
+******************************** */
+.side-border {
+    border-right: 1px solid #ddd;
+}
+
+
+
+
+
