@@ -204,25 +204,8 @@ div.oneToSeven {
     margin-left: -3px;
     margin-top: -10px;
 }
-
-.compactQuestion.section-V .radio-inline input[type="radio"] {
-    display: inline;
-    position: relative;
-    align-content: center;
-    text-align: center;
-    margin-top: 0px;
-}
-
-.compactQuestion.section-V .header {
-    display: none;
-}
-
 .fullDesc {
     display:none;
-}
-
-.compactQuestion.section-V .fullDesc {
-    display: inline;
 }
 
 .shortDesc {
@@ -230,9 +213,28 @@ div.oneToSeven {
     margin-top: 6px;
 }
 
-.compactQuestion.section-V .shortDesc {
-    display: none;
+/* Small devices (tablets, 768px and up) */
+@media (max-width: 992px) {
+    .compactQuestion .radio-inline input[type="radio"] {
+        display: inline;
+        position: relative;
+        align-content: center;
+        text-align: center;
+        margin-top: 0px;
+    }
+    .compactQuestion .header {
+        display: none;
+    }
+    .compactQuestion .fullDesc {
+        display: inline;
+    }
+    .compactQuestion .shortDesc {
+        display: none;
+    }
 }
+
+
+
 
 
 
