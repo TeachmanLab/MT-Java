@@ -2,4 +2,5 @@ package edu.virginia.psyc.templeton.persistence;
 
 import org.mindtrails.persistence.QuestionnaireRepository;
 
-public interface GrowthMindsetRepository extends QuestionnaireRepository<GrowthMindset> {}
+
+public interface WhatIBelieveRepository extends QuestionnaireRepository<WhatIBelieve> {}
