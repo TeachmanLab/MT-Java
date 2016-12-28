@@ -206,7 +206,6 @@ div.sessionOverview table td {
     display:none;
     z-index: 100;
     position:absolute;
-    left:5px;
     width:350px;
     padding:15px;
     background:#fefefe;
