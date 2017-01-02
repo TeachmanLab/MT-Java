@@ -370,7 +370,7 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
         ab: [
             {
                 handle: 'ab',
-                media: {html: "<div class='stim'>Please Type <b>A</b> &nbsp;  &nbsp;  &nbsp; <b>B</b></div>"},
+                media: {html: "<div class='stim'>Please Type <b>A</b> &nbsp;  or  &nbsp; <b>B</b></div>"},
                 css: {color: '#333', fontSize: '.8em', position: 'absolute'},
                 location: {bottom: 1}
             }
@@ -380,7 +380,7 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
                 handle: 'stall',
                 media: {html: "<div class='stim'>Oops, that answer is incorrect; please re-read the question and in a moment you will have a chance to answer again.</div>"},
                 css: {color: '#333', fontSize: '.8em', position: 'absolute'},
-                location: {top: 50},
+                location: {top: 10},
                 nolog: true
             }
         ],
@@ -420,7 +420,7 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
             },
             css: {color: '#333', fontSize: '.6em', position: 'absolute', textAlign:'right'},
             location: {top: 1, right: 1}
-        }
+            }
         ],
         counter: [
             {
@@ -559,7 +559,7 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
                     {
                         type: 'custom', fn: function (options, eventData) {
                         var span = $("p.incomplete");
-                        var text = span.text().replace(' ', eventData["handle"]);
+                        var text = span.text().replace('[ ]', '[' + eventData["handle"] + ']');
                         span.text(text);
                         where_at = 1;
                         on_question = true;
@@ -588,7 +588,7 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
                         type: 'custom', fn: function (options, eventData) {
                         API.getGlobal().lettersTyped = API.getGlobal().lettersTyped + eventData.handle;
                         var span = $("p.incomplete");
-                        var text = span.text().replace(' ', eventData["handle"]);
+                        var text = span.text().replace('[ ]', '[' + eventData["handle"] + ']');
                         span.text(text);
                     }
                     },
@@ -683,6 +683,8 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
                 actions: [
                     {type: 'hideStim', handle: 'question'},
                     {type: 'hideStim', handle: 'yesno'},
+                    {type: 'hideStim',handle : 'mc1'},
+                    {type: 'hideStim',handle : 'mc2'},
                     {type: 'hideStim', handle: 'ab'},
                     {type: 'hideStim', handle: 'counter'},
                     {type: 'showStim', handle: 'greatjob'},
@@ -778,7 +780,7 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
      * true, and one false, it will be a 50/50 split.  If it is 3 true, and 1 false
      * if would then be a 75% positive, 25% negative split.
      */
-    if (API.getGlobal()["cbmCondition"] == "FIFTY_FIFTY") {
+    if (API.getGlobal().cbmCondition == "FIFTY_FIFTY_RANDOM") {
         API.addTrialSets('posneg', [
             {inherit: 'base', data: {positive: true}},
             {inherit: 'base', data: {positive: false}}
@@ -936,7 +938,7 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
                 }
                 else
                 {
-                    feed_back_s = 'You filled in the missing letters correctly on the first try ' + pct_ct_s + '%% of the time this round. We want to encourage you to pay really close attention to the stories to work out what letters are needed to complete the final words. This will allow you to get the most out of the training. If any aspect of the task is unclear, please email us with any questions at studyteam@mindtrails.org.';
+                    feed_back_s = 'You filled in the missing letters correctly on the first try ' + pct_ct_s + '% of the time this round. We want to encourage you to pay really close attention to the stories to work out what letters are needed to complete the final words. This will allow you to get the most out of the training. If any aspect of the task is unclear, please email us with any questions at studyteam@mindtrails.org.';
                 }
 
                 if (pct_ct_c >= 90)
@@ -952,7 +954,12 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
                     feed_back_c = 'You answered the yes/no question following each story correctly on the first try ' + pct_ct_c + '% of the time this round. We want to remind you to pay really close attention to the whole story each time, including how it ends, and just use the information in the story to answer the question. This will allow you to get the most out of the training. If any aspect of the task is unclear, please email us with any questions at studyteam@mindtrails.org.';
 
                 }
-                this.layout[0].media.html = '<div class="results"><p style="font-size: 24px; text-align:center">' + feed_back_s + '</p><p style="font-size: 24px; text-align:center">' + feed_back_c + '</p>' + '<p style="font-size: 20px; text-align:center" > Press the spacebar to continue </p></div>';
+                this.layout[0].media.html =
+                    '<div class="results">' +
+                    '<img class="vivid_image" src="../../images/finished.jpg' + '"/>' +
+                    '<p>' + feed_back_s + '</p>' +
+                    '<p>' + feed_back_c + '</p>' +
+                    '<p> Press the spacebar to continue </p></div>';
             },
             interactions: [
                 // What to do when different events occur.
