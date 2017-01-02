@@ -155,38 +155,6 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
         break_up = sentence.text().split('.');
         last_word = getWord(trial);
         break_up[break_up.length - 1] = break_up[break_up.length - 1].replace("[stimulus]", "");
-        // Randomly select an extra letter to include as the missing letter, if an extra letter should be missing.
-        if(Sequence.add_extra_missing_letter && last_word.length > 0) {
-            p = jQuery.grep(trial._stimulus_collection.models, function (e, i) {
-                return e.attributes.handle == "paragraph";})[0];
-            pick = Math.floor(Math.random() * (1 + 1));
-            while (last_word.indexOf(brackets[pick]) == last_word.length - 1 | last_word.indexOf(brackets[pick]) == 0)
-            {
-                pick = Math.floor(Math.random() * (1 + 1));
-            }
-            if (pick == 0) {
-                index = last_word.indexOf(brackets[pick]);
-                letter = last_word[index - 1];
-                last_word = last_word.replace(letter + brackets[pick], brackets[pick] + " ][");
-                if (p.attributes.data.neutralKey) {
-                    p.attributes.data.neutralKey = letter + p.attributes.data.neutralKey;
-                } else {
-                    p.attributes.data.positiveKey = letter + p.attributes.data.positiveKey;
-                    p.attributes.data.negativeKey = letter + p.attributes.data.negativeKey;
-                }
-            }
-            else {
-                index = last_word.indexOf(brackets[pick]);
-                letter = last_word[index + 1];
-                last_word = last_word.replace(brackets[pick] + letter, "][ " + brackets[pick]);
-                if(p.attributes.data.neutralKey) {
-                    p.attributes.data.neutralKey = p.attributes.data.neutralKey + letter;
-                } else {
-                    p.attributes.data.positiveKey = p.attributes.data.positiveKey + letter;
-                    p.attributes.data.negativeKey = p.attributes.data.negativeKey + letter;
-                }
-            }
-        }
         break_up.push(last_word);
         for (i = 0; i < break_up.length; i++) {
             if (i == break_up.length - 1) {
