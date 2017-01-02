@@ -916,13 +916,15 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
             ],
             layout: [
                 {
-                    media: {html: ''}
+                    media: {html: ''},
+                    css: {position: 'absolute'},
+                    location: {top: "5"}
                 }
             ],
             customize: function () {
-
-                pct_ct_s = Math.round(((40-scorer.ct_s)/40)*100);
-                pct_ct_c = Math.round(((40-scorer.ct_c)/40)*100);
+                var cnt = Sequence.display_length;
+                pct_ct_s = Math.round(((cnt-scorer.ct_s)/cnt)*100);
+                pct_ct_c = Math.round(((cnt-scorer.ct_c)/cnt)*100);
 
                 if (pct_ct_s >= 90)
                 {
