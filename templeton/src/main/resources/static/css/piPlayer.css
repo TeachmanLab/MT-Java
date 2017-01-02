@@ -71,3 +71,31 @@ div.piIntro p, div.piIntro h3, div.piIntro ul {
 .alert-error {
     color: darkred;
 }
+
+div.multiple-choice {
+    padding: 10px 0 10px 0;
+}
+
+div.multiple-choice ol {
+
+    margin: 1em 0 1.5em 5em;
+    padding: 0;
+}
+
+div.multiple-choice ol > li {
+    margin: 0;
+    padding: 10px 0 0 0;
+    list-style-type: upper-alpha;
+    text-align: left;
+}
+
+div.results p {
+    font-size:.8em;
+    text-align: left;
+    padding-top: 20px;
+}
+
+div.results img {
+    float: left;
+    margin-right: 20px;
+}
