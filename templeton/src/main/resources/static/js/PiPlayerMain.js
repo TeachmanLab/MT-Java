@@ -83,8 +83,6 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
         // Replace negate in the sentence if negate is turned on.
         if(negate === undefined || API.getGlobal()["negate"] == false) negate = "";
         var sentence = $("div.sentence");
-        console.log(negate);
-        console.log('HI');
         sentence.text(sentence.text().replace("[negation]", negate));
     }
 
@@ -127,9 +125,6 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
         var p = jQuery.grep(trial._stimulus_collection.models, function (e, i) {
             return e.attributes.handle == "paragraph"
         })[0];
-
-        console.log('OH HI');
-        console.log(p.trial.data);
 
         if (API.getGlobal()["cbmCondition"] == "FIFTY_FIFTY_BLOCKED")
         {
@@ -254,13 +249,10 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
             if (inputData.handle != 'y' && inputData.handle != 'n') return false;
         }
         if(trial.data.neutral) {
-            console.log("Correct answer to neutral.");
             return(q.attributes.data.neutralAnswer == inputData.handle);
         } else if(trial.data.positive) {
-            console.log("Correct answer to positive.");
             return(q.attributes.data.positiveAnswer == inputData.handle);
         } else {
-            console.log("Correct answer to negative.");
             return (q.attributes.data.negativeAnswer == inputData.handle);
         }
     }
@@ -282,38 +274,32 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
             if (inputData.handle != 'y' && inputData.handle != 'n') return false;
         }
         if(trial.data.neutral) {
-            console.log("Incorrect answer to neutral.");
             if (! already_wrong_c)
             {
                 if (q.attributes.data.neutralAnswer != inputData.handle)
                 {
                     scorer.ct_c = scorer.ct_c + 1;
                     already_wrong_c = true;
-                    console.log(scorer.ct_c + ' incorrect');
                 }
             }
             return(q.attributes.data.neutralAnswer != inputData.handle);
         } else if(trial.data.positive) {
-            console.log("Incorrect answer to positive.");
             if (! already_wrong_c)
             {
                 if (q.attributes.data.positiveAnswer != inputData.handle)
                 {
                     scorer.ct_c = scorer.ct_c + 1;
                     already_wrong_c = true;
-                    console.log(scorer.ct_c + ' incorrect');
                 }
             }
             return(q.attributes.data.positiveAnswer != inputData.handle);
         } else {
-            console.log("Incorrect answer to negative.");
             if (! already_wrong_c)
             {
                 if (q.attributes.data.negativeAnswer != inputData.handle)
                 {
                     scorer.ct_c = scorer.ct_c + 1;
                     already_wrong_c = true;
-                    console.log(scorer.ct_c + ' incorrect');
                 }
             }
             return (q.attributes.data.negativeAnswer != inputData.handle);
@@ -332,15 +318,10 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
         if (inputData.handle.length > 1) return false;
         var lettersTyped = API.getGlobal().lettersTyped + inputData.handle;
         var result = missing_letters(trial).startsWith(lettersTyped);
-        console.log('IS IT ALREADY WRONG ' + already_wrong_s);
-        console.log(lettersTyped);
         if (! result & ! already_wrong_s & ! on_question)
         {
-            console.log(result);
-            console.log(already_wrong_s);
             scorer.ct_s = scorer.ct_s + 1;
             already_wrong_s = true;
-            console.log('THIS MANY CORRECT ' + Math.round(((40-scorer.ct_s)/40)*100));
         }
         return (result);
     }
@@ -538,7 +519,6 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
                         number_words = break_up[where_at-1][0].innerHTML;
                         var number_words = number_words.split(' ').length;
                         var wait  = number_words * 100;
-                        console.log(wait);
                         if(inputData.latency - latency > wait) {
                             latency = inputData.latency;
                             return true;
@@ -551,7 +531,6 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
                         break_up[where_at].visible();
                         where_at += 1;
                         if(where_at >= break_up.length) {
-                            console.log("Last sentence is visible, moving on?.");
                             API.getGlobal().state = STATE_FILL_LETTERS;
                             if (Sequence.add_extra_missing_letter)
                             {
@@ -573,7 +552,6 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
                     {type: 'inputEquals', value: 'space',negate:true},
                     {type: 'inputEquals', value: 'correct',negate:true},
                     {type: 'function', value: function (trial, inputData) {
-                        console.log('GOING BACK INCORRECT');
                         return (!correct_letters(trial, inputData));
                     }}
             ],
@@ -594,7 +572,6 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
                     },
                     {
                         type: 'function', value: function (trial, inputData) {
-                        console.log('GOING BACK CORRECT');
                         return correct_letters(trial, inputData)
                     }
                     }
@@ -747,7 +724,6 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
                         if (trialData.first_question_latency == null) {
                             trialData.first_question_latency = Math.floor(eventData.latency);
                         }
-                        console.log("Incorrect response to the question");
                     }
                     },
                     {type: 'removeInput', handle: 'y'},
@@ -786,7 +762,6 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
                     {type: 'removeInput', handle: ['y', 'n', 'a', 'b']},
                     {
                         type: 'setTrialAttr', setter: function (trialData, eventData) {
-                          console.log("We have reached answered.");
                           trialData.question = $("div[data-handle='question']").text();
                           trialData.question_latency = Math.floor(eventData.latency);
                           if (trialData.first_question_latency == null) {
@@ -899,7 +874,6 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
                         {
                             vivid_text = '';
                         }
-                        console.log(vivid_text);
                         return ( inputData.handle == "Not at all vivid" ||
                         inputData.handle == "Somewhat vivid" ||
                         inputData.handle == "Moderately vivid" ||
@@ -1026,7 +1000,6 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
         var vivid_afs = []
         var scens = []
         var seq = Sequence.sequence[2].data
-        console.log(seq.length);
         for (var i = 0; i < seq.length; i++)
         {
             if (seq[i].inherit.set == 'vivid')
@@ -1043,7 +1016,6 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
             }
         }
         scens = getRandomSubarray(scens, Sequence.display_length);
-        console.log(Sequence.display_length);
         scens.splice(1, 0, vivids[0]);
         scens.splice(2, 0, vivid_afs[0]);
         scens.splice(4, 0, vivids[1]);
