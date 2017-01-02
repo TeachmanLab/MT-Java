@@ -37,8 +37,8 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
     var already_wrong_c = false;
     var scorer = {  count: 1, ct_s: 0, ct_c: 0};
     var on_question = false;
-    var count_block = 1;
-
+    var count_block = 1; // Used to chunk positive/negative into groups of 5, rather than random or set.
+    var block_pos = true; // see count_block;
 
     var pct_ct_s = 0;
     var pct_ct_c = 0;
@@ -126,18 +126,12 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
             return e.attributes.handle == "paragraph"
         })[0];
 
-        if (API.getGlobal()["cbmCondition"] == "FIFTY_FIFTY_BLOCKED")
+        if (API.getGlobal().cbmCondition == "FIFTY_FIFTY_BLOCKED")
+        // Run in blocks of 5.  First 5 are positive, next 5 are negative, and so on.
         {
-            if (count_block % 11 <= 5)
-            {
-                p.trial.data.positive = true;
-            }
-            else if (count_block % 11 >= 6)
-            {
-                p.trial.data.positive = false;
-            }
-
-            count_block += 1;
+            p.trial.data.positive = block_pos;
+            if(count_block %5 == 0) block_pos = !block_pos;
+            count_block ++;
         }
 
         if (p.trial.data.positive) {
