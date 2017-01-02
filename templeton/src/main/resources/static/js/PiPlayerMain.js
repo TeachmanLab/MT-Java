@@ -190,7 +190,6 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
         } else {
             var letter = (p.attributes.data.negativeKey);
         }
-        console.log("The missing letter is " + letter);
         return(letter);
     }
 
@@ -495,6 +494,7 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
                         return (where_at < break_up.length)
                     }},
                     {type: 'function', value: function (trial, inputData) { // don't let people do this too quickly.
+                        return true;  // Disable wait between sentences.
                         number_words = break_up[where_at-1][0].innerHTML;
                         var number_words = number_words.split(' ').length;
                         var wait  = number_words * 100;
@@ -839,10 +839,12 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
                             inputData.handle == "Moderately vivid"
                         ) {
                             vivid_text = 'Thanks. Really try to use your imagination!';
+                            vivid_image = 'imagination.jpg'
                         }
                         else if (inputData.handle == "Very vivid" ||
                             inputData.handle == "Totally vivid") {
                             vivid_text = "Thanks. It's great you're really using your imagination!";
+                            vivid_image = 'thumbs-up.jpg'
                         }
                         else if (inputData.handle == "Prefer not to answer")
                         {
@@ -889,11 +891,51 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
             ],
             layout: [
                 {
-                    media: {html: ''}
+                    media: {html: ''},
+                    css: {position: 'absolute'},
+                    location: {top: "5"}
                 }
             ],
             customize: function () {
-                this.layout[0].media.html = '<div class="results"><p style="font-size: 24px; text-align:center">' + vivid_text + '</p>' + '<p style="font-size: 20px; text-align:center" > Press the spacebar to continue </p></div>';
+                this.layout[0].media.html =
+                    '<div class="results"><p style="font-size: 24px; text-align:center">' + vivid_text + '</p>' +
+                        '<img class="vivid_image" src="../../images/' + vivid_image + '"/>' +
+                    '<p style="font-size: 20px; text-align:center" > Press the spacebar to continue </p></div>';
+                ;
+            },
+            interactions: [
+                // What to do when different events occur.
+                {
+                    conditions: [
+                        {type: 'inputEquals', value: 'space'}
+                    ],
+                    actions: [
+                        {type: 'endTrial'}
+                    ]
+                }
+            ]
+        }
+    ]);
+
+    API.addTrialSets('vivid_after_half', [
+        {
+            input: [
+                // What input to accept from the participant (user)
+                {handle: 'space', on: 'space'}
+            ],
+            layout: [
+                {
+                    media: {html: ''},
+                    css: {position: 'absolute'},
+                    location: {top: "5"}
+                }
+            ],
+            customize: function () {
+                this.layout[0].media.html =
+                    '<div class="results"><p style="font-size: 24px; text-align:center">' + vivid_text + '</p>' +
+                    '<p>You are halfway done!</p>' +
+                    '<img class="vivid_image" src="../../images/halfway.jpg"/>' +
+                    '<p style="font-size: 20px; text-align:center" > Press the spacebar to continue </p></div>';
                 ;
             },
             interactions: [
