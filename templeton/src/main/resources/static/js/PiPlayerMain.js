@@ -405,6 +405,23 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
         vivid: [
             {media: {'inlineTemplate': "<div class='vivid'>_______</div>"}}
         ],
+        score: [ {
+            'handle': 'counter',
+            customize: function () {
+                console.log(scorer);
+                var total = Sequence.display_length;
+                var cur = scorer.count - 1;
+                pct_ct_s = Math.round(((scorer.ct_s)/total)*100);
+                pct_ct_c = Math.round(((scorer.ct_c)/total)*100);
+                this.media = "letters: " + (cur - scorer.ct_s) + ' of '+ cur;
+                this.media += "\n";
+                this.media += "questions: " + (cur - scorer.ct_c) + ' of '+ cur;
+                on_question = false;
+            },
+            css: {color: '#333', fontSize: '.6em', position: 'absolute', textAlign:'right'},
+            location: {top: 1, right: 1}
+        }
+        ],
         counter: [
             {
                 'handle': 'counter',
