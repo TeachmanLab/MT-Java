@@ -490,9 +490,8 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
                         return (where_at < break_up.length)
                     }},
                     {type: 'function', value: function (trial, inputData) { // don't let people do this too quickly.
-                        return true;  // Disable wait between sentences.
-                        number_words = break_up[where_at-1][0].innerHTML;
-                        var number_words = number_words.split(' ').length;
+                        var number_words = break_up[where_at-1][0].innerHTML;
+                        number_words = number_words.split(' ').length;
                         var wait  = number_words * 100;
                         if(inputData.latency - latency > wait) {
                             latency = inputData.latency;
