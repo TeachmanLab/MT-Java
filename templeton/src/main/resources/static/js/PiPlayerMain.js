@@ -492,7 +492,7 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
                     {type: 'function', value: function (trial, inputData) { // don't let people do this too quickly.
                         var number_words = break_up[where_at-1][0].innerHTML;
                         number_words = number_words.split(' ').length;
-                        var wait  = number_words * 100;
+                        var wait  = number_words * 70;
                         if(inputData.latency - latency > wait) {
                             latency = inputData.latency;
                             return true;
