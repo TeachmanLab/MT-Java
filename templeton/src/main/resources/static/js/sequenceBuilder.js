@@ -208,7 +208,7 @@ function processCSV(scenarios, condition, total_sequences, lettersToRemove) {
         if (i == total_sequences - 1)
         {
             vivid_lst =  {"inherit": {"set": "vivid"},
-                layout: [{media: {template: "/PIPlayerScripts/vividness_last.html"}}]};
+                layout: [{media: {template: "../PIPlayerScripts/vividness_last.html"}}]};
             remake.push(vivid_lst);
             vivid_after = { "inherit": { "set": "vivid_after" }};
             remake.push(vivid_after);
