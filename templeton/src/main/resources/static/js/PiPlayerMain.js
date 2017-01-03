@@ -894,7 +894,7 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
             customize: function () {
                 this.layout[0].media.html =
                     '<div><p style="font-size: 24px; text-align:center">' + vivid_text + '</p>' +
-                        '<img class="vivid_image" src="../../images/' + vivid_image + '"/>' +
+                        '<img class="vivid_image" src="../images/' + vivid_image + '"/>' +
                     '<p style="font-size: 20px; text-align:center" > Press the spacebar to continue </p></div>';
                 ;
             },
@@ -929,7 +929,7 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
                 this.layout[0].media.html =
                     '<div><p style="font-size: 24px; text-align:center">' + vivid_text + '</p>' +
                     '<p>You are halfway done!</p>' +
-                    '<img src="../../images/halfway.jpg"/>' +
+                    '<img src="../images/halfway.jpg"/>' +
                     '<p style="font-size: 20px; text-align:center" > Press the spacebar to continue </p></div>';
                 ;
             },
@@ -965,6 +965,10 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
                 pct_ct_s = Math.round(((cnt-scorer.ct_s)/cnt)*100);
                 pct_ct_c = Math.round(((cnt-scorer.ct_c)/cnt)*100);
 
+                var cur   = scorer.count - 1;
+                var score = cur - scorer.ct_s + cur - scorer.ct_c;
+                var feed_back_score = "You scored " + score + " out of a maximum possible score of " + (cur * 2);
+
                 if (pct_ct_s >= 90)
                 {
                     feed_back_s = 'You filled in the missing letters correctly on the first try ' + pct_ct_s + '% of the time this round. Great job, we’re really impressed with your ability to complete the stories!';
@@ -993,7 +997,8 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
                 }
                 this.layout[0].media.html =
                     '<div class="results">' +
-                    '<img class="vivid_image" src="../../images/finished.jpg' + '"/>' +
+                    '<img class="vivid_image" src="../images/finished.jpg' + '"/>' +
+                    '<p>' + feed_back_score + "</p>" +
                     '<p>' + feed_back_s + '</p>' +
                     '<p>' + feed_back_c + '</p>' +
                     '<p> Press the spacebar to continue </p></div>';
