@@ -408,13 +408,9 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
             'handle': 'counter',
             customize: function () {
                 console.log(scorer);
-                var total = Sequence.display_length;
-                var cur = scorer.count - 1;
-                pct_ct_s = Math.round(((scorer.ct_s)/total)*100);
-                pct_ct_c = Math.round(((scorer.ct_c)/total)*100);
-                this.media = "letters: " + (cur - scorer.ct_s) + ' of '+ cur;
-                this.media += "\n";
-                this.media += "questions: " + (cur - scorer.ct_c) + ' of '+ cur;
+                var cur   = scorer.count - 1;
+                var score = cur - scorer.ct_s + cur - scorer.ct_c;
+                this.media = 'Score: ' + score;
                 on_question = false;
             },
             css: {color: '#333', fontSize: '.6em', position: 'absolute', textAlign:'right'},
@@ -898,7 +894,7 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
             ],
             customize: function () {
                 this.layout[0].media.html =
-                    '<div class="results"><p style="font-size: 24px; text-align:center">' + vivid_text + '</p>' +
+                    '<div><p style="font-size: 24px; text-align:center">' + vivid_text + '</p>' +
                         '<img class="vivid_image" src="../../images/' + vivid_image + '"/>' +
                     '<p style="font-size: 20px; text-align:center" > Press the spacebar to continue </p></div>';
                 ;
@@ -932,9 +928,9 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
             ],
             customize: function () {
                 this.layout[0].media.html =
-                    '<div class="results"><p style="font-size: 24px; text-align:center">' + vivid_text + '</p>' +
+                    '<div><p style="font-size: 24px; text-align:center">' + vivid_text + '</p>' +
                     '<p>You are halfway done!</p>' +
-                    '<img class="vivid_image" src="../../images/halfway.jpg"/>' +
+                    '<img src="../../images/halfway.jpg"/>' +
                     '<p style="font-size: 20px; text-align:center" > Press the spacebar to continue </p></div>';
                 ;
             },
