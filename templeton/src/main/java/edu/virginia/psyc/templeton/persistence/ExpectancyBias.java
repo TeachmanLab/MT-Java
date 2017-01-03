@@ -11,7 +11,7 @@ import java.lang.annotation.*;
 import java.lang.reflect.Field;
 
 @Entity
-@Table(name="ExpectancyBias")
+@Table(name="expectancy_bias")
 @EqualsAndHashCode(callSuper = true)
 @Data
 @DoNotDelete
