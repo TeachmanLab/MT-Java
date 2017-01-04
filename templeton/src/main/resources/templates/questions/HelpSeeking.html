@@ -35,32 +35,32 @@
                     <div class="col-md-8">
 
                         <div class="radio">
-                            <label> <input type="checkbox" id="MorePerson" name="MorePerson" required="true"/> I seek
+                            <label> <input type="checkbox" id="MorePerson" name="MorePerson"/> I seek
                                 in-person therapy more now </label>
                         </div>
                         <div class="radio">
-                            <label> <input type="checkbox" id="LessPerson" name="LessPerson" required="true"/> I seek
+                            <label> <input type="checkbox" id="LessPerson" name="LessPerson"/> I seek
                                 in-person therapy less now </label>
                         </div>
                         <div class="radio">
-                            <label> <input type="checkbox" id="MoreMeds" name="MoreMeds" required="true"/> I use
+                            <label> <input type="checkbox" id="MoreMeds" name="MoreMeds"/> I use
                                 prescription medication more now </label>
                         </div>
                         <div class="radio">
-                            <label> <input type="checkbox" id="LessMeds" name="LessMeds" required="true"/> I use
+                            <label> <input type="checkbox" id="LessMeds" name="LessMeds"/> I use
                                 prescription medication less now </label>
                         </div>
                         <div class="radio">
-                            <label> <input type="checkbox" id="MoreApps" name="MoreApps" required="true"/> I use online
+                            <label> <input type="checkbox" id="MoreApps" name="MoreApps" /> I use online
                                 computer programs (other than MindTrails) or mobile apps more now </label>
                         </div>
                         <div class="radio">
-                            <label> <input type="checkbox" id="LessApps" name="LessApps" required="true"/> I use online
+                            <label> <input type="checkbox" id="LessApps" name="LessApps"/> I use online
                                 computer programs (other than MindTrails) or mobile apps less now </label>
                         </div>
                         <br/>
                         <div class="radio">
-                            <label> <input type="checkbox" id="OtherChange" name="OtherChange" required="true"/> Other
+                            <label> <input type="checkbox" id="OtherChange" name="OtherChange"/> Other
                                 (please specify) <input type="text" id="other" name="other"/> </label>
                         </div>
                     </div>
@@ -114,5 +114,14 @@
             $(input).closest('.section').find("input").removeAttr("disabled");
         }
     }
+
+    // Be sure at least one checkbox is selected on this page.
+    $('button[type="submit"]').on('click', function() {
+        $cbx_group = $("input:checkbox");
+        $cbx_group.prop('required', true);
+        if($cbx_group.is(":checked")){
+            $cbx_group.prop('required', false);
+        }
+    });
 
 </script>
