@@ -28,7 +28,17 @@
                         approximately <span th:text="${currentSession.duration}">20</span> minutes to complete.</p>
                 </div>
 
-                <div th:if="${currentSession.index} > 0">
+                <div th:if="${currentSession.name == 'PostFollowUp'} ">
+                    <h2 th:if="#{participant.study.index == 0}">Welcome back <span
+                            th:text="${participant.fullName}">Jim</span>.
+                    </h2>
+                    <p>You are ready to begin <span th:text="${currentSession.displayName}"/></p>
+                    <p>This includes ...</p>
+                    <img th:src="|/images/clock-1-${participant.theme}.png|"/>
+                    <p>A Brief Followup</p>
+                </div>
+
+                <div th:if="${currentSession.index &gt; 0 and currentSession.name != 'PostFollowUp'}" >
                     <h2 th:if="#{participant.study.index == 0}">Welcome back <span
                             th:text="${participant.fullName}">Jim</span>.
                     </h2>
