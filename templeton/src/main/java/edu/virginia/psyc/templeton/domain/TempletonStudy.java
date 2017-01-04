@@ -154,7 +154,7 @@ public class TempletonStudy extends BaseStudy {
         post.setIndex(5);
         post.addTask(new Task("ExpectancyBias","What Happens Next", Task.TYPE.questions, 2));
         post.addTask(new Task("WhatIBelieve","What I Believe", Task.TYPE.questions, 6));
-        post.addTask(new Task("Mood","Mood", Task.TYPE.questions, 0));
+        post.addTask(new Task("Phq4","Mood", Task.TYPE.questions, 0));
         post.addTask(new Task("HelpSeeking","Change in Help Seeking", Task.TYPE.questions, 1));
         post.addTask(new Task("Evaluation","Evaluating the Program", Task.TYPE.questions, 2));
         sessions.add(post);
