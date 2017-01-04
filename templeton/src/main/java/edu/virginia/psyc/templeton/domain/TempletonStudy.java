@@ -66,12 +66,18 @@ public class TempletonStudy extends BaseStudy {
                 break;
             case SECOND_SESSION:
                 map.put("fragment","second");
-                map.put("question","mc1");
+                if(conditioning.equals(CONDITION.NEUTRAL))
+                    map.put("question","question");
+                else
+                    map.put("question", "mc1");
                 map.put("lettersToRemove",1);
                 break;
             case THIRD_SESSION:
                 map.put("fragment","first");
-                map.put("question","mc2");
+                if(conditioning.equals(CONDITION.NEUTRAL))
+                    map.put("question","question");
+                else
+                    map.put("question", "mc2");
                 map.put("lettersToRemove",2);
                 break;
             case FOURTH_SESSION:
