@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<!--<![endif]-->
+<head th:include="/fragment/common :: headerFragment" />
+<body th:class="|user-theme-${participant.theme}|">
+<section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
+
+<!-- header-btm starts
+================================================== -->
+<section id="header-btm" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <h4 class="heading-icon clearfix"> <img th:src="@{/grepfrut/img/icons/heading-icon-user.png}" width="40" height="40" alt="icon" class="icon-small-bg"/></h4>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- header-btm ends
+================================================== -->
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+<div class="container">
+
+<!--spacer here-->
+<div class="spacer-30px"></div>
+
+<!--features starts-->
+<div class="row">
+<div class="span12">
+<form id="wizard" th:action="@{/questions/PilotUserExperience}" method="POST">
+<fieldset>
+<legend>Instructions. </legend>
+<h4>Thank you for taking the time to go through our program! We are interested in your feedback and reactions to the training programs, assessments, and other aspects of the website. Please answer the following questions openly and honestly. Your feedback will help us improve the program.
+</h4>
+</fieldset>
+<fieldset>
+<legend>Questions</legend>
+<p>
+    <label>How easy was the web program to use?</label>
+    <select name="ease" required="true">
+        <option value="">Please select one</option>
+        <option value="1">Not at all</option>
+        <option value="2">Slightly</option>
+        <option value="3">Somewhat</option>
+        <option value="4">Mostly</option>
+        <option value="5">Very</option>
+        <option value="555">NA</option>
+    </select>
+</p>
+<p>
+    <label>How much did the web program keep your interest and attention?</label>
+    <select name="interest" required="true">
+        <option value="">Please select one</option>
+        <option value="1">Not at all</option>
+        <option value="2">Slightly</option>
+        <option value="3">Somewhat</option>
+        <option value="4">Mostly</option>
+        <option value="5">Very</option>
+        <option value="555">Prefer not to answer</option>
+    </select>
+</p>
+<p>
+    <label>How much did you like the web program in general?</label>
+    <select name="like" required="true">
+        <option value="">Please select one</option>
+        <option value="1">Not at all</option>
+        <option value="2">Slightly</option>
+        <option value="3">Somewhat</option>
+        <option value="4">Mostly</option>
+        <option value="5">Very</option>
+        <option value="555">Prefer not to answer</option>
+    </select>
+</p>
+<p>
+    <label>How much did you like the way the web program looked?</label>
+    <select name="look" required="true">
+        <option value="">Please select one</option>
+        <option value="1">Not at all</option>
+        <option value="2">Slightly</option>
+        <option value="3">Somewhat</option>
+        <option value="4">Mostly</option>
+        <option value="5">Very</option>
+        <option value="555">Prefer not to answer</option>
+    </select>
+</p>
+<p>
+    <label>How worried were you about your privacy in using this web program?</label>
+    <select name="privacy" required="true">
+        <option value="">Please select one</option>
+        <option value="1">Not at all</option>
+        <option value="2">Slightly</option>
+        <option value="3">Somewhat</option>
+        <option value="4">Mostly</option>
+        <option value="5">Very</option>
+        <option value="555">Prefer not to answer</option>
+    </select>
+</p>
+<p>
+    <label>	How easy were the assessments to understand?</label>
+    <select name="understand" required="true">
+        <option value="">Please select one</option>
+        <option value="1">Not at all</option>
+        <option value="2">Slightly</option>
+        <option value="3">Somewhat</option>
+        <option value="4">Mostly</option>
+        <option value="5">Very</option>
+        <option value="555">Prefer not to answer</option>
+    </select>
+</p>
+<p>
+    <label>	How much did you feel you could trust the information?</label>
+    <select name="trust" required="true">
+        <option value="">Please select one</option>
+        <option value="1">Not at all</option>
+        <option value="2">Slightly</option>
+        <option value="3">Somewhat</option>
+        <option value="4">Mostly</option>
+        <option value="5">Very</option>
+        <option value="555">Prefer not to answer</option>
+    </select>
+</p>
+<p>
+    <label>How much did you think the web program could help you if you practiced it more (i.e., did more training sessions)?</label>
+    <select name="practice" required="true">
+        <option value="">Please select one</option>
+        <option value="1">Not at all</option>
+        <option value="2">Slightly</option>
+        <option value="3">Somewhat</option>
+        <option value="4">Mostly</option>
+        <option value="5">Very</option>
+        <option value="555">Prefer not to answer</option>
+    </select>
+</p>
+<br/>
+<br/>
+<p>
+    <label>Would you use a website like this one to treat your anxiety?</label>
+    <select name="treat_anx" required="true">
+        <option value="">Please select one</option>
+        <option value="1">Not at all</option>
+        <option value="2">Slightly</option>
+        <option value="3">Somewhat</option>
+        <option value="4">Mostly</option>
+        <option value="5">Very</option>
+        <option value="555">Prefer not to answer</option>
+    </select>
+</p>
+<p>
+    <label>How likely would you be to recommend this web program to others with similar anxiety difficulties?</label>
+    <select name="recommend" required="true">
+        <option value="">Please select one</option>
+        <option value="1">Not at all</option>
+        <option value="2">Slightly</option>
+        <option value="3">Somewhat</option>
+        <option value="4">Mostly</option>
+        <option value="5">Very</option>
+        <option value="555">Prefer not to answer</option>
+    </select>
+</p>
+<br/>
+<br/>
+<p>
+    <label> How tiring did you find the training program? </label>
+    <select name="tiring_training" required="true">
+        <option value="">Please select one</option>
+        <option value="1">Not at all</option>
+        <option value="2">Slightly</option>
+        <option value="3">Somewhat</option>
+        <option value="4">Mostly</option>
+        <option value="5">Very</option>
+        <option value="555">Prefer not to answer</option>
+    </select>
+</p>
+<p>
+    <label> How tiring did you find completing the measures (e.g., questionnaires)? </label>
+    <select name="tiring_measures" required="true">
+        <option value="">Please select one</option>
+        <option value="1">Not at all</option>
+        <option value="2">Slightly</option>
+        <option value="3">Somewhat</option>
+        <option value="4">Mostly</option>
+        <option value="5">Very</option>
+        <option value="555">Prefer not to answer</option>
+    </select>
+</p>
+<p>
+    <label>How likely would you be to continue the program for 8 sessions?</label>
+    <select name="continue" required="true">
+        <option value="">Please select one</option>
+        <option value="1">Not at all</option>
+        <option value="2">Slightly</option>
+        <option value="3">Somewhat</option>
+        <option value="4">Mostly</option>
+        <option value="5">Very</option>
+        <option value="555">Prefer not to answer</option>
+    </select>
+</p>
+</fieldset>
+</form>
+<script>
+                    $("#wizard").on("wizardfinish", function() {
+                            if (!$(this).find(":input").valid()) {
+                                    return false;
+                            }
+                        }).jWizard().validate();
+</script>
+</div>
+</div>
+<!--features ends-->
+
+<!--divider here-->
+<div class="spacer-40px"></div>
+
+</div>
+</section>
+
+
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts" />
+
+</body>
+</html>
+

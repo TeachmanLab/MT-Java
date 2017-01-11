@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="fragment/common :: headerFragment"/>
+<body>
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
+
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+
+                <h1>Order Information</h1>
+                <table style="width:100%">
+                    <tr>
+                        <td>Order ID:</td>
+                        <td th:text="${order.order_id}"> blablabla</td>
+                    </tr>
+                    <tr>
+                        <td>Identifier:</td>
+                        <td th:text="${order.account_identifier}"> XXX</td>
+                    </tr>
+                    <tr>
+                        <td>Customer:</td>
+                        <td th:text="${order.customer}"> whatever</td>
+                    </tr>
+                    <tr>
+                        <td>Amount:</td>
+                        <td th:text="${order.amount}+' Cents'"> soandso</td>
+                    </tr>
+                    <tr>
+                        <td>Delivered At:</td>
+                        <td th:text="${order.delivered_at}"> 0</td>
+                    </tr>
+                    <tr>
+                        <td>Recipient Name:</td>
+                        <td th:text="${order.recipient.name}"> Adam</td>
+                    </tr>
+                    <tr>
+                        <td>Recipient Email:</td>
+                        <td th:text="${order.recipient.email}"> adam@adam.com</td>
+                    </tr>
+                    <tr>
+                        <td>Card Number:</td>
+                        <td th:text="${order.reward.number}"> XXX</td>
+                    </tr>
+                    <tr>
+                        <td>PIN:</td>
+                        <td th:text="${order.reward.pin}"> XX</td>
+                    </tr>
+                    <tr>
+                        <td>Redemption URL:</td>
+                        <td th:text="${order.reward.redemption_url}"> www.fallingstone.net</td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+<div th:include="fragment/common :: scripts" />
+
+</body>
+</html>

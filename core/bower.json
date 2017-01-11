@@ -1,0 +1,22 @@
+{
+  "name": "r34",
+  "version": "0.0.1",
+  "homepage": "https://github.com/danfunk/MindTrails",
+  "authors": [
+    "Dan Funk <daniel.h.funk@gmail.com>"
+  ],
+  "description": "MindTrails",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+          "PIPlayer":"v0.3.15",
+          "requirejs": "~2.1.14",
+          "bootstrap":"v3.3.5",
+          "jquery":"2.2.4",
+          "jqueryui":"v1.11",
+          "jquery-flot": "0.8.3",
+          "jquery-csv": "0.8.2",
+          "jspsych": "https://github.com/jodeleeuw/jsPsych.git",
+          "papaparse":"v4.1.1"
+  }
+}

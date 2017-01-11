@@ -1,0 +1,437 @@
+<!doctype html>
+<html>
+    <head>
+        <title>My experiment</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script th:src="@{/bower/jspsych/jspsych.js}"></script>
+        <script th:src="@{/bower/jspsych/plugins/jspsych-text.js}"></script>
+        <script th:src="@{/bower/jspsych/plugins/jspsych-button-response.js}"></script>
+        <script th:src="@{/bower/jspsych/plugins/jspsych-single-stim.js}"></script>
+        <script th:src="@{/bower/jspsych/plugins/jspsych-html.js}"></script>
+        <script th:src="@{/bower/jspsych/plugins/jspsych-call-function.js}"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/mootools/1.2.4/mootools-yui-compressed.js"></script>        
+        <script th:src="@{/bower/jquery-csv/src/jquery.csv.js}"></script>
+        <script th:src="@{/bower/papaparse/papaparse.min.js}"></script>
+
+        <link th:href="@{/bower/jspsych/css/jspsych.css}" rel="stylesheet" type="text/css"/>
+		<link th:href="@{/css/jspsych.css}" rel="stylesheet" type="text/css"/>
+
+
+
+    </head>
+    <body>
+    </body>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+
+        var csvFile = /*[[${script}]]*/ 'scenarios/scenarios.csv';
+
+        function parseData(url, callBack) {
+	    Papa.parse(url, {
+	        download: true,
+	        dynamicTyping: true,
+	        header: true,
+	        complete: function(results) {
+	            callBack(results.data);
+	        }
+	    });
+	}
+
+	var contextRoot = /*[[@{/}]]*/ '';
+    parseData(contextRoot + "jspsychCSV/" + csvFile + ".csv", doStuff)
+
+    // function to hide a div
+	jQuery.fn.invisible = function() {
+	    return this.css('visibility', 'hidden');
+	};
+
+    // this is the function to remove a random letter
+    function removeRandomLetter(str) {
+	    var pos = Math.floor(Math.random()*str.length);
+	    return [str.substring(0, pos) + "[&nbsp;&nbsp;]"+ str.substring(pos+1), str.charAt(pos)];
+	}
+
+	// this is the function used to shuffle letters
+	function shuffle(array) {
+
+	var currentIndex = array.length, temporaryValue, randomIndex;
+
+	  // While there remain elements to shuffle...
+	  while (0 !== currentIndex) {
+
+	    // Pick a remaining element...
+	    randomIndex = Math.floor(Math.random() * currentIndex);
+	    currentIndex -= 1;
+
+	    // And swap it with the current element.
+	    temporaryValue = array[currentIndex];
+	    array[currentIndex] = array[randomIndex];
+	    array[randomIndex] = temporaryValue;
+	  }
+
+	  return array;
+	}
+
+
+
+        // this is the function to pick an answer for question
+        function pickAnswer(str) {
+            if (str == 'Yes') {
+                return 0
+            }
+            else if (str == 'No') {
+                return 1
+            }
+
+        }
+
+
+        // This is the function to create non-repeated counter options for missing letter
+        function fakeLetter(answer) {
+            // the possible letters to choose from
+            var possible = "abcdefghijklmnopqrstuvwxyz";
+            var exAns = [answer,answer,answer];
+            var i = 0;
+            while (exAns.indexOf(answer)>=0) {
+                t = possible.charAt(Math.floor(Math.random() * possible.length));
+                if (exAns.indexOf(t)<0) {
+                    exAns[i] = t;
+                    i += 1;
+                }
+            }
+            return exAns;
+        }
+
+	function doStuff(scenarios) 
+	{
+
+	// empty timeline
+    var timeline = [];
+
+    // Add instruction here:
+
+
+    var intro_1 = {
+        type: 'html',
+        url : contextRoot + 'jspsychCSV/intro.html',
+        cont_btn: 'next'
+    };
+
+    timeline.push(intro_1);
+
+
+    n_trials = scenarios.length;
+    scenarios = shuffle(scenarios);
+
+	for (var i = 0; i < n_trials; i++)
+    {    	
+				// split the sentences
+				split_sentences = scenarios[i].Scenario.split('.')
+                var trial = {
+
+                }
+				var stim = '';
+                var sentence = '';
+
+				// loop through the split-up sentences
+				for (var k = 0; k < split_sentences.length; k++)
+				{
+					// if it's not the last element of the array
+					if (k < split_sentences.length - 1)
+					{
+						stim = stim + '<p>' + split_sentences[k] + '.' + '</p>';
+					}
+					// if it's the last element it's the word; so don't add a period
+					else
+					{
+						stim = stim + split_sentences[k];
+					}
+					sentence = split_sentences[k];
+					// create the var that will hold start time
+                    var startTime;
+                    // get the start time
+                    var start_time_trial = {
+                        type: 'call-function',
+                        func: function(){ startTime = (new Date()).getTime(); }
+                    }
+
+                    timeline.push(start_time_trial); // uses call-function plugin to record roughly when the first trial in the loop began.
+                    // here's the trial
+					var trial_pre = {
+						type: 'button-response',
+                        stim: stim,
+                        sentence: sentence,
+                        stimulus: function() {
+                            return "<div class='center-content'>" + jsPsych.currentTrial().stim + "</div>"
+                        },
+                        is_html: true,
+						timing_post_trial: 0,
+                        count: i + 1,
+                        trials: n_trials + 1,
+                        // dynamic part of the trial, always add the div where the feedback is going to show
+                        do_it: function()
+						{
+						    display_element = jsPsych.getDisplayElement();
+                            display_element.append($('<div>', {
+					      	"id": 'feedback',
+					        "class": 'center-content block-center',
+					        "html": '</br>'
+					      	}));
+                            display_element.append($('<div>', {
+                                "id": 'count',
+                                "class": 'center-content block-center',
+                                "html": jsPsych.currentTrial().count + ' of ' + (n_trials )
+                            }));
+
+						},
+						choices:['Continue']
+					};
+                    // here's our while loop
+                    var while_pre = {
+                        chunk_type: 'while',
+                        timeline: [trial_pre],
+                        // this is how we end the while loop
+                        loop_function: function(data){
+                            console.log(jsPsych.currentTrial().sentence);
+                            if (jsPsych.currentTrial().sentence.split(' ').length * 100 > new Date().getTime() - startTime)
+                            {
+                                return true;
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }};
+                    timeline.push(while_pre);
+				}
+                var whole_word = scenarios[i].PositiveS.toLowerCase();
+				// remove the letter; store the word and the letter; set the word to lowerCase first.
+                var removal = removeRandomLetter(scenarios[i].PositiveS.toLowerCase());
+                // here's the word
+                last = removal[0];
+				var feedback = 'Correct!';
+				// put the letter and random letters as a choice
+                var options = fakeLetter(removal[1]);
+                choice = [removal[1], options[0], options[1], options[2]];
+				// shuffle the choices
+				choice = shuffle(choice);	
+				// get the answer
+				index = $.inArray(removal[1], choice);	
+				// here's the trial; we'll put this in a while loop
+
+            var trial = {
+                        type: 'button-response',
+                        stim: stim,
+                        last: last,
+                        stimulus: function() {
+                            return "<div class='center-content'>" + jsPsych.currentTrial().stim + ' ' + jsPsych.currentTrial().last + "</div>"
+                        },
+                        whole_word: whole_word,
+                        is_html: true,
+                        index:index,
+                        timing_post_trial: 0,
+                        count: i + 1,
+                        trials: n_trials + 1,
+                        correct: false,
+                        incorrect:false,
+                        end: false,
+                        // dynamic feedack
+                        do_it: function()
+                        {
+                            // if correct
+                            if (trial.timeline[0].correct)
+                            {
+                                console.log(jsPsych.currentTrial());
+                                console.log(jsPsych.currentTrial().whole_word);
+                                jsPsych.currentTrial().stimulus = jsPsych.currentTrial().stimulus.replace(jsPsych.currentTrial().last, jsPsych.currentTrial().whole_word);
+                                display_element.append($('<div>', {
+                                "id": 'feedback',
+                                "class": 'center-content block-center',
+                                "html": 'Great job!'
+                                }));
+                                setTimeout(function() {
+                                    $('#feedback').invisible();
+                                }, 1000);
+                                trial.timeline[0].end = true;
+                                trial.timeline[0].correct = false;
+                                trial.timeline[0].incorrect = false;
+                                jsPsych.endCurrentTimeline();
+                            }
+                            // if incorrect
+                            else if (trial.timeline[0].incorrect)
+                            {
+                                display_element.append($('<div>', {
+                                "id": 'feedback',
+                                "class": 'center-content block-center',
+                                "html": 'Incorrect'
+                                }));
+                                setTimeout(function() {
+                                    $('#feedback').invisible();
+                                }, 1000);
+                            }
+                            // if we're not on the feedback portion
+                            else
+                            {
+                                display_element = jsPsych.getDisplayElement();
+                            }
+                            display_element.append($('<div>', {
+                                "id": 'count',
+                                "class": 'center-content block-center',
+                                "html": jsPsych.currentTrial().count + ' of ' + (n_trials)
+                            }));
+
+                        },
+                        choice: choice,
+                        // choices have to be dynamic
+                        choices: function()
+                        {
+                            if (trial.timeline[0].end)
+                            {
+                                trial.timeline[0].end = false;
+                                return ['Continue']
+                            }
+                            else
+                            {
+                                return jsPsych.currentTrial().choice;
+                            }
+                        },
+
+                };
+				// here's our while loop
+				var trial = {
+					chunk_type: 'while',
+					timeline: [trial],
+					// this is how we end the while loop
+					loop_function: function(data){
+						display_element = jsPsych.getDisplayElement();
+						if (data[0].button_pressed==jsPsych.currentTrial().index)
+						{	
+							trial.timeline[0].correct = true;
+							return true;
+						}
+						else
+						{
+							trial.timeline[0].incorrect = true;
+							return true;						
+						}
+					}
+				}
+		    	timeline.push(trial);
+
+                var answer = pickAnswer(scenarios[i].PositiveQ);
+
+
+        // same code for the question
+				var trial = {
+					type: 'button-response',
+					stimulus: "<p class='center-content'>" + scenarios[i].Questions + "</p>",
+					is_html: true,
+                    count: i + 1,
+                    trials: n_trials + 1,
+					timing_post_trial: 0,
+					correct: false,
+					incorrect:false,
+					end: false,
+                    answer: answer,
+
+
+					do_it: function()
+					{
+						if (trial.timeline[0].correct)
+						{
+					      	display_element.append($('<div>', {
+					      	"id": 'feedback',
+					        "class": 'center-content block-center',
+					        "html": 'Great job!'
+					      	}));
+                            display_element.append($('<div>', {
+                                "id": 'count',
+                                "class": 'center-content block-center',
+                                "html": jsPsych.currentTrial().count + ' of ' + (n_trials)
+                            }));
+                            setTimeout(function() {
+							    $('#feedback').invisible();
+							}, 1000);	
+							trial.timeline[0].end = true;
+							trial.timeline[0].correct = false;							
+							trial.timeline[0].incorrect = false;
+							jsPsych.endCurrentTimeline();
+						}
+						else if (trial.timeline[0].incorrect)
+						{
+					      	display_element.append($('<div>', {
+					      	"id": 'feedback',
+					        "class": 'center-content block-center',
+					        "html": 'Incorrect'
+					      	}));
+                            display_element.append($('<div>', {
+                                "id": 'count',
+                                "class": 'center-content block-center',
+                                "html": jsPsych.currentTrial().count + ' of ' + (n_trials)
+                            }));
+					      	setTimeout(function() {
+							    $('#feedback').invisible();
+							}, 1000);
+						}
+						else
+						{
+							display_element = jsPsych.getDisplayElement();
+							display_element.append($('<div>', {
+					      	"id": 'feedback',
+					        "class": 'center-content block-center',
+					        "html": '</br>'
+					      	}));
+                            display_element.append($('<div>', {
+                                "id": 'count',
+                                "class": 'center-content block-center',
+                                "html": jsPsych.currentTrial().count + ' of ' + (n_trials)
+                            }));
+						}
+
+					},
+					choice:['Yes', 'No'],
+
+					choices: function()
+					{
+						if (trial.timeline[0].end)
+						{
+							trial.timeline[0].end = false;
+							return ['Continue']
+						}
+						else
+						{
+							return jsPsych.currentTrial().choice;
+						}
+					},					
+				};
+
+				var trial = {
+					chunk_type: 'while',
+					timeline: [trial],
+					loop_function: function(data){
+						if (data[0].button_pressed==jsPsych.currentTrial().answer)
+						{	
+							trial.timeline[0].correct = true;
+							return true;
+						}
+						else
+						{
+							trial.timeline[0].incorrect = true;
+							return true;						
+						}
+					}
+				}
+			    timeline.push(trial);
+    }
+
+
+	jsPsych.init({
+	  timeline: timeline,
+        on_finish: function(data){window.location.assign(contextRoot + "jspsych/completed/" + csvFile);}
+            //saveData("DutchArticles"+SubjectID+".csv", jsPsych.data.dataAsCSV())}
+	});
+	}
+        /*]]>*/
+    </script>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="fragment/common :: headerFragment"/>
+<body>
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
+
+
+<div class="col-md-8">
+    <h2 class="page-title">Reset your password</h2>
+
+    <div th:if="${invalidEmail}" class="alert alert-error">
+        Sorry, we have no account with that email address in our system.
+    </div>
+    <p>Enter your email address below and we will email you a link that you can follow to reset your password.</p>
+    <form action="#" th:action="@{'/resetPass'}" method="post">
+        <p>
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email"/>
+        </p>
+        <button>Reset Password</button>
+    </form>
+
+
+    <!-- footer starts
+    ================================================== -->
+    <footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
+
+    <!-- copyright starts
+    ================================================== -->
+    <section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
+
+    <!--Javascript
+    ================================================== -->
+    <div th:include="fragment/common :: scripts"/>
+
+</div>
+</body>
+</html>

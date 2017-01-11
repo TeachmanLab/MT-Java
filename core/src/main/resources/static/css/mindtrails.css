@@ -1,0 +1,407 @@
+@charset "UTF-8";
+/* CSS Document */
+
+body {font-family: 'Source Sans Pro', sans-serif; font-size:20px; box-sizing:border-box; background-color: #f6f5ea}
+.clear-both {clear:both;}
+
+/*************** Header   */
+.page-title {font-size:1.45em; color:#00ACE4; font-weight:bold; }
+.page-title img {margin-top: -10px; margin-bottom:20px;}
+
+#nav {font-size:0.6em; list-style:none; padding:15px 0 15px 20px; text-align: right;}
+#nav li {float:left; padding:0px 10px;}
+#nav a {color:#5ECCDE; text-decoration:none; font-weight: 700}
+
+.account-bar {
+    background: #21336B;
+    color:#ffffff;
+    font-weight: bold;
+    clear:both;
+    width:100%;
+    font-size:.66em;
+    text-align:right;
+    padding:0px 20px;
+    line-height: 25px;
+}
+
+.account-bar a, .account-bar span.item {color:#ffffff; padding: 0 10px 0 10px; font-weight:400}
+.account-bar .login {}
+
+/*************** Footer   */
+#footer { margin-top: 20px; background:#21336B; font-size:0.6em; color: #ffffff}
+.footer-logo { float:left; margin: 10px;}
+
+.footer-links {float:right; list-style:none; padding:15px;}
+.footer-links li {float:left; padding:0px 10px;}
+.footer-links a {color:#5ECCDE; text-decoration:none; font-weight:700}
+
+/*************** Sections */
+
+div.sessionSection,  div.sessionOverview {
+    padding: 20px 0px;
+    align-content: center;
+    text-align: center;
+    margin: 40px auto;
+    padding: 20px 20px 20px 20px;
+    max-width: 900px;
+    border-radius: 15px;
+    border: 1px solid #BBB;
+    background: #FFF;
+}
+
+/*************** Button *************************/
+button  {  -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0px 1px 3px #666;
+    -moz-box-shadow: 0px 1px 3px #666;
+    box-shadow: 0px 1px 3px #666;
+    border-top:1px solid #3399FF;
+    border-left:1px solid #5FBCEA;
+    border-bottom:1px solid #0084AE;
+    border-right:1px solid #0084AE;
+    color: #ffffff;
+    background: #00ACE4;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+    font-size:20px;
+    margin:10px 0px;
+    font-weight: 700;
+}
+
+
+/** THEMES **/
+.user-theme-orange button { background:#F77D38; border-top:#F99A65; border-left:#F99A65; border-bottom:#B36B42; border-right:#B36B42;}
+.user-theme-green button { background:#7bb76f; border-top:#99C38D; border-left:#99C38D; border-bottom:#698D63; border-right:#698D63;}
+.user-theme-purple button { background:#C98ABB; border-top:#D4A4CA; border-left:#D4A4CA; border-bottom:#9A7490; border-right:#9A7490;}
+.user-theme-gold button { background:#ECB800; border-top:#F1C657; border-left:#F1C657; border-bottom:#AF8A00; border-right:#AF8A00;}
+
+.user-theme-orange #nav a { color:#F99A65;}
+.user-theme-green #nav a { color:#99C38D; }
+.user-theme-purple #nav a { color:#D4A4CA; }
+.user-theme-gold #nav a { color:#F1C657;}
+
+.user-theme-orange .account-bar { background:#F77D38; }
+.user-theme-green .account-bar { background:#77B46D; }
+.user-theme-purple .account-bar { background:#C98ABB; }
+.user-theme-gold .account-bar { background:#ECB800; }
+
+.user-theme-orange .page-title { color:#F77D38; }
+.user-theme-green .page-title { color:#77B46D; }
+.user-theme-purple .page-title { color:#C98ABB; }
+.user-theme-gold .page-title { color:#ECB800; }
+
+.user-theme-orange em { color:#F77D38; }
+.user-theme-green em { color:#77B46D; }
+.user-theme-purple em { color:#C98ABB; }
+.user-theme-gold em { color:#ECB800; }
+
+button:hover {
+    -webkit-box-shadow: 0 3px 8px #000;
+    -moz-box-shadow: 0 3px 8px #000;
+    box-shadow: 0 3px 8px #000;
+}
+
+button:active { background:#666;
+    -webkit-box-shadow: 0px 0px 0px #888;
+    -moz-box-shadcoow: 0px 0px 0px #888;
+    box-shadow: 0px 0px 0px #888;
+}
+
+/**
+Session Overview
+**/
+
+img.sessionMarker {
+    position:absolute;
+    left: 20px;
+    margin: 20px;
+}
+
+div.sessionGrouping {
+    width: 850px;
+    clear:both;
+    margin: 50px 0 20px 0;
+    position:relative;
+}
+
+div.sessionOverview {
+    left: 120px;
+    background:#21336B;
+    margin: 0 0 0 120px;
+    padding: 0;
+    width: 600px;
+}
+
+div.sessionOverview h3 {
+    color: white;
+    font-size: 92%;
+    margin: 5px 20px;
+}
+
+div.sessionOverview span.date {
+    margin-left: 10px;
+}
+
+div.gift {
+    position:absolute;
+    width: 100px;
+    bottom:0px;
+    right:0px;
+    text-align: center;
+}
+
+div.gift img {
+    margin-left:-20px;
+}
+
+
+br.clear {
+    clear:both;
+}
+
+div.sessionOverview table {
+    background-color: white;
+    min-width: 598px;
+}
+
+div.sessionOverview table td {
+    background-color: white;
+    border: 1px solid #BBB;
+    padding-left: 20px;
+    height: 40px;
+}
+
+.allow2days {
+    color: #5f5f5f;
+    font-size: 83%;
+    margin: 0 0 0 175px;
+}
+
+
+
+/*************** Password validation */
+#pswd_info ul, #passwd_inf0 li {
+    margin:0;
+    padding:0;
+    list-style-type: none;
+}
+
+#pswd_info {
+    display:none;
+    z-index: 100;
+    position:absolute;
+    left:5px;
+    width:350px;
+    padding:15px;
+    background:#fefefe;
+    font-size:.875em;
+    border-radius:5px;
+    box-shadow:0 1px 3px #ccc;
+    border:1px solid #ddd;
+}
+
+
+#pswd_info h4 {
+    margin:0 0 10px 0;
+    padding:0;
+    font-weight:normal;
+}
+
+#pswd_info::before {
+    content: "\25B2";
+    position:absolute;
+    top:-12px;
+    left:45%;
+    font-size:14px;
+    line-height:14px;
+    color:#ddd;
+    text-shadow:none;
+    display:block;
+}
+
+li.invalid {
+    background:url(../images/invalid.png) no-repeat 0 50%;
+    padding-left:22px;
+    line-height:24px;
+    color:#ec3f41;
+}
+li.valid {
+    background: url(../images/valid.png) no-repeat 0 50%;
+    padding-left: 22px;
+    line-height: 24px;
+    color: #3a7d34;
+}
+
+/**  PIPlayer styling **/
+
+div.piPlayerHeader {
+    width:100%;
+    background: #21336B;
+}
+
+div#canvas {
+    position: relative;
+    color:black;
+    background: white;
+    box-sizing:border-box;
+    border-radius: 25px;
+    margin: 40px auto;
+    border: 1px solid #bbb;
+}
+
+div#canvas div {
+    padding: 0px 20px;
+}
+
+div#canvas div.sentence {
+}
+
+div#canvas div.sentence p {
+    margin: 0px;
+}
+
+div.thanks {
+    position: absolute;
+    font-size: 1.2em;
+    top: 300px;
+}
+
+div.stimulus {
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+div.piIntro {
+    text-align:left;
+    font-size: .7em;
+}
+
+div.piIntro img {
+    float:left;
+    margin:25px;
+    padding-right: 20px;
+}
+
+div.piIntro p, div.piIntro h3, div.piIntro ul {
+    margin-left: 20px;
+}
+
+.alert-error {
+    color: darkred;
+}
+
+/**** Theme selection */
+div.themeSection {
+    display: inline-block;
+    max-width: 100%;
+    border-radius: 15px;
+    border: 1px solid #BBB;
+    background: #FFF;
+    margin: 15px;
+}
+
+div.themeSection img {
+}
+
+div.themeSection input {
+    margin: 20px 0 0 20px;
+}
+
+div.themeSection label {
+    margin:0px;
+    min-width: 100px;
+    font-weight: 700;
+}
+
+
+div.themeSection div.themeOption {
+    background: #ffffff;
+    border-bottom: 1px solid #BBB;
+}
+
+div.blue  {
+    background-color: #00ACE4;
+}
+div.orange  {
+    background-color: #ef7b40;
+}
+div.green {
+    background-color: #7bb76f;
+}
+div.purple  {
+    background-color: #c686ba;
+}
+div.gold  {
+    background-color: #e6ba21;
+}
+
+/** Errors from jQuery **/
+label.error {
+    display: block;
+    color: darkred;
+    float: right;
+}
+
+/** Slider Bar **/
+#slider {
+    border: 1px solid #ccc;
+    width: 475px;
+    margin: 20px 0 90px 100px;
+}
+#slider label.slider {
+    font-width: 400;
+    font-size:72%;
+    position: absolute;
+    width: 100px;
+    min-width: 100px;
+    margin-top: 20px;
+    margin-left: -10px;
+    text-align: center;
+}
+
+
+/*************
+   Log Reports on the Admin page
+   *********/
+div.log {
+    margin-bottom: 40px;
+}
+
+
+table.logs {
+    border-collapse: collapse;
+    text-align: left; width: 100%;
+}
+
+table.logs {
+    color: #333;
+    font-family: Helvetica, Arial, sans-serif;
+    width: 640px;
+    border-collapse:
+            collapse; border-spacing: 0;
+}
+
+table.logs td, table.logs th {
+    border: 1px solid transparent; /* No more visible border */
+    height: 30px;
+    transition: all 0.3s; /* Simple transition for hover effect */
+}
+
+table.logs th {
+    background: #DFDFDF; /* Darken header a bit */
+    font-weight: bold;
+}
+
+table.logs td {
+    background: #FAFAFA;
+    text-align: left;
+}
+
+/* Cells in even rows (2,4,6...) are one color */
+table.logs tr:nth-child(even) td { background: #F1F1F1; }
+
+/* Cells in odd rows (1,3,5...) are another (excludes header cells) */
+table.logs tr:nth-child(odd) td { background: #FEFEFE; }
+
+table.logs tr td:hover { background: #666; color: #FFF; } /* Hover cell effect! */

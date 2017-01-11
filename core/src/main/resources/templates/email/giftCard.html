@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head th:include="fragment/email :: headerFragment"/>
+
+<body style="font-family: 'Source Sans Pro', sans-serif; font-size:20px; box-sizing:border-box; background-color: #FFF">
+
+<div id="body_style" style="padding:15px">
+
+    <table cellpadding="0" cellspacing="0" width="600" align="center" th:include="fragment/email :: logoFragment"/>
+
+    <table cellpadding="0" cellspacing="0" width="600" align="center" style="margin-top:20px">
+        <tr>
+            <td width="400">
+                <p th:text="'Hi ' +  ${participant.fullName} + ','" style="margin-top:0; margin-bottom:10px">
+                    Hi Fred,
+                </p>
+                <p style="margin-top:5px">Congratulations. For completing a recent set of surveys you have
+                    earned a $<span th:text="${giftAmount}/100"/> gift card. Here&rsquo;s how to redeem your card.</p>
+                <div style="border-radius: 15px; background: #fff; text-align:center; border: 1px solid #666; margin: 20px;">
+                    <div style="border-top-right-radius: 15px; border-top-left-radius: 15px; width:100%; height:20px; background:#F77D38;"> </div>
+                    <img style="margin:auto; padding: 10px;" th:src="${url} + '/images/gift_card_lg.png'" alt="" border="none"/>
+                    <div style="padding:20px; font-weight:700">TO REDEEM YOUR $<span th:text="${giftAmount}/100"/> GIFT CARD</div>
+                    <p>Visit <a th:href="${reward.redemption_url}" target="_blank">www.tangocard.com/activate</a><br/>
+                       Enter your Card Number: <span th:text="${reward.number}"/><br/>
+                       Enter your PIN: <span th:text="${reward.pin}"/> <br/>
+                       Click "Activate".</p>
+                    <p>Your Tango Card will then be ready to redeem for top
+                        name-brand gift cards or a donation to charity.</p>
+                </div>
+
+                <p style="margin-top:5px">Thank you for your participation in the study and we hope you&rsquo;re having a good week.</p>
+
+                <div id="footer" th:include="fragment/email :: footerFragment"/>
+
+            </td>
+        </tr>
+    </table>
+    <p style="margin-top:0"></p>
+</div>
+</body>
+</html>
+

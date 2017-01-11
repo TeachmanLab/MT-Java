@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="/fragment/common :: headerFragment" />
+<body th:class="|user-theme-${participant.theme}|">
+
+<section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
+
+<!-- header-btm starts
+================================================== -->
+<section id="header-btm" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 heading-icon">
+                <img th:src="@{/images/map-arrow-blue.png}" alt="icon" class="icon-small-bg"/>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- header-btm ends
+================================================== -->
+
+<!-- content starts
+================================================== -->
+
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <h2 class="page-title">About MindTrails</h2>
+
+                <p> MindTrails includes 8 sessions that are spread out over the course of 3-4 weeks. You’ll complete a session
+                    every 3-4 days, and each session takes about 15 minutes to complete. You'll also complete some assessments as
+                    part of our research study so that we can evaluate how well the program works.</p>
+
+                <p th:if="${participant.receiveGiftCards}"> You'll receive gift cards to thank you for completing the assessments, and a bonus gift card after completing the
+                    full study. You’ll also receive feedback after completing the full study about how your anxiety has changed
+                    over the course of the program.</p>
+
+                <p th:unless="${participant.receiveGiftCards}"> You’ll receive feedback after completing the full study about how your anxiety has changed
+                    over the course of the program.</p>
+
+                <p> You can do the sessions anywhere, so long as you have access to a quiet place and a computer with Internet. This
+                    program is free and can be completed without ever leaving your desk.</p>
+
+                <p> <b> So, how does MindTrails work? </b> </p>
+
+
+                <p> In our program, we are attempting to change the way you make sense of information in order to reduce your
+                    anxiety. During each session, you will be asked to read brief stories and complete word fragments, by filling
+                    in one or more missing letters in a word. The task is not meant to be tricky or too difficult. It is not a
+                    puzzle to try to solve.</p>
+
+                <p>These exercises are designed to change the way you make sense of information by
+                    giving you lots of practice responding to situations in different ways. The program
+                    can feel a little repetitive, but the repetition is important so you develop a new
+                    interpretation style.</p>
+
+                <p>Don’t worry if you don’t use computers much—the tasks are not designed to be
+                    difficult and you can always email us with questions at <a href="mailto:studyteam@mindtrails.org">studyteam@mindtrails.org</a> </p>
+
+                <p>This is an experimental program so it is still in the testing phase, but prior research
+                    says this program may be able to reduce anxiety as effectively as therapy for some
+                    people. We want to learn if it can be helpful for you.</p>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+
+
+
+<section id="content2" class="clearfix">
+    <div class="container">
+
+        <!--spacer here-->
+        <div class="spacer-30px"></div>
+
+        <!--features starts-->
+        <div class="row">
+            <div class="span12">
+                <p><b>Before proceeding, please answer the following questions:</b></p>
+                <form th:action="@{/questions/Credibility}" method="POST">
+                    <fieldset>
+                        <div class="section">
+                            <div class="question"><h4>How important is reducing your anxiety to you right now?</h4></div>
+                            <label class="radioBox">
+                                <div class="option">
+                                    <div class="desc1">Not at all</div>
+                                    <input type="radio" name="important" class="form-control" value="0" required="true"/>
+                                    <div class="desc2">1</div>
+                                </div>
+                            </label>
+                            <label class="radioBox">
+                                <div class="option">
+                                    <div class="desc1">A little</div>
+                                    <input type="radio" name="important" class="form-control" value="1" />
+                                    <div class="desc2">2</div>
+                                </div>
+                            </label>
+                            <label class="radioBox">
+                                <div class="option">
+                                    <div class="desc1">Somewhat</div>
+                                    <input type="radio" name="important" class="form-control" value="2" />
+                                    <div class="desc2">3</div>
+                                </div>
+                            </label>
+                            <label class="radioBox">
+                                <div class="option" >
+                                    <div class="desc1">A lot</div>
+                                    <input type="radio" name="important" class="form-control" value="3" />
+                                    <div class="desc2">4</div>
+                                </div>
+                            </label>
+                            <label class="radioBox">
+                                <div class="option">
+                                    <div class="desc1">Extremely</div>
+                                    <input type="radio" name="important" class="form-control" value="5" />
+                                    <div class="desc2">5</div>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="section">
+                            <div class="question"><h4>How confident are you that an online training program will be successful in reducing your anxiety?</h4></div>
+                            <label class="radioBox">
+                                <div class="option">
+                                    <div class="desc1">Not at all</div>
+                                    <input type="radio" name="logical" class="form-control" value="0" required="true"/>
+                                    <div class="desc2">1</div>
+                                </div>
+                            </label>
+                            <label class="radioBox">
+                                <div class="option">
+                                    <div class="desc1">A little</div>
+                                    <input type="radio" name="logical" class="form-control" value="1" />
+                                    <div class="desc2">2</div>
+                                </div>
+                            </label>
+                            <label class="radioBox">
+                                <div class="option">
+                                    <div class="desc1">Somewhat</div>
+                                    <input type="radio" name="logical" class="form-control" value="2" />
+                                    <div class="desc2">3</div>
+                                </div>
+                            </label>
+                            <label class="radioBox">
+                                <div class="option" >
+                                    <div class="desc1">A lot</div>
+                                    <input type="radio" name="logical" class="form-control" value="3" />
+                                    <div class="desc2">4</div>
+                                </div>
+                            </label>
+                            <label class="radioBox">
+                                <div class="option">
+                                    <div class="desc1">Extremely</div>
+                                    <input type="radio" name="logical" class="form-control" value="5" />
+                                    <div class="desc2">5</div>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="section">
+                        <div class="question"><h4>How confident are you that an online training program that is designed to change how you think about situations will be successful in reducing your anxiety?</h4></div>
+                        <label class="radioBox">
+                            <div class="option">
+                                <div class="desc1">Not at all</div>
+                                <input type="radio" name="recommendable" class="form-control" value="0" required="true"/>
+                                <div class="desc2">1</div>
+                            </div>
+                        </label>
+                        <label class="radioBox">
+                            <div class="option">
+                                <div class="desc1">A little</div>
+                                <input type="radio" name="recommendable" class="form-control" value="1" />
+                                <div class="desc2">2</div>
+                            </div>
+                        </label>
+                        <label class="radioBox">
+                            <div class="option">
+                                <div class="desc1">Somewhat</div>
+                                <input type="radio" name="recommendable" class="form-control" value="2" />
+                                <div class="desc2">3</div>
+                            </div>
+                        </label>
+                        <label class="radioBox">
+                            <div class="option" >
+                                <div class="desc1">A lot</div>
+                                <input type="radio" name="recommendable" class="form-control" value="3" />
+                                <div class="desc2">4</div>
+                            </div>
+                        </label>
+                        <label class="radioBox">
+                            <div class="option">
+                                <div class="desc1">Extremely</div>
+                                <input type="radio" name="recommendable" class="form-control" value="5" />
+                                <div class="desc2">5</div>
+                            </div>
+                        </label>
+                        </div>
+                        <div class="question">
+                            <div class="submit">
+                                <button type="submit">Next</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <br />
+
+                </form>
+
+
+        </div>
+        <!--features ends-->
+
+        <!--divider here-->
+        <div class="spacer-40px"></div>
+    </div>
+    </div>
+</section>
+
+
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts" />
+
+</body>
+</html>

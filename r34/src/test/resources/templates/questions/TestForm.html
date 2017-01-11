@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<!--<![endif]-->
+<head th:include="/fragment/common :: headerFragment" />
+<body th:class="|user-theme-${participant.theme}|">
+<section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
+
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <form id="wizard" th:action="@{/forms/test}" method="POST">
+                    <fieldset>
+                        <legend>Questions</legend>
+                        <h4>Please select yes or no.</h4>
+                        <p>
+                            <label>Do you like cheese?</label>
+                            <select name="cheese" required="true">
+                                <option value="">Please select one</option>
+                                <option>Yes</option>
+                                <option>No</option>
+                                <option>Prefer not to answer</option>
+                            </select>
+                        </p>
+                    </fieldset>
+                    </form>
+                </div>
+            </div>
+        <!--features ends-->
+
+        <!--divider here-->
+        <div class="spacer-40px"></div>
+
+    </div>
+</section>
+
+
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts" />
+
+</body>
+</html>
+
+
+

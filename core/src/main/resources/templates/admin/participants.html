@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="fragment/common :: headerFragment"/>
+<body>
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
+
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <h1>Participants</h1>
+
+                <div class="row">
+                    <div class="main-content span8">
+                        <form action="#" th:action="@{/admin}" method="get">
+                            <input type="text" name="search" th:value="${search}"/>
+                            <input type="submit" value="search"/>
+                        </form>
+                    </div>
+
+                    <div class="sidebar span4">
+                        <p>Found <span th:text="${paging.totalElements}"> 100</span> participants. Showing page <span
+                                th:text="${paging.number + 1}">1</span> of <span
+                                th:text="${paging.totalPages}">10</span><br/>
+                            <a th:href="@{/admin/participant/}">New Participant / Admin</a>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="main-content span12">
+
+                        <table class="table table-striped table-bordered participantList">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Study</th>
+                                <th>Session</th>
+                                <th>Email opt-out?</th>
+                                <th>Active?</th>
+                                <th>Admin?</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr th:each="p : ${participants}">
+                                <td th:text="${p.id}">0</td>
+                                <td th:text="${p.fullName}">Dan Funk</td>
+                                <td th:text="${p.email}">daniel.h.funk@gmail.com</td>
+                                <td th:text="${p.study.name}">Templeton Study</td>
+                                <td th:text="${p.study.currentSession.displayName}">Session One</td>
+                                <td><span th:if="${p.emailOptout}">No Emails</span></td>
+                                <td><span th:if="${p.active}">Active</span></td>
+                                <td><span th:if="${p.admin}">Admin</span></td>
+                                <td>
+                                    <a th:href="@{'/admin/participant/'+${p.id}}">Edit Participant</a>
+                                </td>
+                                <td>
+                                    <a th:href="@{'/admin/study/'+${p.id}}">Edit Study</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                <span th:if="${!paging.first}">
+                    <a class="mybtn-small"
+                       th:href="@{/admin(page=${paging.number - 1}, search=${search})}">Previous</a>
+                </span>
+                <span th:if="${!paging.last}" style="float:right">
+                    <a class="mybtn-small" th:href="@{/admin(page=${paging.number + 1}, search=${search})}">Next</a>
+                </span>
+
+                    </div>
+
+                </div>
+
+                <!--spacer here-->
+                <div class="spacer-30px"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>

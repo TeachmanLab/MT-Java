@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="fragment/common :: headerFragment"/>
+<body >
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
+
+<!-- header-btm starts
+================================================== -->
+<section id="header-btm" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <h2 class="page-title heading-icon clearfix"><img th:src="@{/images/map-arrow-orange.png}" alt="icon"
+                                                              class="icon-small-bg"/><br/>Account Settings</h2>
+        </div>
+    </div>
+</section>
+<!-- header-btm ends
+================================================== -->
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span8">
+                <h1>Create Account</h1>
+                <p>Please use the form below to create your account.</p>
+                <form name="create" th:action="@{/account/create}" method="post" th:object="${participantForm}"
+                      th:include="fragment/account :: create"/>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>
