@@ -23,7 +23,7 @@
 
                     <p> The following questions will ask you about different feelings and emotions.
                         Read each item and then move the slider to indicate to what extent you feel each emotion <b>right
-                            now </b>, that is, <b>at the present</b> moment.</p>
+                            now</b>, that is, <b>at the present</b> moment.</p>
 
                     <p> Once you have selected an answer for all of the questions, please click
                         'Continue'. </p>
@@ -33,8 +33,11 @@
                         <div class="question"> To what extent do you feel positive feelings right now, that is, at the
                             present moment? </div>
                         <div class="rangeWrapper">
-                            <input  id ="slide2" type="range" name="PosFeelings" required="true" value="0" min="-3" max="3"/>
-                            <p id="slide_text2" class="rangeLabel"> Moderately Positive </p>
+                            <input  id ="slide2" type="range" name="PosFeelings" required="true" value="0" min="-10" max="10"/>
+                            <p id="slide_text2" class="rangeLabel">
+                                &lt;&lt; Not at all
+                                &nbsp; &nbsp; &nbsp; &nbsp; Moderately
+                                &nbsp; &nbsp; &nbsp; &nbsp; Totally &gt;&gt; </p>
                         </div>
                         <br/>
                         <div><label class="standard"> <input type="checkbox" name="PosFeelings" value="555"
@@ -47,8 +50,11 @@
                     <div class="section">
                         <div class="question"> To what extent do you feel negative feelings right now, that is, at the present moment? </div>
                         <div class="rangeWrapper">
-                            <input  id="slide3" type="range" name = "NegFeelings" required="true" value="0" min="-3" max="3"/>
-                            <p id="slide_text3" class="rangeLabel"> Moderately Positive </p>
+                            <input  id="slide3" type="range" name = "NegFeelings" required="true" value="0" min="-10" max="10"/>
+                            <p id="slide_text3" class="rangeLabel">
+                                &lt;&lt; Not at all
+                                &nbsp; &nbsp; &nbsp; &nbsp; Moderately
+                                &nbsp; &nbsp; &nbsp; &nbsp; Totally &gt;&gt; </p>
                         </div>
                         <br/>
                         <div><label class="standard"> <input type="checkbox" name="NegFeelings" value="555"
@@ -68,18 +74,18 @@
 
                 <script> /*<![CDATA[*/
                 $(document).ready(function(){
-                    setupSlider($("#slide2"), $("#slide_text2"));
-                    setupSlider($("#slide3"), $("#slide_text3"));
+                    setupSliderPos($("#slide2"), $("#slide_text2"));
+                    setupSliderNeg($("#slide3"), $("#slide_text3"));
                 });
 
-                function setupSlider(slider, text) {
+                function setupSliderPos(slider, text) {
                     slider.change(function() {
                         slider = $(this);
-                        value = (slider.val() -1);
+                        value = slider.val();
                         text.removeClass('selected');
-                        if(value <= -1) text.text("Not at all Positive");
-                        if(value > -1 && value < 1) text.text("Moderately Positive");
-                        if(value >= 1) text.text("Totally Positive");
+                        if(value < -5) text.text("Not at all Positive");
+                        if(value >= -5 && value <= 5) text.text("Moderately Positive");
+                        if(value > 5) text.text("Totally Positive");
 
                     });
 
@@ -90,6 +96,26 @@
                                 .trigger('change');
                     });
                 }
+
+                function setupSliderNeg(slider, text) {
+                    slider.change(function() {
+                        slider = $(this);
+                        value = slider.val();
+                        text.removeClass('selected');
+                        if(value < -5) text.text("Not at all Negative");
+                        if(value >= -5 && value <= 5) text.text("Moderately Negative");
+                        if(value > 5) text.text("Totally Negative");
+
+                    });
+
+                    slider.bind('click', function(){
+                        label = $(this);
+                        value = label.index();
+                        slider.attr('value', value)
+                                .trigger('change');
+                    });
+                }
+
                 /*]]>*/
                 </script>
 

@@ -63,7 +63,7 @@ public class SessionController extends BaseController {
         model.addAttribute("sessionState", study.getState().toString());
         model.addAttribute("dateRange", startFormat.print(startDate) + endFormat.print(endDate));
         model.addAttribute("completeBy", endFormat.print(completeBy));
-
+        model.addAttribute("totalSessions", study.getSessions().size());
         // Don't allow people to progress if we reach the max form submissions
         // and the exports are not running correctly.
         if((study.getState() == Study.STUDY_STATE.READY ||
@@ -73,7 +73,6 @@ public class SessionController extends BaseController {
                     " total questionnaire submissions. It has been " + exportService.minutesSinceLastExport()
                     + " minutes since the last export ran.");
             return "sessionHome/siteDisabled";
-
         }
 
         // Determine if a gift should be awarded, and award it.
@@ -86,13 +85,13 @@ public class SessionController extends BaseController {
 
         switch (study.getState()) {
             case IN_PROGRESS:
-                return "sessionHome/inProgress"; // check
+                return "sessionHome/inProgress";
             case ALL_DONE:
-                return "sessionHome/allDone"; // check
+                return "sessionHome/allDone";
             case READY:
-                return "sessionHome/ready";       // Check
+                return "sessionHome/ready";
             case WAIT:
-                return "sessionHome/wait"; // check
+                return "sessionHome/wait";
             default:
                 return "sessionHome/inProgress";
         }

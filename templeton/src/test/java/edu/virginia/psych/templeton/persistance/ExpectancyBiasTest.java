@@ -20,32 +20,14 @@ public class ExpectancyBiasTest {
     @Before
     public void setupAllSevens(){
 
-        bias.setLongHealthy(7);
         bias.setShortRest(7);
-        bias.setPotentialRelationship(7);
-        bias.setSuggestPotential(7);
         bias.setSettleIn(7);
-        bias.setMakePlans(7);
         bias.setConsideredAdvancement(7);
-        bias.setImpressed(7);
-        bias.setSaving(7);
         bias.setFinanciallySecure(7);
-        bias.setKaraokeOften(7);
-        bias.setBestTime(7);
-
-        bias.setTerribleCondition(7);
         bias.setVerySick(7);
-        bias.setEndUpAlone(7);
-        bias.setArgument(7);
         bias.setOffend(7);
-        bias.setLoseTouch(7);
         bias.setStuck(7);
-        bias.setNotSelected(7);
-        bias.setPinched(7);
         bias.setRuining(7);
-        bias.setMakeFun(7);
-        bias.setFallDown(7);
-
     }
 
 
@@ -53,9 +35,9 @@ public class ExpectancyBiasTest {
     public void testPositiveAverage() {
 
         assertEquals(7, bias.positiveAverage(), 0.0001);
-        bias.setBestTime(1);
+        bias.setShortRest(1);
         assertNotEquals(7, bias.positiveAverage(), 0.0001);
-        bias.setBestTime(NO_ANSWER);
+        bias.setShortRest(NO_ANSWER);
         assertEquals(7, bias.positiveAverage(), 0.0001);
 
     }
@@ -64,9 +46,9 @@ public class ExpectancyBiasTest {
     public void testNegativeAverage() {
 
         assertEquals(7, bias.negativeAverage(), 0.0001);
-        bias.setEndUpAlone(1);
+        bias.setRuining(1);
         assertNotEquals(7, bias.negativeAverage(), 0.0001);
-        bias.setEndUpAlone(NO_ANSWER);
+        bias.setRuining(NO_ANSWER);
         assertEquals(7, bias.negativeAverage(), 0.0001);
 
     }
@@ -77,18 +59,18 @@ public class ExpectancyBiasTest {
         assertEquals(0, bias.score(), 0.0001);  // Everything is at seven, so diff of averages is 0.
 
         // slight positive bias
-        bias.setEndUpAlone(1);
+        bias.setVerySick(1);
         assertTrue("Slight positive bias not there.", bias.score() > 0);
 
         // back to zero, when positive and negative match up
-        bias.setSaving(1);
+        bias.setShortRest(1);
         assertEquals(0, bias.score(), 0.0001);  // Everything is at seven, so diff of averages is 0.
 
         // Having some low scores on a few negative answers should be
         // enough to be over the limit at 1.11111 towards the positive.
-        bias.setSaving(7);
-        bias.setFallDown(1);
-        bias.setMakeFun(1);
+        bias.setSettleIn(7);
+        bias.setStuck(1);
+        bias.setRuining(1);
         assertTrue(bias.score() > 1.1111);
 
     }

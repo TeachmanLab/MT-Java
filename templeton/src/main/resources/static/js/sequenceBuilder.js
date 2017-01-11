@@ -53,11 +53,39 @@ function shuffle(array) {
 
 // this is the function to remove a random letter
 
-function removeRandomLetter(str) {
+function removeRandomLetters(str, amount) {
     if(str == null) return ["",""];
-    var pos = Math.floor(Math.random() * str.length);
-    return [str.substring(0, pos) + "[ ]" + str.substring(pos + 1), str.charAt(pos)];
+
+    var letters = "";
+    var pos = 0;
+    var tries = 0;
+    // select a value that is a word character, not a space or punctuation
+    // And don't select the first letter in the phase.
+    // Don't try to look forever.
+    while (letters == "") {
+
+        tries ++;
+        // Pick a random position in the string, greater than 0
+        pos = Math.floor(Math.random() * (str.length - 1)) + 1;
+        if(pos == 0) continue;
+        // Assure that the position begins at a series of characters long
+        // enough to support the total number of letters to remove.
+        var testLetters = str.substring(pos,pos + amount);
+        var re = new RegExp("^\\w{" + amount + "}$");
+        if(re.test(testLetters)) {
+            letters = testLetters;
+        }
+
+        // Reduce the number of letters examined if we can't find a long enough string.
+        if(tries > str.length * 10) {
+            amount--;
+            tries = 0;
+        }
+        if (amount == 0) break;
+    }
+    return [str.substring(0,pos) + "[ ]".repeat(amount) + str.substring(pos+amount), letters];
 }
+
 
 function getAnswer(str)
 {
@@ -67,7 +95,7 @@ function getAnswer(str)
     { return 'n' }
 }
 
-function processCSV(scenarios, condition) {
+function processCSV(scenarios, condition, total_sequences, lettersToRemove) {
     if (condition == 'FIFTY_FIFTY_BLOCKED')
     {
         console.log('NO');
@@ -75,13 +103,14 @@ function processCSV(scenarios, condition) {
     var merged = [].concat.apply([], scenarios);
     var merged =  shuffle(merged);
     var remake = [];
+
     remake.push(intro);
-    for (i = 0; i < merged.length; i++) {
+    for (i = 0; i < total_sequences; i++) {
         if(!merged[i].Scenario) continue;
-        n1 = removeRandomLetter(merged[i].NegativeS);
-        n2 = removeRandomLetter(merged[i].NegativeS2);
-        p1 = removeRandomLetter(merged[i].PositiveS);
-        p2 = removeRandomLetter(merged[i].PositiveS2);
+        n1 = removeRandomLetters(merged[i].NegativeS, lettersToRemove);
+        n2 = removeRandomLetters(merged[i].NegativeS2, lettersToRemove);
+        p1 = removeRandomLetters(merged[i].PositiveS, lettersToRemove);
+        p2 = removeRandomLetters(merged[i].PositiveS2, lettersToRemove);
         var scenario =
         {
             "inherit": {
@@ -104,6 +133,7 @@ function processCSV(scenarios, condition) {
                     "media": {
                         "inlineTemplate": "<div class='sentence'><%= stimulusData.statement %><span class='incomplete' style='white-space:nowrap;'><%= stimulusData.stimulus %></span></div>"
                     }
+
                 },
                 {
                     "handle": "question",
@@ -114,7 +144,9 @@ function processCSV(scenarios, condition) {
                     },
                     "media": {
                         "inlineTemplate": "<div>" + merged[i].Questions + "</div>"
-                    }
+                    },
+                    css: {position: 'absolute'}
+
                 },
                 {
                     "handle": "mc1",
@@ -123,10 +155,13 @@ function processCSV(scenarios, condition) {
                         negativeAnswer: (merged[i].mc1pos == "b") ? "a" : "b"
                     },
                     "media": {
-                        "inlineTemplate": "<div> <p> " + merged[i].MultipleChoice1 + "</p> " +
-                        "<p> a)" + merged[i].mc1a + " </p>" +
-                        "<p> b)" + merged[i].mc1b + "</p> </div>"
-                    }
+                        "inlineTemplate": "<div class='multiple-choice'> <p> " + merged[i].MultipleChoice1 + "</p> " +
+                        "<ol>" +
+                        "<li>" + merged[i].mc1a + " </li>" +
+                        "<li>" + merged[i].mc1b + "</li>" +
+                        "</ol></div>"
+                    },
+                    css: {position: 'absolute'}
                 },
                 {
                     "handle": "mc2",
@@ -135,34 +170,52 @@ function processCSV(scenarios, condition) {
                         negativeAnswer: (merged[i].mc2pos == "b") ? "a" : "b"
                     },
                     "media": {
-                        "inlineTemplate": "<div> <p>" + merged[i].MultipleChoice2 + "</p> " +
-                        "<p> a)" + merged[i].mc2a + " </p>" +
-                        "<p> b)" + merged[i].mc2b + "</p> </div>"
-                    }
+                        "inlineTemplate": "<div class='multiple-choice'> <p> " + merged[i].MultipleChoice2 + "</p> " +
+                        "<ol>" +
+                        "<li>" + merged[i].mc2a + " </li>" +
+                        "<li>" + merged[i].mc2b + "</li>" +
+                        "</ol></div>"
+                    },
+                    css: {position: 'absolute'}
                 },
                 {"inherit": {"set": "ab"}},
                 {"inherit": {"set": "yesno"}},
                 {"inherit": {"set": "stall"}}, {"inherit": {"set": "greatjob"}},
                 {"inherit": {"set": "press_space"}},
-                {"inherit": {"set": "counter"}}
+                {"inherit": {"set": "counter"}},
+                {"inherit": {"set": "score"}}
             ]
-        }
+        };
         remake.push(scenario);
-
-        if (i == 0 | i == merged.length/2)
+        if (i == 0 || i == 1)
         {
             vivid = {"inherit": {"set": "vivid"}};
             vivid_after = { "inherit": { "set": "vivid_after" }};
+
             remake.push(vivid);
             remake.push(vivid_after);
         }
-        if (i === merged.length - 1)
+
+        if (i == total_sequences/2 - 1)
         {
-            vivid_lst =  {"inherit": {"set": "vivid"},
-                layout: [{media: {template: "/PIPlayerScripts/vividness_last.html"}}]};
-            remake.push(vivid_lst);
+            vivid = {"inherit": {"set": "vivid"}};
+            vivid_after = { "inherit": { "set": "vivid_after_half" }};
+
+            remake.push(vivid);
+            remake.push(vivid_after);
         }
 
+        if (i == total_sequences - 1)
+        {
+            vivid_lst =  {"inherit": {"set": "vivid"},
+                layout: [{media: {template: "../PIPlayerScripts/vividness_last.html"}}]};
+            remake.push(vivid_lst);
+            vivid_after = { "inherit": { "set": "vivid_after" }};
+            remake.push(vivid_after);
+        }
     }
+
+    remake.push({"inherit": {"set": "results"}});
+
     return remake;
 }

@@ -31,6 +31,8 @@
         var contextRoot = /*[[@{/}]]*/ '';
         var condition = /*[[${condition}]]*/ "NEUTRAL";
         var script = /*[[@{${script}}]]*/ "scenerio";
+        var letters_to_remove = /*[[${lettersToRemove}]]*/ 1;
+
         if(condition == "NEUTRAL") {
             script = script + "_neutral"
         }
@@ -42,12 +44,12 @@
             header: true,
             complete: function (results) {
 
+                var total_sequences = 40;
                 var scriptData = {
-                    display_length: results.data.length,
-                    add_extra_missing_letter: /*[[${addMissingLetter}]]*/ true,
+                    display_length: total_sequences,
                     frag:  /*[[${fragment}]]*/ "first",
                     quest: /*[[${question}]]*/ "mc1",
-                    sequence: processCSV(results.data, piGlobal.cbmCondition)
+                    sequence: processCSV(results.data, piGlobal.cbmCondition, total_sequences, letters_to_remove)
                 };
 
                 piGlobal.sequence = scriptData;

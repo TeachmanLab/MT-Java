@@ -15,56 +15,12 @@
 
 <section id="content" class="clearfix">
     <div class="container">
-        <div class="row">
-            <div class="col-md-10">
 
-
-                <form th:action="@{/questions/NGSES}" method="POST">
-
+                <form th:action="@{/questions/WhatIBelieve}" method="POST">
 
                     <div class="section">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <p class="question"> I will be able to achieve most of the goals that I have set for
-                                    myself. </p>
-                            </div>
-                        </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="AchieveGoals" value="1"
-                                                   required="true"/> Not at all true
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="AchieveGoals" value="2"/> Hardly
-                                        true </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="AchieveGoals" value="3"/>
-                                        Moderately true </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="AchieveGoals" value="4"/> Exactly
-                                        true </label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <br/>
-                                <div class="radio">
-                                    <label class="question"><input type="checkbox" name="AchieveGoals" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer not
-                                        to
-                                        answer
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="section">
-                        <div class="row">
-                            <div class="col-md-10">
                                 <p class="question"> When facing difficult tasks, I am certain I will accomplish
                                     them. </p>
                             </div>
@@ -105,137 +61,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="section">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <p class="question"> In general, I think I can obtain outcomes that are important to
-                                    me. </p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="ObtainOutcomes" value="1"
-                                                   required="true"/>
-                                        Not at all
-                                        true </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="ObtainOutcomes" value="2"/> Hardly
-                                        true
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="ObtainOutcomes" value="3"/>
-                                        Moderately true
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="ObtainOutcomes" value="4"/> Exactly
-                                        true
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <br/>
-                                <div class="radio">
-                                    <label class="question"><input type="checkbox" name="ObtainOutcomes" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer not
-                                        to
-                                        answer
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="section">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <p class="question"> I believe I can succeed at most any endeavor to which I set my
-                                    mind. </p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="AnyEndeavor" value="1"
-                                                   required="true"/>
-                                        Not at all true
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="AnyEndeavor" value="2"/> Hardly
-                                        true
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="AnyEndeavor" value="3"/> Moderately
-                                        true
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="AnyEndeavor" value="4"/> Exactly
-                                        true
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <br/>
-                                <div class="radio">
-                                    <label class="question"><input type="checkbox" name="AnyEndeavor" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer not
-                                        to
-                                        answer
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="section">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <p class="question"> I will be able to successfully overcome many challenges. </p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="SuccessfullyOvercome" value="1"
-                                                   required="true"/> Not at
-                                        all true </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="SuccessfullyOvercome" value="2"/>
-                                        Hardly
-                                        true </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="SuccessfullyOvercome" value="3"/>
-                                        Moderately true </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input class="option" type="radio" name="SuccessfullyOvercome" value="4"/>
-                                        Exactly
-                                        true </label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <br/>
-                                <div class="radio">
-                                    <label class="question"><input type="checkbox" name="SuccessfullyOvercome"
-                                                                   value="555"
-                                                                   onchange="disableSection(this)"/> Prefer not
-                                        to
-                                        answer
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="section">
                         <div class="row">
                             <div class="col-md-10">
@@ -281,7 +106,7 @@
 
                     <div class="section">
                         <div class="row">
-                            <div class="col-md-10">
+                            <div class="col-md-6">
                                 <p class="question"> Compared to other people, I can do most tasks very well. </p>
                             </div>
                         </div>
@@ -322,38 +147,199 @@
 
                     <div class="section">
                         <div class="row">
-                            <div class="col-md-10">
-                                <p class="question"> Even when things are tough, I can perform quite well. </p>
+                            <div class="col-md-6">
+                                <p class="question"> You can learn new things, but you can't really change how you think.</p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="ToughThings" value="1"
-                                                   required="true"/>
-                                        Not at all true
+                                    <label> <input class="option" type="radio" name="learn" value="1"
+                                                   required="true"/> Strongly Agree
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="ToughThings" value="2"/> Hardly
-                                        true
+                                    <label> <input class="option" type="radio" name="learn" value="2"/> Agree
+                                        true </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="learn" value="3"/>
+                                        Disagree </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="learn" value="4"/> Strongly
+                                        Disagree </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="learn" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not
+                                        to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p class="question"> No matter how much you have been thinking a particular way, you can always change it quite a bit.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="particularThinking" value="1"
+                                                   required="true"/> Strongly Agree
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="ToughThings" value="3"/> Moderately
-                                        true
+                                    <label> <input class="option" type="radio" name="particularThinking" value="2"/> Agree
+                                        true </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="particularThinking" value="3"/>
+                                        Disagree </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="particularThinking" value="4"/> Strongly
+                                        Disagree </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="particularThinking" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not
+                                        to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p class="question"> You can always substantially change how you think.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="alwaysChangeThinking" value="1"
+                                                   required="true"/> Strongly Agree
                                     </label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input class="option" type="radio" name="ToughThings" value="4"/> Exactly
-                                        true
+                                    <label> <input class="option" type="radio" name="alwaysChangeThinking" value="2"/> Agree
+                                        true </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="alwaysChangeThinking" value="3"/>
+                                        Disagree </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="alwaysChangeThinking" value="4"/> Strongly
+                                        Disagree </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="alwaysChangeThinking" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not
+                                        to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p class="question"> If something can go wrong with me, it will. </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="WrongWill" value="0"
+                                                   required="required"/>
+                                        Strongly disagree
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="WrongWill" value="1"/> Disagree
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="WrongWill" value="2"/> Neutral
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="WrongWill" value="3"/> Agree
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="WrongWill" value="4"/> Strongly
+                                        agree
                                     </label>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <br/>
                                 <div class="radio">
-                                    <label class="question"><input type="checkbox" name="ToughThings" value="555"
+                                    <label class="question"><input type="checkbox" name="WrongWill" value="555"
+                                                                   onchange="disableSection(this)"/> Prefer not
+                                        to
+                                        answer
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p class="question"> I hardly ever expect things to go my way. </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="HardlyEver" value="0"
+                                                   required="required"/> Strongly disagree
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="HardlyEver" value="1"/>
+                                        Disagree </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="HardlyEver" value="2"/> Neutral
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="HardlyEver" value="3"/> Agree
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input class="option" type="radio" name="HardlyEver" value="4"/>
+                                        Strongly agree
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <br/>
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="HardlyEvery" value="555"
                                                                    onchange="disableSection(this)"/> Prefer not
                                         to
                                         answer
@@ -371,8 +357,6 @@
 
 
             </div>
-        </div>
-    </div>
 </section>
 <footer th:replace="fragment/common :: footer"/>
 <div th:include="fragment/common :: scripts"/>

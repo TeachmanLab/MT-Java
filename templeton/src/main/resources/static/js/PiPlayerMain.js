@@ -37,8 +37,8 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
     var already_wrong_c = false;
     var scorer = {  count: 1, ct_s: 0, ct_c: 0};
     var on_question = false;
-    var count_block = 1;
-
+    var count_block = 1; // Used to chunk positive/negative into groups of 5, rather than random or set.
+    var block_pos = true; // see count_block;
 
     var pct_ct_s = 0;
     var pct_ct_c = 0;
@@ -83,8 +83,6 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
         // Replace negate in the sentence if negate is turned on.
         if(negate === undefined || API.getGlobal()["negate"] == false) negate = "";
         var sentence = $("div.sentence");
-        console.log(negate);
-        console.log('HI');
         sentence.text(sentence.text().replace("[negation]", negate));
     }
 
@@ -128,21 +126,12 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
             return e.attributes.handle == "paragraph"
         })[0];
 
-        console.log('OH HI');
-        console.log(p.trial.data);
-
-        if (API.getGlobal()["cbmCondition"] == "FIFTY_FIFTY_BLOCKED")
+        if (API.getGlobal().cbmCondition == "FIFTY_FIFTY_BLOCKED")
+        // Run in blocks of 5.  First 5 are positive, next 5 are negative, and so on.
         {
-            if (count_block % 11 <= 5)
-            {
-                p.trial.data.positive = true;
-            }
-            else if (count_block % 11 >= 6)
-            {
-                p.trial.data.positive = false;
-            }
-
-            count_block += 1;
+            p.trial.data.positive = block_pos;
+            if(count_block %5 == 0) block_pos = !block_pos;
+            count_block ++;
         }
 
         if (p.trial.data.positive) {
@@ -166,38 +155,6 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
         break_up = sentence.text().split('.');
         last_word = getWord(trial);
         break_up[break_up.length - 1] = break_up[break_up.length - 1].replace("[stimulus]", "");
-        // Randomly select an extra letter to include as the missing letter, if an extra letter should be missing.
-        if(Sequence.add_extra_missing_letter && last_word.length > 0) {
-            p = jQuery.grep(trial._stimulus_collection.models, function (e, i) {
-                return e.attributes.handle == "paragraph";})[0];
-            pick = Math.floor(Math.random() * (1 + 1));
-            while (last_word.indexOf(brackets[pick]) == last_word.length - 1 | last_word.indexOf(brackets[pick]) == 0)
-            {
-                pick = Math.floor(Math.random() * (1 + 1));
-            }
-            if (pick == 0) {
-                index = last_word.indexOf(brackets[pick]);
-                letter = last_word[index - 1];
-                last_word = last_word.replace(letter + brackets[pick], brackets[pick] + " ][");
-                if (p.attributes.data.neutralKey) {
-                    p.attributes.data.neutralKey = letter + p.attributes.data.neutralKey;
-                } else {
-                    p.attributes.data.positiveKey = letter + p.attributes.data.positiveKey;
-                    p.attributes.data.negativeKey = letter + p.attributes.data.negativeKey;
-                }
-            }
-            else {
-                index = last_word.indexOf(brackets[pick]);
-                letter = last_word[index + 1];
-                last_word = last_word.replace(brackets[pick] + letter, "][ " + brackets[pick]);
-                if(p.attributes.data.neutralKey) {
-                    p.attributes.data.neutralKey = p.attributes.data.neutralKey + letter;
-                } else {
-                    p.attributes.data.positiveKey = p.attributes.data.positiveKey + letter;
-                    p.attributes.data.negativeKey = p.attributes.data.negativeKey + letter;
-                }
-            }
-        }
         break_up.push(last_word);
         for (i = 0; i < break_up.length; i++) {
             if (i == break_up.length - 1) {
@@ -233,7 +190,6 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
         } else {
             var letter = (p.attributes.data.negativeKey);
         }
-        console.log("The missing letter is " + letter);
         return(letter);
     }
 
@@ -254,13 +210,10 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
             if (inputData.handle != 'y' && inputData.handle != 'n') return false;
         }
         if(trial.data.neutral) {
-            console.log("Correct answer to neutral.");
             return(q.attributes.data.neutralAnswer == inputData.handle);
         } else if(trial.data.positive) {
-            console.log("Correct answer to positive.");
             return(q.attributes.data.positiveAnswer == inputData.handle);
         } else {
-            console.log("Correct answer to negative.");
             return (q.attributes.data.negativeAnswer == inputData.handle);
         }
     }
@@ -282,38 +235,32 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
             if (inputData.handle != 'y' && inputData.handle != 'n') return false;
         }
         if(trial.data.neutral) {
-            console.log("Incorrect answer to neutral.");
             if (! already_wrong_c)
             {
                 if (q.attributes.data.neutralAnswer != inputData.handle)
                 {
                     scorer.ct_c = scorer.ct_c + 1;
                     already_wrong_c = true;
-                    console.log(scorer.ct_c + ' incorrect');
                 }
             }
             return(q.attributes.data.neutralAnswer != inputData.handle);
         } else if(trial.data.positive) {
-            console.log("Incorrect answer to positive.");
             if (! already_wrong_c)
             {
                 if (q.attributes.data.positiveAnswer != inputData.handle)
                 {
                     scorer.ct_c = scorer.ct_c + 1;
                     already_wrong_c = true;
-                    console.log(scorer.ct_c + ' incorrect');
                 }
             }
             return(q.attributes.data.positiveAnswer != inputData.handle);
         } else {
-            console.log("Incorrect answer to negative.");
             if (! already_wrong_c)
             {
                 if (q.attributes.data.negativeAnswer != inputData.handle)
                 {
                     scorer.ct_c = scorer.ct_c + 1;
                     already_wrong_c = true;
-                    console.log(scorer.ct_c + ' incorrect');
                 }
             }
             return (q.attributes.data.negativeAnswer != inputData.handle);
@@ -332,15 +279,10 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
         if (inputData.handle.length > 1) return false;
         var lettersTyped = API.getGlobal().lettersTyped + inputData.handle;
         var result = missing_letters(trial).startsWith(lettersTyped);
-        console.log('IS IT ALREADY WRONG ' + already_wrong_s);
-        console.log(lettersTyped);
         if (! result & ! already_wrong_s & ! on_question)
         {
-            console.log(result);
-            console.log(already_wrong_s);
             scorer.ct_s = scorer.ct_s + 1;
             already_wrong_s = true;
-            console.log('THIS MANY CORRECT ' + Math.round(((40-scorer.ct_s)/40)*100));
         }
         return (result);
     }
@@ -427,7 +369,7 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
         ab: [
             {
                 handle: 'ab',
-                media: {html: "<div class='stim'>Please Type <b>A</b> &nbsp;  &nbsp;  &nbsp; <b>B</b></div>"},
+                media: {html: "<div class='stim'>Please Type <b>A</b> &nbsp;  or  &nbsp; <b>B</b></div>"},
                 css: {color: '#333', fontSize: '.8em', position: 'absolute'},
                 location: {bottom: 1}
             }
@@ -437,7 +379,7 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
                 handle: 'stall',
                 media: {html: "<div class='stim'>Oops, that answer is incorrect; please re-read the question and in a moment you will have a chance to answer again.</div>"},
                 css: {color: '#333', fontSize: '.8em', position: 'absolute'},
-                location: {top: 50},
+                location: {top: 10},
                 nolog: true
             }
         ],
@@ -461,6 +403,19 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
         ],
         vivid: [
             {media: {'inlineTemplate': "<div class='vivid'>_______</div>"}}
+        ],
+        score: [ {
+            'handle': 'counter',
+            customize: function () {
+                console.log(scorer);
+                var cur   = scorer.count - 1;
+                var score = cur - scorer.ct_s + cur - scorer.ct_c;
+                this.media = 'Score: ' + score;
+                on_question = false;
+            },
+            css: {color: '#333', fontSize: '.6em', position: 'absolute', textAlign:'right'},
+            location: {top: 1, right: 1}
+            }
         ],
         counter: [
             {
@@ -535,10 +490,9 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
                         return (where_at < break_up.length)
                     }},
                     {type: 'function', value: function (trial, inputData) { // don't let people do this too quickly.
-                        number_words = break_up[where_at-1][0].innerHTML;
-                        var number_words = number_words.split(' ').length;
-                        var wait  = number_words * 100;
-                        console.log(wait);
+                        var number_words = break_up[where_at-1][0].innerHTML;
+                        number_words = number_words.split(' ').length;
+                        var wait  = number_words * 70;
                         if(inputData.latency - latency > wait) {
                             latency = inputData.latency;
                             return true;
@@ -551,7 +505,6 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
                         break_up[where_at].visible();
                         where_at += 1;
                         if(where_at >= break_up.length) {
-                            console.log("Last sentence is visible, moving on?.");
                             API.getGlobal().state = STATE_FILL_LETTERS;
                             if (Sequence.add_extra_missing_letter)
                             {
@@ -573,7 +526,6 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
                     {type: 'inputEquals', value: 'space',negate:true},
                     {type: 'inputEquals', value: 'correct',negate:true},
                     {type: 'function', value: function (trial, inputData) {
-                        console.log('GOING BACK INCORRECT');
                         return (!correct_letters(trial, inputData));
                     }}
             ],
@@ -594,7 +546,6 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
                     },
                     {
                         type: 'function', value: function (trial, inputData) {
-                        console.log('GOING BACK CORRECT');
                         return correct_letters(trial, inputData)
                     }
                     }
@@ -603,7 +554,7 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
                     {
                         type: 'custom', fn: function (options, eventData) {
                         var span = $("p.incomplete");
-                        var text = span.text().replace(' ', eventData["handle"]);
+                        var text = span.text().replace('[ ]', '[' + eventData["handle"] + ']');
                         span.text(text);
                         where_at = 1;
                         on_question = true;
@@ -632,7 +583,7 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
                         type: 'custom', fn: function (options, eventData) {
                         API.getGlobal().lettersTyped = API.getGlobal().lettersTyped + eventData.handle;
                         var span = $("p.incomplete");
-                        var text = span.text().replace(' ', eventData["handle"]);
+                        var text = span.text().replace('[ ]', '[' + eventData["handle"] + ']');
                         span.text(text);
                     }
                     },
@@ -727,6 +678,8 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
                 actions: [
                     {type: 'hideStim', handle: 'question'},
                     {type: 'hideStim', handle: 'yesno'},
+                    {type: 'hideStim',handle : 'mc1'},
+                    {type: 'hideStim',handle : 'mc2'},
                     {type: 'hideStim', handle: 'ab'},
                     {type: 'hideStim', handle: 'counter'},
                     {type: 'showStim', handle: 'greatjob'},
@@ -747,7 +700,6 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
                         if (trialData.first_question_latency == null) {
                             trialData.first_question_latency = Math.floor(eventData.latency);
                         }
-                        console.log("Incorrect response to the question");
                     }
                     },
                     {type: 'removeInput', handle: 'y'},
@@ -786,7 +738,6 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
                     {type: 'removeInput', handle: ['y', 'n', 'a', 'b']},
                     {
                         type: 'setTrialAttr', setter: function (trialData, eventData) {
-                          console.log("We have reached answered.");
                           trialData.question = $("div[data-handle='question']").text();
                           trialData.question_latency = Math.floor(eventData.latency);
                           if (trialData.first_question_latency == null) {
@@ -824,21 +775,14 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
      * true, and one false, it will be a 50/50 split.  If it is 3 true, and 1 false
      * if would then be a 75% positive, 25% negative split.
      */
-    if (API.getGlobal()["cbmCondition"] == "FIFTY_FIFTY") {
+    if (API.getGlobal().cbmCondition == "FIFTY_FIFTY_RANDOM") {
         API.addTrialSets('posneg', [
             {inherit: 'base', data: {positive: true}},
             {inherit: 'base', data: {positive: false}}
         ]);
     } else {
         API.addTrialSets('posneg', [
-            {inherit: 'base', data: {positive: true}},
-            {inherit: 'base', data: {positive: true}},
-            {inherit: 'base', data: {positive: true}},
-            {inherit: 'base', data: {positive: true}},
-            {inherit: 'base', data: {positive: true}},
-            {inherit: 'base', data: {positive: true}},
-            {inherit: 'base', data: {positive: true}},
-            {inherit: 'base', data: {positive: false}}
+            {inherit: 'base', data: {positive: true}}
         ]);
     }
 
@@ -890,16 +834,17 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
                             inputData.handle == "Moderately vivid"
                         ) {
                             vivid_text = 'Thanks. Really try to use your imagination!';
+                            vivid_image = 'imagination.jpg'
                         }
                         else if (inputData.handle == "Very vivid" ||
                             inputData.handle == "Totally vivid") {
                             vivid_text = "Thanks. It's great you're really using your imagination!";
+                            vivid_image = 'thumbs-up.jpg'
                         }
                         else if (inputData.handle == "Prefer not to answer")
                         {
                             vivid_text = '';
                         }
-                        console.log(vivid_text);
                         return ( inputData.handle == "Not at all vivid" ||
                         inputData.handle == "Somewhat vivid" ||
                         inputData.handle == "Moderately vivid" ||
@@ -941,11 +886,51 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
             ],
             layout: [
                 {
-                    media: {html: ''}
+                    media: {html: ''},
+                    css: {position: 'absolute'},
+                    location: {top: "5"}
                 }
             ],
             customize: function () {
-                this.layout[0].media.html = '<div class="results"><p style="font-size: 24px; text-align:center">' + vivid_text + '</p>' + '<p style="font-size: 20px; text-align:center" > Press the spacebar to continue </p></div>';
+                this.layout[0].media.html =
+                    '<div><p style="font-size: 24px; text-align:center">' + vivid_text + '</p>' +
+                        '<img class="vivid_image" src="../images/' + vivid_image + '"/>' +
+                    '<p style="font-size: 20px; text-align:center" > Press the spacebar to continue </p></div>';
+                ;
+            },
+            interactions: [
+                // What to do when different events occur.
+                {
+                    conditions: [
+                        {type: 'inputEquals', value: 'space'}
+                    ],
+                    actions: [
+                        {type: 'endTrial'}
+                    ]
+                }
+            ]
+        }
+    ]);
+
+    API.addTrialSets('vivid_after_half', [
+        {
+            input: [
+                // What input to accept from the participant (user)
+                {handle: 'space', on: 'space'}
+            ],
+            layout: [
+                {
+                    media: {html: ''},
+                    css: {position: 'absolute'},
+                    location: {top: "5"}
+                }
+            ],
+            customize: function () {
+                this.layout[0].media.html =
+                    '<div><p style="font-size: 24px; text-align:center">' + vivid_text + '</p>' +
+                    '<p>You are halfway done!</p>' +
+                    '<img src="../images/halfway.jpg"/>' +
+                    '<p style="font-size: 20px; text-align:center" > Press the spacebar to continue </p></div>';
                 ;
             },
             interactions: [
@@ -970,13 +955,19 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
             ],
             layout: [
                 {
-                    media: {html: ''}
+                    media: {html: ''},
+                    css: {position: 'absolute'},
+                    location: {top: "5"}
                 }
             ],
             customize: function () {
+                var cnt = Sequence.display_length;
+                pct_ct_s = Math.round(((cnt-scorer.ct_s)/cnt)*100);
+                pct_ct_c = Math.round(((cnt-scorer.ct_c)/cnt)*100);
 
-                pct_ct_s = Math.round(((40-scorer.ct_s)/40)*100);
-                pct_ct_c = Math.round(((40-scorer.ct_c)/40)*100);
+                var cur   = scorer.count - 1;
+                var score = cur - scorer.ct_s + cur - scorer.ct_c;
+                var feed_back_score = "You scored " + score + " out of a maximum possible score of " + (cur * 2);
 
                 if (pct_ct_s >= 90)
                 {
@@ -988,7 +979,7 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
                 }
                 else
                 {
-                    feed_back_s = 'You filled in the missing letters correctly on the first try ' + pct_ct_s + '%% of the time this round. We want to encourage you to pay really close attention to the stories to work out what letters are needed to complete the final words. This will allow you to get the most out of the training. If any aspect of the task is unclear, please email us with any questions at studyteam@mindtrails.org.';
+                    feed_back_s = 'You filled in the missing letters correctly on the first try ' + pct_ct_s + '% of the time this round. We want to encourage you to pay really close attention to the stories to work out what letters are needed to complete the final words. This will allow you to get the most out of the training. If any aspect of the task is unclear, please email us with any questions at studyteam@mindtrails.org.';
                 }
 
                 if (pct_ct_c >= 90)
@@ -1004,7 +995,13 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
                     feed_back_c = 'You answered the yes/no question following each story correctly on the first try ' + pct_ct_c + '% of the time this round. We want to remind you to pay really close attention to the whole story each time, including how it ends, and just use the information in the story to answer the question. This will allow you to get the most out of the training. If any aspect of the task is unclear, please email us with any questions at studyteam@mindtrails.org.';
 
                 }
-                this.layout[0].media.html = '<div class="results"><p style="font-size: 24px; text-align:center">' + feed_back_s + '</p><p style="font-size: 24px; text-align:center">' + feed_back_c + '</p>' + '<p style="font-size: 20px; text-align:center" > Press the spacebar to continue </p></div>';
+                this.layout[0].media.html =
+                    '<div class="results">' +
+                    '<img class="vivid_image" src="../images/finished.jpg' + '"/>' +
+                    '<p>' + feed_back_score + "</p>" +
+                    '<p>' + feed_back_s + '</p>' +
+                    '<p>' + feed_back_c + '</p>' +
+                    '<p> Press the spacebar to continue </p></div>';
             },
             interactions: [
                 // What to do when different events occur.
@@ -1026,7 +1023,6 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
         var vivid_afs = []
         var scens = []
         var seq = Sequence.sequence[2].data
-        console.log(seq.length);
         for (var i = 0; i < seq.length; i++)
         {
             if (seq[i].inherit.set == 'vivid')
@@ -1043,7 +1039,6 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
             }
         }
         scens = getRandomSubarray(scens, Sequence.display_length);
-        console.log(Sequence.display_length);
         scens.splice(1, 0, vivids[0]);
         scens.splice(2, 0, vivid_afs[0]);
         scens.splice(4, 0, vivids[1]);

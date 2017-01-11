@@ -68,17 +68,6 @@ h2 {font-size:1.45em; color:#00ACE4; font-weight:bold }
 
 .copyright {width:100%; padding:15px; text-align:center; background:#FFFFFF; color:#0070a3}
 
-/**
-  Mainly used for all-in-one forms, such as the login form, reset password, etc...
-**/
-div.longSection, div.sessionSection, div.sessionOverview {
-    margin: 40px auto;
-    padding: 20px 20px 20px 20px;
-    max-width: 900px;
-    border-radius: 15px;
-    border: 1px solid #BBB;
-    background: #FFF;
-}
 
 /**
   For the main landing page for participants

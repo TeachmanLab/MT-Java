@@ -26,7 +26,10 @@
 
         <div class="sessionGrouping" th:each="session,iterStat : ${study.sessions}"  th:unless="${session.name == 'COMPLETE' || session.name == 'ELIGIBLE'}">
 
-            <img class="sessionMarker" th:src="@{'/images/marker-'+${session.index}+'-'+${participant.theme}+'.png'}"/>
+            <!-- The weird if logic here causes the last entity actually displayed to get a 0 marker (an empty maker)
+                 rather than a number.  So the followup doesn't look like an actual session -->
+            <img class="sessionMarker" th:if="${session.index} &lt; ${iterStat.size} - 2" th:src="@{'/images/marker-'+${session.index}+'-'+${participant.theme}+'.png'}" />
+            <img class="sessionMarker" th:unless="${session.index} &lt; ${iterStat.size} - 2" th:src="@{'/images/marker-0-'+${participant.theme}+'.png'}" />
 
             <div class="gift">
                 <div th:if="${session.giftAmount >0}">$<span th:text="${session.giftAmount/100}"/> Gift Card!

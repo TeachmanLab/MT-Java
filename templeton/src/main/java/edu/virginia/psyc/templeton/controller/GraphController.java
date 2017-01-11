@@ -62,8 +62,10 @@ public class GraphController extends BaseController {
         for(ExpectancyBias eb : list) {
             point = new ArrayList<>();
             Session session = study.getSession(eb.getSession());
-
-            point.add(session.getDisplayName());
+            if(session == null)
+                point.add("");
+            else
+                point.add(session.getDisplayName());
             point.add(eb.score());
             points.add(point);
 

@@ -24,10 +24,21 @@
                 <div th:if="${currentSession.index} == 0">
                     <h2><span th:text="${participant.fullName}">Jim</span>, you're ready to
                         begin your initial assessment.</h2>
-                    <p>This is an information gathering session that will take approximately 20 minutes to complete.</p>
+                    <p>This is an information gathering session that will take
+                        approximately <span th:text="${currentSession.duration}">20</span> minutes to complete.</p>
                 </div>
 
-                <div th:if="${currentSession.index} > 0">
+                <div th:if="${currentSession.name == 'PostFollowUp'} ">
+                    <h2 th:if="#{participant.study.index == 0}">Welcome back <span
+                            th:text="${participant.fullName}">Jim</span>.
+                    </h2>
+                    <p>You are ready to begin <span th:text="${currentSession.displayName}"/></p>
+                    <p>This includes ...</p>
+                    <img th:src="|/images/clock-1-${participant.theme}.png|"/>
+                    <p>A Brief Followup</p>
+                </div>
+
+                <div th:if="${currentSession.index &gt; 0 and currentSession.name != 'PostFollowUp'}" >
                     <h2 th:if="#{participant.study.index == 0}">Welcome back <span
                             th:text="${participant.fullName}">Jim</span>.
                     </h2>
@@ -50,7 +61,9 @@
                 <a th:href="@{${currentTask.requestMapping}}" th:if="${currentTask}">
                     <button>Start</button>
                 </a>
+                <p>
                 <a th:href="@{/session/overview}" th:unless="${currentSession.name =='PRE'}">Program Overview</a>
+                </p>
             </div>
         </div>
     </div>

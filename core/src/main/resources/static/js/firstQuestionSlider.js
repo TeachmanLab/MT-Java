@@ -31,21 +31,6 @@ $(document).on('click', '.scrollNextSection', function(e){
 */
 
 
-/**
- * Change the class associated with section-V and section-H tags
- * when the widow width is moves beyond 414 pixels.
- */
-function adapt(){
-    if ($(window).width() < 500) {
-        $('.section').removeClass('section-H');
-        $('.section').addClass('section-V');
-    } else {
-        $('.section').addClass('section-H');
-        $('.section').removeClass('section-V');
-    }
-}
-$(document).ready(adapt);
 
-$(window).resize(adapt);
 
 

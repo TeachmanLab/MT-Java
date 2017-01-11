@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
+
+<head th:replace="fragment/common :: headerFragment"/>
+<body>
+<section th:replace="fragment/common :: topFragment"/>
+<section th:include="fragment/common :: titleBar (title='Mood')"/>
+
+
+<section id="content" class="clearfix">
+    <form th:action="@{/questions/Phq4}" method="POST">
+        <div class="container section compactQuestion">
+            <div class="row title">
+                <div class="col-md-12">
+                    <h4> Over the last week, how often have you been bothered by the following problems? </h4>
+                </div>
+            </div>
+
+            <div class="row header">
+                <div class="col-md-4"></div>
+                <div class="col-md-2"><p class="tableOptions">Not at all</p></div>
+                <div class="col-md-2"><p class="tableOptions">Several days</p></div>
+                <div class="col-md-2"><p class="tableOptions">More than half the days</p></div>
+                <div class="col-md-2"><p class="tableOptions">Nearly every day</p></div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-4 statement">
+                    <p> Feeling nervous, anxious or on edge </p>
+                </div>
+                <div class="col-md-2">
+                    <label class="radio-inline option"> <input type="radio"
+                                                               name="nervous" value="0"
+                                                               required="true"/>
+                        <span class="shortDesc">0</span> <span class="fullDesc">Not at all</span></label>
+                </div>
+                <div class="col-md-2">
+                    <label class="radio-inline option"> <input type="radio"
+                                                               name="nervous" value="1"/>
+                        <span class="shortDesc">1</span> <span
+                                class="fullDesc">Several Days</span>
+                    </label>
+                </div>
+                <div class="col-md-2">
+                    <label class="radio-inline option"> <input type="radio"
+                                                               name="nervous" value="2"/>
+                        <span class="shortDesc">2</span> <span
+                                class="fullDesc">More than half the days</span>
+
+                    </label>
+                </div>
+                <div class="col-md-2">
+                    <label class="radio-inline option"> <input type="radio"
+                                                               name="nervous" value="3"/>
+                        <span class="shortDesc">3</span> <span class="fullDesc">Nearly every day</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 statement">
+                    <p> Not being able to stop or control worrying</p>
+                </div>
+                <div class="col-md-2">
+                    <label class="radio-inline option"> <input type="radio"
+                                                               name="worry" value="0"
+                                                               required="true"/>
+                        <span class="shortDesc">0</span> <span class="fullDesc">Not at all</span></label>
+                </div>
+                <div class="col-md-2">
+                    <label class="radio-inline option"> <input type="radio"
+                                                               name="worry" value="1"/>
+                        <span class="shortDesc">1</span> <span
+                                class="fullDesc">Several Days</span>
+                    </label>
+                </div>
+                <div class="col-md-2">
+                    <label class="radio-inline option"> <input type="radio"
+                                                               name="worry" value="2"/>
+                        <span class="shortDesc">2</span> <span
+                                class="fullDesc">More than half the days</span>
+
+                    </label>
+                </div>
+                <div class="col-md-2">
+                    <label class="radio-inline option"> <input type="radio"
+                                                               name="worry" value="3"/>
+                        <span class="shortDesc">3</span> <span class="fullDesc">Nearly every day</span>
+                    </label>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-4 statement">
+                    <p> Little interest or pleasure in doing things</p>
+                </div>
+                <div class="col-md-2">
+                    <label class="radio-inline option"> <input type="radio"
+                                                               name="pleasure" value="0"
+                                                               required="true"/>
+                        <span class="shortDesc">0</span> <span class="fullDesc">Not at all</span></label>
+                </div>
+                <div class="col-md-2">
+                    <label class="radio-inline option"> <input type="radio"
+                                                               name="pleasure" value="1"/>
+                        <span class="shortDesc">1</span> <span
+                                class="fullDesc">Several Days</span>
+                    </label>
+                </div>
+                <div class="col-md-2">
+                    <label class="radio-inline option"> <input type="radio"
+                                                               name="pleasure" value="2"/>
+                        <span class="shortDesc">2</span> <span
+                                class="fullDesc">More than half the days</span>
+
+                    </label>
+                </div>
+                <div class="col-md-2">
+                    <label class="radio-inline option"> <input type="radio"
+                                                               name="pleasure" value="3"/>
+                        <span class="shortDesc">3</span> <span class="fullDesc">Nearly every day</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 statement">
+                    <p>Feeling down, depressed, or hopeless</p>
+                </div>
+                <div class="col-md-2">
+                    <label class="radio-inline option"> <input type="radio"
+                                                               name="depressed" value="0"
+                                                               required="true"/>
+                        <span class="shortDesc">0</span> <span class="fullDesc">Not at all</span></label>
+                </div>
+                <div class="col-md-2">
+                    <label class="radio-inline option"> <input type="radio"
+                                                               name="depressed" value="1"/>
+                        <span class="shortDesc">1</span> <span
+                                class="fullDesc">Several Days</span>
+                    </label>
+                </div>
+                <div class="col-md-2">
+                    <label class="radio-inline option"> <input type="radio"
+                                                               name="depressed" value="2"/>
+                        <span class="shortDesc">2</span> <span
+                                class="fullDesc">More than half the days</span>
+
+                    </label>
+                </div>
+                <div class="col-md-2">
+                    <label class="radio-inline option"> <input type="radio"
+                                                               name="depressed" value="3"/>
+                        <span class="shortDesc">3</span> <span class="fullDesc">Nearly every day</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="col-md-12" style="text-align:center">
+                <button type="submit"> Next</button>
+            </div>
+
+        </div>
+    </form>
+</section>
+
+<footer th:replace="fragment/common :: footer"/>
+<div th:include="fragment/common :: scripts"/>
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts"/>
+
+<script type="text/javascript">
+
+
+    function disableSection(input) {
+        if (input.checked) {
+            $(input).closest('.section').find("input").attr("disabled", true);
+            $(input).removeAttr("disabled");
+        } else {
+            $(input).closest('.section').find("input").removeAttr("disabled");
+        }
+    }
+
+</script>
+</body>
+</html>
+
+
