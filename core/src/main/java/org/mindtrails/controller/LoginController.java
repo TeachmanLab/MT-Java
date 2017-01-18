@@ -108,7 +108,7 @@ public class LoginController {
 
         if(participant != null) {
             model.addAttribute("token", token);
-            return "/changePassword";
+            return "changePassword";
         } else {
             model.addAttribute("invalidCode", true);
             return "login";
