@@ -50,6 +50,11 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
     var letters = ""; // The letters that are missing
 
 
+    function update_score() {
+        var s = $('div[data-handle="score"]');
+        s.text('Score: ' + scorer.count);
+    }
+
     function increase_count() {
         scorer.count = scorer.count + 1;
         return scorer.count;
@@ -263,6 +268,7 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
                     already_wrong_c = true;
                 }
             }
+
             return (q.attributes.data.negativeAnswer != inputData.handle);
         }
     }
@@ -405,7 +411,7 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
             {media: {'inlineTemplate': "<div class='vivid'>_______</div>"}}
         ],
         score: [ {
-            'handle': 'counter',
+            'handle': 'score',
             customize: function () {
                 console.log(scorer);
                 var cur   = scorer.count - 1;
@@ -475,6 +481,7 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
                     {type: 'showStim', handle: 'paragraph'},
                     {type: 'showStim', handle: 'press_space'},
                     {type: 'showStim', handle: 'counter'},
+                    {type: 'showStim', handle: 'score'},
                     {type: 'setTrialAttr', setter: {correctOnLetter: "true"}},  // set to true - will get set to false later if incorrectly answered.
                     {type: 'custom', fn: function (options, eventData) {
                             API.addGlobal({"original": $("span.incomplete").text()})
@@ -632,6 +639,7 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
                     {type: 'setGlobalAttr', setter: {state: STATE_ASK_QUESTION}}, // sentence completed, show question.
                     {type:'custom',fn:function(options,eventData){
                         $("div.sentence").empty();
+                        update_score();
                     }},
                     {type:'showStim',handle : 'question'},
                     {type:'showStim',handle:'yesno'},
@@ -682,6 +690,7 @@ define(['pipAPI', 'pipScorer'], function (APIConstructor, Scorer) {
                     {type: 'hideStim',handle : 'mc2'},
                     {type: 'hideStim', handle: 'ab'},
                     {type: 'hideStim', handle: 'counter'},
+                    {type: 'hideStim', handle: 'score'},
                     {type: 'showStim', handle: 'greatjob'},
                     {type: 'trigger', handle: 'answered', duration: 1000}
                 ]
