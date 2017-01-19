@@ -13,36 +13,7 @@
 <section th:replace="fragment/common :: topFragment"/>
 <section th:replace="fragment/common :: titleBar (title='Evaluating the Program')"/>
 
-<!-- This is the template for asking a series of statements that all have the same
-     possible radio options as answers.  It uses the Mustache framework to populate
-      the answers. -->
-<textarea style="display: none"  id="template">
-    <div class="row header">
-        <div class="col-md-6"><p class="tableOptions"></p></div>
-    {{#options}}
-        <div class="col-md-1"><p class="tableOptions">{{title}}</p></div>
-    {{/options}}
-        <div class="col-md-1"><p class="tableOptions">Prefer not to answer</p></div>
-    </div>
-
-    {{#questions}}
-     <div class="row">
-                <div class="col-md-6 statement"><p>{{desc}}</p></div>
-                {{#options}}
-                <div class="col-md-1">
-                    <label class="radio-inline option">
-                        <input type="radio" name="{{name}}" value="{{value}}" required="true"/>
-                        <span class="shortDesc">{{value}}</span> <span class="fullDesc">{{title}}</span></label>
-                </div>
-                {{/options}}
-                <div class="col-md-1">
-                    <label class="radio-inline option">
-                        <input type="radio" name="{{name}}" value="555" required="true"/>
-                        <span class="shortDesc"></span> <span class="fullDesc">Prefer not to answer</span></label>
-                </div>
-    </div>
-    {{/questions}}
-</textarea>
+<textArea th:replace="fragment/common :: questionTemplate"/>
 
 <form th:action="@{/questions/Evaluation}" method="POST">
 <section id="content" class="clearfix">
