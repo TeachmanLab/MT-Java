@@ -34,6 +34,7 @@ public class TempletonStudyController extends BaseController {
 
         Participant p = participantRepository.findOne(id);
         TempletonStudyForm form = new TempletonStudyForm((TempletonStudy) p.getStudy());
+        model.addAttribute("participant", p);
         model.addAttribute(FORM_NAME, form);
         return "admin/studyUpdate";
     }
