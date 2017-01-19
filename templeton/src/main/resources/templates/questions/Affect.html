@@ -18,7 +18,7 @@
         <div class="row">
             <div class="col-md-10">
 
-                <form th:action="@{/questions/Affect}" method="POST">
+                <form id="affectForm" th:action="@{/questions/Affect}" method="POST">
 
 
                     <p> The following questions will ask you about different feelings and emotions.
@@ -78,9 +78,21 @@
                     setupSliderNeg($("#slide3"), $("#slide_text3"));
                 });
 
+                function disableSection(input) {
+                    var slider = $(input).closest('.section').find("input[type='range']")
+                    if (input.checked) {
+                        slider.attr("disabled", true);
+                        slider.setCustomValidity("");
+                    } else {
+                        slider.removeAttr("disabled");
+                        slider.setCustomValidity("Please use the slider to make a selection");
+                    }
+                }
+
                 function setupSliderPos(slider, text) {
+                    slider[0].setCustomValidity("Please use the slider to make a selection");
                     slider.change(function() {
-                        slider = $(this);
+                        slider[0].setCustomValidity("");
                         value = slider.val();
                         text.removeClass('selected');
                         if(value < -5) text.text("Not at all Positive");
@@ -98,8 +110,9 @@
                 }
 
                 function setupSliderNeg(slider, text) {
+                    slider[0].setCustomValidity("Please use the slider to make a selection");
                     slider.change(function() {
-                        slider = $(this);
+                        slider[0].setCustomValidity("");
                         value = slider.val();
                         text.removeClass('selected');
                         if(value < -5) text.text("Not at all Negative");
