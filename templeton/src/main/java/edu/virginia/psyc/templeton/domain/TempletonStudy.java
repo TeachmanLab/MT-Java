@@ -8,7 +8,10 @@ import org.mindtrails.domain.tracking.TaskLog;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This is where you define the sessions and tasks that make up the study.
@@ -27,6 +30,8 @@ public class TempletonStudy extends BaseStudy {
 
     private CONDITION     conditioning;
     public static final String PRE_TEST = "preTest";
+
+    public enum SESSION {firstSession, secondSession, thirdSession, fourthSession, PostFollowUp }
 
     public static final String FIRST_SESSION = "firstSession";
     public static final String SECOND_SESSION = "secondSession";
