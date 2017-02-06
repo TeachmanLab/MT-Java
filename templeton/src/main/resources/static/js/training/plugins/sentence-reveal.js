@@ -44,6 +44,8 @@ jsPsych.plugins["sentence-reveal"] = (function () {
                 after_response("continue");
             })
         );
+        $('#jspsych-sentence-reveal-btngroup').hide();
+        show_continue_button();
 
         // store response
         var response = {
