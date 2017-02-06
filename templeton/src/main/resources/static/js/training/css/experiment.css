@@ -31,6 +31,9 @@ div.piPlayerHeader {
     padding-right: 20px;
 }
 
+.piIntro ul {
+    text-align: justify;
+}
 
 @media only screen and (max-device-width : 480px) {
     #container {

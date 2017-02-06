@@ -95,8 +95,8 @@ var TEMPLETON_MODULE = (function () {
                     return (
                         "<div class='piIntro'> " +
                         "<img src='" + my.base_url + "images/compass-blue.png' > " +
-                        "<p>In this part of the program, you will read a series of very" +
-                        "short stories.  Pay attention to the title of each story because" +
+                        "<p>In this part of the program, you will read a series of very " +
+                        "short stories.  Pay attention to the title of each story because " +
                         "after you have read all the stories, you will be asked morequestions about them.</p> " +
                         "<br clear='all'> " +
                         "<b>For each story:</b> " +

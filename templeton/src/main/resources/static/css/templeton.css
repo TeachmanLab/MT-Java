@@ -204,6 +204,9 @@ div.oneToSeven {
     margin-left: -3px;
     margin-top: -10px;
 }
+
+
+
 .fullDesc {
     display:none;
 }
@@ -231,6 +234,20 @@ div.oneToSeven {
     .compactQuestion .shortDesc {
         display: none;
     }
+
+    /* Beter selection boxes for mobile devices */
+    select{
+        width: 100%;
+        text-overflow: ellipsis;
+    }
+
+    h1{  font-size:2em; line-height: 1.25em; }
+    h2{  font-size:1.65em; line-height: 1.15em;  }
+    h3{  font-size:1.375em; line-height: 1.13em;  }
+    h4{  font-size:1.125em; line-height: 1.11em;  }
+
+
+
 }
 
 

@@ -125,11 +125,12 @@
 <section id="title" class="clearfix" th:fragment="titleBar">
     <div class="container">
         <div class="row">
+            <div class="col-md-8">
             <h2 class="page-title heading-icon clearfix"> <img th:src="@{/images/map-arrow-orange.png}" alt="icon" class="icon-small-bg" />
                 <br/>
                 <span th:text="${title}"/>
             </h2>
-
+            </div>
         </div>
     </div>
 </section>
@@ -144,7 +145,7 @@
 
         <!--features starts-->
         <div class="row">
-            <div class="span12">
+            <div class="col-md-8">
                 <h1>This is a Template:</h1>
                 <ul class="list-3col">
                     <li>
