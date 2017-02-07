@@ -205,7 +205,28 @@ div.oneToSeven {
     margin-top: -10px;
 }
 
+.navbar {
+    background: transparent;
+    margin-bottom: 0px;
+}
 
+.navbar-default .navbar-nav>li>a {
+    color: #5ECCDE;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: .6em;
+}
+
+
+.navbar-default .navbar-nav>li>a:hover {
+    color: whitesmoke;
+}
+
+.login button {
+    padding: 2px 20px;
+    font-size: 1em;
+    font-weight: 600;
+}
 
 .fullDesc {
     display:none;
@@ -245,8 +266,6 @@ div.oneToSeven {
     h2{  font-size:1.65em; line-height: 1.15em;  }
     h3{  font-size:1.375em; line-height: 1.13em;  }
     h4{  font-size:1.125em; line-height: 1.11em;  }
-
-
 
 }
 
