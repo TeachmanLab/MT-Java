@@ -16,11 +16,19 @@
     font-weight: bold;
     clear:both;
     width:100%;
-    font-size:.66em;
     text-align:right;
     padding:0px 20px;
     line-height: 25px;
 }
+
+#login-button {
+    font-size: 1em;
+}
+
+@media (max-width: 992px) { #login-button {
+    padding: 0;
+    margin: 0;
+}}
 
 div.section {
     position: relative;
@@ -208,6 +216,7 @@ div.oneToSeven {
 .navbar {
     background: transparent;
     margin-bottom: 0px;
+    border:none;
 }
 
 .navbar-default .navbar-nav>li>a {

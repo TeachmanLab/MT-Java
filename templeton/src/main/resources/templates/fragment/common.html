@@ -102,61 +102,35 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
-                        <a th:href="@{/session}">HOME</a></li>
+                    <li th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}" role="separator"/>
                     <li><a th:href="@{/public/about}">ABOUT</a></li>
                     <li><a th:href="@{/public/team}">MEET THE TEAM</a></li>
                     <li><a th:href="@{/public/faq}">FAQ</a></li>
                     <li><a th:href="@{/public/contact}">CONTACT</a></li>
                     <li><a target="new" href="https://implicit.harvard.edu/implicit/user/pimh/linkinfo.html">MENTAL&nbsp;HEALTH&nbsp;RESOURCES</a></li>
                     <li><a th:href="@{/public/researchSupport}">RESEARCH&nbsp;SUPPORT</a></li>
-                    <!--
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">MORE INFORMATION <span class="caret"></span></a>
-                        <ul class="dropdown-menu" id="menu1-dropdown">
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                        </ul>
-                    </li>
-                    -->
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
-    <div class="account-bar" th:unless="${visiting}">
+    <div class="account-bar navbar-default" th:if="${participant}">
         <div class="container" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
-            <span th:if="${participant}" class="item">Logged in as ( <span th:text="${participant.fullName}"/> )</span> |<a th:href="@{/session/overview}">My Progress</a> | <a
-                th:href="@{/account}">Account Settings</a> | <a th:href="@{/logout}">Logout</a>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" id="login-button" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        Logged in as (<span th:text="${participant.fullName}"/>)</a>
+                    <ul class="dropdown-menu">
+                        <li><a th:href="@{/session/overview}">My Progress</a></li>
+                        <li><a th:href="@{/account}">Account Settings</a></li>
+                        <li><a th:href="@{/logout}">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
         <div class="container login" th:unless="${#authorization.expression('hasRole(''ROLE_USER'')')}">
             Already Participating? <a th:href="@{/login}"><button>Log In</button></a>
         </div>
     </div>
-</section>
-
-
-<section id="header" class="clearfix" th:fragment="topFragmentOld" >
-            <div class="logo"><a th:href="@{/}"><img th:src="@{/images/header_logo.png}" src="../../static/images/header_logo.png"/></a></div>
-
-                <!--menu starts-->
-            <nav>
-                <a href="#" id="menu-icon"></a>
-                <ul id="nav">
-                    <li th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
-                        <a th:href="@{/session}">HOME</a></li>
-                    <li><a th:href="@{/public/about}">ABOUT</a></li>
-                    <li><a th:href="@{/public/faq}">FAQ</a></li>
-                    <li><a th:href="@{/public/contact}">CONTACT</a></li>
-                    <li><a th:href="@{/public/team}">MEET THE TEAM</a></li>
-                    <li><a target="new" href="https://implicit.harvard.edu/implicit/user/pimh/linkinfo.html">MENTAL&nbsp;HEALTH&nbsp;RESOURCES</a></li>
-                    <li><a th:href="@{/public/researchSupport}">RESEARCH&nbsp;SUPPORT</a></li>
-
-                </ul>
-            </nav>
-            <!--menu ends-->
-
-    <div class="clear-both"></div>
-
 </section>
 
 <section id="title" class="clearfix" th:fragment="titleBar">
