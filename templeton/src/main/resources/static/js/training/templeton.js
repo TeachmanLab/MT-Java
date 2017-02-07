@@ -22,22 +22,14 @@
 var TEMPLETON_MODULE = (function () {
     var my = {};
 
-<<<<<<< HEAD
     my.letters_to_remove = 2; // number of missing letters to complete in the term.
-=======
->>>>>>> b45167c788b17d85ea1595ab3480888321c6b6ec
     my.total_scenarios = 15;  // How many scenarios should be randomly selected out of the full set?
     my.condition = "NEUTRAL"; // Can be POSITIVE, POSITIVE_NEGATION, FIFTY_FIFTY_RANDOM, FIFTY_FIFTY_BLOCKED, NEUTRAL
     my.block_size = 5; // Number of items in block, if condiftion if fifty_fifty_blocked.
     my.second_word_set = false; // uses the second wordset if set to true.
     my.question_type = "yes_no";  // Can be yes_no, mc1, or mc2.
     my.traget = "jspsych-target";
-<<<<<<< HEAD
     my.base_url = "/js/training";
-=======
-    my.scenario_csv = "./scenarios/scenarios.csv";
-    my.neutral_scenario_csv = './scenarios/scenarios_neutral.csv';
->>>>>>> b45167c788b17d85ea1595ab3480888321c6b6ec
 
     // This score is incremented for every correct answer and displayed
     // to the user.
@@ -47,20 +39,13 @@ var TEMPLETON_MODULE = (function () {
     var vivid_response;
 
     my.execute = function() {
-<<<<<<< HEAD
         if(!my.base_url.endsWith('/')) my.base_url = my.base_url + "/";
         if (my.condition != "NEUTRAL") {
             parse_data(my.base_url + "scenarios/scenarios.csv", parse_complete);
         } else {
             parse_data(my.base_url + "scenarios/scenarios_neutral.csv", parse_complete);
-=======
-        if (my.condition != "NEUTRAL") {
-            parse_data(my.scenario_csv, parse_complete);
-        } else {
-            parse_data(my.neutral_scenario_csv, parse_complete);
->>>>>>> b45167c788b17d85ea1595ab3480888321c6b6ec
         }
-    };
+    }
 
     function parse_data(url, callBack) {
         Papa.parse(url, {
@@ -92,69 +77,10 @@ var TEMPLETON_MODULE = (function () {
             "Completed : " + progress + " of " + my.total_scenarios;
     }
 
-<<<<<<< HEAD
-=======
-    /***********************************************
-     * STATIC TRIALS
-     ***********************************************/
-        // An introduction / instructions
-    var introduction = {
-            type: 'html',
-            url: "snippets/introduction.html",
-            cont_btn: "start"
-        };
-
-        // The Final Score, shown at the end of the experiment.
-    var final_trial_score = {
-        type: 'button-response',
-        is_html: true,
-        choices: ['Continue'],
-        stimulus: function () {
-            var pct_ct_s = Math.round((score_letters / my.total_scenarios) * 100);
-            var pct_ct_c = Math.round((score_questions / my.total_scenarios) * 100);
-            var score = score_letters + score_questions;
-            var feed_back_score = "You scored " + score + " out of a maximum possible score of " + my.total_scenarios * 2;
-            var feed_back_s = 'You filled in the missing letters correctly on the first try ' + pct_ct_s + '% of the time this round. ';
-            var feed_back_c = 'You answered the yes/no question following each story correctly on the first try ' + pct_ct_c + '% of the time this round. ';
-
-            if (pct_ct_s >= 90) feed_back_s +=
-                'Great job, we’re really impressed with your ability to complete the stories!';
-            if (pct_ct_s < 90 && pct_ct_s >= 70) feed_back_s +=
-                'You’re doing well, and we encourage you to pay really close attention to the ' +
-                'stories to work out what letters are needed to complete the final words. ' +
-                'This will allow you to get the most out of the training.';
-            else feed_back_s += 'We want to encourage you to pay really close attention to the ' +
-                'stories to work out what letters are needed to complete the final words. ' +
-                'This will allow you to get the most out of the training. If any aspect of' +
-                ' the task is unclear, please email us with any questions at studyteam@mindtrails.org.';
-            if (pct_ct_c >= 90)
-                feed_back_c += 'That’s terrific, and shows you’re paying really careful attention to the stories!';
-            else if (pct_ct_c < 90 && pct_ct_s >= 70)
-                feed_back_c += 'You’re doing a good job, and we want to remind you to pay really close attention ' +
-                    'to the whole story each time, including how it ends, and just use the information in the ' +
-                    'story to answer the question. This will allow you to get the most out of the training.';
-            else
-                feed_back_c += 'We want to remind you to pay really close attention to the whole story ' +
-                    'each time, including how it ends, and just use the information in the story to ' +
-                    'answer the question. This will allow you to get the most out of the training. If' +
-                    'any aspect of the task is unclear, please email us with any questions at ' +
-                    'studyteam@mindtrails.org.';
-
-            return (
-            '<div class="vividness_followup">' +
-            '<img src="../images/finished.jpg' + '"/>' +
-            '<p>' + feed_back_score + "</p>" +
-            '<p>' + feed_back_s + '</p>' +
-            '<p>' + feed_back_c + '</p>')
-        }
-    };
->>>>>>> b45167c788b17d85ea1595ab3480888321c6b6ec
 
     // This is called when we complete parsing the CSV file (see parseData above),
     // and will in tern build all the trials.
     function build_timeline(scenarios) {
-
-<<<<<<< HEAD
 
         /***********************************************
          * STATIC TRIALS
@@ -234,8 +160,6 @@ var TEMPLETON_MODULE = (function () {
             }
         };
 
-=======
->>>>>>> b45167c788b17d85ea1595ab3480888321c6b6ec
         /* create experiment timeline array */
         var timeline = [];
 
@@ -247,10 +171,6 @@ var TEMPLETON_MODULE = (function () {
         // Loop through the time-line creating scenarios
         var positive = true;
         for (var k = 0; k < my.total_scenarios; k++) {
-<<<<<<< HEAD
-=======
-            console.debug(scenarios[k]);
->>>>>>> b45167c788b17d85ea1595ab3480888321c6b6ec
             var paragraph;
             var phrase;
             var yes_no_correct;
@@ -303,11 +223,7 @@ var TEMPLETON_MODULE = (function () {
             var phrase_trial = {
                 type: 'missing-letters',
                 phrase: phrase,
-<<<<<<< HEAD
                 letters_to_remove: my.letters_to_remove,
-=======
-                letters_to_remove: 2,
->>>>>>> b45167c788b17d85ea1595ab3480888321c6b6ec
                 on_finish: function (trial_data) {
                     if (trial_data.correct) score_letters++;
                     updateScore();
@@ -333,7 +249,6 @@ var TEMPLETON_MODULE = (function () {
 
             // Vivid Follow up - changes based on response.
             var vividness_followup = {
-<<<<<<< HEAD
                 type: 'button-response',
                 is_html: true,
                 choices: ['Continue'],
@@ -351,18 +266,11 @@ var TEMPLETON_MODULE = (function () {
                             "<img src='" + my.base_url + "images/imagination.jpg'/>" +
                             "</div>"
                     )
-=======
-                type: 'html',
-                url: function () {
-                    if (vivid_response) return "snippets/good-job.html";
-                    else return "snippets/imagination.html";
->>>>>>> b45167c788b17d85ea1595ab3480888321c6b6ec
                 },
                 cont_btn: "continue"
             };
             // Vivid Follow up - changes based on response.
             var vividness_followup_halfway = {
-<<<<<<< HEAD
                 type: 'button-response',
                 is_html: true,
                 choices: ['Continue'],
@@ -374,12 +282,6 @@ var TEMPLETON_MODULE = (function () {
                         "</div>"
                     )
                 }
-
-=======
-                type: 'html',
-                url: 'snippets/halfway.html',
-                cont_btn: "continue"
->>>>>>> b45167c788b17d85ea1595ab3480888321c6b6ec
             };
 
             var yes_no = {
@@ -423,18 +325,6 @@ var TEMPLETON_MODULE = (function () {
 
             // BUILD THE TIMELINE FROM THE COMPONENTS ABOVE.
             // *********************************************
-<<<<<<< HEAD
-=======
-
-            // Add vividness question after questions 1 and 2...
-            if (k == 1 || k == 2) {
-                timeline.push(vividness);
-                timeline.push(vividness_followup);
-            } else if (k == (my.total_scenarios / 2) - 1) {
-                timeline.push(vividness);
-                timeline.push(vividness_followup_halfway);
-            }
->>>>>>> b45167c788b17d85ea1595ab3480888321c6b6ec
             timeline.push(paragraph_trial);
             timeline.push(phrase_trial);
             switch (my.question_type) {
@@ -448,7 +338,6 @@ var TEMPLETON_MODULE = (function () {
                     timeline.push(mc2);
                     break;
             }
-<<<<<<< HEAD
             // Add vividness question after questions 1 and 2...
             if (k == 0 || k == 1) {
                 timeline.push(vividness);
@@ -457,9 +346,6 @@ var TEMPLETON_MODULE = (function () {
                 timeline.push(vividness);
                 timeline.push(vividness_followup_halfway);
             }
-
-=======
->>>>>>> b45167c788b17d85ea1595ab3480888321c6b6ec
         }
 
         timeline.push(vividness_final);
