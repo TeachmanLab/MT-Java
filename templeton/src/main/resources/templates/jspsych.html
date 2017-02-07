@@ -24,15 +24,27 @@
 
     <script th:src="@{/js/training/templeton.js}"></script>
 
+<<<<<<< HEAD
     <link th:href="@{/js/training/css/jspsych-mobile.css}" rel="stylesheet" type="text/css"/>
     <link th:href="@{/js/training/css/experiment.css}" rel="stylesheet" type="text/css"/>
 
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+=======
+    <link th:href="@{/js/training/css/experiment.css}" rel="stylesheet" type="text/css"></link>
+    <link th:href="@{/js/training/css/jspsych-mobile.css}" type="text/css"></link>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+1
+>>>>>>> b45167c788b17d85ea1595ab3480888321c6b6ec
 
 </head>
 <body>
 <div class="piPlayerHeader">
+<<<<<<< HEAD
     <img th:src="@{/images/header-minimal.png}"/>
+=======
+    <img src="/images/header-minimal.png">
+>>>>>>> b45167c788b17d85ea1595ab3480888321c6b6ec
 </div>
 <div id="container">
     <div class="status">
@@ -44,6 +56,7 @@
 
 </body>
 
+<<<<<<< HEAD
 <script th:inline="javascript">
     /*<![CDATA[*/
 
@@ -55,6 +68,20 @@
     TEMPLETON_MODULE.block_size = 6;
     TEMPLETON_MODULE.target = "jspsych-target";
     TEMPLETON_MODULE.base_url = /*[[@{/js/training}]]*/ '../js/training';
+=======
+<script>
+    /*<![CDATA[*/
+
+    TEMPLETON_MODULE.total_scenarios = 15;
+    TEMPLETON_MODULE.condition = "POSITIVE";
+    TEMPLETON_MODULE.block_size = 2;
+    TEMPLETON_MODULE.second_word_set = true;
+    TEMPLETON_MODULE.question_type = "mc2";
+    TEMPLETON_MODULE.target = "jspsych-target";
+    TEMPLETON_MODULE.scenario_csv = "./scenarios/scenarios.csv";
+    TEMPLETON_MODULE.neutral_scenario_csv = './scenarios/scenarios_neutral.csv';
+
+>>>>>>> b45167c788b17d85ea1595ab3480888321c6b6ec
 
     TEMPLETON_MODULE.execute();
 
