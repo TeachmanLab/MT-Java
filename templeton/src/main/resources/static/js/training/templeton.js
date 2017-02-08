@@ -371,6 +371,7 @@ var TEMPLETON_MODULE = (function () {
         timeline.push(final_trial_score);
 
         function saveData(data, callback){
+
             $.ajax({
                 type:'post',
                 contentType: 'application/json',
@@ -390,7 +391,11 @@ var TEMPLETON_MODULE = (function () {
         jsPsych.init({
             timeline: timeline,
             display_element: $("#" + my.target),
-            on_finish: function(data){ saveData(jsPsych.data.dataAsJSON(), redirect) }
+            on_finish: function(data){
+                jsPsych.data.addProperties({
+                    condition: my.condition
+                });
+                saveData(jsPsych.data.dataAsJSON(), redirect) }
         });
 
         /*

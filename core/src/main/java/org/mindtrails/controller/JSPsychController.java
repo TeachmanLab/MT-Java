@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mobile.device.Device;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -73,9 +74,22 @@ public class JSPsychController extends BaseController {
 
     @RequestMapping(method = RequestMethod.POST,
             headers = "content-type=application/json")
-    public @ResponseBody ResponseEntity<JsPsychTrialList> createData(@RequestBody JsPsychTrialList list) {
-        LOG.info("Received " + list.size() + " trials.");
+    public @ResponseBody ResponseEntity<JsPsychTrialList>
+        createData(Principal principal,
+                   Device device,
+                   @RequestBody JsPsychTrialList list) {
+
+        Participant p = getParticipant(principal);
+        String deviceType = "unknown";
+        if(device.isMobile()) deviceType = "mobile";
+        if(device.isNormal()) deviceType = "normal";
+        if(device.isTablet()) deviceType = "tablet";
+
         for(JsPsychTrial trial : list) {
+            trial.setParticipantId(p.getId());
+            trial.setSession(p.getStudy().getCurrentSession().getName());
+            trial.setStudy(p.getStudy().getName());
+            trial.setDevice(deviceType);
             this.jsPsychRepository.save(trial);
         }
         return new ResponseEntity<>(list, HttpStatus.OK);

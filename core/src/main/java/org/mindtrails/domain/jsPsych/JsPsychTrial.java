@@ -18,6 +18,7 @@ public class JsPsychTrial {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "QUESTION_GEN")
     private int id;
+
     private double rt;
     private String stimulus;
     private String button_pressed;
@@ -26,5 +27,12 @@ public class JsPsychTrial {
     private double time_elapsed;
     private String internal_node_id;
     private boolean correct;
+
+    private long participantId;
+    private String session;
+    private String study;
+    @Column (name = "conditioning")
+    private String condition;
+    private String device;
 
 }
