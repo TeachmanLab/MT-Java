@@ -30,6 +30,11 @@
     margin: 0;
 }}
 
+.title  h2 {
+    margin-top: 5px;
+}
+
+
 div.section {
     position: relative;
     margin: 50px auto;
