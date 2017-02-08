@@ -19,7 +19,7 @@ $(document).on('click', '.option', function(e){
     if(allChecked) {
         scrollTo($(section).next());
     } else if($(row).next().hasClass("row")) {
-        if($(this).closest(".section").hasClass("section-V"))
+        if($(row.find("label")[0]).width() > 100)
         scrollTo($(this).closest(".row").next());
     }
 });
