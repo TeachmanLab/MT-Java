@@ -15,6 +15,7 @@ description = 'MindTrails Core Library'
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+    compile("org.springframework.mobile:spring-mobile-device")
     compile("org.thymeleaf.extras:thymeleaf-extras-springsecurity4")
     compile("org.mindrot:jbcrypt:0.3m")
     compile("commons-codec:commons-codec:1.10")
