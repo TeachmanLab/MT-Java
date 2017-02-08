@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * User: dan
  * Date: 3/19/14
  * Time: 4:42 PM
- * This causes Spring to automatically create CRUD opperations for the
+ * This causes Spring to automatically create CRUD operations for the
  * trial object:
  *    delete(T entity) which deletes the entity given as a parameter.
  *    findAll() which returns a list of entities.

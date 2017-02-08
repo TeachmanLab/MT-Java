@@ -3,15 +3,18 @@ package org.mindtrails.controller;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.RestExceptions.WrongFormException;
 import org.mindtrails.domain.Study;
+import org.mindtrails.domain.jsPsych.JsPsychTrial;
+import org.mindtrails.domain.jsPsych.JsPsychTrialList;
+import org.mindtrails.persistence.JsPsychRepository;
 import org.mindtrails.service.ParticipantService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
@@ -32,6 +35,8 @@ public class JSPsychController extends BaseController {
     @Autowired
     private ParticipantService participantService;
 
+    @Autowired
+    private JsPsychRepository jsPsychRepository;
 
     @RequestMapping(value="{scriptName}", method=RequestMethod.GET)
     public String showPlayer(ModelMap model, Principal principal, @PathVariable String scriptName) {
@@ -65,6 +70,15 @@ public class JSPsychController extends BaseController {
         return new RedirectView("/session/next", true);
     }
 
+
+    @RequestMapping(method = RequestMethod.POST,
+            headers = "content-type=application/json")
+    public @ResponseBody ResponseEntity<JsPsychTrialList> createData(@RequestBody JsPsychTrialList list) {
+        LOG.info("Received " + list.size() + " trials.");
+        for(JsPsychTrial trial : list) {
+            this.jsPsychRepository.save(trial);
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
 }
-
-

@@ -30,6 +30,8 @@ var TEMPLETON_MODULE = (function () {
     my.question_type = "yes_no";  // Can be yes_no, mc1, or mc2.
     my.traget = "jspsych-target";
     my.base_url = "/js/training";
+    my.post_url = "/jspsych";
+    my.redirect_url = "/jspsych/continue";
 
     // This score is incremented for every correct answer and displayed
     // to the user.
@@ -112,7 +114,8 @@ var TEMPLETON_MODULE = (function () {
                         "</ul> " +
                         "</div>"
                     )
-                }
+                },
+                on_finish: function(data){ data.stimulus = "introduction" }
             };
 
         // The Final Score, shown at the end of the experiment.
@@ -157,7 +160,8 @@ var TEMPLETON_MODULE = (function () {
                 '<p>' + feed_back_score + "</p>" +
                 '<p>' + feed_back_s + '</p>' +
                 '<p>' + feed_back_c + '</p>')
-            }
+            },
+            on_finish: function(data){ data.stimulus = "final score screen" }
         };
 
         /* create experiment timeline array */
@@ -237,6 +241,7 @@ var TEMPLETON_MODULE = (function () {
                 choices: ['Not at all', 'Somewhat', 'Moderately', 'Very', 'Totally'],
                 on_finish: function (trial_data) {
                     vivid_response = trial_data.button_pressed > 2;
+                    trial_data.stimulus = "vividness"
                 }
             };
 
@@ -244,7 +249,10 @@ var TEMPLETON_MODULE = (function () {
                 type: 'button-response',
                 is_html: true,
                 stimulus: 'Thinking about the set of 40 scenarios you just completed, on average, how vividly did you imagine yourself in the scenarios?',
-                choices: ['Not at all', 'Somewhat', 'Moderately', 'Very', 'Totally']
+                choices: ['Not at all', 'Somewhat', 'Moderately', 'Very', 'Totally'],
+                on_finish: function (trial_data) {
+                    trial_data.stimulus = "vividness_final"
+                }
             };
 
             // Vivid Follow up - changes based on response.
@@ -267,7 +275,15 @@ var TEMPLETON_MODULE = (function () {
                             "</div>"
                     )
                 },
-                cont_btn: "continue"
+
+                cont_btn: "continue",
+                on_finish: function (trial_data) {
+                    if(vivid_response) {
+                        trial_data.stimulus = "Good Job"
+                    } else {
+                        trial_data.stimulus = "Use Imagination"
+                    }
+                }
             };
             // Vivid Follow up - changes based on response.
             var vividness_followup_halfway = {
@@ -281,6 +297,9 @@ var TEMPLETON_MODULE = (function () {
                         "<img src='" + my.base_url + "images/halfway.jpg'/>" +
                         "</div>"
                     )
+                },
+                on_finish: function (trial_data) {
+                        trial_data.stimulus = "Half Way"
                 }
             };
 
@@ -319,7 +338,7 @@ var TEMPLETON_MODULE = (function () {
                 on_finish: function (trial_data) {
                     if (trial_data.correct) score_questions++;
                     updateScore();
-                    updateProgress();
+                    updateProgress();C
                 }
             };
 
@@ -351,16 +370,46 @@ var TEMPLETON_MODULE = (function () {
         timeline.push(vividness_final);
         timeline.push(final_trial_score);
 
+        function saveData(data, callback){
+            $.ajax({
+                type:'post',
+                contentType: 'application/json',
+                cache: false,
+                url: my.post_url, // this is the path to the above PHP script
+                data: data,
+                success: callback,
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    alert("Status: " + textStatus); alert("Error: " + errorThrown);
+                }                });
+        }
+
+        function redirect() {
+            window.location.assign(my.redirect_url);
+        }
 
         jsPsych.init({
             timeline: timeline,
             display_element: $("#" + my.target),
-            on_finish: function (data) {
-                jsPsych.data.displayData();
-                //window.location.assign(contextRoot + "jspsych/completed/" + csvFile);
-            }
-            //saveData("DutchArticles"+SubjectID+".csv", jsPsych.data.dataAsCSV())}
+            on_finish: function(data){ saveData(jsPsych.data.dataAsJSON(), redirect) }
         });
+
+        /*
+        jsPsych.init({
+            timeline: timeline,
+            display_element: $("#" + my.target),
+            on_finish: function (data) {
+                $.ajax({
+                    type:'post',
+                    contentType: 'application/json',
+                    cache: false,
+                    url: my.post_url, // this is the path to the above PHP script
+                    data: data
+
+                });
+                window.location.assign(my.redirect_url);
+            }
+        });
+        */
     }
 
     return my;
