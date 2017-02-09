@@ -37,7 +37,7 @@ body {font-family: 'Source Sans Pro', sans-serif; font-size:20px; box-sizing:bor
 
 /*************** Sections */
 
-div.sessionSection,  div.sessionOverview {
+div.sessionSection {
     padding: 20px 0px;
     align-content: center;
     text-align: center;
@@ -127,25 +127,22 @@ button:active { background:#666;
 Session Overview
 **/
 
-img.sessionMarker {
-    position:absolute;
-    left: 20px;
-    margin: 20px;
-}
+@media (max-width: 992px) { img.sessionMarker  {
+    width: 50px;
+}}
 
 div.sessionGrouping {
-    width: 850px;
     clear:both;
     margin: 50px 0 20px 0;
     position:relative;
 }
 
 div.sessionOverview {
-    left: 120px;
+    border-radius: 15px;
+    border: 1px solid #BBB;
     background:#21336B;
-    margin: 0 0 0 120px;
-    padding: 0;
-    width: 600px;
+    padding: 0 0 15px 0;
+
 }
 
 div.sessionOverview h3 {
@@ -156,6 +153,10 @@ div.sessionOverview h3 {
 
 div.sessionOverview span.date {
     margin-left: 10px;
+}
+
+div.sessionTitle {
+    font-weight: 600;
 }
 
 div.gift {
@@ -175,9 +176,10 @@ br.clear {
     clear:both;
 }
 
-div.sessionOverview table {
+div.sessionOverviewTable {
     background-color: white;
-    min-width: 598px;
+    margin: 0px;
+    border-bottom: 1px solid #ccc;
 }
 
 div.sessionOverview table td {
