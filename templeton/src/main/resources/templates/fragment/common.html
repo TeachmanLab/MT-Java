@@ -102,7 +102,6 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}" role="separator"/>
                     <li><a th:href="@{/public/about}">ABOUT</a></li>
                     <li><a th:href="@{/public/team}">MEET THE TEAM</a></li>
                     <li><a th:href="@{/public/faq}">FAQ</a></li>
@@ -122,6 +121,8 @@
                     <ul class="dropdown-menu">
                         <li><a th:href="@{/session/overview}">My Progress</a></li>
                         <li><a th:href="@{/account}">Account Settings</a></li>
+                        <li><a th:href="@{/account/changePass}">Change Password</a></li>
+                        <li><a th:href="@{/account/exitStudyConfirm}">Exit the Study</a></li>
                         <li><a th:href="@{/logout}">Logout</a></li>
                     </ul>
                 </li>

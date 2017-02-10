@@ -47,7 +47,8 @@
                                 <th>Email</th>
                                 <th>Study</th>
                                 <th>Session</th>
-                                <th>Email opt-out?</th>
+                                <th>Email Reminders?</th>
+                                <th>Phone Reminders?</th>
                                 <th>Active?</th>
                                 <th>Admin?</th>
                                 <th></th>
@@ -62,7 +63,8 @@
                                 <td th:text="${p.email}">daniel.h.funk@gmail.com</td>
                                 <td th:text="${p.study.name}">Templeton Study</td>
                                 <td th:text="${p.study.currentSession.displayName}">Session One</td>
-                                <td><span th:if="${p.emailOptout}">No Emails</span></td>
+                                <td><span th:if="${p.emailReminders}">Yes</span></td>
+                                <td><span th:if="${p.phoneReminders}">Yes</span></td>
                                 <td><span th:if="${p.active}">Active</span></td>
                                 <td><span th:if="${p.admin}">Admin</span></td>
                                 <td>

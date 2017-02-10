@@ -36,9 +36,11 @@ public  class Participant implements UserDetails {
     protected String fullName;
     @Column(unique = true)
     protected String email;
+    protected String phone;
     protected boolean admin;
     protected String password;
-    protected boolean emailOptout = false;
+    protected boolean emailReminders = true;
+    protected boolean phoneReminders = false;
     protected boolean active = true;
     protected Date lastLoginDate;
     protected String randomToken;
@@ -134,7 +136,7 @@ public  class Participant implements UserDetails {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", admin=" + admin +
-                ", emailOptout=" + emailOptout +
+                ", emailReminders=" + emailReminders +
                 ", active=" + active +
                 '}';
     }

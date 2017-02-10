@@ -431,6 +431,19 @@ Re-sizing for forms and displays
 }
 
 
+.inline-checkbox input {
+    height: 40px;
+    width: 40px;
+    float: left;
+    margin: 10px;
+}
+
+.inline-checkbox {
+    font-weight: 400;
+
+}
+
+
 
 
 
