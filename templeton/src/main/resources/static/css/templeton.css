@@ -23,6 +23,14 @@
 
 #login-button {
     font-size: 1em;
+    border: 1px solid #ddd;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+}
+
+#login-button:hover {
+
 }
 
 @media (max-width: 992px) { #login-button {
