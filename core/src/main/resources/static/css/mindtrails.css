@@ -205,9 +205,6 @@ div.sessionOverview table td {
 }
 
 #pswd_info {
-    display:none;
-    z-index: 100;
-    position:absolute;
     width:350px;
     padding:15px;
     background:#fefefe;
@@ -216,6 +213,8 @@ div.sessionOverview table td {
     box-shadow:0 1px 3px #ccc;
     border:1px solid #ddd;
 }
+
+
 
 
 #pswd_info h4 {
