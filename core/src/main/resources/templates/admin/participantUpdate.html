@@ -82,6 +82,19 @@
                     </table>
                 </div>
                 <div class="log">
+                    <h3>Text Messages sent:</h3>
+                    <table class="logs">
+                        <tr>
+                            <th>Type</th>
+                            <th>Date</th>
+                        </tr>
+                        <tr th:each="log : ${participantEdit.smsLogs}">
+                            <td th:text="${log.message}"/>
+                            <td th:text="${log.dateSent}"/>
+                        </tr>
+                    </table>
+                </div>
+                <div class="log">
                 <h3>Gift Cards Awarded:</h3>
                     <table class="logs">
                         <tr>
