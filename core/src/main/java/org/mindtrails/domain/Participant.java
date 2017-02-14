@@ -6,6 +6,8 @@ import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.mindtrails.domain.tracking.EmailLog;
 import org.mindtrails.domain.tracking.GiftLog;
+import org.mindtrails.domain.tracking.MindTrailsLog;
+import org.mindtrails.domain.tracking.SMSLog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,7 +25,7 @@ import java.util.*;
 @Entity
 @Table(name = "participant")
 @Data
-@EqualsAndHashCode(exclude={"emailLogs", "giftLogs","passwordToken"})
+@EqualsAndHashCode(exclude={"emailLogs", "giftLogs", "SMSLogs", "passwordToken"})
 public  class Participant implements UserDetails {
 
     private static final Logger LOG = LoggerFactory.getLogger(Participant.class);
@@ -40,7 +42,8 @@ public  class Participant implements UserDetails {
     protected boolean admin;
     protected String password;
     protected boolean emailReminders = true;
-    protected boolean phoneReminders = false;
+    protected boolean phoneReminders = true;
+    protected String timezone;
     protected boolean active = true;
     protected Date lastLoginDate;
     protected String randomToken;
@@ -61,6 +64,9 @@ public  class Participant implements UserDetails {
     // leave this eager, or address that problem.
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "participant")
     protected Set<EmailLog> emailLogs = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "participant")
+    protected Set<SMSLog> smsLogs = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "participant")
     protected Set<GiftLog> giftLogs = new HashSet<>();
@@ -123,6 +129,11 @@ public  class Participant implements UserDetails {
         this.emailLogs.add(log);
     }
 
+    public void addSMSLog(SMSLog log) {
+        if (this.smsLogs == null) this.smsLogs = new HashSet<SMSLog>();
+        this.smsLogs.add(log);
+    }
+
     public void addGiftLog(GiftLog log) {
         if (this.giftLogs == null) this.giftLogs = new HashSet<GiftLog>();
         this.giftLogs.add(log);
@@ -176,21 +187,30 @@ public  class Participant implements UserDetails {
 
 
     public int daysSinceLastEmail() {
+        return daysSinceLastLog(emailLogs);
+    }
+
+    public int daysSinceLastSMSMessage() {
+        return daysSinceLastLog(smsLogs);
+    }
+
+    private int daysSinceLastLog(Set<? extends MindTrailsLog> logs)  {
+
         DateTime last = null;
-        DateTime each = null;
+        DateTime each;
         DateTime now = new DateTime();
 
-        if (null == this.emailLogs || this.emailLogs.size() == 0) return 99;
+        if (null == logs || logs.size() == 0) return 99;
 
-        for (EmailLog log : this.emailLogs) {
+        for (MindTrailsLog log : logs) {
             each = new DateTime(log.getDateSent());
             if (null == last || last.isBefore(each)) {
                 last = each;
             }
         }
-
         return Days.daysBetween(last, now).getDays();
     }
+
 
     /**
      * Returns the date of a last completed activity - this is the last login

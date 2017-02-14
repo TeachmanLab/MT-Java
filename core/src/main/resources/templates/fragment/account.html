@@ -4,7 +4,16 @@
 
 <form name="f" class="form-horizontal" th:action="@{/account/create}" method="post" th:object="${participantForm}"
       th:fragment="create">
+    <script th:src="@{/js/jstz.min.js}"></script>
     <script th:src="@{/js/password.js}"></script>
+
+    <input type="hidden" name="timezone" id="timezone" value="undetected"/>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        $("#timezone").val(jstz.determine().name());
+        /*]]>*/
+    </script>
+
     <h3>Create an account</h3>
     <div class="formErrors">
         <ul class="errors">

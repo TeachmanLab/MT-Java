@@ -32,6 +32,8 @@ public class ParticipantUpdate implements HasPhone {
     protected boolean emailReminders = true;
     protected boolean phoneReminders = true;
 
+    protected String timezone;
+
     protected String theme;
 
     public void fromParticipant(Participant p) {
@@ -41,6 +43,7 @@ public class ParticipantUpdate implements HasPhone {
         this.phoneReminders = p.isPhoneReminders();
         this.theme = p.getTheme();
         this.phone = p.getPhone();
+        this.timezone = p.getTimezone();
     }
 
     public Participant toParticipant() {
@@ -54,6 +57,7 @@ public class ParticipantUpdate implements HasPhone {
         p.setEmailReminders(this.isEmailReminders());
         p.setPhoneReminders(this.isPhoneReminders());
         p.setPhone(formatPhone(this.phone));
+        p.setTimezone(this.getTimezone());
         if(this.theme != null) p.setTheme(this.getTheme());
         return p;
     }

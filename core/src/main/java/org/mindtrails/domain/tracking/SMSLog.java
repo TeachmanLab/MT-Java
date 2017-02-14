@@ -2,7 +2,6 @@ package org.mindtrails.domain.tracking;
 
 import lombok.Data;
 import org.mindtrails.domain.DoNotDelete;
-import org.mindtrails.domain.Email;
 import org.mindtrails.domain.Exportable;
 import org.mindtrails.domain.Participant;
 
@@ -11,36 +10,31 @@ import javax.persistence.Table;
 import java.util.Date;
 
 /**
- * Logs the date and time a particular type of email was sent to a user.
+ * Logs the date and time a text message was sent to a participant.
  */
 @Entity
-@Table(name="email_log")
+@Table(name="sms_log")
 @Exportable
 @DoNotDelete
 @Data
-public class EmailLog extends MindTrailsLog {
+public class SMSLog extends MindTrailsLog {
 
-    private String emailType;
+
+    private String message;
     private boolean successful = true;
     private String exception = "";
 
-    public EmailLog() {};
+    public SMSLog() {}
 
-    public EmailLog(Email email) {
-        this.participant = email.getParticipant();
-        this.emailType = email.getType();
+    public SMSLog(Participant p, String message) {
+        this.participant = p;
+        this.message = message;
         this.dateSent  = new Date();
     }
 
-    public EmailLog(Participant p, String type) {
+    public SMSLog(Participant p, String message, Date date) {
         this.participant = p;
-        this.emailType = type;
-        this.dateSent  = new Date();
-    }
-
-    public EmailLog(Participant p, String type, Date date) {
-        this.participant = p;
-        this.emailType = type;
+        this.message = message;
         this.dateSent  = date;
     }
 
@@ -48,7 +42,5 @@ public class EmailLog extends MindTrailsLog {
         this.successful = false;
         this.exception = e.getLocalizedMessage();
     }
-
-
 
 }

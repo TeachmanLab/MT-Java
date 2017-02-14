@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: dan
@@ -26,6 +28,7 @@ import org.springframework.stereotype.Repository;
 public interface ParticipantRepository extends JpaRepository<Participant, Long> {
 
     Participant findByEmail(String email);
+    List<Participant> findByActiveAndPhoneReminders(boolean active, boolean phone);
 
     @Query(" select p from Participant as p" +
             " where lower(p.fullName) like '%' || lower(:search) || '%'" +
