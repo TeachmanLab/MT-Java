@@ -8,30 +8,14 @@
 <head th:include="fragment/common :: headerFragment" />
 <body>
 <section id="header" class="clearfix" th:include="fragment/common :: topFragment" />
-
-<!-- header-btm starts
-================================================== -->
-<section id="header-btm" class="clearfix">
-    <div class="container">
-        <div class="row">
-            <h2 class="page-title heading-icon clearfix"><img th:src="@{/images/map-arrow-orange.png}"/><br/>Privacy Policy</h2>
-        </div>
-    </div>
-</section>
-
-<!-- header-btm ends
-================================================== -->
+<section th:include="fragment/common :: titleBar (title='Privacy Policy')"/>
 
 <!-- content starts
 ================================================== -->
 <section id="content" class="clearfix">
     <div class="container">
         <div class="row">
-            <div class="span12">
-
-                <br />
-                <br />
-
+            <div class="col-md-8">
                 <p>This study site has implemented stringent protections to safeguard participants’ confidentiality. All
                     communication between project servers and participants’ computers is routed through Secure Sockets Layer
                     (SSL) encryption technology, the gold standard for protecting data transfer from unauthorized access.
