@@ -51,6 +51,18 @@
                             <td th:if="${#fields.hasErrors('phoneReminders')}" th:errors="*{phoneReminders}"></td>
                         </tr>
                         <tr>
+                            <td>Time Zone:</td>
+                            <input type="hidden" name="timezone" id="timezone" th:field="*{timezone}"/>
+                            <td th:text="${participantEdit.timezone}">Unknown</td>
+                        </tr>
+                        <script th:src="@{/js/jstz.min.js}"></script>
+                        <script th:inline="javascript">
+                            /*<![CDATA[*/
+                            $("#timezone").val(jstz.determine().name());
+                            /*]]>*/
+                        </script>
+
+                        <tr>
                             <td>Is Active:</td>
                             <td><input type="checkbox" th:field="*{active}"/></td>
                             <td th:if="${#fields.hasErrors('active')}" th:errors="*{active}">Admin Error</td>
