@@ -260,4 +260,14 @@ public abstract class BaseStudy implements Study {
         return params;
     }
 
+    @Override
+    /**
+     * We have a one to one relationship to participant,
+     * we can just return the unique id of the Study, and
+     * it is the unique id of the participant.
+     */
+    public long getParticipantId() {
+        return this.id;
+    }
+
 }

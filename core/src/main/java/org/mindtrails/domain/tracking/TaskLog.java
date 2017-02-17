@@ -36,7 +36,6 @@ public class TaskLog implements Comparable<TaskLog> {
     @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="name")
     @JsonIdentityReference(alwaysAsId=true) // otherwise first ref as POJO, others as id
     private Study study;
-
     private String sessionName;
     private String taskName;
     private Date dateCompleted;
@@ -64,6 +63,10 @@ public class TaskLog implements Comparable<TaskLog> {
     public int compareTo(TaskLog o) {
         if(this.dateCompleted == null) return 0;
         return this.dateCompleted.compareTo(o.dateCompleted);
+    }
+
+    public Long getParticipantId() {
+        return study.getParticipantId();
     }
 
 }

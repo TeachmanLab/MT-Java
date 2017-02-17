@@ -41,8 +41,10 @@ public interface Study {
 
     public void setReceiveGiftCards(boolean value);
 
+    public long getParticipantId();
+
     /**
-     *     Parameters to pass into the PIPlayer Script.  Frequenty
+     *     Parameters to pass into the PIPlayer Script.  Frequently
      *     includes details about the current study, such as
      *     the participants Condition or Prime.
      */
