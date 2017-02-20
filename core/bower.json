@@ -17,6 +17,7 @@
           "jquery-flot": "0.8.3",
           "jquery-csv": "0.8.2",
           "jspsych": "https://github.com/jodeleeuw/jsPsych.git",
-          "papaparse":"v4.1.1"
+          "papaparse":"v4.1.1",
+          "seiyria-bootstrap-slider":"v9.7.2"
   }
 }

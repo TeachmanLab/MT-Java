@@ -108,37 +108,24 @@ div.oneToSeven {
     margin-left: 40px;
 }
 
-#slider {
-    border: 1px solid #ccc;
-    width: 475px;
-    margin: 20px 0 90px 100px;
-}
-#slider label.slider {
-    font-width: 400;
-    font-size:72%;
-    position: absolute;
-    width: 100px;
-    min-width: 100px;
-    margin-top: 20px;
-    margin-left: -10px;
-    text-align: center;
+
+.slider.slider-horizontal {
+    width: 80%;
+    margin: 0 10%;
+    height: 20px;
 }
 
-#slider2 {
-    border: 1px solid #ccc;
-    width: 475px;
-    margin: 20px 0 90px 100px;
-}
-#slider2 label.slider {
-    font-width: 400;
-    font-size:72%;
-    position: absolute;
-    width: 100px;
-    min-width: 100px;
+.after_slider {
     margin-top: 20px;
-    margin-left: -10px;
-    text-align: center;
+    font-size: .8em;
 }
+
+
+@media (max-width: 992px) { .slider.slider-horizontal {
+    width: 80%;
+    margin: 0 10%;
+}}
+
 
 
 .ui-state-default, .ui-widget-content .ui-state-default {

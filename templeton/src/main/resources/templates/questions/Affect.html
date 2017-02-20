@@ -32,36 +32,70 @@
 
                         <div class="question"> To what extent do you feel positive feelings right now, that is, at the
                             present moment? </div>
-                        <div class="rangeWrapper">
-                            <input  id ="slide2" type="range" name="PosFeelings" required="true" value="0" min="-10" max="10"/>
-                            <p id="slide_text2" class="rangeLabel">
-                                &lt;&lt; Not at all
-                                &nbsp; &nbsp; &nbsp; &nbsp; Moderately
-                                &nbsp; &nbsp; &nbsp; &nbsp; Totally &gt;&gt; </p>
-                        </div>
-                        <br/>
-                        <div><label class="standard"> <input type="checkbox" name="PosFeelings" value="555"
-                                                             onchange="disableSection(this)"/> Prefer not
-                            to
-                            answer
+                        <input id="posSlider"  type="text" name="PosFeelings" required ="true"/>
+                        <div class="after_slider"><label class="standard">
+                            <input id="posSlider-enabled" type="checkbox" name="PosFeelings" value="555"/>
+                            Prefer not to answer
                         </label></div>
+                        <script>
+                            $("#posSlider").slider({
+                                ticks: [0, 10, 20],
+                                ticks_labels: ['not at all', 'moderately', 'totally'],
+                                ticks_snap_bounds: 1,
+                                tooltip: "hide",
+                                value: 10,
+                                formatter: function(value) {
+                                    $('#posSlider-enabled')[0].setCustomValidity("");
+                                }
+                            });
+
+                            $("#posSlider-enabled").click(function() {
+                                if(this.checked) {
+                                    $("#posSlider").slider("disable");
+                                    $('#posSlider-enabled')[0].setCustomValidity("");
+                                }
+                                else {
+                                    $("#posSlider").slider("enable");
+                                }
+                            });
+                            $('#posSlider-enabled')[0].setCustomValidity("Please use the slider to make a selection");
+
+                        </script>
+
                     </div>
 
                     <div class="section">
                         <div class="question"> To what extent do you feel negative feelings right now, that is, at the present moment? </div>
-                        <div class="rangeWrapper">
-                            <input  id="slide3" type="range" name = "NegFeelings" required="true" value="0" min="-10" max="10"/>
-                            <p id="slide_text3" class="rangeLabel">
-                                &lt;&lt; Not at all
-                                &nbsp; &nbsp; &nbsp; &nbsp; Moderately
-                                &nbsp; &nbsp; &nbsp; &nbsp; Totally &gt;&gt; </p>
-                        </div>
-                        <br/>
-                        <div><label class="standard"> <input type="checkbox" name="NegFeelings" value="555"
-                                                             onchange="disableSection(this)"/> Prefer not
-                            to
-                            answer
+
+                        <input id="negSlider"  type="text" name="NegFeelings" required ="true"/>
+                        <div class="after_slider"><label class="standard">
+                            <input id="negSlider-enabled" type="checkbox" name="NegFeelings" value="555"/>
+                            Prefer not to answer
                         </label></div>
+                        <script>
+                            $("#negSlider").slider({
+                                ticks: [0, 10, 20],
+                                ticks_labels: ['not at all', 'moderately', 'totally'],
+                                ticks_snap_bounds: 1,
+                                tooltip: "hide",
+                                value: 10,
+                                formatter: function(value) {
+                                    $('#negSlider-enabled')[0].setCustomValidity("");
+                                }
+                            });
+
+                            $("#negSlider-enabled").click(function() {
+                                if(this.checked) {
+                                    $("#negSlider").slider("disable");
+                                    $('#negSlider-enabled')[0].setCustomValidity("");
+                                }
+                                else {
+                                    $("#negSlider").slider("enable");
+                                }
+                            });
+                            $('#negSlider-enabled')[0].setCustomValidity("Please use the slider to make a selection");
+
+                        </script>
 
                     </div>
 
@@ -71,83 +105,6 @@
                     </div>
 
                 </form>
-
-                <script> /*<![CDATA[*/
-                $(document).ready(function(){
-                    setupSliderPos($("#slide2"), $("#slide_text2"));
-                    setupSliderNeg($("#slide3"), $("#slide_text3"));
-                });
-
-                function disableSection(input) {
-                    var slider = $(input).closest('.section').find("input[type='range']")
-                    if (input.checked) {
-                        slider.attr("disabled", true);
-                        slider.setCustomValidity("");
-                    } else {
-                        slider.removeAttr("disabled");
-                        slider.setCustomValidity("Please use the slider to make a selection");
-                    }
-                }
-
-                function setupSliderPos(slider, text) {
-                    slider[0].setCustomValidity("Please use the slider to make a selection");
-                    slider.change(function() {
-                        slider[0].setCustomValidity("");
-                        value = slider.val();
-                        text.removeClass('selected');
-                        if(value < -5) text.text("Not at all Positive");
-                        if(value >= -5 && value <= 5) text.text("Moderately Positive");
-                        if(value > 5) text.text("Totally Positive");
-
-                    });
-
-                    slider.bind('click', function(){
-                        label = $(this);
-                        value = label.index();
-                        slider.attr('value', value)
-                                .trigger('change');
-                    });
-                }
-
-                function setupSliderNeg(slider, text) {
-                    slider[0].setCustomValidity("Please use the slider to make a selection");
-                    slider.change(function() {
-                        slider[0].setCustomValidity("");
-                        value = slider.val();
-                        text.removeClass('selected');
-                        if(value < -5) text.text("Not at all Negative");
-                        if(value >= -5 && value <= 5) text.text("Moderately Negative");
-                        if(value > 5) text.text("Totally Negative");
-
-                    });
-
-                    slider.bind('click', function(){
-                        label = $(this);
-                        value = label.index();
-                        slider.attr('value', value)
-                                .trigger('change');
-                    });
-                }
-
-                /*]]>*/
-                </script>
-
-                <style>
-                    input[type="range"] {
-                        width: 100%;
-                    }
-
-                    p.rangeLabel {
-                        font-family: "Arial", sans-serif;
-                        padding: 5px;
-                        margin: 5px 0;
-                        background: #ccc;
-                        font-size: 15px;
-                        line-height: 20px;
-                        text-align: center;
-                    }
-
-                </style>
 
 
             </div>
