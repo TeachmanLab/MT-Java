@@ -98,7 +98,7 @@ var TEMPLETON_MODULE = (function () {
                         "<img src='" + my.base_url + "images/compass-blue.png' > " +
                         "<p>In this part of the program, you will read a series of very " +
                         "short stories.  Pay attention to the title of each story because " +
-                        "after you have read all the stories, you will be asked morequestions about them.</p> " +
+                        "after you have read all the stories, you will be asked more questions about them.</p> " +
                         "<br clear='all'> " +
                         "<b>For each story:</b> " +
                         "<ul> " +
