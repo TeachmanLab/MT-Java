@@ -78,8 +78,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         public void configure(WebSecurity web) throws Exception {
             web
                     .ignoring()
-                    .antMatchers("/bower/**", "/css/**", "/js/**", "/images/**",
-                            "/resources/**")
+                    .antMatchers("/bower/**", "/css/**", "/js/**", "/images/**")
                     .antMatchers(HttpMethod.POST, "/data");
         }
 
@@ -88,12 +87,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             http.csrf().disable() //HTTP with Disable CSRF
                     .authorizeRequests() //Authorize Request Configuration
                     .antMatchers("/",
+                            "/error",
                             "/public/**",
                             "/account/create",
                             "/resetPass",
                             "/resetPassStep2/**",
                             "/changePassword/**").permitAll()
-                    .antMatchers("/admin", "/admin/**", "/questions/*/export").hasRole("ADMIN")
+                    .antMatchers("/admin", "/admin/**").hasRole("ADMIN")
                     .antMatchers("/**").hasRole("USER")
                     .anyRequest().authenticated()
                     .and() //Login Form configuration for all others
