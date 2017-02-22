@@ -10,16 +10,7 @@
     width:365px; height:135px; float:left;
     margin-left:-35px; margin-right: 150px;}
 
-.account-bar {
-    background: #21336B;
-    color:#ffffff;
-    font-weight: bold;
-    clear:both;
-    width:100%;
-    text-align:right;
-    padding:0px 20px;
-    line-height: 25px;
-}
+
 
 #login-button {
     font-size: 1em;
