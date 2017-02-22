@@ -21,7 +21,7 @@ public class PhoneValidator implements ConstraintValidator<Phone, HasPhone> {
     public boolean isValid(HasPhone hasPhone, ConstraintValidatorContext ctx) {
 
         // Don't validate null phones.
-        if (hasPhone.getPhone() == null) { return true; }
+        if (hasPhone.getPhone() == null || hasPhone.getPhone() == "") { return true; }
 
         PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
         try {
