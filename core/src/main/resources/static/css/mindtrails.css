@@ -57,13 +57,23 @@ Alternate NavBar Breakpoint - to better support Ipad
         display:block !important;
     }
 }
+
+
+
 .account-bar {
     background: #21336B;
     color:#ffffff;
-    font-size: .6em;
-    padding-bottom: 3px;
+    font-weight: bold;
+    clear:both;
+    width:100%;
+    font-size:.66em;
+    text-align:right;
+    padding:0px 20px 5px 20px;
+    line-height: 25px;
+
 }
-.account-bar a, .account-bar span.item {color:#ffffff; padding: 0 10px 3px 10px; font-weight:400; font-size: .6em}
+
+.account-bar a, .account-bar span.item {color:#ffffff; padding: 0 10px 0 10px; font-weight:400}
 .account-bar .login {}
 
 /*************** Footer   */
