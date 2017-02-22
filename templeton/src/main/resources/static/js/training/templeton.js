@@ -210,9 +210,9 @@ var TEMPLETON_MODULE = (function () {
             } else {
                 if (my.second_word_set) phrase = scenarios[k]['NegativeS2'];
                 else phrase = scenarios[k]['NegativeS'];
-                yes_no_correct = scenarios[k]['PostiveQ'] == "Yes" ? "No" : "Yes";
-                mc1_correct = scenarios[k]['mc1pos'] == "a" ? "b" : "a";
-                mc2_correct = scenarios[k]['mc2pos'] == "a" ? "b" : "a";
+                yes_no_correct = scenarios[k]['PositiveQ'] === "Yes" ? "No" : "Yes";
+                mc1_correct = scenarios[k]['mc1pos'] === "a" ? "b" : "a";
+                mc2_correct = scenarios[k]['mc2pos'] === "a" ? "b" : "a";
             }
 
             /***********************************************
@@ -231,75 +231,6 @@ var TEMPLETON_MODULE = (function () {
                 on_finish: function (trial_data) {
                     if (trial_data.correct) score_letters++;
                     updateScore();
-                }
-            };
-
-            var vividness = {
-                type: 'button-response',
-                is_html: true,
-                stimulus: 'How vividly did you imagine yourself in the scenario?',
-                choices: ['Not at all', 'Somewhat', 'Moderately', 'Very', 'Totally'],
-                on_finish: function (trial_data) {
-                    vivid_response = trial_data.button_pressed > 2;
-                    trial_data.stimulus = "vividness"
-                }
-            };
-
-            var vividness_final = {
-                type: 'button-response',
-                is_html: true,
-                stimulus: 'Thinking about the set of 40 scenarios you just completed, on average, how vividly did you imagine yourself in the scenarios?',
-                choices: ['Not at all', 'Somewhat', 'Moderately', 'Very', 'Totally'],
-                on_finish: function (trial_data) {
-                    trial_data.stimulus = "vividness_final"
-                }
-            };
-
-            // Vivid Follow up - changes based on response.
-            var vividness_followup = {
-                type: 'button-response',
-                is_html: true,
-                choices: ['Continue'],
-                stimulus: function () {
-                    if (vivid_response) {
-                        return (
-                            "<div class='vividness_followup'>" +
-                            "<h1>Thanks. It's great you're really using your imagination!</h1>" +
-                            "<img src='" + my.base_url + "images/good-job.jpg'/>" +
-                            "</div>"
-                        )
-                    } return (
-                            "<div class='vividness_followup'>" +
-                            "<h1>Thanks. Really try to use your imagination!</h1>" +
-                            "<img src='" + my.base_url + "images/imagination.jpg'/>" +
-                            "</div>"
-                    )
-                },
-
-                cont_btn: "continue",
-                on_finish: function (trial_data) {
-                    if(vivid_response) {
-                        trial_data.stimulus = "Good Job"
-                    } else {
-                        trial_data.stimulus = "Use Imagination"
-                    }
-                }
-            };
-            // Vivid Follow up - changes based on response.
-            var vividness_followup_halfway = {
-                type: 'button-response',
-                is_html: true,
-                choices: ['Continue'],
-                stimulus: function () {
-                    return (
-                        "<div class='vividness_followup'>" +
-                        "<h1>You are halfway done!</h1>" +
-                        "<img src='" + my.base_url + "images/halfway.jpg'/>" +
-                        "</div>"
-                    )
-                },
-                on_finish: function (trial_data) {
-                        trial_data.stimulus = "Half Way"
                 }
             };
 
@@ -341,6 +272,76 @@ var TEMPLETON_MODULE = (function () {
                     updateProgress();C
                 }
             };
+
+            var vividness = {
+                type: 'button-response',
+                is_html: true,
+                stimulus: 'How vividly did you imagine yourself in the scenario?',
+                choices: ['Not at all', 'Somewhat', 'Moderately', 'Very', 'Totally'],
+                on_finish: function (trial_data) {
+                    vivid_response = trial_data.button_pressed > 2;
+                    trial_data.stimulus = "vividness"
+                }
+            };
+
+            var vividness_final = {
+                type: 'button-response',
+                is_html: true,
+                stimulus: 'Thinking about the set of 40 scenarios you just completed, on average, how vividly did you imagine yourself in the scenarios?',
+                choices: ['Not at all', 'Somewhat', 'Moderately', 'Very', 'Totally'],
+                on_finish: function (trial_data) {
+                    trial_data.stimulus = "vividness_final"
+                }
+            };
+
+            // Vivid Follow up - changes based on response.
+            var vividness_followup = {
+                type: 'button-response',
+                is_html: true,
+                choices: ['Continue'],
+                stimulus: function () {
+                    if (vivid_response) {
+                        return (
+                            "<div class='vividness_followup'>" +
+                            "<h1>Thanks. It's great you're really using your imagination!</h1>" +
+                            "<img src='" + my.base_url + "images/good-job.jpg'/>" +
+                            "</div>"
+                        )
+                    } return (
+                        "<div class='vividness_followup'>" +
+                        "<h1>Thanks. Really try to use your imagination!</h1>" +
+                        "<img src='" + my.base_url + "images/imagination.jpg'/>" +
+                        "</div>"
+                    )
+                },
+
+                cont_btn: "continue",
+                on_finish: function (trial_data) {
+                    if(vivid_response) {
+                        trial_data.stimulus = "Good Job"
+                    } else {
+                        trial_data.stimulus = "Use Imagination"
+                    }
+                }
+            };
+            // Vivid Follow up - changes based on response.
+            var vividness_followup_halfway = {
+                type: 'button-response',
+                is_html: true,
+                choices: ['Continue'],
+                stimulus: function () {
+                    return (
+                        "<div class='vividness_followup'>" +
+                        "<h1>You are halfway done!</h1>" +
+                        "<img src='" + my.base_url + "images/halfway.jpg'/>" +
+                        "</div>"
+                    )
+                },
+                on_finish: function (trial_data) {
+                    trial_data.stimulus = "Half Way"
+                }
+            };
+
 
             // BUILD THE TIMELINE FROM THE COMPONENTS ABOVE.
             // *********************************************
