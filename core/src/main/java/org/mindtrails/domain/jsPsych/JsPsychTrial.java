@@ -20,6 +20,7 @@ public class JsPsychTrial {
     private int id;
 
     private double rt;
+    @Lob
     private String stimulus;
     private String button_pressed;
     private String trial_type;
