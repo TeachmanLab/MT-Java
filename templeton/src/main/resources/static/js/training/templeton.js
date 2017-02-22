@@ -269,7 +269,7 @@ var TEMPLETON_MODULE = (function () {
                 on_finish: function (trial_data) {
                     if (trial_data.correct) score_questions++;
                     updateScore();
-                    updateProgress();C
+                    updateProgress();
                 }
             };
 
