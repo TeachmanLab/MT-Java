@@ -44,6 +44,16 @@
                     </td>
                     <td th:if="${#fields.hasErrors('conditioning')}" th:errors="*{admin}">Admin Error</td>
                 </tr>
+                <tr>
+                    <td>X Days Ago:</td>
+                    <td >
+                        <input type="text" size="2" th:field="*{subtractDays}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2"><i>Last session date will be set to today, but you can set it to x days in the past if
+                        you want the participant to be able to progress immediately on a session with a mandatory wait period.</i></td>
+                </tr>
             </table>
             <button type="submit">Submit</button>
         </form>
