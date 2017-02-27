@@ -106,6 +106,14 @@ div.oneToSeven {
     height: 20px;
 }
 
+.slider-tick {
+    display: none;
+}
+
+.slider-selection.tick-slider-selection {
+    background-image: -webkit-linear-gradient(top,#f5f5f5 0,#f9f9f9 100%);
+}
+
 .after_slider {
     margin-top: 20px;
     font-size: .8em;
