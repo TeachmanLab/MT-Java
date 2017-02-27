@@ -148,7 +148,7 @@ public class TempletonStudy extends BaseStudy {
         session4.addTask(new Task("Affect","Current Feelings", Task.TYPE.questions, 0));
         session4.addTask(new Task("scenarios", "Training Stories", Task.TYPE.jspsych, 20));
         session4.addTask(new Task("Affect","Current Feelings", Task.TYPE.questions, 0));
-        session1.addTask(new Task("Relatability","Relatability Follow Up", Task.TYPE.questions, 0));
+        session4.addTask(new Task("Relatability","Relatability Follow Up", Task.TYPE.questions, 0));
         session4.addTask(new Task("ExpectancyBias","What Happens Next", Task.TYPE.questions, 2));
         session4.addTask(new Task("WhatIBelieve","What I Believe", Task.TYPE.questions, 6));
         session4.addTask(new Task("Phq4","Mood", Task.TYPE.questions, 0));
