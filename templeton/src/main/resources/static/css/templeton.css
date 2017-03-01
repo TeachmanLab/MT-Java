@@ -225,9 +225,24 @@ div.oneToSeven {
     font-size: .6em;
 }
 
+.navbar-nav {
+    max-width: 700px;
+}
+
 
 .navbar-default .navbar-nav>li>a:hover {
     color: whitesmoke;
+}
+
+
+.account-bar {
+    font-size:1.2em;
+}
+
+.logged-in-as {
+    line-height: 65px;
+    font-weight: normal;
+    font-size: .6em;
 }
 
 .login button {

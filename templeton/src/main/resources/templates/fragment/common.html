@@ -103,30 +103,30 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="main-navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a th:href="@{/public/about}">ABOUT</a></li>
-                    <li><a th:href="@{/public/team}">MEET THE TEAM</a></li>
-                    <li><a th:href="@{/public/faq}">FAQ</a></li>
-                    <li><a th:href="@{/public/contact}">CONTACT</a></li>
-                    <li><a target="new" href="https://implicit.harvard.edu/implicit/user/pimh/linkinfo.html">MENTAL&nbsp;HEALTH&nbsp;RESOURCES</a></li>
-                    <li><a th:href="@{/public/researchSupport}">RESEARCH&nbsp;SUPPORT</a></li>
+                    <li><a th:href="@{/}">Home</a></li>
+                    <li><a th:href="@{/public/about}">About</a></li>
+                    <li><a th:href="@{/public/researchSupport}">Research&nbsp;Support</a></li>
+                    <li><a th:href="@{/public/contact}">Contact Us</a></li>
+                    <li><a target="new" href="https://implicit.harvard.edu/implicit/user/pimh/linkinfo.html">Mental&nbsp;Health&nbsp;Resources</a></li>
+                    <li class="My Account" th:if="${participant} and ${#authorization.expression('hasRole(''ROLE_USER'')')}">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a th:href="@{/session/overview}">Progress</a></li>
+                            <li><a th:href="@{/account}">Account Settings</a></li>
+                            <li><a th:href="@{/account/changePass}">Change Password</a></li>
+                            <li><a th:href="@{/account/exitStudyConfirm}">Exit the Study</a></li>
+                            <li><a th:href="@{/logout}">Logout</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
     <div class="account-bar navbar-default">
         <div class="container" th:if="${participant} and ${#authorization.expression('hasRole(''ROLE_USER'')')}">
+            <span class="logged-in-as">Logged in as (<span th:text="${participant.fullName}"/>)</span>
             <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" id="login-button" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        Logged in as (<span th:text="${participant.fullName}"/>)</a>
-                    <ul class="dropdown-menu">
-                        <li><a th:href="@{/session/overview}">My Progress</a></li>
-                        <li><a th:href="@{/account}">Account Settings</a></li>
-                        <li><a th:href="@{/account/changePass}">Change Password</a></li>
-                        <li><a th:href="@{/account/exitStudyConfirm}">Exit the Study</a></li>
-                        <li><a th:href="@{/logout}">Logout</a></li>
-                    </ul>
-                </li>
+            <li><a th:href="@{/session/overview}">My Progress</a></li>
             </ul>
         </div>
         <div class="container login" th:unless="${#authorization.expression('hasRole(''ROLE_USER'')')}">
@@ -207,6 +207,8 @@
 
             <!--column three starts-->
             <ul class="footer-links">
+                <li><a th:href="@{/public/team}">Meet the Team</a></li>
+                <li><a th:href="@{/public/faq}">FAQ</a></li>
                 <li><a th:href="@{/public/disclaimer}">Terms and Conditions</a></li>
                 <li><a th:href="@{/public/privacy}">Privacy Policy</a></li>
                 <li><a href="https://implicit.harvard.edu/implicit/user/pimh/index.jsp">Project Implicit Mental
