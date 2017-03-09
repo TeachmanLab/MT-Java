@@ -234,15 +234,17 @@ div.oneToSeven {
     color: whitesmoke;
 }
 
+.account-bar>.navbar-nav>li>a {
+    color: #fff;
+}
 
-.account-bar {
-    font-size:1.2em;
+.account-bar button {
+    font-size:1em;
 }
 
 .logged-in-as {
     line-height: 65px;
     font-weight: normal;
-    font-size: .6em;
 }
 
 .login button {
