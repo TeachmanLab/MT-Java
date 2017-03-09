@@ -25,6 +25,7 @@ public class Demographics extends SecureQuestionnaireData {
     private String EmploymentStat;
     private String Income;
     private String PtpReason;
+    private String PtpReasonOther;
 
 }
 
