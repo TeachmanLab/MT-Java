@@ -6,6 +6,14 @@
     color: darkred;
 }
 
+.correct {
+    font-weight:bold;
+    font-size: 1.2em;
+    color: darkgreen;
+
+}
+
+
 body, html {
     color: #212121;
     font: 400 16px/24px Roboto,sans-serif;

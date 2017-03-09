@@ -22,6 +22,7 @@ jsPsych.plugins["button-response-correct"] = (function() {
     trial.prompt = (typeof trial.prompt === 'undefined') ? "" : trial.prompt;
     trial.correct_response = trial.correct_choice || '';
     trial.incorrect_message = trial.incorrect_message || 'That response is incorrect, in a moment you will have a chance to respond again.';
+    trial.correct_message = trial.correct_message || 'Great Job!';
     trial.delay = trial.delay || 6000; // Seconds to delay, if incorrect response is provided.
 
     // if any trial variables are functions
@@ -56,7 +57,16 @@ jsPsych.plugins["button-response-correct"] = (function() {
           style: 'display: none'
       }));
 
-      //display buttons
+    // establish, but hide the error message.
+    display_element.append($('<div>', {
+      html: trial.correct_message,
+      id: 'jspsych-button-response-correct',
+      class: 'block-center center-content correct',
+      style: 'display: none'
+    }));
+
+
+    //display buttons
     var buttons = [];
     if (Array.isArray(trial.button_html)) {
       if (trial.button_html.length == trial.choices.length) {
@@ -108,19 +118,10 @@ jsPsych.plugins["button-response-correct"] = (function() {
       if(choice != trial.correct_choice) {
         handle_incorrect();
         return;
+      } else {
+        handle_correct();
       }
-
-      // after a valid response, the stimulus will have the CSS class 'responded'
-      // which can be used to provide visual feedback that a response was recorded
-      $("#jspsych-button-response-stimulus").addClass('responded');
-
-      // disable all the buttons after a response
-      $('.jspsych-button-response-button').off('click').attr('disabled', 'disabled');
-
-      if (trial.response_ends_trial) {
-        end_trial();
-      }
-    };
+    }
 
     // Deals with an incorrect response, by hiding the buttons, showing an error message
     // forcing a pause of 2 seconds, then redisplaying the buttons.
@@ -135,6 +136,28 @@ jsPsych.plugins["button-response-correct"] = (function() {
         }, trial.delay);
 
     }
+
+    // Shows a good job message and does a brief pause.
+    function handle_correct() {
+      response.correct = true;
+      $("#jspsych-button-response-correct").show();
+      $("#jspsych-button-response-btngroup").hide();
+
+      setTimeout(function() {
+        // after a valid response, the stimulus will have the CSS class 'responded'
+        // which can be used to provide visual feedback that a response was recorded
+        $("#jspsych-button-response-stimulus").addClass('responded');
+
+        // disable all the buttons after a response
+        $('.jspsych-button-response-button').off('click').attr('disabled', 'disabled');
+
+        if (trial.response_ends_trial) {
+          end_trial();
+        }
+      }, 1200);
+
+    }
+
 
     // function to end trial when it is time
     function end_trial() {
