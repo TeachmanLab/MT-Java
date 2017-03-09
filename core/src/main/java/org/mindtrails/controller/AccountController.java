@@ -146,7 +146,7 @@ public class AccountController extends BaseController {
             form.updateParticipant(p);
             participantService.save(p);
             model.addAttribute("updated", true);
-        return "/account";
+        return "redirect:/session";
     }
 
     @RequestMapping("changePass")
