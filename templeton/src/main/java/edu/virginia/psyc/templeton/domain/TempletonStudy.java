@@ -112,7 +112,7 @@ public class TempletonStudy extends BaseStudy {
         pretest.setIndex(0);
         pretest.addTask(new Task("Demographics","Personal Background", Task.TYPE.questions, 2));
         pretest.addTask(new Task("MentalHealthHistory","Mental Health History", Task.TYPE.questions, 2));
-        pretest.addTask(new Task("WhatIBelieve","What I Believe", Task.TYPE.questions, 6));
+        pretest.addTask(new Task("WhatIBelieve","What I Believe", Task.TYPE.questions, 2));
         pretest.addTask(new Task("Phq4","My Mood", Task.TYPE.questions, 0));
         sessions.add(pretest);
 
@@ -131,7 +131,7 @@ public class TempletonStudy extends BaseStudy {
         session2.addTask(new Task("scenarios", "Training Stories", Task.TYPE.jspsych, 20));
         session2.addTask(new Task("Affect","Current Feelings", Task.TYPE.questions, 0));
         session2.addTask(new Task("ExpectancyBias","What Happens Next", Task.TYPE.questions, 2));
-        session2.addTask(new Task("WhatIBelieve","What I Believe", Task.TYPE.questions, 6));
+        session2.addTask(new Task("WhatIBelieve","What I Believe", Task.TYPE.questions, 2));
         session2.addTask(new Task("Phq4","My Mood", Task.TYPE.questions, 0));
         sessions.add(session2);
 
@@ -150,7 +150,7 @@ public class TempletonStudy extends BaseStudy {
         session4.addTask(new Task("Affect","Current Feelings", Task.TYPE.questions, 0));
         session4.addTask(new Task("Relatability","Relatability Follow Up", Task.TYPE.questions, 0));
         session4.addTask(new Task("ExpectancyBias","What Happens Next", Task.TYPE.questions, 2));
-        session4.addTask(new Task("WhatIBelieve","What I Believe", Task.TYPE.questions, 6));
+        session4.addTask(new Task("WhatIBelieve","What I Believe", Task.TYPE.questions, 2));
         session4.addTask(new Task("Phq4","Mood", Task.TYPE.questions, 0));
         session4.addTask(new Task("HelpSeeking","Change in Help Seeking", Task.TYPE.questions, 1));
         sessions.add(session4);
@@ -158,7 +158,7 @@ public class TempletonStudy extends BaseStudy {
         post = new Session(POST_FOLLOWUP, "1 Month Post Training", 0, 30);
         post.setIndex(5);
         post.addTask(new Task("ExpectancyBias","What Happens Next", Task.TYPE.questions, 2));
-        post.addTask(new Task("WhatIBelieve","What I Believe", Task.TYPE.questions, 6));
+        post.addTask(new Task("WhatIBelieve","What I Believe", Task.TYPE.questions, 2));
         post.addTask(new Task("Phq4","Mood", Task.TYPE.questions, 0));
         post.addTask(new Task("HelpSeeking","Change in Help Seeking", Task.TYPE.questions, 1));
         post.addTask(new Task("Evaluation","Evaluating the Program", Task.TYPE.questions, 2));
