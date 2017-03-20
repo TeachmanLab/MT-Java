@@ -27,6 +27,7 @@ public abstract class QuestionnaireData {
     protected Date date;
     protected String session;
 
+    protected String tag; // Optional additional data defined by a task definition
 
     /**
      * Override this method to add custom information that should
