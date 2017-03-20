@@ -95,7 +95,7 @@ jsPsych.plugins["button-response-correct"] = (function() {
       display_element.append(trial.prompt);
     }
 
-    // store response
+    // Response Defaults.  If incorrect answer is
     var response = {
       rt: -1,
       button: -1,
@@ -117,7 +117,6 @@ jsPsych.plugins["button-response-correct"] = (function() {
       // If the response is not correct, force them to pause.
       if(choice != trial.correct_choice) {
         handle_incorrect();
-        return;
       } else {
         handle_correct();
       }
@@ -139,7 +138,6 @@ jsPsych.plugins["button-response-correct"] = (function() {
 
     // Shows a good job message and does a brief pause.
     function handle_correct() {
-      response.correct = true;
       $("#jspsych-button-response-correct").show();
       $("#jspsych-button-response-btngroup").hide();
 

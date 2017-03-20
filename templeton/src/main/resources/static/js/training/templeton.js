@@ -393,6 +393,7 @@ var TEMPLETON_MODULE = (function () {
             timeline: timeline,
             display_element: $("#" + my.target),
             on_finish: function(data){
+                window.onbeforeunload = null; // Remove any warnings about leaving the page.
                 jsPsych.data.addProperties({
                     condition: my.condition
                 });
