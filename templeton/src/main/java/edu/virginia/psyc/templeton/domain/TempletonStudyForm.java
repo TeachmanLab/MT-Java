@@ -25,7 +25,7 @@ public class TempletonStudyForm {
     public void updateStudy(TempletonStudy study) {
         study.setConditioning(this.conditioning);
         study.setCurrentSession(this.session);
-        study.setLastSessionDate(DateTime.now().minus(Days.days(3)).toDate());
+        study.setLastSessionDate(DateTime.now().minus(Days.days(subtractDays)).toDate());
     }
 
 }
