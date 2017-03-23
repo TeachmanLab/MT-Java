@@ -134,13 +134,17 @@ public class QuestionController extends BaseController {
         if(participantService.findByEmail(participant.getEmail()) != null)
             participant = participantService.findByEmail(participant.getEmail()); // Refresh session object from database.
 
-        // If the data submitted, isn't the data the user should be completeing right now,
+        // If the data submitted, isn't the data the user should be completing right now,
         // thown an exception and prevent them from moving forward.
         String currentTaskName = participant.getStudy().getCurrentSession().getCurrentTask().getName();
         if(!currentTaskName.equals(formName) && sessionProgress && !participant.isAdmin()) {
             LOG.info("The current task for this participant is : " + currentTaskName + " however, they submitted the form:" + formName);
             throw new WrongFormException();
         }
+
+        // Grab the tag of the current task, and incorporate it into the data.
+        String tag = participant.getStudy().getCurrentSession().getCurrentTask().getTag();
+        data.setTag(tag);
 
         // Attempt to set the participant link, depending on sub-class type
         if(data instanceof LinkedQuestionnaireData)

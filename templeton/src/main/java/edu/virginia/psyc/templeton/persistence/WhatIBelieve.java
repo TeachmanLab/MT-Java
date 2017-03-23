@@ -18,9 +18,9 @@ import javax.persistence.Table;
 public class WhatIBelieve extends SecureQuestionnaireData {
 
     // Originally a part of the NGSES
-    private int DifficultTasks;
-    private int PerformEffectively;
-    private int Compared;
+    private int difficultTasks;
+    private int performEffectively;
+    private int compared;
 
     // Originally from the MBP Growth Mindset
     private int learn;
@@ -28,8 +28,8 @@ public class WhatIBelieve extends SecureQuestionnaireData {
     private int alwaysChangeThinking;
 
     // Originally from the LOT-R optimism scale
-    private int WrongWill;
-    private int HardlyEver;
+    private int wrongWill;
+    private int hardlyEver;
 
 
 }

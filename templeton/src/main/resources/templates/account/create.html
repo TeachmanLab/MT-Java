@@ -11,18 +11,19 @@
 <head th:include="fragment/common :: headerFragment"/>
 <body>
 <section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
+<section th:include="fragment/common :: titleBar (title='Create Your Account')"/>
 
 <section id="content" class="clearfix">
     <div class="container">
 
         <div class="row">
-            <div class="span12">
-                <h1>Create Your Account</h1>
+            <div class="col-md-8">
 
                 <p>The purpose of this study is to investigate the effectiveness of a new, experimental program to
                     encourage healthy thinking about the future. It includes 4 20-minute sessions, completed over
                     the course of 2 weeks (2 sessions per week), and 3 15-minute assessment sessions.
                 </p>
+
 
                 <p> You will be presented with one of a few different training programs. We are testing which
                     programs most effectively encourage healthy thinking about the future. Although our prediction
@@ -95,7 +96,6 @@
                     Suite 500 University of Virginia, P.O. Box 800392, Charlottesville, VA 22908-0392. Telephone:
                     (434) 924-5999; Email: <a href="mailto:irbsbshelp@virginia.edu">irbsbshelp@virginia.edu</a>; Website: <a target="_new" href="www.virginia.edu/vprgs/irb">www.virginia.edu/vprgs/irb</a>
                 </p>
-
 
                 <p>Please use the form below to create your new Templeton Study account.</p>
                 <form th:replace="fragment/account :: create"/>

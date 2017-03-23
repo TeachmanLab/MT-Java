@@ -13,22 +13,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
     <title>Templeton Study</title>
 
+    <!-- JavaScript -->
+    <script type="text/javascript" th:src="@{/bower/jquery/dist/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/bower/bootstrap/dist/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/bower/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/firstQuestionSlider.js}"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
+
     <!--Google Font-->
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,700,700italic,600' rel='stylesheet' type='text/css'/>
 
     <!--style sheets-->
     <link rel="stylesheet" media="screen" th:href="@{/css/bootstrap.min.css}" href="../../static/css/bootstrap.min.css"/> <!-- Themed bootstream -->
-    <link rel="stylesheet" media="screen" th:href="@{/bower/jqueryui/themes/smoothness/jquery-ui.min.css}"/>
+    <link rel="stylesheet" media="screen" th:href="@{/bower/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css}"/>
     <link rel="stylesheet" media="screen" th:href="@{/css/mindtrails.css}"/>
     <link rel="stylesheet" media="screen" th:href="@{/css/templeton.css}" href="../../static/css/templeton.css"/>
 
-    <!-- JavaScript -->
-    <script type="text/javascript" th:src="@{/bower/jquery/dist/jquery.min.js}"></script>
-    <script type="text/javascript" th:src="@{/bower/jqueryui/jquery-ui.min.js}"></script>
-    <script type="text/javascript" th:src="@{/bower/bootstrap/dist/js/bootstrap.min.js}"></script>
-    <script type="text/javascript" th:src="@{/js/firstQuestionSlider.js}"></script>
-    <script type="text/javascript" th:src="@{/js/firstQuestionSlider.js}"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
 
     <!-- Google Analytics -->
     <script>
@@ -36,7 +36,6 @@
                     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
                 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
         ga('create', 'UA-77944674-2', 'auto');
         ga('send', 'pageview');
     </script>
@@ -52,55 +51,100 @@
 
 <body>
 
-<section id="header" class="clearfix" th:fragment="topFragment" >
-    <div class="container">
-        <div class="row">
-
-
-        <div class="logo"><a th:href="@{/}"><img th:src="@{/images/header_logo.png}" src="../../static/images/header_logo.png"/></a></div>
-
-        <div class="span8 clearfix">
-
-            <!--menu starts-->
-                <ul id="nav">
-                    <li th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
-                        <a th:href="@{/session}">HOME</a></li>
-                    <li><a th:href="@{/public/about}">ABOUT</a></li>
-                    <li><a th:href="@{/public/faq}">FAQ</a></li>
-                    <li><a th:href="@{/public/contact}">CONTACT</a></li>
-                    <li><a th:href="@{/public/team}">MEET THE TEAM</a></li>
-                    <li><a target="new" href="https://implicit.harvard.edu/implicit/user/pimh/linkinfo.html">MENTAL&nbsp;HEALTH&nbsp;RESOURCES</a></li>
-                    <li><a th:href="@{/public/researchSupport}">RESEARCH&nbsp;SUPPORT</a></li>
-
-                </ul>
-            <!--menu ends-->
-
-        </div>
+<!-- This is the template for asking a series of statements that all have the same
+     possible radio options as answers.  It uses the Mustache framework to populate
+      the answers. -->
+<textarea style="display: none"  id="template" th:fragment="questionTemplate">
+    <div class="row header">
+        <div class="col-md-6"><p class="tableOptions"></p></div>
+    {{#options}}
+        <div class="col-md-1"><p class="tableOptions">{{title}}</p></div>
+    {{/options}}
+        <div class="col-md-1"><p class="tableOptions">Prefer not to answer</p></div>
     </div>
-        </div>
-    <div class="account-bar" th:unless="${visiting}">
-        <div class="container" th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
-            <span th:if="${participant}" class="item">Logged in as ( <span th:text="${participant.fullName}"/> )</span> |<a th:href="@{/session/overview}">My Progress</a> | <a
-                th:href="@{/account}">Account Settings</a> | <a th:href="@{/logout}">Logout</a>
+
+    {{#questions}}
+     <div class="row">
+                <div class="col-md-6 statement"><p>{{desc}}</p></div>
+                {{#options}}
+                <div class="col-md-1">
+                    <label class="radio-inline option">
+                        <input type="radio" name="{{name}}" value="{{value}}" required="true"/>
+                        <span class="shortDesc">{{value}}</span> <span class="fullDesc">{{title}}</span></label>
+                </div>
+                {{/options}}
+                <div class="col-md-1">
+                    <label class="radio-inline option">
+                        <input type="radio" name="{{name}}" value="555" required="true"/>
+                        <span class="shortDesc"></span> <span class="fullDesc">Prefer not to answer</span></label>
+                </div>
+    </div>
+    {{/questions}}
+</textarea>
+
+<section id="header" class="clearfix" th:fragment="topFragment">
+
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar-collapse" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a th:href="@{/}">
+                    <img alt="MindTrails" class="hidden-md hidden-lg" th:src="@{/images/header-minimal.png}"/>
+                    <img alt="MindTrails" class="hidden-xs hidden-sm" th:src="@{/images/templeton_logo.png}"/>
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="main-navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a th:href="@{/}">Home</a></li>
+                    <li><a th:href="@{/public/about}">About</a></li>
+                    <li><a th:href="@{/public/researchSupport}">Research&nbsp;Support</a></li>
+                    <li><a th:href="@{/public/contact}">Contact Us</a></li>
+                    <li><a target="new" href="https://implicit.harvard.edu/implicit/user/pimh/linkinfo.html">Mental&nbsp;Health&nbsp;Resources</a></li>
+                    <li class="My Account" th:if="${participant} and ${#authorization.expression('hasRole(''ROLE_USER'')')}">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a th:href="@{/session/overview}">Progress</a></li>
+                            <li><a th:href="@{/account}">Account Settings</a></li>
+                            <li><a th:href="@{/account/changePass}">Change Password</a></li>
+                            <li><a th:href="@{/account/exitStudyConfirm}">Exit the Study</a></li>
+                            <li><a th:href="@{/logout}">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+    <div class="account-bar navbar-default">
+        <div class="container" th:if="${participant} and ${#authorization.expression('hasRole(''ROLE_USER'')')}">
+            <span class="logged-in-as">Logged in as (<span th:text="${participant.fullName}"/>)</span>
+            <a th:href="@{/session/overview}"><button>My Progress</button></a>
         </div>
         <div class="container login" th:unless="${#authorization.expression('hasRole(''ROLE_USER'')')}">
             Already Participating? <a th:href="@{/login}"><button>Log In</button></a>
         </div>
     </div>
-    <div class="clear-both"></div>
-
 </section>
 
 <section id="title" class="clearfix" th:fragment="titleBar">
-    <div class="container">
+    <div class="container title">
         <div class="row">
-            <h2 class="page-title heading-icon clearfix"> <img th:src="@{/images/map-arrow-orange.png}" alt="icon" class="icon-small-bg" />
-                <br/>
-                <span th:text="${title}"/>
+            <div class="col-md-8">
+                <img class="icon-small-bg hidden-md hidden-lg" th:src="@{/images/arrow_small.png}" alt=""/>
+                <img class="icon-small-bg hidden-xs hidden-sm" th:src="@{/images/map-arrow-orange.png}" alt="" />
+            <h2 class="page-title heading-icon clearfix" th:text="${title}">
             </h2>
-
+            </div>
         </div>
     </div>
+
 </section>
 
 
@@ -113,7 +157,7 @@
 
         <!--features starts-->
         <div class="row">
-            <div class="span12">
+            <div class="col-md-8">
                 <h1>This is a Template:</h1>
                 <ul class="list-3col">
                     <li>
@@ -161,6 +205,8 @@
 
             <!--column three starts-->
             <ul class="footer-links">
+                <li><a th:href="@{/public/team}">Meet the Team</a></li>
+                <li><a th:href="@{/public/faq}">FAQ</a></li>
                 <li><a th:href="@{/public/disclaimer}">Terms and Conditions</a></li>
                 <li><a th:href="@{/public/privacy}">Privacy Policy</a></li>
                 <li><a href="https://implicit.harvard.edu/implicit/user/pimh/index.jsp">Project Implicit Mental
@@ -198,14 +244,15 @@
 </footer>
 
 
-<!--other jqueries required-->
+<!--If you need to include javascript at the end of the page.  -->
 <div id="scripts"  th:fragment="scripts">
+    <!--
     <script th:src="@{/bower/bootstrap/dist/js/bootstrap.min.js}" type="text/javascript" ></script>
     <script>
         var bootstrapButton = $.fn.button.noConflict() // return $.fn.button to previously assigned value
         $.fn.bootstrapBtn = bootstrapButton            // give $().bootstrapBtn the Bootstrap functionality
     </script>
-
+    -->
 </div>
 
 </body>

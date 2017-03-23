@@ -211,7 +211,7 @@
                         <br/>
                         <br/>
                         <div class="radio">
-                            <label class="question"> <input type="checkbox" name="PastDisorders" value="noDiagnosis"
+                            <label class="question"> <input id="noPastDiagnosis" type="checkbox" name="PastDisorders" value="noDiagnosis"
                                                             onchange="disableSection(this)"/> No Past Diagnosis </label>
                         </div>
                     </div>
@@ -860,7 +860,7 @@
                         <div class="radio">
                             <label class="question"> <input id="Q4-17" type="checkbox" name="PastHelp"
                                                             value="NotGottenHelp"
-                                                            onchange="sub('Q4-17')"/> I have not gotten help
+                                                            onchange="noHelp('Q4-17')"/> I have not gotten help
                             </label>
                             <div id="Q4-17-1" class="oneToSeven"><label> There are lots of reasons people
                                 choose not to seek treatment. Please let us know why you have not
@@ -991,6 +991,14 @@
         }
         else {
             $("div#" + id + "-1").hide();
+        }
+    }
+
+    // Only show the list of reasons for no seeking help if they said
+    // they have had issues in the past.
+    function noHelp(id) {
+        if(!document.getElementById("noPastDiagnosis").checked) {
+            sub(id);
         }
     }
 

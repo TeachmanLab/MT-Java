@@ -119,6 +119,11 @@ public class AccountController extends BaseController {
         return "redirect:/session";
     }
 
+    @RequestMapping("exitStudyConfirm")
+    public String exitStudyConfirm(ModelMap model, Principal principal) {
+        return "exitStudyConfirm";
+    }
+
     @RequestMapping("exitStudy")
     public String exitStudy(ModelMap model, Principal principal) {
         Participant p      = participantService.get(principal);
@@ -141,7 +146,7 @@ public class AccountController extends BaseController {
             form.updateParticipant(p);
             participantService.save(p);
             model.addAttribute("updated", true);
-        return "/account";
+        return "redirect:/session";
     }
 
     @RequestMapping("changePass")

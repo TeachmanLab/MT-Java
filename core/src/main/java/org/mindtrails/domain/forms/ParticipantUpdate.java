@@ -1,8 +1,13 @@
 package org.mindtrails.domain.forms;
 
+import com.google.i18n.phonenumbers.NumberParseException;
+import com.google.i18n.phonenumbers.PhoneNumberUtil;
+import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
 import lombok.Data;
 import org.hibernate.validator.constraints.Email;
 import org.mindtrails.domain.Participant;
+import org.mindtrails.domain.forms.validation.HasPhone;
+import org.mindtrails.domain.forms.validation.Phone;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -11,7 +16,8 @@ import javax.validation.constraints.Size;
  * The very basic editable things for a participant to change about themselves.
  */
 @Data
-public class ParticipantUpdate {
+@Phone(message="Please enter a valid phone number.")
+public class ParticipantUpdate implements HasPhone {
 
     @Size(min=2, max=100, message="Please provide a name of at least 3 characters.")
     protected String fullName;
@@ -20,15 +26,24 @@ public class ParticipantUpdate {
     @NotNull
     protected String email;
 
-    protected boolean emailOptout = false;  // User required to receive no more emails.
+    protected String phone;
+    protected String phoneLocale = "US";
+
+    protected boolean emailReminders = true;
+    protected boolean phoneReminders = true;
+
+    protected String timezone;
 
     protected String theme;
 
     public void fromParticipant(Participant p) {
         this.email = p.getEmail();
         this.fullName = p.getFullName();
-        this.emailOptout = p.isEmailOptout();
+        this.emailReminders = p.isEmailReminders();
+        this.phoneReminders = p.isPhoneReminders();
         this.theme = p.getTheme();
+        this.phone = p.getPhone();
+        this.timezone = p.getTimezone();
     }
 
     public Participant toParticipant() {
@@ -39,8 +54,29 @@ public class ParticipantUpdate {
     public Participant updateParticipant(Participant p) {
         p.setFullName(this.getFullName());
         p.setEmail(this.getEmail());
-        p.setEmailOptout(this.isEmailOptout());
+        p.setEmailReminders(this.isEmailReminders());
+        p.setPhoneReminders(this.isPhoneReminders());
+        p.setPhone(formatPhone(this.phone));
+        p.setTimezone(this.getTimezone());
         if(this.theme != null) p.setTheme(this.getTheme());
         return p;
     }
+
+    /**
+     * Converts the provided phone number to the E164 standard used by
+     * Twilio.
+     * @return
+     */
+    public String formatPhone(String p) {
+        if(p == null) return null;
+
+        PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
+        try {
+            PhoneNumber phone = phoneUtil.parse(p, phoneLocale);
+            return phoneUtil.format(phone, PhoneNumberUtil.PhoneNumberFormat.E164);
+        } catch (NumberParseException e) {
+            return p; // Leave it alone, let validation handle it.
+        }
+    }
+
 }

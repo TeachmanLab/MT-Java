@@ -39,6 +39,21 @@
                             <td class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</td>
                         </tr>
                         <tr>
+                            <td>Phone Number:</td>
+                            <td><input type="text" th:field="*{phone}"/></td>
+                            <td class="error" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Phone Error</td>
+                        </tr>
+                        <tr>
+                            <td>Time Zone:</td>
+                            <td><input type="text" name="timezone" id="timezone" th:field="*{timezone}"/></td>
+                        </tr>
+                        <script th:src="@{/js/jstz.min.js}"></script>
+                        <script th:inline="javascript">
+                            /*<![CDATA[*/
+                            $("#timezone").val(jstz.determine().name());
+                            /*]]>*/
+                        </script>
+                        <tr>
                             <td>Password</td>
                             <td><input type="password" id="password" name="password"  th:errorclass="error"/></td>
                             <td class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
@@ -49,9 +64,14 @@
                             <td class="error" th:if="${#fields.hasErrors('passwordAgain')}" th:errors="*{passwordAgain}">Password Error</td>
                         </tr>
                         <tr>
-                            <td>Opt out of emails?:</td>
-                            <td><input type="checkbox" th:field="*{emailOptout}"/></td>
-                            <td  class="error" th:if="${#fields.hasErrors('emailOptout')}" th:errors="*{emailOptout}">Optout Error</td>
+                            <td>Email Reminders?:</td>
+                            <td><input type="checkbox" th:field="*{emailReminders}"/></td>
+                            <td  class="error" th:if="${#fields.hasErrors('emailReminders')}" th:errors="*{emailReminders}">Error</td>
+                        </tr>
+                        <tr>
+                            <td>Text Message Reminders?:</td>
+                            <td><input type="checkbox" th:field="*{phoneReminders}"/></td>
+                            <td  class="error" th:if="${#fields.hasErrors('phoneReminders')}" th:errors="*{phoneReminders}">Error</td>
                         </tr>
                         <tr>
                             <td>Is Active:</td>

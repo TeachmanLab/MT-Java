@@ -15,6 +15,5 @@ import javax.persistence.Table;
 public class Affect extends SecureQuestionnaireData {
     private int PosFeelings;
     private int NegFeelings;
-    private int Anxious;
 }
 

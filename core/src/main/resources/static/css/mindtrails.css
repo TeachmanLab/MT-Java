@@ -12,6 +12,54 @@ body {font-family: 'Source Sans Pro', sans-serif; font-size:20px; box-sizing:bor
 #nav li {float:left; padding:0px 10px;}
 #nav a {color:#5ECCDE; text-decoration:none; font-weight: 700}
 
+@media (max-width: 767px) {
+.navbar-default .navbar-nav .open .dropdown-menu>li>a {
+    color: #FFFFFF;
+}
+}
+
+/********************************************************
+Alternate NavBar Breakpoint - to better support Ipad
+********************************************************/
+@media (max-width: 1000px) {
+    .navbar-header {
+        float: none;
+    }
+    .navbar-left,.navbar-right {
+        float: none !important;
+    }
+    .navbar-toggle {
+        display: block;
+    }
+    .navbar-collapse {
+        border-top: 1px solid transparent;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    .navbar-fixed-top {
+        top: 0;
+        border-width: 0 0 1px;
+    }
+    .navbar-collapse.collapse {
+        display: none!important;
+    }
+    .navbar-nav {
+        float: none!important;
+        margin-top: 7.5px;
+    }
+    .navbar-nav>li {
+        float: none;
+    }
+    .navbar-nav>li>a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .collapse.in{
+        display:block !important;
+    }
+}
+
+
+
 .account-bar {
     background: #21336B;
     color:#ffffff;
@@ -20,8 +68,9 @@ body {font-family: 'Source Sans Pro', sans-serif; font-size:20px; box-sizing:bor
     width:100%;
     font-size:.66em;
     text-align:right;
-    padding:0px 20px;
+    padding:0px 20px 5px 20px;
     line-height: 25px;
+
 }
 
 .account-bar a, .account-bar span.item {color:#ffffff; padding: 0 10px 0 10px; font-weight:400}
@@ -37,7 +86,7 @@ body {font-family: 'Source Sans Pro', sans-serif; font-size:20px; box-sizing:bor
 
 /*************** Sections */
 
-div.sessionSection,  div.sessionOverview {
+div.sessionSection {
     padding: 20px 0px;
     align-content: center;
     text-align: center;
@@ -127,25 +176,22 @@ button:active { background:#666;
 Session Overview
 **/
 
-img.sessionMarker {
-    position:absolute;
-    left: 20px;
-    margin: 20px;
-}
+@media (max-width: 992px) { img.sessionMarker  {
+    width: 50px;
+}}
 
 div.sessionGrouping {
-    width: 850px;
     clear:both;
     margin: 50px 0 20px 0;
     position:relative;
 }
 
 div.sessionOverview {
-    left: 120px;
+    border-radius: 15px;
+    border: 1px solid #BBB;
     background:#21336B;
-    margin: 0 0 0 120px;
-    padding: 0;
-    width: 600px;
+    padding: 0 0 15px 0;
+
 }
 
 div.sessionOverview h3 {
@@ -156,6 +202,10 @@ div.sessionOverview h3 {
 
 div.sessionOverview span.date {
     margin-left: 10px;
+}
+
+div.sessionTitle {
+    font-weight: 600;
 }
 
 div.gift {
@@ -175,9 +225,10 @@ br.clear {
     clear:both;
 }
 
-div.sessionOverview table {
+div.sessionOverviewTable {
     background-color: white;
-    min-width: 598px;
+    margin: 0px;
+    border-bottom: 1px solid #ccc;
 }
 
 div.sessionOverview table td {
@@ -203,9 +254,6 @@ div.sessionOverview table td {
 }
 
 #pswd_info {
-    display:none;
-    z-index: 100;
-    position:absolute;
     width:350px;
     padding:15px;
     background:#fefefe;
@@ -214,6 +262,8 @@ div.sessionOverview table td {
     box-shadow:0 1px 3px #ccc;
     border:1px solid #ddd;
 }
+
+
 
 
 #pswd_info h4 {
@@ -426,6 +476,19 @@ Re-sizing for forms and displays
 ******************************** */
 .side-border {
     border-right: 1px solid #ddd;
+}
+
+
+.inline-checkbox input {
+    height: 40px;
+    width: 40px;
+    float: left;
+    margin: 10px;
+}
+
+.inline-checkbox {
+    font-weight: 400;
+
 }
 
 

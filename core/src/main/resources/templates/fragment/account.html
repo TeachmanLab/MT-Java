@@ -1,8 +1,10 @@
 <html>
 <body>
+
+
 <form name="f" class="form-horizontal" th:action="@{/account/create}" method="post" th:object="${participantForm}"
       th:fragment="create">
-    <script th:src="@{/js/password.js}"></script>
+
     <h3>Create an account</h3>
     <div class="formErrors">
         <ul class="errors">
@@ -13,58 +15,126 @@
         <div class="spacer-20px"></div>
     </div>
 
-    <div class="form-group row">
-        <label class="control-label col-sm-2" for="fullName">Name / Nickname</label>
-        <div class="col-sm-10">
-            <input class="form-control" type="text" id="fullName" name="fullName" th:errorclass="error"
-                   th:field="*{fullName}"/>
-        </div>
-    </div>
+    <div th:fragment="editable">
 
-    <div class="form-group row">
-        <label class="control-label col-sm-2" for="email">Email</label>
-        <div class="col-sm-10">
-            <input class="form-control" type="email" id="email" name="email" th:errorclass="error" th:field="*{email}"/>
-        </div>
-    </div>
+        <script th:src="@{/js/jstz.min.js}"></script>
+        <script th:src="@{/js/password.js}"></script>
 
-    <div class="form-group row">
-        <label class="control-label col-sm-2" for="password">Password</label>
-        <div class="col-sm-10">
-            <input class="form-control" type="password" id="password" name="password" th:field="*{password}"
-                   th:errorclass="error"/>
-            <div id="pswd_info">
-                <h4>Password must meet the following requirements:</h4>
-                <ul>
-                    <li id="letter" class="invalid">At least <strong>one letter</strong></li>
-                    <li id="capital" class="invalid">At least <strong>one capital letter</strong></li>
-                    <li id="number" class="invalid">At least <strong>one number</strong></li>
-                    <li id="symbol" class="invalid">At least <strong>one symbol</strong><br/>( ! # $ @ _ ' + , ? [ ] . - and
-                        space)
-                    </li>
-                    <li id="length" class="invalid">Be at least <strong>8 characters</strong></li>
-                </ul>
+        <input type="hidden" name="timezone" id="timezone" value="undetected"/>
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            $("#timezone").val(jstz.determine().name());
+            /*]]>*/
+        </script>
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="fullName">Name / Nickname</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="text" id="fullName" name="fullName" th:errorclass="error"
+                       th:field="*{fullName}"/>
+            </div>
+            <span th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">Name Error</span>
+        </div>
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="email">Email</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="email" id="email" name="email" th:errorclass="error"
+                       th:field="*{email}"/>
+            </div>
+            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</span>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-2">
+            </div>
+            <div class="custom-control col-sm-10">
+                <label class="col-sm-10 inline-checkbox">
+                    <input class="inline-checkbox" type="checkbox" id="emailReminders" name="emailReminders"
+                           th:errorclass="error" th:field="*{emailReminders}"/>
+                    I would like to receive email reminders when it is time to take the next session.
+                    <span class="note">
+                        Please note, you will still receive
+                        a few messages from us as you enter
+                        new phases in the study or if you are
+                        dropped from the Study due to
+                        inactivity.
+                    </span>
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="phone">Cell Phone</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="text" id="phone" name="phone" th:errorclass="error"
+                       th:field="*{phone}"/>
+            </div>
+            <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Phone Error</span>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-2">
+            </div>
+            <div class="custom-control col-sm-10">
+                <label class="col-sm-10 inline-checkbox" >
+                    <input class="inline-checkbox" type="checkbox" id="phoneReminders" name="phoneReminders"
+                           th:errorclass="error" th:field="*{phoneReminders}"/>
+                    I would like to receive text reminders to this phone when it is time to take the next session.
+                </label>
             </div>
         </div>
     </div>
 
+    <div th:fragment="password">
 
-    <div class="form-group row">
-        <label class="control-label col-sm-2" for="passwordAgain">Confirm Password</label>
-        <div class="col-sm-10">
-            <input class="form-control" type="password" id="passwordAgain" th:field="*{passwordAgain}"
-                   name="passwordAgain"/>
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="password">Password</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="password" id="password" name="password" th:field="*{password}"
+                       th:errorclass="error"/>
+                <div id="pswd_info">
+                    <h4>Password must meet the following requirements:</h4>
+                    <ul>
+                        <li id="letter" class="invalid">At least <strong>one letter</strong></li>
+                        <li id="capital" class="invalid">At least <strong>one capital letter</strong></li>
+                        <li id="number" class="invalid">At least <strong>one number</strong></li>
+                        <li id="symbol" class="invalid">At least <strong>one symbol</strong><br/>( ! # $ @ _ ' + , ? [ ]
+                            . - and
+                            space)
+                        </li>
+                        <li id="length" class="invalid">Be at least <strong>8 characters</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="passwordAgain">Confirm Password</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="password" id="passwordAgain"
+                       name="passwordAgain"/>
+            </div>
         </div>
     </div>
 
     <div class="form-group row">
-        <label class="control-label col-sm-2" for="over18">I am over 18</label>
-        <div class="col-sm-10">
-            <input class="form-control" type="checkbox" id="over18" name="over18"/>
+        <div class="col-sm-2">
+        </div>
+        <div class="custom-control col-sm-10">
+            <label class="col-sm-10">
+                <input class="inline-checkbox" type="checkbox" id="over18" name="over18" th:errorclass="error"
+                       th:field="*{over18}"/>
+                I am over 18.
+            </label>
         </div>
     </div>
 
-    <div id="g-recaptcha"></div>
+    <div class="form-group row">
+        <div class="col-sm-2"></div>
+        <div class="custom-control col-sm-10" id="g-recaptcha"></div>
+    </div>
     <input type="hidden" th:field="*{recaptchaResponse}" name="recaptchaResponse" id="recaptchaResponse"/>
     <script type="text/javascript" th:inline="javascript">
         /*<![CDATA[*/
@@ -103,23 +173,23 @@
         <div class="row">
             <label>
                 <div class="themeSection blue">
-                <div class="col-md-1">
-                    <input type="radio" th:field="*{theme}" value="blue" required="true"/>
-                    Blue
-                </div>
-                <div class="col-md-11">
-                    <div class="themeOption">
-                        <div class="hidden-xs hidden-sm">
-                            <img th:src="@{/images/settings-blue.png}" alt="Blue Theme"/>
-                        </div>
-                        <div class="hidden-md hidden-lg">
-                            <img th:src="@{/images/settings-blue-sm.png}" alt="Blue Theme"/>
+                    <div class="col-md-1">
+                        <input type="radio" th:field="*{theme}" value="blue" required="true"/>
+                        Blue
+                    </div>
+                    <div class="col-md-11">
+                        <div class="themeOption">
+                            <div class="hidden-xs hidden-sm">
+                                <img th:src="@{/images/settings-blue.png}" alt="Blue Theme"/>
+                            </div>
+                            <div class="hidden-md hidden-lg">
+                                <img th:src="@{/images/settings-blue-sm.png}" alt="Blue Theme"/>
+                            </div>
                         </div>
                     </div>
                 </div>
-                </div>
             </label>
-    </div>
+        </div>
         <div class="row">
             <label>
                 <div class="themeSection orange">
@@ -200,8 +270,8 @@
                 </div>
             </label>
         </div>
-    <button>Update Theme</button>
-</div>
+        <button>Update</button>
+    </div>
 </section>
 
 

@@ -647,12 +647,32 @@
                         </select> </label>
                         </div>
 
-                    </div>
+                        <div id="PtpReasonOther">
+                            <p>Please Specify:
+                                <label>
+                                    <input id="PtpReasonOtherInput" name="PtpReasonOther" type="text" placeholder="" size="50" />
+                                </label>
+                            </p>
+                        </div>
 
-                    <div style="text-align:center">
+                        <script>
+                            $('#PtpReasonOther').hide();
+                            $('select[name=PtpReason]').change(function () {
+                                if ($(this).val() == 'Other') {
+                                    $('#PtpReasonOther').show();
+                                    $("#PtpReasonOtherInput").prop('required',true);
+                                } else {
+                                    $('#PtpReasonOther').hide();
+                                    $("#PtpReasonOtherInput").prop('required',false);
+                                }
+                            });
+                        </script>
+
+
+                        <div style="text-align:center">
                         <button type="submit"> Continue </button>
                     </div>
-
+                </div>
                 </form>
 
 

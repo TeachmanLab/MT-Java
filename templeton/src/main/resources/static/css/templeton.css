@@ -2,7 +2,7 @@
 
 
 #header {
-    background: #192b6c url(/images/bg-header.png) top left repeat-x;
+    background: #27306A url(/images/bg-header.png) top left repeat-x;
 }
 
 .logo {
@@ -10,17 +10,29 @@
     width:365px; height:135px; float:left;
     margin-left:-35px; margin-right: 150px;}
 
-.account-bar {
-    background: #21336B;
-    color:#ffffff;
-    font-weight: bold;
-    clear:both;
-    width:100%;
-    font-size:.66em;
-    text-align:right;
-    padding:0px 20px;
-    line-height: 25px;
+
+
+#login-button {
+    font-size: 1em;
+    border: 1px solid #ddd;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
 }
+
+#login-button:hover {
+
+}
+
+@media (max-width: 992px) { #login-button {
+    padding: 0;
+    margin: 0;
+}}
+
+.title  h2 {
+    margin-top: 5px;
+}
+
 
 div.section {
     position: relative;
@@ -87,37 +99,32 @@ div.oneToSeven {
     margin-left: 40px;
 }
 
-#slider {
-    border: 1px solid #ccc;
-    width: 475px;
-    margin: 20px 0 90px 100px;
-}
-#slider label.slider {
-    font-width: 400;
-    font-size:72%;
-    position: absolute;
-    width: 100px;
-    min-width: 100px;
-    margin-top: 20px;
-    margin-left: -10px;
-    text-align: center;
+
+.slider.slider-horizontal {
+    width: 80%;
+    margin: 0 10%;
+    height: 20px;
 }
 
-#slider2 {
-    border: 1px solid #ccc;
-    width: 475px;
-    margin: 20px 0 90px 100px;
+.slider-tick {
+    display: none;
 }
-#slider2 label.slider {
-    font-width: 400;
-    font-size:72%;
-    position: absolute;
-    width: 100px;
-    min-width: 100px;
+
+.slider-selection.tick-slider-selection {
+    background-image: -webkit-linear-gradient(top,#f5f5f5 0,#f9f9f9 100%);
+}
+
+.after_slider {
     margin-top: 20px;
-    margin-left: -10px;
-    text-align: center;
+    font-size: .8em;
 }
+
+
+@media (max-width: 992px) { .slider.slider-horizontal {
+    width: 80%;
+    margin: 0 10%;
+}}
+
 
 
 .ui-state-default, .ui-widget-content .ui-state-default {
@@ -204,6 +211,48 @@ div.oneToSeven {
     margin-left: -3px;
     margin-top: -10px;
 }
+
+.navbar {
+    background: transparent;
+    margin-bottom: 0px;
+    border:none;
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: #5ECCDE;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: .6em;
+}
+
+.navbar-nav {
+    max-width: 700px;
+}
+
+
+.navbar-default .navbar-nav>li>a:hover {
+    color: whitesmoke;
+}
+
+.account-bar>.navbar-nav>li>a {
+    color: #fff;
+}
+
+.account-bar button {
+    font-size:1em;
+}
+
+.logged-in-as {
+    line-height: 65px;
+    font-weight: normal;
+}
+
+.login button {
+    padding: 2px 20px;
+    font-size: 1em;
+    font-weight: 600;
+}
+
 .fullDesc {
     display:none;
 }
@@ -231,6 +280,18 @@ div.oneToSeven {
     .compactQuestion .shortDesc {
         display: none;
     }
+
+    /* Beter selection boxes for mobile devices */
+    select{
+        width: 100%;
+        text-overflow: ellipsis;
+    }
+
+    h1{  font-size:2em; line-height: 1.25em; }
+    h2{  font-size:1.65em; line-height: 1.15em;  }
+    h3{  font-size:1.375em; line-height: 1.13em;  }
+    h4{  font-size:1.125em; line-height: 1.11em;  }
+
 }
 
 

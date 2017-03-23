@@ -123,4 +123,27 @@ public class AdminControllerTest extends BaseControllerTest {
 
     }
 
+    @Test
+    public void editParticipantWithPhoneGivesFormattedPhone() throws Exception {
+        Participant p = createParticipant("John Phone Bone", "jpb@doe.com", false);
+
+        mockMvc.perform(get("/admin/participant/" + p.getId())
+                .with(SecurityMockMvcRequestPostProcessors.user(admin)))
+                .andExpect(model().attributeExists("participant"))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(post("/admin/participant/" + p.getId())
+                .with(SecurityMockMvcRequestPostProcessors.user(admin))
+                .param("fullName", "John Phone Bone")
+                .param("email", "jpb@doe.com")
+                .param("phone", "(540) 457.0024"));
+
+        Participant p2 = participantRepository.findOne(p.getId());
+        assertEquals("+15404570024", p2.getPhone());
+
+
+    }
+
+
+
 }

@@ -8,26 +8,15 @@
 <head th:include="fragment/common :: headerFragment" />
 <body>
 <section id="header" class="clearfix" th:include="fragment/common :: topFragment" />
+<section th:include="fragment/common :: titleBar (title='Terms and Conditions')"/>
 
-<!-- header-btm starts
-================================================== -->
-<section id="header-btm" class="clearfix">
-    <div class="container">
-        <div class="row">
-            <h2 class="page-title heading-icon clearfix"><img th:src="@{/images/map-arrow-orange.png}"/><br/>Mindtrails Terms and Conditions</h2>
-        </div>
-    </div>
-</section>
-
-<!-- header-btm ends
-================================================== -->
 
 <!-- content starts
 ================================================== -->
 <section id="content" class="clearfix">
     <div class="container">
         <div class="row">
-            <div class="span12">
+            <div class="col-md-8">
 
                 <p>By accessing or using this site, you agree to the following terms and conditions:</p>
 
@@ -109,7 +98,6 @@
 
                 </div>
 
-				<p>This site does not provide personalized diagnostic, medical or treatment advice.  You should consult with a qualified mental health or health care provider for diagnosis and treatment information.  We do not offer crisis management or real-time monitoring of email.  <b>If you are experiencing a medical or mental health emergency, you should not rely on any information on this website, and should seek appropriate emergency medical assistance, such as by calling 911.</b></p>
 
 
             </div>

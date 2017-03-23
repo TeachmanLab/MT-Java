@@ -9,24 +9,11 @@
 <html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
 <!--<![endif]-->
 <head th:include="fragment/common :: headerFragment"/>
-<body th:class="|user-theme-${participant.theme}|">
-<section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
+<body>
+<section th:replace="fragment/common :: topFragment"/>
+<section th:include="fragment/common :: titleBar (title='Account Settings')"/>
 
-<!-- header-btm starts
-================================================== -->
-<section id="header-btm" class="clearfix">
-    <div class="container">
-        <div class="row">
-            <h2 class="page-title heading-icon clearfix"><img th:src="@{/images/map-arrow-orange.png}" alt="icon"
-                                                              class="icon-small-bg"/><br/>Account Settings</h2>
-        </div>
-    </div>
-</section>
-<!-- header-btm ends
-================================================== -->
 
-<!-- content starts
-================================================== -->
 <section id="content" class="clearfix">
     <div class="container">
         <div class="row">
@@ -34,6 +21,7 @@
                 <div th:if="${updated}" class="alert alert-error">
                     Your Account information is updated.
                 </div>
+
                 <div class="formErrors">
                     <ul class="errors">
                         <li th:each="err : ${errors}" th:text="${err}" class="alert alert-error">Input is incorrect</li>
@@ -41,72 +29,10 @@
                     <div class="spacer-20px"></div>
                 </div>
 
-                <p><b>Name and Password</b></p>
-
-                <form action="#" th:action="@{/account/update}" th:object="${participant}" method="post">
-                    <p>
-                        <label class="standard" for="name">Name / Nickname</label>
-                        <input id="name" type="text" th:field="*{fullName}"/>
-                        <span th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">Name Error</span>
-                    </p>
-
-                    <p>
-                        <label class="standard" for="email">Email</label>
-                        <input id="email" type="text" th:field="*{email}"/>
-                        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</span>
-                    </p>
-
-                    <p>
-                        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Name Error</span>
-                        <label class="standard" >Password</label>
-                        <span>******** (<a th:href="@{/account/changePass}">Change Password</a>)</span>
-                    </p>
-
-                    <p>
-                        <label class="standard" for="optOut">No emails reinders?:</label>
-                        <input id="optOut" type="checkbox" th:field="*{emailOptout}"/>
-                        <span th:if="${#fields.hasErrors('emailOptout')}" th:errors="*{emailOptout}">Optout Error</span>
-
-                    <span class="form-note">
-                        Please note, you will still receive
-                        a few messages from us as you enter
-                        new phases in the study or if you are
-                        dropped from the Study due to
-                        inactivity.
-                        You may also choose to
-                        <a href="#" id="opener">exit the study.</a>
-                    </span>
-                    </p>
+                <form action="#" th:action="@{/account/update}" th:object="${participant}" method="post" class="form-horizontal">
+                    <div id="editable" th:include="fragment/account :: editable"/>
                     <section id="theme" class="clearfix" th:include="fragment/account :: themeSelection"/>
                 </form>
-
-                <script>
-                    $(function () {
-                        $("#dialog").dialog({
-                            minWidth: 650,
-                            autoOpen: false
-                        });
-                        $("#opener").click(function () {
-                            $("#dialog").dialog("open");
-                        });
-                    });
-                </script>
-
-                <div id="dialog" title="Are you sure you want to permanently leave the study?">
-                    <p>Thank you for your participation. Before you quit the study, please let us know if there are
-                        questions or concerns we can address – we are very interested in making this study work for all
-                        who have kindly agreed to participate, so please let us know if we can help make it work for you.</p>
-                    <a th:href="@{'/session'}">
-                        <button>Continue with the study</button>
-                    </a>
-                    <a th:href="@{'/account/exitStudy'}">
-                        <button>Exit the study permanently</button>
-                    </a>
-                    <p>Or</p>
-                    <a href="mailto:staff@mindtrails.org">
-                        <button>Send a note to the MindTrails team</button>
-                    </a>
-                </div>
 
             </div>
         </div>

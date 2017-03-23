@@ -1,12 +1,12 @@
 package org.mindtrails.domain.tracking;
 
-import com.fasterxml.jackson.annotation.*;
+import lombok.Data;
 import org.mindtrails.domain.DoNotDelete;
 import org.mindtrails.domain.Exportable;
 import org.mindtrails.domain.Participant;
-import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Date;
 
 /**
@@ -20,20 +20,10 @@ import java.util.Date;
 @Exportable
 @DoNotDelete
 @Data
-public class GiftLog implements Comparable<GiftLog> {
+public class GiftLog extends MindTrailsLog {
 
-    @Id
-    @GeneratedValue
-    private int id;
-    @ManyToOne
-    @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
-    @JsonIdentityReference(alwaysAsId=true)
-    @JsonProperty("participantId")
-    private Participant participant;
     private String orderId;
     private String sessionName;
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="EEE, dd MMM yyyy HH:mm:ss Z", timezone="EST")
-    private Date dateSent;
 
     public GiftLog() {};
 
@@ -44,9 +34,4 @@ public class GiftLog implements Comparable<GiftLog> {
         this.dateSent = new Date();
     }
 
-    @Override
-    public int compareTo(GiftLog o) {
-        if(this.dateSent == null) return 0;
-        return this.dateSent.compareTo(o.dateSent);
-    }
 }

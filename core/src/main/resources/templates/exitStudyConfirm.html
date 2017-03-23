@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<!--<![endif]-->
+<head th:include="fragment/common :: headerFragment" />
+<body>
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment" />
+<section th:include="fragment/common :: titleBar (title='Exit the Study')"/>
+
+
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div id="dialog" title="Are you sure you want to permanently leave the study?">
+                <p>Thank you for your participation. Before you quit the study, please let us know if there are
+                    questions or concerns we can address – we are very interested in making this study work for all
+                    who have kindly agreed to participate, so please let us know if we can help make it work for you.</p>
+                <a th:href="@{'/session'}">
+                    <button>Continue with the study</button>
+                </a>
+                <a th:href="@{'/account/exitStudy'}">
+                    <button>Exit the study permanently</button>
+                </a>
+                <p>Or</p>
+                <a href="mailto:staff@mindtrails.org">
+                    <button>Send a note to the MindTrails team</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts" />
+
+</body>
+</html>
