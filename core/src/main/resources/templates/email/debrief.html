@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head th:include="fragment/email :: headerFragment"/>
+
+<body style="font-family: 'Source Sans Pro', sans-serif; font-size:20px; box-sizing:border-box; background-color: #FFF">
+
+<div style="padding:15px" border="5px solid #767676">
+
+    <table cellpadding="0" cellspacing="0" width="600" align="center" th:include="fragment/email :: logoFragment"/>
+
+    <table cellpadding="0" cellspacing="0" width="600" align="center" style="margin-top:20px">
+        <tr>
+            <td width="400">
+                <p th:text="'Hi ' +  ${participant.fullName} + ','" style="margin-top:0; margin-bottom:10px">
+                    Hi Fred,
+                </p>
+
+                <p style="margin-top:5px">We want to thank you for your recent participation in the MindTrails study. Now that your
+                    participation is complete, we want to share more information with you about what the study was examining
+                    and why we asked you to complete different assessments.</p>
+
+                <p  style="margin-top:5px">Please review the information below and let us know if you have any questions.
+                    <a href="/session" th:href="${url} + '/account/debriefing'" style="color: #637580ff; text-decoration: none; font-weight: bold">MindTrails Project Details.</a></p>
+
+                <p style="margin-top:5px">As always, please let us know if you have any concerns about your
+                    participation that we can address. You can contact the study team
+                    at studyteam@mindtrails.org.</p>
+
+                <p style="margin-top:5px">Thank you for your participation in the study and we hope you’re
+                    having a good week.</p>
+
+                <div id="footer" th:include="fragment/email :: footerFragment"/>
+
+            </td>
+        </tr>
+    </table>
+
+</div>
+
+</body>
+</html>

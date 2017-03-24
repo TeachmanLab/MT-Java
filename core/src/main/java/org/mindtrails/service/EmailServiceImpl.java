@@ -67,6 +67,7 @@ public class EmailServiceImpl implements EmailService {
         emails.add(new Email(TYPE.followup.toString(), "Follow-up from the MindTrails project team"));
         emails.add(new Email(TYPE.followup2.toString(), "Follow-up reminder from the MindTrails project team"));
         emails.add(new Email(TYPE.followup3.toString(), "Final reminder from the MindTrails project team"));
+        emails.add(new Email(TYPE.debrief.toString(), "Explanation of the MindTrails project"));
         return emails;
     }
 
@@ -254,6 +255,9 @@ public class EmailServiceImpl implements EmailService {
                 case 18:
                     type = TYPE.day18;
                     break;
+                case 60:
+                    type = TYPE.debrief;
+                    break;
             }
         }
 
@@ -275,6 +279,9 @@ public class EmailServiceImpl implements EmailService {
                     break;
                 case 75:
                     type = TYPE.followup3;
+                    break;
+                case 120:
+                    type = TYPE.debrief;
                     break;
             }
         }

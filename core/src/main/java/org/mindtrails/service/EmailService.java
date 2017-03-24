@@ -17,7 +17,7 @@ public interface EmailService {
      */
     public enum TYPE {
         resetPass, alertAdmin, giftCard,
-        day2, day4, day7, day11, day15, day18,
+        day2, day4, day7, day11, day15, day18, debrief,
         followup, followup2, followup3
     }
 
