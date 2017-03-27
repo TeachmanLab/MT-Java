@@ -18,10 +18,6 @@ public class MentalHealthHxTx extends SecureQuestionnaireData {
 
     private String OtherDesc;
     private String OtherDescNo;
-<<<<<<< HEAD:src/main/java/edu/virginia/psyc/pi/persistence/Questionnaire/MentalHealthHxTx.java
-=======
-    private String OtherHelp;
->>>>>>> upstream/master:r34/src/main/java/edu/virginia/psyc/r34/persistence/Questionnaire/MentalHealthHxTx.java
     private String OtherHelpCurrent;
     private String OtherHelpPast;
     private String OtherReason;
