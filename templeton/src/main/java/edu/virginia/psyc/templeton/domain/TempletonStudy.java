@@ -118,7 +118,7 @@ public class TempletonStudy extends BaseStudy {
 
         session1 = new Session(FIRST_SESSION, "Day 1 Training", 0, 0);
         session1.addTask(new Task("Affect","Current Feelings", "pre", Task.TYPE.questions, 0 ));
-        session1.addTask(new Task("scenarios", "Training Stories", Task.TYPE.jspsych, 20));
+        session1.addTask(new Task("JsPsychTrial", "Training Stories", Task.TYPE.jspsych, 20));
         session1.addTask(new Task("Affect","Current Feelings", "post", Task.TYPE.questions, 0));
         session1.addTask(new Task("Relatability","Relatability Follow Up", Task.TYPE.questions, 0));
         session1.addTask(new Task("ExpectancyBias","What Happens Next", Task.TYPE.questions, 2));
@@ -127,7 +127,7 @@ public class TempletonStudy extends BaseStudy {
         session2 = new Session(SECOND_SESSION, "Day 2 Training", 0, 2);
         session2.setIndex(2);
         session2.addTask(new Task("Affect","Current Feelings", "pre", Task.TYPE.questions, 0));
-        session2.addTask(new Task("scenarios", "Training Stories", Task.TYPE.jspsych, 20));
+        session2.addTask(new Task("JsPsychTrial", "Training Stories", Task.TYPE.jspsych, 20));
         session2.addTask(new Task("Affect","Current Feelings", "post", Task.TYPE.questions, 0));
         session2.addTask(new Task("ExpectancyBias","What Happens Next", Task.TYPE.questions, 2));
         session2.addTask(new Task("WhatIBelieve","What I Believe", Task.TYPE.questions, 2));
@@ -137,7 +137,7 @@ public class TempletonStudy extends BaseStudy {
         session3 = new Session(THIRD_SESSION, "Day 3 Training", 0, 2);
         session3.setIndex(3);
         session3.addTask(new Task("Affect","Current Feelings", "pre", Task.TYPE.questions, 0));
-        session3.addTask(new Task("scenarios", "Training Stories", Task.TYPE.jspsych, 20));
+        session3.addTask(new Task("JsPsychTrial", "Training Stories", Task.TYPE.jspsych, 20));
         session3.addTask(new Task("Affect","Current Feelings", "post", Task.TYPE.questions, 0));
         session3.addTask(new Task("ExpectancyBias","What Happens Next", Task.TYPE.questions, 2));
         sessions.add(session3);
@@ -145,7 +145,7 @@ public class TempletonStudy extends BaseStudy {
         session4 = new Session(FOURTH_SESSION, "Day 4 Training", 0, 2);
         session4.setIndex(4);
         session4.addTask(new Task("Affect","Current Feelings", "pre", Task.TYPE.questions, 0));
-        session4.addTask(new Task("scenarios", "Training Stories", Task.TYPE.jspsych, 20));
+        session4.addTask(new Task("JsPsychTrial", "Training Stories", Task.TYPE.jspsych, 20));
         session4.addTask(new Task("Affect","Current Feelings", "post", Task.TYPE.questions, 0));
         session4.addTask(new Task("Relatability","Relatability Follow Up", Task.TYPE.questions, 0));
         session4.addTask(new Task("ExpectancyBias","What Happens Next", Task.TYPE.questions, 2));
