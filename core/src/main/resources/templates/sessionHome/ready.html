@@ -39,7 +39,10 @@
                 </div>
 
                 <div th:if="${currentSession.index &gt; 0 and currentSession.name != 'PostFollowUp'}" >
-                    <h2 th:if="#{participant.study.index == 0}">Welcome back <span
+                    <h2 th:if="#{currentSession.index == 0}">Nice Work <span
+                            th:text="${participant.fullName}">Jim</span>.
+                    </h2>
+                    <h2 th:unless="#{currentSession.index == 0}">Welcome back <span
                             th:text="${participant.fullName}">Jim</span>.
                     </h2>
                     <p>You are ready to begin <span th:text="${currentSession.displayName}"/></p>

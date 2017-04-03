@@ -125,8 +125,9 @@
     </nav>
     <div class="account-bar navbar-default">
         <div class="container" th:if="${participant} and ${#authorization.expression('hasRole(''ROLE_USER'')')}">
-            <span class="logged-in-as">Logged in as (<span th:text="${participant.fullName}"/>)</span>
-            <a th:href="@{/session/overview}"><button>My Progress</button></a>
+            <a class="nav-progress" th:href="@{/session/overview}"><button>My Progress</button></a>
+            <div class="nav-user">Logged in as <span th:text="${participant.fullName}"/>
+                    <br/><span class="nav-level" th:text="${participant.study.currentSession.displayName}"/></div>
         </div>
         <div class="container login" th:unless="${#authorization.expression('hasRole(''ROLE_USER'')')}">
             Already Participating? <a th:href="@{/login}"><button>Log In</button></a>

@@ -116,7 +116,8 @@ public class TempletonStudy extends BaseStudy {
         pretest.addTask(new Task("Phq4","My Mood", Task.TYPE.questions, 0));
         sessions.add(pretest);
 
-        session1 = new Session(FIRST_SESSION, "Day 1 Training", 0, 0);
+        session1 = new Session(FIRST_SESSION, "Level 1: Beginner", 0, 0);
+        session1.setIndex(1);
         session1.addTask(new Task("Affect","Current Feelings", "pre", Task.TYPE.questions, 0 ));
         session1.addTask(new Task("JsPsychTrial", "Training Stories", Task.TYPE.jspsych, 20));
         session1.addTask(new Task("Affect","Current Feelings", "post", Task.TYPE.questions, 0));
@@ -124,7 +125,7 @@ public class TempletonStudy extends BaseStudy {
         session1.addTask(new Task("ExpectancyBias","What Happens Next", Task.TYPE.questions, 2));
         sessions.add(session1);
 
-        session2 = new Session(SECOND_SESSION, "Day 2 Training", 0, 2);
+        session2 = new Session(SECOND_SESSION, "Level 2: Intermediate", 0, 2);
         session2.setIndex(2);
         session2.addTask(new Task("Affect","Current Feelings", "pre", Task.TYPE.questions, 0));
         session2.addTask(new Task("JsPsychTrial", "Training Stories", Task.TYPE.jspsych, 20));
@@ -134,7 +135,7 @@ public class TempletonStudy extends BaseStudy {
         session2.addTask(new Task("Phq4","My Mood", Task.TYPE.questions, 0));
         sessions.add(session2);
 
-        session3 = new Session(THIRD_SESSION, "Day 3 Training", 0, 2);
+        session3 = new Session(THIRD_SESSION, "Level 3: Advanced", 0, 2);
         session3.setIndex(3);
         session3.addTask(new Task("Affect","Current Feelings", "pre", Task.TYPE.questions, 0));
         session3.addTask(new Task("JsPsychTrial", "Training Stories", Task.TYPE.jspsych, 20));
@@ -142,7 +143,7 @@ public class TempletonStudy extends BaseStudy {
         session3.addTask(new Task("ExpectancyBias","What Happens Next", Task.TYPE.questions, 2));
         sessions.add(session3);
 
-        session4 = new Session(FOURTH_SESSION, "Day 4 Training", 0, 2);
+        session4 = new Session(FOURTH_SESSION, "Level 4: Expert", 0, 2);
         session4.setIndex(4);
         session4.addTask(new Task("Affect","Current Feelings", "pre", Task.TYPE.questions, 0));
         session4.addTask(new Task("JsPsychTrial", "Training Stories", Task.TYPE.jspsych, 20));
