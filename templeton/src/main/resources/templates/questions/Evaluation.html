@@ -29,10 +29,8 @@
                     <p> Note that <b>assessment sessions</b> were sessions in which you completed questionnaires about
                         your
                         feelings and thoughts.
-                        <b>Training sessions</b> were sessions in which you either completed words at the end of
-                        sentences OR
-                        saw two words on the screen
-                        and then a letter that you had to identify by pressing a button on the keyboard. </p>
+                        <b>Training sessions</b> were sessions in which you read brief stories and completed words at the end of
+                        sentences. </p>
             </div>
         </div>
     </div>
@@ -150,7 +148,7 @@
                 "questions": [
                     { "name":"Tiring",   "desc": "How tiring did you find the assessments?"},
                     { "name":"Distracted",   "desc": "On average, while you were completing the training sessions, how focused or distracted were you? "},
-                    { "name":"",   "desc": "If you were to seek help for your future thinking again, would you seek a similar program?"},
+                    { "name":"similarProgram",   "desc": "If you were to seek help for your future thinking again, would you seek a similar program?"},
                 ]
             }
             $('#section4').html(Mustache.render( $('#template').val(), data ));
