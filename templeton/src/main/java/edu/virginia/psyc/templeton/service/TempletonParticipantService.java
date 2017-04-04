@@ -76,14 +76,17 @@ public class TempletonParticipantService extends ParticipantServiceImpl implemen
     public void saveNew(Participant p, HttpSession session) {
         save(p);
 
+        TempletonStudy study = (TempletonStudy)p.getStudy();
+
         // Now that p is saved, connect any Expectancy Bias eligibility data back to the
-        // session.
+        // session, and log it in the TaskLog
         List<ExpectancyBias> forms = biasRepository.findBySessionId(session.getId());
         for (ExpectancyBias e : forms) {
             e.setParticipant(p);
             e.setSession("ELIGIBLE");
             biasRepository.save(e);
+            study.completeEligibility(e);
         }
+        save(p); // Re-save participant to record study.
     }
-
 }

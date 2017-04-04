@@ -1,5 +1,6 @@
 package edu.virginia.psyc.templeton.domain;
 
+import edu.virginia.psyc.templeton.persistence.ExpectancyBias;
 import lombok.Data;
 import org.mindtrails.domain.BaseStudy;
 import org.mindtrails.domain.Session;
@@ -48,6 +49,15 @@ public class TempletonStudy extends BaseStudy {
 
     public TempletonStudy(String currentSession, int taskIndex, Date lastSessionDate, List<TaskLog> taskLogs, boolean receiveGiftCards) {
         super(currentSession, taskIndex, lastSessionDate, taskLogs, receiveGiftCards);
+    }
+
+    public void completeEligibility(ExpectancyBias bias) {
+        TaskLog t = new TaskLog();
+        t.setDateCompleted(bias.getDate());
+        t.setTaskName("ExpectancyBias");
+        t.setSessionName("Eligibility");
+        t.setStudy(this);
+        taskLogs.add(t);
     }
 
     @Override
