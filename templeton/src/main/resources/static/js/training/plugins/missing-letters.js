@@ -81,8 +81,10 @@ jsPsych.plugins["missing-letters"] = (function () {
 
             if (missing_letters[letter_index] != choice) {
                 response.correct = false;
-                $('#' + id).addClass("incorrect");
+                $('#' + id).addClass("incorrect_letter");
                 return;
+            } else {
+                $('#' + id).addClass("correct_letter");
             }
 
             $('#jspsych-missing-letters-letter').html(function () {

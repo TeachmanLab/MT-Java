@@ -1,5 +1,9 @@
-.incorrect {
+.jspsych-btn.incorrect_letter, .jspsych-btn.incorrect_letter:hover  {
     background: palevioletred;
+}
+
+.jspsych-btn.correct_letter, .jspsych-btn.correct_letter:hover {
+    background: palegreen;
 }
 
 .error {
