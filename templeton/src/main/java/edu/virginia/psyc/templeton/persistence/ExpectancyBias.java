@@ -32,7 +32,7 @@ public class ExpectancyBias extends LinkedQuestionnaireData implements Comparabl
     public static double AT_RISK_DIFFERENCE = 1.5;
 
     // Urge to lie down
-    @pos private int ShortRest;
+    @pos private int BetterRest;
     @nut private int Reruns;
     @neg private int VerySick;
 

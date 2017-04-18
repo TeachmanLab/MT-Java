@@ -20,7 +20,7 @@ public class ExpectancyBiasTest {
     @Before
     public void setupAllSevens(){
 
-        bias.setShortRest(7);
+        bias.setBetterRest(7);
         bias.setSettleIn(7);
         bias.setConsideredAdvancement(7);
         bias.setFinanciallySecure(7);
@@ -35,9 +35,9 @@ public class ExpectancyBiasTest {
     public void testPositiveAverage() {
 
         assertEquals(7, bias.positiveAverage(), 0.0001);
-        bias.setShortRest(1);
+        bias.setBetterRest(1);
         assertNotEquals(7, bias.positiveAverage(), 0.0001);
-        bias.setShortRest(NO_ANSWER);
+        bias.setBetterRest(NO_ANSWER);
         assertEquals(7, bias.positiveAverage(), 0.0001);
 
     }
@@ -63,7 +63,7 @@ public class ExpectancyBiasTest {
         assertTrue("Slight positive bias not there.", bias.score() > 0);
 
         // back to zero, when positive and negative match up
-        bias.setShortRest(1);
+        bias.setBetterRest(1);
         assertEquals(0, bias.score(), 0.0001);  // Everything is at seven, so diff of averages is 0.
 
         // Having some low scores on a few negative answers should be
