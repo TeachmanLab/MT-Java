@@ -18,7 +18,8 @@
     <div class="container">
 
                 <form th:action="@{/questions/WhatIBelieve}" method="POST">
-
+                    <!-- Add timer -->
+                    <input id="timeOnPage" type="hidden">
                     <div class="container section compactQuestion">
                         <div id="section1"></div>
                         <script>
@@ -65,7 +66,7 @@
 
 
                     <div style="text-align:center">
-                        <button type="submit"> Continue</button>
+                        <button type="submit" onclick="getTime()"> Continue</button>
                     </div>
                 </form>
 

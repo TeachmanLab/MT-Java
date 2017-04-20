@@ -156,7 +156,7 @@ public class QuestionController extends BaseController {
 
         // Update the participant's session status, and save back to the database.
         if(sessionProgress) {
-            participant.getStudy().completeCurrentTask();
+            participant.getStudy().completeCurrentTask(data.getTimeOnPage());
             participantService.save(participant);
         }
 

@@ -30,6 +30,14 @@
     <link rel="stylesheet" media="screen" th:href="@{/css/templeton.css}" href="../../static/css/templeton.css"/>
     <link rel="stylesheet" media="print" th:href="@{/css/print.css}" href="../../static/css/print.css"/>
 
+    <!-- Timer here -->
+    <script src="timeme.js"></script>
+    <script type="text/javascript" >
+        TimeMe.initialize({
+            currentPageName: "${title}", // current page
+            idleTimeoutInSeconds: 30 // seconds
+        });
+    </script>
 
     <!-- Google Analytics -->
     <script>
@@ -255,6 +263,13 @@
         $.fn.bootstrapBtn = bootstrapButton            // give $().bootstrapBtn the Bootstrap functionality
     </script>
     -->
+
+    <script type="text/javascript">
+        function getTime() {
+            var timeSpentOnPage = TimeMe.getTimeOnCurrentPageInSeconds();
+            document.getElementById('timeOnPage').value = timeSpentOnPage;
+        }
+    </script>
 </div>
 
 </body>
