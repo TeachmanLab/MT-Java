@@ -1,5 +1,6 @@
 package org.mindtrails.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class Session {
     private boolean current = false;
     private int giftAmount;
     private int daysToWait;  // Number of days to wait before user can start session.
+    @JsonIgnore
     private List<Task> tasks = new ArrayList<Task>();
 
     public Session() {

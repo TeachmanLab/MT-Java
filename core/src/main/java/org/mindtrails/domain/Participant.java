@@ -1,5 +1,6 @@
 package org.mindtrails.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.joda.time.DateTime;
@@ -46,6 +47,7 @@ public  class Participant implements UserDetails {
     protected String timezone;
     protected boolean active = true;
     protected Date lastLoginDate;
+    @JsonIgnore
     protected String randomToken;
     protected String theme = "blue";
     protected boolean over18;
@@ -54,6 +56,7 @@ public  class Participant implements UserDetails {
 
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     protected PasswordToken passwordToken;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity=BaseStudy.class)
@@ -63,12 +66,15 @@ public  class Participant implements UserDetails {
     // these relationships are setup with a FetchType.LAZY. Please
     // leave this eager, or address that problem.
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "participant")
+    @JsonIgnore
     protected Set<EmailLog> emailLogs = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "participant")
+    @JsonIgnore
     protected Set<SMSLog> smsLogs = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "participant")
+    @JsonIgnore
     protected Set<GiftLog> giftLogs = new HashSet<>();
 
 

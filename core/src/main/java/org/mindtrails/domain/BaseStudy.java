@@ -1,5 +1,6 @@
 package org.mindtrails.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import org.mindtrails.domain.RestExceptions.WaitException;
 import org.mindtrails.domain.tracking.TaskLog;
@@ -36,6 +37,7 @@ public abstract class BaseStudy implements Study {
     protected boolean receiveGiftCards;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "study")
+    @JsonIgnore
     protected Set<TaskLog> taskLogs = new HashSet<>();
 
     public BaseStudy() {}
@@ -49,6 +51,7 @@ public abstract class BaseStudy implements Study {
     }
 
     @Override
+    @JsonIgnore
     public List<Session> getSessions() {
         List<Session> sessions = getStatelessSessions();
         sessions.add(COMPLETE);
@@ -73,6 +76,7 @@ public abstract class BaseStudy implements Study {
      * or inprogress.
      * @return
      */
+    @JsonIgnore
     public abstract List<Session> getStatelessSessions();
 
     @Override
@@ -207,6 +211,7 @@ public abstract class BaseStudy implements Study {
      * May return null if there is no previous session.
      */
     @Override
+    @JsonIgnore
     public Session getLastSession() {
 
         List<Session> sessions = getSessions();
