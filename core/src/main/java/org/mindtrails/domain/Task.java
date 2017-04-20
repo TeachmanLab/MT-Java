@@ -27,6 +27,7 @@ public class Task {
     private int        duration;  // the estimated time it takes to complete this task.
     private Date       dateCompleted;
     private String     tag;
+    private Long       timeOnPage;
 
     public Task(String name, String displayName, TYPE type, int duration) {
         this.name = name;
@@ -36,6 +37,7 @@ public class Task {
         this.current = false;
         this.duration = duration;
         this.dateCompleted = null;
+        this.timeOnPage = null;
     }
 
     public Task(String name, String displayName, String tag, TYPE type, int duration) {
@@ -47,6 +49,7 @@ public class Task {
         this.current = false;
         this.duration = duration;
         this.dateCompleted = null;
+        this.timeOnPage = null;
     }
 
     public Task(String name, String displayName, TYPE type, int duration, boolean complete, boolean current, Date dateCompleted) {
@@ -57,6 +60,7 @@ public class Task {
         this.current = current;
         this.duration = duration;
         this.dateCompleted = dateCompleted;
+        this.timeOnPage = null;
     }
 
     /**

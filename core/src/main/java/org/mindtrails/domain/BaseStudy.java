@@ -114,9 +114,9 @@ public abstract class BaseStudy implements Study {
 
 
     @Override
-    public void completeCurrentTask(Long timeOnTask) {
+    public void completeCurrentTask() {
         // Log the completion of the task
-        this.taskLogs.add(new TaskLog(this, timeOnTask));
+        this.taskLogs.add(new TaskLog(this));
 
         if (getState().equals(STUDY_STATE.WAIT)){
             throw new WaitException();
@@ -124,7 +124,7 @@ public abstract class BaseStudy implements Study {
 
         // If this is the last task in a session, then we move to the next session.
         if(currentTaskIndex +1 >= getCurrentSession().getTasks().size()) {
-            this.taskLogs.add(TaskLog.completedSession(this,timeOnTask));
+            this.taskLogs.add(TaskLog.completedSession(this));
             completeSession();
         } else { // otherwise we just increment the task index.
             this.currentTaskIndex = currentTaskIndex + 1;

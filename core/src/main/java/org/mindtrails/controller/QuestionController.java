@@ -146,6 +146,10 @@ public class QuestionController extends BaseController {
         String tag = participant.getStudy().getCurrentSession().getCurrentTask().getTag();
         data.setTag(tag);
 
+        // Save time on Task to TaskLog.
+        Long timeOnTask = data.getTimeOnPage();
+        participant.getStudy().getCurrentSession().getCurrentTask().setTimeOnPage(timeOnTask);
+
         // Attempt to set the participant link, depending on sub-class type
         if(data instanceof LinkedQuestionnaireData)
             ((LinkedQuestionnaireData) data).setParticipant(participant);
@@ -156,7 +160,7 @@ public class QuestionController extends BaseController {
 
         // Update the participant's session status, and save back to the database.
         if(sessionProgress) {
-            participant.getStudy().completeCurrentTask(data.getTimeOnPage());
+            participant.getStudy().completeCurrentTask();
             participantService.save(participant);
         }
 
