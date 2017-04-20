@@ -54,6 +54,7 @@ var TEMPLETON_MODULE = (function () {
             download: true,
             dynamicTyping: true,
             header: true,
+            skipEmptyLines: true,
             complete: function (results) {
                 callBack(results.data);
             }
