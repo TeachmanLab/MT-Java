@@ -90,6 +90,7 @@ public class Task {
                 ", complete=" + complete +
                 ", current=" + current +
                 ", dateCompleted=" + dateCompleted +
+                ", timeOnTask=" + timeOnPage +
                 '}';
     }
 }
