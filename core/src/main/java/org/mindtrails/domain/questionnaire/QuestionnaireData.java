@@ -29,7 +29,7 @@ public abstract class QuestionnaireData {
 
     protected String tag; // Optional additional data defined by a task definition
 
-    protected Long timeOnPage; // Time spend on page in seconds.
+    protected Double timeOnPage; // Time spend on page in seconds.
 
     /**
      * Override this method to add custom information that should

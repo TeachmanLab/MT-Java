@@ -85,14 +85,14 @@ public class JSPsychController extends BaseController {
         if(device.isNormal()) deviceType = "normal";
         if(device.isTablet()) deviceType = "tablet";
 
-        Long timeOnTask = (long)0;
+        Double timeOnTask = 0.0;
 
         for(JsPsychTrial trial : list) {
             trial.setParticipantId(p.getId());
             trial.setSession(p.getStudy().getCurrentSession().getName());
             trial.setStudy(p.getStudy().getName());
             trial.setDevice(deviceType);
-            timeOnTask = timeOnTask + (long)trial.getTime_elapsed();
+            timeOnTask = timeOnTask + trial.getTime_elapsed();
             this.jsPsychRepository.save(trial);
         }
         timeOnTask = timeOnTask/1000;

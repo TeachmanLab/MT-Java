@@ -27,7 +27,7 @@ public class Task {
     private int        duration;  // the estimated time it takes to complete this task.
     private Date       dateCompleted;
     private String     tag;
-    private Long       timeOnPage;
+    private Double       timeOnPage;
 
     public Task(String name, String displayName, TYPE type, int duration) {
         this.name = name;
