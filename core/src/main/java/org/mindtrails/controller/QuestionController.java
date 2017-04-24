@@ -103,9 +103,9 @@ public class QuestionController extends BaseController {
         }
         try {
             QuestionnaireData data = (QuestionnaireData) exportService.getDomainType(formName).newInstance();
-            recordSessionProgress(formName, data, sessionProgress);
             WebRequestDataBinder binder = new WebRequestDataBinder(data);
             binder.bind(request);
+            recordSessionProgress(formName, data, sessionProgress);
             repository.save(data);
         } catch (ClassCastException | InstantiationException | IllegalAccessException e) {
             LOG.error("Failed to save model '" + formName + "' : " + e.getMessage());
@@ -147,8 +147,7 @@ public class QuestionController extends BaseController {
         data.setTag(tag);
 
         // Save time on Task to TaskLog.
-        Long timeOnTask = data.getTimeOnPage();
-        participant.getStudy().getCurrentSession().getCurrentTask().setTimeOnPage(timeOnTask);
+        Double timeOnTask = data.getTimeOnPage();
 
         // Attempt to set the participant link, depending on sub-class type
         if(data instanceof LinkedQuestionnaireData)
@@ -160,7 +159,7 @@ public class QuestionController extends BaseController {
 
         // Update the participant's session status, and save back to the database.
         if(sessionProgress) {
-            participant.getStudy().completeCurrentTask();
+            participant.getStudy().completeCurrentTask(timeOnTask);
             participantService.save(participant);
         }
 

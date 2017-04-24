@@ -18,7 +18,7 @@
     <form th:action="${eligibility}? @{/public/eligibilityCheck} : @{/questions/ExpectancyBias}"
           method="POST">
         <!-- Add timer -->
-        <input id="timeOnPage" type="hidden">
+        <input id="timeOnPage" name="timeOnPage" type="hidden"/>
 
         <div class="container">
             <div class="row">
@@ -1069,7 +1069,7 @@
         <br/>
         <br/>
         <div style="text-align:center">
-            <button type="submit" onclick="getTime()"> Next</button>
+            <button type="submit"> Next</button>
         </div>
 
 

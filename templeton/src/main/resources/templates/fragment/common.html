@@ -19,7 +19,7 @@
     <script type="text/javascript" th:src="@{/bower/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/firstQuestionSlider.js}"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
-
+    <script type="text/javascript" th:src="@{/bower/timeme.js/timeme.js}"></script>
     <!--Google Font-->
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,700,700italic,600' rel='stylesheet' type='text/css'/>
 
@@ -31,7 +31,6 @@
     <link rel="stylesheet" media="print" th:href="@{/css/print.css}" href="../../static/css/print.css"/>
 
     <!-- Timer here -->
-    <script src="timeme.js"></script>
     <script type="text/javascript" >
         TimeMe.initialize({
             currentPageName: "${title}", // current page
@@ -265,11 +264,12 @@
     -->
 
     <script type="text/javascript">
-        function getTime() {
-            var timeSpentOnPage = TimeMe.getTimeOnCurrentPageInSeconds();
-            document.getElementById('timeOnPage').value = timeSpentOnPage;
-        }
-    </script>
+        $("form").each(function() {
+            $(this).submit(function() {
+                $(this).find("#timeOnPage").val(TimeMe.getTimeOnCurrentPageInSeconds());
+            });
+        });
+     </script>
 </div>
 
 </body>

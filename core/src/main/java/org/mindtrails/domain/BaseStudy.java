@@ -114,9 +114,9 @@ public abstract class BaseStudy implements Study {
 
 
     @Override
-    public void completeCurrentTask() {
+    public void completeCurrentTask(double timeOnTask) {
         // Log the completion of the task
-        this.taskLogs.add(new TaskLog(this));
+        this.taskLogs.add(new TaskLog(this, timeOnTask));
 
         if (getState().equals(STUDY_STATE.WAIT)){
             throw new WaitException();
