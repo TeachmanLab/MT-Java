@@ -206,7 +206,7 @@ public class EmailServiceImpl implements EmailService {
         }
     }
 
-    @Scheduled(cron = "0 * * * * *")   // Runs every minute.
+    @Scheduled(cron = "0 0 * * * *")   // Runs every hour.
     /**
      * Sends emails to participants when they stopped in the middle of a session
      * and didn't return to it for 3 hours.
