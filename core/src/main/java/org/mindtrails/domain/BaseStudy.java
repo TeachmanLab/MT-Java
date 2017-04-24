@@ -38,7 +38,8 @@ public abstract class BaseStudy implements Study {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "study")
     @JsonIgnore
-    protected Set<TaskLog> taskLogs = new HashSet<>();
+    @OrderBy("dateCompleted")
+    protected List<TaskLog> taskLogs = new ArrayList<>();
 
     public BaseStudy() {}
 
@@ -46,7 +47,7 @@ public abstract class BaseStudy implements Study {
         this.currentSession = currentName;
         this.currentTaskIndex = taskIndex;
         this.lastSessionDate = lastSessionDate;
-        this.taskLogs = new HashSet<>();
+        this.taskLogs = new ArrayList<>();
         this.receiveGiftCards = receiveGiftCards;
     }
 
@@ -101,7 +102,6 @@ public abstract class BaseStudy implements Study {
 
     /**
      * @return Number of days since the last completed session.
-     * Returns 99 if the user never logged in or completed a session.
      */
     public int daysSinceLastSession() {
         DateTime last;
@@ -128,6 +128,15 @@ public abstract class BaseStudy implements Study {
             completeSession();
         } else { // otherwise we just increment the task index.
             this.currentTaskIndex = currentTaskIndex + 1;
+        }
+    }
+
+    @Override
+    public Date getLastTaskDate() {
+        if(this.taskLogs == null || this.taskLogs.size() == 0) {
+            return new Date();
+        } else {
+            return taskLogs.get(taskLogs.size()-1).getDateCompleted();
         }
     }
 

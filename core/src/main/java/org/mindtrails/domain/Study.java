@@ -31,6 +31,8 @@ public interface Study {
 
     public Date getLastSessionDate(); // Returns the date and time the participant completed the last session.
 
+    public Date getLastTaskDate(); // Returns the date and the the participant completed the last tasks
+
     public void setLastSessionDate(Date date); // Sets the date and time the participant completed the last session.
 
     public STUDY_STATE getState();  // returns the current state of the paricipant in the study.
@@ -42,6 +44,7 @@ public interface Study {
     public void setReceiveGiftCards(boolean value);
 
     public long getParticipantId();
+
 
     /**
      *     Parameters to pass into the PIPlayer Script.  Frequently
