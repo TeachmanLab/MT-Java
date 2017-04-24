@@ -16,6 +16,8 @@
 <section id="content" class="clearfix">
 
     <form th:action="@{/questions/HelpSeeking}" method="POST">
+        <!-- Add timer -->
+        <input id="timeOnPage" type="hidden">
         <div class="container">
             <div class="section">
 
@@ -86,7 +88,7 @@
 
 
         <div style="text-align:center">
-            <button type="submit"> Submit</button>
+            <button type="submit" onclick="getTime()"> Submit</button>
         </div>
     </form>
 

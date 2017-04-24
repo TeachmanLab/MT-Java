@@ -16,6 +16,8 @@
 <textArea th:replace="fragment/common :: questionTemplate"/>
 
 <form th:action="@{/questions/Evaluation}" method="POST">
+    <!-- Add timer -->
+    <input id="timeOnPage" type="hidden">
 <section id="content" class="clearfix">
     <div class="container">
         <div class="row">
@@ -242,7 +244,7 @@
 
 
     <div style="text-align:center">
-        <button type="submit"> Continue</button>
+        <button type="submit" onclick="getTime()"> Continue</button>
     </div>
 
 

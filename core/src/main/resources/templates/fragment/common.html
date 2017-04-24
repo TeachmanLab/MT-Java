@@ -13,6 +13,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
     <title>Mind Trails</title>
 
+    <!-- Timer here -->
+    <script src="timeme.js"></script>
+    <script type="text/javascript">
+        TimeMe.initialize({
+            currentPageName: "${title}", // current page
+            idleTimeoutInSeconds: 30 // seconds
+        });
+    </script>
+
     <!--style sheet-->
     <link rel="stylesheet" media="screen" th:href="@{/css/styles.css}" />
 

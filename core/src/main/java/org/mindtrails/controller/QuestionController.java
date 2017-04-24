@@ -146,6 +146,10 @@ public class QuestionController extends BaseController {
         String tag = participant.getStudy().getCurrentSession().getCurrentTask().getTag();
         data.setTag(tag);
 
+        // Save time on Task to TaskLog.
+        Long timeOnTask = data.getTimeOnPage();
+        participant.getStudy().getCurrentSession().getCurrentTask().setTimeOnPage(timeOnTask);
+
         // Attempt to set the participant link, depending on sub-class type
         if(data instanceof LinkedQuestionnaireData)
             ((LinkedQuestionnaireData) data).setParticipant(participant);

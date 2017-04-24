@@ -19,6 +19,8 @@
             <div class="col-md-8">
 
                 <form th:action="@{/questions/Demographics}" method="POST">
+                    <!-- Add timer -->
+                    <input id="timeOnPage" type="hidden">
 
                     <p> We would like to start with a few questions to get to know you better. Answers to
                         these personal questions are kept confidential, but they help us improve
@@ -670,7 +672,7 @@
 
 
                         <div style="text-align:center">
-                        <button type="submit"> Continue </button>
+                        <button type="submit" onclick="getTime()"> Continue </button>
                     </div>
                 </div>
                 </form>
