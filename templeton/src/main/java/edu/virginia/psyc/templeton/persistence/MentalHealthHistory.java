@@ -20,6 +20,7 @@ public class MentalHealthHistory extends SecureQuestionnaireData {
     private String Other_HelpCurrent;
     private String Other_HelpPast;
     private String Other_HelpReason;
+    private String Other_HelpChange;
     private String no_past_help_reason;
 
     @ElementCollection
@@ -41,6 +42,11 @@ public class MentalHealthHistory extends SecureQuestionnaireData {
     @CollectionTable(name = "helps_past", joinColumns = @JoinColumn(name = "id"))
     @Column(name = "PastHelp")
     private List<String> PastHelp;
+
+    @ElementCollection
+    @CollectionTable(name = "help_change", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "ChangeHelp")
+    private List<String> ChangeHelp;
 
 
     private int psychiatrist = 0;
