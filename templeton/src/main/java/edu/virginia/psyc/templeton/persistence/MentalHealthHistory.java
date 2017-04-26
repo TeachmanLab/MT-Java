@@ -62,6 +62,8 @@ public class MentalHealthHistory extends SecureQuestionnaireData {
     private int book = 0;
     private int medicine = 0;
     private int online = 0;
+    private int app = 0;
+    private int support_group = 0;
     private int other = 0;
 
     private int psychiatrist_past = 0;
