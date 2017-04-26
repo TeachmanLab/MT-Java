@@ -1,5 +1,6 @@
 package org.mindtrails.service;
 
+import org.joda.time.DateTime;
 import org.mindtrails.domain.Email;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.Session;
@@ -68,12 +69,13 @@ public class EmailServiceImpl implements EmailService {
         emails.add(new Email(TYPE.followup2.toString(), "Follow-up reminder from the MindTrails project team"));
         emails.add(new Email(TYPE.followup3.toString(), "Final reminder from the MindTrails project team"));
         emails.add(new Email(TYPE.debrief.toString(), "Explanation of the MindTrails project"));
+        emails.add(new Email(TYPE.midSessionStop.toString(), "Incomplete session notice from the MindTrails Team"));
         return emails;
     }
 
     public Email getEmailForType(String type) {
-        for(Email e : emailTypes()) {
-            if(e.getType().equals(type)) return e;
+        for (Email e : emailTypes()) {
+            if (e.getType().equals(type)) return e;
         }
         throw new RuntimeException("Unknown Email type:" + type);
     }
@@ -110,6 +112,7 @@ public class EmailServiceImpl implements EmailService {
     /**
      * defaults to the standard sendEamil, but can be overridden if you need to send
      * out a custom email with additional parameters.
+     *
      * @param email
      */
     public void sendExample(Email email) {
@@ -125,23 +128,23 @@ public class EmailServiceImpl implements EmailService {
         EmailLog log;
         Participant participant = email.getParticipant();
 
-        if(e == null) LOG.info("Sent an email of type " + email.getType());
-        if(e != null) LOG.error("Failed to send an email of type " +
-                                email.getType()  + "; " + e.getLocalizedMessage());
+        if (e == null) LOG.info("Sent an email of type " + email.getType());
+        if (e != null) LOG.error("Failed to send an email of type " +
+                email.getType() + "; " + e.getLocalizedMessage());
 
-        if(participant != null) {  // This associates emails to participants, no need if not there.
+        if (participant != null) {  // This associates emails to participants, no need if not there.
             log = new EmailLog(email);
-            if(e != null) log.setError(e);
+            if (e != null) log.setError(e);
             participant.addEmailLog(log);
             participantRepository.save(participant);
         }
     }
 
 
-
     /**
      * Sends an alert message to an administrative account, letting them know
      * about a problem with the system.
+     *
      * @param alertMessage
      */
     @Override
@@ -157,7 +160,7 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public void sendPasswordReset(Participant participant){
+    public void sendPasswordReset(Participant participant) {
         // Prepare the evaluation context
         final Context ctx = new Context();
         Email email = getEmailForType(TYPE.resetPass.toString());
@@ -191,9 +194,9 @@ public class EmailServiceImpl implements EmailService {
         participants = participantRepository.findAll();
         TYPE type;
 
-        for(Participant participant : participants) {
+        for (Participant participant : participants) {
             type = getTypeToSend(participant);
-            if(type != null) {
+            if (type != null) {
                 Email email = getEmailForType(type.toString());
                 email.setTo(participant.getEmail());
                 email.setParticipant(participant);
@@ -201,6 +204,45 @@ public class EmailServiceImpl implements EmailService {
                 sendEmail(email);
             }
         }
+    }
+
+    @Scheduled(cron = "0 0 * * * *")   // Runs every hour.
+    /**
+     * Sends emails to participants when they stopped in the middle of a session
+     * and didn't return to it for 3 hours.
+     */
+    public void checkForMidSessionIncompleteAndSendEmails() {
+        List<Participant> participants;
+        participants = participantRepository.findAll();
+
+        for(Participant participant : participants) {
+            if(shouldSendMidSessionReminder(participant)) {
+                sendMidSessionEmail(participant);
+            }
+        }
+    }
+
+    public void sendMidSessionEmail(Participant participant) {
+        Email email = getEmailForType(TYPE.midSessionStop.toString());
+        email.setTo(participant.getEmail());
+        email.setParticipant(participant);
+        email.setContext(new Context());
+        sendEmail(email);
+    }
+
+    public boolean shouldSendMidSessionReminder(Participant participant) {
+        if (!participant.isActive()) return false;
+        if (!participant.isEmailReminders()) return false;
+        Study study = participant.getStudy();
+        Session session = study.getCurrentSession();
+        if (participant.previouslySent(TYPE.midSessionStop.toString(),
+                                        session.getName())) return false;
+        if (session.midSession()) {
+            DateTime lastTaskDate = new DateTime(study.getLastTaskDate());
+            if (DateTime.now().minusHours(3).isAfter(lastTaskDate))
+                return true;
+        }
+        return false;
     }
 
     /**
@@ -222,6 +264,9 @@ public class EmailServiceImpl implements EmailService {
 
         // Never send email to an inactive participant;
         if (!p.isActive()) return null;
+
+        // Don't send emails to those that requested no reminders.
+        if (!p.isEmailReminders()) return null;
 
         int days = p.daysSinceLastMilestone();
 

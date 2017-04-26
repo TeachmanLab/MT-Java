@@ -17,7 +17,7 @@
 <section id="content" class="clearfix">
     <form th:action="@{/questions/Phq4}" method="POST">
         <!-- Add timer -->
-        <input id="timeOnPage" type="hidden">
+        <input id="timeOnPage" name="timeOnPage" type="hidden"/>
         <div class="container section compactQuestion">
             <div class="row title">
                 <div class="col-md-12">
@@ -168,7 +168,7 @@
             </div>
 
             <div class="col-md-12" style="text-align:center">
-                <button type="submit" onclick="getTime()"> Next</button>
+                <button type="submit"> Next</button>
             </div>
 
         </div>

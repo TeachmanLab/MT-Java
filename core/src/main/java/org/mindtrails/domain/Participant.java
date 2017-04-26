@@ -239,6 +239,18 @@ public  class Participant implements UserDetails {
         return false;
     }
 
+    /**
+     * Checks to see if this type of email was already sent to the user regarding the
+     * given session.
+     */
+    public boolean previouslySent(String type, String session) {
+        for (EmailLog log : getEmailLogs()) {
+            if (log.getEmailType().equals(type) &&
+                    log.getSession().equals(session)) return true;
+        }
+        return false;
+    }
+
     public boolean giftAwardedForSession(Session s) {
         for(GiftLog log : this.getGiftLogs()) {
             if (log.getSessionName().equals(s.getName())) {

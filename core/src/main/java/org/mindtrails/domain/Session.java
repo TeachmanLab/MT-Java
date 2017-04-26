@@ -73,6 +73,17 @@ public class Session {
     }
 
     /**
+     * Returns true if the session is underway but not complete.
+     * @return
+     */
+    public boolean midSession() {
+        int completed = 0;
+        for(Task t : tasks) if(t.isComplete()) completed++;
+        if(completed > 0 && completed < tasks.size()) return true;
+        else return false;
+    }
+
+    /**
      * Returns the index of the current task in the list of tasks in this session.
      * This is a 0-based index.
      *

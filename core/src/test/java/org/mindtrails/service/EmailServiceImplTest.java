@@ -9,11 +9,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mindtrails.Application;
 import org.mindtrails.MockClasses.TestStudy;
-import org.mindtrails.domain.Email;
-import org.mindtrails.domain.Participant;
-import org.mindtrails.domain.PasswordToken;
-import org.mindtrails.domain.Study;
+import org.mindtrails.domain.*;
 import org.mindtrails.domain.tango.Reward;
+import org.mindtrails.domain.tracking.EmailLog;
+import org.mindtrails.domain.tracking.TaskLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -46,13 +45,22 @@ public class EmailServiceImplTest {
     private Wiser wiser;
 
     @Autowired
-    private EmailService emailService;
+    private EmailServiceImpl emailService;
+
+    Participant participant;
+    EmailServiceImpl service;
 
     @Before
     public void setUp() throws Exception {
         wiser = new Wiser();
         wiser.setPort(1025);
         wiser.start();
+
+        participant = new Participant();
+        participant.setEmail("tester@test.com");
+        participant.setFullName("Tester McTest");
+        participant.setStudy(new TestStudy());
+        service     = new EmailServiceImpl();
     }
 
     @After
@@ -168,17 +176,7 @@ public class EmailServiceImplTest {
 
     }
 
-    Participant participant;
-    EmailServiceImpl service;
 
-    @Before
-    public void setup() {
-        participant = new Participant();
-        participant.setEmail("tester@test.com");
-        participant.setFullName("Tester McTest");
-        participant.setStudy(new TestStudy());
-        service     = new EmailServiceImpl();
-    }
 
     @Test
     public void testEmailList() {
@@ -203,6 +201,81 @@ public class EmailServiceImplTest {
     }
 
     @Test
+    public void testShouldSendEmail3HoursAfterLastTaskIfSessionNotCompleted() {
+
+        assertFalse("New participants should not get mid-session reminders",
+                emailService.shouldSendMidSessionReminder(participant));
+
+        participant.getStudy().completeCurrentTask();
+
+        assertFalse("Recently completed tasks should not result in mid-session reminders",
+                emailService.shouldSendMidSessionReminder(participant));
+
+        // Set the date of the last tasklog to 7 hours ago.
+        TestStudy study = (TestStudy)participant.getStudy();
+        TaskLog lastLog = study.getTaskLogs().get(study.getTaskLogs().size()-1);
+        lastLog.setDateCompleted(DateTime.now().minusHours(4).toDate());
+        assertFalse(study.getCurrentSession().isComplete());
+
+        assertTrue("When the last completed task took place 7 hours ago, and the session is not" +
+                        "complete, there should be a mid-session reminder.",
+                emailService.shouldSendMidSessionReminder(participant));
+
+        // Log the sending of a midSession Email, and try and send again.
+        participant.addEmailLog(new EmailLog(participant, EmailService.TYPE.midSessionStop.toString(), new Date()));
+
+        assertFalse("Already sent an email about this, don't repeat it.",
+                emailService.shouldSendMidSessionReminder(participant));
+
+        participant.setEmailReminders(false);
+        assertFalse ("Email reminders are off, so don't notify participant",
+                emailService.shouldSendMidSessionReminder(participant));
+
+
+        participant.setEmailReminders(true);
+        Session session = study.getCurrentSession();
+        study.completeCurrentTask();
+        assertTrue(study.completed(session.getName()));
+        assertFalse ("Participant completed both tasks in the session, so no email should be sent.",
+                emailService.shouldSendMidSessionReminder(participant));
+
+        study.forceToSession("SessionTwo");
+        study.setLastSessionDate(DateTime.now().minusDays(3).toDate());
+        study.completeCurrentTask();
+        lastLog = study.getTaskLogs().get(study.getTaskLogs().size()-1);
+        lastLog.setDateCompleted(DateTime.now().minusHours(7).toDate());
+        assertTrue("Will send another email so long as it's a difference session..",
+                emailService.shouldSendMidSessionReminder(participant));
+
+
+    }
+
+    @Test
+    public void testMidSessionStopEmailContent() throws Exception {
+        participant.getStudy().completeCurrentTask();
+        // Set the date of the last tasklog to 7 hours ago.
+        TestStudy study = (TestStudy)participant.getStudy();
+        TaskLog lastLog = study.getTaskLogs().get(study.getTaskLogs().size()-1);
+        lastLog.setDateCompleted(DateTime.now().minusHours(4).toDate());
+        assertFalse(study.getCurrentSession().isComplete());
+
+
+        emailService.sendMidSessionEmail(participant);
+
+        // assert
+        assertEquals("No mail messages found", 1, wiser.getMessages().size());
+
+        if (wiser.getMessages().size() > 0) {
+            WiserMessage wMsg = wiser.getMessages().get(0);
+            MimeMessage msg = wMsg.getMimeMessage();
+            assertNotNull("message was null", msg);
+            assertEquals("'Subject' did not match", "Incomplete session notice from the MindTrails Team", msg.getSubject());
+            assertTrue("url is missing", msg.getContent().toString().contains("Our records indicate that you got part-way through a session"));
+        }
+    }
+
+
+    @Test
     public void testShouldSendEmailAfterLogin() {
         // No email the day after login, even if no sessions were completed.
         participant.setLastLoginDate(xDaysAgo(1));
@@ -218,6 +291,7 @@ public class EmailServiceImplTest {
         participant.getStudy().setLastSessionDate(xDaysAgo(1));
         assertNull(service.getTypeToSend(participant));
     }
+
 
     @Test
     public void testShouldSendEmailAfter3_7_11_15_and_18() {

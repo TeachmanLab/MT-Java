@@ -21,7 +21,7 @@
 
                 <form th:action="@{/questions/Relatability}" method="POST">
                     <!-- Add timer -->
-                    <input id="timeOnPage" type="hidden">
+                    <input id="timeOnPage" name="timeOnPage" type="hidden"/>
                     <div class="section">
                         <div class="row">
                             <div class="col-md-10">
@@ -97,7 +97,7 @@
                     </div>
 
                     <div style="text-align:center">
-                        <button type="submit" onclick="getTime()"> Continue</button>
+                        <button type="submit"> Continue</button>
                     </div>
 
 

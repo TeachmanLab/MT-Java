@@ -25,11 +25,13 @@ public interface Study {
 
     public Session nextGiftSession(); // returns the current session.
 
-    public void completeCurrentTask(); // completes a task, moving the participant further through the study/
+    public void completeCurrentTask(double timeOnTask); // completes a task, moving the participant further through the study/
 
     public int getCurrentTaskIndex();  // Returns the index of the task currently underway within the current session.
 
     public Date getLastSessionDate(); // Returns the date and time the participant completed the last session.
+
+    public Date getLastTaskDate(); // Returns the date and the the participant completed the last tasks
 
     public void setLastSessionDate(Date date); // Sets the date and time the participant completed the last session.
 
@@ -42,6 +44,7 @@ public interface Study {
     public void setReceiveGiftCards(boolean value);
 
     public long getParticipantId();
+
 
     /**
      *     Parameters to pass into the PIPlayer Script.  Frequently

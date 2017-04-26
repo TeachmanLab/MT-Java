@@ -23,23 +23,27 @@ public class EmailLog extends MindTrailsLog {
     private String emailType;
     private boolean successful = true;
     private String exception = "";
+    private String session;
 
     public EmailLog() {};
 
     public EmailLog(Email email) {
         this.participant = email.getParticipant();
+        this.session = email.getParticipant().getStudy().getCurrentSession().getName();
         this.emailType = email.getType();
         this.dateSent  = new Date();
     }
 
     public EmailLog(Participant p, String type) {
         this.participant = p;
+        this.session = p.getStudy().getCurrentSession().getName();
         this.emailType = type;
         this.dateSent  = new Date();
     }
 
     public EmailLog(Participant p, String type, Date date) {
         this.participant = p;
+        this.session = p.getStudy().getCurrentSession().getName();
         this.emailType = type;
         this.dateSent  = date;
     }

@@ -17,7 +17,7 @@
 
     <form th:action="@{/questions/MentalHealthHistory}" method="POST" id="MHFORM">
         <!-- Add timer -->
-        <input id="timeOnPage" type="hidden">
+        <input id="timeOnPage" name="timeOnPage" type="hidden"/>
         <div class="container">
             <div class="section">
                 <div class="row">
@@ -992,7 +992,7 @@
         </div>
 
         <div style="text-align:center">
-            <button type="submit" onclick="getTime()"> Continue</button>
+            <button type="submit"> Continue</button>
         </div>
     </form>
     <script src="http://cdn.jsdelivr.net/jquery.validation/1.14.0/jquery.validate.min.js">

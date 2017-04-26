@@ -69,7 +69,7 @@ public class PIPlayerController extends BaseController {
             throw new WrongFormException();
         }
 
-        participant.getStudy().completeCurrentTask();
+        participant.getStudy().completeCurrentTask(0);
         participantService.save(participant);
         return new RedirectView("/session/next", true);
     }

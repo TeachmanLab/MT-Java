@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
+import java.util.List;
 
 /**
 
@@ -58,16 +59,27 @@ public class JSPsychController extends BaseController {
 
         Participant participant = participantService.get(principal);
 
-        // If the data submitted, isn't the data the user should be completeing right now,
-        // thown an exception and prevent them from moving forward.
+        // If the data submitted, isn't the data the user should be completing right now,
+        // throw an exception and prevent them from moving forward.
         String currentTaskName = participant.getStudy().getCurrentSession().getCurrentTask().getName();
         if(!currentTaskName.equals(scriptName) && !participant.isAdmin()) {
             LOG.info("The current task for this participant is : " + currentTaskName + " however, they submitted the script:" + scriptName);
             throw new WrongFormException();
         }
 
-        participant.getStudy().completeCurrentTask();
+        // Calculate the time on task
+        List<JsPsychTrial> trials = jsPsychRepository.findAllByParticipantIdAndStudyAndSession(participant.getId(),
+                participant.getStudy().getName(),
+                participant.getStudy().getCurrentSession().getName());
+
+        double timeOnTask = 0.0;
+        for (JsPsychTrial trial : trials) {
+            timeOnTask += trial.getTime_elapsed();
+        }
+
+        participant.getStudy().completeCurrentTask(timeOnTask/1000);
         participantService.save(participant);
+
         return new RedirectView("/session/next", true);
     }
 
@@ -85,18 +97,14 @@ public class JSPsychController extends BaseController {
         if(device.isNormal()) deviceType = "normal";
         if(device.isTablet()) deviceType = "tablet";
 
-        Double timeOnTask = 0.0;
-
         for(JsPsychTrial trial : list) {
             trial.setParticipantId(p.getId());
             trial.setSession(p.getStudy().getCurrentSession().getName());
             trial.setStudy(p.getStudy().getName());
             trial.setDevice(deviceType);
-            timeOnTask = timeOnTask + trial.getTime_elapsed();
             this.jsPsychRepository.save(trial);
         }
-        timeOnTask = timeOnTask/1000;
-        p.getStudy().getCurrentSession().getCurrentTask().setTimeOnPage(timeOnTask);
+
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 

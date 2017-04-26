@@ -40,16 +40,16 @@ public class TaskLog implements Comparable<TaskLog> {
     private String taskName;
     private Date dateCompleted;
     private String tag;
-    private Double timeOnPage;
+    private Double timeOnTask;
 
     public TaskLog() {};
-    public TaskLog(Study study) {
+    public TaskLog(Study study, double timeOnTask) {
         this.study = study;
         this.sessionName = study.getCurrentSession().getName();
         this.taskName = study.getCurrentSession().getCurrentTask().getName();
         this.dateCompleted = new Date();
         this.tag = study.getCurrentSession().getCurrentTask().getTag();
-        this.timeOnPage = study.getCurrentSession().getCurrentTask().getTimeOnPage();
+        this.timeOnTask = timeOnTask;
     }
 
     public static TaskLog completedSession(Study study) {
@@ -59,7 +59,7 @@ public class TaskLog implements Comparable<TaskLog> {
         log.taskName = SESSION_COMPLETE;
         log.dateCompleted = new Date();
         log.tag = null;
-        log.timeOnPage = study.getCurrentSession().getCurrentTask().getTimeOnPage();
+        log.timeOnTask = null;
         return(log);
     }
 
