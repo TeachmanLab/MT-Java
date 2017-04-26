@@ -138,8 +138,9 @@ public class QuestionController extends BaseController {
         // thown an exception and prevent them from moving forward.
         String currentTaskName = participant.getStudy().getCurrentSession().getCurrentTask().getName();
         if(!currentTaskName.equals(formName) && sessionProgress && !participant.isAdmin()) {
-            LOG.info("The current task for this participant is : " + currentTaskName + " however, they submitted the form:" + formName);
-            throw new WrongFormException();
+            String error = "The current task for this participant is : " + currentTaskName + " however, they submitted the form:" + formName;
+            LOG.info(error);
+            throw new WrongFormException(error);
         }
 
         // Grab the tag of the current task, and incorporate it into the data.

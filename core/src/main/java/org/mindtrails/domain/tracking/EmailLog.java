@@ -50,7 +50,7 @@ public class EmailLog extends MindTrailsLog {
 
     public void setError(Exception e) {
         this.successful = false;
-        this.exception = e.getLocalizedMessage();
+        this.exception = e.getLocalizedMessage().substring(0, 128);
     }
 
 

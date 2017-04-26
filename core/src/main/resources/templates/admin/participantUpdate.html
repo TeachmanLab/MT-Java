@@ -86,10 +86,12 @@
                         <tr>
                             <th>Type</th>
                             <th>Date</th>
+                            <th>Successful?</th>
                         </tr>
                         <tr th:each="log : ${participantEdit.emailLogs}">
                             <td th:text="${log.emailType}"/>
                             <td th:text="${log.dateSent}"/>
+                            <td th:class="${log.successful}? success : error " th:text="${log.successful}"/>
                         </tr>
                     </table>
                 </div>
@@ -119,7 +121,24 @@
                             <td th:text="${log.dateSent}"/>
                         </tr>
                     </table>
-</div>
+                </div>
+                <div class="log">
+                    <h3>Error Messages that reached this user:</h3>
+                    <table class="logs">
+                        <tr>
+                            <th>Type</th>
+                            <th>Description</th>
+                            <th>URL</th>
+                            <th>Date</th>
+                        </tr>
+                        <tr th:each="log : ${participantEdit.errorLogs}">
+                            <td th:text="${log.errorType}"/>
+                            <td th:text="${log.errorMessage}"/>
+                            <td th:text="${log.requestedUrl}"/>
+                            <td th:text="${log.dateSent}"/>
+                        </tr>
+                    </table>
+                </div>
             <h3>Task Completion History:</h3>
             <div class="log" th:each="session : ${participantEdit.study.sessions}">
                 <h4 th:text="${session.displayName}"></h4>

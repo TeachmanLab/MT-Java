@@ -63,8 +63,9 @@ public class JSPsychController extends BaseController {
         // throw an exception and prevent them from moving forward.
         String currentTaskName = participant.getStudy().getCurrentSession().getCurrentTask().getName();
         if(!currentTaskName.equals(scriptName) && !participant.isAdmin()) {
-            LOG.info("The current task for this participant is : " + currentTaskName + " however, they submitted the script:" + scriptName);
-            throw new WrongFormException();
+            String error = "The current task for this participant is : " + currentTaskName + " however, they submitted the script:" + scriptName;
+            LOG.info(error);
+            throw new WrongFormException(error);
         }
 
         // Calculate the time on task

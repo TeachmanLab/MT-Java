@@ -5,10 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
-import org.mindtrails.domain.tracking.EmailLog;
-import org.mindtrails.domain.tracking.GiftLog;
-import org.mindtrails.domain.tracking.MindTrailsLog;
-import org.mindtrails.domain.tracking.SMSLog;
+import org.mindtrails.domain.tracking.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
@@ -67,15 +64,23 @@ public  class Participant implements UserDetails {
     // leave this eager, or address that problem.
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "participant")
     @JsonIgnore
-    protected Set<EmailLog> emailLogs = new HashSet<>();
+    @OrderBy(value = "dateSent")
+    protected SortedSet<EmailLog> emailLogs = new TreeSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "participant")
     @JsonIgnore
-    protected Set<SMSLog> smsLogs = new HashSet<>();
+    @OrderBy(value = "dateSent")
+    protected SortedSet<SMSLog> smsLogs = new TreeSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "participant")
     @JsonIgnore
-    protected Set<GiftLog> giftLogs = new HashSet<>();
+    @OrderBy(value = "dateSent")
+    protected SortedSet<GiftLog> giftLogs = new TreeSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "participant")
+    @JsonIgnore
+    @OrderBy(value = "dateSent")
+    protected SortedSet<ErrorLog> errorLogs = new TreeSet<>();
 
 
     @Override
@@ -131,19 +136,25 @@ public  class Participant implements UserDetails {
      * ********************* */
 
     public void addEmailLog(EmailLog log) {
-        if (this.emailLogs == null) this.emailLogs = new HashSet<EmailLog>();
+        if (this.emailLogs == null) this.emailLogs = new TreeSet<>();
         this.emailLogs.add(log);
     }
 
     public void addSMSLog(SMSLog log) {
-        if (this.smsLogs == null) this.smsLogs = new HashSet<SMSLog>();
+        if (this.smsLogs == null) this.smsLogs = new TreeSet<>();
         this.smsLogs.add(log);
     }
 
     public void addGiftLog(GiftLog log) {
-        if (this.giftLogs == null) this.giftLogs = new HashSet<GiftLog>();
+        if (this.giftLogs == null) this.giftLogs =new TreeSet<>();
         this.giftLogs.add(log);
     }
+
+    public void addErrorLog(ErrorLog log) {
+        if (this.errorLogs == null) this.errorLogs = new TreeSet<>();
+        this.errorLogs.add(log);
+    }
+
 
     @Override
     public String toString() {

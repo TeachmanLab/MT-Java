@@ -9,6 +9,8 @@ import org.mindtrails.domain.forms.ParticipantUpdateAdmin;
 import org.mindtrails.domain.tango.Account;
 import org.mindtrails.domain.tango.Order;
 import org.mindtrails.domain.tango.Reward;
+import org.mindtrails.domain.tracking.ErrorLog;
+import org.mindtrails.persistence.ErrorLogRepository;
 import org.mindtrails.persistence.ParticipantRepository;
 import org.mindtrails.service.EmailService;
 import org.mindtrails.service.ExportService;
@@ -20,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -63,6 +66,10 @@ public class AdminController extends BaseController {
     @Autowired
     private ParticipantRepository participantRepository;
 
+    @Autowired
+    private ErrorLogRepository errorLogRepository;
+
+
     @Override
     @ModelAttribute("visiting")
     public boolean visiting(Principal principal) {
@@ -89,6 +96,23 @@ public class AdminController extends BaseController {
         model.addAttribute("participants", daoList);
         return "admin/participants";
     }
+
+    @RequestMapping(value="errors", method=RequestMethod.GET)
+    public String listErrors(ModelMap model,Principal principal,
+                             final @RequestParam(value = "page", required = false, defaultValue = "0") String pageParam) {
+
+        Page<ErrorLog> logs;
+        PageRequest pageRequest;
+
+        int page = Integer.parseInt(pageParam);
+        pageRequest = new PageRequest(page, PER_PAGE,
+                Sort.Direction.DESC, "dateSent");
+        logs = errorLogRepository.findAll(pageRequest);
+        model.addAttribute("errorLogs", logs);
+        return "admin/listErrors";
+
+    }
+
 
     @RequestMapping(value="/participant/{id}", method=RequestMethod.GET)
     public String participantUpdateForm(ModelMap model,

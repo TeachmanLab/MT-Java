@@ -407,6 +407,15 @@ label.error {
     float: right;
 }
 
+td.error {
+    color: darkred;
+}
+
+td.success {
+    color: green;
+}
+
+
 /** Slider Bar **/
 #slider {
     border: 1px solid #ccc;
@@ -430,6 +439,7 @@ label.error {
    *********/
 div.log {
     margin-bottom: 40px;
+    font-size: .8em;
 }
 
 

@@ -136,7 +136,7 @@
             <div class="nav-user">Logged in as <span th:text="${participant.fullName}"/>
                     <br/><span class="nav-level" th:text="${participant.study.currentSession.displayName}"/></div>
         </div>
-        <div class="container login" th:unless="${#authorization.expression('hasRole(''ROLE_USER'')')}">
+        <div class="container login" th:unless="${#authorization != null} AND ${#authorization.expression('hasRole(''ROLE_USER'')')}">
             Already Participating? <a th:href="@{/login}"><button>Log In</button></a>
         </div>
     </div>
@@ -243,6 +243,9 @@
             </li>
             <li><a th:href="@{/admin/tango}">Gift Cards Account</a>: allows you to check information about the gift card
                 account for your study.
+            </li>
+            <li><a th:href="@{/admin/errors}">Errors</a>: View a list of all errors that surfaced to participants.  This might
+                not include internal errors that were never seen by a participant.
             </li>
             <li><a th:href="@{/admin/export}">Exports</a>: allows you to view the status of exports from the system, or export
                 data directly if this feature is enabled.

@@ -18,7 +18,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.util.ArrayList;
 import java.util.List;
@@ -104,8 +103,8 @@ public class EmailServiceImpl implements EmailService {
             // Send email
             this.mailSender.send(mimeMessage);
             logEmail(email, null);
-        } catch (MessagingException me) {
-            logEmail(email, me);
+        } catch (Exception e) {
+            logEmail(email, e);
         }
     }
 
