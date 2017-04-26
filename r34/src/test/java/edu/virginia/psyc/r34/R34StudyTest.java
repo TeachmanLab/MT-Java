@@ -104,12 +104,12 @@ public class R34StudyTest {
         assertEquals(R34Study.NAME.PRE.toString(), study.getCurrentSession().getName());
         assertEquals("Credibility", study.getCurrentSession().getCurrentTask().getName());
 
-        study.completeCurrentTask();
+        study.completeCurrentTask(0);
 
         assertEquals(R34Study.NAME.PRE.toString(), study.getCurrentSession().getName());
         assertEquals("Demographic", study.getCurrentSession().getCurrentTask().getName());
 
-        study.completeCurrentTask();
+        study.completeCurrentTask(0);
 
         assertEquals(R34Study.NAME.PRE.toString(), study.getCurrentSession().getName());
         assertEquals("MentalHealthHxTx", study.getCurrentSession().getCurrentTask().getName());
@@ -118,7 +118,7 @@ public class R34StudyTest {
 
         // Move past all the tasks in Pre
         for(int i =0; i<9; i++) {
-            study.completeCurrentTask();
+            study.completeCurrentTask(0);
         }
         assertEquals(R34Study.NAME.SESSION1.toString(), study.getCurrentSession().getName());
         assertNotNull("The last session date should get updated when completing a session.", study.getLastSessionDate());
@@ -137,7 +137,7 @@ public class R34StudyTest {
 
         // Complete the pre assessment
         for(int i=0; i < study.getCurrentSession().getTasks().size(); i++) {
-            study.completeCurrentTask();
+            study.completeCurrentTask(0);
         }
 
         // State should still be ready ...
@@ -145,7 +145,7 @@ public class R34StudyTest {
 
         // Complete the first session
         for(int i=0; i < study.getCurrentSession().getTasks().size(); i++) {
-            study.completeCurrentTask();
+            study.completeCurrentTask(0);
         }
 
         // State should still be now be wait a day ...

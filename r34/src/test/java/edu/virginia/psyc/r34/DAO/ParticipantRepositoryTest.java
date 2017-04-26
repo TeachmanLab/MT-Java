@@ -86,11 +86,11 @@ public class ParticipantRepositoryTest {
 
         // Increment the current task.
         p.getStudy().setLastSessionDate(DateTime.now().minus(Days.days(3)).toDate());
-        p.getStudy().completeCurrentTask();
+        p.getStudy().completeCurrentTask(0);
         assertEquals(1, p.getStudy().getCurrentTaskIndex());
-        p.getStudy().completeCurrentTask();
-        p.getStudy().completeCurrentTask();
-        p.getStudy().completeCurrentTask();
+        p.getStudy().completeCurrentTask(0);
+        p.getStudy().completeCurrentTask(0);
+        p.getStudy().completeCurrentTask(0);
         assertEquals(0, p.getStudy().getCurrentTaskIndex());
         assertEquals(R34Study.NAME.SESSION6.toString(), p.getStudy().getCurrentSession().getName());
 
@@ -101,7 +101,7 @@ public class ParticipantRepositoryTest {
         pSaved = participantRepository.findByEmail(email);
 
         assertEquals(R34Study.NAME.SESSION1.toString(), pSaved.getStudy().getCurrentSession().getName());
-        pSaved.getStudy().completeCurrentTask();
+        pSaved.getStudy().completeCurrentTask(0);
         assertEquals(R34Study.NAME.SESSION1.toString(), pSaved.getStudy().getCurrentSession().getName());
 
     }
