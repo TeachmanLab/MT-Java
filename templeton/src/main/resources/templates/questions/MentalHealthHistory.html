@@ -470,7 +470,7 @@
                                                             name="Help" value="app"/> Mobile (phone or tablet)
                                 application </label>
                             <div class="oneToSeven" id="Q3-14-1"><label> Has this been helpful? </label>
-                                <select name="online">
+                                <select name="app">
                                     <option value=""> Please select one</option>
                                     <option value="1"> 1 (Not helpful at all)</option>
                                     <option> 2</option>
@@ -488,7 +488,7 @@
                                                             type="checkbox"
                                                             name="Help" value="support_group"/> Support group </label>
                             <div class="oneToSeven" id="Q3-15-1"><label> Has this been helpful? </label>
-                                <select name="online">
+                                <select name="support_group">
                                     <option value=""> Please select one</option>
                                     <option value="1"> 1 (Not helpful at all)</option>
                                     <option> 2</option>
@@ -509,7 +509,7 @@
                                                             value="Other"/> Other (Please specify) <input
                                     id="Q3-16_spec" type="text" name="Other_HelpCurrent"/> </label>
                             <div class="oneToSeven" id="Q3-16-1"><label> Has this been helpful? </label>
-                                <select name="online">
+                                <select name="other">
                                     <option value=""> Please select one</option>
                                     <option value="1"> 1 (Not helpful at all)</option>
                                     <option> 2</option>
@@ -528,7 +528,7 @@
                         <br/>
                         <br/>
                         <div class="radio">
-                            <label class="question"><input type="checkbox" name="Help" value="555"
+                            <label class="question"> <input type="checkbox" name="Help" value="555"
                                                            onchange="disableSection(this)"/> Prefer not to answer
                             </label>
                         </div>
@@ -543,6 +543,53 @@
                 </div>
             </div>
 
+<!--  New question added according to Bethany's feedback on April 15,2017   -->
+            <div class="section">
+                <div class="row">
+                    <div class="col-md-10">
+                        <p class="statement">Have you made a significant change to your mental health care over the past 6 weeks?</p>
+                        <p class="statement"> Please check all that apply </p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 side-border">
+
+
+
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="ChangeHelp" value="no_change"/> No change</label>
+                        </div>
+                        <div class="radio">
+                            <label class="question"> <input
+                                                            type="checkbox"
+                                                            name="ChangeHelp"  value="change_Medication"/> Yes, I changed my medication type or dosage </label>
+                        </div>
+                        <div class="radio">
+                            <label class="question"> <input
+                                    type="checkbox"
+                                    name="ChangeHelp"  value="change_Therapist"/> Yes, I changed the therapist I see, or frequency that I attend therapy
+                            </label>
+                        </div>
+                        <br/>
+                        <div class="radio">
+                            <label class="question"> <input id="changeInHelpSeeking" onchange="sub('changeInHelpSeeking');spec('changeInHelpSeeking');"
+                                                            type="checkbox" name="ChangeHelp"
+                                                            value="change_Other"/> Yes, I changed: ________________ (Please specify) <input
+                                    id="changeInHelpSeeking_spec" type="text" name="Other_HelpChange"/> </label>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+
+
+
+<!--   New question added according to Bethany's feedback on April 15,2017  -->
             <div class="section">
                 <div class="row">
                     <div class="col-md-10">
@@ -651,7 +698,7 @@
                                                             name="PastHelp"
                                                             value="teacher"/> Teacher </label>
                             <div class="oneToSeven" id="Q4-6-1"><label> Has this been helpful? </label>
-                                <select name="general_practitioner_past">
+                                <select name="teacher_past">
                                     <option value=""> Please select one</option>
                                     <option value="1"> 1 (Not helpful at all)</option>
                                     <option> 2</option>
@@ -929,7 +976,7 @@
                                     <label class="question"> <input type="checkbox" name="NoHelp_Reason"
                                                                     value="Other"
                                                                     onchange="spec('Q5_12')"/> Other (please specify)
-                                        <input id="Q5_12_spec" type="text" name="Other_HelpReason" /> </label>
+                                        <input id="Q5_12_spec" type="text" name="Other_NoHelpReason" /> </label>
                                 </div>
                                 <div class="radio">
                                     <label class="question"> <input id="Q5_noAns" type="checkbox" name="NoHelp_Reason"

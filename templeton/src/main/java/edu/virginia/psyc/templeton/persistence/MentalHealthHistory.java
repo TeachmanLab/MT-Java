@@ -19,8 +19,8 @@ public class MentalHealthHistory extends SecureQuestionnaireData {
     private String Other_DescNo;
     private String Other_HelpCurrent;
     private String Other_HelpPast;
-    private String Other_HelpReason;
-    private String no_past_help_reason;
+    private String Other_NoHelpReason;
+    private String Other_HelpChange;
 
     @ElementCollection
     @CollectionTable(name = "mental_health_disorders", joinColumns = @JoinColumn(name = "id"))
@@ -42,6 +42,16 @@ public class MentalHealthHistory extends SecureQuestionnaireData {
     @Column(name = "PastHelp")
     private List<String> PastHelp;
 
+    @ElementCollection
+    @CollectionTable(name = "help_change", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "ChangeHelp")
+    private List<String> ChangeHelp;
+
+    @ElementCollection
+    @CollectionTable(name = "no_past_help_reason", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "NoHelp_Reason")
+    private List<String> NoHelp_Reason;
+
 
     private int psychiatrist = 0;
     private int psychologist = 0;
@@ -56,6 +66,8 @@ public class MentalHealthHistory extends SecureQuestionnaireData {
     private int book = 0;
     private int medicine = 0;
     private int online = 0;
+    private int app = 0;
+    private int support_group = 0;
     private int other = 0;
 
     private int psychiatrist_past = 0;
