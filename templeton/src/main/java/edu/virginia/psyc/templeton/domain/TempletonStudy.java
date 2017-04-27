@@ -120,6 +120,7 @@ public class TempletonStudy extends BaseStudy {
 
         pretest = new Session (PRE_TEST, "Initial Assessment", 0, 0);
         pretest.setIndex(0);
+        pretest.addTask(new Task("Credibility","Credibility", Task.TYPE.questions, 0));
         pretest.addTask(new Task("Demographics","Personal Background", Task.TYPE.questions, 2));
         pretest.addTask(new Task("MentalHealthHistory","Mental Health History", Task.TYPE.questions, 2));
         pretest.addTask(new Task("WhatIBelieve","What I Believe", Task.TYPE.questions, 2));
