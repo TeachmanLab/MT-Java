@@ -1,36 +1,23 @@
 <!DOCTYPE html>
-<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
-<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
-<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!-->
-<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
-<!--<![endif]-->
-<head th:include="/fragment/common :: headerFragment" />
-<body th:class="|user-theme-${participant.theme}|">
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
 
-<section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
+<head th:replace="fragment/common :: headerFragment"/>
+<body>
+<section th:replace="fragment/common :: topFragment"/>
+<section th:include="fragment/common :: titleBar (title='Mood')"/>
 
-<!-- header-btm starts
-================================================== -->
-<section id="header-btm" class="clearfix">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 heading-icon">
-                <img th:src="@{/images/map-arrow-blue.png}" alt="icon" class="icon-small-bg"/>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- header-btm ends
-================================================== -->
-
-<!-- content starts
-================================================== -->
 
 <section id="content" class="clearfix">
-    <div class="container">
-        <div class="row">
-            <div class="span12">
+        <div class="container section compactQuestion">
+            <div class="row title">
+            <div class="col-md-12">
                 <h2 class="page-title">About MindTrails</h2>
 
                 <p> MindTrails includes 8 sessions that are spread out over the course of 3-4 weeks. You’ll complete a session
@@ -68,9 +55,9 @@
                     people. We want to learn if it can be helpful for you.</p>
 
             </div>
-        </div>
+            </div>
 
-    </div>
+        </div>
 </section>
 
 
@@ -78,140 +65,126 @@
 
 
 <section id="content2" class="clearfix">
-    <div class="container">
-
-        <!--spacer here-->
-        <div class="spacer-30px"></div>
-
-        <!--features starts-->
-        <div class="row">
-            <div class="span12">
+    <form th:action="@{/questions/Credibility}" method="POST">
+        <!-- Add timer -->
+        <input id="timeOnPage" name="timeOnPage" type="hidden"/>
+        <div class="container section compactQuestion">
+            <div class="row title">
+                <div class="col-md-12">
                 <p><b>Before proceeding, please answer the following questions:</b></p>
-                <form th:action="@{/questions/Credibility}" method="POST">
+                </div>
+            </div>
                     <fieldset>
-                        <div class="section">
-                            <div class="question"><h4>How important is reducing your anxiety to you right now?</h4></div>
-                            <label class="radioBox">
-                                <div class="option">
-                                    <div class="desc1">Not at all</div>
-                                    <input type="radio" name="important" class="form-control" value="0" required="true"/>
-                                    <div class="desc2">1</div>
-                                </div>
+                        <div class="row">
+                            <div class="col-md-4 statement"><p>How important is reducing your anxiety to you right now?</p></div>
+                            <div class="col-md-2">
+                            <label class="radio-inline option">
+                                <input type="radio" name="important"  value="1" required="true"/>
+                                <span class="shortDesc">1</span> <span class="fullDesc">Not at all</span>
                             </label>
-                            <label class="radioBox">
-                                <div class="option">
-                                    <div class="desc1">A little</div>
-                                    <input type="radio" name="important" class="form-control" value="1" />
-                                    <div class="desc2">2</div>
-                                </div>
-                            </label>
-                            <label class="radioBox">
-                                <div class="option">
-                                    <div class="desc1">Somewhat</div>
-                                    <input type="radio" name="important" class="form-control" value="2" />
-                                    <div class="desc2">3</div>
-                                </div>
-                            </label>
-                            <label class="radioBox">
-                                <div class="option" >
-                                    <div class="desc1">A lot</div>
-                                    <input type="radio" name="important" class="form-control" value="3" />
-                                    <div class="desc2">4</div>
-                                </div>
-                            </label>
-                            <label class="radioBox">
-                                <div class="option">
-                                    <div class="desc1">Extremely</div>
-                                    <input type="radio" name="important" class="form-control" value="5" />
-                                    <div class="desc2">5</div>
-                                </div>
-                            </label>
-                        </div>
-                        <div class="section">
-                            <div class="question"><h4>How confident are you that an online training program will be successful in reducing your anxiety?</h4></div>
-                            <label class="radioBox">
-                                <div class="option">
-                                    <div class="desc1">Not at all</div>
-                                    <input type="radio" name="confident_online" class="form-control" value="0" required="true"/>
-                                    <div class="desc2">1</div>
-                                </div>
-                            </label>
-                            <label class="radioBox">
-                                <div class="option">
-                                    <div class="desc1">A little</div>
-                                    <input type="radio" name="confident_online" class="form-control" value="1" />
-                                    <div class="desc2">2</div>
-                                </div>
-                            </label>
-                            <label class="radioBox">
-                                <div class="option">
-                                    <div class="desc1">Somewhat</div>
-                                    <input type="radio" name="confident_online" class="form-control" value="2" />
-                                    <div class="desc2">3</div>
-                                </div>
-                            </label>
-                            <label class="radioBox">
-                                <div class="option" >
-                                    <div class="desc1">A lot</div>
-                                    <input type="radio" name="confident_online" class="form-control" value="3" />
-                                    <div class="desc2">4</div>
-                                </div>
-                            </label>
-                            <label class="radioBox">
-                                <div class="option">
-                                    <div class="desc1">Extremely</div>
-                                    <input type="radio" name="confident_online" class="form-control" value="5" />
-                                    <div class="desc2">5</div>
-                                </div>
-                            </label>
-                        </div>
-                        <div class="section">
-                            <div class="question"><h4>How confident are you that an online training program that is designed to change how you think about situations will be successful in reducing your anxiety?</h4></div>
-                            <label class="radioBox">
-                                <div class="option">
-                                    <div class="desc1">Not at all</div>
-                                    <input type="radio" name="confident_design" class="form-control" value="0" required="true"/>
-                                    <div class="desc2">1</div>
-                                </div>
-                            </label>
-                            <label class="radioBox">
-                                <div class="option">
-                                    <div class="desc1">A little</div>
-                                    <input type="radio" name="confident_design" class="form-control" value="1" />
-                                    <div class="desc2">2</div>
-                                </div>
-                            </label>
-                            <label class="radioBox">
-                                <div class="option">
-                                    <div class="desc1">Somewhat</div>
-                                    <input type="radio" name="confident_design" class="form-control" value="2" />
-                                    <div class="desc2">3</div>
-                                </div>
-                            </label>
-                            <label class="radioBox">
-                                <div class="option" >
-                                    <div class="desc1">A lot</div>
-                                    <input type="radio" name="confident_design" class="form-control" value="3" />
-                                    <div class="desc2">4</div>
-                                </div>
-                            </label>
-                            <label class="radioBox">
-                                <div class="option">
-                                    <div class="desc1">Extremely</div>
-                                    <input type="radio" name="confident_design" class="form-control" value="5" />
-                                    <div class="desc2">5</div>
-                                </div>
-                            </label>
-                        </div>
-                        <div class="question">
-                            <div class="submit">
-                                <button type="submit">Next</button>
                             </div>
+                            <div class="col-md-2">
+                                <label class="radio-inline option">
+                                    <input type="radio" name="important"  value="2" required="true"/>
+                                    <span class="shortDesc">2</span> <span class="fullDesc">A little</span>
+                                </label>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="radio-inline option">
+                                    <input type="radio" name="important"  value="3" required="true"/>
+                                    <span class="shortDesc">3</span> <span class="fullDesc">Somewhat</span>
+                                </label>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="radio-inline option">
+                                    <input type="radio" name="important"  value="4" required="true"/>
+                                    <span class="shortDesc">4</span> <span class="fullDesc">A lot</span>
+                                </label>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="radio-inline option">
+                                    <input type="radio" name="important"  value="5" required="true"/>
+                                    <span class="shortDesc">5</span> <span class="fullDesc">Extremely</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 statement"><p>How important is reducing your anxiety to you right now?</p></div>
+                            <div class="col-md-2">
+                                <label class="radio-inline option">
+                                    <input type="radio" name="confident_online"  value="1" required="true"/>
+                                    <span class="shortDesc">1</span> <span class="fullDesc">Not at all</span>
+                                </label>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="radio-inline option">
+                                    <input type="radio" name="confident_online"  value="2" required="true"/>
+                                    <span class="shortDesc">2</span> <span class="fullDesc">A little</span>
+                                </label>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="radio-inline option">
+                                    <input type="radio" name="confident_online"  value="3" required="true"/>
+                                    <span class="shortDesc">3</span> <span class="fullDesc">Somewhat</span>
+                                </label>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="radio-inline option">
+                                    <input type="radio" name="confident_online"  value="4" required="true"/>
+                                    <span class="shortDesc">4</span> <span class="fullDesc">A lot</span>
+                                </label>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="radio-inline option">
+                                    <input type="radio" name="confident_online"  value="5" required="true"/>
+                                    <span class="shortDesc">5</span> <span class="fullDesc">Extremely</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 statement"><p>How important is reducing your anxiety to you right now?</p></div>
+                            <div class="col-md-2">
+                                <label class="radio-inline option">
+                                    <input type="radio" name="confident_design"  value="1" required="true"/>
+                                    <span class="shortDesc">1</span> <span class="fullDesc">Not at all</span>
+                                </label>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="radio-inline option">
+                                    <input type="radio" name="confident_design"  value="2" required="true"/>
+                                    <span class="shortDesc">2</span> <span class="fullDesc">A little</span>
+                                </label>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="radio-inline option">
+                                    <input type="radio" name="confident_design"  value="3" required="true"/>
+                                    <span class="shortDesc">3</span> <span class="fullDesc">Somewhat</span>
+                                </label>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="radio-inline option">
+                                    <input type="radio" name="confident_design"  value="4" required="true"/>
+                                    <span class="shortDesc">4</span> <span class="fullDesc">A lot</span>
+                                </label>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="radio-inline option">
+                                    <input type="radio" name="confident_design"  value="5" required="true"/>
+                                    <span class="shortDesc">5</span> <span class="fullDesc">Extremely</span>
+                                </label>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-12" style="text-align:center">
+                                <button type="submit">Next</button>
                         </div>
                     </fieldset>
                     <br />
 
-                </form>
+
 
 
             </div>
@@ -219,8 +192,8 @@
 
             <!--divider here-->
             <div class="spacer-40px"></div>
-        </div>
-    </div>
+
+    </form>
 </section>
 
 
