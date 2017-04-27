@@ -99,7 +99,8 @@ jsPsych.plugins["button-response-correct"] = (function() {
     var response = {
       rt: -1,
       button: -1,
-      correct: true
+      correct: true,
+      rt_firstReact: -1
     };
 
     // start time
@@ -112,6 +113,7 @@ jsPsych.plugins["button-response-correct"] = (function() {
       var end_time = Date.now();
       var rt = end_time - start_time;
       response.button = choice;
+      if(response.rt_firstReact == -1) {response.rt_firstReact = rt};
       response.rt = rt;
 
       // If the response is not correct, force them to pause.
@@ -168,6 +170,7 @@ jsPsych.plugins["button-response-correct"] = (function() {
       // gather the data to store for the trial
       var trial_data = {
         "rt": response.rt,
+        "rt_firstReact": response.rt_firstReact,
         "stimulus": trial.stimulus,
         "button_pressed": response.button,
         "correct": response.correct
