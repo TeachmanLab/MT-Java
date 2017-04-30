@@ -47,9 +47,13 @@ jsPsych.plugins["missing-letters"] = (function () {
         // store response
         var response = {
             rt: -1,
+            rt_firstReact: -1,
             button: [],
             correct: true
         };
+
+        // start time
+        var start_time = 0;
 
         // Creates a row of 4 buttons, one is the letter the participant should select, the reset are randomly
         // selected letters.
@@ -77,6 +81,7 @@ jsPsych.plugins["missing-letters"] = (function () {
             var rt = end_time - start_time;
             if(response.button != "") response.button += ",";
             response.button += choice;
+            if(response.rt_firstReact == -1) {response.rt_firstReact = rt};
             response.rt = rt;
 
             if (missing_letters[letter_index] != choice) {
@@ -123,6 +128,7 @@ jsPsych.plugins["missing-letters"] = (function () {
             // gather the data to store for the trial
             var trial_data = {
                 "rt": response.rt,
+                "rt_firstReact": response.rt_firstReact,
                 "stimulus": trial.phrase,
                 "button_pressed": response.button,
                 "correct": response.correct
@@ -136,6 +142,9 @@ jsPsych.plugins["missing-letters"] = (function () {
             jsPsych.finishTrial(trial_data);
         };
 
+
+        // start timing
+        start_time = Date.now();
 
         // *******************************
         // General functions to make this a bit easier to read.
@@ -213,8 +222,6 @@ jsPsych.plugins["missing-letters"] = (function () {
 
     };
 
-    // start timing
-    var start_time = Date.now();
 
     return plugin;
 })();

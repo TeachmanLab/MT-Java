@@ -50,11 +50,13 @@ jsPsych.plugins["sentence-reveal"] = (function () {
         // store response
         var response = {
             rt: -1,
+            rt_firstReact: -1,
             button: [],
             correct: true
         };
 
-
+        // start time
+        var start_time = 0;
 
         // reveals the next sentence
         function reveal_sentence() {
@@ -76,6 +78,7 @@ jsPsych.plugins["sentence-reveal"] = (function () {
             var rt = end_time - start_time;
             response.button.push(choice);
             response.rt = rt;
+            if(response.rt_firstReact = -1) {response.rt_firstReact = rt};
 
             $('#jspsych-sentence-reveal-btngroup').hide();
 
@@ -122,10 +125,11 @@ jsPsych.plugins["sentence-reveal"] = (function () {
             jsPsych.finishTrial(trial_data);
         }
 
+        // start timing
+        start_time = Date.now();
     };
 
-    // start timing
-    var start_time = Date.now();
+
 
     return plugin;
 })();
