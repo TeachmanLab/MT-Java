@@ -11,59 +11,63 @@
 <head th:replace="fragment/common :: headerFragment"/>
 <body>
 <section th:replace="fragment/common :: topFragment"/>
-<section th:include="fragment/common :: titleBar (title='Mood')"/>
-
+<section th:include="fragment/common :: titleBar (title='About MindTrails')"/>
+<textArea th:replace="fragment/common :: questionTemplate"/>
 
 <section id="content" class="clearfix">
-        <div class="container section compactQuestion">
-            <div class="col-md-12">
-                <h2 class="page-title">About MindTrails</h2>
-
-                <p> The FutureThinking program includes 4 sessions that are spread out over the course of ~2 weeks. You’ll
-                    complete a session every 2-3 days, and each session takes about 15 minutes to complete. You'll also complete
-                    some assessments as part of our research study so that we can evaluate how well the program works.
-                </p>
-
-                <p th:if="${participant.receiveGiftCards}"> You'll receive gift cards to thank you for completing the assessments, and a bonus gift card after completing the
-                    full study. You’ll also receive feedback after completing the full study about how your thinking about the future has changed
-                    over the course of the program.</p>
-
-                <p th:unless="${participant.receiveGiftCards}"> You’ll receive feedback after completing the full study
-                    about how your thinking about the future has changed over the course of the program.</p>
-
-                <p> You can do the sessions anywhere, so long as you have access to a quiet place and a device with Internet.
-                    This program is free and can be completed without ever leaving your desk.
-                </p>
-
-                <p> <b> So, how does FutureThinking work? </b> </p>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
 
 
-                <p> In our program, we are attempting to change the way you make sense of information in order to alter
-                    your thinking about future. During each session, you will be asked to read brief stories and complete
-                    word fragments, by filling in one or more missing letters in a word. The task is not meant to be tricky
-                    or too difficult. It is not a puzzle to try to solve.
-                </p>
+            <p> The FutureThinking program includes 4 sessions that are spread out over the course of ~2 weeks. You’ll
+                complete a session every 2-3 days, and each session takes about 15 minutes to complete. You'll also
+                complete
+                some assessments as part of our research study so that we can evaluate how well the program works.
+            </p>
 
-                <p>These exercises are designed to change the way you make sense of information by giving you lots of practice
-                    responding to situations in different ways. The program can feel a little repetitive, but the <u>repetition
+            <p th:if="${participant.receiveGiftCards}"> You'll receive gift cards to thank you for completing the
+                assessments, and a bonus gift card after completing the
+                full study. You’ll also receive feedback after completing the full study about how your thinking about
+                the future has changed
+                over the course of the program.</p>
+
+            <p th:unless="${participant.receiveGiftCards}"> You’ll receive feedback after completing the full study
+                about how your thinking about the future has changed over the course of the program.</p>
+
+            <p> You can do the sessions anywhere, so long as you have access to a quiet place and a device with
+                Internet.
+                This program is free and can be completed without ever leaving your desk.
+            </p>
+
+            <p><b> So, how does FutureThinking work? </b></p>
+
+
+            <p> In our program, we are attempting to change the way you make sense of information in order to alter
+                your thinking about future. During each session, you will be asked to read brief stories and complete
+                word fragments, by filling in one or more missing letters in a word. The task is not meant to be tricky
+                or too difficult. It is not a puzzle to try to solve.
+            </p>
+
+            <p>These exercises are designed to change the way you make sense of information by giving you lots of
+                practice
+                responding to situations in different ways. The program can feel a little repetitive, but the <u>repetition
                     is important so you develop a new interpretation style</u>.
-                    </p>
+            </p>
 
-                <p>Don’t worry if you don’t use online interventions much—the tasks are not designed to be
-                    difficult and you can always email us with questions at <a href="mailto:studyteam@mindtrails.org">studyteam@mindtrails.org</a> </p>
+            <p>Don’t worry if you don’t use online interventions much—the tasks are not designed to be
+                difficult and you can always email us with questions at <a href="mailto:studyteam@mindtrails.org">studyteam@mindtrails.org</a>
+            </p>
 
-                <p>This is an experimental program so it is still in the testing phase, but prior research says this program
-                    may be able to alter thinking styles as effectively as therapy for some people. We want to learn if
-                    it can be helpful for you.
-                </p>
-
-            </div>
+            <p>This is an experimental program so it is still in the testing phase, but prior research says this program
+                may be able to alter thinking styles as effectively as therapy for some people. We want to learn if
+                it can be helpful for you.
+            </p>
 
         </div>
+        </div>
+    </div>
 </section>
-
-
-
 
 
 <section id="content2" class="clearfix">
@@ -71,134 +75,39 @@
         <!-- Add timer -->
         <input id="timeOnPage" name="timeOnPage" type="hidden"/>
         <div class="container section compactQuestion">
-            <div class="row title">
-                <div class="col-md-12">
-                <p><b>Before proceeding, please answer the following questions:</b></p>
-                </div>
-            </div>
-                    <fieldset>
-                        <div class="row">
-                            <div class="col-md-4 statement"><p>How important is changing your thinking about your future to you right now?
-                            </p></div>
-                            <div class="col-md-2">
-                            <label class="radio-inline option">
-                                <input type="radio" name="important"  value="1" required="true"/>
-                                <span class="shortDesc">1</span> <span class="fullDesc">Not at all</span>
-                            </label>
-                            </div>
-                            <div class="col-md-2">
-                                <label class="radio-inline option">
-                                    <input type="radio" name="important"  value="2" required="true"/>
-                                    <span class="shortDesc">2</span> <span class="fullDesc">A little</span>
-                                </label>
-                            </div>
-                            <div class="col-md-2">
-                                <label class="radio-inline option">
-                                    <input type="radio" name="important"  value="3" required="true"/>
-                                    <span class="shortDesc">3</span> <span class="fullDesc">Somewhat</span>
-                                </label>
-                            </div>
-                            <div class="col-md-2">
-                                <label class="radio-inline option">
-                                    <input type="radio" name="important"  value="4" required="true"/>
-                                    <span class="shortDesc">4</span> <span class="fullDesc">A lot</span>
-                                </label>
-                            </div>
-                            <div class="col-md-2">
-                                <label class="radio-inline option">
-                                    <input type="radio" name="important"  value="5" required="true"/>
-                                    <span class="shortDesc">5</span> <span class="fullDesc">Extremely</span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-4 statement"><p>How confident are you that an online training program will
-                                be successful in changing your thinking about your future?</p></div>
-                            <div class="col-md-2">
-                                <label class="radio-inline option">
-                                    <input type="radio" name="confident_online"  value="1" required="true"/>
-                                    <span class="shortDesc">1</span> <span class="fullDesc">Not at all</span>
-                                </label>
-                            </div>
-                            <div class="col-md-2">
-                                <label class="radio-inline option">
-                                    <input type="radio" name="confident_online"  value="2" required="true"/>
-                                    <span class="shortDesc">2</span> <span class="fullDesc">A little</span>
-                                </label>
-                            </div>
-                            <div class="col-md-2">
-                                <label class="radio-inline option">
-                                    <input type="radio" name="confident_online"  value="3" required="true"/>
-                                    <span class="shortDesc">3</span> <span class="fullDesc">Somewhat</span>
-                                </label>
-                            </div>
-                            <div class="col-md-2">
-                                <label class="radio-inline option">
-                                    <input type="radio" name="confident_online"  value="4" required="true"/>
-                                    <span class="shortDesc">4</span> <span class="fullDesc">A lot</span>
-                                </label>
-                            </div>
-                            <div class="col-md-2">
-                                <label class="radio-inline option">
-                                    <input type="radio" name="confident_online"  value="5" required="true"/>
-                                    <span class="shortDesc">5</span> <span class="fullDesc">Extremely</span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-4 statement"><p>How confident are you that an online training program that
-                                is designed to change how you think about situations will be successful in changing your
-                                thinking about your future?
-                            </p></div>
-                            <div class="col-md-2">
-                                <label class="radio-inline option">
-                                    <input type="radio" name="confident_design"  value="1" required="true"/>
-                                    <span class="shortDesc">1</span> <span class="fullDesc">Not at all</span>
-                                </label>
-                            </div>
-                            <div class="col-md-2">
-                                <label class="radio-inline option">
-                                    <input type="radio" name="confident_design"  value="2" required="true"/>
-                                    <span class="shortDesc">2</span> <span class="fullDesc">A little</span>
-                                </label>
-                            </div>
-                            <div class="col-md-2">
-                                <label class="radio-inline option">
-                                    <input type="radio" name="confident_design"  value="3" required="true"/>
-                                    <span class="shortDesc">3</span> <span class="fullDesc">Somewhat</span>
-                                </label>
-                            </div>
-                            <div class="col-md-2">
-                                <label class="radio-inline option">
-                                    <input type="radio" name="confident_design"  value="4" required="true"/>
-                                    <span class="shortDesc">4</span> <span class="fullDesc">A lot</span>
-                                </label>
-                            </div>
-                            <div class="col-md-2">
-                                <label class="radio-inline option">
-                                    <input type="radio" name="confident_design"  value="5" required="true"/>
-                                    <span class="shortDesc">5</span> <span class="fullDesc">Extremely</span>
-                                </label>
-                            </div>
-                        </div>
+            <div id="section1"></div>
+            <script>
+                var data = {
+                    "options": [
+                        {"value": 0, "title": "Not at all"},
+                        {"value": 1, "title": "A little"},
+                        {"value": 2, "title": "Somewhat"},
+                        {"value": 3, "title": "A lot"},
+                        {"value": 4, "title": "Extremely"}
+                    ],
+                    "questions": [
+                        {
+                            "name": "difficultTasks",
+                            "desc": "When facing difficult tasks, I am certain I will accomplish them."
+                        },
+                        {
+                            "name": "confident_online",
+                            "desc": "How confident are you that an online training program will be successful in changing your thinking about your future?"
+                        },
+                        {
+                            "name": "confident_design",
+                            "desc": "How confident are you that an online training program that is designed to change how you think about situations will be successful in changing your thinking about your future?"
+                        }
+                    ]
+                }
+                $('#section1').html(Mustache.render($('#template').val(), data));
+            </script>
+        </div>
 
 
-                        <div class="col-md-12" style="text-align:center">
-                                <button type="submit">Next</button>
-                        </div>
-                    </fieldset>
-                    <br />
-
-
-
-
-            </div>
-            <!--features ends-->
-
-            <!--divider here-->
-            <div class="spacer-40px"></div>
+        <div class="col-md-12" style="text-align:center">
+            <button type="submit">Next</button>
+        </div>
 
     </form>
 </section>
@@ -206,15 +115,15 @@
 
 <!-- footer starts
 ================================================== -->
-<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
 
 <!-- copyright starts
 ================================================== -->
-<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
 
 <!--Javascript
 ================================================== -->
-<div th:include="fragment/common :: scripts" />
+<div th:include="fragment/common :: scripts"/>
 
 </body>
 </html>
