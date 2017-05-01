@@ -17,7 +17,7 @@ public class JsPsychTrial {
     @TableGenerator(name = "QUESTION_GEN", table = "ID_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 1)
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "QUESTION_GEN")
-    private int id;
+    private long id;
 
     private double rt;
     @Lob
