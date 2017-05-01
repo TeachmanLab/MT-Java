@@ -20,6 +20,7 @@ public class JsPsychTrial {
     private long id;
 
     private double rt;
+    private double rt_firstReact;
     @Lob
     private String stimulus;
     private String button_pressed;
