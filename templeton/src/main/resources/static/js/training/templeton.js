@@ -183,12 +183,19 @@ var TEMPLETON_MODULE = (function () {
             var mc2_correct;
 
             switch (my.condition) {
+                case "POSITIVE":
+                    positive = true;
+                    // Make some positive interactions negative just so people keep paying attention.
+                    if(k == 4 || k == 13 || k == 24 || k == 32) positive = false;
+                    paragraph = scenarios[k]['Scenario'].replace("[negation]", "");
+                    break;
                 case "POSITIVE_NEGATION":
                     positive = true;
+                    // Make some positive interactions negative just so people keep paying attention.
+                    if(k == 4 || k == 13 || k == 24 || k == 32) positive = false;
                     paragraph = scenarios[k]["Scenario"].replace("[negation]", scenarios[k]['Negation']);
                     break;
                 case "NEUTRAL":
-                case "POSITIVE":
                     positive = true;
                     paragraph = scenarios[k]['Scenario'].replace("[negation]", "");
                     break;
