@@ -72,7 +72,7 @@ public class TempletonStudy extends BaseStudy {
         Map<String,Object> map = super.getPiPlayerParameters();
         String sessionName = this.getCurrentSession().getName();
         map.put("negate",(conditioning.equals(CONDITION.POSITIVE_NEGATION)));
-
+        map.put("sessionIndex", this.getCurrentSession().getIndex());
         switch(sessionName) {
             case FIRST_SESSION:
                 map.put("secondWordSet",false);

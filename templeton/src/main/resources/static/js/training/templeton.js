@@ -32,6 +32,36 @@ var TEMPLETON_MODULE = (function () {
     my.base_url = "/js/training";
     my.post_url = "/jspsych";
     my.redirect_url = "/jspsych/continue";
+    my.sessionIndex = 1;
+
+    // Captions to display below session images
+    var captions = {
+        1: {
+            8:"Keep hanging on.",
+            16:"You are not alone in this!",
+            24:"You are taking off!",
+            32:"You're doing puuuurfect"
+        },
+        2: {
+            8:"Add a little color!",
+            16:"You're way too fly to give up.",
+            24:"Lookin' good!",
+            32:"Almost There!"
+        },
+        3: {
+            8:"Make yourself heard!",
+            16:"You can pull through!",
+            24:"Spread your wings!",
+            32:"A few more jumps ...."
+        },
+        4: {
+            8:"Pay attention!",
+            16:"Take a deep breath!",
+            24:"Keep climbing!",
+            32:"You’ve almost got it!"
+        }
+    };
+
 
     // This score is incremented for every correct answer and displayed
     // to the user.
@@ -157,7 +187,7 @@ var TEMPLETON_MODULE = (function () {
 
                 return (
                 '<div class="vividness_followup">' +
-                '<img src= "' + my.base_url + 'images/finished.jpg' + '"/>' +
+                '<img src= "' + my.base_url + 'images/finished.png' + '"/>' +
                 '<p>' + feed_back_score + "</p>" +
                 '<p>' + feed_back_s + '</p>' +
                 '<p>' + feed_back_c + '</p>')
@@ -312,13 +342,13 @@ var TEMPLETON_MODULE = (function () {
                         return (
                             "<div class='vividness_followup'>" +
                             "<h1>Thanks. It's great you're really using your imagination!</h1>" +
-                            "<img src='" + my.base_url + "images/good-job.jpg'/>" +
+                            "<img src='" + my.base_url + "images/good-job.png'/>" +
                             "</div>"
                         )
                     } return (
                         "<div class='vividness_followup'>" +
                         "<h1>Thanks. Really try to use your imagination!</h1>" +
-                        "<img src='" + my.base_url + "images/imagination.jpg'/>" +
+                        "<img src='" + my.base_url + "images/imagination.png'/>" +
                         "</div>"
                     )
                 },
@@ -332,6 +362,18 @@ var TEMPLETON_MODULE = (function () {
                     }
                 }
             };
+
+            var encourage = {
+                type: 'button-response',
+                is_html: true,
+                choices: ['Continue'],
+                stimulus:   "<div class='vividness_followup'>" +
+                "<img src='" + my.base_url + "images/s" + my.sessionIndex + "/" + k + ".png'/>" +
+                "<h1>" + captions[my.sessionIndex][k] + "</h1>" +
+                "</div>",
+                cont_btn: "continue"
+            };
+
             // Vivid Follow up - changes based on response.
             var vividness_followup_halfway = {
                 type: 'button-response',
@@ -341,7 +383,7 @@ var TEMPLETON_MODULE = (function () {
                     return (
                         "<div class='vividness_followup'>" +
                         "<h1>You are halfway done!</h1>" +
-                        "<img src='" + my.base_url + "images/halfway.jpg'/>" +
+                        "<img src='" + my.base_url + "images/halfway.png'/>" +
                         "</div>"
                     )
                 },
@@ -353,6 +395,11 @@ var TEMPLETON_MODULE = (function () {
 
             // BUILD THE TIMELINE FROM THE COMPONENTS ABOVE.
             // *********************************************
+            // Add encouraging images if divisible by 8.
+            if(k >> 0 && k % 8 == 0) {
+                timeline.push(encourage);
+            }
+
             timeline.push(paragraph_trial);
             timeline.push(phrase_trial);
             switch (my.question_type) {
@@ -374,6 +421,8 @@ var TEMPLETON_MODULE = (function () {
                 timeline.push(vividness);
                 timeline.push(vividness_followup_halfway);
             }
+
+
         }
 
         timeline.push(vividness_final);
