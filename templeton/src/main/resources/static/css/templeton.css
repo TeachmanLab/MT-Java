@@ -11,6 +11,27 @@
     margin-left:-35px; margin-right: 150px;}
 
 
+div.message{
+    background: transparent url(msg_arrow.gif) no-repeat scroll left center;
+    padding-left: 7px;
+}
+
+span.error {
+    color: darkred;
+    font-size: .8em;
+    background: yellow;
+}
+
+span.label-error {
+    margin-left: 2px;
+    display: block;
+    float: right;
+}
+
+label.error {
+    color: darkred;
+
+}
 
 #login-button {
     font-size: 1em;
@@ -211,6 +232,8 @@ div.oneToSeven {
     margin-left: -3px;
     margin-top: -10px;
 }
+
+
 
 .navbar {
     background: transparent;

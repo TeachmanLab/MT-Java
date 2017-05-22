@@ -46,20 +46,20 @@
                                 tooltip: "hide",
                                 value: 10,
                                 formatter: function(value) {
-                                    $('#posSlider-enabled')[0].setCustomValidity("");
+                                    $('#posSlider-enabled')[0].required=false;
                                 }
                             });
 
                             $("#posSlider-enabled").click(function() {
                                 if(this.checked) {
                                     $("#posSlider").slider("disable");
-                                    $('#posSlider-enabled')[0].setCustomValidity("");
+                                    $('#posSlider-enabled')[0].required=false;
                                 }
                                 else {
                                     $("#posSlider").slider("enable");
                                 }
                             });
-                            $('#posSlider-enabled')[0].setCustomValidity("Please use the slider to make a selection");
+                            $('#posSlider-enabled')[0].required=true;
 
                         </script>
 
@@ -70,7 +70,7 @@
 
                         <input id="negSlider"  type="text" name="NegFeelings" required ="true"/>
                         <div class="after_slider"><label class="standard">
-                            <input id="negSlider-enabled" type="checkbox" name="NegFeelings" value="555"/>
+                            <input id="negSlider-enabled" type="checkbox" name="NegFeelings" value="555" required="true"/>
                             Prefer not to answer
                         </label></div>
                         <script>
@@ -81,7 +81,7 @@
                                 tooltip: "hide",
                                 value: 10,
                                 formatter: function(value) {
-                                    $('#negSlider-enabled')[0].setCustomValidity("");
+                                    $('#negSlider-enabled')[0].required=false;
                                 }
                             });
 
@@ -94,7 +94,7 @@
                                     $("#negSlider").slider("enable");
                                 }
                             });
-                            $('#negSlider-enabled')[0].setCustomValidity("Please use the slider to make a selection");
+                            $('#negSlider-enabled')[0].required=true;
 
                         </script>
 

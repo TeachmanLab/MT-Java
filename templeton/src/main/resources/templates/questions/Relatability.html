@@ -12,102 +12,52 @@
 <body>
 <section th:replace="fragment/common :: topFragment"/>
 <section th:replace="fragment/common :: titleBar (title='')"/>
+<textArea th:replace="fragment/common :: questionTemplate"/>
 
-<section id="content" class="clearfix">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-10">
-
-
-                <form th:action="@{/questions/Relatability}" method="POST">
-                    <!-- Add timer -->
-                    <input id="timeOnPage" name="timeOnPage" type="hidden"/>
-                    <div class="section">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <p class="question"> While reading the brief stories in the training program,
-                                    to what extent did you feel that you could relate to the situations that were
-                                    presented? </p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="radio">
-                                    <label class="standard"> <input type="radio" name="Relate" value="1"/> Not at all
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input type="radio" name="Relate" value="2"/> Slightly </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input type="radio" name="Relate" value="3"/> Somewhat </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input type="radio" name="Relate" value="4"/> Mostly </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input type="radio" name="Relate" value="5"/> Very much </label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div><label class="standard"> <input type="checkbox" name="Relate" value="555"
-                                                                     onchange="disableSection(this)"/> Prefer not
-                                    to
-                                    answer
-                                </label></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="section">
-                    <div class="row">
-                        <div class="col-md-10">
-                                <p class="question"> While reading the brief stories in the training program,
-                                    to what extent did you feel like it could be you behaving that way in those
-                                    stories? </p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="radio">
-                                    <label> <input type="radio" name="Behaving" value="1"/> Not at all </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input type="radio" name="Behaving" value="2"/> Slightly </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input type="radio" name="Behaving" value="3"/> Somewhat </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input type="radio" name="Behaving" value="4"/> Mostly </label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input type="radio" name="Behaving" value="5"/> Very much </label>
-                                </div>
-                                </div>
-                            <div class="col-md-4">
-                                <br/>
-                                <div><label class="standard"> <input type="checkbox" name="Behaving" value="555"
-                                                                     onchange="disableSection(this)"/> Prefer not
-                                    to
-                                    answer
-                                </label></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div style="text-align:center">
-                        <button type="submit"> Continue</button>
-                    </div>
-
-
-                </form>
-
-
+<section id="content2" class="clearfix">
+    <form th:action="@{/questions/Relatability}" method="POST">
+        <!-- Add timer -->
+        <input id="timeOnPage" name="timeOnPage" type="hidden"/>
+        <div class="container section compactQuestion">
+            <div class="row title">
+                <div class="col-md-12">
+                    <h4>While reading the brief stories in the training program,to what extent did you feel ...</h4>
+                </div>
             </div>
+            <div id="section1"></div>
+            <script>
+                var data = {
+                    "options": [
+                        {"value": 1, "title": "Not at all"},
+                        {"value": 2, "title": "Slightly"},
+                        {"value": 3, "title": "Somewhat"},
+                        {"value": 4, "title": "Mostly"},
+                        {"value": 5, "title": "Very much"}
+                    ],
+                    "questions": [
+                        {
+                            "name": "Relate",
+                            "desc": "... that you could relate to the situations that were presented?"
+                        },
+                        {
+                            "name": "Behaving",
+                            "desc": "... like it could be you behaving that way in those stories?"
+                        }
+                    ]
+                }
+                $('#section1').html(Mustache.render($('#template').val(), data));
+            </script>
         </div>
-    </div>
+
+
+        <div class="col-md-12" style="text-align:center">
+            <button type="submit">Next</button>
+        </div>
+
+    </form>
 </section>
+
+
 <footer th:replace="fragment/common :: footer"/>
 <div th:include="fragment/common :: scripts"/>
 
