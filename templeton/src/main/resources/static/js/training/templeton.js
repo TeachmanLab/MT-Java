@@ -69,6 +69,7 @@ var TEMPLETON_MODULE = (function () {
     var score_questions = 0;
     var progress = -1;
     var vivid_response;
+    var followup_count = 0;
 
     my.execute = function() {
         if(!my.base_url.endsWith('/')) my.base_url = my.base_url + "/";
@@ -155,10 +156,11 @@ var TEMPLETON_MODULE = (function () {
             is_html: true,
             choices: ['Continue'],
             stimulus: function () {
+                var max_score = my.total_scenarios + followup_count;
                 var pct_ct_s = Math.round((score_letters / my.total_scenarios) * 100);
-                var pct_ct_c = Math.round((score_questions / my.total_scenarios) * 100);
+                var pct_ct_c = Math.round((score_questions / followup_count) * 100);
                 var score = score_letters + score_questions;
-                var feed_back_score = "You scored " + score + " out of a maximum possible score of " + my.total_scenarios * 2;
+                var feed_back_score = "You scored " + score + " out of a maximum possible score of " + max_score;
                 var feed_back_s = 'You filled in the missing letters correctly on the first try ' + pct_ct_s + '% of the time this round. ';
                 var feed_back_c = 'You answered the yes/no question following each story correctly on the first try ' + pct_ct_c + '% of the time this round. ';
 
@@ -206,6 +208,7 @@ var TEMPLETON_MODULE = (function () {
         // Loop through the time-line creating scenarios
         var positive = true;
         for (var k = 0; k < my.total_scenarios; k++) {
+
             var paragraph;
             var phrase;
             var yes_no_correct;
@@ -269,6 +272,7 @@ var TEMPLETON_MODULE = (function () {
                 on_finish: function (trial_data) {
                     if (trial_data.correct) score_letters++;
                     updateScore();
+                    updateProgress();
                 }
             };
 
@@ -281,7 +285,6 @@ var TEMPLETON_MODULE = (function () {
                 on_finish: function (trial_data) {
                     if (trial_data.correct) score_questions++;
                     updateScore();
-                    updateProgress();
                 }
             };
 
@@ -294,7 +297,6 @@ var TEMPLETON_MODULE = (function () {
                 on_finish: function (trial_data) {
                     if (trial_data.correct) score_questions++;
                     updateScore();
-                    updateProgress();
                 }
             };
 
@@ -307,7 +309,6 @@ var TEMPLETON_MODULE = (function () {
                 on_finish: function (trial_data) {
                     if (trial_data.correct) score_questions++;
                     updateScore();
-                    updateProgress();
                 }
             };
 
@@ -395,24 +396,27 @@ var TEMPLETON_MODULE = (function () {
 
             // BUILD THE TIMELINE FROM THE COMPONENTS ABOVE.
             // *********************************************
-            // Add encouraging images if divisible by 8.
-            if(k >> 0 && k % 8 == 0) {
-                timeline.push(encourage);
-            }
+
 
             timeline.push(paragraph_trial);
             timeline.push(phrase_trial);
-            switch (my.question_type) {
-                case ("yes_no"):
-                    timeline.push(yes_no);
-                    break;
-                case ("mc1"):
-                    timeline.push(mc1);
-                    break;
-                case ("mc2"):
-                    timeline.push(mc2);
-                    break;
+
+            // Only ask a followup question 2/3rd of the time.
+            if(Math.random() >= 0.333) {
+                followup_count++;
+                switch (my.question_type) {
+                    case ("yes_no"):
+                        timeline.push(yes_no);
+                        break;
+                    case ("mc1"):
+                        timeline.push(mc1);
+                        break;
+                    case ("mc2"):
+                        timeline.push(mc2);
+                        break;
+                }
             }
+
             // Add vividness question after questions 1 and 2...
             if (k == 0 || k == 1) {
                 timeline.push(vividness);
@@ -422,6 +426,10 @@ var TEMPLETON_MODULE = (function () {
                 timeline.push(vividness_followup_halfway);
             }
 
+            // Add encouraging images if divisible by 8.
+            if(k > 0 && k % 8 == 0) {
+                timeline.push(encourage);
+            }
 
         }
 
@@ -446,16 +454,34 @@ var TEMPLETON_MODULE = (function () {
             window.location.assign(my.redirect_url);
         }
 
-        jsPsych.init({
-            timeline: timeline,
-            display_element: $("#" + my.target),
-            on_finish: function(data){
-                window.onbeforeunload = null; // Remove any warnings about leaving the page.
-                jsPsych.data.addProperties({
-                    condition: my.condition
-                });
-                saveData(jsPsych.data.dataAsJSON(), redirect) }
-        });
+        // Preload images
+        // an array of paths to images that need to be loaded
+        var images = [];
+        images.push(my.base_url + "images/finished.png");
+        images.push(my.base_url + "images/good-job.png");
+        images.push(my.base_url + "images/halfway.png");
+        images.push(my.base_url + "images/imagination.png");
+        for(var s = 1; s < 5; s++) {
+            for(var i = 8; i < 33; i += 8) {
+                images.push(my.base_url + "images/s" + s + "/" + i + ".png");
+            }
+        }
+        jsPsych.pluginAPI.preloadImages(images, function(){ startExperiment(); });
+
+        // Start the experiment.
+        function startExperiment() {
+            jsPsych.init({
+                timeline: timeline,
+                display_element: $("#" + my.target),
+                on_finish: function (data) {
+                    window.onbeforeunload = null; // Remove any warnings about leaving the page.
+                    jsPsych.data.addProperties({
+                        condition: my.condition
+                    });
+                    saveData(jsPsych.data.dataAsJSON(), redirect)
+                }
+            });
+        }
 
         /*
         jsPsych.init({
