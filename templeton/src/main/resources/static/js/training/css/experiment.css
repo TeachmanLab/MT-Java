@@ -114,6 +114,11 @@ div.vividness_followup img {
     max-width: 100%;
 }
 
+img#spinner {
+    display:block;
+    margin: 100px auto 0 auto;
+}
+
 /*
 p {
     font-size: 120%;

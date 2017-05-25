@@ -72,7 +72,7 @@ var TEMPLETON_MODULE = (function () {
     var followup_count = 0;
 
     my.execute = function() {
-        if(!my.base_url.endsWith('/')) my.base_url = my.base_url + "/";
+        if(my.base_url.slice(-1) !== '/') my.base_url = my.base_url + "/";
         if (my.condition != "NEUTRAL") {
             parse_data(my.base_url + "scenarios/scenarios.csv", parse_complete);
         } else {
@@ -466,10 +466,13 @@ var TEMPLETON_MODULE = (function () {
                 images.push(my.base_url + "images/s" + s + "/" + i + ".png");
             }
         }
-        jsPsych.pluginAPI.preloadImages(images, function(){ startExperiment(); });
+        setTimeout(
+        jsPsych.pluginAPI.preloadImages(images, function(){ startExperiment(); }),
+        10000);
 
         // Start the experiment.
         function startExperiment() {
+            $("#spinner").hide();
             jsPsych.init({
                 timeline: timeline,
                 display_element: $("#" + my.target),
