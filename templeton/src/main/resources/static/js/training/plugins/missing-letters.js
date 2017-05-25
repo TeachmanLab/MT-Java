@@ -184,7 +184,7 @@ jsPsych.plugins["missing-letters"] = (function () {
                 }
                 if (amount == 0) break;
             }
-            return [str.substring(0, pos) + "[&nbsp;]".repeat(amount) + str.substring(pos + amount), letters.split('')];
+            return [str.substring(0, pos) + (Array(amount + 1).join("[&nbsp;]")) + str.substring(pos + amount), letters.split('')];
         }
 
         // This is the function to create non-repeated counter options
