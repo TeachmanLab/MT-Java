@@ -14,12 +14,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -55,7 +53,10 @@ public class LoginController {
     private ParticipantRepository participantRepository;
 
     @RequestMapping(value="/", method = RequestMethod.GET)
-    public String printWelcome(Principal principal) {
+    public String printWelcome(Principal principal, HttpSession session,
+                               @RequestHeader(value = "referer", required = false) final String referer) {
+
+        session.setAttribute("referer", referer);
         Authentication auth = (Authentication) principal;
         // Show the Index / Login page if the user is not logged in
         // otherwise redirect them to the session page.

@@ -1,6 +1,7 @@
 package org.mindtrails.controller;
 
 import org.mindtrails.domain.Participant;
+import org.mindtrails.domain.RestExceptions.MissingEligibilityException;
 import org.mindtrails.domain.forms.ParticipantCreate;
 import org.mindtrails.domain.forms.ParticipantUpdate;
 import org.mindtrails.domain.recaptcha.RecaptchaFormValidator;
@@ -87,11 +88,16 @@ public class AccountController extends BaseController {
         participant = participantService.create();
         participantCreate.updateParticipant(participant);
         participant.setLastLoginDate(new Date());
+        participant.setReference((String)session.getAttribute("referer"));
 
         // Be sure to call saveNew rather than save, allowing
         // any data associated with the session to get
         // captured.
-        participantService.saveNew(participant, session);
+        try {
+            participantService.saveNew(participant, session);
+        } catch (MissingEligibilityException mee) {
+            return "redirect:/public/eligibility";
+        }
 
         // Log this new person in.
         Authentication auth = new UsernamePasswordAuthenticationToken( participantCreate.getEmail(), participantCreate.getPassword());

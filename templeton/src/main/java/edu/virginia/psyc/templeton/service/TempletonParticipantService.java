@@ -4,6 +4,7 @@ import edu.virginia.psyc.templeton.domain.TempletonStudy;
 import edu.virginia.psyc.templeton.persistence.ExpectancyBias;
 import edu.virginia.psyc.templeton.persistence.ExpectancyBiasRepository;
 import org.mindtrails.domain.Participant;
+import org.mindtrails.domain.RestExceptions.MissingEligibilityException;
 import org.mindtrails.domain.Study;
 import org.mindtrails.persistence.ParticipantRepository;
 import org.mindtrails.service.ParticipantService;
@@ -73,14 +74,18 @@ public class TempletonParticipantService extends ParticipantServiceImpl implemen
     }
 
     @Override
-    public void saveNew(Participant p, HttpSession session) {
-        save(p);
+    public void saveNew(Participant p, HttpSession session) throws MissingEligibilityException {
 
+        List<ExpectancyBias> forms = biasRepository.findBySessionId(session.getId());
+        if(forms.size() < 1) {
+            throw new MissingEligibilityException();
+        }
+
+        save(p);
         TempletonStudy study = (TempletonStudy)p.getStudy();
 
         // Now that p is saved, connect any Expectancy Bias eligibility data back to the
         // session, and log it in the TaskLog
-        List<ExpectancyBias> forms = biasRepository.findBySessionId(session.getId());
         for (ExpectancyBias e : forms) {
             e.setParticipant(p);
             e.setSession("ELIGIBLE");
