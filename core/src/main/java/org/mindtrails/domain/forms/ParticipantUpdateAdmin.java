@@ -9,8 +9,9 @@ import org.mindtrails.domain.Participant;
 @Data
 public class ParticipantUpdateAdmin extends ParticipantUpdate {
 
-    private boolean active;  // User required to receive no more emails.
-    private boolean admin;  // User required to receive no more emails.
+    private boolean active;
+    private boolean admin;
+    private boolean testAccount;
 
     public ParticipantUpdateAdmin() {}
 
@@ -23,6 +24,7 @@ public class ParticipantUpdateAdmin extends ParticipantUpdate {
         super.fromParticipant(p);
         this.active = p.isActive();
         this.admin = p.isAdmin();
+        this.testAccount = p.isTestAccount();
     }
 
     @Override
@@ -30,6 +32,7 @@ public class ParticipantUpdateAdmin extends ParticipantUpdate {
         super.updateParticipant(p);
         p.setActive(this.isActive());
         p.setAdmin(this.isAdmin());
+        p.setTestAccount(this.isTestAccount());
         return p;
     }
 

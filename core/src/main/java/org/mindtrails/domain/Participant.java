@@ -38,6 +38,7 @@ public  class Participant implements UserDetails {
     protected String email;
     protected String phone;
     protected boolean admin;
+    protected boolean testAccount;
     protected String password;
     protected boolean emailReminders = true;
     protected boolean phoneReminders = true;

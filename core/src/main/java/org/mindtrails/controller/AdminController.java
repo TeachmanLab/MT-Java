@@ -167,6 +167,7 @@ public class AdminController extends BaseController {
 
         participant = participantService.create();
         participant = participantCreateAdmin.updateParticipant(participant);
+        participant.setReference("Admin");
         participantService.save(participant);
         LOG.info("Participant created.");
         return "redirect:/admin";
