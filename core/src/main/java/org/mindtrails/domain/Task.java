@@ -26,6 +26,7 @@ public class Task {
     private boolean    current;
     private int        duration;  // the estimated time it takes to complete this task.
     private Date       dateCompleted;
+    private double     timeOnTask;
     private String     tag;
 
     public Task(String name, String displayName, TYPE type, int duration) {

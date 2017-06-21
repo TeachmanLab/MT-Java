@@ -151,10 +151,12 @@
                     <tr>
                         <th>Task</th>
                         <th>Date Completed</th>
+                        <th>Time on Task (seconds)</th>
                     </tr>
-                    <tr th:each="task : ${session.tasks}" th:if="${task.complete}">
+                    <tr th:each="task : ${session.tasks}">
                         <td th:text="${task.displayName}"/>
                         <td th:text="${task.dateCompleted}"/>
+                        <td th:text="${task.timeOnTask}"/>
                     </tr>
                 </table>
             </div>
