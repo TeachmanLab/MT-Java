@@ -132,21 +132,24 @@ The mobile project requires its own database as well
 Installing Javascript Dependencies
 -------------------
 Javascript dependencies, including the PIPlayer are installed using Bower, just run `bower install`
-
+```bash
 > cd core
 > bower install
 > cd ..
+```
 
 Because of the way the PIPlayer script is currently designed, you will need to install the PIPlayer dependencies
 manually,  you can do this by:
 
+```bash
 > cd core/src/main/resources/static/bower/PIPlayer
 > bower install
-
+```
 **Please Note:**  if you run into problems with PI Player scripts not executing you might try editing the file (This is only required for r34, Templeton has a better configuration)
+```bash
 > vim core/src/main/resources/static/bower/PIPlayer/dist/js/config.js
 > Set the baseUrl:'../bower/PIPlayer/dist/js',
-
+```
 
 Running
 --------
