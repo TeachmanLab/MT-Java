@@ -34,7 +34,7 @@ class GlobalDefaultExceptionHandler {
 
     private void recordException(HttpServletRequest req, Exception e) {
         Participant p = currentParticipant(req);
-
+        LOG.error("Raising an exception to an end user! " + e.getClass() + " --- " + e.getMessage());
         if(p != null) {
             ErrorLog log = new ErrorLog(p, req.getRequestURL().toString(), e);
             p.addErrorLog(log);
@@ -64,6 +64,7 @@ class GlobalDefaultExceptionHandler {
         // AnnotationUtils is a Spring Framework utility class.
 
         recordException(req, e);
+        e.printStackTrace();
 
         if (AnnotationUtils.findAnnotation
                 (e.getClass(), ResponseStatus.class) != null)
@@ -72,6 +73,8 @@ class GlobalDefaultExceptionHandler {
         // Otherwise setup and send the user to a default error-view.
         ModelAndView mav = new ModelAndView();
         mav.addObject("exception", e);
+        mav.addObject("error", e.getClass());
+        mav.addObject("message", e.getMessage());
         mav.addObject("url", req.getRequestURL());
         mav.setViewName(DEFAULT_ERROR_VIEW);
         return mav;
