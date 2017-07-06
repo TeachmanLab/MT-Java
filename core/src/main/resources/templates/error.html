@@ -23,8 +23,7 @@
 
         <div class="row vertical-center" th:unless="${status == 404}">
             <div class="span12">
-                <h1>Sorry! There was a problem processing your request.</h1>
-                <p>This was an '<span th:text="${error}"/>'.  <span th:text="${message}"></span></p>
+                <h1>Sorry! We encountered an unexpected error.</h1>
                 <h2>Please return to the <a th:href="@{/}">main site</a> to continue.</h2>
             </div>
 
