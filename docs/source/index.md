@@ -1,6 +1,8 @@
 About MindTrails
 =========
 
+*[Back to the main manu](http://mtdata.readthedocs.io/en/latest/index.html)*
+
 MindTrails is a library for constructing online [Cognitive Behavioral Therapy](psychcentral.com/lib/in-depth-cognitive-behavioral-therapy/) studies
 with tools to address major concerns for such studies - such as reducing
 attrition and secure data handling.  
@@ -438,27 +440,9 @@ Creating a Basic Application
 A Word on Good Practice
 ===========
 
-Here is a list of things that we will recommend doing when you create your study:
-
-**1. Pay very close attention to the Standard Scale Sheet.**
-
-  Once you successfully launch a study, you will be able to export a *Standard Scale Sheet* from api/export. It looks like this:
-
-  ```json
-
-  ```
-  Please make sure that it reflects what your actual study schedule. *If a task is not in this sheet, it is not in the program.* Tools like MTData report rely on this sheet as well, so if the SSS is wrong, you can rely on the result from automate data checking tools.
-
-**2. Make sure that you go over all the tasks at least once and you are getting the data you want.**
-
-  ...variables' names, database issues, MTData setup, etc... You want to catch them before you run actual participants.
-
-  Tools like [MTData report]() can help on checking overall missing data, but can't tell you very detail information.
-
-**3.**
+The previous section about good practice on mindtrails data has now become a complete manual of *[MTData CookBook](http://mtdata.readthedocs.io/en/latest/dataCookBook.html)*.
 
 Resources
 ==========
 
-  - [PI Note]()
-  - [Significant Update]()
+  - *[Everything about MindTrails in One Place](http://mtdata.readthedocs.io/en/latest/index.html)*
