@@ -45,7 +45,7 @@ to allow collected information to be pulled from the main web server -
 creating a clean separation between identifying data (email addresses)
 and medical or other information.
 
-A seperate application, the [MindTrails Data](http://mtdata.readthedocs.io/en/latest/)
+A seperate application, the [MindTrails Data](http://mtdata.readthedocs.io/en/latest/mtData.html)
 can be used to pull all submitted data from the system on a tight interval
 (say every 5 minutes) onto a separate server behind a firewall.  If the
 main web server is compromised no medical information will be available.
@@ -273,7 +273,7 @@ MTData - package for data handling
 ==============
 We also wrote a python command line tool designed to handle sensitive data for MindTrails library. You can install it on your back end server or laptop, configure the server.config files and keys for decrypting. It comes with tools that take care of most of the data issue.
 
-You can find out more here: [MTData](http://mtdata.readthedocs.io/en/latest/)
+You can find out more here: [MTData](http://mtdata.readthedocs.io/en/latest/mtData.html)
 
 
 Security Overview
