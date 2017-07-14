@@ -67,8 +67,10 @@ public class QuestionController extends BaseController {
         // parameters to the web form.
         try {
             if(exportService.getDomainType(formName) == null) {
-                throw new RuntimeException("You are missing a model for storing data for the form " +
-                        "'" + formName + "'");
+                String message = "You are missing a model for storing data for the form " +
+                        "'" + formName + "'";
+                LOG.error(message);
+                throw new RuntimeException(message);
             }
             QuestionnaireData data = (QuestionnaireData) exportService.getDomainType(formName).newInstance();
             model.addAllAttributes(data.modelAttributes(participant));
@@ -148,7 +150,9 @@ public class QuestionController extends BaseController {
         data.setTag(tag);
 
         // Save time on Task to TaskLog.
-        Double timeOnTask = data.getTimeOnPage();
+        double timeOnTask = data.getTimeOnPage();
+
+        if(timeOnTask == 0d) throw new RuntimeException("Missing Time on Page, please add it.");
 
         // Attempt to set the participant link, depending on sub-class type
         if(data instanceof LinkedQuestionnaireData)

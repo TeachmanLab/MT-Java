@@ -1,12 +1,14 @@
 package org.mindtrails.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.EqualsAndHashCode;
-import org.mindtrails.domain.RestExceptions.WaitException;
-import org.mindtrails.domain.tracking.TaskLog;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+import org.mindtrails.domain.RestExceptions.WaitException;
+import org.mindtrails.domain.tracking.TaskLog;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
 import java.util.*;
@@ -22,6 +24,8 @@ import java.util.*;
 @EqualsAndHashCode(exclude={"taskLogs"})
 
 public abstract class BaseStudy implements Study {
+
+    private static final Logger LOG = LoggerFactory.getLogger(BaseStudy.class);
 
     private static final Session NOT_STARTED  = new Session("NOT_STARTED", "Not Started", 0, 0, new ArrayList<Task>());
     private static final Session COMPLETE     = new Session("COMPLETE", "Complete", 0, 0, new ArrayList<Task>());
@@ -43,11 +47,11 @@ public abstract class BaseStudy implements Study {
 
     public BaseStudy() {}
 
-    public BaseStudy(String currentName, int taskIndex, Date lastSessionDate, Collection<TaskLog> taskLogs, boolean receiveGiftCards) {
+    public BaseStudy(String currentName, int taskIndex, Date lastSessionDate, List<TaskLog> taskLogs, boolean receiveGiftCards) {
         this.currentSession = currentName;
         this.currentTaskIndex = taskIndex;
         this.lastSessionDate = lastSessionDate;
-        this.taskLogs = new ArrayList<>();
+        this.taskLogs = taskLogs;
         this.receiveGiftCards = receiveGiftCards;
     }
 
@@ -207,8 +211,12 @@ public abstract class BaseStudy implements Study {
             t.setCurrent(taskIndex == index);
             t.setComplete(taskIndex > index);
             for(TaskLog log : taskLogs) {
-                if (log.getSessionName().equals(sessionName) && log.getTaskName().equals(t.getName())) {
+
+                if (log.getSessionName().equals(sessionName) && log.getTaskName().equals(t.getName())
+                        && (log.getTag()== null || log.getTag().equals(t.getTag()))) {
                     t.setDateCompleted(log.getDateCompleted());
+                    t.setComplete(true);
+                    t.setTimeOnTask(log.getTimeOnTask());
                     break;
                 }
             }

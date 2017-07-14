@@ -73,9 +73,11 @@ public class JSPsychController extends BaseController {
                 participant.getStudy().getName(),
                 participant.getStudy().getCurrentSession().getName());
 
+        // Find the greatest time_elapsed value for the data returned, this is time spent on the trial.
         double timeOnTask = 0.0;
         for (JsPsychTrial trial : trials) {
-            timeOnTask += trial.getTime_elapsed();
+            if(trial.getTime_elapsed() > timeOnTask)
+            timeOnTask = trial.getTime_elapsed();
         }
 
         participant.getStudy().completeCurrentTask(timeOnTask/1000);
