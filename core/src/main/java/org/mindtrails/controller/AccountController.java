@@ -89,6 +89,7 @@ public class AccountController extends BaseController {
         participantCreate.updateParticipant(participant);
         participant.setLastLoginDate(new Date());
         participant.setReference((String)session.getAttribute("referer"));
+        participant.setCampaign((String)session.getAttribute("campaign"));
 
         // Be sure to call saveNew rather than save, allowing
         // any data associated with the session to get

@@ -50,6 +50,7 @@ public  class Participant implements UserDetails {
     protected String theme = "blue";
     protected boolean over18;
     protected String reference; // The site the user came from when creating their account
+    protected String campaign; // A key passed into the landing page, to help identify where people come from.
     protected boolean receiveGiftCards;
 
 
