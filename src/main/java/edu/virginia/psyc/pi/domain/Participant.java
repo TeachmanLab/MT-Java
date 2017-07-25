@@ -76,6 +76,7 @@ public class Participant {
     private boolean        over18;
 
     private String reference;
+    private String campaign;
 
     public Participant() {
         cbmCondition = randomCondition();

@@ -206,6 +206,7 @@ public class AdminController extends BaseController {
         }
 
         Participant participant = pForm.toParticipant();
+        participant.setReference("admin");
 
         participant.setLastLoginDate(new Date()); // Set the last login date.
         saveParticipant(participant);

@@ -83,15 +83,26 @@ public class LoginController extends BaseController {
     }
 
     @RequestMapping(value="/", method = RequestMethod.GET)
-    public String printWelcome(ModelMap model, Principal principal) {
+    public String printWelcome(ModelMap model, Principal principal, HttpSession session,
+                               @RequestHeader(value = "referer", required = false) final String referer,
+                               @RequestParam(value="cp", defaultValue = "unknown", required = false) String campaign) {
 
+        session.setAttribute("reference", referer);
+        session.setAttribute("campaign", campaign);
+        model.addAttribute("campaign", campaign);
         Authentication auth = (Authentication) principal;
         // Show the Rationale / Login page if the user is not logged in
         // otherwise redirect them to the session page.
         if(auth == null || !auth.isAuthenticated()) {
-            return "rationale";
+            model.addAttribute("hideAccountBar", true);
+            return "index";
         } else
             return "redirect:/session";
+    }
+
+    @RequestMapping(value="public/rationale", method = RequestMethod.GET)
+    public String rationale(ModelMap model, Principal principal) {
+         return "rationale";
     }
 
     @RequestMapping(value="public/notify", method = RequestMethod.POST)
@@ -157,7 +168,6 @@ public class LoginController extends BaseController {
         dass21_as.setSessionId(session.getId());
         dass21_as.setDate(new Date());
         dass21_asRepository.save(dass21_as);
-        session.setAttribute("reference", "MindTrails");
         model.addAttribute("participant", new Participant());
 
         // Redirect as appropriate
@@ -290,6 +300,8 @@ public class LoginController extends BaseController {
 
         participant.setLastLoginDate(new Date()); // Set the last login date.
         participant.setReference((String)session.getAttribute("reference"));
+        participant.setCampaign((String)session.getAttribute("campaign"));
+
         saveParticipant(participant);
 
         // Log this new person in.

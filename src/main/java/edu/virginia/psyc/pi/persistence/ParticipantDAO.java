@@ -72,6 +72,8 @@ public class ParticipantDAO implements UserDetails {
 
     private String currentSession; // set to first session by default
 
+    private String campaign;
+
     private int taskIndex = 0;
 
     // IMPORTANT: Automatic email notifications start failing when
@@ -324,6 +326,10 @@ public class ParticipantDAO implements UserDetails {
         this.reference = reference;
     }
 
+    public String getCampaign() { return campaign; }
+
+    public void setCampaign(String campaign) { this.campaign = campaign; }
+
     public boolean isReceiveGiftCards() {
         return receiveGiftCards;
     }
@@ -331,6 +337,7 @@ public class ParticipantDAO implements UserDetails {
     public void setReceiveGiftCards(boolean receiveGiftCards) {
         this.receiveGiftCards = receiveGiftCards;
     }
+
 
     @Override
     public String toString() {

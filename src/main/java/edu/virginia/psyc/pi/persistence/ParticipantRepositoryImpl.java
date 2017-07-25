@@ -34,6 +34,7 @@ public class ParticipantRepositoryImpl implements ParticipantRepositoryCustom {
         p.setIncrease50(dao.isIncrease50());
         p.setRiskSession(dao.getRiskSession());
         p.setReference(dao.getReference());
+        p.setCampaign(dao.getCampaign());
         p.setReceiveGiftCards(dao.isReceiveGiftCards());
 
         // Password Tokens
@@ -91,6 +92,7 @@ public class ParticipantRepositoryImpl implements ParticipantRepositoryCustom {
         dao.setIncrease50(p.isIncrease50());
         dao.setRiskSession(p.getRiskSession());
         dao.setReference(p.getReference());
+        dao.setCampaign(p.getCampaign());
         dao.setReceiveGiftCards(p.isReceiveGiftCards());
 
         // Encrypt Password if it is set.
