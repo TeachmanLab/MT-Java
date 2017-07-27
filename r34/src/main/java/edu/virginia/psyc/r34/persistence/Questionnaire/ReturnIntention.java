@@ -1,4 +1,4 @@
-package edu.virginia.psyc.templeton.persistence;
+package edu.virginia.psyc.r34.persistence.Questionnaire;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
