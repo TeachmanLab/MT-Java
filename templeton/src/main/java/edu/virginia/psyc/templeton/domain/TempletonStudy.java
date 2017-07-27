@@ -134,6 +134,7 @@ public class TempletonStudy extends BaseStudy {
         session1.addTask(new Task("Affect","Current Feelings", "post", Task.TYPE.questions, 0));
         session1.addTask(new Task("Relatability","Relatability Follow Up", Task.TYPE.questions, 0));
         session1.addTask(new Task("ExpectancyBias","What Happens Next", Task.TYPE.questions, 2));
+        session1.addTask(new Task("ReturnIntention","Return Intention", Task.TYPE.questions,0));
         sessions.add(session1);
 
         session2 = new Session(SECOND_SESSION, "Level 2: Intermediate", 0, 2);
@@ -144,6 +145,7 @@ public class TempletonStudy extends BaseStudy {
         session2.addTask(new Task("ExpectancyBias","What Happens Next", Task.TYPE.questions, 2));
         session2.addTask(new Task("WhatIBelieve","What I Believe", Task.TYPE.questions, 2));
         session2.addTask(new Task("Phq4","My Mood", Task.TYPE.questions, 0));
+        session2.addTask(new Task("ReturnIntention","Return Intention", Task.TYPE.questions,0));
         sessions.add(session2);
 
         session3 = new Session(THIRD_SESSION, "Level 3: Advanced", 0, 2);
@@ -152,6 +154,7 @@ public class TempletonStudy extends BaseStudy {
         session3.addTask(new Task("JsPsychTrial", "Training Stories", Task.TYPE.jspsych, 20));
         session3.addTask(new Task("Affect","Current Feelings", "post", Task.TYPE.questions, 0));
         session3.addTask(new Task("ExpectancyBias","What Happens Next", Task.TYPE.questions, 2));
+        session3.addTask(new Task("ReturnIntention","Return Intention", Task.TYPE.questions,0));
         sessions.add(session3);
 
         session4 = new Session(FOURTH_SESSION, "Level 4: Expert", 0, 2);
@@ -164,6 +167,7 @@ public class TempletonStudy extends BaseStudy {
         session4.addTask(new Task("WhatIBelieve","What I Believe", Task.TYPE.questions, 2));
         session4.addTask(new Task("Phq4","Mood", Task.TYPE.questions, 0));
         session4.addTask(new Task("HelpSeeking","Change in Help Seeking", Task.TYPE.questions, 1));
+        session4.addTask(new Task("ReturnIntention","Return Intention", Task.TYPE.questions,0));
         sessions.add(session4);
 
         post = new Session(POST_FOLLOWUP, "1 Month Post Training", 0, 30);
