@@ -19,7 +19,7 @@
         <!-- Add timer -->
         <input id="timeOnPage" name="timeOnPage" type="hidden"/>
         <div class="container section compactQuestion">
-            <div class="row title">
+            <div class="row «title">
                 <div class="col-md-12">
                     <h4>When do you plan to complete your next training session?</h4>
                 </div>
@@ -103,10 +103,12 @@
 
     function show_text(input) {
             input.style.display = 'block'
+            input.value=''
     }
 
     function hide_text(input) {
             input.style.display = 'none'
+            input.value='N/A'
     }
 
 </script>
