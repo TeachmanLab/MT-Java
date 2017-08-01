@@ -64,6 +64,7 @@ public class QuestionController extends BaseController {
     @Autowired private VividRepository vividRepository;
     @Autowired private ReasonsForEndingRepository reasonsForEndingRepository;
     @Autowired private CIHSRepository cihsRepository;
+    @Autowired private ReturnIntentionRepository returnIntentionRepository;
 
     @Autowired
     private EmailService emailService;
@@ -737,6 +738,31 @@ public ModelAndView showSUDS(Principal principal) {
     String exportReasonsForEnding() {
         return(objectListToCSV(reasonsForEndingRepository.findAll()));
     }
+
+    /**
+     * ReturnIntention
+     * ---------*
+     */
+    @RequestMapping(value = "ReturnIntention", method = RequestMethod.GET)
+    public ModelAndView showAReturnIntention(Principal principal) {
+        return modelAndView(principal, "/questions/ReturnIntention", "ReturnIntention", new ReturnIntention());
+    }
+
+    @RequestMapping(value = "ReturnIntention", method = RequestMethod.POST)
+    RedirectView handleReturnIntention(@ModelAttribute("ReturnIntention") ReturnIntention returnIntention,
+                                       BindingResult result) {
+
+        recordSessionProgress("ReturnIntention", returnIntention);
+        returnIntentionRepository.save(returnIntention);
+        return new RedirectView("/session/next");
+    }
+
+    @RequestMapping(value = "ReturnIntention/export", method = RequestMethod.GET, produces = "text/csv")
+    @ResponseBody // Return the string directly, the return value is not a template name.
+    String exportReturnIntention() {
+        return(objectListToCSV(returnIntentionRepository.findAll()));
+    }
+
 
     /**
      * Converts a list of objects into a string suitable for returning

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
+
+<head th:replace="fragment/common :: headerFragment"/>
+<body th:class="|user-theme-${participant.theme}|">
+<section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
+
+<!-- header-btm starts
+================================================== -->
+<section id="header-btm" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <h2 class="page-title heading-icon clearfix"> <img th:src="@{/images/map-arrow-orange.png}" alt="icon" class="icon-small-bg" />
+                Coming back in ...
+                <br/>
+            </h2>
+
+        </div>
+    </div>
+</section>
+
+<section id="content" class="clearfix">
+    <form th:action="@{/questions/ReturnIntention}" method="POST">
+        <!-- Add timer -->
+        <div class="container">
+            <div class="row">
+                <div class="span12 wide">
+                    <h3>When do you plan to complete your next training session?</h3>
+                </div>
+            </div>
+
+            <div class="section">
+                <label class="radioBox">
+                    <div class="option">
+                        <div class="desc1">Tomorrow</div>
+                        <input type="radio" name="returnIntention" class="form-control" value="1" required="true" onclick="hide_text(reason)"/>
+                        <div class="desc2">1</div>
+                    </div>
+                </label>
+                <label class="radioBox">
+                    <div class="option">
+                        <div class="desc1">In 2 to 4 days (recommended)</div>
+                        <input type="radio" name="returnIntention" class="form-control" value="2" onclick="hide_text(reason)"/>
+                        <div class="desc2">2</div>
+                    </div>
+                </label>
+                <label class="radioBox">
+                    <div class="option">
+                        <div class="desc1">In 5 to 7 days</div>
+                        <input type="radio" name="returnIntention" class="form-control" value="3" onclick="hide_text(reason)"/>
+                        <div class="desc2">3</div>
+                    </div>
+                </label>
+                <label class="radioBox">
+                    <div class="option" >
+                        <div class="desc1">After more than 7 days</div>
+                        <input type="radio" name="returnIntention" class="form-control" value="4" onclick="hide_text(reason)"/>
+                        <div class="desc2">4</div>
+                    </div>
+                </label>
+                <div class="divider"/>
+                <label class="radioBox">
+                    <div class="option">
+                        <div class="desc1">Not planning to come back</div>
+                        <input type="radio" name="returnIntention" class="form-control" value="5" onclick="show_text(reason)"/>
+                        <div class="desc2"> </div>
+                    </div>
+                </label>
+            </div>
+
+            <div id="reason" style="display: none">
+                <p>Please let us know why you do not plan to continue</p>
+                <label><input id="notReturnReason" name="notReturnReason" type="text" placeholder="" size="50" /></label>
+
+            </div>
+
+
+            <div class="col-md-12" style="text-align:center">
+                <button type="submit"> Next</button>
+            </div>
+
+        </div>
+    </form>
+</section>
+
+<footer th:replace="fragment/common :: footer"/>
+<div th:include="fragment/common :: scripts"/>
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts"/>
+
+<script type="text/javascript">
+
+
+    function show_text(input) {
+            input.style.display = 'block'
+            input.value=''
+    }
+
+    function hide_text(input) {
+            input.style.display = 'none'
+            input.value='N/A'
+    }
+
+</script>
+</body>
+</html>
+
+

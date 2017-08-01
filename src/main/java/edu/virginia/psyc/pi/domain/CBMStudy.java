@@ -133,12 +133,15 @@ public class CBMStudy implements Study {
                 tasks.add(new Task("SUDS", "How anxious you feel", Task.TYPE.questions, 0));
                 tasks.add(new Task("CC", "Follow up", Task.TYPE.questions,0));
                 tasks.add(new Task("OA", "Anxiety review", Task.TYPE.questions, 1));
+                tasks.add(new Task("ReturnIntention", "Return Intention", Task.TYPE.questions,0));
+
                 break;
             case SESSION2:
                 tasks.add(new Task("ImageryPrime", "Use your imagination", Task.TYPE.questions,0));
                 tasks.add(new Task("Impact","Impact questions",Task.TYPE.questions,0));
                 tasks.add(new Task("SecondSessionSentences", "Training stories", Task.TYPE.playerScript, 20));
                 tasks.add(new Task("OA", "Anxiety review", Task.TYPE.questions, 1));
+                tasks.add(new Task("ReturnIntention", "Return Intention", Task.TYPE.questions,0));
 
                 break;
             case SESSION3:
@@ -155,20 +158,21 @@ public class CBMStudy implements Study {
                 tasks.add(new Task("DASS21_DS", "Mood assessment", Task.TYPE.questions, 0));
                 tasks.add(new Task("DD_FU", "Assessment", Task.TYPE.questions, 15));
                 tasks.add(new Task("OA", "Anxiety review", Task.TYPE.questions, 1));
-//                tasks.add(new Task("SAPo", "State Anxiety", Task.TYPE.questions, 3));
+                tasks.add(new Task("ReturnIntention", "Return Intention", Task.TYPE.questions,0));
                 break;
             case SESSION4:
                 tasks.add(new Task("ImageryPrime", "Use your imagination", Task.TYPE.questions, 0));
                 tasks.add(new Task("Impact","Impact questions",Task.TYPE.questions,0));
                 tasks.add(new Task("FourthSessionSentences", "Training stories", Task.TYPE.playerScript, 20));
                 tasks.add(new Task("OA", "Anxiety review", Task.TYPE.questions, 1));
+                tasks.add(new Task("ReturnIntention", "Return Intention", Task.TYPE.questions,0));
                 break;
             case SESSION5:
                 tasks.add(new Task("ImageryPrime", "Use your imagination", Task.TYPE.questions, 0));
                 tasks.add(new Task("Impact","Impact questions",Task.TYPE.questions,0));
                 tasks.add(new Task("FifthSessionSentences", "Training stories", Task.TYPE.playerScript, 20));
                 tasks.add(new Task("OA", "Anxiety review", Task.TYPE.questions, 1));
-
+                tasks.add(new Task("ReturnIntention", "Return Intention", Task.TYPE.questions,0));
                 break;
             case SESSION6:
                 tasks.add(new Task("SUDS", "How anxious you feel", Task.TYPE.questions, 0));
@@ -184,13 +188,14 @@ public class CBMStudy implements Study {
                 tasks.add(new Task("DASS21_DS", "Mood assessment", Task.TYPE.questions, 0));
                 tasks.add(new Task("DD_FU", "Assessment", Task.TYPE.questions, 15));
                 tasks.add(new Task("OA", "Anxiety review", Task.TYPE.questions, 1));
-//                tasks.add(new Task("SAPo", "State Anxiety", Task.TYPE.questions, 3));
+                tasks.add(new Task("ReturnIntention", "Return Intention", Task.TYPE.questions,0));
                 break;
             case SESSION7:
                 tasks.add(new Task("ImageryPrime", "Use your imagination", Task.TYPE.questions, 0));
                 tasks.add(new Task("Impact","Impact questions",Task.TYPE.questions,0));
                 tasks.add(new Task("SeventhSessionSentences", "Training stories", Task.TYPE.playerScript, 20));
                 tasks.add(new Task("OA", "Anxiety review", Task.TYPE.questions, 1));
+                tasks.add(new Task("ReturnIntention", "Return Intention", Task.TYPE.questions,0));
 
                 break;
             case SESSION8:
@@ -210,6 +215,7 @@ public class CBMStudy implements Study {
                 tasks.add(new Task("OA", "Anxiety review", Task.TYPE.questions, 1));
                 tasks.add(new Task("DASS21_AS", "Recent anxiety symptoms", Task.TYPE.questions, 0));
                 tasks.add(new Task("CIHS","Change in help seeking", Task.TYPE.questions, 1));
+                tasks.add(new Task("ReturnIntention", "Return Intention", Task.TYPE.questions,0));
 
                 break;
             case POST:
