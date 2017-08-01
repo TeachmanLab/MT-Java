@@ -58,7 +58,6 @@ public abstract class BaseStudy implements Study {
     @Override
     @JsonIgnore
     public List<Session> getSessions() {
-        LOG.info("Calling getSessions again ...");
         List<Session> sessions = getStatelessSessions();
         sessions.add(COMPLETE);
         // Add state to the sessions

@@ -20,9 +20,18 @@
                 <h1 th:unless="${participantUpdateAdmin.admin}">Edit Participant</h1>
                 <h1 th:if="${participantUpdateAdmin.admin}">Edit Administrator</h1>
 
+
+
                 <form action="#" th:action="@{'/admin/participant/'+${participantEdit.id}}"
                       th:object="${participantUpdateAdmin}"
                       method="post">
+
+
+                    <ul>
+                        <li th:each="e : ${#fields.detailedErrors()}" th:if="${e.global}" >
+                            <span class="alert-error" th:text="${e.message}">The error message</span>
+                        </li>
+                    </ul>
 
                     <table>
                         <tr>
@@ -37,9 +46,29 @@
                         </tr>
                         <tr>
                             <td>Phone Number:</td>
-                            <td><input type="text" th:field="*{phone}"/></td>
+                            <td><input name="phone" id="phone" type="tel" th:field="*{phone}"/></td>
                             <td th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Phone Error</td>
                         </tr>
+                        <script th:src="@{/bower/intl-tel-input/build/js/intlTelInput.js}"></script>
+                        <script>
+                            var telInput = $("#phone");
+                            // initialise plugin
+                            telInput.intlTelInput({
+                                utilsScript:"https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.1.4/css/intlTelInput.css"
+                            });
+                            // on blur: validate
+                            telInput.blur(function() {
+                                var phoneReminders = $("#phoneReminders");
+                                var countryData = $("#phone").intlTelInput("getSelectedCountryData");
+                                if (countryData.iso2 != "us") {
+                                    $("#noTexts").show();
+                                } else {
+                                    $("#noTexts").hide();
+                                }
+                            });
+
+                        </script>
+
                         <tr>
                             <td>Email Reminders?:</td>
                             <td><input type="checkbox" th:field="*{emailReminders}"/></td>
@@ -47,8 +76,11 @@
                         </tr>
                         <tr>
                             <td>Phone Reminders?:</td>
-                            <td><input type="checkbox" th:field="*{phoneReminders}"/></td>
-                            <td th:if="${#fields.hasErrors('phoneReminders')}" th:errors="*{phoneReminders}"></td>
+                            <td><input type="checkbox" th:field="*{phoneReminders}"/>
+                                <span id="noTexts" style="display:none" class="error">It can be expensive sending text messages to international numbers.</span>
+                            </td>
+                            <td th:if="${#fields.hasErrors('phoneReminders')}" th:errors="*{phoneReminders}">
+                            </td>
                         </tr>
                         <tr>
                             <td>Time Zone:</td>
