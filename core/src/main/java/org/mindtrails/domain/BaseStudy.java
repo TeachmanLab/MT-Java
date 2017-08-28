@@ -292,4 +292,15 @@ public abstract class BaseStudy implements Study {
         return this.id;
     }
 
+
+    @Override
+    public boolean hasTask(String taskName) {
+        List<Session> sessions = getSessions();
+        for (Session s : sessions) {
+            for (Task t : s.getTasks()) {
+                if (t.getName().equals(taskName)) return true;
+            }
+        }
+        return false;
+    }
 }
