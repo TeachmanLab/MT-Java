@@ -232,14 +232,17 @@ public  class Participant implements UserDetails {
 
 
     /**
-     * Returns the date of a last completed activity - this is the last login
-     * date if no sessions were ever completed.  It is the last session
-     * completed date otherwise.  This is used as the basis for when to send
-     * email messages.
+     * Returns the date of a last completed activity - this is the later date
+     * of either the last login date or the last session date.
      */
     public Date lastMilestone() {
-        if (this.study.getLastSessionDate() != null) return this.study.getLastSessionDate();
-        return this.lastLoginDate;
+        if(this.study.getLastSessionDate() == null) {
+            return this.lastLoginDate;
+        }else if (this.study.getLastSessionDate().after(this.lastLoginDate)) {
+            return this.study.getLastSessionDate();
+        } else {
+            return this.lastLoginDate;
+        }
     }
 
     /**
