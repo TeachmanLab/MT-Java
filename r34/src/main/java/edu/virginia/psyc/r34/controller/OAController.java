@@ -3,7 +3,6 @@ package edu.virginia.psyc.r34.controller;
 import edu.virginia.psyc.r34.domain.R34Study;
 import edu.virginia.psyc.r34.persistence.Questionnaire.OA;
 import edu.virginia.psyc.r34.persistence.Questionnaire.OARepository;
-import edu.virginia.psyc.r34.persistence.Questionnaire.ReasonsForEnding;
 import edu.virginia.psyc.r34.service.R34EmailService;
 import org.mindtrails.controller.QuestionController;
 import org.mindtrails.domain.Participant;
@@ -86,19 +85,6 @@ public class OAController extends QuestionController {
         return new RedirectView("/session/next", true);
     }
 
-
-    /**
-     * Bypass the session check, this form can be completed at
-     * any time.
-     */
-    @RequestMapping(value = "ReasonsForEnding", method = RequestMethod.POST)
-    String handleReasonsForEnding(@ModelAttribute("ReasonsForEnding") ReasonsForEnding reasons,
-                                  WebRequest request) throws Exception {
-
-        recordSessionProgress("ReasonsForEnding",reasons, true);
-        saveForm("reasons", request, false);
-        return "debriefing";
-    }
 
 
 
