@@ -1,8 +1,8 @@
-package edu.virginia.psyc.r34.persistence.Questionnaire;
+package org.mindtrails.persistence;
 
-import org.mindtrails.domain.questionnaire.SecureQuestionnaireData;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 
 import javax.persistence.*;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
 @Table(name="ReasonsForEnding")
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class ReasonsForEnding  extends SecureQuestionnaireData {
+public class ReasonsForEnding  extends LinkedQuestionnaireData {
 
 
     @ElementCollection
