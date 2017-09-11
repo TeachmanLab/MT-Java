@@ -98,6 +98,14 @@ div.sessionSection {
     background: #FFF;
 }
 
+div.sessionSection p.block {
+    text-align: left;
+    max-width: 600px;
+    margin:auto;
+    padding-bottom: 10px;
+}
+
+
 /*************** Button *************************/
 button  {  -webkit-border-radius: 5px;
     -moz-border-radius: 5px;

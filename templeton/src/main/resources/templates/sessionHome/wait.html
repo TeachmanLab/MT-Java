@@ -10,6 +10,19 @@
 <!--<![endif]-->
 <head th:include="fragment/common :: headerFragment"/>
 <body th:class="|user-theme-${participant.theme}|">
+<div id="fb-root"></div>
+<script type="text/javascript">
+    //<![CDATA[
+    (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10&appId=428555617174125";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+    //]]>
+</script>
+
 <section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
 
 <!-- content starts
@@ -24,8 +37,8 @@
             <div class="col-md-8 session">
                 <h2>Great Job, <span th:text="${participant.fullName}">Jim</span>.<br/>You have completed <span
                         th:text="${lastSession.displayName}"/>. </h2>
-                You have completed all the Sessions! We will email you in <span th:text="${currentSession.daysToWait}">30</span> days, when it is time to complete the
-                follow up <span th:if="${participant.receiveGiftCards}">and get your bonus gift card</span>.
+                <p>You have completed all the Sessions! We will email you in <span th:text="${currentSession.daysToWait}">30</span> days, when it is time to complete the
+                    follow up <span th:if="${participant.receiveGiftCards}">and get your bonus gift card</span>. </p>
             </div>
         </div>
     </div>
@@ -35,10 +48,11 @@
             <img class="sessionImage" th:src="|/images/map-${lastSession.index}-${participant.theme}.png|" alt="icon"/>
 
             <h2>Congratulations <span th:text="${participant.fullName}">Jim</span>!</h2>
-            You have completed <span  th:text="${lastSession.displayName}"/>.
+            <p class="block">You have completed <span  th:text="${lastSession.displayName}"/>.
             Finishing the stories during the next session will be a little more challenging as you move up to
             <span  th:text="${currentSession.displayName}"/>, but we think you’re ready.
-
+            </p>
+            <div class="fb-follow" data-href="https://www.facebook.com/mindtrailsproject/" data-layout="standard" data-size="large" width="250px" data-show-faces="true"></div>
         </div>
 
         <div class="giftAwarded" th:if="${giftAwarded}">
@@ -63,6 +77,8 @@
                     th:text="${nextGiftSession.displayName}"/></span>
         </div>
     </div>
+
+
 </section>
 
 <footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
