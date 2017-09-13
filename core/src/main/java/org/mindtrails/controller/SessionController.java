@@ -133,7 +133,7 @@ public class SessionController extends BaseController {
         Study study = p.getStudy();
 
         // Re-direct to the next step the current session is in progress.
-        if(study.getState() == Study.STUDY_STATE.IN_PROGRESS) {
+        if(study.getState() == Study.STUDY_STATE.IN_PROGRESS && p.isActive()) {
             return new RedirectView(study.getCurrentSession().getCurrentTask().getRequestMapping(), true);
         } else {
             emailService.sendSessionCompletedEmail(p);
