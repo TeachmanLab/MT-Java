@@ -352,7 +352,7 @@ public class EmailServiceImplTest {
         assertNull(service.getTypeToSend(participant));
 
         study.setLastSessionDate(xDaysAgo(18));
-        assertThat(EmailService.TYPE.day18, is(equalTo(service.getTypeToSend(participant))));
+        assertThat(EmailService.TYPE.closure, is(equalTo(service.getTypeToSend(participant))));
 
         study.setLastSessionDate(xDaysAgo(19));
         assertNull(service.getTypeToSend(participant));
