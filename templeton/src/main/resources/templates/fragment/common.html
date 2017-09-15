@@ -131,6 +131,7 @@
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
+
         </div><!-- /.container-fluid -->
     </nav>
     <div class="account-bar navbar-default">
@@ -204,6 +205,20 @@
 <!-- footer starts
 ================================================== -->
 <footer id="footer" th:fragment="footerFragment">
+    <!-- Like us on Facebook -->
+    <div id="fb-root"></div>
+    <script type="text/javascript">
+        //<![CDATA[
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10&appId=428555617174125";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+        //]]>
+    </script>
+
     <div class="container">
 
         <!--row starts-->
@@ -215,8 +230,9 @@
                 <img th:src="@{/images/pimh.png}" alt="Project Implicit Mental Health" />
             </div>
 
+            <div class="footer-links">
             <!--column three starts-->
-            <ul class="footer-links">
+            <ul>
                 <li><a th:href="@{/public/team}">Meet the Team</a></li>
                 <li><a th:href="@{/public/faq}">FAQ</a></li>
                 <li><a th:href="@{/public/disclaimer}">Terms and Conditions</a></li>
@@ -224,6 +240,11 @@
                 <li><a href="https://implicit.harvard.edu/implicit/user/pimh/index.jsp">Project Implicit Mental
                     Health</a></li>
             </ul>
+            <ul class="facebook">
+                <li >Follow us on Facebook: <span class="fb-follow" data-href="https://www.facebook.com/mindtrailsproject/" data-layout="button" data-size="small" width="250px" data-show-faces="true" data-share="true"></span></li>
+            </ul>
+
+            </div>
 
             <div class="clear-both"></div>
         </div>

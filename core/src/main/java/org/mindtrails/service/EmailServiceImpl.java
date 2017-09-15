@@ -63,7 +63,7 @@ public class EmailServiceImpl implements EmailService {
         emails.add(new Email(TYPE.day7.toString(), "Important reminder from the MindTrails project team"));
         emails.add(new Email(TYPE.day11.toString(), "Continuation in the MindTrails project study"));
         emails.add(new Email(TYPE.day15.toString(), "Final reminder re. continuation in the MindTrails project study"));
-        emails.add(new Email(TYPE.day18.toString(), "Closure of account in MindTrails project study"));
+        emails.add(new Email(TYPE.closure.toString(), "Closure of account in MindTrails project study"));
         emails.add(new Email(TYPE.followup.toString(), "Follow-up from the MindTrails project team"));
         emails.add(new Email(TYPE.followup2.toString(), "Follow-up reminder from the MindTrails project team"));
         emails.add(new Email(TYPE.followup3.toString(), "Final reminder from the MindTrails project team"));
@@ -201,6 +201,10 @@ public class EmailServiceImpl implements EmailService {
                 email.setParticipant(participant);
                 email.setContext(new Context());
                 sendEmail(email);
+                if(type.equals(TYPE.closure)) {
+                    participant.setActive(false);
+                    participantRepository.save(participant);
+                }
             }
         }
     }
@@ -297,7 +301,7 @@ public class EmailServiceImpl implements EmailService {
                     type = TYPE.day15;
                     break;
                 case 18:
-                    type = TYPE.day18;
+                    type = TYPE.closure;
                     break;
                 case 60:
                     type = TYPE.debrief;

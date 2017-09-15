@@ -29,6 +29,7 @@ public interface ParticipantRepository extends JpaRepository<Participant, Long> 
 
     Participant findByEmail(String email);
     List<Participant> findByActiveAndPhoneReminders(boolean active, boolean phone);
+    List<Participant> findByActive(boolean active);
 
     @Query(" select p from Participant as p" +
             " where lower(p.fullName) like '%' || lower(:search) || '%'" +
@@ -40,6 +41,8 @@ public interface ParticipantRepository extends JpaRepository<Participant, Long> 
     @Query("SELECT p FROM Participant as p LEFT JOIN p.passwordToken t \n" +
             "            where t.token = :token")
     Participant findByToken(@Param("token") String token);
+
+
 
 
 }
