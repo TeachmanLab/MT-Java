@@ -60,6 +60,7 @@ public class EmailServiceImplTest {
         participant.setEmail("tester@test.com");
         participant.setFullName("Tester McTest");
         participant.setStudy(new TestStudy());
+        participant.setLastLoginDate(xDaysAgo(20));
         service     = new EmailServiceImpl();
     }
 
@@ -100,6 +101,8 @@ public class EmailServiceImplTest {
         p.setEmail("test@test.com");
         e.setParticipant(p);
         e.setContext(new Context());
+        Study s = new TestStudy("SessionOne",0);
+        p.setStudy(s);
         emailService.sendEmail(e);
 
         // assert
@@ -125,7 +128,8 @@ public class EmailServiceImplTest {
         Participant p = new Participant();
         p.setEmail(email);
         p.setPasswordToken(new PasswordToken(p, new Date(), token));
-
+        Study s = new TestStudy("SessionOne",0);
+        p.setStudy(s);
         emailService.sendPasswordReset(p);
 
         // assert
@@ -156,6 +160,9 @@ public class EmailServiceImplTest {
         email = "testyMcTester2.0@t.com";
 
         Participant p = new Participant();
+        Study s = new TestStudy("SessionOne",0);
+        p.setStudy(s);
+
         p.setEmail(email);
 
         emailService.sendGiftCard(p,reward, 100);
@@ -388,11 +395,14 @@ public class EmailServiceImplTest {
 
     }
 
+
+
     @Test
     public void testShouldSendEmailAfter60_63_67_75_onSession8() {
         // Set up the sessions so we are in a post session, but not finished with the Post session.
         Study study = new TestStudy("PostSession", 0);
         participant.setStudy(study);
+        participant.setLastLoginDate(xDaysAgo(80));
 
         study.setLastSessionDate(xDaysAgo(60));
         assertThat(EmailService.TYPE.followup, is(equalTo(service.getTypeToSend(participant))));
@@ -408,6 +418,19 @@ public class EmailServiceImplTest {
 
         study.setLastSessionDate(xDaysAgo(75));
         assertThat(EmailService.TYPE.followup3, is(equalTo(service.getTypeToSend(participant))));
+
+    }
+
+    @Test
+    public void testShouldNotSendEmailsEverIfInComplete() {
+        Study study = new TestStudy("PostSession", 1);
+        study.completeCurrentTask(10);
+        participant.setStudy(study);
+
+        assertTrue(study.completed("PostSession"));
+        assertTrue(study.getState() == Study.STUDY_STATE.ALL_DONE);
+        study.setLastSessionDate(xDaysAgo(2));
+        assertNull(service.getTypeToSend(participant));
 
     }
 

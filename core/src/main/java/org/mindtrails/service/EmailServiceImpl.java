@@ -271,12 +271,13 @@ public class EmailServiceImpl implements EmailService {
         // Don't send emails to those that requested no reminders.
         if (!p.isEmailReminders()) return null;
 
-        int days = p.daysSinceLastMilestone();
-
         Study study = p.getStudy();
         Session session = study.getCurrentSession();
 
+        // Don't send emails if they are all done.
+        if(study.getState().equals(Study.STUDY_STATE.ALL_DONE)) return null;
 
+        int days = p.daysSinceLastMilestone();
 
         // If they are waiting for 2 days, then remind them
         // at the end of 2 days, then again after 4,7,11,15, and 18
@@ -302,9 +303,6 @@ public class EmailServiceImpl implements EmailService {
                     break;
                 case 18:
                     type = TYPE.closure;
-                    break;
-                case 60:
-                    type = TYPE.debrief;
                     break;
             }
         }
