@@ -21,7 +21,7 @@ import java.util.List;
  *    findAll() which returns a list of entities.
  *    findOne(ID id) which returns the entity using the id given a parameter as a search criteria.
  *    save(T entity) which saves the entity given as a parameter.
- * Additional methods will be provided automatically by following a standard
+ * Additional methods wil be provided automatically by following a standard
  * naming convention, as is the case with findByEmailAddress
  */
 @Repository
