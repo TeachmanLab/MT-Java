@@ -17,6 +17,7 @@
     <!-- JS Psych Plugins -->
     <script th:src="@{/bower/jspsych/plugins/jspsych-html.js}"></script>
     <script th:src="@{/bower/jspsych/plugins/jspsych-button-response.js}"></script>
+    <script th:src="@{/bower/jspsych/plugins/jspsych-call-function.js}"></script>
 
     <script th:src="@{/js/training/plugins/missing-letters.js}"></script>
     <script th:src="@{/js/training/plugins/sentence-reveal.js}"></script>
@@ -66,6 +67,7 @@
     TEMPLETON_MODULE.base_url = /*[[@{/js/training}]]*/ '../js/training';
     TEMPLETON_MODULE.post_url = /*[[@{/jspsych}]]*/ '../jspsych';
     TEMPLETON_MODULE.redirect_url = /*[[@{/jspsych/completed/JsPsychTrial}]]*/ '../jspsych/completed/JsPsychTrial';
+    TEMPLETON_MODULE.status_url = /*[[@{/jspsych/status}]]*/ '../jspsych/status';
 
     TEMPLETON_MODULE.execute();
 
