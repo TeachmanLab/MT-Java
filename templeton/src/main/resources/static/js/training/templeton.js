@@ -39,6 +39,12 @@ var TEMPLETON_MODULE = (function () {
 
     // Captions to display below session images
     var captions = {
+        0: {
+            8:"Keep hanging on.",
+            16:"You are not alone in this!",
+            24:"You are taking off!",
+            32:"You're doing puuuurfect"
+        },
         1: {
             8:"Keep hanging on.",
             16:"You are not alone in this!",
