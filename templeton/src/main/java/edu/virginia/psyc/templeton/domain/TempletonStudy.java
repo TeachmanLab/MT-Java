@@ -36,6 +36,7 @@ public class TempletonStudy extends BaseStudy {
     public enum SESSION {firstSession, secondSession, thirdSession, fourthSession, PostFollowUp }
 
     public static final String FIRST_SESSION = "firstSession";
+    //new comment to test
     public static final String SECOND_SESSION = "secondSession";
     public static final String THIRD_SESSION = "thirdSession";
     public static final String FOURTH_SESSION = "fourthSession";
