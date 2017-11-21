@@ -82,17 +82,18 @@
             <span th:text="${study.sessions[iterStat.index + 1].daysToWait + 1}"/>
             days between each session.</p>
         -->
-    </div>
+        <div class="row">
+            <div class="col-md-8">
+                <p th:if="${complete}">You can now <a th:href="@{/graph}">review your progress</a> through the study, to see how
+                    you performed, and find out if you were part of the control group, or if you received the full treatment.</p>
 
-    <div class="row">
-        <div class="col-md-8">
-            <p th:if="${complete}">You can now <a th:href="@{/graph}">review your progress</a> through the study, to see how
-            you performed, and find out if you were part of the control group, or if you received the full treatment.</p>
-
-            <p th:unless="${complete}">Once you're done with all the sessions, you can get feedback on your progress.</p>
-            <p>Head back <a th:href="@{/session}">home</a>.</p>
+                <p th:unless="${complete}">Once you're done with all the sessions, you can get feedback on your progress.</p>
+                <p>Head back <a th:href="@{/session}">home</a>.</p>
+            </div>
         </div>
     </div>
+
+
  </section>
 
 <footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>

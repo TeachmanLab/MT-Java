@@ -19,8 +19,14 @@
           "jquery-csv": "0.8.2",
           "jspsych": "https://github.com/jodeleeuw/jsPsych.git",
           "papaparse":"v4.1.1",
+<<<<<<< HEAD
           "seiyria-bootstrap-slider":"v9.8.1",
           "timeme.js":"2.0.0",
           "intl-tel-input":"11.1.4"
+=======
+          "seiyria-bootstrap-slider":"v9.7.2",
+          "timeme.js":"2.0.0",
+          "d3":"4.11.0"
+>>>>>>> 3cdcbbaaaf2ec07d631bc5b6adadf3dbdc3d11a0
   }
 }

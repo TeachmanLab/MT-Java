@@ -1,17 +1,29 @@
 package org.mindtrails.controller;
 
-import org.mindtrails.domain.Email;
-import org.mindtrails.domain.Participant;
-import org.mindtrails.domain.PasswordToken;
+import lombok.Data;
+import org.mindtrails.domain.*;
+import org.joda.time.DateTime;
 import org.mindtrails.domain.forms.ParticipantCreate;
 import org.mindtrails.domain.forms.ParticipantCreateAdmin;
 import org.mindtrails.domain.forms.ParticipantUpdateAdmin;
+import org.mindtrails.domain.questionnaire.QuestionnaireInfo;
 import org.mindtrails.domain.tango.Account;
 import org.mindtrails.domain.tango.Order;
 import org.mindtrails.domain.tango.Reward;
 import org.mindtrails.domain.tracking.ErrorLog;
+
+import org.mindtrails.domain.tracking.EmailLog;
+import org.mindtrails.domain.tracking.ExportLog;
+import org.mindtrails.domain.tracking.SMSLog;
+import org.mindtrails.persistence.EmailLogRepository;
+import org.mindtrails.persistence.SMSLogRepository;
+import org.mindtrails.domain.tracking.TaskLog;
+import org.mindtrails.persistence.TaskLogRepository;
+
+import org.mindtrails.domain.userstats;
 import org.mindtrails.persistence.ErrorLogRepository;
 import org.mindtrails.persistence.ParticipantRepository;
+import org.mindtrails.persistence.StudyRepository;
 import org.mindtrails.service.EmailService;
 import org.mindtrails.service.ExportService;
 import org.mindtrails.service.ParticipantService;
@@ -32,6 +44,7 @@ import org.thymeleaf.context.Context;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -51,6 +64,7 @@ public class AdminController extends BaseController {
     @Autowired
     private EmailService emailService;
 
+
     @Autowired
     private TangoService tangoService;
 
@@ -68,6 +82,19 @@ public class AdminController extends BaseController {
 
     @Autowired
     private ErrorLogRepository errorLogRepository;
+
+    @Autowired
+    private ErrorLogRepository SMSLogRepository;
+
+    @Autowired
+    private EmailLogRepository emailLogRepository;
+
+    @Autowired
+    private TaskLogRepository taskLogRepository;
+
+    @Autowired
+    private StudyRepository studyRepository;
+
 
 
     @Override
@@ -251,5 +278,170 @@ public class AdminController extends BaseController {
         model.addAttribute("hideAccountBar", true);
         return "admin/export";
     }
+
+    @RequestMapping(value="/userstats", method= RequestMethod.GET)
+    public String sayAloha(@RequestParam(value="one", required=false, defaultValue="") String name, ModelMap model,Principal principal){
+
+        Study currentstudy = getParticipant(principal).getStudy();
+
+        List<ParticipantStats> daoList;
+        List<StudyStats> studyList;
+
+
+        Date lastWeek = DateTime.now().minusDays(7).toDate();
+        Long errorLogs = errorLogRepository.countByDateSentAfter(lastWeek);
+        Long emailLogs = emailLogRepository.countByDateSentAfter(lastWeek);
+        Long SMSLogs = SMSLogRepository.countByDateSentAfter(lastWeek);
+
+        Long taskLogs = taskLogRepository.countByDateCompletedAfter(lastWeek);
+
+        daoList=participantRepository.findAllStatsBy();
+        studyList=studyRepository.findAllStatsBy();
+
+        Long lastLoginNum=participantRepository.countByLastLoginDateAfter(lastWeek);
+
+        userstats users= new userstats(daoList,studyList,currentstudy);
+
+        Map<userstats.Key, Integer> csActiveMap = users.getConditionSessionActiveMap();
+        Map<userstats.Key, Integer> csInActiveMap = users.getConditionSessionInActiveMap();
+        Map<userstats.Key, Integer> csMap = users.getConditionSessionMap();
+        List<Session> sessionList = users.getSessionList();
+        List<String> conditionList = users.getConditionList();
+
+        ArrayList csData = new ArrayList<csData>();
+
+        for (Session session : sessionList) {
+            for (String condition : conditionList) {
+                userstats.Key csKey = new userstats.Key(session.getName(), condition);
+                csData.add(new csData(condition, session.getName(), csActiveMap.get(csKey), csInActiveMap.get(csKey), csMap.get(csKey)));
+            }
+
+        }
+        model.addAttribute("errorLogs", errorLogs);
+        model.addAttribute("emailLogs", emailLogs);
+        model.addAttribute("SMSLogs", SMSLogs);
+        model.addAttribute("participants", daoList);
+        model.addAttribute("taskLogs",taskLogs);
+        model.addAttribute("lastLoginNum",lastLoginNum);
+        model.addAttribute("users",users);
+        model.addAttribute("csData",csData);
+        model.addAttribute("conditionList", conditionList);
+        
+        return "admin/userstats";
+
+    }
+
+    @Data
+    class DateData {
+        int count = 0;
+        Date date = new Date();
+        DateData(Date date, int count) {this.count = count; this.date = date;}
+    }
+
+    @RequestMapping(value="/getLoginCounts", method= RequestMethod.GET)
+    public @ResponseBody List<DateData> myData(Principal principal) {
+        Study currentstudy = getParticipant(principal).getStudy();
+
+        List<ParticipantStats> daoList;
+        List<StudyStats> studyList;
+
+        daoList=participantRepository.findAllStatsBy();
+        studyList=studyRepository.findAllStatsBy();
+        userstats users= new userstats(daoList,studyList,currentstudy);
+        Map<Date,Integer> loginMap=users.getLoginMap();
+
+        ArrayList dateData = new ArrayList<DateData>();
+
+
+        for (Map.Entry<Date,Integer> entry : loginMap.entrySet()) {
+            dateData.add(new DateData(entry.getKey(),entry.getValue()));
+        }
+        return dateData;
+    }
+
+    @Data
+    class csData {
+
+        String condition;
+        String session;
+        int active;
+        int inactive;
+        int total;
+        csData(String condition,String session, int active,int inactive, int total) {
+            this.condition = condition;
+            this.session = session;
+            this.active=active;
+            this.inactive=inactive;
+            this.total=total;
+
+        }
+    }
+    @Data
+    class csDataMap{
+        String session;
+        Map<String,Integer> csMap=new HashMap<String,Integer>();
+
+       csDataMap(String session,Map<String,Integer> csMap){
+            this.session=session;
+            this.csMap=csMap;
+        }
+    }
+
+
+    @RequestMapping(value="/getDash", method= RequestMethod.GET)
+    public @ResponseBody Map<String,ArrayList<csDataMap>> dashboard(Principal principal) {
+        Study currentstudy = getParticipant(principal).getStudy();
+
+        List<ParticipantStats> daoList;
+        List<StudyStats> studyList;
+        daoList = participantRepository.findAllStatsBy();
+        studyList = studyRepository.findAllStatsBy();
+        userstats users = new userstats(daoList, studyList, currentstudy);
+        Map<userstats.Key, Integer> csActiveMap = users.getConditionSessionActiveMap();
+        Map<userstats.Key, Integer> csInActiveMap = users.getConditionSessionInActiveMap();
+        Map<userstats.Key, Integer> csMap = users.getConditionSessionMap();
+        List<Session> sessionList = users.getSessionList();
+        List<String> conditionList = users.getConditionList();
+
+        ArrayList csDataMapList1 = new ArrayList<csDataMap>();
+        ArrayList csDataMapList2 = new ArrayList<csDataMap>();
+        ArrayList csDataMapList3 = new ArrayList<csDataMap>();
+
+        Map<String,ArrayList<csDataMap>> massiveMap=new HashMap<String,ArrayList<csDataMap>>();
+
+        for (Session session : sessionList) {
+            Map<String,Integer> temMap1= new HashMap<String,Integer>();
+            Map<String,Integer> temMap2= new HashMap<String,Integer>();
+            Map<String,Integer> temMap3= new HashMap<String,Integer>();
+            for (String condition : conditionList) {
+                userstats.Key csKey = new userstats.Key(session.getName(), condition);
+                temMap1.put(condition,csMap.get(csKey));
+                temMap2.put(condition,csActiveMap.get(csKey));
+                temMap3.put(condition,csInActiveMap.get(csKey));
+
+            }
+            csDataMapList1.add(new csDataMap(session.getName(),temMap1));
+            csDataMapList2.add(new csDataMap(session.getName(),temMap2));
+            csDataMapList3.add(new csDataMap(session.getName(),temMap3));
+
+        }
+        massiveMap.put("total",csDataMapList1);
+        massiveMap.put("active",csDataMapList2);
+        massiveMap.put("inactive",csDataMapList3);
+
+        return massiveMap;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

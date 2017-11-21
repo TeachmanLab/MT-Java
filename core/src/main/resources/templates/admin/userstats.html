@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="fragment/common :: headerFragment"/>
+<body>
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
+<script type="text/javascript" th:src="@{/bower/d3/d3.js}"></script>
+
+
+
+
+
+<div class="panel-group" id="accordion">
+    <div class="panel panel-warning">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion"
+                   href="#collapseTwo">
+                    Activity by level
+                </a>
+            </h4>
+        </div>
+    <div id="collapseTwo" class="panel-collapse collapse">
+        <div class="panel-body">
+            <div class="row">
+
+                <div class="main-content span12">
+
+                    <table class="table table-striped table-bordered participantList">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>Active</th>
+                            <th>Dropout</th>
+                            <th>Completed</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr th:each="session : ${users.sessionList}" >
+
+                            <th th:text="${session.displayName}"></th>
+                            <td th:text="${users.activeMap.get(session.name)}"></td>
+                            <td th:text="${users.inactiveMap.get(session.name)}"></td>
+                            <td th:text="${users.compMap.get(session.name)}"></td>
+
+                        </tr>
+                        </tbody>
+
+                    </table>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion"
+                   href="#collapseOne">
+                    conditioning distribution in TOTAL participants
+                </a>
+            </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in">
+            <div class="panel-body">
+                <div id='dashboard'>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion"
+                   href="#collapseFour">
+                    conditioning distribution in Active participants
+                </a>
+            </h4>
+        </div>
+        <div id="collapseFour" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div id='dashboard2'>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion"
+                   href="#collapseThree">
+                    conditioning distribution in Inactive participants
+                </a>
+            </h4>
+        </div>
+        <div id="collapseThree" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div id='dashboard3'>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="panel panel-warning">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion"
+                   href="#collapseFive">
+                    info sent to participants this week
+                </a>
+            </h4>
+        </div>
+        <div id="collapseFive" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div class="row">
+
+                    <div class="main-content span12">
+                 <table class="table table-striped table-bordered participantList">
+                    <thead>
+                    <tr>
+                        <th>error message sent this week</th>
+                        <th>email sent this week</th>
+                        <th>task finished this week</th>
+                        <th>SMS sent this week</th>
+                    </tr>
+
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td th:text="${errorLogs}"></td>
+                        <td th:text="${emailLogs}"></td>
+                        <td th:text="${taskLogs}"></td>
+                        <td th:text="${SMSLogs}"></td>
+
+                    </tr>
+                    </tbody>
+
+                </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion"
+                   href="#collapseSix">
+                    Active participants by week
+                </a>
+            </h4>
+        </div>
+        <div id="collapseSix" class="panel-collapse collapse in">
+            <div class="panel-body">
+                <div class="chart"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script type="text/javascript">
+    $(function () { $('#collapseFour').collapse({
+        toggle: false
+    })});
+    $(function () { $('#collapseTwo').collapse('show')});
+    $(function () { $('#collapseThree').collapse('hide')});
+    $(function () { $('#collapseFive').collapse('hide')});
+    $(function () { $('#collapseOne').collapse('hide')});
+    $(function () { $('#collapseSix').collapse('hide')});
+</script>
+
+
+
+
+
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <!--spacer here-->
+                <div class="spacer-30px"></div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+</section>
+
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
+
+<style>
+    .chart div {
+        font: 10px sans-serif;
+        background-color: steelblue;
+        text-align: right;
+        padding: 3px;
+        margin: 1px;
+        color: white;
+    }
+
+    .bar{
+        fill: steelblue;
+    }
+
+    .bar:hover{
+        fill: brown;
+    }
+
+    .axis {
+        font: 10px sans-serif;
+    }
+
+    .axis path,
+    .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+    }
+
+    path {  stroke: #fff; }
+    path:hover {  opacity:0.9; }
+    rect:hover {  fill:blue; }
+    .axis {  font: 10px sans-serif; }
+    .legend tr{    border-bottom:1px solid grey; }
+    .legend tr:first-child{    border-top:1px solid grey; }
+
+    .x.axis path {  display: none; }
+    .legend{
+        margin-bottom:76px;
+        display:inline-block;
+        border-collapse: collapse;
+        border-spacing: 0px;
+    }
+    .legend td{
+        padding:4px 5px;
+        vertical-align:bottom;
+    }
+    .legendFreq, .legendPerc{
+        align:right;
+        width:50px;
+    }
+
+    </style>
+
+
+
+
+
+<script>
+    // set the dimensions of the canvas
+    var margin = {top: 20, right: 20, bottom: 70, left: 40},
+        width = 600 - margin.left - margin.right,
+        height = 300 - margin.top - margin.bottom;
+
+    // set the ranges
+    var x = d3.scaleBand().rangeRound([0, width]).padding(0.05);
+
+    var y = d3.scaleLinear().range([height, 0]);
+
+    // define the axis
+    var xAxis = d3.axisBottom(x).tickFormat(d3.time);
+
+    var yAxis = d3.axisLeft(y).ticks(10);
+
+
+    // add the SVG element
+    var svg = d3.select(".chart").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform",
+            "translate(" + margin.left + "," + margin.top + ")");
+
+
+    // load the data
+    d3.json("./getLoginCounts", function(error, data) {
+        if (error) return console.warn(error);
+
+        data.forEach(function(d) {
+            d.date = formatDate(new Date(d.date));
+            d.count = +d.count;
+        });
+
+        // scale the range of the data
+        x.domain(data.map(function(d) { return d.date; }));
+        y.domain([0, d3.max(data, function(d) { return d.count; })]);
+
+        // add axis
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(xAxis)
+            .selectAll("text")
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", "-.55em")
+            .attr("transform", "rotate(-90)" );
+
+        svg.append("g")
+            .attr("class", "y axis")
+            .call(yAxis)
+            .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 5)
+            .attr("dy", ".71em")
+            .style("text-anchor", "end")
+            .text("numbers of last login");
+
+
+        // Add bar chart
+        svg.selectAll("bar")
+            .data(data)
+            .enter().append("rect")
+            .attr("class", "bar")
+            .attr("x", function(d) { return x(d.date); })
+            .attr("width", x.bandwidth())
+            .attr("y", function(d) { return y(d.count); })
+            .attr("height", function(d) { return height - y(d.count); });
+
+        svg.append("text")
+            .attr("x", (width / 2))
+            .attr("y", 0 - (margin.top / 2))
+            .attr("text-anchor", "middle")
+            .style("font-size", "14px")
+            .style("text-decoration", "underline")
+            .text("Active participants by week");
+
+
+
+
+    });
+
+    function formatDate(date) {
+        var monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+        var day = date.getDate();
+        var monthIndex = date.getMonth();
+        var year = date.getFullYear();
+        return day + ' ' + monthNames[monthIndex] + ' ' + year; }
+
+
+
+
+
+
+</script>
+
+<script>
+    function dashboard(id, fData,conditionList,name){
+
+
+        var barColor = 'steelblue';
+
+
+        //console.log(conditionList);
+
+        function segColor(c){ return {POSITIVE:"#807dba", FIFTY_FIFTY_RANDOM:"#B8860B",POSITIVE_NEGATION:"#41ab5d",FIFTY_FIFTY_BLOCKED:"#BA55D3",NEUTRAL:"#CD5C5C"}[c]; }
+
+        // compute total for each state.
+        //fData.forEach(function(d){d.total=d.csMap.POSITIVE+d.csMap.FIFTY_FIFTY_RANDOM+d.csMap.POSITIVE_NEGATION+d.csMap.FIFTY_FIFTY_BLOCKED+d.csMap.NEUTRAL;});
+        fData.forEach(function(d){
+
+            var sum = 0;
+            for( var el in d.csMap ) {
+                if( d.csMap.hasOwnProperty( el ) ) {
+                    sum += parseFloat( d.csMap[el] );
+                }
+            }
+            d.total=sum;
+
+        });
+
+        // function to handle histogram.
+        function histoGram(fD){
+            var hG={},    hGDim = {t: 60, r: 0, b: 30, l: 0};
+            hGDim.w = 500 - hGDim.l - hGDim.r,
+                hGDim.h = 300 - hGDim.t - hGDim.b;
+
+            //create svg for histogram.
+            var hGsvg = d3.select(id).append("svg")
+                .attr("width", hGDim.w + hGDim.l + hGDim.r)
+                .attr("height", hGDim.h + hGDim.t + hGDim.b).append("g")
+                .attr("transform", "translate(" + hGDim.l + "," + hGDim.t + ")");
+
+            // create function for x-axis mapping.
+            var x = d3.scaleBand().rangeRound([0, hGDim.w]).padding(0.1)
+                .domain(fD.map(function(d) { return d[0]; }));
+
+            // Add x-axis to the histogram svg.
+            hGsvg.append("g").attr("class", "x axis")
+                .attr("transform", "translate(0," + hGDim.h + ")")
+                .call(d3.axisBottom(x));
+
+            // Create function for y-axis map.
+            var y = d3.scaleLinear().range([hGDim.h, 0])
+                .domain([0, d3.max(fD, function(d) { return d[1]; })]);
+
+            // Create bars for histogram to contain rectangles and freq labels.
+            var bars = hGsvg.selectAll(".bar").data(fD).enter()
+                .append("g").attr("class", "bar");
+
+            //create the rectangles.
+            bars.append("rect")
+                .attr("x", function(d) { return x(d[0]); })
+                .attr("y", function(d) { return y(d[1]); })
+                .attr("width", x.bandwidth())
+                .attr("height", function(d) { return hGDim.h - y(d[1]); })
+                .attr('fill',barColor)
+                .on("mouseover",mouseover)// mouseover is defined below.
+                .on("mouseout",mouseout);// mouseout is defined below.
+
+            //Create the frequency labels above the rectangles.
+            bars.append("text").text(function(d){ return d3.format(",")(d[1])})
+                .attr("x", function(d) { return x(d[0])+x.bandwidth()/2; })
+                .attr("y", function(d) { return y(d[1])-5; })
+                .attr("text-anchor", "middle");
+
+            function mouseover(d){  // utility function to be called on mouseover.
+                // filter for selected state.
+                var st = fData.filter(function(s){ return s.session == d[0];})[0],
+                    nD = d3.keys(st.csMap).map(function(s){ return {type:s, csMap:st.csMap[s]};});
+
+                // call update functions of pie-chart and legend.
+                pC.update(nD);
+                leg.update(nD);
+            }
+
+            function mouseout(d){    // utility function to be called on mouseout.
+                // reset the pie-chart and legend.
+                pC.update(tF);
+                leg.update(tF);
+            }
+
+            // create function to update the bars. This will be used by pie-chart.
+            hG.update = function(nD, color){
+                // update the domain of the y-axis map to reflect change in frequencies.
+                y.domain([0, d3.max(nD, function(d) { return d[1]; })]);
+
+                // Attach the new data to the bars.
+                var bars = hGsvg.selectAll(".bar").data(nD);
+
+                // transition the height and color of rectangles.
+                bars.select("rect").transition().duration(500)
+                    .attr("y", function(d) {return y(d[1]); })
+                    .attr("height", function(d) { return hGDim.h - y(d[1]); })
+                    .attr("fill", color);
+
+                // transition the frequency labels location and change value.
+                bars.select("text").transition().duration(500)
+                    .text(function(d){ return d3.format(",")(d[1])})
+                    .attr("y", function(d) {return y(d[1])-5; });
+            }
+            return hG;
+        }
+
+        // function to handle pieChart.
+        function pieChart(pD){
+            var pC ={},    pieDim ={w:250, h: 250};
+            pieDim.r = Math.min(pieDim.w, pieDim.h) / 2;
+
+            // create svg for pie chart.
+            var piesvg = d3.select(id).append("svg")
+                .attr("width", pieDim.w).attr("height", pieDim.h).append("g")
+                .attr("transform", "translate("+pieDim.w/2+","+pieDim.h/2+")");
+
+            // create function to draw the arcs of the pie slices.
+            var arc = d3.arc().outerRadius(pieDim.r - 10).innerRadius(0);
+
+            // create a function to compute the pie slice angles.
+            var pie = d3.pie().sort(null).value(function(d) { return d.csMap; });
+
+            // Draw the pie slices.
+            piesvg.selectAll("path").data(pie(pD)).enter().append("path").attr("d", arc)
+                .each(function(d) { this._current = d; })
+                .style("fill", function(d) { return segColor(d.data.type); })
+                .on("mouseover",mouseover).on("mouseout",mouseout);
+
+            // create function to update pie-chart. This will be used by histogram.
+            pC.update = function(nD){
+                piesvg.selectAll("path").data(pie(nD)).transition().duration(500)
+                    .attrTween("d", arcTween);
+            }
+            // Utility function to be called on mouseover a pie slice.
+            function mouseover(d){
+                // call the update function of histogram with new data.
+                hG.update(fData.map(function(v){
+                    return [v.session,v.csMap[d.data.type]];}),segColor(d.data.type));
+            }
+            //Utility function to be called on mouseout a pie slice.
+            function mouseout(d){
+                // call the update function of histogram with all data.
+                hG.update(fData.map(function(v){
+                    return [v.session,v.total];}), barColor);
+            }
+            // Animating the pie-slice requiring a custom function which specifies
+            // how the intermediate paths should be drawn.
+            function arcTween(a) {
+                var i = d3.interpolate(this._current, a);
+                this._current = i(0);
+                return function(t) { return arc(i(t));    };
+            }
+            return pC;
+        }
+
+        // function to handle legend.
+        function legend(lD){
+            var leg = {};
+
+            // create table for legend.
+            var legend = d3.select(id).append("table").attr('class','legend');
+
+            // create one row per segment.
+            var tr = legend.append("tbody").selectAll("tr").data(lD).enter().append("tr");
+
+            // create the first column for each segment.
+            tr.append("td").append("svg").attr("width", '16').attr("height", '16').append("rect")
+                .attr("width", '16').attr("height", '16')
+                .attr("fill",function(d){ return segColor(d.type); });
+
+            // create the second column for each segment.
+            tr.append("td").text(function(d){ return d.type;});
+
+            // create the third column for each segment.
+            tr.append("td").attr("class",'legendFreq')
+                .text(function(d){ return d3.format(",")(d.csMap);});
+
+            // create the fourth column for each segment.
+            tr.append("td").attr("class",'legendPerc')
+                .text(function(d){ return getLegend(d,lD);});
+
+            // Utility function to be used to update the legend.
+            leg.update = function(nD){
+                // update the data attached to the row elements.
+                var l = legend.select("tbody").selectAll("tr").data(nD);
+
+                // update the frequencies.
+                l.select(".legendFreq").text(function(d){ return d3.format(",")(d.csMap);});
+
+                // update the percentage column.
+                l.select(".legendPerc").text(function(d){ return getLegend(d,nD);});
+            }
+
+            function getLegend(d,aD){ // Utility function to compute percentage.
+                return d3.format("%")(d.csMap/d3.sum(aD.map(function(v){ return v.csMap; })));
+            }
+
+            return leg;
+        }
+
+        // calculate total frequency by segment for all state.
+        var tF = conditionList.map(function(d){
+            return {type:d, csMap: d3.sum(fData.map(function(t){ return t.csMap[d];}))};
+        });
+
+        // calculate total frequency by state for all segment.
+        var sF = fData.map(function(d){return [d.session,d.total];});
+
+        var hG = histoGram(sF), // create the histogram.
+            pC = pieChart(tF), // create the pie-chart.
+            leg= legend(tF);  // create the legend.
+    }
+</script>
+
+<script th:inline="javascript">
+
+    var conditionList=[[${conditionList}]];
+    d3.json("./getDash", function(error, data) {
+        if (error) return console.warn(error);
+        dashboard('#dashboard',data.total,conditionList);
+        dashboard('#dashboard2',data.active,conditionList);
+        dashboard('#dashboard3',data.inactive,conditionList);
+    });
+
+
+    //console.log(conditionList);
+
+
+    //var csDataMapList =[{"session":"preTest","csMap":{"POSITIVE":3,"FIFTY_FIFTY_RANDOM":0,"POSITIVE_NEGATION":1,"FIFTY_FIFTY_BLOCKED":0,"NEUTRAL":2}},{"session":"firstSession","csMap":{"POSITIVE":8,"FIFTY_FIFTY_RANDOM":5,"POSITIVE_NEGATION":3,"FIFTY_FIFTY_BLOCKED":0,"NEUTRAL":7}},{"session":"secondSession","csMap":{"POSITIVE":7,"FIFTY_FIFTY_RANDOM":3,"POSITIVE_NEGATION":2,"FIFTY_FIFTY_BLOCKED":5,"NEUTRAL":5}},{"session":"thirdSession","csMap":{"POSITIVE":2,"FIFTY_FIFTY_RANDOM":1,"POSITIVE_NEGATION":1,"FIFTY_FIFTY_BLOCKED":0,"NEUTRAL":6}},{"session":"fourthSession","csMap":{"POSITIVE":1,"FIFTY_FIFTY_RANDOM":5,"POSITIVE_NEGATION":1,"FIFTY_FIFTY_BLOCKED":2,"NEUTRAL":2}},{"session":"PostFollowUp","csMap":{"POSITIVE":41,"FIFTY_FIFTY_RANDOM":45,"POSITIVE_NEGATION":34,"FIFTY_FIFTY_BLOCKED":39,"NEUTRAL":107}},{"session":"COMPLETE","csMap":{"POSITIVE":4,"FIFTY_FIFTY_RANDOM":0,"POSITIVE_NEGATION":1,"FIFTY_FIFTY_BLOCKED":3,"NEUTRAL":3}}];
+
+
+</script>
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>

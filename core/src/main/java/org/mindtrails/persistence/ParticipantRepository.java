@@ -1,13 +1,16 @@
 package org.mindtrails.persistence;
 
 import org.mindtrails.domain.Participant;
+import org.mindtrails.domain.ParticipantStats;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 
+
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,7 +27,7 @@ import java.util.List;
  * Additional methods wil be provided automatically by following a standard
  * naming convention, as is the case with findByEmailAddress
  */
-@Repository
+
 public interface ParticipantRepository extends JpaRepository<Participant, Long> {
 
     Participant findByEmail(String email);
@@ -41,6 +44,12 @@ public interface ParticipantRepository extends JpaRepository<Participant, Long> 
     @Query("SELECT p FROM Participant as p LEFT JOIN p.passwordToken t \n" +
             "            where t.token = :token")
     Participant findByToken(@Param("token") String token);
+
+    Long countByLastLoginDateAfter(Date date);
+    long countByLastLoginDateBetween(Date date1,Date date2);
+
+    List<ParticipantStats> findAllStatsBy();
+
 
 
 
