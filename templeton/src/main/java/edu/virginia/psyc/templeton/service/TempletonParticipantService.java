@@ -41,10 +41,8 @@ public class TempletonParticipantService extends ParticipantServiceImpl implemen
         Participant p = new Participant();
         TempletonStudy study = new TempletonStudy();
         p.setStudy(study);
-
         TempletonStudy.CONDITION type = CONDITION_VALUES.get(RANDOM.nextInt(CONDITION_VALUES.size()));
-        study.setConditioning(type);
-
+        study.setConditioning(type.toString());
         return p;
     }
 
