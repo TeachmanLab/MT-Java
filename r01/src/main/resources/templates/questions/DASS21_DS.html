@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
+
+<head th:replace="fragment/common :: headerFragment"/>
+<body>
+<section th:replace="fragment/common :: topFragment"/>
+<section th:replace="fragment/common :: titleBar (title='Mood Assessment ')"/>
+<textArea th:replace="fragment/common :: questionTemplate"/>
+
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+
+
+                <p> Please read each statement and circle a number 0, 1, 2 or 3 that indicates how much the statement
+                    applied to you over the past week. There are no right or wrong answers. Do not spend too much time
+                    on any statement.
+                </p>
+
+
+                <p>  Please read each statement and circle a number 0, 1, 2 or 3 that indicates how much the statement
+                    applied to you since your last session (or over the past week if your last session was more than a
+                    week ago). There are no right or wrong answers. Do not spend too much time on any statement.
+                </p>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="content2" class="clearfix">
+
+    <form th:action="@{/questions/DASS21_DS}" method="POST">
+        <!-- Add timer -->
+        <input id="timeOnPage" name="timeOnPage" type="hidden"/>
+        <div class="container section compactQuestion">
+            <div class="row title">
+                <div class="col-md-12">
+                    <h4> Over the last week, how often have you been bothered by the following problems? </h4>
+                </div>
+            </div>
+            <div id="section1"></div>
+            <script>
+                var data = {
+                    "options": [
+                        {"value": 0, "title": "Not at all"},
+                        {"value": 1, "title": "Some degree"},
+                        {"value": 2, "title": "A considerable degree"},
+                        {"value": 3, "title": "Very much"}
+                    ],
+                    "questions": [
+                        {
+                            "name": "nopositive",
+                            "desc": "I couldn’t seem to experience any positive feeling at all."
+                        },
+                        {
+                            "name": "difficult",
+                            "desc": "I found it difficult to work up the initiative to do things."
+                        },
+                        {
+                            "name": "hopeless",
+                            "desc": "I felt that I was using a lot of nervous energy."
+                        },
+                        {
+                            "name": "blue",
+                            "desc": "I felt down-hearted and blue."
+                        },
+                        {
+                            "name": "noenthusiastic",
+                            "desc": "I was unable to become enthusiastic about anything."
+                        },
+                        {
+                            "name": "noworth",
+                            "desc": "I felt I wasn’t worth much as a person."
+                        },
+                        {
+                            "name": "meaningless",
+                            "desc": "I felt that life was meaningless."
+                        }
+
+
+                    ]
+                }
+                $('#section1').html(Mustache.render($('#template').val(), data));
+            </script>
+        </div>
+
+
+        <div class="col-md-12" style="text-align:center">
+            <button type="submit">Next</button>
+        </div>
+
+    </form>
+
+
+</section>
+<footer th:replace="fragment/common :: footer"/>
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>
+
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts"/>
+ml>
