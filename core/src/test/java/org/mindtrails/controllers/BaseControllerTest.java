@@ -9,8 +9,8 @@ import org.mindtrails.persistence.ParticipantRepository;
 import org.mindtrails.service.ParticipantService;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.mobile.device.DeviceWebArgumentResolver;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.web.FilterChainProxy;
 import org.springframework.security.web.method.annotation.AuthenticationPrincipalArgumentResolver;
 import org.springframework.test.context.ActiveProfiles;
@@ -37,7 +37,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ServletWebArgumentR
        .andReturn();
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
+@SpringBootTest(classes = Application.class)
 @WebAppConfiguration
 @ActiveProfiles("test")
 public abstract class BaseControllerTest {
@@ -88,6 +88,7 @@ public abstract class BaseControllerTest {
             p.setEmail(email);
             p.setAdmin(admin);
         }
+        p.setStudy(new TestStudy());
         participantRepository.save(p);
         return p;
     }

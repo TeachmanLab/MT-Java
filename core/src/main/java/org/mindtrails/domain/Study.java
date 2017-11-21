@@ -47,6 +47,10 @@ public interface Study {
 
     public boolean hasTask(String task);
 
+    public String getConditioning();
+
+    public List<String> getConditions();
+
     /**
      *     Parameters to pass into the PIPlayer Script.  Frequently
      *     includes details about the current study, such as

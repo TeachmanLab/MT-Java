@@ -11,6 +11,8 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * A barebones implementation of Study to aid in testing other structures.
@@ -48,6 +50,10 @@ public class TestStudy extends BaseStudy implements Study {
         tasks.add(new Task("TestQuestionnaire", "Test Question", Task.TYPE.questions, 3));
         tasks.add(new Task("TestUndeleteable", "Test Undeleteable Question", Task.TYPE.questions, 3));
         return tasks;
+    }
+
+    public List<String>getConditions(){
+        return new ArrayList<String>();
     }
 
 

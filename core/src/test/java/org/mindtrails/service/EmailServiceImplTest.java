@@ -15,7 +15,7 @@ import org.mindtrails.domain.tracking.EmailLog;
 import org.mindtrails.domain.tracking.TaskLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.subethamail.wiser.Wiser;
@@ -35,7 +35,7 @@ import static org.junit.Assert.*;
  * Created by dan on 8/4/16.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
+@SpringBootTest(classes = Application.class)
 @WebAppConfiguration
 public class EmailServiceImplTest {
 
@@ -98,6 +98,7 @@ public class EmailServiceImplTest {
         Email e = emailService.getEmailForType(EmailService.TYPE.day2.toString());
         e.setTo("test@test.com");
         Participant p = new Participant();
+        p.setStudy(new TestStudy());
         p.setEmail("test@test.com");
         e.setParticipant(p);
         e.setContext(new Context());
@@ -126,6 +127,7 @@ public class EmailServiceImplTest {
         String token = "1234ASBASDF1234ASDF";
 
         Participant p = new Participant();
+        p.setStudy(new TestStudy());
         p.setEmail(email);
         p.setPasswordToken(new PasswordToken(p, new Date(), token));
         Study s = new TestStudy("SessionOne",0);
@@ -162,7 +164,6 @@ public class EmailServiceImplTest {
         Participant p = new Participant();
         Study s = new TestStudy("SessionOne",0);
         p.setStudy(s);
-
         p.setEmail(email);
 
         emailService.sendGiftCard(p,reward, 100);
