@@ -33,19 +33,19 @@ public class TempletonParticipantServiceTest {
             study = (TempletonStudy) p.getStudy();
 
             switch (study.getConditioning()) {
-                case POSITIVE:
+                case "POSITIVE":
                     positive++;
                     break;
-                case POSITIVE_NEGATION:
+                case "POSITIVE_NEGATION":
                     positive_neg++;
                     break;
-                case FIFTY_FIFTY_RANDOM:
+                case "FIFTY_FIFTY_RANDOM":
                     fifty++;
                     break;
-                case FIFTY_FIFTY_BLOCKED:
+                case "FIFTY_FIFTY_BLOCKED":
                     fifty_block++;
                     break;
-                case NEUTRAL:
+                case "NEUTRAL":
                     neutral++;
                     break;
             }

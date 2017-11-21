@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * This is where you define the sessions and tasks that make up the study.
@@ -26,10 +28,9 @@ public class TempletonStudy extends BaseStudy {
     // positive (all postivie words, w/ negation statement
     // 50/50 (half positive, half negative, completely random)
     // 50/50 (half positive, half negative, chunks - first 5 pos, next x are negative ....)
-    // Neutral condition (likely alternate content)
+    // Neutral conditioning (likely alternate content)
     public enum CONDITION {POSITIVE, POSITIVE_NEGATION, FIFTY_FIFTY_RANDOM, FIFTY_FIFTY_BLOCKED, NEUTRAL }
 
-    private CONDITION     conditioning;
     public static final String PRE_TEST = "preTest";
 
     public enum SESSION {firstSession, secondSession, thirdSession, fourthSession, PostFollowUp }
@@ -71,7 +72,7 @@ public class TempletonStudy extends BaseStudy {
     public Map<String,Object> getPiPlayerParameters() {
         Map<String,Object> map = super.getPiPlayerParameters();
         String sessionName = this.getCurrentSession().getName();
-        map.put("negate",(conditioning.equals(CONDITION.POSITIVE_NEGATION)));
+        map.put("negate",(conditioning.equals(CONDITION.POSITIVE_NEGATION.name())));
         map.put("sessionIndex", this.getCurrentSession().getIndex());
         switch(sessionName) {
             case FIRST_SESSION:
@@ -81,7 +82,7 @@ public class TempletonStudy extends BaseStudy {
                 break;
             case SECOND_SESSION:
                 map.put("secondWordSet",true);
-                if(conditioning.equals(CONDITION.NEUTRAL))
+                if(conditioning.equals(CONDITION.NEUTRAL.name()))
                     map.put("question","yes_no");
                 else
                     map.put("question", "mc1");
@@ -89,7 +90,7 @@ public class TempletonStudy extends BaseStudy {
                 break;
             case THIRD_SESSION:
                 map.put("secondWordSet",false);
-                if(conditioning.equals(CONDITION.NEUTRAL))
+                if(conditioning.equals(CONDITION.NEUTRAL.name()))
                     map.put("question","yes_no");
                 else
                     map.put("question", "mc2");
@@ -105,9 +106,17 @@ public class TempletonStudy extends BaseStudy {
                 map.put("question","yes_no");
                 map.put("lettersToRemove",1);
         }
-        map.put("condition", this.conditioning.toString());
+        map.put("condition", this.conditioning);
         return map;
     }
+
+  
+
+    public List<String>getConditions(){
+        return Stream.of(CONDITION.values()) .map(Enum::name) .collect(Collectors.toList());
+    }
+
+
 
     /**
      * Returns the list of sessions and tasks that define the study.
@@ -125,6 +134,7 @@ public class TempletonStudy extends BaseStudy {
         pretest.addTask(new Task("MentalHealthHistory","Mental Health History", Task.TYPE.questions, 2));
         pretest.addTask(new Task("WhatIBelieve","What I Believe", Task.TYPE.questions, 2));
         pretest.addTask(new Task("Phq4","My Mood", Task.TYPE.questions, 0));
+
         sessions.add(pretest);
 
         session1 = new Session(FIRST_SESSION, "Level 1: Beginner", 0, 0);
