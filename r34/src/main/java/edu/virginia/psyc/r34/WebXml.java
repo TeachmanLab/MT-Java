@@ -1,7 +1,9 @@
 package edu.virginia.psyc.r34;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.context.web.SpringBootServletInitializer;
+
+import org.springframework.boot.web.support.SpringBootServletInitializer;
+
 
 /**
  * Just a touch more wiring to get War files to work correctly when remotely deployed.
