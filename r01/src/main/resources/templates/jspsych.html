@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head>
+
+    <script th:src="@{/bower/papaparse/papaparse.min.js}"></script>
+    <script th:src="@{/bower/jquery/dist/jquery.min.js}"></script>
+    <script th:src="@{/bower/jspsych/jspsych.js}"></script>
+
+    <!-- JS Psych Plugins -->
+    <script th:src="@{/bower/jspsych/plugins/jspsych-html.js}"></script>
+    <script th:src="@{/bower/jspsych/plugins/jspsych-button-response.js}"></script>
+
+    <script th:src="@{/js/training/plugins/missing-letters.js}"></script>
+    <script th:src="@{/js/training/plugins/sentence-reveal.js}"></script>
+    <script th:src="@{/js/training/plugins/button-response-correct.js}"></script>
+
+    <script th:src="@{/js/training/templeton.js}"></script>
+
+    <link th:href="@{/js/training/css/jspsych-mobile.css}"  rel="stylesheet" type="text/css"/>
+    <link th:href="@{/js/training/css/experiment.css}" rel="stylesheet" type="text/css"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+</head>
+<body>
+<div class="piPlayerHeader">
+    <img th:src="@{/images/header-minimal.png}"/>
+</div>
+<div id="container">
+    <div class="status">
+        <span id="score"></span>
+        <span id="progress"></span>
+    </div>
+    <div id="jspsych-target">
+        <img id="spinner" th:src="@{/js/training/images/spinner.gif}"/>
+    </div>
+</div>
+
+</body>
+
+<script th:inline="javascript">
+
+    // Warn people about leaving the page before they complete all the questions
+    window.onbeforeunload = function() {
+        return 'Are you sure you want to exit this training session?'
+    }
+
+    /*<![CDATA[*/
+
+    TEMPLETON_MODULE.condition = /*[[${conditioning}]]*/ "POSITIVE";
+    TEMPLETON_MODULE.sessionIndex   = /*[[${sessionIndex}]]*/ "1";
+    TEMPLETON_MODULE.letters_to_remove = /*[[${lettersToRemove}]]*/ 1;
+    TEMPLETON_MODULE.total_scenarios = 40;
+    TEMPLETON_MODULE.second_word_set = /*[[${secondWordSet}]]*/ true;
+    TEMPLETON_MODULE.question_type = /*[[${question}]]*/ "question";
+    TEMPLETON_MODULE.block_size = 5;
+    TEMPLETON_MODULE.target = "jspsych-target";
+    TEMPLETON_MODULE.base_url = /*[[@{/js/training}]]*/ '../js/training';
+    TEMPLETON_MODULE.post_url = /*[[@{/jspsych}]]*/ '../jspsych';
+    TEMPLETON_MODULE.redirect_url = /*[[@{/jspsych/completed/JsPsychTrial}]]*/ '../jspsych/completed/JsPsychTrial';
+
+    TEMPLETON_MODULE.execute();
+
+    /*]]>*/
+</script>
+</html>

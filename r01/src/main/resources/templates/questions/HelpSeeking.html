@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
+
+<head th:replace="fragment/common :: headerFragment"/>
+<body>
+<section th:replace="fragment/common :: topFragment"/>
+<section th:replace="fragment/common :: titleBar (title='Help Seeking')"/>
+
+<section id="content" class="clearfix">
+
+    <form th:action="@{/questions/HelpSeeking}" method="POST">
+        <!-- Add timer -->
+        <input id="timeOnPage" name="timeOnPage" type="hidden"/>
+        <div class="container">
+            <div class="section">
+
+                <div class="row">
+                    <div class="col-md-10">
+
+                        <p class="question">Over the course of this program, did you start/stop/change a dose of
+                            medication, therapy, or other intervention to help your future thinking or emotional
+                            difficulties?</p>
+
+                        <p class="question">If you are on the same dose of medication or same appointment schedule for therapy or
+                            intervention as you were when you began this program, please choose “No change.” </p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8 side-border">
+
+
+                        <div class="radio">
+                            <label> <input type="checkbox" id="MorePerson" name="MorePerson"/> I seek
+                                in-person therapy more now </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="checkbox" id="LessPerson" name="LessPerson"/> I seek
+                                in-person therapy less now </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="checkbox" id="MoreMeds" name="MoreMeds"/> I use
+                                prescription medication more now </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="checkbox" id="LessMeds" name="LessMeds"/> I use
+                                prescription medication less now </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="checkbox" id="MoreApps" name="MoreApps" /> I use online
+                                computer programs (other than MindTrails) or mobile apps more now </label>
+                        </div>
+                        <div class="radio">
+                            <label> <input type="checkbox" id="LessApps" name="LessApps"/> I use online
+                                computer programs (other than MindTrails) or mobile apps less now </label>
+                        </div>
+                        <br/>
+                        <div class="radio">
+                            <label > <input type="checkbox" name="LessApps" value="Other" id="Q1_7"
+                                                            onchange="spec('Q1_7')"/> Other (Please specify) <input
+                                    id="Q1_7_spec" type="text" name="LessApps_Other_Desc" value="N/A"/> </label>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="radio">
+                            <div><label> <input type="checkbox" id="NoChange" name="NoChange" required="true"/> No
+                                Change
+                            </label></div>
+                            <br/>
+                            <div><label class="standard"> <input type="checkbox" name="ChangeInHelp_noAns" value="555"
+                                                                 onchange="disableSection(this)"/> Prefer not
+                                to
+                                answer
+                            </label></div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+        <div style="text-align:center">
+            <button type="submit"> Submit</button>
+        </div>
+    </form>
+
+
+</section>
+<footer th:replace="fragment/common :: footer"/>
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>
+
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts"/>
+
+<script type="text/javascript">
+    function spec(id) {
+        if (document.getElementById(id).checked) {
+            document.getElementById(id + "_spec").required = true;
+            if(document.getElementById(id + "_spec").value == "N/A"){
+                document.getElementById(id + "_spec").value = "";
+            }
+
+
+        }
+        else {
+            document.getElementById(id + "_spec").value = "N/A";
+            //document.getElementById(id + "_spec").required = false;
+        }
+    }
+
+    function disableSection(input) {
+        if (input.checked) {
+            $(input).closest('.section').find("input").attr("disabled", true);
+            $(input).removeAttr("disabled");
+        } else {
+            $(input).closest('.section').find("input").removeAttr("disabled");
+        }
+    }
+
+    // Be sure at least one checkbox is selected on this page.
+    $('button[type="submit"]').on('click', function() {
+        $cbx_group = $("input:checkbox");
+        $cbx_group.prop('required', true);
+        if($cbx_group.is(":checked")){
+            $cbx_group.prop('required', false);
+        }
+    });
+
+</script>
