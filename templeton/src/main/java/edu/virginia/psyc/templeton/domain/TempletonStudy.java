@@ -167,6 +167,7 @@ public class TempletonStudy extends BaseStudy {
         session4.addTask(new Task("WhatIBelieve","What I Believe", Task.TYPE.questions, 2));
         session4.addTask(new Task("Phq4","Mood", Task.TYPE.questions, 0));
         session4.addTask(new Task("HelpSeeking","Change in Help Seeking", Task.TYPE.questions, 1));
+        session4.addTask(new Task("Evaluation","Evaluating the Program", Task.TYPE.questions, 2));
         session4.addTask(new Task("ReturnIntention","Return Intention", Task.TYPE.questions,0));
         sessions.add(session4);
 
@@ -176,7 +177,6 @@ public class TempletonStudy extends BaseStudy {
         post.addTask(new Task("WhatIBelieve","What I Believe", Task.TYPE.questions, 2));
         post.addTask(new Task("Phq4","Mood", Task.TYPE.questions, 0));
         post.addTask(new Task("HelpSeeking","Change in Help Seeking", Task.TYPE.questions, 1));
-        post.addTask(new Task("Evaluation","Evaluating the Program", Task.TYPE.questions, 2));
         sessions.add(post);
 
         return sessions;
