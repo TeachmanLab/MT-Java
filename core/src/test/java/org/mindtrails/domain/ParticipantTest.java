@@ -28,6 +28,7 @@ public class ParticipantTest {
         p = new Participant("Dan", "test@tester.org", false);
         TestStudy study = new TestStudy();
         study.setLastSessionDate(dateTime.toDate());
+        p.setLastLoginDate(dateTime.toDate());
         p.setStudy(study);
         return(p);
     }
@@ -112,8 +113,7 @@ public class ParticipantTest {
         Participant p;
         Study study;
         p = new Participant("Dan Funk", "daniel.h.funk@gmail.com", false);
-        study = new TestStudy();
-        p.setStudy(study);
+        p.setStudy(new TestStudy());
         assertFalse(p.previouslySent("followup"));
         p.addEmailLog(new EmailLog(p,"followup", new Date()));
         assertTrue(p.previouslySent("followup"));

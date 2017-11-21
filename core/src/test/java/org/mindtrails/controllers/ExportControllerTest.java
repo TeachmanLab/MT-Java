@@ -21,7 +21,7 @@ import org.mindtrails.domain.questionnaire.SecureQuestionnaireData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.context.ActiveProfiles;
@@ -51,7 +51,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Created by dan on 10/23/15.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
+@SpringBootTest(classes = Application.class)
 @WebAppConfiguration
 @ActiveProfiles("test")
 public class ExportControllerTest extends BaseControllerTest {
@@ -90,7 +90,8 @@ public class ExportControllerTest extends BaseControllerTest {
                 .with(SecurityMockMvcRequestPostProcessors.user(participant))
                 .param("value", "cheese")
                 .param("multiValue", "cheddar")
-                .param("multiValue", "havarti"))
+                .param("multiValue", "havarti")
+                .param("timeOnPage","9.999"))
                 .andExpect((status().is3xxRedirection()));
     }
 

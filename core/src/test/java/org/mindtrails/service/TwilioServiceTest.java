@@ -10,12 +10,13 @@ import org.mindtrails.MockClasses.TestStudy;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.persistence.ParticipantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Date;
+import java.util.TimeZone;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -24,7 +25,7 @@ import static org.junit.Assert.assertTrue;
 /**
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
+@SpringBootTest(classes = Application.class)
 @ActiveProfiles("test")
 public class TwilioServiceTest {
 
@@ -91,7 +92,8 @@ public class TwilioServiceTest {
     @Test
     public void MessageOnSixtythDayIfALongDelay() throws Exception {
         participant.setLastLoginDate(xDaysAgo(60));
-        participant.getStudy().getCurrentSession().setDaysToWait(60);
+        participant.setStudy(new TestStudy("PostSession",0));
+        //participant.getStudy().getCurrentSession().setDaysToWait(60);
         assertFalse(service.getMessage(participant).isEmpty());
     }
 
@@ -102,6 +104,7 @@ public class TwilioServiceTest {
         service.setNotifyHour(DateTime.now().getHourOfDay());
         service.setNotifyMinute(DateTime.now().getMinuteOfHour());
 
+
         assert(service.timeToSendMessage(participant));
 
         // But not if their timezone is different.
@@ -109,7 +112,10 @@ public class TwilioServiceTest {
         assertFalse(service.timeToSendMessage(participant));
 
         // But this timezone should be all good.
-        participant.setTimezone("America/New_York");
+
+
+
+        participant.setTimezone(TimeZone.getDefault().getID());
         assert(service.timeToSendMessage(participant));
 
 
