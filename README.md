@@ -111,22 +111,31 @@ Database Setup
 Install MySQL, and execute the following commands to establish
 a user account.  You can use a different password if you change
 the datasource.password setting in src/main/resources/application.properties
-
-> CREATE DATABASE pi CHARACTER SET utf8 COLLATE utf8_general_ci;
-> CREATE USER 'pi_user'@'localhost' IDENTIFIED BY 'pi_password';
-> GRANT ALL PRIVILEGES ON pi.* TO 'pi_user'@'%' IDENTIFIED BY 'pi_password' WITH GRANT OPTION;
-
+```mysql
+CREATE DATABASE pi CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE USER 'pi_user'@'localhost' IDENTIFIED BY 'pi_password';
+GRANT ALL PRIVILEGES ON pi.* TO 'pi_user'@'%' IDENTIFIED BY 'pi_password' WITH GRANT OPTION;
+```
 If you are running the tests, that is configured to use a seperate database
-> CREATE DATABASE pi_test CHARACTER SET utf8 COLLATE utf8_general_ci;
-> GRANT ALL PRIVILEGES ON pi_test.* TO 'pi_user'@'%' IDENTIFIED BY 'pi_password' WITH GRANT OPTION;
-
+```mysql
+CREATE DATABASE pi_test CHARACTER SET utf8 COLLATE utf8_general_ci;
+GRANT ALL PRIVILEGES ON pi_test.* TO 'pi_user'@'%' IDENTIFIED BY 'pi_password' WITH GRANT OPTION;
+```
 The templeton project requires its own database
-> CREATE DATABASE templeton CHARACTER SET utf8 COLLATE utf8_general_ci;
-> GRANT ALL PRIVILEGES ON templeton.* TO 'pi_user'@'%' IDENTIFIED BY 'pi_password' WITH GRANT OPTION;
-
+```mysql
+CREATE DATABASE templeton CHARACTER SET utf8 COLLATE utf8_general_ci;
+GRANT ALL PRIVILEGES ON templeton.* TO 'pi_user'@'%' IDENTIFIED BY 'pi_password' WITH GRANT OPTION;
+```
 The mobile project requires its own database as well
-> CREATE DATABASE mobile CHARACTER SET utf8 COLLATE utf8_general_ci;
-> GRANT ALL PRIVILEGES ON mobile.* TO 'pi_user'@'%' IDENTIFIED BY 'pi_password' WITH GRANT OPTION;
+```mysql
+CREATE DATABASE mobile CHARACTER SET utf8 COLLATE utf8_general_ci;
+GRANT ALL PRIVILEGES ON mobile.* TO 'pi_user'@'%' IDENTIFIED BY 'pi_password' WITH GRANT OPTION;
+```
+And for r01
+```mysql
+CREATE DATABASE r01 CHARACTER SET utf8 COLLATE utf8_general_ci;
+GRANT ALL PRIVILEGES ON r01.* TO 'pi_user'@'%' IDENTIFIED BY 'pi_password' WITH GRANT OPTION;
+```
 
 
 Installing Javascript Dependencies

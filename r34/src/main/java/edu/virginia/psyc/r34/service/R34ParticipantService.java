@@ -53,7 +53,7 @@ public class R34ParticipantService extends ParticipantServiceImpl implements Par
         } else {
             study = new R34Study(R34Study.NAME.PRE.toString(), 0, null, new ArrayList<TaskLog>(), this.receiveGiftCards());
         }
-        study.setCondition(randomCondition);
+        study.setConditioning(randomCondition.name());
         study.setPrime(randomPrime);
         p.setStudy(study);
 

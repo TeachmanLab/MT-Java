@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Created with IntelliJ IDEA.
@@ -32,7 +34,6 @@ public class R34Study extends BaseStudy implements Study {
 
     private boolean        increase30 = false;
     private boolean        increase50 = false;
-    @Enumerated(EnumType.STRING) @Column(name="studyCondition") private CONDITION      condition;
     @Enumerated(EnumType.STRING) private PRIME          prime;
     protected String       riskSession;  // The session that saw an increase in risk factor.
 
@@ -48,8 +49,8 @@ public class R34Study extends BaseStudy implements Study {
     @Override
     public Map<String,Object> getPiPlayerParameters(){
         Map<String,Object> params = new HashMap<>();
-        if(getCondition() != null) {
-            params.put("condition", getCondition().toString());
+        if(getConditioning() != null) {
+            params.put("condition", getConditioning());
         }
         return params;
     }
@@ -76,6 +77,10 @@ public class R34Study extends BaseStudy implements Study {
 
     public R34Study(String currentSession, int taskIndex, Date lastSessionDate, List<TaskLog> taskLogs, boolean receiveGiftCards) {
         super(currentSession, taskIndex, lastSessionDate, taskLogs, receiveGiftCards);
+    }
+
+    public List<String>getConditions(){
+        return Stream.of(CONDITION.values()) .map(Enum::name) .collect(Collectors.toList());
     }
 
     @Override
