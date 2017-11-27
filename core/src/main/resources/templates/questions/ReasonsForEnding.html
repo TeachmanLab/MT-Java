@@ -6,394 +6,592 @@
 <!--[if IE 8 ]>
 <html class="ie ie8" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!-->
-<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
-<!--<![endif]-->
-<head th:include="/fragment/common :: headerFragment"/>
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
+
+<head th:replace="fragment/common :: headerFragment"/>
 <body>
 <section th:replace="fragment/common :: topFragment"/>
-<section th:include="fragment/common :: titleBar (title='Reasons for Ending')"/>
+<section th:replace="fragment/common :: titleBar (title='ReasonsForEnding')"/>
 <textArea th:replace="fragment/common :: questionTemplate"/>
-
-<!-- content starts
-================================================== -->
-<section id="content" class="clearfix">
+<textArea th:replace="fragment/common :: questionTemplate2"/>
+<section id="content1" class="clearfix">
     <div class="container">
-        <form id="form" th:action="@{/questions/ReasonsForEnding}" method="POST">
-            <input id="timeOnPage" name="timeOnPage" type="hidden"/>
-            <p>We are interested in improving our program and would like to learn about why you decided to stop the
-                program. We appreciate your feedback!</p>
-            <p>Note that <b>assessment sessions</b> were sessions in which you completed questionnaires about your
-                feelings and thoughts. <b>Training sessions</b> were sessions in which you completed words at the end of
-                sentences.</p>
+        <div class="row">
+            <div class="col-md-8">
 
-            <!--features starts-->
+                <p> We are interested in improving our program and would like to learn about why you decided to stop the program. We appreciate your feedback!</p>
+                <p>Note that <b>assessment sessions</b> were sessions in which you completed questionnaires about your feelings and thoughts.
+                    <b>Training sessions</b> were sessions in which you completed words at the end of sentences.</p>
 
-            <div class="section">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h4>1. Why did you decide to end the program? (please check all that apply)
-                        </h4>
-
-                        <div class="radio"><label><input type="checkbox" name="reasons" value="not enough time"/> I did
-                            not have enough time to complete the program.</label></div>
-                        <div class="radio"><label><input type="checkbox" name="reasons" value="not helpful"/> I did not
-                            find the program helpful for reducing my anxiety.</label></div>
-                        <div class="radio"><label><input type="checkbox" name="reasons" value="not interesting"/> I did
-                            not find the program interesting.</label></div>
-                        <div class="radio"><label><input type="checkbox" name="reasons" value="not believe"/> I did not
-                            believe a program like this could work. </label></div>
-                        <div class="radio"><label><input type="checkbox" name="reasons" value="frustrating"/> I found
-                            the
-                            program frustrating to use.</label></div>
-                        <div class="radio"><label><input type="checkbox" name="reasons" value="not needed"/> I no longer
-                            needed the program (i.e., I no longer felt anxious).</label></div>
-                        <div class="radio"><label><input type="checkbox" name="reasons" value="in control"/> I believe I
-                            was assigned to a control condition (i.e., the condition that was not expected to change
-                            anxiety). </label></div>
-                        <div class="radio"><label><input type="checkbox" name="reasons" value="other"/> Other, please
-                            specify: <input type="text" name="reasons"/></label></div>
-                        <div class="radio"><label><input type="checkbox" name="reasons" value="no answer"/> Prefer
-                            not to
-                            answer</label></div>
-                    </div>
-                </div>
-            </div>
-            <div class="section">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h4>2. Even if it was not your reason for ending the program, do you believe
-                            that you were assigned to the control condition?
-                        </h4>
-                        <div class="radio"><label><input type="radio" id="thoughtInControl" name="thoughtInControl"
-                                                         value="true" required="true"/>Yes</label></div>
-                        <div class="radio"><label><input type="radio" name="thoughtInControl"
-                                                         value="false"/>No</label></div>
-                        <div id="thoughtInControlDetail" style="display: none">
-                            <h4>At what point did you think you were in the control condition?</h4>
-                            <div class="radio"><label><input type="radio" name="pointInControl" value="early"/>
-                                <b>Early</b> in the training program (within the first 3 sessions)</label></div>
-                                <div class="radio"><label><input type="radio" name="pointInControl" value="mid-way"/> <b>Mid-way</b>
-                                through the training program (around the 4th or 5th session)</label></div>
-                                    <div class="radio"><label><input type="radio" name="pointInControl" value="later"/>
-                                <b>Later</b> in the training program (within the last 3 sessions)</label></div>
-                                        <div class="radio"><label><input type="radio" name="pointInControl" value="noAnswer"/> Prefer
-                                            not to answer</label></div>
-
-                            <h4>What made you think you were in the control condition? Check all that
-                                apply.
-                            </h4>
-                           <div class="radio"><label><input type="radio" name="whyInControl" value="not relieved"/> My
-                               anxiety wasn’t being relieved.</label></div>
-                           <div class="radio"><label><input type="radio" name="whyInControl" value="not helpful"/> I
-                               didn’t think that the program that I was completing could help my anxiety.</label></div>
-                           <div class="radio"><label><input type="radio" name="whyInControl" value="other"/> Other,
-                                please specify: <input type="text" name="whyInControl"/></label></div>
-                        </div>
-                        <script>
-                            $(document).ready(function () {
-                                $("input[name$='thoughtInControl']").click(function () {
-                                    if ($(this).val() == "true") {
-                                        $('#thoughtInControlDetail').fadeIn('slow');
-                                    } else {
-                                        $('#thoughtInControlDetail').fadeOut('slow');
-                                    }
-                                });
-                            });
-                        </script>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="container section compactQuestion">
-                <h4>3. To the extent you completed the program...</h4>
-                <div id="section1"></div>
-                <script>
-                    var data = {
-                        "options": [
-                            {"value": 0, "title": "Not at all"},
-                            {"value": 1, "title": "Slightly"},
-                            {"value": 2, "title": "Somewhat"},
-                            {"value": 3, "title": "Mostly"},
-                            {"value": 4, "title": "Very"}
-                        ],
-                        "questions": [
-                            {
-                                "name": "helpful",
-                                "desc": "How helpful was it for reducing your anxiety?"
-                            },
-                            {
-                                "name": "work",
-                                "desc": "How well did the web program work for you?"
-                            },
-                            {
-                                "name": "easy",
-                                "desc": "How easy was the web program to use?"
-                            },
-                            {
-                                "name": "interest",
-                                "desc": "How much did the web program keep your interest and attention?"
-                            },
-                            {
-                                "name": "inGeneral",
-                                "desc": "How much did you like the web program in general?"
-                            }
-                        ]
-                    }
-                    $('#section1').html(Mustache.render($('#template').val(), data));
-                </script>
-            </div>
-
-            <div class="container section compactQuestion">
-                <h4>3. To the extent you completed the program (continued)...</h4>
-                <div id="section2"></div>
-                <script>
-                    var data = {
-                        "options": [
-                            {"value": 0, "title": "Not at all"},
-                            {"value": 1, "title": "Slightly"},
-                            {"value": 2, "title": "Somewhat"},
-                            {"value": 3, "title": "Mostly"},
-                            {"value": 4, "title": "Very"}
-                        ],
-                        "questions": [
-                            {
-                                "name": "looked",
-                                "desc": "how much did you like the way the web program looked?"
-                            },
-                            {
-                                "name": "privacy",
-                                "desc": "How worried were you about your privacy in using this web program?"
-                            },
-                            {
-                                "name": "understandAssessments",
-                                "desc": "How easy were the assessments to understand?"
-                            },
-                            {
-                                "name": "understandTraining",
-                                "desc": "How easy was the training program (including instructions and materials) to understand?"
-                            },
-                            {
-                                "name": "trust",
-                                "desc": "How much did you feel you could trust the information?"
-                            }
-
-                        ]
-                    }
-                    $('#section2').html(Mustache.render($('#template').val(), data));
-                </script>
-            </div>
-
-
-            <div class="section">
-                <div class="question group-required">4. Of the sessions you did complete, where did you
-                    primarily complete the program? (please check all that apply)
-                </div>
-               <div class="radio"><label><input type="checkbox" name="location" value="home"/>At home</label></div>
-               <div class="radio"><label><input type="checkbox" name="location" value="work"/>At work</label></div>
-               <div class="radio"><label><input type="checkbox" name="location" value="library"/>At the library,
-                    coffee shop, restaurant or other public spaces</label></div>
-               <div class="radio"><label><input type="checkbox" name="location" value="commuting"/>While
-                    commuting/travelling (e.g., on the train to work)</label></div>
-               <div class="radio"><label><input type="checkbox" name="location" value="vacation"/>On
-                    vacation</label></div>
-               <div class="radio"><label><input type="checkbox" name="location" value="other"/>Other: <input
-                        type="text" name="location"/></label></div>
-               <div class="radio"><label><input type="checkbox" name="location" value="noAnswer"/>Prefer not to
-                    answer</label></div>
-            </div>
-
-
-            <div class="section">
-
-                <h4> 5. While you were completing the treatment sessions, how focused or
-                    distracted were you?
-                </h4>
-
-                <input id="focusSlider" type="text" name="focused" required="true"/>
-                <div class="after_slider"><label class="standard">
-                    <input id="focusSlider-enabled" type="checkbox" name="focused" value="555"/>
-                    Prefer not to answer
-                </label></div>
-                <script>
-                    $("#focusSlider").slider({
-                        ticks: [1, 7],
-                        ticks_labels: ['Distracted', 'Focused'],
-                        ticks_snap_bounds: 0,
-                        tooltip: "hide",
-                        value: 4,
-                        formatter: function (value) {
-                            $('#focusSlider-enabled')[0].required = false;
-                        }
-                    });
-
-                    $("#focusSlider-enabled").click(function () {
-                        if (this.checked) {
-                            $("#focusSlider").slider("disable");
-                            $('#focusSlider-enabled')[0].required = false;
-                        }
-                        else {
-                            $("#focusSlider").slider("enable");
-                        }
-                    });
-                    $('#focusSlider-enabled')[0].required = true;
-
-                </script>
 
             </div>
-
-
-            <div class="container section compactQuestion">
-                <h4>6. Some people have problems when trying to use a web program.
-                    Please read the next items and tell us how much of a problem you had when trying to use
-                    the web program.
-                </h4>
-                <div id="section3"></div>
-                <script>
-                    var data = {
-                        "options": [
-                            {"value": 0, "title": "Not a problem"},
-                            {"value": 1, "title": "Little problem"},
-                            {"value": 2, "title": "Major problem"},
-                            {"value": 3, "title": "Not Applicable"},
-                        ],
-                        "questions": [
-                            {
-                                "name": "internet",
-                                "desc": "My Internet connection did not work (i.e., I could not connect to the Internet)."
-                            },
-                            {
-                                "name": "connected",
-                                "desc": "My internet connection worked, but I could not get connected to the web program."
-                            },
-                            {
-                                "name": "forgot",
-                                "desc": "I just forgot to go to the web program."
-                            },
-                            {
-                                "name": "personalIssues",
-                                "desc": "DPersonal issues stopped me from using the web program."
-                            },
-                            {
-                                "name": "navigationHard",
-                                "desc": "The web program was too hard to navigate."
-                            }
-                        ]
-                    }
-                    $('#section3').html(Mustache.render($('#template').val(), data));
-                </script>
-            </div>
-
-            <div class="container section compactQuestion">
-                <h4>6. Tell us how much of a problem you had when trying to use
-                    the web program. (Continued)
-                </h4>
-                <div id="section4"></div>
-                <script>
-                    var data = {
-                        "options": [
-                            {"value": 0, "title": "Not a problem"},
-                            {"value": 1, "title": "Little problem"},
-                            {"value": 2, "title": "Major problem"},
-                            {"value": 3, "title": "Not Applicable"},
-                        ],
-                        "questions": [
-                            {
-                                "name": "hardToUnderstand",
-                                "desc": "The web program was too hard to understand."
-                            },
-                            {
-                                "name": "notUseful",
-                                "desc": "The web program did not seem very useful."
-                            },
-                            {
-                                "name": "takeTooLong",
-                                "desc": "I thought the program was going to take too long."
-                            },
-                            {
-                                "name": "tooManyWords",
-                                "desc": "The web program had too many words."
-                            },
-                            {
-                                "name": "hardToRead",
-                                "desc": "The screen was hard to read (e.g., words were too small)."
-                            },
-                        ]
-                    }
-                    $('#section4').html(Mustache.render($('#template').val(), data));
-                </script>
-            </div>
-
-
-            <div class="section">
-                <div class="question group-required">7. Over the course of this program, did you
-                    start/stop/change a dose of medication, therapy, or other intervention to help your anxiety
-                    difficulties? (Check all that apply)
-                </div>
-               <div class="radio"><label><input type="checkbox" name="changeMed" value="therapyMore"/>I seek
-                    in-person therapy more now</label></div>
-               <div class="radio"><label><input type="checkbox" name="changeMed" value="therapyLess"/>I seek
-                    in-person therapy less now</label></div>
-               <div class="radio"><label><input type="checkbox" name="changeMed" value="medsMore"/>I use
-                    prescription medication more now</label></div>
-               <div class="radio"><label><input type="checkbox" name="changeMed" value="medsLess"/>I use
-                    prescription medication less now</label></div>
-               <div class="radio"><label><input type="checkbox" name="changeMed" value="onlineMore"/>I use
-                    online computer programs (other than MindTrails) or mobile apps more now</label></div>
-               <div class="radio"><label><input type="checkbox" name="changeMed" value="onlineLess"/>I use
-                    online computer programs (other than MindTrails) or mobile apps less now</label></div>
-               <div class="radio"><label><input type="checkbox" name="changeMed" value="noChange"/>I did not
-                    change my intervention habits</label></div>
-               <div class="radio"><label><input type="checkbox" name="other" value="other"/>Other: <input
-                        type="text" name=""/></label></div>
-               <div class="radio"><label><input type="checkbox" name="changeMed" value="noAnswer"/>Prefer not to
-                    answer</label></div>
-            </div>
-
-            <div class="submit">
-                <button type="submit">Next</button>
-            </div>
-        </form>
+        </div>
     </div>
 </section>
 
+<section id="content" class="clearfix">
 
-<!--features ends-->
+    <form th:action="@{/questions/ReasonsForEnding}" method="POST">
+        <!-- Add timer -->
+        <input id="timeOnPage" name="timeOnPage" type="hidden"/>
+        <div class="container">
 
-<!--divider here-->
-<div class="spacer-40px"></div>
+            <div class="section">
+                <div class="row">
+                    <div class="col-md-10">
+
+                        <p>1. Why did you decide to end the program? (please check all that apply)</p>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8 side-border">
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="reasons" value="not enough time"/>
+                                I did not have enough time to complete the program. </label>
+                        </div>
+
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="reasons" value="not helpful"/>
+                                I did not find the program helpful for reducing my anxiety. </label>
+                        </div>
+
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="reasons" value="not interesting"/>
+                                I did not find the program interesting. </label>
+                        </div>
+
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="reasons" value="not believe"/>
+                                I did not believe a program like this could work.  </label>
+                        </div>
+
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="reasons" value="frustrating"/>
+                                I found the program frustrating to use. </label>
+                        </div>
+
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="reasons" value="not needed"/>
+                                I no longer needed the program (i.e., I no longer felt anxious).  </label>
+                        </div>
+
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="reasons" value="in control"/>
+                                I believe I was assigned to a control conditioning (i.e., the conditioning that was not expected to change anxiety). </label>
+                        </div>
+
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="reasons" value="Other" id="Q1_7"
+                                                    onchange="spec('Q1_7')"/> Other (Please specify) <input
+                            id="Q1_7_spec" type="text" name="End_Other_Desc" value="N/A"/> </label>
+
+                        </div>
+
+                    </div>
+
+                <div class="col-md-4">
+                    <br/>
+                    <br/>
+                    <div class="radio">
+                        <label class="question"><input type="checkbox" name="reasons" value="555"
+                                                       onchange="disableSection(this)"/> Prefer not to answer
+                        </label>
+                    </div>
+                    <br/>
+                    <br/>
+                </div>
+
+             </div>
+            </div>
+
+            <div class="section">
+                <div class="row">
+                    <div class="col-md-10">
+
+                        <p>2. Even if it was not your reason for ending the program, do you believe that you were assigned to the control conditioning?</p>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 side-border" >
+                        <div class="radio">
+                            <label class="question"> <input type="radio"  name="thoughtInControl" value="true" required="true"/>Yes</label>
+                        </div>
+                        <div class="radio">
+                            <label class="question"><input type="radio"  name="thoughtInControl" value="false"/>No</label>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="thoughtInControlDetail1">
+                <div class="row">
+                    <div class="col-md-10">
+
+                        <p>At what point did you think you were in the control conditioning?</p>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 side-border">
+
+                        <div class="radio">
+                            <label class="question"> <input type="radio" name="pointInControl" value="early" required="true"/> <b>Early</b> in the training program (within the first 3 sessions)</label>
+                        </div>
+                        <div class="radio">
+                            <label class="question"><input type="radio" name="pointInControl" value="mid-way" /> <b>Mid-way</b> through the training program (around the 4th or 5th session)</label>
+                        </div>
+                        <div class="radio">
+                            <label class="question"><input type="radio" name="pointInControl" value="later" /> <b>Later</b> in the training program (within the last 3 sessions)</label>
+                        </div>
+                        <div class="radio">
+                            <label class="question"><input type="radio" name="pointInControl" value="noAnswer" /> Prefer not to answer</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section" id="thoughtInControlDetail2">
+
+                <div class="row">
+                    <div class="col-md-10">
+
+                        <p>What made you think you were in the control conditioning? Check all that apply.</p>
+
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="radio">
+                        <label class="question"><input type="checkbox" name="whyInControl" value="not relieved" /> My anxiety wasn’t being relieved.</label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"><input type="checkbox" name="whyInControl" value="not helpful" /> I didn’t think that the program that I was completing could help my anxiety.</label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"><input type="checkbox" name="whyInControl" value="other" id="Q2_2" onchange="spec('Q2_2')"/> Other (Please specify) <input
+                                id="Q2_2_spec" type="text" name="control_Desc" value="N/A"/> </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container section compactQuestion">
+            <div class="row title">
+                <div class="col-md-12">
+                    <h4> 3. To the extent you completed the program </h4>
+                </div>
+            </div>
+            <div id="section1"></div>
+            <script>
+                var data = {
+                    "options": [
+                        {"value": 0, "title": "Not at all"},
+                        {"value": 1, "title": "Slightly"},
+                        {"value": 2, "title": "Somewhat"},
+                        {"value": 3, "title": "Mostly"},
+                        {"value": 4, "title": "Very"}
+
+                    ],
+                    "questions": [
+                        {
+                            "name": "helpful",
+                            "desc": "how helpful was it for reducing your anxiety?"
+                        },
+                        {
+                            "name": "work",
+                            "desc": "how well did the web program work for you?"
+                        },
+                        {
+                            "name": "easy",
+                            "desc": "how easy was the web program to use?"
+                        },
+                        {
+                            "name": "interest",
+                            "desc": "how much did the web program keep your interest and attention?"
+                        },
+                        {
+                            "name": "inGeneral",
+                            "desc": "how much did you like the web program in general?"
+                        }
+                    ]
+                }
+                $('#section1').html(Mustache.render($('#template').val(), data));
+            </script>
+        </div>
+
+        <div class="container section compactQuestion">
+            <div class="col-md-12">
+                <h4> 3. To the extent you completed the program... </h4>
+            </div>
+            <div id="section2"></div>
+            <script>
+                var data = {
+                    "options": [
+                        {"value": 0, "title": "Not at all"},
+                        {"value": 1, "title": "Slightly"},
+                        {"value": 2, "title": "Somewhat"},
+                        {"value": 3, "title": "Mostly"},
+                        {"value": 4, "title": "Very"}
+
+                    ],
+                    "questions": [
+                        {
+                            "name": "looked",
+                            "desc": "how much did you like the way the web program looked?"
+                        },
+                        {
+                            "name": "privacy",
+                            "desc": "how easy was the web program to use?"
+                        },
+                        {
+                            "name": "understandAssessments",
+                            "desc": "how easy were the assessments to understand?"
+                        },
+                        {
+                            "name": "understandTraining",
+                            "desc": "how easy was the training program (including instructions and materials) to understand?"
+                        },
+                        {
+                            "name": "trust",
+                            "desc": "how much did you feel you could trust the information?"
+                        }
+                    ]
+                }
+                $('#section2').html(Mustache.render($('#template').val(), data));
+            </script>
+        </div>
 
 
-<script>
-    $('#form').validate({
-        rules: {
-            reasons: {
-                required: true
-            },
-            location: {
-                required: true
+    <div class="container">
+
+        <div class="section">
+            <div class="row">
+                <div class="col-md-10">
+
+                    <p>4. Of the sessions you did complete, where did you primarily complete the program? (please check all that apply)</p>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8 side-border">
+                    <div class="radio">
+                        <label class="question"> <input type="checkbox" name="location" value="home"/> At home </label>
+                    </div>
+
+                    <div class="radio">
+                        <label class="question"> <input type="checkbox" name="location" value="work" /> At work</label>
+                    </div>
+
+                    <div class="radio">
+                        <label class="question"> <input type="checkbox" name="location" value="library" /> At the library, coffee shop, restaurant or other public spaces</label>
+                    </div>
+
+                    <div class="radio">
+                        <label class="question"> <input type="checkbox" name="location" value="commuting" /> While commuting/travelling (e.g., on the train to work)</label>
+                    </div>
+
+                    <div class="radio">
+                        <label class="question"> <input type="checkbox" name="location" value="vacation" /> On vacation</label>
+                    </div>
+
+                    <div class="radio">
+                        <label class="question"> <input type="checkbox" name="location" value="Other" id="Q4"
+                                                        onchange="spec('Q4')"/> Other (Please specify) <input
+                                id="Q4_spec" type="text" name="location_Desc" value="N/A"/> </label>
+                    </div>
+
+                </div>
+
+                <div class="col-md-4">
+                    <br/>
+                    <br/>
+                    <div class="radio">
+                        <label class="question"><input type="checkbox" name="location" value="555"
+                                                       onchange="disableSection(this)"/> Prefer not to answer
+                        </label>
+                    </div>
+                    <br/>
+                    <br/>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="col-md-10">
+        <div class="section">
+
+            <div class="question"> 5. While you were completing the treatment sessions, how focused or distracted were you? Please use a 1 (extremely distracted) to 7 (extremely focused) scale.  </div>
+            <input id="posSlider"  type="text" name="focused" required ="true"/>
+            <div class="after_slider"><label class="standard">
+                <input id="posSlider-enabled" type="checkbox" name="focused" value="555"/>
+                Prefer not to answer
+            </label></div>
+            <script>
+                $("#posSlider").slider({
+                    ticks: [1, 2, 3, 4, 5, 6, 7],
+                    ticks_labels: ['1', '2', '3', '4', '5', '6', '7'],
+                    ticks_snap_bounds: 1,
+                    tooltip: "hide",
+                    value: 4,
+                    formatter: function(value) {
+                        $('#posSlider-enabled')[0].required=false;
+                    }
+                });
+
+                $("#posSlider-enabled").click(function() {
+                    if(this.checked) {
+                        $("#posSlider").slider("disable");
+                        $('#posSlider-enabled')[0].required=false;
+                    }
+                    else {
+                        $("#posSlider").slider("enable");
+                    }
+                });
+                $('#posSlider-enabled')[0].required=true;
+
+            </script>
+
+        </div>
+    </div>
+    </div>
+
+
+        <div class="container section compactQuestion">
+            <div class="col-md-12">
+                <h4> 6. Some people have problems when trying to use a web program. Please read the next items and tell us how much of a problem you had when trying to use the web program. </h4>
+            </div>
+            <div id="section3"></div>
+            <script>
+                var data = {
+                    "options": [
+                        {"value": 0, "title": "Not a problem"},
+                        {"value": 1, "title": "Little problem"},
+                        {"value": 2, "title": "Major problem"},
+                        {"value": 3, "title": "Not Applicable"},
+
+                    ],
+                    "questions": [
+                        {
+                            "name": "internet",
+                            "desc": "My Internet connection did not work (i.e., I could not connect to the Internet)."
+                        },
+                        {
+                            "name": "connected",
+                            "desc": "My internet connection worked, but I could not get connected to the web program."
+                        },
+                        {
+                            "name": "forgot",
+                            "desc": "I just forgot to go to the web program."
+                        },
+                        {
+                            "name": "personalIssues",
+                            "desc": "Personal issues stopped me from using the web program."
+                        },
+                        {
+                            "name": "navigationHard",
+                            "desc": "The web program was too hard to navigate."
+                        }
+                    ]
+                }
+                $('#section3').html(Mustache.render($('#template').val(), data));
+            </script>
+        </div>
+        <div class="container section compactQuestion">
+            <div id="section4"></div>
+            <script>
+                var data = {
+                    "options": [
+                        {"value": 0, "title": "Not a problem"},
+                        {"value": 1, "title": "Little problem"},
+                        {"value": 2, "title": "Major problem"},
+                        {"value": 3, "title": "Not Applicable"},
+
+                    ],
+                    "questions": [
+                        {
+                            "name": "hardToUnderstand",
+                            "desc": "The web program was too hard to understand."
+                        },
+                        {
+                            "name": "notUseful",
+                            "desc": "The web program did not seem very useful."
+                        },
+                        {
+                            "name": "takeTooLong",
+                            "desc": "I thought the program was going to take too long."
+                        },
+                        {
+                            "name": "tooManyWords",
+                            "desc": "The web program had too many words."
+                        },
+                        {
+                            "name": "hardToRead",
+                            "desc": "The screen was hard to read (e.g., words were too small)."
+                        }
+                    ]
+                }
+                $('#section4').html(Mustache.render($('#template').val(), data));
+            </script>
+        </div>
+        <div class="container">
+
+            <div class="section">
+                <div class="row">
+                    <div class="col-md-10">
+
+                        <p>7. Over the course of this program, did you start/stop/change a dose of medication, therapy, or other intervention to help your anxiety difficulties?  (Check all that apply)</p>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8 side-border">
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="changeMed" value="therapyMore" /> I seek in-person therapy more now</label>
+                        </div>
+
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="changeMed" value="therapyLess" /> I seek in-person therapy less now</label>
+                        </div>
+
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="changeMed" value="medsMore" /> I use prescription medication more now</label>
+                        </div>
+
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="changeMed" value="medsLess" /> I use prescription medication less now</label>
+                        </div>
+
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="changeMed" value="onlineMore" /> I use online computer programs (other than MindTrails) or mobile apps more now</label>
+                        </div>
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="changeMed" value="onlineLess" /> I use online computer programs (other than MindTrails) or mobile apps less now</label>
+                        </div>
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="changeMed" value="noChange" /> I did not change my intervention habits</label>
+                        </div>
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="changeMed" value="Other" id="Q7"
+                                                            onchange="spec('Q7')"/> Other (Please specify) <input
+                                    id="Q7_spec" type="text" name="changeMed_Desc" value="N/A"/> </label>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4">
+                        <br/>
+                        <br/>
+                        <div class="radio">
+                            <label class="question"><input type="checkbox" name="changeMed" value="555"
+                                                           onchange="disableSection(this)"/> Prefer not to answer
+                            </label>
+                        </div>
+                        <br/>
+                        <br/>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <div class="col-md-12" style="text-align:center">
+            <button type="submit">Next</button>
+        </div>
+
+    </form>
+
+
+</section>
+
+
+<script type="text/javascript">
+    function spec(id) {
+        if (document.getElementById(id).checked) {
+            document.getElementById(id + "_spec").required = true;
+            if(document.getElementById(id + "_spec").value == "N/A"){
+                document.getElementById(id + "_spec").value = "";
             }
+
+
         }
-    });
-    $.validator.setDefaults({
-        messages: {
-            required: ""
+        else {
+            document.getElementById(id + "_spec").value = "N/A";
+            //document.getElementById(id + "_spec").required = false;
         }
+    }
+    function disableSection(input) {
+        if (input.checked) {
+            $(input).closest('.section').find("input").attr("disabled", true);
+            $(input).removeAttr("disabled");
+        } else {
+            $(input).closest('.section').find("input").removeAttr("disabled");
+        }
+    }
+
+    $(document).ready(function () {
+        $('form').validate({
+            errorElement: "span",
+            errorPlacement: function (error, element) {
+                var template_statement = element.parents(".row").first().children(".statement")
+                var after_slider = element.parents(".after_slider").first()
+                if(template_statement.length > 0) {
+                    error.appendTo(template_statement);
+                } else if (after_slider.length > 0) {
+                    error.addClass("label-error");
+                    error.appendTo(after_slider);
+                } else {
+                    error.addClass("label-error");
+                    var label = element.parent("label");
+                    error.appendTo(label);
+                }
+
+            },
+            rules: {
+                'reasons': {required: true, minlength: 1},
+                'location': {required: true, minlength: 1},
+                'whyInControl':{required: true, minlength: 1}
+
+            }
+        });
+
+
+        $("input[name$='thoughtInControl']").click(function () {
+            if ($(this).val() == "true") {
+                $('#thoughtInControlDetail1').fadeIn('slow');
+                $('#thoughtInControlDetail2').fadeIn('slow');
+
+            } else {
+                $('#thoughtInControlDetail1').fadeOut('slow');
+                $('#thoughtInControlDetail2').fadeOut('slow');
+            }
+        });
     });
+
+
+
 </script>
 
 
-<!-- footer starts
-================================================== -->
-<footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
 
-<!-- copyright starts
-================================================== -->
-<section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
 
-<!--Javascript
-================================================== -->
+
+
+<footer th:replace="fragment/common :: footer"/>
 <div th:include="fragment/common :: scripts"/>
 
 </body>
 </html>
+
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts"/>
