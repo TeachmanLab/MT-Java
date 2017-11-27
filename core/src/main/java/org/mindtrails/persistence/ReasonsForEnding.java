@@ -14,17 +14,21 @@ import java.util.List;
 @Table(name="ReasonsForEnding")
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class ReasonsForEnding  extends LinkedQuestionnaireData {
+public class ReasonsForEnding extends LinkedQuestionnaireData {
 
 
     @ElementCollection
-    @CollectionTable(name = "reasonsForEndingList", joinColumns = @JoinColumn(name = "id"))
+    @CollectionTable(name = "reasonsForEnding_Reasons", joinColumns = @JoinColumn(name = "id"))
     @Column(name = "reason")
     List<String> reasons;
+    String End_Other_Desc;
     boolean thoughtInControl;
-    String pointInControl;
-    String whyInControl;
-    String otherWhyInControl;
+    String pointInControl="N/A";
+    @ElementCollection
+    @CollectionTable(name = "reasonsForEnding_whyInControl", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "whyInControl")
+    List<String> whyInControl;
+    String control_Desc;
     int helpful;
     int work;
     int easy;
@@ -36,9 +40,10 @@ public class ReasonsForEnding  extends LinkedQuestionnaireData {
     int understandTraining;
     int trust;
     @ElementCollection
-    @CollectionTable(name = "reasonsForEndingLocation", joinColumns = @JoinColumn(name = "id"))
+    @CollectionTable(name = "reasonsForEnding_Location", joinColumns = @JoinColumn(name = "id"))
     @Column(name = "location")
     List<String> location;
+    String location_Desc;
     int focused;
     int internet;
     int connected;
@@ -54,6 +59,7 @@ public class ReasonsForEnding  extends LinkedQuestionnaireData {
     @CollectionTable(name = "reasonsForEndingChangeMed", joinColumns = @JoinColumn(name = "id"))
     @Column(name = "changeMed")
     List<String> changeMed;
+    String changeMed_Desc;
 
 }
 
