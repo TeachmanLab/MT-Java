@@ -158,7 +158,7 @@ public class R01Study extends BaseStudy {
         session4.addTask(new Task("OA","OA", Task.TYPE.questions, 1 ));
         sessions.add(session4);
 
-        session5 = new Session(FIFTH_SESSION, "Level 5: what", 0, 2);
+        session5 = new Session(FIFTH_SESSION, "Level 5: Master", 0, 2);
         session5.setIndex(5);
         session5.addTask(new Task("MSUE","MSUE", Task.TYPE.questions, 0 ));
         session5.addTask(new Task("Affect","Pre-training Subjective Units of Distress Scale", "pre", Task.TYPE.questions, 0));
