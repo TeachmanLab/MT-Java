@@ -17,6 +17,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.support.Repositories;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.mindtrails.service.ExportService;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.InputStream;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,9 +39,58 @@ import java.util.List;
  *
  */
 @Service
-public class ImportService implements ApplicationListener<ContextRefreshedEvent> {
+public class ImportService {
 
     private static final Logger LOG = LoggerFactory.getLogger(ImportService.class);
+
+    @Autowired ExportService exportService;
+
+    /**
+     * Returns a list for a given name.  Makes some
+     * assumptions about the class.  This class is pretty dreadful, returns null
+     * if it can't find a list by name.
+     */
+
+    private static <T> List<T> createListOfType(T element){
+        return new ArrayList<T>();
+    }
+
+    /**
+     *
+     *
+     * Need to finish this.
+     */
+
+    public List getListForName(String name) {
+        Class<?> domainType = exportService.getDomainType(name);
+        if (domainType != null)
+            return (List) repositories.getRepositoryFor(domainType);
+        LOG.info("failed to create a list for " + name);
+        return null;
+    }
+
+    /**
+     *
+     * Need to finish this.
+     */
+
+    public void localImport(String name) {
+        ObjectMapper mapper = new ObjectMapper();
+        JpaRepository rep = exportService.getRepositoryForName(name);
+        if (rep != null) {
+            LOG.info("Found " + name + " repository.");
+            TypeReference<List<State>> mapType = new TypeReference<List<State>>() {
+            };
+            InputStream is = TypeReference.class.getResourceAsStream("/json/state-city.json");
+            try {
+                List<State> stateList = mapper.readValue(is, mapType);
+                stateRepository.save(stateList);
+                System.out.println("list saved successfully");
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
 
 
 
