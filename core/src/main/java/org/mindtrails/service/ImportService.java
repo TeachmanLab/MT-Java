@@ -1,5 +1,6 @@
 package org.mindtrails.service;
 
+import com.fasterxml.jackson.databind.JavaType;
 import org.mindtrails.domain.data.DoNotDelete;
 import org.mindtrails.domain.data.Exportable;
 import org.mindtrails.domain.questionnaire.QuestionnaireInfo;
@@ -20,10 +21,15 @@ import org.springframework.stereotype.Service;
 import org.mindtrails.service.ExportService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.InputStream;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import org.apache.commons.io;
+
 
 
 /**
@@ -45,53 +51,85 @@ public class ImportService {
 
     @Autowired ExportService exportService;
 
+
     /**
-     * Returns a list for a given name.  Makes some
-     * assumptions about the class.  This class is pretty dreadful, returns null
-     * if it can't find a list by name.
+     *
+     * Read json file locally and parse it into the database. Don't know how to write it. Damm!
      */
 
-    private static <T> List<T> createListOfType(T element){
-        return new ArrayList<T>();
+    public List<String> listJSON(String name, String path) {
+        List<String> jsonFiles = new ArrayList<>();
+        Collection files = FileUtils.listFiles(
+                dir,
+                new RegexFileFilter("^(.*?)"),
+                DirectoryFileFilter.DIRECTORY
+        );
+
     }
 
     /**
      *
+     * @param name
+     * @param path
      *
-     * Need to finish this.
+     * This is a function to recover all json files from local. Not yet finished.
      */
 
-    public List getListForName(String name) {
-        Class<?> domainType = exportService.getDomainType(name);
-        if (domainType != null)
-            return (List) repositories.getRepositoryFor(domainType);
-        LOG.info("failed to create a list for " + name);
-        return null;
+    public void localImport(String name, String path) {
+        ObjectMapper mapper = new ObjectMapper();
+        JpaRepository rep = exportService.getRepositoryForName(name);
+        List<String> fileList = listJSON(name,path);
+        if (rep != null) {
+            LOG.info("Found " + name + " repository.");
+          /**  TypeReference<List<State>> mapType = new TypeReference<List<State>>() {
+            };
+           */
+            Class<?> clz = Class.forName(name);
+            if (clz != null) {
+                JavaType type = mapper.getTypeFactory().
+                        constructCollectionType(List.class, clz);
+                for (String fileName : fileList) {
+                    InputStream is = TypeReference.class.getResourceAsStream(fileName);
+                    try {
+                        List<?> list = mapper.readValue(is, type);
+                        rep.save(list);
+                        System.out.println("list saved successfully");
+                    } catch (IOException e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
+            }
+        }
     }
 
     /**
      *
-     * Need to finish this.
+     * @param name
+     * @param is
+     *
+     * This is the function to import data from the server. Not yet tested.
      */
 
-    public void localImport(String name) {
+    public void liveImport(String name, String is) {
         ObjectMapper mapper = new ObjectMapper();
         JpaRepository rep = exportService.getRepositoryForName(name);
         if (rep != null) {
             LOG.info("Found " + name + " repository.");
-            TypeReference<List<State>> mapType = new TypeReference<List<State>>() {
-            };
-            InputStream is = TypeReference.class.getResourceAsStream("/json/state-city.json");
-            try {
-                List<State> stateList = mapper.readValue(is, mapType);
-                stateRepository.save(stateList);
-                System.out.println("list saved successfully");
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
+            Class<?> clz = Class.forName(name);
+            if (clz != null) {
+                JavaType type = mapper.getTypeFactory().constructCollectionType(List.class, clz);
+                try {
+                    List<?> list = mapper.readValue(is, type);
+                    rep.save(list);
+                    System.out.println("List saved successfully");
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
             }
         }
     }
 
 
+    public String jsonGetter()
 
 }
