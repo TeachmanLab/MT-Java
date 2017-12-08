@@ -15,6 +15,8 @@ import java.security.Principal;
 @Service
 public abstract class ParticipantServiceImpl implements ParticipantService {
 
+    private static final int INACTIVE_AFTER_DAYS=19;
+
     @Autowired
     private ParticipantRepository participantRepository;
 
@@ -50,8 +52,5 @@ public abstract class ParticipantServiceImpl implements ParticipantService {
         if (p == null) return null;
         return participantRepository.findByEmail(p.getName());
     }
-
-
-
 }
 

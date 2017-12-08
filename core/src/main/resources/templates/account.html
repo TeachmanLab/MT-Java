@@ -22,14 +22,12 @@
                     Your Account information is updated.
                 </div>
 
-                <div class="formErrors">
-                    <ul class="errors">
-                        <li th:each="err : ${errors}" th:text="${err}" class="alert alert-error">Input is incorrect</li>
+                <form action="#" th:action="@{/account/update}" th:object="${participantUpdate}" method="post" class="form-horizontal">
+                    <ul>
+                        <li th:each="e : ${#fields.detailedErrors()}" th:if="${e.global}" >
+                            <span class="alert-error" th:text="${e.message}">The error message</span>
+                        </li>
                     </ul>
-                    <div class="spacer-20px"></div>
-                </div>
-
-                <form action="#" th:action="@{/account/update}" th:object="${participant}" method="post" class="form-horizontal">
                     <div id="editable" th:include="fragment/account :: editable"/>
                     <section id="theme" class="clearfix" th:include="fragment/account :: themeSelection"/>
                 </form>

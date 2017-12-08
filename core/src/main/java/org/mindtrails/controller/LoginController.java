@@ -52,11 +52,15 @@ public class LoginController {
     @Autowired
     private ParticipantRepository participantRepository;
 
-    @RequestMapping(value="/", method = RequestMethod.GET)
+
+        @RequestMapping(value="/", method = RequestMethod.GET)
     public String printWelcome(Principal principal, HttpSession session,
-                               @RequestHeader(value = "referer", required = false) final String referer) {
+                               @RequestHeader(value = "referer", required = false) final String referer,
+                               @RequestParam(name="cp", defaultValue = "unknown", required = false) String campaign) {
 
         session.setAttribute("referer", referer);
+        session.setAttribute("campaign", campaign);
+
         Authentication auth = (Authentication) principal;
         // Show the Index / Login page if the user is not logged in
         // otherwise redirect them to the session page.

@@ -2,6 +2,7 @@ package org.mindtrails.service;
 
 import org.mindtrails.Application;
 import org.mindtrails.MockClasses.TestQuestionnaire;
+import org.mindtrails.MockClasses.TestStudy;
 import org.mindtrails.MockClasses.TestUndeleteable;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.questionnaire.QuestionnaireInfo;
@@ -13,7 +14,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,7 +35,7 @@ import static org.hamcrest.beans.HasPropertyWithValue.hasProperty;
  * To change this template use File | Settings | File Templates.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
+@SpringBootTest(classes = Application.class)
 @Transactional
 public class ExportServiceTest {
 
@@ -48,6 +49,7 @@ public class ExportServiceTest {
 
     private void createTestEntries() {
         Participant p = new Participant("Joe Test", "j@t.com", false);
+        p.setStudy(new TestStudy());
         entityManager.persist(p);
         entityManager.persist(new TestQuestionnaire("MyTestValue"));
         entityManager.persist(new TestUndeleteable("MyTestValue"));

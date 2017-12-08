@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
+
+<head th:replace="fragment/common :: headerFragment"/>
+<body>
+<section th:replace="fragment/common :: topFragment"/>
+<section th:replace="fragment/common :: titleBar (title='Multi-Session User Experiences ')"/>
+<textArea th:replace="fragment/common :: questionTemplate"/>
+<textArea th:replace="fragment/common :: questionTemplate5"/>
+<section id="content" class="clearfix">
+
+    <form th:action="@{/questions/MSUE}" method="POST">
+        <!-- Add timer -->
+        <input id="timeOnPage" name="timeOnPage" type="hidden"/>
+        <div class="container section compactQuestion">
+            <div id="section1"></div>
+            <script>
+                var data = {
+                    "options": [
+                        {"value": 0, "title": "Not at all"},
+                        {"value": 1, "title": "Slightly"},
+                        {"value": 2, "title": "Somewhat"},
+                        {"value": 3, "title": "Mostly"},
+                        {"value": 4, "title": "Very"}
+                    ],
+                    "questions": [
+                        {
+                            "name": "anxiety",
+                            "desc": "How helpful did you find the web program for reducing your anxiety?"
+                        },
+                        {
+                            "name": "life",
+                            "desc": "How much did the web program imporve your overall quality of life?"
+                        },
+                        {
+                            "name": "mood",
+                            "desc": "How much did the web program help improve your overall mood(e.g., feeling happier)?"
+                        },
+                        {
+                            "name": "recommend",
+                            "desc": "How likely would you be to recommend this web program to other with similar anxiety difficulties?"
+                        },
+                        {
+                            "name": "use",
+                            "desc": "How easy was the web program to use?"
+                        }
+
+
+                    ]
+                }
+                $('#section1').html(Mustache.render($('#template').val(), data));
+            </script>
+        </div>
+
+        <div class="container section compactQuestion">
+            <div id="section2"></div>
+            <script>
+                var data = {
+                    "options": [
+                        {"value": 0, "title": "Not at all"},
+                        {"value": 1, "title": "Slightly"},
+                        {"value": 2, "title": "Somewhat"},
+                        {"value": 3, "title": "Mostly"},
+                        {"value": 4, "title": "Very"}
+                    ],
+                    "questions": [
+                        {
+                            "name": "interest",
+                            "desc": "How much did the web program keep your interest and attention?"
+                        },
+
+                        {
+                            "name": "general",
+                            "desc": "How much did you like the web program in general?"
+                        },
+                        {
+                            "name": "look",
+                            "desc": "How much did you like the way the web program looked"
+                        },
+                        {
+                            "name": "privacy",
+                            "desc": "How worried were you about your privacy in using this web program?"
+                        },
+                        {
+                            "name": "assessments",
+                            "desc": "How easy were the assessments to understand?"
+                        }
+                    ]
+                }
+                $('#section2').html(Mustache.render($('#template').val(), data));
+            </script>
+        </div>
+
+
+        <div class="container section compactQuestion">
+            <div id="section3"></div>
+            <script>
+                var data = {
+                    "options": [
+                        {"value": 0, "title": "Not at all"},
+                        {"value": 1, "title": "Slightly"},
+                        {"value": 2, "title": "Somewhat"},
+                        {"value": 3, "title": "Mostly"},
+                        {"value": 4, "title": "Very"}
+                    ],
+                    "questions": [
+                        {
+                            "name": "training",
+                            "desc": "How easy was the training program (including instructions and materials) to understand?"
+                        },
+                        {
+                            "name": "trust",
+                            "desc": "How much did you feel you could trust the information??"
+                        },
+
+                        {
+                            "name": "problems",
+                            "desc": "To what extent did Internet or computer/phone problems affect your use of the web program?"
+                        }
+
+                    ]
+                }
+                $('#section3').html(Mustache.render($('#template').val(), data));
+            </script>
+
+
+            <div class="row"  id="problems_sub">
+                <div class="col-md-12">
+                <div><label class="question"> Please specify the problem that you have met: <input type="text" name="problem_desc" required="true"/> </label>
+                </div>
+                </div>
+
+           </div>
+
+            <div class="row"  >
+                <div class="col-md-12 statement">
+
+                     This training program was 5 sessions. How many sessions do you think would have been ideal? <input type="number" name="training_num" min='1' max='100' required="true"/>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="container section compactQuestion">
+            <div id="section4"></div>
+            <script>
+                var data = {
+                    "options": [
+                        {"value": 0, "title": "Not at all"},
+                        {"value": 1, "title": "Slightly"},
+                        {"value": 2, "title": "Somewhat"},
+                        {"value": 3, "title": "Mostly"},
+                        {"value": 4, "title": "Very"}
+                    ],
+                    "questions": [
+                        {
+                            "name": "tiring_training",
+                            "desc": "How tiring did you find the training sessions?"
+                        },
+                        {
+                            "name": "tiring_assessment",
+                            "desc": "How tiring did you find the assessments?"
+                        }
+
+                    ]
+                }
+                $('#section4').html(Mustache.render($('#template').val(), data));
+            </script>
+        </div>
+<div class="container">
+        <div class="col-md-10">
+            <div class="section">
+
+                <div class="question"> On average, while you were completing the training sessions, how focused or distracted were you? Please use a 1 (extremely distracted) to 7 (extremely focused) scale.  </div>
+                <input id="posSlider"  type="text" name="focused" required ="true"/>
+                <div class="after_slider"><label class="standard">
+                    <input id="posSlider-enabled" type="checkbox" name="focused" value="555"/>
+                    Prefer not to answer
+                </label></div>
+                <script>
+                    $("#posSlider").slider({
+                        ticks: [1, 2, 3, 4, 5, 6, 7],
+                        ticks_labels: ['1', '2', '3', '4', '5', '6', '7'],
+                        ticks_snap_bounds: 1,
+                        tooltip: "hide",
+                        value: 4,
+                        formatter: function(value) {
+                            $('#posSlider-enabled')[0].required=false;
+                        }
+                    });
+
+                    $("#posSlider-enabled").click(function() {
+                        if(this.checked) {
+                            $("#posSlider").slider("disable");
+                            $('#posSlider-enabled')[0].required=false;
+                        }
+                        else {
+                            $("#posSlider").slider("enable");
+                        }
+                    });
+                    $('#posSlider-enabled')[0].required=true;
+
+                </script>
+
+            </div>
+        </div>
+
+</div>
+
+        <div class="container">
+            <div class="section">
+                <div id="section6"></div>
+                <script>
+                    var data = {
+                        "options": [
+                            {"value": 0, "title": "No,",           "opt_desc": "definitely not."},
+                            {"value": 1, "title": "No, ",          "opt_desc": "probably not."},
+                            {"value": 2, "title": "Not sure. ",     "opt_desc": ""},
+                            {"value": 3, "title": "Yes, ",          "opt_desc": "I probably would."},
+                            {"value": 4, "title": "Yes, ",     "opt_desc": "I definitely would."}
+                        ],
+                        "questions": [
+                            {
+                                "name": "similar_program",
+                                "desc": "18. If you were to seek help for your anxiety again, would you seek a similar program."
+                            }
+
+
+                        ]
+                    }
+                    $('#section6').html(Mustache.render($('#template5').val(), data));
+                </script>
+            </div>
+            <div class="section">
+                <div id="section7"></div>
+                <script>
+                    var data = {
+                        "options": [
+                            {"value": 0, "title": "Much more likely", "opt_desc": ""},
+                            {"value": 1, "title": "A little more likely ",     "       opt_desc": ""},
+                            {"value": 2, "title": "Not sure ",        "opt_desc": ""},
+                            {"value": 3, "title": "A little less likely ",        "opt_desc": ""},
+                            {"value": 4, "title": "Much less likely",           "opt_desc": ""},
+                            {"value": -1, "title": "N/A",        "opt_desc": "(e.g., I'm currently undergoing another form of treatment)"}
+                        ],
+                        "questions": [
+                            {
+                                "name": "other_therapy",
+                                "desc": "If you were to experience moderate to severe anxiety in the future," +
+                                "does this program make you more or less likely to consider other forms of therapy" +
+                                "(e.g. medication, therapy)?"
+
+                            }
+
+
+                        ]
+                    }
+                    $('#section7').html(Mustache.render($('#template5').val(), data));
+                </script>
+            </div>
+            <div class="section">
+                <div class="row">
+                    <div class="col-md-10">
+
+                        <p>where did you primarily complete the program? (please check all that apply)</p>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8 side-border">
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="location" value="home"/> At home </label>
+                        </div>
+
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="location" value="work" /> At work</label>
+                        </div>
+
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="location" value="library" /> At the library, coffee shop, restaurant or other public spaces</label>
+                        </div>
+
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="location" value="commuting" /> While commuting/travelling (e.g., on the train to work)</label>
+                        </div>
+
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="location" value="vacation" /> On vacation</label>
+                        </div>
+
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="location" value="Other" id="Q4"
+                                                            onchange="spec('Q4')"/> Other (Please specify) <input
+                                    id="Q4_spec" type="text" name="location_Desc" value="N/A"/> </label>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4">
+                        <br/>
+                        <br/>
+                        <div class="radio">
+                            <label class="question"><input type="checkbox" name="location" value="555"
+                                                           onchange="disableSection(this)"/> Prefer not to answer
+                            </label>
+                        </div>
+                        <br/>
+                        <br/>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="section">
+                <div class="row">
+                    <div class="col-md-10">
+
+                        <p>Did you think you were in the active training conditioning(designed to change your axious thinking)
+                            or a "control" conditioning(not designed to change your anxious thinking)?</p>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 side-border" >
+                        <div class="radio">
+                            <label class="question"> <input type="radio"  name="thoughtInControl" value="true" required="true"/>Yes</label>
+                        </div>
+                        <div class="radio">
+                            <label class="question"><input type="radio"  name="thoughtInControl" value="false" required="true"/>No</label>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="thoughtInControlDetail1">
+                <div class="row">
+                    <div class="col-md-10">
+
+                        <p>At what point did you think you were in the control conditioning?</p>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 side-border">
+
+                        <div class="radio">
+                            <label class="question"> <input type="radio" name="pointInControl" value="early" required="true" /> <b>Early</b> in the training program (within the first 2 sessions)</label>
+                        </div>
+                        <div class="radio">
+                            <label class="question"><input type="radio" name="pointInControl" value="mid-way" required="true" /> <b>Mid-way</b> through the training program (around the 3rd session)</label>
+                        </div>
+                        <div class="radio">
+                            <label class="question"><input type="radio" name="pointInControl" value="later" required="true"/> <b>Later</b> in the training program (within the last 2 sessions)</label>
+                        </div>
+                        <div class="radio">
+                            <label class="question"><input type="radio" name="pointInControl" value="noAnswer" required="true"/> Prefer not to answer</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section" id="thoughtInControlDetail2">
+
+                <div class="row">
+                    <div class="col-md-10">
+
+                        <p>What made you think you were in the control conditioning? Check all that apply.</p>
+
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="radio">
+                        <label class="question"><input type="checkbox" name="whyInControl" value="not relieved" /> My anxiety wasn’t being relieved.</label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"><input type="checkbox" name="whyInControl" value="not helpful" /> I didn’t think that the program that I was completing could help my anxiety.</label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"><input type="checkbox" name="whyInControl" value="other" id="Q2_2" onchange="spec('Q2_2')"/> Other (Please specify) <input
+                                id="Q2_2_spec" type="text" name="control_Desc" value="N/A"/> </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="row">
+                    <div class="col-md-10">
+
+                        <p>How did you learn about the MindTrails program? (Check all that apply)</p>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8 side-border">
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="learn" value="frontPage" /> At the Prokect Implicit Mental Helath site front page</label>
+                        </div>
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="learn" value="site" /> At the Project Implicit Mental Health site, after completing a study about my anxiety symptoms</label>
+                        </div>
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="learn" value="friend_family" /> A friend or family member</label>
+                        </div>
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="learn" value="press" /> Press coverage</label>
+                        </div>
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="learn" value="internet" /> Inernet search for mental health info</label>
+                        </div>
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="learn" value="link" id="Q22_1" onchange="spec('Q22_1')"/> Link from another mental health site (please specify)<input
+                                    id="Q22_1_spec" type="text" name="link_Desc" value="N/A"/></label>
+                        </div>
+
+
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="learn" value="Other" id="Q22_2"
+                                                            onchange="spec('Q22_2')"/> Other (Please specify) <input
+                                    id="Q22_2_spec" type="text" name="Other_learn_Desc" value="N/A"/> </label>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4">
+                        <br/>
+                        <br/>
+                        <div class="radio">
+                            <label class="question"><input type="checkbox" name="learn" value="555"
+                                                           onchange="disableSection(this)"/> Prefer not to answer
+                            </label>
+                        </div>
+                        <br/>
+                        <br/>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+        <div class="col-md-12" style="text-align:center">
+            <button type="submit">Next</button>
+        </div>
+
+    </form>
+
+
+</section>
+
+<script type="text/javascript">
+    function spec(id) {
+        if (document.getElementById(id).checked) {
+            document.getElementById(id + "_spec").required = true;
+            if(document.getElementById(id + "_spec").value == "N/A"){
+                document.getElementById(id + "_spec").value = "";
+            }
+
+
+        }
+        else {
+            document.getElementById(id + "_spec").value = "N/A";
+            //document.getElementById(id + "_spec").required = false;
+        }
+    }
+    function disableSection(input) {
+        if (input.checked) {
+            $(input).closest('.section').find("input").attr("disabled", true);
+            $(input).removeAttr("disabled");
+        } else {
+            $(input).closest('.section').find("input").removeAttr("disabled");
+        }
+    }
+
+    $(document).ready(function () {
+
+        $('form').validate({
+            errorElement: "span",
+            errorPlacement: function (error, element) {
+                var template_statement = element.parents(".row").first().children(".statement")
+                var after_slider = element.parents(".after_slider").first()
+                if(template_statement.length > 0) {
+                    error.appendTo(template_statement);
+                } else if (after_slider.length > 0) {
+                    error.addClass("label-error");
+                    error.appendTo(after_slider);
+                } else {
+                    error.addClass("label-error");
+                    var label = element.parent("label");
+                    error.appendTo(label);
+                }
+
+            },
+            rules: {
+                'whyInControl':  {required: true, minlength: 1},
+                'location': {required: true, minlength: 1},
+                'learn':    {required: true, minlength: 1}
+
+            }
+        });
+
+        $("input[name$='thoughtInControl']").click(function () {
+            if ($(this).val() == "true") {
+                $('#thoughtInControlDetail1').fadeIn('slow');
+                $('#thoughtInControlDetail2').fadeIn('slow');
+
+            } else {
+                $('#thoughtInControlDetail1').fadeOut('slow');
+                $('#thoughtInControlDetail2').fadeOut('slow');
+            }
+        });
+
+
+
+        $("input[name$='problems']").click(function () {
+            if ($(this).val() == '3'||$(this).val() == '4') {
+                $('#problems_sub').fadeIn('slow');
+
+
+            } else {
+                $('#problems_sub').fadeOut('slow');
+
+            }
+        });
+    });
+
+
+
+</script>
+
+
+<footer th:replace="fragment/common :: footer"/>
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>
+
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts"/>

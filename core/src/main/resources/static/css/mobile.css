@@ -216,7 +216,21 @@ div.oneToSeven {
     cursor: pointer;
 }
 
-.compactQuestion label.radio-inline::hover {
+.compactQuestion label.text-inline {
+    width: 90%;
+    height: 65px;
+    font-weight: 400;
+    vertical-align: middle;
+    color: #5f5f5f;
+    text-align: center;
+    padding: 26px 0 0 0;
+    margin: 5px 0 10px 5px;
+    background-color: #eee;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.compactQuestion label.radio-inline:hover {
     background-color: greenyellow;
 }
 
@@ -232,8 +246,6 @@ div.oneToSeven {
     margin-left: -3px;
     margin-top: -10px;
 }
-
-
 
 .navbar {
     background: transparent;
@@ -350,3 +362,19 @@ label.radio-inline:hover { background-color: #00ACE4;  color: #000;}
 .user-theme-purple label.radio-inline:hover, .user-theme-purple label.radio-inline::selection, .user-theme-purple label.radio-inline::-moz-selection { background-color: #C98ABB;  color: #000;}
 .user-theme-gold label.radio-inline:hover, .user-theme-gold label.radio-inline::selection, .user-theme-purple label.radio-inline::-moz-selection  { background-color: #ECB800;  color: #000;}
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+
+.chart div {
+    font: 10px sans-serif;
+    background-color: steelblue;
+    text-align: right;
+    padding: 3px;
+    margin: 1px;
+    color: white;
+}
+
+>>>>>>> 3cdcbbaaaf2ec07d631bc5b6adadf3dbdc3d11a0
+>>>>>>> templeton_release_nov

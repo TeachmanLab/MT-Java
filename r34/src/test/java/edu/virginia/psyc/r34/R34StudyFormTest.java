@@ -16,12 +16,12 @@ public class R34StudyFormTest {
         R34StudyForm form = new R34StudyForm();
         R34Study study = new R34Study();
 
-        form.setCondition(R34Study.CONDITION.FIFTY_FIFTY);
+        form.setCondition(R34Study.CONDITION.FIFTY_FIFTY.name());
         form.setPrime(R34Study.PRIME.ANXIETY);
         form.updateStudy(study);
 
         assertEquals(R34Study.PRIME.ANXIETY, study.getPrime());
-        assertEquals(R34Study.CONDITION.FIFTY_FIFTY, study.getCondition());
+        assertEquals(R34Study.CONDITION.FIFTY_FIFTY.name(), study.getConditioning());
 
     }
 }

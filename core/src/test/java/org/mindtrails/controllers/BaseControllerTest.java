@@ -1,17 +1,16 @@
 package org.mindtrails.controllers;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.mindtrails.Application;
 import org.mindtrails.MockClasses.TestStudy;
 import org.mindtrails.domain.Participant;
-import org.mindtrails.domain.forms.ParticipantCreateAdmin;
 import org.mindtrails.persistence.ParticipantRepository;
 import org.mindtrails.service.ParticipantService;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.mobile.device.DeviceWebArgumentResolver;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.web.FilterChainProxy;
 import org.springframework.security.web.method.annotation.AuthenticationPrincipalArgumentResolver;
 import org.springframework.test.context.ActiveProfiles;
@@ -20,7 +19,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import java.util.List;
+import org.springframework.web.servlet.mvc.method.annotation.ServletWebArgumentResolverAdapter;
 
 
 /**
@@ -38,7 +37,7 @@ import java.util.List;
        .andReturn();
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
+@SpringBootTest(classes = Application.class)
 @WebAppConfiguration
 @ActiveProfiles("test")
 public abstract class BaseControllerTest {
@@ -65,7 +64,8 @@ public abstract class BaseControllerTest {
         MockitoAnnotations.initMocks(this);
 
         this.mockMvc = MockMvcBuilders.standaloneSetup(getControllers())
-                .setCustomArgumentResolvers(new AuthenticationPrincipalArgumentResolver())
+                .setCustomArgumentResolvers(new AuthenticationPrincipalArgumentResolver(),
+                        new ServletWebArgumentResolverAdapter(new DeviceWebArgumentResolver()))
                 .addFilters(this.springSecurityFilterChain)
                 .build();
     }
@@ -88,6 +88,7 @@ public abstract class BaseControllerTest {
             p.setEmail(email);
             p.setAdmin(admin);
         }
+        p.setStudy(new TestStudy());
         participantRepository.save(p);
         return p;
     }

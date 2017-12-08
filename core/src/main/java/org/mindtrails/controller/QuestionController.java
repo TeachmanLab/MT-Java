@@ -47,7 +47,6 @@ import java.util.Date;
 public class QuestionController extends BaseController {
 
     private static final Logger LOG = LoggerFactory.getLogger(QuestionController.class);
-    public static final String BY_PASS_SESSION_CHECK = "BY_PASS_CHECK";
 
     @Autowired
     private RsaEncryptionService encryptService;
@@ -96,7 +95,7 @@ public class QuestionController extends BaseController {
      * Handles a form submission in a standardized way.  This is useful if
      * you extend this class to handle a custom form submission.
      */
-    protected void saveForm(String formName, WebRequest request, boolean sessionProgress) throws Exception {
+    protected void saveForm(String formName, WebRequest request) throws Exception {
 
         JpaRepository repository = exportService.getRepositoryForName(formName);
         if(repository == null) {
@@ -107,17 +106,13 @@ public class QuestionController extends BaseController {
             QuestionnaireData data = (QuestionnaireData) exportService.getDomainType(formName).newInstance();
             WebRequestDataBinder binder = new WebRequestDataBinder(data);
             binder.bind(request);
-            recordSessionProgress(formName, data, sessionProgress);
+            recordSessionProgress(formName, data);
             repository.save(data);
         } catch (ClassCastException | InstantiationException | IllegalAccessException e) {
             LOG.error("Failed to save model '" + formName + "' : " + e.getMessage());
             throw new NoModelForFormException(e);
         }
     }
-    protected void saveForm(String formName, WebRequest request) throws Exception {
-        saveForm(formName, request, true);
-    }
-
 
     /**
      * Does some tasks common to all forms:
@@ -128,7 +123,7 @@ public class QuestionController extends BaseController {
      *
      * @param data
      */
-    protected void recordSessionProgress(String formName, QuestionnaireData data, boolean sessionProgress) {
+    protected void recordSessionProgress(String formName, QuestionnaireData data) {
 
         Participant participant;
 
@@ -136,10 +131,13 @@ public class QuestionController extends BaseController {
         if(participantService.findByEmail(participant.getEmail()) != null)
             participant = participantService.findByEmail(participant.getEmail()); // Refresh session object from database.
 
-        // If the data submitted, isn't the data the user should be completing right now,
-        // thown an exception and prevent them from moving forward.
+        // Only treat this as progress in the session if the submitted task is
+        // a part of the regularly occuring questionnaires.  Other questions, such
+        // as a "reason for ending" should not be recorded as making progress in the session.
+        boolean isProgress = participant.getStudy().hasTask(formName);
+
         String currentTaskName = participant.getStudy().getCurrentSession().getCurrentTask().getName();
-        if(!currentTaskName.equals(formName) && sessionProgress && !participant.isAdmin()) {
+        if(!currentTaskName.equals(formName) && isProgress && !participant.isAdmin()) {
             String error = "The current task for this participant is : " + currentTaskName + " however, they submitted the form:" + formName;
             LOG.info(error);
             throw new WrongFormException(error);
@@ -163,7 +161,7 @@ public class QuestionController extends BaseController {
         data.setSession(participant.getStudy().getCurrentSession().getName());
 
         // Update the participant's session status, and save back to the database.
-        if(sessionProgress) {
+        if(isProgress) {
             participant.getStudy().completeCurrentTask(timeOnTask);
             participantService.save(participant);
         }

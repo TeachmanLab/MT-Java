@@ -3,7 +3,7 @@ package org.mindtrails.MockClasses;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.Study;
 import org.mindtrails.persistence.ParticipantRepository;
-import org.mindtrails.service.ParticipantService;
+import org.mindtrails.service.ParticipantServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ import java.util.List;
  * save, create, and find customized participant objects.
  */
 @Service
-public class TestParticipantService implements ParticipantService {
+public class TestParticipantService extends ParticipantServiceImpl {
 
     @Autowired
     ParticipantRepository repository;

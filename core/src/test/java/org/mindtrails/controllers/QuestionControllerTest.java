@@ -12,7 +12,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.security.web.FilterChainProxy;
@@ -100,7 +99,8 @@ public class QuestionControllerTest extends BaseControllerTest {
                 .with(SecurityMockMvcRequestPostProcessors.user(participant))
                 .param("value", "cheese")
                 .param("multiValue", "cheddar")
-                .param("multiValue", "havarti"))
+                .param("multiValue", "havarti")
+                .param("timeOnPage","9.999"))
                 .andExpect((status().is3xxRedirection()));
     }
 
@@ -138,7 +138,8 @@ public class QuestionControllerTest extends BaseControllerTest {
         ResultActions result = mockMvc.perform(post("/questions/TestUndeleteable")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .with(SecurityMockMvcRequestPostProcessors.user(participant))
-                .param("value", "cheese"))
+                .param("value", "cheese")
+                .param("timeOnPage", "99.9"))
                 .andExpect((status().is3xxRedirection()));
 
         undeleteableRepository.flush();

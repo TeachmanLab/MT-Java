@@ -15,7 +15,7 @@ import org.mindtrails.domain.tracking.EmailLog;
 import org.mindtrails.domain.tracking.TaskLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.subethamail.wiser.Wiser;
@@ -35,7 +35,7 @@ import static org.junit.Assert.*;
  * Created by dan on 8/4/16.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
+@SpringBootTest(classes = Application.class)
 @WebAppConfiguration
 public class EmailServiceImplTest {
 
@@ -60,6 +60,7 @@ public class EmailServiceImplTest {
         participant.setEmail("tester@test.com");
         participant.setFullName("Tester McTest");
         participant.setStudy(new TestStudy());
+        participant.setLastLoginDate(xDaysAgo(20));
         service     = new EmailServiceImpl();
     }
 
@@ -97,9 +98,12 @@ public class EmailServiceImplTest {
         Email e = emailService.getEmailForType(EmailService.TYPE.day2.toString());
         e.setTo("test@test.com");
         Participant p = new Participant();
+        p.setStudy(new TestStudy());
         p.setEmail("test@test.com");
         e.setParticipant(p);
         e.setContext(new Context());
+        Study s = new TestStudy("SessionOne",0);
+        p.setStudy(s);
         emailService.sendEmail(e);
 
         // assert
@@ -123,9 +127,11 @@ public class EmailServiceImplTest {
         String token = "1234ASBASDF1234ASDF";
 
         Participant p = new Participant();
+        p.setStudy(new TestStudy());
         p.setEmail(email);
         p.setPasswordToken(new PasswordToken(p, new Date(), token));
-
+        Study s = new TestStudy("SessionOne",0);
+        p.setStudy(s);
         emailService.sendPasswordReset(p);
 
         // assert
@@ -156,6 +162,8 @@ public class EmailServiceImplTest {
         email = "testyMcTester2.0@t.com";
 
         Participant p = new Participant();
+        Study s = new TestStudy("SessionOne",0);
+        p.setStudy(s);
         p.setEmail(email);
 
         emailService.sendGiftCard(p,reward, 100);
@@ -352,7 +360,7 @@ public class EmailServiceImplTest {
         assertNull(service.getTypeToSend(participant));
 
         study.setLastSessionDate(xDaysAgo(18));
-        assertThat(EmailService.TYPE.day18, is(equalTo(service.getTypeToSend(participant))));
+        assertThat(EmailService.TYPE.closure, is(equalTo(service.getTypeToSend(participant))));
 
         study.setLastSessionDate(xDaysAgo(19));
         assertNull(service.getTypeToSend(participant));
@@ -388,11 +396,14 @@ public class EmailServiceImplTest {
 
     }
 
+
+
     @Test
     public void testShouldSendEmailAfter60_63_67_75_onSession8() {
         // Set up the sessions so we are in a post session, but not finished with the Post session.
         Study study = new TestStudy("PostSession", 0);
         participant.setStudy(study);
+        participant.setLastLoginDate(xDaysAgo(80));
 
         study.setLastSessionDate(xDaysAgo(60));
         assertThat(EmailService.TYPE.followup, is(equalTo(service.getTypeToSend(participant))));
@@ -408,6 +419,19 @@ public class EmailServiceImplTest {
 
         study.setLastSessionDate(xDaysAgo(75));
         assertThat(EmailService.TYPE.followup3, is(equalTo(service.getTypeToSend(participant))));
+
+    }
+
+    @Test
+    public void testShouldNotSendEmailsEverIfInComplete() {
+        Study study = new TestStudy("PostSession", 1);
+        study.completeCurrentTask(10);
+        participant.setStudy(study);
+
+        assertTrue(study.completed("PostSession"));
+        assertTrue(study.getState() == Study.STUDY_STATE.ALL_DONE);
+        study.setLastSessionDate(xDaysAgo(2));
+        assertNull(service.getTypeToSend(participant));
 
     }
 

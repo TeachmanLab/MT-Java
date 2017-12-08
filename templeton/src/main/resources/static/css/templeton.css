@@ -332,6 +332,19 @@ div.oneToSeven {
 
 }
 
+.footer-links ul {
+    list-style: none;
+}
+
+
+ul.facebook {
+    margin-top: 30px;
+    tet-align: right;
+}
+ul.facebook li {
+    vertical-align: middle;
+    line-height: 19px;
+}
 
 
 

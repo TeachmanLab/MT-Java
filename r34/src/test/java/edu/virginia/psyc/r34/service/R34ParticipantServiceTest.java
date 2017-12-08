@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mindtrails.domain.Participant;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -16,7 +16,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
+@SpringBootTest(classes = Application.class)
 @WebAppConfiguration
 @ActiveProfiles("test")
 public class R34ParticipantServiceTest {
@@ -38,14 +38,14 @@ public class R34ParticipantServiceTest {
         p = service.create();
         assertTrue(p.getStudy() instanceof R34Study);
         s = (R34Study)p.getStudy();
-        assertNotNull(s.getCondition());
+        assertNotNull(s.getConditioning());
 
         for(int i = 0; i< 100; i++)  {
             p = service.create();
             s = (R34Study)p.getStudy();
-            if(s.getCondition().equals(R34Study.CONDITION.FIFTY_FIFTY)) is50 = true;
-            if(s.getCondition().equals(R34Study.CONDITION.POSITIVE)) isPos = true;
-            if(s.getCondition().equals(R34Study.CONDITION.NEUTRAL)) isNeutral = true;
+            if(s.getConditioning().equals(R34Study.CONDITION.FIFTY_FIFTY)) is50 = true;
+            if(s.getConditioning().equals(R34Study.CONDITION.POSITIVE)) isPos = true;
+            if(s.getConditioning().equals(R34Study.CONDITION.NEUTRAL)) isNeutral = true;
         }
 
         assertTrue("after 100 iterations, 50/50 should have occurred at least once", is50);
@@ -92,7 +92,7 @@ public class R34ParticipantServiceTest {
         for(int i = 0; i< 100; i++)  {
             p = service.create();
             s = (R34Study) p.getStudy();
-            if(s.getCondition().equals(R34Study.CONDITION.NEUTRAL)) {
+            if(s.getConditioning().equals(R34Study.CONDITION.NEUTRAL)) {
                 isNeutral = true;
                 assertTrue(p.getStudy() instanceof R34NeutralStudy);
             }

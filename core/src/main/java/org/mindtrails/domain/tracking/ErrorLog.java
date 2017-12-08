@@ -34,6 +34,9 @@ public class ErrorLog extends MindTrailsLog {
         this.requestedUrl = requestedUrl;
         this.errorType = e.getClass().getSimpleName();
         this.errorMessage = e.getMessage();
+
+        // We store error messages as short strings, truncate to avoid mysql errors.
+        if(errorMessage.length() > 255) errorMessage = errorMessage.substring(0,255);
     }
 
 }

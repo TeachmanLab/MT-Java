@@ -29,7 +29,7 @@
     <link rel="stylesheet" media="screen" th:href="@{/bower/bootstrap/dist/css/bootstrap.css}" href="../../static/bower/bootstrap/dist/css/bootstrap.css"/> <!-- Themed bootstream -->
     <link rel="stylesheet" media="screen" th:href="@{/bower/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css}"/>
     <link rel="stylesheet" media="screen" th:href="@{/css/mindtrails.css}"/>
-    <link rel="stylesheet" media="screen" th:href="@{/css/mobile.css}" href="../../static/css/mobile.css"/>
+    <link rel="stylesheet" media="screen" th:href="@{/css/mobile.css}" />
     <link rel="stylesheet" media="print" th:href="@{/css/print.css}" href="../../static/css/print.css"/>
 
     <!-- Timer here -->
@@ -86,11 +86,169 @@
                 <div class="col-md-1">
                     <label class="radio-inline option">
                         <input type="radio" name="{{name}}" value="555" required="true"/>
-                        <span class="shortDesc"></span> <span class="fullDesc">Prefer not to answer</span></label>
+                        <span class="shortDesc">8</span> <span class="fullDesc">Prefer not to answer</span></label>
                 </div>
     </div>
     {{/questions}}
+
+
 </textarea>
+
+
+
+<textarea style="display: none"  id="template2" th:fragment="questionTemplate2">
+
+    <div class="row header">
+        <div class="col-md-4"><p class="tableOptions"></p></div>
+    {{#options}}
+        <div class="col-md-2"><p class="tableOptions">{{title}}</p></div>
+    {{/options}}
+
+    </div>
+
+    {{#questions}}
+     <div class="row">
+                <div class="col-md-4 statement"><p>{{desc}}</p></div>
+                {{#options}}
+                <div class="col-md-2">
+                    <label class="radio-inline option">
+                        <input type="radio" name="{{name}}" value="{{value}}" required="true"/>
+                        <span class="shortDesc">{{value}}</span> <span class="fullDesc">{{title}}</span></label>
+                </div>
+                {{/options}}
+                </div>
+    {{/questions}}
+
+</textarea>
+
+
+
+<textarea style="display: none"  id="template3" th:fragment="questionTemplate3">
+
+    {{#reasons}}
+     <div class="row">
+                <div class="col-md-1 statement"><p>rating</p></div>
+
+                <div class="col-md-1">
+                     <input type="number" min="0" max="8" name="{{name}}" class="form-control"/>
+                </div>
+                <div class="col-md-10">
+                     <p>{{desc}}</p>
+                </div>
+     </div>
+    {{/reasons}}
+
+</textarea>
+
+<textarea style="display: none"  id="template4" th:fragment="questionTemplate4">
+
+    {{#questions}}
+     <div class="row">
+         <div class="col-md-10">
+             <p> {{desc}} </p>
+             <p > Check all that apply. </p>
+         </div>
+     </div>
+    <div class="row">
+        <div class="col-md-6 side-border">
+                {{#options}}
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="{{name}}" value="{{value}}"/>
+                                {{opt_desc}} </label>
+                        </div>
+
+                {{/options}}
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="{{name}}" value="other"/>
+                                 Other, please specify: <input type="text" name="reasons"/></label>
+                        </div>
+
+
+                         <br/>
+                        <div class="radio">
+                            <label class="question"> <input id="{{id}}" onchange="spec('{{id}}')" type="checkbox" name="{{name}}"
+                                          value="Other"/> Other (Please specify) <input id="Q2_15_spec" type="text"
+                                                                                        name="Other_DescNo"  value="N/A" /></label>
+                        </div>
+              </div >
+    </div >
+
+    {{/questions}}
+
+</textarea>
+
+
+<textarea style="display: none"  id="template5" th:fragment="questionTemplate5">
+
+
+    {{#questions}}
+     <div class="row header">
+                <div class="col-md-8 statement"><p>{{desc}}</p></div>
+     </div>
+
+    <div class="row">
+      <div class="col-md-8 side-border">
+                {{#options}}
+
+        <div class="radio">
+            <label class="question"> <input type="radio" name="{{name}}" value="{{value}}" required="true"/>
+                <b>{{title}}</b></label>
+        </div>
+
+                {{/options}}
+      </div>
+
+                <div class="col-md-4">
+                    <br/>
+                    <br/>
+                    <div class="radio">
+                        <label class="question"><input type="radio" name="{{name}}" value="555"/> Prefer not to answer </label>
+                    </div>
+                    <br/>
+                    <br/>
+                </div>
+
+     </div>
+
+
+    {{/questions}}
+
+</textarea>
+
+
+
+<textarea style="display: none"  id="template6" th:fragment="questionTemplate6">
+    <div class="row header">
+        <div class="col-md-4"><p class="tableOptions"></p></div>
+    {{#options}}
+        <div class="col-md-1"><p class="tableOptions">{{title}}</p></div>
+    {{/options}}
+        <div class="col-md-1"><p class="tableOptions">Prefer not to answer</p></div>
+    </div>
+
+    {{#questions}}
+     <div class="row">
+                <div class="col-md-4 statement"><p>{{desc}}</p></div>
+                {{#options}}
+                <div class="col-md-1">
+                    <label class="radio-inline option">
+                        <input type="radio" name="{{name}}" value="{{value}}" required="true"/>
+                        <span class="shortDesc">{{value}}</span> <span class="fullDesc">{{title}}</span></label>
+                </div>
+                {{/options}}
+                <div class="col-md-1">
+                    <label class="radio-inline option">
+                        <input type="radio" name="{{name}}" value="555" required="true"/>
+                        <span class="shortDesc">8</span> <span class="fullDesc">Prefer not to answer</span></label>
+                </div>
+    </div>
+    {{/questions}}
+
+
+</textarea>
+
+
+
 
 <section id="header" class="clearfix" th:fragment="topFragment">
 
@@ -226,6 +384,7 @@
 
             <div class="clear-both"></div>
         </div>
+        <div class="copyright">&copy; Copyright 2016 &bull; All rights reserved</div>
 
     </div>
 
@@ -254,7 +413,7 @@
             </li>
         </ul>
     </div>
-    <div class="copyright">&copy; Copyright 2016 &bull; All rights reserved</div>
+
 </footer>
 
 
