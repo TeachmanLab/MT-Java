@@ -25,10 +25,15 @@ public class ParticipantExportDAO {
     private String theme;
     private String cbmCondition;
     private String prime;
+    private boolean testAccount;
     private boolean admin;
-    private boolean emailOptout;
+    private boolean emailReminders;
+    private boolean phoneReminders;
+    private String timezone;
     private boolean active;
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="EEE, dd MMM yyyy HH:mm:ss Z", timezone="EST")
-    private Date   lastLogin;
+    private Date   lastLoginDate;
     private boolean receiveGiftCards;
+    private String reference;
+    private String campaign;
 }

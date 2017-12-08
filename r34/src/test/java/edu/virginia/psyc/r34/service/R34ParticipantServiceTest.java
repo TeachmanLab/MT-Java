@@ -43,9 +43,9 @@ public class R34ParticipantServiceTest {
         for(int i = 0; i< 100; i++)  {
             p = service.create();
             s = (R34Study)p.getStudy();
-            if(s.getConditioning().equals(R34Study.CONDITION.FIFTY_FIFTY)) is50 = true;
-            if(s.getConditioning().equals(R34Study.CONDITION.POSITIVE)) isPos = true;
-            if(s.getConditioning().equals(R34Study.CONDITION.NEUTRAL)) isNeutral = true;
+            if(s.getConditioning().equals(R34Study.CONDITION.FIFTY_FIFTY.toString())) is50 = true;
+            if(s.getConditioning().equals(R34Study.CONDITION.POSITIVE.toString())) isPos = true;
+            if(s.getConditioning().equals(R34Study.CONDITION.NEUTRAL.toString())) isNeutral = true;
         }
 
         assertTrue("after 100 iterations, 50/50 should have occurred at least once", is50);
@@ -55,7 +55,7 @@ public class R34ParticipantServiceTest {
     }
 
     @Test
-    public void testNewParticipantGetsRandomPrime() {
+    public void atestNewParticipantGetsRandomPrime() {
 
         Participant p;
         R34Study s;
@@ -92,7 +92,7 @@ public class R34ParticipantServiceTest {
         for(int i = 0; i< 100; i++)  {
             p = service.create();
             s = (R34Study) p.getStudy();
-            if(s.getConditioning().equals(R34Study.CONDITION.NEUTRAL)) {
+            if(s.getConditioning().equals(R34Study.CONDITION.NEUTRAL.toString())) {
                 isNeutral = true;
                 assertTrue(p.getStudy() instanceof R34NeutralStudy);
             }

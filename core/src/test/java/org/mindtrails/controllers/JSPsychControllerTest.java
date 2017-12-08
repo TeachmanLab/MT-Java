@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.mindtrails.controller.JSPsychController;
 import org.mindtrails.domain.jsPsych.JsPsychTrial;
-import org.mindtrails.domain.jsPsych.JsPsychTrialList;
 import org.mindtrails.persistence.JsPsychRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -111,8 +110,7 @@ public class JSPsychControllerTest extends BaseControllerTest {
             " }\n" +
             "]";
 
-    @Test
-    public void testPostJSPsychData() throws Exception {
+    public void postJSPsychData() throws Exception {
         ResultActions result = mockMvc.perform(post("/jspsych")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .with(SecurityMockMvcRequestPostProcessors.user(participant))
@@ -139,7 +137,7 @@ public class JSPsychControllerTest extends BaseControllerTest {
         assertEquals(0, actualObj.size());
 
         // Send in some data, and make sure we get it back.
-        testPostJSPsychData();
+        postJSPsychData();
         result = mockMvc.perform(post("/jspsych/status")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .with(SecurityMockMvcRequestPostProcessors.user(participant))

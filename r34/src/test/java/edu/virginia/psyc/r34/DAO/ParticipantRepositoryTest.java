@@ -91,7 +91,8 @@ public class ParticipantRepositoryTest {
         p.getStudy().completeCurrentTask(0);
         p.getStudy().completeCurrentTask(0);
         p.getStudy().completeCurrentTask(0);
-        assertEquals(0, p.getStudy().getCurrentTaskIndex());
+        assertEquals(4, p.getStudy().getCurrentTaskIndex());
+        p.getStudy().completeCurrentTask(0);
         assertEquals(R34Study.NAME.SESSION6.toString(), p.getStudy().getCurrentSession().getName());
 
         // Change the participant's session back to Session1.

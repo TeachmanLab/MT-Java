@@ -87,6 +87,7 @@ public class ParticipantTest {
         study = new TestStudy();
         p.setStudy(study);
         study.setLastSessionDate(null);
+        p.setLastLoginDate(null);
         assertNull(p.lastMilestone());
 
         loginDate = new Date();
