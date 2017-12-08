@@ -4,6 +4,7 @@ import lombok.Data;
 import org.mindtrails.domain.Exportable;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by dan on 2/8/17.
@@ -36,5 +37,6 @@ public class JsPsychTrial {
     @Column (name = "conditioning")
     private String condition;
     private String device;
+    private Date dateSubmitted;
 
 }

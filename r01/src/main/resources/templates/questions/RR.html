@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
+
+<head th:replace="fragment/common :: headerFragment"/>
+<body>
+<section th:replace="fragment/common :: topFragment"/>
+<section th:replace="fragment/common :: titleBar (title='Completing Short Stories - Continued')"/>
+<textArea th:replace="fragment/common :: questionTemplate"/>
+<section id="content" class="clearfix">
+
+    <form th:action="@{/questions/RR}" method="POST">
+        <!-- Add timer -->
+        <input id="timeOnPage" name="timeOnPage" type="hidden"/>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+
+                    <p>Below you will see the titles of the nine short stories you just read and four sentences about each
+                        story. None of these sentences are worded identically to the sentences in the stories.
+                        Please rate each sentence for how similar it is to the way you understood the original story.</p>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="container section compactQuestion">
+            <div class="col-md-12">
+                <h4> THE ELEVATOR: The building looks old, and as you get on the elevator... </h4>
+            </div>
+            <div id="section1"></div>
+            <script>
+                var data = {
+                    "options": [
+                        {"value": 1, "title": "Differently"},
+                        {"value": 2, "title": "Very differently"},
+                        {"value": 3, "title": "Similar"},
+                        {"value": 4, "title": "Very similar"}
+                    ],
+                    "questions": [
+                        {
+                            "name": "elevator_NS",
+                            "desc": "you think that the elevator will probably break down while you are on it."
+                        },
+                        {
+                            "name": "elevator_PF",
+                            "desc": "you think that you are going to like your friend’s new apartment."
+                        },
+                        {
+                            "name": "elevator_NF",
+                            "desc": "you think about how smelly the lobby is."
+                        },
+                        {
+                            "name": "elevator_PS",
+                            "desc": "you think that riding the elevator will be safe."
+                        }
+
+                    ]
+                }
+                $('#section1').html(Mustache.render($('#template').val(), data));
+            </script>
+        </div>
+
+
+        <div class="container section compactQuestion">
+            <div class="col-md-12">
+                <h4> THE WEDDING RECEPTION: As you enter the room ... </h4>
+            </div>
+            <div id="section2"></div>
+            <script>
+                var data = {
+                    "options": [
+                        {"value": 1, "title": "Differently"},
+                        {"value": 2, "title": "Very differently"},
+                        {"value": 3, "title": "Similar"},
+                        {"value": 4, "title": "Very similar"}
+                    ],
+                    "questions": [
+                        {
+                            "name": "wedding_PS",
+                            "desc": "people in the audience laugh appreciatively."
+                        },
+                        {
+                            "name": "wedding_PF",
+                            "desc": "you notice a friend you were hoping to see walk into the reception."
+                        },
+                        {
+                            "name": "wedding_NS",
+                            "desc": "people in the audience find your efforts laughable."
+                        },
+                        {
+                            "name": "wedding_NF",
+                            "desc": "you notice someone you do not like just walked into the reception."
+                        }
+
+                    ]
+                }
+                $('#section2').html(Mustache.render($('#template').val(), data));
+            </script>
+        </div>
+
+        <div class="container section compactQuestion">
+            <div class="col-md-12">
+                <h4> THE JOB: You think about not having an income for a few weeks... </h4>
+            </div>
+            <div id="section3"></div>
+            <script>
+                var data = {
+                    "options": [
+                        {"value": 1, "title": "Differently"},
+                        {"value": 2, "title": "Very differently"},
+                        {"value": 3, "title": "Similar"},
+                        {"value": 4, "title": "Very similar"}
+                    ],
+                    "questions": [
+                        {
+                            "name": "job_PS",
+                            "desc": "and know that you can rely on your savings."
+                        },
+                        {
+                            "name": "job_PF",
+                            "desc": "and are excited about not having to set an alarm."
+                        },
+                        {
+                            "name": "job_NS",
+                            "desc": "and worry about becoming broke."
+                        },
+                        {
+                            "name": "job_NF",
+                            "desc": "and are sad about leaving your current coworkers."
+                        }
+
+                    ]
+                }
+                $('#section3').html(Mustache.render($('#template').val(), data));
+            </script>
+        </div>
+
+
+        <div class="container section compactQuestion">
+            <div class="col-md-12">
+                <h4> THE LOUD NOISE: As you walk downstairs... </h4>
+            </div>
+            <div id="section4"></div>
+            <script>
+                var data = {
+                    "options": [
+                        {"value": 1, "title": "Differently"},
+                        {"value": 2, "title": "Very differently"},
+                        {"value": 3, "title": "Similar"},
+                        {"value": 4, "title": "Very similar"}
+                    ],
+                    "questions": [
+                        {
+                            "name": "noise_PF",
+                            "desc": "you feel happy, and think about how lovely your house is."
+                        },
+                        {
+                            "name": "noise_NS",
+                            "desc": "you feel afraid, and worry that you cannot handle the fear."
+                        },
+                        {
+                            "name": "noise_PS",
+                            "desc": "you feel afraid, but you know that you can tolerate the feeling."
+                        },
+                        {
+                            "name": "noise_NF",
+                            "desc": "you feel cold, and think about how the house needs better heating."
+                        }
+
+                    ]
+                }
+                $('#section4').html(Mustache.render($('#template').val(), data));
+            </script>
+        </div>
+        <div class="container section compactQuestion">
+            <div class="col-md-12">
+                <h4> MEETING A FRIEND: You arrive a little late, and... </h4>
+            </div>
+            <div id="section5"></div>
+            <script>
+                var data = {
+                    "options": [
+                        {"value": 1, "title": "Differently"},
+                        {"value": 2, "title": "Very differently"},
+                        {"value": 3, "title": "Similar"},
+                        {"value": 4, "title": "Very similar"}
+                    ],
+                    "questions": [
+                        {
+                            "name": "meeting_friend_PF",
+                            "desc": "order your favorite snack."
+                        },
+                        {
+                            "name": "meeting_friend_NF",
+                            "desc": "notice the bar smells gross."
+                        },
+                        {
+                            "name": "meeting_friend_PS",
+                            "desc": "get a call from your friend who is on her way, but running late."
+                        },
+                        {
+                            "name": "meeting_friend_NS",
+                            "desc": "think your friend decided she did not want to see you."
+                        }
+
+                    ]
+                }
+                $('#section5').html(Mustache.render($('#template').val(), data));
+            </script>
+        </div>
+        <div class="container section compactQuestion">
+            <div class="col-md-12">
+                <h4> THE LUNCH: You friend looks at you... </h4>
+            </div>
+            <div id="section6"></div>
+            <script>
+                var data = {
+                    "options": [
+                        {"value": 1, "title": "Differently"},
+                        {"value": 2, "title": "Very differently"},
+                        {"value": 3, "title": "Similar"},
+                        {"value": 4, "title": "Very similar"}
+                    ],
+                    "questions": [
+                        {
+                            "name": "lunch_NS",
+                            "desc": "because she thinks you are a slob."
+                        },
+                        {
+                            "name": "lunch_NF",
+                            "desc": "and you frown because you forgot to bring water to lunch."
+                        },
+                        {
+                            "name": "lunch_PS",
+                            "desc": "because she is paying attention as you describe your weekend plans."
+                        },
+                        {
+                            "name": "lunch_PF",
+                            "desc": "and you smile because your lunch tastes good."
+                        }
+
+                    ]
+                }
+                $('#section6').html(Mustache.render($('#template').val(), data));
+            </script>
+        </div>
+        <div class="container section compactQuestion">
+            <div class="col-md-12">
+                <h4> THE SCRAPE: The scrape hurts a bit... </h4>
+            </div>
+            <div id="section7"></div>
+            <script>
+                var data = {
+                    "options": [
+                        {"value": 1, "title": "Differently"},
+                        {"value": 2, "title": "Very differently"},
+                        {"value": 3, "title": "Similar"},
+                        {"value": 4, "title": "Very similar"}
+                    ],
+                    "questions": [
+                        {
+                            "name": "scrape_NS",
+                            "desc": "and you think it will probably get seriously infected."
+                        },
+                        {
+                            "name": "scrape_NF",
+                            "desc": "and you are frustrated because you tore your shorts."
+                        },
+                        {
+                            "name": "scrape_PS",
+                            "desc": "but you know you will be ok."
+                        },
+                        {
+                            "name": "scrape_PF",
+                            "desc": "but you are happy that you are getting exercise."
+                        }
+
+                    ]
+                }
+                $('#section7').html(Mustache.render($('#template').val(), data));
+            </script>
+        </div>
+        <div class="container section compactQuestion">
+            <div class="col-md-12">
+                <h4> THE SHOPPING TRIP: You think about your recent health... </h4>
+            </div>
+            <div id="section8"></div>
+            <script>
+                var data = {
+                    "options": [
+                        {"value": 1, "title": "Differently"},
+                        {"value": 2, "title": "Very differently"},
+                        {"value": 3, "title": "Similar"},
+                        {"value": 4, "title": "Very similar"}
+                    ],
+                    "questions": [
+                        {
+                            "name": "shopping_NS",
+                            "desc": "and think you are probably coming down with the strange illness."
+                        },
+                        {
+                            "name": "shopping_PS",
+                            "desc": "and think you are unlikely to catch the strange illness."
+                        },
+                        {
+                            "name": "shopping_PF",
+                            "desc": "and smile because you enjoy shopping."
+                        },
+                        {
+                            "name": "shopping_NF",
+                            "desc": "and feel bored of shopping."
+                        }
+
+                    ]
+                }
+                $('#section8').html(Mustache.render($('#template').val(), data));
+            </script>
+        </div>
+        <div class="container section compactQuestion">
+            <div class="col-md-12">
+                <h4> THE BLOOD TEST: The doctor says he will call you in a few weeks... </h4>
+            </div>
+            <div id="section9"></div>
+            <script>
+                var data = {
+                    "options": [
+                        {"value": 1, "title": "Differently"},
+                        {"value": 2, "title": "Very differently"},
+                        {"value": 3, "title": "Similar"},
+                        {"value": 4, "title": "Very similar"}
+                    ],
+                    "questions": [
+                        {
+                            "name": "blood_test_PF",
+                            "desc": "and you think about how nice your doctor is."
+                        },
+                        {
+                            "name": "blood_test_NF",
+                            "desc": "and you are annoyed because your doctor is not very friendly."
+                        },
+                        {
+                            "name": "blood_test_NS",
+                            "desc": "and you think that you will not be able to tolerate your anxiety while you wait."
+                        },
+                        {
+                            "name": "blood_test_PS",
+                            "desc": "and you know that you can handle your anxiety while you wait."
+                        }
+
+                    ]
+                }
+                $('#section9').html(Mustache.render($('#template').val(), data));
+            </script>
+        </div>
+
+
+
+
+        <div class="col-md-12" style="text-align:center">
+            <button type="submit">Next</button>
+        </div>
+
+    </form>
+
+
+</section>
+<footer th:replace="fragment/common :: footer"/>
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>
+
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts"/>

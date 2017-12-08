@@ -89,6 +89,7 @@ public class AccountController extends BaseController {
         participantCreate.updateParticipant(participant);
         participant.setLastLoginDate(new Date());
         participant.setReference((String)session.getAttribute("referer"));
+        participant.setCampaign((String)session.getAttribute("campaign"));
 
         // Be sure to call saveNew rather than save, allowing
         // any data associated with the session to get
@@ -107,10 +108,7 @@ public class AccountController extends BaseController {
         return "redirect:/account/theme";
     }
 
-    @RequestMapping
-    public String showAccount(ModelMap model, Principal principal) {
-        return "account";
-    }
+
 
     @RequestMapping("theme")
     public String showTheme(ModelMap model, Principal principal) {
@@ -144,15 +142,31 @@ public class AccountController extends BaseController {
         return "debriefing";
     }
 
+    @RequestMapping
+    public String showAccount(ModelMap model, Principal principal) {
+        ParticipantUpdate update = new ParticipantUpdate();
+        update.fromParticipant(getParticipant(principal));
+        model.addAttribute("participantUpdate", update);
+        return "account";
+    }
+
     @RequestMapping(value="update", method = RequestMethod.POST)
     public String update(ModelMap model, Principal principal,
-                         @Valid ParticipantUpdate form) {
+                         @Valid ParticipantUpdate form,
+                         BindingResult bindingResult) {
 
+        Participant participant = getParticipant(principal);
+
+        if(bindingResult.hasErrors()) {
+            model.addAttribute("participantUpdate", form);
+            return "account";
+        } else {
             Participant p = participantService.get(principal);
             form.updateParticipant(p);
             participantService.save(p);
             model.addAttribute("updated", true);
-        return "redirect:/session";
+            return "redirect:/session";
+        }
     }
 
     @RequestMapping("changePass")

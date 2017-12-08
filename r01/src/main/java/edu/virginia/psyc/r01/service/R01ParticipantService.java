@@ -44,13 +44,13 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
 
         CONDITION_TYPE type = CONDITION_VALUES.get(RANDOM.nextInt(CONDITION_VALUES.size()));
         if(type == CONDITION_TYPE.POSITIVE) {
-            if (RANDOM.nextInt(2) == 1) study.setConditioning(R01Study.CONDITION.POSITIVE);
-            else study.setConditioning(R01Study.CONDITION.POSITIVE_NEGATION);
+            if (RANDOM.nextInt(2) == 1) study.setConditioning(R01Study.CONDITION.POSITIVE.name());
+            else study.setConditioning(R01Study.CONDITION.POSITIVE_NEGATION.name());
         } else if (type == CONDITION_TYPE.FIFTY_FIFTY) {
-            if (RANDOM.nextInt(2) == 1) study.setConditioning(R01Study.CONDITION.FIFTY_FIFTY_RANDOM);
-            else study.setConditioning(R01Study.CONDITION.FIFTY_FIFTY_BLOCKED);
+            if (RANDOM.nextInt(2) == 1) study.setConditioning(R01Study.CONDITION.FIFTY_FIFTY_RANDOM.name());
+            else study.setConditioning(R01Study.CONDITION.FIFTY_FIFTY_BLOCKED.name());
         } else {
-            study.setConditioning(R01Study.CONDITION.NEUTRAL);
+            study.setConditioning(R01Study.CONDITION.NEUTRAL.name());
         }
 
         return p;

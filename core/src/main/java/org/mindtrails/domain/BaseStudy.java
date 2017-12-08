@@ -39,6 +39,7 @@ public abstract class BaseStudy implements Study {
     protected int currentTaskIndex = 0;
     protected Date lastSessionDate;
     protected boolean receiveGiftCards;
+    protected String conditioning;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "study")
     @JsonIgnore
@@ -292,4 +293,15 @@ public abstract class BaseStudy implements Study {
         return this.id;
     }
 
+
+    @Override
+    public boolean hasTask(String taskName) {
+        List<Session> sessions = getSessions();
+        for (Session s : sessions) {
+            for (Task t : s.getTasks()) {
+                if (t.getName().equals(taskName)) return true;
+            }
+        }
+        return false;
+    }
 }

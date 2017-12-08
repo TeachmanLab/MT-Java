@@ -10,7 +10,7 @@ import org.joda.time.Days;
 @Data
 public class R01StudyForm {
 
-    private R01Study.CONDITION conditioning;
+    private String conditioning;
     private String session;
     private int subtractDays = 0;
 

@@ -104,7 +104,7 @@
                         <div class="radio">
                             <label class="question"> <input type="checkbox" name="Disorders" value="Other" id="Q1_15"
                                                             onchange="spec('Q1_15')"/> Other (Please specify) <input
-                                    id="Q1_15_spec" type="text" name="Other_Desc"/> </label>
+                                    id="Q1_15_spec" type="text" name="Other_Desc" value="N/A"/> </label>
                         </div>
                     </div>
 
@@ -198,7 +198,7 @@
                         <div class="radio">
                             <label><input id="Q2_15" onchange="spec('Q2_15')" type="checkbox" name="PastDisorders"
                                           value="Other"/> Other (Please specify) <input id="Q2_15_spec" type="text"
-                                                                                        name="Other_DescNo"/></label>
+                                                                                        name="Other_DescNo"  value="N/A" /></label>
                         </div>
                     </div>
 
@@ -291,7 +291,7 @@
                                 practitioner </label>
                             <div class="oneToSeven" id="Q3-4-1"><label>Has this been helpful? </label>
                                 <select name="LMHC">
-                                    <option value="">Please select one</option>
+                                    <option value="-1">Please select one</option>
                                     <option value="1">1 (Not helpful at all)</option>
                                     <option> 2</option>
                                     <option> 3</option>
@@ -507,7 +507,7 @@
                                                             onchange="sub('Q3-16');spec('Q3-16');"
                                                             type="checkbox" name="Help"
                                                             value="Other"/> Other (Please specify) <input
-                                    id="Q3-16_spec" type="text" name="Other_HelpCurrent"/> </label>
+                                    id="Q3-16_spec" type="text" name="Other_HelpCurrent"  value="N/A" /> </label>
                             <div class="oneToSeven" id="Q3-16-1"><label> Has this been helpful? </label>
                                 <select name="other">
                                     <option value=""> Please select one</option>
@@ -576,7 +576,7 @@
                             <label class="question"> <input id="changeInHelpSeeking" onchange="sub('changeInHelpSeeking');spec('changeInHelpSeeking');"
                                                             type="checkbox" name="ChangeHelp"
                                                             value="change_Other"/> Yes, I changed: ________________ (Please specify) <input
-                                    id="changeInHelpSeeking_spec" type="text" name="Other_HelpChange"/> </label>
+                                    id="changeInHelpSeeking_spec" type="text" name="Other_HelpChange"  value="N/A" /> </label>
 
                         </div>
                     </div>
@@ -875,10 +875,10 @@
                         </div>
                         <br/>
                         <div class="radio">
-                            <label class="question"> <input id="Q4-16" onchange="sub('Q4-16')" type="checkbox"
+                            <label class="question"> <input id="Q4-16" onchange="sub('Q4-16');spec('Q4-16');" type="checkbox"
                                                             name="PastHelp"
                                                             value="Other"/> Other (Please specify) <input
-                                    id="Q4-16_spec" type="text" name="Other_HelpPast"/> </label>
+                                    id="Q4-16_spec" type="text" name="Other_HelpPast"  value="N/A"/> </label>
                             <div class="oneToSeven" id="Q4-16-1"><label> Has this been helpful? </label>
                                 <select name="other_past">
                                     <option value=""> Please select one</option>
@@ -973,10 +973,10 @@
                                         treatment </label>
                                 </div>
                                 <div class="radio">
-                                    <label class="question"> <input type="checkbox" name="NoHelp_Reason"
+                                    <label class="question"> <input id="Q5_12" type="checkbox" name="NoHelp_Reason"
                                                                     value="Other"
                                                                     onchange="spec('Q5_12')"/> Other (please specify)
-                                        <input id="Q5_12_spec" type="text" name="Other_NoHelpReason" /> </label>
+                                        <input id="Q5_12_spec" type="text" name="Other_NoHelpReason"  value="N/A"/> </label>
                                 </div>
                                 <div class="radio">
                                     <label class="question"> <input id="Q5_noAns" type="checkbox" name="NoHelp_Reason"
@@ -1054,8 +1054,15 @@
     function spec(id) {
         if (document.getElementById(id).checked) {
             document.getElementById(id + "_spec").required = true;
-        } else {
-            document.getElementById(id + "_spec").required = false;
+            if(document.getElementById(id + "_spec").value == "N/A"){
+                document.getElementById(id + "_spec").value = "";
+            }
+
+
+    }
+         else {
+            document.getElementById(id + "_spec").value = "N/A";
+            //document.getElementById(id + "_spec").required = false;
         }
     }
 
@@ -1082,6 +1089,8 @@
                 'PastHelp': {required: true, minlength: 1}
             }
         });
+
+
     });
 
 </script>

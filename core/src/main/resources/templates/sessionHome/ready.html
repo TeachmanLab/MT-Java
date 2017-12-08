@@ -24,7 +24,7 @@
                 <div th:if="${currentSession.index} == 0">
                     <h2><span th:text="${participant.fullName}">Jim</span>, you're ready to
                         begin your initial assessment.</h2>
-                    <p>This is an information gathering session that will take
+                    <p>This is an information-gathering session that will take
                         approximately <span th:text="${currentSession.duration}">20</span> minutes to complete.</p>
                 </div>
 
@@ -59,7 +59,7 @@
                     how to redeem it.
                 </div>
                 <p class="session-note">For best results, complete the <span th:text="${currentSession.displayName}"/> by
-                    <span class="date" th:text="${completeBy}">July 10, 2015</span>
+                    <br/><span class="date" th:text="${completeBy}">July 10, 2015</span>
                 </p>
                 <a th:href="@{${currentTask.requestMapping}}" th:if="${currentTask}">
                     <button>Start</button>

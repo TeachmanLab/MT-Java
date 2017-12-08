@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -52,6 +53,22 @@ public class JSPsychController extends BaseController {
             model.addAttribute(key, study.getPiPlayerParameters().get(key));
         }
         return "jspsych";
+    }
+
+
+    @RequestMapping("/status")
+    public @ResponseBody JsPsychTrialList getPastData(Principal principal) {
+
+        Participant participant = participantService.findByEmail(principal.getName());
+
+        List<JsPsychTrial> trials = jsPsychRepository.findAllByParticipantIdAndStudyAndSession(participant.getId(),
+                participant.getStudy().getName(),
+                participant.getStudy().getCurrentSession().getName());
+
+        JsPsychTrialList list = new JsPsychTrialList();
+        list.addAll(trials);
+
+        return (list);
     }
 
     @RequestMapping("/completed/{scriptName}")
@@ -96,19 +113,23 @@ public class JSPsychController extends BaseController {
 
         Participant p = getParticipant(principal);
         String deviceType = "unknown";
-        if(device.isMobile()) deviceType = "mobile";
-        if(device.isNormal()) deviceType = "normal";
-        if(device.isTablet()) deviceType = "tablet";
-
+        if(device != null) {
+            if (device.isMobile()) deviceType = "mobile";
+            if (device.isNormal()) deviceType = "normal";
+            if (device.isTablet()) deviceType = "tablet";
+        }
         for(JsPsychTrial trial : list) {
             trial.setParticipantId(p.getId());
             trial.setSession(p.getStudy().getCurrentSession().getName());
             trial.setStudy(p.getStudy().getName());
             trial.setDevice(deviceType);
+            trial.setDateSubmitted(new Date());
             this.jsPsychRepository.save(trial);
         }
 
-        return new ResponseEntity<>(list, HttpStatus.OK);
+        return new ResponseEntity<>(list, HttpStatus.CREATED);
     }
+
+
 
 }

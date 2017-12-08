@@ -31,11 +31,20 @@ var TEMPLETON_MODULE = (function () {
     my.traget = "jspsych-target";
     my.base_url = "/js/training";
     my.post_url = "/jspsych";
+    my.status_url = "/jspsych/status";
     my.redirect_url = "/jspsych/continue";
     my.sessionIndex = 1;
+    my.data = {};
+    my.lastSaveIndex = 0;
 
     // Captions to display below session images
     var captions = {
+        0: {
+            8:"Keep hanging on.",
+            16:"You are not alone in this!",
+            24:"You are taking off!",
+            32:"You're doing puuuurfect"
+        },
         1: {
             8:"Keep hanging on.",
             16:"You are not alone in this!",
@@ -70,6 +79,7 @@ var TEMPLETON_MODULE = (function () {
     var progress = -1;
     var vivid_response;
     var followup_count = 0;
+    var completed_previously = 0;
 
     my.execute = function() {
         if(my.base_url.slice(-1) !== '/') my.base_url = my.base_url + "/";
@@ -93,10 +103,38 @@ var TEMPLETON_MODULE = (function () {
     }
 
     function parse_complete(data) {
+        my.data = data;
+        load_past_progress(progress_loaded)
+    }
+
+
+    function load_past_progress(callback) {
+        $.ajax({
+            type:'get',
+            contentType: 'application/json',
+            cache: false,
+            url: my.status_url, // this is the path to the above PHP script
+            complete: function (results) {
+                callback(results);
+            }
+        });
+    }
+
+    function progress_loaded(results) {
+        data = results.responseJSON;
+        // Figure out how many tasks were completed previously.  If any.
+        // And reduce the number of scenerios to complete by this amount.
+        for(var t in data) { if(data[t].trial_type == "missing-letters") { completed_previously++; }}
+        my.total_scenarios = my.total_scenarios - completed_previously;
+        // Build the timeline.
+        build_timeline(my.data);
+
+        console.log("Progress fully loaded");
         updateProgress();
         updateScore();
-        build_timeline(data);
     }
+
+
 
     // DISPLAY SCORE AND PROGRESS
     // ***************
@@ -120,6 +158,12 @@ var TEMPLETON_MODULE = (function () {
          * STATIC TRIALS
          ***********************************************/
             // An introduction / instructions
+        var prev_message = "";
+        if(completed_previously > 0) {
+            prev_message = "You previously completed " + completed_previously + " scenerios for this session.  You have " +
+                my.total_scenarios + " more scenerios to complete this training.  Please try to complete all the scenerios in one " +
+                "sitting.";
+        }
         var introduction = {
                 type: 'button-response',
                 is_html: true,
@@ -131,6 +175,7 @@ var TEMPLETON_MODULE = (function () {
                         "<p>In this part of the program, you will read a series of very " +
                         "short stories.  Pay attention to the title of each story because " +
                         "after you have read all the stories, you will be asked more questions about them.</p> " +
+                        "<p>" + prev_message + "</p>" +
                         "<br clear='all'> " +
                         "<b>For each story:</b> " +
                         "<ul> " +
@@ -195,6 +240,14 @@ var TEMPLETON_MODULE = (function () {
                 '<p>' + feed_back_c + '</p>')
             },
             on_finish: function(data){ data.stimulus = "final score screen" }
+        };
+
+        var save_data = {
+            type: 'call-function',
+            func: function(){ saveData(function() {
+                jsPsych.data.aaData = []; // Clear data just sent.
+                console.log("DATA IS " + jsPsych.data.getData());
+            })}
         };
 
         /* create experiment timeline array */
@@ -393,7 +446,6 @@ var TEMPLETON_MODULE = (function () {
                 }
             };
 
-
             // BUILD THE TIMELINE FROM THE COMPONENTS ABOVE.
             // *********************************************
 
@@ -431,24 +483,36 @@ var TEMPLETON_MODULE = (function () {
                 timeline.push(encourage);
             }
 
+            // Save data to the server after each scenerio is completed.
+            timeline.push(save_data);
         }
 
         timeline.push(vividness_final);
         timeline.push(final_trial_score);
 
-        function saveData(data, callback){
+        function saveData(callback){
+            var all_data = jsPsych.data.getData();
+            var data_to_save = [];
+            var saved_from = my.lastSaveIndex;
+
+            for (var i = my.lastSaveIndex; i < all_data.length; i++) {
+                data_to_save.push(all_data[i]);
+            }
+            my.lastSaveIndex = all_data.length;
 
             $.ajax({
                 type:'post',
                 contentType: 'application/json',
                 cache: false,
                 url: my.post_url, // this is the path to the above PHP script
-                data: data,
+                data: JSON.stringify(data_to_save),
                 success: callback,
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    my.lastSaveIndex = saved_from;
                     alert("Status: " + textStatus); alert("Error: " + errorThrown);
                 }                });
         }
+
 
         function redirect() {
             window.location.assign(my.redirect_url);
@@ -481,7 +545,7 @@ var TEMPLETON_MODULE = (function () {
                     jsPsych.data.addProperties({
                         condition: my.condition
                     });
-                    saveData(jsPsych.data.dataAsJSON(), redirect)
+                    saveData( redirect)
                 }
             });
         }

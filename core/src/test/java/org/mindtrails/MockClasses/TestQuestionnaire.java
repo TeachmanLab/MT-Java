@@ -27,10 +27,13 @@ public class TestQuestionnaire extends SecureQuestionnaireData {
     @Column(name = "multiValue")
     private List<String> multiValue;
 
+    private double timeOnPage;
+
     public TestQuestionnaire() {}
     public TestQuestionnaire(String value) {
         this.value = value;
         this.date = new Date();
+
     }
 
     @Override

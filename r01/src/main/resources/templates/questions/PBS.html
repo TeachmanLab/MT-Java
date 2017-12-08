@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
+
+<head th:replace="fragment/common :: headerFragment"/>
+<body>
+<section th:replace="fragment/common :: topFragment"/>
+<section th:replace="fragment/common :: titleBar (title='Growth Mindset Measure')"/>
+<textArea th:replace="fragment/common :: questionTemplate"/>
+<section id="content" class="clearfix">
+
+    <form th:action="@{/questions/PBS}" method="POST">
+        <!-- Add timer -->
+        <input id="timeOnPage" name="timeOnPage" type="hidden"/>
+        <div class="container section compactQuestion">
+            <div id="section1"></div>
+            <script>
+                var data = {
+                    "options": [
+                        {"value": 1, "title": "Strong Agree"},
+                        {"value": 2, "title": "Agree"},
+                        {"value": 3, "title": "Disagree"},
+                        {"value": 4, "title": "Strongly agree"}
+                    ],
+                    "questions": [
+                        {
+                            "name": "think_really",
+                            "desc": "You can learn new things, but you can;t really change how you think"
+                        },
+                        {
+                            "name": "person_basic",
+                            "desc": "You can always change basic things about the kind of person you are."
+                        },
+                        {
+                            "name": "think_quite",
+                            "desc": "No matter hwo much you have been thinking a particular way, you can always change it quite a bit."
+                        },
+                        {
+                            "name": "person_important",
+                            "desc": "You can do things differently, but the important parts of who you are can't really be changed."
+                        }
+
+                    ]
+                }
+                $('#section1').html(Mustache.render($('#template').val(), data));
+            </script>
+        </div>
+
+        <div class="container section compactQuestion">
+            <div id="section2"></div>
+            <script>
+                var data = {
+                    "options": [
+                        {"value": 1, "title": "Strong Agree"},
+                        {"value": 2, "title": "Agree"},
+                        {"value": 3, "title": "Disagree"},
+                        {"value": 4, "title": "Strongly agree"}
+                    ],
+                    "questions": [
+
+                        {
+                            "name": "person_substantially",
+                            "desc": "No matter what kind of person you are, you can always change substantially."
+                        },
+                        {
+                            "name": "person_certain",
+                            "desc": "You are a certain kind of person, and there is not much that can really be done to change that."
+                        },
+                        {
+                            "name": "think_substantially",
+                            "desc": "You can always substantially change how you think."
+                        },
+                        {
+                            "name": "think_basic",
+                            "desc": "Your thinking style is something very basic about you that can't change very much."
+                        }
+
+                    ]
+                }
+                $('#section2').html(Mustache.render($('#template').val(), data));
+            </script>
+        </div>
+
+
+        <div class="col-md-12" style="text-align:center">
+            <button type="submit">Next</button>
+        </div>
+
+    </form>
+
+
+</section>
+<footer th:replace="fragment/common :: footer"/>
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>
+
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts"/>

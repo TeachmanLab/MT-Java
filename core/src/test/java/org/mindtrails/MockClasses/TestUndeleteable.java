@@ -22,6 +22,8 @@ public class TestUndeleteable extends LinkedQuestionnaireData {
     private String value;
 
     public TestUndeleteable() {}
+
+    private double timeOnPage;
     public TestUndeleteable(String value) {
         this.value = value;
         this.date = new Date();
