@@ -62,15 +62,7 @@ public class R34Study extends BaseStudy implements Study {
     */
     public boolean inSession() {
         return (!getCurrentSession().getName().equals(R34Study.NAME.PRE.toString()) &&
-                !getCurrentSession().getName().equals(R34Study.NAME.POST.toString()) &&
-                !getCurrentSession().getName().equals(R34Study.NAME.SESSION1.toString())&&
-                !getCurrentSession().getName().equals(R34Study.NAME.SESSION2.toString())&&
-                !getCurrentSession().getName().equals(R34Study.NAME.SESSION3.toString())&&
-                !getCurrentSession().getName().equals(R34Study.NAME.SESSION4.toString())&&
-                !getCurrentSession().getName().equals(R34Study.NAME.SESSION5.toString())&&
-                !getCurrentSession().getName().equals(R34Study.NAME.SESSION6.toString())&&
-                !getCurrentSession().getName().equals(R34Study.NAME.SESSION7.toString())&&
-                !getCurrentSession().getName().equals(R34Study.NAME.SESSION8.toString()));
+                !getCurrentSession().getName().equals(R34Study.NAME.POST.toString()));
     }
 
     public R34Study() {}

@@ -54,15 +54,15 @@ public class TempletonParticipantServiceTest {
         double percent;
 
         percent = (positive)/1000d;
-        assertTrue("Positive is rounghly 20% : " + percent, percent > .18 && percent < .22);
+        assertTrue("Positive is roughly 20% : " + percent, percent > .16 && percent < .22);
         percent = (fifty)/1000d;
-        assertTrue("fiftyfifty is rounghly 20% : " + percent, percent > .18 && percent < .22);
+        assertTrue("fiftyfifty is roughly 20% : " + percent, percent > .16 && percent < .22);
         percent = (neutral)/1000d;
-        assertTrue("neutral is rounghly 20% : " + percent, percent > .18 && percent < .22);
+        assertTrue("neutral is roughly 20% : " + percent, percent > .16 && percent < .22);
         percent = (positive_neg)/1000d;
-        assertTrue("Positive is rounghly 20% : " + percent, percent > .18 && percent < .22);
+        assertTrue("Positive/Negative is roughly 20% : " + percent, percent > .16 && percent < .22);
         percent = (fifty_block)/1000d;
-        assertTrue("fiftyfifty is rounghly 20% : " + percent, percent > .18 && percent < .22);
+        assertTrue("fiftyfifty block is roughly 20% : " + percent, percent > .16 && percent < .22);
 
     }
 }

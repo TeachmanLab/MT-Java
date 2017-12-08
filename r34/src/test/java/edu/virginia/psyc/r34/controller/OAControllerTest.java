@@ -74,7 +74,8 @@ public class OAControllerTest extends BaseControllerTest {
                 .param("anxious_sev", "0")
                 .param("avoid", "0")
                 .param("interfere", "0")
-                .param("interfere_social", "0"))
+                .param("interfere_social", "0")
+                .param("timeOnPage", "10"))
                 .andExpect((status().is3xxRedirection()));
 
         assertEquals(1, oaRepository.findAll().size());
