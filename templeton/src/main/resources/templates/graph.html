@@ -20,6 +20,9 @@
 <section id="content" class="clearfix">
     <div class="container">
         <h1>Graph of Progress</h1>
+        <p class="alert-info" th:if="${RequestSent}">Thank you for requesting access to the full study.  We will be in contact with you shortly about
+        how to re-take the sessions in the active training group.</p>
+
         <p>You completed a questionnaire after each session about how likely you thought different future events were.
             This allowed us to track changes in your future thinking over the course of the study.</p>
         <p>The graph below shows the changes in your score on the Expectancy Bias questionnaire, which looks at the
@@ -69,10 +72,13 @@
         <p th:unless="${participant.study.conditioning.name() == 'POSITIVE'}">
             When reviewing this graph, we'd like to let you know that you were in a control group, and did not
             receive the training sessions that we expected would best shift your negative thinking about the future. So, if you’re not happy
-            with your progress, you may now complete the training that we expect will be most helpful. We will
-            provide a link for you to access this training on the final page. In addition, if you wish to seek further care, we strongly encourage you to review the Mental Health Resources page,
+            with your progress, you may now complete the training that we expect will be most helpful. In addition, if you wish to seek further care, we strongly encourage you to review the Mental Health Resources page,
             which can help you find other independent (e.g., books, computer, or mobile app) or therapist-guided
             treatment options.
+        </p>
+
+        <p th:unless="${participant.study.conditioning.name() == 'POSITIVE'}">
+            <a th:href="@{graph/requestTraining}"><button>Request Positive Thinking Training</button></a>
         </p>
 
         <script  th:inline="javascript">
