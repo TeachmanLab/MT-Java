@@ -363,6 +363,11 @@ div.piIntro p, div.piIntro h3, div.piIntro ul {
     color: darkred;
 }
 
+.alert-info {
+    padding: 20px;
+}
+
+
 /**** Theme selection */
 div.themeSection {
     display: inline-block;

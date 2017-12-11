@@ -7,6 +7,7 @@ import org.apache.commons.math3.stat.regression.SimpleRegression;
 import org.mindtrails.controller.BaseController;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.Session;
+import org.mindtrails.service.EmailService;
 import org.mindtrails.service.ParticipantService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +32,9 @@ public class GraphController extends BaseController {
 
     @Autowired private ExpectancyBiasRepository biasRepository;
     @Autowired private ParticipantService participantService;
+    @Autowired private EmailService emailService;
+
+
 
     @RequestMapping
     public String graph(ModelMap model, Principal principal) {
@@ -98,6 +102,15 @@ public class GraphController extends BaseController {
 
     }
 
+    @RequestMapping("/requestTraining")
+    public String requestTraining(ModelMap model, Principal principal) {
+
+        Participant p = participantService.findByEmail(principal.getName());
+        String message = "Participant #" + p.getId() + " completed the study, and would like to restart in a non-control group.";
+        this.emailService.sendAdminEmail("Training Request", message);
+        model.addAttribute("RequestSent", true);
+        return graph(model, principal);
+    }
 
 }
 
