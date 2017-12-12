@@ -11,7 +11,7 @@
 <head th:replace="fragment/common :: headerFragment"/>
 <body>
 <section th:replace="fragment/common :: topFragment"/>
-<section th:replace="fragment/common :: titleBar (title='Mental Health History and Treatment Questionnaire')"/>
+<section th:replace="fragment/common :: titleBar (title='Mental Health History')"/>
 
 <section id="content" class="clearfix">
 
@@ -22,7 +22,9 @@
             <div class="section">
                 <div class="row">
                     <div class="col-md-10">
-                        <p> Are you current struggling with any of the following disorders </p>
+                        <p> Do you <b>CURRENTLY</b> have a diagnosis for any of the following mental disorders?
+                            Must have been diagnosed by a health professional, such as a social worker, psychologist, psychiatrist,
+                            or a general practitioner.</p>
                         <p > Check all that apply. </p>
                     </div>
                 </div>
