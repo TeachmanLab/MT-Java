@@ -86,7 +86,7 @@
                 <div class="col-md-1">
                     <label class="radio-inline option">
                         <input type="radio" name="{{name}}" value="555" required="true"/>
-                        <span class="shortDesc">8</span> <span class="fullDesc">Prefer not to answer</span></label>
+                        <span class="shortDesc">&nbsp;&nbsp;</span> <span class="fullDesc">Prefer not to answer</span></label>
                 </div>
     </div>
     {{/questions}}
@@ -410,6 +410,8 @@
             </li>
             <li><a th:href="@{/admin/export}">Exports</a>: allows you to view the status of exports from the system, or export
                 data directly if this feature is enabled.
+            </li>
+            <li><a th:href="@{/admin/userstats}">User statistics information</a>: allows you to check users statistics information.
             </li>
         </ul>
     </div>

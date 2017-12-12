@@ -50,7 +50,7 @@ public class R34Study extends BaseStudy implements Study {
     public Map<String,Object> getPiPlayerParameters(){
         Map<String,Object> params = new HashMap<>();
         if(getConditioning() != null) {
-            params.put("condition", getConditioning());
+            params.put("conditioning", getConditioning());
         }
         return params;
     }
