@@ -107,7 +107,7 @@ public class TempletonStudy extends BaseStudy {
                 map.put("question","yes_no");
                 map.put("lettersToRemove",1);
         }
-        map.put("condition", this.conditioning);
+        map.put("conditioning", this.conditioning);
         return map;
     }
 

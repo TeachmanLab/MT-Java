@@ -73,7 +73,7 @@ public class R01Study extends BaseStudy {
         map.put("secondWordSet",false);
         map.put("question","yes_no");
         map.put("lettersToRemove",1);
-        map.put("condition", this.conditioning.toString());
+        map.put("conditioning", this.conditioning.toString());
         return map;
     }
 
