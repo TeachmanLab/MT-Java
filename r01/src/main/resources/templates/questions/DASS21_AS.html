@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
+
+<head th:replace="fragment/common :: headerFragment"/>
+<body>
+<section th:replace="fragment/common :: topFragment"/>
+<section th:replace="fragment/common :: titleBar (title='DASS21_AS')"/>
+<textArea th:replace="fragment/common :: questionTemplate"/>
+
+<section id="header-btm" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <h2 class="page-title heading-icon clearfix"> <img th:src="@{/images/map-arrow-orange.png}" alt="icon" class="icon-small-bg" />
+                <br/>
+                <span th:text="${eligibility}? 'Eligibility Questionnaire' : 'Status Questionnaire'"/>
+            </h2>
+
+        </div>
+    </div>
+</section>
+
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+
+
+                <p> Please read each statement. Then, circle the number (0, 1, 2 or 3) that best shows how much the statement
+                    applied to you over the past week. There are no right or wrong answers. Do not spend too much time
+                    on any statement.
+                </p>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="content2" class="clearfix">
+
+    <form th:action="@{/questions/DASS21_AS}" method="POST">
+        <!-- Add timer -->
+        <input id="timeOnPage" name="timeOnPage" type="hidden"/>
+        <div class="container section compactQuestion">
+            <div class="row title">
+                <div class="col-md-12">
+                    <h4> Over the last week, how often have you been bothered by the following problems? </h4>
+                </div>
+            </div>
+            <div id="section1"></div>
+            <script>
+                var data = {
+                    "options": [
+                        {"value": 0, "title": "Not at all"},
+                        {"value": 1, "title": "Some times"},
+                        {"value": 2, "title": "A lot of time"},
+                        {"value": 3, "title": "Most of the time"}
+                    ],
+                    "questions": [
+                        {
+                            "name": "dryness",
+                            "desc": "I was aware of dryness of my mouth."
+                        },
+                        {
+                            "name": "breathing",
+                            "desc": "I had a hard time breathing (e.g., very fast breathing, heavy breathing without exercise)."
+                        },
+                        {
+                            "name": "trembling",
+                            "desc": "I experienced trembling (e.g., in the hands)."
+                        },
+                        {
+                            "name": "worry",
+                            "desc": "I was worried about situations in which I might panic and make a fool of myself."
+                        }
+
+
+                    ]
+                }
+                $('#section1').html(Mustache.render($('#template').val(), data));
+            </script>
+        </div>
+
+        <div class="container section compactQuestion">
+            <div class="row title">
+                <div class="col-md-12">
+                    <h4> Over the last week, how often have you been bothered by the following problems? </h4>
+                </div>
+            </div>
+            <div id="section2"></div>
+            <script>
+                var data = {
+                    "options": [
+                        {"value": 0, "title": "Not at all"},
+                        {"value": 1, "title": "Sometimes"},
+                        {"value": 2, "title": "A lot of times"},
+                        {"value": 3, "title": "Most of the time"}
+                    ],
+                    "questions": [
+
+                        {
+                            "name": "panic",
+                            "desc": "I felt I was close to panic."
+                        },
+                        {
+                            "name": "heart",
+                            "desc": "I was aware of my heart's action, in the absence of exercise (e.g., felt heart rate increase, heart missing a beat)."
+                        },
+                        {
+                            "name": "scared",
+                            "desc": "I felt scared without any good reason."
+                        }
+
+
+                    ]
+                }
+                $('#section2').html(Mustache.render($('#template').val(), data));
+            </script>
+        </div>
+
+
+        <div class="col-md-12" style="text-align:center">
+            <button type="submit">Next</button>
+        </div>
+
+    </form>
+
+
+</section>
+<footer th:replace="fragment/common :: footer"/>
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>
+
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts"/>
+ml>

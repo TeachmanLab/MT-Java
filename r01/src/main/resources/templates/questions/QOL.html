@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
+
+<head th:replace="fragment/common :: headerFragment"/>
+<body>
+<section th:replace="fragment/common :: topFragment"/>
+<section th:replace="fragment/common :: titleBar (title='Satisfaction')"/>
+<textArea th:replace="fragment/common :: questionTemplate6"/>
+
+<section id="content1" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+
+
+                <p> Please read each item and circle the number that best describes how satisfied you are at this time.
+                    Please answer each item even if you do not currently participate in an activity. Do the same even
+                    if you have a relationship. You can be pleased or displeased with not doing the activity.
+                    The same applies to having a relationship.
+                </p>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="content" class="clearfix">
+
+    <form th:action="@{/questions/QOL}" method="POST">
+        <!-- Add timer -->
+        <input id="timeOnPage" name="timeOnPage" type="hidden"/>
+        <div class="container section compactQuestion">
+            <div id="section1"></div>
+            <script>
+                var data = {
+                    "options": [
+                        {"value": 1, "title": "Delighted"},
+                        {"value": 2, "title": "Pleased"},
+                        {"value": 3, "title": "Mostly Satisfied"},
+                        {"value": 4, "title": "Mostly Mixed"},
+                        {"value": 5, "title": "Dissatisfied"},
+                        {"value": 6, "title": "Unhappy"},
+                        {"value": 7, "title": "Terrible"}
+
+                    ],
+                    "questions": [
+                        {
+                            "name": "material",
+                            "desc": "Material comforts home (food, conveniences,financial security)"
+                        },
+                        {
+                            "name": "health",
+                            "desc": "Health (being physically fit and energetic)"
+                        },
+                        {
+                            "name": "relationships",
+                            "desc": "Relationships with parents, siblings and other relatives (communicating, visiting, helping)"
+                        },
+                        {
+                            "name": "children",
+                            "desc": "Having and raising children "
+                        },
+                        {
+                            "name": "spouse",
+                            "desc": "Close relationships with spouse or significant other"
+                        }
+
+                    ]
+                };
+                $('#section1').html(Mustache.render($('#template6').val(), data));
+            </script>
+        </div>
+
+
+        <div class="container section compactQuestion">
+            <div id="section2"></div>
+            <script>
+                var data = {
+                    "options": [
+                        {"value": 1, "title": "Delighted"},
+                        {"value": 2, "title": "Pleased"},
+                        {"value": 3, "title": "Mostly Satisfied"},
+                        {"value": 4, "title": "Mostly Mixed"},
+                        {"value": 5, "title": "Dissatisfied"},
+                        {"value": 6, "title": "Unhappy"},
+                        {"value": 7, "title": "Terrible"}
+
+                    ],
+                    "questions": [
+                        {
+                            "name": "friend",
+                            "desc": "Close friends "
+                        },
+                        {
+                            "name": "helping",
+                            "desc": "Helping and encouraging others, volunteering, giving advice"
+                        },
+                        {
+                            "name": "participating",
+                            "desc": "Involvement in organizations and public affairs"
+                        },
+                        {
+                            "name": "learning",
+                            "desc": "Learning (going to school, improving understanding, gaining more knowledge)"
+                        },
+                        {
+                            "name": "understanding",
+                            "desc": "Understanding yourself (knowing your strengths and weaknesses - knowing what life is about)"
+                        }
+
+                    ]
+                };
+                $('#section2').html(Mustache.render($('#template6').val(), data));
+            </script>
+        </div>
+
+
+        <div class="container section compactQuestion">
+            <div id="section3"></div>
+            <script>
+                var data = {
+                    "options": [
+                        {"value": 1, "title": "Delighted"},
+                        {"value": 2, "title": "Pleased"},
+                        {"value": 3, "title": "Mostly Satisfied"},
+                        {"value": 4, "title": "Mostly Mixed"},
+                        {"value": 5, "title": "Dissatisfied"},
+                        {"value": 6, "title": "Unhappy"},
+                        {"value": 7, "title": "Terrible"}
+
+                    ],
+                    "questions": [
+
+                        {
+                            "name": "work",
+                            "desc": "Work (job or at home)"
+                        },
+                        {
+                            "name": "expression",
+                            "desc": "Expressing yourself creatively"
+                        },
+                        {
+                            "name": "socializing",
+                            "desc": "Socializing (meeting other people, doing things, going to parties, etc.)"
+                        },
+                        {
+                            "name": "reading",
+                            "desc": "Reading, listening to music, or other entertainment"
+                        },
+                        {
+                            "name": "recreation",
+                            "desc": "Participating in active recreation"
+                        },
+                        {
+                            "name": "independence",
+                            "desc": "Independence (doing for yourself)"
+                        }
+                    ]
+                };
+                $('#section3').html(Mustache.render($('#template6').val(), data));
+            </script>
+        </div>
+
+
+        <div class="col-md-12" style="text-align:center">
+            <button type="submit">Next</button>
+        </div>
+
+    </form>
+
+
+</section>
+<footer th:replace="fragment/common :: footer"/>
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>
+
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts"/>
+

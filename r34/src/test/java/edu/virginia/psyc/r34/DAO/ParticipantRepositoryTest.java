@@ -14,7 +14,7 @@ import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.Study;
 import org.mindtrails.persistence.ParticipantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,7 +35,7 @@ import static org.junit.Assert.assertEquals;
  */
 @Transactional
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
+@SpringBootTest(classes = Application.class)
 @ActiveProfiles("test")
 public class ParticipantRepositoryTest {
 
@@ -91,7 +91,8 @@ public class ParticipantRepositoryTest {
         p.getStudy().completeCurrentTask(0);
         p.getStudy().completeCurrentTask(0);
         p.getStudy().completeCurrentTask(0);
-        assertEquals(0, p.getStudy().getCurrentTaskIndex());
+        assertEquals(4, p.getStudy().getCurrentTaskIndex());
+        p.getStudy().completeCurrentTask(0);
         assertEquals(R34Study.NAME.SESSION6.toString(), p.getStudy().getCurrentSession().getName());
 
         // Change the participant's session back to Session1.

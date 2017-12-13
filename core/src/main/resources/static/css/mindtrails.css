@@ -1,6 +1,9 @@
 @charset "UTF-8";
 /* CSS Document */
 
+
+
+
 body {font-family: 'Source Sans Pro', sans-serif; font-size:20px; box-sizing:border-box; background-color: #f6f5ea}
 .clear-both {clear:both;}
 
@@ -97,6 +100,14 @@ div.sessionSection {
     border: 1px solid #BBB;
     background: #FFF;
 }
+
+div.sessionSection p.block {
+    text-align: left;
+    max-width: 600px;
+    margin:auto;
+    padding-bottom: 10px;
+}
+
 
 /*************** Button *************************/
 button  {  -webkit-border-radius: 5px;
@@ -355,6 +366,11 @@ div.piIntro p, div.piIntro h3, div.piIntro ul {
     color: darkred;
 }
 
+.alert-info {
+    padding: 20px;
+}
+
+
 /**** Theme selection */
 div.themeSection {
     display: inline-block;
@@ -406,6 +422,15 @@ label.error {
     color: darkred;
     float: right;
 }
+
+input.error {
+    border: 1px solid green;
+    background: green;
+    color: red;
+}
+
+
+
 
 td.error {
     color: darkred;
@@ -501,6 +526,14 @@ Re-sizing for forms and displays
 
 }
 
+/**********************************
+International Phone Input
+*********************************** */
+.iti-flag {background-image: url("../bower/intl-tel-input/build/img/flags.png");}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+    .iti-flag {background-image: url("../bower/intl-tel-input/build/img/flags@2x.png");}
+}
 
 
 

@@ -36,13 +36,13 @@
                 <tr>
                     <td>CDM Condition:</td>
                     <td>
-                        <select name="condition" th:field="*{condition}">
+                        <select name="condition" th:field="*{conditioning}">
                             <option th:each="elem: ${T(edu.virginia.psyc.r34.domain.R34Study.CONDITION).values()}"
                                     th:value="${elem.name()}" th:text="${elem.name()}" value="BAZ">BAZ
                             </option>
                         </select>
                     </td>
-                    <td th:if="${#fields.hasErrors('condition')}" th:errors="*{admin}">Admin Error</td>
+                    <td th:if="${#fields.hasErrors('conditioning')}" th:errors="*{admin}">Admin Error</td>
                 </tr>
 1            </table>Participant
             <button type="submit">Submit</button>

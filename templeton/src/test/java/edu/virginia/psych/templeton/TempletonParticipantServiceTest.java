@@ -33,19 +33,19 @@ public class TempletonParticipantServiceTest {
             study = (TempletonStudy) p.getStudy();
 
             switch (study.getConditioning()) {
-                case POSITIVE:
+                case "POSITIVE":
                     positive++;
                     break;
-                case POSITIVE_NEGATION:
+                case "POSITIVE_NEGATION":
                     positive_neg++;
                     break;
-                case FIFTY_FIFTY_RANDOM:
+                case "FIFTY_FIFTY_RANDOM":
                     fifty++;
                     break;
-                case FIFTY_FIFTY_BLOCKED:
+                case "FIFTY_FIFTY_BLOCKED":
                     fifty_block++;
                     break;
-                case NEUTRAL:
+                case "NEUTRAL":
                     neutral++;
                     break;
             }
@@ -53,15 +53,16 @@ public class TempletonParticipantServiceTest {
 
         double percent;
 
-        percent = (positive + positive_neg)/1000d;
-        assertTrue("Positive is rounghly 30% : " + percent, percent > .22 && percent < .38);
-        percent = (fifty + fifty_block)/1000d;
-        assertTrue("fiftyfifty is rounghly 30% : " + percent, percent > .22 && percent < .38);
+        percent = (positive)/1000d;
+        assertTrue("Positive is roughly 20% : " + percent, percent > .16 && percent < .22);
+        percent = (fifty)/1000d;
+        assertTrue("fiftyfifty is roughly 20% : " + percent, percent > .16 && percent < .22);
         percent = (neutral)/1000d;
-        assertTrue("neutral is rounghly 30% : " + percent, percent > .22 && percent < .38);
-
-        double psPercent = positive / (positive + positive_neg + 0.0d);
-        assertTrue("Positive negation is around 1/2 of all positive", psPercent > .42 && psPercent < .58            );
+        assertTrue("neutral is roughly 20% : " + percent, percent > .16 && percent < .22);
+        percent = (positive_neg)/1000d;
+        assertTrue("Positive/Negative is roughly 20% : " + percent, percent > .16 && percent < .22);
+        percent = (fifty_block)/1000d;
+        assertTrue("fiftyfifty block is roughly 20% : " + percent, percent > .16 && percent < .22);
 
     }
 }

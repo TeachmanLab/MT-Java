@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<!--<![endif]-->
+<head th:include="/fragment/common :: headerFragment"/>
+<body>
+<section id="header" class="clearfix" th:include="/fragment/common :: topFragment"/>
+<section th:replace="fragment/common :: titleBar (title='My Mood')"/>
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+    <div class="container">
+
+        <!--spacer here-->
+        <div class="spacer-30px"></div>
+
+        <!--features starts-->
+        <form th:action="@{/questions/DD}" method="POST">
+            <input id="timeOnPage" name="timeOnPage" type="hidden"/>
+            <div class="longSection">
+                <p>
+                    This section asks you to report on <b>your</b> drinking over the <b>past three months.</b>
+                </p>
+                <div>
+                    For all questions, <b>one drink equals</b>:
+                    <ul>
+                        <li> 5 oz. of wine</li>
+                        <li> 12 oz. of wine cooler</li>
+                        <li> 12 oz. of beer (10 oz. of microbrew; 8-9 oz. of malt liquor, Canadian beer or ice beer)</li>
+                        <li> 6 oz. of ice malt liquor</li>
+                        <li> 1 cocktail with 1 oz. of 100 proof liquor or 1.5 oz. (single jigger) of 80-proof liquor
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="question">Consider a typical week during the last three months. On average, how much alcohol(in number of
+                    drinks), did you drink on each day of a typical week?</div>
+                <table class="daysOfWeek">
+                    <tr>
+                        <th>Mon</th>
+                        <th>Tues</th>
+                        <th>Wed</th>
+                        <th>Thur</th>
+                        <th>Fri</th>
+                        <th>Sat</th>
+                        <th>Sun</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="number" min="0" id="mon_drinks" onchange="hours('mon')" max="100" required="required"  name="monday_count" class="form-control"/>
+                        </td>
+                        <td>
+                            <input type="number" min="0" id="tues_drinks" onchange="hours('tues')" max="100" required="required"  name="tuesday_count" class="form-control"/>
+                        </td>
+                        <td>
+                            <input type="number" min="0" id="wed_drinks" onchange="hours('wed')" max="100" required="required"  name="wednesday_count" class="form-control"/>
+                        </td>
+                        <td>
+                            <input type="number" min="0" id="thurs_drinks" onchange="hours('thurs')" max="100" required="required"  name="thursday_count" class="form-control"/>
+                        </td>
+                        <td>
+                            <input type="number" min="0" id="fri_drinks" onchange="hours('fri')" max="100" required="required"  name="friday_count" class="form-control"/>
+                        </td>
+                        <td>
+                            <input type="number" min="0" id="sat_drinks" onchange="hours('sat')" max="100" required="required"  name="saturday_count" class="form-control"/>
+                        </td>
+                        <td>
+                            <input type="number" min="0" id="sun_drinks" onchange="hours('sun')" max="100" required="required"  name="sunday_count" class="form-control"/>
+                        </td>
+                    </tr>
+                </table>
+          <div class="question">
+            <input type="checkbox" onchange="Q1_NoAns()" id="Q1_noAns" name="q1_noAns">Prefer not to answer</input>
+          </div>
+            </div>
+            <br />
+            <div class="section">
+                <div class="question">Consider a typical week during the last three months. Over how many hours did you drink the above
+                    number of drinks?</div>
+                <table class="daysOfWeek">
+                    <tr>
+                        <th>Mon</th>
+                        <th>Tues</th>
+                        <th>Wed</th>
+                        <th>Thur</th>
+                        <th>Fri</th>
+                        <th>Sat</th>
+                        <th>Sun</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="number" min="0" max="100" id="mon" disabled="disabled"  name="monday_hours" class="form-control"/>
+                        </td>
+                        <td>
+                            <input type="number" min="0" max="100" id="tues" disabled="disabled"  name="tuesday_hours" class="form-control"/>
+                        </td>
+                        <td>
+                            <input type="number" min="0" max="100" id="wed" disabled="disabled"  name="wednesday_hours" class="form-control"/>
+                        </td>
+                        <td>
+                            <input type="number" min="0" max="100" id="thurs" disabled="disabled"  name="thursday_hours" class="form-control"/>
+                        </td>
+                        <td>
+                            <input type="number" min="0" max="100" id="fri" disabled="disabled"  name="friday_hours" class="form-control"/>
+                        </td>
+                        <td>
+                            <input type="number" min="0" max="100" id="sat" disabled="disabled"  name="saturday_hours" class="form-control"/>
+                        </td>
+                        <td>
+                            <input type="number" min="0" max="100" id="sun" disabled="disabled"  name="sunday_hours" class="form-control"/>
+                        </td>
+                    </tr>
+                </table>
+          <div class="question">
+            <input type="checkbox" onchange="Q2_NoAns()" id="Q2_noAns" name="q2_noAns" disabled="disabled">Prefer not to answer</input>
+          </div>
+            </div>
+            <br />
+            <div class="section">
+                <div class="question">On average, during the last three months, how often did you consumed alcohol?</div>
+                <select id="on_average" name="average_freq" required="required">
+                    <option/>
+                    <option value="555">Prefer not to anwser</option>
+                    <option value="0" >
+                    Never</option>
+                    <option value="1">
+                    Less than once per month</option>
+                    <option value="2">
+                    Once a month</option>
+                    <option value="3">
+                    Two times a month</option>
+                    <option value="4">
+                    Three times a month</option>
+                    <option value="5">
+                    Once a week</option>
+                    <option value="6">
+                    Twice a week</option>
+                    <option value="7">
+                    Three times a week</option>
+                    <option value="8">
+                    Four times a week</option>
+                    <option value="9">
+                    Five times a week</option>
+                    <option value="10">
+                    Six times a week</option>
+                    <option value="11">
+                    Every day</option>
+                </select>
+            </div>
+            <br/>
+            <div class="section">
+                <div class="question">Think back to the times you consumed alcohol during the past three months.  On average, how many drinks did you consume on a given occasion?</div>
+                <select id="last_month" name="average_amount" required="required">
+                    <option/>
+                    <option value="555">Prefer not to anwser</option>
+                    <option value="0" >0 drinks</option>
+                    <option value="1" >1 drink</option>
+                    <option value="2" >2 drinks</option>
+                    <option value="3" >3 drinks</option>
+                    <option value="4" >4 drinks</option>
+                    <option value="5" >5 drinks</option>
+                    <option value="6" >6 drinks</option>
+                    <option value="7" >7 drinks</option>
+                    <option value="8" >8 drinks</option>
+                    <option value="9" >9 drinks</option>
+                    <option value="10" >10 drinks</option>
+                    <option value="11" >11 drinks</option>
+                    <option value="12" >12 drinks</option>
+                    <option value="13" >13 drinks</option>
+                    <option value="14" >14 drinks</option>
+                    <option value="15" >15 drinks</option>
+                    <option value="16" >16 drinks</option>
+                    <option value="17" >17 drinks</option>
+                    <option value="18" >18 drinks</option>
+                    <option value="19" >19 drinks</option>
+                    <option value="20" >20 drinks</option>
+                    <option value="21" >21 drinks</option>
+                    <option value="22" >22 drinks</option>
+                    <option value="23" >23 drinks</option>
+                    <option value="24" >24 drinks</option>
+                    <option value="25" >25 drinks</option>
+                </select>
+            </div>
+
+            <div class="submit">
+                <button type="submit">Next</button>
+            </div>
+        </form>
+    </div>
+    <!--features ends-->
+</section>
+
+<!--Javascript
+================================================== -->
+<script type="text/javascript">
+
+    function hours(id) {
+        if ($("input#"+id+"_drinks").val() > 0) {
+           $("input#"+id).prop('disabled', false);
+           $("input#"+id).prop('required', true);
+           document.getElementById("Q2_noAns").disabled = false;
+        }
+        else {
+            $("input#"+id).prop('disabled', true);
+            $("input#"+id).prop('required', false);
+        }
+        ;
+
+    }
+    ;
+    function Q1_NoAns(){
+      if (document.getElementById("Q1_noAns").checked) {
+        document.getElementById("mon_drinks").required = false;
+        document.getElementById("tues_drinks").required = false;
+        document.getElementById("wed_drinks").required = false;
+        document.getElementById("thurs_drinks").required = false;
+        document.getElementById("fri_drinks").required = false;
+        document.getElementById("sat_drinks").required = false;
+        document.getElementById("sun_drinks").required = false;
+        document.getElementById("Q1_noAns").val = true;
+      }else{
+        document.getElementById("mon_drinks").required = true;
+        document.getElementById("tues_drinks").required = true;
+        document.getElementById("wed_drinks").required = true;
+        document.getElementById("thurs_drinks").required = true;
+        document.getElementById("fri_drinks").required = true;
+        document.getElementById("sat_drinks").required = true;
+        document.getElementById("sun_drinks").required = true;
+        document.getElementById("Q1_noAns").val = false;
+      };
+    };
+
+    function Q2_NoAns(){
+      if (document.getElementById("Q2_noAns").checked) {
+        document.getElementById("mon").required = false;
+        document.getElementById("tues").required = false;
+        document.getElementById("wed").required = false;
+        document.getElementById("thurs").required = false;
+        document.getElementById("fri").required = false;
+        document.getElementById("sat").required = false;
+        document.getElementById("sun").required = false;
+        document.getElementById("Q2_noAns").val = true;
+      }else{
+        document.getElementById("mon").required = true;
+        document.getElementById("tues").required = true;
+        document.getElementById("wed").required = true;
+        document.getElementById("thurs").required = true;
+        document.getElementById("fri").required = true;
+        document.getElementById("sat").required = true;
+        document.getElementById("sun").required = true;
+        document.getElementById("Q2_noAns").val = false;
+      };
+    }
+</script>
+
+
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>

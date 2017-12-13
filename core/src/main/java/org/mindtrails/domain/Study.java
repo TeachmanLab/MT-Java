@@ -45,6 +45,11 @@ public interface Study {
 
     public long getParticipantId();
 
+    public boolean hasTask(String task);
+
+    public String getConditioning();
+
+    public List<String> getConditions();
 
     /**
      *     Parameters to pass into the PIPlayer Script.  Frequently

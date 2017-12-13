@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mindtrails.persistence.ParticipantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.context.ActiveProfiles;
@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Created by dan on 10/23/15.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
+@SpringBootTest(classes = Application.class)
 @WebAppConfiguration
 @ActiveProfiles("test")
 public class OAControllerTest extends BaseControllerTest {
@@ -74,7 +74,8 @@ public class OAControllerTest extends BaseControllerTest {
                 .param("anxious_sev", "0")
                 .param("avoid", "0")
                 .param("interfere", "0")
-                .param("interfere_social", "0"))
+                .param("interfere_social", "0")
+                .param("timeOnPage", "10"))
                 .andExpect((status().is3xxRedirection()));
 
         assertEquals(1, oaRepository.findAll().size());

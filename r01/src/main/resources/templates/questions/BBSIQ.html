@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
+
+<head th:replace="fragment/common :: headerFragment"/>
+<body>
+<section th:replace="fragment/common :: topFragment"/>
+<section th:replace="fragment/common :: titleBar (title='Situations')"/>
+<textArea th:replace="fragment/common :: questionTemplate"/>
+
+<section id="content1" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+
+
+                <p> Here are some situations in which it is not quite clear what is happening. After each statement, you
+                will see three possible explanations for the situation. Please rate each one for how likely it could be
+                    the explanation for that situation.</p>
+                   <p> Do not think too long before deciding. We want your first impressions, and do not worry if none of
+                       them fits with what you actually think is the explanation.</p>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section id="content" class="clearfix">
+
+    <form th:action="@{/questions/BBSIQ}" method="POST">
+        <!-- Add timer -->
+        <input id="timeOnPage" name="timeOnPage" type="hidden"/>
+        <div class="container section compactQuestion">
+            <div class="row title">
+                <div class="col-md-12">
+                    <h4> 1. You have visitors over for dinner and they leave sooner than you expected. Why? </h4>
+                </div>
+            </div>
+            <div id="section1"></div>
+            <script>
+                var data = {
+                    "options": [
+                        {"value": 0, "title": "Not at all likely"},
+                        {"value": 1, "title": "A little likely"},
+                        {"value": 2, "title": "Moderately likely"},
+                        {"value": 3, "title": "Very likely"},
+                        {"value": 4, "title": "Extremely likely"}
+
+                    ],
+
+                    "questions": [
+                        {
+                            "name": "visitors_outstay",
+                            "desc": "a) They did not wish to outstay their welcome."
+                        },
+                        {
+                            "name": "visitors_engagement",
+                            "desc": "b) They had another pressing engagement to go to."
+                        },
+                        {
+                            "name": "visitors_bored",
+                            "desc": "c) They did not enjoy the visit and were bored with your company."
+                        }
+
+                    ]
+                }
+                $('#section1').html(Mustache.render($('#template').val(), data));
+            </script>
+        </div>
+        <div class="container section compactQuestion">
+        <div class="row title">
+            <div class="col-md-12">
+                <h4> 2. You feel short of breath. Why? </h4>
+            </div>
+        </div>
+        <div id="section2"></div>
+        <script>
+            var data = {
+                "options": [
+                    {"value": 0, "title": "Not at all likely"},
+                    {"value": 1, "title": "A little likely"},
+                    {"value": 2, "title": "Moderately likely"},
+                    {"value": 3, "title": "Very likely"},
+                    {"value": 4, "title": "Extremely likely"}
+
+                ],
+
+                "questions": [
+                    {
+                        "name": "breath_flu",
+                        "desc": "a) You are developing the flu."
+                    },
+                    {
+                        "name": "breath_suffocate;",
+                        "desc": "b) You are about to suffocate or stop breathing."
+                    },
+                    {
+                        "name": "breath_physically",
+                        "desc": "c) You are physically \“out of shape.\”"
+                    }
+
+                ]
+            }
+            $('#section2').html(Mustache.render($('#template').val(), data));
+        </script>
+        </div>
+
+        <div class="container section compactQuestion">
+        <div class="row title">
+            <div class="col-md-12">
+                <h4> 3. Your vision has become slightly blurred. Why? </h4>
+            </div>
+        </div>
+        <div id="section3"></div>
+        <script>
+            var data = {
+                "options": [
+                    {"value": 0, "title": "Not at all likely"},
+                    {"value": 1, "title": "A little likely"},
+                    {"value": 2, "title": "Moderately likely"},
+                    {"value": 3, "title": "Very likely"},
+                    {"value": 4, "title": "Extremely likely"}
+
+                ],
+
+                "questions": [
+                    {
+                        "name": "vision_strained",
+                        "desc": "a) You have strained your eyes slightly"
+                    },
+                    {
+                        "name": "vision_glasses",
+                        "desc": "b) You need to get glasses or change your existing glasses."
+                    },
+                    {
+                        "name": "vision_illness",
+                        "desc": "c) This is the sign of a serious illness."
+                    }
+
+                ]
+            }
+            $('#section3').html(Mustache.render($('#template').val(), data));
+        </script>
+        </div>
+
+        <div class="container section compactQuestion">
+        <div class="row title">
+            <div class="col-md-12">
+                <h4> 4. You go into a shop and the assistant ignores you. Why? </h4>
+            </div>
+        </div>
+        <div id="section4"></div>
+        <script>
+            var data = {
+                "options": [
+                    {"value": 0, "title": "Not at all likely"},
+                    {"value": 1, "title": "A little likely"},
+                    {"value": 2, "title": "Moderately likely"},
+                    {"value": 3, "title": "Very likely"},
+                    {"value": 4, "title": "Extremely likely"}
+
+                ],
+
+                "questions": [
+                    {
+                        "name": "shop_bored",
+                        "desc": "a) They are bored with their job, and this makes them rude."
+                    },
+                    {
+                        "name": "shop_concentrating",
+                        "desc": "b) They are concentrating very hard on something else."
+                    },
+                    {
+                        "name": "shop_irritating",
+                        "desc": "c) They find you irritating and resent your presence."
+                    }
+
+                ]
+            }
+            $('#section4').html(Mustache.render($('#template').val(), data));
+        </script>
+        </div>
+
+        <div class="container section compactQuestion">
+        <div class="row title">
+            <div class="col-md-12">
+                <h4> 5. You feel lightheaded and weak. Why? </h4>
+            </div>
+        </div>
+        <div id="section5"></div>
+        <script>
+            var data = {
+                "options": [
+                    {"value": 0, "title": "Not at all likely"},
+                    {"value": 1, "title": "A little likely"},
+                    {"value": 2, "title": "Moderately likely"},
+                    {"value": 3, "title": "Very likely"},
+                    {"value": 4, "title": "Extremely likely"}
+
+                ],
+
+                "questions": [
+                    {
+                        "name": "lightheaded_faint",
+                        "desc": "a) You are about to faint."
+                    },
+                    {
+                        "name": "lightheaded_eat",
+                        "desc": "b) You need to get something to eat."
+                    },
+                    {
+                        "name": "lightheaded_sleep",
+                        "desc": "c) You didn’t get enough sleep last night."
+                    }
+
+                ]
+            }
+            $('#section5').html(Mustache.render($('#template').val(), data));
+        </script>
+        </div>
+
+        <div class="container section compactQuestion">
+        <div class="row title">
+            <div class="col-md-12">
+                <h4> 6. You smell smoke. What’s burning? </h4>
+            </div>
+        </div>
+        <div id="section6"></div>
+        <script>
+            var data = {
+                "options": [
+                    {"value": 0, "title": "Not at all likely"},
+                    {"value": 1, "title": "A little likely"},
+                    {"value": 2, "title": "Moderately likely"},
+                    {"value": 3, "title": "Very likely"},
+                    {"value": 4, "title": "Extremely likely"}
+
+                ],
+
+                "questions": [
+                    {
+                        "name": "smoke_house",
+                        "desc": "a) Your house is on fire."
+                    },
+                    {
+                        "name": "smoke_food",
+                        "desc": "b) Some food is burning."
+                    },
+                    {
+                        "name": "smoke_cig",
+                        "desc": "c) Someone is smoking a cigarette."
+                    }
+
+                ]
+            }
+            $('#section6').html(Mustache.render($('#template').val(), data));
+        </script>
+        </div>
+
+        <div class="container section compactQuestion">
+        <div class="row title">
+            <div class="col-md-12">
+                <h4> 7. A friend suggests that you change the way that you’re doing a job in your own house. Why? </h4>
+            </div>
+        </div>
+        <div id="section7"></div>
+        <script>
+            var data = {
+                "options": [
+                    {"value": 0, "title": "Not at all likely"},
+                    {"value": 1, "title": "A little likely"},
+                    {"value": 2, "title": "Moderately likely"},
+                    {"value": 3, "title": "Very likely"},
+                    {"value": 4, "title": "Extremely likely"}
+
+                ],
+
+                "questions": [
+                    {
+                        "name": "friend_helpful",
+                        "desc": "a) They are trying to be helpful."
+                    },
+                    {
+                        "name": "friend_incompetent",
+                        "desc": "b) They think you’re incompetent."
+                    },
+                    {
+                        "name": "friend_moreoften",
+                        "desc": "c) They have done the job more often and know an easier way."
+                    }
+
+                ]
+            }
+            $('#section7').html(Mustache.render($('#template').val(), data));
+        </script>
+        </div>
+
+        <div class="container section compactQuestion">
+        <div class="row title">
+            <div class="col-md-12">
+                <h4> 8. Your chest feels uncomfortable and tight. Why? </h4>
+            </div>
+        </div>
+        <div id="section8"></div>
+        <script>
+            var data = {
+                "options": [
+                    {"value": 0, "title": "Not at all likely"},
+                    {"value": 1, "title": "A little likely"},
+                    {"value": 2, "title": "Moderately likely"},
+                    {"value": 3, "title": "Very likely"},
+                    {"value": 4, "title": "Extremely likely"}
+
+                ],
+
+                "questions": [
+                    {
+                        "name": "chest_indigestion",
+                        "desc": "a) You have indigestion."
+                    },
+                    {
+                        "name": "chest_sore",
+                        "desc": "b) You have a sore muscle."
+                    },
+                    {
+                        "name": "chest_heart",
+                        "desc": "c) Something is wrong with your heart."
+                    }
+
+                ]
+            }
+            $('#section8').html(Mustache.render($('#template').val(), data));
+        </script>
+        </div>
+        <div class="container section compactQuestion">
+        <div class="row title">
+            <div class="col-md-12">
+                <h4> 9. You wake with a jolt in the middle of the night, thinking you heard a noise, but all is quiet. What woke you up? </h4>
+            </div>
+        </div>
+        <div id="section9"></div>
+        <script>
+            var data = {
+                "options": [
+                    {"value": 0, "title": "Not at all likely"},
+                    {"value": 1, "title": "A little likely"},
+                    {"value": 2, "title": "Moderately likely"},
+                    {"value": 3, "title": "Very likely"},
+                    {"value": 4, "title": "Extremely likely"}
+
+                ],
+
+                "questions": [
+                    {
+                        "name": "jolt_dream",
+                        "desc": "a) You were woken by a dream."
+                    },
+                    {
+                        "name": "jolt_burglar",
+                        "desc": "b) A burglar broke into your house."
+                    },
+                    {
+                        "name": "jolt_wind",
+                        "desc": "c) A door or window rattled in the wind."
+                    }
+
+                ]
+            }
+            $('#section9').html(Mustache.render($('#template').val(), data));
+        </script>
+        </div>
+
+        <div class="container section compactQuestion">
+        <div class="row title">
+            <div class="col-md-12">
+                <h4> 10. You are introduced to someone at a party. The person fails to reply to a question you ask. Why? </h4>
+            </div>
+        </div>
+        <div id="section10"></div>
+        <script>
+            var data = {
+                "options": [
+                    {"value": 0, "title": "Not at all likely"},
+                    {"value": 1, "title": "A little likely"},
+                    {"value": 2, "title": "Moderately likely"},
+                    {"value": 3, "title": "Very likely"},
+                    {"value": 4, "title": "Extremely likely"}
+
+                ],
+
+                "questions": [
+                    {
+                        "name": "party_hear",
+                        "desc": "a) They did not hear the question."
+                    },
+                    {
+                        "name": "party_boring",
+                        "desc": "b) They think you are uninteresting and boring."
+                    },
+                    {
+                        "name": "party_preoccupied",
+                        "desc": "c) They were preoccupied with something else at the time."
+                    }
+
+                ]
+            }
+            $('#section10').html(Mustache.render($('#template').val(), data));
+        </script>
+        </div>
+
+        <div class="container section compactQuestion">
+        <div class="row title">
+            <div class="col-md-12">
+                <h4> 11. You notice that your heart is beating quickly and pounding. Why? </h4>
+            </div>
+        </div>
+        <div id="section11"></div>
+        <script>
+            var data = {
+                "options": [
+                    {"value": 0, "title": "Not at all likely"},
+                    {"value": 1, "title": "A little likely"},
+                    {"value": 2, "title": "Moderately likely"},
+                    {"value": 3, "title": "Very likely"},
+                    {"value": 4, "title": "Extremely likely"}
+
+                ],
+
+                "questions": [
+                    {
+                        "name": "heart_active",
+                        "desc": "a) Because you have been physically active."
+                    },
+                    {
+                        "name": "heart_wrong",
+                        "desc": "b) Because there is something wrong with your heart. "
+                    },
+                    {
+                        "name": "heart_excited",
+                        "desc": "c) Because you are feeling excited."
+                    }
+
+                ]
+            }
+            $('#section11').html(Mustache.render($('#template').val(), data));
+        </script>
+        </div>
+
+        <div class="container section compactQuestion">
+        <div class="row title">
+            <div class="col-md-12">
+                <h4> 12. Suddenly, you feel confused and find it hard to think straight. Why? </h4>
+            </div>
+        </div>
+        <div id="section12"></div>
+        <script>
+            var data = {
+                "options": [
+                    {"value": 0, "title": "Not at all likely"},
+                    {"value": 1, "title": "A little likely"},
+                    {"value": 2, "title": "Moderately likely"},
+                    {"value": 3, "title": "Very likely"},
+                    {"value": 4, "title": "Extremely likely"}
+
+                ],
+
+                "questions": [
+                    {
+                        "name": "confused_outofmind",
+                        "desc": "a) You are going out of your mind."
+                    },
+                    {
+                        "name": "confused_cold",
+                        "desc": "b) You are coming down with a cold."
+                    },
+                    {
+                        "name": "confused_work",
+                        "desc": "c) You’ve been working too hard and need a rest."
+                    }
+
+                ]
+            }
+            $('#section12').html(Mustache.render($('#template').val(), data));
+        </script>
+        </div>
+        <div class="container section compactQuestion">
+        <div class="row title">
+        <div class="col-md-12">
+            <h4> 13. A letter marked "URGENT" arrives. What is in the letter? </h4>
+        </div>
+    </div>
+        <div id="section13"></div>
+        <script>
+            var data = {
+                "options": [
+                    {"value": 0, "title": "Not at all likely"},
+                    {"value": 1, "title": "A little likely"},
+                    {"value": 2, "title": "Moderately likely"},
+                    {"value": 3, "title": "Very likely"},
+                    {"value": 4, "title": "Extremely likely"}
+
+                ],
+
+                "questions": [
+                    {
+                        "name": "urgent_junk",
+                        "desc": "a) It is junk mail designed to attract your attention."
+                    },
+                    {
+                        "name": "urgent_bill",
+                        "desc": "b) You forgot to pay a bill."
+                    },
+                    {
+                        "name": "urgent_died",
+                        "desc": "c) It is news that someone you know has died or is seriously ill."
+                    }
+
+                ]
+            }
+            $('#section13').html(Mustache.render($('#template').val(), data));
+        </script>
+        </div>
+
+        <div class="container section compactQuestion">
+        <div class="row title">
+        <div class="col-md-12">
+            <h4> 14. You notice that your heart is pounding, and you feel breathless, dizzy and unreal. Why? </h4>
+        </div>
+    </div>
+        <div id="section14"></div>
+        <script>
+            var data = {
+                "options": [
+                    {"value": 0, "title": "Not at all likely"},
+                    {"value": 1, "title": "A little likely"},
+                    {"value": 2, "title": "Moderately likely"},
+                    {"value": 3, "title": "Very likely"},
+                    {"value": 4, "title": "Extremely likely"}
+
+                ],
+
+                "questions": [
+                    {
+                        "name": "dizzy_overtired",
+                        "desc": "a) You have been overdoing it and are overtired."
+                    },
+                    {
+                        "name": "dizzy_ate",
+                        "desc": "b) Something you ate disagreed with you."
+                    },
+                    {
+                        "name": "dizzy_ill",
+                        "desc": "c) You are dangerously ill or going mad."
+                    }
+
+                ]
+            }
+            $('#section14').html(Mustache.render($('#template').val(), data));
+        </script>
+        </div>
+
+
+
+
+
+
+
+        <div class="col-md-12" style="text-align:center">
+            <button type="submit">Next</button>
+        </div>
+
+    </form>
+
+
+</section>
+<footer th:replace="fragment/common :: footer"/>
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>
+
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts"/>

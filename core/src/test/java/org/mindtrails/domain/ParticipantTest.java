@@ -28,6 +28,7 @@ public class ParticipantTest {
         p = new Participant("Dan", "test@tester.org", false);
         TestStudy study = new TestStudy();
         study.setLastSessionDate(dateTime.toDate());
+        p.setLastLoginDate(dateTime.toDate());
         p.setStudy(study);
         return(p);
     }
@@ -86,27 +87,37 @@ public class ParticipantTest {
         study = new TestStudy();
         p.setStudy(study);
         study.setLastSessionDate(null);
+        p.setLastLoginDate(null);
         assertNull(p.lastMilestone());
 
         loginDate = new Date();
         p.setLastLoginDate(loginDate);
-        assertNotNull(p.lastMilestone());
+        assertNotNull("last login is used when last session date is missing.", p.lastMilestone());
+        assertEquals(p.lastMilestone(), p.getLastLoginDate());
 
         dateTime = new DateTime().minus(Period.days(3));
         study.setLastSessionDate(dateTime.toDate());
 
-        assertNotSame(p.lastMilestone(), loginDate);
+        assertSame("last login date is used if it is later then the session date.", p.lastMilestone(), loginDate);
+
+        dateTime = new DateTime().minus(Period.days(4));
+        p.setLastLoginDate(dateTime.toDate());
+        assertSame("last session date is used if it is later then the login date.", p.lastMilestone(), study.getLastSessionDate());
+
     }
+
+
+
 
     @Test
     public void testParticipantKnowsIfEmailOfTypeSentPreviously() {
         Participant p;
-
+        Study study;
         p = new Participant("Dan Funk", "daniel.h.funk@gmail.com", false);
+        p.setStudy(new TestStudy());
         assertFalse(p.previouslySent("followup"));
         p.addEmailLog(new EmailLog(p,"followup", new Date()));
         assertTrue(p.previouslySent("followup"));
-
     }
 
 

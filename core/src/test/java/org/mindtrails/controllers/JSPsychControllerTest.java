@@ -1,13 +1,22 @@
 package org.mindtrails.controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.mindtrails.controller.JSPsychController;
+import org.mindtrails.domain.jsPsych.JsPsychTrial;
 import org.mindtrails.persistence.JsPsychRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 
+import java.util.List;
+
+import static junit.framework.Assert.assertNull;
+import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -101,14 +110,46 @@ public class JSPsychControllerTest extends BaseControllerTest {
             " }\n" +
             "]";
 
-    @Test
-    public void testPostJSPsychData() throws Exception {
+    public void postJSPsychData() throws Exception {
         ResultActions result = mockMvc.perform(post("/jspsych")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .with(SecurityMockMvcRequestPostProcessors.user(participant))
                 .content(EXAMPLE_DATA))
                 .andExpect((status().isCreated()));
-        }
+        List<JsPsychTrial> trials = jsPsychRepository.findAllByParticipantIdAndStudyAndSession(participant.getId(),
+                participant.getStudy().getName(),
+                participant.getStudy().getCurrentSession().getName());
+        assertNotNull(trials);
+        assertEquals(8, trials.size());
+    }
+
+    @Test
+    public void testGetJSPsychDataStatus() throws Exception {
+        MvcResult result = mockMvc.perform(post("/jspsych/status")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .with(SecurityMockMvcRequestPostProcessors.user(participant))
+                .content(EXAMPLE_DATA))
+                .andExpect((status().isOk()))
+                .andReturn();
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode actualObj = mapper.readTree(result.getResponse().getContentAsString());
+        assertNotNull(actualObj);
+        assertEquals(0, actualObj.size());
+
+        // Send in some data, and make sure we get it back.
+        postJSPsychData();
+        result = mockMvc.perform(post("/jspsych/status")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .with(SecurityMockMvcRequestPostProcessors.user(participant))
+                .content(EXAMPLE_DATA))
+                .andExpect((status().isOk()))
+                .andReturn();
+        actualObj = mapper.readTree(result.getResponse().getContentAsString());
+        assertNotNull(actualObj);
+        assertEquals(8, actualObj.size());
+
+    }
+
 
 
 }

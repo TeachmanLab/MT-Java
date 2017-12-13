@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
+
+<head th:replace="fragment/common :: headerFragment"/>
+<body>
+<section th:replace="fragment/common :: topFragment"/>
+<section th:replace="fragment/common :: titleBar (title='Current Feelings')"/>
+
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10">
+
+                <form id="affectForm" th:action="@{/questions/Affect}" method="POST">
+
+                    <!-- Add timer -->
+                    <input id="timeOnPage" name="timeOnPage" type="hidden"/>
+                    <p> The next questions will ask you about different feelings and emotions.
+                        Read each item. Then move the slider to tell us how much you are feeling each emotion right now<b>right
+                            now</b>, that is, <b>at the current</b> moment.</p>
+
+                    <p> Once you have selected an answer for all of the questions, please click
+                        'Continue'. </p>
+
+                    <div class="section">
+
+                        <div class="question"> To what extent do you feel positive feelings right now, that is, at the
+                            current moment? </div>
+                        <input id="posSlider"  type="text" name="PosFeelings" required ="true"/>
+                        <div class="after_slider"><label class="standard">
+                            <input id="posSlider-enabled" type="checkbox" name="PosFeelings" value="555"/>
+                            Prefer not to answer
+                        </label></div>
+                        <script>
+                            $("#posSlider").slider({
+                                ticks: [0, 10, 20],
+                                ticks_labels: ['not at all', 'moderately', 'totally'],
+                                ticks_snap_bounds: 1,
+                                tooltip: "hide",
+                                value: 10,
+                                formatter: function(value) {
+                                    $('#posSlider-enabled')[0].required=false;
+                                }
+                            });
+
+                            $("#posSlider-enabled").click(function() {
+                                if(this.checked) {
+                                    $("#posSlider").slider("disable");
+                                    $('#posSlider-enabled')[0].required=false;
+                                }
+                                else {
+                                    $("#posSlider").slider("enable");
+                                }
+                            });
+                            $('#posSlider-enabled')[0].required=true;
+
+                        </script>
+
+                    </div>
+
+                    <div class="section">
+                        <div class="question"> To what extent do you feel negative feelings right now, that is, at the current moment? </div>
+
+                        <input id="negSlider"  type="text" name="NegFeelings" required ="true"/>
+                        <div class="after_slider"><label class="standard">
+                            <input id="negSlider-enabled" type="checkbox" name="NegFeelings" value="555" required="true"/>
+                            Prefer not to answer
+                        </label></div>
+                        <script>
+                            $("#negSlider").slider({
+                                ticks: [0, 10, 20],
+                                ticks_labels: ['not at all', 'moderately', 'totally'],
+                                ticks_snap_bounds: 1,
+                                tooltip: "hide",
+                                value: 10,
+                                formatter: function(value) {
+                                    $('#negSlider-enabled')[0].required=false;
+                                }
+                            });
+
+                            $("#negSlider-enabled").click(function() {
+                                if(this.checked) {
+                                    $("#negSlider").slider("disable");
+                                    $('#negSlider-enabled')[0].setCustomValidity("");
+                                }
+                                else {
+                                    $("#negSlider").slider("enable");
+                                }
+                            });
+                            $('#negSlider-enabled')[0].required=true;
+
+                        </script>
+
+                    </div>
+
+
+                    <div style="text-align:center">
+                        <button type="submit" onclick="getTime()"> Continue</button>
+                    </div>
+
+                </form>
+
+
+            </div>
+        </div>
+        <!--features ends-->
+
+        <!--divider here-->
+        <div class="spacer-40px"></div>
+
+    </div>
+</section>
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts"/>
+</body>
+</html>
