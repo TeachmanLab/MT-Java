@@ -5,10 +5,8 @@ import lombok.EqualsAndHashCode;
 import org.mindtrails.domain.questionnaire.SecureQuestionnaireData;
 
 import javax.persistence.Entity;
-<<<<<<< HEAD
-=======
+
 import javax.persistence.Lob;
->>>>>>> upstream/master
 import javax.persistence.Table;
 
 /**
