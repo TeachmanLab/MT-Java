@@ -4,6 +4,7 @@ package org.mindtrails.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.client.support.BasicAuthorizationInterceptor;
 import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.JavaType;
 import org.mindtrails.domain.data.DoNotDelete;
@@ -33,8 +34,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import org.apache.commons.io;
-
+import org.apache.commons.;
+import org.springframework.web.client.RestTemplate;
 
 
 /**
@@ -57,12 +58,18 @@ public class ImportService {
 
 
     @Autowired ExportService exportService;
+    @Autowired RestTemplate restTemplate;
+
+    public void main() {
+        restTemplate.getInterceptors().add(new BasicAuthorizationInterceptor("username", "password"));
+
+    }
 
 
     /**
      *
      * Read json file locally and parse it into the database. Don't know how to write it. Damm!
-     */
+   */
 
     public List<String> listJSON(String name, String path) {
         List<String> jsonFiles = new ArrayList<>();
@@ -137,7 +144,17 @@ public class ImportService {
     }
 
 
-    public String jsonGetter()
+    public String jsonGetter(String url) {
+        try {
+            String result = restTemplate.getForObject(url, String.class);
+            return result;
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
+
 
 }
 

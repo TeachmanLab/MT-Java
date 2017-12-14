@@ -1,4 +1,4 @@
-package org.mindtrails.domain;
+package org.mindtrails.domain.data;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
