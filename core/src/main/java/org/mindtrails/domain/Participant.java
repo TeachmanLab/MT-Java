@@ -24,7 +24,7 @@ import java.util.*;
 @Table(name = "participant")
 @Data
 @EqualsAndHashCode(exclude={"emailLogs", "giftLogs", "SMSLogs", "passwordToken"})
-public  class Participant implements UserDetails {
+public class Participant implements UserDetails {
 
     private static final Logger LOG = LoggerFactory.getLogger(Participant.class);
 
