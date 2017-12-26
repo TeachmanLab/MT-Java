@@ -1,6 +1,7 @@
 package edu.virginia.psych.templeton;
 
 import edu.virginia.psyc.templeton.domain.TempletonStudy;
+import org.mindtrails.domain.importData.Scale;
 import org.mindtrails.service.ImportService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +13,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static junit.framework.Assert.assertNotNull;
+import java.util.List;
+
 
 /**
  * Created with IntelliJ IDEA.
@@ -32,9 +35,11 @@ public class ImportServiceTest {
     @Test
     public void getScaleList() throws Exception {
         LOGGER.info("Check point 1");
-        String list = service.importList();
+        List<Scale> list = service.importList();
         LOGGER.info("Check point 2");
-        LOGGER.info(list);
+        for (Scale scale : list) {
+            LOGGER.info(scale.getName());
+        }
         assertNotNull(list);
     }
 
