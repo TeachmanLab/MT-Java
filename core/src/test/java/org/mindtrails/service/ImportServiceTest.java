@@ -17,6 +17,7 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -30,12 +31,11 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
 @ActiveProfiles("test")
-@Transactional
 public class ImportServiceTest {
 
     @Autowired
     private ImportService service;
-    private String testScale = "participant";
+    private String testScale = "Visit";
 
 
     //private EntityManager entityManager;
@@ -80,8 +80,40 @@ public class ImportServiceTest {
         assertNotNull(ans);
     }
 
+    @Test
+    public void saveScale() throws Exception {
+        LOGGER.info("Save scale fired.");
+        String is = service.getOnline(testScale);
+        LOGGER.info("Got the data! " + is);
+        assertTrue(service.parseDatabase(testScale,is));
+    }
 
 
-
+    @Test
+    public void saveAllScale() throws Exception {
+        LOGGER.info("Save All Scale!!!!");
+        int i = 0;
+        List<String> good = new ArrayList<String>();
+        List<String> bad = new ArrayList<String>();
+        List<Scale> list = service.importList();
+        for (Scale scale:list) {
+            String is = service.getOnline(scale.getName());
+            LOGGER.info("Got the data!" + is);
+            if (service.parseDatabase(scale.getName(),is)) {
+                i+=1;
+                good.add(scale.getName());
+            } else {
+                bad.add(scale.getName());
+            }
+        }
+        LOGGER.info("Here is the good list:");
+        for (String flag:good) LOGGER.info(flag);
+        LOGGER.info("Here is the bad list:");
+        for (String flag:bad) LOGGER.info(flag);
+        assertEquals(i,list.size());
+    }
 
 }
+
+
+

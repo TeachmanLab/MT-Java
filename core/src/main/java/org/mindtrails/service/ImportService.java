@@ -147,6 +147,32 @@ public class ImportService {
  *
  * */
 
-
+    public boolean parseDatabase(String scale, String is){
+        LOGGER.info("Get into the parseDatabase function");
+        ObjectMapper mapper = new ObjectMapper();
+        JpaRepository rep = exportService.getRepositoryForName(scale);
+        if (rep != null) {
+            LOGGER.info("Found " + scale + " repository.");
+            Class<?> clz = exportService.getDomainType(scale);
+            if (clz != null) {
+                LOGGER.info("Found " + clz.getName() + " class.");
+                JavaType type = mapper.getTypeFactory().constructCollectionType(List.class, clz);
+                LOGGER.info("Successfully created mapper.");
+                try {
+                    List<?> list = new ArrayList<>();
+                    list = mapper.readValue(is, type);
+                    LOGGER.info("Successfully created list for data.");
+                    rep.save(list);
+                    LOGGER.info("List saved successfully");
+                    return true;
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                    return false;
+                }
+            };
+            return false;
+        };
+        return false;
+    }
 
 }
