@@ -1,13 +1,7 @@
-package edu.virginia.psych.templeton;
+package org.mindtrails.service;
 
-
-import edu.virginia.psyc.templeton.domain.TempletonStudy;
-import org.mindtrails.domain.Participant;
+import org.mindtrails.Application;
 import org.mindtrails.domain.importData.Scale;
-import org.mindtrails.domain.tracking.EmailLog;
-import org.mindtrails.domain.tracking.GiftLog;
-import org.mindtrails.service.ExportService;
-import org.mindtrails.service.ImportService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -17,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
@@ -34,12 +28,14 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = TempletonStudy.class)
-@ActiveProfiles("default")
+@SpringBootTest(classes = Application.class)
+@ActiveProfiles("test")
+@Transactional
 public class ImportServiceTest {
 
-    ImportService service = new ImportService();
-    String testScale = "Phq4";
+    @Autowired
+    private ImportService service;
+    private String testScale = "participant";
 
 
     //private EntityManager entityManager;
@@ -79,8 +75,8 @@ public class ImportServiceTest {
     @Test
     public void getType() throws Exception {
         LOGGER.info("Successfully fired getScaleType");
-        Class<?> ans = service.getScaleType(testScale);
-        LOGGER.info("Got it! This is a "+ans.getName() +" !");
+        Class<?> ans = service.getClass(testScale);
+        LOGGER.info("Got it! This is a "+ans +" !");
         assertNotNull(ans);
     }
 

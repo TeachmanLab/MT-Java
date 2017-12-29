@@ -63,7 +63,7 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
      */
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        LOG.debug("CONTEXT loaded:  " + event.getApplicationContext());
+        LOG.debug("!@#@!%#$W#$@#$^#$%&$%*%^&(^&*)^$%&CONTEXT loaded:  " + event.getApplicationContext());
         repositories=new Repositories(event.getApplicationContext());
     }
 
@@ -120,7 +120,10 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
      */
     public List<QuestionnaireInfo> listRepositories() {
         List<QuestionnaireInfo> names = new ArrayList<>();
-        if(repositories == null) return names;
+        if(repositories == null) {
+            LOG.info("f======================================== ");
+            return names;
+        }
         boolean deleteableFlag;
 
         for (  Class<?> domainType : repositories) {
@@ -142,7 +145,11 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
      * if it can't find a repository by name.
      */
     public Class<?> getDomainType(String name) {
-        if(repositories == null) return null;
+        LOG.info("Trying to get type of " + name);
+        if(repositories == null) {
+            LOG.info("Found no type of "+name);
+            return null;
+        }
         for (  Class<?> domainType : repositories) {
             if (domainType.getSimpleName().toLowerCase().equals(name.toLowerCase())) {
                 return domainType;
