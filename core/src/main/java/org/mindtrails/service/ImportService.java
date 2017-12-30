@@ -18,6 +18,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.support.Repositories;
 import org.springframework.http.*;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
@@ -165,7 +166,7 @@ public class ImportService {
                     rep.save(list);
                     LOGGER.info("List saved successfully");
                     return true;
-                } catch (IOException e) {
+                } catch (Exception e) {
                     System.out.println(e.getMessage());
                     return false;
                 }
@@ -173,6 +174,30 @@ public class ImportService {
             return false;
         };
         return false;
+    }
+
+
+
+    @Scheduled(cron = "0 * * * * *")
+    public void importData() {
+        LOGGER.info("Trying to download data from api/export.");
+        int i = 0;
+        List<String> good = new ArrayList<String>();
+        List<String> bad = new ArrayList<String>();
+        List<Scale> list = importList();
+        for (Scale scale:list) {
+            String is = getOnline(scale.getName());
+            if (parseDatabase(scale.getName(),is)) {
+                i += 1;
+                good.add(scale.getName());
+            } else {
+                bad.add(scale.getName());
+            }
+        }
+        LOGGER.info("Here is the good list:");
+        for (String flag:good) LOGGER.info(flag);
+        LOGGER.info("Here is the bad list:");
+        for (String flag:bad) LOGGER.info(flag);
     }
 
 }

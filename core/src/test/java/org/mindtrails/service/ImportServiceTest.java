@@ -98,7 +98,6 @@ public class ImportServiceTest {
         List<Scale> list = service.importList();
         for (Scale scale:list) {
             String is = service.getOnline(scale.getName());
-            LOGGER.info("Got the data!" + is);
             if (service.parseDatabase(scale.getName(),is)) {
                 i+=1;
                 good.add(scale.getName());
