@@ -239,7 +239,9 @@ public class ImportService {
         return false;
     }
 
-
+/**
+ *  Every five minutes the program will try to download all the data.
+ * */
 
     @Scheduled(cron = "0 */5 * * * *")
     public void importData() {
@@ -268,4 +270,31 @@ public class ImportService {
         };
     }
 
+    /**
+     *
+     *
+     * The backup routine.
+     */
+    @Scheduled(cron = "0 * * * * *")
+    public void backUpData() {
+        LOGGER.info("Try to backup data from local.");
+        int i = 0;
+        List<String> good = new ArrayList<String>();
+        List<String> bad = new ArrayList<String>();
+        List<Scale> list = importList();
+        for (Scale scale:list) {
+            List<String> is = getLocal(scale.getName());
+            if (localBackup(scale.getName(),is)) {
+                i += 1;
+                good.add(scale.getName());
+            } else {
+                bad.add(scale.getName());
+            }
+        }
+        LOGGER.info("Here is the good list:");
+        for (String flag:good) LOGGER.info(flag);
+        LOGGER.info("Here is the bad list:");
+        for (String flag:bad) LOGGER.info(flag);
+
+    }
 }
