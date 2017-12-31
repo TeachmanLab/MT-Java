@@ -2,6 +2,9 @@ package org.mindtrails.service;
 
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.io.IOCase;
+import org.apache.commons.io.filefilter.IOFileFilter;
+import org.apache.commons.io.filefilter.NameFileFilter;
 import org.apache.tomcat.jni.Error;
 import org.mindtrails.domain.importData.ImportError;
 import lombok.Data;
@@ -26,6 +29,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import org.apache.commons.io.filefilter.RegexFileFilter;
 import java.net.URL;
@@ -175,11 +179,10 @@ public class ImportService {
 
     public List<String> getLocal(String scale) {
         LOGGER.info("Get into the getLocal function");
-        File dir = new File(path);
-        String pattern = "*" + scale + "*";
-        FileFilter filter = new RegexFileFilter(pattern);
-        File[] files = dir.listFiles(filter);
-        LOGGER.info("Here are the files that I found:" + files);
+        File folder = new File(path);
+        String pattern = scale.toLowerCase();
+        File[] files = folder.listFiles((dir,name) -> name.toLowerCase().contains(pattern));
+        LOGGER.info("Here are the files that I found:" + files.toString());
         List<String> list = new ArrayList<String>();
         for (File file:files) {
             list.add(readJSON(file));
@@ -238,7 +241,7 @@ public class ImportService {
 
 
 
-    @Scheduled(cron = "0 * * * * *")
+    @Scheduled(cron = "0 */5 * * * *")
     public void importData() {
         LOGGER.info("Trying to download data from api/export.");
         int i = 0;

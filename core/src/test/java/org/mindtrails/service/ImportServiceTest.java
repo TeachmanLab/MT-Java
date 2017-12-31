@@ -1,5 +1,7 @@
 package org.mindtrails.service;
 
+import org.apache.commons.io.filefilter.IOFileFilter;
+import org.apache.commons.io.filefilter.RegexFileFilter;
 import org.mindtrails.Application;
 import org.mindtrails.domain.importData.Scale;
 import org.junit.Test;
@@ -17,6 +19,7 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
 
+import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +38,7 @@ public class ImportServiceTest {
 
     @Autowired
     private ImportService service;
-    private String testScale = "Visit";
+    private String testScale = "JsPsychTrial";
 
 
     //private EntityManager entityManager;
@@ -84,7 +87,9 @@ public class ImportServiceTest {
     public void getScaleLocally() throws Exception {
         LOGGER.info("Successfully launch backup program");
         List<String> list = service.getLocal(testScale);
-        LOGGER.info("Successfully get data from local: " + list);
+        for (String item:list) {
+        LOGGER.info("Successfully get data from local: " + item);
+        }
         assertNotNull(list);
     }
 
@@ -127,6 +132,9 @@ public class ImportServiceTest {
         for (String flag:bad) LOGGER.info(flag);
         assertEquals(i,list.size());
     }
+
+
+
 
 }
 
