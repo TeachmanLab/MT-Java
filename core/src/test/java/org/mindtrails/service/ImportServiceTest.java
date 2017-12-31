@@ -73,6 +73,22 @@ public class ImportServiceTest {
     }
 
     @Test
+    public void backup() throws Exception {
+        LOGGER.info("Successfully launch backup");
+        List<String> list = service.getLocal(testScale);
+        LOGGER.info("Successfully get data from local: " + list);
+        assertTrue(service.localBackup(testScale,list));
+    }
+
+    @Test
+    public void getScaleLocally() throws Exception {
+        LOGGER.info("Successfully launch backup program");
+        List<String> list = service.getLocal(testScale);
+        LOGGER.info("Successfully get data from local: " + list);
+        assertNotNull(list);
+    }
+
+    @Test
     public void getType() throws Exception {
         LOGGER.info("Successfully fired getScaleType");
         Class<?> ans = service.getClass(testScale);

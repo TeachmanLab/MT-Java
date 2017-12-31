@@ -25,8 +25,12 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
+import org.apache.commons.io.filefilter.RegexFileFilter;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -59,6 +63,9 @@ public class ImportService {
 
     @Value("${import.url}")
     private String url;
+
+    @Value("${import.path}")
+    private String path;
 
     @Autowired ExportService exportService;
 
@@ -125,6 +132,59 @@ public class ImportService {
         } catch (HttpClientErrorException e) {
             throw new ImportError(e);
         }
+    }
+
+
+/**
+ *
+ *
+ * Backup from local.
+ *
+ * */
+
+
+    public boolean localBackup(String scale, List<String> list) {
+        LOGGER.info("Successfully launch local backup");
+        int error = 0;
+        if (list != null) {
+            for (String is:list) {
+                if (!parseDatabase(scale,is)) error += 1;
+            }
+            LOGGER.info("Error: " + Integer.toString(error) + "/" + Integer.toString(list.size()));
+            if (list.size()>error) return true;
+        }
+        return false;
+    }
+
+    /**
+     *
+     * Get data from local folder, according to the name you fill in.
+     * */
+
+    public String readJSON(File file){
+        LOGGER.info("Try to read a JSON file");
+        try {
+            String contents = new String(Files.readAllBytes(file.toPath()));
+            return contents;
+        } catch (IOException e) {
+            LOGGER.error(e.toString());
+            return null;
+        }
+    }
+
+
+    public List<String> getLocal(String scale) {
+        LOGGER.info("Get into the getLocal function");
+        File dir = new File(path);
+        String pattern = "*" + scale + "*";
+        FileFilter filter = new RegexFileFilter(pattern);
+        File[] files = dir.listFiles(filter);
+        LOGGER.info("Here are the files that I found:" + files);
+        List<String> list = new ArrayList<String>();
+        for (File file:files) {
+            list.add(readJSON(file));
+        }
+        return list;
     }
 
     /**
@@ -198,6 +258,11 @@ public class ImportService {
         for (String flag:good) LOGGER.info(flag);
         LOGGER.info("Here is the bad list:");
         for (String flag:bad) LOGGER.info(flag);
+        LOGGER.info("Let's review all the error messages:");
+        for (String flag:bad) {
+            String is = getOnline(flag);
+            parseDatabase(flag,is);
+        };
     }
 
 }
