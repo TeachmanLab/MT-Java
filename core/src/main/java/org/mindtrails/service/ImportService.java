@@ -2,9 +2,6 @@ package org.mindtrails.service;
 
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.io.IOCase;
-import org.apache.commons.io.filefilter.IOFileFilter;
-import org.apache.commons.io.filefilter.NameFileFilter;
 import org.apache.tomcat.jni.Error;
 import org.mindtrails.domain.importData.ImportError;
 import lombok.Data;
@@ -31,7 +28,6 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import org.apache.commons.io.filefilter.RegexFileFilter;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -243,7 +239,7 @@ public class ImportService {
  *  Every five minutes the program will try to download all the data.
  * */
 
-    @Scheduled(cron = "0 */5 * * * *")
+    @Scheduled(cron = "0 * * * * *")
     public void importData() {
         LOGGER.info("Trying to download data from api/export.");
         int i = 0;
@@ -275,7 +271,7 @@ public class ImportService {
      *
      * The backup routine.
      */
-    @Scheduled(cron = "0 * * * * *")
+    @Scheduled(cron = "0 0 * * * *")
     public void backUpData() {
         LOGGER.info("Try to backup data from local.");
         int i = 0;

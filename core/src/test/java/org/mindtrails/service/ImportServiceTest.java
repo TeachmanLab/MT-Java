@@ -1,7 +1,5 @@
 package org.mindtrails.service;
 
-import org.apache.commons.io.filefilter.IOFileFilter;
-import org.apache.commons.io.filefilter.RegexFileFilter;
 import org.mindtrails.Application;
 import org.mindtrails.domain.importData.Scale;
 import org.junit.Test;
