@@ -133,7 +133,7 @@ public class TwilioService {
 
         int days = p.daysSinceLastMilestone();
         Study study = p.getStudy();
-        Session session = study.getCurrentSession();
+        Session session = study.getCurrentSessionModel();
 
         // If they are waiting for 2 days, then remind them
         // at the end of 2 days, then again after 4,7,11,15, and 18

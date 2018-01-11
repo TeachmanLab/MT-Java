@@ -93,7 +93,7 @@ public class TwilioServiceTest {
     public void MessageOnSixtythDayIfALongDelay() throws Exception {
         participant.setLastLoginDate(xDaysAgo(60));
         participant.setStudy(new TestStudy("PostSession",0));
-        //participant.getStudy().getCurrentSession().setDaysToWait(60);
+        //participant.getStudy().getCurrentSessionModel().setDaysToWait(60);
         assertFalse(service.getMessage(participant).isEmpty());
     }
 

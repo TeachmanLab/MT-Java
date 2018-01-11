@@ -223,7 +223,7 @@ public class EmailServiceImplTest {
         TestStudy study = (TestStudy)participant.getStudy();
         TaskLog lastLog = study.getTaskLogs().get(study.getTaskLogs().size()-1);
         lastLog.setDateCompleted(DateTime.now().minusHours(4).toDate());
-        assertFalse(study.getCurrentSession().isComplete());
+        assertFalse(study.getCurrentSessionModel().isComplete());
 
         assertTrue("When the last completed task took place 7 hours ago, and the session is not" +
                         "complete, there should be a mid-session reminder.",
@@ -241,7 +241,7 @@ public class EmailServiceImplTest {
 
 
         participant.setEmailReminders(true);
-        Session session = study.getCurrentSession();
+        Session session = study.getCurrentSessionModel();
         study.completeCurrentTask(0);
         assertTrue(study.completed(session.getName()));
         assertFalse ("Participant completed both tasks in the session, so no email should be sent.",
@@ -265,7 +265,7 @@ public class EmailServiceImplTest {
         TestStudy study = (TestStudy)participant.getStudy();
         TaskLog lastLog = study.getTaskLogs().get(study.getTaskLogs().size()-1);
         lastLog.setDateCompleted(DateTime.now().minusHours(4).toDate());
-        assertFalse(study.getCurrentSession().isComplete());
+        assertFalse(study.getCurrentSessionModel().isComplete());
 
 
         emailService.sendMidSessionEmail(participant);

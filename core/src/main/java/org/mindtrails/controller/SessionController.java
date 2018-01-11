@@ -25,7 +25,6 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Created with IntelliJ IDEA.
@@ -52,7 +51,7 @@ public class SessionController extends BaseController {
 
         Participant p = getParticipant(principal);
         Study study = p.getStudy();
-        Session session = study.getCurrentSession();
+        Session session = study.getCurrentSessionModel();
         Session last = study.getLastSession();
 
         if(reactivate) {
@@ -120,7 +119,7 @@ public class SessionController extends BaseController {
         Study study  = p.getStudy();
 
         model.addAttribute("study", study);
-        model.addAttribute("complete", p.getStudy().getCurrentSession().getName().equals("COMPLETE"));
+        model.addAttribute("complete", p.getStudy().getCurrentSessionModel().getName().equals("COMPLETE"));
 
         return "overview";
     }
@@ -134,7 +133,7 @@ public class SessionController extends BaseController {
 
         // Re-direct to the next step the current session is in progress.
         if(study.getState() == Study.STUDY_STATE.IN_PROGRESS && p.isActive()) {
-            return new RedirectView(study.getCurrentSession().getCurrentTask().getRequestMapping(), true);
+            return new RedirectView(study.getCurrentSessionModel().getCurrentTask().getRequestMapping(), true);
         } else {
             emailService.sendSessionCompletedEmail(p);
             return new RedirectView("/session", true);

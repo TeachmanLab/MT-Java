@@ -31,7 +31,7 @@ public class TrainingController extends BaseController {
         Participant p = participantService.get(principal);
 
         model.addAttribute("script", scriptName);
-        model.addAttribute("sessionName", p.getStudy().getCurrentSession().getName());
+        model.addAttribute("sessionName", p.getStudy().getCurrentSessionModel().getName());
         return "training/template";
     }
 

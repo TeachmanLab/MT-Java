@@ -77,7 +77,7 @@ public class R34StudyTest {
         List<Task> tasks;
 
         study = new R34Study(R34Study.NAME.PRE.toString(), 1, new Date(), new ArrayList<TaskLog>(), true);
-        tasks = study.getCurrentSession().getTasks();
+        tasks = study.getCurrentSessionModel().getTasks();
 
         assertNotNull(tasks);
         assertEquals("Pre should have eleven tasks.", 11, tasks.size());
@@ -101,18 +101,18 @@ public class R34StudyTest {
 
         study = new R34Study(R34Study.NAME.PRE.toString(), 0, null, new ArrayList<TaskLog>(), true);
 
-        assertEquals(R34Study.NAME.PRE.toString(), study.getCurrentSession().getName());
-        assertEquals("Credibility", study.getCurrentSession().getCurrentTask().getName());
+        assertEquals(R34Study.NAME.PRE.toString(), study.getCurrentSessionModel().getName());
+        assertEquals("Credibility", study.getCurrentSessionModel().getCurrentTask().getName());
 
         study.completeCurrentTask(0);
 
-        assertEquals(R34Study.NAME.PRE.toString(), study.getCurrentSession().getName());
-        assertEquals("Demographic", study.getCurrentSession().getCurrentTask().getName());
+        assertEquals(R34Study.NAME.PRE.toString(), study.getCurrentSessionModel().getName());
+        assertEquals("Demographic", study.getCurrentSessionModel().getCurrentTask().getName());
 
         study.completeCurrentTask(0);
 
-        assertEquals(R34Study.NAME.PRE.toString(), study.getCurrentSession().getName());
-        assertEquals("MentalHealthHxTx", study.getCurrentSession().getCurrentTask().getName());
+        assertEquals(R34Study.NAME.PRE.toString(), study.getCurrentSessionModel().getName());
+        assertEquals("MentalHealthHxTx", study.getCurrentSessionModel().getCurrentTask().getName());
 
         assertNull(study.getLastSessionDate());
 
@@ -120,11 +120,11 @@ public class R34StudyTest {
         for(int i =0; i<9; i++) {
             study.completeCurrentTask(0);
         }
-        assertEquals(R34Study.NAME.SESSION1.toString(), study.getCurrentSession().getName());
+        assertEquals(R34Study.NAME.SESSION1.toString(), study.getCurrentSessionModel().getName());
         assertNotNull("The last session date should get updated when completing a session.", study.getLastSessionDate());
 
         assertEquals("Task index is set to 0 when a completing a session.", 0, study.getCurrentTaskIndex());
-        assertEquals("Task index is set to 0 when a completing a session.", 0, study.getCurrentSession().getCurrentTaskIndex());
+        assertEquals("Task index is set to 0 when a completing a session.", 0, study.getCurrentSessionModel().getCurrentTaskIndex());
     }
 
     @Test
@@ -136,7 +136,7 @@ public class R34StudyTest {
         assertEquals(Study.STUDY_STATE.READY, study.getState());
 
         // Complete the pre assessment
-        for(int i=0; i < study.getCurrentSession().getTasks().size(); i++) {
+        for(int i = 0; i < study.getCurrentSessionModel().getTasks().size(); i++) {
             study.completeCurrentTask(0);
         }
 
@@ -144,7 +144,7 @@ public class R34StudyTest {
         assertEquals(Study.STUDY_STATE.READY, study.getState());
 
         // Complete the first session
-        for(int i=0; i < study.getCurrentSession().getTasks().size(); i++) {
+        for(int i = 0; i < study.getCurrentSessionModel().getTasks().size(); i++) {
             study.completeCurrentTask(0);
         }
 

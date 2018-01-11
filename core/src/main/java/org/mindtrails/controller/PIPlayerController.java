@@ -49,7 +49,7 @@ public class PIPlayerController extends BaseController {
 
         model.addAttribute("participantId", p.getId());
         model.addAttribute("script", scriptName);
-        model.addAttribute("sessionName", p.getStudy().getCurrentSession().getName());
+        model.addAttribute("sessionName", p.getStudy().getCurrentSessionModel().getName());
         for(String key : study.getPiPlayerParameters().keySet()) {
             model.addAttribute(key, study.getPiPlayerParameters().get(key));
         }
@@ -63,7 +63,7 @@ public class PIPlayerController extends BaseController {
 
         // If the data submitted, isn't the data the user should be completeing right now,
         // thown an exception and prevent them from moving forward.
-        String currentTaskName = participant.getStudy().getCurrentSession().getCurrentTask().getName();
+        String currentTaskName = participant.getStudy().getCurrentSessionModel().getCurrentTask().getName();
         if(!currentTaskName.equals(scriptName)) {
             String error = "The current task for this participant is : " + currentTaskName + " however, they submitted the script:" + scriptName;
             LOG.info(error);

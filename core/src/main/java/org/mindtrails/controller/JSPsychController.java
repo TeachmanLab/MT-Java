@@ -63,7 +63,7 @@ public class JSPsychController extends BaseController {
 
         List<JsPsychTrial> trials = jsPsychRepository.findAllByParticipantIdAndStudyAndSession(participant.getId(),
                 participant.getStudy().getName(),
-                participant.getStudy().getCurrentSession().getName());
+                participant.getStudy().getCurrentSessionModel().getName());
 
         JsPsychTrialList list = new JsPsychTrialList();
         list.addAll(trials);
@@ -78,7 +78,7 @@ public class JSPsychController extends BaseController {
 
         // If the data submitted, isn't the data the user should be completing right now,
         // throw an exception and prevent them from moving forward.
-        String currentTaskName = participant.getStudy().getCurrentSession().getCurrentTask().getName();
+        String currentTaskName = participant.getStudy().getCurrentSessionModel().getCurrentTask().getName();
         if(!currentTaskName.equals(scriptName) && !participant.isAdmin()) {
             String error = "The current task for this participant is : " + currentTaskName + " however, they submitted the script:" + scriptName;
             LOG.info(error);
@@ -88,7 +88,7 @@ public class JSPsychController extends BaseController {
         // Calculate the time on task
         List<JsPsychTrial> trials = jsPsychRepository.findAllByParticipantIdAndStudyAndSession(participant.getId(),
                 participant.getStudy().getName(),
-                participant.getStudy().getCurrentSession().getName());
+                participant.getStudy().getCurrentSessionModel().getName());
 
         // Find the greatest time_elapsed value for the data returned, this is time spent on the trial.
         double timeOnTask = 0.0;
@@ -120,7 +120,7 @@ public class JSPsychController extends BaseController {
         }
         for(JsPsychTrial trial : list) {
             trial.setParticipantId(p.getId());
-            trial.setSession(p.getStudy().getCurrentSession().getName());
+            trial.setSession(p.getStudy().getCurrentSessionModel().getName());
             trial.setStudy(p.getStudy().getName());
             trial.setDevice(deviceType);
             trial.setDateSubmitted(new Date());

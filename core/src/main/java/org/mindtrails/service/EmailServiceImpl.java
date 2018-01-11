@@ -237,7 +237,7 @@ public class EmailServiceImpl implements EmailService {
         if (!participant.isActive()) return false;
         if (!participant.isEmailReminders()) return false;
         Study study = participant.getStudy();
-        Session session = study.getCurrentSession();
+        Session session = study.getCurrentSessionModel();
         if (participant.previouslySent(TYPE.midSessionStop.toString(),
                                         session.getName())) return false;
         if (session.midSession()) {
@@ -272,7 +272,7 @@ public class EmailServiceImpl implements EmailService {
         if (!p.isEmailReminders()) return null;
 
         Study study = p.getStudy();
-        Session session = study.getCurrentSession();
+        Session session = study.getCurrentSessionModel();
 
         // Don't send emails if they are all done.
         if(study.getState().equals(Study.STUDY_STATE.ALL_DONE)) return null;

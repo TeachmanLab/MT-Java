@@ -126,13 +126,12 @@ public class QuestionControllerTest extends BaseControllerTest {
         testPostDataForm();
         assertNotNull(getLastQuestionnaire().getDate());
         assertNotNull(getLastQuestionnaire().getSession());
-        assertNotNull(getLastQuestionnaire().getParticipantRSA());
     }
 
     @Test
     public void testParticipantIdIsPopulatedIfItExists() throws Exception {
         // Force Participant to task 1 (which is TestUndeleteable)
-//        participant.getStudy().getCurrentSession().setIndex(1);
+//        participant.getStudy().getCurrentSessionModel().setIndex(1);
         ((TestStudy) participant.getStudy()).setCurrentTaskIndex(1);
         participantRepository.save(participant);
         ResultActions result = mockMvc.perform(post("/questions/TestUndeleteable")

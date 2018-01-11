@@ -11,8 +11,6 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * A barebones implementation of Study to aid in testing other structures.
