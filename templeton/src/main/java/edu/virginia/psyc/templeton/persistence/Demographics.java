@@ -1,6 +1,6 @@
 package edu.virginia.psyc.templeton.persistence;
 
-import org.mindtrails.domain.questionnaire.SecureQuestionnaireData;
+import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Table(name="Demographics")
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class Demographics extends SecureQuestionnaireData {
+public class Demographics extends LinkedQuestionnaireData {
     private String GenderId;
     private int BirthYear;
     private String Race;

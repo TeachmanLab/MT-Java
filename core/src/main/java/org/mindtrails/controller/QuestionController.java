@@ -5,7 +5,6 @@ import org.mindtrails.domain.RestExceptions.NoModelForFormException;
 import org.mindtrails.domain.RestExceptions.WrongFormException;
 import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 import org.mindtrails.domain.questionnaire.QuestionnaireData;
-import org.mindtrails.domain.questionnaire.SecureQuestionnaireData;
 import org.mindtrails.service.ExportService;
 import org.mindtrails.service.ParticipantService;
 import org.mindtrails.service.RsaEncryptionService;
@@ -155,8 +154,8 @@ public class QuestionController extends BaseController {
         // Attempt to set the participant link, depending on sub-class type
         if(data instanceof LinkedQuestionnaireData)
             ((LinkedQuestionnaireData) data).setParticipant(participant);
-        if(data instanceof SecureQuestionnaireData)
-            ((SecureQuestionnaireData) data).setParticipantRSA(encryptService.encryptIfEnabled(participant.getId()));
+        if(data instanceof LinkedQuestionnaireData)
+            ((LinkedQuestionnaireData) data).setParticipantRSA(encryptService.encryptIfEnabled(participant.getId()));
 
         data.setSession(participant.getStudy().getCurrentSession().getName());
 

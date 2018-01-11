@@ -17,7 +17,7 @@ import org.mindtrails.controller.QuestionController;
 import org.mindtrails.domain.DoNotDelete;
 import org.mindtrails.domain.RestExceptions.NotDeleteableException;
 import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
-import org.mindtrails.domain.questionnaire.SecureQuestionnaireData;
+import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,14 +106,14 @@ public class ExportControllerTest extends BaseControllerTest {
     public void testEntryDataCanBeDeleted() {
         // There should be at least one entry.
         createTestEntry();
-        SecureQuestionnaireData qd;
+        LinkedQuestionnaireData qd;
 
         List data =  exportController.listData("TestQuestionnaire",0);
         assertThat(data.size(), greaterThan(0));
 
         // Going to make the assumption this is QuestionnaireData
         for(Object o : data) {
-            qd = (SecureQuestionnaireData)o;
+            qd = (LinkedQuestionnaireData)o;
             assertThat(qd.getId(), notNullValue());
             exportController.delete("TestQuestionnaire",qd.getId());
         }

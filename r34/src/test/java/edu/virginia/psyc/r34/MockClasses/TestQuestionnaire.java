@@ -1,6 +1,6 @@
 package edu.virginia.psyc.r34.MockClasses;
 
-import org.mindtrails.domain.questionnaire.SecureQuestionnaireData;
+import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -15,7 +15,7 @@ import java.util.List;
 @Table(name="TestQuestionnaire")
 @Data
 @EqualsAndHashCode(callSuper=false)
-public class TestQuestionnaire extends SecureQuestionnaireData {
+public class TestQuestionnaire extends LinkedQuestionnaireData {
 
     private String value;
 

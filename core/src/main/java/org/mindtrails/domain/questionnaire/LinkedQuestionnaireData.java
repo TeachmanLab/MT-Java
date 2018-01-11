@@ -16,7 +16,7 @@ import javax.persistence.MappedSuperclass;
  * If questionnaire data should remain directly linked to a Partiicpant
  * (if for instance it is used in other business logic, and does not
  * contain sensitive data) then you can extend this class rather than
- * secureQuestionnaireData.
+ * LinkedQuestionnaireData.
  */
 @MappedSuperclass
 @Data
