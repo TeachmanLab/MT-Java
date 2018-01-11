@@ -107,6 +107,17 @@ public class ImportServiceTest {
         assertTrue(service.parseDatabase(testScale,is));
     }
 
+    @Test
+    public void updateParticipantTable() throws Exception {
+        LOGGER.info("Try to update the participant table");
+        assertTrue(service.updateParticipant());
+    }
+
+    @Test
+    public void updateStudyTable() throws Exception {
+        LOGGER.info("Try to update the study table");
+        assertTrue(service.updateStudy());
+    }
 
     @Test
     public void saveAllScale() throws Exception {

@@ -13,19 +13,209 @@
 <section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
 <script type="text/javascript" th:src="@{/bower/d3/d3.js}"></script>
 
+
+
+
+
+<div class="panel-group" id="accordion">
+    <div class="panel panel-warning">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion"
+                   href="#collapseTwo">
+                    Activity by level
+                </a>
+            </h4>
+        </div>
+    <div id="collapseTwo" class="panel-collapse collapse">
+        <div class="panel-body">
+            <div class="row">
+
+                <div class="main-content span12">
+
+                    <table class="table table-striped table-bordered participantList">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>Active</th>
+                            <th>Dropout</th>
+                            <th>Completed</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr th:each="session : ${users.sessionList}" >
+
+                            <th th:text="${session.displayName}"></th>
+                            <td th:text="${users.activeMap.get(session.name)}"></td>
+                            <td th:text="${users.inactiveMap.get(session.name)}"></td>
+                            <td th:text="${users.compMap.get(session.name)}"></td>
+
+                        </tr>
+                        </tbody>
+
+                    </table>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion"
+                   href="#collapseOne">
+                    conditioning distribution in TOTAL participants
+                </a>
+            </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in">
+            <div class="panel-body">
+                <div id='dashboard'>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion"
+                   href="#collapseFour">
+                    conditioning distribution in Active participants
+                </a>
+            </h4>
+        </div>
+        <div id="collapseFour" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div id='dashboard2'>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion"
+                   href="#collapseThree">
+                    conditioning distribution in Inactive participants
+                </a>
+            </h4>
+        </div>
+        <div id="collapseThree" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div id='dashboard3'>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="panel panel-warning">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion"
+                   href="#collapseFive">
+                    info sent to participants this week
+                </a>
+            </h4>
+        </div>
+        <div id="collapseFive" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div class="row">
+
+                    <div class="main-content span12">
+                 <table class="table table-striped table-bordered participantList">
+                    <thead>
+                    <tr>
+                        <th>error message sent this week</th>
+                        <th>email sent this week</th>
+                        <th>task finished this week</th>
+                        <th>SMS sent this week</th>
+                    </tr>
+
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td th:text="${errorLogs}"></td>
+                        <td th:text="${emailLogs}"></td>
+                        <td th:text="${taskLogs}"></td>
+                        <td th:text="${SMSLogs}"></td>
+
+                    </tr>
+                    </tbody>
+
+                </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion"
+                   href="#collapseSix">
+                    Active participants by week
+                </a>
+            </h4>
+        </div>
+        <div id="collapseSix" class="panel-collapse collapse in">
+            <div class="panel-body">
+                <div class="chart"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script type="text/javascript">
+    $(function () { $('#collapseFour').collapse({
+        toggle: false
+    })});
+    $(function () { $('#collapseTwo').collapse('show')});
+    $(function () { $('#collapseThree').collapse('hide')});
+    $(function () { $('#collapseFive').collapse('hide')});
+    $(function () { $('#collapseOne').collapse('hide')});
+    $(function () { $('#collapseSix').collapse('hide')});
+</script>
+
+
+
+
+
 <section id="content" class="clearfix">
-
-        <h3>conditioning distribution in total participants</h3>
-        <div id='dashboard'>
-        </div>
-        <h3>conditioning distribution in inactive participants</h3>
-        <div id='dashboard2'>
-        </div>
-        <h3>conditioning distribution in active participants</h3>
-        <div id='dashboard3'>
-        </div>
+    <div class="container">
+        <div class="row">
+            <div class="span12">
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <!--spacer here-->
+                <div class="spacer-30px"></div>
+            </div>
+        </div>
+
+
+    </div>
 
 
 
@@ -34,15 +224,27 @@
 <footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
 <section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
 
-
 <style>
+    .chart div {
+        font: 10px sans-serif;
+        background-color: steelblue;
+        text-align: right;
+        padding: 3px;
+        margin: 1px;
+        color: white;
+    }
 
-    path {  stroke: #fff; }
-    path:hover {  opacity:0.9; }
-    rect:hover {  fill:blue; }
-    .axis {  font: 10px sans-serif; }
-    .legend tr{    border-bottom:1px solid grey; }
-    .legend tr:first-child{    border-top:1px solid grey; }
+    .bar{
+        fill: steelblue;
+    }
+
+    .bar:hover{
+        fill: brown;
+    }
+
+    .axis {
+        font: 10px sans-serif;
+    }
 
     .axis path,
     .axis line {
@@ -50,6 +252,13 @@
         stroke: #000;
         shape-rendering: crispEdges;
     }
+
+    path {  stroke: #fff; }
+    path:hover {  opacity:0.9; }
+    rect:hover {  fill:blue; }
+    .axis {  font: 10px sans-serif; }
+    .legend tr{    border-bottom:1px solid grey; }
+    .legend tr:first-child{    border-top:1px solid grey; }
 
     .x.axis path {  display: none; }
     .legend{
@@ -67,7 +276,109 @@
         width:50px;
     }
 
-</style>
+    </style>
+
+
+
+
+
+<script>
+    // set the dimensions of the canvas
+    var margin = {top: 20, right: 20, bottom: 70, left: 40},
+        width = 600 - margin.left - margin.right,
+        height = 300 - margin.top - margin.bottom;
+
+    // set the ranges
+    var x = d3.scaleBand().rangeRound([0, width]).padding(0.05);
+
+    var y = d3.scaleLinear().range([height, 0]);
+
+    // define the axis
+    var xAxis = d3.axisBottom(x).tickFormat(d3.time);
+
+    var yAxis = d3.axisLeft(y).ticks(10);
+
+
+    // add the SVG element
+    var svg = d3.select(".chart").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform",
+            "translate(" + margin.left + "," + margin.top + ")");
+
+
+    // load the data
+    d3.json("./getLoginCounts", function(error, data) {
+        if (error) return console.warn(error);
+
+        data.forEach(function(d) {
+            d.date = formatDate(new Date(d.date));
+            d.count = +d.count;
+        });
+
+        // scale the range of the data
+        x.domain(data.map(function(d) { return d.date; }));
+        y.domain([0, d3.max(data, function(d) { return d.count; })]);
+
+        // add axis
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(xAxis)
+            .selectAll("text")
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", "-.55em")
+            .attr("transform", "rotate(-90)" );
+
+        svg.append("g")
+            .attr("class", "y axis")
+            .call(yAxis)
+            .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 5)
+            .attr("dy", ".71em")
+            .style("text-anchor", "end")
+            .text("numbers of last login");
+
+
+        // Add bar chart
+        svg.selectAll("bar")
+            .data(data)
+            .enter().append("rect")
+            .attr("class", "bar")
+            .attr("x", function(d) { return x(d.date); })
+            .attr("width", x.bandwidth())
+            .attr("y", function(d) { return y(d.count); })
+            .attr("height", function(d) { return height - y(d.count); });
+
+        svg.append("text")
+            .attr("x", (width / 2))
+            .attr("y", 0 - (margin.top / 2))
+            .attr("text-anchor", "middle")
+            .style("font-size", "14px")
+            .style("text-decoration", "underline")
+            .text("Active participants by week");
+
+
+
+
+    });
+
+    function formatDate(date) {
+        var monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+        var day = date.getDate();
+        var monthIndex = date.getMonth();
+        var year = date.getFullYear();
+        return day + ' ' + monthNames[monthIndex] + ' ' + year; }
+
+
+
+
+
+
+</script>
 
 <script>
     function dashboard(id, fData,conditionList,name){
@@ -75,14 +386,24 @@
 
         var barColor = 'steelblue';
 
-        var colorlib = ["#807dba", "#e08214", "#41ab5d", "#BA55D3", "#8B0000", "#000000"];
 
-        console.log(conditionList);
+        //console.log(conditionList);
 
         function segColor(c){ return {POSITIVE:"#807dba", FIFTY_FIFTY_RANDOM:"#B8860B",POSITIVE_NEGATION:"#41ab5d",FIFTY_FIFTY_BLOCKED:"#BA55D3",NEUTRAL:"#CD5C5C"}[c]; }
 
         // compute total for each state.
-        fData.forEach(function(d){d.total=d.csMap.POSITIVE+d.csMap.FIFTY_FIFTY_RANDOM+d.csMap.POSITIVE_NEGATION+d.csMap.FIFTY_FIFTY_BLOCKED+d.csMap.NEUTRAL;});
+        //fData.forEach(function(d){d.total=d.csMap.POSITIVE+d.csMap.FIFTY_FIFTY_RANDOM+d.csMap.POSITIVE_NEGATION+d.csMap.FIFTY_FIFTY_BLOCKED+d.csMap.NEUTRAL;});
+        fData.forEach(function(d){
+
+            var sum = 0;
+            for( var el in d.csMap ) {
+                if( d.csMap.hasOwnProperty( el ) ) {
+                    sum += parseFloat( d.csMap[el] );
+                }
+            }
+            d.total=sum;
+
+        });
 
         // function to handle histogram.
         function histoGram(fD){
@@ -280,17 +601,12 @@
     var conditionList=[[${conditionList}]];
     d3.json("./getDash", function(error, data) {
         if (error) return console.warn(error);
-        dashboard('#dashboard',data,conditionList);
+        dashboard('#dashboard',data.total,conditionList);
+        dashboard('#dashboard2',data.active,conditionList);
+        dashboard('#dashboard3',data.inactive,conditionList);
     });
 
-    d3.json("./getDash2", function(error, data) {
-        if (error) return console.warn(error);
-        dashboard('#dashboard2',data,conditionList);
-    });
-    d3.json("./getDash3", function(error, data) {
-        if (error) return console.warn(error);
-        dashboard('#dashboard3',data,conditionList);
-    });
+
     //console.log(conditionList);
 
 

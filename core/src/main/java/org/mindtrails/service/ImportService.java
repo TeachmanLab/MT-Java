@@ -226,7 +226,7 @@ public class ImportService {
                     LOGGER.info("List saved successfully");
                     return true;
                 } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                    e.printStackTrace();
                     return false;
                 }
             };
@@ -235,6 +235,30 @@ public class ImportService {
         return false;
     }
 
+
+
+    public boolean updateParticipant() {
+        LOGGER.info("Get into the updateParticipant function");
+        String newParticipant = getOnline("participant");
+        if (newParticipant != null) {
+            LOGGER.info("Successfully read participant table");
+            return parseDatabase("participant",newParticipant);
+        }
+        return false;
+    }
+
+    public boolean updateStudy() {
+        LOGGER.info("Get into the updatestudy function");
+        String newStudy = getOnline("study");
+        if (newStudy != null) {
+            LOGGER.info("Successfully read study table");
+            return parseDatabase("study",newStudy);
+        }
+        return false;
+    }
+
+
+
 /**
  *  Every five minutes the program will try to download all the data.
  * */
@@ -242,6 +266,8 @@ public class ImportService {
     @Scheduled(cron = "0 * * * * *")
     public void importData() {
         LOGGER.info("Trying to download data from api/export.");
+        boolean newParticipant = updateParticipant();
+        if (newParticipant) LOGGER.info("Successfully logged new participants");
         int i = 0;
         List<String> good = new ArrayList<String>();
         List<String> bad = new ArrayList<String>();
