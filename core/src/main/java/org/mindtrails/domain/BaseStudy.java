@@ -1,6 +1,7 @@
 package org.mindtrails.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.joda.time.DateTime;
@@ -128,7 +129,7 @@ public abstract class BaseStudy implements Study {
         }
 
         // If this is the last task in a session, then we move to the next session.
-        if(currentTaskIndex +1 >= getCurrentSessionModel().getTasks().size()) {
+        if(currentTaskIndex +1 >= getCurrentSession().getTasks().size()) {
             this.taskLogs.add(TaskLog.completedSession(this));
             completeSession();
         } else { // otherwise we just increment the task index.
@@ -149,7 +150,7 @@ public abstract class BaseStudy implements Study {
         List<Session> sessions = getSessions();
         boolean next = false;
 
-        Session nextSession = getCurrentSessionModel();
+        Session nextSession = getCurrentSession();
         for(Session s: sessions) {
             if(next == true) { nextSession = s; break; }
             if(s.isCurrent()) next = true;
@@ -162,8 +163,7 @@ public abstract class BaseStudy implements Study {
 
 
     @Override
-    @JsonIgnore
-    public Session getCurrentSessionModel() {
+    public Session getCurrentSession() {
         List<Session> sessions = getSessions();
         for(Session s  : getSessions()) {
             if (s.isCurrent()) {
@@ -191,7 +191,7 @@ public abstract class BaseStudy implements Study {
      * @return
      */
     public boolean completed(String session) {
-        Session currentSession = getCurrentSessionModel();
+        Session currentSession = getCurrentSession();
         if(session == currentSession.getName()) return false;
         for(Session s : getSessions()) {
             String strName = s.getName();
@@ -259,7 +259,7 @@ public abstract class BaseStudy implements Study {
             return STUDY_STATE.ALL_DONE;
         }
 
-        if(daysSinceLastSession() < getCurrentSessionModel().getDaysToWait()) {
+        if(daysSinceLastSession() < getCurrentSession().getDaysToWait()) {
             return STUDY_STATE.WAIT;
         }
 
@@ -279,7 +279,6 @@ public abstract class BaseStudy implements Study {
     }
 
     @Override
-    @JsonIgnore
     public Map<String,Object> getPiPlayerParameters(){
         Map<String,Object> params = new HashMap<>();
         return params;

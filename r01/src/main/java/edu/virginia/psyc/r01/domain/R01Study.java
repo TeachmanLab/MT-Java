@@ -67,9 +67,9 @@ public class R01Study extends BaseStudy {
     /** Check out the Templeton Study for building a more complex setup. */
     public Map<String,Object> getPiPlayerParameters() {
         Map<String,Object> map = super.getPiPlayerParameters();
-        String sessionName = this.getCurrentSessionModel().getName();
+        String sessionName = this.getCurrentSession().getName();
         map.put("negate",(conditioning.equals(CONDITION.POSITIVE_NEGATION)));
-        map.put("sessionIndex", this.getCurrentSessionModel().getIndex());
+        map.put("sessionIndex", this.getCurrentSession().getIndex());
         map.put("secondWordSet",false);
         map.put("question","yes_no");
         map.put("lettersToRemove",1);
@@ -82,13 +82,13 @@ public class R01Study extends BaseStudy {
     }
 
     public boolean inSession() {
-        return (!getCurrentSessionModel().getName().equals(R01Study.SESSION.preTest.toString()) &&
-                !getCurrentSessionModel().getName().equals(R01Study.SESSION.firstSession.toString()) &&
-                !getCurrentSessionModel().getName().equals(R01Study.SESSION.secondSession.toString()) &&
-                !getCurrentSessionModel().getName().equals(R01Study.SESSION.thirdSession.toString())&&
-                !getCurrentSessionModel().getName().equals(R01Study.SESSION.fourthSession.toString())&&
-                !getCurrentSessionModel().getName().equals(R01Study.SESSION.fifthSession.toString())&&
-                !getCurrentSessionModel().getName().equals(R01Study.SESSION.PostFollowUp.toString()));
+        return (!getCurrentSession().getName().equals(R01Study.SESSION.preTest.toString()) &&
+                !getCurrentSession().getName().equals(R01Study.SESSION.firstSession.toString()) &&
+                !getCurrentSession().getName().equals(R01Study.SESSION.secondSession.toString()) &&
+                !getCurrentSession().getName().equals(R01Study.SESSION.thirdSession.toString())&&
+                !getCurrentSession().getName().equals(R01Study.SESSION.fourthSession.toString())&&
+                !getCurrentSession().getName().equals(R01Study.SESSION.fifthSession.toString())&&
+                !getCurrentSession().getName().equals(R01Study.SESSION.PostFollowUp.toString()));
 
     }
 

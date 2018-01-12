@@ -118,7 +118,7 @@ public class JSPsychControllerTest extends BaseControllerTest {
                 .andExpect((status().isCreated()));
         List<JsPsychTrial> trials = jsPsychRepository.findAllByParticipantIdAndStudyAndSession(participant.getId(),
                 participant.getStudy().getName(),
-                participant.getStudy().getCurrentSessionModel().getName());
+                participant.getStudy().getCurrentSession().getName());
         assertNotNull(trials);
         assertEquals(8, trials.size());
     }

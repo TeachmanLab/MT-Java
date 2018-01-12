@@ -58,7 +58,7 @@ public class BaseStudyTest {
     public void testLastSessionIsNOT_STARTEDIfThereIsnotOne() {
         Study s = new TestStudy();
         assertEquals("NOT_STARTED", s.getLastSession().getName());
-        Session one = s.getCurrentSessionModel();
+        Session one = s.getCurrentSession();
         s.forceToSession("SessionTwo");
         assertEquals("SessionOne", s.getLastSession().getName());
     }

@@ -135,7 +135,7 @@ public class QuestionController extends BaseController {
         // as a "reason for ending" should not be recorded as making progress in the session.
         boolean isProgress = participant.getStudy().hasTask(formName);
 
-        String currentTaskName = participant.getStudy().getCurrentSessionModel().getCurrentTask().getName();
+        String currentTaskName = participant.getStudy().getCurrentSession().getCurrentTask().getName();
         if(!currentTaskName.equals(formName) && isProgress && !participant.isAdmin()) {
             String error = "The current task for this participant is : " + currentTaskName + " however, they submitted the form:" + formName;
             LOG.info(error);
@@ -143,7 +143,7 @@ public class QuestionController extends BaseController {
         }
 
         // Grab the tag of the current task, and incorporate it into the data.
-        String tag = participant.getStudy().getCurrentSessionModel().getCurrentTask().getTag();
+        String tag = participant.getStudy().getCurrentSession().getCurrentTask().getTag();
         data.setTag(tag);
 
         // Save time on Task to TaskLog.
@@ -154,8 +154,10 @@ public class QuestionController extends BaseController {
         // Attempt to set the participant link, depending on sub-class type
         if(data instanceof LinkedQuestionnaireData)
             ((LinkedQuestionnaireData) data).setParticipant(participant);
+        if(data instanceof LinkedQuestionnaireData)
+            ((LinkedQuestionnaireData) data).setParticipantRSA(encryptService.encryptIfEnabled(participant.getId()));
 
-        data.setSession(participant.getStudy().getCurrentSessionModel().getName());
+        data.setSession(participant.getStudy().getCurrentSession().getName());
 
         // Update the participant's session status, and save back to the database.
         if(isProgress) {

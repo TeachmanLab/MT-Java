@@ -61,8 +61,8 @@ public class R34Study extends BaseStudy implements Study {
     * post assessment period.
     */
     public boolean inSession() {
-        return (!getCurrentSessionModel().getName().equals(R34Study.NAME.PRE.toString()) &&
-                !getCurrentSessionModel().getName().equals(R34Study.NAME.POST.toString()));
+        return (!getCurrentSession().getName().equals(R34Study.NAME.PRE.toString()) &&
+                !getCurrentSession().getName().equals(R34Study.NAME.POST.toString()));
     }
 
     public R34Study() {}

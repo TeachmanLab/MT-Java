@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * Models a Study, and the participant's progress in that Study.
  */
-@JsonDeserialize(as = ImportStudy.class)
+
 public interface Study {
 
     public enum STUDY_STATE {READY, IN_PROGRESS, WAIT, ALL_DONE}
@@ -23,7 +23,7 @@ public interface Study {
 
     public Session getLastSession(); // returns the last completed session .
 
-    public Session getCurrentSessionModel(); // returns the current session.
+    public Session getCurrentSession(); // returns the current session.
 
     public void forceToSession(String sessionName); // Forces the study to the beginning of session with the given name.
 

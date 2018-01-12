@@ -19,7 +19,7 @@ public class TempletonStudyForm {
     public TempletonStudyForm(TempletonStudy study)  {
 
         this.conditioning = study.getConditioning();
-        this.session = study.getCurrentSessionModel().getName();
+        this.session = study.getCurrentSession().getName();
     }
 
     public void updateStudy(TempletonStudy study) {

@@ -19,7 +19,7 @@ public class R01StudyForm {
     public R01StudyForm(R01Study study)  {
 
         this.conditioning = study.getConditioning();
-        this.session = study.getCurrentSessionModel().getName();
+        this.session = study.getCurrentSession().getName();
     }
 
     public void updateStudy(R01Study study) {
