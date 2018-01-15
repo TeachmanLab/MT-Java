@@ -1,4 +1,4 @@
-package edu.virginia.psyc.r34.persistence;
+package org.mindtrails.persistence;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.mindtrails.domain.DoNotDelete;
