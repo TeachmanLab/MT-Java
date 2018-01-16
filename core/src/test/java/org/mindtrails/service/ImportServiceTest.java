@@ -17,6 +17,7 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
 
+import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.List;
@@ -76,20 +77,11 @@ public class ImportServiceTest {
     @Test
     public void backup() throws Exception {
         LOGGER.info("Successfully launch backup");
-        List<String> list = service.getLocal(testScale);
+        File[] list = service.getFileList(testScale);
         LOGGER.info("Successfully get data from local: " + list);
         assertTrue(service.localBackup(testScale,list));
     }
 
-    @Test
-    public void getScaleLocally() throws Exception {
-        LOGGER.info("Successfully launch backup program");
-        List<String> list = service.getLocal(testScale);
-        for (String item:list) {
-        LOGGER.info("Successfully get data from local: " + item);
-        }
-        assertNotNull(list);
-    }
 
     @Test
     public void getType() throws Exception {
@@ -108,16 +100,54 @@ public class ImportServiceTest {
     }
 
     @Test
-    public void updateParticipantTable() throws Exception {
+    public void updateParticipantTableOnline() throws Exception {
         LOGGER.info("Try to update the participant table");
-        assertTrue(service.updateParticipant());
+        assertTrue(service.updateParticipantOnline());
+    }
+
+    @Test
+    public void updateParticipantTableLocal() throws Exception {
+        LOGGER.info("Try to update the participant table locally");
+        assertTrue(service.updateParticipantLocal());
+    }
+
+    @Test
+    public void updateStudyTableLocal() throws Exception {
+        LOGGER.info("Try to update the participant table locally");
+        assertTrue(service.updateStudyLocal());
     }
 
     @Test
     public void updateStudyTable() throws Exception {
         LOGGER.info("Try to update the study table");
-        assertTrue(service.updateStudy());
+        assertTrue(service.updateStudyOnline());
     }
+
+    @Test
+    public void saveAllLog() throws Exception {
+        LOGGER.info("Try to update all the log files");
+        int i = 0;
+        List<String> good = new ArrayList<String>();
+        List<String> bad = new ArrayList<String>();
+        List<Scale> list = service.importList();
+        for (Scale scale:list) {
+            if (scale.getName().toLowerCase().contains("log")) {
+                String is = service.getOnline(scale.getName());
+                if (service.parseDatabase(scale.getName(),is)) {
+                    i+=1;
+                    good.add(scale.getName());
+                } else {
+                    bad.add(scale.getName());
+                }
+            }
+        }
+        LOGGER.info("Here is the good list:");
+        for (String flag:good) LOGGER.info(flag);
+        LOGGER.info("Here is the bad list:");
+        for (String flag:bad) LOGGER.info(flag);
+        assertEquals(i,list.size());
+    }
+
 
     @Test
     public void saveAllScale() throws Exception {

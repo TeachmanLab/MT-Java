@@ -143,15 +143,15 @@ public class ImportService {
  * */
 
 
-    public boolean localBackup(String scale, List<String> list) {
+    public boolean localBackup(String scale, File[] list) {
         LOGGER.info("Successfully launch local backup");
         int error = 0;
         if (list != null) {
-            for (String is:list) {
-                if (!parseDatabase(scale,is)) error += 1;
+            for (File is:list) {
+                if (!parseDatabase(scale,readJSON(is))) error += 1;
             }
-            LOGGER.info("Error: " + Integer.toString(error) + "/" + Integer.toString(list.size()));
-            if (list.size()>error) return true;
+            LOGGER.info("Error: " + Integer.toString(error) + "/" + list.length);
+            if (list.length>error) return true;
         }
         return false;
     }
@@ -173,18 +173,15 @@ public class ImportService {
     }
 
 
-    public List<String> getLocal(String scale) {
+    public File[] getFileList(String scale) {
         LOGGER.info("Get into the getLocal function");
         File folder = new File(path);
         String pattern = scale.toLowerCase();
         File[] files = folder.listFiles((dir,name) -> name.toLowerCase().contains(pattern));
         LOGGER.info("Here are the files that I found:" + files.toString());
-        List<String> list = new ArrayList<String>();
-        for (File file:files) {
-            list.add(readJSON(file));
-        }
-        return list;
+        return files;
     }
+
 
     /**
      * Get the type/class/object for a name. This is much more difficult that I thought.
@@ -237,7 +234,26 @@ public class ImportService {
 
 
 
-    public boolean updateParticipant() {
+    public boolean updateParticipantLocal() {
+        LOGGER.info("Get into the updateParticipant function.");
+        File[] files = getFileList("ParticipantExportDAO");
+        for (File file:files) {
+            return parseDatabase("ParticipantExportDAO",readJSON(file));
+        }
+        return false;
+    }
+
+
+    public boolean updateStudyLocal() {
+        LOGGER.info("Get into the updateStudy function.");
+        File[] files = getFileList("StudyExportDAO");
+        for (File file:files) {
+            return parseDatabase("StudyExportDAO",readJSON(file));
+        }
+        return false;
+    }
+
+    public boolean updateParticipantOnline() {
         LOGGER.info("Get into the updateParticipant function");
         String newParticipant = getOnline("participant");
         if (newParticipant != null) {
@@ -247,7 +263,7 @@ public class ImportService {
         return false;
     }
 
-    public boolean updateStudy() {
+    public boolean updateStudyOnline() {
         LOGGER.info("Get into the updatestudy function");
         String newStudy = getOnline("study");
         if (newStudy != null) {
@@ -266,7 +282,7 @@ public class ImportService {
     @Scheduled(cron = "0 * * * * *")
     public void importData() {
         LOGGER.info("Trying to download data from api/export.");
-        boolean newParticipant = updateParticipant();
+        boolean newParticipant = updateParticipantOnline();
         if (newParticipant) LOGGER.info("Successfully logged new participants");
         int i = 0;
         List<String> good = new ArrayList<String>();
@@ -305,7 +321,7 @@ public class ImportService {
         List<String> bad = new ArrayList<String>();
         List<Scale> list = importList();
         for (Scale scale:list) {
-            List<String> is = getLocal(scale.getName());
+            File[] is = getFileList(scale.getName());
             if (localBackup(scale.getName(),is)) {
                 i += 1;
                 good.add(scale.getName());

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver;
+import org.mindtrails.persistence.StudyExportDAO;
 
 import java.util.Date;
 import java.util.List;
@@ -12,7 +13,6 @@ import java.util.Map;
 /**
  * Models a Study, and the participant's progress in that Study.
  */
-
 public interface Study {
 
     public enum STUDY_STATE {READY, IN_PROGRESS, WAIT, ALL_DONE}

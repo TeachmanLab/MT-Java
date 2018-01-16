@@ -36,4 +36,5 @@ public class ParticipantExportDAO {
     private boolean receiveGiftCards;
     private String reference;
     private String campaign;
+    private boolean over18;
 }

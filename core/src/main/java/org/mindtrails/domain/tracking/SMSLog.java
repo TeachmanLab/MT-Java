@@ -1,5 +1,6 @@
 package org.mindtrails.domain.tracking;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Data;
 import org.mindtrails.domain.DoNotDelete;
 import org.mindtrails.domain.Exportable;

@@ -154,8 +154,7 @@ public class QuestionController extends BaseController {
         // Attempt to set the participant link, depending on sub-class type
         if(data instanceof LinkedQuestionnaireData)
             ((LinkedQuestionnaireData) data).setParticipant(participant);
-        if(data instanceof LinkedQuestionnaireData)
-            ((LinkedQuestionnaireData) data).setParticipantRSA(encryptService.encryptIfEnabled(participant.getId()));
+
 
         data.setSession(participant.getStudy().getCurrentSession().getName());
 
