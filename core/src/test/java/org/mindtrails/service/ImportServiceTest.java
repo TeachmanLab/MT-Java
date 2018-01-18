@@ -248,17 +248,9 @@ public class ImportServiceTest extends BaseControllerTest {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode actualObj = mapper.readTree(result.getResponse().getContentAsString());
 
-        MvcResult delResult1 = mockMvc.perform(delete("/api/export/Study/1")
-                .with(SecurityMockMvcRequestPostProcessors.user(admin)))
-                .andExpect((status().is2xxSuccessful()))
-                .andReturn();
-        System.out.println(delResult1.toString());
-        MvcResult delResult2 = mockMvc.perform(delete("/api/export/Study/2")
-                .with(SecurityMockMvcRequestPostProcessors.user(admin)))
-                .andExpect((status().is2xxSuccessful()))
-                .andReturn();
-        System.out.println(delResult2.toString());
-
+        studyRepository.delete(s);
+        studyRepository.delete(m);
+        Assert.assertTrue("This should be true:",service.parseDatabase("participant",actualObj.toString()));
         Assert.assertEquals("This should be testing:","Testing",actualObj.get(0).path("conditioning").toString());
         Assert.assertEquals("This should be 1:",1,actualObj.get(0).path("id").asInt());
     }

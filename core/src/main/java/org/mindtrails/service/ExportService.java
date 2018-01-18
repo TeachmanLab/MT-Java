@@ -160,6 +160,11 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
             return null;
         }
         for (  Class<?> domainType : repositories) {
+            if (name.toLowerCase().equals("study")) {
+                if (domainType.getSimpleName().toLowerCase().equals("studyexportdao")) {
+                    return domainType;
+                }
+            }
             if (domainType.getSimpleName().toLowerCase().equals(name.toLowerCase())) {
                 return domainType;
             }

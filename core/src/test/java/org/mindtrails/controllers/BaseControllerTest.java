@@ -64,6 +64,8 @@ public abstract class BaseControllerTest {
 
     protected TestStudy s;
 
+    protected TestStudy m;
+
 
 
     @Before
@@ -107,6 +109,7 @@ public abstract class BaseControllerTest {
 
         // Reset progress for participant
         s = (TestStudy)participant.getStudy();
+        m = (TestStudy)admin.getStudy();
         s.setCurrentSession("SessionOne");
         s.setCurrentTaskIndex(0);
         participantService.save(participant);
