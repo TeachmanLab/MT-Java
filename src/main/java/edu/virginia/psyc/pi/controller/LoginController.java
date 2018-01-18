@@ -257,7 +257,14 @@ public class LoginController extends BaseController {
     }
 
     @RequestMapping(value="/consent", method = RequestMethod.GET)
-    public String showConsent (ModelMap model, Principal principal) {
+    public String showConsent (ModelMap model, Principal principal, HttpSession session) {
+
+        // Do not show the consent form if they have not completed the eligibility questionnaire.
+        List<DASS21_AS> forms = dass21_asRepository.findBySessionId(session.getId());
+        if(forms.size() < 1) {
+            return "redirect:public/eligibility";
+        }
+
         model.addAttribute("participantCreateForm", new ParticipantCreateForm());
         model.addAttribute("hideAccountBar", true);
         model.addAttribute("recaptchaSiteKey", recaptchaSiteKey);
