@@ -279,7 +279,7 @@ public class ImportService {
  *  Every five minutes the program will try to download all the data.
  * */
 
-    @Scheduled(cron = "0 * * * * *")
+    @Scheduled(cron = "0 0 0 * * *")
     public void importData() {
         LOGGER.info("Trying to download data from api/export.");
         boolean newParticipant = updateParticipantOnline();
@@ -313,7 +313,7 @@ public class ImportService {
      *
      * The backup routine.
      */
-    @Scheduled(cron = "0 0 * * * *")
+    @Scheduled(cron = "0 0 0 * * *")
     public void backUpData() {
         LOGGER.info("Try to backup data from local.");
         int i = 0;

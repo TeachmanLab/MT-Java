@@ -6,6 +6,7 @@ import org.mindtrails.Application;
 import org.mindtrails.MockClasses.TestStudy;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.persistence.ParticipantRepository;
+import org.mindtrails.persistence.StudyRepository;
 import org.mindtrails.service.ParticipantService;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,11 +53,17 @@ public abstract class BaseControllerTest {
     protected ParticipantRepository participantRepository;
 
     @Autowired
+    protected StudyRepository studyRepository;
+
+    @Autowired
     protected ParticipantService participantService;
 
     protected Participant participant;
 
     protected Participant admin;
+
+    protected TestStudy s;
+
 
 
     @Before
@@ -99,7 +106,7 @@ public abstract class BaseControllerTest {
         admin = createParticipant("J McAdmin", "admin@test.com", true);
 
         // Reset progress for participant
-        TestStudy s = (TestStudy)participant.getStudy();
+        s = (TestStudy)participant.getStudy();
         s.setCurrentSession("SessionOne");
         s.setCurrentTaskIndex(0);
         participantService.save(participant);

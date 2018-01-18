@@ -40,8 +40,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.beans.HasPropertyWithValue.hasProperty;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -190,5 +189,39 @@ public class ExportControllerTest extends BaseControllerTest {
         System.out.println(actualObj);
     }
 
+    @Test
+    public void testParticipantDeIdentifiedInfoCorrect() throws Exception {
+        testPostDataForm();
+        repo.flush();
+        participant.setTheme("blue");
+        participant.setOver18(true);
+        MvcResult result = mockMvc.perform(get("/api/export/Participant")
+                .with(SecurityMockMvcRequestPostProcessors.user(admin)))
+                .andExpect((status().is2xxSuccessful()))
+                .andReturn();
+        ObjectMapper mapper = new ObjectMapper();
+        participantRepository.save(participant);
+        JsonNode actualObj = mapper.readTree(result.getResponse().getContentAsString());
+        assertTrue("There should not be an email colomn in your json.",actualObj.get(0).path("email").isMissingNode());
+        assertTrue(actualObj.get(0).path("over18").asBoolean());
+        assertEquals("This should be blue",actualObj.get(0).path("theme").asText(),"blue");
+        System.out.println(actualObj);
+    }
+
+    @Test
+    public void testStudyInfoCorrect() throws Exception {
+        testPostDataForm();
+        repo.flush();
+        s.setConditioning("Testing");
+        studyRepository.save(s);
+        MvcResult result = mockMvc.perform(get("/api/export/Study")
+                .with(SecurityMockMvcRequestPostProcessors.user(admin)))
+                .andExpect((status().is2xxSuccessful()))
+                .andReturn();
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode actualObj = mapper.readTree(result.getResponse().getContentAsString());
+        assertEquals("This should be testing:","Testing",actualObj.get(0).path("conditioning").asText());
+        assertEquals("This should be 1:",1,actualObj.get(0).path("id").asInt());
+    }
 
 }

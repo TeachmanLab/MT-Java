@@ -7,6 +7,9 @@ import org.mindtrails.domain.tracking.ExportLog;
 import org.mindtrails.persistence.ExportLogRepository;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
+import org.mindtrails.persistence.ParticipantExportDAO;
+import org.mindtrails.persistence.ParticipantExportRepository;
+import org.mindtrails.persistence.StudyExportRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +48,8 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
 
     @Autowired ExportLogRepository exportLogRepository;
     @Autowired EmailService emailService;
+    @Autowired ParticipantExportRepository participantExportRepository;
+    @Autowired StudyExportRepository studyExportRepository;
 
     Repositories repositories;
 
@@ -108,6 +113,10 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
      * if it can't find a repository by name.
      */
     public JpaRepository getRepositoryForName(String name) {
+        if (name.toLowerCase().equals("participant"))
+            return participantExportRepository;
+        if (name.toLowerCase().equals("study"))
+            return studyExportRepository;
         Class<?> domainType = getDomainType(name);
         if (domainType != null)
             return (JpaRepository) repositories.getRepositoryFor(domainType);

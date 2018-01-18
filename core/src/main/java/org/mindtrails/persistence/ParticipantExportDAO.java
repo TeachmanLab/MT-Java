@@ -23,8 +23,6 @@ public class ParticipantExportDAO {
 
     @Id private long id;
     private String theme;
-    private String cbmCondition;
-    private String prime;
     private boolean testAccount;
     private boolean admin;
     private boolean emailReminders;
@@ -37,4 +35,5 @@ public class ParticipantExportDAO {
     private String reference;
     private String campaign;
     private boolean over18;
+
 }

@@ -1,6 +1,16 @@
 package org.mindtrails.service;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Assert;
 import org.mindtrails.Application;
+import org.mindtrails.MockClasses.TestQuestionnaireRepository;
+import org.mindtrails.MockClasses.TestUndeleteableRepository;
+import org.mindtrails.controller.ExportController;
+import org.mindtrails.controller.QuestionController;
+import org.mindtrails.controllers.BaseControllerTest;
+import org.mindtrails.controllers.ExportControllerTest;
+import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.importData.Scale;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,14 +18,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.web.servlet.MvcResult;
 
+import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
+import javax.validation.constraints.AssertTrue;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -33,26 +50,41 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
 @ActiveProfiles("test")
-public class ImportServiceTest {
+public class ImportServiceTest extends BaseControllerTest {
 
     @Autowired
     private ImportService service;
     private String testScale = "JsPsychTrial";
 
+    @Autowired
+    private ExportController exportController;
+    @Autowired
+    private QuestionController questionController;
+    @Autowired
+    private TestQuestionnaireRepository repo;
+    @Autowired
+    private TestUndeleteableRepository repoU;
 
-    //private EntityManager entityManager;
+
+
+
 
     private static final Logger LOGGER = LoggerFactory.getLogger((ImportServiceTest.class));
 
+
 //    private void createTestEntries() {
-//        Participant p = new Participant("Joe Test", "j@t.com", false);
+//        Participant p = pService.create();
+//        p.setActive(true);
+//        p.setAdmin(true);
+//        p.setEmail("test@test.com");
 //        entityManager.persist(p);
-//        entityManager.persist(new TestQuestionnaire("MyTestValue"));
-//        entityManager.persist(new TestUndeleteable("MyTestValue"));
-//        entityManager.persist(new GiftLog(p, "Order1", "Session 1"));
-//        entityManager.persist(new EmailLog(p,"Email1"));
 //    }
 
+
+    @Override
+    public Object[] getControllers() {
+        return (new Object[]{exportController, questionController});
+    }
 
     @Test
     public void getScaleList() throws Exception {
@@ -98,6 +130,7 @@ public class ImportServiceTest {
         LOGGER.info("Got the data! " + is);
         assertTrue(service.parseDatabase(testScale,is));
     }
+
 
     @Test
     public void updateParticipantTableOnline() throws Exception {
@@ -173,7 +206,62 @@ public class ImportServiceTest {
     }
 
 
+    @Test
+    public void testParticipantDeIdentifiedInfoCorrect() throws Exception {
+        repo.flush();
+        participant.setTheme("blue");
+        participant.setOver18(true);
+        participantRepository.save(participant);
+        MvcResult result = mockMvc.perform(get("/api/export/Participant")
+                .with(SecurityMockMvcRequestPostProcessors.user(admin)))
+                .andExpect((status().is2xxSuccessful()))
+                .andReturn();
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode actualObj = mapper.readTree(result.getResponse().getContentAsString());
 
+        MvcResult delResult1 = mockMvc.perform(delete("/api/export/Participant/1")
+                .with(SecurityMockMvcRequestPostProcessors.user(admin)))
+                .andExpect((status().is2xxSuccessful()))
+                .andReturn();
+        System.out.println(delResult1.toString());
+        MvcResult delResult2 = mockMvc.perform(delete("/api/export/Participant/2")
+                .with(SecurityMockMvcRequestPostProcessors.user(admin)))
+                .andExpect((status().is2xxSuccessful()))
+                .andReturn();
+        System.out.println(delResult2.toString());
+        Assert.assertTrue("This should be true:",service.parseDatabase("participant",actualObj.toString()));
+        Assert.assertTrue("There should not be an email colomn in your json.",actualObj.get(0).path("email").isMissingNode());
+        Assert.assertTrue(actualObj.get(0).path("over18").asBoolean());
+        Assert.assertEquals("This should be blue",actualObj.get(0).path("theme").asText(),"blue");
+        System.out.println(actualObj);
+    }
+
+    @Test
+    public void testStudyInfoCorrect() throws Exception {
+        repo.flush();
+        s.setConditioning("Testing");
+        studyRepository.save(s);
+        MvcResult result = mockMvc.perform(get("/api/export/Study")
+                .with(SecurityMockMvcRequestPostProcessors.user(admin)))
+                .andExpect((status().is2xxSuccessful()))
+                .andReturn();
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode actualObj = mapper.readTree(result.getResponse().getContentAsString());
+
+        MvcResult delResult1 = mockMvc.perform(delete("/api/export/Study/1")
+                .with(SecurityMockMvcRequestPostProcessors.user(admin)))
+                .andExpect((status().is2xxSuccessful()))
+                .andReturn();
+        System.out.println(delResult1.toString());
+        MvcResult delResult2 = mockMvc.perform(delete("/api/export/Study/2")
+                .with(SecurityMockMvcRequestPostProcessors.user(admin)))
+                .andExpect((status().is2xxSuccessful()))
+                .andReturn();
+        System.out.println(delResult2.toString());
+
+        Assert.assertEquals("This should be testing:","Testing",actualObj.get(0).path("conditioning").toString());
+        Assert.assertEquals("This should be 1:",1,actualObj.get(0).path("id").asInt());
+    }
 
 }
 
