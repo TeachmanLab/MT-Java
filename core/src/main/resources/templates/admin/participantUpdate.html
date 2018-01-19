@@ -105,10 +105,11 @@
                             <td th:if="${#fields.hasErrors('admin')}" th:errors="*{admin}">Admin Error</td>
                         </tr>
                         <tr>
-                            <td>Is Test Account:</td>
-                            <td><input type="checkbox" th:field="*{testAccount}"/></td>
-                            <td  class="error" th:if="${#fields.hasErrors('testAccount')}" th:errors="*{admin}">Test Error</td>
+                            <td>Is in Blacklist:</td>
+                            <td><input type="checkbox" th:field="*{blacklist}"/></td>
+                            <td  class="error" th:if="${#fields.hasErrors('blacklist')}" th:errors="*{admin}">blacklist Error</td>
                         </tr>
+
                     </table>
                     <button type="submit">Submit</button>
                     <button type="button" onclick="location.href='/admin/participant/giftCard'">Send Gift Card</button>

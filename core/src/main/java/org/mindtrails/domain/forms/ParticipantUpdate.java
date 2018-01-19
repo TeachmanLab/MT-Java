@@ -31,6 +31,9 @@ public class ParticipantUpdate implements HasPhone {
 
     protected boolean emailReminders = true;
     protected boolean phoneReminders = true;
+    protected boolean receiveGiftCards = false;
+    protected boolean verified = false;
+    protected boolean blacklist = false;
 
     protected String timezone;
 
@@ -41,6 +44,9 @@ public class ParticipantUpdate implements HasPhone {
         this.fullName = p.getFullName();
         this.emailReminders = p.isEmailReminders();
         this.phoneReminders = p.isPhoneReminders();
+        this.receiveGiftCards = p.isReceiveGiftCards();
+        this.verified = p.isVerified();
+        this.blacklist = p.isBlacklist();
         this.theme = p.getTheme();
         this.phone = p.getPhone();
         this.timezone = p.getTimezone();
@@ -56,6 +62,9 @@ public class ParticipantUpdate implements HasPhone {
         p.setEmail(this.getEmail());
         p.setEmailReminders(this.isEmailReminders());
         p.setPhoneReminders(this.isPhoneReminders());
+        p.setReceiveGiftCards(this.isReceiveGiftCards());
+        p.setVerified(this.isVerified());
+        p.setBlacklist(this.isBlacklist());
         p.setPhone(formatPhone(this.phone));
         p.setTimezone(this.getTimezone());
         if(this.theme != null) p.setTheme(this.getTheme());

@@ -2,10 +2,12 @@ package org.mindtrails.controller;
 
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.RestExceptions.MissingEligibilityException;
+import org.mindtrails.domain.VerificationCode;
 import org.mindtrails.domain.forms.ParticipantCreate;
 import org.mindtrails.domain.forms.ParticipantUpdate;
 import org.mindtrails.domain.recaptcha.RecaptchaFormValidator;
 import org.mindtrails.service.ParticipantService;
+import org.mindtrails.service.TwilioService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +51,9 @@ public class AccountController extends BaseController {
     @Autowired
     private ParticipantService participantService;
 
+    @Autowired
+    private TwilioService twilioService;
+
     /** This will assure that any form submissions for the participant Form
      * are validated for a proper recaptcha response.
      * @param binder
@@ -88,6 +93,7 @@ public class AccountController extends BaseController {
         participant = participantService.create();
         participantCreate.updateParticipant(participant);
         participant.setLastLoginDate(new Date());
+        participant.setVerificationCode(new VerificationCode(participant));
         participant.setReference((String)session.getAttribute("referer"));
         participant.setCampaign((String)session.getAttribute("campaign"));
 
@@ -100,9 +106,16 @@ public class AccountController extends BaseController {
             return "redirect:/public/eligibility";
         }
 
+
         // Log this new person in.
         Authentication auth = new UsernamePasswordAuthenticationToken( participantCreate.getEmail(), participantCreate.getPassword());
         SecurityContextHolder.getContext().setAuthentication(auth);
+
+        if (participant.isReceiveGiftCards()){
+            String code=participant.getVerificationCode().getCode();
+            twilioService.sendMessage(code,participant);
+            return "account/verification";
+        }
 
         LOG.info("Participant authenticated.");
         return "redirect:/account/theme";
@@ -113,6 +126,86 @@ public class AccountController extends BaseController {
     @RequestMapping("theme")
     public String showTheme(ModelMap model, Principal principal) {
         return "account/theme";
+    }
+
+    @RequestMapping("verification")
+    public String verify(@RequestParam(value="verifycode", required=false, defaultValue="NAN") String verifycode,ModelMap model, Principal principal) {
+        Participant p = participantService.get(principal);
+        String code=p.getVerificationCode().getCode();
+
+        //this.twilioService.sendMessage(code,p);
+        boolean wrongCode=false;
+        String note="Please enter your verification code:";
+
+        //model.addAttribute("verifycode", verifycode);
+        //model.addAttribute("result", code);
+
+
+
+            if (code.equals(verifycode)&&p.getVerificationCode().valid()) {
+                wrongCode = false;
+                model.addAttribute("note", note);
+                model.addAttribute("wrong", wrongCode);
+                return "redirect:/account/theme";
+            } else if (verifycode.length() == 0) {
+                model.addAttribute("note", note);
+                model.addAttribute("wrong", wrongCode);
+                return "account/verification";
+            } else {
+                note = "Your verification code is not correct or valid any more";
+                wrongCode = true;
+                model.addAttribute("note", note);
+                model.addAttribute("wrong", wrongCode);
+                return "account/wrongCode";
+            }
+
+    }
+
+    @RequestMapping("wrongCode")
+    public String wrongcode(@RequestParam(value="wrongCodeOptions", required=false, defaultValue="NAN") String wrongCodeOptions,ModelMap model, Principal principal) {
+        Participant p = participantService.get(principal);
+        //String code=p.getVerificationCode().getCode();
+
+       if(wrongCodeOptions.equals("resend")){
+           p.setVerificationCode(new VerificationCode(p));
+            twilioService.sendMessage(p.getVerificationCode().getCode(),p);
+            return "account/verification";
+        }
+        else if (wrongCodeOptions.equals("continue")){
+            return "redirect:/account/theme";
+        }
+        else if(wrongCodeOptions.equals("phone")){
+            return "account/changePhone";
+        }
+        else{
+            return "account/wrongCode";
+        }
+
+    }
+    @RequestMapping("changePhone")
+    public String changePhone(@RequestParam(value="newPhone", required=false, defaultValue="NAN") String newPhone,ModelMap model, Principal principal) {
+          if(newPhone.length()==0){
+
+            return "account/changePhone";
+        }
+        else{
+              Participant p = participantService.get(principal);
+              p.setVerificationCode(new VerificationCode(p));
+              p.updatePhone(newPhone);
+              participantService.save(p);
+              participantService.flush();
+              if (p.isReceiveGiftCards()){
+                  String code=p.getVerificationCode().getCode();
+                  twilioService.sendMessage(code,p);
+                  return "account/verification";
+              }
+              model.addAttribute("updated", true);
+              return "redirect:/account/theme";
+          }
+
+
+
+
     }
 
     @RequestMapping(value="updateTheme", method = RequestMethod.POST)
