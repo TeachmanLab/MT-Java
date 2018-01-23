@@ -1,9 +1,9 @@
 package org.mindtrails.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.GenericGenerator;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.mindtrails.domain.RestExceptions.WaitException;
@@ -32,7 +32,11 @@ public abstract class BaseStudy implements Study {
     private static final Session COMPLETE     = new Session("COMPLETE", "Complete", 0, 0, new ArrayList<Task>());
 
     @Id
-    @TableGenerator(name = "STUDY_GEN", table = "ID_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 1)
+    @GenericGenerator(name = "STUDY_GEN", strategy = "org.mindtrails.persistence.MindtrailsIdGenerator", parameters = {
+            @org.hibernate.annotations.Parameter(name = "table_name", value = "ID_GEN"),
+            @org.hibernate.annotations.Parameter(name = "value_column_name", value = "GEN_VAL"),
+            @org.hibernate.annotations.Parameter(name = "segment_column_name", value = "GEN_NAME"),
+            @org.hibernate.annotations.Parameter(name = "segment_value", value = "study") })
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "STUDY_GEN")
     protected long id;
 
