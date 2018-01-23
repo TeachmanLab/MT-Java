@@ -229,6 +229,7 @@ public class ImportServiceTest extends BaseControllerTest {
                 .andExpect((status().is2xxSuccessful()))
                 .andReturn();
         System.out.println(delResult2.toString());
+        repo.flush();
         Assert.assertTrue("This should be true:",service.parseDatabase("participant",actualObj.toString()));
         Assert.assertTrue("There should not be an email colomn in your json.",actualObj.get(0).path("email").isMissingNode());
         Assert.assertTrue(actualObj.get(0).path("over18").asBoolean());
@@ -247,12 +248,54 @@ public class ImportServiceTest extends BaseControllerTest {
                 .andReturn();
         ObjectMapper mapper = new ObjectMapper();
         JsonNode actualObj = mapper.readTree(result.getResponse().getContentAsString());
-
         studyRepository.delete(s);
         studyRepository.delete(m);
         Assert.assertTrue("This should be true:",service.parseDatabase("participant",actualObj.toString()));
         Assert.assertEquals("This should be testing:","Testing",actualObj.get(0).path("conditioning").toString());
         Assert.assertEquals("This should be 1:",1,actualObj.get(0).path("id").asInt());
+    }
+
+    @Test
+    public void testPSInfoCorrect() throws Exception {
+        repo.flush();
+        participant.setTheme("blue");
+        participant.setOver18(true);
+        participantRepository.save(participant);
+        s.setConditioning("Testing");
+        studyRepository.save(s);
+        MvcResult result = mockMvc.perform(get("/api/export/Participant")
+                .with(SecurityMockMvcRequestPostProcessors.user(admin)))
+                .andExpect((status().is2xxSuccessful()))
+                .andReturn();
+
+        MvcResult studyResult = mockMvc.perform(get("/api/export/Study")
+                .with(SecurityMockMvcRequestPostProcessors.user(admin)))
+                .andExpect((status().is2xxSuccessful()))
+                .andReturn();
+        ObjectMapper mapper = new ObjectMapper();
+
+        JsonNode actualObj = mapper.readTree(result.getResponse().getContentAsString());
+
+        JsonNode studyObj = mapper.readTree(studyResult.getResponse().getContentAsString());
+
+        MvcResult delResult1 = mockMvc.perform(delete("/api/export/Participant/1")
+                .with(SecurityMockMvcRequestPostProcessors.user(admin)))
+                .andExpect((status().is2xxSuccessful()))
+                .andReturn();
+        System.out.println(delResult1.toString());
+        MvcResult delResult2 = mockMvc.perform(delete("/api/export/Participant/2")
+                .with(SecurityMockMvcRequestPostProcessors.user(admin)))
+                .andExpect((status().is2xxSuccessful()))
+                .andReturn();
+        System.out.println(delResult2.toString());
+        repo.flush();
+        Boolean answer = service.parseDatabase("participant",actualObj.toString());
+        Assert.assertTrue("This should be true:",answer);
+        Assert.assertTrue("This should be true as well:", service.parseDatabase("study",studyObj.toString()));
+        Assert.assertTrue("There should not be an email colomn in your json.",actualObj.get(0).path("email").isMissingNode());
+        Assert.assertTrue(actualObj.get(0).path("over18").asBoolean());
+        Assert.assertEquals("This should be blue",actualObj.get(0).path("theme").asText(),"blue");
+        System.out.println(actualObj);
     }
 
 }
