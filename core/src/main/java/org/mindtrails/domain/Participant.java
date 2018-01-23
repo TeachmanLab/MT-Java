@@ -1,20 +1,19 @@
 package org.mindtrails.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.GenericGenerator;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.mindtrails.domain.tracking.*;
-import org.mindtrails.persistence.ParticipantExportDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
-
+import org.hibernate.annotations.Parameter;
 import javax.persistence.*;
 import java.util.*;
 
@@ -31,8 +30,18 @@ public class Participant implements UserDetails {
     private static final Logger LOG = LoggerFactory.getLogger(Participant.class);
 
 
+
+//    @Id
+//    @TableGenerator(name = "PARTICIPANT_GEN", table = "ID_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 1)
+//    @GeneratedValue(strategy = GenerationType.TABLE, generator = "PARTICIPANT_GEN")
+
+
     @Id
-    @TableGenerator(name = "PARTICIPANT_GEN", table = "ID_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 1)
+    @GenericGenerator(name = "PARTICIPANT_GEN", strategy = "org.mindtrails.persistence.MindtrailsIdGenerator", parameters = {
+            @Parameter(name = "table_name", value = "ID_GEN"),
+            @Parameter(name = "value_column_name", value = "GEN_VAL"),
+            @Parameter(name = "segment_column_name", value = "GEN_NAME"),
+            @Parameter(name = "segment_value", value = "participant") })
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "PARTICIPANT_GEN")
     protected long id;
     protected String fullName;

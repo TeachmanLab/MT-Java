@@ -219,21 +219,20 @@ public class ImportServiceTest extends BaseControllerTest {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode actualObj = mapper.readTree(result.getResponse().getContentAsString());
 
-        MvcResult delResult1 = mockMvc.perform(delete("/api/export/Participant/1")
-                .with(SecurityMockMvcRequestPostProcessors.user(admin)))
-                .andExpect((status().is2xxSuccessful()))
-                .andReturn();
-        System.out.println(delResult1.toString());
-        MvcResult delResult2 = mockMvc.perform(delete("/api/export/Participant/2")
-                .with(SecurityMockMvcRequestPostProcessors.user(admin)))
-                .andExpect((status().is2xxSuccessful()))
-                .andReturn();
-        System.out.println(delResult2.toString());
+        // Clear out all the participants, so we have an empty database.
+        participantRepository.deleteAll();
         repo.flush();
+
+        // Assure that the data we have as a json structure contains what we explect it to contain.
         Assert.assertTrue("This should be true:",service.parseDatabase("participant",actualObj.toString()));
         Assert.assertTrue("There should not be an email colomn in your json.",actualObj.get(0).path("email").isMissingNode());
         Assert.assertTrue(actualObj.get(0).path("over18").asBoolean());
         Assert.assertEquals("This should be blue",actualObj.get(0).path("theme").asText(),"blue");
+        Assert.assertNotNull("There should be an id specified",actualObj.get(0).path("id").asLong());
+        long id = actualObj.get(0).path("id").asLong();
+        Participant savedParticipant = participantRepository.findOne(id);
+        Assert.assertNotNull("The participant should be saved under the same id as it was before", savedParticipant);
+
         System.out.println(actualObj);
     }
 
