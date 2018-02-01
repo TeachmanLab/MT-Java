@@ -271,6 +271,7 @@ public class ImportServiceTest extends BaseControllerTest {
                 .with(SecurityMockMvcRequestPostProcessors.user(admin)))
                 .andExpect((status().is2xxSuccessful()))
                 .andReturn();
+
         ObjectMapper mapper = new ObjectMapper();
 
         JsonNode actualObj = mapper.readTree(result.getResponse().getContentAsString());
@@ -287,10 +288,13 @@ public class ImportServiceTest extends BaseControllerTest {
                 .andExpect((status().is2xxSuccessful()))
                 .andReturn();
         System.out.println(delResult2.toString());
+
+        studyRepository.delete(s);
+        studyRepository.delete(m);
         repo.flush();
+        Assert.assertTrue("This should be true as well:", service.parseDatabase("study",studyObj.toString()));
         Boolean answer = service.parseDatabase("participant",actualObj.toString());
         Assert.assertTrue("This should be true:",answer);
-        Assert.assertTrue("This should be true as well:", service.parseDatabase("study",studyObj.toString()));
         Assert.assertTrue("There should not be an email colomn in your json.",actualObj.get(0).path("email").isMissingNode());
         Assert.assertTrue(actualObj.get(0).path("over18").asBoolean());
         Assert.assertEquals("This should be blue",actualObj.get(0).path("theme").asText(),"blue");

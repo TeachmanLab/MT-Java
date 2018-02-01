@@ -1,13 +1,13 @@
 package org.mindtrails.persistence;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.*;
+import org.mindtrails.domain.BaseStudy;
 import org.mindtrails.domain.DoNotDelete;
 import org.mindtrails.domain.Exportable;
 import lombok.Data;
+import org.mindtrails.domain.Study;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 /**

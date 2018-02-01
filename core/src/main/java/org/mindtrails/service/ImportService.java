@@ -1,12 +1,14 @@
 package org.mindtrails.service;
 
 import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.tomcat.jni.Error;
 import org.mindtrails.domain.importData.ImportError;
 import lombok.Data;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.mindtrails.domain.importData.Scale;
+import org.mindtrails.persistence.ParticipantExportDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -199,6 +201,22 @@ public class ImportService {
         return null;
     }
 
+
+    public String getDLink() {
+        LOGGER.info("Get the json which could link two tables");
+        try {
+        String link = getOnline("PSLinkExportDAO");
+        return link;} throw Exception;
+        return null;
+    }
+
+    public void linkUp(List<ParticipantExportDAO> list) {
+        LOGGER.info("Link up two tables");
+        String link = getDLink();
+        for (ParticipantExportDAO p:list) {
+
+        }
+    }
 /**
  * parse the data you get into the database.
  *
@@ -206,6 +224,7 @@ public class ImportService {
 
     public boolean parseDatabase(String scale, String is){
         LOGGER.info("Get into the parseDatabase function");
+        String link = getDLink(scale);
         ObjectMapper mapper = new ObjectMapper();
         JpaRepository rep = exportService.getRepositoryForName(scale);
         if (rep != null) {
@@ -219,6 +238,7 @@ public class ImportService {
                     List<?> list = new ArrayList<>();
                     list = mapper.readValue(is, type);
                     LOGGER.info("Successfully created list for data.");
+                    if (scale.toLowerCase().equals("participant")) linkUp(list);
                     rep.save(list);
                     LOGGER.info("List saved successfully");
                     return true;
