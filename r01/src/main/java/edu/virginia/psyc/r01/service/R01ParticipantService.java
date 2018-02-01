@@ -52,9 +52,9 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
         } else {
             study.setConditioning(R01Study.CONDITION.NEUTRAL.name());
         }
-
         return p;
     }
+
 
     @Override
     public List<Study> getStudies() {

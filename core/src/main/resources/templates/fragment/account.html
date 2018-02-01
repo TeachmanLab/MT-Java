@@ -118,6 +118,22 @@
                 </label>
             </div>
         </div>
+        <div class="form-group row">
+            <div class="col-sm-2">
+            </div>
+            <div class="custom-control col-sm-10">
+                <label class="col-sm-10 inline-checkbox" >
+
+                    <input class="inline-checkbox" type="checkbox" id="receiveGiftCards" name="receiveGiftCards" checked="checked"
+                           th:errorclass="error" th:field="*{receiveGiftCards}"/>
+
+                    <span class="note">
+                    I’d like to receive gift cards for my participation<br/>(we will send you a code to verify your identity, this must be completed to receive gift cards.)
+                </span>
+
+                </label>
+            </div>
+        </div>
     </div>
 
     <div th:fragment="password">
