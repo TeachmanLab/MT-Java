@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="fragment/common :: headerFragment"/>
+<body >
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
+
+<!-- header-btm starts
+================================================== -->
+<section id="header-btm" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <h2 class="page-title heading-icon clearfix"><img th:src="@{/images/map-arrow-orange.png}" alt="icon"
+                                                              class="icon-small-bg"/><br/>Please select a method</h2>
+        </div>
+    </div>
+</section>
+<!--<![endif]-->
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span8">
+<form action="#" th:action="@{/account/wrongCode}" method="get">
+    <div id="wrongCodeOptionsList">
+        <p>Please select your preferred contact method:</p>
+        <input type="radio" id="contactChoice1"
+               name="wrongCodeOptions" value="continue"/>
+        <label for="contactChoice1">continue</label>
+
+        <input type="radio" id="contactChoice2"
+               name="wrongCodeOptions" value="phone"/>
+        <label for="contactChoice2">Phone</label>
+
+        <input type="radio" id="contactChoice3"
+               name="wrongCodeOptions" value="resend"/>
+        <label for="contactChoice3">resend</label>
+    </div>
+    <input type="submit" value="Verify"/>
+</form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script th:inline="javascript">
+    $(function(){
+        if (wrongCode){
+            $("#wrongCodeOptionsList").show();
+        }
+        else{
+            $("#wrongCodeOptionsList").hide();
+
+        }
+    });
+
+</script>
+
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>
+

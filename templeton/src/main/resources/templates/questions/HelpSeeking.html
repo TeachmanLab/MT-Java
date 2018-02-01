@@ -62,8 +62,9 @@
                         </div>
                         <br/>
                         <div class="radio">
-                            <label> <input type="checkbox" id="OtherChange" name="OtherChange"/> Other
-                                (please specify) <input type="text" id="other" name="other"/> </label>
+                            <label> <input type="checkbox" id="OtherChange" name="OtherChange" onchange="spec('OtherChange')"/> Other
+                                (please specify)  </label>
+                            <input type="text" id="OtherChange_spec" name="other" value="N/A"/>
                         </div>
                     </div>
 
@@ -106,7 +107,20 @@
 <div th:include="fragment/common :: scripts"/>
 
 <script type="text/javascript">
+    function spec(id) {
+        if (document.getElementById(id).checked) {
+            document.getElementById(id + "_spec").required = true;
+            if(document.getElementById(id + "_spec").value == "N/A"){
+                document.getElementById(id + "_spec").value = "";
+            }
 
+
+        }
+        else {
+            document.getElementById(id + "_spec").value = "N/A";
+            //document.getElementById(id + "_spec").required = false;
+        }
+    }
 
     function disableSection(input) {
         if (input.checked) {
