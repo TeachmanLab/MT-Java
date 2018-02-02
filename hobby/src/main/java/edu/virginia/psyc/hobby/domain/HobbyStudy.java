@@ -99,7 +99,7 @@ public class HobbyStudy extends BaseStudy {
         pretest = new Session (PRE_TEST, "Initial Assessment", 0, 0);
         pretest.setIndex(0);
         pretest.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
-        pretest.addTask(new Task("tstlunch","Lunch Question", Task.TYPE.questions, 1 ));
+        pretest.addTask(new Task("Week","Question About Your Week", Task.TYPE.questions, 1 ));
         sessions.add(pretest);
 
         session1 = new Session(FIRST_SESSION, "Level 1: Beginner", 0, 0);

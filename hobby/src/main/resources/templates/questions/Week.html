@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
+
+<head th:replace="fragment/common :: headerFragment"/>
+<body>
+<section th:replace="fragment/common :: topFragment"/>
+<section th:replace="fragment/common :: titleBar (title='Help Seeking')"/>
+<textArea th:replace="fragment/common :: questionTemplate"/>
+<section id="content" class="clearfix">
+
+    <form th:action="@{/questions/Week}" method="POST">
+        <!-- Add timer -->
+        <input id="timeOnPage" name="timeOnPage" type="hidden"/>
+        <div class="container section compactQuestion">
+            <div id="section1"></div>
+            <script>
+                var data = {
+                    "options": [
+                        {"value": 0, "title": "0"},
+                        {"value": 1, "title": "1"},
+                        {"value": 2, "title": "2-4"},
+                        {"value": 3, "title": "5-6"},
+                        {"value": 4, "title": "7"},
+                    ],
+                    "questions": [
+                        {
+                            "name": "Sandwich",
+                            "desc": "How often during the past week did you eat a sandwich?"
+                        },
+                        {
+                            "name": "Drinks",
+                            "desc": "How often during the past week did you have a drink?"
+                        },
+                        {
+                            "name": "Chips",
+                            "desc": "How often during the past week did you eat chips?"
+                        },
+                        {
+                            "name": "Fruit",
+                            "desc": "How often during the past week did you eat fruit?"
+                        }
+
+                    ]
+                }
+                $('#section1').html(Mustache.render($('#template').val(), data));
+            </script>
+        </div>
+
+
+        <div class="col-md-12" style="text-align:center">
+            <button type="submit">Next</button>
+        </div>
+
+    </form>
+
+
+</section>
+<footer th:replace="fragment/common :: footer"/>
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>
+
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts"/>
