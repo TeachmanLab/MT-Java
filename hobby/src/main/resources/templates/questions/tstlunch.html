@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
+
+<head th:replace="fragment/common :: headerFragment"/>
+<body>
+<section th:replace="fragment/common :: topFragment"/>
+<section th:replace="fragment/common :: titleBar (title='Help Seeking')"/>
+<textArea th:replace="fragment/common :: questionTemplate"/>
+<section id="content" class="clearfix">
+
+    <form th:action="@{/questions/tstlunch}" method="POST">
+        <!-- Add timer -->
+        <input id="timeOnPage" name="timeOnPage" type="hidden"/>
+        <div class="container section compactQuestion">
+            <div id="section1"></div>
+            <script>
+                var data = {
+                    "options": [
+                        {"value": 0, "title": "Blegh! NO!"},
+                        {"value": 1, "title": "meh"},
+                        {"value": 2, "title": "I guess"},
+                        {"value": 3, "title": "Sure"},
+                        {"value": 4, "title": "It thrills me!"},
+                    ],
+                    "questions": [
+                        {
+                            "name": "a1",
+                            "desc": "Is it enjoyable to see your food on fire when brought to your table?"
+                        },
+                        {
+                            "name": "a2",
+                            "desc": "Do you think cold spam would make a healthy lunch?"
+                        },
+                        {
+                            "name": "a3",
+                            "desc": "Would you enjoy lunch more with a light show, rock band and exotic dancers?"
+                        },
+                        {
+                            "name": "newone",
+                            "desc": "this is a new variable"
+                        }
+
+                    ]
+                }
+                $('#section1').html(Mustache.render($('#template').val(), data));
+            </script>
+        </div>
+
+
+        <div class="col-md-12" style="text-align:center">
+            <button type="submit">Next</button>
+        </div>
+
+    </form>
+
+
+</section>
+<footer th:replace="fragment/common :: footer"/>
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>
+
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts"/>
+l>
