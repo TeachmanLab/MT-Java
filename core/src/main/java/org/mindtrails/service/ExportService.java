@@ -113,8 +113,8 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
      * if it can't find a repository by name.
      */
     public JpaRepository getRepositoryForName(String name) {
-        if (name.toLowerCase().equals("participant"))
-            return participantExportRepository;
+//        if (name.toLowerCase().equals("participant"))
+//            return participantExportRepository;
         if (name.toLowerCase().equals("study"))
             return studyExportRepository;
         Class<?> domainType = getDomainType(name);

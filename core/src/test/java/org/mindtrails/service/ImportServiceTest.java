@@ -293,7 +293,7 @@ public class ImportServiceTest extends BaseControllerTest {
         studyRepository.delete(m);
         repo.flush();
         Assert.assertTrue("This should be true as well:", service.parseDatabase("study",studyObj.toString()));
-        Boolean answer = service.parseDatabase("participant",actualObj.toString());
+        Boolean answer = service.saveParticipant(actualObj.toString());
         Assert.assertTrue("This should be true:",answer);
         Assert.assertTrue("There should not be an email colomn in your json.",actualObj.get(0).path("email").isMissingNode());
         Assert.assertTrue(actualObj.get(0).path("over18").asBoolean());

@@ -3,12 +3,17 @@ package org.mindtrails.service;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import jdk.nashorn.internal.ir.ObjectNode;
 import org.apache.tomcat.jni.Error;
+import org.mindtrails.domain.Participant;
+import org.mindtrails.domain.Study;
 import org.mindtrails.domain.importData.ImportError;
 import lombok.Data;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.mindtrails.domain.importData.Scale;
 import org.mindtrails.persistence.ParticipantExportDAO;
+import org.mindtrails.persistence.StudyRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +30,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+import sun.rmi.runtime.Log;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -35,6 +41,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.List;
 import java.net.URI;
 
@@ -70,6 +77,9 @@ public class ImportService {
     private String path;
 
     @Autowired ExportService exportService;
+
+    @Autowired StudyRepository studyRepository;
+
 
 
 /**
@@ -202,29 +212,51 @@ public class ImportService {
     }
 
 
-    public String getDLink() {
-        LOGGER.info("Get the json which could link two tables");
-        try {
-        String link = getOnline("PSLinkExportDAO");
-        return link;} throw Exception;
-        return null;
-    }
+    /***
+     * Saving the participant data
+     */
 
-    public void linkUp(List<ParticipantExportDAO> list) {
-        LOGGER.info("Link up two tables");
-        String link = getDLink();
-        for (ParticipantExportDAO p:list) {
 
+    public boolean saveParticipant(String is){
+        LOGGER.info("Try to save the participant table after saving the study table.");
+        ObjectMapper mapper = new ObjectMapper();
+        JpaRepository rep = exportService.getRepositoryForName("participant");
+        if (rep != null) {
+            Class<?> clz = exportService.getDomainType("participant");
+            if (clz != null) {
+                JavaType type = mapper.getTypeFactory().constructCollectionType(List.class, clz);
+                try {
+                    JsonNode pObj = mapper.readTree(is);
+                    Iterator itr = pObj.elements();
+                    while (itr.hasNext()) {
+                        JsonNode elm = (JsonNode) itr.next();
+                        long index = elm.path("study").asLong();
+                        try {
+                            Study s = studyRepository.findById(index);
+                            ObjectNode p = ((ObjectNode) elm).remove("study");
+                            Participant participant = mapper.readValue(p.toString(), type);
+                            participant.setStudy(s);
+                            rep.save(participant);
+                            return true;
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            return false;
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return false;
+                }
+            }
         }
     }
-/**
- * parse the data you get into the database.
+    /**
+     * parse the data you get into the database.
  *
  * */
 
     public boolean parseDatabase(String scale, String is){
         LOGGER.info("Get into the parseDatabase function");
-        String link = getDLink(scale);
         ObjectMapper mapper = new ObjectMapper();
         JpaRepository rep = exportService.getRepositoryForName(scale);
         if (rep != null) {
@@ -238,7 +270,7 @@ public class ImportService {
                     List<?> list = new ArrayList<>();
                     list = mapper.readValue(is, type);
                     LOGGER.info("Successfully created list for data.");
-                    if (scale.toLowerCase().equals("participant")) linkUp(list);
+//                    if (scale.toLowerCase().equals("participant")) linkUp((List<ParticipantExportDAO>)list);
                     rep.save(list);
                     LOGGER.info("List saved successfully");
                     return true;
