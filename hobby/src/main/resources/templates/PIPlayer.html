@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head>
+    <link type="text/css" rel="Stylesheet" th:href="@{/bower/PIPlayer/dist/css/main.css}"/>
+    <link rel="stylesheet" media="screen" th:href="@{/css/piPlayer.css}" />
+
+    <script th:src="@{/bower/papaparse/papaparse.min.js}"></script>
+    <script th:src="@{/bower/requirejs/require.js}"></script>
+    <script th:src="@{/js/sequenceBuilder.js}"></script>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+
+        // Here we set up some global parameters that feed directly in to the PIPlayer script.
+        var piGlobal = { // create the global object
+            script : /*[[${script}]]*/ int_train.js,
+            session : /*[[${sessionName}]]*/ PRE,
+            participant : /*[[${participantId}]]*/ 1,
+            cbmCondition : /*[[${conditioning}]]*/ "FITFY_FIFTY",
+            negate : /*[[${negate}]]*/ true
+        }
+
+        var contextRoot = /*[[@{/}]]*/ '';
+        var conditioning = /*[[${conditioning}]]*/ "NEUTRAL";
+        var script = /*[[@{${script}}]]*/ "scenerio";
+        var letters_to_remove = /*[[${lettersToRemove}]]*/ 1;
+
+        if(condition == "NEUTRAL") {
+            script = script + "_neutral"
+        }
+        var csvFile = contextRoot + "piPlayerCSV/" + script + ".csv";
+
+        Papa.parse(csvFile, {
+            download: true,
+            dynamicTyping: true,
+            header: true,
+            complete: function (results) {
+
+                var total_sequences = 40;
+                var scriptData = {
+                    display_length: total_sequences,
+                    frag:  /*[[${fragment}]]*/ "first",
+                    quest: /*[[${question}]]*/ "mc1",
+                    sequence: processCSV(results.data, piGlobal.cbmCondition, total_sequences, letters_to_remove)
+                };
+
+                piGlobal.sequence = scriptData;
+
+                require([contextRoot + 'js/config.js'], function () {
+                    require(["activatePIP", contextRoot + 'js/PiPlayerMain.js'], function (activatePIP, script) {
+                        activatePIP(script);
+                    })
+                });
+            }
+        });
+
+        /*]]>*/
+    </script>
+</head>
+<body id="mindtrails">
+<div class="piPlayerHeader">
+    <img th:src="@{/images/header-minimal.png}"/>
+</div>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
+
+<head th:replace="fragment/common :: headerFragment"/>
+<body>
+<section th:replace="fragment/common :: topFragment"/>
+<section th:replace="fragment/common :: titleBar (title='Debriefing')"/>
+
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+
+                <h3>Online Future Thinking Training Program Information</h3>
+
+                <p>We are currently investigating experimental approaches to encourage healthy future thinking. The
+                    experimental approaches used in the study are based on research showing that anxious people tend
+                    to interpret ambiguous situations as threatening. It has been proposed that the tendency to
+                    interpret things in a threatening way plays a role in the onset of, and recovery from, anxiety
+                    problems. We think a similar process may occur when people worry a lot about how events will
+                    turn out in the future.
+                </p>
+
+                <p>In the current study, we are evaluating if it is possible to change future thinking patterns over
+                    the Internet, and whether changing these thinking patterns will increase optimism and improve
+                    mood. You were asked to read and imagine yourself in a series of brief stories. In the two main
+                    active conditions, the last word (or word fragment) gave all brief stories a positive meaning.
+                    In two alternative conditions, which we still expect to be somewhat helpful, the last word (or
+                    word fragment) gave half of the stories a positive meaning and half of the stories a negative
+                    meaning. In the “control” condition, which was not expected to be as helpful at encouraging
+                    healthy future thinking, you read stories that were not expected to raise emotional responses
+                    about the future. </p>
+                <p>If you are interested in learning more about modifying thinking patterns, see the following
+                    websites:
+                    <ul>
+                        <li><a target="new" href="http://www.apa.org/monitor/2011/11/behavior-change.aspx">Behavior change in 15-minute sessions?
+                        </a></li>
+                        <li><a target="new" href="http://www.economist.com/node/18276234">Therapist-free therapy</a></li>
+                    </ul>
+                </p>
+
+                <p> If you have any questions about this study, please email Bethany Teachman and the MindTrails
+                    team at studyteam@mindtrails.org.
+                </p>
+
+                <p>For those seeking additional mental health help or advice:</p>
+                <p>(1) Do you need immediate help? If you are thinking about harming yourself or someone else,
+                    please tell someone who can help immediately:</p>
+                <p>- Call 911 for emergency services (in the United States).</p>
+                <p>- Go to a hospital emergency room.</p>
+                <p>- Call the toll-free 24-hour hotline of National Suicide Prevention Lifeline at 1-800-273-TALK
+                    (1-800-273-8255) to be connected to a trained counselor at a crisis center near you.</p>
+                <p>(2) If you do not need immediate help, but would like to talk to someone about the problems you
+                    might be having, please follow the mental health resources link on this site. If you have any
+                    questions concerning mental health issues in general or feel especially concerned about your own
+                    thoughts or mood, please visit our mental health links page.
+                </p>
+
+                <button onclick="window.print();">Print this page</button>
+
+                <p><b>Thank you again for your participation.</b></p>
+
+            </div>
+        </div>
+    </div>
+</section>
+<footer th:replace="fragment/common :: footer"/>
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>
