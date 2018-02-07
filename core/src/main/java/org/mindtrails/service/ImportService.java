@@ -3,8 +3,8 @@ package org.mindtrails.service;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.util.JSONPObject;
-import jdk.nashorn.internal.ir.ObjectNode;
 import org.apache.tomcat.jni.Error;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.Study;
@@ -224,7 +224,6 @@ public class ImportService {
         if (rep != null) {
             Class<?> clz = exportService.getDomainType("participant");
             if (clz != null) {
-                JavaType type = mapper.getTypeFactory().constructCollectionType(List.class, clz);
                 try {
                     JsonNode pObj = mapper.readTree(is);
                     Iterator itr = pObj.elements();
@@ -233,8 +232,9 @@ public class ImportService {
                         long index = elm.path("study").asLong();
                         try {
                             Study s = studyRepository.findById(index);
-                            ObjectNode p = ((ObjectNode) elm).remove("study");
-                            Participant participant = mapper.readValue(p.toString(), type);
+                            ObjectNode p = elm.deepCopy();
+                            p.remove("study");
+                            Participant participant = mapper.readValue(p.toString(), Participant.class);
                             participant.setStudy(s);
                             rep.save(participant);
                             return true;
@@ -249,6 +249,7 @@ public class ImportService {
                 }
             }
         }
+        return false;
     }
     /**
      * parse the data you get into the database.

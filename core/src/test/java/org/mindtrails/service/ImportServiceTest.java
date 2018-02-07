@@ -224,7 +224,7 @@ public class ImportServiceTest extends BaseControllerTest {
         repo.flush();
 
         // Assure that the data we have as a json structure contains what we explect it to contain.
-        Assert.assertTrue("This should be true:",service.parseDatabase("participant",actualObj.toString()));
+        Assert.assertTrue("This should be true:",service.saveParticipant(actualObj.toString()));
         Assert.assertTrue("There should not be an email colomn in your json.",actualObj.get(0).path("email").isMissingNode());
         Assert.assertTrue(actualObj.get(0).path("over18").asBoolean());
         Assert.assertEquals("This should be blue",actualObj.get(0).path("theme").asText(),"blue");
