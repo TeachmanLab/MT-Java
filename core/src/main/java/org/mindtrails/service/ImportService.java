@@ -237,7 +237,6 @@ public class ImportService {
                             Participant participant = mapper.readValue(p.toString(), Participant.class);
                             participant.setStudy(s);
                             rep.save(participant);
-                            return true;
                         } catch (Exception e) {
                             e.printStackTrace();
                             return false;
@@ -247,6 +246,7 @@ public class ImportService {
                     e.printStackTrace();
                     return false;
                 }
+                return true;
             }
         }
         return false;

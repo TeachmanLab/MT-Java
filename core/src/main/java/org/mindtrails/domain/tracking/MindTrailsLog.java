@@ -26,7 +26,7 @@ public abstract class MindTrailsLog implements Comparable<MindTrailsLog> {
     @ManyToOne
     @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
     @JsonIdentityReference(alwaysAsId=true)
-    @JsonProperty("participantId")
+    @JsonProperty("participant")
     protected Participant participant;
 
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="EEE, dd MMM yyyy HH:mm:ss Z", timezone="EST")

@@ -295,7 +295,7 @@ public class ImportServiceTest extends BaseControllerTest {
         Assert.assertTrue("This should be true as well:", service.parseDatabase("study",studyObj.toString()));
         Boolean answer = service.saveParticipant(actualObj.toString());
         Assert.assertTrue("This should be true:",answer);
-        Assert.assertTrue("There should not be an email colomn in your json.",actualObj.get(0).path("email").isMissingNode());
+        Assert.assertTrue("There should not be an email column in your json.",actualObj.get(0).path("email").isMissingNode());
         Assert.assertTrue(actualObj.get(0).path("over18").asBoolean());
         Assert.assertEquals("This should be blue",actualObj.get(0).path("theme").asText(),"blue");
         System.out.println(actualObj);
