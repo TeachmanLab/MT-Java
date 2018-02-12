@@ -1,7 +1,7 @@
 package org.mindtrails.service;
 
-import org.mindtrails.domain.DoNotDelete;
-import org.mindtrails.domain.Exportable;
+import org.mindtrails.domain.data.DoNotDelete;
+import org.mindtrails.domain.data.Exportable;
 import org.mindtrails.domain.questionnaire.QuestionnaireInfo;
 import org.mindtrails.domain.tracking.ExportLog;
 import org.mindtrails.persistence.ExportLogRepository;
