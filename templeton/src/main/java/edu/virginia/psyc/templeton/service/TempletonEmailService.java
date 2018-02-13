@@ -1,6 +1,7 @@
 package edu.virginia.psyc.templeton.service;
 
 import edu.virginia.psyc.templeton.domain.TempletonStudy;
+import edu.virginia.psyc.templeton.persistence.ExpectancyBias;
 import org.mindtrails.domain.Email;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.Session;
@@ -18,6 +19,7 @@ import java.util.List;
  */
 @Service
 public class TempletonEmailService extends EmailServiceImpl implements EmailService{
+    private String RISING_SCORE = "risingScore";
     private String FIRST_SESSION = "SESSION1";
     private String SECOND_SESSION = "SESSION2";
     private String THIRD_SESSION = "SESSION3";
@@ -26,6 +28,7 @@ public class TempletonEmailService extends EmailServiceImpl implements EmailServ
     @Override
     public List<Email> emailTypes() {
         List<Email> emails = super.emailTypes();
+        emails.add(new Email(RISING_SCORE, "MindTrails Alert! Participant score is rising"));
         emails.add(new Email(FIRST_SESSION, "Bonus feature from the MindTrails team"));
         emails.add(new Email(SECOND_SESSION, "Bonus feature from the MindTrails team"));
         emails.add(new Email(THIRD_SESSION, "Bonus feature from the MindTrails team"));
@@ -53,4 +56,20 @@ public class TempletonEmailService extends EmailServiceImpl implements EmailServ
             sendEmail(email);
         }
     }
+
+    public void sendAtRiskAdminEmail(Participant participant, ExpectancyBias firstEntry, ExpectancyBias currentEntry) {
+        // Prepare the evaluation context
+        final Context ctx = new Context();
+        ctx.setVariable("orig", firstEntry);
+        ctx.setVariable("latest", currentEntry);
+
+        Email email = getEmailForType(RISING_SCORE);
+        email.setContext(ctx);
+        email.setTo(this.alertsTo);
+        email.setParticipant(participant);
+
+        sendEmail(email);
+    }
+
+
 }
