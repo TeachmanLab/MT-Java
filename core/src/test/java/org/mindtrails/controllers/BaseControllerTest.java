@@ -7,6 +7,7 @@ import org.mindtrails.MockClasses.TestStudy;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.persistence.ParticipantRepository;
 import org.mindtrails.persistence.StudyRepository;
+import org.mindtrails.persistence.TaskLogRepository;
 import org.mindtrails.service.ParticipantService;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +55,9 @@ public abstract class BaseControllerTest {
 
     @Autowired
     protected StudyRepository studyRepository;
+
+    @Autowired
+    protected TaskLogRepository taskLogRepository;
 
     @Autowired
     protected ParticipantService participantService;

@@ -251,6 +251,50 @@ public class ImportService {
         }
         return false;
     }
+
+
+    /**
+     * Save taskLog
+     */
+
+    public boolean saveTaskLog(String is) {
+        LOGGER.info("Try to save the tasklog table after saving the study table.");
+        ObjectMapper mapper = new ObjectMapper();
+        JpaRepository rep = exportService.getRepositoryForName("tasklog");
+        if (rep != null) {
+            Class<?> clz = exportService.getDomainType("tasklog");
+            if (clz != null) {
+                try {
+                    JsonNode pObj = mapper.readTree(is);
+                    Iterator itr = pObj.elements();
+                    while (itr.hasNext()) {
+                        JsonNode elm = (JsonNode) itr.next();
+                        long index = elm.path("study").asLong();
+                        try {
+                            Study s = studyRepository.findById(index);
+                            ObjectNode p = elm.deepCopy();
+                            p.remove("study");
+                            Participant participant = mapper.readValue(p.toString(), Participant.class);
+                            participant.setStudy(s);
+                            rep.save(participant);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            return false;
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return false;
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
+
     /**
      * parse the data you get into the database.
  *

@@ -4,16 +4,19 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Assert;
 import org.mindtrails.Application;
-import org.mindtrails.MockClasses.TestQuestionnaireRepository;
-import org.mindtrails.MockClasses.TestUndeleteableRepository;
+import org.mindtrails.MockClasses.*;
 import org.mindtrails.controller.ExportController;
 import org.mindtrails.controller.QuestionController;
 import org.mindtrails.controllers.BaseControllerTest;
 import org.mindtrails.controllers.ExportControllerTest;
 import org.mindtrails.domain.Participant;
+import org.mindtrails.domain.Study;
 import org.mindtrails.domain.importData.Scale;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mindtrails.domain.tracking.EmailLog;
+import org.mindtrails.domain.tracking.GiftLog;
+import org.mindtrails.domain.tracking.TaskLog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +67,9 @@ public class ImportServiceTest extends BaseControllerTest {
     private TestQuestionnaireRepository repo;
     @Autowired
     private TestUndeleteableRepository repoU;
+    @Autowired
+    private EntityManager entityManager;
+
 
 
 
@@ -72,13 +78,16 @@ public class ImportServiceTest extends BaseControllerTest {
     private static final Logger LOGGER = LoggerFactory.getLogger((ImportServiceTest.class));
 
 
-//    private void createTestEntries() {
-//        Participant p = pService.create();
-//        p.setActive(true);
-//        p.setAdmin(true);
-//        p.setEmail("test@test.com");
-//        entityManager.persist(p);
-//    }
+    private void createTestEntries() {
+        Participant p = new Participant("Joe Test", "j@t.com", false);
+        p.setStudy(new TestStudy());
+        entityManager.persist(p);
+        entityManager.persist(new TestQuestionnaire("MyTestValue"));
+        entityManager.persist(new TestUndeleteable("MyTestValue"));
+        entityManager.persist(new GiftLog(p, "Order1", "Session 1"));
+        entityManager.persist(new EmailLog(p,"Email1"));
+        entityManager.persist(new TaskLog(p.getStudy(),25.0));
+    }
 
 
     @Override
@@ -156,6 +165,7 @@ public class ImportServiceTest extends BaseControllerTest {
         assertTrue(service.updateStudyOnline());
     }
 
+
     @Test
     public void saveAllLog() throws Exception {
         LOGGER.info("Try to update all the log files");
@@ -205,6 +215,10 @@ public class ImportServiceTest extends BaseControllerTest {
         assertEquals(i,list.size());
     }
 
+    /**
+     *   Test if you can import the participant table.
+     * @throws Exception
+     */
 
     @Test
     public void testParticipantDeIdentifiedInfoCorrect() throws Exception {
@@ -236,6 +250,11 @@ public class ImportServiceTest extends BaseControllerTest {
         System.out.println(actualObj);
     }
 
+
+    /**
+     * See if you can import the study table.
+     * @throws Exception
+     */
     @Test
     public void testStudyInfoCorrect() throws Exception {
         repo.flush();
@@ -253,6 +272,11 @@ public class ImportServiceTest extends BaseControllerTest {
         Assert.assertEquals("This should be testing:","Testing",actualObj.get(0).path("conditioning").toString());
         Assert.assertEquals("This should be 1:",1,actualObj.get(0).path("id").asInt());
     }
+
+    /**
+     *  See if you can import participant and study tables and then link them back together.
+     * @throws Exception
+     */
 
     @Test
     public void testPSInfoCorrect() throws Exception {
@@ -299,6 +323,30 @@ public class ImportServiceTest extends BaseControllerTest {
         Assert.assertTrue(actualObj.get(0).path("over18").asBoolean());
         Assert.assertEquals("This should be blue",actualObj.get(0).path("theme").asText(),"blue");
         System.out.println(actualObj);
+    }
+
+
+    /**
+     *  Test if you can import the task_log and link it to the study object.
+     */
+
+    @Test
+    public void testTaskLog() throws Exception {
+        createTestEntries();
+        MvcResult result = mockMvc.perform(get("api/export/TaskLog")
+                .with(SecurityMockMvcRequestPostProcessors.user(admin)))
+                .andExpect((status().is2xxSuccessful()))
+                .andReturn();
+
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode taskObj = mapper.readTree(result.getResponse().getContentAsString());
+
+        taskLogRepository.delete((long)1;
+        repo.flush();
+        Assert.assertTrue("This should be true:",service.saveTaskLog(taskObj.toString()));
+        System.out.println(taskObj.toString());
+
+
     }
 
 }
