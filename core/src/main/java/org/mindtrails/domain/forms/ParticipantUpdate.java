@@ -32,8 +32,9 @@ public class ParticipantUpdate implements HasPhone {
     protected boolean emailReminders = true;
     protected boolean phoneReminders = true;
     protected boolean receiveGiftCards = false;
-    protected boolean verified = false;
-    protected boolean blacklist = false;
+    //protected boolean verified = false;
+    //protected boolean blacklist = false;
+    //protected boolean giftCardsQualification=false;
 
     protected String timezone;
 
@@ -45,10 +46,11 @@ public class ParticipantUpdate implements HasPhone {
         this.emailReminders = p.isEmailReminders();
         this.phoneReminders = p.isPhoneReminders();
         this.receiveGiftCards = p.isReceiveGiftCards();
-        this.verified = p.isVerified();
-        this.blacklist = p.isBlacklist();
+        //this.verified = p.isVerified();
+        //this.blacklist = p.isBlacklist();
         this.theme = p.getTheme();
         this.phone = p.getPhone();
+        //this.giftCardsQualification=p.isGiftCardsQualification();
         this.timezone = p.getTimezone();
     }
 
@@ -63,13 +65,15 @@ public class ParticipantUpdate implements HasPhone {
         p.setEmailReminders(this.isEmailReminders());
         p.setPhoneReminders(this.isPhoneReminders());
         p.setReceiveGiftCards(this.isReceiveGiftCards());
-        p.setVerified(this.isVerified());
-        p.setBlacklist(this.isBlacklist());
+        //p.setVerified(this.isVerified());
+        //p.setBlacklist(this.isBlacklist());
         p.setPhone(formatPhone(this.phone));
         p.setTimezone(this.getTimezone());
+        //p.setGiftCardsQualification(this.isGiftCardsQualification());
         if(this.theme != null) p.setTheme(this.getTheme());
         return p;
     }
+
 
     /**
      * Converts the provided phone number to the E164 standard used by

@@ -125,7 +125,7 @@
                 <label class="col-sm-10 inline-checkbox" >
 
                     <input class="inline-checkbox" type="checkbox" id="receiveGiftCards" name="receiveGiftCards" checked="checked"
-                           th:errorclass="error" th:field="*{receiveGiftCards}"/>
+                           th:errorclass="error" th:field="*{receiveGiftCards}" onchange="Verify()"/>
 
                     <span class="note">
                     I’d like to receive gift cards for my participation<br/>(we will send you a code to verify your identity, this must be completed to receive gift cards.)
@@ -323,7 +323,16 @@
         <button>Update</button>
     </div>
 </section>
+<script type="text/javascript">
+    function Verify(){
+        if (document.getElementById("receiveGiftCards").checked) {
 
+
+        }
+
+    }
+}
+</script>
 
 </body>
 </html>

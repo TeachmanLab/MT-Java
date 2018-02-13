@@ -199,6 +199,10 @@ public  class Participant implements UserDetails {
         String hashedPassword = encoder.encode(password);
         this.password = hashedPassword;
     }
+
+    /**
+     * Update the phone number
+     */
     public void updatePhone(String phone){
         this.setPhone(formatPhone(phone));
     }
@@ -214,6 +218,13 @@ public  class Participant implements UserDetails {
         } catch (NumberParseException e) {
             return p; // Leave it alone, let validation handle it.
         }
+    }
+    /**
+     * Checks to see if this type of email was already sent to the user regarding the
+     * given session.
+     */
+    public void updateGiftCardsQualification(){
+        this.giftCardsQualification=this.receiveGiftCards&&this.verified&&!this.blacklist;
     }
 
     /**

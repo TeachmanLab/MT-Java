@@ -128,9 +128,61 @@ public class AccountController extends BaseController {
         return "account/theme";
     }
 
-    @RequestMapping("verification")
-    public String verify(@RequestParam(value="verifycode", required=false, defaultValue="NAN") String verifycode,ModelMap model, Principal principal) {
+    @RequestMapping(value="updateTheme", method = RequestMethod.POST)
+    public String updateTheme(ModelMap model, String theme, Principal principal) {
         Participant p = participantService.get(principal);
+        p.setTheme(theme);
+        participantService.save(p);
+        return "redirect:/session";
+    }
+
+    @RequestMapping("wrongCode")
+    public String showwrongcode(ModelMap model, Principal principal) {
+        //ParticipantUpdate update = new ParticipantUpdate();
+        //update.fromParticipant(getParticipant(principal));
+        //model.addAttribute("participantUpdate", update);
+        return "account/wrongCode";
+
+    }
+
+    @RequestMapping(value="updateWrongCode",method=RequestMethod.POST)
+    public String updatewrongcode(ModelMap model, Principal principal, String phone) {
+        Participant p=participantService.get(principal);
+        p.updatePhone(phone);
+        participantService.save(p);
+        if (p.isReceiveGiftCards()){
+            String code=p.getVerificationCode().getCode();
+            twilioService.sendMessage(code,p);
+            return "account/verification";
+        }
+        return "redirect:/session";
+
+    }
+    @RequestMapping(value="/verified",method= RequestMethod.GET)
+    public String verified(){
+
+        return "account/verified";
+    }
+
+    @RequestMapping("PostVerification")
+    public String PostVerification(@RequestParam(value="verifycode", required=false, defaultValue="NAN") String verifycode,ModelMap model, Principal principal) {
+        Participant p = participantService.get(principal);
+        p.setReceiveGiftCards(true);
+        p.setVerificationCode(new VerificationCode(p));
+        participantService.save(p);
+        String code=p.getVerificationCode().getCode();
+        twilioService.sendMessage(code,p);
+        return "account/verification";
+
+        //String code=p.getVerificationCode().getCode();
+        //this.twilioService.sendMessage(code,p);
+
+    }
+
+    @RequestMapping(value="/verification", method = RequestMethod.POST)
+    public String verify(@RequestParam String verifycode, ModelMap model, Principal principal) {
+        Participant p = participantService.get(principal);
+
         String code=p.getVerificationCode().getCode();
 
         //this.twilioService.sendMessage(code,p);
@@ -139,56 +191,30 @@ public class AccountController extends BaseController {
 
         //model.addAttribute("verifycode", verifycode);
         //model.addAttribute("result", code);
-
-
-
             if (code.equals(verifycode)&&p.getVerificationCode().valid()) {
                 wrongCode = false;
+                p.setVerified(true);
+                p.updateGiftCardsQualification();
+                participantService.save(p);
+                //participantService.flush();
                 model.addAttribute("note", note);
                 model.addAttribute("wrong", wrongCode);
-                return "redirect:/account/theme";
-            } else if (verifycode.length() == 0) {
-                model.addAttribute("note", note);
-                model.addAttribute("wrong", wrongCode);
-                return "account/verification";
-            } else {
+                return "redirect:/account/verified";
+            }  else {
                 note = "Your verification code is not correct or valid any more";
                 wrongCode = true;
                 model.addAttribute("note", note);
                 model.addAttribute("wrong", wrongCode);
-                return "account/wrongCode";
+                return "redirect:/account/wrongCode";
             }
-
     }
 
-    @RequestMapping("wrongCode")
-    public String wrongcode(@RequestParam(value="wrongCodeOptions", required=false, defaultValue="NAN") String wrongCodeOptions,ModelMap model, Principal principal) {
-        Participant p = participantService.get(principal);
-        //String code=p.getVerificationCode().getCode();
 
-       if(wrongCodeOptions.equals("resend")){
-           p.setVerificationCode(new VerificationCode(p));
-            twilioService.sendMessage(p.getVerificationCode().getCode(),p);
-            return "account/verification";
-        }
-        else if (wrongCodeOptions.equals("continue")){
-            return "redirect:/account/theme";
-        }
-        else if(wrongCodeOptions.equals("phone")){
-            return "account/changePhone";
-        }
-        else{
-            return "account/wrongCode";
-        }
 
-    }
-    @RequestMapping("changePhone")
-    public String changePhone(@RequestParam(value="newPhone", required=false, defaultValue="NAN") String newPhone,ModelMap model, Principal principal) {
-          if(newPhone.length()==0){
+    @RequestMapping(value="/changePhone", method = RequestMethod.POST)
+    public String changePhone(@RequestParam String newPhone, ModelMap model, Principal principal) {
 
-            return "account/changePhone";
-        }
-        else{
+
               Participant p = participantService.get(principal);
               p.setVerificationCode(new VerificationCode(p));
               p.updatePhone(newPhone);
@@ -199,22 +225,11 @@ public class AccountController extends BaseController {
                   twilioService.sendMessage(code,p);
                   return "account/verification";
               }
-              model.addAttribute("updated", true);
               return "redirect:/account/theme";
-          }
-
-
-
 
     }
 
-    @RequestMapping(value="updateTheme", method = RequestMethod.POST)
-    public String updateTheme(ModelMap model, String theme, Principal principal) {
-        Participant p = participantService.get(principal);
-        p.setTheme(theme);
-        participantService.save(p);
-        return "redirect:/session";
-    }
+
 
     @RequestMapping("exitStudyConfirm")
     public String exitStudyConfirm(ModelMap model, Principal principal) {
