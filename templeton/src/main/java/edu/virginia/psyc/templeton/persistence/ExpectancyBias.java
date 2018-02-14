@@ -90,6 +90,8 @@ public class ExpectancyBias extends LinkedQuestionnaireData implements Comparabl
         return(positiveAverage() - negativeAverage());
     }
 
+
+
     /**
      * Participants are eligible if their score is less than 1.1111.  Meaning they
      * are no more than a very minimal positive inclination.
@@ -99,11 +101,14 @@ public class ExpectancyBias extends LinkedQuestionnaireData implements Comparabl
         return score() < MAX_ELIGIBLE_SCORE;
     }
 
-    /** Determins if this score is low enough to consider the participant "at-risk"
+    /** Determines if this score is low enough to consider the participant "at-risk"
         when compared to the original score.
      */
     public boolean atRisk(ExpectancyBias original) {
-        return (score() / original.score()) > 1.5;
+        double original_score = original.score() + 8;
+        double current_score = score() + 8;
+        double ratio = (current_score - original_score) / original_score;
+        return ratio < -0.5;
     }
 
     @Override
