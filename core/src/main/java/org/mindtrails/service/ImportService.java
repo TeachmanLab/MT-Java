@@ -13,6 +13,7 @@ import lombok.Data;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.mindtrails.domain.importData.Scale;
 import org.mindtrails.persistence.ParticipantExportDAO;
+import org.mindtrails.persistence.ParticipantRepository;
 import org.mindtrails.persistence.StudyRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,6 +80,8 @@ public class ImportService {
     @Autowired ExportService exportService;
 
     @Autowired StudyRepository studyRepository;
+
+    @Autowired ParticipantRepository participantRepository;
 
 
 
@@ -253,52 +256,79 @@ public class ImportService {
     }
 
 
+//    /**
+//     * Save taskLog
+//     */
+//
+//    public boolean saveTaskLog(String is) {
+//        LOGGER.info("Try to save the tasklog table after saving the study table.");
+//        ObjectMapper mapper = new ObjectMapper();
+//        JpaRepository rep = exportService.getRepositoryForName("tasklog");
+//        if (rep != null) {
+//            Class<?> clz = exportService.getDomainType("tasklog");
+//            if (clz != null) {
+//                try {
+//                    JsonNode pObj = mapper.readTree(is);
+//                    Iterator itr = pObj.elements();
+//                    while (itr.hasNext()) {
+//                        JsonNode elm = (JsonNode) itr.next();
+//                        long index = elm.path("study").asLong();
+//                        try {
+//                            Study s = studyRepository.findById(index);
+//                            ObjectNode p = elm.deepCopy();
+//                            p.remove("study");
+//                            Participant participant = mapper.readValue(p.toString(), Participant.class);
+//                            participant.setStudy(s);
+//                            rep.save(participant);
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                            return false;
+//                        }
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                    return false;
+//                }
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
+
+
     /**
-     * Save taskLog
+     *
+     * Save all the questionnaire and mindtrails logs
      */
 
-    public boolean saveTaskLog(String is) {
-        LOGGER.info("Try to save the tasklog table after saving the study table.");
+    public boolean linkParticipant(JsonNode obj, Class clz, JpaRepository rep) {
+        LOGGER.info("Try to link a questionnaire or log with the participant");
+        Iterator itr = obj.elements();
         ObjectMapper mapper = new ObjectMapper();
-        JpaRepository rep = exportService.getRepositoryForName("tasklog");
-        if (rep != null) {
-            Class<?> clz = exportService.getDomainType("tasklog");
-            if (clz != null) {
-                try {
-                    JsonNode pObj = mapper.readTree(is);
-                    Iterator itr = pObj.elements();
-                    while (itr.hasNext()) {
-                        JsonNode elm = (JsonNode) itr.next();
-                        long index = elm.path("study").asLong();
-                        try {
-                            Study s = studyRepository.findById(index);
-                            ObjectNode p = elm.deepCopy();
-                            p.remove("study");
-                            Participant participant = mapper.readValue(p.toString(), Participant.class);
-                            participant.setStudy(s);
-                            rep.save(participant);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            return false;
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return false;
-                }
-                return true;
+        while (itr.hasNext()) {
+            JsonNode elm = (JsonNode) itr.next();
+            long index = elm.path("participant").asLong();
+            try {
+                Participant s = participantRepository.findOne(index);
+                ObjectNode p = elm.deepCopy();
+                p.remove("participant");
+                Object object = clz.getConstructor(String.class).newInstance("endPoint");
+                object = mapper.readValue(p.toString(),clz).setParticipant(s);
+                
+                rep.save(object);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
             }
         }
-        return false;
+        return true;
+
     }
-
-
-
 
     /**
      * parse the data you get into the database.
- *
- * */
+     *
+     * */
 
     public boolean parseDatabase(String scale, String is){
         LOGGER.info("Get into the parseDatabase function");
@@ -312,13 +342,8 @@ public class ImportService {
                 JavaType type = mapper.getTypeFactory().constructCollectionType(List.class, clz);
                 LOGGER.info("Successfully created mapper.");
                 try {
-                    List<?> list = new ArrayList<>();
-                    list = mapper.readValue(is, type);
-                    LOGGER.info("Successfully created list for data.");
-//                    if (scale.toLowerCase().equals("participant")) linkUp((List<ParticipantExportDAO>)list);
-                    rep.save(list);
-                    LOGGER.info("List saved successfully");
-                    return true;
+                    JsonNode obj = mapper.readTree(is);
+                    return linkParticipant(obj,type,rep);
                 } catch (Exception e) {
                     e.printStackTrace();
                     return false;

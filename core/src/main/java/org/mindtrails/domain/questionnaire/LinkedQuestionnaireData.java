@@ -30,5 +30,7 @@ public abstract class LinkedQuestionnaireData extends QuestionnaireData {
     @JsonProperty(value = "participant")
     protected Participant participant;
 
+    public void setParticipant();
+
 
 }
