@@ -30,9 +30,10 @@ public class TestQuestionnaire extends LinkedQuestionnaireData {
     private double timeOnPage;
 
     public TestQuestionnaire() {}
-    public TestQuestionnaire(String value) {
+    public TestQuestionnaire(String value, Participant participant) {
         this.value = value;
         this.date = new Date();
+        this.participant = participant;
 
     }
 

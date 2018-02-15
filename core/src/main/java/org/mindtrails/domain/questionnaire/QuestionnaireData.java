@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.mindtrails.domain.Exportable;
 import org.mindtrails.domain.Participant;
 import lombok.Data;
+import org.mindtrails.domain.hasParticipant;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -17,7 +18,7 @@ import java.util.Map;
 @MappedSuperclass
 @Data
 @Exportable // All Quetionnaire data should be exportable.
-public abstract class QuestionnaireData {
+public abstract class QuestionnaireData implements hasParticipant {
 
 
     @Id

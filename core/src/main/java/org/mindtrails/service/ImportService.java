@@ -8,6 +8,8 @@ import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.apache.tomcat.jni.Error;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.Study;
+import org.mindtrails.domain.hasParticipant;
+import org.mindtrails.domain.hasStudy;
 import org.mindtrails.domain.importData.ImportError;
 import lombok.Data;
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -312,9 +314,37 @@ public class ImportService {
                 Participant s = participantRepository.findOne(index);
                 ObjectNode p = elm.deepCopy();
                 p.remove("participant");
-                Object object = clz.getConstructor(String.class).newInstance("endPoint");
-                object = mapper.readValue(p.toString(),clz).setParticipant(s);
-                
+                Object object = mapper.readValue(p.toString(),clz);
+                if (object instanceof hasParticipant) ((hasParticipant) object).setParticipant(s);
+                rep.save(object);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+        return true;
+
+    }
+
+
+    /**
+     *
+     * Save all the questionnaire and mindtrails logs
+     */
+
+    public boolean linkStudy(JsonNode obj, Class clz, JpaRepository rep) {
+        LOGGER.info("Try to link a questionnaire or log with the study");
+        Iterator itr = obj.elements();
+        ObjectMapper mapper = new ObjectMapper();
+        while (itr.hasNext()) {
+            JsonNode elm = (JsonNode) itr.next();
+            long index = elm.path("study").asLong();
+            try {
+                Study s = studyRepository.findById(index);
+                ObjectNode p = elm.deepCopy();
+                p.remove("study");
+                Object object = mapper.readValue(p.toString(),clz);
+                if (object instanceof hasStudy) ((hasStudy) object).setStudy(s);
                 rep.save(object);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -339,11 +369,13 @@ public class ImportService {
             Class<?> clz = exportService.getDomainType(scale);
             if (clz != null) {
                 LOGGER.info("Found " + clz.getName() + " class.");
-                JavaType type = mapper.getTypeFactory().constructCollectionType(List.class, clz);
-                LOGGER.info("Successfully created mapper.");
                 try {
                     JsonNode obj = mapper.readTree(is);
-                    return linkParticipant(obj,type,rep);
+                    if (hasStudy.class.isInstance(clz.newInstance())) {
+                        return linkStudy(obj,clz,rep);
+                    } else if (hasParticipant.class.isInstance(clz.newInstance())){
+                        return linkParticipant(obj, clz, rep);
+                    };
                 } catch (Exception e) {
                     e.printStackTrace();
                     return false;

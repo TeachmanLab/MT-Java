@@ -17,6 +17,7 @@ import org.junit.runner.RunWith;
 import org.mindtrails.domain.tracking.EmailLog;
 import org.mindtrails.domain.tracking.GiftLog;
 import org.mindtrails.domain.tracking.TaskLog;
+import org.mindtrails.persistence.EmailLogRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,7 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
 @ActiveProfiles("test")
+@Transactional
 public class ImportServiceTest extends BaseControllerTest {
 
     @Autowired
@@ -69,10 +71,8 @@ public class ImportServiceTest extends BaseControllerTest {
     private TestUndeleteableRepository repoU;
     @Autowired
     private EntityManager entityManager;
-
-
-
-
+    @Autowired
+    private EmailLogRepository emailRepo;
 
 
     private static final Logger LOGGER = LoggerFactory.getLogger((ImportServiceTest.class));
@@ -82,11 +82,11 @@ public class ImportServiceTest extends BaseControllerTest {
         Participant p = new Participant("Joe Test", "j@t.com", false);
         p.setStudy(new TestStudy());
         entityManager.persist(p);
-        entityManager.persist(new TestQuestionnaire("MyTestValue"));
+        entityManager.persist(new TestQuestionnaire("MyTestValue",p));
         entityManager.persist(new TestUndeleteable("MyTestValue"));
         entityManager.persist(new GiftLog(p, "Order1", "Session 1"));
-        entityManager.persist(new EmailLog(p,"Email1"));
-        entityManager.persist(new TaskLog(p.getStudy(),25.0));
+        entityManager.persist(new EmailLog(p, "Email1"));
+        entityManager.persist(new TaskLog(p.getStudy(), 25.0));
     }
 
 
@@ -111,7 +111,7 @@ public class ImportServiceTest extends BaseControllerTest {
     public void getScale() throws Exception {
         LOGGER.info("Successfully fired getScale()");
         String list = service.getOnline(testScale);
-        LOGGER.info("Successfully read online: "+ list);
+        LOGGER.info("Successfully read online: " + list);
         assertNotNull(list);
     }
 
@@ -120,7 +120,7 @@ public class ImportServiceTest extends BaseControllerTest {
         LOGGER.info("Successfully launch backup");
         File[] list = service.getFileList(testScale);
         LOGGER.info("Successfully get data from local: " + list);
-        assertTrue(service.localBackup(testScale,list));
+        assertTrue(service.localBackup(testScale, list));
     }
 
 
@@ -128,7 +128,7 @@ public class ImportServiceTest extends BaseControllerTest {
     public void getType() throws Exception {
         LOGGER.info("Successfully fired getScaleType");
         Class<?> ans = service.getClass(testScale);
-        LOGGER.info("Got it! This is a "+ans +" !");
+        LOGGER.info("Got it! This is a " + ans + " !");
         assertNotNull(ans);
     }
 
@@ -137,7 +137,7 @@ public class ImportServiceTest extends BaseControllerTest {
         LOGGER.info("Save scale fired.");
         String is = service.getOnline(testScale);
         LOGGER.info("Got the data! " + is);
-        assertTrue(service.parseDatabase(testScale,is));
+        assertTrue(service.parseDatabase(testScale, is));
     }
 
 
@@ -173,11 +173,11 @@ public class ImportServiceTest extends BaseControllerTest {
         List<String> good = new ArrayList<String>();
         List<String> bad = new ArrayList<String>();
         List<Scale> list = service.importList();
-        for (Scale scale:list) {
+        for (Scale scale : list) {
             if (scale.getName().toLowerCase().contains("log")) {
                 String is = service.getOnline(scale.getName());
-                if (service.parseDatabase(scale.getName(),is)) {
-                    i+=1;
+                if (service.parseDatabase(scale.getName(), is)) {
+                    i += 1;
                     good.add(scale.getName());
                 } else {
                     bad.add(scale.getName());
@@ -185,10 +185,10 @@ public class ImportServiceTest extends BaseControllerTest {
             }
         }
         LOGGER.info("Here is the good list:");
-        for (String flag:good) LOGGER.info(flag);
+        for (String flag : good) LOGGER.info(flag);
         LOGGER.info("Here is the bad list:");
-        for (String flag:bad) LOGGER.info(flag);
-        assertEquals(i,list.size());
+        for (String flag : bad) LOGGER.info(flag);
+        assertEquals(i, list.size());
     }
 
 
@@ -199,24 +199,26 @@ public class ImportServiceTest extends BaseControllerTest {
         List<String> good = new ArrayList<String>();
         List<String> bad = new ArrayList<String>();
         List<Scale> list = service.importList();
-        for (Scale scale:list) {
+        for (Scale scale : list) {
             String is = service.getOnline(scale.getName());
-            if (service.parseDatabase(scale.getName(),is)) {
-                i+=1;
+            if (service.parseDatabase(scale.getName(), is)) {
+                i += 1;
                 good.add(scale.getName());
             } else {
                 bad.add(scale.getName());
             }
         }
         LOGGER.info("Here is the good list:");
-        for (String flag:good) LOGGER.info(flag);
+        for (String flag : good) LOGGER.info(flag);
         LOGGER.info("Here is the bad list:");
-        for (String flag:bad) LOGGER.info(flag);
-        assertEquals(i,list.size());
+        for (String flag : bad) LOGGER.info(flag);
+        assertEquals(i, list.size());
     }
 
+
     /**
-     *   Test if you can import the participant table.
+     * Test if you can import the participant table.
+     *
      * @throws Exception
      */
 
@@ -238,11 +240,11 @@ public class ImportServiceTest extends BaseControllerTest {
         repo.flush();
 
         // Assure that the data we have as a json structure contains what we explect it to contain.
-        Assert.assertTrue("This should be true:",service.saveParticipant(actualObj.toString()));
-        Assert.assertTrue("There should not be an email colomn in your json.",actualObj.get(0).path("email").isMissingNode());
+        Assert.assertTrue("This should be true:", service.saveParticipant(actualObj.toString()));
+        Assert.assertTrue("There should not be an email colomn in your json.", actualObj.get(0).path("email").isMissingNode());
         Assert.assertTrue(actualObj.get(0).path("over18").asBoolean());
-        Assert.assertEquals("This should be blue",actualObj.get(0).path("theme").asText(),"blue");
-        Assert.assertNotNull("There should be an id specified",actualObj.get(0).path("id").asLong());
+        Assert.assertEquals("This should be blue", actualObj.get(0).path("theme").asText(), "blue");
+        Assert.assertNotNull("There should be an id specified", actualObj.get(0).path("id").asLong());
         long id = actualObj.get(0).path("id").asLong();
         Participant savedParticipant = participantRepository.findOne(id);
         Assert.assertNotNull("The participant should be saved under the same id as it was before", savedParticipant);
@@ -253,6 +255,7 @@ public class ImportServiceTest extends BaseControllerTest {
 
     /**
      * See if you can import the study table.
+     *
      * @throws Exception
      */
     @Test
@@ -268,13 +271,14 @@ public class ImportServiceTest extends BaseControllerTest {
         JsonNode actualObj = mapper.readTree(result.getResponse().getContentAsString());
         studyRepository.delete(s);
         studyRepository.delete(m);
-        Assert.assertTrue("This should be true:",service.parseDatabase("participant",actualObj.toString()));
-        Assert.assertEquals("This should be testing:","Testing",actualObj.get(0).path("conditioning").toString());
-        Assert.assertEquals("This should be 1:",1,actualObj.get(0).path("id").asInt());
+        Assert.assertTrue("This should be true:", service.parseDatabase("participant", actualObj.toString()));
+        Assert.assertEquals("This should be testing:", "Testing", actualObj.get(0).path("conditioning").toString());
+        Assert.assertEquals("This should be 1:", 1, actualObj.get(0).path("id").asInt());
     }
 
     /**
-     *  See if you can import participant and study tables and then link them back together.
+     * See if you can import participant and study tables and then link them back together.
+     *
      * @throws Exception
      */
 
@@ -316,12 +320,12 @@ public class ImportServiceTest extends BaseControllerTest {
         studyRepository.delete(s);
         studyRepository.delete(m);
         repo.flush();
-        Assert.assertTrue("This should be true as well:", service.parseDatabase("study",studyObj.toString()));
+        Assert.assertTrue("This should be true as well:", service.parseDatabase("study", studyObj.toString()));
         Boolean answer = service.saveParticipant(actualObj.toString());
-        Assert.assertTrue("This should be true:",answer);
-        Assert.assertTrue("There should not be an email column in your json.",actualObj.get(0).path("email").isMissingNode());
+        Assert.assertTrue("This should be true:", answer);
+        Assert.assertTrue("There should not be an email column in your json.", actualObj.get(0).path("email").isMissingNode());
         Assert.assertTrue(actualObj.get(0).path("over18").asBoolean());
-        Assert.assertEquals("This should be blue",actualObj.get(0).path("theme").asText(),"blue");
+        Assert.assertEquals("This should be blue", actualObj.get(0).path("theme").asText(), "blue");
         System.out.println(actualObj);
     }
 
@@ -333,7 +337,7 @@ public class ImportServiceTest extends BaseControllerTest {
     @Test
     public void testTaskLog() throws Exception {
         createTestEntries();
-        MvcResult result = mockMvc.perform(get("api/export/TaskLog")
+        MvcResult result = mockMvc.perform(get("/api/export/TaskLog")
                 .with(SecurityMockMvcRequestPostProcessors.user(admin)))
                 .andExpect((status().is2xxSuccessful()))
                 .andReturn();
@@ -341,10 +345,40 @@ public class ImportServiceTest extends BaseControllerTest {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode taskObj = mapper.readTree(result.getResponse().getContentAsString());
 
-        taskLogRepository.delete((long)1;
+        taskLogRepository.deleteAll();
         repo.flush();
-        Assert.assertTrue("This should be true:",service.saveTaskLog(taskObj.toString()));
+        Assert.assertTrue("This should be true:",service.parseDatabase("taskLog",taskObj.toString()));
         System.out.println(taskObj.toString());
+
+
+    }
+
+
+    /**
+     * Test if you can import the questionnaire and logs beside task_log.
+     */
+
+    @Test
+    public void testGeneral() throws Exception {
+        createTestEntries();
+        MvcResult result = mockMvc.perform(get("/api/export/TestQuestionnaire")
+                .with(SecurityMockMvcRequestPostProcessors.user(admin)))
+                .andExpect((status().is2xxSuccessful()))
+                .andReturn();
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode questObj = mapper.readTree(result.getResponse().getContentAsString());
+
+        repo.delete((long) 1);
+        Assert.assertTrue("This should be true:", service.parseDatabase("TestQuestionnaire", questObj.toString()));
+
+        MvcResult resultLog = mockMvc.perform(get("/api/export/EmailLog")
+                .with(SecurityMockMvcRequestPostProcessors.user(admin)))
+                .andExpect((status().is2xxSuccessful()))
+                .andReturn();
+        JsonNode logObj = mapper.readTree(resultLog.getResponse().getContentAsString());
+
+        emailRepo.deleteAll();
+        Assert.assertTrue("This should be true:", service.parseDatabase("EmailLog", logObj.toString()));
 
 
     }

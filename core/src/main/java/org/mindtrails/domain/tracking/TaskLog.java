@@ -1,9 +1,6 @@
 package org.mindtrails.domain.tracking;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
 import org.mindtrails.domain.*;
 
@@ -22,7 +19,7 @@ import java.util.Date;
 @Exportable
 @DoNotDelete
 @Data
-public class TaskLog implements Comparable<TaskLog> {
+public class TaskLog implements Comparable<TaskLog>, hasStudy {
 
     private static String SESSION_COMPLETE = "SESSION_COMPLETE";
 
@@ -32,8 +29,9 @@ public class TaskLog implements Comparable<TaskLog> {
 
     @ManyToOne(targetEntity=BaseStudy.class)
     @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,
-            property="name")
+            property="id")
     @JsonIdentityReference(alwaysAsId=true) // otherwise first ref as POJO, others as id
+    @JsonProperty(value = "study")
     private Study study;
     private String sessionName;
     private String taskName;
@@ -69,8 +67,5 @@ public class TaskLog implements Comparable<TaskLog> {
         return this.dateCompleted.compareTo(o.dateCompleted);
     }
 
-    public Long getParticipantId() {
-        return study.getParticipantId();
-    }
 
 }

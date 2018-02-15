@@ -51,7 +51,7 @@ public class ExportServiceTest {
         Participant p = new Participant("Joe Test", "j@t.com", false);
         p.setStudy(new TestStudy());
         entityManager.persist(p);
-        entityManager.persist(new TestQuestionnaire("MyTestValue"));
+        entityManager.persist(new TestQuestionnaire("MyTestValue",p));
         entityManager.persist(new TestUndeleteable("MyTestValue"));
         entityManager.persist(new GiftLog(p, "Order1", "Session 1"));
         entityManager.persist(new EmailLog(p,"Email1"));
