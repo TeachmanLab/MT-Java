@@ -14,10 +14,12 @@ import org.mindtrails.domain.Study;
 import org.mindtrails.domain.importData.Scale;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mindtrails.domain.jsPsych.JsPsychTrial;
 import org.mindtrails.domain.tracking.EmailLog;
 import org.mindtrails.domain.tracking.GiftLog;
 import org.mindtrails.domain.tracking.TaskLog;
 import org.mindtrails.persistence.EmailLogRepository;
+import org.mindtrails.persistence.JsPsychRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,6 +75,8 @@ public class ImportServiceTest extends BaseControllerTest {
     private EntityManager entityManager;
     @Autowired
     private EmailLogRepository emailRepo;
+    @Autowired
+    private JsPsychRepository jsPsyRepo;
 
 
     private static final Logger LOGGER = LoggerFactory.getLogger((ImportServiceTest.class));
@@ -87,6 +91,7 @@ public class ImportServiceTest extends BaseControllerTest {
         entityManager.persist(new GiftLog(p, "Order1", "Session 1"));
         entityManager.persist(new EmailLog(p, "Email1"));
         entityManager.persist(new TaskLog(p.getStudy(), 25.0));
+        entityManager.persist(new JsPsychTrial(1,"Mobile",true));
     }
 
 
@@ -383,6 +388,25 @@ public class ImportServiceTest extends BaseControllerTest {
 
     }
 
+
+    /**
+     *  Test if you can import the JsPsych data
+     */
+    @Test
+    public void testJsPsy() throws Exception {
+        createTestEntries();
+        MvcResult result = mockMvc.perform(get("/api/export/JsPsychTrial")
+                .with(SecurityMockMvcRequestPostProcessors.user(admin)))
+                .andExpect((status().is2xxSuccessful()))
+                .andReturn();
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode questObj = mapper.readTree(result.getResponse().getContentAsString());
+        jsPsyRepo.flush();
+        jsPsyRepo.deleteAll();
+        Assert.assertTrue("This should be true:",service.parseDatabase("JsPsychTrial", questObj.toString()));
+        jsPsyRepo.flush();
+        System.out.println(questObj.toString());
+    }
 }
 
 

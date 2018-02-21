@@ -342,7 +342,7 @@ public class ImportService {
             try {
                 Study s = studyRepository.findById(index);
                 ObjectNode p = elm.deepCopy();
-                p.remove("study");
+            //    p.set("study",null);
                 Object object = mapper.readValue(p.toString(),clz);
                 if (object instanceof hasStudy) ((hasStudy) object).setStudy(s);
                 rep.save(object);
@@ -375,13 +375,21 @@ public class ImportService {
                         return linkStudy(obj,clz,rep);
                     } else if (hasParticipant.class.isInstance(clz.newInstance())){
                         return linkParticipant(obj, clz, rep);
+                    } else {
+                        Iterator itr = obj.elements();
+                        while (itr.hasNext()) {
+                            JsonNode elm = (JsonNode) itr.next();
+                            ObjectNode p = elm.deepCopy();
+                            Object object = mapper.readValue(p.toString(),clz);
+                            rep.save(object);
+                        };
                     };
                 } catch (Exception e) {
                     e.printStackTrace();
                     return false;
-                }
+                };
+                return true;
             };
-            return false;
         };
         return false;
     }

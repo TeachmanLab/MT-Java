@@ -23,6 +23,7 @@ dependencies {
     compile('com.twilio.sdk:twilio:7.4.0') // Send SMS messages
     compile('com.googlecode.libphonenumber:libphonenumber:8.2.0') // Phone number validation
     compile('org.apache.directory.studio:org.apache.commons.io:2.4')
+    compile('com.opencsv:opencsv:4.1') // csv endpoint
     // Tests
     testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile('com.jayway.jsonpath:json-path:0.9.1')

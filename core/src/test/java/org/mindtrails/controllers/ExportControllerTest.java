@@ -29,6 +29,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.thymeleaf.spring4.expression.Mvc;
 
 import java.util.Date;
 import java.util.Iterator;
@@ -99,6 +101,19 @@ public class ExportControllerTest extends BaseControllerTest {
         createTestEntry();
         List data = exportController.listData("TestQuestionnaire",0);
         assertThat((List<Object>)data, hasItem(hasProperty("value", is("MyTestValue"))));
+    }
+
+    @Test
+    public void testCSVDownload() throws Exception {
+        createTestEntry();
+        MvcResult result = mockMvc.perform(get("/api/export/ParticipantExportDAO.csv")
+                .with(user(admin)))
+                .andExpect((status().is2xxSuccessful()))
+                .andReturn();
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode actualObj = mapper.readTree(result.getResponse().getContentAsString());
+
+        System.out.println(result);
     }
 
     @Test
