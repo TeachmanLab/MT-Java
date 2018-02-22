@@ -43,4 +43,6 @@ dependencies {
 //    testCompile("junit:junit") {exclude module: 'org.hamcrest:hamcrest-core'}
     testCompile('com.jayway.jsonpath:json-path:0.9.1')
     testCompile('com.jayway.jsonpath:json-path-assert:0.9.1')
+    testCompile("org.subethamail:subethasmtp:3.1.7") // Testing Email messages
+
 }
