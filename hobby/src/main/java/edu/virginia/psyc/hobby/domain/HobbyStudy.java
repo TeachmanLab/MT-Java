@@ -12,8 +12,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * This is where you define the sessions and tasks that make up the study.
@@ -51,9 +49,10 @@ public class HobbyStudy extends BaseStudy {
         String sessionName = this.getCurrentSession().getName();
         map.put("question","yes_no");
         map.put("lettersToRemove",1);
+        map.put("sessionName", sessionName);
         switch(sessionName) {
             case FIRST_SESSION:
-                map.put("lemon", true);
+                map.put("lemon", false);
                 map.put("question","yes_no");
                 map.put("lettersToRemove",1);
                 break;

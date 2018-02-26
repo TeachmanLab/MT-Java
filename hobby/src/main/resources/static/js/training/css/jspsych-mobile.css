@@ -62,8 +62,8 @@ input[type="text"] {
     display: inline-block;
     padding: 6px 12px;
     margin: 10px 8px;
-    font-size: 14px;
-    font-weight: 400;
+    font-size: 16px;
+    font-weight: 500;
     font-family: 'Open Sans', 'Arial', sans-serif;
     cursor: pointer;
     line-height: 1.4;
@@ -88,6 +88,8 @@ input[type="text"] {
 .jspsych-display-element {
     max-width: 800px;
     margin: 50px auto 50px auto;
+    padding: 10px;
+    font-weight: 600;
 }
 
 /* jsPsych progress bar */
@@ -323,6 +325,7 @@ label.jspsych-survey-multi-choice-text input[type="radio"] {
     margin-right: auto;
 }
 
+
 /* MOBILE : Alter settings for devices with a width of 480 pixels or less. */
 @media only screen and (max-device-width : 480px) {
     #container {
@@ -341,6 +344,10 @@ label.jspsych-survey-multi-choice-text input[type="radio"] {
     .jspsych-btn {
         width: 90%;
         white-space: normal;
+    }
+
+    .jspsych-html-button-response-button {
+        width: 100%;
     }
 
     .piIntro img {

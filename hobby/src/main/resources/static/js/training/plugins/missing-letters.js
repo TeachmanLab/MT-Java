@@ -11,37 +11,45 @@ jsPsych.plugins["missing-letters"] = (function () {
 
     var plugin = {};
 
+    plugin.info = {
+        name: 'missing-letters',
+        description: '',
+        parameters: {
+            phrase: {
+                type: jsPsych.plugins.parameterType.STRING,
+                pretty_name: 'Phrase',
+                default: undefined,
+                description: 'The from which to remove letters'
+            },
+            letters_to_remove: {
+                type: jsPsych.plugins.parameterType.INT,
+                pretty_name: 'Number of letters to remove',
+                default: 1,
+                description: 'Number of letters to remove from word, for users to fill in'
+            },
+            button_html: {
+                type: jsPsych.plugins.parameterType.STRING,
+                pretty_name: 'Button html',
+                default: '<button class="jspsych-btn">%choice%</button>',
+                array: true,
+                description: 'The html of the button. Can create own style.'
+            }
+        }
+    }
+
+
     plugin.trial = function (display_element, trial) {
-
-        // set default values for parameters
-        trial.phrase = trial.phrase || 'final phrase';
-        trial.letters_to_remove = trial.letters_to_remove || 1;
-        trial.button_html = trial.button_html || '<button class="jspsych-btn">%choice%</button>';
-
-        // if any trial variables are functions
-        // this evaluates the function and replaces
-        // it with the output of the function
-        trial = jsPsych.pluginAPI.evaluateFunctionParameters(trial);
-
-        // this array holds handlers from setTimeout calls
-        // that need to be cleared if the trial ends early
-        var setTimeoutHandlers = [];
-
         // remove random letters from the term.
         var term;
         var missing_letters;
         var letter_index = 0;
         [term, missing_letters] = remove_random_letters(trial.phrase, trial.letters_to_remove);
 
-        // Display the term
-        display_element.append($('<div>', {
-                html: term,
-                id: 'jspsych-missing-letters-letter',
-                class: 'center-content block-center'
-        }));
+        var html = '<div id="jspsych-missing-letters-letter", class="center-content block-center">' + term + "</div>";
+        html += '<div id="jspsych-missing-letters-btngroup", class="center-content block-center"></div>';
+        html += '</div>';
+        display_element.innerHTML = html;
 
-        // Show letters for completing the term
-        display_element.append('<div id="jspsych-missing-letters-btngroup" class="center-content block-center"></div>');
         show_letter_options(missing_letters[letter_index]);
 
         // store response
@@ -58,18 +66,21 @@ jsPsych.plugins["missing-letters"] = (function () {
         // Creates a row of 4 buttons, one is the letter the participant should select, the reset are randomly
         // selected letters.
         function show_letter_options(letter) {
-            $('#jspsych-missing-letters-btngroup').empty();
+            group = document.querySelector('#jspsych-missing-letters-btngroup');
             var options = fake_letter(letter);
             var choices = shuffle([letter, options[0], options[1], options[2]]);
 
+            var html = "";
             for (var i = 0; i < choices.length; i++) {
                 var str = trial.button_html.replace(/%choice%/g, choices[i]);
-                $('#jspsych-missing-letters-btngroup').append(
-                    $(str).attr('id', 'jspsych-button-response-button-' + i).data('choice', choices[i]).addClass('jspsych-button-response-button').on('click', function (e) {
-                        var choice = $('#' + this.id).data('choice');
-                        after_response(choice, this.id);
-                    })
-                );
+                html += '<div class="jspsych-html-button-response-button" style="display: inline-block; margin:' + trial.margin_vertical + ' ' + trial.margin_horizontal + '" id="jspsych-html-button-response-button-' + i + '" data-choice="' + choices[i] + '">' + str + '</div>';
+            }
+            group.innerHTML = html;
+            for (var i = 0; i < choices.length; i++) {
+                group.querySelector('#jspsych-html-button-response-button-' + i).addEventListener('click', function (e) {
+                    var choice = $('#' + this.id).data('choice');
+                    after_response(choice, this.id);
+                });
             }
         }
 
@@ -79,41 +90,44 @@ jsPsych.plugins["missing-letters"] = (function () {
             // measure the response time.
             var end_time = Date.now();
             var rt = end_time - start_time;
-            if(response.button != "") response.button += ",";
+            if (response.button != "") response.button += ",";
             response.button += choice;
-            if(response.rt_firstReact == -1) {response.rt_firstReact = rt};
+            if (response.rt_firstReact == -1) {
+                response.rt_firstReact = rt
+            }
+            ;
             response.rt = rt;
 
             if (missing_letters[letter_index] != choice) {
                 response.correct = false;
-                $('#' + id).addClass("incorrect_letter");
+                display_element.querySelector('#' + id).querySelector('button').classList.add("incorrect_letter");
                 return;
             } else {
-                $('#' + id).addClass("correct_letter");
+                display_element.querySelector('#' + id).querySelector('button').classList.add("correct_letter");
             }
 
             $('#jspsych-missing-letters-letter').html(function () {
                 return $(this).html().replace('[&nbsp;]', "[" + choice + "]");
             });
 
-            if (letter_index + 1 < missing_letters.length) {
-                letter_index++;
-                show_letter_options(missing_letters[letter_index]);
-                return;
+            //disable buttons
+            buttons = display_element.querySelectorAll('.jspsych-btn');
+            for(b in buttons) {
+                b.disable = true;
             }
-
-            // after a valid response, the stimulus will have the CSS class 'responded'
-            // which can be used to provide visual feedback that a response was recorded
-            $("#jspsych-button-response-stimulus").addClass('responded');
-
-            // disable all the buttons after a response
-            $('.jspsych-button-response-button').off('click').attr('disabled', 'disabled');
 
             // Pause for a 1/2 second to show that the letter is correctly entered,
             // then end the trail.
-            setTimeout(function() {
-                end_trial();
+            setTimeout(function () {
+                if (letter_index + 1 < missing_letters.length) {
+                    letter_index++;
+                    show_letter_options(missing_letters[letter_index]);
+                    return;
+                } else {
+                    end_trial();
+                }
             }, 500);
+
         }
 
 
@@ -121,9 +135,7 @@ jsPsych.plugins["missing-letters"] = (function () {
         function end_trial() {
 
             // kill any remaining setTimeout handlers
-            for (var i = 0; i < setTimeoutHandlers.length; i++) {
-                clearTimeout(setTimeoutHandlers[i]);
-            }
+            jsPsych.pluginAPI.clearAllTimeouts();
 
             // gather the data to store for the trial
             var trial_data = {
@@ -134,9 +146,8 @@ jsPsych.plugins["missing-letters"] = (function () {
                 "correct": response.correct
 
             };
-            console.log(trial_data);
             // clear the display
-            display_element.html('');
+            display_element.innerHTML = '';
 
             // move on to the next trial
             jsPsych.finishTrial(trial_data);
@@ -153,7 +164,7 @@ jsPsych.plugins["missing-letters"] = (function () {
 
         // this is the function to remove N number of random letters
         // returns an array containing the original string, followed by
-        // a 
+        // a
         // ie. given 'capital',1 returns ['ca[ ]ital', ['p']]
         // ie. given 'animal',2 returns ['a[ ][ ]mal', ['n','i']]
         function remove_random_letters(str, amount) {
@@ -224,4 +235,5 @@ jsPsych.plugins["missing-letters"] = (function () {
 
 
     return plugin;
-})();
+})
+();

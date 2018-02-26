@@ -31,7 +31,7 @@ public class TempletonStudy extends BaseStudy {
     // Neutral conditioning (likely alternate content)
     public enum CONDITION {POSITIVE, POSITIVE_NEGATION, FIFTY_FIFTY_RANDOM, FIFTY_FIFTY_BLOCKED, NEUTRAL }
 
-    private CONDITION     conditioning;
+    private String     conditioning;
     private boolean       atRisk = false;
     public static final String PRE_TEST = "preTest";
 
