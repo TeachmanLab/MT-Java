@@ -72,7 +72,7 @@
                                 <td><span th:if="${p.admin}">Admin</span></td>
                                 <td><span th:if="${p.testAccount}">Test</span></td>
                                 <td><span th:if="${p.blacklist}">Blacked</span></td>
-                                <td><span th:if="${p.giftCardsQualification}">Qualified</span></td>
+                                <td><span th:if="${p.receiveGiftCards} and ${p.verified} and${!p.blacklist}">Qualified</span></td>
                                 <td>
                                     <a th:href="@{'/admin/participant/'+${p.id}}">Edit Participant</a>
                                 </td>

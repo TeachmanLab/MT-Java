@@ -28,7 +28,10 @@
                 <form action="#" th:action="@{/account/updateWrongCode}"  th:object="${participant}"  method="post">
 
                     <div class="row">
-                        <label class="control-label col-md-2" for="phone">Your Cell Phone</label>
+                        <div th:if="${invalidPhone}" class="alert alert-success">
+                            This phone number already exists, please use another one.
+                        </div>
+                        <label class="control-label col-md-2" for="phone">Change Your Cell Phone</label>
                         <div class="col-md-8">
                             <div class="row">
                             <!-- <input type="tel" id="phone"> -->
@@ -73,11 +76,21 @@
                         <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Phone Error</span>
                                 </div>
                         <div class="col-md-2">
-                            <span class="pull-left"><button id="subCode" type="submit">Resend</button></span>
+                            <span class="pull-left"><button id="subPhone" type="submit" name="sub" value="subPhone">Resend</button></span>
                         </div>
                             </div>
                     </div>
 
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col-md-10"><br/><p>Or Reenter the Verification Code:&nbsp;&nbsp;   <input id="verifycode" type="text" name="verifycode"/></p></div>
+                                <div class="col-md-2"><span class="pull-left"><button id="subCode" type="submit" disabled="disabled" name="sub" value="subCode">Verify</button></span></div>
+
+                            </div>
+
+                        </div>
                     </div>
                 </form>
                 <br/>
@@ -107,17 +120,15 @@
 </section>
 
 <script th:inline="javascript">
-    $(function(){
-        console.log([[${participantUpdate}]]);
-        console.log('hello');
-        if (wrongCode){
-            $("#wrongCodeOptionsList").show();
+    $("#verifycode").keyup(function() {
+            if (document.getElementById("verifycode").value.length == 6) {
+                $('#subCode').removeAttr('disabled');
+            }
+            else {
+                $('#subCode').attr('disabled', 'disabled');
+            }
         }
-        else{
-            $("#wrongCodeOptionsList").hide();
-
-        }
-    });
+    )
 
 </script>
 

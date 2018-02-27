@@ -1,5 +1,8 @@
 package org.mindtrails.domain.forms;
 
+import com.google.i18n.phonenumbers.NumberParseException;
+import com.google.i18n.phonenumbers.PhoneNumberUtil;
+import com.google.i18n.phonenumbers.Phonenumber;
 import lombok.Data;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.service.ParticipantService;
@@ -54,6 +57,9 @@ public class ParticipantCreateAdmin extends ParticipantUpdate {
         if(participantService.findByEmail(email) != null) {
             bindingResult.rejectValue("email", "error.emailExists", "This email already exists.");
         }
+        if(!participantService.findByPhone(formatPhone(phone)).isEmpty()) {
+            bindingResult.rejectValue("phone", "error.phoneExists", "This phone already exists.");
+        }
 
         if(!password.equals(passwordAgain)) {
             bindingResult.rejectValue("password", "error.passwordMatch", "Passwords do not match.");
@@ -89,5 +95,6 @@ public class ParticipantCreateAdmin extends ParticipantUpdate {
         p.setTestAccount(testAccount);
         return(p);
     }
+
 
 }

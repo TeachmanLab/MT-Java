@@ -23,14 +23,24 @@
         </div>
         <div class="row">
             <div class="col-md-8">
-                <h2 class="page-title heading-icon clearfix"><br/>Verified!</h2>
+                <h2 class="page-title heading-icon clearfix"><br/>Your Account is Verified!</h2>
+                <br/>
 
             <p>You will now receive gift cards after you complete the set of questionnaires.<br/>
                 If you need to change your phone number, you will need to verify your new phone number to remain eligible for gift cards.  </p>
             </div>
         </div>
+        <br/>
+        <br/>
+
     </div>
 </section>
+
+
+<script th:inline="javascript">
+console.log([[${participant.verified}]]);
+
+</script>
 
 
 

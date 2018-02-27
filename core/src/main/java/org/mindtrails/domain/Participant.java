@@ -50,7 +50,7 @@ public  class Participant implements UserDetails {
     protected boolean receiveGiftCards = true;
     protected boolean verified = false;
     protected boolean blacklist = false;
-    protected boolean giftCardsQualification= false;
+    //protected boolean giftCardsQualification= false;
     @JsonIgnore
     protected String randomToken;
     protected String theme = "blue";
@@ -223,9 +223,7 @@ public  class Participant implements UserDetails {
      * Checks to see if this type of email was already sent to the user regarding the
      * given session.
      */
-    public void updateGiftCardsQualification(){
-        this.giftCardsQualification=this.receiveGiftCards&&this.verified&&!this.blacklist;
-    }
+
 
     /**
      * @return Number of days since the last completed session or if

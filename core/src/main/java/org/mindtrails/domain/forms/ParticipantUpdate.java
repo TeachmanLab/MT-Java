@@ -64,7 +64,7 @@ public class ParticipantUpdate implements HasPhone {
         p.setEmail(this.getEmail());
         p.setEmailReminders(this.isEmailReminders());
         p.setPhoneReminders(this.isPhoneReminders());
-        p.setReceiveGiftCards(this.isReceiveGiftCards());
+        //p.setReceiveGiftCards(this.isReceiveGiftCards());
         //p.setVerified(this.isVerified());
         //p.setBlacklist(this.isBlacklist());
         p.setPhone(formatPhone(this.phone));
