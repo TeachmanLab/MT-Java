@@ -27,11 +27,11 @@
     <div class="container">
         <div class="row">
             <div class="span8">
-                <form action="#" th:action="@{/account/changePhone}" method="get">
+                <form action="#" th:action="@{/account/changePhone}" method="post">
 
-                        <input  type="text" name="newPhone"/>
+                        <input  type="text" name="newPhone" id="newPhone"/>
 
-                        <input type="submit" value="Submit"/>
+                        <input type="submit" value="Submit" id="subNewPhone"/>
                 </form>
 
             </div>
@@ -39,6 +39,32 @@
     </div>
 </section>
 
+<script th:src="@{/bower/intl-tel-input/build/js/intlTelInput.js}"></script>
+<script>
+    var telInput = $("#newPhone");
+    // initialise plugin
+    telInput.intlTelInput({
+        utilsScript:"https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.1.4/css/intlTelInput.css"
+    });
+
+    // on blur: validate
+    telInput.blur(function() {
+        var phoneReminders = $("#subNewPhone");
+        var countryData = $("#newPhone").intlTelInput("getSelectedCountryData");
+        if (countryData.iso2 != "us") {
+            //phoneReminders.prop('disabled', true);
+            document.getElementById("#subNewPhone").disabled = true;
+            $("#noTexts").hide();
+            $("#yesTexts").show();
+
+        } else {
+            phoneReminders.prop('disabled', false);
+            $("#noTexts").show();
+            $("#yesTexts").hide();
+        }
+    });
+
+</script>
 
 <footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
 <section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>

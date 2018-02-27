@@ -31,6 +31,7 @@ import java.util.List;
 public interface ParticipantRepository extends JpaRepository<Participant, Long> {
 
     Participant findByEmail(String email);
+    List<Participant> findByPhone(String phone);
     List<Participant> findByActiveAndPhoneReminders(boolean active, boolean phone);
     List<Participant> findByActive(boolean active);
 
@@ -49,9 +50,6 @@ public interface ParticipantRepository extends JpaRepository<Participant, Long> 
     long countByLastLoginDateBetween(Date date1,Date date2);
 
     List<ParticipantStats> findAllStatsBy();
-
-
-
-
+    
 
 }
