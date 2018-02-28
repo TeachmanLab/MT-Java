@@ -117,13 +117,13 @@ public class ExportController  {
                 columns[i] = cNames.getName();
                 i+=1;
             }
-            String joinedColumns = String.join(",", columns);
+            String joinedColumns = String.join("\t", columns);
             writer.print(joinedColumns+"\n");
             mapStrategy.setColumnMapping(columns);
             StatefulBeanToCsv btcsv = new StatefulBeanToCsvBuilder(writer)
                     .withQuotechar(CSVWriter.NO_QUOTE_CHARACTER)
                     .withMappingStrategy(mapStrategy)
-                    .withSeparator(',')
+                    .withSeparator('\t')
                     .build();
             btcsv.write(object);
         } catch (CsvException ex) {
