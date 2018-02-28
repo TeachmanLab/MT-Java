@@ -132,27 +132,7 @@ public class AccountController extends BaseController {
     }
 
 
-    @RequestMapping("wrongCode")
-    public String wrongcode(@RequestParam(value="wrongCodeOptions", required=false, defaultValue="NAN") String wrongCodeOptions,ModelMap model, Principal principal) {
-        Participant p = participantService.get(principal);
-        //String code=p.getVerificationCode().getCode();
 
-       if(wrongCodeOptions.equals("resend")){
-           p.setVerificationCode(new VerificationCode(p));
-            twilioService.sendMessage(p.getVerificationCode().getCode(),p);
-            return "account/verification";
-        }
-        else if (wrongCodeOptions.equals("continue")){
-            return "redirect:/account/theme";
-        }
-        else if(wrongCodeOptions.equals("phone")){
-            return "account/changePhone";
-        }
-        else{
-            return "account/wrongCode";
-        }
-
-    }
     @RequestMapping("changePhone")
     public String changePhone(@RequestParam(value="newPhone", required=false, defaultValue="NAN") String newPhone,ModelMap model, Principal principal) {
           if(newPhone.length()==0){

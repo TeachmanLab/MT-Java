@@ -31,8 +31,8 @@ public class TempletonStudy extends BaseStudy {
     // Neutral conditioning (likely alternate content)
     public enum CONDITION {POSITIVE, POSITIVE_NEGATION, FIFTY_FIFTY_RANDOM, FIFTY_FIFTY_BLOCKED, NEUTRAL }
 
-    private CONDITION     conditioning;
-    private boolean       atRisk = false;
+    private String      conditioning;
+    private boolean     atRisk = false;
     public static final String PRE_TEST = "preTest";
 
     public enum SESSION {firstSession, secondSession, thirdSession, fourthSession, PostFollowUp }
@@ -113,13 +113,9 @@ public class TempletonStudy extends BaseStudy {
         return map;
     }
 
-  
-
     public List<String>getConditions(){
         return Stream.of(CONDITION.values()) .map(Enum::name) .collect(Collectors.toList());
     }
-
-
 
     /**
      * Returns the list of sessions and tasks that define the study.
