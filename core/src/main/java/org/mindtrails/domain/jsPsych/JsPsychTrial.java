@@ -1,7 +1,9 @@
 package org.mindtrails.domain.jsPsych;
 
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 import org.mindtrails.domain.Exportable;
+import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -10,13 +12,17 @@ import java.util.Date;
  * Created by dan on 2/8/17.
  */
 @Entity
-@Table(name="JsPsychTrial")
+@Table(name = "JsPsychTrial")
 @Data
 @Exportable
-public class JsPsychTrial {
+public class JsPsychTrial{
 
-    @TableGenerator(name = "QUESTION_GEN", table = "ID_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 1)
     @Id
+    @GenericGenerator(name = "QUESTION_GEN", strategy = "org.mindtrails.persistence.MindtrailsIdGenerator", parameters = {
+            @Parameter(name = "table_name", value = "ID_GEN"),
+            @Parameter(name = "value_column_name", value = "GEN_VAL"),
+            @Parameter(name = "segment_column_name", value = "GEN_NAME"),
+            @Parameter(name = "segment_value", value = "trial") })
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "QUESTION_GEN")
     private long id;
 
@@ -34,9 +40,20 @@ public class JsPsychTrial {
     private long participantId;
     private String session;
     private String study;
-    @Column (name = "conditioning")
+    @Column(name = "conditioning")
     private String condition;
     private String device;
     private Date dateSubmitted;
+
+    public JsPsychTrial(long id, String device, boolean correct) {
+        this.participantId = id;
+        this.device = device;
+        this.correct = correct;
+
+    }
+
+    public JsPsychTrial() {
+
+    };
 
 }

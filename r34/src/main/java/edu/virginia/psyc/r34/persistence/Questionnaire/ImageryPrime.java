@@ -2,7 +2,7 @@ package edu.virginia.psyc.r34.persistence.Questionnaire;
 
 import edu.virginia.psyc.r34.domain.R34Study;
 import org.mindtrails.domain.Participant;
-import org.mindtrails.domain.questionnaire.SecureQuestionnaireData;
+import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -18,7 +18,7 @@ import java.util.Map;
 @Table(name="ImageryPrime")
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class ImageryPrime extends SecureQuestionnaireData {
+public class ImageryPrime extends LinkedQuestionnaireData {
 
     private String prime;  // Either 'ANXIOUS' or 'NEUTRAL'
     private String situation;

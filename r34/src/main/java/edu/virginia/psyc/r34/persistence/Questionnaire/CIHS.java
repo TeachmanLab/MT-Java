@@ -1,6 +1,6 @@
 package edu.virginia.psyc.r34.persistence.Questionnaire;
 
-import org.mindtrails.domain.questionnaire.SecureQuestionnaireData;
+import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -16,7 +16,7 @@ import java.util.List;
 @Table(name="CIHS")
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class CIHS extends SecureQuestionnaireData {
+public class CIHS extends LinkedQuestionnaireData {
 
     private String OtherDesc;
     @ElementCollection

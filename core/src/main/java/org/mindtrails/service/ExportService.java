@@ -7,6 +7,9 @@ import org.mindtrails.domain.tracking.ExportLog;
 import org.mindtrails.persistence.ExportLogRepository;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
+import org.mindtrails.persistence.ParticipantExportDAO;
+import org.mindtrails.persistence.ParticipantExportRepository;
+import org.mindtrails.persistence.StudyExportRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +48,8 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
 
     @Autowired ExportLogRepository exportLogRepository;
     @Autowired EmailService emailService;
+    @Autowired ParticipantExportRepository participantExportRepository;
+    @Autowired StudyExportRepository studyExportRepository;
 
     Repositories repositories;
 
@@ -63,7 +68,7 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
      */
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        LOG.debug("CONTEXT loaded:  " + event.getApplicationContext());
+        LOG.debug("!@#@!%#$W#$@#$^#$%&$%*%^&(^&*)^$%&CONTEXT loaded:  " + event.getApplicationContext());
         repositories=new Repositories(event.getApplicationContext());
     }
 
@@ -108,6 +113,10 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
      * if it can't find a repository by name.
      */
     public JpaRepository getRepositoryForName(String name) {
+        if (name.toLowerCase().equals("participant"))
+            return participantExportRepository;
+        if (name.toLowerCase().equals("study"))
+            return studyExportRepository;
         Class<?> domainType = getDomainType(name);
         if (domainType != null)
             return (JpaRepository) repositories.getRepositoryFor(domainType);
@@ -120,7 +129,10 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
      */
     public List<QuestionnaireInfo> listRepositories() {
         List<QuestionnaireInfo> names = new ArrayList<>();
-        if(repositories == null) return names;
+        if(repositories == null) {
+            LOG.info("f======================================== ");
+            return names;
+        }
         boolean deleteableFlag;
 
         for (  Class<?> domainType : repositories) {
@@ -142,8 +154,17 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
      * if it can't find a repository by name.
      */
     public Class<?> getDomainType(String name) {
-        if(repositories == null) return null;
+        LOG.info("Trying to get type of " + name);
+        if(repositories == null) {
+            LOG.info("Found no type of "+name);
+            return null;
+        }
         for (  Class<?> domainType : repositories) {
+            if (name.toLowerCase().equals("study")) {
+                if (domainType.getSimpleName().toLowerCase().equals("studyexportdao")) {
+                    return domainType;
+                }
+            }
             if (domainType.getSimpleName().toLowerCase().equals(name.toLowerCase())) {
                 return domainType;
             }

@@ -1,4 +1,4 @@
-package edu.virginia.psyc.r34.persistence;
+package org.mindtrails.persistence;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

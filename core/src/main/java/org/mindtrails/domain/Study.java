@@ -1,5 +1,11 @@
 package org.mindtrails.domain;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver;
+import org.mindtrails.persistence.StudyExportDAO;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Map;

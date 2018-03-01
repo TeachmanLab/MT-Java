@@ -1,11 +1,14 @@
 package org.mindtrails.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.GenericGenerator;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.mindtrails.domain.tracking.*;
@@ -15,7 +18,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
-
+import org.hibernate.annotations.Parameter;
 import javax.persistence.*;
 import java.util.*;
 
@@ -31,8 +34,13 @@ public  class Participant implements UserDetails {
 
     private static final Logger LOG = LoggerFactory.getLogger(Participant.class);
 
+
     @Id
-    @TableGenerator(name = "PARTICIPANT_GEN", table = "ID_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 1)
+    @GenericGenerator(name = "PARTICIPANT_GEN", strategy = "org.mindtrails.persistence.MindtrailsIdGenerator", parameters = {
+            @Parameter(name = "table_name", value = "ID_GEN"),
+            @Parameter(name = "value_column_name", value = "GEN_VAL"),
+            @Parameter(name = "segment_column_name", value = "GEN_NAME"),
+            @Parameter(name = "segment_value", value = "participant") })
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "PARTICIPANT_GEN")
     protected long id;
     protected String fullName;
@@ -56,12 +64,8 @@ public  class Participant implements UserDetails {
     protected boolean over18;
     protected String reference; // The site the user came from when creating their account
     protected String campaign; // A key passed into the landing page, to help identify where people come from.
-<<<<<<< HEAD
     protected boolean receiveGiftCards;
-=======
 
-
->>>>>>> upstream/master
 
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

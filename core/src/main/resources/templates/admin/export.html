@@ -37,8 +37,10 @@
             <p>Downloads are currently disabled in the application's properties file.</p>
         </div>
         <div th:unless="${downloadsDisabled}">
-            <p>Here is a list of all questionnaires, in order of appearance. Click a link to download a spreadsheet of all data from a questionnaire: </p>
+            <p>Here is a list of all questionnaires, in order of appearance. Click a link to download a spreadsheet of all data from a questionnaire. Please
+            be aware that we use TAB as delimiter.</p>
             <ul>
+                <li><a th:href="@{'/api/export/ParticipantExportDAO.csv'}" download="participant.txt">Participant Table</a></li>
                 <li><a th:href="@{'/questions/DASS21_AS/export'}">DASS-21 AS</a> (Eligibility)</li>
                 <li><a th:href="@{'/questions/credibility/export'}">Credibility Assessment</a></li>
                 <li><a th:href="@{'/questions/demographics/export'}">Demographics</a></li>
@@ -93,6 +95,6 @@
 <!--Javascript
 ================================================== -->
 <div th:include="fragment/common :: scripts"/>
-
+<div
 </body>
 </html>

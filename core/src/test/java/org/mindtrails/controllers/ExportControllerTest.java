@@ -17,7 +17,7 @@ import org.mindtrails.controller.QuestionController;
 import org.mindtrails.domain.DoNotDelete;
 import org.mindtrails.domain.RestExceptions.NotDeleteableException;
 import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
-import org.mindtrails.domain.questionnaire.SecureQuestionnaireData;
+import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +29,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.thymeleaf.spring4.expression.Mvc;
 
 import java.util.Date;
 import java.util.Iterator;
@@ -40,8 +42,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.beans.HasPropertyWithValue.hasProperty;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -103,17 +104,30 @@ public class ExportControllerTest extends BaseControllerTest {
     }
 
     @Test
+    public void testCSVDownload() throws Exception {
+        createTestEntry();
+        MvcResult result = mockMvc.perform(get("/api/export/ParticipantExportDAO.csv")
+                .with(user(admin)))
+                .andExpect((status().is2xxSuccessful()))
+                .andReturn();
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode actualObj = mapper.readTree(result.getResponse().getContentAsString());
+
+        System.out.println(result);
+    }
+
+    @Test
     public void testEntryDataCanBeDeleted() {
         // There should be at least one entry.
         createTestEntry();
-        SecureQuestionnaireData qd;
+        LinkedQuestionnaireData qd;
 
         List data =  exportController.listData("TestQuestionnaire",0);
         assertThat(data.size(), greaterThan(0));
 
         // Going to make the assumption this is QuestionnaireData
         for(Object o : data) {
-            qd = (SecureQuestionnaireData)o;
+            qd = (LinkedQuestionnaireData)o;
             assertThat(qd.getId(), notNullValue());
             exportController.delete("TestQuestionnaire",qd.getId());
         }
@@ -190,5 +204,39 @@ public class ExportControllerTest extends BaseControllerTest {
         System.out.println(actualObj);
     }
 
+    @Test
+    public void testParticipantDeIdentifiedInfoCorrect() throws Exception {
+        testPostDataForm();
+        repo.flush();
+        participant.setTheme("blue");
+        participant.setOver18(true);
+        MvcResult result = mockMvc.perform(get("/api/export/Participant")
+                .with(SecurityMockMvcRequestPostProcessors.user(admin)))
+                .andExpect((status().is2xxSuccessful()))
+                .andReturn();
+        ObjectMapper mapper = new ObjectMapper();
+        participantRepository.save(participant);
+        JsonNode actualObj = mapper.readTree(result.getResponse().getContentAsString());
+        assertTrue("There should not be an email colomn in your json.",actualObj.get(0).path("email").isMissingNode());
+        assertTrue(actualObj.get(0).path("over18").asBoolean());
+        assertEquals("This should be blue",actualObj.get(0).path("theme").asText(),"blue");
+        System.out.println(actualObj);
+    }
+
+    @Test
+    public void testStudyInfoCorrect() throws Exception {
+        testPostDataForm();
+        repo.flush();
+        s.setConditioning("Testing");
+        studyRepository.save(s);
+        MvcResult result = mockMvc.perform(get("/api/export/Study")
+                .with(SecurityMockMvcRequestPostProcessors.user(admin)))
+                .andExpect((status().is2xxSuccessful()))
+                .andReturn();
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode actualObj = mapper.readTree(result.getResponse().getContentAsString());
+        assertEquals("This should be testing:","Testing",actualObj.get(0).path("conditioning").asText());
+        assertEquals("This should be 1:",1,actualObj.get(0).path("id").asInt());
+    }
 
 }

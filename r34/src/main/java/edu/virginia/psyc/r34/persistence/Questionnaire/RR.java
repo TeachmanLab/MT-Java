@@ -1,6 +1,6 @@
 package edu.virginia.psyc.r34.persistence.Questionnaire;
 
-import org.mindtrails.domain.questionnaire.SecureQuestionnaireData;
+import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -17,7 +17,7 @@ import javax.persistence.*;
 @Table(name="RR")
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class RR extends SecureQuestionnaireData {
+public class RR extends LinkedQuestionnaireData {
 
 
     private int wedding_PS;

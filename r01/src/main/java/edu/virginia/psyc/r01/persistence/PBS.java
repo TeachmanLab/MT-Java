@@ -1,6 +1,6 @@
 package edu.virginia.psyc.r01.persistence;
 
-import org.mindtrails.domain.questionnaire.SecureQuestionnaireData;
+import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 
 /**
  * Created by any on 7/29/17.
@@ -23,7 +23,7 @@ import javax.persistence.*;
 
 
 
-public class PBS extends SecureQuestionnaireData {
+public class PBS extends LinkedQuestionnaireData {
     private int think_really;
     private int person_basic;
     private int think_quite;

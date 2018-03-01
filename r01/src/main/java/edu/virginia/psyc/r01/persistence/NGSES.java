@@ -1,6 +1,6 @@
 package edu.virginia.psyc.r01.persistence;
 
-import org.mindtrails.domain.questionnaire.SecureQuestionnaireData;
+import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 
 /**
  * Created by any on 7/29/17.
@@ -23,7 +23,7 @@ import javax.persistence.*;
 
 
 
-public class NGSES extends SecureQuestionnaireData {
+public class NGSES extends LinkedQuestionnaireData {
     private int achieve_goals;
     private int accomplish_tasks;
     private int obtain_outcomes;

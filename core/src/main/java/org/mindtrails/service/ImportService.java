@@ -1,160 +1,467 @@
 package org.mindtrails.service;
 
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.client.support.BasicAuthorizationInterceptor;
-import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.JavaType;
-import org.mindtrails.domain.data.DoNotDelete;
-import org.mindtrails.domain.data.Exportable;
-import org.mindtrails.domain.questionnaire.QuestionnaireInfo;
-import org.mindtrails.domain.tracking.ExportLog;
-import org.mindtrails.persistence.ExportLogRepository;
-import org.joda.time.DateTime;
-import org.joda.time.Duration;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import org.apache.tomcat.jni.Error;
+import org.mindtrails.domain.Participant;
+import org.mindtrails.domain.Study;
+import org.mindtrails.domain.hasParticipant;
+import org.mindtrails.domain.hasStudy;
+import org.mindtrails.domain.importData.ImportError;
+import lombok.Data;
+import org.apache.tomcat.util.codec.binary.Base64;
+import org.mindtrails.domain.importData.Scale;
+import org.mindtrails.persistence.ParticipantExportDAO;
+import org.mindtrails.persistence.ParticipantRepository;
+import org.mindtrails.persistence.StudyRepository;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
+
+import org.springframework.context.event.EventListener;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.support.Repositories;
+import org.springframework.http.*;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import org.mindtrails.service.ExportService;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import org.apache.commons.;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+import sun.rmi.runtime.Log;
+
+import java.io.File;
+import java.io.FileFilter;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.List;
+import java.net.URI;
 
 
 /**
- * Created by Diheng, 12/04/2017
+ * Used to award a gift certificates to participants.
+ *
+ * Documentation is available here: https://github.com/tangocarddev/RaaS
+ * There is great tool for working directly with the API here: https://integration-www.tangocard.com/raas_api_console/
+ * Settings are read in from the file here: resources/application.properties, just look for the section on Tango.
+ *
+ * If you need to add money to the account for testing, the fake credit card we have setup has a cid of 32733202
+ *
  *
  */
 
-/**
- * This is the java version of the MTData. It includes a data reader (send request and read
- * data from front end server), a getter and a writer. It also includes the fixed schedules.
- * It also comes with a backup option, so that you can read all the json from local instead
- * of the endpoint.
- *
- */
-
+//@Data
 @Service
 public class ImportService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ImportService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ImportService.class);
 
+    @Value("${import.username}")
+    private String username;
+
+    @Value("${import.password}")
+    private String password;
+
+    @Value("${import.url}")
+    private String url;
+
+    @Value("${import.path}")
+    private String path;
 
     @Autowired ExportService exportService;
-    @Autowired RestTemplate restTemplate;
 
-    public void main() {
-        restTemplate.getInterceptors().add(new BasicAuthorizationInterceptor("username", "password"));
+    @Autowired StudyRepository studyRepository;
 
-    }
+    @Autowired ParticipantRepository participantRepository;
 
 
-    /**
-     *
-     * Read json file locally and parse it into the database. Don't know how to write it. Damm!
-   */
 
-    public List<String> listJSON(String name, String path) {
-        List<String> jsonFiles = new ArrayList<>();
-        Collection files = FileUtils.listFiles(
-                dir,
-                new RegexFileFilter("^(.*?)"),
-                DirectoryFileFilter.DIRECTORY
-        );
+/**
+ *  Class finder.
+ * */
 
-    }
+
 
     /**
+     * Setup the headers for authorization.
      *
-     * @param name
-     * @param path
-     *
-     * This is a function to recover all json files from local. Not yet finished.
-     */
+     * */
 
-    public void localImport(String name, String path) {
-        ObjectMapper mapper = new ObjectMapper();
-        JpaRepository rep = exportService.getRepositoryForName(name);
-        List<String> fileList = listJSON(name,path);
-        if (rep != null) {
-            LOG.info("Found " + name + " repository.");
-          /**  TypeReference<List<State>> mapType = new TypeReference<List<State>>() {
-            };
-           */
-            Class<?> clz = Class.forName(name);
-            if (clz != null) {
-                JavaType type = mapper.getTypeFactory().
-                        constructCollectionType(List.class, clz);
-                for (String fileName : fileList) {
-                    InputStream is = TypeReference.class.getResourceAsStream(fileName);
-                    try {
-                        List<?> list = mapper.readValue(is, type);
-                        rep.save(list);
-                        System.out.println("list saved successfully");
-                    } catch (IOException e) {
-                        System.out.println(e.getMessage());
-                    }
-                }
-            }
-        }
+    private HttpHeaders headers() {
+        String plainCreds = username + ":" + password;
+        byte[] plainCredsBytes = plainCreds.getBytes();
+        byte[] base64CredsBytes = Base64.encodeBase64(plainCredsBytes);
+        String base64Creds = new String(base64CredsBytes);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Basic " + base64Creds);
+        return headers;
     }
 
-    /**
-     *
-     * @param name
-     * @param is
-     *
-     * This is the function to import data from the server. Not yet tested.
-     */
-
-    public void liveImport(String name, String is) {
-        ObjectMapper mapper = new ObjectMapper();
-        JpaRepository rep = exportService.getRepositoryForName(name);
-        if (rep != null) {
-            LOG.info("Found " + name + " repository.");
-            Class<?> clz = Class.forName(name);
-            if (clz != null) {
-                JavaType type = mapper.getTypeFactory().constructCollectionType(List.class, clz);
-                try {
-                    List<?> list = mapper.readValue(is, type);
-                    rep.save(list);
-                    System.out.println("List saved successfully");
-                } catch (IOException e) {
-                    System.out.println(e.getMessage());
-                }
-            }
-        }
-    }
-
-
-    public String jsonGetter(String url) {
+/**
+ * Here is the function to get a complete list of scale from api/export.
+ *
+ * */
+    public List<Scale> importList() {
+        LOGGER.info("Get into the original methods");
+        RestTemplate restTemplate = new RestTemplate();
+        HttpEntity<String> request = new HttpEntity<String>(headers());
+        URI uri = URI.create(url + "api/export/");
+        LOGGER.info("calling url:" + uri.toString());
+        ResponseEntity<List<Scale>> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, request, new ParameterizedTypeReference<List<Scale>>() {
+        });
+        LOGGER.info("Get something?");
         try {
-            String result = restTemplate.getForObject(url, String.class);
-            return result;
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
+            List<Scale> response = responseEntity.getBody();
+            return response;
+        } catch (HttpClientErrorException e) { throw new ImportError(e);}
+    }
+
+
+
+    /**
+     *  The function that can get data from the online api, according to the name you fill
+     *  in.
+     *
+     * */
+    public String getOnline(String scale) {
+        LOGGER.info("Get into the getOnline function");
+        RestTemplate restTemplate = new RestTemplate();
+        HttpEntity<String> request = new HttpEntity<String>(headers());
+        URI uri = URI.create(url + "api/export/" + scale);
+        LOGGER.info("calling url:" + uri.toString());
+        ResponseEntity<String> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, request, new ParameterizedTypeReference<String>() {
+        });
+        LOGGER.info("Get some items?");
+        try {
+            String response = responseEntity.getBody();
+            return response;
+        } catch (HttpClientErrorException e) {
+            throw new ImportError(e);
         }
+    }
+
+
+/**
+ *
+ *
+ * Backup from local.
+ *
+ * */
+
+
+    public boolean localBackup(String scale, File[] list) {
+        LOGGER.info("Successfully launch local backup");
+        int error = 0;
+        if (list != null) {
+            for (File is:list) {
+                if (!parseDatabase(scale,readJSON(is))) error += 1;
+            }
+            LOGGER.info("Error: " + Integer.toString(error) + "/" + list.length);
+            if (list.length>error) return true;
+        }
+        return false;
+
+    }
+
+    /**
+     *
+     * Get data from local folder, according to the name you fill in.
+     * */
+
+    public String readJSON(File file){
+        LOGGER.info("Try to read a JSON file");
+        try {
+            String contents = new String(Files.readAllBytes(file.toPath()));
+            return contents;
+        } catch (IOException e) {
+            LOGGER.error(e.toString());
+            return null;
+        }
+    }
+
+
+    public File[] getFileList(String scale) {
+        LOGGER.info("Get into the getLocal function");
+        File folder = new File(path);
+        String pattern = scale.toLowerCase();
+        File[] files = folder.listFiles((dir,name) -> name.toLowerCase().contains(pattern));
+        LOGGER.info("Here are the files that I found:" + files.toString());
+        return files;
+    }
+
+
+    /**
+     * Get the type/class/object for a name. This is much more difficult that I thought.
+     *
+     * */
+
+    public Class<?> getClass(String scale) {
+        LOGGER.info("What happens here?");
+        Class<?> clz = exportService.getDomainType(scale);
+        if (clz != null) {
+            LOGGER.info(clz.getName());
+            return clz;
+        }
+        LOGGER.info("Did not find it.");
+        return null;
+    }
+
+
+    /***
+     * Saving the participant data
+     */
+
+
+    public boolean saveParticipant(String is){
+        LOGGER.info("Try to save the participant table after saving the study table.");
+        ObjectMapper mapper = new ObjectMapper();
+        JpaRepository rep = exportService.getRepositoryForName("participant");
+        if (rep != null) {
+            Class<?> clz = exportService.getDomainType("participant");
+            if (clz != null) {
+                try {
+                    JsonNode pObj = mapper.readTree(is);
+                    Iterator itr = pObj.elements();
+                    while (itr.hasNext()) {
+                        JsonNode elm = (JsonNode) itr.next();
+                        long index = elm.path("study").asLong();
+                        try {
+                            Study s = studyRepository.findById(index);
+                            ObjectNode p = elm.deepCopy();
+                            p.remove("study");
+                            Participant participant = mapper.readValue(p.toString(), Participant.class);
+                            participant.setStudy(s);
+                            rep.save(participant);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            return false;
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return false;
+                }
+                return true;
+            }
+        }
+        return false;
     }
 
 
 
 
+    /**
+     *
+     * Save all the questionnaire and mindtrails logs
+     */
+
+    public boolean linkParticipant(JsonNode obj, Class clz, JpaRepository rep) {
+        LOGGER.info("Try to link a questionnaire or log with the participant");
+        Iterator itr = obj.elements();
+        ObjectMapper mapper = new ObjectMapper();
+        while (itr.hasNext()) {
+            JsonNode elm = (JsonNode) itr.next();
+            long index = elm.path("participant").asLong();
+            try {
+                Participant s = participantRepository.findOne(index);
+                ObjectNode p = elm.deepCopy();
+                p.remove("participant");
+                Object object = mapper.readValue(p.toString(),clz);
+                if (object instanceof hasParticipant) ((hasParticipant) object).setParticipant(s);
+                rep.save(object);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+        return true;
+
+    }
+
+
+    /**
+     *
+     * Save all the questionnaire and mindtrails logs
+     */
+
+    public boolean linkStudy(JsonNode obj, Class clz, JpaRepository rep) {
+        LOGGER.info("Try to link a questionnaire or log with the study");
+        Iterator itr = obj.elements();
+        ObjectMapper mapper = new ObjectMapper();
+        while (itr.hasNext()) {
+            JsonNode elm = (JsonNode) itr.next();
+            long index = elm.path("study").asLong();
+            try {
+                Study s = studyRepository.findById(index);
+                ObjectNode p = elm.deepCopy();
+            //    p.set("study",null);
+                Object object = mapper.readValue(p.toString(),clz);
+                if (object instanceof hasStudy) ((hasStudy) object).setStudy(s);
+                rep.save(object);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+        return true;
+
+    }
+
+    /**
+     * parse the data you get into the database.
+     *
+     * */
+
+    public boolean parseDatabase(String scale, String is){
+        LOGGER.info("Get into the parseDatabase function");
+        ObjectMapper mapper = new ObjectMapper();
+        JpaRepository rep = exportService.getRepositoryForName(scale);
+        if (rep != null) {
+            LOGGER.info("Found " + scale + " repository.");
+            Class<?> clz = exportService.getDomainType(scale);
+            if (clz != null) {
+                LOGGER.info("Found " + clz.getName() + " class.");
+                try {
+                    JsonNode obj = mapper.readTree(is);
+                    if (hasStudy.class.isInstance(clz.newInstance())) {
+                        return linkStudy(obj,clz,rep);
+                    } else if (hasParticipant.class.isInstance(clz.newInstance())){
+                        return linkParticipant(obj, clz, rep);
+                    } else {
+                        Iterator itr = obj.elements();
+                        while (itr.hasNext()) {
+                            JsonNode elm = (JsonNode) itr.next();
+                            ObjectNode p = elm.deepCopy();
+                            Object object = mapper.readValue(p.toString(),clz);
+                            rep.save(object);
+                        };
+                    };
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return false;
+                };
+                return true;
+            };
+        };
+        return false;
+    }
+
+
+
+    public boolean updateParticipantLocal() {
+        LOGGER.info("Get into the updateParticipant function.");
+        File[] files = getFileList("ParticipantExportDAO");
+        for (File file:files) {
+            return parseDatabase("ParticipantExportDAO",readJSON(file));
+        }
+        return false;
+    }
+
+
+    public boolean updateStudyLocal() {
+        LOGGER.info("Get into the updateStudy function.");
+        File[] files = getFileList("StudyExportDAO");
+        for (File file:files) {
+            return parseDatabase("StudyExportDAO",readJSON(file));
+        }
+        return false;
+    }
+
+    public boolean updateParticipantOnline() {
+        LOGGER.info("Get into the updateParticipant function");
+        String newParticipant = getOnline("participant");
+        if (newParticipant != null) {
+            LOGGER.info("Successfully read participant table");
+            return parseDatabase("participant",newParticipant);
+        }
+        return false;
+    }
+
+    public boolean updateStudyOnline() {
+        LOGGER.info("Get into the updatestudy function");
+        String newStudy = getOnline("study");
+        if (newStudy != null) {
+            LOGGER.info("Successfully read study table");
+            return parseDatabase("study",newStudy);
+        }
+        return false;
+    }
+
+
+
+/**
+ *  Every five minutes the program will try to download all the data.
+ * */
+
+    @Scheduled(cron = "0 0 0 * * *")
+    public void importData() {
+        LOGGER.info("Trying to download data from api/export.");
+        boolean newParticipant = updateParticipantOnline();
+        if (newParticipant) LOGGER.info("Successfully logged new participants");
+        int i = 0;
+        List<String> good = new ArrayList<String>();
+        List<String> bad = new ArrayList<String>();
+        List<Scale> list = importList();
+        for (Scale scale:list) {
+            String is = getOnline(scale.getName());
+            if (parseDatabase(scale.getName(),is)) {
+                i += 1;
+                good.add(scale.getName());
+            } else {
+                bad.add(scale.getName());
+            }
+        }
+        LOGGER.info("Here is the good list:");
+        for (String flag:good) LOGGER.info(flag);
+        LOGGER.info("Here is the bad list:");
+        for (String flag:bad) LOGGER.info(flag);
+        LOGGER.info("Let's review all the error messages:");
+        for (String flag:bad) {
+            String is = getOnline(flag);
+            parseDatabase(flag,is);
+        };
+    }
+
+    /**
+     *
+     *
+     * The backup routine.
+     */
+    @Scheduled(cron = "0 0 0 * * *")
+    public void backUpData() {
+        LOGGER.info("Try to backup data from local.");
+        int i = 0;
+        List<String> good = new ArrayList<String>();
+        List<String> bad = new ArrayList<String>();
+        List<Scale> list = importList();
+        for (Scale scale:list) {
+            File[] is = getFileList(scale.getName());
+            if (localBackup(scale.getName(),is)) {
+                i += 1;
+                good.add(scale.getName());
+            } else {
+                bad.add(scale.getName());
+            }
+        }
+        LOGGER.info("Here is the good list:");
+        for (String flag:good) LOGGER.info(flag);
+        LOGGER.info("Here is the bad list:");
+        for (String flag:bad) LOGGER.info(flag);
+
+    }
 }
 

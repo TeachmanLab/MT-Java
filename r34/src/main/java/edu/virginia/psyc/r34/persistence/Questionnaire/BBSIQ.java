@@ -1,6 +1,6 @@
 package edu.virginia.psyc.r34.persistence.Questionnaire;
 
-import org.mindtrails.domain.questionnaire.SecureQuestionnaireData;
+import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Table(name="BBSIQ")
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class BBSIQ extends SecureQuestionnaireData {
+public class BBSIQ extends LinkedQuestionnaireData {
 
     private int visitors_outstay;
     private int visitors_engagement;

@@ -1,9 +1,11 @@
 package org.mindtrails.domain.questionnaire;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.annotations.GenericGenerator;
 import org.mindtrails.domain.Exportable;
 import org.mindtrails.domain.Participant;
 import lombok.Data;
+import org.mindtrails.domain.hasParticipant;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -16,10 +18,15 @@ import java.util.Map;
 @MappedSuperclass
 @Data
 @Exportable // All Quetionnaire data should be exportable.
-public abstract class QuestionnaireData {
+public abstract class QuestionnaireData implements hasParticipant {
 
-    @TableGenerator(name = "QUESTION_GEN", table = "ID_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 1)
+
     @Id
+    @GenericGenerator(name = "QUESTION_GEN", strategy = "org.mindtrails.persistence.MindtrailsIdGenerator", parameters = {
+            @org.hibernate.annotations.Parameter(name = "table_name", value = "ID_GEN"),
+            @org.hibernate.annotations.Parameter(name = "value_column_name", value = "GEN_VAL"),
+            @org.hibernate.annotations.Parameter(name = "segment_column_name", value = "GEN_NAME"),
+            @org.hibernate.annotations.Parameter(name = "segment_value", value = "question") })
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "QUESTION_GEN")
     protected Long id;
 
