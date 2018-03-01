@@ -42,6 +42,10 @@ jsPsych.plugins["sentence-reveal"] = (function () {
 
     plugin.trial = function (display_element, trial) {
 
+        var lastIndex = trial.paragraph.lastIndexOf(" ");
+
+        trial.paragraph = trial.paragraph.substring(0, lastIndex);
+
         var sentences = trial.paragraph.split(".");
         var sentence_index = 0;
 

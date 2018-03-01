@@ -121,8 +121,9 @@ var HOBBY_STUDY = (function () {
                             return (
                                 "<div class='piIntro'> " +
                                 "<img src='" + my.base_url + "images/compass-blue.png' > " +
-                                "<p> In this study, you will see a set of short stories. All stories will start with the story's title, so you know what the story is about. " +
-                                "The stories will be presented in different formats, sometimes including pictures and sounds.</p> " +
+                                "<p> In this study, you will see a set of short stories. All stories will start with the story's title, " +
+                                "so you know what the story is about. " +
+                                "The stories will be presented in different formats, some will include pictures, some will not.</p> " +
                                 "<br clear='all'> " +
                                 "<b>For each story:</b> " +
                                 "<ul> " +
@@ -134,7 +135,6 @@ var HOBBY_STUDY = (function () {
                                 "<li>When you correctly complete the word you will move on to the next screen and be asked a " +
                                 "question about the story. </li> " +
                                 "</ul> " +
-                                "<p><b>Before we start, please make sure your sound volume is turned on.</b></p>" +
                                 "</div>"
                             )
                         },
@@ -269,8 +269,8 @@ var HOBBY_STUDY = (function () {
                     positive = true;
 
                     if (positive) {
-                        phrase = scenarios[k]['PositiveS'];
-                        yes_no_correct = scenarios[k]['PositiveQ'];
+                        phrase = scenarios[k]['FinalWord'];
+                        yes_no_correct = scenarios[k]['Correct'];
                         mc1_correct = scenarios[k]['mc1pos'];
                         mc2_correct = scenarios[k]['mc2pos'];
                     }
