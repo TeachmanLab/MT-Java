@@ -25,12 +25,11 @@ public class ParticipantCreateAdmin extends ParticipantUpdate {
     private boolean admin;
     private boolean active = true;
     private boolean testAccount = false;
-<<<<<<< HEAD
-=======
+
     private boolean receiveGiftCards = false;
     private boolean verified = false;
     private boolean blacklist = false;
->>>>>>> upstream/master
+
 
     @NotNull
     @Pattern(regexp=PASSWORD_REGEX, message = PASSWORD_MESSAGE)

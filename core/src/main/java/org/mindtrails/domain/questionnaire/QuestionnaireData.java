@@ -2,7 +2,7 @@ package org.mindtrails.domain.questionnaire;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.GenericGenerator;
-import org.mindtrails.domain.Exportable;
+import org.mindtrails.domain.data.Exportable;
 import org.mindtrails.domain.Participant;
 import lombok.Data;
 import org.mindtrails.domain.hasParticipant;

@@ -3,8 +3,8 @@ package org.mindtrails.persistence;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import org.mindtrails.domain.DoNotDelete;
-import org.mindtrails.domain.Exportable;
+import org.mindtrails.domain.data.DoNotDelete;
+import org.mindtrails.domain.data.Exportable;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;

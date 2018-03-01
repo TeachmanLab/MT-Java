@@ -1,6 +1,6 @@
 package org.mindtrails.controller;
 
-import org.mindtrails.domain.DoNotDelete;
+import org.mindtrails.domain.data.DoNotDelete;
 import org.mindtrails.domain.RestExceptions.NoSuchIdException;
 import org.mindtrails.domain.RestExceptions.NoSuchQuestionnaireException;
 import org.mindtrails.domain.RestExceptions.NotDeleteableException;

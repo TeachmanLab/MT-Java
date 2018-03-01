@@ -2,7 +2,7 @@ package org.mindtrails.domain.jsPsych;
 
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
-import org.mindtrails.domain.Exportable;
+import org.mindtrails.domain.data.Exportable;
 import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;

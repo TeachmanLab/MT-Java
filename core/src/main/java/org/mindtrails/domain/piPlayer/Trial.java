@@ -1,7 +1,7 @@
 package org.mindtrails.domain.piPlayer;
 
 import lombok.Data;
-import org.mindtrails.domain.Exportable;
+import org.mindtrails.domain.data.Exportable;
 
 import javax.persistence.*;
 import java.util.*;

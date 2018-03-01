@@ -5,10 +5,9 @@ import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.RestExceptions.MissingEligibilityException;
-<<<<<<< HEAD
-=======
+
 import org.mindtrails.domain.VerificationCode;
->>>>>>> upstream/master
+
 import org.mindtrails.domain.forms.ParticipantCreate;
 import org.mindtrails.domain.forms.ParticipantUpdate;
 import org.mindtrails.domain.recaptcha.RecaptchaFormValidator;
@@ -99,10 +98,9 @@ public class AccountController extends BaseController {
         participant = participantService.create();
         participantCreate.updateParticipant(participant);
         participant.setLastLoginDate(new Date());
-<<<<<<< HEAD
-=======
+
         participant.setVerificationCode(new VerificationCode(participant));
->>>>>>> upstream/master
+
         participant.setReference((String)session.getAttribute("referer"));
         participant.setCampaign((String)session.getAttribute("campaign"));
 
@@ -114,10 +112,7 @@ public class AccountController extends BaseController {
         } catch (MissingEligibilityException mee) {
             return "redirect:/public/eligibility";
         }
-<<<<<<< HEAD
-=======
 
->>>>>>> upstream/master
 
         // Log this new person in.
         Authentication auth = new UsernamePasswordAuthenticationToken( participantCreate.getEmail(), participantCreate.getPassword());
@@ -292,14 +287,12 @@ public class AccountController extends BaseController {
     public String showAccount(ModelMap model, Principal principal) {
         ParticipantUpdate update = new ParticipantUpdate();
         update.fromParticipant(getParticipant(principal));
-<<<<<<< HEAD
-        model.addAttribute("participantUpdate", update);
-=======
+
         boolean verified=participantService.get(principal).isVerified();
         model.addAttribute("participantUpdate", update);
         model.addAttribute("verified", verified);
         model.addAttribute("postChange", true);
->>>>>>> upstream/master
+
         return "account";
     }
 
@@ -307,15 +300,11 @@ public class AccountController extends BaseController {
     public String update(ModelMap model, Principal principal,
                          @Valid ParticipantUpdate form,
                          BindingResult bindingResult) {
-<<<<<<< HEAD
+
 
         Participant participant = getParticipant(principal);
 
-=======
 
-        Participant participant = getParticipant(principal);
-
->>>>>>> upstream/master
         if(bindingResult.hasErrors()) {
             model.addAttribute("participantUpdate", form);
             return "account";

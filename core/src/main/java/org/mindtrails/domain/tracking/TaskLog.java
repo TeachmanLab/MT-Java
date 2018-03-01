@@ -3,9 +3,12 @@ package org.mindtrails.domain.tracking;
 import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
 import org.mindtrails.domain.*;
+import org.mindtrails.domain.data.DoNotDelete;
+import org.mindtrails.domain.data.Exportable;
 
 import javax.persistence.*;
 import java.util.Date;
+
 
 /**
  * User: dan

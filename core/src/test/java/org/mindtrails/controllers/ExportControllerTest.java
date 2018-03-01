@@ -14,7 +14,7 @@ import org.mindtrails.MockClasses.TestUndeleteable;
 import org.mindtrails.MockClasses.TestUndeleteableRepository;
 import org.mindtrails.controller.ExportController;
 import org.mindtrails.controller.QuestionController;
-import org.mindtrails.domain.DoNotDelete;
+import org.mindtrails.domain.data.DoNotDelete;
 import org.mindtrails.domain.RestExceptions.NotDeleteableException;
 import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;

@@ -50,13 +50,6 @@ public interface ParticipantRepository extends JpaRepository<Participant, Long> 
     long countByLastLoginDateBetween(Date date1,Date date2);
 
     List<ParticipantStats> findAllStatsBy();
-<<<<<<< HEAD
 
-
-
-
-=======
-    
->>>>>>> upstream/master
 
 }

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.EqualsAndHashCode;
-import org.mindtrails.domain.Exportable;
+import org.mindtrails.domain.data.Exportable;
 import org.mindtrails.domain.Participant;
 import lombok.Data;
 
