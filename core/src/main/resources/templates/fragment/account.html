@@ -72,7 +72,6 @@
                 -->
                 <input type="hidden" name="phoneCountry" id="phoneCountry"/>
                 <div id="result">
-                <input class="form-control"  name="phone" id="phone" type="tel" th:field="*{phone}"/>
                 <input class="form-control"  name="phone" id="phone" type="tel" th:field="*{phone}"  th:readonly="${verified}"/>
                     <br/>
                     <span class="note" th:if="${verified}">

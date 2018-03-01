@@ -68,7 +68,7 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
      */
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        LOG.debug("!@#@!%#$W#$@#$^#$%&$%*%^&(^&*)^$%&CONTEXT loaded:  " + event.getApplicationContext());
+        LOG.debug("CONTEXT loaded:  " + event.getApplicationContext());
         repositories=new Repositories(event.getApplicationContext());
     }
 
@@ -130,7 +130,6 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
     public List<QuestionnaireInfo> listRepositories() {
         List<QuestionnaireInfo> names = new ArrayList<>();
         if(repositories == null) {
-            LOG.info("f======================================== ");
             return names;
         }
         boolean deleteableFlag;
