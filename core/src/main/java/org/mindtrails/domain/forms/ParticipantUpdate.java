@@ -31,6 +31,7 @@ public class ParticipantUpdate implements HasPhone {
 
     protected boolean emailReminders = true;
     protected boolean phoneReminders = true;
+    protected boolean receiveGiftCards = false;
 
     protected String timezone;
 
@@ -41,6 +42,7 @@ public class ParticipantUpdate implements HasPhone {
         this.fullName = p.getFullName();
         this.emailReminders = p.isEmailReminders();
         this.phoneReminders = p.isPhoneReminders();
+        this.receiveGiftCards = p.isReceiveGiftCards();
         this.theme = p.getTheme();
         this.phone = p.getPhone();
         this.timezone = p.getTimezone();
@@ -61,6 +63,7 @@ public class ParticipantUpdate implements HasPhone {
         if(this.theme != null) p.setTheme(this.getTheme());
         return p;
     }
+
 
     /**
      * Converts the provided phone number to the E164 standard used by

@@ -432,6 +432,7 @@ public class AdminController extends BaseController {
         return massiveMap;
     }
 
+<<<<<<< HEAD
 
 
 
@@ -444,4 +445,6 @@ public class AdminController extends BaseController {
 
 
 
+=======
+>>>>>>> upstream/master
 }

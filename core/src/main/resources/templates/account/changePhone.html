@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="fragment/common :: headerFragment"/>
+<body >
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
+
+<!-- header-btm starts
+================================================== -->
+<section id="header-btm" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <h2 class="page-title heading-icon clearfix"><img th:src="@{/images/map-arrow-orange.png}" alt="icon"
+                                                              class="icon-small-bg"/><br/>Please enter a new phone number</h2>
+        </div>
+    </div>
+</section>
+<!--<![endif]-->
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span8">
+                <form action="#" th:action="@{/account/changePhone}" method="post">
+
+                        <input  type="text" name="newPhone" id="newPhone"/>
+
+                        <input type="submit" value="Submit" id="subNewPhone"/>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<script th:src="@{/bower/intl-tel-input/build/js/intlTelInput.js}"></script>
+<script>
+    var telInput = $("#newPhone");
+    // initialise plugin
+    telInput.intlTelInput({
+        utilsScript:"https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.1.4/css/intlTelInput.css"
+    });
+
+    // on blur: validate
+    telInput.blur(function() {
+        var phoneReminders = $("#subNewPhone");
+        var countryData = $("#newPhone").intlTelInput("getSelectedCountryData");
+        if (countryData.iso2 != "us") {
+            //phoneReminders.prop('disabled', true);
+            document.getElementById("#subNewPhone").disabled = true;
+            $("#noTexts").hide();
+            $("#yesTexts").show();
+
+        } else {
+            phoneReminders.prop('disabled', false);
+            $("#noTexts").show();
+            $("#yesTexts").hide();
+        }
+    });
+
+</script>
+
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
+<div th:include="fragment/common :: scripts"/>
+</body>
+</html>

@@ -73,6 +73,11 @@
                 <input type="hidden" name="phoneCountry" id="phoneCountry"/>
                 <div id="result">
                 <input class="form-control"  name="phone" id="phone" type="tel" th:field="*{phone}"/>
+                <input class="form-control"  name="phone" id="phone" type="tel" th:field="*{phone}"  th:readonly="${verified}"/>
+                    <br/>
+                    <span class="note" th:if="${verified}">
+                       Your phone has been verified, so please contact the admin if you want to change your phone.
+                   </span>
                 </div>
                 <script th:src="@{/bower/intl-tel-input/build/js/intlTelInput.js}"></script>
                 <script>
@@ -117,6 +122,23 @@
                     <span id="noTexts" style="display: none;">We can not currently send text reminders to this number.</span>
                 </label>
             </div>
+        </div>
+
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+        </div>
+        <div class="custom-control col-sm-10">
+            <label class="col-sm-10 inline-checkbox" >
+
+                <input class="inline-checkbox" type="checkbox" id="receiveGiftCards" name="receiveGiftCards" checked="checked"
+                       th:errorclass="error" th:field="*{receiveGiftCards}" />
+
+                <span class="note">
+                    I’d like to receive gift cards for my participation<br/>(we will send you a code to verify your identity, this must be completed to receive gift cards.)
+                </span>
+
+            </label>
         </div>
     </div>
 
@@ -307,7 +329,16 @@
         <button>Update</button>
     </div>
 </section>
+<script type="text/javascript">
+    function Verify(){
+        if (document.getElementById("receiveGiftCards").checked) {
 
+
+        }
+
+    }
+}
+</script>
 
 </body>
 </html>

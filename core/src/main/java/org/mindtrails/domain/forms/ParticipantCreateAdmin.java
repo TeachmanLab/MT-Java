@@ -25,6 +25,12 @@ public class ParticipantCreateAdmin extends ParticipantUpdate {
     private boolean admin;
     private boolean active = true;
     private boolean testAccount = false;
+<<<<<<< HEAD
+=======
+    private boolean receiveGiftCards = false;
+    private boolean verified = false;
+    private boolean blacklist = false;
+>>>>>>> upstream/master
 
     @NotNull
     @Pattern(regexp=PASSWORD_REGEX, message = PASSWORD_MESSAGE)
@@ -50,6 +56,9 @@ public class ParticipantCreateAdmin extends ParticipantUpdate {
 
         if(participantService.findByEmail(email) != null) {
             bindingResult.rejectValue("email", "error.emailExists", "This email already exists.");
+        }
+        if(!participantService.findByPhone(formatPhone(phone)).isEmpty()) {
+            bindingResult.rejectValue("phone", "error.phoneExists", "This phone number is already linked to an account.");
         }
 
         if(!password.equals(passwordAgain)) {
@@ -86,5 +95,6 @@ public class ParticipantCreateAdmin extends ParticipantUpdate {
         p.setTestAccount(testAccount);
         return(p);
     }
+
 
 }

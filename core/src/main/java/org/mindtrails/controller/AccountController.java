@@ -1,11 +1,19 @@
 package org.mindtrails.controller;
 
+import com.google.i18n.phonenumbers.NumberParseException;
+import com.google.i18n.phonenumbers.PhoneNumberUtil;
+import com.google.i18n.phonenumbers.Phonenumber;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.RestExceptions.MissingEligibilityException;
+<<<<<<< HEAD
+=======
+import org.mindtrails.domain.VerificationCode;
+>>>>>>> upstream/master
 import org.mindtrails.domain.forms.ParticipantCreate;
 import org.mindtrails.domain.forms.ParticipantUpdate;
 import org.mindtrails.domain.recaptcha.RecaptchaFormValidator;
 import org.mindtrails.service.ParticipantService;
+import org.mindtrails.service.TwilioService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +57,9 @@ public class AccountController extends BaseController {
     @Autowired
     private ParticipantService participantService;
 
+    @Autowired
+    private TwilioService twilioService;
+
     /** This will assure that any form submissions for the participant Form
      * are validated for a proper recaptcha response.
      * @param binder
@@ -88,6 +99,10 @@ public class AccountController extends BaseController {
         participant = participantService.create();
         participantCreate.updateParticipant(participant);
         participant.setLastLoginDate(new Date());
+<<<<<<< HEAD
+=======
+        participant.setVerificationCode(new VerificationCode(participant));
+>>>>>>> upstream/master
         participant.setReference((String)session.getAttribute("referer"));
         participant.setCampaign((String)session.getAttribute("campaign"));
 
@@ -99,10 +114,20 @@ public class AccountController extends BaseController {
         } catch (MissingEligibilityException mee) {
             return "redirect:/public/eligibility";
         }
+<<<<<<< HEAD
+=======
+
+>>>>>>> upstream/master
 
         // Log this new person in.
         Authentication auth = new UsernamePasswordAuthenticationToken( participantCreate.getEmail(), participantCreate.getPassword());
         SecurityContextHolder.getContext().setAuthentication(auth);
+
+        if (participant.isReceiveGiftCards()){
+            String code=participant.getVerificationCode().getCode();
+            twilioService.sendMessage(code,participant);
+            return "account/verification";
+        }
 
         LOG.info("Participant authenticated.");
         return "redirect:/account/theme";
@@ -115,12 +140,133 @@ public class AccountController extends BaseController {
         return "account/theme";
     }
 
+
+
+    @RequestMapping("changePhone")
+    public String changePhone(@RequestParam(value="newPhone", required=false, defaultValue="NAN") String newPhone,ModelMap model, Principal principal) {
+          if(newPhone.length()==0){
+
+            return "account/changePhone";
+        }
+        else{
+              Participant p = participantService.get(principal);
+              p.setVerificationCode(new VerificationCode(p));
+              p.updatePhone(newPhone);
+              participantService.save(p);
+              participantService.flush();
+              if (p.isReceiveGiftCards()){
+                  String code=p.getVerificationCode().getCode();
+                  twilioService.sendMessage(code,p);
+                  return "account/verification";
+              }
+              model.addAttribute("updated", true);
+              return "redirect:/account/theme";
+          }
+
+
+
+
+    }
+
     @RequestMapping(value="updateTheme", method = RequestMethod.POST)
     public String updateTheme(ModelMap model, String theme, Principal principal) {
         Participant p = participantService.get(principal);
         p.setTheme(theme);
         participantService.save(p);
         return "redirect:/session";
+    }
+
+    @RequestMapping("wrongCode")
+    public String showWrongCode(Principal principal) {
+        Participant p=participantService.get(principal);
+        if(p.isVerified()){
+            return "redirect:/account/verified";
+        }
+        return "account/wrongCode";
+
+    }
+    public String formatPhone(String p) {
+        String phoneLocale="US";
+        if(p == null) return null;
+
+        PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
+        try {
+            Phonenumber.PhoneNumber phone = phoneUtil.parse(p, phoneLocale);
+            return phoneUtil.format(phone, PhoneNumberUtil.PhoneNumberFormat.E164);
+        } catch (NumberParseException e) {
+            return p; // Leave it alone, let validation handle it.
+        }
+    }
+
+    @RequestMapping(value="updateWrongCode",method=RequestMethod.POST)
+    public String updateWrongCode(@RequestParam String sub, @RequestParam String verifycode, ModelMap model, Principal principal, String phone) {
+        Participant p=participantService.get(principal);
+        if( sub.equals("subCode") ){
+            if (p.getVerificationCode().getCode().equals(verifycode)&&p.getVerificationCode().valid()) {
+                p.setVerified(true);
+                //p.updateGiftCardsQualification();
+                participantService.save(p);
+                return "redirect:/account/verified";
+            }  else {
+                return "redirect:/account/wrongCode";
+            }
+
+        }
+        else if( sub.equals("subPhone") ){
+
+           if(participantService.findByPhone(formatPhone(phone)).isEmpty()||formatPhone(phone).equals(p.getPhone())){
+                p.updatePhone(phone);
+                p.setVerificationCode(new VerificationCode(p));
+                participantService.save(p);
+                String code=p.getVerificationCode().getCode();
+                twilioService.sendMessage(code,p);
+                return "account/verification";
+
+            }
+            else{
+               model.addAttribute("invalidPhone", true);
+               return "account/wrongCode";
+           }
+        }
+        else {
+            return "redirect:/account/wrongCode";
+        }
+    }
+
+
+    @RequestMapping(value="/verified",method= RequestMethod.GET)
+    public String verified(){
+        return "account/verified";
+    }
+
+    @RequestMapping("PostVerification")
+    public String PostVerification(@RequestParam(value="verifycode", required=false, defaultValue="NAN") String verifycode,ModelMap model, Principal principal) {
+        Participant p = participantService.get(principal);
+        p.setReceiveGiftCards(true);
+        p.setVerificationCode(new VerificationCode(p));
+        participantService.save(p);
+        String code=p.getVerificationCode().getCode();
+        twilioService.sendMessage(code,p);
+        return "account/verification";
+    }
+
+    @RequestMapping(value="/verification", method = RequestMethod.POST)
+    public String verify(@RequestParam String verifycode, ModelMap model, Principal principal) {
+        Participant p = participantService.get(principal);
+
+        String code=p.getVerificationCode().getCode();
+        if(p.isVerified()){
+            return "redirect:/account/verified";
+        }
+         if (code.equals(verifycode)&&p.getVerificationCode().valid()) {
+                p.setVerified(true);
+                participantService.save(p);
+                return "redirect:/account/verified";
+            }
+            else {
+
+                return "redirect:/account/wrongCode";
+            }
     }
 
     @RequestMapping("exitStudyConfirm")
@@ -146,7 +292,14 @@ public class AccountController extends BaseController {
     public String showAccount(ModelMap model, Principal principal) {
         ParticipantUpdate update = new ParticipantUpdate();
         update.fromParticipant(getParticipant(principal));
+<<<<<<< HEAD
         model.addAttribute("participantUpdate", update);
+=======
+        boolean verified=participantService.get(principal).isVerified();
+        model.addAttribute("participantUpdate", update);
+        model.addAttribute("verified", verified);
+        model.addAttribute("postChange", true);
+>>>>>>> upstream/master
         return "account";
     }
 
@@ -154,9 +307,15 @@ public class AccountController extends BaseController {
     public String update(ModelMap model, Principal principal,
                          @Valid ParticipantUpdate form,
                          BindingResult bindingResult) {
+<<<<<<< HEAD
 
         Participant participant = getParticipant(principal);
 
+=======
+
+        Participant participant = getParticipant(principal);
+
+>>>>>>> upstream/master
         if(bindingResult.hasErrors()) {
             model.addAttribute("participantUpdate", form);
             return "account";

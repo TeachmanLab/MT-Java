@@ -5,7 +5,10 @@ import lombok.EqualsAndHashCode;
 import org.mindtrails.domain.questionnaire.SecureQuestionnaireData;
 
 import javax.persistence.Entity;
+<<<<<<< HEAD
 
+=======
+>>>>>>> upstream/master
 import javax.persistence.Lob;
 import javax.persistence.Table;
 
@@ -19,8 +22,12 @@ import javax.persistence.Table;
 @Data
 public class ReturnIntention extends SecureQuestionnaireData {
     private int returnIntention;
+<<<<<<< HEAD
 
     @Lob
 
+=======
+    @Lob
+>>>>>>> upstream/master
     private String notReturnReason;
 }

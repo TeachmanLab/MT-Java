@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head th:include="fragment/email :: headerFragment"/>
+
+<body style="background:#eee; min-height:1000px; color:#000;font-family:Arial, Helvetica, sans-serif; font-size:12px"
+      alink="#FF0000" link="#FF0000" bgcolor="#767676" text="#FFFFFF" yahoo="fix">
+
+<div id="body_style" style="padding:15px" border="5px solid #767676">
+
+    <table cellpadding="0" cellspacing="0" width="400" align="center" th:include="fragment/email :: logoFragment"/>
+
+    <table cellpadding="0" cellspacing="0" width="400" align="center" style="margin-top:20px">
+        <tr>
+            <td width="400">
+                <p style="margin-top:0; margin-bottom:10px">Dear Mindtrails Staff, </p>
+                <p style="margin-top:5px">A participant with id <b><span th:text="${participant.id}"/></b> just
+                    completed the
+                    Expectancy Bias Questionnaire and received a score that exceeds our threshold. The participant will
+                    receive
+                    an notification explaining these declining results. Their original score was
+                    <span th:text="${orig.score()}"/>, they recently scored
+                    <span th:text="${latest.score()}"/></p>
+            </td>
+
+            <table class="scores">
+                <tr>
+                    <th>Type</th>
+                    <th>Inclination</th>
+                    <th>Original Score</th>
+                    <th>Latest Score</th>
+                </tr>
+                <tr>
+                    <th>Short Rest</th>
+                <tr>Positive</tr>
+                <td align="right" th:text="${orig.ShortRest}"/>
+                <td align="right" th:text="${latest.ShortRest}"/>
+                </tr>
+                <tr>
+                    <th>Re-runs</th>
+                <tr>Neutral</tr>
+                <td align="right" th:text="${orig.Reruns}"/>
+                <td align="right" th:text="${latest.Reruns}"/>
+                </tr>
+                <tr>
+                    <th>Very Sick</th>
+                <tr>Negative</tr>
+                <td align="right" th:text="${orig.Bagel}"/>
+                <td align="right" th:text="${latest.Bagel}"/>
+                </tr>
+                <tr>
+                    <th>Bagel</th>
+                <tr>Neutral</tr>
+                <td align="right" th:text="${orig.Bagel}"/>
+                <td align="right" th:text="${latest.Bagel}"/>
+                </tr>
+                <tr>
+                    <th>Settle In</th>
+                <tr>Positive</tr>
+                <td align="right" th:text="${orig.SettleIn}"/>
+                <td align="right" th:text="${latest.SettleIn}"/>
+                </tr>
+                <tr>
+                    <th>Offend</th>
+                <tr>Negative</tr>
+                <td align="right" th:text="${orig.Offend}"/>
+                <td align="right" th:text="${latest.Offend}"/>
+                </tr>
+                <tr>
+                    <th>Lunch</th>
+                <tr>Neutral</tr>
+                <td align="right" th:text="${orig.Lunch}"/>
+                <td align="right" th:text="${latest.Lunch}"/>
+                </tr>
+                <tr>
+                    <th>Considered for Advacement</th>
+                <tr>Positive</tr>
+                <td align="right" th:text="${orig.ConsideredAdvancement}"/>
+                <td align="right" th:text="${latest.ConsideredAdvancement}"/>
+                </tr>
+                <tr>
+                    <th>Stuck</th>
+                <tr>Negative</tr>
+                <td align="right" th:text="${orig.Stuck}"/>
+                <td align="right" th:text="${latest.Stuck}"/>
+                </tr>
+                <tr>
+                    <th>Termostat</th>
+                <tr>Neutral</tr>
+                <td align="right" th:text="${orig.Thermostat}"/>
+                <td align="right" th:text="${latest.Thermostat}"/>
+                </tr>
+                <tr>
+                    <th>Financially Secure</th>
+                <tr>Positive</tr>
+                <td align="right" th:text="${orig.FinanciallySecure}"/>
+                <td align="right" th:text="${latest.FinanciallySecure}"/>
+                </tr>
+            </table>
+
+        </tr>
+    </table>
+
+    <p style="margin-top:0"></p>
+
+
+</div>
+
+</body>
+</html>

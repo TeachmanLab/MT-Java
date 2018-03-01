@@ -32,6 +32,8 @@ public interface ParticipantService {
      */
     Participant findByEmail(String email);
 
+    List<Participant> findByPhone(String phone);
+
     /**
      * Checks for eligibility - usually with a form
      * stored against the current users session

@@ -1,6 +1,9 @@
 package org.mindtrails.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.i18n.phonenumbers.NumberParseException;
+import com.google.i18n.phonenumbers.PhoneNumberUtil;
+import com.google.i18n.phonenumbers.Phonenumber;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.joda.time.DateTime;
@@ -23,11 +26,10 @@ import java.util.*;
 @Entity
 @Table(name = "participant")
 @Data
-@EqualsAndHashCode(exclude={"emailLogs", "giftLogs", "SMSLogs", "passwordToken"})
+@EqualsAndHashCode(exclude={"emailLogs", "giftLogs", "SMSLogs", "passwordToken","verificationCode"})
 public  class Participant implements UserDetails {
 
     private static final Logger LOG = LoggerFactory.getLogger(Participant.class);
-
 
     @Id
     @TableGenerator(name = "PARTICIPANT_GEN", table = "ID_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 1)
@@ -45,18 +47,29 @@ public  class Participant implements UserDetails {
     protected String timezone;
     protected boolean active = true;
     protected Date lastLoginDate;
+    protected boolean receiveGiftCards = true;
+    protected boolean verified = false;
+    protected boolean blacklist = false;
     @JsonIgnore
     protected String randomToken;
     protected String theme = "blue";
     protected boolean over18;
     protected String reference; // The site the user came from when creating their account
     protected String campaign; // A key passed into the landing page, to help identify where people come from.
+<<<<<<< HEAD
     protected boolean receiveGiftCards;
+=======
+
+
+>>>>>>> upstream/master
 
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     protected PasswordToken passwordToken;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    protected VerificationCode verificationCode;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity=BaseStudy.class)
     protected Study study;
@@ -189,6 +202,28 @@ public  class Participant implements UserDetails {
         String hashedPassword = encoder.encode(password);
         this.password = hashedPassword;
     }
+    public void updatePhone(String phone){
+        this.setPhone(formatPhone(phone));
+    }
+
+    public String formatPhone(String p) {
+        String phoneLocale="US";
+        if(p == null) return null;
+
+        PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
+        try {
+            Phonenumber.PhoneNumber phone = phoneUtil.parse(p, phoneLocale);
+            return phoneUtil.format(phone, PhoneNumberUtil.PhoneNumberFormat.E164);
+        } catch (NumberParseException e) {
+            return p; // Leave it alone, let validation handle it.
+        }
+    }
+
+    /**
+     * Checks to see if this type of email was already sent to the user regarding the
+     * given session.
+     */
+
 
     /**
      * @return Number of days since the last completed session or if

@@ -25,12 +25,15 @@ import java.util.stream.Stream;
 public class TempletonStudy extends BaseStudy {
 
     // positive (all positive words)
-    // positive (all postivie words, w/ negation statement
+    // positive (all positive words, w/ negation statement
     // 50/50 (half positive, half negative, completely random)
     // 50/50 (half positive, half negative, chunks - first 5 pos, next x are negative ....)
     // Neutral conditioning (likely alternate content)
     public enum CONDITION {POSITIVE, POSITIVE_NEGATION, FIFTY_FIFTY_RANDOM, FIFTY_FIFTY_BLOCKED, NEUTRAL }
 
+
+    private String      conditioning;
+    private boolean     atRisk = false;
     public static final String PRE_TEST = "preTest";
 
     public enum SESSION {firstSession, secondSession, thirdSession, fourthSession, PostFollowUp }
@@ -111,12 +114,10 @@ public class TempletonStudy extends BaseStudy {
         return map;
     }
 
-  
 
     public List<String>getConditions(){
         return Stream.of(CONDITION.values()) .map(Enum::name) .collect(Collectors.toList());
     }
-
 
 
     /**
