@@ -56,4 +56,6 @@ public interface Study {
      *     the participants Condition or Prime.
      */
     public Map<String,Object> getPiPlayerParameters();
+
+    public long getParticipantId();
 }

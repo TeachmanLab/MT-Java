@@ -277,8 +277,8 @@ public class ImportServiceTest extends BaseControllerTest {
         JsonNode actualObj = mapper.readTree(result.getResponse().getContentAsString());
         studyRepository.delete(s);
         studyRepository.delete(m);
-        Assert.assertTrue("This should be true:", service.parseDatabase("participant", actualObj.toString()));
-        Assert.assertEquals("This should be testing:", "Testing", actualObj.get(0).path("conditioning").toString());
+        Assert.assertTrue("This should be true:", service.parseDatabase("study", actualObj.toString()));
+        Assert.assertEquals("This should be testing:", "\"Testing\"", actualObj.get(0).path("conditioning").toString());
         Assert.assertEquals("This should be 1:", 1, actualObj.get(0).path("id").asInt());
     }
 
