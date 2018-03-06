@@ -1,5 +1,6 @@
 package org.mindtrails.controller;
 
+import org.mindtrails.domain.ClientOnly;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.RestExceptions.NoModelForFormException;
 import org.mindtrails.domain.RestExceptions.WrongFormException;
@@ -81,6 +82,7 @@ public class QuestionController extends BaseController {
     }
 
 
+    @ClientOnly
     @RequestMapping(value = "{form}", method = RequestMethod.POST)
     public @ResponseBody
     RedirectView handleForm(@PathVariable("form") String formName,
@@ -94,6 +96,7 @@ public class QuestionController extends BaseController {
      * Handles a form submission in a standardized way.  This is useful if
      * you extend this class to handle a custom form submission.
      */
+    @ClientOnly
     protected void saveForm(String formName, WebRequest request) throws Exception {
 
         JpaRepository repository = exportService.getRepositoryForName(formName);
@@ -122,6 +125,7 @@ public class QuestionController extends BaseController {
      *
      * @param data
      */
+    @ClientOnly
     protected void recordSessionProgress(String formName, QuestionnaireData data) {
 
         Participant participant;

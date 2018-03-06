@@ -18,7 +18,7 @@ public aspect DataOnlyAspect {
     private static final Logger LOGGER = LoggerFactory.getLogger(DataOnlyAspect.class);
 
 
-    @Around("@annotation(ClientOnly)")
+    @Around("@annotation(DataOnly)")
     public Object checkServerType(ProceedingJoinPoint joinPoint) throws Throwable {
 
         LOGGER.info("Server mode dependent method: Checking server mode now:");

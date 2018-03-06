@@ -7,10 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.apache.tomcat.jni.Error;
-import org.mindtrails.domain.Participant;
-import org.mindtrails.domain.Study;
-import org.mindtrails.domain.hasParticipant;
-import org.mindtrails.domain.hasStudy;
+import org.mindtrails.domain.*;
 import org.mindtrails.domain.importData.ImportError;
 import lombok.Data;
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -154,6 +151,17 @@ public class ImportService {
         }
     }
 
+    /**
+     * This is the function that used to delete information from the client site.
+     * @param path
+     * @param scale
+     * @return
+     */
+
+    @DataOnly
+    public Boolean deleteOnline(String path, String scale) {
+        return false;
+    }
 
 /**
  *
@@ -163,6 +171,7 @@ public class ImportService {
  * */
 
 
+    @DataOnly
     public boolean localBackup(String scale, File[] list) {
         LOGGER.info("Successfully launch local backup");
         int error = 0;
@@ -226,6 +235,7 @@ public class ImportService {
      */
 
 
+    @DataOnly
     public boolean saveParticipant(String is){
         LOGGER.info("Try to save the participant table after saving the study table.");
         ObjectMapper mapper = new ObjectMapper();
@@ -298,6 +308,7 @@ public class ImportService {
      * Save all the questionnaire and mindtrails logs
      */
 
+
     public boolean linkStudy(JsonNode obj, Class clz, JpaRepository rep) {
         LOGGER.info("Try to link a questionnaire or log with the study");
         Iterator itr = obj.elements();
@@ -326,6 +337,7 @@ public class ImportService {
      *
      * */
 
+    @DataOnly
     public boolean parseDatabase(String scale, String is){
         LOGGER.info("Get into the parseDatabase function");
         ObjectMapper mapper = new ObjectMapper();
@@ -361,7 +373,7 @@ public class ImportService {
     }
 
 
-
+    @DataOnly
     public boolean updateParticipantLocal() {
         LOGGER.info("Get into the updateParticipant function.");
         File[] files = getFileList("ParticipantExportDAO");
@@ -372,6 +384,7 @@ public class ImportService {
     }
 
 
+    @DataOnly
     public boolean updateStudyLocal() {
         LOGGER.info("Get into the updateStudy function.");
         File[] files = getFileList("StudyExportDAO");
@@ -381,6 +394,7 @@ public class ImportService {
         return false;
     }
 
+    @DataOnly
     public boolean updateParticipantOnline() {
         LOGGER.info("Get into the updateParticipant function");
         String newParticipant = getOnline(url,"ParticipantExportDAO");
@@ -391,6 +405,7 @@ public class ImportService {
         return false;
     }
 
+    @DataOnly
     public boolean updateStudyOnline() {
         LOGGER.info("Get into the updatestudy function");
         String newStudy = getOnline(url,"study");
@@ -407,6 +422,7 @@ public class ImportService {
  *  Every five minutes the program will try to download all the data.
  * */
 
+    @DataOnly
     @Scheduled(cron = "0 0 0 * * *")
     public void importData() {
         LOGGER.info("Trying to download data from api/export.");
@@ -441,6 +457,7 @@ public class ImportService {
      *
      * The backup routine.
      */
+    @DataOnly
     @Scheduled(cron = "0 0 0 * * *")
     public void backUpData() {
         LOGGER.info("Try to backup data from local.");

@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
@@ -20,6 +21,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @Configuration
 @EnableJpaRepositories(basePackages = {"edu.virginia.psyc.r01", "org.mindtrails"})
 @EnableAutoConfiguration
+@EnableAspectJAutoProxy
 @EntityScan(basePackages = {"edu.virginia.psyc.r01", "org.mindtrails"})
 @EnableScheduling
 public class Application {

@@ -1,5 +1,7 @@
 package org.mindtrails.controller;
 
+import org.mindtrails.domain.ClientOnly;
+import org.mindtrails.domain.DataOnly;
 import org.mindtrails.domain.data.DoNotDelete;
 import org.mindtrails.domain.RestExceptions.NoSuchIdException;
 import org.mindtrails.domain.RestExceptions.NoSuchQuestionnaireException;
@@ -55,6 +57,7 @@ public class ExportController  {
     @Autowired ExportService exportService;
 
 
+
     @RequestMapping(method= RequestMethod.GET)
     public @ResponseBody List<QuestionnaireInfo> list() {
         List<QuestionnaireInfo> infoList = exportService.listRepositories();
@@ -81,6 +84,7 @@ public class ExportController  {
         throw new NoSuchQuestionnaireException();
     }
 
+    @ClientOnly
     @RequestMapping(value="{name}/{id}", method=RequestMethod.DELETE)
     public @ResponseBody void delete(@PathVariable String name, @PathVariable long id) {
         Class<?> domainType = exportService.getDomainType(name);
@@ -131,6 +135,7 @@ public class ExportController  {
         }
     }
 
+    @DataOnly
     @RequestMapping(value = "{name}.csv", method= RequestMethod.GET)
     public void listAsCSV(HttpServletResponse response, @PathVariable String name) throws IOException {
 
