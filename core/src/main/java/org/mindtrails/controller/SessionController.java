@@ -3,6 +3,7 @@ package org.mindtrails.controller;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.mindtrails.domain.ClientOnly;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.Session;
 import org.mindtrails.domain.Study;
@@ -126,6 +127,7 @@ public class SessionController extends BaseController {
     }
 
 
+    @ClientOnly
     @RequestMapping("/next")
     public View nextStepInSession(ModelMap model, Principal principal) {
 
@@ -140,6 +142,7 @@ public class SessionController extends BaseController {
             return new RedirectView("/session", true);
         }
     }
+
 
     @RequestMapping("/atRisk")
     public String atRisk(ModelMap model, Principal principal) {

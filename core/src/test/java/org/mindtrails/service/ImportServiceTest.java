@@ -3,6 +3,7 @@ package org.mindtrails.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.beans.binding.ObjectExpression;
 import org.junit.Assert;
 import org.mindtrails.Application;
 import org.mindtrails.MockClasses.*;
@@ -24,6 +25,7 @@ import org.mindtrails.persistence.JsPsychRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.context.ActiveProfiles;
@@ -34,9 +36,7 @@ import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import javax.validation.constraints.AssertTrue;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -80,6 +80,7 @@ public class ImportServiceTest extends BaseControllerTest {
     private JsPsychRepository jsPsyRepo;
 
 
+
     private static final Logger LOGGER = LoggerFactory.getLogger((ImportServiceTest.class));
 
 
@@ -99,6 +100,20 @@ public class ImportServiceTest extends BaseControllerTest {
     @Override
     public Object[] getControllers() {
         return (new Object[]{exportController, questionController});
+    }
+
+
+    /**
+     * Testing for @DataOnly and @ClientOnly
+     * @throws Exception
+     */
+
+
+    @Test
+    public void callFunction() throws Exception {
+        LOGGER.info("These request should fail:");
+        Object answer = service.deleteOnline("","Testing");
+        assertFalse((boolean)answer);
     }
 
     @Test
