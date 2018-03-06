@@ -115,11 +115,11 @@ public class ImportService {
  * Here is the function to get a complete list of scale from api/export.
  *
  * */
-    public List<Scale> importList() {
+    public List<Scale> importList(String path) {
         LOGGER.info("Get into the original methods");
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<String> request = new HttpEntity<String>(headers());
-        URI uri = URI.create(url + "api/export/");
+        URI uri = URI.create(path + "/api/export/");
         LOGGER.info("calling url:" + uri.toString());
         ResponseEntity<List<Scale>> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, request, new ParameterizedTypeReference<List<Scale>>() {
         });
@@ -137,11 +137,11 @@ public class ImportService {
      *  in.
      *
      * */
-    public String getOnline(String scale) {
+    public String getOnline(String path, String scale) {
         LOGGER.info("Get into the getOnline function");
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<String> request = new HttpEntity<String>(headers());
-        URI uri = URI.create(url + "api/export/" + scale);
+        URI uri = URI.create(path + "/api/export/" + scale);
         LOGGER.info("calling url:" + uri.toString());
         ResponseEntity<String> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, request, new ParameterizedTypeReference<String>() {
         });
@@ -383,17 +383,17 @@ public class ImportService {
 
     public boolean updateParticipantOnline() {
         LOGGER.info("Get into the updateParticipant function");
-        String newParticipant = getOnline("participant");
+        String newParticipant = getOnline(url,"ParticipantExportDAO");
         if (newParticipant != null) {
             LOGGER.info("Successfully read participant table");
-            return parseDatabase("participant",newParticipant);
+            return saveParticipant(newParticipant);
         }
         return false;
     }
 
     public boolean updateStudyOnline() {
         LOGGER.info("Get into the updatestudy function");
-        String newStudy = getOnline("study");
+        String newStudy = getOnline(url,"study");
         if (newStudy != null) {
             LOGGER.info("Successfully read study table");
             return parseDatabase("study",newStudy);
@@ -410,19 +410,23 @@ public class ImportService {
     @Scheduled(cron = "0 0 0 * * *")
     public void importData() {
         LOGGER.info("Trying to download data from api/export.");
+        boolean newStudy = updateStudyOnline();
+        if (newStudy) LOGGER.info("Successfully logged new studies");
         boolean newParticipant = updateParticipantOnline();
         if (newParticipant) LOGGER.info("Successfully logged new participants");
         int i = 0;
         List<String> good = new ArrayList<String>();
         List<String> bad = new ArrayList<String>();
-        List<Scale> list = importList();
+        List<Scale> list = importList(url);
         for (Scale scale:list) {
-            String is = getOnline(scale.getName());
-            if (parseDatabase(scale.getName(),is)) {
-                i += 1;
-                good.add(scale.getName());
-            } else {
-                bad.add(scale.getName());
+            if (!scale.getName().toLowerCase().contains("exportdao")) {
+                String is = getOnline(url, scale.getName());
+                if (parseDatabase(scale.getName(), is)) {
+                    i += 1;
+                    good.add(scale.getName());
+                } else {
+                    bad.add(scale.getName());
+                }
             }
         }
         LOGGER.info("Here is the good list:");
@@ -430,10 +434,6 @@ public class ImportService {
         LOGGER.info("Here is the bad list:");
         for (String flag:bad) LOGGER.info(flag);
         LOGGER.info("Let's review all the error messages:");
-        for (String flag:bad) {
-            String is = getOnline(flag);
-            parseDatabase(flag,is);
-        };
     }
 
     /**
@@ -447,7 +447,7 @@ public class ImportService {
         int i = 0;
         List<String> good = new ArrayList<String>();
         List<String> bad = new ArrayList<String>();
-        List<Scale> list = importList();
+        List<Scale> list = importList(url);
         for (Scale scale:list) {
             File[] is = getFileList(scale.getName());
             if (localBackup(scale.getName(),is)) {

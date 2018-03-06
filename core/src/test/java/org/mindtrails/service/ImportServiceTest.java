@@ -104,7 +104,7 @@ public class ImportServiceTest extends BaseControllerTest {
     @Test
     public void getScaleList() throws Exception {
         LOGGER.info("Check point 1");
-        List<Scale> list = service.importList();
+        List<Scale> list = service.importList("");
         LOGGER.info("Check point 2");
         for (Scale scale : list) {
             LOGGER.info(scale.getName());
@@ -116,7 +116,7 @@ public class ImportServiceTest extends BaseControllerTest {
     @Test
     public void getScale() throws Exception {
         LOGGER.info("Successfully fired getScale()");
-        String list = service.getOnline(testScale);
+        String list = service.getOnline("",testScale);
         LOGGER.info("Successfully read online: " + list);
         assertNotNull(list);
     }
@@ -141,7 +141,7 @@ public class ImportServiceTest extends BaseControllerTest {
     @Test
     public void saveScale() throws Exception {
         LOGGER.info("Save scale fired.");
-        String is = service.getOnline(testScale);
+        String is = service.getOnline("",testScale);
         LOGGER.info("Got the data! " + is);
         assertTrue(service.parseDatabase(testScale, is));
     }
@@ -178,10 +178,10 @@ public class ImportServiceTest extends BaseControllerTest {
         int i = 0;
         List<String> good = new ArrayList<String>();
         List<String> bad = new ArrayList<String>();
-        List<Scale> list = service.importList();
+        List<Scale> list = service.importList("");
         for (Scale scale : list) {
             if (scale.getName().toLowerCase().contains("log")) {
-                String is = service.getOnline(scale.getName());
+                String is = service.getOnline("",scale.getName());
                 if (service.parseDatabase(scale.getName(), is)) {
                     i += 1;
                     good.add(scale.getName());
@@ -204,9 +204,9 @@ public class ImportServiceTest extends BaseControllerTest {
         int i = 0;
         List<String> good = new ArrayList<String>();
         List<String> bad = new ArrayList<String>();
-        List<Scale> list = service.importList();
+        List<Scale> list = service.importList("");
         for (Scale scale : list) {
-            String is = service.getOnline(scale.getName());
+            String is = service.getOnline("",scale.getName());
             if (service.parseDatabase(scale.getName(), is)) {
                 i += 1;
                 good.add(scale.getName());
