@@ -158,7 +158,7 @@ public class ImportService {
      * @return
      */
 
-    @DataOnly
+    @ClientOnly
     public Boolean deleteOnline(String path, String scale) {
         return false;
     }

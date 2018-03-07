@@ -9,7 +9,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Aspect
-public aspect ClientOnlyAspect {
+@Component
+public class ClientOnlyAspect {
 
     @Value("${mode}")
     private String serverMode;
