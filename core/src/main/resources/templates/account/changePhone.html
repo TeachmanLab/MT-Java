@@ -14,62 +14,106 @@
 
 <!-- header-btm starts
 ================================================== -->
-<section id="header-btm" class="clearfix">
-    <div class="container">
-        <div class="row">
-            <h2 class="page-title heading-icon clearfix"><img th:src="@{/images/map-arrow-orange.png}" alt="icon"
-                                                              class="icon-small-bg"/><br/>Please enter a new phone number</h2>
-        </div>
-    </div>
-</section>
+
 <!--<![endif]-->
 <section id="content" class="clearfix">
-    <div class="container">
+    <div class="container longSection">
         <div class="row">
-            <div class="span8">
-                <form action="#" th:action="@{/account/changePhone}" method="post">
+            <div class="col-md-4">
+                <img th:src="@{/images/map-arrow-orange.png}" alt="icon" class="icon-small-bg"/>
+            </div>
+            <div class="col-md-8">
+                <h2 class="page-title heading-icon clearfix"><br/>Please enter a new phone number</h2>
+                <p>This phone number already exists. Please enter a new one. </p>
+                <form action="#" th:action="@{/account/updateChangePhone}"  th:object="${participant}"  method="post">
 
-                        <input  type="text" name="newPhone" id="newPhone"/>
+                    <div class="row">
+                        <label class="control-label col-md-2" for="phone">Change Your Cell Phone</label>
+                        <div class="col-md-8">
+                            <div class="row">
+                                <!-- <input type="tel" id="phone"> -->
+                                <!--
+                                <input class="form-control" type="tel" id="phone" name="phone" th:errorclass="error"
+                                       th:field="*{phone}"/>
+                                -->
+                                <div class="col-md-10">
+                                    <input type="hidden" name="phoneCountry" id="phoneCountry"/>
+                                    <div id="result">
+                                        <input class="form-control"  name="phone" id="phone" type="tel" th:field="*{phone}"/>
+                                    </div>
+                                    <script th:src="@{/bower/intl-tel-input/build/js/intlTelInput.js}"></script>
+                                    <script>
+                                        var telInput = $("#phone");
+                                        // initialise plugin
+                                        telInput.intlTelInput({
+                                            utilsScript:"https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.1.4/css/intlTelInput.css"
+                                        });
 
-                        <input type="submit" value="Submit" id="subNewPhone"/>
+                                        // on blur: validate
+                                        telInput.blur(function() {
+                                            var phoneReminders = $("#phoneReminders");
+                                            var countryData = $("#phone").intlTelInput("getSelectedCountryData");
+                                            if (countryData.iso2 != "us") {
+                                                phoneReminders.attr('checked', false);
+                                                phoneReminders.prop('disabled', true);
+                                                $("#noTexts").show();
+                                                $("#yesTexts").hide();
+                                            } else {
+                                                phoneReminders.prop('disabled', false);
+                                                phoneReminders.attr('checked', true);
+                                                $("#noTexts").hide();
+                                                $("#yesTexts").show();
+                                            }
+                                        });
 
+                                    </script>
+
+
+
+                                    <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Phone Error</span>
+                                </div>
+                                <div class="col-md-2">
+                                    <span class="pull-left"><button type="submit" name="sub">Resend</button></span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                 </form>
+                <br/>
+                <br/>
+                <br/>
+
+                <div class="row">
+                    <div class="col-md-2">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p><em>if you choose to skip this step, you can verify your phone later under
+                                </em></p>
+                            </div>
+                            <div class="col-md-2">
+                                <span class="pull-left"><a th:href="@{/account/theme}"><button>Skip</button> </a></span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
 
             </div>
         </div>
     </div>
 </section>
 
-<script th:src="@{/bower/intl-tel-input/build/js/intlTelInput.js}"></script>
-<script>
-    var telInput = $("#newPhone");
-    // initialise plugin
-    telInput.intlTelInput({
-        utilsScript:"https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.1.4/css/intlTelInput.css"
-    });
-
-    // on blur: validate
-    telInput.blur(function() {
-        var phoneReminders = $("#subNewPhone");
-        var countryData = $("#newPhone").intlTelInput("getSelectedCountryData");
-        if (countryData.iso2 != "us") {
-            //phoneReminders.prop('disabled', true);
-            document.getElementById("#subNewPhone").disabled = true;
-            $("#noTexts").hide();
-            $("#yesTexts").show();
-
-        } else {
-            phoneReminders.prop('disabled', false);
-            $("#noTexts").show();
-            $("#yesTexts").hide();
-        }
-    });
+<script th:inline="javascript">
 
 </script>
-
 
 <footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
 <section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
 <div th:include="fragment/common :: scripts"/>
+
 </body>
 </html>
+

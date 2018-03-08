@@ -57,9 +57,7 @@ public class ParticipantCreateAdmin extends ParticipantUpdate {
         if(participantService.findByEmail(email) != null) {
             bindingResult.rejectValue("email", "error.emailExists", "This email already exists.");
         }
-        if(!participantService.findByPhone(formatPhone(phone)).isEmpty()) {
-            bindingResult.rejectValue("phone", "error.phoneExists", "This phone already exists.");
-        }
+
 
         if(!password.equals(passwordAgain)) {
             bindingResult.rejectValue("password", "error.passwordMatch", "Passwords do not match.");

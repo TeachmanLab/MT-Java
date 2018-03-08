@@ -117,7 +117,7 @@ public class AccountController extends BaseController {
         if (participant.isReceiveGiftCards()){
             String code=participant.getVerificationCode().getCode();
             twilioService.sendMessage(code,participant);
-            return "account/verification";
+            return "redirect:/account/verification";
         }
 
         LOG.info("Participant authenticated.");
@@ -139,6 +139,39 @@ public class AccountController extends BaseController {
         return "redirect:/session";
     }
 
+//when a duplicated phone number is detected
+    @RequestMapping("changePhone")
+    public String showPhone(ModelMap model, Principal principal) {
+        Participant p=participantService.get(principal);
+        if(p.isVerified()){
+            return "redirect:/account/verified";
+        }
+        return "account/changePhone";
+    }
+
+    @RequestMapping(value="updateChangePhone",method=RequestMethod.POST)
+    public String updatePhone( ModelMap model, Principal principal, String phone) {
+        Participant p=participantService.get(principal);
+            if(participantService.findByPhone(formatPhone(phone)).isEmpty()){
+                p.updatePhone(formatPhone(phone));
+                p.setVerificationCode(new VerificationCode(p));
+                participantService.save(p);
+                String code=p.getVerificationCode().getCode();
+                twilioService.sendMessage(code,p);
+
+                return "redirect:/account/verification";
+
+            }
+            else{
+                return "redirect:/account/changePhone";
+
+            }
+
+    }
+
+
+
+//when the user enter a wrong or invalid (>1h) verification code
     @RequestMapping("wrongCode")
     public String showwrongcode(ModelMap model, Principal principal) {
         //ParticipantUpdate update = new ParticipantUpdate();
@@ -182,35 +215,34 @@ public class AccountController extends BaseController {
         else if( sub.equals("subPhone") ){
 
            if(participantService.findByPhone(formatPhone(phone)).isEmpty()||formatPhone(phone).equals(p.getPhone())){
-                p.updatePhone(phone);
+                p.updatePhone(formatPhone(phone));
                 p.setVerificationCode(new VerificationCode(p));
                 participantService.save(p);
                 String code=p.getVerificationCode().getCode();
                 twilioService.sendMessage(code,p);
-                return "account/verification";
+                return "redirect:/account/verification";
 
             }
             else{
                model.addAttribute("invalidPhone", true);
                return "account/wrongCode";
-
            }
-
         }
         else {
 
             return "redirect:/account/wrongCode";
-
-
         }
 
     }
+
+  //when an account is verified
     @RequestMapping(value="/verified",method= RequestMethod.GET)
     public String verified(){
-
         return "account/verified";
     }
 
+   //when a user want to do the phone verification during the study
+    //it is a link under "My Account"
     @RequestMapping("PostVerification")
     public String PostVerification(@RequestParam(value="verifycode", required=false, defaultValue="NAN") String verifycode,ModelMap model, Principal principal) {
         Participant p = participantService.get(principal);
@@ -220,12 +252,27 @@ public class AccountController extends BaseController {
         participantService.save(p);
         String code=p.getVerificationCode().getCode();
         twilioService.sendMessage(code,p);
-        return "account/verification";
-
-
+        return "redirect:/account/verification";
     }
 
-    @RequestMapping(value="/verification", method = RequestMethod.POST)
+
+//verfication page
+    @RequestMapping("verification")
+    public String verify(ModelMap model, Principal principal) {
+        Participant p = participantService.get(principal);
+        if (p.isVerified()) {
+            return "redirect:/account/verified";
+        } else if (participantService.findByPhone(formatPhone(p.getPhone())).size()>1) {
+            return "redirect:/account/changePhone";
+
+
+        } else {
+            return "account/verification";
+
+        }
+    }
+
+    @RequestMapping(value="/updateVerification", method = RequestMethod.POST)
     public String verify(@RequestParam String verifycode, ModelMap model, Principal principal) {
         Participant p = participantService.get(principal);
 
