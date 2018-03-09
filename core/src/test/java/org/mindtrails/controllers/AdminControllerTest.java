@@ -102,7 +102,7 @@ public class AdminControllerTest extends BaseControllerTest {
                 .param("email", "new@email.com"));
 
         Participant p2 = participantRepository.findOne(p.getId());
-        assertEquals("John Q. Doe", p2.getFullName());
+        assertEquals("John Doe", p2.getFullName());
         assertEquals("new@email.com", p2.getEmail());
 
     }
