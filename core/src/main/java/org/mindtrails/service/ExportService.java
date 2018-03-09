@@ -1,12 +1,16 @@
 package org.mindtrails.service;
 
-import org.mindtrails.domain.DoNotDelete;
-import org.mindtrails.domain.Exportable;
+import org.mindtrails.domain.ClientOnly;
+import org.mindtrails.domain.data.DoNotDelete;
+import org.mindtrails.domain.data.Exportable;
 import org.mindtrails.domain.questionnaire.QuestionnaireInfo;
 import org.mindtrails.domain.tracking.ExportLog;
 import org.mindtrails.persistence.ExportLogRepository;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
+import org.mindtrails.persistence.ParticipantExportDAO;
+import org.mindtrails.persistence.ParticipantExportRepository;
+import org.mindtrails.persistence.StudyExportRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +49,8 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
 
     @Autowired ExportLogRepository exportLogRepository;
     @Autowired EmailService emailService;
+    @Autowired ParticipantExportRepository participantExportRepository;
+    @Autowired StudyExportRepository studyExportRepository;
 
     Repositories repositories;
 
@@ -108,6 +114,10 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
      * if it can't find a repository by name.
      */
     public JpaRepository getRepositoryForName(String name) {
+        if (name.toLowerCase().equals("participant"))
+            return participantExportRepository;
+        if (name.toLowerCase().equals("study"))
+            return studyExportRepository;
         Class<?> domainType = getDomainType(name);
         if (domainType != null)
             return (JpaRepository) repositories.getRepositoryFor(domainType);
@@ -120,7 +130,9 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
      */
     public List<QuestionnaireInfo> listRepositories() {
         List<QuestionnaireInfo> names = new ArrayList<>();
-        if(repositories == null) return names;
+        if(repositories == null) {
+            return names;
+        }
         boolean deleteableFlag;
 
         for (  Class<?> domainType : repositories) {
@@ -142,8 +154,17 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
      * if it can't find a repository by name.
      */
     public Class<?> getDomainType(String name) {
-        if(repositories == null) return null;
+        LOG.info("Trying to get type of " + name);
+        if(repositories == null) {
+            LOG.info("Found no type of "+name);
+            return null;
+        }
         for (  Class<?> domainType : repositories) {
+            if (name.toLowerCase().equals("study")) {
+                if (domainType.getSimpleName().toLowerCase().equals("studyexportdao")) {
+                    return domainType;
+                }
+            }
             if (domainType.getSimpleName().toLowerCase().equals(name.toLowerCase())) {
                 return domainType;
             }
@@ -163,6 +184,7 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
      * If it's been more than 30 minutes (but less than 2 hours) since the least export, notify
      * the admin of this fact.
      */
+    @ClientOnly
     @Scheduled(cron = "0 0,30 * * * *")
     public void send30MinAlert() {
         LOG.debug("Running 30 minute alert.");
@@ -178,6 +200,7 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
      *    if it's been more than 2 hours but less than 24 hours since last export,
      *    send alerts every 2 hours if no exports are occurring.
      */
+    @ClientOnly
     @Scheduled(cron = "0 0 */2 * * *")
     public void send2hrAlert() {
         LOG.debug("Running 2hr alert.");
@@ -193,6 +216,7 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
      *    a) If we have exceeded the maximum records, alert admin that site is disabled.
      *    b) If it's been more than 24 hours since the last export, alert the admin of this fact.
      */
+    @ClientOnly
     @Scheduled(cron = "0 0 */4 * * *")
     public void send4hrAlert() {
         LOG.debug("Running 4 hour alert.");

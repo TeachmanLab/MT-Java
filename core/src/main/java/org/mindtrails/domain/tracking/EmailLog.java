@@ -1,9 +1,9 @@
 package org.mindtrails.domain.tracking;
 
 import lombok.Data;
-import org.mindtrails.domain.DoNotDelete;
+import org.mindtrails.domain.data.DoNotDelete;
 import org.mindtrails.domain.Email;
-import org.mindtrails.domain.Exportable;
+import org.mindtrails.domain.data.Exportable;
 import org.mindtrails.domain.Participant;
 
 import javax.persistence.Entity;

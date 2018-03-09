@@ -2,8 +2,8 @@ package edu.virginia.psyc.r34.DAO;
 
 import edu.virginia.psyc.r34.Application;
 import edu.virginia.psyc.r34.domain.R34Study;
-import edu.virginia.psyc.r34.persistence.ParticipantExportDAO;
-import edu.virginia.psyc.r34.persistence.ParticipantExportRepository;
+import org.mindtrails.persistence.ParticipantExportDAO;
+import org.mindtrails.persistence.ParticipantExportRepository;
 import edu.virginia.psyc.r34.service.R34ParticipantService;
 import org.joda.time.DateTime;
 import org.joda.time.Days;

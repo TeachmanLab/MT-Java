@@ -1,7 +1,7 @@
 
 package edu.virginia.psyc.r01.persistence;
 
-import org.mindtrails.domain.questionnaire.SecureQuestionnaireData;
+import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -21,7 +21,7 @@ import javax.persistence.*;
 @Table(name="QOL")
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class QOL extends SecureQuestionnaireData {
+public class QOL extends LinkedQuestionnaireData {
 
     private int material;
     private int health;

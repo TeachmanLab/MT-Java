@@ -1,6 +1,6 @@
 package org.mindtrails.MockClasses;
 
-import org.mindtrails.domain.DoNotDelete;
+import org.mindtrails.domain.data.DoNotDelete;
 import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

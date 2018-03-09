@@ -1,6 +1,6 @@
 package edu.virginia.psyc.r34.persistence.Questionnaire;
 
-import org.mindtrails.domain.questionnaire.SecureQuestionnaireData;
+import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Table(name="AUDIT")
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class AUDIT extends SecureQuestionnaireData {
+public class AUDIT extends LinkedQuestionnaireData {
 
     private int drink_alc;
     private int drinks_freq;

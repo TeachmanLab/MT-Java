@@ -126,7 +126,6 @@ public class QuestionControllerTest extends BaseControllerTest {
         testPostDataForm();
         assertNotNull(getLastQuestionnaire().getDate());
         assertNotNull(getLastQuestionnaire().getSession());
-        assertNotNull(getLastQuestionnaire().getParticipantRSA());
     }
 
     @Test

@@ -1,6 +1,6 @@
 package edu.virginia.psyc.r01.persistence;
 
-import org.mindtrails.domain.questionnaire.SecureQuestionnaireData;
+import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 
 /**
  * Created by any on 7/29/17.
@@ -24,7 +24,7 @@ import java.util.List;
 
 
 
-public class MSUE extends SecureQuestionnaireData {
+public class MSUE extends LinkedQuestionnaireData {
     private int anxiety;
     private int life;
     private int mood;

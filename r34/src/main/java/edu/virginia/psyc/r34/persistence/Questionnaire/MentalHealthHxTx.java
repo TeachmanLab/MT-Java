@@ -1,6 +1,6 @@
 package edu.virginia.psyc.r34.persistence.Questionnaire;
 
-import org.mindtrails.domain.questionnaire.SecureQuestionnaireData;
+import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -14,7 +14,7 @@ import java.util.List;
 @Table(name="MentalHealthHxTx")
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class MentalHealthHxTx extends SecureQuestionnaireData {
+public class MentalHealthHxTx extends LinkedQuestionnaireData {
 
     private String OtherDesc;
     private String OtherDescNo;

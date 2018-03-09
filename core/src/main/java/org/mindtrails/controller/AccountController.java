@@ -3,9 +3,12 @@ package org.mindtrails.controller;
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
+import org.mindtrails.domain.ClientOnly;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.RestExceptions.MissingEligibilityException;
+
 import org.mindtrails.domain.VerificationCode;
+
 import org.mindtrails.domain.forms.ParticipantCreate;
 import org.mindtrails.domain.forms.ParticipantUpdate;
 import org.mindtrails.domain.recaptcha.RecaptchaFormValidator;
@@ -96,7 +99,9 @@ public class AccountController extends BaseController {
         participant = participantService.create();
         participantCreate.updateParticipant(participant);
         participant.setLastLoginDate(new Date());
+
         participant.setVerificationCode(new VerificationCode(participant));
+
         participant.setReference((String)session.getAttribute("referer"));
         participant.setCampaign((String)session.getAttribute("campaign"));
 
@@ -283,19 +288,24 @@ public class AccountController extends BaseController {
     public String showAccount(ModelMap model, Principal principal) {
         ParticipantUpdate update = new ParticipantUpdate();
         update.fromParticipant(getParticipant(principal));
+
         boolean verified=participantService.get(principal).isVerified();
         model.addAttribute("participantUpdate", update);
         model.addAttribute("verified", verified);
         model.addAttribute("postChange", true);
+
         return "account";
     }
 
+    @ClientOnly
     @RequestMapping(value="update", method = RequestMethod.POST)
     public String update(ModelMap model, Principal principal,
                          @Valid ParticipantUpdate form,
                          BindingResult bindingResult) {
 
+
         Participant participant = getParticipant(principal);
+
 
         if(bindingResult.hasErrors()) {
             model.addAttribute("participantUpdate", form);

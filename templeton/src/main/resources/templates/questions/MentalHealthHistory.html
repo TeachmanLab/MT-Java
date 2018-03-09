@@ -103,9 +103,11 @@
                         <br/>
                         <div class="radio">
                             <label class="question"> <input type="checkbox" name="Disorders" value="Other" id="Q1_15"
+
                                                             onchange="spec('Q1_15')"/> Other (Please specify)  </label>
                             <input
                                     id="Q1_15_spec" type="text" name="Other_Desc" value="N/A"/>
+
                         </div>
                     </div>
 
@@ -198,8 +200,9 @@
                         <br/>
                         <div class="radio">
                             <label><input id="Q2_15" onchange="spec('Q2_15')" type="checkbox" name="PastDisorders"
-                                          value="Other"/> Other (Please specify) </label>
-                            <input id="Q2_15_spec" type="text" name="Other_DescNo"  value="N/A" />
+                                          value="Other"/> Other (Please specify) <input id="Q2_15_spec" type="text"
+                                                                                        name="Other_DescNo"  value="N/A" /></label>
+
                         </div>
                     </div>
 
@@ -507,9 +510,9 @@
                             <label class="question"> <input id="Q3-16"
                                                             onchange="sub('Q3-16');spec('Q3-16');"
                                                             type="checkbox" name="Help"
-                                                            value="Other"/> Other (Please specify)  </label>
-                            <input
-                                    id="Q3-16_spec" type="text" name="Other_HelpCurrent"  value="N/A" />
+                                                            value="Other"/> Other (Please specify) <input
+                                    id="Q3-16_spec" type="text" name="Other_HelpCurrent"  value="N/A" /> </label>
+
                             <div class="oneToSeven" id="Q3-16-1"><label> Has this been helpful? </label>
                                 <select name="other">
                                     <option value=""> Please select one</option>
@@ -578,8 +581,8 @@
                             <label class="question"> <input id="changeInHelpSeeking" onchange="sub('changeInHelpSeeking');spec('changeInHelpSeeking');"
                                                             type="checkbox" name="ChangeHelp"
                                                             value="change_Other"/> Yes, I changed:  </label>
-                            <input
-                                    id="changeInHelpSeeking_spec" type="text" name="Other_HelpChange"  value="N/A" />
+                            <input id="changeInHelpSeeking_spec" type="text" name="Other_HelpChange"  value="N/A" />
+
 
                         </div>
                     </div>
@@ -880,6 +883,7 @@
                         <div class="radio">
                             <label class="question"> <input id="Q4-16" onchange="sub('Q4-16');spec('Q4-16');" type="checkbox"
                                                             name="PastHelp"
+
                                                             value="Other"/> Other (Please specify) </label>
                             <input
                                     id="Q4-16_spec" type="text" name="Other_HelpPast"  value="N/A"/>
@@ -980,8 +984,10 @@
                                     <label class="question"> <input id="Q5_12" type="checkbox" name="NoHelp_Reason"
                                                                     value="Other"
                                                                     onchange="spec('Q5_12')"/> Other (please specify)
+
                                          </label>
                                     <input id="Q5_12_spec" type="text" name="Other_NoHelpReason"  value="N/A"/>
+
                                 </div>
                                 <div class="radio">
                                     <label class="question"> <input id="Q5_noAns" type="checkbox" name="NoHelp_Reason"

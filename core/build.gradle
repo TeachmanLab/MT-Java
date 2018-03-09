@@ -16,12 +16,15 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
     compile("org.springframework.mobile:spring-mobile-device")
+    compile("org.springframework.boot:spring-boot-starter-aop")
     compile("org.thymeleaf.extras:thymeleaf-extras-springsecurity4")
     compile("org.mindrot:jbcrypt:0.3m")
     compile("commons-codec:commons-codec:1.10")
     compile('org.apache.commons:commons-lang3:3.4')  // Lots of useful code, used for random number generation.
     compile('com.twilio.sdk:twilio:7.4.0') // Send SMS messages
     compile('com.googlecode.libphonenumber:libphonenumber:8.2.0') // Phone number validation
+    compile('org.apache.directory.studio:org.apache.commons.io:2.4')
+    compile('com.opencsv:opencsv:4.1') // csv endpoint
     // Tests
     testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile('com.jayway.jsonpath:json-path:0.9.1')

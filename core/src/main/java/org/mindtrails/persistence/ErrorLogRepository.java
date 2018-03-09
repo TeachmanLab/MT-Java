@@ -10,7 +10,6 @@ import java.util.Date;
 
 
 
-
 @Repository
 public interface ErrorLogRepository extends JpaRepository<ErrorLog, Long> {
     Long countByDateSentAfter(Date date);
