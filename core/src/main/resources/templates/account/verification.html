@@ -12,6 +12,7 @@
 <body >
 <section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
 
+
 <!--<![endif]-->
 <section id="content" class="clearfix">
     <div class="container longSection">
@@ -25,12 +26,13 @@
 
 
                     <p>In order to receive gift cards, we need to verify your phone number. We just sent you a text message with a <b>6-digit</b> code. Please enter the code below:</p>
-                <form action="#" th:action="@{/account/verification}" method="post">
+                <form action="#" th:action="@{/account/updateVerification}" method="post">
                     <div class="row">
                         <div class="col-md-8">
                             <div class="row">
                             <div class="col-md-10"><br/><p>Verification Code:&nbsp;&nbsp;   <input id="verifycode" type="text" name="verifycode"/></p></div>
                             <div class="col-md-2"><span class="pull-left"><button id="subCode" type="submit" disabled="disabled">Verify</button></span></div>
+
                             </div>
 
                         </div>
@@ -59,11 +61,11 @@
 
                     </div>
                     </div>
+
             </div>
         </div>
     </div>
 </section>
-
 
 <script th:inline="javascript">
 
