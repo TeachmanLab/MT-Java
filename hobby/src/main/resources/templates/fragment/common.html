@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en">
+<!--<![endif]-->
+<head id="headerFragment" th:fragment="headerFragment">
+    <meta charset="utf-8"/>
+    <meta name="description" content="Hobby Study" />
+    <meta name="keywords" content="virginia psychology implicit mind trails Hobby Study"/>
+    <meta name="author" content="virginia.edu" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <title>Hobby Study</title>
+
+    <!-- JavaScript -->
+    <script type="text/javascript" th:src="@{/bower/jquery/dist/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/bower/bootstrap/dist/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/bower/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/firstQuestionSlider.js}"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
+    <script type="text/javascript" th:src="@{/bower/timeme.js/timeme.js}"></script>
+    <script type="text/javascript" th:src="@{/bower/jquery-validate/dist/jquery.validate.js}"></script>
+
+    <!--Google Font-->
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,700,700italic,600' rel='stylesheet' type='text/css'/>
+
+    <!--style sheets-->
+    <link rel="stylesheet" media="screen" th:href="@{/bower/bootstrap/dist/css/bootstrap.css}" href="../../static/bower/bootstrap/dist/css/bootstrap.css"/> <!-- Themed bootstream -->
+    <link rel="stylesheet" media="screen" th:href="@{/bower/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css}"/>
+    <link rel="stylesheet" media="screen" th:href="@{/css/mindtrails.css}"/>
+    <link rel="stylesheet" media="screen" th:href="@{/css/mobile.css}" />
+    <link rel="stylesheet" media="screen" th:href="@{/css/hobby.css}" />
+    <link rel="stylesheet" media="print" th:href="@{/css/print.css}" href="../../static/css/print.css"/>
+
+    <!-- Timer here -->
+    <script type="text/javascript" >
+        TimeMe.initialize({
+            currentPageName: "${title}", // current page
+            idleTimeoutInSeconds: 30 // seconds
+        });
+    </script>
+
+    <!-- Google Analytics -->
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-77944674-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+    <!-- Themes -->
+    <script type="text/javascript" th:if="${participant}" th:inline="javascript">
+        $(document).ready(function() {
+            $("body").addClass("user-theme-" + /*[[${participant.theme}]]*/)
+        });
+    </script>
+
+</head>
+
+<body>
+
+<!-- This is the template for asking a series of statements that all have the same
+     possible radio options as answers.  It uses the Mustache framework to populate
+      the answers. -->
+<textarea style="display: none"  id="template" th:fragment="questionTemplate">
+    <div class="row header">
+        <div class="col-md-6"><p class="tableOptions"></p></div>
+    {{#options}}
+        <div class="col-md-1"><p class="tableOptions">{{title}}</p></div>
+    {{/options}}
+        <div class="col-md-1"><p class="tableOptions">Prefer not to answer</p></div>
+    </div>
+
+    {{#questions}}
+     <div class="row">
+                <div class="col-md-6 statement"><p>{{desc}}</p></div>
+                {{#options}}
+                <div class="col-md-1">
+                    <label class="radio-inline option">
+                        <input type="radio" name="{{name}}" value="{{value}}" required="true"/>
+                        <span class="shortDesc">{{value}}</span> <span class="fullDesc">{{title}}</span></label>
+                </div>
+                {{/options}}
+                <div class="col-md-1">
+                    <label class="radio-inline option">
+                        <input type="radio" name="{{name}}" value="555" required="true"/>
+                        <span class="shortDesc">&nbsp;&nbsp;</span> <span class="fullDesc">Prefer not to answer</span></label>
+                </div>
+    </div>
+    {{/questions}}
+
+
+</textarea>
+
+
+
+<textarea style="display: none"  id="template2" th:fragment="questionTemplate2">
+
+    <div class="row header">
+        <div class="col-md-4"><p class="tableOptions"></p></div>
+    {{#options}}
+        <div class="col-md-2"><p class="tableOptions">{{title}}</p></div>
+    {{/options}}
+
+    </div>
+
+    {{#questions}}
+     <div class="row">
+                <div class="col-md-4 statement"><p>{{desc}}</p></div>
+                {{#options}}
+                <div class="col-md-2">
+                    <label class="radio-inline option">
+                        <input type="radio" name="{{name}}" value="{{value}}" required="true"/>
+                        <span class="shortDesc">{{value}}</span> <span class="fullDesc">{{title}}</span></label>
+                </div>
+                {{/options}}
+                </div>
+    {{/questions}}
+
+</textarea>
+
+
+
+<textarea style="display: none"  id="template3" th:fragment="questionTemplate3">
+
+    {{#reasons}}
+     <div class="row">
+                <div class="col-md-1 statement"><p>rating</p></div>
+
+                <div class="col-md-1">
+                     <input type="number" min="0" max="8" name="{{name}}" class="form-control"/>
+                </div>
+                <div class="col-md-10">
+                     <p>{{desc}}</p>
+                </div>
+     </div>
+    {{/reasons}}
+
+</textarea>
+
+<textarea style="display: none"  id="template4" th:fragment="questionTemplate4">
+
+    {{#questions}}
+     <div class="row">
+         <div class="col-md-10">
+             <p> {{desc}} </p>
+             <p > Check all that apply. </p>
+         </div>
+     </div>
+    <div class="row">
+        <div class="col-md-6 side-border">
+                {{#options}}
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="{{name}}" value="{{value}}"/>
+                                {{opt_desc}} </label>
+                        </div>
+
+                {{/options}}
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="{{name}}" value="other"/>
+                                 Other, please specify: <input type="text" name="reasons"/></label>
+                        </div>
+
+
+                         <br/>
+                        <div class="radio">
+                            <label class="question"> <input id="{{id}}" onchange="spec('{{id}}')" type="checkbox" name="{{name}}"
+                                          value="Other"/> Other (Please specify) <input id="Q2_15_spec" type="text"
+                                                                                        name="Other_DescNo"  value="N/A" /></label>
+                        </div>
+              </div >
+    </div >
+
+    {{/questions}}
+
+</textarea>
+
+
+<textarea style="display: none"  id="template5" th:fragment="questionTemplate5">
+
+
+    {{#questions}}
+     <div class="row header">
+                <div class="col-md-8 statement"><p>{{desc}}</p></div>
+     </div>
+
+    <div class="row">
+      <div class="col-md-8 side-border">
+                {{#options}}
+
+        <div class="radio">
+            <label class="question"> <input type="radio" name="{{name}}" value="{{value}}" required="true"/>
+                <b>{{title}}</b></label>
+        </div>
+
+                {{/options}}
+      </div>
+
+                <div class="col-md-4">
+                    <br/>
+                    <br/>
+                    <div class="radio">
+                        <label class="question"><input type="radio" name="{{name}}" value="555"/> Prefer not to answer </label>
+                    </div>
+                    <br/>
+                    <br/>
+                </div>
+
+     </div>
+
+
+    {{/questions}}
+
+</textarea>
+
+
+
+<textarea style="display: none"  id="template6" th:fragment="questionTemplate6">
+    <div class="row header">
+        <div class="col-md-4"><p class="tableOptions"></p></div>
+    {{#options}}
+        <div class="col-md-1"><p class="tableOptions">{{title}}</p></div>
+    {{/options}}
+        <div class="col-md-1"><p class="tableOptions">Prefer not to answer</p></div>
+    </div>
+
+    {{#questions}}
+     <div class="row">
+                <div class="col-md-4 statement"><p>{{desc}}</p></div>
+                {{#options}}
+                <div class="col-md-1">
+                    <label class="radio-inline option">
+                        <input type="radio" name="{{name}}" value="{{value}}" required="true"/>
+                        <span class="shortDesc">{{value}}</span> <span class="fullDesc">{{title}}</span></label>
+                </div>
+                {{/options}}
+                <div class="col-md-1">
+                    <label class="radio-inline option">
+                        <input type="radio" name="{{name}}" value="555" required="true"/>
+                        <span class="shortDesc">8</span> <span class="fullDesc">Prefer not to answer</span></label>
+                </div>
+    </div>
+    {{/questions}}
+
+
+</textarea>
+
+
+
+
+<section id="header" class="clearfix" th:fragment="topFragment">
+
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar-collapse" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a th:href="@{/}">
+                    <img alt="MindTrails" class="hidden-md hidden-lg" th:src="@{/images/header-minimal.png}"/>
+                    <img alt="MindTrails" class="hidden-xs hidden-sm" th:src="@{/images/templeton_logo.png}"/>
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="main-navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a th:href="@{/}">Home</a></li>
+                    <li><a th:href="@{/public/about}">About</a></li>
+                    <li><a th:href="@{/public/researchSupport}">Research&nbsp;Support</a></li>
+                    <li><a th:href="@{/public/contact}">Contact Us</a></li>
+                    <li><a target="new" href="https://implicit.harvard.edu/implicit/user/pimh/linkinfo.html">Mental&nbsp;Health&nbsp;Resources</a></li>
+                    <li class="My Account" th:if="${participant} and ${#authorization.expression('hasRole(''ROLE_USER'')')}">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a th:href="@{/session/overview}">Progress</a></li>
+                            <li><a th:href="@{/account}">Account Settings</a></li>
+                            <li><a th:href="@{/account/changePass}">Change Password</a></li>
+                            <li><a th:href="@{/account/exitStudyConfirm}">Exit the Study</a></li>
+                            <li><a th:href="@{/logout}">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+    <div class="account-bar navbar-default">
+        <div class="container" th:if="${participant} and ${#authorization.expression('hasRole(''ROLE_USER'')')}">
+            <a class="nav-progress" th:href="@{/session/overview}"><button>My Progress</button></a>
+            <div class="nav-user">Logged in as <span th:text="${participant.fullName}"/>
+                    <br/><span class="nav-level" th:text="${participant.study.currentSession.displayName}"/></div>
+        </div>
+        <div class="container login" th:unless="${#authorization != null} AND ${#authorization.expression('hasRole(''ROLE_USER'')')}">
+            Already Participating? <a th:href="@{/login}"><button>Log In</button></a>
+        </div>
+    </div>
+</section>
+
+<section id="title" class="clearfix" th:fragment="titleBar">
+    <div class="container title">
+        <div class="row">
+            <div class="col-md-8">
+                <img class="icon-small-bg hidden-md hidden-lg" th:src="@{/images/arrow_small.png}" alt=""/>
+                <img class="icon-small-bg hidden-xs hidden-sm" th:src="@{/images/map-arrow-orange.png}" alt="" />
+            <h2 class="page-title heading-icon clearfix" th:text="${title}">
+            </h2>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+<section id="content" class="clearfix">
+    <div class="container">
+
+
+        <!--spacer here-->
+        <div class="spacer-30px"></div>
+
+        <!--features starts-->
+        <div class="row">
+            <div class="col-md-8">
+                <h1>This is a Template:</h1>
+                <ul class="list-3col">
+                    <li>
+                        <h4>Welcome</h4>
+                        <p>Please see home.html for an example of how to grab poritions of this template to use within a page.</p></li>
+                </ul>
+            </div>
+        </div>
+        <!--features ends-->
+
+        <!--divider here-->
+        <div class="spacer-40px"></div>
+
+
+        <!--spacer here-->
+        <div class="spacer-30px"></div>
+
+        <!--box starts-->
+        <div class="row">
+            <div class="span12">
+                <div class="dark-box">
+                    <h1>And that's it <span class="color">folks</span>! </h1>
+                    <p>but I hope to have more to show soon.</p>
+                </div>
+            </div>
+        </div>
+        <!--box ends-->
+
+    </div>
+</section>
+
+<!-- footer starts
+================================================== -->
+<footer id="footer" th:fragment="footerFragment">
+    <div class="container">
+
+        <!--row starts-->
+        <div class="row">
+
+
+            <!--column one starts-->
+            <div class="footer-logo">
+                <img th:src="@{/images/pimh.png}" alt="Project Implicit Mental Health" />
+            </div>
+
+            <!--column three starts-->
+            <ul class="footer-links">
+                <li><a th:href="@{/public/team}">Meet the Team</a></li>
+                <li><a th:href="@{/public/faq}">FAQ</a></li>
+                <li><a th:href="@{/public/disclaimer}">Terms and Conditions</a></li>
+                <li><a th:href="@{/public/privacy}">Privacy Policy</a></li>
+                <li><a href="https://implicit.harvard.edu/implicit/user/pimh/index.jsp">Project Implicit Mental
+                    Health</a></li>
+            </ul>
+
+            <div class="clear-both"></div>
+        </div>
+        <div class="copyright">&copy; Copyright 2016 &bull; All rights reserved</div>
+
+    </div>
+
+    <!--column two starts-->
+    <div class="adminTools container" sec:authorize="hasRole('ROLE_ADMIN')">
+        <h5>Administration Tools</h5>
+
+        <p>This section is only visible to you because you have been granted administrative access.</p>
+        <ul class="list-info">
+            <li><a th:href="@{/admin}">User Administration</a>: provides a way to view all accounts created on the system.
+            </li>
+            <li><a th:href="@{/admin/listEmails}">Email Messages</a>: allows you to send yourself a copy of all email messages
+                coming from the system.
+            </li>
+            <li><a th:href="@{/admin/listSessions}">Sessions</a>: allows you to view all available sessions, and jump into any
+                content within a session.
+            </li>
+            <li><a th:href="@{/admin/tango}">Gift Cards Account</a>: allows you to check information about the gift card
+                account for your study.
+            </li>
+            <li><a th:href="@{/admin/errors}">Errors</a>: View a list of all errors that surfaced to participants.  This might
+                not include internal errors that were never seen by a participant.
+            </li>
+            <li><a th:href="@{/admin/export}">Exports</a>: allows you to view the status of exports from the system, or export
+                data directly if this feature is enabled.
+            </li>
+            <li><a th:href="@{/admin/userstats}">User statistics information</a>: allows you to check users statistics information.
+            </li>
+        </ul>
+    </div>
+
+</footer>
+
+
+<!--If you need to include javascript at the end of the page.  -->
+<div id="scripts"  th:fragment="scripts">
+
+    <!-- Use Jquery-Validate plugin to validate all forms. -->
+    <script>
+        $(document).ready(function() {
+            $("form").validate({
+                errorElement: "span",
+                errorPlacement: function (error, element) {
+                    var template_statement = element.parents(".row").first().children(".statement")
+                    var after_slider = element.parents(".after_slider").first()
+                    if(template_statement.length > 0) {
+                        error.appendTo(template_statement);
+                    } else if (after_slider.length > 0) {
+                        error.addClass("label-error");
+                        error.appendTo(after_slider);
+                    } else {
+                        error.addClass("label-error");
+                        var label = element.parent("label");
+                        error.appendTo(label);
+                    }
+
+                }
+            })
+        });
+    </script>
+
+    <script type="text/javascript">
+        $("form").each(function() {
+            $(this).submit(function() {
+                $(this).find("#timeOnPage").val(TimeMe.getTimeOnCurrentPageInSeconds());
+            });
+        });
+     </script>
+</div>
+
+</body>
+</html>

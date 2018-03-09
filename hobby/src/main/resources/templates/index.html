@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="fragment/common :: headerFragment"/>
+<body>
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
+
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <h1>Welcome to the Hobby Study</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <p>
+                Description of the study.</p>
+
+                <p>lorem ipsum ...</p>
+
+            </div>
+
+            <div class="col-md-4">
+                <h4>Let's get started!</h4>
+                <p><a th:href="@{/account/create}"><button>Create an account</button> </a></p>
+            </div>
+        </div>
+     </div>
+</section>
+
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>

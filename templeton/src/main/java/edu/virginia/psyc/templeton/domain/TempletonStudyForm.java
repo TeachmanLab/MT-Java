@@ -18,7 +18,7 @@ public class TempletonStudyForm {
 
     public TempletonStudyForm(TempletonStudy study)  {
 
-        this.conditioning = study.getConditioning();
+        this.conditioning = study.getConditioning().toString();
         this.session = study.getCurrentSession().getName();
     }
 
