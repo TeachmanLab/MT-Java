@@ -8,7 +8,6 @@ import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 import org.mindtrails.domain.questionnaire.QuestionnaireData;
 import org.mindtrails.service.ExportService;
 import org.mindtrails.service.ParticipantService;
-import org.mindtrails.service.RsaEncryptionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,9 +46,6 @@ import java.util.Date;
 public class QuestionController extends BaseController {
 
     private static final Logger LOG = LoggerFactory.getLogger(QuestionController.class);
-
-    @Autowired
-    private RsaEncryptionService encryptService;
 
     @Autowired
     private ExportService exportService;
