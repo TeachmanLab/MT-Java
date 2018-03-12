@@ -3,6 +3,7 @@ package org.mindtrails.controller;
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
+import org.mindtrails.domain.ClientOnly;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.RestExceptions.MissingEligibilityException;
 import org.mindtrails.domain.VerificationCode;
@@ -10,6 +11,7 @@ import org.mindtrails.domain.forms.ParticipantCreate;
 import org.mindtrails.domain.forms.ParticipantUpdate;
 import org.mindtrails.domain.recaptcha.RecaptchaFormValidator;
 import org.mindtrails.service.ParticipantService;
+import org.mindtrails.service.TangoService;
 import org.mindtrails.service.TwilioService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +25,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.mindtrails.domain.ClientOnly;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
@@ -58,6 +59,10 @@ public class AccountController extends BaseController {
     @Autowired
     private TwilioService twilioService;
 
+    @Autowired
+    private TangoService tangoService;
+
+
     /** This will assure that any form submissions for the participant Form
      * are validated for a proper recaptcha response.
      * @param binder
@@ -71,6 +76,7 @@ public class AccountController extends BaseController {
     public String createForm (ModelMap model, HttpSession session) {
         model.addAttribute("participantForm", new ParticipantCreate());
         model.addAttribute("recaptchaSiteKey", recaptchaSiteKey);
+        model.addAttribute("giftcardsEnabled", tangoService.getEnabled());
         if(participantService.isEligible(session)) {
             return "account/create";
         } else {

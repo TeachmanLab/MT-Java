@@ -1,14 +1,13 @@
 package org.mindtrails.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.mindtrails.domain.tracking.*;
@@ -18,7 +17,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
-import org.hibernate.annotations.Parameter;
+
 import javax.persistence.*;
 import java.util.*;
 
@@ -55,7 +54,7 @@ public  class Participant implements UserDetails {
     protected String timezone;
     protected boolean active = true;
     protected Date lastLoginDate;
-    protected boolean receiveGiftCards = true;
+    protected boolean receiveGiftCards = false;
     protected boolean verified = false;
     protected boolean blacklist = false;
     @JsonIgnore
