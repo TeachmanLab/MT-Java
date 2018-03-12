@@ -9,7 +9,7 @@ var HOBBY_STUDY = (function () {
             my.status_url = "/jspsych/status";
             my.redirect_url = "/jspsych/continue";
             my.lemon = false;
-            my.session = "firstSession";
+            my.session = "secondSession";
             my.data = {};
             my.lastSaveIndex = 0;
 
@@ -245,9 +245,6 @@ var HOBBY_STUDY = (function () {
                 }
                 timeline.push(introduction);
 
-                // Randomize the scenarios
-                scenarios = jsPsych.randomization.sampleWithoutReplacement(scenarios, my.total_scenarios);
-
                 // Loop through the time-line creating scenarios
                 var positive = true;
                 for (var k = 0; k < scenarios.length; k++) {
@@ -257,8 +254,9 @@ var HOBBY_STUDY = (function () {
                     var immersion;
                     var title;
                     var yes_no_correct;
-                    var mc1_correct;
-                    var mc2_correct;
+                    var mcq_positive;
+                    var mcq_negative;
+                    var mcq_answer;
                     var format;
 
                     paragraph = scenarios[k]['Paragraph'];
@@ -271,8 +269,9 @@ var HOBBY_STUDY = (function () {
                     if (positive) {
                         phrase = scenarios[k]['FinalWord'];
                         yes_no_correct = scenarios[k]['Correct'];
-                        mc1_correct = scenarios[k]['mc1pos'];
-                        mc2_correct = scenarios[k]['mc2pos'];
+                        mcq_positive = scenarios[k]['MCQ_Positive'];
+                        mcq_negative = scenarios[k]['MCQ_Negative'];
+                        mcq_answer = scenarios[k]['MCQ_Answer'];
                     }
 
                     /***********************************************
@@ -335,12 +334,12 @@ var HOBBY_STUDY = (function () {
                         }
                     };
 
-                    var mc1 = {
+                    var mcq = {
                         type: 'button-response-correct',
                         is_html: true,
-                        stimulus: scenarios[k]['MultipleChoice1'],
-                        choices: [scenarios[k]['mc1a'], scenarios[k]['mc1b']],
-                        correct_choice: mc1_correct == "a" ? scenarios[k]['mc1a'] : scenarios[k]['mc1b'],
+                        stimulus: scenarios[k]['Questions'],
+                        choices: [scenarios[k]['MCQ_Positive'], scenarios[k]['MCQ_Negative']],
+                        correct_choice: mcq_answer == "Positive" ? scenarios[k]['MCQ_Positive'] : scenarios[k]['MCQ_Negative'],
                         on_finish: function (trial_data) {
                             if (trial_data.correct) score_questions++;
                             updateScore();
@@ -406,13 +405,10 @@ var HOBBY_STUDY = (function () {
                     // Only ask a followup question 2/3rd of the time.
                     if (Math.random() >= 0.333) {
                         followup_count++;
-                        switch (my.question_type) {
-                            case ("yes_no"):
-                                timeline.push(yes_no);
-                                break;
-                            case ("mc1"):
-                                timeline.push(mc1);
-                                break;
+                        if  (scenarios[k]["Correct"]) {
+                            timeline.push(yes_no);
+                        }   else {
+                            timeline.push(mcq);
                         }
                     }
 
