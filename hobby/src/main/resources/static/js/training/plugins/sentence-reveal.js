@@ -42,7 +42,7 @@ jsPsych.plugins["sentence-reveal"] = (function () {
 
     plugin.trial = function (display_element, trial) {
 
-        var lastIndex = trial.paragraph.lastIndexOf(" ");
+        var lastIndex = trial.paragraph.trim().lastIndexOf(" ");
 
         trial.paragraph = trial.paragraph.substring(0, lastIndex);
 

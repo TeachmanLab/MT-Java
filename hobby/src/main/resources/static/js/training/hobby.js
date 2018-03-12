@@ -9,9 +9,10 @@ var HOBBY_STUDY = (function () {
             my.status_url = "/jspsych/status";
             my.redirect_url = "/jspsych/continue";
             my.lemon = false;
-            my.session = "secondSession";
+            my.session = "eightSession";
             my.data = {};
             my.lastSaveIndex = 0;
+            my.start = 0;
 
             // This score is incremented for every correct answer and displayed
             // to the user.
@@ -67,6 +68,8 @@ var HOBBY_STUDY = (function () {
                     }
                 }
                 my.total_scenarios = my.total_scenarios - completed_previously;
+                my.start = completed_previously;
+
                 // Build the timeline.
                 build_timeline(my.data);
 
@@ -247,7 +250,7 @@ var HOBBY_STUDY = (function () {
 
                 // Loop through the time-line creating scenarios
                 var positive = true;
-                for (var k = 0; k < scenarios.length; k++) {
+                for (var k = my.start; k < scenarios.length; k++) {
                     var scenario;
                     var paragraph;
                     var phrase;
@@ -361,19 +364,19 @@ var HOBBY_STUDY = (function () {
                     // Vivid Follow up - changes based on response.
                     var stimulus;
                     switch (k) {
-                        case 4:
+                        case 5:
                             stimulus = "<h1>Well done.</h1>" +
                                 "<h1>Remember, imagine the scenario as if you are experiencing it through your own eyes.</h1>";
                             break;
-                        case 8:
+                        case 10:
                             stimulus = "<h1>Nice Work.</h1>" +
                                 "<h1>Take time to visualize each situation.</h1>";
                             break;
-                        case 12:
+                        case 15:
                             stimulus = "<h1>Good job.</h1>" +
                                 "<h1>Remember, try to imagine the stories as vividly as you can.</h1>";
                             break;
-                        case 16:
+                        case 20:
                             stimulus = "<h1>You're doing great. </h1>" +
                                 "<h1>Keep focusing on the stories and imagine them from your own eyes.</h1>"
                             break;
@@ -387,14 +390,14 @@ var HOBBY_STUDY = (function () {
                         choices: ['Continue'],
                         stimulus: "<div class='vividness_followup'>" +
                         stimulus +
-                        "<img src='" + my.base_url + "images/lemon/lemon_" + (k / 4) + ".png'/>" +
+                        "<img src='" + my.base_url + "images/lemon/lemon_" + (k / 5) + ".png'/>" +
                         "</div>"
                     };
 
                     // BUILD THE TIMELINE FROM THE COMPONENTS ABOVE.
                     // *********************************************
 
-                    if (k % 4 === 0 && k !== 0) {
+                    if (k % 5 === 0 && k !== 0) {
                         timeline.push(vividness_followup)
                     }
 

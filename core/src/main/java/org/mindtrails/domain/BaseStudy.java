@@ -118,6 +118,9 @@ public abstract class BaseStudy implements Study {
         DateTime now;
 
         last = new DateTime(lastSessionDate);
+        // Allow 8 hours of slop in the time, so if someone should wait
+        // 1 day, they need to wait at least 16 hours.
+        last = last.minusHours(8);
         now  = new DateTime();
         return Days.daysBetween(last, now).getDays();
     }
