@@ -34,6 +34,9 @@ public class TangoService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TangoService.class);
 
+    @Value("${tango.enabled}")
+    private Boolean enabled;
+
     @Value("${tango.id}")
     private String id;
 
