@@ -26,18 +26,7 @@
                     <td>Current Session:</td>
                     <td>
                         <select name="session" th:field="*{session}">
-                            <option th:each="elem: ${T(edu.virginia.psyc.templeton.domain.TempletonStudy.SESSION).values()}"
-                                    th:value="${elem.name()}" th:text="${elem.name()}" value="BAZ">BAZ
-                            </option>
-                        </select>
-                    </td>
-                    <td th:if="${#fields.hasErrors('conditioning')}" th:errors="*{admin}">Admin Error</td>
-                </tr>
-                <tr>
-                    <td>CDM Condition:</td>
-                    <td>
-                        <select name="conditioning" th:field="*{conditioning}">
-                            <option th:each="elem: ${T(edu.virginia.psyc.templeton.domain.TempletonStudy.CONDITION).values()}"
+                            <option th:each="elem: ${T(edu.virginia.psyc.hobby.domain.HobbyStudy.SESSION).values()}"
                                     th:value="${elem.name()}" th:text="${elem.name()}" value="BAZ">BAZ
                             </option>
                         </select>

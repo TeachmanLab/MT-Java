@@ -9,11 +9,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mindtrails.domain.Participant;
 import org.mindtrails.persistence.ParticipantRepository;
-import org.mindtrails.service.EmailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.context.ActiveProfiles;
@@ -22,9 +20,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.subethamail.wiser.Wiser;
-import org.subethamail.wiser.WiserMessage;
 
-import javax.mail.internet.MimeMessage;
 import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
@@ -37,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Created by dan on 10/23/15.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
+@SpringBootTest(classes=Application.class)
 @WebAppConfiguration
 @ActiveProfiles("test")
 public class ExpectancyControllerTest extends BaseControllerTest {
