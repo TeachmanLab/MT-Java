@@ -8,7 +8,7 @@ buildscript {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:$project.ext.springBootVersion")
     }
 }
-apply plugin: 'spring-boot'
+apply plugin: 'org.springframework.boot'
 
 description = 'MindTrails Core Library'
 
