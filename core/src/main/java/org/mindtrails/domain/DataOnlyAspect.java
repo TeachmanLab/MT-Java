@@ -28,6 +28,7 @@ public class DataOnlyAspect {
             Object proceed = joinPoint.proceed();
             return proceed;
         } else {
+            LOGGER.info("Not in the data mode. This function is disabled. Hint: you are at "+serverMode+".");
             throw new DataOnlyException();
         }
 

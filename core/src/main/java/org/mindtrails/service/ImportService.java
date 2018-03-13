@@ -158,7 +158,7 @@ public class ImportService {
      * @return
      */
 
-    @ClientOnly
+    @DataOnly
     public Boolean deleteOnline(String path, String scale) {
         return false;
     }
@@ -423,7 +423,7 @@ public class ImportService {
  * */
 
     @DataOnly
-    @Scheduled(cron = "0 5 * * * *")
+    @Scheduled(cron = "0 * * * * *")
     public void importData() {
         LOGGER.info("Trying to download data from api/export.");
         boolean newStudy = updateStudyOnline();

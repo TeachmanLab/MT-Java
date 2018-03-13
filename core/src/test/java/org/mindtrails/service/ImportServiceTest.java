@@ -423,6 +423,11 @@ public class ImportServiceTest extends BaseControllerTest {
         jsPsyRepo.flush();
         System.out.println(questObj.toString());
     }
+
+    @Test
+    public void testAutoDownload() throws Exception {
+        service.importData();
+    }
 }
 
 

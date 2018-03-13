@@ -141,7 +141,11 @@ public class ExportController  {
 
         List<Object> json = listData(name,0);
         response.setContentType("text/plain; charset=utf-8");
-        writeCSVToResponse(response.getWriter(), json, name);
+        if (json != null) {
+            writeCSVToResponse(response.getWriter(), json, name);
+        } else {
+            response.getWriter().print("Empty dataset.");
+        }
     }
 
     /**

@@ -24,10 +24,7 @@ import org.mindtrails.domain.userstats;
 import org.mindtrails.persistence.ErrorLogRepository;
 import org.mindtrails.persistence.ParticipantRepository;
 import org.mindtrails.persistence.StudyRepository;
-import org.mindtrails.service.EmailService;
-import org.mindtrails.service.ExportService;
-import org.mindtrails.service.ParticipantService;
-import org.mindtrails.service.TangoService;
+import org.mindtrails.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,7 +92,14 @@ public class AdminController extends BaseController {
     @Autowired
     private StudyRepository studyRepository;
 
+    @Value("${mode}")
+    private String serverMode;
 
+    @Value("${import.url}")
+    private String url;
+
+    @Autowired
+    private ImportService importService;
 
     @Override
     @ModelAttribute("visiting")
@@ -268,7 +272,14 @@ public class AdminController extends BaseController {
     public String export(ModelMap model, Principal principal) {
         Participant p = getParticipant(principal);
 
-        model.addAttribute("downloadsDisabled", Boolean.parseBoolean(downloadsDisabled));
+        if (serverMode.toLowerCase().equals("data")) {
+            model.addAttribute("downloadsDisabled",false);
+        } else if (serverMode.toLowerCase().equals("client")) {
+            model.addAttribute("downloadsDisabled",true);
+        } else {
+            model.addAttribute("downloadsDisabled", Boolean.parseBoolean(downloadsDisabled));
+        };
+        model.addAttribute("scales",importService.importList(url));
         model.addAttribute("exportMaxMinutes", exportService.getMaxMinutes());
         model.addAttribute("exportMaxRecords", exportService.getMaxRecords());
         model.addAttribute("totalRecords", exportService.totalDeleteableRecords());
