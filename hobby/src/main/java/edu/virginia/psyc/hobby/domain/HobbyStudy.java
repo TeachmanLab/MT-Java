@@ -95,7 +95,7 @@ public class HobbyStudy extends BaseStudy {
         List<Session> sessions = new ArrayList<>();
         Session session1, session2, session3, session4, session5, session6;
 
-        session1 = new Session(FIRST_SESSION, "Day 1", 0, 1);
+        session1 = new Session(FIRST_SESSION, "Day 1", 0, 0);
         session1.setIndex(0);
         session1.addTask(new Task("JsPsychTrial", "Training Stories", Task.TYPE.jspsych, 20));
         sessions.add(session1);
