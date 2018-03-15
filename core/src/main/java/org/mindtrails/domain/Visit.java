@@ -2,6 +2,8 @@ package org.mindtrails.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.mindtrails.domain.data.DoNotDelete;
+import org.mindtrails.domain.data.Exportable;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

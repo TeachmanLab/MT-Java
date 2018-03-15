@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 
-import org.mindtrails.domain.questionnaire.SecureQuestionnaireData;
+import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -15,7 +15,7 @@ import lombok.EqualsAndHashCode;
 @Table(name="ImpactAnxiousImagery")
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class ImpactAnxiousImagery extends SecureQuestionnaireData {
+public class ImpactAnxiousImagery extends LinkedQuestionnaireData {
 
     private int anxiety;
     private int vivid;

@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
@@ -16,7 +17,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @ComponentScan ({"edu.virginia.psyc.r34", "org.mindtrails"})  // Search for controllers and data access objects in both Core and App projects.
 @Configuration
 @EnableJpaRepositories(basePackages = {"edu.virginia.psyc.r34", "org.mindtrails"}) // To find the core repositories.
-
+@EnableAspectJAutoProxy
 @EnableAutoConfiguration  // Automatically configure everything ala Spring Boot
 @EntityScan(basePackages = {"edu.virginia.psyc.r34", "org.mindtrails"}) // So we can find the other entities in the core controller.
 @EnableScheduling

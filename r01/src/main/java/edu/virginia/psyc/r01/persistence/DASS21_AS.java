@@ -1,9 +1,9 @@
 package edu.virginia.psyc.r01.persistence;
 
-import org.mindtrails.domain.DoNotDelete;
-import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.mindtrails.domain.data.DoNotDelete;
+import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -1,5 +1,6 @@
 package org.mindtrails.domain;
 
+
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -43,8 +44,6 @@ public interface Study {
 
     public void setReceiveGiftCards(boolean value);
 
-    public long getParticipantId();
-
     public boolean hasTask(String task);
 
     public String getConditioning();
@@ -57,4 +56,6 @@ public interface Study {
      *     the participants Condition or Prime.
      */
     public Map<String,Object> getPiPlayerParameters();
+
+    public long getParticipantId();
 }

@@ -6,6 +6,8 @@ import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.mindtrails.domain.tracking.*;
@@ -31,8 +33,13 @@ public  class Participant implements UserDetails {
 
     private static final Logger LOG = LoggerFactory.getLogger(Participant.class);
 
+
     @Id
-    @TableGenerator(name = "PARTICIPANT_GEN", table = "ID_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 1)
+    @GenericGenerator(name = "PARTICIPANT_GEN", strategy = "org.mindtrails.persistence.MindtrailsIdGenerator", parameters = {
+            @Parameter(name = "table_name", value = "ID_GEN"),
+            @Parameter(name = "value_column_name", value = "GEN_VAL"),
+            @Parameter(name = "segment_column_name", value = "GEN_NAME"),
+            @Parameter(name = "segment_value", value = "participant") })
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "PARTICIPANT_GEN")
     protected long id;
     protected String fullName;
@@ -47,10 +54,9 @@ public  class Participant implements UserDetails {
     protected String timezone;
     protected boolean active = true;
     protected Date lastLoginDate;
-    protected boolean receiveGiftCards = true;
+    protected boolean receiveGiftCards = false;
     protected boolean verified = false;
     protected boolean blacklist = false;
-    protected boolean giftCardsQualification= false;
     @JsonIgnore
     protected String randomToken;
     protected String theme = "blue";
@@ -199,6 +205,10 @@ public  class Participant implements UserDetails {
         String hashedPassword = encoder.encode(password);
         this.password = hashedPassword;
     }
+
+    /**
+     * Update the phone number
+     */
     public void updatePhone(String phone){
         this.setPhone(formatPhone(phone));
     }
@@ -215,6 +225,12 @@ public  class Participant implements UserDetails {
             return p; // Leave it alone, let validation handle it.
         }
     }
+
+    /**
+     * Checks to see if this type of email was already sent to the user regarding the
+     * given session.
+     */
+
 
     /**
      * @return Number of days since the last completed session or if

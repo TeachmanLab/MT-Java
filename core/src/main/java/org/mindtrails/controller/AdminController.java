@@ -153,6 +153,7 @@ public class AdminController extends BaseController {
         return "admin/participantUpdate";
     }
 
+    @ClientOnly
     @RequestMapping(value="/participant/{id}", method=RequestMethod.POST)
     public String updateParticipant(ModelMap model,
                                        @PathVariable("id") long id,
@@ -208,6 +209,7 @@ public class AdminController extends BaseController {
         return "admin/listEmails";
     }
 
+    @ClientOnly
     @RequestMapping(value="/sendEmail/{type}")
     public String sendEmail(ModelMap model, Principal principal,
                             @PathVariable("type") String type) throws Exception {
@@ -431,17 +433,6 @@ public class AdminController extends BaseController {
 
         return massiveMap;
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

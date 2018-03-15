@@ -2,7 +2,7 @@ package edu.virginia.psyc.templeton.persistence;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.mindtrails.domain.questionnaire.SecureQuestionnaireData;
+import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @Table(name="WhatIBelieve")
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class WhatIBelieve extends SecureQuestionnaireData {
+public class WhatIBelieve extends LinkedQuestionnaireData {
 
     // Originally a part of the NGSES
     private int difficultTasks;

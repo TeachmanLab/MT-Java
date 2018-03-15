@@ -3,6 +3,7 @@ package org.mindtrails.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.GenericGenerator;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.mindtrails.domain.RestExceptions.WaitException;
@@ -31,7 +32,11 @@ public abstract class BaseStudy implements Study {
     private static final Session COMPLETE     = new Session("COMPLETE", "Complete", 0, 0, new ArrayList<Task>());
 
     @Id
-    @TableGenerator(name = "STUDY_GEN", table = "ID_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 1)
+    @GenericGenerator(name = "STUDY_GEN", strategy = "org.mindtrails.persistence.MindtrailsIdGenerator", parameters = {
+            @org.hibernate.annotations.Parameter(name = "table_name", value = "ID_GEN"),
+            @org.hibernate.annotations.Parameter(name = "value_column_name", value = "GEN_VAL"),
+            @org.hibernate.annotations.Parameter(name = "segment_column_name", value = "GEN_NAME"),
+            @org.hibernate.annotations.Parameter(name = "segment_value", value = "study") })
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "STUDY_GEN")
     protected long id;
 
@@ -113,6 +118,9 @@ public abstract class BaseStudy implements Study {
         DateTime now;
 
         last = new DateTime(lastSessionDate);
+        // Allow 8 hours of slop in the time, so if someone should wait
+        // 1 day, they need to wait at least 16 hours.
+        last = last.minusHours(8);
         now  = new DateTime();
         return Days.daysBetween(last, now).getDays();
     }
@@ -283,12 +291,12 @@ public abstract class BaseStudy implements Study {
         return params;
     }
 
-    @Override
     /**
      * We have a one to one relationship to participant,
      * we can just return the unique id of the Study, and
      * it is the unique id of the participant.
      */
+    @Override
     public long getParticipantId() {
         return this.id;
     }

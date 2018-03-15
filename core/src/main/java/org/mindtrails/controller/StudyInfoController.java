@@ -1,6 +1,6 @@
 package org.mindtrails.controller;
 
-import org.mindtrails.domain.DoNotDelete;
+import org.mindtrails.domain.data.DoNotDelete;
 import org.mindtrails.domain.StudyInformation.SessionInfo;
 import org.mindtrails.domain.StudyInformation.StudyInfo;
 import org.mindtrails.domain.StudyInformation.TaskInfo;

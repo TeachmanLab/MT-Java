@@ -1,7 +1,7 @@
 package org.mindtrails.MockClasses;
 
 import org.mindtrails.domain.Participant;
-import org.mindtrails.domain.questionnaire.SecureQuestionnaireData;
+import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -18,7 +18,7 @@ import java.util.Map;
 @Table(name="TestQuestionnaire")
 @Data
 @EqualsAndHashCode(callSuper=false)
-public class TestQuestionnaire extends SecureQuestionnaireData {
+public class TestQuestionnaire extends LinkedQuestionnaireData {
 
     private String value;
 
@@ -30,9 +30,10 @@ public class TestQuestionnaire extends SecureQuestionnaireData {
     private double timeOnPage;
 
     public TestQuestionnaire() {}
-    public TestQuestionnaire(String value) {
+    public TestQuestionnaire(String value, Participant participant) {
         this.value = value;
         this.date = new Date();
+        this.participant = participant;
 
     }
 

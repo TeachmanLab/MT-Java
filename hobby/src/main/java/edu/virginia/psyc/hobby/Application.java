@@ -8,6 +8,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 /**
  * This is a Spring based application, and will auto discover the 
  * controllers in this code base and make them available
@@ -23,8 +27,13 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EntityScan(basePackages = {"edu.virginia.psyc.hobby", "org.mindtrails"})
 @EnableScheduling
 public class Application {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
-        SpringApplication.run(Application.class, args);
+        Properties properties = new Properties();
+        InputStream in = Application.class.getClassLoader().getResourceAsStream("default.properties");
+        properties.load(in);
+        SpringApplication app = new SpringApplication(Application.class);
+        app.setDefaultProperties(properties);
+        app.run(args);
     }
 }

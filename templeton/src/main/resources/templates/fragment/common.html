@@ -3,7 +3,7 @@
 <!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
 <!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!-->
-<html class="not-ie" lang="en">
+<html class="not-ie" lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <!--<![endif]-->
 <head id="headerFragment" th:fragment="headerFragment">
     <meta charset="utf-8"/>
@@ -125,7 +125,8 @@
                             <li><a th:href="@{/session/overview}">Progress</a></li>
                             <li><a th:href="@{/account}">Account Settings</a></li>
                             <li><a th:href="@{/account/changePass}">Change Password</a></li>
-                            <li><a th:href="@{/account/exitStudyConfirm}">Exit the Study</a></li>
+                            <li th:unless="${participant.verified}"><a th:href="@{/account/PostVerification}">Verify My Phone</a></li>
+                            <li> <a th:href="@{/account/exitStudyConfirm}">Exit the Study</a></li>
                             <li><a th:href="@{/logout}">Logout</a></li>
                         </ul>
                     </li>
@@ -274,8 +275,6 @@
             <li><a th:href="@{/admin/export}">Exports</a>: allows you to view the status of exports from the system, or export
                 data directly if this feature is enabled.
             </li>
-            <li><a th:href="@{/admin/export}">Export</a>: allows you to export questionnaire data.
-            </li>
             <li><a th:href="@{/admin/userstats}">User statistics information</a>: allows you to check users statistics information.
             </li>
         </ul>
@@ -312,12 +311,15 @@
     </script>
 
     <script type="text/javascript">
+
         $("form").each(function() {
             $(this).submit(function() {
                 $(this).find("#timeOnPage").val(TimeMe.getTimeOnCurrentPageInSeconds());
             });
         });
      </script>
+
+
 </div>
 
 </body>

@@ -2,7 +2,7 @@ package edu.virginia.psyc.templeton.persistence;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.mindtrails.domain.questionnaire.SecureQuestionnaireData;
+import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @Table(name="Evaluation")
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class Evaluation extends SecureQuestionnaireData {
+public class Evaluation extends LinkedQuestionnaireData {
     private int Helpful;
     private boolean NoAns_Helpful;
     private int Quality;

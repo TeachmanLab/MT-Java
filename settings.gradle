@@ -1,6 +1,5 @@
 include 'r34'
 include 'core'
 include 'templeton'
-include 'mobile'
 include 'r01'
 include 'hobby'

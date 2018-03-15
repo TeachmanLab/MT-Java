@@ -24,7 +24,7 @@ public class PasswordToken {
 
     @Id
     @GeneratedValue
-    private int     id;
+    private int id;
 
     @OneToOne
     private Participant participant;

@@ -2,7 +2,7 @@ package edu.virginia.psyc.templeton.persistence;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.mindtrails.domain.questionnaire.SecureQuestionnaireData;
+import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 
 import javax.persistence.*;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
 @Table(name="MentalHealthHistory")
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class MentalHealthHistory extends SecureQuestionnaireData {
+public class MentalHealthHistory extends LinkedQuestionnaireData {
     private String Other_Desc;
     private String Other_DescNo;
     private String Other_HelpCurrent;
