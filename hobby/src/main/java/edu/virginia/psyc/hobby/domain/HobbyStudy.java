@@ -112,6 +112,26 @@ public class HobbyStudy extends BaseStudy {
         session2.setIndex(0);
         session2.addTask(new Task("JsPsychTrial", "Training Stories", Task.TYPE.jspsych, 20));
         sessions.add(session2);
+
+        session3 = new Session(THIRD_SESSION, "Day 3", 0, 1);
+        session3.setIndex(0);
+        session3.addTask(new Task("JsPsychTrial", "Training Stories", Task.TYPE.jspsych, 20));
+        sessions.add(session3);
+
+        session4 = new Session(FOURTH_SESSION, "Day 4", 0, 1);
+        session4.setIndex(0);
+        session4.addTask(new Task("JsPsychTrial", "Training Stories", Task.TYPE.jspsych, 20));
+        sessions.add(session4);
+
+        session5 = new Session(FIFTH_SESSION, "Day 5", 0, 1);
+        session5.setIndex(0);
+        session5.addTask(new Task("JsPsychTrial", "Training Stories", Task.TYPE.jspsych, 20));
+        sessions.add(session5);
+
+        session6 = new Session(SIXTH_SESSION, "Day 6", 0, 1);
+        session6.setIndex(0);
+        session6.addTask(new Task("JsPsychTrial", "Training Stories", Task.TYPE.jspsych, 20));
+        sessions.add(session6);
         return sessions;
     }
 }
