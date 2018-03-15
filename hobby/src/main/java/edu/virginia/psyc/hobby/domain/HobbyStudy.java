@@ -121,10 +121,9 @@ public class HobbyStudy extends BaseStudy {
         sessions.add(session5);
 
         session6 = new Session(SIXTH_SESSION, "Day 6", 0, 1);
-        session6.setIndex(5);
+        session6.setIndex(0);
         session6.addTask(new Task("JsPsychTrial", "Training Stories", Task.TYPE.jspsych, 20));
         sessions.add(session6);
-
         return sessions;
 
     }
