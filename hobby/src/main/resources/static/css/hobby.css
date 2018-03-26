@@ -12,7 +12,27 @@ label.radioListNoAnswer {
     text-align: center;
 }
 
+/* Wizard form for Anxious Imagery prime. */
+form#wizard{
+    position: relative;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid #bbb;
+    background: #FFF;
+    font-weight:400;
+    max-width: 900px;
+}
 
+#wizard th {
+    text-align: center;
+}
 
+button.ui-button-disabled {
+    background: #666;
+    -webkit-box-shadow: 0px 0px 0px #888;
+    -moz-box-shadcoow: 0px 0px 0px #888;
+    box-shadow: 0px 0px 0px #888;
+}
 
 
