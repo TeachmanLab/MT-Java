@@ -61,6 +61,9 @@ public abstract class BaseStudy implements Study {
         this.receiveGiftCards = receiveGiftCards;
     }
 
+    public boolean isProgress(String formName)
+
+        {return this.hasTask(formName);}
     @Override
     @JsonIgnore
     public List<Session> getSessions() {

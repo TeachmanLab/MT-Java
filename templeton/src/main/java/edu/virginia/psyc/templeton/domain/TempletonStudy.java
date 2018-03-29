@@ -193,4 +193,12 @@ public class TempletonStudy extends BaseStudy {
 
         return sessions;
     }
+
+    public boolean isProgress(String taskName){
+    if (taskName.equals ("Evaluation") && !getCurrentSession().getCurrentTask().getName().equals ("Evaluation")) {
+        return false;
+    }
+    else {return this.hasTask(taskName);}
+    }
+
 }
