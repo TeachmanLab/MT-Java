@@ -1,5 +1,6 @@
 package org.mindtrails.controller;
 
+import org.joda.time.field.FieldUtils;
 import org.mindtrails.domain.ClientOnly;
 import org.mindtrails.domain.DataOnly;
 import org.mindtrails.domain.data.DoNotDelete;
@@ -114,12 +115,14 @@ public class ExportController  {
             Class<?> domainType = exportService.getDomainType(name);
             mapStrategy.setType(domainType);
             mapStrategy.generateHeader();
-            Field[] fields = object.get(0).getClass().getDeclaredFields();
+            //Field[] fields = object.get(0).getClass().getDeclaredFields();
+            Field[] fields = org.apache.commons.lang3.reflect.FieldUtils.getAllFields(domainType);
             String[] columns = new String[fields.length];
             int i=0;
             for (Field cNames : fields) {
+                if (!cNames.getName().equals("participant")) {
                 columns[i] = cNames.getName();
-                i+=1;
+                i+=1;}
             }
             String joinedColumns = String.join("\t", columns);
             writer.print(joinedColumns+"\n");

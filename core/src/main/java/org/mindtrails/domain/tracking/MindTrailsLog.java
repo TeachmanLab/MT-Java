@@ -30,12 +30,14 @@ public abstract class MindTrailsLog implements Comparable<MindTrailsLog>, hasPar
     @JsonProperty("participant")
     protected Participant participant;
 
+
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="EEE, dd MMM yyyy HH:mm:ss Z", timezone="EST")
     protected Date dateSent;
 
     @Override
     public int compareTo(MindTrailsLog o) {
         if(this.dateSent == null) return 0;
+        if(o.dateSent == null) return 1;
         return this.dateSent.compareTo(o.dateSent);
     }
 

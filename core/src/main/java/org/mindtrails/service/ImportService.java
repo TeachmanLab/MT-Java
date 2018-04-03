@@ -1,52 +1,37 @@
 package org.mindtrails.service;
 
 
-import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import org.apache.tomcat.jni.Error;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.mindtrails.domain.*;
 import org.mindtrails.domain.importData.ImportError;
-import lombok.Data;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.mindtrails.domain.importData.Scale;
-import org.mindtrails.persistence.ParticipantExportDAO;
 import org.mindtrails.persistence.ParticipantRepository;
 import org.mindtrails.persistence.StudyRepository;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ApplicationListener;
-import org.springframework.context.event.ContextRefreshedEvent;
-
-import org.springframework.context.event.EventListener;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.support.Repositories;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
-import sun.rmi.runtime.Log;
 
 import java.io.File;
-import java.io.FileFilter;
-import java.io.FilenameFilter;
 import java.io.IOException;
-import java.net.URL;
+import java.net.URI;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
-import java.net.URI;
 
 
 /**
@@ -423,7 +408,7 @@ public class ImportService {
  * */
 
     @DataOnly
-    @Scheduled(cron = "0 * * * * *")
+    @Scheduled(cron = "0 5 * * * *")
     public void importData() {
         LOGGER.info("Trying to download data from api/export.");
         boolean newStudy = updateStudyOnline();
