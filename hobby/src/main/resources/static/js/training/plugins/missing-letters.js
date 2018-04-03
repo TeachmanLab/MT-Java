@@ -84,8 +84,12 @@ jsPsych.plugins["missing-letters"] = (function () {
             }
         }
 
+
+        var pause_click = false;
         // function to handle responses by the subject
         function after_response(choice, id) {
+            if(pause_click) return;
+            pause_click = true;
 
             // measure the response time.
             var end_time = Date.now();
@@ -101,6 +105,7 @@ jsPsych.plugins["missing-letters"] = (function () {
             if (missing_letters[letter_index] != choice) {
                 response.correct = false;
                 display_element.querySelector('#' + id).querySelector('button').classList.add("incorrect_letter");
+                pause_click = false;
                 return;
             } else {
                 display_element.querySelector('#' + id).querySelector('button').classList.add("correct_letter");
@@ -110,17 +115,14 @@ jsPsych.plugins["missing-letters"] = (function () {
                 return $(this).html().replace('[&nbsp;]', "[" + choice + "]");
             });
 
-            //disable buttons
-            buttons = display_element.querySelectorAll('.jspsych-btn');
-            for(b in buttons) {
-                b.disable = true;
-            }
+
 
             // Pause for a 1/2 second to show that the letter is correctly entered,
             // then end the trail.
             setTimeout(function () {
                 if (letter_index + 1 < missing_letters.length) {
                     letter_index++;
+                    pause_click = false;
                     show_letter_options(missing_letters[letter_index]);
                     return;
                 } else {
