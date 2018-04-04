@@ -300,7 +300,7 @@ public abstract class BaseStudy implements Study {
      * it is the unique id of the participant.
      */
     @Override
-    public long getParticipantId() {
+    public long getParticipant() {
         return this.id;
     }
 

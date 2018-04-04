@@ -37,7 +37,7 @@ public class JsPsychTrial{
     private String internal_node_id;
     private boolean correct;
 
-    private long participantId;
+    private long participant;
     private String session;
     private String study;
     @Column(name = "conditioning")
@@ -46,7 +46,7 @@ public class JsPsychTrial{
     private Date dateSubmitted;
 
     public JsPsychTrial(long id, String device, boolean correct) {
-        this.participantId = id;
+        this.participant = id;
         this.device = device;
         this.correct = correct;
 

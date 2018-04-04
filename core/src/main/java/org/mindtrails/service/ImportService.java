@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -157,7 +158,7 @@ public class ImportService {
 
 
     @DataOnly
-    public boolean localBackup(String scale, File[] list) {
+    public int localBackup(String scale, File[] list) {
         LOGGER.info("Successfully launch local backup");
         int error = 0;
         if (list != null) {
@@ -165,10 +166,8 @@ public class ImportService {
                 if (!parseDatabase(scale,readJSON(is))) error += 1;
             }
             LOGGER.info("Error: " + Integer.toString(error) + "/" + list.length);
-            if (list.length>error) return true;
         }
-        return false;
-
+        return error;
     }
 
     /**
@@ -192,7 +191,7 @@ public class ImportService {
         LOGGER.info("Get into the getLocal function");
         File folder = new File(path);
         String pattern = scale.toLowerCase();
-        File[] files = folder.listFiles((dir,name) -> name.toLowerCase().contains(pattern));
+        File[] files = folder.listFiles((dir,name) -> name.toLowerCase().startsWith(pattern));
         LOGGER.info("Here are the files that I found:" + files.toString());
         return files;
     }
@@ -359,24 +358,30 @@ public class ImportService {
 
 
     @DataOnly
-    public boolean updateParticipantLocal() {
+    public int updateParticipantLocal() {
         LOGGER.info("Get into the updateParticipant function.");
-        File[] files = getFileList("ParticipantExportDAO");
+        File[] files = getFileList("Participant");
+        int error = 0;
         for (File file:files) {
-            return parseDatabase("ParticipantExportDAO",readJSON(file));
+            if(!saveParticipant(readJSON(file))) {
+                error += 1;
+            };
         }
-        return false;
+        return error;
     }
 
 
     @DataOnly
-    public boolean updateStudyLocal() {
+    public int updateStudyLocal() {
         LOGGER.info("Get into the updateStudy function.");
-        File[] files = getFileList("StudyExportDAO");
+        File[] files = getFileList("Study");
+        int error = 0;
         for (File file:files) {
-            return parseDatabase("StudyExportDAO",readJSON(file));
+            if(!parseDatabase("study",readJSON(file))) {
+                error += 1;
+            }
         }
-        return false;
+        return error;
     }
 
     @DataOnly
@@ -446,17 +451,52 @@ public class ImportService {
     @Scheduled(cron = "0 0 0 * * *")
     public void backUpData() {
         LOGGER.info("Try to backup data from local.");
-        int i = 0;
+        int errorFile = 0;
         List<String> good = new ArrayList<String>();
         List<String> bad = new ArrayList<String>();
         List<Scale> list = importList(url);
+        list.removeIf(s -> s.toString().startsWith("Participant"));
+        list.removeIf(s -> s.toString().startsWith("Study"));
+        list.removeIf(s -> s.toString().startsWith("Trial"));
+        errorFile = errorFile + updateStudyLocal();
+        errorFile = errorFile + updateParticipantLocal();
         for (Scale scale:list) {
             File[] is = getFileList(scale.getName());
-            if (localBackup(scale.getName(),is)) {
-                i += 1;
-                good.add(scale.getName());
-            } else {
+            int outCome = localBackup(scale.getName(),is);
+            if (outCome>0) {
                 bad.add(scale.getName());
+                errorFile = errorFile + outCome;
+            } else {
+                good.add(scale.getName());
+            }
+        }
+        LOGGER.info("Here is the good list:");
+        for (String flag:good) LOGGER.info(flag);
+        LOGGER.info("Here is the bad list:");
+        for (String flag:bad) LOGGER.info(flag);
+
+    }
+
+
+    /**
+     * This is just an in-app testing. Need to be deleted before launch.
+     */
+    @DataOnly
+   // @Scheduled(cron = "0 * * * * *")
+    public void testingBackUp() {
+        LOGGER.info("Try to backup data from local.");
+        int errorFile = 0;
+        List<String> good = new ArrayList<String>();
+        List<String> bad = new ArrayList<String>();
+        List<String> list = Arrays.asList("ReasonsForEnding");
+        for (String scale:list) {
+            File[] is = getFileList(scale);
+            int outCome = localBackup(scale,is);
+            if (outCome>0) {
+                bad.add(scale);
+                errorFile = errorFile + outCome;
+            } else {
+                good.add(scale);
             }
         }
         LOGGER.info("Here is the good list:");

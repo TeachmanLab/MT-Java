@@ -116,7 +116,7 @@ public class JSPsychControllerTest extends BaseControllerTest {
                 .with(SecurityMockMvcRequestPostProcessors.user(participant))
                 .content(EXAMPLE_DATA))
                 .andExpect((status().isCreated()));
-        List<JsPsychTrial> trials = jsPsychRepository.findAllByParticipantIdAndStudyAndSession(participant.getId(),
+        List<JsPsychTrial> trials = jsPsychRepository.findAllByParticipantAndStudyAndSession(participant.getId(),
                 participant.getStudy().getName(),
                 participant.getStudy().getCurrentSession().getName());
         assertNotNull(trials);

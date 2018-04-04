@@ -59,5 +59,5 @@ public interface Study {
      */
     public Map<String,Object> getPiPlayerParameters();
 
-    public long getParticipantId();
+    public long getParticipant();
 }

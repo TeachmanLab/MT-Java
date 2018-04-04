@@ -73,7 +73,7 @@ public abstract class BaseControllerTest {
      */
     public abstract Object[] getControllers();
 
-    public Participant createParticipant(String name, String email, boolean admin) {
+    public Participant createParticipant(String name, String email, boolean admin, long id) {
         Participant p;
         p = participantRepository.findByEmail(email);
         if(p == null) {
@@ -81,6 +81,7 @@ public abstract class BaseControllerTest {
             p.setFullName(name);
             p.setEmail(email);
             p.setAdmin(admin);
+            p.setId(id);
         }
         participantRepository.save(p);
         return p;
@@ -88,8 +89,8 @@ public abstract class BaseControllerTest {
 
     @Before
     public void establishParticipants() {
-        participant = createParticipant("john", "test@test.com", false);
-        admin = createParticipant("J McAdmin", "admin@test.com", true);
+        participant = createParticipant("john", "test@test.com", false, 999999);
+        admin = createParticipant("J McAdmin", "admin@test.com", true, 1000000);
     }
 
 

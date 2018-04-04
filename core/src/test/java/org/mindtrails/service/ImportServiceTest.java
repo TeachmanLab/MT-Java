@@ -136,14 +136,6 @@ public class ImportServiceTest extends BaseControllerTest {
         assertNotNull(list);
     }
 
-    @Test
-    public void backup() throws Exception {
-        LOGGER.info("Successfully launch backup");
-        File[] list = service.getFileList(testScale);
-        LOGGER.info("Successfully get data from local: " + list);
-        assertTrue(service.localBackup(testScale, list));
-    }
-
 
     @Test
     public void getType() throws Exception {
@@ -168,17 +160,7 @@ public class ImportServiceTest extends BaseControllerTest {
         assertTrue(service.updateParticipantOnline());
     }
 
-    @Test
-    public void updateParticipantTableLocal() throws Exception {
-        LOGGER.info("Try to update the participant table locally");
-        assertTrue(service.updateParticipantLocal());
-    }
 
-    @Test
-    public void updateStudyTableLocal() throws Exception {
-        LOGGER.info("Try to update the participant table locally");
-        assertTrue(service.updateStudyLocal());
-    }
 
     @Test
     public void updateStudyTable() throws Exception {
@@ -404,7 +386,48 @@ public class ImportServiceTest extends BaseControllerTest {
 
     }
 
+    /**
+     *  Test if you can get a list of files locally.
+     * @throws Exception
+     */
+    @Test
+    public void testGetFileList() throws Exception {
+        String testScale = "WhatIBelieve";
+        File[] list = service.getFileList(testScale);
+        for (File file:list) {
+            System.out.println(file.getName());
+        }
+    }
 
+
+    /**
+     *  Test if readJSON is working.
+     */
+    @Test
+    public void testReadJSON() throws Exception {
+        String testScale = "WhatIBelieve";
+        File[] list = service.getFileList(testScale);
+        System.out.println(service.readJSON(list[0]));
+    }
+
+    /**
+     * Test if you can import the study data locally.
+     */
+
+    @Test
+    public void testImportStudy() throws Exception {
+        assertTrue(service.updateStudyLocal()==0);
+    }
+
+    /**
+     *  Test if you can import the participant data locally.
+     */
+
+    @Test
+    public void testImportParticipant() throws Exception {
+        service.updateStudyLocal();
+        assertTrue(service.updateParticipantLocal() == 0);
+    }
     /**
      *  Test if you can import the JsPsych data
      */
