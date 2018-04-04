@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.mindtrails.domain.*;
+import org.mindtrails.domain.data.DoNotDelete;
 import org.mindtrails.domain.importData.ImportError;
 import org.mindtrails.domain.importData.Scale;
 import org.mindtrails.persistence.ParticipantRepository;
@@ -64,6 +65,9 @@ public class ImportService {
 
     @Value("${import.path}")
     private String path;
+
+    @Value("${import.delete}")
+    private boolean deleteMode;
 
     @Autowired ExportService exportService;
 
@@ -137,6 +141,22 @@ public class ImportService {
         }
     }
 
+    public Boolean deleteOnline(String scale, long id) {
+        LOGGER.info("Get into the deleteOnline function");
+        RestTemplate restTemplate = new RestTemplate();
+        HttpEntity<String> request = new HttpEntity<String>(headers());
+        URI uri = URI.create(path + "/api/export/" + scale + '/' + Long.toString(id));
+        LOGGER.info("calling url:" + uri.toString());
+        ResponseEntity<String> responseEntity = restTemplate.exchange(uri, HttpMethod.DELETE, request, new ParameterizedTypeReference<String>() {
+        });
+        LOGGER.info("Delete?");
+        try {
+            String response = responseEntity.getBody();
+            if (response.isEmpty()) return true;
+        } catch (HttpClientErrorException e) {
+            throw new ImportError(e);
+        }
+    }
     /**
      * This is the function that used to delete information from the client site.
      * @param path
@@ -145,12 +165,23 @@ public class ImportService {
      */
 
     @DataOnly
-    public Boolean deleteOnline(String path, String scale) {
-        return false;
+    public Boolean safeDelete(String scale, long id) {
+        LOGGER.info("Successfully launch the delete function");
+        boolean deleteable = !exportService.getDomainType(scale).isAnnotationPresent(DoNotDelete.class);
+        if (deleteMode && deleteable && validated(scale,id)) {
+            return deleteOnline(scale,id);
+        } else {return false;}
     }
 
-/**
- *
+
+    /**
+     * This is the function that will validate the save result.
+     */
+
+    public Boolean validated(String scale, long id) {return true;}
+
+    /**
+     *
  *
  * Backup from local.
  *
@@ -277,6 +308,7 @@ public class ImportService {
                 Object object = mapper.readValue(p.toString(),clz);
                 if (object instanceof hasParticipant) ((hasParticipant) object).setParticipant(s);
                 rep.save(object);
+                safeDelete(clz.getName(),elm.path("id").asLong());
             } catch (Exception e) {
                 e.printStackTrace();
                 return false;
@@ -307,6 +339,7 @@ public class ImportService {
                 Object object = mapper.readValue(p.toString(),clz);
                 if (object instanceof hasStudy) ((hasStudy) object).setStudy(s);
                 rep.save(object);
+                safeDelete(clz.getName(),elm.path("id").asLong());
             } catch (Exception e) {
                 e.printStackTrace();
                 return false;
@@ -344,6 +377,7 @@ public class ImportService {
                             ObjectNode p = elm.deepCopy();
                             Object object = mapper.readValue(p.toString(),clz);
                             rep.save(object);
+                            safeDelete(scale,elm.path("id").asLong());
                         };
                     };
                 } catch (Exception e) {
@@ -352,6 +386,7 @@ public class ImportService {
                 };
                 return true;
             };
+            return false;
         };
         return false;
     }
