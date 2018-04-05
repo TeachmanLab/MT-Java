@@ -1,6 +1,7 @@
 package org.mindtrails.service;
 
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -9,6 +10,8 @@ import org.mindtrails.domain.*;
 import org.mindtrails.domain.data.DoNotDelete;
 import org.mindtrails.domain.importData.ImportError;
 import org.mindtrails.domain.importData.Scale;
+import org.mindtrails.domain.tracking.MissingDataLog;
+import org.mindtrails.persistence.MissingDataLogRepository;
 import org.mindtrails.persistence.ParticipantRepository;
 import org.mindtrails.persistence.StudyRepository;
 import org.slf4j.Logger;
@@ -30,10 +33,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -74,6 +74,8 @@ public class ImportService {
     @Autowired StudyRepository studyRepository;
 
     @Autowired ParticipantRepository participantRepository;
+
+    @Autowired MissingDataLogRepository missingDataLogRepository;
 
 
 
@@ -156,12 +158,57 @@ public class ImportService {
         } catch (HttpClientErrorException e) {
             throw new ImportError(e);
         }
+        return false;
     }
+
+
+    /**
+     * This is the function that we used to log the null data in columns.
+     *
+     */
+
+    public Boolean saveMissingLog(JsonNode jsonNode) {
+
+        ObjectNode jMissingNode = new ObjectMapper().createObjectNode();
+        Iterator<String> it = jsonNode.fieldNames();
+        String fields = "";
+        String participant="";
+        String id = "";
+        String date = "";
+        String scale = "";
+        Boolean found = false;
+        while (it.hasNext())
+        {
+            String key = it.next();
+            if(!Objects.equals(key, "tag")&&!Objects.equals(key, "tag")){
+
+            if(jsonNode.get(key).asText().isEmpty()){
+                //System.out.println("found :"+ key);
+                fields = ";"+key;
+                found = true;
+            }
+            }
+        }
+        if (found){
+            if(jsonNode.has("date")){date=jsonNode.get("date").asText();}
+            if(jsonNode.has("id")){id=jsonNode.get("id").asText();}
+            if(jsonNode.has("participant")){participant=jsonNode.get("participant").asText();}
+            Participant p = participantRepository.findOne(Long.parseLong(participant));
+            MissingDataLog mlog = new MissingDataLog(p,scale,fields.substring(1),Long.parseLong(id),date);
+            missingDataLogRepository.save(mlog);
+            return true;
+        }
+        System.out.println(jMissingNode.get("columns"));
+        return false;
+    }
+
+
+
+
+
+
     /**
      * This is the function that used to delete information from the client site.
-     * @param path
-     * @param scale
-     * @return
      */
 
     @DataOnly
@@ -308,7 +355,7 @@ public class ImportService {
                 Object object = mapper.readValue(p.toString(),clz);
                 if (object instanceof hasParticipant) ((hasParticipant) object).setParticipant(s);
                 rep.save(object);
-                safeDelete(clz.getName(),elm.path("id").asLong());
+                //safeDelete(clz.getName(),elm.path("id").asLong());
             } catch (Exception e) {
                 e.printStackTrace();
                 return false;
@@ -339,7 +386,7 @@ public class ImportService {
                 Object object = mapper.readValue(p.toString(),clz);
                 if (object instanceof hasStudy) ((hasStudy) object).setStudy(s);
                 rep.save(object);
-                safeDelete(clz.getName(),elm.path("id").asLong());
+                //safeDelete(clz.getName(),elm.path("id").asLong());
             } catch (Exception e) {
                 e.printStackTrace();
                 return false;
@@ -358,6 +405,7 @@ public class ImportService {
     public boolean parseDatabase(String scale, String is){
         LOGGER.info("Get into the parseDatabase function");
         ObjectMapper mapper = new ObjectMapper();
+        mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
         JpaRepository rep = exportService.getRepositoryForName(scale);
         if (rep != null) {
             LOGGER.info("Found " + scale + " repository.");
@@ -366,6 +414,7 @@ public class ImportService {
                 LOGGER.info("Found " + clz.getName() + " class.");
                 try {
                     JsonNode obj = mapper.readTree(is);
+                    //saveMissingLog(obj);
                     if (hasStudy.class.isInstance(clz.newInstance())) {
                         return linkStudy(obj,clz,rep);
                     } else if (hasParticipant.class.isInstance(clz.newInstance())){
@@ -377,7 +426,7 @@ public class ImportService {
                             ObjectNode p = elm.deepCopy();
                             Object object = mapper.readValue(p.toString(),clz);
                             rep.save(object);
-                            safeDelete(scale,elm.path("id").asLong());
+                     //       safeDelete(scale,elm.path("id").asLong());
                         };
                     };
                 } catch (Exception e) {
@@ -448,7 +497,7 @@ public class ImportService {
  * */
 
     @DataOnly
-    @Scheduled(cron = "0 5 * * * *")
+    //@Scheduled(cron = "0 5 * * * *")
     public void importData() {
         LOGGER.info("Trying to download data from api/export.");
         boolean newStudy = updateStudyOnline();
@@ -483,7 +532,7 @@ public class ImportService {
      * The backup routine.
      */
     @DataOnly
-    @Scheduled(cron = "0 0 0 * * *")
+    //@Scheduled(cron = "0 0 0 * * *")
     public void backUpData() {
         LOGGER.info("Try to backup data from local.");
         int errorFile = 0;
@@ -517,7 +566,7 @@ public class ImportService {
      * This is just an in-app testing. Need to be deleted before launch.
      */
     @DataOnly
-   // @Scheduled(cron = "0 * * * * *")
+    @Scheduled(cron = "0 * * * * *")
     public void testingBackUp() {
         LOGGER.info("Try to backup data from local.");
         int errorFile = 0;
