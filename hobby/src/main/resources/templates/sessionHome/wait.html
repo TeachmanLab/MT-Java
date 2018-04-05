@@ -34,7 +34,7 @@
         <div class="sessionHeader">
             <img class="sessionImage" th:src="|/images/map-${lastSession.index}-${participant.theme}.png|" alt="icon"/>
 
-            <h2>Congratulations <span th:text="${participant.fullName}">Jim</span>!</h2>
+            <h2>Congratulations, <span th:text="${participant.fullName}">Jim</span>!</h2>
             You have completed <span  th:text="${lastSession.displayName}"/>.
             Finishing the stories during the next session will be a little more challenging as you move up to
             <span  th:text="${currentSession.displayName}"/>, but we think you’re ready.
@@ -52,8 +52,7 @@
             </div>
         </div>
 
-        <p>UP NEXT: For best results, plan to begin your next session between
-            <br/><em th:text="${dateRange}">July 7 - July 10, 2015</em>
+        <p>UP NEXT: For best results, plan to begin your next session tomorrow.
             <br/><a th:href="@{/session/overview}">Program Overview</a>
         </p>
 
