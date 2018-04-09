@@ -167,7 +167,7 @@ public class ImportService {
      *
      */
 
-    public Boolean saveMissingLog(JsonNode jsonNode) {
+    public Boolean saveMissingLog(JsonNode jsonNode, String scale) {
 
         ObjectNode jMissingNode = new ObjectMapper().createObjectNode();
         Iterator<String> it = jsonNode.fieldNames();
@@ -175,14 +175,13 @@ public class ImportService {
         String participant="";
         String id = "";
         String date = "";
-        String scale = "";
         Boolean found = false;
         while (it.hasNext())
         {
             String key = it.next();
-            if(!Objects.equals(key, "tag")&&!Objects.equals(key, "tag")){
+            if(!Objects.equals(key, "tag")&&!Objects.equals(key, "button_pressed")){
 
-            if(jsonNode.get(key).asText().isEmpty()){
+            if(jsonNode.get(key).asText().equals("null")){
                 //System.out.println("found :"+ key);
                 fields = ";"+key;
                 found = true;
@@ -414,7 +413,7 @@ public class ImportService {
                 LOGGER.info("Found " + clz.getName() + " class.");
                 try {
                     JsonNode obj = mapper.readTree(is);
-                    //saveMissingLog(obj);
+                    saveMissingLog(obj,scale);
                     if (hasStudy.class.isInstance(clz.newInstance())) {
                         return linkStudy(obj,clz,rep);
                     } else if (hasParticipant.class.isInstance(clz.newInstance())){
@@ -424,6 +423,7 @@ public class ImportService {
                         while (itr.hasNext()) {
                             JsonNode elm = (JsonNode) itr.next();
                             ObjectNode p = elm.deepCopy();
+                            saveMissingLog(elm,clz.getName());
                             Object object = mapper.readValue(p.toString(),clz);
                             rep.save(object);
                      //       safeDelete(scale,elm.path("id").asLong());
@@ -497,7 +497,7 @@ public class ImportService {
  * */
 
     @DataOnly
-    //@Scheduled(cron = "0 5 * * * *")
+    @Scheduled(cron = "0 5 * * * *")
     public void importData() {
         LOGGER.info("Trying to download data from api/export.");
         boolean newStudy = updateStudyOnline();
@@ -532,7 +532,7 @@ public class ImportService {
      * The backup routine.
      */
     @DataOnly
-    //@Scheduled(cron = "0 0 0 * * *")
+    //@Scheduled(cron = "0 * * * * *")
     public void backUpData() {
         LOGGER.info("Try to backup data from local.");
         int errorFile = 0;
@@ -562,32 +562,32 @@ public class ImportService {
     }
 
 
-    /**
-     * This is just an in-app testing. Need to be deleted before launch.
-     */
-    @DataOnly
-    @Scheduled(cron = "0 * * * * *")
-    public void testingBackUp() {
-        LOGGER.info("Try to backup data from local.");
-        int errorFile = 0;
-        List<String> good = new ArrayList<String>();
-        List<String> bad = new ArrayList<String>();
-        List<String> list = Arrays.asList("ReasonsForEnding");
-        for (String scale:list) {
-            File[] is = getFileList(scale);
-            int outCome = localBackup(scale,is);
-            if (outCome>0) {
-                bad.add(scale);
-                errorFile = errorFile + outCome;
-            } else {
-                good.add(scale);
-            }
-        }
-        LOGGER.info("Here is the good list:");
-        for (String flag:good) LOGGER.info(flag);
-        LOGGER.info("Here is the bad list:");
-        for (String flag:bad) LOGGER.info(flag);
-
-    }
+//    /**
+//     * This is just an in-app testing. Need to be deleted before launch.
+//     */
+//    @DataOnly
+//    //@Scheduled(cron = "0 * * * * *")
+//    public void testingBackUp() {
+//        LOGGER.info("Try to backup data from local.");
+//        int errorFile = 0;
+//        List<String> good = new ArrayList<String>();
+//        List<String> bad = new ArrayList<String>();
+//        List<String> list = Arrays.asList("ReasonsForEnding");
+//        for (String scale:list) {
+//            File[] is = getFileList(scale);
+//            int outCome = localBackup(scale,is);
+//            if (outCome>0) {
+//                bad.add(scale);
+//                errorFile = errorFile + outCome;
+//            } else {
+//                good.add(scale);
+//            }
+//        }
+//        LOGGER.info("Here is the good list:");
+//        for (String flag:good) LOGGER.info(flag);
+//        LOGGER.info("Here is the bad list:");
+//        for (String flag:bad) LOGGER.info(flag);
+//
+//    }
 }
 

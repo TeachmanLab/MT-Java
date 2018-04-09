@@ -28,6 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
+import org.springframework.stereotype.Component;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MvcResult;
@@ -112,7 +113,7 @@ public class ImportServiceTest extends BaseControllerTest {
     @Test
     public void callFunction() throws Exception {
         LOGGER.info("These request should fail:");
-        Object answer = service.deleteOnline("","Testing");
+        Object answer = service.deleteOnline("",1);
         assertFalse((boolean)answer);
     }
 
@@ -419,6 +420,19 @@ public class ImportServiceTest extends BaseControllerTest {
         assertTrue(service.updateStudyLocal()==0);
     }
 
+    /**
+     * This is a test for the missing data log.
+     */
+
+    @Test
+    public void testMissingLog() throws Exception {
+        String tScale ="WhatIBelieve";
+        ObjectMapper mapper = new ObjectMapper();
+        String is = "[{\"id\": 1, \"date\": \"Sun, 30 Apr 2017 13:49:40 -0500\", \"session\": \"preTest\", \"tag\": null, \"timeOnPage\": null, \"difficultTasks\": 2, \"performEffectively\": 0, \"compared\": 3, \"learn\": 3, \"particularThinking\": 0, \"alwaysChangeThinking\": 4, \"wrongWill\": 2, \"hardlyEver\": 2, \"participant\": \"1\"}]";
+        JsonNode obj = mapper.readTree(is);
+        assertTrue(service.saveMissingLog(obj.elements().next(),tScale));
+
+    }
     /**
      *  Test if you can import the participant data locally.
      */
