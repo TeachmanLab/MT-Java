@@ -41,6 +41,7 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
         Participant p = new Participant();
         R01Study study = new R01Study();
         p.setStudy(study);
+        p.setReceiveGiftCards(true);
 
         CONDITION_TYPE type = CONDITION_VALUES.get(RANDOM.nextInt(CONDITION_VALUES.size()));
         if(type == CONDITION_TYPE.POSITIVE) {
