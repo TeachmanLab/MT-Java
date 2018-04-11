@@ -15,15 +15,19 @@
     <script th:src="@{/bower/jspsych/jspsych.js}"></script>
 
     <!-- JS Psych Plugins -->
-    <script th:src="@{/bower/jspsych/plugins/jspsych-html.js}"></script>
-    <script th:src="@{/bower/jspsych/plugins/jspsych-button-response.js}"></script>
+    <script th:src="@{/bower/jspsych/plugins/jspsych-html-button-response.js}"></script>
+    <script th:src="@{/bower/jspsych/plugins/jspsych-audio-button-response.js}"></script>
+    <script th:src="@{/bower/jspsych/plugins/jspsych-instructions.js}"></script>
+    <script th:src="@{/bower/jspsych/plugins/jspsych-survey-multi-choice.js}"></script>
+    <script th:src="@{/bower/jspsych/plugins/jspsych-html-slider-response.js}"></script>
     <script th:src="@{/bower/jspsych/plugins/jspsych-call-function.js}"></script>
+
 
     <script th:src="@{/js/training/plugins/missing-letters.js}"></script>
     <script th:src="@{/js/training/plugins/sentence-reveal.js}"></script>
     <script th:src="@{/js/training/plugins/button-response-correct.js}"></script>
 
-    <script th:src="@{/js/training/templeton.js}"></script>
+    <script th:src="@{/js/training/r01.js}"></script>
 
     <link th:href="@{/js/training/css/jspsych-mobile.css}"  rel="stylesheet" type="text/css"/>
     <link th:href="@{/js/training/css/experiment.css}" rel="stylesheet" type="text/css"/>
@@ -37,6 +41,7 @@
 </div>
 <div id="container">
     <div class="status">
+        <span id="banner"></span>
         <span id="score"></span>
         <span id="progress"></span>
     </div>
@@ -56,19 +61,18 @@
 
     /*<![CDATA[*/
 
-    TEMPLETON_MODULE.condition = /*[[${conditioning}]]*/ "POSITIVE";
-    TEMPLETON_MODULE.sessionIndex   = /*[[${sessionIndex}]]*/ "1";
-    TEMPLETON_MODULE.letters_to_remove = /*[[${lettersToRemove}]]*/ 1;
-    TEMPLETON_MODULE.total_scenarios = 40;
-    TEMPLETON_MODULE.second_word_set = /*[[${secondWordSet}]]*/ true;
-    TEMPLETON_MODULE.question_type = /*[[${question}]]*/ "question";
-    TEMPLETON_MODULE.block_size = 5;
-    TEMPLETON_MODULE.target = "jspsych-target";
-    TEMPLETON_MODULE.base_url = /*[[@{/js/training}]]*/ '../js/training';
-    TEMPLETON_MODULE.post_url = /*[[@{/jspsych}]]*/ '../jspsych';
-    TEMPLETON_MODULE.redirect_url = /*[[@{/jspsych/completed/JsPsychTrial}]]*/ '../jspsych/completed/JsPsychTrial';
+    R01.lemon = /*[[${lemon}]]*/ false;
+    R01.script = /*[[${script}]]*/ "firstSession";
+    R01.letters_to_remove = /*[[${lettersToRemove}]]*/ 1;
+    R01.total_scenarios = 30;
+    R01.question_type = /*[[${question}]]*/ "question";
+    R01.target = "jspsych-target";
+    R01.base_url = /*[[@{/js/training}]]*/ './';
+    R01.post_url = /*[[@{/jspsych}]]*/ '../jspsych';
+    R01.redirect_url = /*[[@{/jspsych/completed/} + ${script}]]*/ '../jspsych/completed/l + ';
+    R01.execute();
 
-    TEMPLETON_MODULE.execute();
+
 
     /*]]>*/
 </script>

@@ -17,6 +17,20 @@
 
 }
 
+.details p {
+    font-weight: 500;
+    font-size: .9em;
+    text-align: left;
+}
+
+h1 {
+    margin: 20px auto;
+    font-size: 1.5em;
+    font-weight: 500;
+    text-align: center;
+    line-height: 2.1em;
+}
+
 
 body, html {
     color: #212121;
@@ -69,24 +83,30 @@ div.piPlayerHeader {
     .piIntro img {
         width: 100px;
     }
+
+    h1 {
+        font-size: 18px;
+        line-height: 1.2em;
+    }
+}
+
+.jspsych-content-wrapper {
+    text-align: center;
 }
 
 #container {
-
-}
-
-#container {
+/*    background-image:url("../images/table.jpg");*/
+    background-color: #fff ;
     display:block;
     position: relative;
     color: black;
-    background: white;
     box-sizing: border-box;
     border-radius: 25px;
     margin: 40px auto;
     border: 1px solid #bbb;
     min-height: 600px;
     max-width: 800px;
-    padding: 20px 50px;
+    padding: 20px 20px;
 }
 
 
@@ -105,6 +125,14 @@ div.piPlayerHeader {
     margin-left: 10px;
 }
 
+#banner {
+    display: none;
+    font-weight: bold;
+    width: 100%;
+    text-align: right;
+    padding-right: 20px;
+}
+
 div.vividness_followup {
     text-align: center;
 }
@@ -112,11 +140,23 @@ div.vividness_followup img {
     display: block;
     margin: auto;
     max-width: 100%;
+    max-height: 100%;
 }
 
 img#spinner {
     display:block;
     margin: 100px auto 0 auto;
+}
+
+img.sound_image {
+    display: block;
+    max-width: 100%;
+    max-height: 400px;
+    margin: auto;
+}
+
+#jspsych-survey-multi-choice-form .jspsych-survey-multi-choice-question {
+ text-align: center;
 }
 
 /*

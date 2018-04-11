@@ -16,21 +16,26 @@
 
 <section id="content" class="clearfix">
     <form th:action="@{/questions/ReturnIntention}" method="POST">
+
+
         <!-- Add timer -->
         <input id="timeOnPage" name="timeOnPage" type="hidden"/>
         <div class="container section compactQuestion">
-            <div class="row «title">
-                <div class="col-md-12">
-                    <h4></h4>
-                </div>
+
+            <h4>When do you plan to return?</h4>
+
+            <div class="row header">
+                <div class="col-md-2"><p class="tableOptions">Tomorrow</p></div>
+                <div class="col-md-2"><p class="tableOptions">In 2 to 4 days (recommended)</p></div>
+                <div class="col-md-2"><p class="tableOptions">In 5 to 7 days</p></div>
+                <div class="col-md-2"><p class="tableOptions">After more than 7 days</p></div>
+                <div class="col-md-2"><p class="tableOptions">Not planning to come back</p></div>
             </div>
 
             <div class="row">
-
-
                 <div class="col-md-2">
                     <label class="radio-inline option"> <input type="radio"
-                                                               name="returnIntention" value="1"
+                                                               name="returnIntention" value="1" onclick="hide_text(reason)"
                                                                required="true"/>
                         <span class="shortDesc">1</span> <span class="fullDesc">Tomorrow</span></label>
                 </div>

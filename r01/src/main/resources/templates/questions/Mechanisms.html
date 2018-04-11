@@ -12,7 +12,7 @@
 <body>
 <section th:replace="fragment/common :: topFragment"/>
 <section th:replace="fragment/common :: titleBar (title='My mood')"/>
-<textArea th:replace="fragment/common :: questionTemplate2"/>
+<textArea th:replace="fragment/common :: questionTemplate6"/>
 <section id="content" class="clearfix">
 
     <form th:action="@{/questions/Mechanisms}" method="POST">
@@ -58,7 +58,7 @@
                         }
                 ]
                 }
-                $('#section1').html(Mustache.render($('#template2').val(), data));
+                $('#section1').html(Mustache.render($('#template6').val(), data));
             </script>
         </div>
 
