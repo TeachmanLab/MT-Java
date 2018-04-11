@@ -15,39 +15,48 @@
 <textArea th:replace="fragment/common :: questionTemplate2"/>
 <section id="content" class="clearfix">
 
-    <form th:action="@{/questions/Ph4}" method="POST">
+    <form th:action="@{/questions/Mechanisms}" method="POST">
         <!-- Add timer -->
         <input id="timeOnPage" name="timeOnPage" type="hidden"/>
         <div class="container section compactQuestion">
             <div id="section1"></div>
             <script>
                 var data = {
-
                     "options": [
-                        {"value": 0, "title": "Not at all"},
-                        {"value": 1, "title": "Several days"},
-                        {"value": 2, "title": "More than half of the days"},
-                        {"value": 3, "title": "Nearly everyday"}
+                        {"value": 1, "title": "Strongly disagree"},
+                        {"value": 2, "title": "Disagree"},
+                        {"value": 3, "title": "Somewhat disagree"},
+                        {"value": 4, "title": "Neutral"},
+                        {"value": 5, "title": "Somewhat agree"},
+                        {"value": 6, "title": "Agree"},
+                        {"value": 7, "title": "Strongly agree"}
                     ],
                     "questions": [
                         {
-                            "name": "nervous",
-                            "desc": "Feeling nervous, anxious or on edge"
+                            "name": "cfiViewpoints",
+                            "desc": "I often look at a situation from different viewpoints."
                         },
                         {
-                            "name": "worry",
-                            "desc": "Not being able to stop or control worrying?"
+                            "name": "compActWilling",
+                            "desc": "I am willing to fully experience whatever thoughts, feelings, and sensations come up for me, without trying to change them."
                         },
                         {
-                            "name": "pleasure",
-                            "desc": "Little interest or pleasure in doing things"
+                            "name": "erqPositive",
+                            "desc": "When I want to feel more positive emotion, I change the way I’m thinking about the situation."
                         },
                         {
-                            "name": "depressed",
-                            "desc": "Feeling down, depressed, or hopeless"
+                            "name": "erqNegative",
+                            "desc": "When I want to feel less negative emotion, I change the way I’m thinking about the situation."
                         },
-
-                    ]
+                        {
+                            "name": "iusUnexpected",
+                            "desc": "Unexpected events upset me greatly."
+                        },
+                        {
+                            "name": "iusUncertain",
+                            "desc": "When I am uncertain I can’t function very well."
+                        }
+                ]
                 }
                 $('#section1').html(Mustache.render($('#template2').val(), data));
             </script>
@@ -72,3 +81,4 @@
 <!--Javascript
 ================================================== -->
 <div th:include="fragment/common :: scripts"/>
+ml>

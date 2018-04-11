@@ -9,13 +9,12 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="Phq4")
+@Table(name="AssessingProgram")
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class Phq4 extends LinkedQuestionnaireData {
-    private int nervous;
-    private int worry;
-    private int pleasure;
-    private int depressed;
+public class AssessingProgram extends LinkedQuestionnaireData {
+
+    String worthPerWeek;
+    String compareToOthers;
 }
 

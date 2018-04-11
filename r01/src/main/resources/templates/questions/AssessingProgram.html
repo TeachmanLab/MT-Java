@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
+
+<head th:replace="fragment/common :: headerFragment"/>
+<body>
+<section th:replace="fragment/common :: topFragment"/>
+<section th:replace="fragment/common :: titleBar (title='Compare and Contrast')"/>
+<section id="content" class="clearfix">
+
+    <form th:action="@{/questions/AssessingProgram}" method="POST">
+        <!-- Add timer -->
+        <input id="timeOnPage" name="timeOnPage" type="hidden"/>
+        <div class="container section compactQuestion">
+            <h4>Compared to other mental health services, how much is MindTrails worth?</h4>
+            <p>For reference, meditation apps cost ~$2/week, online services that allow you to text a therapist cost ~$50/week, and in-person psychotherapy costs ~$100/week. (Note, we are not asking people to pay for MindTrails, but want to learn more about how people value the program.)</p>
+            <input type="text" name="worthPerWeek">  / week
+        </div>
+
+        <div class="container section compactQuestion">
+            <h4>Compared to other mental health services, how much is MindTrails worth?</h4>
+            <P>When answering, please note what treatment(s) you are comparing MindTrails to. You can consider such factors as helpfulness, enjoyment, and overall satisfaction.</P>
+            <textarea name="compareToOthers" rows="6" cols="50">
+        </div>
+
+
+        <div class="col-md-12" style="text-align:center">
+            <button type="submit">Next</button>
+        </div>
+
+    </form>
+
+
+</section>
+<footer th:replace="fragment/common :: footer"/>
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>
+
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts"/>

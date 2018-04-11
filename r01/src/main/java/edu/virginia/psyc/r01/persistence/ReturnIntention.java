@@ -5,19 +5,20 @@ import lombok.EqualsAndHashCode;
 import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 /**
- * Created by saragomezt on 7/11/16.
+ * Created by Diheng on 7/27/17.
  */
 
 @Entity
-@Table(name="LunchOption")
+@Table(name="ReturnIntention")
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class LunchOption extends LinkedQuestionnaireData {
-    private int fire;
-    private int spam;
-    private int lightshow;
+public class ReturnIntention extends LinkedQuestionnaireData {
+    private int returnIntention;
 
+    @Lob
+    private String notReturnReason;
 }

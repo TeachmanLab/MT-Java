@@ -68,12 +68,33 @@ public class R01Study extends BaseStudy {
     public Map<String,Object> getPiPlayerParameters() {
         Map<String,Object> map = super.getPiPlayerParameters();
         String sessionName = this.getCurrentSession().getName();
-        map.put("negate",(conditioning.equals(CONDITION.POSITIVE_NEGATION)));
-        map.put("sessionIndex", this.getCurrentSession().getIndex());
-        map.put("secondWordSet",false);
-        map.put("question","yes_no");
         map.put("lettersToRemove",1);
-        map.put("conditioning", this.conditioning.toString());
+        map.put("sessionName", sessionName);
+        switch(sessionName) {
+            case FIRST_SESSION:
+                map.put("lemon", true);
+                map.put("lettersToRemove",1);
+                break;
+            case SECOND_SESSION:
+                map.put("lemon", false);
+                map.put("lettersToRemove",1);
+                break;
+            case THIRD_SESSION:
+                map.put("lemon", false);
+                map.put("lettersToRemove",1);
+                break;
+            case FOURTH_SESSION:
+                map.put("lemon", false);
+                map.put("lettersToRemove",2);
+                break;
+            case FIFTH_SESSION:
+                map.put("lemon", false);
+                map.put("lettersToRemove",2);
+                break;
+            default:  // This should only occur in testing / accessing admin etc...
+                map.put("secondWordSet",true);
+                map.put("lettersToRemove",1);
+        }
         return map;
     }
 
@@ -104,91 +125,96 @@ public class R01Study extends BaseStudy {
 
         pretest = new Session (PRE_TEST, "Initial Assessment", 0, 0);
         pretest.setIndex(0);
-        pretest.addTask(new Task("Credibility"," Readiness Rulers and Credibility", Task.TYPE.questions, 0 ));
+        pretest.addTask(new Task("Credibility","Consent to participate", Task.TYPE.questions, 0 ));
         pretest.addTask(new Task("Demographics","Demographics", Task.TYPE.questions, 2 ));
         pretest.addTask(new Task("MentalHealthHistory","Mental Health History", Task.TYPE.questions, 2 ));
+        pretest.addTask(new Task("AnxietyIdentity","Your Identity", Task.TYPE.questions, 0 ));
         pretest.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
-        pretest.addTask(new Task("RR","Recognition Ratings for Measuring Change in Interpretation Bias ", Task.TYPE.questions, 0 ));
-        pretest.addTask(new Task("BBSIQ","Brief Body Sensations Interpretations Questionnaire", Task.TYPE.questions, 0 ));
-        pretest.addTask(new Task("DASS21_DS","Depression, Anxiety, Stress Scales-Short Form: Depression Subscale ", Task.TYPE.questions, 0 ));
-        pretest.addTask(new Task("DD","Daily Drinking Questionnaire", Task.TYPE.questions, 15 ));
-        pretest.addTask(new Task("QOL","Quality of Life Scale", Task.TYPE.questions, 0 ));
-        pretest.addTask(new Task("NGSES","New General Self Efficacy Scale", Task.TYPE.questions, 0 ));
-        pretest.addTask(new Task("PBS","Growth Mindset Measure", Task.TYPE.questions, 0 ));
-        pretest.addTask(new Task("AnxietyTriggers","Additional Items for Judging Caseness & Anxiety Triggers", Task.TYPE.questions, 0 ));
-
-
+        pretest.addTask(new Task("AnxietyTriggers","Personal anxiety triggers", Task.TYPE.questions, 0 ));
+        pretest.addTask(new Task("RecognitionRatings", "Completing short stories", Task.TYPE.jspsych, 5));
+        pretest.addTask(new Task("RR","Completing short stories - Continued", Task.TYPE.questions, 0 ));
+        pretest.addTask(new Task("BBSIQ","Why things happen", Task.TYPE.questions, 0 ));
+        pretest.addTask(new Task("Comorbid","My Behaviors", Task.TYPE.questions, 0 ));
+        pretest.addTask(new Task("Wellness","What I Believe", Task.TYPE.questions, 0 ));
+        pretest.addTask(new Task("Mechanisms","What I Experience", Task.TYPE.questions, 0 ));
         sessions.add(pretest);
 
         session1 = new Session(FIRST_SESSION, "Level 1: Beginner", 0, 0);
         session1.setIndex(1);
-        session1.addTask(new Task("Affect","Pre-training Subjective Units of Distress Scale", "pre", Task.TYPE.questions, 0));
+        session1.addTask(new Task("Affect","Current Feelings", "pre", Task.TYPE.questions, 0));
         session1.addTask(new Task("JsPsychTrial", "Training Stories", Task.TYPE.jspsych, 20));
-        session1.addTask(new Task("Affect","Pre-training Subjective Units of Distress Scale", "post", Task.TYPE.questions, 0));
-        session1.addTask(new Task("CC","Compare and Contrast", Task.TYPE.questions, 0 ));
+        session1.addTask(new Task("Affect","Current Feelings", "post", Task.TYPE.questions, 0));
+        session1.addTask(new Task("CC","Follow up", Task.TYPE.questions, 0 ));
         session1.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
-        session1.addTask(new Task("ReasonsForEnding","Reasons For Ending", Task.TYPE.questions, 0 ));
+        session1.addTask(new Task("ReturnIntention","Intention to Return", Task.TYPE.questions, 0));
         sessions.add(session1);
 
         session2 = new Session(SECOND_SESSION, "Level 2: Intermediate", 0, 2);
         session2.setIndex(2);
         session2.addTask(new Task("JsPsychTrial", "Training Stories", Task.TYPE.jspsych, 20));
-        session2.addTask(new Task("OA","Overall Anxiety Severity and Impairment Scale", Task.TYPE.questions, 1 ));
+        session2.addTask(new Task("OA","Anxiety review", Task.TYPE.questions, 1 ));
+        session2.addTask(new Task("ReturnIntention","Intention to Return", Task.TYPE.questions, 0));
         sessions.add(session2);
 
         session3 = new Session(THIRD_SESSION, "Level 3: Advanced", 0, 2);
         session3.setIndex(3);
-        session3.addTask(new Task("Affect","Pre-training Subjective Units of Distress Scale", "pre", Task.TYPE.questions, 0));
+        session3.addTask(new Task("Affect","Current Feelings", "pre", Task.TYPE.questions, 0));
         session3.addTask(new Task("JsPsychTrial", "Training Stories", Task.TYPE.jspsych, 20));
-        session3.addTask(new Task("Affect","Pre-training Subjective Units of Distress Scale", "post", Task.TYPE.questions, 0));
+        session3.addTask(new Task("Affect","Current Feelings", "post", Task.TYPE.questions, 0));
         session3.addTask(new Task("CC","Compare and Contrast", Task.TYPE.questions, 0 ));
+        session3.addTask(new Task("AnxietyIdentity","Your Identity", Task.TYPE.questions, 0 ));
         session3.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
-        session3.addTask(new Task("RR","Recognition Ratings for Measuring Change in Interpretation Bias ", Task.TYPE.questions, 0 ));
-        session3.addTask(new Task("BBSIQ","Brief Body Sensations Interpretations Questionnaire", Task.TYPE.questions, 0 ));
-        session3.addTask(new Task("DASS21_DS","Depression, Anxiety, Stress Scales-Short Form: Depression Subscale ", Task.TYPE.questions, 0 ));
-        session3.addTask(new Task("DD","Daily Drinking Questionnaire", Task.TYPE.questions, 15 ));
-        session3.addTask(new Task("QOL","Quality of Life Scale", Task.TYPE.questions, 0 ));
-        session3.addTask(new Task("NGSES","New General Self Efficacy Scale", Task.TYPE.questions, 0 ));
-        session3.addTask(new Task("PBS","Growth Mindset Measure", Task.TYPE.questions, 0 ));
+        session3.addTask(new Task("DASS21_AS","Mood assessment", Task.TYPE.questions, 0 ));
+        session3.addTask(new Task("RecognitionRatings", "Completing short stories", Task.TYPE.jspsych, 5));
+        session3.addTask(new Task("RR","Completing short stories - Continued", Task.TYPE.questions, 0 ));
+        session3.addTask(new Task("BBSIQ","Why things happen", Task.TYPE.questions, 0 ));
+        session3.addTask(new Task("Comorbid","My Behaviors", Task.TYPE.questions, 0 ));
+        session3.addTask(new Task("Wellness","What I Believe", Task.TYPE.questions, 0 ));
+        session3.addTask(new Task("Mechanisms","What I Experience", Task.TYPE.questions, 0 ));
+        session3.addTask(new Task("ReturnIntention","Intention to Return", Task.TYPE.questions, 0));
+
         sessions.add(session3);
 
         session4 = new Session(FOURTH_SESSION, "Level 4: Expert", 0, 2);
         session4.setIndex(4);
         session4.addTask(new Task("JsPsychTrial", "Training Stories", Task.TYPE.jspsych, 20));
         session4.addTask(new Task("OA","OA", Task.TYPE.questions, 1 ));
+        session4.addTask(new Task("ReturnIntention","Intention to Return", Task.TYPE.questions, 0));
         sessions.add(session4);
 
         session5 = new Session(FIFTH_SESSION, "Level 5: Master", 0, 2);
         session5.setIndex(5);
-        session5.addTask(new Task("MSUE","MSUE", Task.TYPE.questions, 0 ));
-        session5.addTask(new Task("Affect","Pre-training Subjective Units of Distress Scale", "pre", Task.TYPE.questions, 0));
+        session5.addTask(new Task("Affect","Current Feelings", "pre", Task.TYPE.questions, 0));
         session5.addTask(new Task("JsPsychTrial", "Training Stories", Task.TYPE.jspsych, 20));
-        session5.addTask(new Task("Affect","Pre-training Subjective Units of Distress Scale", "post", Task.TYPE.questions, 0));
+        session5.addTask(new Task("Affect","Current Feelings", "post", Task.TYPE.questions, 0));
         session5.addTask(new Task("CC","Compare and Contrast", Task.TYPE.questions, 0 ));
+        session5.addTask(new Task("AnxietyIdentity","Your Identity", Task.TYPE.questions, 0 ));
         session5.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
-        session5.addTask(new Task("RR","Recognition Ratings for Measuring Change in Interpretation Bias ", Task.TYPE.questions, 0 ));
-        session5.addTask(new Task("BBSIQ","Brief Body Sensations Interpretations Questionnaire", Task.TYPE.questions, 0 ));
-        session5.addTask(new Task("DASS21_DS","Depression, Anxiety, Stress Scales-Short Form: Depression Subscale ", Task.TYPE.questions, 0 ));
-        session5.addTask(new Task("DD","Daily Drinking Questionnaire", Task.TYPE.questions, 15 ));
-        session5.addTask(new Task("QOL","Quality of Life Scale", Task.TYPE.questions, 0 ));
-        session5.addTask(new Task("NGSES","New General Self Efficacy Scale", Task.TYPE.questions, 0 ));
-        session5.addTask(new Task("PBS","Growth Mindset Measure", Task.TYPE.questions, 0 ));
-        session5.addTask(new Task("DASS21_AS","Depression, Anxiety, Stress Scales-Short Form: Anxiety Subscale", Task.TYPE.questions, 0 ));
-        session5.addTask(new Task("HelpSeeking","Help Seeking", Task.TYPE.questions, 1 ));
+        session5.addTask(new Task("DASS21_AS","Mood assessment", Task.TYPE.questions, 0 ));
+        session5.addTask(new Task("RecognitionRatings", "Completing short stories", Task.TYPE.jspsych, 5));
+        session5.addTask(new Task("RR","Completing short stories - Continued", Task.TYPE.questions, 0 ));
+        session5.addTask(new Task("BBSIQ","Why things happen", Task.TYPE.questions, 0 ));
+        session5.addTask(new Task("Comorbid","My Behaviors", Task.TYPE.questions, 0 ));
+        session5.addTask(new Task("Wellness","What I Believe", Task.TYPE.questions, 0 ));
+        session5.addTask(new Task("Mechanisms","What I Experience", Task.TYPE.questions, 0 ));
+        session5.addTask(new Task("HelpSeeking","Change in Help Seeking", Task.TYPE.questions, 1));
+        session5.addTask(new Task("Evaluation","Evaluation", Task.TYPE.questions, 2));
+        session5.addTask(new Task("AssessingProgram","Assessing this Program", Task.TYPE.questions, 2));
+
         sessions.add(session5);
 
         post = new Session(POST_FOLLOWUP, "1 Month Post Training", 0, 30);
         post.setIndex(6);
+        post.addTask(new Task("AnxietyIdentity","Your Identity", Task.TYPE.questions, 0 ));
         post.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
-        post.addTask(new Task("RR","Recognition Ratings for Measuring Change in Interpretation Bias ", Task.TYPE.questions, 0 ));
-        post.addTask(new Task("BBSIQ","Brief Body Sensations Interpretations Questionnaire", Task.TYPE.questions, 0 ));
-        post.addTask(new Task("DASS21_DS","Depression, Anxiety, Stress Scales-Short Form: Depression Subscale ", Task.TYPE.questions, 0 ));
-        post.addTask(new Task("DD","Daily Drinking Questionnaire", Task.TYPE.questions, 15 ));
-        post.addTask(new Task("QOL","Quality of Life Scale", Task.TYPE.questions, 0 ));
-        post.addTask(new Task("NGSES","New General Self Efficacy Scale", Task.TYPE.questions, 0 ));
-        post.addTask(new Task("PBS","Growth Mindset Measure", Task.TYPE.questions, 0 ));
-        post.addTask(new Task("DASS21_AS","Depression, Anxiety, Stress Scales-Short Form: Anxiety Subscale", Task.TYPE.questions, 0 ));
-        post.addTask(new Task("HelpSeeking","Help Seeking", Task.TYPE.questions, 1 ));
+        post.addTask(new Task("DASS21_AS","Mood assessment", Task.TYPE.questions, 0 ));
+        post.addTask(new Task("RecognitionRatings", "Completing short stories", Task.TYPE.jspsych, 5));
+        post.addTask(new Task("RR","ompleting short stories - Continued", Task.TYPE.questions, 0 ));
+        post.addTask(new Task("BBSIQ","Why things happen", Task.TYPE.questions, 0 ));
+        post.addTask(new Task("Comorbid","My Behaviors", Task.TYPE.questions, 0 ));
+        post.addTask(new Task("Wellness","What I Believe", Task.TYPE.questions, 0 ));
+        post.addTask(new Task("Mechanisms","What I Experience", Task.TYPE.questions, 0 ));
+        post.addTask(new Task("HelpSeeking","Change in Help Seeking", Task.TYPE.questions, 1));
         sessions.add(post);
 
         return sessions;

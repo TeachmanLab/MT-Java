@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
+
+<head th:replace="fragment/common :: headerFragment"/>
+<body>
+<section th:replace="fragment/common :: topFragment"/>
+<section th:replace="fragment/common :: titleBar (title='What I Believe')"/>
+<textArea th:replace="fragment/common :: questionTemplate"/>
+
+<section id="content" class="clearfix">
+    <div class="container">
+
+                <form th:action="@{/questions/Wellness}" method="POST">
+                    <!-- Add timer -->
+                    <input id="timeOnPage" name="timeOnPage" type="hidden"/>
+
+                    <div class="section">
+
+                        <div class="question">All things considered, how satisfied are you with your life as a whole?</div>
+                        <input id="slider"  type="text" name="satisfaction" required ="true"/>
+                        <div class="after_slider"><label class="standard">
+                            <input id="slider-enabled" type="checkbox" name="satisfaction" value="555"/>
+                            Prefer not to answer
+                        </label></div>
+                        <script>
+                            $("#slider").slider({
+                                ticks: [0, 5, 10],
+                                ticks_labels: ['Completely dissatisfied', 'Completely satisfied'],
+                                ticks_snap_bounds: 1,
+                                tooltip: "hide",
+                                value: 5,
+                                formatter: function(value) {
+                                    $('#slider-enabled')[0].required=false;
+                                }
+                            });
+
+                            $("#slider-enabled").click(function() {
+                                if(this.checked) {
+                                    $("#slider").slider("disable");
+                                    $('#slider-enabled')[0].required=false;
+                                }
+                                else {
+                                    $("#slider").slider("enable");
+                                }
+                            });
+                            $('#slider-enabled')[0].required=true;
+
+                        </script>
+
+                    </div>
+
+                    <div class="container section compactQuestion">
+                        <div id="section1"></div>
+                        <script>
+                            var data = {
+                                "options": [
+                                    {"value": 0, "title": "Strongly disagree"},
+                                    {"value": 1, "title": "Disagree"},
+                                    {"value": 2, "title": "Neutral"},
+                                    {"value": 3, "title": "Agree"},
+                                    {"value": 4, "title": "Strongly Agree"}
+                                ],
+                                "questions": [
+                                    {
+                                        "name": "accomplishTasks",
+                                        "desc": "When facing difficult tasks, I am certain that I will accomplish them."
+                                    },
+                                    {
+                                        "name": "performMultitask",
+                                        "desc": "I am confident that I can perform well on many different tasks."
+                                    },
+                                    {
+                                        "name": "doMost",
+                                        "desc": "Compared to other people, I can do most tasks very well."
+                                    },
+
+                                ]
+                            }
+                            $('#section1').html(Mustache.render($('#template').val(), data));
+                        </script>
+                    </div>
+
+                    <div class="container section compactQuestion">
+                        <div id="section2"></div>
+                        <script>
+                            var data = {
+                                "options":  [
+                                    { "value":0, "title":"Strongly disagree"},
+                                    { "value":1, "title":"Disagree"},
+                                    { "value":2, "title":"Neutral"},
+                                    { "value":3, "title":"Agree"},
+                                    { "value":4, "title":"Strongly agree"}
+                                ],
+                                "questions": [
+                                    { "name":"learn",               "desc": "You can learn new things, but you can't really change how you think."}
+                                    { "name":"particularThinking",  "desc": "No matter how much you have been thinking a particular way, you can always change it quite a bit."},
+                                    { "name":"alwaysChangeThinking","desc": "You can always substantially change how you think."},
+                                ]
+                            }
+                            $('#section2').html(Mustache.render( $('#template').val(), data ));
+                        </script>
+                    </div>
+
+                    <div class="container section compactQuestion">
+                        <div id="section3"></div>
+                        <script>
+                            var data = {
+                                "options":  [
+                                    { "value":0, "title":"Strongly disagree"},
+                                    { "value":1, "title":"Disagree"},
+                                    { "value":2, "title":"Neutral"},
+                                    { "value":3, "title":"Agree"},
+                                    { "value":4, "title":"Strongly agree"}
+                                ],
+                                "questions": [
+                                    { "name":"wrongWill",           "desc": "If something can go wrong with me, it will."},
+                                    { "name":"hardlyEver",          "desc": "I hardly ever expect things to go my way."}
+                                ]
+                            }
+                            $('#section3').html(Mustache.render( $('#template').val(), data ));
+                        </script>
+                    </div>
+
+
+                    <div style="text-align:center">
+                        <button type="submit"> Continue</button>
+                    </div>
+                </form>
+
+
+            </div>
+</section>
+<footer th:replace="fragment/common :: footer"/>
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>
+
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts"/>
+
+<script type="text/javascript">
+
+
+    function disableSection(input) {
+        if (input.checked) {
+            $(input).closest('.section').find("input").attr("disabled", true);
+            $(input).removeAttr("disabled");
+        } else {
+            $(input).closest('.section').find("input").removeAttr("disabled");
+        }
+    }
+
+</script>

@@ -1,13 +1,5 @@
 package edu.virginia.psyc.r01.persistence;
 
-
-
-/**
- * Created by any on 7/27/17.
- */
-
-
-import edu.virginia.psyc.r01.persistence.QOL;
 import org.mindtrails.persistence.QuestionnaireRepository;
 
 /**
@@ -22,6 +14,6 @@ import org.mindtrails.persistence.QuestionnaireRepository;
  *    findOne(ID id) which returns the entity using the id given a parameter as a search criteria.
  *    save(T entity) which saves the entity given as a parameter.
  * Additional methods will be provided automatically by following a standard
- * naming convention, as is the case with findByEmailAddress
+ * naming convention, as is the case with findByParticipantDAO
  */
-public interface QOLRepository extends QuestionnaireRepository<QOL> {}
+public interface AssessingProgramRepository extends QuestionnaireRepository<AssessingProgram> {}

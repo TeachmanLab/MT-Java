@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
+
+<head th:replace="fragment/common :: headerFragment"/>
+<body>
+<section th:replace="fragment/common :: topFragment"/>
+<section th:replace="fragment/common :: titleBar (title='Evaluating the Program')"/>
+
+<textArea th:replace="fragment/common :: questionTemplate"/>
+
+<form th:action="@{/questions/Evaluation}" method="POST">
+    <!-- Add timer -->
+    <input id="timeOnPage" name="timeOnPage" type="hidden"/>
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10">
+
+                    <p> Thank you for taking the time to go through our program! </p>
+                    <p> We are interested in your feedback and reactions to the training programs, assessments, and
+                        other aspects of the website.
+                        Please answer the following questions openly and honestly. Your feedback will help us improve
+                        the program. </p>
+                    <p> Note that <b>assessment sessions</b> were sessions in which you completed questionnaires about
+                        your
+                        feelings and thoughts.
+                        <b>Training sessions</b> were sessions in which you read brief stories and completed words at the end of
+                        sentences. </p>
+            </div>
+        </div>
+    </div>
+    <div class="container section compactQuestion">
+        <div id="section1"></div>
+        <script>
+            var data = {
+                "options":  [
+                    { "value":0, "title":"Not at all"},
+                    { "value":1, "title":"Slightly"},
+                    { "value":2, "title":"Somewhat"},
+                    { "value":3, "title":"Mostly"},
+                    { "value":4, "title":"Very"}
+                ],
+                "questions": [
+                    { "name":"Helpful", "desc" : "How helpful did you find the web program for changing your future thinking?"},
+                    { "name":"Quality",   "desc": "How much did the web program improve your overall quality of life?"},
+                    { "name":"OverallMood",   "desc": "How much did the web program help improve your overall mood (e.g feeling happier)?"},
+                    { "name":"Recommend",   "desc": "How likely would you be to recommend this web program to others with a similar negative future thinking style?"}
+                ]
+            }
+            $('#section1').html(Mustache.render( $('#template').val(), data ));
+        </script>
+    </div>
+
+    <div class="container section compactQuestion">
+        <div id="section2"></div>
+        <script>
+            var data = {
+                "options":  [
+                    { "value":0, "title":"Not at all"},
+                    { "value":1, "title":"Slightly"},
+                    { "value":2, "title":"Somewhat"},
+                    { "value":3, "title":"Mostly"},
+                    { "value":4, "title":"Very"}
+                ],
+                "questions": [
+                    { "name":"Easy",   "desc": "How easy was the web program to use?"},
+                    { "name":"Interest",   "desc": "How much did the web program keep your interest and attention?"},
+                    { "name":"LikeGral",   "desc": "How much did you like the web program in general?"},
+                    { "name":"likedLooks",   "desc": "How much did you like the way the web program looked?"}
+                ]
+            }
+            $('#section2').html(Mustache.render( $('#template').val(), data ));
+
+        </script>
+    </div>
+
+    <div class="container section compactQuestion">
+        <div id="section3"></div>
+        <script>
+            var data = {
+                "options":  [
+                    { "value":0, "title":"Not at all"},
+                    { "value":1, "title":"Slightly"},
+                    { "value":2, "title":"Somewhat"},
+                    { "value":3, "title":"Mostly"},
+                    { "value":4, "title":"Very"}
+                ],
+                "questions": [
+                    { "name":"Privacy",   "desc": "How worried were you about your privacy in using this web program?"},
+                    { "name":"UnderstandAssessment",   "desc": "How easy were the assessments to understand?"},
+                    { "name":"UnderstandTraining",   "desc": "How easy was the training program (including instructions and materials) to understand?"},
+                    { "name":"TrustInfo",   "desc": "How much did you feel you could trust the information?"},
+                    { "name":"Problems",   "desc": "To what extent did Internet or computer problems affect your use of the web program?"}
+                ]
+            }
+            $('#section3').html(Mustache.render( $('#template').val(), data ));
+        </script>
+    </div>
+
+    <div class="container section">
+        <div class="row title">
+            <div class="col-md-12">
+                <h4>This training program was 4 sessions.</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                How many sessions do you think would have been ideal?
+            </div>
+            <div class="col-md-6">
+                <input type="text" size="2" name="IdealSessions" required="required"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                Why is that number ideal?
+            </div>
+            <div class="col-md-6">
+                <input type="text" size="50" name="WhyIdeal" required="required"/>
+            </div>
+        </div>
+        <div class="row radio">
+            <div class="col-md-6">
+            <label><input type="checkbox" name="IdealSessions" value="555"
+                          onchange="disableSection(this)"/> Prefer not to
+                answer </label>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container section compactQuestion">
+        <div id="section4"></div>
+        <script>
+            var data = {
+                "options":  [
+                    { "value":0, "title":"Not at all"},
+                    { "value":1, "title":"Slightly"},
+                    { "value":2, "title":"Somewhat"},
+                    { "value":3, "title":"Mostly"},
+                    { "value":4, "title":"Very"}
+                ],
+                "questions": [
+                    { "name":"Tiring",   "desc": "How tiring did you find the assessments?"},
+                    { "name":"Distracted",   "desc": "On average, while you were completing the training sessions, how focused or distracted were you? "},
+                    { "name":"similarProgram",   "desc": "If you were to seek help for your future thinking again, would you seek a similar program?"},
+                ]
+            }
+            $('#section4').html(Mustache.render( $('#template').val(), data ));
+        </script>
+    </div>
+
+    <div class="container section">
+        <div class="row">
+            <div class="col-md-10">
+                <p class="question"> Where did you complete the training sessions? Select all that
+                    apply </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="radio">
+                    <label><input type="checkbox" name="Home" value="Home"/> At home </label>
+                </div>
+                <div class="radio">
+                    <label><input type="checkbox" name="Work" value="Work"/> At work
+                    </label>
+                </div>
+                <div class="radio">
+                    <label><input type="checkbox" name="Public" value="Public"/> At a public space, such
+                        as a library, coffee shop, or restaurant
+                    </label>
+                </div>
+                <div class="radio">
+                    <label><input type="checkbox" name="Commute" value="Commute"/> While
+                        commuting/traveling (e.g on the train to work) </label>
+                </div>
+                <div class="radio">
+                    <label><input type="checkbox" name="Vacation" value="Vacation"/> On vacation
+                    </label>
+                </div>
+                <div class="radio">
+                    <label><input type="checkbox" name="OtherComplete" value="OtherComplete"/> Other
+                        (Please specify) <input type="text" name="Other_Place"/>
+                    </label>
+                </div>
+            </div>
+
+            <div class=" cold-md-4">
+                <br/>
+                <br/>
+                <div class="radio">
+                    <label><input type="checkbox" name="NoAns_where" value="555"
+                                  onchange="disableSection(this)"/> Prefer not to
+                        answer </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container section">
+        <div class="row">
+            <div class="col-md-10">
+                <p class="question"> Did you think you were in the active training condition (designed to change your
+                    future thinking) or the “control” condition (not designed to change your future thinking)?</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="radio">
+                    <label><input class="option" type="checkbox" name="Condition" value="0"/> Active
+                        training condition
+                    </label>
+                </div>
+                <div class="radio">
+                    <label><input class="option" type="checkbox" name="Condition" value="1"/> Control
+                        condition
+                    </label>
+                </div>
+            </div>
+            <div class=" cold-md-4">
+                <br/>
+                <br/>
+                <div class="radio">
+                    <label><input type="checkbox" name="Condition" value="555"
+                                  onchange="disableSection(this)"/>
+                        Prefer not to
+                        answer </label>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div style="text-align:center">
+        <button type="submit"> Continue</button>
+    </div>
+
+
+</section>
+</form>
+
+<footer th:replace="fragment/common :: footer"/>
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>
+
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts"/>
+
+<script type="text/javascript">
+
+
+    function disableSection(input) {
+        if (input.checked) {
+            $(input).closest('.section').find("input").attr("disabled", true);
+            $(input).removeAttr("disabled");
+        } else {
+            $(input).closest('.section').find("input").removeAttr("disabled");
+        }
+    }
+
+</script>

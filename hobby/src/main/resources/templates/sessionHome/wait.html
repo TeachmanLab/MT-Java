@@ -23,21 +23,23 @@
 
             <div class="col-md-8 session">
                 <h2>Great Job, <span th:text="${participant.fullName}">Jim</span>.<br/>You have completed <span
-                        th:text="${lastSession.displayName}"/>. </h2>
-                You have completed all the Sessions! We will email you in <span th:text="${currentSession.daysToWait}">30</span> days, when it is time to complete the
-                follow up <span th:if="${participant.receiveGiftCards}">and get your bonus gift card</span>.
+                        th:text="${lastSession.displayName}"></span>. </h2>
+                You have completed all the Sessions!
+                Please complete this <a href="https://virginiahsd.co1.qualtrics.com/jfe/form/SV_cAqZqxvB3LlGVP7">
+                Final Questionnaire </a>. Thank you!
             </div>
         </div>
     </div>
 
-    <div class="container sessionSection" th:if="${currentSession.daysToWait &gt; 0 and currentSession.daysToWait &lt; 3}">
+    <div class="container sessionSection"
+         th:if="${currentSession.daysToWait &gt; 0 and currentSession.daysToWait &lt; 3}">
         <div class="sessionHeader">
             <img class="sessionImage" th:src="|/images/map-${lastSession.index}-${participant.theme}.png|" alt="icon"/>
 
             <h2>Congratulations <span th:text="${participant.fullName}">Jim</span>!</h2>
             You have completed <span  th:text="${lastSession.displayName}"/>.
             Finishing the stories during the next session will be a little more challenging as you move up to
-            <span  th:text="${currentSession.displayName}"/>, but we think you’re ready.
+            <span th:text="${currentSession.displayName}"/>, but we think you’re ready.
 
         </div>
 
