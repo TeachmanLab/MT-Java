@@ -27,33 +27,48 @@
                         MindTrails by figuring out for whom it works well.</p>
 
                     <div class="section">
-                        <div><label class="question"> What is your gender identity? <select name="GenderId" required="true">
-                            <option value="">Please select one</option>
-                            <option>Female</option>
-                            <option>Male</option>
-                            <option>Transgender</option>
-                            <option>Other</option>
-                            <option>Prefer not to answer</option>
-                        </select> </label>
-                        </div>
+
+
 
                         <br/>
 
                         <div><label class="question"> Birth year <input type="number" min="1900" name="BirthYear" required="true"/> </label>
                         </div>
                         <br/>
-                        <div><label class="question"> Race <select name="Race" required="true">
-                            <option value="">Please select one</option>
-                            <option>American Indian/Alaska Native</option>
-                            <option>East Asian</option>
-                            <option>South Asian</option>
-                            <option>Native Hawaiian/Pacific Islander</option>
-                            <option>Black/African origin</option>
-                            <option>White/European origin</option>
-                            <option>Other or Unknown</option>
-                            <option>Prefer not to answer</option>
-                        </select> </label>
-                        </div>
+
+                        <div class="row">
+                                <div class="col-md-8 side-border">
+                                    <div><label class="question"> Race (select all the apply)</label></div>
+                                    <div class="radio">
+                                        <label> <input type="checkbox" name="race" value="American Indian/Alaska Native"/> American Indian/Alaska Native</label>
+                                    </div>
+                                    <div class="radio">
+                                        <label> <input type="checkbox" name="race" value="East Asian" /> East Asian</label>
+                                    </div>
+                                    <div class="radio">
+                                        <label> <input type="checkbox" name="race" value="South Asian"/> South Asian</label>
+                                    </div>
+                                    <div class="radio">
+                                        <label> <input type="checkbox" name="race" value="Native Hawaiian/Pacific Islander"/> Native Hawaiian/Pacific Islander</label>
+                                    </div>
+                                    <div class="radio">
+                                        <label> <input type="checkbox" name="race" value="Black/African origin"/> Black/African origin</label>
+                                    </div>
+                                    <div class="radio">
+                                        <label> <input type="checkbox" name="race" value="White/European origin" /> White/European origin</label>
+                                    </div>
+                                    <div class="radio">
+                                        <label> <input type="checkbox" name="race" value="Other or Unknown"/> Other or Unknown</label>
+                                    </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="radio">
+                                    <label class="question"><input type="checkbox" name="Disorders" value="555"
+                                        onchange="disableSection(this)"/> Prefer not to answer
+                                    </label>
+                                </div>
+                            </div>
+                            </div>
 
                         <br/>
 

@@ -4,8 +4,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by dan on 8/27/15.
@@ -17,8 +17,6 @@ import javax.persistence.Table;
 public class Demographics extends LinkedQuestionnaireData {
     private String GenderId;
     private int BirthYear;
-    private int BirthMonth;
-    private String Race;
     private String Ethnicity;
     private String Country;
     private String Education;
@@ -29,5 +27,9 @@ public class Demographics extends LinkedQuestionnaireData {
     private String PtpReason;
     private String PtpReasonOther;
 
+    @ElementCollection
+    @CollectionTable(name = "demographics_race", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "race")
+    private List<String> Race;
 }
 
