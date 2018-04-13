@@ -78,7 +78,6 @@ public class R01Study extends BaseStudy {
             case SECOND_SESSION:
                 map.put("lemon", false);
                 map.put("lettersToRemove",1);
-                map.put("sessionName", "mcSession");
                 break;
             case THIRD_SESSION:
                 map.put("lemon", false);
@@ -152,7 +151,7 @@ public class R01Study extends BaseStudy {
 
         session2 = new Session(SECOND_SESSION, "Level 2: Intermediate", 0, 2);
         session2.setIndex(2);
-        session2.addTask(new Task("secondSession", "Training Stories", Task.TYPE.jspsych, 20));
+        session2.addTask(new Task("mcSession", "Training Stories", Task.TYPE.jspsych, 20));
         session2.addTask(new Task("OA","Anxiety review", Task.TYPE.questions, 1 ));
         session2.addTask(new Task("ReturnIntention","Intention to Return", Task.TYPE.questions, 0));
         sessions.add(session2);
