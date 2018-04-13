@@ -78,6 +78,7 @@ public class R01Study extends BaseStudy {
             case SECOND_SESSION:
                 map.put("lemon", false);
                 map.put("lettersToRemove",1);
+                map.put("sessionName", "mcSession");
                 break;
             case THIRD_SESSION:
                 map.put("lemon", false);
