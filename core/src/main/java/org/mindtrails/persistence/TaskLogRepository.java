@@ -10,4 +10,5 @@ import java.util.Date;
 public interface TaskLogRepository extends JpaRepository<TaskLog, Long> {
     Long countByDateCompletedAfter(Date date);
 
+    Integer countDistinctBySessionNameAndAndTaskName(String sessionName, String taskName);
 }

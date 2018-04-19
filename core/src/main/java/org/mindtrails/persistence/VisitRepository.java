@@ -3,6 +3,8 @@ package org.mindtrails.persistence;
 import org.mindtrails.domain.Visit;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: dan
@@ -15,4 +17,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *    findOne(ID id) which returns the entity using the id given a parameter as a search criteria.
  *    save(T entity) which saves the entity given as a parameter.
  */
-public interface VisitRepository extends JpaRepository<Visit, Long> {}
+public interface VisitRepository extends JpaRepository<Visit, Long> {
+    List<Visit> findAllByNameEndsWith(String ending);
+}

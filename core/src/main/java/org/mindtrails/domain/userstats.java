@@ -83,7 +83,13 @@ public class userstats {
             String conditioning=studyMap.get(p.getId()).getConditioning();
 
             this.sessionMap.put(currentSessionName, this.sessionMap.get(currentSessionName) + 1);
-            Key csCondition=new Key(currentSessionName,conditioning);
+            String currentCondition;
+            if (conditioning.length()==1) {
+                currentCondition = this.conditionList.get(Integer.parseInt(conditioning));
+            } else {
+                currentCondition = conditioning;
+            };
+            Key csCondition=new Key(currentSessionName,currentCondition);
             this.conditionSessionMap.put(csCondition,this.conditionSessionMap.get(csCondition)+1);
 
 

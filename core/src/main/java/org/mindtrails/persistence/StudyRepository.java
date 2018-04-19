@@ -33,6 +33,8 @@ public interface StudyRepository extends JpaRepository<BaseStudy, Long> {
 
     List<StudyStats> findAllStatsBy();
 
+    List<Study> findAllByConditioningEquals(String condition);
+
     Study findById(long id);
 
 

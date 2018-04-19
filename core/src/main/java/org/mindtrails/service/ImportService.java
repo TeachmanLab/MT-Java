@@ -497,7 +497,7 @@ public class ImportService {
  * */
 
     @DataOnly
-    @Scheduled(cron = "0 5 * * * *")
+    //@Scheduled(cron = "0 5 * * * *")
     public void importData() {
         LOGGER.info("Trying to download data from api/export.");
         boolean newStudy = updateStudyOnline();
