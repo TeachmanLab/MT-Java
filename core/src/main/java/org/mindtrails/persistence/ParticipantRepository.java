@@ -51,6 +51,6 @@ public interface ParticipantRepository extends JpaRepository<Participant, Long> 
 
     List<ParticipantStats> findAllStatsBy();
 
-
+    List<Participant> findParticipantsByTestAccountIsFalseAndAdminIsFalse();
 
 }

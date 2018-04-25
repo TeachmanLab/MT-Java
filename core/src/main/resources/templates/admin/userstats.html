@@ -31,6 +31,26 @@
         </div>
     </div>
 
+
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion"
+                   href="#collapseCompletion">
+                    Completion report
+                </a>
+            </h4>
+        </div>
+        <div class='radio' id="reportMenu">
+
+        </div>
+        <div id="collapseCompletion" class="panel-collapse collapse in">
+            <div class="panel-body" id="completionReport">
+
+            </div>
+        </div>
+    </div>
+
 <div class="panel panel-warning">
         <div class="panel-heading">
             <h4 class="panel-title">
@@ -274,13 +294,48 @@
 <!-- This is the function used to draw the consort diagram-->
 
 <script>
-    function consortDiagram(data) {
+
+
+    function createMenu(menuElement,drawElement,data) {
+        var  menu = d3.select(menuElement);
+
+        var scaleList = d3.keys(data);
+
+        menu.selectAll("label")
+            .data(scaleList)
+            .enter().append("label")
+            .attr("class","radio-inline")
+            .attr("innerHTML",function (d) { return d;})
+            .append("input")
+            .attr("class","dataSource")
+            .attr("type","radio")
+            .attr("name","menu")
+            .attr("value",function(d) {return d;})
+            .attr("text",function(d) {return d;});
+
+        countDiagram('Completion Report for '+scaleList[0],drawElement,data[scaleList[0]],false);
+
+
+
+    }
+
+
+
+    function countDiagram(title,element,data,sort) {
         // set the dimensions of the canvas
         var margin = {top: 20, right: 20, bottom: 100, left: 40},
             width = 800 - margin.left - margin.right,
             height = 500 - margin.top - margin.bottom;
 
-        var svg = d3.select("#consort").append("svg")
+        d3.select(element)
+            .selectAll("svg")
+            .remove();
+
+        var stack = d3.stack()
+            .keys(["counts","duplicated"]);
+
+        var svg = d3.select(element)
+            .append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
             .append("g")
@@ -288,8 +343,10 @@
                 "translate(" + margin.left + "," + margin.top + ")");
 
         var xScale = d3.scaleBand()
-            .domain(data.sort(function(a,b){return d3.descending(+a.counts,+b.counts)})
-                .map(function(d) {return d.name;}))
+            .domain((sort)? data.sort(function(a,b){return d3.descending(+a.counts,+b.counts)})
+                .map(function(d) {return d.name;}) : data.map(function (d) {
+                return d.name;
+            }))
             .range([0,width])
             .padding(0.05);
 
@@ -311,7 +368,7 @@
             .attr("x", function(d) { return xScale(d.name); })
             .attr("width", xScale.bandwidth())
             .attr("y", function(d) { return yScale(d.counts); })
-            .attr("height", function(d) { return height - yScale(d.counts); });
+            .attr("height", function(d) { return height - yScale(d.counts); })
 
         svg.selectAll("text")
             .data(data)
@@ -342,10 +399,17 @@
             .style("text-anchor", "end")
             .text("#");
 
+        svg.append("text")
+            .attr("x", (width / 2))
+            .attr("y", 0 - (margin.top / 2))
+            .attr("text-anchor", "middle")
+            .style("font-size", "14px")
+            .style("text-decoration", "underline")
+            .text(title);
+
 
 
     }
-
 
 
 </script>
@@ -676,9 +740,18 @@
 
     d3.json("./getFlow", function(error, data) {
        if (error) return console.warn(error);
-       consortDiagram(data.Total);
+       countDiagram("Consort Diagram","#consort",data.Total,true);
+
     });
 
+    d3.json("./getScale", function (error,data) {
+        if (error) return console.warn(error);
+        createMenu("#reportMenu","#completionReport",data);
+        d3.selectAll("input")
+            .on("click", function() {
+                countDiagram('Completion Report for '+this.value,"#completionReport",data[this.value],false)
+            });
+    });
     //console.log(conditionList);
 
 

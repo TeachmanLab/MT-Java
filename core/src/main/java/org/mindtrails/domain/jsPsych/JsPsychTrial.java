@@ -2,6 +2,7 @@ package org.mindtrails.domain.jsPsych;
 
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
+import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.data.Exportable;
 import org.hibernate.annotations.Parameter;
 
@@ -37,7 +38,7 @@ public class JsPsychTrial{
     private String internal_node_id;
     private boolean correct;
 
-    private long participant;
+    private Long participant;
     private String session;
     private String study;
     @Column(name = "conditioning")
@@ -45,7 +46,7 @@ public class JsPsychTrial{
     private String device;
     private Date dateSubmitted;
 
-    public JsPsychTrial(long id, String device, boolean correct) {
+    public JsPsychTrial(Long id, String device, boolean correct) {
         this.participant = id;
         this.device = device;
         this.correct = correct;

@@ -37,6 +37,5 @@ public interface StudyRepository extends JpaRepository<BaseStudy, Long> {
 
     Study findById(long id);
 
-
 }
 

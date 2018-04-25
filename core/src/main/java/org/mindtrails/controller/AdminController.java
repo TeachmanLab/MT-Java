@@ -8,6 +8,9 @@ import org.mindtrails.domain.forms.ParticipantCreate;
 import org.mindtrails.domain.forms.ParticipantCreateAdmin;
 import org.mindtrails.domain.forms.ParticipantUpdateAdmin;
 import org.mindtrails.domain.importData.Scale;
+import org.mindtrails.domain.jsPsych.JsPsychTrial;
+import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
+import org.mindtrails.domain.questionnaire.QuestionnaireData;
 import org.mindtrails.domain.questionnaire.QuestionnaireInfo;
 import org.mindtrails.domain.tango.Account;
 import org.mindtrails.domain.tango.Order;
@@ -40,6 +43,11 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * Created with IntelliJ IDEA.
@@ -111,6 +119,11 @@ public class AdminController extends BaseController {
         return true;
     }
 
+
+    public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
+        Set<Object> seen = ConcurrentHashMap.newKeySet();
+        return t -> seen.add(keyExtractor.apply(t));
+    }
 
     @Data
     class csData {
@@ -412,7 +425,7 @@ public class AdminController extends BaseController {
     @RequestMapping(value="/getFlow",method = RequestMethod.GET)
     public @ResponseBody Map<String,ArrayList<countMap>> consortDiagram(Principal principal) {
         Study currentStudy = getParticipant(principal).getStudy();
-        FlowCount f = new FlowCount(currentStudy, visitRepository,participantRepository,jsPsychRepository,taskLogRepository);
+        FlowCount f = new FlowCount(currentStudy, studyRepository, visitRepository,participantRepository,jsPsychRepository,taskLogRepository);
         ArrayList<countMap> countPairs = f.getPairs();
         Map<String,ArrayList<countMap>> flowCountMap = new HashMap<>();
         flowCountMap.put("Total", countPairs);
@@ -424,16 +437,12 @@ public class AdminController extends BaseController {
     public @ResponseBody Map<String, ArrayList<countMap>> completeReport(Principal principal) {
         Study currentStudy = getParticipant(principal).getStudy();
         List<Scale> scaleList = importService.importList(url);
+        List<Participant> realAccount = participantRepository.findParticipantsByTestAccountIsFalseAndAdminIsFalse();
         Map<String,ArrayList<countMap>> scaleCountMap = new HashMap<>();
         for (Scale scale:scaleList) {
             JpaRepository rep = exportService.getRepositoryForName(scale.getName());
-            if (QuestionnaireRepository.class.isAssignableFrom(rep.getClass())) {
-                ScaleCount s = new ScaleCount(currentStudy,scale,((QuestionnaireRepository) rep).countDistinctByParticipant(),taskLogRepository);
-                scaleCountMap.put(s.getScaleName(),s.getPairs());
-            } else if (rep instanceof JsPsychRepository) {
-                ScaleCount s = new ScaleCount(currentStudy,scale,((JsPsychRepository)rep).countDistinctByParticipant(),taskLogRepository);
-                scaleCountMap.put(s.getScaleName(),s.getPairs());
-            }
+            ScaleCount s = new ScaleCount(currentStudy,scale,realAccount,rep);
+            if (!(s.getUniqueIDCount().equals(Long.valueOf(-1)))) {scaleCountMap.put(s.getScaleName(),s.getPairs());}
         }
         return scaleCountMap;
 
@@ -447,7 +456,9 @@ public class AdminController extends BaseController {
 
         List<ParticipantStats> daoList;
         List<StudyStats> studyList;
+        //Find all participants
         daoList = participantRepository.findAllStatsBy();
+        //Find all study information
         studyList = studyRepository.findAllStatsBy();
         userstats users = new userstats(daoList, studyList, currentstudy);
         Map<userstats.Key, Integer> csActiveMap = users.getConditionSessionActiveMap();
