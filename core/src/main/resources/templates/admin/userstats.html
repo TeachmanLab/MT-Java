@@ -305,7 +305,7 @@
             .data(scaleList)
             .enter().append("label")
             .attr("class","radio-inline")
-            .attr("innerHTML",function (d) { return d;})
+            .attr("text",function (d) { return d;})
             .append("input")
             .attr("class","dataSource")
             .attr("type","radio")
@@ -334,6 +334,10 @@
         var stack = d3.stack()
             .keys(["counts","duplicated"]);
 
+        var seris = stack(data);
+
+        var colors = d3.scaleOrdinal(d3.schemeCategory10);
+
         var svg = d3.select(element)
             .append("svg")
             .attr("width", width + margin.left + margin.right)
@@ -351,7 +355,7 @@
             .padding(0.05);
 
         var yScale = d3.scaleLinear()
-            .domain([0,d3.max(data, function(d) { return parseFloat(d.counts);})])
+            .domain([0,d3.max(data, function(d) { return parseFloat(d.counts + d.duplicated);})])
             .range([height,0]);
 
         var xAxis = d3.axisBottom()
@@ -361,14 +365,24 @@
         var yAxis = d3.axisLeft()
             .scale(yScale);
 
-        svg.selectAll("bar")
-            .data(data)
+        var groups=svg.selectAll("g")
+            .data(seris)
+            .enter()
+            .append("g")
+            .style("fill",function (d,i) {
+                return colors(i);
+            });
+
+        groups.selectAll("bar")
+            .data(function (d) {
+                return d;
+            })
             .enter().append("rect")
-            .attr("class", "bar")
-            .attr("x", function(d) { return xScale(d.name); })
+            .attr("class", "rect")
+            .attr("x", function(d) { return xScale(d.data.name); })
             .attr("width", xScale.bandwidth())
-            .attr("y", function(d) { return yScale(d.counts); })
-            .attr("height", function(d) { return height - yScale(d.counts); })
+            .attr("y", function(d) { return yScale(d[1]); })
+            .attr("height", function(d) { return yScale(d[0]) - yScale(d[1]); })
 
         svg.selectAll("text")
             .data(data)
