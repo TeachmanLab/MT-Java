@@ -1,3 +1,4 @@
+*.properties
 .idea
 target
 pi-server.iml

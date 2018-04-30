@@ -1,8 +1,10 @@
 package org.mindtrails.domain.recaptcha;
 
+import org.mindtrails.domain.ClientOnly;
 import org.mindtrails.domain.RestExceptions.RecaptchaServiceException;
 import org.mindtrails.service.RecaptchaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
@@ -25,6 +27,7 @@ public class RecaptchaFormValidator implements Validator {
     private static final String ERROR_RECAPTCHA_UNAVAILABLE = "recaptcha.error.unavailable";
     private final HttpServletRequest httpServletRequest;
     private final RecaptchaService recaptchaService;
+
 
     @Autowired
     public RecaptchaFormValidator(HttpServletRequest httpServletRequest, RecaptchaService recaptchaService) {

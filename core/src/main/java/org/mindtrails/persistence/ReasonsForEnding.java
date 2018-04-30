@@ -24,10 +24,8 @@ public class ReasonsForEnding extends LinkedQuestionnaireData {
     String End_Other_Desc;
     boolean thoughtInControl;
     String pointInControl="N/A";
-    @ElementCollection
-    @CollectionTable(name = "reasonsForEnding_whyInControl", joinColumns = @JoinColumn(name = "id"))
-    @Column(name = "whyInControl")
-    List<String> whyInControl;
+    String whyInControl;
+    String otherWhyInControl;
     String control_Desc;
     int helpful;
     int work;

@@ -61,7 +61,7 @@ public class JSPsychController extends BaseController {
 
         Participant participant = participantService.findByEmail(principal.getName());
 
-        List<JsPsychTrial> trials = jsPsychRepository.findAllByParticipantIdAndStudyAndSession(participant.getId(),
+        List<JsPsychTrial> trials = jsPsychRepository.findAllByParticipantAndStudyAndSession(participant.getId(),
                 participant.getStudy().getName(),
                 participant.getStudy().getCurrentSession().getName());
 
@@ -86,7 +86,7 @@ public class JSPsychController extends BaseController {
         }
 
         // Calculate the time on task
-        List<JsPsychTrial> trials = jsPsychRepository.findAllByParticipantIdAndStudyAndSession(participant.getId(),
+        List<JsPsychTrial> trials = jsPsychRepository.findAllByParticipantAndStudyAndSession(participant.getId(),
                 participant.getStudy().getName(),
                 participant.getStudy().getCurrentSession().getName());
 
@@ -119,7 +119,7 @@ public class JSPsychController extends BaseController {
             if (device.isTablet()) deviceType = "tablet";
         }
         for(JsPsychTrial trial : list) {
-            trial.setParticipantId(p.getId());
+            trial.setParticipant(p.getId());
             trial.setSession(p.getStudy().getCurrentSession().getName());
             trial.setStudy(p.getStudy().getName());
             trial.setDevice(deviceType);

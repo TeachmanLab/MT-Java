@@ -221,7 +221,7 @@ var HOBBY_STUDY = (function () {
 
                         return (
                         '<div class="vividness_followup">' +
-                        '<img src= "' + my.base_url + 'images/finished.png' + '"/>' +
+                        '<img src= "' + my.base_url + 'images/lemon/lemon_1.png' + '"/>' +
                         '<p>' + feed_back_score + "</p>" +
                         '<p>' + feed_back_s + '</p>' +
                         '<p>' + feed_back_c + '</p>')

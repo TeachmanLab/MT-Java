@@ -13,6 +13,7 @@ import org.joda.time.Days;
 import org.mindtrails.domain.tracking.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,17 +30,16 @@ import java.util.*;
 @Table(name = "participant")
 @Data
 @EqualsAndHashCode(exclude={"emailLogs", "giftLogs", "SMSLogs", "passwordToken","verificationCode"})
-public  class Participant implements UserDetails {
+public class Participant implements UserDetails {
 
     private static final Logger LOG = LoggerFactory.getLogger(Participant.class);
-
 
     @Id
     @GenericGenerator(name = "PARTICIPANT_GEN", strategy = "org.mindtrails.persistence.MindtrailsIdGenerator", parameters = {
             @Parameter(name = "table_name", value = "ID_GEN"),
             @Parameter(name = "value_column_name", value = "GEN_VAL"),
             @Parameter(name = "segment_column_name", value = "GEN_NAME"),
-            @Parameter(name = "segment_value", value = "participant") })
+            @Parameter(name = "segment_value", value = "participant")})
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "PARTICIPANT_GEN")
     protected long id;
     protected String fullName;

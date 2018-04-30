@@ -46,6 +46,8 @@ public interface Study {
 
     public boolean hasTask(String task);
 
+    public boolean isProgress(String task);
+
     public String getConditioning();
 
     public List<String> getConditions();
@@ -57,5 +59,5 @@ public interface Study {
      */
     public Map<String,Object> getPiPlayerParameters();
 
-    public long getParticipantId();
+    public long getParticipant();
 }

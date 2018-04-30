@@ -129,7 +129,7 @@ public class QuestionControllerTest extends BaseControllerTest {
     }
 
     @Test
-    public void testParticipantIdIsPopulatedIfItExists() throws Exception {
+    public void testParticipantIsPopulatedIfItExists() throws Exception {
         // Force Participant to task 1 (which is TestUndeleteable)
 //        participant.getStudy().getCurrentSession().setIndex(1);
         ((TestStudy) participant.getStudy()).setCurrentTaskIndex(1);

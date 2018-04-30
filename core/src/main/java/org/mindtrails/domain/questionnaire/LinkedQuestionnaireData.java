@@ -31,5 +31,4 @@ public abstract class LinkedQuestionnaireData extends QuestionnaireData {
     protected Participant participant;
 
 
-
 }

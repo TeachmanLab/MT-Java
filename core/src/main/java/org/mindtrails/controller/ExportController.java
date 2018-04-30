@@ -1,5 +1,9 @@
 package org.mindtrails.controller;
 
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.dataformat.csv.CsvMapper;
+import com.fasterxml.jackson.dataformat.csv.CsvSchema;
+import org.joda.time.field.FieldUtils;
 import org.mindtrails.domain.ClientOnly;
 import org.mindtrails.domain.DataOnly;
 import org.mindtrails.domain.data.DoNotDelete;
@@ -17,6 +21,7 @@ import org.mindtrails.persistence.TrialRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.autoconfigure.web.MultipartProperties;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -33,11 +38,11 @@ import java.util.Iterator;
 import java.util.List;
 
 
-import com.opencsv.CSVWriter;
-import com.opencsv.bean.ColumnPositionMappingStrategy;
-import com.opencsv.bean.StatefulBeanToCsv;
-import com.opencsv.bean.StatefulBeanToCsvBuilder;
-import com.opencsv.exceptions.CsvException;
+//import com.opencsv.CSVWriter;
+//import com.opencsv.bean.ColumnPositionMappingStrategy;
+//import com.opencsv.bean.StatefulBeanToCsv;
+//import com.opencsv.bean.StatefulBeanToCsvBuilder;
+//import com.opencsv.exceptions.CsvException;
 
 /**
  * Provides a tool for Exporting data from the system and then
@@ -107,33 +112,35 @@ public class ExportController  {
      * Return CSV
      */
 
-    public void writeCSVToResponse(PrintWriter writer, List<Object> object, String name)  {
-        try {
-            ColumnPositionMappingStrategy mapStrategy
-                    = new ColumnPositionMappingStrategy();
-            Class<?> domainType = exportService.getDomainType(name);
-            mapStrategy.setType(domainType);
-            mapStrategy.generateHeader();
-            Field[] fields = object.get(0).getClass().getDeclaredFields();
-            String[] columns = new String[fields.length];
-            int i=0;
-            for (Field cNames : fields) {
-                columns[i] = cNames.getName();
-                i+=1;
-            }
-            String joinedColumns = String.join("\t", columns);
-            writer.print(joinedColumns+"\n");
-            mapStrategy.setColumnMapping(columns);
-            StatefulBeanToCsv btcsv = new StatefulBeanToCsvBuilder(writer)
-                    .withQuotechar(CSVWriter.NO_QUOTE_CHARACTER)
-                    .withMappingStrategy(mapStrategy)
-                    .withSeparator('\t')
-                    .build();
-            btcsv.write(object);
-        } catch (CsvException ex) {
-            LOG.error("Error mapping Bean to CSV", ex);
-        }
-    }
+//    public void writeCSVToResponse(PrintWriter writer, List<Object> object, String name)  {
+//        try {
+//            ColumnPositionMappingStrategy mapStrategy
+//                    = new ColumnPositionMappingStrategy();
+//            Class<?> domainType = exportService.getDomainType(name);
+//            mapStrategy.setType(domainType);
+//            mapStrategy.generateHeader();
+//            //Field[] fields = object.get(0).getClass().getDeclaredFields();
+//            Field[] fields = org.apache.commons.lang3.reflect.FieldUtils.getAllFields(domainType);
+//            String[] columns = new String[fields.length];
+//            int i=0;
+//            for (Field cNames : fields) {
+//                if (!cNames.getName().equals("participant")) {
+//                columns[i] = cNames.getName();
+//                i+=1;}
+//            }
+//            String joinedColumns = String.join("\t", columns);
+//            writer.print(joinedColumns+"\n");
+//            mapStrategy.setColumnMapping(columns);
+//            StatefulBeanToCsv btcsv = new StatefulBeanToCsvBuilder(writer)
+//                    .withQuotechar(CSVWriter.NO_QUOTE_CHARACTER)
+//                    .withMappingStrategy(mapStrategy)
+//                    .withSeparator('\t')
+//                    .build();
+//            btcsv.write(object);
+//        } catch (CsvException ex) {
+//            LOG.error("Error mapping Bean to CSV", ex);
+//        }
+//    }
 
     @DataOnly
     @RequestMapping(value = "{name}.csv", method= RequestMethod.GET)
@@ -141,7 +148,18 @@ public class ExportController  {
 
         List<Object> json = listData(name,0);
         response.setContentType("text/plain; charset=utf-8");
-        writeCSVToResponse(response.getWriter(), json, name);
+        Class<?> domainType = exportService.getDomainType(name);
+        CsvMapper mapper = new CsvMapper();
+        CsvSchema schema = mapper.schemaFor(domainType).withHeader();
+        schema = schema.withColumnSeparator('\t');
+        ObjectWriter myObjectWriter = mapper.writer(schema);
+        if (json != null) {
+//            writeCSVToResponse(response.getWriter(), json, name);
+            myObjectWriter.writeValue(response.getWriter(),json);
+
+        } else {
+            response.getWriter().print("Empty dataset.");
+        }
     }
 
     /**

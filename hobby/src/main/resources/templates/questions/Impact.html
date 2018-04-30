@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<!--<![endif]-->
+<head th:include="/fragment/common :: headerFragment" />
+<body th:class="|user-theme-${participant.theme}|">
+<section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
+<script type="text/javascript" th:src="@{/js/firstQuestionSlider.js}"></script>
+<textArea th:replace="fragment/common :: questionTemplate"/>
+<!-- content starts
+================================================== -->
+<section id="content2" class="clearfix">
+    <form th:action="@{/questions/Impact}" method="POST">
+        <!-- Add timer -->
+        <input id="timeOnPage" name="timeOnPage" type="hidden"/>
+
+        <div class="container section compactQuestion">
+
+            <div class="question"> How anxious did you feel (at the highest level of anxiety) as you completed the imagery task? </div>
+            <input id="anxiety"  type="text" name="anxiety" required ="true"/>
+            <div class="after_slider"><label class="standard">
+                <input id="anxiety-enabled" type="checkbox" name="PosFeelings" value="555"/>
+                Prefer not to answer
+            </label></div>
+            <script>
+                $("#anxiety").slider({
+                    ticks: [0, 50, 100],
+                    ticks_labels: ['Absolutely No Anxiety ', 'Moderately Anxious', 'Totally Anxious'],
+                    ticks_snap_bounds: 1,
+                    tooltip: "hide",
+                    value: 50,
+                    formatter: function(value) {
+                        $('#anxiety-enabled')[0].required=false;
+                    }
+                });
+
+                $("#anxiety-enabled").click(function() {
+                    if(this.checked) {
+                        $("#anxiety").slider("disable");
+                        $('#anxiety-enabled')[0].required=false;
+                    }
+                    else {
+                        $("#anxiety").slider("enable");
+                    }
+                });
+                $('#anxiety-enabled')[0].required=true;
+
+            </script>
+
+        </div>
+
+
+        <div class="container section compactQuestion">
+            <div id="section1"></div>
+            <script>
+                var data = {
+                    "options": [
+                        {"value": 0, "title": "Not at all vivid"},
+                        {"value": 1, "title": "Somewhat vivid"},
+                        {"value": 2, "title": "Moderately vivid"},
+                        {"value": 3, "title": "Very vivid"},
+                        {"value": 4, "title": "Totally vivid"}
+                    ],
+                    "questions": [
+                        {
+                            "name": "vivid",
+                            "desc": "How vividly did you imagine the situation?"
+                        }
+                    ]
+                }
+                $('#section1').html(Mustache.render($('#template').val(), data));
+            </script>
+        </div>
+
+        <div class="container section compactQuestion">
+            <div id="section2"></div>
+            <script>
+                var data = {
+                    "options": [
+                        {"value": 0, "title": "Very likely to turn out well"},
+                        {"value": 1, "title": "Somewhat likely to turn out well"},
+                        {"value": 2, "title": "Neutral"},
+                        {"value": 3, "title": "Somewhat likely to turn out badly"},
+                        {"value": 4, "title": "Very likely to turn out badly"}
+                    ],
+                    "questions": [
+                        {
+                            "name": "badly",
+                            "desc": "How likely is it that this situation or task will turn out well vs. turn out badly?"
+                        }
+                    ]
+                }
+                $('#section2').html(Mustache.render($('#template').val(), data));
+            </script>
+        </div>
+
+        <div class="container section compactQuestion">
+            <div id="section3"></div>
+            <script>
+                var data = {
+                    "options": [
+                        {"value": 0, "title": "Very well"},
+                        {"value": 1, "title": "Somewhat well"},
+                        {"value": 2, "title": "Neutral"},
+                        {"value": 3, "title": "Somewhat badly"},
+                        {"value": 4, "title": "Very badly"}
+                    ],
+                    "questions": [
+                        {
+                            "name": "manageable",
+                            "desc": "If this situation did turn out badly, how well or badly would you be able to handle it?"
+                        }
+                    ]
+                }
+                $('#section3').html(Mustache.render($('#template').val(), data));
+            </script>
+        </div>
+
+        <div class="col-md-12" style="text-align:center">
+            <button type="submit">Next</button>
+        </div>
+
+    </form>
+</section>
+
+
+
+
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts" />
+
+</body>
+</html>
+
+
+
+
+
+
+<!--Vividness of Imagery-->
+
+
+
+<!--Activation of Feared Outcomes: Probability and Catastrophe Judgments-->
+
+<!--How likely is it that this situation or task will turn out badly (i.e., not go well)?-->
+
+<!--1(extremely unlikely) – 7 (extremely likely)-->
+
+
+<!--How terrible would it be if this situation or task did turn out badly (i.e., if it did not go well)?-->
+
+<!--1(not at all terrible) – 7 (extremely terrible)-->

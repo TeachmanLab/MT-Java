@@ -1,52 +1,39 @@
 package org.mindtrails.service;
 
 
-import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import org.apache.tomcat.jni.Error;
-import org.mindtrails.domain.*;
-import org.mindtrails.domain.importData.ImportError;
-import lombok.Data;
 import org.apache.tomcat.util.codec.binary.Base64;
+import org.mindtrails.domain.*;
+import org.mindtrails.domain.data.DoNotDelete;
+import org.mindtrails.domain.importData.ImportError;
 import org.mindtrails.domain.importData.Scale;
-import org.mindtrails.persistence.ParticipantExportDAO;
+import org.mindtrails.domain.tracking.MissingDataLog;
+import org.mindtrails.persistence.MissingDataLogRepository;
 import org.mindtrails.persistence.ParticipantRepository;
 import org.mindtrails.persistence.StudyRepository;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ApplicationListener;
-import org.springframework.context.event.ContextRefreshedEvent;
-
-import org.springframework.context.event.EventListener;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.support.Repositories;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
-import sun.rmi.runtime.Log;
 
 import java.io.File;
-import java.io.FileFilter;
-import java.io.FilenameFilter;
 import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Iterator;
-import java.util.List;
 import java.net.URI;
+import java.nio.file.Files;
+import java.util.*;
 
 
 /**
@@ -79,11 +66,16 @@ public class ImportService {
     @Value("${import.path}")
     private String path;
 
+    @Value("${import.delete}")
+    private boolean deleteMode;
+
     @Autowired ExportService exportService;
 
     @Autowired StudyRepository studyRepository;
 
     @Autowired ParticipantRepository participantRepository;
+
+    @Autowired MissingDataLogRepository missingDataLogRepository;
 
 
 
@@ -151,20 +143,91 @@ public class ImportService {
         }
     }
 
-    /**
-     * This is the function that used to delete information from the client site.
-     * @param path
-     * @param scale
-     * @return
-     */
-
-    @ClientOnly
-    public Boolean deleteOnline(String path, String scale) {
+    public Boolean deleteOnline(String scale, long id) {
+        LOGGER.info("Get into the deleteOnline function");
+        RestTemplate restTemplate = new RestTemplate();
+        HttpEntity<String> request = new HttpEntity<String>(headers());
+        URI uri = URI.create(path + "/api/export/" + scale + '/' + Long.toString(id));
+        LOGGER.info("calling url:" + uri.toString());
+        ResponseEntity<String> responseEntity = restTemplate.exchange(uri, HttpMethod.DELETE, request, new ParameterizedTypeReference<String>() {
+        });
+        LOGGER.info("Delete?");
+        try {
+            String response = responseEntity.getBody();
+            if (response.isEmpty()) return true;
+        } catch (HttpClientErrorException e) {
+            throw new ImportError(e);
+        }
         return false;
     }
 
-/**
- *
+
+    /**
+     * This is the function that we used to log the null data in columns.
+     *
+     */
+
+    public Boolean saveMissingLog(JsonNode jsonNode, String scale) {
+
+        ObjectNode jMissingNode = new ObjectMapper().createObjectNode();
+        Iterator<String> it = jsonNode.fieldNames();
+        String fields = "";
+        String participant="";
+        String id = "";
+        String date = "";
+        Boolean found = false;
+        while (it.hasNext())
+        {
+            String key = it.next();
+            if(!Objects.equals(key, "tag")&&!Objects.equals(key, "button_pressed")){
+
+            if(jsonNode.get(key).asText().equals("null")){
+                //System.out.println("found :"+ key);
+                fields = ";"+key;
+                found = true;
+            }
+            }
+        }
+        if (found){
+            if(jsonNode.has("date")){date=jsonNode.get("date").asText();}
+            if(jsonNode.has("id")){id=jsonNode.get("id").asText();}
+            if(jsonNode.has("participant")){participant=jsonNode.get("participant").asText();}
+            Participant p = participantRepository.findOne(Long.parseLong(participant));
+            MissingDataLog mlog = new MissingDataLog(p,scale,fields.substring(1),Long.parseLong(id),date);
+            missingDataLogRepository.save(mlog);
+            return true;
+        }
+        System.out.println(jMissingNode.get("columns"));
+        return false;
+    }
+
+
+
+
+
+
+    /**
+     * This is the function that used to delete information from the client site.
+     */
+
+    @DataOnly
+    public Boolean safeDelete(String scale, long id) {
+        LOGGER.info("Successfully launch the delete function");
+        boolean deleteable = !exportService.getDomainType(scale).isAnnotationPresent(DoNotDelete.class);
+        if (deleteMode && deleteable && validated(scale,id)) {
+            return deleteOnline(scale,id);
+        } else {return false;}
+    }
+
+
+    /**
+     * This is the function that will validate the save result.
+     */
+
+    public Boolean validated(String scale, long id) {return true;}
+
+    /**
+     *
  *
  * Backup from local.
  *
@@ -172,7 +235,7 @@ public class ImportService {
 
 
     @DataOnly
-    public boolean localBackup(String scale, File[] list) {
+    public int localBackup(String scale, File[] list) {
         LOGGER.info("Successfully launch local backup");
         int error = 0;
         if (list != null) {
@@ -180,10 +243,8 @@ public class ImportService {
                 if (!parseDatabase(scale,readJSON(is))) error += 1;
             }
             LOGGER.info("Error: " + Integer.toString(error) + "/" + list.length);
-            if (list.length>error) return true;
         }
-        return false;
-
+        return error;
     }
 
     /**
@@ -207,7 +268,7 @@ public class ImportService {
         LOGGER.info("Get into the getLocal function");
         File folder = new File(path);
         String pattern = scale.toLowerCase();
-        File[] files = folder.listFiles((dir,name) -> name.toLowerCase().contains(pattern));
+        File[] files = folder.listFiles((dir,name) -> name.toLowerCase().startsWith(pattern));
         LOGGER.info("Here are the files that I found:" + files.toString());
         return files;
     }
@@ -293,6 +354,7 @@ public class ImportService {
                 Object object = mapper.readValue(p.toString(),clz);
                 if (object instanceof hasParticipant) ((hasParticipant) object).setParticipant(s);
                 rep.save(object);
+                //safeDelete(clz.getName(),elm.path("id").asLong());
             } catch (Exception e) {
                 e.printStackTrace();
                 return false;
@@ -323,6 +385,7 @@ public class ImportService {
                 Object object = mapper.readValue(p.toString(),clz);
                 if (object instanceof hasStudy) ((hasStudy) object).setStudy(s);
                 rep.save(object);
+                //safeDelete(clz.getName(),elm.path("id").asLong());
             } catch (Exception e) {
                 e.printStackTrace();
                 return false;
@@ -341,6 +404,7 @@ public class ImportService {
     public boolean parseDatabase(String scale, String is){
         LOGGER.info("Get into the parseDatabase function");
         ObjectMapper mapper = new ObjectMapper();
+        mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
         JpaRepository rep = exportService.getRepositoryForName(scale);
         if (rep != null) {
             LOGGER.info("Found " + scale + " repository.");
@@ -349,6 +413,7 @@ public class ImportService {
                 LOGGER.info("Found " + clz.getName() + " class.");
                 try {
                     JsonNode obj = mapper.readTree(is);
+                    saveMissingLog(obj,scale);
                     if (hasStudy.class.isInstance(clz.newInstance())) {
                         return linkStudy(obj,clz,rep);
                     } else if (hasParticipant.class.isInstance(clz.newInstance())){
@@ -358,8 +423,10 @@ public class ImportService {
                         while (itr.hasNext()) {
                             JsonNode elm = (JsonNode) itr.next();
                             ObjectNode p = elm.deepCopy();
+                            saveMissingLog(elm,clz.getName());
                             Object object = mapper.readValue(p.toString(),clz);
                             rep.save(object);
+                     //       safeDelete(scale,elm.path("id").asLong());
                         };
                     };
                 } catch (Exception e) {
@@ -368,30 +435,37 @@ public class ImportService {
                 };
                 return true;
             };
+            return false;
         };
         return false;
     }
 
 
     @DataOnly
-    public boolean updateParticipantLocal() {
+    public int updateParticipantLocal() {
         LOGGER.info("Get into the updateParticipant function.");
-        File[] files = getFileList("ParticipantExportDAO");
+        File[] files = getFileList("Participant");
+        int error = 0;
         for (File file:files) {
-            return parseDatabase("ParticipantExportDAO",readJSON(file));
+            if(!saveParticipant(readJSON(file))) {
+                error += 1;
+            };
         }
-        return false;
+        return error;
     }
 
 
     @DataOnly
-    public boolean updateStudyLocal() {
+    public int updateStudyLocal() {
         LOGGER.info("Get into the updateStudy function.");
-        File[] files = getFileList("StudyExportDAO");
+        File[] files = getFileList("Study");
+        int error = 0;
         for (File file:files) {
-            return parseDatabase("StudyExportDAO",readJSON(file));
+            if(!parseDatabase("study",readJSON(file))) {
+                error += 1;
+            }
         }
-        return false;
+        return error;
     }
 
     @DataOnly
@@ -423,7 +497,7 @@ public class ImportService {
  * */
 
     @DataOnly
-    @Scheduled(cron = "0 5 * * * *")
+    //@Scheduled(cron = "0 5 * * * *")
     public void importData() {
         LOGGER.info("Trying to download data from api/export.");
         boolean newStudy = updateStudyOnline();
@@ -458,20 +532,26 @@ public class ImportService {
      * The backup routine.
      */
     @DataOnly
-    @Scheduled(cron = "0 0 0 * * *")
+    //@Scheduled(cron = "0 * * * * *")
     public void backUpData() {
         LOGGER.info("Try to backup data from local.");
-        int i = 0;
+        int errorFile = 0;
         List<String> good = new ArrayList<String>();
         List<String> bad = new ArrayList<String>();
         List<Scale> list = importList(url);
+        list.removeIf(s -> s.toString().startsWith("Participant"));
+        list.removeIf(s -> s.toString().startsWith("Study"));
+        list.removeIf(s -> s.toString().startsWith("Trial"));
+        errorFile = errorFile + updateStudyLocal();
+        errorFile = errorFile + updateParticipantLocal();
         for (Scale scale:list) {
             File[] is = getFileList(scale.getName());
-            if (localBackup(scale.getName(),is)) {
-                i += 1;
-                good.add(scale.getName());
-            } else {
+            int outCome = localBackup(scale.getName(),is);
+            if (outCome>0) {
                 bad.add(scale.getName());
+                errorFile = errorFile + outCome;
+            } else {
+                good.add(scale.getName());
             }
         }
         LOGGER.info("Here is the good list:");
@@ -480,5 +560,34 @@ public class ImportService {
         for (String flag:bad) LOGGER.info(flag);
 
     }
+
+
+//    /**
+//     * This is just an in-app testing. Need to be deleted before launch.
+//     */
+//    @DataOnly
+//    //@Scheduled(cron = "0 * * * * *")
+//    public void testingBackUp() {
+//        LOGGER.info("Try to backup data from local.");
+//        int errorFile = 0;
+//        List<String> good = new ArrayList<String>();
+//        List<String> bad = new ArrayList<String>();
+//        List<String> list = Arrays.asList("ReasonsForEnding");
+//        for (String scale:list) {
+//            File[] is = getFileList(scale);
+//            int outCome = localBackup(scale,is);
+//            if (outCome>0) {
+//                bad.add(scale);
+//                errorFile = errorFile + outCome;
+//            } else {
+//                good.add(scale);
+//            }
+//        }
+//        LOGGER.info("Here is the good list:");
+//        for (String flag:good) LOGGER.info(flag);
+//        LOGGER.info("Here is the bad list:");
+//        for (String flag:bad) LOGGER.info(flag);
+//
+//    }
 }
 

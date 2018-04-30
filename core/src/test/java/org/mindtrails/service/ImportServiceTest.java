@@ -28,6 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
+import org.springframework.stereotype.Component;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MvcResult;
@@ -112,7 +113,7 @@ public class ImportServiceTest extends BaseControllerTest {
     @Test
     public void callFunction() throws Exception {
         LOGGER.info("These request should fail:");
-        Object answer = service.deleteOnline("","Testing");
+        Object answer = service.deleteOnline("",1);
         assertFalse((boolean)answer);
     }
 
@@ -134,14 +135,6 @@ public class ImportServiceTest extends BaseControllerTest {
         String list = service.getOnline("",testScale);
         LOGGER.info("Successfully read online: " + list);
         assertNotNull(list);
-    }
-
-    @Test
-    public void backup() throws Exception {
-        LOGGER.info("Successfully launch backup");
-        File[] list = service.getFileList(testScale);
-        LOGGER.info("Successfully get data from local: " + list);
-        assertTrue(service.localBackup(testScale, list));
     }
 
 
@@ -168,17 +161,7 @@ public class ImportServiceTest extends BaseControllerTest {
         assertTrue(service.updateParticipantOnline());
     }
 
-    @Test
-    public void updateParticipantTableLocal() throws Exception {
-        LOGGER.info("Try to update the participant table locally");
-        assertTrue(service.updateParticipantLocal());
-    }
 
-    @Test
-    public void updateStudyTableLocal() throws Exception {
-        LOGGER.info("Try to update the participant table locally");
-        assertTrue(service.updateStudyLocal());
-    }
 
     @Test
     public void updateStudyTable() throws Exception {
@@ -404,7 +387,61 @@ public class ImportServiceTest extends BaseControllerTest {
 
     }
 
+    /**
+     *  Test if you can get a list of files locally.
+     * @throws Exception
+     */
+    @Test
+    public void testGetFileList() throws Exception {
+        String testScale = "WhatIBelieve";
+        File[] list = service.getFileList(testScale);
+        for (File file:list) {
+            System.out.println(file.getName());
+        }
+    }
 
+
+    /**
+     *  Test if readJSON is working.
+     */
+    @Test
+    public void testReadJSON() throws Exception {
+        String testScale = "WhatIBelieve";
+        File[] list = service.getFileList(testScale);
+        System.out.println(service.readJSON(list[0]));
+    }
+
+    /**
+     * Test if you can import the study data locally.
+     */
+
+    @Test
+    public void testImportStudy() throws Exception {
+        assertTrue(service.updateStudyLocal()==0);
+    }
+
+    /**
+     * This is a test for the missing data log.
+     */
+
+    @Test
+    public void testMissingLog() throws Exception {
+        String tScale ="WhatIBelieve";
+        ObjectMapper mapper = new ObjectMapper();
+        String is = "[{\"id\": 1, \"date\": \"Sun, 30 Apr 2017 13:49:40 -0500\", \"session\": \"preTest\", \"tag\": null, \"timeOnPage\": null, \"difficultTasks\": 2, \"performEffectively\": 0, \"compared\": 3, \"learn\": 3, \"particularThinking\": 0, \"alwaysChangeThinking\": 4, \"wrongWill\": 2, \"hardlyEver\": 2, \"participant\": \"1\"}]";
+        JsonNode obj = mapper.readTree(is);
+        assertTrue(service.saveMissingLog(obj.elements().next(),tScale));
+
+    }
+    /**
+     *  Test if you can import the participant data locally.
+     */
+
+    @Test
+    public void testImportParticipant() throws Exception {
+        service.updateStudyLocal();
+        assertTrue(service.updateParticipantLocal() == 0);
+    }
     /**
      *  Test if you can import the JsPsych data
      */
@@ -422,6 +459,11 @@ public class ImportServiceTest extends BaseControllerTest {
         Assert.assertTrue("This should be true:",service.parseDatabase("JsPsychTrial", questObj.toString()));
         jsPsyRepo.flush();
         System.out.println(questObj.toString());
+    }
+
+    @Test
+    public void testAutoDownload() throws Exception {
+        service.importData();
     }
 }
 

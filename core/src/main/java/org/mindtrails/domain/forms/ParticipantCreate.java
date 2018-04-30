@@ -1,6 +1,7 @@
 package org.mindtrails.domain.forms;
 
 import lombok.Data;
+import lombok.Value;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.mindtrails.domain.recaptcha.RecaptchaForm;
 import org.slf4j.Logger;

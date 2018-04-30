@@ -13,12 +13,45 @@
 <section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
 <script type="text/javascript" th:src="@{/bower/d3/d3.js}"></script>
 
-
-
-
-
 <div class="panel-group" id="accordion">
-    <div class="panel panel-warning">
+
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion"
+                   href="#collapse">
+                    Consort Diagram by other variables
+                </a>
+            </h4>
+        </div>
+        <div id="collapse" class="panel-collapse collapse in">
+            <div class="panel-body" id="consort">
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion"
+                   href="#collapseCompletion">
+                    Completion report
+                </a>
+            </h4>
+        </div>
+        <div class='radio' id="reportMenu">
+
+        </div>
+        <div id="collapseCompletion" class="panel-collapse collapse in">
+            <div class="panel-body" id="completionReport">
+
+            </div>
+        </div>
+    </div>
+
+<div class="panel panel-warning">
         <div class="panel-heading">
             <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion"
@@ -30,9 +63,7 @@
     <div id="collapseTwo" class="panel-collapse collapse">
         <div class="panel-body">
             <div class="row">
-
                 <div class="main-content span12">
-
                     <table class="table table-striped table-bordered participantList">
                         <thead>
                         <tr>
@@ -43,50 +74,43 @@
                         </tr>
                         </thead>
                         <tbody>
-
                         <tr th:each="session : ${users.sessionList}" >
-
                             <th th:text="${session.displayName}"></th>
                             <td th:text="${users.activeMap.get(session.name)}"></td>
                             <td th:text="${users.inactiveMap.get(session.name)}"></td>
                             <td th:text="${users.compMap.get(session.name)}"></td>
-
                         </tr>
                         </tbody>
-
                     </table>
-
-
                 </div>
-
             </div>
         </div>
     </div>
-
 </div>
 
-    <div class="panel panel-success">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion"
-                   href="#collapseOne">
-                    conditioning distribution in TOTAL participants
-                </a>
-            </h4>
-        </div>
-        <div id="collapseOne" class="panel-collapse collapse in">
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion"
+               href="#collapseOne">
+                Conditioning distribution for all the participants
+            </a>
+        </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in">
             <div class="panel-body">
                 <div id='dashboard'>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="panel panel-success">
         <div class="panel-heading">
             <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion"
                    href="#collapseFour">
-                    conditioning distribution in Active participants
+                    Conditioning distribution for active participants
                 </a>
             </h4>
         </div>
@@ -97,12 +121,13 @@
             </div>
         </div>
     </div>
+
     <div class="panel panel-success">
         <div class="panel-heading">
             <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion"
                    href="#collapseThree">
-                    conditioning distribution in Inactive participants
+                    Conditioning distribution for inactive participants
                 </a>
             </h4>
         </div>
@@ -197,18 +222,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
                 <!--spacer here-->
                 <div class="spacer-30px"></div>
             </div>
@@ -276,12 +289,146 @@
         width:50px;
     }
 
-    </style>
+</style>
+
+<!-- This is the function used to draw the consort diagram-->
+
+<script>
+
+
+    function createMenu(menuElement,drawElement,data) {
+        var  menu = d3.select(menuElement);
+
+        var scaleList = d3.keys(data);
+
+        menu.selectAll("label")
+            .data(scaleList)
+            .enter().append("label")
+            .attr("class","radio-inline")
+            .attr("text",function (d) { return d;})
+            .append("input")
+            .attr("class","dataSource")
+            .attr("type","radio")
+            .attr("name","menu")
+            .attr("value",function(d) {return d;})
+            .attr("text",function(d) {return d;});
+
+        countDiagram('Completion Report for '+scaleList[0],drawElement,data[scaleList[0]],false);
 
 
 
+    }
 
 
+
+    function countDiagram(title,element,data,sort) {
+        // set the dimensions of the canvas
+        var margin = {top: 20, right: 20, bottom: 100, left: 40},
+            width = 800 - margin.left - margin.right,
+            height = 500 - margin.top - margin.bottom;
+
+        d3.select(element)
+            .selectAll("svg")
+            .remove();
+
+        var stack = d3.stack()
+            .keys(["counts","duplicated"]);
+
+        var seris = stack(data);
+
+        var colors = d3.scaleOrdinal(d3.schemeCategory10);
+
+        var svg = d3.select(element)
+            .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform",
+                "translate(" + margin.left + "," + margin.top + ")");
+
+        var xScale = d3.scaleBand()
+            .domain((sort)? data.sort(function(a,b){return d3.descending(+a.counts,+b.counts)})
+                .map(function(d) {return d.name;}) : data.map(function (d) {
+                return d.name;
+            }))
+            .range([0,width])
+            .padding(0.05);
+
+        var yScale = d3.scaleLinear()
+            .domain([0,d3.max(data, function(d) { return parseFloat(d.counts + d.duplicated);})])
+            .range([height,0]);
+
+        var xAxis = d3.axisBottom()
+            .scale(xScale);
+
+
+        var yAxis = d3.axisLeft()
+            .scale(yScale);
+
+        var groups=svg.selectAll("g")
+            .data(seris)
+            .enter()
+            .append("g")
+            .style("fill",function (d,i) {
+                return colors(i);
+            });
+
+        groups.selectAll("bar")
+            .data(function (d) {
+                return d;
+            })
+            .enter().append("rect")
+            .attr("class", "rect")
+            .attr("x", function(d) { return xScale(d.data.name); })
+            .attr("width", xScale.bandwidth())
+            .attr("y", function(d) { return yScale(d[1]); })
+            .attr("height", function(d) { return yScale(d[0]) - yScale(d[1]); })
+
+        svg.selectAll("text")
+            .data(data)
+            .enter()
+            .append("text")
+            .text(function(d){ return d.counts;})
+            .attr("x", function(d) { return xScale(d.name)+xScale.bandwidth()/2; })
+            .attr("y", function(d) { return yScale(d.counts)-5; })
+            .attr("text-anchor", "middle");
+
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(xAxis)
+            .selectAll("text")
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", "-.55em")
+            .attr("transform","rotate(-90)");
+
+        svg.append("g")
+            .attr("class", "y axis")
+            .call(yAxis)
+            .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 5)
+            .attr("dy", ".71em")
+            .style("text-anchor", "end")
+            .text("#");
+
+        svg.append("text")
+            .attr("x", (width / 2))
+            .attr("y", 0 - (margin.top / 2))
+            .attr("text-anchor", "middle")
+            .style("font-size", "14px")
+            .style("text-decoration", "underline")
+            .text(title);
+
+
+
+    }
+
+
+</script>
+
+<!-- This is the function used to draw the login by weeks-->
 <script>
     // set the dimensions of the canvas
     var margin = {top: 20, right: 20, bottom: 70, left: 40},
@@ -359,7 +506,7 @@
             .attr("text-anchor", "middle")
             .style("font-size", "14px")
             .style("text-decoration", "underline")
-            .text("Active participants by week");
+            .text("Active users by week");
 
 
 
@@ -375,11 +522,10 @@
 
 
 
-
-
-
 </script>
 
+
+<!--This is the function used to draw the active/inactive vs condition dashboard.-->
 <script>
     function dashboard(id, fData,conditionList,name){
 
@@ -599,14 +745,27 @@
 <script th:inline="javascript">
 
     var conditionList=[[${conditionList}]];
-    d3.json("./getDash", function(error, data) {
+    d3.json("./getCondition", function(error, data) {
         if (error) return console.warn(error);
         dashboard('#dashboard',data.total,conditionList);
         dashboard('#dashboard2',data.active,conditionList);
         dashboard('#dashboard3',data.inactive,conditionList);
     });
 
+    d3.json("./getFlow", function(error, data) {
+       if (error) return console.warn(error);
+       countDiagram("Consort Diagram","#consort",data.Total,true);
 
+    });
+
+    d3.json("./getScale", function (error,data) {
+        if (error) return console.warn(error);
+        createMenu("#reportMenu","#completionReport",data);
+        d3.selectAll("input")
+            .on("click", function() {
+                countDiagram('Completion Report for '+this.value,"#completionReport",data[this.value],false)
+            });
+    });
     //console.log(conditionList);
 
 

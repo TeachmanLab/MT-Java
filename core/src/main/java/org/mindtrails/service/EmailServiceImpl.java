@@ -1,10 +1,7 @@
 package org.mindtrails.service;
 
 import org.joda.time.DateTime;
-import org.mindtrails.domain.Email;
-import org.mindtrails.domain.Participant;
-import org.mindtrails.domain.Session;
-import org.mindtrails.domain.Study;
+import org.mindtrails.domain.*;
 import org.mindtrails.domain.tango.Reward;
 import org.mindtrails.domain.tracking.EmailLog;
 import org.mindtrails.persistence.ParticipantRepository;
@@ -185,7 +182,7 @@ public class EmailServiceImpl implements EmailService {
         sendEmail(email);
     }
 
-
+    @ClientOnly
     @Scheduled(cron = "0 0 2 * * *")  // schedules task for 2:00am every day.
     public void sendEmailReminder() {
         List<Participant> participants;
@@ -209,6 +206,7 @@ public class EmailServiceImpl implements EmailService {
         }
     }
 
+    @ClientOnly
     @Scheduled(cron = "0 0 * * * *")   // Runs every hour.
     /**
      * Sends emails to participants when they stopped in the middle of a session

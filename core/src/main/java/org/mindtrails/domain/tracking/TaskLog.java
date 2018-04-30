@@ -43,6 +43,7 @@ public class TaskLog implements Comparable<TaskLog>, hasStudy {
     private String tag;
     private Double timeOnTask;
 
+
     public TaskLog() {};
     public TaskLog(Study study, double timeOnTask) {
         this.study = study;

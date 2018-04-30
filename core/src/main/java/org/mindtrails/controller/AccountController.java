@@ -62,6 +62,8 @@ public class AccountController extends BaseController {
     @Autowired
     private TangoService tangoService;
 
+    @Value("${mode}")
+    private String serverMode;
 
     /** This will assure that any form submissions for the participant Form
      * are validated for a proper recaptcha response.
@@ -74,6 +76,11 @@ public class AccountController extends BaseController {
 
     @RequestMapping(value="create", method = RequestMethod.GET)
     public String createForm (ModelMap model, HttpSession session) {
+        if (serverMode.toLowerCase().equals("data")) {
+            model.addAttribute("enableVerification",false);
+        } else {
+            model.addAttribute("enableVerification",true);
+        }
         model.addAttribute("participantForm", new ParticipantCreate());
         model.addAttribute("recaptchaSiteKey", recaptchaSiteKey);
         model.addAttribute("giftcardsEnabled", tangoService.getEnabled());

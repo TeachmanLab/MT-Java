@@ -38,6 +38,8 @@ public abstract class QuestionnaireData implements hasParticipant {
 
     protected double timeOnPage; // Time spend on page in seconds.
 
+
+
     /**
      * Override this method to add custom information that should
      * be passed through to your html web form before it is displayed.

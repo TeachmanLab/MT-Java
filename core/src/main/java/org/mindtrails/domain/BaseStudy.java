@@ -61,6 +61,9 @@ public abstract class BaseStudy implements Study {
         this.receiveGiftCards = receiveGiftCards;
     }
 
+    public boolean isProgress(String formName)
+
+        {return this.hasTask(formName);}
     @Override
     @JsonIgnore
     public List<Session> getSessions() {
@@ -297,7 +300,7 @@ public abstract class BaseStudy implements Study {
      * it is the unique id of the participant.
      */
     @Override
-    public long getParticipantId() {
+    public long getParticipant() {
         return this.id;
     }
 

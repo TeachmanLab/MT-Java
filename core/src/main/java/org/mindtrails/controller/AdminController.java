@@ -1,11 +1,16 @@
 package org.mindtrails.controller;
 
+import com.sun.tools.javac.comp.Flow;
 import lombok.Data;
 import org.mindtrails.domain.*;
 import org.joda.time.DateTime;
 import org.mindtrails.domain.forms.ParticipantCreate;
 import org.mindtrails.domain.forms.ParticipantCreateAdmin;
 import org.mindtrails.domain.forms.ParticipantUpdateAdmin;
+import org.mindtrails.domain.importData.Scale;
+import org.mindtrails.domain.jsPsych.JsPsychTrial;
+import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
+import org.mindtrails.domain.questionnaire.QuestionnaireData;
 import org.mindtrails.domain.questionnaire.QuestionnaireInfo;
 import org.mindtrails.domain.tango.Account;
 import org.mindtrails.domain.tango.Order;
@@ -15,19 +20,11 @@ import org.mindtrails.domain.tracking.ErrorLog;
 import org.mindtrails.domain.tracking.EmailLog;
 import org.mindtrails.domain.tracking.ExportLog;
 import org.mindtrails.domain.tracking.SMSLog;
-import org.mindtrails.persistence.EmailLogRepository;
-import org.mindtrails.persistence.SMSLogRepository;
+import org.mindtrails.persistence.*;
 import org.mindtrails.domain.tracking.TaskLog;
-import org.mindtrails.persistence.TaskLogRepository;
 
 import org.mindtrails.domain.userstats;
-import org.mindtrails.persistence.ErrorLogRepository;
-import org.mindtrails.persistence.ParticipantRepository;
-import org.mindtrails.persistence.StudyRepository;
-import org.mindtrails.service.EmailService;
-import org.mindtrails.service.ExportService;
-import org.mindtrails.service.ParticipantService;
-import org.mindtrails.service.TangoService;
+import org.mindtrails.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +32,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -45,6 +43,11 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * Created with IntelliJ IDEA.
@@ -95,12 +98,68 @@ public class AdminController extends BaseController {
     @Autowired
     private StudyRepository studyRepository;
 
+    @Autowired
+    private JsPsychRepository jsPsychRepository;
 
+    @Autowired
+    private VisitRepository visitRepository;
+
+    @Value("${mode}")
+    private String serverMode;
+
+    @Value("${import.url}")
+    private String url;
+
+    @Autowired
+    private ImportService importService;
 
     @Override
     @ModelAttribute("visiting")
     public boolean visiting(Principal principal) {
         return true;
+    }
+
+
+    public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
+        Set<Object> seen = ConcurrentHashMap.newKeySet();
+        return t -> seen.add(keyExtractor.apply(t));
+    }
+
+    @Data
+    class csData {
+
+        String condition;
+        String session;
+        int active;
+        int inactive;
+        int total;
+        csData(String condition,String session, int active,int inactive, int total) {
+            this.condition = condition;
+            this.session = session;
+            this.active=active;
+            this.inactive=inactive;
+            this.total=total;
+
+        }
+    }
+    @Data
+    class csDataMap{
+        String session;
+        Map<String,Integer> csMap=new HashMap<String,Integer>();
+
+        csDataMap(String session,Map<String,Integer> csMap){
+            this.session=session;
+            this.csMap=csMap;
+        }
+    }
+
+
+
+    @Data
+    class DateData {
+        int count = 0;
+        Date date = new Date();
+        DateData(Date date, int count) {this.count = count; this.date = date;}
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -268,7 +327,14 @@ public class AdminController extends BaseController {
     public String export(ModelMap model, Principal principal) {
         Participant p = getParticipant(principal);
 
-        model.addAttribute("downloadsDisabled", Boolean.parseBoolean(downloadsDisabled));
+        if (serverMode.toLowerCase().equals("data")) {
+            model.addAttribute("downloadsDisabled",false);
+        } else if (serverMode.toLowerCase().equals("client")) {
+            model.addAttribute("downloadsDisabled",true);
+        } else {
+            model.addAttribute("downloadsDisabled", Boolean.parseBoolean(downloadsDisabled));
+        };
+        model.addAttribute("scales",importService.importList(url));
         model.addAttribute("exportMaxMinutes", exportService.getMaxMinutes());
         model.addAttribute("exportMaxRecords", exportService.getMaxRecords());
         model.addAttribute("totalRecords", exportService.totalDeleteableRecords());
@@ -333,12 +399,6 @@ public class AdminController extends BaseController {
 
     }
 
-    @Data
-    class DateData {
-        int count = 0;
-        Date date = new Date();
-        DateData(Date date, int count) {this.count = count; this.date = date;}
-    }
 
     @RequestMapping(value="/getLoginCounts", method= RequestMethod.GET)
     public @ResponseBody List<DateData> myData(Principal principal) {
@@ -361,42 +421,44 @@ public class AdminController extends BaseController {
         return dateData;
     }
 
-    @Data
-    class csData {
 
-        String condition;
-        String session;
-        int active;
-        int inactive;
-        int total;
-        csData(String condition,String session, int active,int inactive, int total) {
-            this.condition = condition;
-            this.session = session;
-            this.active=active;
-            this.inactive=inactive;
-            this.total=total;
-
-        }
-    }
-    @Data
-    class csDataMap{
-        String session;
-        Map<String,Integer> csMap=new HashMap<String,Integer>();
-
-       csDataMap(String session,Map<String,Integer> csMap){
-            this.session=session;
-            this.csMap=csMap;
-        }
+    @RequestMapping(value="/getFlow",method = RequestMethod.GET)
+    public @ResponseBody Map<String,ArrayList<countMap>> consortDiagram(Principal principal) {
+        Study currentStudy = getParticipant(principal).getStudy();
+        FlowCount f = new FlowCount(currentStudy, studyRepository, visitRepository,participantRepository,jsPsychRepository,taskLogRepository);
+        ArrayList<countMap> countPairs = f.getPairs();
+        Map<String,ArrayList<countMap>> flowCountMap = new HashMap<>();
+        flowCountMap.put("Total", countPairs);
+        return flowCountMap;
     }
 
 
-    @RequestMapping(value="/getDash", method= RequestMethod.GET)
+    @RequestMapping(value = "/getScale", method = RequestMethod.GET)
+    public @ResponseBody Map<String, ArrayList<countMap>> completeReport(Principal principal) {
+        Study currentStudy = getParticipant(principal).getStudy();
+        List<Scale> scaleList = importService.importList(url);
+        List<Participant> realAccount = participantRepository.findParticipantsByTestAccountIsFalseAndAdminIsFalse();
+        Map<String,ArrayList<countMap>> scaleCountMap = new HashMap<>();
+        for (Scale scale:scaleList) {
+            JpaRepository rep = exportService.getRepositoryForName(scale.getName());
+            ScaleCount s = new ScaleCount(currentStudy,scale,realAccount,rep);
+            if (!(s.getUniqueIDCount().equals(Long.valueOf(-1)))) {scaleCountMap.put(s.getScaleName(),s.getPairs());}
+        }
+        return scaleCountMap;
+
+
+    }
+
+
+    @RequestMapping(value="/getCondition", method= RequestMethod.GET)
     public @ResponseBody Map<String,ArrayList<csDataMap>> dashboard(Principal principal) {
         Study currentstudy = getParticipant(principal).getStudy();
 
         List<ParticipantStats> daoList;
         List<StudyStats> studyList;
+        //Find all participants
         daoList = participantRepository.findAllStatsBy();
+        //Find all study information
         studyList = studyRepository.findAllStatsBy();
         userstats users = new userstats(daoList, studyList, currentstudy);
         Map<userstats.Key, Integer> csActiveMap = users.getConditionSessionActiveMap();
