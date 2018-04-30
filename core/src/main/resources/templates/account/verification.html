@@ -9,7 +9,7 @@
 <html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
 <!--<![endif]-->
 <head th:include="fragment/common :: headerFragment"/>
-<body >
+<body>
 <section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
 
 
@@ -21,46 +21,41 @@
                 <img th:src="@{/images/map-arrow-orange.png}" alt="icon" class="icon-small-bg"/>
             </div>
 
-                <div class="col-md-8">
-                    <h2 class="page-title heading-icon clearfix"><br/>Enter your verification code</h2>
+            <div class="col-md-8">
+                <h2 class="page-title heading-icon clearfix"><br/>Enter your verification code</h2>
 
 
-                    <p>In order to receive gift cards, we need to verify your phone number. We just sent you a text message with a <b>6-digit</b> code. Please enter the code below:</p>
+                <p>In order to receive gift cards, we need to verify your phone number. We just sent you a text message
+                    with a <b>6-digit</b> code. Please enter the code below:</p>
                 <form action="#" th:action="@{/account/updateVerification}" method="post">
                     <div class="row">
                         <div class="col-md-8">
                             <div class="row">
-                            <div class="col-md-10"><br/><p>Verification Code:&nbsp;&nbsp;   <input id="verifycode" type="text" name="verifycode"/></p></div>
-                            <div class="col-md-2"><span class="pull-left"><button id="subCode" type="submit" disabled="disabled">Verify</button></span></div>
+                                <div class="col-md-6"><p>Verification Code: <input id="verifycode" type="text"
+                                                                                   name="verifycode"/></p></div>
+                                <div class="col-md-2"><span class="pull-left"><button id="subCode" type="submit"
+                                                                                      disabled="disabled">Verify</button></span>
+                                </div>
 
                             </div>
 
                         </div>
                     </div>
-
-
                 </form>
-                    <br/>
-                    <br/>
-                    <br/>
-
-
-                    <div class="row">
-                        <div class="col-md-2">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="row">
-                                <div class="col-md-10">
-                            <p><em>if you choose to skip this step, you can verify your phone later under
-                            </em></p>
-                                </div>
-                                <div class="col-md-2">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><em>if you choose to skip this step, you can verify your phone later under
+                                </em></p>
+                            </div>
+                            <div class="col-md-2">
                                 <span class="pull-left"><a th:href="@{/account/theme}"><button>Skip</button> </a></span>
-                                </div>
+                            </div>
                         </div>
 
                     </div>
-                    </div>
+                </div>
 
             </div>
         </div>
@@ -69,7 +64,7 @@
 
 <script th:inline="javascript">
 
-    $("#verifycode").keyup(function() {
+    $("#verifycode").keyup(function () {
             //console.log(document.getElementById("verifycode").value.length);
             //console.log($("#verifycode").size);
             if (document.getElementById("verifycode").value.length == 6) {
