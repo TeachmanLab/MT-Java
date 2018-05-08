@@ -1,3 +1,5 @@
+rootProject.name = 'MindTrails'
+
 include 'r34'
 include 'core'
 include 'templeton'
