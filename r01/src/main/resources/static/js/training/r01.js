@@ -224,7 +224,7 @@ var R01 = (function () {
 
                         return (
                         '<div class="vividness_followup">' +
-                        '<img src= "' + my.base_url + 'images/finished.png' + '"/>' +
+                        '<img src= "' + my.base_url + 'images/lemon/lemon_2.png' + '"/>' +
                         '<p>' + feed_back_score + "</p>" +
                         '<p>' + feed_back_s + '</p>' +
                         '<p>' + feed_back_c + '</p>')
@@ -277,7 +277,6 @@ var R01 = (function () {
                         yes_no_correct = scenarios[k]['Correct'];
                         mcq_positive = scenarios[k]['MCQ_Positive'];
                         mcq_negative = scenarios[k]['MCQ_Negative'];
-                        mcq_answer = scenarios[k]['MCQ_Answer'];
                     }
 
                     /***********************************************
@@ -291,7 +290,8 @@ var R01 = (function () {
                             type: 'html-button-response',
                             stimulus: "<h1 class='title'>Story: " + title + "</h1><img class='sound_image' src='" + my.base_url + "images/" + scenario + ".jpg'>",
                             trial_duration: 5000, // Show trial for 5 seconds
-                            data: {immersion: immersion, format: format, scenario: scenario}
+                            data: {immersion: immersion, format: format, scenario: scenario},
+                            choices: []
                         }
                     } else if (immersion === "picture_sound") {
                         immersion_trial = {
@@ -299,14 +299,16 @@ var R01 = (function () {
                             stimulus: 'sounds/background/' + scenario + '.mp3',
                             trial_duration: 5000, // Show trial for 5 seconds
                             prompt: "<h1 class='title'>Story: " + title + "</h1><img class='sound_image' src='" + my.base_url + "images/" + scenario + ".jpg'>",
-                            data: {immersion: immersion, format: format, scenario: scenario}
+                            data: {immersion: immersion, format: format, scenario: scenario},
+                            choices: []
                         }
                     } else {
                         immersion_trial = {
                             type: 'html-button-response',
                             stimulus: "<h1 class='title'>Story: " + title + "</h1>",
                             trial_duration: 5000,
-                            data: {immersion: immersion, format: format, scenario: scenario}
+                            data: {immersion: immersion, format: format, scenario: scenario},
+                            choices: []
                         }
                     }
 
@@ -318,7 +320,8 @@ var R01 = (function () {
                             stimulus: my.base_url + 'sounds/' + scenario + '.mp3',
                             trial_ends_after_audio: true,
                             prompt: '<p>Please listen ...</p>',
-                            data: {immersion: immersion, format: format, scenario: scenario}
+                            data: {immersion: immersion, format: format, scenario: scenario},
+                            choices: []
                         };
                     } else {
                         main_trial = {
@@ -345,7 +348,7 @@ var R01 = (function () {
                         is_html: true,
                         stimulus: scenarios[k]['Questions'],
                         choices: [scenarios[k]['MCQ_Positive'], scenarios[k]['MCQ_Negative']],
-                        correct_choice: mcq_answer == "Positive" ? scenarios[k]['MCQ_Positive'] : scenarios[k]['MCQ_Negative'],
+                        correct_choice: scenarios[k]['MCQ_Positive'],
                         on_finish: function (trial_data) {
                             if (trial_data.correct) score_questions++;
                             updateScore();
