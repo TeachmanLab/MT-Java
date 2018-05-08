@@ -1,6 +1,5 @@
 package org.mindtrails.domain;
 
-import com.sun.tools.javac.comp.Flow;
 import lombok.Data;
 import org.mindtrails.domain.jsPsych.JsPsychTrial;
 import org.mindtrails.domain.tracking.TaskLog;
