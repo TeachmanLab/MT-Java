@@ -2,6 +2,7 @@ package org.mindtrails.config;
 
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.tracking.ErrorLog;
+import org.mindtrails.persistence.ErrorLogRepository;
 import org.mindtrails.service.EmailService;
 import org.mindtrails.service.ParticipantService;
 import org.slf4j.Logger;
@@ -31,14 +32,15 @@ class GlobalDefaultExceptionHandler {
     @Autowired
     ParticipantService participantService;
 
+    @Autowired
+    ErrorLogRepository errorLogRepository;
 
     private void recordException(HttpServletRequest req, Exception e) {
         Participant p = currentParticipant(req);
         LOG.error("Raising an exception to an end user! " + e.getClass() + " --- " + e.getMessage());
         if(p != null) {
             ErrorLog log = new ErrorLog(p, req.getRequestURL().toString(), e);
-            p.addErrorLog(log);
-            participantService.save(p);
+            errorLogRepository.save(log);
         }
     }
 
@@ -49,7 +51,9 @@ class GlobalDefaultExceptionHandler {
             UserDetails cud = (UserDetails) sci.getAuthentication().getPrincipal();
             LOG.info("Error for user:" + cud);
             // do whatever you need here with the UserDetails
-            if(cud instanceof Participant) return (Participant)cud;
+            if(cud instanceof Participant) {
+                return participantService.findByEmail(((Participant) cud).getEmail());
+            }
         }
         return null;
     }
