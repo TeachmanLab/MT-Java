@@ -1,17 +1,12 @@
 package org.mindtrails.domain;
 
-import com.sun.tools.javac.comp.Flow;
 import lombok.Data;
 import org.mindtrails.domain.jsPsych.JsPsychTrial;
-import org.mindtrails.domain.tracking.TaskLog;
 import org.mindtrails.persistence.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Data
