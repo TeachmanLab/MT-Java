@@ -21,8 +21,8 @@ jsPsych.plugins["button-response-correct"] = (function() {
     trial.is_html = (typeof trial.is_html === 'undefined') ? false : trial.is_html;
     trial.prompt = (typeof trial.prompt === 'undefined') ? "" : trial.prompt;
     trial.correct_response = trial.correct_choice || '';
-    trial.incorrect_message = trial.incorrect_message || 'That response is incorrect, in a moment you will have a chance to respond again.';
-    trial.correct_message = trial.correct_message || 'Great Job!';
+    trial.incorrect_message = trial.incorrect_message || 'That response is incorrect. In a moment you will have a chance to respond again.';
+    trial.correct_message = trial.correct_message || 'Great job!';
     trial.delay = trial.delay || 6000; // Seconds to delay, if incorrect response is provided.
 
     // if any trial variables are functions

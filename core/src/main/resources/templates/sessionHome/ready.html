@@ -33,9 +33,9 @@
                             th:text="${participant.fullName}">Jim</span>.
                     </h2>
                     <p>You are ready to begin <span th:text="${currentSession.displayName}"/></p>
-                    <p>This includes ...</p>
+                    <p>This includes:</p>
                     <img th:with="url=(|/images/clock-1-${participant.theme}.png|)" th:src="@{${url}}" alt="icon"/>
-                    <p>A Brief Followup</p>
+                    <p>A brief follow-up</p>
                 </div>
 
                 <div th:if="${currentSession.index &gt; 0 and currentSession.name != 'PostFollowUp'}" >
@@ -46,11 +46,11 @@
                             th:text="${participant.fullName}">Jim</span>.
                     </h2>
                     <p>You are ready to begin <span th:text="${currentSession.displayName}"/></p>
-                    <p>This includes ...</p>
+                    <p>This includes:</p>
                     <img th:with="url=(|/images/clock-20-${participant.theme}.png|)" th:src="@{${url}}" alt="icon"/>
-                    <p>A 20-minute Training</p>
+                    <p>A 20-minute training</p>
                     <img th:with="url=(|/images/clock-1-${participant.theme}.png|)" th:src="@{${url}}" alt="icon"/>
-                    <p>A Brief Followup</p>
+                    <p>A brief follow-up</p>
                 </div>
 
 
@@ -58,7 +58,7 @@
                     <h3>Congratulations! You have earned a $5 gift card.</h3> Please check your email for information on
                     how to redeem it.
                 </div>
-                <p class="session-note">For best results, complete the <span th:text="${currentSession.displayName}"/> by
+                <p class="session-note">For best results, complete <span th:text="${currentSession.displayName}"/> by
                     <br/><span class="date" th:text="${completeBy}">July 10, 2015</span>
                 </p>
                 <a th:href="@{${currentTask.requestMapping}}" th:if="${currentTask}">
