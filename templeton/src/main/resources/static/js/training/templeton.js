@@ -43,19 +43,19 @@ var TEMPLETON_MODULE = (function () {
             8:"Keep hanging on.",
             16:"You are not alone in this!",
             24:"You are taking off!",
-            32:"You're doing puuuurfect"
+            32:"You're doing puuuurfect."
         },
         1: {
             8:"Keep hanging on.",
             16:"You are not alone in this!",
             24:"You are taking off!",
-            32:"You're doing puuuurfect"
+            32:"You're doing puuuurfect."
         },
         2: {
             8:"Add a little color!",
             16:"You're way too fly to give up.",
             24:"Lookin' good!",
-            32:"Almost There!"
+            32:"Almost there!"
         },
         3: {
             8:"Make yourself heard!",
@@ -218,7 +218,7 @@ var TEMPLETON_MODULE = (function () {
                 else feed_back_s += 'We want to encourage you to pay really close attention to the ' +
                     'stories to work out what letters are needed to complete the final words. ' +
                     'This will allow you to get the most out of the training. If any aspect of' +
-                    ' the task is unclear, please email us with any questions at studyteam@mindtrails.org.';
+                    ' the task is unclear, please email us with any questions at <a href="studyteam@mindtrails.org">studyteam@mindtrails.org</a>.';
                 if (pct_ct_c >= 90)
                     feed_back_c += 'That’s terrific, and shows you’re paying really careful attention to the stories!';
                 else if (pct_ct_c < 90 && pct_ct_s >= 70)
