@@ -20,13 +20,16 @@
         <input id="timeOnPage" name="timeOnPage" type="hidden"/>
         <div class="container section compactQuestion">
             <div id="sectionPHQ"></div>
+            <div class="col-md-12">
+                <h4><b> Over the past 2 weeks, how often have you been bothered by any of the following problems?</b></h4>
+            </div>
             <script>
                 var data = {
                     "options": [
                         {"value": 1, "title": "Not at all"},
                         {"value": 2, "title": "Several days"},
                         {"value": 3, "title": "More than half of the days"},
-                        {"value": 4, "title": "Nearly everyday"}
+                        {"value": 4, "title": "Nearly every day"}
                     ],
                     "questions": [
                         {
@@ -45,13 +48,15 @@
         </div>
         <div class="container section compactQuestion">
             <div id="section1"></div>
+            <div class="col-md-12">
+                <h4><b> Please circle the answer that is correct for you.</b></h4>
             <script>
                 var data = {
                     "options": [
                         {"value": 0, "title": "Never"},
                         {"value": 1, "title": "Monthly or less"},
                         {"value": 2, "title": "Two to four times a month"},
-                        {"value": 3, "title": "Tow to three times a week"},
+                        {"value": 3, "title": "Two to three times a week"},
                         {"value": 4, "title": "Four or more times a week"}
                     ],
                     "questions": [
