@@ -3,9 +3,8 @@ package org.mindtrails.controller;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
-import org.joda.time.field.FieldUtils;
-import org.mindtrails.domain.ClientOnly;
-import org.mindtrails.domain.DataOnly;
+import org.mindtrails.domain.ExportMode;
+import org.mindtrails.domain.ImportMode;
 import org.mindtrails.domain.data.DoNotDelete;
 import org.mindtrails.domain.RestExceptions.NoSuchIdException;
 import org.mindtrails.domain.RestExceptions.NoSuchQuestionnaireException;
@@ -21,28 +20,16 @@ import org.mindtrails.persistence.TrialRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.boot.autoconfigure.web.MultipartProperties;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOError;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-
-//import com.opencsv.CSVWriter;
-//import com.opencsv.bean.ColumnPositionMappingStrategy;
-//import com.opencsv.bean.StatefulBeanToCsv;
-//import com.opencsv.bean.StatefulBeanToCsvBuilder;
-//import com.opencsv.exceptions.CsvException;
 
 /**
  * Provides a tool for Exporting data from the system and then
@@ -89,7 +76,7 @@ public class ExportController  {
         throw new NoSuchQuestionnaireException();
     }
 
-    @ClientOnly
+    @ExportMode
     @RequestMapping(value="{name}/{id}", method=RequestMethod.DELETE)
     public @ResponseBody void delete(@PathVariable String name, @PathVariable long id) {
         Class<?> domainType = exportService.getDomainType(name);
@@ -142,7 +129,7 @@ public class ExportController  {
 //        }
 //    }
 
-    @DataOnly
+    @ImportMode
     @RequestMapping(value = "{name}.csv", method= RequestMethod.GET)
     public void listAsCSV(HttpServletResponse response, @PathVariable String name) throws IOException {
 

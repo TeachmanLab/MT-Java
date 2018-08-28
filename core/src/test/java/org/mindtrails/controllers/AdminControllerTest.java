@@ -99,10 +99,11 @@ public class AdminControllerTest extends BaseControllerTest {
         mockMvc.perform(post("/admin/participant/" + p.getId())
                 .with(SecurityMockMvcRequestPostProcessors.user(admin))
                 .param("fullName", "John Q. Doe")
-                .param("email", "new@email.com"));
+                .param("email", "new@email.com"))
+                .andExpect(status().is3xxRedirection());
 
         Participant p2 = participantRepository.findOne(p.getId());
-        assertEquals("John Doe", p2.getFullName());
+        assertEquals("John Q. Doe", p2.getFullName());
         assertEquals("new@email.com", p2.getEmail());
 
     }

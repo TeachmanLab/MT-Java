@@ -4,6 +4,7 @@ package org.mindtrails.service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Assert;
+import org.junit.Before;
 import org.mindtrails.Application;
 import org.mindtrails.MockClasses.*;
 import org.mindtrails.controller.ExportController;
@@ -80,7 +81,6 @@ public class ImportServiceTest extends BaseControllerTest {
     private JsPsychRepository jsPsyRepo;
 
 
-
     private static final Logger LOGGER = LoggerFactory.getLogger((ImportServiceTest.class));
 
 
@@ -96,6 +96,10 @@ public class ImportServiceTest extends BaseControllerTest {
         entityManager.persist(new JsPsychTrial(1l,"Mobile",true));
     }
 
+    @Before
+    public void setMode() {
+        this.service.setMode("import");
+    }
 
     @Override
     public Object[] getControllers() {
@@ -104,7 +108,7 @@ public class ImportServiceTest extends BaseControllerTest {
 
 
     /**
-     * Testing for @DataOnly and @ClientOnly
+     * Testing for @ImportMode and @ExportMode
      * @throws Exception
      */
 
@@ -462,6 +466,7 @@ public class ImportServiceTest extends BaseControllerTest {
 
     @Test
     public void testAutoDownload() throws Exception {
+        service.setMode("import");
         service.importData();
     }
 }

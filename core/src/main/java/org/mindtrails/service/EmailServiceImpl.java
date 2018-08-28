@@ -182,7 +182,7 @@ public class EmailServiceImpl implements EmailService {
         sendEmail(email);
     }
 
-    @ClientOnly
+    @ExportMode
     @Scheduled(cron = "0 0 2 * * *")  // schedules task for 2:00am every day.
     public void sendEmailReminder() {
         List<Participant> participants;
@@ -206,7 +206,7 @@ public class EmailServiceImpl implements EmailService {
         }
     }
 
-    @ClientOnly
+    @ExportMode
     @Scheduled(cron = "0 0 * * * *")   // Runs every hour.
     /**
      * Sends emails to participants when they stopped in the middle of a session

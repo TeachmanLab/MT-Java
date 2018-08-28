@@ -8,7 +8,7 @@ import lombok.Data;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.Interval;
-import org.mindtrails.domain.ClientOnly;
+import org.mindtrails.domain.ExportMode;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.Session;
 import org.mindtrails.domain.Study;
@@ -95,7 +95,7 @@ public class TwilioService {
         }
     }
 
-    @ClientOnly
+    @ExportMode
     @Scheduled(cron = "0 */30 * * * *")  // evey 30 minutes
     public void sendTextReminder() {
         List<Participant> participants;

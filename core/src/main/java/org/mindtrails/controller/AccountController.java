@@ -3,7 +3,7 @@ package org.mindtrails.controller;
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
-import org.mindtrails.domain.ClientOnly;
+import org.mindtrails.domain.ExportMode;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.RestExceptions.MissingEligibilityException;
 import org.mindtrails.domain.VerificationCode;
@@ -335,7 +335,7 @@ public class AccountController extends BaseController {
         return "account";
     }
 
-    @ClientOnly
+    @ExportMode
     @RequestMapping(value="update", method = RequestMethod.POST)
     public String update(ModelMap model, Principal principal,
                          @Valid ParticipantUpdate form,

@@ -37,8 +37,6 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 /**
  * Created with IntelliJ IDEA.
@@ -203,7 +201,7 @@ public class AdminController extends BaseController {
         return "admin/participantUpdate";
     }
 
-    @ClientOnly
+    @ExportMode
     @RequestMapping(value="/participant/{id}", method=RequestMethod.POST)
     public String updateParticipant(ModelMap model,
                                        @PathVariable("id") long id,
@@ -259,7 +257,7 @@ public class AdminController extends BaseController {
         return "admin/listEmails";
     }
 
-    @ClientOnly
+    @ExportMode
     @RequestMapping(value="/sendEmail/{type}")
     public String sendEmail(ModelMap model, Principal principal,
                             @PathVariable("type") String type) throws Exception {
@@ -318,9 +316,9 @@ public class AdminController extends BaseController {
     public String export(ModelMap model, Principal principal) {
         Participant p = getParticipant(principal);
 
-        if (serverMode.toLowerCase().equals("data")) {
+        if (serverMode.toLowerCase().equals("import")) {
             model.addAttribute("downloadsDisabled",false);
-        } else if (serverMode.toLowerCase().equals("client")) {
+        } else if (serverMode.toLowerCase().equals("export")) {
             model.addAttribute("downloadsDisabled",true);
         } else {
             model.addAttribute("downloadsDisabled", Boolean.parseBoolean(downloadsDisabled));

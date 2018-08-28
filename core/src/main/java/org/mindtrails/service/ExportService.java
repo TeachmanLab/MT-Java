@@ -1,6 +1,6 @@
 package org.mindtrails.service;
 
-import org.mindtrails.domain.ClientOnly;
+import org.mindtrails.domain.ExportMode;
 import org.mindtrails.domain.data.DoNotDelete;
 import org.mindtrails.domain.data.Exportable;
 import org.mindtrails.domain.questionnaire.QuestionnaireInfo;
@@ -8,7 +8,6 @@ import org.mindtrails.domain.tracking.ExportLog;
 import org.mindtrails.persistence.ExportLogRepository;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
-import org.mindtrails.persistence.ParticipantExportDAO;
 import org.mindtrails.persistence.ParticipantExportRepository;
 import org.mindtrails.persistence.StudyExportRepository;
 import org.slf4j.Logger;
@@ -184,7 +183,7 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
      * If it's been more than 30 minutes (but less than 2 hours) since the least export, notify
      * the admin of this fact.
      */
-    @ClientOnly
+    @ExportMode
     @Scheduled(cron = "0 0,30 * * * *")
     public void send30MinAlert() {
         LOG.debug("Running 30 minute alert.");
@@ -200,7 +199,7 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
      *    if it's been more than 2 hours but less than 24 hours since last export,
      *    send alerts every 2 hours if no exports are occurring.
      */
-    @ClientOnly
+    @ExportMode
     @Scheduled(cron = "0 0 */2 * * *")
     public void send2hrAlert() {
         LOG.debug("Running 2hr alert.");
@@ -216,7 +215,7 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
      *    a) If we have exceeded the maximum records, alert admin that site is disabled.
      *    b) If it's been more than 24 hours since the last export, alert the admin of this fact.
      */
-    @ClientOnly
+    @ExportMode
     @Scheduled(cron = "0 0 */4 * * *")
     public void send4hrAlert() {
         LOG.debug("Running 4 hour alert.");

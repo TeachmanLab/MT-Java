@@ -27,6 +27,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
@@ -37,18 +38,8 @@ import java.util.*;
 
 
 /**
- * Used to award a gift certificates to participants.
- *
- * Documentation is available here: https://github.com/tangocarddev/RaaS
- * There is great tool for working directly with the API here: https://integration-www.tangocard.com/raas_api_console/
- * Settings are read in from the file here: resources/application.properties, just look for the section on Tango.
- *
- * If you need to add money to the account for testing, the fake credit card we have setup has a cid of 32733202
- *
- *
+ * Imports data from another instance, removing data from that system and loading it here.
  */
-
-//@Data
 @Service
 public class ImportService {
 
@@ -69,6 +60,10 @@ public class ImportService {
     @Value("${import.delete}")
     private boolean deleteMode;
 
+    @Value("${import.mode}")
+    private String mode;
+
+
     @Autowired ExportService exportService;
 
     @Autowired StudyRepository studyRepository;
@@ -79,10 +74,22 @@ public class ImportService {
 
 
 
-/**
- *  Class finder.
- * */
+    /** Just to help with testing, should be set with a config file in general */
+    public void setMode(String mode) {
+        this.mode = mode;
+    }
 
+    public boolean isExporting() {
+        LOGGER.info("The current mode is: " + this.mode);
+        LOGGER.info("Is this exporting? " +this.mode.trim().toLowerCase().equals("export"));
+        return this.mode.trim().toLowerCase().equals("export");
+    }
+
+    public boolean isImporting() {
+        LOGGER.info("The current mode is: " + this.mode);
+        LOGGER.info("Is this importing? " +this.mode.trim().toLowerCase().equals("import"));
+        return this.mode.trim().toLowerCase().equals("import");
+    }
 
 
     /**
@@ -109,16 +116,13 @@ public class ImportService {
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<String> request = new HttpEntity<String>(headers());
         URI uri = URI.create(path + "/api/export/");
-        LOGGER.info("calling url:" + uri.toString());
-        ResponseEntity<List<Scale>> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, request, new ParameterizedTypeReference<List<Scale>>() {
-        });
-        LOGGER.info("Get something?");
         try {
+            ResponseEntity<List<Scale>> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, request, new ParameterizedTypeReference<List<Scale>>() {
+            });
             List<Scale> response = responseEntity.getBody();
             return response;
         } catch (HttpClientErrorException e) { throw new ImportError(e);}
     }
-
 
 
     /**
@@ -210,7 +214,7 @@ public class ImportService {
      * This is the function that used to delete information from the client site.
      */
 
-    @DataOnly
+    @ImportMode
     public Boolean safeDelete(String scale, long id) {
         LOGGER.info("Successfully launch the delete function");
         boolean deleteable = !exportService.getDomainType(scale).isAnnotationPresent(DoNotDelete.class);
@@ -234,7 +238,7 @@ public class ImportService {
  * */
 
 
-    @DataOnly
+    @ImportMode
     public int localBackup(String scale, File[] list) {
         LOGGER.info("Successfully launch local backup");
         int error = 0;
@@ -296,7 +300,7 @@ public class ImportService {
      */
 
 
-    @DataOnly
+    @ImportMode
     public boolean saveParticipant(String is){
         LOGGER.info("Try to save the participant table after saving the study table.");
         ObjectMapper mapper = new ObjectMapper();
@@ -400,7 +404,7 @@ public class ImportService {
      *
      * */
 
-    @DataOnly
+    @ImportMode
     public boolean parseDatabase(String scale, String is){
         LOGGER.info("Get into the parseDatabase function");
         ObjectMapper mapper = new ObjectMapper();
@@ -441,7 +445,7 @@ public class ImportService {
     }
 
 
-    @DataOnly
+    @ImportMode
     public int updateParticipantLocal() {
         LOGGER.info("Get into the updateParticipant function.");
         File[] files = getFileList("Participant");
@@ -455,7 +459,7 @@ public class ImportService {
     }
 
 
-    @DataOnly
+    @ImportMode
     public int updateStudyLocal() {
         LOGGER.info("Get into the updateStudy function.");
         File[] files = getFileList("Study");
@@ -468,7 +472,7 @@ public class ImportService {
         return error;
     }
 
-    @DataOnly
+    @ImportMode
     public boolean updateParticipantOnline() {
         LOGGER.info("Get into the updateParticipant function");
         String newParticipant = getOnline(url,"ParticipantExportDAO");
@@ -479,7 +483,7 @@ public class ImportService {
         return false;
     }
 
-    @DataOnly
+    @ImportMode
     public boolean updateStudyOnline() {
         LOGGER.info("Get into the updatestudy function");
         String newStudy = getOnline(url,"study");
@@ -496,8 +500,8 @@ public class ImportService {
  *  Every five minutes the program will try to download all the data.
  * */
 
-    @DataOnly
-    //@Scheduled(cron = "0 5 * * * *")
+    @ImportMode
+    @Scheduled(cron = "0 5 * * * *")
     public void importData() {
         LOGGER.info("Trying to download data from api/export.");
         boolean newStudy = updateStudyOnline();
@@ -531,7 +535,7 @@ public class ImportService {
      *
      * The backup routine.
      */
-    @DataOnly
+    @ImportMode
     //@Scheduled(cron = "0 * * * * *")
     public void backUpData() {
         LOGGER.info("Try to backup data from local.");
@@ -565,7 +569,7 @@ public class ImportService {
 //    /**
 //     * This is just an in-app testing. Need to be deleted before launch.
 //     */
-//    @DataOnly
+//    @ImportMode
 //    //@Scheduled(cron = "0 * * * * *")
 //    public void testingBackUp() {
 //        LOGGER.info("Try to backup data from local.");

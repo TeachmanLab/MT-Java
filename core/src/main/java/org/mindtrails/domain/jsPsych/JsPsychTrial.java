@@ -37,7 +37,7 @@ public class JsPsychTrial{
     private double time_elapsed;
     private String internal_node_id;
     private boolean correct;
-
+    //TODO:  Create a constraint here that forces a connetion with the participant.
     private Long participant;
     private String session;
     private String study;

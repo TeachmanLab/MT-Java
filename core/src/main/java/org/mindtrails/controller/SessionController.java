@@ -3,7 +3,7 @@ package org.mindtrails.controller;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.mindtrails.domain.ClientOnly;
+import org.mindtrails.domain.ExportMode;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.Session;
 import org.mindtrails.domain.Study;
@@ -26,7 +26,6 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Created with IntelliJ IDEA.
@@ -127,7 +126,7 @@ public class SessionController extends BaseController {
     }
 
 
-    @ClientOnly
+    @ExportMode
     @RequestMapping("/next")
     public View nextStepInSession(ModelMap model, Principal principal) {
 
