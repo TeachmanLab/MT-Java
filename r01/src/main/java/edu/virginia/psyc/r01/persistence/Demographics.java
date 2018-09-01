@@ -15,7 +15,6 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class Demographics extends LinkedQuestionnaireData {
-    private String GenderId;
     private int BirthYear;
     private String Ethnicity;
     private String Country;
@@ -26,6 +25,7 @@ public class Demographics extends LinkedQuestionnaireData {
     //private String Devices;
     private String PtpReason;
     private String PtpReasonOther;
+    private String Gender;
 
     @ElementCollection
     @CollectionTable(name = "demographics_race", joinColumns = @JoinColumn(name = "id"))
