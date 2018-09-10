@@ -324,7 +324,7 @@ public class AdminController extends BaseController {
             model.addAttribute("downloadsDisabled", Boolean.parseBoolean(downloadsDisabled));
         };
         try {
-            model.addAttribute("scales", importService.importList(url));
+            model.addAttribute("scales", importService.fetchListOfScales());
         } catch (Exception e) {
             // may not be able to contact the importService, don't just die here.
             model.addAttribute("scales_error", "unable to load scales from import service.");
@@ -430,7 +430,7 @@ public class AdminController extends BaseController {
     @RequestMapping(value = "/getScale", method = RequestMethod.GET)
     public @ResponseBody Map<String, ArrayList<countMap>> completeReport(Principal principal) {
         Study currentStudy = getParticipant(principal).getStudy();
-        List<Scale> scaleList = importService.importList(url);
+        List<Scale> scaleList = importService.fetchListOfScales();
         List<Participant> realAccount = participantRepository.findParticipantsByTestAccountIsFalseAndAdminIsFalse();
         Map<String,ArrayList<countMap>> scaleCountMap = new HashMap<>();
         for (Scale scale:scaleList) {

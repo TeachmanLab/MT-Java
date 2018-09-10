@@ -3,7 +3,7 @@ package org.mindtrails.service;
 import org.mindtrails.domain.ExportMode;
 import org.mindtrails.domain.data.DoNotDelete;
 import org.mindtrails.domain.data.Exportable;
-import org.mindtrails.domain.questionnaire.QuestionnaireInfo;
+import org.mindtrails.domain.questionnaire.ExportableInfo;
 import org.mindtrails.domain.tracking.ExportLog;
 import org.mindtrails.persistence.ExportLogRepository;
 import org.joda.time.DateTime;
@@ -86,7 +86,7 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
 
     public int totalDeleteableRecords() {
         int sum = 0;
-        for(QuestionnaireInfo i : listRepositories()) {
+        for(ExportableInfo i : listRepositories()) {
             if(i.isDeleteable()) sum += i.getSize();
         }
         return sum;
@@ -127,8 +127,8 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
     /**
      * Returns a list of all repositories
      */
-    public List<QuestionnaireInfo> listRepositories() {
-        List<QuestionnaireInfo> names = new ArrayList<>();
+    public List<ExportableInfo> listRepositories() {
+        List<ExportableInfo> names = new ArrayList<>();
         if(repositories == null) {
             return names;
         }
@@ -140,7 +140,7 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
             if(domainType.isAnnotationPresent(Exportable.class)) {
                 deleteableFlag = !domainType.isAnnotationPresent(DoNotDelete.class);
                 JpaRepository rep = (JpaRepository)repository;
-                QuestionnaireInfo info = new QuestionnaireInfo(domainType.getSimpleName(), rep.count(), deleteableFlag);
+                ExportableInfo info = new ExportableInfo(domainType.getSimpleName(), rep.count(), deleteableFlag);
                 names.add(info);
             }
         }

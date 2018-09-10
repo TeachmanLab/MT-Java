@@ -2,7 +2,7 @@ package edu.virginia.psyc.r34.DAO;
 
 import edu.virginia.psyc.r34.Application;
 import edu.virginia.psyc.r34.domain.R34Study;
-import org.mindtrails.persistence.ParticipantExportDAO;
+import org.mindtrails.persistence.ParticipantExport;
 import org.mindtrails.persistence.ParticipantExportRepository;
 import edu.virginia.psyc.r34.service.R34ParticipantService;
 import org.joda.time.DateTime;
@@ -112,8 +112,8 @@ public class ParticipantRepositoryTest {
     public void participantCanBeRetrievedAsExportableObject() {
 
         Participant participant;
-        ParticipantExportDAO exportDAO = null;
-        List<ParticipantExportDAO> exportList;
+        ParticipantExport exportDAO = null;
+        List<ParticipantExport> exportList;
         String email =  "john@x.com";
 
         // Create a participant
@@ -128,7 +128,7 @@ public class ParticipantRepositoryTest {
 
         exportList = exportRepository.findAll();
 
-        for (ParticipantExportDAO e : exportList) {
+        for (ParticipantExport e : exportList) {
             if (e.getId() == participant.getId()) {
                 exportDAO = e;
             }

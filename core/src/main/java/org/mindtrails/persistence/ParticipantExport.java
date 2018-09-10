@@ -19,7 +19,7 @@ import java.util.Date;
 @Table(name="participant")
 @Exportable
 @DoNotDelete
-public class ParticipantExportDAO {
+public class ParticipantExport {
 
     @Id private long id;
     private String theme;
@@ -40,6 +40,4 @@ public class ParticipantExportDAO {
     @JsonIdentityReference(alwaysAsId=true) // otherwise first ref as POJO, others as id
     @JsonProperty(value = "study")
     protected Study study;
-
-
 }

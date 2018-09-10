@@ -22,7 +22,7 @@ import java.util.Date;
 @Table(name="study")
 @Exportable
 @DoNotDelete
-public class StudyExportDAO {
+public class StudyExport {
     @Id private long id;
     private String studyType;
     private String conditioning;

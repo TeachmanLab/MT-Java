@@ -3,6 +3,7 @@ package org.mindtrails.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
 import org.junit.Before;
 import org.mindtrails.Application;
@@ -10,9 +11,7 @@ import org.mindtrails.MockClasses.*;
 import org.mindtrails.controller.ExportController;
 import org.mindtrails.controller.QuestionController;
 import org.mindtrails.controllers.BaseControllerTest;
-import org.mindtrails.controllers.ExportControllerTest;
 import org.mindtrails.domain.Participant;
-import org.mindtrails.domain.Study;
 import org.mindtrails.domain.importData.Scale;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,17 +24,14 @@ import org.mindtrails.persistence.JsPsychRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
-import org.springframework.stereotype.Component;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MvcResult;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
-import javax.validation.constraints.AssertTrue;
 
 import static junit.framework.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -43,8 +39,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.io.File;
-import java.io.FileFilter;
-import java.util.ArrayList;
+import java.io.InputStream;
 import java.util.List;
 
 
@@ -113,17 +108,11 @@ public class ImportServiceTest extends BaseControllerTest {
      */
 
 
-    @Test
-    public void callFunction() throws Exception {
-        LOGGER.info("These request should fail:");
-        Object answer = service.deleteOnline("",1);
-        assertFalse((boolean)answer);
-    }
 
     @Test
     public void getScaleList() throws Exception {
         LOGGER.info("Check point 1");
-        List<Scale> list = service.importList("");
+        List<Scale> list = service.fetchListOfScales();
         LOGGER.info("Check point 2");
         for (Scale scale : list) {
             LOGGER.info(scale.getName());
@@ -135,55 +124,26 @@ public class ImportServiceTest extends BaseControllerTest {
     @Test
     public void getScale() throws Exception {
         LOGGER.info("Successfully fired getScale()");
-        String list = service.getOnline("",testScale);
-        LOGGER.info("Successfully read online: " + list);
+        InputStream list = service.fetchScale(testScale);
+        LOGGER.info("Successfully read online: " + list.toString());
         assertNotNull(list);
     }
 
 
-    @Test
-    public void getType() throws Exception {
-        LOGGER.info("Successfully fired getScaleType");
-        Class<?> ans = service.getClass(testScale);
-        LOGGER.info("Got it! This is a " + ans + " !");
-        assertNotNull(ans);
-    }
-
-    @Test
-    public void saveScale() throws Exception {
-        LOGGER.info("Save scale fired.");
-        String is = service.getOnline("",testScale);
-        LOGGER.info("Got the data! " + is);
-        assertTrue(service.parseDatabase(testScale, is));
-    }
-
-
-    @Test
-    public void updateParticipantTableOnline() throws Exception {
-        LOGGER.info("Try to update the participant table");
-        assertTrue(service.updateParticipantOnline());
-    }
 
 
 
-    @Test
-    public void updateStudyTable() throws Exception {
-        LOGGER.info("Try to update the study table");
-        assertTrue(service.updateStudyOnline());
-    }
-
-
-    @Test
+/*    @Test
     public void saveAllLog() throws Exception {
         LOGGER.info("Try to update all the log files");
         int i = 0;
         List<String> good = new ArrayList<String>();
         List<String> bad = new ArrayList<String>();
-        List<Scale> list = service.importList("");
+        List<Scale> list = service.fetchListOfScales();
         for (Scale scale : list) {
             if (scale.getName().toLowerCase().contains("log")) {
-                String is = service.getOnline("",scale.getName());
-                if (service.parseDatabase(scale.getName(), is)) {
+                String is = service.fetchScale("",scale.getName());
+                if (service.importScale(scale.getName(), is)) {
                     i += 1;
                     good.add(scale.getName());
                 } else {
@@ -196,19 +156,19 @@ public class ImportServiceTest extends BaseControllerTest {
         LOGGER.info("Here is the bad list:");
         for (String flag : bad) LOGGER.info(flag);
         assertEquals(i, list.size());
-    }
+    }*/
 
 
-    @Test
+/*    @Test
     public void saveAllScale() throws Exception {
         LOGGER.info("Save All Scale!!!!");
         int i = 0;
         List<String> good = new ArrayList<String>();
         List<String> bad = new ArrayList<String>();
-        List<Scale> list = service.importList("");
+        List<Scale> list = service.fetchListOfScales();
         for (Scale scale : list) {
-            String is = service.getOnline("",scale.getName());
-            if (service.parseDatabase(scale.getName(), is)) {
+            String is = service.fetchScale("",scale.getName());
+            if (service.importScale(scale.getName(), is)) {
                 i += 1;
                 good.add(scale.getName());
             } else {
@@ -220,68 +180,10 @@ public class ImportServiceTest extends BaseControllerTest {
         LOGGER.info("Here is the bad list:");
         for (String flag : bad) LOGGER.info(flag);
         assertEquals(i, list.size());
-    }
+    }*/
 
 
-    /**
-     * Test if you can import the participant table.
-     *
-     * @throws Exception
-     */
 
-    @Test
-    public void testParticipantDeIdentifiedInfoCorrect() throws Exception {
-        repo.flush();
-        participant.setTheme("blue");
-        participant.setOver18(true);
-        participantRepository.save(participant);
-        MvcResult result = mockMvc.perform(get("/api/export/Participant")
-                .with(SecurityMockMvcRequestPostProcessors.user(admin)))
-                .andExpect((status().is2xxSuccessful()))
-                .andReturn();
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode actualObj = mapper.readTree(result.getResponse().getContentAsString());
-
-        // Clear out all the participants, so we have an empty database.
-        participantRepository.deleteAll();
-        repo.flush();
-
-        // Assure that the data we have as a json structure contains what we explect it to contain.
-        Assert.assertTrue("This should be true:", service.saveParticipant(actualObj.toString()));
-        Assert.assertTrue("There should not be an email colomn in your json.", actualObj.get(0).path("email").isMissingNode());
-        Assert.assertTrue(actualObj.get(0).path("over18").asBoolean());
-        Assert.assertEquals("This should be blue", actualObj.get(0).path("theme").asText(), "blue");
-        Assert.assertNotNull("There should be an id specified", actualObj.get(0).path("id").asLong());
-        long id = actualObj.get(0).path("id").asLong();
-        Participant savedParticipant = participantRepository.findOne(id);
-        Assert.assertNotNull("The participant should be saved under the same id as it was before", savedParticipant);
-
-        System.out.println(actualObj);
-    }
-
-
-    /**
-     * See if you can import the study table.
-     *
-     * @throws Exception
-     */
-    @Test
-    public void testStudyInfoCorrect() throws Exception {
-        repo.flush();
-        s.setConditioning("Testing");
-        studyRepository.save(s);
-        MvcResult result = mockMvc.perform(get("/api/export/Study")
-                .with(SecurityMockMvcRequestPostProcessors.user(admin)))
-                .andExpect((status().is2xxSuccessful()))
-                .andReturn();
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode actualObj = mapper.readTree(result.getResponse().getContentAsString());
-        studyRepository.delete(s);
-        studyRepository.delete(m);
-        Assert.assertTrue("This should be true:", service.parseDatabase("study", actualObj.toString()));
-        Assert.assertEquals("This should be testing:", "\"Testing\"", actualObj.get(0).path("conditioning").toString());
-        Assert.assertEquals("This should be 1:", 1, actualObj.get(0).path("id").asInt());
-    }
 
     /**
      * See if you can import participant and study tables and then link them back together.
@@ -327,9 +229,7 @@ public class ImportServiceTest extends BaseControllerTest {
         studyRepository.delete(s);
         studyRepository.delete(m);
         repo.flush();
-        Assert.assertTrue("This should be true as well:", service.parseDatabase("study", studyObj.toString()));
-        Boolean answer = service.saveParticipant(actualObj.toString());
-        Assert.assertTrue("This should be true:", answer);
+        service.importScale("study", IOUtils.toInputStream(studyObj.toString()));
         Assert.assertTrue("There should not be an email column in your json.", actualObj.get(0).path("email").isMissingNode());
         Assert.assertTrue(actualObj.get(0).path("over18").asBoolean());
         Assert.assertEquals("This should be blue", actualObj.get(0).path("theme").asText(), "blue");
@@ -354,7 +254,7 @@ public class ImportServiceTest extends BaseControllerTest {
 
         taskLogRepository.deleteAll();
         repo.flush();
-        Assert.assertTrue("This should be true:",service.parseDatabase("taskLog",taskObj.toString()));
+        service.importScale("taskLog",IOUtils.toInputStream(taskObj.toString()));
         System.out.println(taskObj.toString());
 
 
@@ -376,7 +276,7 @@ public class ImportServiceTest extends BaseControllerTest {
         JsonNode questObj = mapper.readTree(result.getResponse().getContentAsString());
 
         repo.delete((long) 1);
-        Assert.assertTrue("This should be true:", service.parseDatabase("TestQuestionnaire", questObj.toString()));
+        service.importScale("TestQuestionnaire", IOUtils.toInputStream(questObj.toString()));
 
         MvcResult resultLog = mockMvc.perform(get("/api/export/EmailLog")
                 .with(SecurityMockMvcRequestPostProcessors.user(admin)))
@@ -385,9 +285,7 @@ public class ImportServiceTest extends BaseControllerTest {
         JsonNode logObj = mapper.readTree(resultLog.getResponse().getContentAsString());
 
         emailRepo.deleteAll();
-        Assert.assertTrue("This should be true:", service.parseDatabase("EmailLog", logObj.toString()));
-
-
+        service.importScale("EmailLog", IOUtils.toInputStream(logObj.toString()));
     }
 
     /**
@@ -404,24 +302,6 @@ public class ImportServiceTest extends BaseControllerTest {
     }
 
 
-    /**
-     *  Test if readJSON is working.
-     */
-    @Test
-    public void testReadJSON() throws Exception {
-        String testScale = "WhatIBelieve";
-        File[] list = service.getFileList(testScale);
-        System.out.println(service.readJSON(list[0]));
-    }
-
-    /**
-     * Test if you can import the study data locally.
-     */
-
-    @Test
-    public void testImportStudy() throws Exception {
-        assertTrue(service.updateStudyLocal()==0);
-    }
 
     /**
      * This is a test for the missing data log.
@@ -436,15 +316,7 @@ public class ImportServiceTest extends BaseControllerTest {
         assertTrue(service.saveMissingLog(obj.elements().next(),tScale));
 
     }
-    /**
-     *  Test if you can import the participant data locally.
-     */
 
-    @Test
-    public void testImportParticipant() throws Exception {
-        service.updateStudyLocal();
-        assertTrue(service.updateParticipantLocal() == 0);
-    }
     /**
      *  Test if you can import the JsPsych data
      */
@@ -459,16 +331,11 @@ public class ImportServiceTest extends BaseControllerTest {
         JsonNode questObj = mapper.readTree(result.getResponse().getContentAsString());
         jsPsyRepo.flush();
         jsPsyRepo.deleteAll();
-        Assert.assertTrue("This should be true:",service.parseDatabase("JsPsychTrial", questObj.toString()));
+        service.importScale("JsPsychTrial", IOUtils.toInputStream(questObj.toString()));
         jsPsyRepo.flush();
         System.out.println(questObj.toString());
     }
 
-    @Test
-    public void testAutoDownload() throws Exception {
-        service.setMode("import");
-        service.importData();
-    }
 }
 
 

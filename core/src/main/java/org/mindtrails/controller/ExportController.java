@@ -9,7 +9,7 @@ import org.mindtrails.domain.data.DoNotDelete;
 import org.mindtrails.domain.RestExceptions.NoSuchIdException;
 import org.mindtrails.domain.RestExceptions.NoSuchQuestionnaireException;
 import org.mindtrails.domain.RestExceptions.NotDeleteableException;
-import org.mindtrails.domain.questionnaire.QuestionnaireInfo;
+import org.mindtrails.domain.questionnaire.ExportableInfo;
 import org.mindtrails.domain.tracking.ExportLog;
 import org.mindtrails.persistence.ExportLogRepository;
 import org.mindtrails.persistence.ParticipantRepository;
@@ -51,10 +51,10 @@ public class ExportController  {
 
 
     @RequestMapping(method= RequestMethod.GET)
-    public @ResponseBody List<QuestionnaireInfo> list() {
-        List<QuestionnaireInfo> infoList = exportService.listRepositories();
+    public @ResponseBody List<ExportableInfo> list() {
+        List<ExportableInfo> infoList = exportService.listRepositories();
         int sum = 0;
-        for(QuestionnaireInfo i : infoList) sum += i.getSize();
+        for(ExportableInfo i : infoList) sum += i.getSize();
         exportLogRepository.save(new ExportLog(sum));
         return (infoList);
     }

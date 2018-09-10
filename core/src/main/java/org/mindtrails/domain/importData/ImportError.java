@@ -16,5 +16,16 @@ public class ImportError extends RuntimeException {
         LOGGER.error("Import API Error (" + e.getStatusCode() + "): " + e.getResponseBodyAsString());
     }
 
+    public ImportError(Exception e) {
+        super(e.getMessage());
+        LOGGER.error("Import API Error: " + e.getMessage());
+    }
+
+    public ImportError(String description) {
+        super(description);
+        LOGGER.error("Import API Error: " + description);
+    }
+
+
 }
 

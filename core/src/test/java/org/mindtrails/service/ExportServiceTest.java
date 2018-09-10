@@ -5,7 +5,7 @@ import org.mindtrails.MockClasses.TestQuestionnaire;
 import org.mindtrails.MockClasses.TestStudy;
 import org.mindtrails.MockClasses.TestUndeleteable;
 import org.mindtrails.domain.Participant;
-import org.mindtrails.domain.questionnaire.QuestionnaireInfo;
+import org.mindtrails.domain.questionnaire.ExportableInfo;
 import org.mindtrails.domain.tracking.EmailLog;
 import org.mindtrails.domain.tracking.ExportLog;
 import org.mindtrails.domain.tracking.GiftLog;
@@ -60,13 +60,13 @@ public class ExportServiceTest {
     @Test
     public void testExportableEntityIncluded() {
         createTestEntries();
-        List<QuestionnaireInfo> infos = service.listRepositories();
-        QuestionnaireInfo tests = null;
-        QuestionnaireInfo testUndeleteables = null;
-        QuestionnaireInfo giftLog = null;
-        QuestionnaireInfo emailLog = null;
+        List<ExportableInfo> infos = service.listRepositories();
+        ExportableInfo tests = null;
+        ExportableInfo testUndeleteables = null;
+        ExportableInfo giftLog = null;
+        ExportableInfo emailLog = null;
 
-        for(QuestionnaireInfo i : infos) {
+        for(ExportableInfo i : infos) {
             if (i.getName().equals(TestQuestionnaire.class.getSimpleName())) tests = i;
             if (i.getName().equals(TestUndeleteable.class.getSimpleName())) testUndeleteables = i;
             if (i.getName().equals(GiftLog.class.getSimpleName())) giftLog = i;

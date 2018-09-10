@@ -32,9 +32,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.thymeleaf.spring4.expression.Mvc;
 
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -74,7 +72,9 @@ public class ExportControllerTest extends BaseControllerTest {
     private void createTestEntry() {
         TestQuestionnaire q = new TestQuestionnaire();
         q.setDate(new Date());
-        q.setValue("MyTestValue");
+        q.setValue("cheese");
+        q.setMultiValue(Arrays.asList("cheddar", "havarti", "raw fungus"));
+        q.setTimeOnPage(9.999);
         repo.save(q);
         repo.flush();
     }
@@ -84,17 +84,6 @@ public class ExportControllerTest extends BaseControllerTest {
         return (new Object[]{exportController, questionController});
     }
 
-    @Test
-    public void testPostDataForm() throws Exception {
-        ResultActions result = mockMvc.perform(post("/questions/TestQuestionnaire")
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .with(SecurityMockMvcRequestPostProcessors.user(participant))
-                .param("value", "cheese")
-                .param("multiValue", "cheddar")
-                .param("multiValue", "havarti")
-                .param("timeOnPage","9.999"))
-                .andExpect((status().is3xxRedirection()));
-    }
 
     @Test
     public void testEntryDataIsReturned() {
@@ -106,7 +95,7 @@ public class ExportControllerTest extends BaseControllerTest {
     @Test
     public void testCSVDownload() throws Exception {
         createTestEntry();
-        MvcResult result = mockMvc.perform(get("/api/export/ParticipantExportDAO.csv")
+        MvcResult result = mockMvc.perform(get("/api/export/ParticipantExport.csv")
                 .with(user(admin)))
                 .andExpect((status().is2xxSuccessful()))
                 .andReturn();
@@ -173,8 +162,7 @@ public class ExportControllerTest extends BaseControllerTest {
      */
     @Test
     public void testThatPostedDataIsExportedAsJSon() throws Exception {
-        testPostDataForm();
-        repo.flush();
+        createTestEntry();
         MvcResult result = mockMvc.perform(get("/api/export/TestQuestionnaire")
                 .with(SecurityMockMvcRequestPostProcessors.user(admin)))
                 .andExpect((status().is2xxSuccessful()))
@@ -188,8 +176,7 @@ public class ExportControllerTest extends BaseControllerTest {
 
     @Test
     public void testMultiValueElementsCorrectlyPassedThrough() throws Exception {
-        testPostDataForm();
-        repo.flush();
+        createTestEntry();
         MvcResult result = mockMvc.perform(get("/api/export/TestQuestionnaire")
                 .with(SecurityMockMvcRequestPostProcessors.user(admin)))
                 .andExpect((status().is2xxSuccessful()))
@@ -206,9 +193,7 @@ public class ExportControllerTest extends BaseControllerTest {
 
     @Test
     public void testParticipantDeIdentifiedInfoCorrect() throws Exception {
-        testPostDataForm();
-        repo.flush();
-        participant.setTheme("blue");
+        participant.setTheme("chartreuse");
         participant.setOver18(true);
         MvcResult result = mockMvc.perform(get("/api/export/Participant")
                 .with(SecurityMockMvcRequestPostProcessors.user(admin)))
@@ -216,16 +201,17 @@ public class ExportControllerTest extends BaseControllerTest {
                 .andReturn();
         ObjectMapper mapper = new ObjectMapper();
         participantRepository.save(participant);
+        participantRepository.flush();
         JsonNode actualObj = mapper.readTree(result.getResponse().getContentAsString());
-        assertTrue("There should not be an email colomn in your json.",actualObj.get(0).path("email").isMissingNode());
+        assertTrue("There should not be an email column in your json.",actualObj.get(0).path("email").isMissingNode());
         assertTrue(actualObj.get(0).path("over18").asBoolean());
-        assertEquals("This should be blue",actualObj.get(0).path("theme").asText(),"blue");
+        assertEquals("This should be blue",actualObj.get(0).path("theme").asText(),"chartreuse");
         System.out.println(actualObj);
     }
 
     @Test
     public void testStudyInfoCorrect() throws Exception {
-        testPostDataForm();
+        createTestEntry();
         repo.flush();
         s.setConditioning("Testing");
         studyRepository.save(s);
