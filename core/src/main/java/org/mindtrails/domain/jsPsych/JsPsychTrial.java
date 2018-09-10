@@ -16,7 +16,7 @@ import java.util.Date;
 @Table(name = "JsPsychTrial")
 @Data
 @Exportable
-public class JsPsychTrial{
+public class JsPsychTrial {
 
     @Id
     @GenericGenerator(name = "QUESTION_GEN", strategy = "org.mindtrails.persistence.MindtrailsIdGenerator", parameters = {

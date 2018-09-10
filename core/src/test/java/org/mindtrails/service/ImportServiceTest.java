@@ -168,25 +168,6 @@ public class ImportServiceTest extends BaseControllerTest {
      *  Test if you can import the task_log and link it to the study object.
      */
 
-    @Test
-    public void testTaskLog() throws Exception {
-        createTestEntries();
-        MvcResult result = mockMvc.perform(get("/api/export/TaskLog")
-                .with(SecurityMockMvcRequestPostProcessors.user(admin)))
-                .andExpect((status().is2xxSuccessful()))
-                .andReturn();
-
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode taskObj = mapper.readTree(result.getResponse().getContentAsString());
-
-        taskLogRepository.deleteAll();
-        repo.flush();
-        service.importScale("taskLog",IOUtils.toInputStream(taskObj.toString()));
-        System.out.println(taskObj.toString());
-
-
-    }
-
 
     /**
      * Test if you can import the questionnaire and logs beside task_log.
