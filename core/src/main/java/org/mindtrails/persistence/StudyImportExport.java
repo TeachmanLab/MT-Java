@@ -14,7 +14,7 @@ import java.util.Date;
 
 /**
  * Created by Diheng on Jan 16 2018.
- * Data about a study that can be exported.
+ * Data about a study that can be exported and imported.  
  *
  * */
 @Data
@@ -22,7 +22,7 @@ import java.util.Date;
 @Table(name="study")
 @Exportable
 @DoNotDelete
-public class StudyExport {
+public class StudyImportExport {
     @Id private long id;
     private String studyType;
     private String conditioning;

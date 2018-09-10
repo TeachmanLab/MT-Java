@@ -16,7 +16,7 @@ import org.mindtrails.domain.importData.ImportError;
 import org.mindtrails.domain.importData.Scale;
 import org.mindtrails.domain.tracking.TaskLog;
 import org.mindtrails.persistence.ParticipantExport;
-import org.mindtrails.persistence.StudyExport;
+import org.mindtrails.persistence.StudyImportExport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.client.AutoConfigureWebClient;
@@ -33,6 +33,7 @@ import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withBadRequest;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
@@ -147,7 +148,7 @@ public class ImportServicePartTwoTest  extends BaseControllerTest {
     public void testStudyImport() throws Exception {
 
         long testId = 1234L;
-        StudyExport study = new StudyExport();
+        StudyImportExport study = new StudyImportExport();
         study.setStudyType("Test Study");
         study.setId(testId);
         study.setConditioning("Testing");
@@ -166,6 +167,48 @@ public class ImportServicePartTwoTest  extends BaseControllerTest {
     }
 
 
+    /**
+     * See if you can import participant and study tables and then link them back together.
+     *
+     * @throws Exception
+     */
+
+    @Test
+    public void testPSInfoCorrect() throws Exception {
+        long studyId = 1234L;
+        StudyImportExport study = new StudyImportExport();
+        study.setStudyType("Test Study");
+        study.setId(studyId);
+        study.setConditioning("Testing");
+        study.setCurrentTaskIndex("0");
+
+        // Bit of hackery here to construct the relationship at export ime.
+        TestStudy testStudy = new TestStudy();
+        testStudy.setId(studyId);
+
+        ParticipantExport testP = new ParticipantExport();
+        long participantId = 21L;
+        testP.setId(participantId);
+        testP.setStudy(testStudy);
+        testP.setTheme("blue");
+        testP.setOver18(true);
+
+        importService.setMode("import");
+        importService.importScale("study", IOUtils.toInputStream(
+                objectMapper.writeValueAsString(study)
+        ));
+        importService.importScale("participant", IOUtils.toInputStream(
+                objectMapper.writeValueAsString(testP)
+        ));
+
+        Participant p = participantRepository.findOne(participantId);
+        assertNotNull(p);
+        assertNotNull(p.getStudy());
+        assertEquals("Test Study", p.getStudy().getName());
+        assertEquals("Testing", p.getStudy().getConditioning());
+
+
+    }
 
 
 }

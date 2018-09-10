@@ -434,7 +434,7 @@ public class AdminController extends BaseController {
         List<Participant> realAccount = participantRepository.findParticipantsByTestAccountIsFalseAndAdminIsFalse();
         Map<String,ArrayList<countMap>> scaleCountMap = new HashMap<>();
         for (Scale scale:scaleList) {
-            JpaRepository rep = exportService.getRepositoryForName(scale.getName());
+            JpaRepository rep = exportService.getRepositoryForName(scale.getName(), false);
             ScaleCount s = new ScaleCount(currentStudy,scale,realAccount,rep);
             if (!(s.getUniqueIDCount().equals(Long.valueOf(-1)))) {scaleCountMap.put(s.getScaleName(),s.getPairs());}
         }

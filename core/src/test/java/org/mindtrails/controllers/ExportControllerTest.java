@@ -3,6 +3,7 @@ package org.mindtrails.controllers;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -16,8 +17,12 @@ import org.mindtrails.controller.ExportController;
 import org.mindtrails.controller.QuestionController;
 import org.mindtrails.domain.data.DoNotDelete;
 import org.mindtrails.domain.RestExceptions.NotDeleteableException;
+import org.mindtrails.domain.data.Exportable;
+import org.mindtrails.domain.questionnaire.ExportableInfo;
 import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
+import org.mindtrails.domain.questionnaire.QuestionnaireData;
+import org.mindtrails.service.ImportService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,16 +65,20 @@ public class ExportControllerTest extends BaseControllerTest {
     @Autowired
     private ExportController exportController;
     @Autowired
+    private ImportService importService;
+    @Autowired
     private QuestionController questionController;
     @Autowired
     private TestQuestionnaireRepository repo;
     @Autowired
     private TestUndeleteableRepository repoU;
+    @Autowired
+    ObjectMapper mapper;
 
     @Rule
     public ExpectedException thrown= ExpectedException.none();
 
-    private void createTestEntry() {
+    private TestQuestionnaire createTestEntry() {
         TestQuestionnaire q = new TestQuestionnaire();
         q.setDate(new Date());
         q.setValue("cheese");
@@ -77,11 +86,41 @@ public class ExportControllerTest extends BaseControllerTest {
         q.setTimeOnPage(9.999);
         repo.save(q);
         repo.flush();
+        return q;
+    }
+
+    @Before
+    public void setModeToExport() {
+        this.importService.setMode("export");
     }
 
     @Override
     public Object[] getControllers() {
         return (new Object[]{exportController, questionController});
+    }
+
+
+    @Test
+    public void testScaleListContainsExpectedElements() throws Exception {
+        MvcResult result = mockMvc.perform(get("/api/export")
+                .with(SecurityMockMvcRequestPostProcessors.user(admin)))
+                .andExpect((status().is2xxSuccessful()))
+                .andReturn();
+        ExportableInfo[] data = mapper.readValue(result.getResponse().getContentAsString(),
+                ExportableInfo[].class);
+
+        assertNotNull(this.findExportByName(data,"studyImportExport"));
+        assertNotNull(this.findExportByName(data,"participantExport"));
+        assertNotNull(this.findExportByName(data,"testQuestionnaire"));
+    }
+
+    private ExportableInfo findExportByName(ExportableInfo[] data, String name) {
+        for(int i=0; i < data.length; i++) {
+            if (data[i].getName().equalsIgnoreCase(name)) {
+                return data[i];
+            }
+        }
+        return null;
     }
 
 
@@ -92,18 +131,6 @@ public class ExportControllerTest extends BaseControllerTest {
         assertThat((List<Object>)data, hasItem(hasProperty("value", is("MyTestValue"))));
     }
 
-    @Test
-    public void testCSVDownload() throws Exception {
-        createTestEntry();
-        MvcResult result = mockMvc.perform(get("/api/export/ParticipantExport.csv")
-                .with(user(admin)))
-                .andExpect((status().is2xxSuccessful()))
-                .andReturn();
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode actualObj = mapper.readTree(result.getResponse().getContentAsString());
-
-        System.out.println(result);
-    }
 
     @Test
     public void testEntryDataCanBeDeleted() {
@@ -162,30 +189,30 @@ public class ExportControllerTest extends BaseControllerTest {
      */
     @Test
     public void testThatPostedDataIsExportedAsJSon() throws Exception {
-        createTestEntry();
+        TestQuestionnaire testEntry = createTestEntry();
         MvcResult result = mockMvc.perform(get("/api/export/TestQuestionnaire")
                 .with(SecurityMockMvcRequestPostProcessors.user(admin)))
                 .andExpect((status().is2xxSuccessful()))
                 .andReturn();
-
-        ObjectMapper mapper = new ObjectMapper();
         JsonNode actualObj = mapper.readTree(result.getResponse().getContentAsString());
-        assertEquals("Value is a top level object that contains the string 'cheese'", "cheese", actualObj.get(0).path("value").asText());
+        JsonNode node = findNodeById(actualObj, testEntry.getId());
+        assertEquals("Value is a top level object that contains the string 'cheese'", "cheese", node.path("value").asText());
         System.out.println(actualObj);
     }
 
     @Test
     public void testMultiValueElementsCorrectlyPassedThrough() throws Exception {
-        createTestEntry();
+        TestQuestionnaire testEntry = createTestEntry();
         MvcResult result = mockMvc.perform(get("/api/export/TestQuestionnaire")
                 .with(SecurityMockMvcRequestPostProcessors.user(admin)))
                 .andExpect((status().is2xxSuccessful()))
                 .andReturn();
 
-        ObjectMapper mapper = new ObjectMapper();
         JsonNode actualObj = mapper.readTree(result.getResponse().getContentAsString());
-        Assert.assertThat(actualObj.findValue("multiValue").isArray(), is(true));
-        Iterator<JsonNode> values = actualObj.findValue("multiValue").iterator();
+        JsonNode node = findNodeById(actualObj, testEntry.getId());
+
+        Assert.assertThat(node.findValue("multiValue").isArray(), is(true));
+        Iterator<JsonNode> values = node.findValue("multiValue").iterator();
         Assert.assertThat(values.next().textValue(), is("cheddar"));
         Assert.assertThat(values.next().textValue(), is("havarti"));
         System.out.println(actualObj);
@@ -195,34 +222,46 @@ public class ExportControllerTest extends BaseControllerTest {
     public void testParticipantDeIdentifiedInfoCorrect() throws Exception {
         participant.setTheme("chartreuse");
         participant.setOver18(true);
+        participantRepository.save(participant);
+        participantRepository.flush();
         MvcResult result = mockMvc.perform(get("/api/export/Participant")
                 .with(SecurityMockMvcRequestPostProcessors.user(admin)))
                 .andExpect((status().is2xxSuccessful()))
                 .andReturn();
-        ObjectMapper mapper = new ObjectMapper();
-        participantRepository.save(participant);
-        participantRepository.flush();
         JsonNode actualObj = mapper.readTree(result.getResponse().getContentAsString());
-        assertTrue("There should not be an email column in your json.",actualObj.get(0).path("email").isMissingNode());
-        assertTrue(actualObj.get(0).path("over18").asBoolean());
-        assertEquals("This should be blue",actualObj.get(0).path("theme").asText(),"chartreuse");
+        JsonNode participantNode = findNodeById(actualObj, participant.getId());
+        assertTrue("There should not be an email column in your json.", participantNode.path("email").isMissingNode());
+        assertTrue(participantNode.path("over18").asBoolean());
+        assertEquals("This should be chartreuse",participantNode.path("theme").asText(),"chartreuse");
         System.out.println(actualObj);
     }
 
     @Test
     public void testStudyInfoCorrect() throws Exception {
-        createTestEntry();
-        repo.flush();
         s.setConditioning("Testing");
         studyRepository.save(s);
+        studyRepository.flush();
         MvcResult result = mockMvc.perform(get("/api/export/Study")
                 .with(SecurityMockMvcRequestPostProcessors.user(admin)))
                 .andExpect((status().is2xxSuccessful()))
                 .andReturn();
-        ObjectMapper mapper = new ObjectMapper();
         JsonNode actualObj = mapper.readTree(result.getResponse().getContentAsString());
-        assertEquals("This should be testing:","Testing",actualObj.get(0).path("conditioning").asText());
+        JsonNode node = findNodeById(actualObj, s.getId());
+        assertNotNull("We should find the study node.", node);
+        assertEquals("This should be testing:","Testing",node.path("conditioning").asText());
         assertEquals("This should be 1:",1,actualObj.get(0).path("id").asInt());
+    }
+
+    private JsonNode findNodeById(JsonNode parent, Long id) {
+        Iterator<JsonNode> nodes = parent.iterator();
+        JsonNode node = null;
+        while(nodes.hasNext()) {
+            node = nodes.next();
+            if(Long.parseLong(node.path("id").asText()) == id) {
+                return node;
+            }
+        }
+        return null;
     }
 
 }

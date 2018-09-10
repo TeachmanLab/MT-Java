@@ -62,7 +62,7 @@ public class ExportController  {
     @RequestMapping(value="{name}", method= RequestMethod.GET)
     public @ResponseBody List<Object> listData(@PathVariable String name, @
                 RequestParam(value = "greaterThan", required = false, defaultValue = "0") long id) {
-        JpaRepository rep = exportService.getRepositoryForName(name);
+        JpaRepository rep = exportService.getRepositoryForName(name, true);
         if (rep != null) {
             LOG.info("Found " + rep.count() + " items to return .");
             if (rep instanceof TrialRepository) {
@@ -79,11 +79,11 @@ public class ExportController  {
     @ExportMode
     @RequestMapping(value="{name}/{id}", method=RequestMethod.DELETE)
     public @ResponseBody void delete(@PathVariable String name, @PathVariable long id) {
-        Class<?> domainType = exportService.getDomainType(name);
+        Class<?> domainType = exportService.getDomainType(name, false);
         if (domainType != null) {
             if (domainType.isAnnotationPresent(DoNotDelete.class))
                 throw new NotDeleteableException();
-            JpaRepository rep = exportService.getRepositoryForName(name);
+            JpaRepository rep = exportService.getRepositoryForName(name, true);
             try {
                 rep.delete(id);
                 rep.flush();
@@ -135,7 +135,7 @@ public class ExportController  {
 
         List<Object> json = listData(name,0);
         response.setContentType("text/plain; charset=utf-8");
-        Class<?> domainType = exportService.getDomainType(name);
+        Class<?> domainType = exportService.getDomainType(name, true);
         CsvMapper mapper = new CsvMapper();
         CsvSchema schema = mapper.schemaFor(domainType).withHeader();
         schema = schema.withColumnSeparator('\t');

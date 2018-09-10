@@ -61,13 +61,13 @@ public class QuestionController extends BaseController {
         // It is possible that the Quesionnaire Data object will want to add some additional
         // parameters to the web form.
         try {
-            if(exportService.getDomainType(formName) == null) {
+            if(exportService.getDomainType(formName, false) == null) {
                 String message = "You are missing a model for storing data for the form " +
                         "'" + formName + "'";
                 LOG.error(message);
                 throw new RuntimeException(message);
             }
-            QuestionnaireData data = (QuestionnaireData) exportService.getDomainType(formName).newInstance();
+            QuestionnaireData data = (QuestionnaireData) exportService.getDomainType(formName, false).newInstance();
             model.addAllAttributes(data.modelAttributes(participant));
         } catch (InstantiationException e) {
             e.printStackTrace();
@@ -95,13 +95,13 @@ public class QuestionController extends BaseController {
     @ExportMode
     protected void saveForm(String formName, WebRequest request) throws Exception {
 
-        JpaRepository repository = exportService.getRepositoryForName(formName);
+        JpaRepository repository = exportService.getRepositoryForName(formName, false);
         if(repository == null) {
             LOG.error("Received a post for form '" + formName +"' But no Repository exists with this name.");
             throw new NoModelForFormException();
         }
         try {
-            QuestionnaireData data = (QuestionnaireData) exportService.getDomainType(formName).newInstance();
+            QuestionnaireData data = (QuestionnaireData) exportService.getDomainType(formName, false).newInstance();
             WebRequestDataBinder binder = new WebRequestDataBinder(data);
             binder.bind(request);
             recordSessionProgress(formName, data);

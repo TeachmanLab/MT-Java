@@ -1,15 +1,15 @@
 package org.mindtrails.service;
 
 import org.mindtrails.domain.ExportMode;
+import org.mindtrails.domain.Participant;
+import org.mindtrails.domain.Study;
 import org.mindtrails.domain.data.DoNotDelete;
 import org.mindtrails.domain.data.Exportable;
 import org.mindtrails.domain.questionnaire.ExportableInfo;
 import org.mindtrails.domain.tracking.ExportLog;
-import org.mindtrails.persistence.ExportLogRepository;
+import org.mindtrails.persistence.*;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
-import org.mindtrails.persistence.ParticipantExportRepository;
-import org.mindtrails.persistence.StudyExportRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,12 +112,11 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
      * assumptions about the class.  This class is pretty dreadful, returns null
      * if it can't find a repository by name.
      */
-    public JpaRepository getRepositoryForName(String name) {
-        if (name.toLowerCase().equals("participant"))
-            return participantExportRepository;
-        if (name.toLowerCase().equals("study"))
-            return studyExportRepository;
-        Class<?> domainType = getDomainType(name);
+    public JpaRepository getRepositoryForName(String name, boolean useExportClasses) {
+        Class<?> domainType = getDomainType(name, useExportClasses);
+        if (domainType == Study.class) {
+            return (JpaRepository) repositories.getRepositoryFor(StudyImportExport.class);
+        }
         if (domainType != null)
             return (JpaRepository) repositories.getRepositoryFor(domainType);
         LOG.info("failed to find a repository for " + name);
@@ -152,18 +151,21 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
      * assumptions about the class.  This method is pretty dreadful, returns null
      * if it can't find a repository by name.
      */
-    public Class<?> getDomainType(String name) {
+    public Class<?> getDomainType(String name, boolean useExportClasses) {
         LOG.info("Trying to get type of " + name);
         if(repositories == null) {
             LOG.info("Found no type of "+name);
             return null;
         }
+        // Study and participant are special cases that will be managed through an export class.
+        if(useExportClasses) {
+            if (name.toLowerCase().equals("study")) return StudyImportExport.class;
+            if (name.toLowerCase().equals("participant")) return ParticipantExport.class;
+        } else {
+            if (name.toLowerCase().equals("study")) return StudyImportExport.class;
+            if (name.toLowerCase().equals("participant")) return Participant.class;
+        }
         for (  Class<?> domainType : repositories) {
-            if (name.toLowerCase().equals("study")) {
-                if (domainType.getSimpleName().toLowerCase().equals("studyexportdao")) {
-                    return domainType;
-                }
-            }
             if (domainType.getSimpleName().toLowerCase().equals(name.toLowerCase())) {
                 return domainType;
             }

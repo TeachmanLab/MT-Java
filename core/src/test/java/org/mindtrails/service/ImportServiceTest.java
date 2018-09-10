@@ -109,29 +109,6 @@ public class ImportServiceTest extends BaseControllerTest {
 
 
 
-    @Test
-    public void getScaleList() throws Exception {
-        LOGGER.info("Check point 1");
-        List<Scale> list = service.fetchListOfScales();
-        LOGGER.info("Check point 2");
-        for (Scale scale : list) {
-            LOGGER.info(scale.getName());
-        }
-        assertNotNull(list);
-    }
-
-
-    @Test
-    public void getScale() throws Exception {
-        LOGGER.info("Successfully fired getScale()");
-        InputStream list = service.fetchScale(testScale);
-        LOGGER.info("Successfully read online: " + list.toString());
-        assertNotNull(list);
-    }
-
-
-
-
 
 /*    @Test
     public void saveAllLog() throws Exception {
@@ -185,56 +162,6 @@ public class ImportServiceTest extends BaseControllerTest {
 
 
 
-    /**
-     * See if you can import participant and study tables and then link them back together.
-     *
-     * @throws Exception
-     */
-
-    @Test
-    public void testPSInfoCorrect() throws Exception {
-        repo.flush();
-        participant.setTheme("blue");
-        participant.setOver18(true);
-        participantRepository.save(participant);
-        s.setConditioning("Testing");
-        studyRepository.save(s);
-        MvcResult result = mockMvc.perform(get("/api/export/Participant")
-                .with(SecurityMockMvcRequestPostProcessors.user(admin)))
-                .andExpect((status().is2xxSuccessful()))
-                .andReturn();
-
-        MvcResult studyResult = mockMvc.perform(get("/api/export/Study")
-                .with(SecurityMockMvcRequestPostProcessors.user(admin)))
-                .andExpect((status().is2xxSuccessful()))
-                .andReturn();
-
-        ObjectMapper mapper = new ObjectMapper();
-
-        JsonNode actualObj = mapper.readTree(result.getResponse().getContentAsString());
-
-        JsonNode studyObj = mapper.readTree(studyResult.getResponse().getContentAsString());
-
-        MvcResult delResult1 = mockMvc.perform(delete("/api/export/Participant/1")
-                .with(SecurityMockMvcRequestPostProcessors.user(admin)))
-                .andExpect((status().is2xxSuccessful()))
-                .andReturn();
-        System.out.println(delResult1.toString());
-        MvcResult delResult2 = mockMvc.perform(delete("/api/export/Participant/2")
-                .with(SecurityMockMvcRequestPostProcessors.user(admin)))
-                .andExpect((status().is2xxSuccessful()))
-                .andReturn();
-        System.out.println(delResult2.toString());
-
-        studyRepository.delete(s);
-        studyRepository.delete(m);
-        repo.flush();
-        service.importScale("study", IOUtils.toInputStream(studyObj.toString()));
-        Assert.assertTrue("There should not be an email column in your json.", actualObj.get(0).path("email").isMissingNode());
-        Assert.assertTrue(actualObj.get(0).path("over18").asBoolean());
-        Assert.assertEquals("This should be blue", actualObj.get(0).path("theme").asText(), "blue");
-        System.out.println(actualObj);
-    }
 
 
     /**

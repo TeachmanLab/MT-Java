@@ -42,7 +42,7 @@ public class StudyInfoController {
     }
 
     /**
-     * Churns through the list of studys and checks for a deletable flag on all the tasks.
+     * Churns through the list of studiess and checks for a deletable flag on all the tasks.
      * @param studyInfos
      */
     private void updateDeleteableFlag(List<StudyInfo> studyInfos) {
@@ -50,7 +50,7 @@ public class StudyInfoController {
             for (SessionInfo si : s.getSessions()) {
                 for (TaskInfo taskInfo : si.getTasks()) {
                     taskInfo.setDeleteable(true);
-                    Class<?> domainType = exportService.getDomainType(taskInfo.getName());
+                    Class<?> domainType = exportService.getDomainType(taskInfo.getName(), false);
                     if (domainType != null) {
                         if (domainType.isAnnotationPresent(DoNotDelete.class)) {
                             taskInfo.setDeleteable(false);

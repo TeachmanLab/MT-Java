@@ -13,7 +13,6 @@ import org.joda.time.Days;
 import org.mindtrails.domain.tracking.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,7 +29,7 @@ import java.util.*;
 @Table(name = "participant")
 @Data
 @EqualsAndHashCode(exclude={"emailLogs", "giftLogs", "SMSLogs", "passwordToken","verificationCode"})
-public class Participant implements UserDetails {
+public class Participant implements UserDetails, HasStudy {
 
     private static final Logger LOG = LoggerFactory.getLogger(Participant.class);
 

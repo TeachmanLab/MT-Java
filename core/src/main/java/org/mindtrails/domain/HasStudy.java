@@ -1,5 +1,5 @@
 package org.mindtrails.domain;
 
-public interface hasStudy {
+public interface HasStudy {
     void setStudy(Study study);
 }

@@ -156,7 +156,7 @@ public class ImportService {
 
     public void deleteScaleItem(String scale, long id) {
         try {
-            boolean deleteable = !exportService.getDomainType(scale).isAnnotationPresent(DoNotDelete.class);
+            boolean deleteable = !exportService.getDomainType(scale, false).isAnnotationPresent(DoNotDelete.class);
             if(!deleteable) return;
             HttpEntity<String> request = new HttpEntity<String>(headers());
             URI uri = URI.create(url + "/api/export/" + scale + '/' + Long.toString(id));
@@ -185,11 +185,11 @@ public class ImportService {
     public void importScale(String scale, InputStream is) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
-        JpaRepository rep = exportService.getRepositoryForName(scale);
+        JpaRepository rep = exportService.getRepositoryForName(scale, false);
         if (rep == null) {
             throw new ImportError("No Repository exists for scale:" + scale);
         }
-        Class<?> clz = exportService.getDomainType(scale);
+        Class<?> clz = exportService.getDomainType(scale, false);
         if (clz == null) {
             throw new ImportError("No class could be found for scale:" + scale);
         }
@@ -224,14 +224,14 @@ public class ImportService {
     private void importNode(JsonNode elm, Class clz, ObjectMapper mapper, JpaRepository rep, String scale) throws IOException {
         ObjectNode p = elm.deepCopy();
         saveMissingLog(elm, clz.getName()); // TODO: Strip this out.  Do something sensible.
-        long studyIndex = -1;
+        long studyId = -1;
         if (elm.has("study")) {
-            studyIndex = elm.path("study").asLong();
+            studyId = elm.path("study").asLong();
             p.remove("study");
         }
         Object object = mapper.readValue(p.toString(), clz);
-        if (object instanceof hasStudy) {
-            ((hasStudy) object).setStudy(studyRepository.findById(studyIndex));
+        if (object instanceof HasStudy) {
+            ((HasStudy) object).setStudy(studyRepository.findById(studyId));
         }
         if (object instanceof hasParticipant) {
             ((hasParticipant) object).setParticipant(participantRepository.findOne(p.path("participant").asLong()));
@@ -245,10 +245,11 @@ public class ImportService {
     /**
      * Every five minutes the program will try to download all the data.
      */
-
-    @ImportMode
     @Scheduled(cron = "0 5 * * * *")
     public void importData() {
+        if(!this.isImporting()) {
+            LOGGER.info("Skipping import. Not in that mode.");
+        }
         List<Scale> list = fetchListOfScales();
         for (Scale scale : list) {
             importScale(scale.getName(), fetchScale(scale.getName()));

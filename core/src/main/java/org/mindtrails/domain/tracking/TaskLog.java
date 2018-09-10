@@ -23,7 +23,7 @@ import java.util.Date;
 @DoNotDelete
 @Data
 @JsonIgnoreProperties(value={ "study" }, allowGetters=true)
-public class TaskLog implements Comparable<TaskLog>, hasStudy {
+public class TaskLog implements Comparable<TaskLog>, HasStudy {
 
     private static String SESSION_COMPLETE = "SESSION_COMPLETE";
 
