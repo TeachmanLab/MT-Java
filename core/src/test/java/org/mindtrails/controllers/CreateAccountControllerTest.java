@@ -8,6 +8,7 @@ import org.mindtrails.controller.AdminController;
 import org.mindtrails.controller.LoginController;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.persistence.ParticipantRepository;
+import org.mindtrails.service.ImportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.FilterChainProxy;
 import org.springframework.test.web.servlet.MockMvc;
@@ -16,6 +17,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.util.Date;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -46,6 +48,13 @@ public class CreateAccountControllerTest extends BaseControllerTest {
         return (new Object[]{accountController});
     }
 
+    @Autowired
+    private ImportService importService;
+
+    @Before
+    public void setMode() {
+        this.importService.setMode("export");
+    }
 
     @After
     public void teardown() {
@@ -69,6 +78,22 @@ public class CreateAccountControllerTest extends BaseControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrlPattern("/public/eligibility*"));
     }
+
+    @Test
+    public void createAccountInImportMode() throws Exception {
+        this.importService.setMode("import");
+        this.mockMvc.perform(post("/account/create")
+                .param("fullName", "Dan Funk")
+                .param("email", "some_crazy2@email.com")
+                .param("password", PASSWD)
+                .param("passwordAgain" +
+                        "", PASSWD)
+                .param("over18", "true")
+                .param("recaptchaResponse", "someresponse"))
+                .andDo(print())
+                .andExpect(status().is4xxClientError());
+    }
+
 
     @Test
     public void testCreateAccountController() throws Exception {

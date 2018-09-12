@@ -4,6 +4,7 @@ import org.mindtrails.Application;
 import org.mindtrails.MockClasses.*;
 import org.mindtrails.controller.QuestionController;
 import org.mindtrails.domain.Participant;
+import org.mindtrails.service.ImportService;
 import org.mindtrails.service.ParticipantService;
 import org.junit.After;
 import org.junit.Assert;
@@ -27,6 +28,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.util.List;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -50,6 +52,9 @@ public class QuestionControllerTest extends BaseControllerTest {
     @Autowired
     private QuestionController questionController;
 
+    @Autowired
+    private ImportService importService;
+
     @Override
     public Object[] getControllers() {
         return(new Object[]{questionController});
@@ -59,6 +64,11 @@ public class QuestionControllerTest extends BaseControllerTest {
         repository.flush();
         List<TestQuestionnaire> dataList = repository.findAll();
         return dataList.get(dataList.size() - 1);
+    }
+
+    @Before
+    public void setModeToExport() {
+        this.importService.setMode("export");
     }
 
     @Test
@@ -103,6 +113,20 @@ public class QuestionControllerTest extends BaseControllerTest {
                 .param("timeOnPage","9.999"))
                 .andExpect((status().is3xxRedirection()));
     }
+
+    @Test
+    public void testPostInImportMode() throws Exception {
+        this.importService.setMode("import");
+        ResultActions result = mockMvc.perform(post("/questions/TestQuestionnaire")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .with(SecurityMockMvcRequestPostProcessors.user(participant))
+                .param("value", "cheese")
+                .param("multiValue", "cheddar")
+                .param("multiValue", "havarti")
+                .param("timeOnPage","9.999"))
+                .andExpect((status().is4xxClientError()));
+    }
+
 
     @Test
     public void testPostBadData() throws Exception {

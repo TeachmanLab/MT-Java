@@ -39,6 +39,7 @@ import org.thymeleaf.spring4.expression.Mvc;
 
 import java.util.*;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -135,7 +136,7 @@ public class ExportControllerTest extends BaseControllerTest {
     @Test
     public void testEntryDataCanBeDeleted() {
         // There should be at least one entry.
-        createTestEntry();
+        TestQuestionnaire q = createTestEntry();
         LinkedQuestionnaireData qd;
 
         List data =  exportController.listData("TestQuestionnaire",0);
@@ -151,6 +152,16 @@ public class ExportControllerTest extends BaseControllerTest {
         data =  exportController.listData("TestQuestionnaire",0);
         assertThat(data.size(), is(0));
     }
+
+    @Test
+    public void testDeleteIsNotPossibleInImportMode() throws Exception {
+        importService.setMode("import");
+        TestQuestionnaire q = createTestEntry();
+        mockMvc.perform(get("/api/export/TestQuestionnaire/" + q.getId())
+                .with(SecurityMockMvcRequestPostProcessors.user(admin)))
+                .andExpect((status().is4xxClientError()));
+    }
+
 
     @Test
     public void testSomeDataCannotBeDeleted() {
@@ -174,6 +185,7 @@ public class ExportControllerTest extends BaseControllerTest {
         thrown.expect(NotDeleteableException.class);
         exportController.delete("TestUndeleteable",qd.getId());
     }
+
 
     @Test
     public void unknownFormsReturn404() throws Exception {

@@ -7,6 +7,7 @@ import org.mindtrails.domain.ExportMode;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.RestExceptions.MissingEligibilityException;
 import org.mindtrails.domain.VerificationCode;
+import org.mindtrails.domain.data.Exportable;
 import org.mindtrails.domain.forms.ParticipantCreate;
 import org.mindtrails.domain.forms.ParticipantUpdate;
 import org.mindtrails.domain.recaptcha.RecaptchaFormValidator;
@@ -92,6 +93,7 @@ public class AccountController extends BaseController {
 
     }
 
+    @ExportMode
     @RequestMapping(value="create", method = RequestMethod.POST )
     public String createNewParticipant(ModelMap model,
                                        @ModelAttribute("participantForm") @Valid ParticipantCreate participantCreate,
@@ -145,6 +147,7 @@ public class AccountController extends BaseController {
         return "account/theme";
     }
 
+    @ExportMode
     @RequestMapping(value="updateTheme", method = RequestMethod.POST)
     public String updateTheme(ModelMap model, String theme, Principal principal) {
         Participant p = participantService.get(principal);
@@ -163,6 +166,7 @@ public class AccountController extends BaseController {
         return "account/changePhone";
     }
 
+    @ExportMode
     @RequestMapping(value="updateChangePhone",method=RequestMethod.POST)
     public String updatePhone( ModelMap model, Principal principal, String phone) {
         Participant p=participantService.get(principal);
@@ -211,6 +215,7 @@ public class AccountController extends BaseController {
         }
     }
 
+    @ExportMode
     @RequestMapping(value="updateWrongCode",method=RequestMethod.POST)
     public String updatewrongcode(@RequestParam String sub, @RequestParam String verifycode, ModelMap model, Principal principal, String phone) {
         Participant p=participantService.get(principal);
@@ -286,6 +291,7 @@ public class AccountController extends BaseController {
         }
     }
 
+    @ExportMode
     @RequestMapping(value="/updateVerification", method = RequestMethod.POST)
     public String verify(@RequestParam String verifycode, ModelMap model, Principal principal) {
         Participant p = participantService.get(principal);
@@ -360,6 +366,7 @@ public class AccountController extends BaseController {
         return "changePassword";
     }
 
+    @ExportMode
     @RequestMapping(value="/changePassword", method = RequestMethod.POST)
     public String changePassword(ModelMap model, Principal principal,
                                  @RequestParam int id,

@@ -1,11 +1,14 @@
 package org.mindtrails.controller;
 
+import org.mindtrails.domain.ExportMode;
+import org.mindtrails.domain.ImportMode;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.RestExceptions.WrongFormException;
 import org.mindtrails.domain.Study;
 import org.mindtrails.domain.jsPsych.JsPsychTrial;
 import org.mindtrails.domain.jsPsych.JsPsychTrialList;
 import org.mindtrails.persistence.JsPsychRepository;
+import org.mindtrails.service.ImportService;
 import org.mindtrails.service.ParticipantService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,8 +64,7 @@ public class JSPsychController extends BaseController {
 
         Participant participant = participantService.findByEmail(principal.getName());
 
-        List<JsPsychTrial> trials = jsPsychRepository.findAllByParticipantAndStudyAndSession(participant.getId(),
-                participant.getStudy().getName(),
+        List<JsPsychTrial> trials = jsPsychRepository.findAllByParticipantAndSession(participant,
                 participant.getStudy().getCurrentSession().getName());
 
         JsPsychTrialList list = new JsPsychTrialList();
@@ -71,6 +73,7 @@ public class JSPsychController extends BaseController {
         return (list);
     }
 
+    @ExportMode
     @RequestMapping("/completed/{scriptName}")
     public RedirectView markComplete(Principal principal, @PathVariable String scriptName) {
 
@@ -86,8 +89,7 @@ public class JSPsychController extends BaseController {
         }
 
         // Calculate the time on task
-        List<JsPsychTrial> trials = jsPsychRepository.findAllByParticipantAndStudyAndSession(participant.getId(),
-                participant.getStudy().getName(),
+        List<JsPsychTrial> trials = jsPsychRepository.findAllByParticipantAndSession(participant,
                 participant.getStudy().getCurrentSession().getName());
 
         // Find the greatest time_elapsed value for the data returned, this is time spent on the trial.
@@ -104,6 +106,7 @@ public class JSPsychController extends BaseController {
     }
 
 
+    @ExportMode
     @RequestMapping(method = RequestMethod.POST,
             headers = "content-type=application/json")
     public @ResponseBody ResponseEntity<JsPsychTrialList>
@@ -119,9 +122,8 @@ public class JSPsychController extends BaseController {
             if (device.isTablet()) deviceType = "tablet";
         }
         for(JsPsychTrial trial : list) {
-            trial.setParticipant(p.getId());
+            trial.setParticipant(p);
             trial.setSession(p.getStudy().getCurrentSession().getName());
-            trial.setStudy(p.getStudy().getName());
             trial.setDevice(deviceType);
             trial.setDateSubmitted(new Date());
             this.jsPsychRepository.save(trial);

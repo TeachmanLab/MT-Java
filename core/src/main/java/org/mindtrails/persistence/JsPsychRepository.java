@@ -9,10 +9,8 @@ import java.util.List;
 
 public interface JsPsychRepository extends JpaRepository<JsPsychTrial, Long> {
 
-    public List<JsPsychTrial> findAllByParticipantAndStudyAndSession(long participant,
-                                                                       String study, String session);
+    List<JsPsychTrial> findAllByParticipantAndSession(Participant participant,
+                                                              String session);
     List<JsPsychTrial> findDistinctByParticipantIn(List<Long> participants);
-
-    List<JsPsychTrial> findDistinctByParticipantInAndSession(List<Long> participants, String session);
 }
 

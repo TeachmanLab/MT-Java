@@ -229,6 +229,7 @@ public class AdminController extends BaseController {
         return "admin/participantCreate";
     }
 
+    @ExportMode
     @RequestMapping(value="/participant/", method=RequestMethod.POST)
     public String createParticipant(ModelMap model,
                                     @Valid ParticipantCreateAdmin participantCreateAdmin,

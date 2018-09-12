@@ -138,7 +138,6 @@ public class ImportService {
         }
     }
 
-
     /**
      * Call the API and get all data on a given scale.
      */
@@ -222,22 +221,28 @@ public class ImportService {
      * @throws IOException
      */
     private void importNode(JsonNode elm, Class clz, ObjectMapper mapper, JpaRepository rep, String scale) throws IOException {
-        ObjectNode p = elm.deepCopy();
+        ObjectNode node = elm.deepCopy();
         saveMissingLog(elm, clz.getName()); // TODO: Strip this out.  Do something sensible.
         long studyId = -1;
+        long participantId = -1;
+
         if (elm.has("study")) {
             studyId = elm.path("study").asLong();
-            p.remove("study");
+            node.remove("study");
         }
-        Object object = mapper.readValue(p.toString(), clz);
+        if (elm.has("participant")) {
+            participantId = elm.path("participant").asLong();
+            node.remove("participant");
+        }
+        Object object = mapper.readValue(node.toString(), clz);
         if (object instanceof HasStudy) {
             ((HasStudy) object).setStudy(studyRepository.findById(studyId));
         }
         if (object instanceof hasParticipant) {
-            ((hasParticipant) object).setParticipant(participantRepository.findOne(p.path("participant").asLong()));
+            ((hasParticipant) object).setParticipant(participantRepository.findOne(participantId));
         }
         rep.save(object);
-
+        System.out.println(studyRepository.findAll().toArray());
         //safeDelete(scale,elm.path("id").asLong());
     }
 

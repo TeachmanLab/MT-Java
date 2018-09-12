@@ -4,10 +4,12 @@ import org.junit.Test;
 import org.mindtrails.controller.AdminController;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.persistence.ParticipantRepository;
+import org.mindtrails.service.ImportService;
 import org.mindtrails.service.ParticipantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -24,6 +26,9 @@ public class AdminControllerTest extends BaseControllerTest {
 
     @Autowired
     private ParticipantRepository participantRepository;
+
+    @Autowired
+    private ImportService importService;
 
     @Override
     public Object[] getControllers() {
@@ -96,6 +101,7 @@ public class AdminControllerTest extends BaseControllerTest {
                 .andExpect(model().attributeExists("participant"))
                 .andExpect(status().isOk());
 
+        importService.setMode("export");
         mockMvc.perform(post("/admin/participant/" + p.getId())
                 .with(SecurityMockMvcRequestPostProcessors.user(admin))
                 .param("fullName", "John Q. Doe")
@@ -106,6 +112,18 @@ public class AdminControllerTest extends BaseControllerTest {
         assertEquals("John Q. Doe", p2.getFullName());
         assertEquals("new@email.com", p2.getEmail());
 
+    }
+
+    @Test
+    public void editParticipantInImportMode() throws Exception {
+        importService.setMode("import");
+        mockMvc.perform(post("/admin/participant/")
+                .with(SecurityMockMvcRequestPostProcessors.user(admin))
+                .param("fullName", "John Q. Doe")
+                .param("email", "a_new_admin@test.com")
+                .param("password", "1234!@#Abc")
+                .param("passwordAgain", "1234!@$Abc"))
+                .andExpect(status().is4xxClientError());
     }
 
     @Test
@@ -120,9 +138,23 @@ public class AdminControllerTest extends BaseControllerTest {
                 .param("fullName", "John Q. Doe")
                 .param("email", "a_new_admin@test.com")
                 .param("password", "1234!@#Abc")
-                .param("passwordAgain", "1234!@$Abc"));
+                .param("passwordAgain", "1234!@$Abc"))
+                .andExpect(status().isOk());
 
     }
+
+    @Test
+    public void createParticipantInImportMode() throws Exception {
+        importService.setMode("import");
+        mockMvc.perform(post("/admin/participant/")
+                .with(SecurityMockMvcRequestPostProcessors.user(admin))
+                .param("fullName", "John Q. Doe")
+                .param("email", "a_new_admin@test.com")
+                .param("password", "1234!@#Abc")
+                .param("passwordAgain", "1234!@$Abc"))
+                .andExpect(status().is4xxClientError());
+    }
+
 
     @Test
     public void editParticipantWithPhoneGivesFormattedPhone() throws Exception {
@@ -133,11 +165,13 @@ public class AdminControllerTest extends BaseControllerTest {
                 .andExpect(model().attributeExists("participant"))
                 .andExpect(status().isOk());
 
+        importService.setMode("export");
         mockMvc.perform(post("/admin/participant/" + p.getId())
                 .with(SecurityMockMvcRequestPostProcessors.user(admin))
                 .param("fullName", "John Phone Bone")
                 .param("email", "jpb@doe.com")
-                .param("phone", "(540) 457.0024"));
+                .param("phone", "(540) 457.0024"))
+                .andExpect(status().is3xxRedirection());
 
         Participant p2 = participantRepository.findOne(p.getId());
         assertEquals("+15404570024", p2.getPhone());

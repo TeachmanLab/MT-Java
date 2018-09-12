@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.mindtrails.controller.JSPsychController;
 import org.mindtrails.domain.jsPsych.JsPsychTrial;
 import org.mindtrails.persistence.JsPsychRepository;
+import org.mindtrails.service.ImportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
@@ -17,6 +18,7 @@ import java.util.List;
 import static junit.framework.Assert.assertNull;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
+import static junit.framework.TestCase.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -28,6 +30,9 @@ public class JSPsychControllerTest extends BaseControllerTest {
 
     @Autowired
     private JSPsychController controller;
+
+    @Autowired
+    private ImportService importService;
 
     @Override
     public Object[] getControllers() {
@@ -116,12 +121,22 @@ public class JSPsychControllerTest extends BaseControllerTest {
                 .with(SecurityMockMvcRequestPostProcessors.user(participant))
                 .content(EXAMPLE_DATA))
                 .andExpect((status().isCreated()));
-        List<JsPsychTrial> trials = jsPsychRepository.findAllByParticipantAndStudyAndSession(participant.getId(),
-                participant.getStudy().getName(),
+        List<JsPsychTrial> trials = jsPsychRepository.findAllByParticipantAndSession(participant,
                 participant.getStudy().getCurrentSession().getName());
         assertNotNull(trials);
         assertEquals(8, trials.size());
     }
+
+    @Test
+    public void testPostInImportMode() throws Exception {
+        importService.setMode("import");
+        ResultActions result = mockMvc.perform(post("/jspsych")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .with(SecurityMockMvcRequestPostProcessors.user(participant))
+                .content(EXAMPLE_DATA))
+                .andExpect((status().is4xxClientError()));
+    }
+
 
     @Test
     public void testGetJSPsychDataStatus() throws Exception {

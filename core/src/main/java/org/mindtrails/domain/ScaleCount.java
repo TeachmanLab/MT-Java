@@ -37,36 +37,21 @@ public class ScaleCount {
         List<Long> realID = realAccount.stream().map(Participant::getId).collect(Collectors.toList());
 
         if (QuestionnaireRepository.class.isAssignableFrom(rep.getClass())) {
-            HashSet<Long> uniqueID =new HashSet<Long>();
-            ((QuestionnaireRepository) rep).findDistinctByParticipantIn(realAccount).stream().forEach(q -> uniqueID.add(((LinkedQuestionnaireData)q).getParticipant().getId()));
+            HashSet<Long> uniqueID = new HashSet<Long>();
+            ((QuestionnaireRepository) rep).findDistinctByParticipantIn(realAccount).stream().forEach(q -> uniqueID.add(((LinkedQuestionnaireData) q).getParticipant().getId()));
             this.uniqueIDCount = Long.valueOf(uniqueID.size());
             this.pairs.add(new countMap("Unique Participant No.", Long.valueOf(this.uniqueIDCount), Long.valueOf(0)));
-            for (Session session: this.sessionList) {
+            for (Session session : this.sessionList) {
                 if (!session.getName().toLowerCase().equals("complete")) {
-                    List<LinkedQuestionnaireData> content = ((QuestionnaireRepository)rep).findDistinctByParticipantInAndSession(realAccount,session.getName());
+                    List<LinkedQuestionnaireData> content = ((QuestionnaireRepository) rep).findDistinctByParticipantInAndSession(realAccount, session.getName());
                     Long everything = Long.valueOf(content.size());
-                    HashSet<Long> uniqueBySession =  new HashSet<>();
+                    HashSet<Long> uniqueBySession = new HashSet<>();
                     content.stream().forEach(q -> uniqueBySession.add(q.getParticipant().getId()));
                     Long duplicated = everything - uniqueBySession.size();
-                    this.pairs.add(new countMap(session.getName(),Long.valueOf(uniqueBySession.size()),duplicated));
-                }
-            }
-        } else if (rep instanceof JsPsychRepository) {
-            Long uniqueID = ((JsPsychRepository)rep).findDistinctByParticipantIn(realID).stream().map(JsPsychTrial::getParticipant).collect(Collectors.toList()).stream().distinct().count();
-            this.uniqueIDCount = uniqueID;
-            this.pairs.add(new countMap("Unique Participant No.", Long.valueOf(this.uniqueIDCount), Long.valueOf(0)));
-            for (Session session: this.sessionList) {
-                if (!session.getName().toLowerCase().equals("complete")) {
-                    List<JsPsychTrial> content = ((JsPsychRepository)rep).findDistinctByParticipantInAndSession(realID,session.getName());
-                    Long everything = content.stream().map(JsPsychTrial::getParticipant).collect(Collectors.toList()).stream().distinct().count();
-                    HashSet<Long> uniqueBySession =  new HashSet<>();
-                    content.stream().forEach(q -> uniqueBySession.add(q.getParticipant()));
-                    Long duplicated = everything - uniqueBySession.size();
-                    this.pairs.add(new countMap(session.getName(),Long.valueOf(uniqueBySession.size()),duplicated));
+                    this.pairs.add(new countMap(session.getName(), Long.valueOf(uniqueBySession.size()), duplicated));
                 }
             }
         }
-
         if (this.uniqueIDCount == null) {
             this.uniqueIDCount = Long.valueOf(-1);
         };

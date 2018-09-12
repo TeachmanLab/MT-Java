@@ -1,100 +1,94 @@
 package org.mindtrails.service;
-
-
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
+import org.codehaus.groovy.runtime.ArrayUtil;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mindtrails.Application;
-import org.mindtrails.MockClasses.*;
+import org.mindtrails.MockClasses.TestQuestionnaire;
+import org.mindtrails.MockClasses.TestQuestionnaireRepository;
+import org.mindtrails.MockClasses.TestStudy;
 import org.mindtrails.controller.ExportController;
 import org.mindtrails.controller.QuestionController;
 import org.mindtrails.controllers.BaseControllerTest;
 import org.mindtrails.domain.Participant;
+import org.mindtrails.domain.Study;
+import org.mindtrails.domain.importData.ImportError;
 import org.mindtrails.domain.importData.Scale;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mindtrails.domain.jsPsych.JsPsychTrial;
-import org.mindtrails.domain.tracking.EmailLog;
-import org.mindtrails.domain.tracking.GiftLog;
 import org.mindtrails.domain.tracking.TaskLog;
-import org.mindtrails.persistence.EmailLogRepository;
-import org.mindtrails.persistence.JsPsychRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.mindtrails.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.autoconfigure.web.client.AutoConfigureWebClient;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
+import org.springframework.http.MediaType;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.client.MockRestServiceServer;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.support.RestGatewaySupport;
 
 import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
-
-import static junit.framework.Assert.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.io.File;
-import java.io.InputStream;
+import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withBadRequest;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
-/**
- * Created with IntelliJ IDEA.
- * User: dan
- * Date: 7/22/14
- * Time: 2:20 PM
- * To change this template use File | Settings | File Templates.
- */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
 @ActiveProfiles("test")
+@AutoConfigureWebClient(registerRestTemplate=true)
 @Transactional
 public class ImportServiceTest extends BaseControllerTest {
 
     @Autowired
-    private ImportService service;
-    private String testScale = "JsPsychTrial";
-
-    @Autowired
     private ExportController exportController;
+
     @Autowired
     private QuestionController questionController;
+
     @Autowired
-    private TestQuestionnaireRepository repo;
+    ObjectMapper objectMapper;
+
     @Autowired
-    private TestUndeleteableRepository repoU;
+    private ImportService importService;
+
     @Autowired
-    private EntityManager entityManager;
+    RestTemplate restTemplate;
+
     @Autowired
-    private EmailLogRepository emailRepo;
+    JsPsychRepository jsPsychRepository;
+
     @Autowired
-    private JsPsychRepository jsPsyRepo;
+    TestQuestionnaireRepository testQuestionnaireRepository;
+
+    @Autowired
+    ParticipantExportRepository participantExportRepository;
+
+    @Autowired
+    StudyExportRepository studyExportRepository;
+
+    @PersistenceContext
+    private EntityManager em;
 
 
-    private static final Logger LOGGER = LoggerFactory.getLogger((ImportServiceTest.class));
+    private MockRestServiceServer server;
 
+    @Value("${import.url}")
+    private String url;
 
-    private void createTestEntries() {
-        Participant p = new Participant("Joe Test", "j@t.com", false);
-        p.setStudy(new TestStudy());
-        entityManager.persist(p);
-        entityManager.persist(new TestQuestionnaire("MyTestValue",p));
-        entityManager.persist(new TestUndeleteable("MyTestValue"));
-        entityManager.persist(new GiftLog(p, "Order1", "Session 1"));
-        entityManager.persist(new EmailLog(p, "Email1"));
-        entityManager.persist(new TaskLog(p.getStudy(), 25.0));
-        entityManager.persist(new JsPsychTrial(1l,"Mobile",true));
-    }
-
-    @Before
-    public void setMode() {
-        this.service.setMode("import");
-    }
 
     @Override
     public Object[] getControllers() {
@@ -102,148 +96,263 @@ public class ImportServiceTest extends BaseControllerTest {
     }
 
 
+    @Before
+    public void setUp() {
+        RestGatewaySupport gateway = new RestGatewaySupport();
+        gateway.setRestTemplate(restTemplate);
+        server = MockRestServiceServer.createServer(gateway);
+    }
+
+
+    @Test(expected = ImportError.class)
+    public void callFunction() {
+        this.server.expect(requestTo(this.url + "/api/export/nosuch/1"))
+                .andRespond(withBadRequest());
+         importService.deleteScaleItem("nosuch",1);
+    }
+
+    @Test
+    public void getScaleList() {
+
+        String response = "[{\"name\":\"simpleQuestions\", \"size\":20, \"deleteable\": true}]";
+
+        this.server.expect(requestTo(this.url + "/api/export"))
+                .andRespond(withSuccess(response, MediaType.APPLICATION_JSON));
+        List<Scale> list = this.importService.fetchListOfScales();
+        assertEquals(1, list.size());
+    }
+
+    @Test
+    public void get() {
+
+        String response = "[{\"name\":\"simpleQuestions\", \"size\":20, \"deleteable\": true}]";
+
+        this.server.expect(requestTo(this.url + "/api/export"))
+                .andRespond(withSuccess(response, MediaType.APPLICATION_JSON));
+        List<Scale> list = this.importService.fetchListOfScales();
+        assertEquals(1, list.size());
+    }
+
+
+
+
+
+    @Test
+    public void testParticipantImport() throws Exception {
+
+        ParticipantExport testP = new ParticipantExport();
+        long testId = 21L;
+        testP.setAdmin(false);
+        testP.setId(testId);
+        testP.setStudy(new TestStudy());
+        testP.setTheme("blue");
+        testP.setOver18(true);
+
+        importService.setMode("import");
+        importService.importScale("participant", IOUtils.toInputStream(objectMapper.writeValueAsString(testP)));
+        Participant savedParticipant = participantRepository.findOne(testId);
+        Assert.assertNotNull("The participant should be saved under the same id as it was before", savedParticipant);
+    }
+
+
     /**
-     * Testing for @ImportMode and @ExportMode
+     * See if you can import the study table.
+     */
+    @Test
+    public void testStudyImport() throws Exception {
+
+        long testId = 1234L;
+        StudyImportExport study = new StudyImportExport();
+        study.setStudyType("Test Study");
+        study.setId(testId);
+        study.setConditioning("Testing");
+        study.setCurrentSession("Peanuts");
+        study.setCurrentTaskIndex("14");
+        study.setLastSessionDate(new Date());
+        study.setReceiveGiftCards(true);
+
+        importService.setMode("import");
+        importService.importScale("study", IOUtils.toInputStream(
+                objectMapper.writeValueAsString(study)
+        ));
+        Study updatedStudy = studyRepository.findById(testId);
+        Assert.assertNotNull(updatedStudy);
+        Assert.assertEquals("Testing", updatedStudy.getConditioning());
+    }
+
+
+    private Study createTestStudyViaImport(long studyId) throws Exception {
+        StudyImportExport study = new StudyImportExport();
+        study.setStudyType("Test Study");
+        study.setId(studyId);
+        study.setConditioning("Testing");
+        study.setCurrentTaskIndex("0");
+
+        importService.setMode("import");
+        importService.importScale("study", IOUtils.toInputStream(
+                objectMapper.writeValueAsString(study)
+        ));
+        return(studyRepository.findOne(studyId));
+    }
+
+    private Participant createTestParticipantViaImport(long participantId, long studyId) throws Exception {
+        // Bit of hackery here to construct the relationship at export ime.
+        TestStudy testStudy = new TestStudy();
+        testStudy.setId(studyId);
+
+        ParticipantExport testP = new ParticipantExport();
+        testP.setId(participantId);
+        testP.setStudy(testStudy);
+        testP.setTheme("blue");
+        testP.setOver18(true);
+
+        importService.setMode("import");
+        importService.importScale("participant", IOUtils.toInputStream(
+                objectMapper.writeValueAsString(testP)
+        ));
+        return(participantRepository.findOne(participantId));
+    }
+
+    /**
+     * See if you can import participant and study tables and then link them back together.
+     *
      * @throws Exception
      */
 
-
-
-
-/*    @Test
-    public void saveAllLog() throws Exception {
-        LOGGER.info("Try to update all the log files");
-        int i = 0;
-        List<String> good = new ArrayList<String>();
-        List<String> bad = new ArrayList<String>();
-        List<Scale> list = service.fetchListOfScales();
-        for (Scale scale : list) {
-            if (scale.getName().toLowerCase().contains("log")) {
-                String is = service.fetchScale("",scale.getName());
-                if (service.importScale(scale.getName(), is)) {
-                    i += 1;
-                    good.add(scale.getName());
-                } else {
-                    bad.add(scale.getName());
-                }
-            }
-        }
-        LOGGER.info("Here is the good list:");
-        for (String flag : good) LOGGER.info(flag);
-        LOGGER.info("Here is the bad list:");
-        for (String flag : bad) LOGGER.info(flag);
-        assertEquals(i, list.size());
-    }*/
-
-
-/*    @Test
-    public void saveAllScale() throws Exception {
-        LOGGER.info("Save All Scale!!!!");
-        int i = 0;
-        List<String> good = new ArrayList<String>();
-        List<String> bad = new ArrayList<String>();
-        List<Scale> list = service.fetchListOfScales();
-        for (Scale scale : list) {
-            String is = service.fetchScale("",scale.getName());
-            if (service.importScale(scale.getName(), is)) {
-                i += 1;
-                good.add(scale.getName());
-            } else {
-                bad.add(scale.getName());
-            }
-        }
-        LOGGER.info("Here is the good list:");
-        for (String flag : good) LOGGER.info(flag);
-        LOGGER.info("Here is the bad list:");
-        for (String flag : bad) LOGGER.info(flag);
-        assertEquals(i, list.size());
-    }*/
-
-
-
-
-
-
-    /**
-     *  Test if you can import the task_log and link it to the study object.
-     */
-
-
-    /**
-     * Test if you can import the questionnaire and logs beside task_log.
-     */
-
     @Test
-    public void testGeneral() throws Exception {
-        createTestEntries();
-        MvcResult result = mockMvc.perform(get("/api/export/TestQuestionnaire")
-                .with(SecurityMockMvcRequestPostProcessors.user(admin)))
-                .andExpect((status().is2xxSuccessful()))
-                .andReturn();
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode questObj = mapper.readTree(result.getResponse().getContentAsString());
+    public void testPSInfoCorrect() throws Exception {
 
-        repo.delete((long) 1);
-        service.importScale("TestQuestionnaire", IOUtils.toInputStream(questObj.toString()));
+        long participantId = 21L;
+        long studyId = 1234L;
+        createTestStudyViaImport(studyId);
+        createTestParticipantViaImport(participantId, studyId);
 
-        MvcResult resultLog = mockMvc.perform(get("/api/export/EmailLog")
-                .with(SecurityMockMvcRequestPostProcessors.user(admin)))
-                .andExpect((status().is2xxSuccessful()))
-                .andReturn();
-        JsonNode logObj = mapper.readTree(resultLog.getResponse().getContentAsString());
-
-        emailRepo.deleteAll();
-        service.importScale("EmailLog", IOUtils.toInputStream(logObj.toString()));
+        Participant p = participantRepository.findOne(participantId);
+        assertNotNull(p);
+        assertNotNull(p.getStudy());
+        assertEquals("Test Study", p.getStudy().getName());
+        assertEquals("Testing", p.getStudy().getConditioning());
     }
 
     /**
-     *  Test if you can get a list of files locally.
-     * @throws Exception
+     *  Test if you can import a single task log entry if everything else is in place
      */
     @Test
-    public void testGetFileList() throws Exception {
-        String testScale = "WhatIBelieve";
-        File[] list = service.getFileList(testScale);
-        for (File file:list) {
-            System.out.println(file.getName());
-        }
+    public void testTaskLog() throws Exception {
+        long studyId = 1234L;
+        createTestStudyViaImport(studyId);
+
+        // Bit of hackery here to construct the relationship at export ime.
+        TestStudy testStudy = new TestStudy();
+        testStudy.setId(studyId);
+
+        TaskLog log = new TaskLog(testStudy, 25.0);
+        this.importService.setMode("import");
+        assertEquals(0, this.taskLogRepository.findAll().size());
+        importService.importScale("taskLog",IOUtils.toInputStream(this.objectMapper.writeValueAsString(log)));
+        assertEquals(1, this.taskLogRepository.findAll().size());
+        log = this.taskLogRepository.findAll().get(0);
+        assertNotNull("Study should be correctly connected to the log.", log.getStudy());
+        Study study = studyRepository.findById(studyId);
+        assertEquals("The study should be exactly the one specified.", study, log.getStudy());
     }
 
-
-
-    /**
-     * This is a test for the missing data log.
-     */
-
-    @Test
-    public void testMissingLog() throws Exception {
-        String tScale ="WhatIBelieve";
-        ObjectMapper mapper = new ObjectMapper();
-        String is = "[{\"id\": 1, \"date\": \"Sun, 30 Apr 2017 13:49:40 -0500\", \"session\": \"preTest\", \"tag\": null, \"timeOnPage\": null, \"difficultTasks\": 2, \"performEffectively\": 0, \"compared\": 3, \"learn\": 3, \"particularThinking\": 0, \"alwaysChangeThinking\": 4, \"wrongWill\": 2, \"hardlyEver\": 2, \"participant\": \"1\"}]";
-        JsonNode obj = mapper.readTree(is);
-        assertTrue(service.saveMissingLog(obj.elements().next(),tScale));
-
-    }
-
-    /**
-     *  Test if you can import the JsPsych data
-     */
     @Test
     public void testJsPsy() throws Exception {
-        createTestEntries();
-        MvcResult result = mockMvc.perform(get("/api/export/JsPsychTrial")
-                .with(SecurityMockMvcRequestPostProcessors.user(admin)))
-                .andExpect((status().is2xxSuccessful()))
-                .andReturn();
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode questObj = mapper.readTree(result.getResponse().getContentAsString());
-        jsPsyRepo.flush();
-        jsPsyRepo.deleteAll();
-        service.importScale("JsPsychTrial", IOUtils.toInputStream(questObj.toString()));
-        jsPsyRepo.flush();
-        System.out.println(questObj.toString());
+        long participantId = 21L;
+        long studyId = 1234L;
+        long trialId = 51231234134L;
+        Participant p = createTestParticipantViaImport(participantId, studyId);
+
+        JsPsychTrial  trial = new JsPsychTrial(p,"Mobile",true);
+        trial.setId(trialId);
+        assertEquals(0, this.jsPsychRepository.findAll().size());
+        importService.importScale("jsPsychTrial",IOUtils.toInputStream(this.objectMapper.writeValueAsString(trial)));
+        assertEquals(1, this.jsPsychRepository.findAll().size());
+        JsPsychTrial savedTrial = this.jsPsychRepository.findAll().get(0);
+        assertEquals("Mobile", savedTrial.getDevice());
+        assertEquals(true, savedTrial.isCorrect());
+        assertTrue(participantId == savedTrial.getParticipant().getId());
     }
 
+
+    @Test
+    public void testQuestionnaire() throws Exception {
+        long participantId = 21L;
+        long studyId = 1234L;
+        long questionId = 88l;
+        Participant p = createTestParticipantViaImport(participantId, studyId);
+
+        TestQuestionnaire q = new TestQuestionnaire("someValue", p);
+        q.setId(questionId);
+        List<String> values = new ArrayList<>();
+        values.add("ThingOne");
+        values.add("ThingTwo");
+        q.setMultiValue(values);
+
+        assertEquals(0, testQuestionnaireRepository.findAll().size());
+        importService.importScale("TestQuestionnaire",IOUtils.toInputStream(this.objectMapper.writeValueAsString(q)));
+        assertEquals(1, testQuestionnaireRepository.findAll().size());
+        TestQuestionnaire savedQ = testQuestionnaireRepository.findAll().get(0);
+        assertEquals(values, savedQ.getMultiValue());
+        assertEquals("someValue", savedQ.getValue());
+        assertEquals(participantId, savedQ.getParticipant().getId());
+    }
+
+
+    @Test
+    public void testSaveUpdatedParticipant() throws Exception {
+        long participantId = 21L;
+        long studyId = 1234L;
+        Participant p = createTestParticipantViaImport(participantId, studyId);
+        ParticipantExport pe = participantExportRepository.findOne(p.getId());
+        pe.setTheme("pitiful yellow");
+
+        importService.importScale("participant",IOUtils.toInputStream(this.objectMapper.writeValueAsString(pe)));
+
+        Participant updatedP = participantRepository.findOne(participantId);
+        assertEquals("pitiful yellow", updatedP.getTheme());
+    }
+
+    @Test
+    public void testSaveUpdatedStudy() throws Exception {
+        long studyId = 1234L;
+        Study s = createTestStudyViaImport(studyId);
+
+        StudyImportExport se = studyExportRepository.findOne(studyId);
+        se.setConditioning("delightAndInspire");
+        se.setCurrentTaskIndex("42");
+        se.setCurrentSession("PostSession");
+
+        importService.importScale("study",IOUtils.toInputStream(this.objectMapper.writeValueAsString(se)));
+
+        em.clear(); // We have to fully flush the context in order to find the right records immeidately.
+        Study updatedS = studyRepository.findOne(studyId);
+        assertEquals("delightAndInspire", updatedS.getConditioning());
+        assertEquals(42, updatedS.getCurrentTaskIndex());
+        assertEquals("PostSession", updatedS.getCurrentSession().getName());
+    }
+
+
+    @Test
+    public void testLoadFromFile() throws Exception {
+
+    }
+
+    @Test
+    public void testValidation() throws Exception {
+
+    }
+
+    @Test
+    public void testDeleteCallIsMade() throws Exception {
+
+    }
+
+    @Test
+    public void testDeleteIsDisabled() throws Exception {
+
+    }
+
+
 }
-
-

@@ -1,10 +1,15 @@
 package org.mindtrails.domain.jsPsych;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.data.Exportable;
 import org.hibernate.annotations.Parameter;
+import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -16,16 +21,7 @@ import java.util.Date;
 @Table(name = "JsPsychTrial")
 @Data
 @Exportable
-public class JsPsychTrial {
-
-    @Id
-    @GenericGenerator(name = "QUESTION_GEN", strategy = "org.mindtrails.persistence.MindtrailsIdGenerator", parameters = {
-            @Parameter(name = "table_name", value = "ID_GEN"),
-            @Parameter(name = "value_column_name", value = "GEN_VAL"),
-            @Parameter(name = "segment_column_name", value = "GEN_NAME"),
-            @Parameter(name = "segment_value", value = "trial") })
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "QUESTION_GEN")
-    private long id;
+public class JsPsychTrial extends LinkedQuestionnaireData {
 
     private double rt;
     private double rt_firstReact;
@@ -37,17 +33,11 @@ public class JsPsychTrial {
     private double time_elapsed;
     private String internal_node_id;
     private boolean correct;
-    //TODO:  Create a constraint here that forces a connetion with the participant.
-    private Long participant;
-    private String session;
-    private String study;
-    @Column(name = "conditioning")
-    private String condition;
     private String device;
     private Date dateSubmitted;
 
-    public JsPsychTrial(Long id, String device, boolean correct) {
-        this.participant = id;
+    public JsPsychTrial(Participant p, String device, boolean correct) {
+        this.participant = p;
         this.device = device;
         this.correct = correct;
 
