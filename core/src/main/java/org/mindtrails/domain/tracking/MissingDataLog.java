@@ -9,12 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.Date;
 
-/**
- * User: dan
- * Date: 7/24/14
- * Time: 9:33 AM
- * Logs errors encountered by the user during their session.
- */
+
 @Entity
 @Table(name="missing_data_log")
 @Exportable
