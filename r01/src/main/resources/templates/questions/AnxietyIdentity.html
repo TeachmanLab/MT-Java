@@ -11,18 +11,18 @@
 <head th:replace="fragment/common :: headerFragment"/>
 <body>
 <section th:replace="fragment/common :: topFragment"/>
-<section th:replace="fragment/common :: titleBar (title='Current Feelings')"/>
+<section th:replace="fragment/common :: titleBar (title='Anxiety and Me')"/>
 
 <section id="content" class="clearfix">
     <div class="container">
         <div class="row">
             <div class="col-md-10">
 
-                <form  th:action="@{/questions/AnxietyIdentity}" method="POST">
+                <form th:action="@{/questions/AnxietyIdentity}" method="POST">
 
                     <!-- Add timer -->
                     <input id="timeOnPage" name="timeOnPage" type="hidden"/>
-                    <h1> To what extent is your anxiety a central part of who you are currently?</h1>
+                    <b><h2> To what extent is your anxiety a central part of who you are currently?</h2></b>
                     <p>Hint: Use the slider to move the circles.</p>
                     <input id="posSlider"  type="text" name="anxietyIdentity" required ="true"/>
                     <div class="after_slider"><label class="standard">
