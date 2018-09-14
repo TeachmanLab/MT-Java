@@ -1,5 +1,6 @@
 package org.mindtrails.MockClasses;
 
+import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.data.DoNotDelete;
 import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 import lombok.Data;
@@ -28,6 +29,13 @@ public class TestUndeleteable extends LinkedQuestionnaireData {
         this.value = value;
         this.date = new Date();
     }
+
+    public TestUndeleteable(Participant p, String value) {
+        this.participant = p;
+        this.value = value;
+        this.date = new Date();
+    }
+
 
 
 }

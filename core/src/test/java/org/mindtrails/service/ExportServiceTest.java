@@ -27,13 +27,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.beans.HasPropertyWithValue.hasProperty;
 
-/**
- * Created with IntelliJ IDEA.
- * User: dan
- * Date: 7/22/14
- * Time: 2:20 PM
- * To change this template use File | Settings | File Templates.
- */
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
 @Transactional

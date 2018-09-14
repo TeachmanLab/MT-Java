@@ -276,4 +276,10 @@ public class ExportControllerTest extends BaseControllerTest {
         return null;
     }
 
+    @Test
+    public void testFetchParticipantSinceLastExport() {
+
+    }
+
+
 }
