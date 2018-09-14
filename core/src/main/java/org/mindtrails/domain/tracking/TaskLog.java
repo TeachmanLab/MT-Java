@@ -14,7 +14,7 @@ import java.util.Date;
  * User: dan
  * Date: 7/24/14
  * Time: 9:33 AM
- * Logs the date and time a particular task was completed by the user, bastically
+ * Logs the date and time a particular task was completed by the user, basically
  * taking a snapshot of the users progress through a task.
  */
 @Entity
