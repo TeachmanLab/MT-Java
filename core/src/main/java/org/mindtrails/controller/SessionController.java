@@ -62,7 +62,7 @@ public class SessionController extends BaseController {
         }
 
         if(!p.isActive()) {
-            List<ReasonsForEnding> surveys = reasonsForEndingRepository.findByParticipant(p.getId());
+            List<ReasonsForEnding> surveys = reasonsForEndingRepository.findByParticipant(p);
             model.addAttribute("completed_exit_survey", surveys.size() > 0);
             return "sessionHome/inActive";
         }

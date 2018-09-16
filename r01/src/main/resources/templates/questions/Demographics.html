@@ -16,7 +16,7 @@
 <section id="content" class="clearfix">
     <div class="container">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-12">
 
                 <form th:action="@{/questions/Demographics}" method="POST">
                     <!-- Add timer -->
@@ -27,7 +27,6 @@
                         MindTrails by figuring out for whom it works well.</p>
 
                     <div class="section">
-
                         <div><label class="question">What is your gender identity? <select name="gender" required="true">
                             <option value="">Please select one</option>
                             <option>Female</option>
@@ -35,48 +34,55 @@
                             <option>Transgender</option>
                             <option>Other</option>
                             <option>Prefer not to answer</option>
-                        </select></label>
-                            </div>
-
+                        </select> </label>
+                        </div>
                         <br/>
 
-                        <div><label class="question"> Birth year <input type="number" min="1900" name="BirthYear" required="true"/> </label>
+                        <div><label class="question"> Birth year <input type="number" min="1900" name="BirthYear"
+                                                                        required="true"/> </label>
                         </div>
                         <br/>
 
                         <div class="row">
-                                <div class="col-md-8 side-border">
-                                    <div><label class="question"> Race (select all the apply)</label></div>
-                                    <div class="radio">
-                                        <label> <input type="checkbox" name="race" value="American Indian/Alaska Native"/> American Indian/Alaska Native</label>
-                                    </div>
-                                    <div class="radio">
-                                        <label> <input type="checkbox" name="race" value="East Asian" /> East Asian</label>
-                                    </div>
-                                    <div class="radio">
-                                        <label> <input type="checkbox" name="race" value="South Asian"/> South Asian</label>
-                                    </div>
-                                    <div class="radio">
-                                        <label> <input type="checkbox" name="race" value="Native Hawaiian/Pacific Islander"/> Native Hawaiian/Pacific Islander</label>
-                                    </div>
-                                    <div class="radio">
-                                        <label> <input type="checkbox" name="race" value="Black/African origin"/> Black/African origin</label>
-                                    </div>
-                                    <div class="radio">
-                                        <label> <input type="checkbox" name="race" value="White/European origin" /> White/European origin</label>
-                                    </div>
-                                    <div class="radio">
-                                        <label> <input type="checkbox" name="race" value="Other or Unknown"/> Other or Unknown</label>
-                                    </div>
+                            <div class="col-md-8 side-border">
+                                <div><label class="question"> Race (select all the apply)</label></div>
+                                <div class="radio">
+                                    <label> <input type="checkbox" name="race" value="American Indian/Alaska Native"/>
+                                        American Indian/Alaska Native</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input type="checkbox" name="race" value="East Asian"/> East Asian</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input type="checkbox" name="race" value="South Asian"/> South Asian</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input type="checkbox" name="race"
+                                                   value="Native Hawaiian/Pacific Islander"/> Native Hawaiian/Pacific
+                                        Islander</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input type="checkbox" name="race" value="Black/African origin"/>
+                                        Black/African origin</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input type="checkbox" name="race" value="White/European origin"/>
+                                        White/European origin</label>
+                                </div>
+                                <div class="radio">
+                                    <label> <input type="checkbox" name="race" value="Other or Unknown"/> Other or
+                                        Unknown</label>
+                                </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="radio">
                                     <label class="question"><input type="checkbox" name="Disorders" value="555"
-                                        onchange="disableSection(this)"/> Prefer not to answer
+                                                                   onchange="disableSection(this)"/> Prefer not to
+                                        answer
                                     </label>
                                 </div>
                             </div>
-                            </div>
+                        </div>
 
                         <br/>
 
@@ -91,7 +97,10 @@
 
                         <br/>
 
-                        <div><label class="question"> Country of Residence <select required="true" class="auto-selector" placeholder="Type your country of residence" name="Country" autofocus="autofocus" autocorrect="off" autocomplete="off">
+                        <div><label class="question"> Country of Residence <select required="true" class="auto-selector"
+                                                                                   placeholder="Type your country of residence"
+                                                                                   name="Country" autofocus="autofocus"
+                                                                                   autocorrect="off" autocomplete="off">
                             <option value="" selected="selected">Please select one</option>
                             <option value="United States" data-relevancy-booster="3.5"
                                     data-alternative-spellings="US USA United States of America">United States
@@ -674,7 +683,8 @@
                         <div id="PtpReasonOther">
                             <p>Please Specify:
                                 <label>
-                                    <input id="PtpReasonOtherInput" name="PtpReasonOther" type="text" placeholder="" size="50" />
+                                    <input id="PtpReasonOtherInput" name="PtpReasonOther" type="text" placeholder=""
+                                           size="50"/>
                                 </label>
                             </p>
                         </div>
@@ -684,22 +694,20 @@
                             $('select[name=PtpReason]').change(function () {
                                 if ($(this).val() == 'Other') {
                                     $('#PtpReasonOther').show();
-                                    $("#PtpReasonOtherInput").prop('required',true);
+                                    $("#PtpReasonOtherInput").prop('required', true);
                                 } else {
                                     $('#PtpReasonOther').hide();
-                                    $("#PtpReasonOtherInput").prop('required',false);
+                                    $("#PtpReasonOtherInput").prop('required', false);
                                 }
                             });
                         </script>
 
 
                         <div style="text-align:center">
-                        <button type="submit"> Continue </button>
-                    </div>
+                            <button type="submit"> Continue</button>
+                        </div>
                     </div>
                 </form>
-
-
             </div>
         </div>
     </div>

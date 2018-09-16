@@ -16,7 +16,7 @@ import java.util.Date;
 @Data
 public class Task {
 
-    public enum TYPE {questions, playerScript, jspsych}
+    public enum TYPE {questions, playerScript, jspsych, angularTraining}
     public enum STATE {COMPLETE,CURRENT,INCOMPLETE}
 
     private String     name;

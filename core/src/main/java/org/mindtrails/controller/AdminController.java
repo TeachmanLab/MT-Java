@@ -325,7 +325,12 @@ public class AdminController extends BaseController {
         } else {
             model.addAttribute("downloadsDisabled", Boolean.parseBoolean(downloadsDisabled));
         };
-        model.addAttribute("scales",importService.importList(url));
+        try {
+            model.addAttribute("scales", importService.importList(url));
+        } catch (Exception e) {
+            // may not be able to contact the importService, don't just die here.
+            model.addAttribute("scales_error", "unable to load scales from import service.");
+        }
         model.addAttribute("exportMaxMinutes", exportService.getMaxMinutes());
         model.addAttribute("exportMaxRecords", exportService.getMaxRecords());
         model.addAttribute("totalRecords", exportService.totalDeleteableRecords());

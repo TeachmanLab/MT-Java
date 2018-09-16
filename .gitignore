@@ -17,3 +17,5 @@ app/src/main/resources/public_key.dir
 dz8t@ws02-s.psyc.virginia.edu
 out
 docs/
+**/application.properties
+**/angular_training

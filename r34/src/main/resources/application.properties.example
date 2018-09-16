@@ -3,3 +3,5 @@
 
 spring.datasource.url=jdbc:mysql://localhost/r34
 
+spring.datasource.username=pi_user
+spring.datasource.password=pi_password

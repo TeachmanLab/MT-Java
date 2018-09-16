@@ -47,7 +47,7 @@
         <div class="sessionHeader">
             <img class="sessionImage" th:src="|/images/map-${lastSession.index}-${participant.theme}.png|" alt="icon"/>
 
-            <h2>Congratulations <span th:text="${participant.fullName}">Jim</span>!</h2>
+            <h2>Congratulations, <span th:text="${participant.fullName}">Jim</span>!</h2>
             <p class="block">You have completed <span  th:text="${lastSession.displayName}"/>.
             Finishing the stories during the next session will be a little more challenging as you move up to
             <span  th:text="${currentSession.displayName}"/>, but we think you’re ready.

@@ -3,7 +3,6 @@ package org.mindtrails.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import javafx.beans.binding.ObjectExpression;
 import org.junit.Assert;
 import org.mindtrails.Application;
 import org.mindtrails.MockClasses.*;
@@ -94,7 +93,7 @@ public class ImportServiceTest extends BaseControllerTest {
         entityManager.persist(new GiftLog(p, "Order1", "Session 1"));
         entityManager.persist(new EmailLog(p, "Email1"));
         entityManager.persist(new TaskLog(p.getStudy(), 25.0));
-        entityManager.persist(new JsPsychTrial(1,"Mobile",true));
+        entityManager.persist(new JsPsychTrial(1l,"Mobile",true));
     }
 
 

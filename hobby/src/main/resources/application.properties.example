@@ -1,0 +1,7 @@
+-# Default settings are located in core/src/main/resources/default.properties
+-# but can be overridden here as needed.
++
+server.url=http://localhost:9000/hobby
++server.port=8080
++management.port=9001
++logging.file=target/log.out
