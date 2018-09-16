@@ -126,23 +126,18 @@ var R01 = (function () {
                         stimulus: function () {
                             return (
                                 "<div class='piIntro'> " +
-                                "<img src='" + my.base_url + "images/compass-blue.png' > " +
-                                "<p> In this study, you will see a set of short stories. All stories will start with the story's title, " +
-                                "so you know what the story is about. " +
-                                "The stories will be presented in different formats, some will include pictures, some will not.</p> " +
-                                "<br clear='all'> " +
-                                "<b>For each story:</b> " +
+                                "<h1><b>Completing Short Stories</b></h1>" +
+                                "<p>You will now read several short stories. For each story:</p>" +
                                 "<ul> " +
-                                "<li><b>Please</b> <i>imagine</i> yourself in the situation described in each story. " +
-                                "<li>Remember, even if the story describes you reacting in a way that you would not usually react, please " +
-                                "try to picture yourself responding in the way the story describes. </li> " +
-                                "<li>There will be an incomplete word at the end of each story. </li> " +
-                                "<li>Click the letter that completes each word. </li> " +
-                                "<li>When you correctly complete the word you will move on to the next screen and be asked a " +
-                                "question about the story. </li> " +
+                                "<li>Please <b><i>imagine</i></b> yourself in the situation described.</li> " +
+                                "<li>Some stories may describe you reacting to the situation differently than you usually " +
+                                "would. Please really try to imagine yourself responding the way the story describes, even if it would be unusual for you.</li> " +
+                                "<li>The last word of each story is incomplete. Click on the missing letter to complete the word.</li> " +
+                                "<li>After you correctly complete the word, you will be asked a question about the story. </li> " +
+                                "<li>Answer the question based on the information in the story, whether or not that matches what you would personally think or do in that situation. </li> " +
                                 "</ul> " +
                                 "</div>"
-                            )
+                                )
                         },
 
                         on_finish: function (data) {

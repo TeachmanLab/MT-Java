@@ -11,7 +11,7 @@
 <head th:replace="fragment/common :: headerFragment"/>
 <body>
 <section th:replace="fragment/common :: topFragment"/>
-<section th:replace="fragment/common :: titleBar (title='Help Seeking')"/>
+<section th:replace="fragment/common :: titleBar (title='Mood and Drinking Patterns')"/>
 <textArea th:replace="fragment/common :: questionTemplate"/>
 <section id="content" class="clearfix">
 
@@ -50,6 +50,7 @@
             <div id="section1"></div>
             <div class="col-md-12">
                 <h4><b> Please circle the answer that is correct for you.</b></h4>
+            </div>
             <script>
                 var data = {
                     "options": [
@@ -116,7 +117,6 @@
         <div class="col-md-12" style="text-align:center">
             <button type="submit">Next</button>
         </div>
-
     </form>
 
 
