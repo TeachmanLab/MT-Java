@@ -14,6 +14,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
@@ -57,7 +58,7 @@ public class LoginController {
     private ImportService importService;
 
         @RequestMapping(value="/", method = RequestMethod.GET)
-    public String printWelcome(Principal principal, HttpSession session,
+    public String printWelcome(Principal principal, HttpSession session, Model model,
                                @RequestHeader(value = "referer", required = false) final String referer,
                                @RequestParam(name="cp", defaultValue = "unknown", required = false) String campaign) {
 
@@ -68,6 +69,7 @@ public class LoginController {
         // Show the Index / Login page if the user is not logged in
         // otherwise redirect them to the session page.
         if(importService.isImporting()) {
+            model.addAttribute("participant", participantService.get(principal));
             return "importmode";
         } else if(auth == null || !auth.isAuthenticated())
             return "index";

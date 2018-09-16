@@ -322,7 +322,10 @@ public class ImportService {
      * This is the function that we used to log the null data in columns.
      */
     public Boolean saveMissingLog(JsonNode jsonNode, String scale) {
-
+        return(false);
+        // This created over 1/2 million records in the database during
+        // a few hours of rapidly running the importer rapidly.
+        /*
         ObjectNode jMissingNode = new ObjectMapper().createObjectNode();
         Iterator<String> it = jsonNode.fieldNames();
         String fields = "";
@@ -360,6 +363,7 @@ public class ImportService {
         }
         System.out.println(jMissingNode.get("columns"));
         return false;
+        */
     }
 
 

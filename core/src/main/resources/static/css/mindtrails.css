@@ -21,6 +21,10 @@ body {font-family: 'Source Sans Pro', sans-serif; font-size:20px; box-sizing:bor
 }
 }
 
+div.import {
+    color: #b8ec79;
+}
+
 /********************************************************
 Alternate NavBar Breakpoint - to better support Ipad
 ********************************************************/

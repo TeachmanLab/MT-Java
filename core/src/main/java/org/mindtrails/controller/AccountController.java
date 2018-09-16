@@ -86,14 +86,13 @@ public class AccountController extends BaseController {
         model.addAttribute("participantForm", new ParticipantCreate());
         model.addAttribute("recaptchaSiteKey", recaptchaSiteKey);
         model.addAttribute("giftcardsEnabled", tangoService.getEnabled());
-        if(participantService.isEligible(session)) {
+        if(participantService.isEligible(session) || importService.isImporting()) {
             return "account/create";
         } else {
             return "redirect:/public/eligibility";
         }
     }
 
-    @ExportMode
     @RequestMapping(value="create", method = RequestMethod.POST )
     public String createNewParticipant(ModelMap model,
                                        @ModelAttribute("participantForm") @Valid ParticipantCreate participantCreate,
@@ -118,13 +117,18 @@ public class AccountController extends BaseController {
 
         // Be sure to call saveNew rather than save, allowing
         // any data associated with the session to get
-        // captured.
-        try {
-            participantService.saveNew(participant, session);
-        } catch (MissingEligibilityException mee) {
-            return "redirect:/public/eligibility";
+        // captured.  If this is in the importService mode, then we need to allow
+        // the creation of a new account /without/ capturing any addtional eligiblity
+        // requirements.
+        if(this.importService.isImporting()) {
+            participantService.save(participant);
+        } else {
+            try {
+                participantService.saveNew(participant, session);
+            } catch (MissingEligibilityException mee) {
+                return "redirect:/public/eligibility";
+            }
         }
-
 
         // Log this new person in.
         Authentication auth = new UsernamePasswordAuthenticationToken( participantCreate.getEmail(), participantCreate.getPassword());

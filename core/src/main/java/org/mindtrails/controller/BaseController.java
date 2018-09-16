@@ -1,6 +1,7 @@
 package org.mindtrails.controller;
 
 import org.mindtrails.domain.Participant;
+import org.mindtrails.service.ImportService;
 import org.mindtrails.service.ParticipantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,6 +16,9 @@ public class BaseController {
     @Autowired
     private ParticipantService participantService;
 
+    @Autowired
+    private ImportService importService;
+
     @ModelAttribute("participant")
     public Participant getParticipant(Principal principal) {
         return participantService.get(principal);
@@ -24,6 +28,12 @@ public class BaseController {
     public boolean visiting(Principal principal) {
         return participantService.get(principal) == null;
     }
+
+    @ModelAttribute("importMode")
+    public boolean importMode() {
+        return importService.isImporting();
+    }
+
 
 
 }

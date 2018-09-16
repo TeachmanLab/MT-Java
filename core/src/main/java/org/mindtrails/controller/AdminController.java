@@ -63,8 +63,6 @@ public class AdminController extends BaseController {
     @Autowired
     private ExportService exportService;
 
-    @Value("${export.disableDownloads}")
-    private String downloadsDisabled;
 
     @Autowired
     private ParticipantService participantService;
@@ -93,8 +91,6 @@ public class AdminController extends BaseController {
     @Autowired
     private VisitRepository visitRepository;
 
-    @Value("${mode}")
-    private String serverMode;
 
     @Value("${import.url}")
     private String url;
@@ -317,12 +313,10 @@ public class AdminController extends BaseController {
     public String export(ModelMap model, Principal principal) {
         Participant p = getParticipant(principal);
 
-        if (serverMode.toLowerCase().equals("import")) {
+        if (importService.isImporting()) {
             model.addAttribute("downloadsDisabled",false);
-        } else if (serverMode.toLowerCase().equals("export")) {
-            model.addAttribute("downloadsDisabled",true);
         } else {
-            model.addAttribute("downloadsDisabled", Boolean.parseBoolean(downloadsDisabled));
+            model.addAttribute("downloadsDisabled", true);
         };
         try {
             model.addAttribute("scales", importService.fetchListOfScales());
