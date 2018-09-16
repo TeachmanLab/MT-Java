@@ -1,6 +1,8 @@
 package edu.virginia.psyc.r01.service;
 
 import edu.virginia.psyc.r01.domain.R01Study;
+import edu.virginia.psyc.r01.persistence.DASS21_AS;
+import edu.virginia.psyc.r01.persistence.DASS21_ASRepository;
 import edu.virginia.psyc.r01.persistence.ExpectancyBias;
 import edu.virginia.psyc.r01.persistence.ExpectancyBiasRepository;
 import org.mindtrails.domain.Participant;
@@ -28,7 +30,7 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
     ParticipantRepository participantRepository;
 
     @Autowired
-    ExpectancyBiasRepository biasRepository;
+    DASS21_ASRepository dass21RRepository;
 
     public enum CONDITION_TYPE  {POSITIVE, FIFTY_FIFTY, NEUTRAL}
     public enum CONDITION_SPLIT {A,B}
@@ -67,8 +69,8 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
 
     @Override
     public boolean isEligible(HttpSession session) {
-        List<ExpectancyBias> forms = biasRepository.findBySessionId(session.getId());
-        for (ExpectancyBias e : forms) {
+        List<DASS21_AS> forms = dass21RRepository.findBySessionId(session.getId());
+        for (DASS21_AS e : forms) {
             if (e.eligible()) return true;
         }
         return false;
@@ -77,7 +79,7 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
     @Override
     public void saveNew(Participant p, HttpSession session) throws MissingEligibilityException {
 
-        List<ExpectancyBias> forms = biasRepository.findBySessionId(session.getId());
+        List<DASS21_AS> forms = dass21RRepository.findBySessionId(session.getId());
         if(forms.size() < 1) {
             throw new MissingEligibilityException();
         }
@@ -87,10 +89,10 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
 
         // Now that p is saved, connect any Expectancy Bias eligibility data back to the
         // session, and log it in the TaskLog
-        for (ExpectancyBias e : forms) {
+        for (DASS21_AS e : forms) {
             e.setParticipant(p);
             e.setSession("ELIGIBLE");
-            biasRepository.save(e);
+            dass21RRepository.save(e);
             study.completeEligibility(e);
         }
         save(p); // Re-save participant to record study.

@@ -1,6 +1,7 @@
 package edu.virginia.psyc.r01.service;
 
 import edu.virginia.psyc.r01.domain.R01Study;
+import edu.virginia.psyc.r01.persistence.OA;
 import org.mindtrails.domain.Email;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.Session;
@@ -18,10 +19,14 @@ import java.util.List;
  */
 @Service
 public class R01EmailService extends EmailServiceImpl implements EmailService{
+
+    private String RISING_SCORE = "risingScore";
+
     private String FIRST_SESSION = "SESSION1";
     private String SECOND_SESSION = "SESSION2";
     private String THIRD_SESSION = "SESSION3";
     private String FOURTH_SESSION = "SESSION4";
+
 
     @Override
     public List<Email> emailTypes() {
@@ -31,6 +36,22 @@ public class R01EmailService extends EmailServiceImpl implements EmailService{
         emails.add(new Email(THIRD_SESSION, "Bonus feature from the MindTrails team"));
         emails.add(new Email(FOURTH_SESSION, "Bonus feature from the MindTrails team"));
         return emails;
+    }
+
+
+    public void sendAtRiskAdminEmail(Participant participant, OA firstEntry, OA currentEntry)  {
+
+        // Prepare the evaluation context
+        final Context ctx = new Context();
+        ctx.setVariable("orig", firstEntry);
+        ctx.setVariable("latest", currentEntry);
+
+        Email email = getEmailForType(RISING_SCORE);
+        email.setContext(ctx);
+        email.setTo(this.alertsTo);
+        email.setParticipant(participant);
+
+        sendEmail(email);
     }
 
     @Override

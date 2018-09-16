@@ -52,6 +52,11 @@ public interface Study {
 
     public List<String> getConditions();
 
+    public double getIncreasePercent();
+
+    public void setIncreasePercent(double value);
+
+
     /**
      *     Parameters to pass into the PIPlayer Script.  Frequently
      *     includes details about the current study, such as

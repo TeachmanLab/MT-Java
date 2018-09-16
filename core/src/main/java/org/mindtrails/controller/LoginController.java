@@ -5,6 +5,7 @@ import org.mindtrails.domain.PasswordToken;
 import org.mindtrails.domain.forms.ParticipantCreate;
 import org.mindtrails.persistence.ParticipantRepository;
 import org.mindtrails.service.EmailService;
+import org.mindtrails.service.ImportService;
 import org.mindtrails.service.ParticipantService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,6 +53,8 @@ public class LoginController {
     @Autowired
     private ParticipantRepository participantRepository;
 
+    @Autowired
+    private ImportService importService;
 
         @RequestMapping(value="/", method = RequestMethod.GET)
     public String printWelcome(Principal principal, HttpSession session,
@@ -64,7 +67,9 @@ public class LoginController {
         Authentication auth = (Authentication) principal;
         // Show the Index / Login page if the user is not logged in
         // otherwise redirect them to the session page.
-        if(auth == null || !auth.isAuthenticated())
+        if(importService.isImporting()) {
+            return "importmode";
+        } else if(auth == null || !auth.isAuthenticated())
             return "index";
         else
             return "redirect:/session";

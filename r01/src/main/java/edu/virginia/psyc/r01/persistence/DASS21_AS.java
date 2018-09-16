@@ -92,7 +92,7 @@ public class DASS21_AS extends LinkedQuestionnaireData {
         return((sum / total) * 14.0);
     }
 
-    public boolean eligibleScore() {
+    public boolean eligible() {
         return(this.score() > 10 );
     }
 

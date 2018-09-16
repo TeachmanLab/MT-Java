@@ -6,6 +6,7 @@ import edu.virginia.psyc.r01.persistence.OARepository;
 import edu.virginia.psyc.r01.service.R01EmailService;
 import org.mindtrails.controller.QuestionController;
 import org.mindtrails.domain.Participant;
+import org.mindtrails.domain.Study;
 import org.mindtrails.service.ParticipantService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -74,12 +75,11 @@ public class OAController extends QuestionController {
 
             OA firstEntry = Collections.min(previous);
             //Participant participant = participantService.get(principal);
-            R01Study study = (R01Study)participant.getStudy();
+            Study study = participant.getStudy();
             if(oa.atRisk(firstEntry)) {
-                if (!study.isIncrease50()) { // alert admin the first time.
-                    //emailService.sendAtRiskAdminEmail(participant, firstEntry, oa);
-                    study.setIncrease50(true);
-
+                if (!(study.getIncreasePercent() > 50)) { // alert admin only the first time.
+                    emailService.sendAtRiskAdminEmail(participant, firstEntry, oa);                    study.setIncreasePercent(50);
+                    study.setIncreasePercent(oa.getIncrease(firstEntry));
                     participantService.save(participant);
                 }
 

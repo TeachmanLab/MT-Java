@@ -45,6 +45,7 @@ public abstract class BaseStudy implements Study {
     protected Date lastSessionDate;
     protected boolean receiveGiftCards;
     protected String conditioning;
+    protected double increasePercent;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "study")
     @JsonIgnore

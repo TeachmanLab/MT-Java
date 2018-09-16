@@ -32,8 +32,6 @@ public class R34Study extends BaseStudy implements Study {
     public enum CONDITION {FIFTY_FIFTY, POSITIVE, NEUTRAL}
     public enum PRIME {NEUTRAL, ANXIETY}
 
-    private boolean        increase30 = false;
-    private boolean        increase50 = false;
     @Enumerated(EnumType.STRING) private PRIME          prime;
     protected String       riskSession;  // The session that saw an increase in risk factor.
 

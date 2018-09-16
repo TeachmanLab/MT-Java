@@ -11,7 +11,6 @@
 <head th:replace="fragment/common :: headerFragment"/>
 <body>
 <section th:replace="fragment/common :: topFragment"/>
-<section th:replace="fragment/common :: titleBar (title='DASS21_AS')"/>
 <textArea th:replace="fragment/common :: questionTemplate"/>
 
 <section id="header-btm" class="clearfix">
@@ -44,8 +43,8 @@
 </section>
 
 <section id="content2" class="clearfix">
-
-    <form th:action="@{/questions/DASS21_AS}" method="POST">
+     <form th:action="${eligibility}? @{/public/eligibilityCheck} : @{/questions/DASS21_AS}"
+              method="POST">
         <!-- Add timer -->
         <input id="timeOnPage" name="timeOnPage" type="hidden"/>
         <div class="container section compactQuestion">

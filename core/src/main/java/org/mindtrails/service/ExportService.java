@@ -159,11 +159,11 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
         }
         // Study and participant are special cases that will be managed through an export class.
         if(useExportClasses) {
-            if (name.toLowerCase().equals("study")) return StudyImportExport.class;
-            if (name.toLowerCase().equals("participant")) return ParticipantExport.class;
+            if (name.toLowerCase().startsWith("study")) return StudyImportExport.class;
+            if (name.toLowerCase().startsWith("participant")) return ParticipantExport.class;
         } else {
-            if (name.toLowerCase().equals("study")) return StudyImportExport.class;
-            if (name.toLowerCase().equals("participant")) return Participant.class;
+            if (name.toLowerCase().startsWith("study")) return StudyImportExport.class;
+            if (name.toLowerCase().startsWith("participant")) return Participant.class;
         }
         for (  Class<?> domainType : repositories) {
             if (domainType.getSimpleName().toLowerCase().equals(name.toLowerCase())) {

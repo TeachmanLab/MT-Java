@@ -31,5 +31,6 @@ public class StudyImportExport {
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="EEE, dd MMM yyyy HH:mm:ss Z", timezone="EST")
     private Date lastSessionDate;
     private boolean receiveGiftCards;
+    private double increasePercent;
 
 }

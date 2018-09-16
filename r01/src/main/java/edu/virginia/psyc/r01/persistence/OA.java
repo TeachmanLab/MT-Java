@@ -87,6 +87,10 @@ public class OA extends LinkedQuestionnaireData implements Comparable<OA> {
       return (score() / original.score()) > 1.5;
     }
 
+    public double getIncrease(OA original) {
+        return (score() / original.score());
+    }
+
     @Override
     public int compareTo(OA o) {
         return date.compareTo(o.date);

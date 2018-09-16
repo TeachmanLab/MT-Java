@@ -74,9 +74,9 @@ public class OAController extends QuestionController {
             Participant participant = participantService.get(principal);
             R34Study study = (R34Study)participant.getStudy();
             if(oa.atRisk(firstEntry)) {
-                if (!study.isIncrease50()) { // alert admin the first time.
+                if (!(study.getIncreasePercent() > 0)) { // alert admin the first time.
                     emailService.sendAtRiskAdminEmail(participant, firstEntry, oa);
-                    study.setIncrease50(true);
+                    study.setIncreasePercent(oa.getIncrease(firstEntry));
                     participantService.save(participant);
                 }
                 return new RedirectView("/session/atRisk", true);

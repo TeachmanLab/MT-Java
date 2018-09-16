@@ -13,6 +13,7 @@ import org.mindtrails.domain.importData.Scale;
 import org.mindtrails.domain.tracking.MissingDataLog;
 import org.mindtrails.persistence.MissingDataLogRepository;
 import org.mindtrails.persistence.ParticipantRepository;
+import org.mindtrails.persistence.StudyExportRepository;
 import org.mindtrails.persistence.StudyRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +29,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
@@ -115,19 +117,25 @@ public class ImportService {
      * Calls the API to get a list of all scales to import.
      */
     public List<Scale> fetchListOfScales() throws HttpClientErrorException {
-        LOGGER.info("Get into the original methods");
+        LOGGER.info("Calling export at " + this.url + "/api/export");
         HttpEntity<String> request = new HttpEntity<String>(headers());
         URI uri = URI.create(this.url + "/api/export");
-        ResponseEntity<List<Scale>> responseEntity =
-                restTemplate.exchange(uri, HttpMethod.GET, request,
-                        new ParameterizedTypeReference<List<Scale>>() {});
-        List<Scale> scales = responseEntity.getBody();
+        try {
+            ResponseEntity<List<Scale>> responseEntity =
+                    restTemplate.exchange(uri, HttpMethod.GET, request,
+                            new ParameterizedTypeReference<List<Scale>>() {
+                            });
+;            List<Scale> scales = responseEntity.getBody();
+            // do a bit of reordering, as we have to import study first, then participant, then
+            // everything else.
+            moveScaleToTopOfList(scales, "ParticipantExport");
+            moveScaleToTopOfList(scales, "StudyImportExport");
+            return scales;
+        } catch(RestClientException rce) {
+            throw new ImportError("Failed to get the proper response back.  " +
+                    "Do you have the correct credentials to connect to the server?");
+        }
 
-        // do a bit of reordering, as we have to import study first, then participant, then
-        // everything else.
-        moveScaleToTopOfList(scales, "participant");
-        moveScaleToTopOfList(scales, "study");
-        return scales;
     }
 
     public void moveScaleToTopOfList(List<Scale> list, String name) {
@@ -250,11 +258,9 @@ public class ImportService {
     /**
      * Every five minutes the program will try to download all the data.
      */
-    @Scheduled(cron = "0 5 * * * *")
+    @Scheduled(fixedRateString = "${import.rate.in.milliseconds}")
     public void importData() {
-        if(!this.isImporting()) {
-            LOGGER.info("Skipping import. Not in that mode.");
-        }
+        if(!this.isImporting()) { return; }
         List<Scale> list = fetchListOfScales();
         for (Scale scale : list) {
             importScale(scale.getName(), fetchScale(scale.getName()));
@@ -320,7 +326,7 @@ public class ImportService {
         ObjectNode jMissingNode = new ObjectMapper().createObjectNode();
         Iterator<String> it = jsonNode.fieldNames();
         String fields = "";
-        String participant = "";
+        long participantId;
         String id = "";
         String date = "";
         Boolean found = false;
@@ -344,9 +350,9 @@ public class ImportService {
             if (jsonNode.has("id")) {
                 id = jsonNode.get("id").asText();
             }
-            if (jsonNode.has("participant")) {
-                participant = jsonNode.get("participant").asText();
-                Participant p = participantRepository.findOne(Long.parseLong(participant));
+            if (jsonNode.has("participant") && jsonNode.get("participant").asLong() > 0) {
+                participantId = jsonNode.get("participant").asLong();
+                Participant p = participantRepository.findOne(participantId);
                 MissingDataLog mlog = new MissingDataLog(p, scale, fields.substring(1), Long.parseLong(id), date);
                 missingDataLogRepository.save(mlog);
             }

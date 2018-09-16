@@ -1,5 +1,6 @@
 package edu.virginia.psyc.r01.domain;
 
+import edu.virginia.psyc.r01.persistence.DASS21_AS;
 import edu.virginia.psyc.r01.persistence.ExpectancyBias;
 import lombok.Data;
 import org.mindtrails.domain.BaseStudy;
@@ -30,8 +31,6 @@ public class R01Study extends BaseStudy {
     // 50/50 (half positive, half negative, chunks - first 5 pos, next x are negative ....)
     // Neutral condition (likely alternate content)
     public enum CONDITION {POSITIVE, POSITIVE_NEGATION, FIFTY_FIFTY_RANDOM, FIFTY_FIFTY_BLOCKED, NEUTRAL }
-    //private boolean        increase30 = false;
-    private boolean        increase50 = false;
     public static final String PRE_TEST = "preTest";
 
     public enum SESSION {preTest, firstSession, secondSession, thirdSession, fourthSession, fifthSession, PostFollowUp };
@@ -54,10 +53,10 @@ public class R01Study extends BaseStudy {
         super(currentSession, taskIndex, lastSessionDate, taskLogs, receiveGiftCards);
     }
 
-    public void completeEligibility(ExpectancyBias bias) {
+    public void completeEligibility(DASS21_AS dass) {
         TaskLog t = new TaskLog();
-        t.setDateCompleted(bias.getDate());
-        t.setTaskName("ExpectancyBias");
+        t.setDateCompleted(dass.getDate());
+        t.setTaskName("DASS21_AS");
         t.setSessionName("Eligibility");
         t.setStudy(this);
         taskLogs.add(t);

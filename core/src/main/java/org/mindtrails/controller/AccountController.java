@@ -11,6 +11,7 @@ import org.mindtrails.domain.data.Exportable;
 import org.mindtrails.domain.forms.ParticipantCreate;
 import org.mindtrails.domain.forms.ParticipantUpdate;
 import org.mindtrails.domain.recaptcha.RecaptchaFormValidator;
+import org.mindtrails.service.ImportService;
 import org.mindtrails.service.ParticipantService;
 import org.mindtrails.service.TangoService;
 import org.mindtrails.service.TwilioService;
@@ -63,8 +64,8 @@ public class AccountController extends BaseController {
     @Autowired
     private TangoService tangoService;
 
-    @Value("${mode}")
-    private String serverMode;
+    @Autowired
+    private ImportService importService;
 
     /** This will assure that any form submissions for the participant Form
      * are validated for a proper recaptcha response.
@@ -77,7 +78,7 @@ public class AccountController extends BaseController {
 
     @RequestMapping(value="create", method = RequestMethod.GET)
     public String createForm (ModelMap model, HttpSession session) {
-        if (serverMode.toLowerCase().equals("data")) {
+        if (importService.isImporting()) {
             model.addAttribute("enableVerification",false);
         } else {
             model.addAttribute("enableVerification",true);
@@ -90,7 +91,6 @@ public class AccountController extends BaseController {
         } else {
             return "redirect:/public/eligibility";
         }
-
     }
 
     @ExportMode

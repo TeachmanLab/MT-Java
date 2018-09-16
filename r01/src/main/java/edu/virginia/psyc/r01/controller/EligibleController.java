@@ -1,5 +1,7 @@
 package edu.virginia.psyc.r01.controller;
 
+import edu.virginia.psyc.r01.persistence.DASS21_AS;
+import edu.virginia.psyc.r01.persistence.DASS21_ASRepository;
 import edu.virginia.psyc.r01.persistence.ExpectancyBias;
 import edu.virginia.psyc.r01.persistence.ExpectancyBiasRepository;
 import org.mindtrails.controller.BaseController;
@@ -28,25 +30,25 @@ public class EligibleController extends BaseController {
     private static final String BIAS_SESSION = "bias";
 
     @Autowired
-    private ExpectancyBiasRepository biasRepository;
+    private DASS21_ASRepository repository;
 
 
     @RequestMapping("public/eligibility")
     public String showEligibility(ModelMap model) {
         // Template will set a difference form action if this variable is set to true.
         model.addAttribute("eligibility",true);
-        return "questions/ExpectancyBias";
+        return "questions/DASS21_AS";
     }
 
     @RequestMapping(value="public/eligibilityCheck", method = RequestMethod.POST)
-    public String checkEligibility(@ModelAttribute("ExpectancyBias") ExpectancyBias bias,
+    public String checkEligibility(@ModelAttribute("DASS21as")DASS21_AS dass,
                                    ModelMap model, HttpSession session) {
 
-        bias.setSessionId(session.getId());
-        bias.setDate(new Date());
-        biasRepository.save(bias);
+        dass.setSessionId(session.getId());
+        dass.setDate(new Date());
+        repository.save(dass);
 
-        if(bias.eligible()) {
+        if(dass.eligible()) {
             return "invitation";
         } else {
             return "ineligible";
