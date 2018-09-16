@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="fragment/common :: headerFragment"/>
+<body>
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
+
+<div class="container sessionSection">
+    <div class="row">
+        <div class="col-md-12 session">
+            <h1>This server is running in Import Mode.</h1>
+
+            <div th:if="!participant">
+                <p> This is a private restricted access instance of MindTrails.
+                    You may not enter new information on this system. The account on the companion server
+                    will not work here, as all data is deidentified and we do not have access to your original email
+                    address and password. You can create a new account with button below.</p>
+                <a th:href="@{/login}">
+                    <button>Log In</button>
+                </a>
+                <a th:href="@{/account/create}">
+                    <button>Create Account</button>
+                </a>
+            </div>
+
+            <div sec:authorize="hasRole('ROLE_USER')">
+                <p>You now have an account on the Import server.  However you do not have
+                administrative role.  Someone with an administrative account can grant you access so
+                you can actually do something. </p>
+            </div>
+
+            <div sec:authorize="hasRole('ROLE_ADMIN')">
+                <p>You account has administrative privilages.  Please look below for links t
+                admin features.</p>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>
