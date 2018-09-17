@@ -30,15 +30,15 @@
                 </a>
             </div>
 
-            <div sec:authorize="${hasRole('ROLE_USER')}">
+            <div sec:authorize="${!hasRole('ROLE_USER')}">
                 <p>You now have an account on the Import server.  However you do not have
                 administrative role.  Someone with an administrative account can grant you access so
                 you can actually do something. </p>
             </div>
 
             <div sec:authorize="${hasRole('ROLE_ADMIN')}">
-                <p>You account has administrative privilages.  Please look below for links t
-                admin features.</p>
+                <p><B>Welcome to the Data Collection Instance of MindTrails!</B>  Please use the links below to access
+                administrative tools.</p>
             </div>
 
 

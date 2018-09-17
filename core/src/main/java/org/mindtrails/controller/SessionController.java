@@ -10,10 +10,7 @@ import org.mindtrails.domain.Study;
 import org.mindtrails.domain.tango.Reward;
 import org.mindtrails.persistence.ReasonsForEnding;
 import org.mindtrails.persistence.ReasonsForEndingRepository;
-import org.mindtrails.service.EmailService;
-import org.mindtrails.service.ExportService;
-import org.mindtrails.service.ParticipantService;
-import org.mindtrails.service.TangoService;
+import org.mindtrails.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +40,7 @@ public class SessionController extends BaseController {
     @Autowired private TangoService tangoService;
     @Autowired private EmailService emailService;
     @Autowired private ExportService exportService;
+    @Autowired private ImportService importService;
     @Autowired private ParticipantService participantService;
     @Autowired private ReasonsForEndingRepository reasonsForEndingRepository;
 
@@ -54,6 +52,10 @@ public class SessionController extends BaseController {
         Study study = p.getStudy();
         Session session = study.getCurrentSession();
         Session last = study.getLastSession();
+
+        if(importService.isImporting()) {
+            return "redirect:/";
+        }
 
         if(reactivate) {
             p.setActive(true);
