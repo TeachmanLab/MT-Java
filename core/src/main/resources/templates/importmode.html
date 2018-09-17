@@ -17,7 +17,7 @@
         <div class="col-md-12 session">
             <h1>This server is running in Import Mode.</h1>
 
-            <div th:if="!participant">
+            <div th:unless="${participant}">
                 <p> This is a private restricted access instance of MindTrails.
                     You may not enter new information on this system. The account on the companion server
                     will not work here, as all data is deidentified and we do not have access to your original email
@@ -30,13 +30,13 @@
                 </a>
             </div>
 
-            <div sec:authorize="hasRole('ROLE_USER')">
+            <div sec:authorize="${hasRole('ROLE_USER')}">
                 <p>You now have an account on the Import server.  However you do not have
                 administrative role.  Someone with an administrative account can grant you access so
                 you can actually do something. </p>
             </div>
 
-            <div sec:authorize="hasRole('ROLE_ADMIN')">
+            <div sec:authorize="${hasRole('ROLE_ADMIN')}">
                 <p>You account has administrative privilages.  Please look below for links t
                 admin features.</p>
             </div>

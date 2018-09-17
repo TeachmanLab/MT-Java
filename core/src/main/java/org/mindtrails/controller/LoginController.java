@@ -45,6 +45,12 @@ import java.util.List;
 public class LoginController {
     private static final Logger LOG = LoggerFactory.getLogger(LoginController.class);
 
+
+    @ModelAttribute("importMode")
+    public boolean importMode() {
+        return importService.isImporting();
+    }
+
     @Autowired
     private EmailService emailService;
 
@@ -70,6 +76,7 @@ public class LoginController {
         // otherwise redirect them to the session page.
         if(importService.isImporting()) {
             model.addAttribute("participant", participantService.get(principal));
+            model.addAttribute("importMode", true);
             return "importmode";
         } else if(auth == null || !auth.isAuthenticated())
             return "index";
