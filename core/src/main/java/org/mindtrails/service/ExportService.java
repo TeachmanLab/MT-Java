@@ -68,7 +68,6 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
      */
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        LOG.debug("CONTEXT loaded:  " + event.getApplicationContext());
         repositories=new Repositories(event.getApplicationContext());
     }
 
@@ -119,7 +118,7 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
         }
         if (domainType != null)
             return (JpaRepository) repositories.getRepositoryFor(domainType);
-        LOG.info("failed to find a repository for " + name);
+        LOG.error("failed to find a repository for " + name);
         return null;
     }
 
@@ -152,9 +151,7 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
      * if it can't find a repository by name.
      */
     public Class<?> getDomainType(String name, boolean useExportClasses) {
-        LOG.info("Trying to get type of " + name);
         if(repositories == null) {
-            LOG.info("Found no type of "+name);
             return null;
         }
         // Study and participant are special cases that will be managed through an export class.
@@ -188,7 +185,7 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
     @ExportMode
     @Scheduled(cron = "0 0,30 * * * *")
     public void send30MinAlert() {
-        LOG.debug("Running 30 minute alert.");
+        LOG.error("Running 30 minute alert.");
         long minutesSinceLastExport = minutesSinceLastExport();
         int totalRecords = totalDeleteableRecords();
         if(totalRecords > 0 && minutesSinceLastExport > 30 && minutesSinceLastExport < 60) {
@@ -204,7 +201,7 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
     @ExportMode
     @Scheduled(cron = "0 0 */2 * * *")
     public void send2hrAlert() {
-        LOG.debug("Running 2hr alert.");
+        LOG.error("Running 2hr alert.");
         long minutesSinceLastExport = minutesSinceLastExport();
         int totalRecords = totalDeleteableRecords();
         if(totalRecords > 0 && minutesSinceLastExport > 120 && minutesSinceLastExport < 1440) {
@@ -220,7 +217,7 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
     @ExportMode
     @Scheduled(cron = "0 0 */4 * * *")
     public void send4hrAlert() {
-        LOG.debug("Running 4 hour alert.");
+        LOG.error("Running 4 hour alert.");
         long minutesSinceLastExport = minutesSinceLastExport();
         int totalRecords = totalDeleteableRecords();
         if(disableAdditionalFormSubmissions()) {

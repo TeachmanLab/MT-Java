@@ -117,7 +117,6 @@ public class ImportService {
      * Calls the API to get a list of all scales to import.
      */
     public List<Scale> fetchListOfScales() throws HttpClientErrorException {
-        LOGGER.info("Calling export at " + this.url + "/api/export");
         HttpEntity<String> request = new HttpEntity<String>(headers());
         URI uri = URI.create(this.url + "/api/export");
         try {
@@ -167,7 +166,6 @@ public class ImportService {
             if(!deleteable) return;
             HttpEntity<String> request = new HttpEntity<String>(headers());
             URI uri = URI.create(url + "/api/export/" + scale + '/' + Long.toString(id));
-            LOGGER.info("calling url:" + uri.toString());
             restTemplate.exchange(uri, HttpMethod.DELETE, request, new ParameterizedTypeReference<String>() {
             });
         } catch (HttpClientErrorException | NullPointerException e) {
@@ -250,7 +248,6 @@ public class ImportService {
             ((hasParticipant) object).setParticipant(participantRepository.findOne(participantId));
         }
         rep.save(object);
-        System.out.println(studyRepository.findAll().toArray());
         //safeDelete(scale,elm.path("id").asLong());
     }
 
@@ -261,6 +258,7 @@ public class ImportService {
     @Scheduled(fixedRateString = "${import.rate.in.milliseconds}")
     public void importData() {
         if(!this.isImporting()) { return; }
+        LOGGER.info("Importing data from " + this.url);
         List<Scale> list = fetchListOfScales();
         for (Scale scale : list) {
             importScale(scale.getName(), fetchScale(scale.getName()));
@@ -274,7 +272,6 @@ public class ImportService {
     @ImportMode
     //@Scheduled(cron = "0 * * * * *")
     public void backUpData() {
-        LOGGER.info("Try to backup data from local.");
         int errorFile = 0;
         List<Scale> list = fetchListOfScales();
         for (Scale scale : list) {
@@ -303,11 +300,9 @@ public class ImportService {
     }
 
     public File[] getFileList(String scale) {
-        LOGGER.info("Get into the getLocal function");
         File folder = new File(path);
         String pattern = scale.toLowerCase();
         File[] files = folder.listFiles((dir, name) -> name.toLowerCase().startsWith(pattern));
-        LOGGER.info("Here are the files that I found:" + files.toString());
         return files;
     }
 

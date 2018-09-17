@@ -64,7 +64,6 @@ public class ExportController  {
                 RequestParam(value = "greaterThan", required = false, defaultValue = "0") long id) {
         JpaRepository rep = exportService.getRepositoryForName(name, true);
         if (rep != null) {
-            LOG.info("Found " + rep.count() + " items to return .");
             if (rep instanceof TrialRepository) {
                 return(getTrialSummary((TrialRepository) rep));
             } else {
