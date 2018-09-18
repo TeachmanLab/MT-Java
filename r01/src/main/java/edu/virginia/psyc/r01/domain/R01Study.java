@@ -142,7 +142,7 @@ public class R01Study extends BaseStudy {
         session1 = new Session(FIRST_SESSION, "Level 1: Beginner", 0, 0);
         session1.setIndex(1);
         session1.addTask(new Task("Affect","Current Feelings", "pre", Task.TYPE.questions, 0));
-        session1.addTask(new Task("firstSession", "Training Stories", Task.TYPE.jspsych, 20));
+        session1.addTask(new Task("Training", "Training Stories", Task.TYPE.angularTraining, 20));
         session1.addTask(new Task("Affect","Current Feelings", "post", Task.TYPE.questions, 0));
         session1.addTask(new Task("CC","Follow up", Task.TYPE.questions, 0 ));
         session1.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));

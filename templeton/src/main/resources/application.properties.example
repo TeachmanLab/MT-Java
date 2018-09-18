@@ -1,0 +1,7 @@
+# Default settings are located in core/src/main/resources/default.properties
+# but can be overridden here as needed.
+
+spring.datasource.url=jdbc:mysql://localhost/templeton
+
+spring.datasource.username=pi_user
+spring.datasource.password=pi_password
