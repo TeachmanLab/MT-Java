@@ -96,10 +96,10 @@ Getting Started
 Requirements
 ---------------
 You must have the following applications installed in order to build and run the server.
-* Java 7 JDK - (http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html)
+* Java JDK 10 - (http://www.oracle.com/technetwork/java/javase/downloads/jdk10-downloads-4416644.html)
 * Node (Server side Javascript - for building the PIPlayer, see http://howtonode.org)
 * Bower (Javascript package management tool - just run "npm install bower -global")
-* Mysql (Relational Database - http://dev.mysql.com/doc/refman/5.1/en/installing.html)
+* MySQL (Relational Database - http://dev.mysql.com/doc/refman/5.1/en/installing.html)
 
 Intelij Development
 -------------------
@@ -111,6 +111,9 @@ Database Setup
 Install MySQL, and execute the following commands to establish
 a user account.  You can use a different password if you change
 the datasource.password setting in src/main/resources/application.properties
+
+WINDOWS OS: We suggest setting up the databases using the MySQL Workbench - https://dev.mysql.com/downloads/workbench/
+
 ```mysql
 CREATE DATABASE pi CHARACTER SET utf8 COLLATE utf8_general_ci;
 CREATE USER 'pi_user'@'localhost' IDENTIFIED BY 'pi_password';
