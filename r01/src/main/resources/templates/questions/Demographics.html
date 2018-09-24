@@ -38,8 +38,14 @@
                         </div>
                         <br/>
 
-                        <div><label class="question"> Birth year <input type="number" min="1900" name="BirthYear"
+                        <div><label class="question"> Birth year <input id="age_input" type="number" min="1900" max="3000" name="BirthYear"
                                                                         required="true"/> </label>
+
+                        <script>
+                            $(function() {
+                                $('#age_input').attr("max", new Date().getFullYear() - 18);
+                            });
+                        </script>
                         </div>
                         <br/>
 
