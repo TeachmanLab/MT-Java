@@ -24,21 +24,22 @@ import javax.persistence.Table;
 public class DASS21_AS extends LinkedQuestionnaireData {
 
     @Column(name="DRY")
-    private int dryness;
+    protected int dryness;
     @Column(name="BRE")
-    private int breathing;
+    protected int breathing;
     @Column(name="TRE")
-    private int trembling;
+    protected int trembling;
     @Column(name="WOR")
-    private int worry;
+    protected int worry;
     @Column(name="PAN")
-    private int panic;
+    protected int panic;
     @Column(name="HEA")
-    private int heart;
+    protected int heart;
     @Column(name="SCA")
-    private int scared;
-
-    private String sessionId;
+    protected int scared;
+    @Column(name="over18")
+    protected String over18 = "N/A";  // Only populated when used for eligibility
+    protected String sessionId;
 
 
     public DASS21_AS() {}
@@ -52,23 +53,6 @@ public class DASS21_AS extends LinkedQuestionnaireData {
         this.heart = heart;
         this.scared = scared;
     }
-
-    /**
-     * Returns a new DASS21 data structure, where all the values are decremented by 1.
-     * @return
-     */
-    public DASS21_AS decrementBy1() {
-        DASS21_AS newDass = new DASS21_AS(
-                this.dryness - 1,
-                this.breathing - 1,
-                this.trembling - 1,
-                this.worry - 1,
-                this.panic - 1,
-                this.heart - 1,
-                this.scared - 1);
-        return newDass;
-    }
-
 
     /**
      * Calculates the eligibility of a participant to be in a particular study

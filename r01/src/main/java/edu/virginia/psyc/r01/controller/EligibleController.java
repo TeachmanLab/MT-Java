@@ -46,9 +46,13 @@ public class EligibleController extends BaseController {
 
         dass.setSessionId(session.getId());
         dass.setDate(new Date());
+        dass.setSession("ELIGIBLE");
+        if(!dass.getOver18().equals("true")) {  // Deal with null and empty responses.
+            dass.setOver18("false");
+        }
         repository.save(dass);
 
-        if(dass.eligible()) {
+        if(dass.eligible() && dass.getOver18().toLowerCase().equals("true")) {
             return "invitation";
         } else {
             return "ineligible";

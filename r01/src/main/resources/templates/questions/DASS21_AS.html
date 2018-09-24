@@ -126,6 +126,16 @@
 
 
         <div class="col-md-12" style="text-align:center">
+            <div th:if="${eligibility}" class="form-group row">
+                <div class="col-sm-2">
+                </div>
+                <div class="col-sm-10">
+                    <label class="col-sm-10">
+                        <input class="inline-checkbox" type="checkbox" id="over18" name="over18" value="true"/>
+                        I am over 18 years of age.
+                    </label>
+                </div>
+            </div>
             <button type="submit">Next</button>
         </div>
 
