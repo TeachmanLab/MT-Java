@@ -1,0 +1,68 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+
+<!-- This is the template for asking a series of statements that all have the same
+     possible radio options as answers.  It uses the Mustache framework to populate
+      the answers. -->
+<textarea style="display: none"  id="template" th:fragment="questionTemplate">
+    <div class="row header">
+        <div class="col-md-6"><p class="tableOptions"></p></div>
+    {{#options}}
+        <div class="col-md-1"><p class="tableOptions">{{title}}</p></div>
+    {{/options}}
+        <div class="col-md-1"><p class="tableOptions">Prefer not to answer</p></div>
+    </div>
+
+    {{#questions}}
+     <div class="row">
+                <div class="col-md-6 statement"><p>{{desc}}</p></div>
+                {{#options}}
+                <div class="col-md-1">
+                    <label class="radio-inline option">
+                        <input type="radio" name="{{name}}" value="{{value}}" required="true"/>
+                        <span class="shortDesc">{{value}}</span> <span class="fullDesc">{{title}}</span></label>
+                </div>
+                {{/options}}
+                <div class="col-md-1">
+                    <label class="radio-inline option">
+                        <input type="radio" name="{{name}}" value="555" required="true"/>
+                        <span class="shortDesc">&nbsp;&nbsp;</span> <span class="fullDesc">Prefer not to answer</span></label>
+                </div>
+    </div>
+    {{/questions}}
+
+
+</textarea>
+
+
+<div th:fragment="radioOptions(model)">
+        <input id="timeOnPage" name="timeOnPage" type="hidden"/>
+        <div class="row header">
+            <div class="col-md-6"><p class="tableOptions"></p></div>
+            <div th:each="scale: ${model.scale}" class="col-md-1"><p class="tableOptions" th:text="${scale.value}"></p></div>
+            <div class="col-md-1"><p class="tableOptions">Prefer not to answer</p></div>
+        </div>
+
+        <div class="row" th:each="measure: ${model.measures}">
+            <div class="col-md-6 statement">
+                <span th:text="${measure.desc}"></span>
+                <span class="error" th:if="${measure.error}" th:text="${measure.errorMessage}"></span>
+            </div>
+            <div class="col-md-1" th:each="scale: ${measure.scale}">
+                <label class="radio-inline option">
+                    <input type="radio" th:name="${measure.name}" th:value="${scale.key}" th:field="*{__${measure.name}__}"/>
+                    <span class="shortDesc" th:text="${scale.key}"></span> <span class="fullDesc" th:text="${scale.value}"></span></label>
+            </div>
+            <div class="col-md-1">
+                <label class="radio-inline option">
+                    <input type="radio" th:name="${measure.name}" value="555" required="true"/>
+                    <span class="shortDesc">&nbsp;&nbsp;</span> <span class="fullDesc">Prefer not to answer</span></label>
+            </div>
+        </div>
+
+</div>
+
+Transient
+</body>
+</html>

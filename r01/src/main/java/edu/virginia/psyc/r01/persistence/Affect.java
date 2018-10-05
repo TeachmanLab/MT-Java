@@ -6,6 +6,7 @@ import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 
 @Entity
@@ -13,7 +14,7 @@ import javax.persistence.Table;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class Affect extends LinkedQuestionnaireData {
+    @NotNull
     private int PosFeelings;
-    private int NegFeelings;
 }
 
