@@ -36,7 +36,7 @@
 </textarea>
 
 
-<div th:fragment="radioOptions(model)">
+<div th:fragment="radioOptions(model, measures)">
         <input id="timeOnPage" name="timeOnPage" type="hidden"/>
         <div class="row header">
             <div class="col-md-6"><p class="tableOptions"></p></div>
@@ -44,10 +44,10 @@
             <div class="col-md-1"><p class="tableOptions">Prefer not to answer</p></div>
         </div>
 
-        <div class="row" th:each="measure: ${model.measures}">
+        <div class="row" th:each="measure: ${measures}">
             <div class="col-md-6 statement">
                 <span th:text="${measure.desc}"></span>
-                <span class="error" th:if="${measure.error}" th:text="${measure.errorMessage}"></span>
+                <span class="error" th:if="${measure.error}">*</span>
             </div>
             <div class="col-md-1" th:each="scale: ${measure.scale}">
                 <label class="radio-inline option">
@@ -63,6 +63,5 @@
 
 </div>
 
-Transient
 </body>
 </html>

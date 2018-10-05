@@ -8,6 +8,7 @@ import java.util.Map;
 public class Measure {
     protected final String name;
     protected final String desc;
+    protected final String group;
     protected final Map<Integer, String> scale;  // list of potential values.
     private boolean error = false;
     private String errorMessage;

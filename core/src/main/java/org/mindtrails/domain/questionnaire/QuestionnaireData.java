@@ -58,7 +58,7 @@ public abstract class QuestionnaireData implements hasParticipant {
         for (Field field : this.getClass().getDeclaredFields()) {
             if (field.isAnnotationPresent(MeasureField.class)) {
                 MeasureField mf = field.getAnnotation(MeasureField.class);
-                Measure m = new Measure(field.getName(), mf.desc(), this.getScale());
+                Measure m = new Measure(field.getName(), mf.desc(), mf.group(), this.getScale());
                 if(validationErrors.containsKey(field.getName())) {
                     m.setError(true);
                     m.setErrorMessage(validationErrors.get(field.getName()));
@@ -67,6 +67,32 @@ public abstract class QuestionnaireData implements hasParticipant {
             }
         }
         return measures;
+    }
+
+    /**
+     * Returns all measures in a given group.
+     * @return
+     */
+    public List<Measure> getMeasures(String group) {
+        List<Measure> allMeasures = this.getMeasures();
+        List<Measure> measures = new ArrayList<>();
+        for(Measure m : allMeasures) {
+            if (m.group.equals(group)) {
+                measures.add(m);
+            }
+        }
+        return measures;
+    }
+
+
+
+    /**
+     * Override this to set descriptions for group names.
+     * @param groupName
+     * @return
+     */
+    public String getGroupDescription(String groupName) {
+        return "";
     }
 
     /**

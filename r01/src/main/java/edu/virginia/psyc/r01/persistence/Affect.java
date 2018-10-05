@@ -14,7 +14,9 @@ import javax.validation.constraints.NotNull;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class Affect extends LinkedQuestionnaireData {
+
     @NotNull
-    private int PosFeelings;
+    private Integer PosFeelings;
+
 }
 

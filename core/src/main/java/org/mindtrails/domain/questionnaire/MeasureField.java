@@ -10,5 +10,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD) //can use on fields only.
 public @interface MeasureField {
     public String desc();
+    public String group() default "";
 }
 

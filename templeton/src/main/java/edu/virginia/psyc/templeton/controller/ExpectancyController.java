@@ -60,11 +60,12 @@ public class ExpectancyController extends QuestionController {
     @RequestMapping(method = RequestMethod.POST)
     RedirectView handleEB(@ModelAttribute("ExpetancyBias") ExpectancyBias eb,
                           Principal principal,
+                          ModelMap model,
                           WebRequest request) throws Exception {
 
         // Save the form, associate it with the participant, and log the
         // process.
-        saveForm("ExpectancyBias", request);
+        saveForm("ExpectancyBias", request, model, principal);
 
         Participant p = participantService.get(principal);
 
