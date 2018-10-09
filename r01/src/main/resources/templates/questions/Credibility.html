@@ -68,9 +68,7 @@
 
 <section id="content2" class="clearfix">
     <form th:action="@{/questions/Credibility}" method="POST" th:object="${model}">
-        <div class="container section compactQuestion">
-            <section th:replace="fragment/forms :: radioOptions(${model})"/>
-        </div>
+        <section th:replace="fragment/forms :: radioOptions(${model})"/>
         <div class="col-md-12" style="text-align:center">
             <button type="submit">Next</button>
         </div>

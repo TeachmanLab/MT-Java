@@ -45,17 +45,8 @@
 
 <section id="contentTest" class="clearfix">
     <form th:action="${eligibility}? @{/public/eligibilityCheck} : @{/questions/DASS21_AS}"
-            th:object="${dass}" method="POST">
-        <!-- Add timer -->
-        <input id="timeOnPage" name="timeOnPage" type="hidden"/>
-        <div class="container section compactQuestion">
-            <div class="row title">
-                <div class="col-md-12">
-                    <h4><b> Over the last week, how often have you been bothered by the following problems? </b></h4>
-                </div>
-            </div>
-            <section th:replace="fragment/forms :: radioOptions(${dass})"/>
-        </div>
+            th:object="${model}" method="POST">
+        <section th:replace="fragment/forms :: radioOptions(${model})"/>
         <div class="col-md-12" style="text-align:center">
             <button type="submit">Next</button>
         </div>

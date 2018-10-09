@@ -15,44 +15,13 @@
 <textArea th:replace="fragment/common :: questionTemplate"/>
 <section id="content" class="clearfix">
 
-    <form th:action="@{/questions/CC}" method="POST">
-        <!-- Add timer -->
-        <input id="timeOnPage" name="timeOnPage" type="hidden"/>
-        <div class="container section compactQuestion">
-            <div id="section1"></div>
-            <script>
-                var data = {
-                    "options": [
-                        {"value": 1, "title": "Not at all"},
-                        {"value": 2, "title": "Slightly"},
-                        {"value": 3, "title": "Somewhat"},
-                        {"value": 4, "title": "Mostly"},
-                        {"value": 5, "title": "Very much"},
-                    ],
-                    "questions": [
-                        {
-                            "name": "related",
-                            "desc": "While reading the brief stories in the training program, how much did you relate to the situations presented?"
-                        },
-                        {
-                            "name": "compare",
-                            "desc": "While reading the brief stories in the training program, how much did you feel like it could be you behaving that way in those stories?"
-                        }
-
-                    ]
-                }
-                $('#section1').html(Mustache.render($('#template').val(), data));
-            </script>
-        </div>
-
-
+    <form th:action="@{/questions/CC}" method="POST" th:object="${model}">
+        <section th:replace="fragment/forms :: radioOptions(${model})"/>
         <div class="col-md-12" style="text-align:center">
             <button type="submit">Next</button>
         </div>
 
     </form>
-
-
 </section>
 <footer th:replace="fragment/common :: footer"/>
 <div th:include="fragment/common :: scripts"/>

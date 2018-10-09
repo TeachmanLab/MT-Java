@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.util.Collections;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * This DASS21 questionnaire is used to gage eligibility in the study
@@ -65,13 +66,21 @@ public class DASS21_AS extends LinkedQuestionnaireData {
     @NotNull
     private Integer scared;
 
-    public Map<Integer, String> getScale() {
+    @Override
+    public Map<Integer, String> getScale(String scale) {
         Map<Integer, String> tmpScale = new HashedMap();
         tmpScale.put(0, "Not at all");
         tmpScale.put(1, "Sometimes");
         tmpScale.put(3, "A lot of the time");
         tmpScale.put(4, "Most of the time");
         return Collections.unmodifiableMap(tmpScale);
+    }
+
+    @Override
+    public Map<String, String> getGroupDescriptions() {
+        Map<String, String> desc = new TreeMap<>();
+        desc.put("", "Over the last week, how often have you been bothered by any of the following problems?");
+        return Collections.unmodifiableMap(desc);
     }
 
     private String sessionId;

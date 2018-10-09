@@ -40,8 +40,8 @@ public class AnxietyTriggers extends LinkedQuestionnaireData {
     @MeasureField(desc="Anxiety related to reminders of a prior traumatic experience (such as a natural disaster, accident, assault, or exposure to combat or violence)")
     private Integer priorTrauma;
 
-
-    public Map<Integer, String> getScale() {
+    @Override
+    public Map<Integer, String> getScale(String scale) {
         Map<Integer, String> tmpScale = new TreeMap<>();
         tmpScale.put(1, "Not at all");
         tmpScale.put(2, "Slightly");

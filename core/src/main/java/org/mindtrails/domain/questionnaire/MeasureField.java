@@ -11,5 +11,6 @@ import java.lang.annotation.Target;
 public @interface MeasureField {
     public String desc();
     public String group() default "";
+    public String groupDesc() default "";
 }
 

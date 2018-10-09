@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -15,21 +16,30 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class Demographics extends LinkedQuestionnaireData {
-    private int BirthYear;
+    @NotNull
+    private Integer BirthYear;
+    @NotNull
     private String Ethnicity;
+    @NotNull
     private String Country;
+    @NotNull
     private String Education;
+    @NotNull
     private String MaritalStat;
+    @NotNull
     private String EmploymentStat;
+    @NotNull
     private String Income;
-    //private String Devices;
+    @NotNull
     private String PtpReason;
+    @NotNull
     private String PtpReasonOther;
+    @NotNull
     private String Gender;
 
     @ElementCollection
     @CollectionTable(name = "demographics_race", joinColumns = @JoinColumn(name = "id"))
     @Column(name = "race")
+    @NotNull
     private List<String> Race;
 }
-

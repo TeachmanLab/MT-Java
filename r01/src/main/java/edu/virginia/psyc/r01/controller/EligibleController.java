@@ -48,7 +48,7 @@ public class EligibleController extends BaseController {
     public String showEligibility(ModelMap model) {
         // Template will set a difference form action if this variable is set to true.
         DASS21_AS dass = new DASS21_AS();
-        model.addAttribute("dass",dass);
+        model.addAttribute("model",dass);
         model.addAttribute("eligibility",true);
         return "questions/DASS21_AS";
     }

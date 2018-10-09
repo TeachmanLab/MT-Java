@@ -33,7 +33,8 @@ public class Credibility extends LinkedQuestionnaireData {
     @MeasureField(desc="How confident are you that an online training program that is designed to change how you think about situations will be successful in reducing your anxiety?")
     private Integer confident_design;
 
-    public Map<Integer, String> getScale() {
+    @Override
+    public Map<Integer, String> getScale(String scale) {
         Map<Integer, String> tmpScale = new TreeMap<>();
         tmpScale.put(0, "Not at all");
         tmpScale.put(1, "A little");

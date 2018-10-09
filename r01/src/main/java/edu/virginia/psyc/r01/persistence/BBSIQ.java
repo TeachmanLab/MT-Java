@@ -21,7 +21,8 @@ import java.util.TreeMap;
 @Data
 public class BBSIQ extends LinkedQuestionnaireData {
 
-    public Map<Integer, String> getScale() {
+    @Override
+    public Map<Integer, String> getScale(String group) {
         Map<Integer, String> tmpScale = new TreeMap<>();
         tmpScale.put(0, "Not at all likely");
         tmpScale.put(1, "A little likely");
@@ -29,6 +30,26 @@ public class BBSIQ extends LinkedQuestionnaireData {
         tmpScale.put(3, "Very likely");
         tmpScale.put(4, "Extremely likely");
         return Collections.unmodifiableMap(tmpScale);
+    }
+
+    @Override
+    public Map<String, String> getGroupDescriptions() {
+        Map<String, String> desc = new TreeMap<>();
+        desc.put("visitors", "You have visitors over for dinner and they leave sooner than you expected. Why?");
+        desc.put("breath", "You feel short of breath. Why?");
+        desc.put("vision", " Your vision has become slightly blurred. Why?");
+        desc.put("shop", "You go into a shop and the assistant ignores you. Why?");
+        desc.put("lightheaded", "You feel lightheaded and weak. Why?");
+        desc.put("smoke", "You smell smoke. What’s burning?");
+        desc.put("friend", "A friend suggests that you change the way that you’re doing a job in your own house. Why? ");
+        desc.put("chest", "Your chest feels uncomfortable and tight. Why?");
+        desc.put("jolt", "You wake with a jolt in the middle of the night, thinking you heard a noise, but all is quiet. What woke you up?");
+        desc.put("party", "You are introduced to someone at a party. The person fails to reply to a question you ask. Why");
+        desc.put("heart", "You notice that your heart is beating quickly and pounding. Why?");
+        desc.put("confused", "Suddenly, you feel confused and find it hard to think straight. Why?");
+        desc.put("urgent", "A letter marked \"URGENT\" arrives. What is in the letter?");
+        desc.put("dizzy", "You notice that your heart is pounding, and you feel breathless, dizzy and unreal. Why?");
+        return Collections.unmodifiableMap(desc);
     }
 
 
@@ -74,7 +95,7 @@ public class BBSIQ extends LinkedQuestionnaireData {
 
     @NotNull()
     @MeasureField(desc="You are about to faint.", group="lightheaded")
-    private Integer lightheaded_faInteger;
+    private Integer lightheaded_faint;
     @NotNull()
     @MeasureField(desc="You need to get something to eat.", group="lightheaded")
     private Integer lightheaded_eat;
