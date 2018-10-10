@@ -13,8 +13,13 @@
 <section th:replace="fragment/common :: topFragment"/>
 <section th:replace="fragment/common :: titleBar (title='Mental Health History')"/>
 
+<p> We would like to ask a few questions about your mental health history and treatment. Answers to
+    these personal questions are kept confidential, but they help us improve
+    Calm Thinking by figuring out for whom it works well.</p>
+
 <textarea style="display: none" id="struggling_template">
     {{#questions}}
+
 <div class="radio">
     <label class="question"> <input id="{{name}}_id" onchange="sub('{{name}}_id')" type="checkbox"
                                     name="{{radio_name}}" value="{{name}}"/> {{desc}}
@@ -90,7 +95,7 @@
                         },
                         {
                             "name": "panic_disorder",
-                            "desc": "Panic Disorder"
+                            "desc": "Panic disorder"
                         },
                         {
                             "name": "agoraphobia",
@@ -118,7 +123,7 @@
                         },
                         {
                             "name": "schizophrenia",
-                            "desc": "Schizophrenia or other Psychotic disorder"
+                            "desc": "Schizophrenia or other psychotic disorder"
                         },
                         {
                             "name": "depression",

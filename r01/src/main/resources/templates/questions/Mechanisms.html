@@ -15,6 +15,18 @@
 <textArea th:replace="fragment/common :: questionTemplate6"/>
 <section id="content" class="clearfix">
 
+    <section id="content1" class="clearfix">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+
+                    <p>Below, a number of statements related to thoughts and beliefs are presented. For each
+                        statement, select the number for the answer that best describes your own perspective.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <form th:action="@{/questions/Mechanisms}" method="POST">
         <!-- Add timer -->
         <input id="timeOnPage" name="timeOnPage" type="hidden"/>

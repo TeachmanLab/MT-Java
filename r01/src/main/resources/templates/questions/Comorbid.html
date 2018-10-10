@@ -15,12 +15,27 @@
 <textArea th:replace="fragment/common :: questionTemplate"/>
 <section id="content" class="clearfix">
 
+    <section id="content1" class="clearfix">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+
+                    <p>The following questions ask about mood and drinking patterns.
+                        For each question, select the number for the answer that best describes your experience.
+                    </p>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
     <form th:action="@{/questions/Comorbid}" method="POST">
         <!-- Add timer -->
+
         <input id="timeOnPage" name="timeOnPage" type="hidden"/>
         <div class="container section compactQuestion">
             <div class="col-md-6">
-                <h4><b> Over the past 2 weeks, how often have you been bothered by any of the following problems?</b></h4>
+                <h4><b> Over the past two weeks, how often have you been bothered by any of the following problems?</b></h4>
             </div>
             <div id="sectionPHQ"></div>
             <script>
@@ -47,18 +62,15 @@
             </script>
         </div>
         <div class="container section compactQuestion">
-            <div class="col-md-6">
-                <h4><b> Please circle the answer that is correct for you.</b></h4>
-            </div>
             <div id="section1"></div>
             <script>
                 var data = {
                     "options": [
                         {"value": 0, "title": "Never"},
                         {"value": 1, "title": "Monthly or less"},
-                        {"value": 2, "title": "Two to four times a month"},
-                        {"value": 3, "title": "Two to three times a week"},
-                        {"value": 4, "title": "Four or more times a week"}
+                        {"value": 2, "title": "2 to 4 times a month"},
+                        {"value": 3, "title": "2 to 3 times a week"},
+                        {"value": 4, "title": "4 or more times a week"}
                     ],
                     "questions": [
                         {
@@ -99,8 +111,8 @@
                         {"value": 0, "title": "Never"},
                         {"value": 1, "title": "Less than monthly"},
                         {"value": 2, "title": "Monthly"},
-                        {"value": 3, "title": "Two to three times per week"},
-                        {"value": 4, "title": "Four or more times a week"}
+                        {"value": 3, "title": "2 to 3 times per week"},
+                        {"value": 4, "title": "4 or more times a week"}
                     ],
                     "questions": [
                         {
