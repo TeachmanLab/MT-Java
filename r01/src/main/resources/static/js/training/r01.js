@@ -127,14 +127,13 @@ var R01 = (function () {
                             return (
                                 "<div class='piIntro'> " +
                                 "<h1><b>Completing Short Stories</b></h1>" +
-                                "<p>You will now read several short stories. For each story:</p>" +
                                 "<ul> " +
-                                "<li>Please <b><i>imagine</i></b> yourself in the situation described.</li> " +
-                                "<li>Some stories may describe you reacting to the situation differently than you usually " +
-                                "would. Please really try to imagine yourself responding the way the story describes, even if it would be unusual for you.</li> " +
+                                "<li>You will now read several short stories. Please read each one carefully and try to imagine yourself in the situation.</li> " +
                                 "<li>The last word of each story is incomplete. Click on the missing letter to complete the word.</li> " +
-                                "<li>After you correctly complete the word, you will be asked a question about the story. </li> " +
-                                "<li>Answer the question based on the information in the story, whether or not that matches what you would personally think or do in that situation. </li> " +
+                                "</ul>" +
+                                "<p style='text-align: left;'>After you correctly complete the word, you will be asked a question about the story. </p> " +
+                                "<ul>" +
+                                "<li>Answer the question based on the information in the story.</li> " +
                                 "</ul> " +
                                 "</div>"
                                 )
