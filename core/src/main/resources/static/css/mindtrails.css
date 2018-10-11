@@ -428,9 +428,8 @@ label.error {
 }
 
 input.error {
-    border: 1px solid green;
-    background: green;
-    color: red;
+    border: 1px solid darkred;
+    background: lightcoral;
 }
 
 
