@@ -39,10 +39,10 @@ public class Comorbid extends LinkedQuestionnaireData {
     @Override
     public Map<String, String> getGroupDescriptions() {
         Map<String, String> desc = new TreeMap<>();
-        desc.put("bothered", "Over the past 2 weeks, how often have you been bothered by any of the following problems?");
-        desc.put("how_often", "Please select the answer that is correct for you.");
-        desc.put("number", "Please select the answer that is correct for you.");
-        desc.put("six_or_seven", "Please select the answer that is correct for you.");
+        desc.put("bothered", "Over the past two weeks, how often have you been bothered by any of the following problems?");
+        desc.put("how_often", "");
+        desc.put("number", "");
+        desc.put("six_or_seven", "");
         return Collections.unmodifiableMap(desc);
     }
 
@@ -60,9 +60,9 @@ public class Comorbid extends LinkedQuestionnaireData {
             case("how_often"):
                 tmpScale.put(0, "Never");
                 tmpScale.put(1, "Monthly or less");
-                tmpScale.put(2, "Two to four times a month");
-                tmpScale.put(3, "Two to three times a week");
-                tmpScale.put(4, "Four or more times a week\"");
+                tmpScale.put(2, "2 to 4 times a month");
+                tmpScale.put(3, "2 to 3 times a week");
+                tmpScale.put(4, "4 or more times a week\"");
                 break;
             case("number"):
                 tmpScale.put(0, "0 to 2");
@@ -75,8 +75,8 @@ public class Comorbid extends LinkedQuestionnaireData {
                 tmpScale.put(0, "Never");
                 tmpScale.put(1, "Less than monthly");
                 tmpScale.put(2, "Monthly");
-                tmpScale.put(3, "Two to three times per week");
-                tmpScale.put(4, "Four or more times a week");
+                tmpScale.put(3, "2 to 3 times per week");
+                tmpScale.put(4, "2 or more times a week");
                 break;
         }
         return Collections.unmodifiableMap(tmpScale);

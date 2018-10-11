@@ -15,6 +15,16 @@
 <textArea th:replace="fragment/common :: questionTemplate"/>
 <section id="content" class="clearfix">
 
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <p>The following questions ask about mood and drinking patterns.
+                    For each question, select the number for the answer that best describes your experience.
+                </p>
+            </div>
+        </div>
+    </div>
+
     <form th:action="@{/questions/Comorbid}" method="POST" th:object="${model}">
         <!-- Add timer -->
         <section th:replace="fragment/forms :: radioOptions(${model})" />
