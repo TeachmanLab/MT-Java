@@ -13,9 +13,21 @@
 <section th:replace="fragment/common :: topFragment"/>
 <section th:replace="fragment/common :: titleBar (title='Mental Health History')"/>
 
-<p> We would like to ask a few questions about your mental health history and treatment. Answers to
-    these personal questions are kept confidential, but they help us improve
-    Calm Thinking by figuring out for whom it works well.</p>
+
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                    <p>We would like to ask a few questions about your mental health and treatment history. Answers to
+                        these personal questions are kept confidential, but they help us improve
+                        Calm Thinking by figuring out for whom it works well.
+                    </p>
+
+            </div>
+        </div>
+    </div>
+</section>
+
 
 <textarea style="display: none" id="struggling_template">
     {{#questions}}
