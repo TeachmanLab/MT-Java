@@ -127,6 +127,8 @@ var R01 = (function () {
                             return (
                                 "<div class='piIntro'> " +
                                 "<h1><b>Completing Short Stories</b></h1>" +
+
+                              
                                 "<ul> " +
                                 "<li>You will now read several short stories. Please read each one carefully and try to imagine yourself in the situation.</li> " +
                                 "<li>The last word of each story is incomplete. Click on the missing letter to complete the word.</li> " +
@@ -135,6 +137,7 @@ var R01 = (function () {
                                 "<ul>" +
                                 "<li>Answer the question based on the information in the story.</li> " +
                                 "</ul> " +
+
                                 "</div>"
                                 )
                         },

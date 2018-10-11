@@ -16,15 +16,25 @@
 <section id="content" class="clearfix">
     <div class="container">
         <div class="row">
+            <div class="col-md-8">
+                <p>We would like to start with a few questions to get to know you better. Answers to
+                    these personal questions are kept confidential, but they help us improve
+                    Calm Thinking by figuring out for whom it works well.
+                </p>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
             <div class="col-md-12">
 
                 <form th:action="@{/questions/Demographics}" method="POST">
                     <!-- Add timer -->
                     <input id="timeOnPage" name="timeOnPage" type="hidden"/>
-
-                    <p> We would like to start with a few questions to get to know you better. Answers to
-                        these personal questions are kept confidential, but they help us improve
-                        MindTrails by figuring out for whom it works well.</p>
 
                     <div class="section">
                         <div><label class="question">What is your gender identity? <select name="gender" required="true">
