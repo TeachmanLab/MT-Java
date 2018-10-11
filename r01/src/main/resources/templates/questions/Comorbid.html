@@ -15,122 +15,23 @@
 <textArea th:replace="fragment/common :: questionTemplate"/>
 <section id="content" class="clearfix">
 
-    <section id="content1" class="clearfix">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8">
-
-                    <p>The following questions ask about mood and drinking patterns.
-                        For each question, select the number for the answer that best describes your experience.
-                    </p>
-
-
-                </div>
-            </div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <p>The following questions ask about mood and drinking patterns.
+                For each question, select the number for the answer that best describes your experience.
+            </p>
         </div>
-    </section>
-    <form th:action="@{/questions/Comorbid}" method="POST">
-        <!-- Add timer -->
+    </div>
+</div>
 
-        <input id="timeOnPage" name="timeOnPage" type="hidden"/>
-        <div class="container section compactQuestion">
-            <div class="col-md-6">
-                <h4><b> Over the past two weeks, how often have you been bothered by any of the following problems?</b></h4>
-            </div>
-            <div id="sectionPHQ"></div>
-            <script>
-                var data = {
-                    "options": [
-                        {"value": 1, "title": "Not at all"},
-                        {"value": 2, "title": "Several days"},
-                        {"value": 3, "title": "More than half of the days"},
-                        {"value": 4, "title": "Nearly every day"}
-                    ],
-                    "questions": [
-                        {
-                            "name": "pleasure",
-                            "desc": "Little interest or pleasure in doing things"
-                        },
-                        {
-                            "name": "depressed",
-                            "desc": "Feeling down, depressed, or hopeless"
-                        },
-
-                    ]
-                }
-                $('#sectionPHQ').html(Mustache.render($('#template').val(), data));
-            </script>
-        </div>
-        <div class="container section compactQuestion">
-            <div id="section1"></div>
-            <script>
-                var data = {
-                    "options": [
-                        {"value": 0, "title": "Never"},
-                        {"value": 1, "title": "Monthly or less"},
-                        {"value": 2, "title": "2 to 4 times a month"},
-                        {"value": 3, "title": "2 to 3 times a week"},
-                        {"value": 4, "title": "4 or more times a week"}
-                    ],
-                    "questions": [
-                        {
-                            "name": "howOften",
-                            "desc": "How often do you have a drink containing alcohol?"
-                        }
-                    ]
-                }
-                $('#section1').html(Mustache.render($('#template').val(), data));
-            </script>
-        </div>
-        <div class="container section compactQuestion">
-            <div id="section2"></div>
-            <script>
-                var data = {
-                    "options": [
-                        {"value": 0, "title": "0 to 2"},
-                        {"value": 1, "title": "3 or 4"},
-                        {"value": 2, "title": "5 or 6"},
-                        {"value": 3, "title": "7 to 9"},
-                        {"value": 4, "title": "10 or more"}
-                    ],
-                    "questions": [
-                        {
-                            "name": "numberOfDrinks",
-                            "desc": "How many drinks containing alcohol do you have on a typical day when you are drinking?"
-                        }
-                    ]
-                }
-                $('#section2').html(Mustache.render($('#template').val(), data));
-            </script>
-        </div>
-        <div class="container section compactQuestion">
-            <div id="section3"></div>
-            <script>
-                var data = {
-                    "options": [
-                        {"value": 0, "title": "Never"},
-                        {"value": 1, "title": "Less than monthly"},
-                        {"value": 2, "title": "Monthly"},
-                        {"value": 3, "title": "2 to 3 times per week"},
-                        {"value": 4, "title": "4 or more times a week"}
-                    ],
-                    "questions": [
-                        {
-                            "name": "sixOrMore",
-                            "desc": "How often do you have six or more drinks on one occasion?"
-                        }
-                    ]
-                }
-                $('#section3').html(Mustache.render($('#template').val(), data));
-            </script>
-        </div>
-
-
-        <div class="col-md-12" style="text-align:center">
-            <button type="submit">Next</button>
-        </div>
-    </form>
-
+<form th:action="@{/questions/Comorbid}" method="POST" th:object="${model}">
+    <!-- Add timer -->
+    <section th:replace="fragment/forms :: radioOptions(${model})" />
+    <div class="col-md-12" style="text-align:center">
+        <button type="submit">Next</button>
+    </div>
+</form>
 
 </section>
 <footer th:replace="fragment/common :: footer"/>

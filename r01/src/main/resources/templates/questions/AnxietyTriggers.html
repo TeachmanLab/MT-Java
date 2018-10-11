@@ -18,98 +18,25 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-
-
                 <p>
                     People become anxious for lots of different reasons. To what extent do you routinely experience
                     moderate to severe anxiety in the following situations? For each situation, select the number that best describes your experience.
                 </p>
-
-
             </div>
         </div>
     </div>
 </section>
 
-<section id="content" class="clearfix">
 
-    <form th:action="@{/questions/AnxietyTriggers}" method="POST">
-        <!-- Add timer -->
-        <input id="timeOnPage" name="timeOnPage" type="hidden"/>
-
-
-        <div class="container section compactQuestion">
-            <div id="section1"></div>
-            <script>
-                var data = {
-                    "options": [
-                        {"value": 1, "title": "Not at all"},
-                        {"value": 2, "title": "Slightly"},
-                        {"value": 3, "title": "Moderately"},
-                        {"value": 4, "title": "Very"},
-                        {"value": 5, "title": "Extremely"}
-                    ],
-                    "questions": [
-                        {
-                            "name": "social",
-                            "desc": "Anxiety at social gatherings (e.g., parties), speaking in public, when meeting new people or dating, or talking to an authority figure (e.g., boss, teacher)"
-                        },
-                        {
-                            "name": "sensations",
-                            "desc": "Fear about changes in bodily feelings (e.g., feeling dizzy, short of breath or rapid heart beat) or fears about having a 'panic attack'"
-                        },
-                        {
-                            "name": "anxiousFear",
-                            "desc": "Fear about becoming anxious and not being able to leave a situation (e.g., getting stuck at a movie theater or in a crowd)"
-                        }
-
-                    ]
-                }
-                $('#section1').html(Mustache.render($('#template').val(), data));
-            </script>
-        </div>
-
-        <div class="container section compactQuestion">
-            <div id="section2"></div>
-            <script>
-                var data = {
-                    "options": [
-                        {"value": 1, "title": "Not at all"},
-                        {"value": 2, "title": "Slightly"},
-                        {"value": 3, "title": "Moderately"},
-                        {"value": 4, "title": "Very"},
-                        {"value": 5, "title": "Extremely"}
-                    ],
-                    "questions": [
-
-                        {
-                            "name": "particularObject",
-                            "desc": "Extreme fear about a particular object or situation, like flying, being in a high place, certain insects or animals, or seeing blood or a wound"
-                        },
-                        {
-                            "name": "thoughts",
-                            "desc": "Anxiety about upsetting thoughts or images that keep coming to mind, or anxiety about rituals or activities you feel you have to do over and over again (e.g., checking things or washing your hands)"
-                        },
-                        {
-                            "name": "priorTrauma",
-                            "desc": "Anxiety related to reminders of a prior traumatic experience (such as a natural disaster, accident, assault, or exposure to combat or violence)"
-                        }
-
-                    ]
-                }
-                $('#section2').html(Mustache.render($('#template').val(), data));
-            </script>
-        </div>
-
-
+<section id="content2" class="clearfix">
+    <form th:action="@{/questions/AnxietyTriggers}" method="POST" th:object="${model}">
+            <section th:replace="fragment/forms :: radioOptions(${model})"/>
         <div class="col-md-12" style="text-align:center">
             <button type="submit">Next</button>
         </div>
-
     </form>
-
-
 </section>
+
 <footer th:replace="fragment/common :: footer"/>
 <div th:include="fragment/common :: scripts"/>
 

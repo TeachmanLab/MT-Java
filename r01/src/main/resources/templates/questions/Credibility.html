@@ -65,40 +65,8 @@
 
 
 <section id="content2" class="clearfix">
-    <form th:action="@{/questions/Credibility}" method="POST">
-        <!-- Add timer -->
-        <input id="timeOnPage" name="timeOnPage" type="hidden"/>
-        <div class="container section compactQuestion">
-            <div id="section1"></div>
-            <script>
-                var data = {
-                    "options": [
-                        {"value": 0, "title": "Not at all"},
-                        {"value": 1, "title": "A little"},
-                        {"value": 2, "title": "Somewhat"},
-                        {"value": 3, "title": "A lot"},
-                        {"value": 4, "title": "Extremely"}
-                    ],
-                    "questions": [
-                        {
-                            "name": "important",
-                            "desc": "How important is reducing your anxiety to you right now?"
-                        },
-                        {
-                            "name": "confident_online",
-                            "desc": "How confident are you that an online training program will reduce your anxiety?"
-                        },
-                        {
-                            "name": "confident_design",
-                            "desc": "How confident are you that an online training program that is designed to change how you think about situations will be successful in reducing your anxiety?"
-                        }
-                    ]
-                }
-                $('#section1').html(Mustache.render($('#template').val(), data));
-            </script>
-        </div>
-
-
+    <form th:action="@{/questions/Credibility}" method="POST" th:object="${model}">
+        <section th:replace="fragment/forms :: radioOptions(${model})"/>
         <div class="col-md-12" style="text-align:center">
             <button type="submit">Next</button>
         </div>

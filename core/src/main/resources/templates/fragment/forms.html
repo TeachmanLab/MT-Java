@@ -1,0 +1,47 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<!--
+    Provides a fully rendered form given a model that contains measures.
+    Mobile and
+-->
+
+<div th:fragment="radioOptions(model)">
+
+    <input id="timeOnPage" name="timeOnPage" type="hidden"/>
+
+    <div th:each="group: ${model.groups}" class="container section compactQuestion">
+        <div class="row title">
+            <div class="col-md-12">
+                <h4><b th:text="${group.desc}"></b></h4>
+            </div>
+        </div>
+
+        <div class="row header">
+            <div class="col-md-6"><p class="tableOptions"></p></div>
+            <div th:each="scale: ${group.scale}" class="col-md-1"><p class="tableOptions" th:text="${scale.value}"></p></div>
+            <div class="col-md-1"><p class="tableOptions">Prefer not to answer</p></div>
+        </div>
+
+        <div class="row" th:each="measure: ${group.measures}">
+            <div class="col-md-6 statement">
+                <span th:text="${measure.desc}"></span>
+                <span class="error" th:if="${measure.error}">*</span>
+            </div>
+            <div class="col-md-1" th:each="scale: ${group.scale}">
+                <label class="radio-inline option">
+                    <input type="radio" th:name="${measure.name}" th:value="${scale.key}" th:field="*{__${measure.name}__}"/>
+                    <span class="shortDesc" th:text="${scale.key}"></span> <span class="fullDesc" th:text="${scale.value}"></span></label>
+            </div>
+            <div class="col-md-1">
+                <label class="radio-inline option">
+                    <input type="radio" th:name="${measure.name}" value="555" required="true"/>
+                    <span class="shortDesc">&nbsp;&nbsp;</span> <span class="fullDesc">Prefer not to answer</span></label>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

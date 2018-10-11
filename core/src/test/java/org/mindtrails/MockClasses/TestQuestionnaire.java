@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +21,7 @@ import java.util.Map;
 @EqualsAndHashCode(callSuper=false)
 public class TestQuestionnaire extends LinkedQuestionnaireData {
 
+    @NotNull
     private String value;
 
     @ElementCollection(fetch = FetchType.EAGER)

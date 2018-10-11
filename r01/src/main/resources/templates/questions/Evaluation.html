@@ -13,7 +13,7 @@
 <section th:replace="fragment/common :: topFragment"/>
 <section th:replace="fragment/common :: titleBar (title='Evaluating the Program')"/>
 
-<textArea th:replace="fragment/common :: questionTemplate"/>
+<textArea th:replace="fragment/forms :: questionTemplate"/>
 
 <form th:action="@{/questions/Evaluation}" method="POST">
     <!-- Add timer -->
@@ -48,10 +48,10 @@
                     { "value":4, "title":"Very"}
                 ],
                 "questions": [
-                    { "name":"Helpful", "desc" : "How helpful did you find the web program for changing your future thinking?"},
-                    { "name":"Quality",   "desc": "How much did the web program improve your overall quality of life?"},
-                    { "name":"OverallMood",   "desc": "How much did the web program help improve your overall mood (e.g feeling happier)?"},
-                    { "name":"Recommend",   "desc": "How likely would you be to recommend this web program to others with a similar negative future thinking style?"}
+                    { "name":"helpful", "desc" : "How helpful did you find the web program for changing your future thinking?"},
+                    { "name":"quality",   "desc": "How much did the web program improve your overall quality of life?"},
+                    { "name":"overallMood",   "desc": "How much did the web program help improve your overall mood (e.g feeling happier)?"},
+                    { "name":"recommend",   "desc": "How likely would you be to recommend this web program to others with a similar negative future thinking style?"}
                 ]
             }
             $('#section1').html(Mustache.render( $('#template').val(), data ));
@@ -70,9 +70,9 @@
                     { "value":4, "title":"Very"}
                 ],
                 "questions": [
-                    { "name":"Easy",   "desc": "How easy was the web program to use?"},
-                    { "name":"Interest",   "desc": "How much did the web program keep your interest and attention?"},
-                    { "name":"LikeGral",   "desc": "How much did you like the web program in general?"},
+                    { "name":"easy",   "desc": "How easy was the web program to use?"},
+                    { "name":"interest",   "desc": "How much did the web program keep your interest and attention?"},
+                    { "name":"likeGral",   "desc": "How much did you like the web program in general?"},
                     { "name":"likedLooks",   "desc": "How much did you like the way the web program looked?"}
                 ]
             }
@@ -93,11 +93,11 @@
                     { "value":4, "title":"Very"}
                 ],
                 "questions": [
-                    { "name":"Privacy",   "desc": "How worried were you about your privacy in using this web program?"},
-                    { "name":"UnderstandAssessment",   "desc": "How easy were the assessments to understand?"},
-                    { "name":"UnderstandTraining",   "desc": "How easy was the training program (including instructions and materials) to understand?"},
-                    { "name":"TrustInfo",   "desc": "How much did you feel you could trust the information?"},
-                    { "name":"Problems",   "desc": "To what extent did Internet or computer problems affect your use of the web program?"}
+                    { "name":"privacy",   "desc": "How worried were you about your privacy in using this web program?"},
+                    { "name":"understandAssessment",   "desc": "How easy were the assessments to understand?"},
+                    { "name":"understandTraining",   "desc": "How easy was the training program (including instructions and materials) to understand?"},
+                    { "name":"trustInfo",   "desc": "How much did you feel you could trust the information?"},
+                    { "name":"problems",   "desc": "To what extent did Internet or computer problems affect your use of the web program?"}
                 ]
             }
             $('#section3').html(Mustache.render( $('#template').val(), data ));
@@ -115,7 +115,7 @@
                 How many sessions do you think would have been ideal?
             </div>
             <div class="col-md-6">
-                <input type="text" size="2" name="IdealSessions" required="required"/>
+                <input type="text" size="2" name="idealSessions" required="required"/>
             </div>
         </div>
         <div class="row">
@@ -217,12 +217,12 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="radio">
-                    <label><input class="option" type="checkbox" name="Condition" value="0"/> Active
+                    <label><input class="option" type="radio" name="Condition" value="0" required="true"/> Active
                         training condition
                     </label>
                 </div>
                 <div class="radio">
-                    <label><input class="option" type="checkbox" name="Condition" value="1"/> Control
+                    <label><input class="option" type="radio" name="Condition" value="1"/> Control
                         condition
                     </label>
                 </div>

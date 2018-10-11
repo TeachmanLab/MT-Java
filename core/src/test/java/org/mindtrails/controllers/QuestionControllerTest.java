@@ -29,9 +29,11 @@ import org.springframework.web.context.WebApplicationContext;
 import java.util.List;
 
 import static junit.framework.TestCase.assertTrue;
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -129,7 +131,7 @@ public class QuestionControllerTest extends BaseControllerTest {
 
 
     @Test
-    public void testPostBadData() throws Exception {
+    public void testPostUnknownForm() throws Exception {
         ResultActions result = mockMvc.perform(post("/questions/NoSuchForm")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .with(SecurityMockMvcRequestPostProcessors.user(participant))
@@ -138,6 +140,22 @@ public class QuestionControllerTest extends BaseControllerTest {
                 .param("multiValue", "havarti"))
                 .andExpect((status().is4xxClientError()));
     }
+
+    @Test
+    public void testPostIncompleteData() throws Exception {
+        MvcResult result = mockMvc.perform(post("/questions/TestQuestionnaire")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .with(SecurityMockMvcRequestPostProcessors.user(participant))
+                .param("multiValue", "cheddar")
+                .param("multiValue", "havarti")
+                .param("timeOnPage","9.999"))
+                .andExpect((status().is2xxSuccessful()))
+                .andReturn();
+        // We shoul be redirected back to the view, with an error
+        Assert.assertEquals("questions/TestQuestionnaire", result.getModelAndView().getViewName());
+        Assert.assertNotNull(result.getModelAndView().getModel().containsKey("error"));
+    }
+
 
     @Test
     public void testThatPostedDataIsStored() throws Exception {

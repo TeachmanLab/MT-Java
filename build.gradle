@@ -14,7 +14,7 @@ subprojects {
     targetCompatibility = 1.8
     
     project.ext {
-        springBootVersion = '1.5.7.RELEASE'
+        springBootVersion = '2.0.5'
     }
 
     repositories {
@@ -24,6 +24,9 @@ subprojects {
     }
 
     dependencies {
+        runtime("org.springframework.boot:spring-boot-properties-migrator")
+
+
         compile("org.projectlombok:lombok:1.16.20")  // avoid boiler plate constructors, getter/setter, hash, toString
         compile("org.springframework.boot:spring-boot-starter-data-jpa")
         compile("org.springframework:spring-jdbc")
@@ -34,7 +37,6 @@ subprojects {
         compile("javax.mail:mail:1.4.7") // also Email
         compile('commons-codec:commons-codec:1.10') // Base64 encoding / decoding to help with storing encrypted data.
         compile("org.apache.httpcomponents:httpclient")  // For calling google's recaptcha api
-
 
         testCompile("org.springframework.boot:spring-boot-starter-test")
         testCompile("org.springframework.security:spring-security-test")
