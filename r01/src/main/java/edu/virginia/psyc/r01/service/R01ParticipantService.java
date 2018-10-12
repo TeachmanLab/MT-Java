@@ -3,8 +3,6 @@ package edu.virginia.psyc.r01.service;
 import edu.virginia.psyc.r01.domain.R01Study;
 import edu.virginia.psyc.r01.persistence.DASS21_AS;
 import edu.virginia.psyc.r01.persistence.DASS21_ASRepository;
-import edu.virginia.psyc.r01.persistence.ExpectancyBias;
-import edu.virginia.psyc.r01.persistence.ExpectancyBiasRepository;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.RestExceptions.MissingEligibilityException;
 import org.mindtrails.domain.Study;
