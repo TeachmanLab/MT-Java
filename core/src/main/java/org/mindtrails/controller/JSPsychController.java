@@ -126,6 +126,7 @@ public class JSPsychController extends BaseController {
             trial.setSession(p.getStudy().getCurrentSession().getName());
             trial.setDevice(deviceType);
             trial.setDateSubmitted(new Date());
+            trial.setDate(new Date());
             this.jsPsychRepository.save(trial);
         }
 
