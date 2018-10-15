@@ -68,7 +68,7 @@ public class DASS21_AS extends LinkedQuestionnaireData {
 
     @Override
     public Map<Integer, String> getScale(String scale) {
-        Map<Integer, String> tmpScale = new HashedMap();
+        Map<Integer, String> tmpScale = new TreeMap<>();
         tmpScale.put(0, "Not at all");
         tmpScale.put(1, "Sometimes");
         tmpScale.put(3, "A lot of the time");

@@ -62,7 +62,7 @@ public class EligibleController extends BaseController {
 
         Set<ConstraintViolation<DASS21_AS>> violations = validator.validate(dass);
         if(!violations.isEmpty()) {
-            model.addAttribute("dass",dass);
+            model.addAttribute("model",dass);
             model.addAttribute("eligibility",true);
             model.addAttribute("error", "Please complete all required fields.");
             return "questions/DASS21_AS";

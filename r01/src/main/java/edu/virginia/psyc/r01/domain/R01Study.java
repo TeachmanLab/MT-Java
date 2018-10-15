@@ -1,7 +1,6 @@
 package edu.virginia.psyc.r01.domain;
 
 import edu.virginia.psyc.r01.persistence.DASS21_AS;
-import edu.virginia.psyc.r01.persistence.ExpectancyBias;
 import lombok.Data;
 import org.mindtrails.domain.BaseStudy;
 import org.mindtrails.domain.Session;

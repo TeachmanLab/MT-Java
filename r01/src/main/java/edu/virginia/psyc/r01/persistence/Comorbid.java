@@ -49,7 +49,7 @@ public class Comorbid extends LinkedQuestionnaireData {
 
     @Override
     public Map<Integer, String> getScale(String group) {
-        Map<Integer, String> tmpScale = new HashedMap();
+        Map<Integer, String> tmpScale = new TreeMap<>();
         switch (group) {
             case("bothered"):
                 tmpScale.put(1, "Not at all");
@@ -62,7 +62,7 @@ public class Comorbid extends LinkedQuestionnaireData {
                 tmpScale.put(1, "Monthly or less");
                 tmpScale.put(2, "2 to 4 times a month");
                 tmpScale.put(3, "2 to 3 times a week");
-                tmpScale.put(4, "4 or more times a week\"");
+                tmpScale.put(4, "4 or more times a week");
                 break;
             case("number"):
                 tmpScale.put(0, "0 to 2");

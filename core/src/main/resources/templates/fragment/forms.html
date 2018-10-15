@@ -30,7 +30,7 @@
             </div>
             <div class="col-md-1" th:each="scale: ${group.scale}">
                 <label class="radio-inline option">
-                    <input type="radio" th:name="${measure.name}" th:value="${scale.key}" th:field="*{__${measure.name}__}"/>
+                    <input type="radio" th:name="${measure.name}" th:value="${scale.key}" th:field="*{__${measure.name}__}" required="required"/>
                     <span class="shortDesc" th:text="${scale.key}"></span> <span class="fullDesc" th:text="${scale.value}"></span></label>
             </div>
             <div class="col-md-1">

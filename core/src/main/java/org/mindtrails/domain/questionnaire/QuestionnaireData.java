@@ -2,7 +2,6 @@ package org.mindtrails.domain.questionnaire;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.apache.commons.collections.map.HashedMap;
 import org.hibernate.annotations.GenericGenerator;
 import org.mindtrails.domain.data.Exportable;
 import org.mindtrails.domain.Participant;
@@ -54,6 +53,7 @@ public abstract class QuestionnaireData implements hasParticipant {
      * so all measures are returned as a part of a single group with a blank name.
      * @return
      */
+    @JsonIgnore
     public Collection<MeasureGroup> getGroups() {
         Map<String, MeasureGroup> groups = new TreeMap<>();
         MeasureGroup group;
@@ -80,11 +80,13 @@ public abstract class QuestionnaireData implements hasParticipant {
      * Override to set descriptions for each group.
      * @return
      */
+    @JsonIgnore
     public Map<String, String> getGroupDescriptions() {
         Map<String, String> desc = new TreeMap<>();
         return desc;
     }
 
+    @JsonIgnore
     private String getDescription(String group) {
         Map<String,String> descriptions = getGroupDescriptions();
         if(descriptions.containsKey(group)) {
@@ -99,8 +101,9 @@ public abstract class QuestionnaireData implements hasParticipant {
      * specific to a particular group, or it may return the same scale for all groups.
      * @return
      */
+    @JsonIgnore
     public Map<Integer, String> getScale(String group) {
-        Map<Integer, String> tmpScale = new HashedMap();
+        Map<Integer, String> tmpScale = new HashMap();
         return tmpScale;
     }
 

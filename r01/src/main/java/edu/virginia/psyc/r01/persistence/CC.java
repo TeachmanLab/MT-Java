@@ -11,6 +11,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.util.Collections;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Created by samportnow on 7/21/14.
@@ -34,7 +35,7 @@ public class CC extends LinkedQuestionnaireData {
 
     @Override
     public Map<Integer, String> getScale(String scale) {
-        Map<Integer, String> tmpScale = new HashedMap();
+        Map<Integer, String> tmpScale = new TreeMap<>();
         tmpScale.put(1, "Not at all");
         tmpScale.put(2, "Slightly");
         tmpScale.put(3, "Somewhat");

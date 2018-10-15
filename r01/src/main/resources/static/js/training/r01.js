@@ -102,7 +102,7 @@ var R01 = (function () {
             }
 
             function updateScore() {
-                document.getElementById('score').textContent = "Score: " + (score_letters + score_questions);
+                //document.getElementById('score').textContent = "Score: " + (score_letters + score_questions);
             }
 
             function updateProgress() {
@@ -283,7 +283,7 @@ var R01 = (function () {
                     if (immersion === "picture") {
                         immersion_trial = {
                             type: 'html-button-response',
-                            stimulus: "<h1 class='title'>Story: " + title + "</h1><img class='sound_image' src='" + my.base_url + "images/" + scenario + ".jpg'>",
+                            stimulus: "<h1 class='title'>Story: " + title + "</h1>",
                             trial_duration: 5000, // Show trial for 5 seconds
                             data: {immersion: immersion, format: format, scenario: scenario},
                             choices: []
@@ -293,7 +293,7 @@ var R01 = (function () {
                             type: 'audio-button-response',
                             stimulus: 'sounds/background/' + scenario + '.mp3',
                             trial_duration: 5000, // Show trial for 5 seconds
-                            prompt: "<h1 class='title'>Story: " + title + "</h1><img class='sound_image' src='" + my.base_url + "images/" + scenario + ".jpg'>",
+                            prompt: "<h1 class='title'>Story: " + title + "</h1>",
                             data: {immersion: immersion, format: format, scenario: scenario},
                             choices: []
                         }
@@ -399,7 +399,7 @@ var R01 = (function () {
                     // *********************************************
 
                     if (k % 5 === 0 && k !== 0) {
-                        timeline.push(vividness_followup)
+                      //  timeline.push(vividness_followup)
                     }
 
                     timeline.push(immersion_trial);
