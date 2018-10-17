@@ -43,7 +43,7 @@ public class AngularTrainingController extends BaseController {
 
         Participant p = participantService.get(principal);
         model.addAttribute("sessionName", p.getStudy().getCurrentSession().getName());
-        return "redirect:/angular_training/index.html/#/" + scriptName.toLowerCase();
+        return "redirect:/angular_training/index.html/#/training/" + scriptName.toLowerCase();
     }
 
     @ExportMode
