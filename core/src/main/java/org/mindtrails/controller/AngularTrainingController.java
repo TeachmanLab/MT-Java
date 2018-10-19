@@ -27,7 +27,6 @@ import java.util.List;
  * Created by dan on 7/7/16.
  */
 @Controller
-@RequestMapping("/angularTraining")
 public class AngularTrainingController extends BaseController {
 
     @Autowired
@@ -38,20 +37,22 @@ public class AngularTrainingController extends BaseController {
 
     private static final Logger LOG = LoggerFactory.getLogger(AngularTrainingController.class);
 
-    @RequestMapping(value="{scriptName}", method= RequestMethod.GET)
+    @RequestMapping(value="/angularTraining/{scriptName}", method= RequestMethod.GET)
     public String showTraining(ModelMap model, Principal principal, @PathVariable String scriptName) {
 
         Participant p = participantService.get(principal);
         model.addAttribute("sessionName", p.getStudy().getCurrentSession().getName());
-        return "redirect:/angular_training/index.html/#/training/" + scriptName.toLowerCase();
+        return "angularTraining";
     }
 
     @ExportMode
-    @RequestMapping(method = RequestMethod.POST,
+    @RequestMapping(value="/api/training", method = RequestMethod.POST,
             headers = "content-type=application/json")
     public @ResponseBody
     ResponseEntity<Void> saveProgress(Principal principal,
                  @RequestBody AngularTrainingList list) {
+
+        LOG.info("Recording Progress: " + list.toArray().toString());
 
         Participant p = getParticipant(principal);
 
@@ -65,7 +66,7 @@ public class AngularTrainingController extends BaseController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @RequestMapping("/last")
+    @RequestMapping("/api/training")
     public @ResponseBody AngularTraining getLastRecord(Principal principal) {
 
         Participant participant = participantService.findByEmail(principal.getName());
