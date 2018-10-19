@@ -17,6 +17,7 @@ public class AngularTraining extends LinkedQuestionnaireData {
 
 
     private String session;
+    private Integer sessionIndex;
     private String sessionTitle;
     private String conditioning;
     private String study;
