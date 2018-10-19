@@ -6,6 +6,7 @@ import org.mindtrails.domain.ExportMode;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.RestExceptions.NoPastProgressException;
 import org.mindtrails.domain.RestExceptions.WrongFormException;
+import org.mindtrails.domain.Study;
 import org.mindtrails.domain.jsPsych.JsPsychTrial;
 import org.mindtrails.persistence.AngularTrainingRepository;
 import org.mindtrails.service.ParticipantService;
@@ -79,6 +80,15 @@ public class AngularTrainingController extends BaseController {
         } else {
             return (trials.get(trials.size() - 1));
         }
+    }
+
+    @RequestMapping("/api/training/study")
+    public @ResponseBody
+    Study getCurrentStudy(Principal principal) {
+        Participant participant = participantService.findByEmail(principal.getName());
+
+        return(participant.getStudy());
+
     }
 
 

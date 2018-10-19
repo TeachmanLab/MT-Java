@@ -21,6 +21,7 @@
           "papaparse":"v4.1.1",
           "seiyria-bootstrap-slider":"v9.8.1",
           "timeme.js":"2.0.0",
-          "d3":"4.11.0"
+          "d3":"4.11.0",
+          "datetimepicker":"2.5.20"
   }
 }
