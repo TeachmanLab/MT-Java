@@ -67,7 +67,7 @@ public class AngularTrainingController extends BaseController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @RequestMapping("/api/training")
+    @RequestMapping(value="/api/training", method = RequestMethod.GET)
     public @ResponseBody AngularTraining getLastRecord(Principal principal) {
 
         Participant participant = participantService.findByEmail(principal.getName());
@@ -82,12 +82,12 @@ public class AngularTrainingController extends BaseController {
         }
     }
 
-    @RequestMapping("/api/training/study")
+    @RequestMapping(value="/api/training/conditioning", method = RequestMethod.GET)
     public @ResponseBody
-    Study getCurrentStudy(Principal principal) {
+    String getCurrentStudy(Principal principal) {
         Participant participant = participantService.findByEmail(principal.getName());
 
-        return(participant.getStudy());
+        return(participant.getStudy().getConditioning());
 
     }
 
