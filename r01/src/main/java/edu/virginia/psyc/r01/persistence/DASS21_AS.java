@@ -32,37 +32,37 @@ public class DASS21_AS extends LinkedQuestionnaireData {
 
 
     @Column(name="DRY")
-    @MeasureField(desc="I was aware of dryness of my mouth.")
+    @MeasureField(order=1, desc="I was aware of dryness of my mouth.")
     @NotNull
     private Integer dryness;
 
     @Column(name="BRE")
-    @MeasureField(desc="I experienced breathing difficulty (e.g., excessively rapid breathing, breathlessness in the absence of physical exertion).")
+    @MeasureField(order=2, desc="I experienced breathing difficulty (e.g., excessively rapid breathing, breathlessness in the absence of physical exertion).")
     @NotNull
     private Integer breathing;
 
     @Column(name="TRE")
-    @MeasureField(desc="I experienced trembling (e.g., in the hands).")
+    @MeasureField(order=3, desc="I experienced trembling (e.g., in the hands).")
     @NotNull
     private Integer trembling;
 
     @Column(name="WOR")
-    @MeasureField(desc="I was worried about situations in which I might panic and make a fool of myself.")
+    @MeasureField(order=4, desc="I was worried about situations in which I might panic and make a fool of myself.")
     @NotNull
     private Integer worry;
 
     @Column(name="PAN")
-    @MeasureField(desc="I felt I was close to panic.")
+    @MeasureField(order=5, desc="I felt I was close to panic.")
     @NotNull
     private Integer panic;
 
     @Column(name="HEA")
-    @MeasureField(desc="I was aware of my heart's action in the absence of exercise (e.g., felt heart rate increase, heart missing a beat).")
+    @MeasureField(order=6, desc="I was aware of my heart's action in the absence of exercise (e.g., felt heart rate increase, heart missing a beat).")
     @NotNull
     private Integer heart;
 
     @Column(name="SCA")
-    @MeasureField(desc="I felt scared without any good reason.")
+    @MeasureField(order=7, desc="I felt scared without any good reason.")
     @NotNull
     private Integer scared;
 
