@@ -10,6 +10,7 @@
 <!--<![endif]-->
 <head th:include="fragment/common :: headerFragment"/>
 <body th:class="|user-theme-${participant.theme}|">
+
 <section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
 
 <!-- content starts
@@ -62,6 +63,16 @@
             <span>Your next gift card will be available when you complete <span
                     th:text="${nextGiftSession.displayName}"/></span>
         </div>
+
+        <div class="nextSession">
+            Let us know when you plan to return, and we will send you a calendar invitation to remind you:
+            <form action="/session/returnReminder" method="post">
+            <div class="input-group date">
+                <input type="text" name="date" class="form-control" required="true"/><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+            </div>
+            <input type="submit" class="button" value="Remind Me"/>
+            </form>
+        </div>
     </div>
 </section>
 
@@ -70,4 +81,12 @@
 <div th:include="fragment/common :: scripts"/>
 
 </body>
+<link rel="stylesheet" media="screen" th:href="@{/bower/bootstrap-datepicker/dist/css/bootstrap-datepicker.standalone.css}"/>
+<script type="text/javascript" th:src="@{/bower/bootstrap-datepicker/dist/js/bootstrap-datepicker.js}"></script>
+<script>
+    $( document ).ready(function() {
+        $('.input-group.date').datepicker({
+        });
+    });
+</script>
 </html>
