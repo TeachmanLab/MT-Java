@@ -25,20 +25,23 @@
             <div class="col-md-8 session">
                 <h2>Great Job, <span th:text="${participant.fullName}">Jim</span>.<br/>You have completed <span
                         th:text="${lastSession.displayName}"/>. </h2>
-                You have completed all the Sessions! We will email you in <span th:text="${currentSession.daysToWait}">30</span> days, when it is time to complete the
+                You have completed all the Sessions! We will email you in <span th:text="${currentSession.daysToWait}">30</span>
+                days, when it is time to complete the
                 follow up <span th:if="${participant.receiveGiftCards}">and get your bonus gift card</span>.
             </div>
         </div>
     </div>
 
-    <div class="container sessionSection" th:if="${currentSession.daysToWait &gt; 0 and currentSession.daysToWait &lt; 3}">
+    <div class="container sessionSection"
+         th:if="${currentSession.daysToWait &gt; 0 and currentSession.daysToWait &lt; 3}">
         <div class="sessionHeader">
-            <img class="sessionImage" th:with="url=(|/images/map-${lastSession.index}-${participant.theme}.png|)" th:src="@{${url}}" alt="icon"/>
+            <img class="sessionImage" th:with="url=(|/images/map-${lastSession.index}-${participant.theme}.png|)"
+                 th:src="@{${url}}" alt="icon"/>
 
             <h2>Congratulations <span th:text="${participant.fullName}">Jim</span>!</h2>
-            You have completed <span  th:text="${lastSession.displayName}"/>.
+            You have completed <span th:text="${lastSession.displayName}"/>.
             Finishing the stories during the next session will be a little more challenging as you move up to
-            <span  th:text="${currentSession.displayName}"/>, but we think you’re ready.
+            <span th:text="${currentSession.displayName}"/>, but we think you’re ready.
 
         </div>
 
@@ -64,15 +67,7 @@
                     th:text="${nextGiftSession.displayName}"/></span>
         </div>
 
-        <div class="nextSession">
-            Let us know when you plan to return, and we will send you a calendar invitation to remind you:
-            <form action="/session/returnReminder" method="post">
-            <div class="input-group date">
-                <input type="text" name="date" class="form-control" required="true"/><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-            </div>
-            <input type="submit" class="button" value="Remind Me"/>
-            </form>
-        </div>
+
     </div>
 </section>
 
@@ -81,12 +76,4 @@
 <div th:include="fragment/common :: scripts"/>
 
 </body>
-<link rel="stylesheet" media="screen" th:href="@{/bower/bootstrap-datepicker/dist/css/bootstrap-datepicker.standalone.css}"/>
-<script type="text/javascript" th:src="@{/bower/bootstrap-datepicker/dist/js/bootstrap-datepicker.js}"></script>
-<script>
-    $( document ).ready(function() {
-        $('.input-group.date').datepicker({
-        });
-    });
-</script>
 </html>

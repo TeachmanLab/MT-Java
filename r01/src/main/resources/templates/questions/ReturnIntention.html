@@ -13,9 +13,15 @@
 <section th:replace="fragment/common :: topFragment"/>
 <section th:include="fragment/common :: titleBar (title='Returning to the Program')"/>
 
+<style>
+    div.nextSession {
+        max-width: 400px;
+        margin: 20px auto;
+    }
+</style>
 
 <section id="content" class="clearfix">
-    <form th:action="@{/questions/ReturnIntention}" method="POST">
+    <form id="form" th:action="@{/questions/ReturnIntention}" method="POST">
 
 
         <!-- Add timer -->
@@ -74,6 +80,38 @@
 
             </div>
 
+            <div class="nextSession">
+                OPTIONAL:  Give us a date and time when you plan like to return and we will send you a calendar invitation to remind you:
+                <input type="hidden" id="returnDate" name="returnDateString"/>
+                <div class="input-group date">
+                    <input id='datepicker' type="text" name="date" class="form-control" />
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                </div>
+                <div class="input-group bootstrap-timepicker timepicker">
+                    <input id="timepicker" name="time" type="text" class="form-control input-small"/>
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                </div>
+            </div>
+            <link rel="stylesheet" media="screen"
+                  th:href="@{/bower/bootstrap-datepicker/dist/css/bootstrap-datepicker.standalone.css}"/>
+            <script type="text/javascript" th:src="@{/bower/bootstrap-timepicker/js/bootstrap-timepicker.js}"></script>
+            <script type="text/javascript" th:src="@{/bower/bootstrap-datepicker/dist/js/bootstrap-datepicker.js}"></script>
+            <script>
+                $(document).ready(function () {
+                    $('.input-group.date').datepicker({
+                        startDate: '+1d'
+                    });
+                    $('#timepicker').timepicker();
+                    $('#form').on('submit', function(e) {
+                        if($('#datepicker').val()) {
+                            var date = new Date($("#datepicker").val() + ' ' + $("#timepicker").val());
+                            console.log(date.toISOString());
+                            $('#returnDate').val(date.toISOString());
+                        }
+                    })
+                });
+
+            </script>
 
             <div class="col-md-12" style="text-align:center">
                 <button type="submit"> Next</button>

@@ -1,12 +1,19 @@
 package edu.virginia.psyc.r01.persistence;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.apache.tomcat.jni.Local;
 import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 /**
  * Created by Diheng on 7/27/17.
@@ -21,4 +28,24 @@ public class ReturnIntention extends LinkedQuestionnaireData {
 
     @Lob
     private String notReturnReason;
+
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="EEE, dd MMM yyyy HH:mm:ss Z", timezone="GMT")
+    private Date returnDate;
+
+    @Transient
+    private String returnDateString;
+
+    /*
+     * MASSIVE HACK, as after 4 hours, I was never able to get spring to correctly prase and set the
+     * date using annotations or standard forms.  So just wait for this to get set, and convert it
+     * correctly so it gets recorded in the database.  Everything else I tried was just silently
+     * ignored.
+    */
+    public void setReturnDateString(String dateISO) {
+        LocalDateTime localDateTime =
+                LocalDateTime.parse(dateISO, DateTimeFormatter.ISO_DATE_TIME);
+        this.returnDate =  Date.from(localDateTime.toInstant(ZoneOffset.UTC));
+    }
+
+
 }
