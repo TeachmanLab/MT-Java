@@ -82,15 +82,15 @@ public class AngularTrainingController extends BaseController {
         }
     }
 
-    @RequestMapping(value="/api/training/conditioning", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/api/training/study", method = RequestMethod.GET)
     public @ResponseBody
-    String getCurrentStudy(Principal principal) {
+    Study getCurrentStudy(Principal principal) {
         Participant participant = participantService.findByEmail(principal.getName());
 
-        return(participant.getStudy().getConditioning());
+        return(participant.getStudy());
 
     }
-
 
 
     @RequestMapping("/completed")
