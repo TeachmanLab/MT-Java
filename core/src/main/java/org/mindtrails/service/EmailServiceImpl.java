@@ -1,6 +1,15 @@
 package org.mindtrails.service;
 
-import org.joda.time.DateTime;
+import net.fortuna.ical4j.model.Calendar;
+import net.fortuna.ical4j.model.TimeZone;
+import net.fortuna.ical4j.model.TimeZoneRegistry;
+import net.fortuna.ical4j.model.TimeZoneRegistryFactory;
+import net.fortuna.ical4j.model.component.VEvent;
+import net.fortuna.ical4j.model.component.VTimeZone;
+import net.fortuna.ical4j.model.property.*;
+import net.fortuna.ical4j.util.FixedUidGenerator;
+import net.fortuna.ical4j.util.RandomUidGenerator;
+import net.fortuna.ical4j.util.UidGenerator;
 import org.mindtrails.domain.*;
 import org.mindtrails.domain.tango.Reward;
 import org.mindtrails.domain.tracking.EmailLog;
@@ -10,13 +19,23 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import java.net.SocketException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -82,23 +101,43 @@ public class EmailServiceImpl implements EmailService {
     }
 
     public void sendEmail(Email email) {
-        // Prepare message using a Spring helper
-        final MimeMessage mimeMessage = this.mailSender.createMimeMessage();
-        final MimeMessageHelper message = new MimeMessageHelper(mimeMessage, "UTF-8");
-
-        email.getContext().setVariable("url", this.siteUrl);
-        email.getContext().setVariable("respondTo", this.respondTo);
-        email.getContext().setVariable("participant", email.getParticipant());
-
         try {
+
+            // Prepare message using a Spring helper
+            final MimeMessage message = this.mailSender.createMimeMessage();
+
+            // Create a Multipart
+            Multipart multipart = new MimeMultipart();
+
             message.setSubject(email.getSubject());
-            message.setFrom(this.respondTo);
-            message.setTo(email.getTo());
+            message.setFrom(new InternetAddress(this.respondTo));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(email.getTo()));
+
             // Create the HTML body using Thymeleaf
-            final String htmlContent = this.templateEngine.process("email/" + email.getType(), email.getContext());
-            message.setText(htmlContent, true /* isHtml */);
+            email.getContext().setVariable("url", this.siteUrl);
+            email.getContext().setVariable("respondTo", this.respondTo);
+            email.getContext().setVariable("participant", email.getParticipant());
+            final String htmlContent = this.templateEngine.process("email/" + email.getType(),
+                    email.getContext());
+            MimeBodyPart htmlBodyPart = new MimeBodyPart(); //4
+            htmlBodyPart.setContent(htmlContent, "text/html"); //5
+            multipart.addBodyPart(htmlBodyPart); // 6
+
+            // Add the calendar invite, if the email has a date.
+            if (email.getCalendarDate() != null) {
+                // Another part for the calendar invite
+                MimeBodyPart invite = new MimeBodyPart();
+                invite.setHeader("Content-Class", "urn:content-  classes:calendarmessage");
+                invite.setHeader("Content-ID", "calendar_message");
+                invite.setHeader("Content-Disposition", "inline");
+                invite.setContent(getInvite(email.getParticipant(), email.getCalendarDate()).toString(), "text/calendar");
+                multipart.addBodyPart(invite);
+            }
+
+            message.setContent(multipart);
+
             // Send email
-            this.mailSender.send(mimeMessage);
+            this.mailSender.send(message);
             logEmail(email, null);
         } catch (Exception e) {
             logEmail(email, e);
@@ -111,7 +150,7 @@ public class EmailServiceImpl implements EmailService {
      *
      * @param email
      */
-    public void sendExample(Email email) {
+    public void sendExample(Email email) throws MessagingException {
         sendEmail(email);
     }
 
@@ -239,8 +278,8 @@ public class EmailServiceImpl implements EmailService {
         if (participant.previouslySent(TYPE.midSessionStop.toString(),
                                         session.getName())) return false;
         if (session.midSession()) {
-            DateTime lastTaskDate = new DateTime(study.getLastTaskDate());
-            if (DateTime.now().minusHours(3).isAfter(lastTaskDate))
+            LocalDateTime lastTaskDate = LocalDateTime.ofInstant(study.getLastTaskDate().toInstant(), ZoneId.systemDefault());
+            if (LocalDateTime.now().minusHours(3).isAfter(lastTaskDate))
                 return true;
         }
         return false;
@@ -330,5 +369,56 @@ public class EmailServiceImpl implements EmailService {
             }
         }
         return type;
+    }
+
+
+    Calendar getInvite(Participant participant, Date date) {
+
+        // Create a TimeZone
+        TimeZoneRegistry registry = TimeZoneRegistryFactory.getInstance().createRegistry();
+        TimeZone timezone = registry.getTimeZone(participant.getTimezone());
+        VTimeZone tz = timezone.getVTimeZone();
+
+        // Use LocalDateTime to create a UTC date for the start time and end time.
+        LocalDateTime startDate = LocalDateTime.ofInstant(date.toInstant(), ZoneOffset.UTC);
+        LocalDateTime endDate = startDate.plusMinutes(30);
+
+        // Create the event
+        String eventName = "Next Mindtrails Session";
+        net.fortuna.ical4j.model.DateTime start = new net.fortuna.ical4j.model.DateTime(true);
+        net.fortuna.ical4j.model.DateTime end = new net.fortuna.ical4j.model.DateTime(true);
+        start.setTime(startDate.toInstant(ZoneOffset.UTC).toEpochMilli());
+        end.setTime(endDate.toInstant(ZoneOffset.UTC).toEpochMilli());
+        VEvent meeting = new VEvent(start, end, eventName);
+
+
+        // add timezone info..
+        meeting.getProperties().add(tz.getTimeZoneId());
+
+        // generate unique identifier..
+        Uid uid;
+        try {
+            UidGenerator ug = new FixedUidGenerator("uidGen");
+            uid = ug.generateUid();
+        } catch (SocketException e) {
+            UidGenerator ug = new RandomUidGenerator();
+            uid = ug.generateUid();
+        }
+        meeting.getProperties().add(uid);
+
+        // Set a location and description
+        meeting.getProperties().add(new Location(this.siteUrl));
+        meeting.getProperties().add(new Description("Return to " + this.siteUrl + " to complete your next session."));
+
+        // Create a calendar
+        net.fortuna.ical4j.model.Calendar icsCalendar = new net.fortuna.ical4j.model.Calendar();
+        icsCalendar.getProperties().add(new ProdId("-//Events Calendar//iCal4j 1.0//EN"));
+        icsCalendar.getProperties().add(Version.VERSION_2_0);
+        icsCalendar.getProperties().add(CalScale.GREGORIAN);
+
+        // Add the event and print
+        icsCalendar.getComponents().add(meeting);
+        System.out.println(icsCalendar);
+        return icsCalendar;
     }
 }

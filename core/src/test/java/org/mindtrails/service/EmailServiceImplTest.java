@@ -1,5 +1,7 @@
 package org.mindtrails.service;
 
+import net.fortuna.ical4j.model.Calendar;
+import net.fortuna.ical4j.model.component.VEvent;
 import org.hamcrest.Matchers;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
@@ -23,6 +25,10 @@ import org.subethamail.wiser.WiserMessage;
 import org.thymeleaf.context.Context;
 
 import javax.mail.internet.MimeMessage;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.List;
 
@@ -276,6 +282,9 @@ public class EmailServiceImplTest {
         if (wiser.getMessages().size() > 0) {
             WiserMessage wMsg = wiser.getMessages().get(0);
             MimeMessage msg = wMsg.getMimeMessage();
+
+            // Content likely looks like this: ((MimeMultipart)msg.getContent()).getBodyPart(0).getContent()
+
             assertNotNull("message was null", msg);
             assertEquals("'Subject' did not match", "Incomplete session notice from the MindTrails Team", msg.getSubject());
             assertTrue("url is missing", msg.getContent().toString().contains("Our records indicate that you got part-way through a session"));
@@ -435,5 +444,43 @@ public class EmailServiceImplTest {
 
     }
 
+    @Test
+    public void testCreateCalendarInvitation() {
+        participant.setTimezone("America/Los_Angeles");
+        LocalDateTime aDateTime = LocalDateTime.of(2018, Month.OCTOBER, 29, 8, 00, 00);
+        Date date = java.util.Date.from(aDateTime.toInstant(ZoneOffset.UTC));
+
+        Calendar calendar = this.emailService.getInvite(participant, date);
+        String calText = calendar.toString();
+        assertTrue(calText.contains("Something wicked this way comes"));
+        System.out.println(calendar);
+        System.out.println(((VEvent) calendar.getComponents().get(0)).getProperties().getProperties("DTSTART").get(0));
+        assertNotNull(((VEvent) calendar.getComponents().get(0)).getStartDate());  // should be 30 minutes
+        assertNotNull(((VEvent) calendar.getComponents().get(0)).getEndDate());  // should be 30 minutes
+    }
+
+    @Test
+    public void sendEmailWithCalendarInvite() throws Exception {
+
+        participant.setTimezone("America/Los_Angeles");
+        Email e = new Email("invite", "Testing Email with Calendar Invite");
+        final Context ctx = new Context();
+        e.setContext(ctx);
+        e.setTo("daniel.h.funk@gamil.com");
+        e.setCalendarDate(new Date());
+        e.setParticipant(participant);
+        emailService.sendEmail(e);
+
+        // assert
+        assertEquals("No mail messages found", 1, wiser.getMessages().size());
+
+        if (wiser.getMessages().size() > 0) {
+            WiserMessage wMsg = wiser.getMessages().get(0);
+            MimeMessage msg = wMsg.getMimeMessage();
+
+            assertNotNull("message was null", msg);
+
+        }
+    }
 
 }

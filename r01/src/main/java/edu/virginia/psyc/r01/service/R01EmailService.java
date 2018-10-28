@@ -10,6 +10,7 @@ import org.mindtrails.service.EmailServiceImpl;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -58,6 +59,9 @@ public class R01EmailService extends EmailServiceImpl implements EmailService{
     public void sendSessionCompletedEmail(Participant participant) {
         Session currentSession = participant.getStudy().getCurrentSession();
         Email email = null;
+
+
+
         if (currentSession.getName().equals(R01Study.FIRST_SESSION.toString())) {
             email = new Email("SESSION1","Bonus feature from the MindTrails team");
         } else if (currentSession.getName().equals(R01Study.SECOND_SESSION.toString())) {
@@ -68,10 +72,18 @@ public class R01EmailService extends EmailServiceImpl implements EmailService{
             email = new Email("SESSION4","Bonus feature from the MindTrails team");
         }
         if (email != null) {
+
+            // If the date the participant is returning is after today, then include a calendar invite
+            // in this follow up email.
+            if(participant.getReturnDate() != null && participant.getReturnDate().after(new Date()))
+                email.setCalendarDate(participant.getReturnDate());
+
             email.setTo(participant.getEmail());
             email.setParticipant(participant);
             email.setContext(new Context());
             sendEmail(email);
         }
     }
+
+
 }

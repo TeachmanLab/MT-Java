@@ -3,9 +3,8 @@ package edu.virginia.psyc.r01.persistence;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.apache.tomcat.jni.Local;
+import org.mindtrails.domain.questionnaire.HasReturnDate;
 import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.Lob;
@@ -23,7 +22,7 @@ import java.util.Date;
 @Table(name="ReturnIntention")
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class ReturnIntention extends LinkedQuestionnaireData {
+public class ReturnIntention extends LinkedQuestionnaireData implements HasReturnDate {
     private int returnIntention;
 
     @Lob
@@ -46,6 +45,5 @@ public class ReturnIntention extends LinkedQuestionnaireData {
                 LocalDateTime.parse(dateISO, DateTimeFormatter.ISO_DATE_TIME);
         this.returnDate =  Date.from(localDateTime.toInstant(ZoneOffset.UTC));
     }
-
 
 }

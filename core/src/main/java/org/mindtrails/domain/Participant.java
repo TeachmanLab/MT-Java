@@ -46,6 +46,7 @@ public class Participant implements UserDetails, HasStudy {
     protected String email;
     protected String phone;
     protected boolean admin;
+    protected boolean coach;
     protected boolean testAccount;
     protected String password;
     protected boolean emailReminders = true;
@@ -62,7 +63,7 @@ public class Participant implements UserDetails, HasStudy {
     protected boolean over18;
     protected String reference; // The site the user came from when creating their account
     protected String campaign; // A key passed into the landing page, to help identify where people come from.
-
+    protected Date returnDate; // Date this user plans to return for next session.
 
 
 
