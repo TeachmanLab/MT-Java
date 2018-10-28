@@ -25,6 +25,7 @@ import org.subethamail.wiser.WiserMessage;
 import org.thymeleaf.context.Context;
 
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.ZoneId;
@@ -75,6 +76,10 @@ public class EmailServiceImplTest {
         wiser.stop();
     }
 
+    private String getMsgContent(MimeMessage msg) throws Exception {
+        return ((MimeMultipart)msg.getContent()).getBodyPart(0).getContent().toString();
+    }
+
     @Test
     public void sendExportAlertEmail() throws Exception {
 
@@ -90,7 +95,7 @@ public class EmailServiceImplTest {
             assertNotNull("message was null", msg);
             assertEquals("'Subject' did not match", "MindTrails Alert! WICKED.", msg.getSubject());
             assertEquals("'From' address did not match", "test@test.com", msg.getFrom()[0].toString());
-            assertTrue(msg.getContent().toString().contains("Something wicked this way comes"));
+            assertTrue(getMsgContent(msg).contains("Something wicked this way comes"));
             assertEquals("'To' address did not match", "test@test.com",
                     msg.getRecipients(MimeMessage.RecipientType.TO)[0].toString());
 
@@ -122,7 +127,7 @@ public class EmailServiceImplTest {
             assertEquals("'Subject' did not match", "Update from the MindTrails project team", msg.getSubject());
             assertNotNull(serverUrl);
             assertFalse(serverUrl.isEmpty());
-            assertTrue(msg.getContent().toString().contains(serverUrl));
+            assertTrue(getMsgContent(msg).contains(serverUrl));
         }
     }
 
@@ -151,7 +156,7 @@ public class EmailServiceImplTest {
             assertEquals("'From' address did not match", "test@test.com", msg.getFrom()[0].toString());
             assertEquals("'To' address did not match", "testyMcTester@t.com",
                     msg.getRecipients(MimeMessage.RecipientType.TO)[0].toString());
-            assertTrue("Token is missing", msg.getContent().toString().contains(token));
+            assertTrue("Token is missing", getMsgContent(msg).contains(token));
         }
     }
 
@@ -185,7 +190,7 @@ public class EmailServiceImplTest {
             assertEquals("'From' address did not match", "test@test.com", msg.getFrom()[0].toString());
             assertEquals("'To' address did not match", "testyMcTester2.0@t.com",
                     msg.getRecipients(MimeMessage.RecipientType.TO)[0].toString());
-            assertTrue("url is missing", msg.getContent().toString().contains(url));
+            assertTrue("url is missing", getMsgContent(msg).contains(url));
         }
 
     }
@@ -287,7 +292,7 @@ public class EmailServiceImplTest {
 
             assertNotNull("message was null", msg);
             assertEquals("'Subject' did not match", "Incomplete session notice from the MindTrails Team", msg.getSubject());
-            assertTrue("url is missing", msg.getContent().toString().contains("Our records indicate that you got part-way through a session"));
+            assertTrue("url is missing", getMsgContent(msg).contains("Our records indicate that you got part-way through a session"));
         }
     }
 
@@ -452,7 +457,7 @@ public class EmailServiceImplTest {
 
         Calendar calendar = this.emailService.getInvite(participant, date);
         String calText = calendar.toString();
-        assertTrue(calText.contains("Something wicked this way comes"));
+        assertTrue(calText.contains("2018"));
         System.out.println(calendar);
         System.out.println(((VEvent) calendar.getComponents().get(0)).getProperties().getProperties("DTSTART").get(0));
         assertNotNull(((VEvent) calendar.getComponents().get(0)).getStartDate());  // should be 30 minutes
@@ -463,7 +468,7 @@ public class EmailServiceImplTest {
     public void sendEmailWithCalendarInvite() throws Exception {
 
         participant.setTimezone("America/Los_Angeles");
-        Email e = new Email("invite", "Testing Email with Calendar Invite");
+        Email e = new Email("day2", "Testing Email with Calendar Invite");
         final Context ctx = new Context();
         e.setContext(ctx);
         e.setTo("daniel.h.funk@gamil.com");

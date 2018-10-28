@@ -160,8 +160,10 @@ public class EmailServiceImpl implements EmailService {
      * @param email
      */
     private void logEmail(Email email, Exception e) {
+        if(email.getParticipant() == null) return; // Don't log emails that are not to a participant.
+
         EmailLog log;
-        Participant participant = email.getParticipant();
+        Participant participant = participantRepository.findOne(email.getParticipant().getId());
 
         if (e == null) LOG.info("Sent an email of type " + email.getType());
         if (e != null) LOG.error("Failed to send an email of type " +
