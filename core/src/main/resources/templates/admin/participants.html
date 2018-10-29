@@ -50,7 +50,7 @@
                                 <th>Emails?</th>
                                 <th>Texts?</th>
                                 <th>Active?</th>
-                                <th>Admin?</th>
+                                <th>Role</th>
                                 <th>Test Acct?</th>
                                 <th>GC Black List</th>
                                 <th>GC Qualified</th>
@@ -69,7 +69,7 @@
                                 <td><span th:if="${p.emailReminders}">Yes</span></td>
                                 <td><span th:if="${p.phoneReminders}">Yes</span></td>
                                 <td><span th:if="${p.active}">Active</span></td>
-                                <td><span th:if="${p.admin}">Admin</span></td>
+                                <td><span th:if="${p.admin}">Admin</span> <span th:if="${p.coach}">Coach</span></td>
                                 <td><span th:if="${p.testAccount}">Test</span></td>
                                 <td><span th:if="${p.blacklist}">Blacked</span></td>
                                 <td><span th:if="${p.receiveGiftCards} and ${p.verified} and ${!p.blacklist}">Qualified</span></td>

@@ -84,6 +84,11 @@
                             <td  class="error" th:if="${#fields.hasErrors('admin')}" th:errors="*{admin}">Admin Error</td>
                         </tr>
                         <tr>
+                            <td>Is Coach:</td>
+                            <td><input type="checkbox" th:field="*{coach}"/></td>
+                            <td  class="error" th:if="${#fields.hasErrors('coach')}" th:errors="*{coach}">Coach Error</td>
+                        </tr>
+                        <tr>
                             <td>Is Test Account:</td>
                             <td><input type="checkbox" th:field="*{testAccount}"/></td>
                             <td  class="error" th:if="${#fields.hasErrors('testAccount')}" th:errors="*{admin}">Test Error</td>
