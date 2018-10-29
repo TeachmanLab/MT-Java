@@ -169,9 +169,6 @@ public class AdminControllerTest extends BaseControllerTest {
         Participant p2 = participantRepository.findOne(p.getId());
         assertEquals("+15404570024", p2.getPhone());
 
-
     }
-
-
 
 }

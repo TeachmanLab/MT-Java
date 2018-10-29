@@ -16,6 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -136,6 +137,38 @@ public class ParticipantRepositoryTest {
         Assert.assertNotNull(participant);
         Assert.assertEquals(tokenString, participant.getPasswordToken().getToken());
         Assert.assertEquals("john@x.com", participant.getEmail());
+    }
+
+    @Test
+    @Transactional
+    public void testFindCoachesAndCoachees() {
+
+        // Create a participant
+        Participant coach = new Participant("John", "john@x.com", false);
+        coach.setCoaching(true);
+
+        Participant p1 = new Participant("Paul", "paul@beatles.com", false);
+        Participant p2 = new Participant("George", "george@beatles.com", false);
+        Participant p3 = new Participant("Ringo", "ringo@beatles.com", false);
+
+        coach.setCoaching(true);
+        p1.setCoachedBy(coach);
+        p2.setCoachedBy(coach);
+
+        participantRepository.save(coach);
+        participantRepository.save(p1);
+        participantRepository.save(p2);
+        participantRepository.save(p3);
+
+        List<Participant> coachees =  participantRepository.findByCoachedBy(coach);
+
+        List<Participant> coaches =  participantRepository.findByCoaching(true);
+
+
+        Assert.assertEquals("John doesn't coach Ringo", 2, coachees.size());
+        Assert.assertEquals("John is the only coach", 1, coaches.size());
+
+
     }
 
 }

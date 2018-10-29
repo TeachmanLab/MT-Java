@@ -106,8 +106,18 @@
                         </tr>
                         <tr>
                             <td>Is Coach:</td>
-                            <td><input type="checkbox" th:field="*{coach}"/><span th:if="*{coach}">True</span></td>
-                            <td th:if="${#fields.hasErrors('coach')}" th:errors="*{coach}">Coach Error</td>
+                            <td><input type="checkbox" th:field="*{coaching}"/><span th:if="*{coaching}">True</span></td>
+                            <td th:if="${#fields.hasErrors('coaching')}" th:errors="*{coaching}">Coach Error</td>
+                        </tr>
+                        <tr>
+                            <td>Assigned Coach:</td>
+                            <td>
+                                <select th:field="*{coachedBy}">
+                                    <option value="">Not Coached</option>
+                                    <option th:each="p : ${coaches}" th:value="${p.id}" th:text="${p.fullName}"
+                                            th:selected="${p==coachedBy}"></option>
+                                </select>
+                            </td>
                         </tr>
                         <tr>
                             <td>Is Test Account:</td>

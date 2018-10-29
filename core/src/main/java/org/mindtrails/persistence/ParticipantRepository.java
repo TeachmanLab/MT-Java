@@ -53,4 +53,8 @@ public interface ParticipantRepository extends JpaRepository<Participant, Long> 
 
     List<Participant> findParticipantsByTestAccountIsFalseAndAdminIsFalse();
 
+
+    List<Participant> findByCoachedBy(Participant coach);
+
+    List<Participant> findByCoaching(boolean coaching);
 }

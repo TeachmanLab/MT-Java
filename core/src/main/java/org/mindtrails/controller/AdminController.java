@@ -194,6 +194,7 @@ public class AdminController extends BaseController {
         form = new ParticipantUpdateAdmin(p);
         model.addAttribute("participantUpdateAdmin", form);
         model.addAttribute("participantEdit", p);
+        model.addAttribute("coaches", participantRepository.findByCoaching(true));
         return "admin/participantUpdate";
     }
 
@@ -206,6 +207,7 @@ public class AdminController extends BaseController {
         Participant p;
         p = participantRepository.findOne(id);
         if(bindingResult.hasErrors()) {
+            model.addAttribute("coaches", participantRepository.findByCoaching(true));
             model.addAttribute("participantAdminForm", form);
             model.addAttribute("participantEdit", p);
             return "admin/participantUpdate";
@@ -222,6 +224,8 @@ public class AdminController extends BaseController {
         ParticipantCreate form = new ParticipantCreate();
 
         model.addAttribute("participantCreateAdmin", form);
+        model.addAttribute("coaches", participantRepository.findByCoaching(true));
+
         return "admin/participantCreate";
     }
 
@@ -233,6 +237,7 @@ public class AdminController extends BaseController {
         Participant participant;
 
         if(!participantCreateAdmin.validParticipant(bindingResult, participantService)) {
+            model.addAttribute("coaches", participantRepository.findByCoaching(true));
             model.addAttribute("participantCreateAdmin", participantCreateAdmin);
             return "admin/participantCreate";
         }

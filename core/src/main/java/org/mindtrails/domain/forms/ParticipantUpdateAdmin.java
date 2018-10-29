@@ -11,9 +11,10 @@ public class ParticipantUpdateAdmin extends ParticipantUpdate {
 
     private boolean active;
     private boolean admin;
-    private boolean coach;
+    private boolean coaching;
     private boolean testAccount;
     private boolean blacklist;
+    private Participant coachedBy;
 
     public ParticipantUpdateAdmin() {}
 
@@ -26,9 +27,10 @@ public class ParticipantUpdateAdmin extends ParticipantUpdate {
         super.fromParticipant(p);
         this.active = p.isActive();
         this.admin = p.isAdmin();
-        this.coach = p.isCoach();
+        this.coaching = p.isCoaching();
         this.testAccount = p.isTestAccount();
         this.blacklist=p.isBlacklist();
+        this.coachedBy = p.getCoachedBy();
     }
 
     @Override
@@ -36,9 +38,10 @@ public class ParticipantUpdateAdmin extends ParticipantUpdate {
         super.updateParticipant(p);
         p.setActive(this.isActive());
         p.setAdmin(this.isAdmin());
-        p.setCoach(this.isCoach());
+        p.setCoaching(this.isCoaching());
         p.setTestAccount(this.isTestAccount());
         p.setBlacklist(this.isBlacklist());
+        p.setCoachedBy(this.coachedBy);
         return p;
     }
 

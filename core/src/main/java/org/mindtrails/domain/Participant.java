@@ -46,7 +46,7 @@ public class Participant implements UserDetails, HasStudy {
     protected String email;
     protected String phone;
     protected boolean admin;
-    protected boolean coach;
+    protected boolean coaching;
     protected boolean testAccount;
     protected String password;
     protected boolean emailReminders = true;
@@ -76,6 +76,10 @@ public class Participant implements UserDetails, HasStudy {
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity=BaseStudy.class)
     protected Study study;
+
+    @OneToOne(fetch = FetchType.EAGER, targetEntity=Participant.class)
+    protected Participant coachedBy;
+
 
     // IMPORTANT: Automatic email notifications start failing when
     // these relationships are setup with a FetchType.LAZY. Please

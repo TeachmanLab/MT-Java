@@ -23,7 +23,8 @@ public class ParticipantCreateAdmin extends ParticipantUpdate {
 
     private boolean over18;
     private boolean admin;
-    private boolean coach;
+    private boolean coaching;
+    private Participant coachedBy;
     private boolean active = true;
     private boolean testAccount = false;
     private boolean receiveGiftCards = false;
@@ -80,7 +81,8 @@ public class ParticipantCreateAdmin extends ParticipantUpdate {
         this.setOver18(p.isOver18());
         this.setActive(p.isActive());
         this.setAdmin(p.isAdmin());
-        this.setCoach(p.isCoach());
+        this.setCoaching(p.isCoaching());
+        this.setCoachedBy(p.getCoachedBy());
         this.setTestAccount(p.isTestAccount());
     }
 
@@ -91,8 +93,9 @@ public class ParticipantCreateAdmin extends ParticipantUpdate {
         p.setOver18(over18);
         p.setActive(active);
         p.setAdmin(admin);
-        p.setCoach(coach);
+        p.setCoaching(coaching);
         p.setTestAccount(testAccount);
+        p.setCoachedBy(this.coachedBy);
         return(p);
     }
 
