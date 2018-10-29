@@ -12,6 +12,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 /**
@@ -23,7 +24,6 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class ReturnIntention extends LinkedQuestionnaireData implements HasReturnDate {
-    private int returnIntention;
 
     @Lob
     private String notReturnReason;
@@ -33,6 +33,9 @@ public class ReturnIntention extends LinkedQuestionnaireData implements HasRetur
 
     @Transient
     private String returnDateString;
+
+    private Long daysTillReturning;
+
 
     /*
      * MASSIVE HACK, as after 4 hours, I was never able to get spring to correctly prase and set the
@@ -44,6 +47,9 @@ public class ReturnIntention extends LinkedQuestionnaireData implements HasRetur
         LocalDateTime localDateTime =
                 LocalDateTime.parse(dateISO, DateTimeFormatter.ISO_DATE_TIME);
         this.returnDate =  Date.from(localDateTime.toInstant(ZoneOffset.UTC));
+
+        LocalDateTime today = LocalDateTime.now(ZoneOffset.UTC);
+        this.daysTillReturning = today.until( localDateTime, ChronoUnit.DAYS);
     }
 
 }
