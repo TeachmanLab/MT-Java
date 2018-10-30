@@ -27,53 +27,11 @@
         </div>
     </section>
 
-    <form th:action="@{/questions/Mechanisms}" method="POST">
+    <form th:action="@{/questions/Mechanisms}" method="POST" th:object="${model}">
         <!-- Add timer -->
         <input id="timeOnPage" name="timeOnPage" type="hidden"/>
-        <div class="container section compactQuestion">
-            <div id="section1"></div>
-            <script>
-                var data = {
-                    "options": [
-                        {"value": 1, "title": "Strongly disagree"},
-                        {"value": 2, "title": "Disagree"},
-                        {"value": 3, "title": "Somewhat disagree"},
-                        {"value": 4, "title": "Neutral"},
-                        {"value": 5, "title": "Somewhat agree"},
-                        {"value": 6, "title": "Agree"},
-                        {"value": 7, "title": "Strongly agree"}
-                    ],
-                    "questions": [
-                        {
-                            "name": "cfiViewpoints",
-                            "desc": "I often look at a situation from different viewpoints."
-                        },
-                        {
-                            "name": "compActWilling",
-                            "desc": "I am willing to fully experience whatever thoughts, feelings, and sensations come up for me, without trying to change them."
-                        },
-                        {
-                            "name": "erqPositive",
-                            "desc": "When I want to feel more positive emotion, I change the way I’m thinking about the situation."
-                        },
-                        {
-                            "name": "erqNegative",
-                            "desc": "When I want to feel less negative emotion, I change the way I’m thinking about the situation."
-                        },
-                        {
-                            "name": "iusUnexpected",
-                            "desc": "Unexpected events upset me greatly."
-                        },
-                        {
-                            "name": "iusUncertain",
-                            "desc": "When I am uncertain I can’t function very well."
-                        }
-                ]
-                }
-                $('#section1').html(Mustache.render($('#template6').val(), data));
-            </script>
-        </div>
 
+        <section th:replace="fragment/forms :: radioOptions(${model})"/>
 
         <div class="col-md-12" style="text-align:center">
             <button type="submit">Next</button>
