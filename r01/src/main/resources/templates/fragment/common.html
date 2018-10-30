@@ -415,6 +415,19 @@
             </li>
             <li><a th:href="@{/admin/userstats}">User statistics information</a>: allows you to check users statistics information.
             </li>
+            <li><a th:href="@{/coach}">Coach Administration</a>: View a list of all coaches and eligible participants.
+            </li>
+        </ul>
+    </div>
+
+    <!--column two starts-->
+    <div class="adminTools container" sec:authorize="hasRole('ROLE_COACH')">
+        <h5>Coaching Tools</h5>
+        <p>This section is only visible to you because you have been granted coach level access.</p>
+        <ul class="list-info">
+            <li><a th:href="@{/coach}">Coach Overview</a>: View a list of all coaches and eligible participants.
+            </li>
+            <li><a th:href="@{/coach/me}">My Participants</a>: provides a list of the participants assigned to you for coaching</li>
         </ul>
     </div>
 

@@ -11,6 +11,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -160,15 +162,48 @@ public class ParticipantRepositoryTest {
         participantRepository.save(p2);
         participantRepository.save(p3);
 
-        List<Participant> coachees =  participantRepository.findByCoachedBy(coach);
+        PageRequest pageRequest = new PageRequest(0, 20);
+        Page<Participant> coachees =  participantRepository.findByCoachedBy(coach, pageRequest);
 
-        List<Participant> coaches =  participantRepository.findByCoaching(true);
+        List<Participant> coaches =  participantRepository.findCoaches();
 
 
-        Assert.assertEquals("John doesn't coach Ringo", 2, coachees.size());
+        Assert.assertEquals("John doesn't coach Ringo", 2, coachees.getTotalElements());
         Assert.assertEquals("John is the only coach", 1, coaches.size());
+    }
+
+    @Test
+    @Transactional
+    public void listParticipantsEligible() {
+        Participant p1 = new Participant("Paul", "paul@beatles.com", false);
+        Participant p2 = new Participant("George", "george@beatles.com", false);
+        Participant p3 = new Participant("Ringo", "ringo@beatles.com", false);
+        Participant p4 = new Participant("John", "john@beatles.com", false);
+        Participant p5 = new Participant("Scott", "scott@beatles.com", false);
+        Participant p6 = new Participant("Francis", "francis@beatles.com", false);
 
 
+        p1.setAttritionRisk(.5f);
+        p2.setAttritionRisk(.2f);
+        p3.setAttritionRisk(.7f);
+        p5.setCoaching(true);
+        p6.setTestAccount(true);
+
+        participantRepository.save(p1);
+        participantRepository.save(p2);
+        participantRepository.save(p3);
+        participantRepository.save(p4);
+        participantRepository.save(p5);
+        participantRepository.save(p6);
+
+        PageRequest pageRequest = new PageRequest(0, 20);
+        Page<Participant> coachees =  participantRepository.findEligibleForCoaching(pageRequest);
+
+        Assert.assertEquals(4, coachees.getTotalElements() );
+        Assert.assertEquals(p3.getId(), coachees.getContent().get(0).getId());
+        Assert.assertEquals(p1.getId(), coachees.getContent().get(1).getId());
+        Assert.assertEquals(p2.getId(), coachees.getContent().get(2).getId());
+        Assert.assertEquals(p4.getId(), coachees.getContent().get(3).getId());
     }
 
 }

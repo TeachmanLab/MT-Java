@@ -29,7 +29,7 @@ public class R01Study extends BaseStudy {
     // 50/50 (half positive, half negative, completely random)
     // 50/50 (half positive, half negative, chunks - first 5 pos, next x are negative ....)
     // Neutral condition (likely alternate content)
-    public enum CONDITION {POSITIVE, POSITIVE_NEGATION, FIFTY_FIFTY_RANDOM, FIFTY_FIFTY_BLOCKED, NEUTRAL }
+    public enum CONDITION {MOBILE, DESKTOP, CONTROL}
     public static final String PRE_TEST = "preTest";
 
     public enum SESSION {preTest, firstSession, secondSession, thirdSession, fourthSession, fifthSession, PostFollowUp };

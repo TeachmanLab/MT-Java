@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="fragment/common :: headerFragment"/>
+<body>
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
+
+
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h1>Participant View</h1>
+
+                <table>
+                    <tr>
+                        <th>Nick Name:</th>
+                        <td th:text="${participant.fullName}"/>
+                    </tr>
+                    <tr>
+                        <th>Email Address:</th>
+                        <td th:text="${participant.email}"/>
+                    </tr>
+                    <tr>
+                        <th>Phone Number:</th>
+                        <td th:text="${participant.phone}"/>
+                    </tr>
+                    <tr>
+                        <th>Email Reminders?:</th>
+                        <td> <span th:if="${participant.emailReminders}">yes</span>
+                        <span th:unless="${participant.emailReminders}">no</span></td>
+                    </tr>
+                    <tr>
+                        <th>Phone Reminders?:</th>
+                        <td> <span th:if="${participant.phoneReminders}">yes</span>
+                            <span th:unless="${participant.phoneReminders}">no</span></td>
+                    </tr>
+                    <tr>
+                        <th>Time Zone:</th>
+                        <td th:text="${participant.timezone}"/>
+                    </tr>
+                    <tr>
+                        <th>Is Active:</th>
+                        <td> <span th:if="${participant.active}">yes</span>
+                            <span th:unless="${participant.active}">no</span></td>
+                    </tr>
+                    <tr>
+                        <th>Is Admin:</th>
+                        <td> <span th:if="${participant.admin}">yes</span>
+                            <span th:unless="${participant.admin}">no</span></td>
+                    </tr>
+                    <tr>
+                        <th>Is Coach:</th>
+                        <td> <span th:if="${participant.coaching}">yes</span>
+                            <span th:unless="${participant.coaching}">no</span></td>
+                    </tr>
+                    <tr>
+                        <th>Assigned Coach:</th>
+                        <td> <span th:if="${participant.coachedBy}">yes</span></td>
+                    </tr>
+                    <tr>
+                        <th>Is Test Account:</th>
+                        <td> <span th:if="${participant.testAccount}">yes</span>
+                            <span th:unless="${participant.testAccount}">no</span></td>
+                    </tr>
+                    <tr>
+                        <th>Is in Blacklist:</th>
+                        <td> <span th:if="${participant.blacklist}">yes</span>
+                            <span th:unless="${participant.blacklist}">no</span></td>
+                    </tr>
+                    <tr>
+                        <th>Last Login</th>
+                        <td><span th:if="${participant.lastLoginDate}" th:text="${#dates.format(participant.lastLoginDate, 'EEE, dd MMM yyyy h:mm a')}">
+                                    10-05-1972 11:55</span></td>
+                    </tr>
+                    <tr>
+                        <th>Planning to return on:</th>
+                        <td><span th:if="${participant.returnDate}" th:text="${#dates.format(participant.returnDate, 'EEE, dd MMM yyyy h:mm a')}">
+                                    10-05-1972 11:55</span></td>
+                    </tr>
+                </table>
+            </div>
+             <section th:replace="/admin/adminCommon :: participantDetails(${participant})"/>
+        </div>
+    </div>
+</section>
+</body>
+</html>
