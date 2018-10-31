@@ -64,7 +64,7 @@ public class Participant implements UserDetails, HasStudy {
     protected String reference; // The site the user came from when creating their account
     protected String campaign; // A key passed into the landing page, to help identify where people come from.
     protected Date returnDate; // Date this user plans to return for next session.
-    protected float attritionRisk;  // percintage likelyhood this person will leave the study early.
+    protected float attritionRisk;  // percentage likelihood this person will leave the study early.
 
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

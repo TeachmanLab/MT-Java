@@ -14,16 +14,6 @@ import java.util.List;
 public interface EmailService {
 
     /**
-     * Each of these types should have a corresponding template
-     * in resources/templates/email
-     */
-    public enum TYPE {
-        resetPass, alertAdmin, giftCard,
-        day2, day4, day7, day11, day15, closure, debrief,
-        followup, followup2, followup3, midSessionStop
-    }
-
-    /**
      * This should send an email to an administrative account
      * notifying them of some problem with the system.
      * @param message

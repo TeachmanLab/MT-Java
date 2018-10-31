@@ -106,7 +106,7 @@ public class EmailServiceImplTest {
     @Test
     public void send2DayUsesSiteUrl() throws Exception {
 
-        Email e = emailService.getEmailForType(EmailService.TYPE.day2.toString());
+        Email e = emailService.getEmailForType("day2");
         e.setTo("test@test.com");
         Participant p = new Participant();
         p.setStudy(new TestStudy());
@@ -200,8 +200,8 @@ public class EmailServiceImplTest {
     @Test
     public void testEmailList() {
         List<Email> emails = service.emailTypes();
-        assertThat(emails, hasItem(Matchers.<Email>hasProperty("type", equalTo("day2"))));
-        assertThat(emails, hasItem(Matchers.<Email>hasProperty("subject", equalTo("Update from the MindTrails project team"))));
+        assertThat(emails, hasItem(Matchers.<Email>hasProperty("type", equalTo("resetPass"))));
+        assertThat(emails, hasItem(Matchers.<Email>hasProperty("subject", equalTo("MindTrails - Account Request"))));
     }
 
     /**
@@ -241,7 +241,7 @@ public class EmailServiceImplTest {
                 emailService.shouldSendMidSessionReminder(participant));
 
         // Log the sending of a midSession Email, and try and send again.
-        participant.addEmailLog(new EmailLog(participant, EmailService.TYPE.midSessionStop.toString(), new Date()));
+        participant.addEmailLog(new EmailLog(participant, "midSessionStop", new Date()));
 
         assertFalse("Already sent an email about this, don't repeat it.",
                 emailService.shouldSendMidSessionReminder(participant));
@@ -305,7 +305,7 @@ public class EmailServiceImplTest {
 
         // Send an email two days after login, if no sessions were completed.
         participant.setLastLoginDate(xDaysAgo(2));
-        assertThat(EmailService.TYPE.day2, is(equalTo(service.getTypeToSend(participant))));
+        assertThat("day2", is(equalTo(service.getTypeToSend(participant))));
 
 
         // Don't send an email two days after login, if a session was completed.
@@ -325,14 +325,14 @@ public class EmailServiceImplTest {
         assertNull(service.getTypeToSend(participant));
 
         study.setLastSessionDate(xDaysAgo(2));
-        assertThat(EmailService.TYPE.day2, is(equalTo(service.getTypeToSend(participant))));
+        assertThat("day2", is(equalTo(service.getTypeToSend(participant))));
 
 
         study.setLastSessionDate(xDaysAgo(3));
         assertNull(service.getTypeToSend(participant));
 
         study.setLastSessionDate(xDaysAgo(4));
-        assertThat(EmailService.TYPE.day4, is(equalTo(service.getTypeToSend(participant))));
+        assertThat("day4", is(equalTo(service.getTypeToSend(participant))));
 
         study.setLastSessionDate(xDaysAgo(5));
         assertNull(service.getTypeToSend(participant));
@@ -341,7 +341,7 @@ public class EmailServiceImplTest {
         assertNull(service.getTypeToSend(participant));
 
         study.setLastSessionDate(xDaysAgo(7));
-        assertThat(EmailService.TYPE.day7, is(equalTo(service.getTypeToSend(participant))));
+        assertThat("day7", is(equalTo(service.getTypeToSend(participant))));
 
         study.setLastSessionDate(xDaysAgo(8));
         assertNull(service.getTypeToSend(participant));
@@ -353,7 +353,7 @@ public class EmailServiceImplTest {
         assertNull(service.getTypeToSend(participant));
 
         study.setLastSessionDate(xDaysAgo(11));
-        assertThat(EmailService.TYPE.day11, is(equalTo(service.getTypeToSend(participant))));
+        assertThat("day11", is(equalTo(service.getTypeToSend(participant))));
 
         study.setLastSessionDate(xDaysAgo(12));
         assertNull(service.getTypeToSend(participant));
@@ -365,7 +365,7 @@ public class EmailServiceImplTest {
         assertNull(service.getTypeToSend(participant));
 
         study.setLastSessionDate(xDaysAgo(15));
-        assertThat(EmailService.TYPE.day15, is(equalTo(service.getTypeToSend(participant))));
+        assertThat("day15", is(equalTo(service.getTypeToSend(participant))));
 
         study.setLastSessionDate(xDaysAgo(16));
         assertNull(service.getTypeToSend(participant));
@@ -374,7 +374,7 @@ public class EmailServiceImplTest {
         assertNull(service.getTypeToSend(participant));
 
         study.setLastSessionDate(xDaysAgo(18));
-        assertThat(EmailService.TYPE.closure, is(equalTo(service.getTypeToSend(participant))));
+        assertThat("closure", is(equalTo(service.getTypeToSend(participant))));
 
         study.setLastSessionDate(xDaysAgo(19));
         assertNull(service.getTypeToSend(participant));
@@ -420,19 +420,19 @@ public class EmailServiceImplTest {
         participant.setLastLoginDate(xDaysAgo(80));
 
         study.setLastSessionDate(xDaysAgo(60));
-        assertThat(EmailService.TYPE.followup, is(equalTo(service.getTypeToSend(participant))));
+        assertThat("followup", is(equalTo(service.getTypeToSend(participant))));
 
         study.setLastSessionDate(xDaysAgo(63));
-        assertThat(EmailService.TYPE.followup2, is(equalTo(service.getTypeToSend(participant))));
+        assertThat("followup2", is(equalTo(service.getTypeToSend(participant))));
 
         study.setLastSessionDate(xDaysAgo(67));
-        assertThat(EmailService.TYPE.followup2, is(equalTo(service.getTypeToSend(participant))));
+        assertThat("followup2", is(equalTo(service.getTypeToSend(participant))));
 
         study.setLastSessionDate(xDaysAgo(70));
-        assertThat(EmailService.TYPE.followup2, is(equalTo(service.getTypeToSend(participant))));
+        assertThat("followup2", is(equalTo(service.getTypeToSend(participant))));
 
         study.setLastSessionDate(xDaysAgo(75));
-        assertThat(EmailService.TYPE.followup3, is(equalTo(service.getTypeToSend(participant))));
+        assertThat("followup3", is(equalTo(service.getTypeToSend(participant))));
 
     }
 

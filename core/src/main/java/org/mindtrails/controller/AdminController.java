@@ -194,7 +194,7 @@ public class AdminController extends BaseController {
         form = new ParticipantUpdateAdmin(p);
         model.addAttribute("participantUpdateAdmin", form);
         model.addAttribute("participantEdit", p);
-        model.addAttribute("coaches", participantRepository.findByCoaching(true));
+        model.addAttribute("coaches", participantRepository.findCoaches());
         return "admin/participantUpdate";
     }
 
@@ -207,7 +207,7 @@ public class AdminController extends BaseController {
         Participant p;
         p = participantRepository.findOne(id);
         if(bindingResult.hasErrors()) {
-            model.addAttribute("coaches", participantRepository.findByCoaching(true));
+            model.addAttribute("coaches", participantRepository.findCoaches());
             model.addAttribute("participantAdminForm", form);
             model.addAttribute("participantEdit", p);
             return "admin/participantUpdate";
@@ -224,7 +224,7 @@ public class AdminController extends BaseController {
         ParticipantCreate form = new ParticipantCreate();
 
         model.addAttribute("participantCreateAdmin", form);
-        model.addAttribute("coaches", participantRepository.findByCoaching(true));
+        model.addAttribute("coaches", participantRepository.findCoaches());
 
         return "admin/participantCreate";
     }
@@ -237,7 +237,7 @@ public class AdminController extends BaseController {
         Participant participant;
 
         if(!participantCreateAdmin.validParticipant(bindingResult, participantService)) {
-            model.addAttribute("coaches", participantRepository.findByCoaching(true));
+            model.addAttribute("coaches", participantRepository.findCoaches());
             model.addAttribute("participantCreateAdmin", participantCreateAdmin);
             return "admin/participantCreate";
         }
@@ -264,13 +264,13 @@ public class AdminController extends BaseController {
                             @PathVariable("type") String type) throws Exception {
         Participant p = participantService.get(principal);
 
-        if(type.equals(EmailService.TYPE.giftCard.toString())) {
+        if(type.equals("giftCard")) {
             Reward reward = tangoService.createGiftCard(p, "test", 1);  // This would actually award a gift card, if you need to do some testing.
             this.emailService.sendGiftCard(p, reward, 100);
-        } else if(type.equals(EmailService.TYPE.resetPass.toString())) {
+        } else if(type.equals("resetPass")) {
             p.setPasswordToken(new PasswordToken());
             this.emailService.sendPasswordReset(p);
-        } else if(type.equals(EmailService.TYPE.alertAdmin.toString())) {
+        } else if(type.equals("alertAdmin")) {
             this.emailService.sendAdminEmail("Example", "This is an example alert message normally sent to the administrator with a custom subject and message");
         } else {
             Email email = emailService.getEmailForType(type);
