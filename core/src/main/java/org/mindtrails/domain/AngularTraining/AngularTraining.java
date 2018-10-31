@@ -17,6 +17,7 @@ public class AngularTraining extends LinkedQuestionnaireData {
 
 
     private String session;
+    private Integer sessionIndex;
     private String sessionTitle;
     private String conditioning;
     private String study;
@@ -26,6 +27,7 @@ public class AngularTraining extends LinkedQuestionnaireData {
     private String trialType;
     @Lob
     private String stimulus;
+    private String stimulusName;
     private String buttonPressed;
     private boolean correct;
     private String device;
