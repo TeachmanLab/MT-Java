@@ -98,9 +98,9 @@ public class AngularTrainingController extends BaseController {
 
         // If the data submitted, isn't the data the user should be completing right now,
         // throw an exception and prevent them from moving forward.
-        String currentTaskName = participant.getStudy().getCurrentSession().getCurrentTask().getName();
-        if(!currentTaskName.equals("Training") && !participant.isAdmin()) {
-            String error = "The current task for this participant is : " + currentTaskName + " however, they completed the angular Training";
+        String taskType = participant.getStudy().getCurrentSession().getCurrentTask().getType().toString();
+        if(!taskType.equals("angularTraining") && !participant.isAdmin()) {
+            String error = "The current task for this participant is : " + taskType + " however, they completed the angular Training";
             LOG.info(error);
             throw new WrongFormException(error);
         }
