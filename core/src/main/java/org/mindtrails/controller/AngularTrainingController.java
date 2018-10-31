@@ -59,7 +59,6 @@ public class AngularTrainingController extends BaseController {
 
         for(AngularTraining training: list) {
             training.setParticipant(p);
-            training.setSession(p.getStudy().getCurrentSession().getName());
             training.setDate(new Date());
             this.trainingRepository.save(training);
         }
