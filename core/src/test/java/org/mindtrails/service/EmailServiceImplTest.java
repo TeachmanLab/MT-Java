@@ -124,7 +124,7 @@ public class EmailServiceImplTest {
             WiserMessage wMsg = wiser.getMessages().get(0);
             MimeMessage msg = wMsg.getMimeMessage();
             assertNotNull("message was null", msg);
-            assertEquals("'Subject' did not match", "Update from the MindTrails project team", msg.getSubject());
+            assertEquals("'Subject' did not match", "A day 2 email", msg.getSubject());
             assertNotNull(serverUrl);
             assertFalse(serverUrl.isEmpty());
             assertTrue(getMsgContent(msg).contains(serverUrl));
