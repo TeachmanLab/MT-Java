@@ -119,14 +119,6 @@ public class SessionController extends BaseController {
     }
 
 
-    @RequestMapping(value="/returnReminder", method = RequestMethod.POST)
-    public String setReturning(ModelMap model, Principal principal,
-                              @RequestParam(value = "date", required = true) Date returnDate) throws Exception {
-
-        LOG.info("The return date is " + returnDate);
-        return sessionHome(model, principal, false);
-    }
-
     @RequestMapping("/overview")
     public String overview(ModelMap model, Principal principal) {
         Participant p = getParticipant(principal);
