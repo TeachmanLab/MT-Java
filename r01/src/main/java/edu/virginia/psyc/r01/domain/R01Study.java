@@ -9,10 +9,7 @@ import org.mindtrails.domain.tracking.TaskLog;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -24,16 +21,14 @@ import java.util.stream.Stream;
 @DiscriminatorValue("R01")
 public class R01Study extends BaseStudy {
 
-    // positive (all positive words)
-    // positive (all postivie words, w/ negation statement
-    // 50/50 (half positive, half negative, completely random)
-    // 50/50 (half positive, half negative, chunks - first 5 pos, next x are negative ....)
-    // Neutral condition (likely alternate content)
-    public enum CONDITION {MOBILE, DESKTOP, CONTROL}
-    public static final String PRE_TEST = "preTest";
+    // Computer - CBM-I training delivered by computer
+    // Mobile - CBM-I training delivered by mobile phone
+    // Neutral - Control Condition with alternate content
+    public enum CONDITION {COMPUTER, MOBILE, NEUTRAL}
 
     public enum SESSION {preTest, firstSession, secondSession, thirdSession, fourthSession, fifthSession, PostFollowUp };
 
+    public static final String PRE_TEST = "preTest";
     public static final String FIRST_SESSION = "firstSession";
     public static final String SECOND_SESSION = "secondSession";
     public static final String THIRD_SESSION = "thirdSession";
