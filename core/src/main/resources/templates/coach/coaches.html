@@ -16,11 +16,39 @@
     <div class="container">
         <div class="row">
             <div class="span12">
-                <h1>Participants</h1>
+                <h1>Coaches</h1>
 
                 <div class="row">
+                    <div class="main-content span12">
+                        <table class="table table-striped table-bordered participantList">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Assigned</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr th:each="p : ${coaches}">
+                                <td th:text="${p.id}">0</td>
+                                <td th:text="${p.fullName}">Dan Funk</td>
+                                <td th:text="${p.email}">daniel.h.funk@gmail.com</td>
+                                <td>
+                                    <a th:href="@{'/coach/'+${p.id}}" th:text="${p.coachees.size()}">12</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <h1>Eligible Participants by Attrition Score</h1>
+                    <p></p>
                     <div class="main-content span8">
-                        <form action="#" th:action="@{/admin}" method="get">
+                        <form action="#" th:action="@{/coach}" method="get">
                             <input type="text" name="search" th:value="${search}"/>
                             <input type="submit" value="search"/>
                         </form>
@@ -45,15 +73,11 @@
                                 <th>ID</th>
                                 <th>Name</th>
                                 <th>Email</th>
-                                <th>Study</th>
                                 <th>Session</th>
-                                <th>Emails?</th>
-                                <th>Texts?</th>
-                                <th>Active?</th>
-                                <th>Role</th>
-                                <th>Test Acct?</th>
-                                <th>GC Black List</th>
-                                <th>GC Qualified</th>
+                                <th>Condition</th>
+                                <th>Last Login (in EST)</th>
+                                <th>Return Date (in EST)</th>
+                                <th>Attrition Score</th>
                                 <th></th>
                                 <th></th>
                             </tr>
@@ -64,17 +88,15 @@
                                 <td th:text="${p.id}">0</td>
                                 <td th:text="${p.fullName}">Dan Funk</td>
                                 <td th:text="${p.email}">daniel.h.funk@gmail.com</td>
-                                <td th:text="${p.study.name}">Templeton Study</td>
                                 <td th:text="${p.study.currentSession.displayName}">Session One</td>
-                                <td><span th:if="${p.emailReminders}">Yes</span></td>
-                                <td><span th:if="${p.phoneReminders}">Yes</span></td>
-                                <td><span th:if="${p.active}">Active</span></td>
-                                <td><span th:if="${p.admin}">Admin</span> <span th:if="${p.coaching}">Coach</span></td>
-                                <td><span th:if="${p.testAccount}">Test</span></td>
-                                <td><span th:if="${p.blacklist}">Blacked</span></td>
-                                <td><span th:if="${p.receiveGiftCards} and ${p.verified} and ${!p.blacklist}">Qualified</span></td>
+                                <td th:text="${p.study.conditioning}">Control</td>
+                                <td><span th:if="${p.lastLoginDate}" th:text="${#dates.format(p.lastLoginDate, 'EEE, dd MMM yyyy h:mm a')}">
+                                    10-05-1972 11:55</span></td>
+                                <td><span th:if="${p.returnDate}" th:text="${#dates.format(p.returnDate, 'EEE, dd MMM yyyy h:mm a')}">
+                                    10-05-1972 11:55</span></td>
+                                <td><span th:text="${p.attritionRisk}">.04</span></td>
                                 <td>
-                                    <a th:href="@{'/admin/participant/'+${p.id}}">Edit Participant</a>
+                                    <a th:href="@{'/admin/participant/'+${p.id}}">Edit/View Participant</a>
                                 </td>
                                 <td>
                                     <a th:href="@{'/admin/study/'+${p.id}}">Edit Study</a>
@@ -94,8 +116,6 @@
                     </div>
 
                 </div>
-
-                <!--spacer here-->
                 <div class="spacer-30px"></div>
             </div>
         </div>

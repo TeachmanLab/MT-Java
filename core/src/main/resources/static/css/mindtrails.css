@@ -91,6 +91,11 @@ Alternate NavBar Breakpoint - to better support Ipad
 .footer-links li {float:left; padding:0px 10px;}
 .footer-links a {color:#5ECCDE; text-decoration:none; font-weight:700}
 
+.adminTools a {
+    color: #00ACE4;
+    font-size: 1.2em;
+}
+
 /*************** Sections */
 
 div.sessionSection {

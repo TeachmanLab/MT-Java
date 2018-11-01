@@ -21,14 +21,13 @@
                 <h1 th:if="${participantUpdateAdmin.admin}">Edit Administrator</h1>
 
 
-
                 <form action="#" th:action="@{'/admin/participant/'+${participantEdit.id}}"
                       th:object="${participantUpdateAdmin}"
                       method="post">
 
 
                     <ul>
-                        <li th:each="e : ${#fields.detailedErrors()}" th:if="${e.global}" >
+                        <li th:each="e : ${#fields.detailedErrors()}" th:if="${e.global}">
                             <span class="alert-error" th:text="${e.message}">The error message</span>
                         </li>
                     </ul>
@@ -54,10 +53,10 @@
                             var telInput = $("#phone");
                             // initialise plugin
                             telInput.intlTelInput({
-                                utilsScript:"https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.1.4/css/intlTelInput.css"
+                                utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.1.4/css/intlTelInput.css"
                             });
                             // on blur: validate
-                            telInput.blur(function() {
+                            telInput.blur(function () {
                                 var phoneReminders = $("#phoneReminders");
                                 var countryData = $("#phone").intlTelInput("getSelectedCountryData");
                                 if (countryData.iso2 != "us") {
@@ -105,14 +104,34 @@
                             <td th:if="${#fields.hasErrors('admin')}" th:errors="*{admin}">Admin Error</td>
                         </tr>
                         <tr>
+                            <td>Is Coach:</td>
+                            <td><input type="checkbox" th:field="*{coaching}"/><span th:if="*{coaching}">True</span>
+                            </td>
+                            <td th:if="${#fields.hasErrors('coaching')}" th:errors="*{coaching}">Coach Error</td>
+                        </tr>
+                        <tr>
+                            <td>Assigned Coach:</td>
+                            <td>
+                                <select th:field="*{coachedBy}">
+                                    <option value="">Not Coached</option>
+                                    <option th:each="p : ${coaches}" th:value="${p.id}" th:text="${p.fullName}"
+                                            th:selected="${p==coachedBy}"></option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
                             <td>Is Test Account:</td>
                             <td><input type="checkbox" th:field="*{testAccount}"/></td>
-                            <td  class="error" th:if="${#fields.hasErrors('testAccount')}" th:errors="*{admin}">Test Error</td>
+                            <td class="error" th:if="${#fields.hasErrors('testAccount')}" th:errors="*{admin}">Test
+                                Error
+                            </td>
                         </tr>
                         <tr>
                             <td>Is in Blacklist:</td>
                             <td><input type="checkbox" th:field="*{blacklist}"/></td>
-                            <td  class="error" th:if="${#fields.hasErrors('blacklist')}" th:errors="*{admin}">blacklist Error</td>
+                            <td class="error" th:if="${#fields.hasErrors('blacklist')}" th:errors="*{admin}">blacklist
+                                Error
+                            </td>
                         </tr>
                     </table>
                     <button type="submit">Submit</button>
@@ -120,91 +139,14 @@
                 </form>
 
             </div>
-
-            <div class="sidebar col-md-6">
-                <div class="log">
-                <h3>Emails sent:</h3>
-                    <table class="logs">
-                        <tr>
-                            <th>Type</th>
-                            <th>Date</th>
-                            <th>Successful?</th>
-                        </tr>
-                        <tr th:each="log : ${participantEdit.emailLogs}">
-                            <td th:text="${log.emailType}"/>
-                            <td th:text="${log.dateSent}"/>
-                            <td th:class="${log.successful}? success : error " th:text="${log.successful}"/>
-                        </tr>
-                    </table>
-                </div>
-                <div class="log">
-                    <h3>Text Messages sent:</h3>
-                    <table class="logs">
-                        <tr>
-                            <th>Type</th>
-                            <th>Date</th>
-                        </tr>
-                        <tr th:each="log : ${participantEdit.smsLogs}">
-                            <td th:text="${log.message}"/>
-                            <td th:text="${log.dateSent}"/>
-                        </tr>
-                    </table>
-                </div>
-                <div class="log">
-                <h3>Gift Cards Awarded:</h3>
-                    <table class="logs">
-                        <tr>
-                            <th>Order ID</th>
-                            <th>Date</th>
-                        </tr>
-                        <tr th:each="log : ${participantEdit.giftLogs}">
-                            <td ><a th:href="@{'/admin/rewardInfo/'+${log.orderId}}"
-                                                        th:text="${log.orderId}"/></td>
-                            <td th:text="${log.dateSent}"/>
-                        </tr>
-                    </table>
-                </div>
-                <div class="log">
-                    <h3>Error Messages that reached this user:</h3>
-                    <table class="logs">
-                        <tr>
-                            <th>Type</th>
-                            <th>Description</th>
-                            <th>URL</th>
-                            <th>Date</th>
-                        </tr>
-                        <tr th:each="log : ${participantEdit.errorLogs}">
-                            <td th:text="${log.errorType}"/>
-                            <td th:text="${log.errorMessage}"/>
-                            <td th:text="${log.requestedUrl}"/>
-                            <td th:text="${log.dateSent}"/>
-                        </tr>
-                    </table>
-                </div>
-            <h3>Task Completion History:</h3>
-            <div class="log" th:each="session : ${participantEdit.study.sessions}">
-                <h4 th:text="${session.displayName}"></h4>
-                <table class="logs">
-                    <tr>
-                        <th>Task</th>
-                        <th>Date Completed</th>
-                        <th>Time on Task (seconds)</th>
-                    </tr>
-                    <tr th:each="task : ${session.tasks}">
-                        <td th:text="${task.displayName}"/>
-                        <td th:text="${task.dateCompleted}"/>
-                        <td th:text="${task.timeOnTask}"/>
-                    </tr>
-                </table>
-            </div>
+            <section th:replace="admin/adminCommon :: participantDetails(${participantEdit})"/>
         </div>
-            </div>
     </div>
 </section>
 
-<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
-<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
-<div th:include="fragment/common :: scripts" />
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
+<div th:include="fragment/common :: scripts"/>
 
 
 </body>

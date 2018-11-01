@@ -42,7 +42,6 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
 
         R01Study.CONDITION type = CONDITION_VALUES.get(RANDOM.nextInt(CONDITION_VALUES.size()));
         study.setConditioning(type.name());
-
         return p;
     }
 
