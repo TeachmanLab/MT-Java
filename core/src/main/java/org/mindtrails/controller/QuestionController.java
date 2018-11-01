@@ -4,6 +4,7 @@ import org.mindtrails.domain.ExportMode;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.RestExceptions.NoModelForFormException;
 import org.mindtrails.domain.RestExceptions.WrongFormException;
+import org.mindtrails.domain.questionnaire.HasReturnDate;
 import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 import org.mindtrails.domain.questionnaire.QuestionnaireData;
 import org.mindtrails.service.ExportService;
@@ -18,18 +19,12 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.WebRequestDataBinder;
 import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.view.RedirectView;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
 import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 import java.security.Principal;
 import java.util.Date;
-import java.util.Set;
 
 /**
  * Handles Form postings from Questionnaires. Expects the following:
@@ -115,6 +110,7 @@ public class QuestionController extends BaseController {
             WebRequestDataBinder binder = new WebRequestDataBinder(data, exportService.getDomainType(formName, false).getName());
             binder.bind(request);
             data.setDate(new Date());
+            setReturnDate(participant, data);
             if(data.validate(this.validator)) {
                 recordSessionProgress(formName, data);
                 repository.save(data);
@@ -130,6 +126,20 @@ public class QuestionController extends BaseController {
             throw new NoModelForFormException(e);
         }
     }
+
+    /**
+     * If a questionniare implements the hasReturnDate, we should record this on the particpant
+     * model, and include an email invitation in the followup email messages.
+     */
+    private void setReturnDate(Participant participant, QuestionnaireData data) {
+        if(data instanceof HasReturnDate) {
+            HasReturnDate inviteData = (HasReturnDate)data;
+            participant.setReturnDate(inviteData.getReturnDate());
+            participantService.save(participant);
+        }
+
+    }
+
 
     /**
      * Does some tasks common to all forms:

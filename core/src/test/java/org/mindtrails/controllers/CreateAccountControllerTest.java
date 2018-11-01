@@ -79,6 +79,10 @@ public class CreateAccountControllerTest extends BaseControllerTest {
                 .andExpect(redirectedUrlPattern("/public/eligibility*"));
     }
 
+    /**
+     * It should be possible to create new users in import mode.  
+     * @throws Exception
+     */
     @Test
     public void createAccountInImportMode() throws Exception {
         this.importService.setMode("import");
@@ -91,7 +95,7 @@ public class CreateAccountControllerTest extends BaseControllerTest {
                 .param("over18", "true")
                 .param("recaptchaResponse", "someresponse"))
                 .andDo(print())
-                .andExpect(status().is4xxClientError());
+                .andExpect(status().is3xxRedirection());
     }
 
 

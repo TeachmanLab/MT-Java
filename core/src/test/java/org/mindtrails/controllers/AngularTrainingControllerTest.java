@@ -81,6 +81,8 @@ public class AngularTrainingControllerTest extends BaseControllerTest {
     @Test
     public void postData() throws Exception {
         importService.setMode("export");
+        List<AngularTraining> preData = angularTrainingRepository.findAllByParticipantAndSessionOrderByDate(participant,
+                participant.getStudy().getCurrentSession().getName());
         ResultActions result = mockMvc.perform(post("/angularTraining")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .with(SecurityMockMvcRequestPostProcessors.user(participant))
@@ -89,7 +91,7 @@ public class AngularTrainingControllerTest extends BaseControllerTest {
         List<AngularTraining> data = angularTrainingRepository.findAllByParticipantAndSessionOrderByDate(participant,
                 participant.getStudy().getCurrentSession().getName());
         assertNotNull(data);
-        assertEquals(2, data.size());
+        assertEquals(preData.size() + 2, data.size());
     }
 
     @Test

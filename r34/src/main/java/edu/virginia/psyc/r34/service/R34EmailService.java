@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import edu.virginia.psyc.r34.domain.forms.R34StudyForm;
+
+import javax.mail.MessagingException;
 import java.util.List;
 
 
@@ -67,7 +69,7 @@ public class R34EmailService extends EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public void sendExample(Email email) {
+    public void sendExample(Email email) throws MessagingException {
         if(email.getType().equals(RISING_SCORE)) {
             OA firstEntry, secondEntry;
             firstEntry = new OA(0,0,1,0,2);

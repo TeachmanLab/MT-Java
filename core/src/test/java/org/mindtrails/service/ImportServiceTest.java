@@ -265,6 +265,7 @@ public class ImportServiceTest extends BaseControllerTest {
         Participant p = createTestParticipantViaImport(participantId, studyId);
 
         JsPsychTrial  trial = new JsPsychTrial(p,"Mobile",true);
+        trial.setDate(new Date());
         trial.setId(trialId);
         assertEquals(0, this.jsPsychRepository.findAll().size());
         importService.importScale("jsPsychTrial",IOUtils.toInputStream(this.objectMapper.writeValueAsString(trial)));

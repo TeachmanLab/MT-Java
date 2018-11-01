@@ -115,18 +115,6 @@ public class AdminControllerTest extends BaseControllerTest {
     }
 
     @Test
-    public void editParticipantInImportMode() throws Exception {
-        importService.setMode("import");
-        mockMvc.perform(post("/admin/participant/")
-                .with(SecurityMockMvcRequestPostProcessors.user(admin))
-                .param("fullName", "John Q. Doe")
-                .param("email", "a_new_admin@test.com")
-                .param("password", "1234!@#Abc")
-                .param("passwordAgain", "1234!@$Abc"))
-                .andExpect(status().is4xxClientError());
-    }
-
-    @Test
     public void createParticipant() throws Exception {
         mockMvc.perform(get("/admin/participant/")
                 .with(SecurityMockMvcRequestPostProcessors.user(admin)))
@@ -143,6 +131,11 @@ public class AdminControllerTest extends BaseControllerTest {
 
     }
 
+    /**
+     * It should be possible to create new participants in import mode, because we need
+     * accounts on the system that we can use to log in.
+     * @throws Exception
+     */
     @Test
     public void createParticipantInImportMode() throws Exception {
         importService.setMode("import");
@@ -152,7 +145,7 @@ public class AdminControllerTest extends BaseControllerTest {
                 .param("email", "a_new_admin@test.com")
                 .param("password", "1234!@#Abc")
                 .param("passwordAgain", "1234!@$Abc"))
-                .andExpect(status().is4xxClientError());
+                .andExpect(status().is2xxSuccessful());
     }
 
 

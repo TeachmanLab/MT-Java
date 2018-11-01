@@ -13,17 +13,25 @@
 <section th:replace="fragment/common :: topFragment"/>
 <section th:include="fragment/common :: titleBar (title='Returning to the Program')"/>
 
+<style>
+    div.nextSession {
+        max-width: 400px;
+        margin: 20px auto;
+    }
+</style>
 
 <section id="content" class="clearfix">
-    <form th:action="@{/questions/ReturnIntention}" method="POST">
+    <form id="form" th:action="@{/questions/ReturnIntention}" method="POST">
 
 
         <!-- Add timer -->
         <input id="timeOnPage" name="timeOnPage" type="hidden"/>
         <div class="container section compactQuestion">
 
-            <h4>Let us know when you intend to return for your next session.</h4>
+            <h4>Let us know when you intend to return for your next session.  We recommend you come back to complete
+            your next session in 2 to 4 days.</h4>
 
+            <!--
             <div class="row header">
                 <div class="col-md-2"><p class="tableOptions">Tomorrow</p></div>
                 <div class="col-md-2"><p class="tableOptions">In 2 to 4 days (recommended)</p></div>
@@ -73,7 +81,60 @@
                 <label><input id="notReturnReason" name="notReturnReason" type="text" placeholder="" size="50" /></label>
 
             </div>
+            -->
+            <div class="nextSession">
+                <input type="hidden" id="returnDate" name="returnDateString"/>
+                <div class="input-group date">
+                    <input id='datepicker' type="text" name="date" class="form-control" required="required" />
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                </div>
+                <div class="input-group bootstrap-timepicker timepicker" >
+                    <input id="timepicker" name="time" type="text" class="form-control input-small" required="required"/>
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                </div>
 
+                <label ><input type="checkbox" name="notReturning" onclick="returning(this)"/>Not planning to come back.</label>
+                <div id="reason" style="display: none">
+                    <p>Please let us know why you do not plan to continue</p>
+                    <label><input id="notReturnReason" name="notReturnReason" type="text" placeholder="" size="50" /></label>
+                </div>
+            </div>
+
+
+
+            <link rel="stylesheet" media="screen"
+                  th:href="@{/bower/bootstrap-datepicker/dist/css/bootstrap-datepicker.standalone.css}"/>
+            <script type="text/javascript" th:src="@{/bower/bootstrap-timepicker/js/bootstrap-timepicker.js}"></script>
+            <script type="text/javascript" th:src="@{/bower/bootstrap-datepicker/dist/js/bootstrap-datepicker.js}"></script>
+            <script>
+                $(document).ready(function () {
+                    $('.input-group.date').datepicker({
+                        startDate: '+1d'
+                    });
+                    $('#timepicker').timepicker();
+                    $('#form').on('submit', function(e) {
+                        if($('#datepicker').val()) {
+                            var date = new Date($("#datepicker").val() + ' ' + $("#timepicker").val());
+                            console.log(date.toISOString());
+                            $('#returnDate').val(date.toISOString());
+                        }
+                    })
+                });
+
+                function returning(checkbox) {
+                    if(checkbox.checked) {
+                        $('#reason').show();
+                        $('#datepicker').prop('required',false);
+                        $('#notReturnReason').prop('required',true);
+
+                    } else {
+                        $('#reason').hide();
+                        $('#reason').value='';
+                        $('#datepicker').prop('required',true);
+                        $('#notReturnReason').prop('required',false);
+                    }
+                }
+            </script>
 
             <div class="col-md-12" style="text-align:center">
                 <button type="submit"> Next</button>
@@ -89,21 +150,6 @@
 <!--Javascript
 ================================================== -->
 <div th:include="fragment/common :: scripts"/>
-
-<script type="text/javascript">
-
-
-    function show_text(input) {
-            input.style.display = 'block'
-            input.value=''
-    }
-
-    function hide_text(input) {
-            input.style.display = 'none'
-            input.value='N/A'
-    }
-
-</script>
 </body>
 </html>
 
