@@ -1,6 +1,7 @@
 package edu.virginia.psyc.r01.persistence;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.mindtrails.domain.questionnaire.HasReturnDate;
@@ -32,6 +33,7 @@ public class ReturnIntention extends LinkedQuestionnaireData implements HasRetur
     private Date returnDate;
 
     @Transient
+    @JsonIgnore
     private String returnDateString;
 
     private Long daysTillReturning;

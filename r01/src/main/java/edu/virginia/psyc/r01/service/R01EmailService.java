@@ -10,6 +10,7 @@ import org.mindtrails.service.EmailServiceImpl;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -23,19 +24,20 @@ public class R01EmailService extends EmailServiceImpl implements EmailService{
 
     private String RISING_SCORE = "risingScore";
 
-    private String FIRST_SESSION = "SESSION1";
-    private String SECOND_SESSION = "SESSION2";
-    private String THIRD_SESSION = "SESSION3";
-    private String FOURTH_SESSION = "SESSION4";
-
-
     @Override
     public List<Email> emailTypes() {
         List<Email> emails = super.emailTypes();
-        emails.add(new Email(FIRST_SESSION, "Bonus feature from the MindTrails team"));
-        emails.add(new Email(SECOND_SESSION, "Bonus feature from the MindTrails team"));
-        emails.add(new Email(THIRD_SESSION, "Bonus feature from the MindTrails team"));
-        emails.add(new Email(FOURTH_SESSION, "Bonus feature from the MindTrails team"));
+        emails.add(new Email("day10", "Update from the MindTrails project team"));
+        emails.add(new Email("day14", "Update from the MindTrails project team"));
+        emails.add(new Email("day18", "Important reminder from the MindTrails project team"));
+        emails.add(new Email("day21", "Continuation in the MindTrails project study"));
+        emails.add(new Email("followup", "Follow-up from the MindTrails project team"));
+        emails.add(new Email("followup2", "Follow-up reminder from the MindTrails project team"));
+        emails.add(new Email("followup3", "Final reminder from the MindTrails project team"));
+        emails.add(new Email("SESSION1", "Bonus feature from the MindTrails team"));
+        emails.add(new Email("SESSION2", "Bonus feature from the MindTrails team"));
+        emails.add(new Email("SESSION3", "Bonus feature from the MindTrails team"));
+        emails.add(new Email("SESSION4", "Bonus feature from the MindTrails team"));
         return emails;
     }
 
@@ -53,6 +55,62 @@ public class R01EmailService extends EmailServiceImpl implements EmailService{
         email.setParticipant(participant);
 
         sendEmail(email);
+    }
+
+
+    @Override
+    public String getTypeToSend(Session session, int daysSinceLastMilestone) {
+        String type = null;
+
+        // If they are waiting for 2 days, then remind them
+        // at the end of 2 days, then again after 4,7,11,15, and 18
+        // days since their last session.
+        if(session.getDaysToWait() <= 7) {
+            switch (daysSinceLastMilestone) {
+                case 7:
+                    type = "day7";
+                    break;
+                case 10:
+                    type = "day10";
+                    break;
+                case 14:
+                    type = "day14";
+                    break;
+                case 18:
+                    type = "day18";
+                    break;
+                case 21:
+                    type = "closure";
+                    break;
+            }
+        }
+
+        // Follow up emails are sent out for tasks for delays of
+        // 60 days or more.
+        if(session.getDaysToWait() >= 60) {
+            switch (daysSinceLastMilestone) {
+                case 60:
+                    type = "followup";
+                    break;
+                case 63:
+                    type = "followup2";
+                    break;
+                case 67:
+                    type = "followup2";
+                    break;
+                case 70:
+                    type = "followup2";
+                    break;
+                case 75:
+                    type = "followup3";
+                    break;
+                case 120:
+                    type = "debrief";
+                    break;
+            }
+        }
+        return type;
+
     }
 
     @Override

@@ -83,7 +83,7 @@ public class AngularTrainingControllerTest extends BaseControllerTest {
         importService.setMode("export");
         List<AngularTraining> preData = angularTrainingRepository.findAllByParticipantAndSessionOrderByDate(participant,
                 participant.getStudy().getCurrentSession().getName());
-        ResultActions result = mockMvc.perform(post("/angularTraining")
+        ResultActions result = mockMvc.perform(post("/api/training")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .with(SecurityMockMvcRequestPostProcessors.user(participant))
                 .content(EXAMPLE_DATA))
@@ -107,13 +107,13 @@ public class AngularTrainingControllerTest extends BaseControllerTest {
 
     @Test
     public void testGetLastAngularTrainingRecord() throws Exception {
-        mockMvc.perform(get("/angularTraining/last")
+        mockMvc.perform(get("/api/training")
                 .with(SecurityMockMvcRequestPostProcessors.user(participant)))
-                .andExpect((status().isNotFound()));
+                .andExpect((status().is4xxClientError()));
 
         // Send in some data, and make sure we get it back.
         postData();
-        MvcResult result = mockMvc.perform(post("/angularTraining/last")
+        MvcResult result = mockMvc.perform(post("/api/training")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .with(SecurityMockMvcRequestPostProcessors.user(participant))
                 .content(EXAMPLE_DATA))
