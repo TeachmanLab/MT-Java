@@ -2,12 +2,18 @@ package edu.virginia.psyc.r01.persistence;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.apache.commons.collections.map.HashedMap;
 import org.mindtrails.domain.data.DoNotDelete;
 import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
+import org.mindtrails.domain.questionnaire.MeasureField;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import java.util.Collections;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * This DASS21 questionnaire is used to gage eligibility in the study
@@ -23,28 +29,68 @@ import javax.persistence.Table;
 @DoNotDelete
 public class DASS21_AS extends LinkedQuestionnaireData {
 
-    @Column(name="DRY")
-    protected int dryness;
-    @Column(name="BRE")
-    protected int breathing;
-    @Column(name="TRE")
-    protected int trembling;
-    @Column(name="WOR")
-    protected int worry;
-    @Column(name="PAN")
-    protected int panic;
-    @Column(name="HEA")
-    protected int heart;
-    @Column(name="SCA")
-    protected int scared;
+
     @Column(name="over18")
     protected String over18 = "N/A";  // Only populated when used for eligibility
     protected String sessionId;
 
+    @Column(name="DRY")
+    @MeasureField(desc="I was aware of dryness of my mouth.")
+    @NotNull
+    private Integer dryness;
+
+    @Column(name="BRE")
+    @MeasureField(desc="I experienced breathing difficulty (e.g., excessively rapid breathing, breathlessness in the absence of physical exertion).")
+    @NotNull
+    private Integer breathing;
+
+    @Column(name="TRE")
+    @MeasureField(desc="I experienced trembling (e.g., in the hands).")
+    @NotNull
+    private Integer trembling;
+
+    @Column(name="WOR")
+    @MeasureField(desc="I was worried about situations in which I might panic and make a fool of myself.")
+    @NotNull
+    private Integer worry;
+
+    @Column(name="PAN")
+    @MeasureField(desc="I felt I was close to panic.")
+    @NotNull
+    private Integer panic;
+
+    @Column(name="HEA")
+    @MeasureField(desc="I was aware of my heart's action in the absence of exercise (e.g., felt heart rate increase, heart missing a beat).")
+    @NotNull
+    private Integer heart;
+
+    @Column(name="SCA")
+    @MeasureField(desc="I felt scared without any good reason.")
+    @NotNull
+    private Integer scared;
+
+
+
+    @Override
+    public Map<Integer, String> getScale(String scale) {
+        Map<Integer, String> tmpScale = new TreeMap<>();
+        tmpScale.put(0, "Not at all");
+        tmpScale.put(1, "Sometimes");
+        tmpScale.put(3, "A lot of the time");
+        tmpScale.put(4, "Most of the time");
+        return Collections.unmodifiableMap(tmpScale);
+    }
+
+    @Override
+    public Map<String, String> getGroupDescriptions() {
+        Map<String, String> desc = new TreeMap<>();
+        desc.put("", "Over the last week, how often have you been bothered by any of the following problems?");
+        return Collections.unmodifiableMap(desc);
+    }
 
     public DASS21_AS() {}
 
-    public DASS21_AS(int dryness, int breathing, int trembling, int worry, int panic, int heart, int scared) {
+    public DASS21_AS(Integer dryness, Integer breathing, Integer trembling, Integer worry, Integer panic, Integer heart, Integer scared) {
         this.dryness = dryness;
         this.breathing = breathing;
         this.trembling = trembling;
@@ -62,7 +108,7 @@ public class DASS21_AS extends LinkedQuestionnaireData {
      * NOTE:  a "-1" indicates the question was not answered.
      */
     public double score() {
-        int    sum   = 0;
+        Integer    sum   = 0;
         double total = 0.0;
 
         if(dryness    >= 0) { sum += dryness; total++; }
@@ -77,7 +123,7 @@ public class DASS21_AS extends LinkedQuestionnaireData {
     }
 
     public boolean eligible() {
-        return(this.score() > 10 );
+        return(this.over18.equals("true") && this.score() > 10 );
     }
 
 }

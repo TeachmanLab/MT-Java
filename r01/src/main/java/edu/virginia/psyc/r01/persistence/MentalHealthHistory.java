@@ -7,85 +7,75 @@ import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 import javax.persistence.*;
 import java.util.List;
 
-/**
- * Created by dan on 8/27/15.
- */
+
 @Entity
 @Table(name="MentalHealthHistory")
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class MentalHealthHistory extends LinkedQuestionnaireData {
-    private String Other_Desc;
-    private String Other_DescNo;
-    private String Other_HelpCurrent;
-    private String Other_HelpPast;
-    private String Other_NoHelpReason;
-    private String Other_HelpChange;
+
+    /*
+    Drop the following tables:
+    1.mental_health_disorders;
+    2.mental_health_disorders_past;
+    3.no_help_reason;
+    4.helps_past;
+    5.help;
+    6.help_seeking;
+    7.health_change;
+    8.help_change;
+    9.mental_health_history;
+     */
+
 
     @ElementCollection
     @CollectionTable(name = "mental_health_disorders", joinColumns = @JoinColumn(name = "id"))
-    @Column(name = "Disorder")
-    private List<String> Disorders;
+    @Column(name = "disorder")
+    private List<String> disorders;
+
+    private int gad;
+    private int ocd;
+    private int panic_disorder;
+    private int agoraphobia;
+    private int ptsd;
+    private int social_anxiety;
+    private int phobias;
+    private int dementia;
+    private int substance_use_disorder;
+    private int schizophrenia;
+    private int depression;
+    private int bipolar;
+    private int eating;
+    private int personality;
+    private int disorders_other;
+    private String disorders_other_text;
 
     @ElementCollection
-    @CollectionTable(name = "mental_health_disorders_past", joinColumns = @JoinColumn(name = "id"))
-    @Column(name = "PastDisorders")
-    private List<String> PastDisorders;
+    @CollectionTable(name = "mental_health_help", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "help")
+    private List<String> help;
+
+    private int therapy;
+    private int medications;
+    private int social_support;
+    private int self_help;
+    private int otc_medications;
+    private String other_help_text;
+    private int other_help;
+    private String help_other_text = "";
 
     @ElementCollection
-    @CollectionTable(name = "help", joinColumns = @JoinColumn(name = "id"))
-    @Column(name = "Help")
-    private List<String> Help;
+    @CollectionTable(name = "mental_health_change_help", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "change_help")
+    private List<String> change_help;
+    private String change_help_text;
 
     @ElementCollection
-    @CollectionTable(name = "helps_past", joinColumns = @JoinColumn(name = "id"))
-    @Column(name = "PastHelp")
-    private List<String> PastHelp;
-
-    @ElementCollection
-    @CollectionTable(name = "help_change", joinColumns = @JoinColumn(name = "id"))
-    @Column(name = "ChangeHelp")
-    private List<String> ChangeHelp;
-
-    @ElementCollection
-    @CollectionTable(name = "no_past_help_reason", joinColumns = @JoinColumn(name = "id"))
-    @Column(name = "NoHelp_Reason")
-    private List<String> NoHelp_Reason;
+    @CollectionTable(name = "mental_health_why_no_help", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "why_no_help")
+    private List<String> why_no_help;
 
 
-    private int psychiatrist = 0;
-    private int psychologist = 0;
-    private int school_counselor = 0;
-    private int LMHC = 0;
-    private int general_practitioner = 0;
-    private int teacher = 0;
-    private int family = 0;
-    private int friend = 0;
-    private int religious_leader = 0;
-    private int coach = 0;
-    private int book = 0;
-    private int medicine = 0;
-    private int online = 0;
-    private int app = 0;
-    private int support_group = 0;
-    private int other = 0;
-
-    private int psychiatrist_past = 0;
-    private int psychologist_past = 0;
-    private int school_counselor_past = 0;
-    private int LMHC_past = 0;
-    private int general_practitioner_past = 0;
-    private int teacher_past = 0;
-    private int family_past = 0;
-    private int friend_past = 0;
-    private int religious_leader_past = 0;
-    private int coach_past = 0;
-    private int book_past = 0;
-    private int medicine_past = 0;
-    private int online_past = 0;
-    private int app_past= 0;
-    private int support_group_past=0;
-    private int other_past = 0;
 
 
 }

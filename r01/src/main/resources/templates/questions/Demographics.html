@@ -16,29 +16,44 @@
 <section id="content" class="clearfix">
     <div class="container">
         <div class="row">
+            <div class="col-md-8">
+                <p>We would like to start with a few questions to get to know you better. Answers to
+                    these personal questions are kept confidential, but they help us improve
+                    Calm Thinking by figuring out for whom it works well.
+                </p>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
             <div class="col-md-12">
 
-                <form th:action="@{/questions/Demographics}" method="POST">
+                <form id="form" th:action="@{/questions/Demographics}" method="POST" th:object="${model}" >
                     <!-- Add timer -->
                     <input id="timeOnPage" name="timeOnPage" type="hidden"/>
 
-                    <p> We would like to start with a few questions to get to know you better. Answers to
-                        these personal questions are kept confidential, but they help us improve
-                        MindTrails by figuring out for whom it works well.</p>
-
                     <div class="section">
-                        <div><label class="question">What is your gender identity? <select name="gender" required="true">
+                        <div><label class="question">What is your gender identity?
+                            <select required="true" th:field="*{gender}">
                             <option value="">Please select one</option>
-                            <option>Female</option>
-                            <option>Male</option>
-                            <option>Transgender</option>
-                            <option>Other</option>
-                            <option>Prefer not to answer</option>
+                            <option value="Female">Female</option>
+                            <option value="Male">Male</option>
+                            <option value="Transgender">Transgender</option>
+                            <option value="Other">Other</option>
+                            <option value="555">Prefer not to answer</option>
                         </select> </label>
                         </div>
                         <br/>
 
+<<<<<<< HEAD
                         <div><label class="question"> Birth year <input id="age_input" type="number" min="1900" max="2000" name="BirthYear"
+=======
+                        <div><label class="question"> Birth year <input type="number" min="1900" th:field="*{BirthYear}"
+>>>>>>> master
                                                                         required="true"/> </label>
                         <script>
                             // This will correctly set the date to be 18 years ago, even when we are no longer in 2018.
@@ -53,36 +68,36 @@
                             <div class="col-md-8 side-border">
                                 <div><label class="question"> Race (select all the apply)</label></div>
                                 <div class="radio">
-                                    <label> <input type="checkbox" name="race" value="American Indian/Alaska Native"/>
+                                    <label> <input type="checkbox" th:field="*{race}" value="American Indian/Alaska Native"/>
                                         American Indian/Alaska Native</label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input type="checkbox" name="race" value="East Asian"/> East Asian</label>
+                                    <label> <input type="checkbox" th:field="*{race}" value="East Asian"/> East Asian</label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input type="checkbox" name="race" value="South Asian"/> South Asian</label>
+                                    <label> <input type="checkbox" th:field="*{race}" value="South Asian"/> South Asian</label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input type="checkbox" name="race"
+                                    <label> <input type="checkbox" th:field="*{race}"
                                                    value="Native Hawaiian/Pacific Islander"/> Native Hawaiian/Pacific
                                         Islander</label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input type="checkbox" name="race" value="Black/African origin"/>
+                                    <label> <input type="checkbox" th:field="*{race}" value="Black/African origin"/>
                                         Black/African origin</label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input type="checkbox" name="race" value="White/European origin"/>
+                                    <label> <input type="checkbox" th:field="*{race}" value="White/European origin"/>
                                         White/European origin</label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input type="checkbox" name="race" value="Other or Unknown"/> Other or
+                                    <label> <input type="checkbox" th:field="*{race}" value="Other or Unknown"/> Other or
                                         Unknown</label>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="radio">
-                                    <label class="question"><input type="checkbox" name="Disorders" value="555"
+                                    <label class="question"><input type="checkbox" th:field="*{race}" value="555"
                                                                    onchange="disableSection(this)"/> Prefer not to
                                         answer
                                     </label>
@@ -92,12 +107,12 @@
 
                         <br/>
 
-                        <div><label class="question"> Ethnicity <select name="Ethnicity" required="true">
+                        <div><label class="question"> Ethnicity <select th:field="*{Ethnicity}" required="true">
                             <option value="">Please select one</option>
-                            <option>Hispanic or Latino</option>
-                            <option>Not Hispanic or Latino</option>
-                            <option>Unknown</option>
-                            <option>Prefer not to answer</option>
+                            <option value="Hispanic or Latino">Hispanic or Latino</option>
+                            <option value="Not Hispanic or Latino">Not Hispanic or Latino</option>
+                            <option value="Unknown">Unknown</option>
+                            <option value="555">Prefer not to answer</option>
                         </select> </label>
                         </div>
 
@@ -105,7 +120,7 @@
 
                         <div><label class="question"> Country of Residence <select required="true" class="auto-selector"
                                                                                    placeholder="Type your country of residence"
-                                                                                   name="Country" autofocus="autofocus"
+                                                                                   th:field="*{Country}" autofocus="autofocus"
                                                                                    autocorrect="off" autocomplete="off">
                             <option value="" selected="selected">Please select one</option>
                             <option value="United States" data-relevancy-booster="3.5"
@@ -581,115 +596,115 @@
                         <br/>
 
                         <div><label class="question"> Please indicate your highest educational attainment <select
-                                required="true" name="Education">
+                                required="true" th:field="*{Education}">
                             <option value="">Please select one</option>
-                            <option>Elementary School</option>
-                            <option>Junior High</option>
-                            <option>Some High School</option>
-                            <option>High School Graduate</option>
-                            <option>Some College</option>
-                            <option>Associate's Degree</option>
-                            <option>Bachelor's Degree</option>
-                            <option>Some Graduate School</option>
-                            <option>Master's Degree</option>
-                            <option>M.B.A.</option>
-                            <option>J.D.</option>
-                            <option>M.D.</option>
-                            <option>Ph.D.</option>
-                            <option>Other Advanced Degree</option>
-                            <option>Prefer not to answer</option>
+                            <option value="Elementary School">Elementary School</option>
+                            <option value="Junior High">Junior High</option>
+                            <option value="Some High School">Some High School</option>
+                            <option value="High School Graduate">High School Graduate</option>
+                            <option value="Some College">Some College</option>
+                            <option value="Associate's Degree">Associate's Degree</option>
+                            <option value="Bachelor's Degree">Bachelor's Degree</option>
+                            <option value="Some Graduate School">Some Graduate School</option>
+                            <option value="Master's Degree">Master's Degree</option>
+                            <option value="M.B.A.">M.B.A.</option>
+                            <option value="J.D.">J.D.</option>
+                            <option value="M.D.">M.D.</option>
+                            <option value="Ph.D.">Ph.D.</option>
+                            <option value="Other Advanced Degree">Other Advanced Degree</option>
+                            <option value="555">Prefer not to answer</option>
                         </select> </label>
                         </div>
 
                         <br/>
 
-                        <div><label class="question"> What is your marital status? <select name="MaritalStat"
+                        <div><label class="question"> What is your relationship status? <select th:field="*{MaritalStat}"
                                                                                            required="true">
                             <option value="">Please select one</option>
-                            <option>Single</option>
-                            <option>Single, but casually dating</option>
-                            <option>Single, but currently engaged to be married</option>
-                            <option>Single, but currently living with someone in a marriage-like relationship
+                            <option value="Single">Single</option>
+                            <option value="Single,dating">Single, but casually dating</option>
+                            <option value="Single,engaged">Single, but currently engaged to be married</option>
+                            <option value="Single,marriagelike">Single, but currently living with someone in a marriage-like relationship
                             </option>
-                            <option>Married</option>
-                            <option>In a domestic or civil union</option>
-                            <option>Separated</option>
-                            <option>Divorced</option>
-                            <option>Widow/widower</option>
-                            <option>Other</option>
-                            <option>Prefer not to answer</option>
+                            <option value="Married">Married</option>
+                            <option value="civilunion">In a domestic or civil union</option>
+                            <option value="Separated">Separated</option>
+                            <option value="Divorced">Divorced</option>
+                            <option value="Widow/widower">Widow/widower</option>
+                            <option value="Other">Other</option>
+                            <option value="555">Prefer not to answer</option>
                         </select> </label>
                         </div>
 
                         <br/>
 
-                        <div><label class="question"> What is your employment status? <select name="EmploymentStat"
+                        <div><label class="question"> What is your employment status? <select th:field="*{EmploymentStat}"
                                                                                               required="true">
                             <option value="">Please select one</option>
-                            <option>Working full-time</option>
-                            <option>Working part-time</option>
-                            <option>Unemployed or laid off</option>
-                            <option>Looking for work</option>
-                            <option>Homemaker/keeping house or raising children full-time</option>
-                            <option>Retired</option>
-                            <option>Student</option>
-                            <option>Other</option>
-                            <option>Unknown</option>
-                            <option>Prefer not to answer</option>
+                            <option value="Working full-time">Working full-time</option>
+                            <option value="Working part-time">Working part-time</option>
+                            <option value="Unemployed or laid off">Unemployed or laid off</option>
+                            <option value="Looking for work">Looking for work</option>
+                            <option value="Homemaker/keeping house or raising children full-time">Homemaker/keeping house or raising children full-time</option>
+                            <option value="Retired">Retired</option>
+                            <option value="Student">Student</option>
+                            <option value="Other">Other</option>
+                            <option value="Unknown">Unknown</option>
+                            <option value="555">Prefer not to answer</option>
                         </select> </label>
                         </div>
 
                         <br/>
 
                         <div><label class="question"> What is your household annual income (before taxes and other
-                            deductions)? <select name="Income" required="true">
+                            deductions)? <select th:field="*{Income}" required="true">
                                 <option value="">Please select one</option>
-                                <option>Less than $5,000</option>
-                                <option>$5,000 through $11,999</option>
-                                <option>$12,000 through $15,999</option>
-                                <option>$16,000 through $24,999</option>
-                                <option>$25,000 through $34,999</option>
-                                <option>$35,000 through $49,999</option>
-                                <option>$50,000 through $74,999</option>
-                                <option>$75,000 through $99,999</option>
-                                <option>$100,000 through $149,999</option>
-                                <option>$150,000 through $199,999</option>
-                                <option>$200,000 through $249,999</option>
-                                <option>$250,000 or greater</option>
-                                <option>Don't know</option>
-                                <option>Prefer not to answer</option>
+                                <option value="Less than $5,000">Less than $5,000</option>
+                                <option value="$5,000 through $11,999">$5,000 through $11,999</option>
+                                <option value="$12,000 through $15,999">$12,000 through $15,999</option>
+                                <option value="$16,000 through $24,999">$16,000 through $24,999</option>
+                                <option value="$25,000 through $34,999">$25,000 through $34,999</option>
+                                <option value="$35,000 through $49,999">$35,000 through $49,999</option>
+                                <option value="$50,000 through $74,999">$50,000 through $74,999</option>
+                                <option value="$75,000 through $99,999">$75,000 through $99,999</option>
+                                <option value="$100,000 through $149,999">$100,000 through $149,999</option>
+                                <option value="$150,000 through $199,999">$150,000 through $199,999</option>
+                                <option value="$200,000 through $249,999">$200,000 through $249,999</option>
+                                <option value="$250,000 or greater">$250,000 or greater</option>
+                                <option value="Don't know">Don't know</option>
+                                <option value="555">Prefer not to answer</option>
                             </select> </label>
                         </div>
 
                         <br/>
 
-                        <div><label class="question"> What brought you to this website? <select name="PtpReason"
+                        <div><label class="question"> What brought you to this website? <select th:field="*{PtpReason}"
                                                                                                 required="true">
                             <option value="">Please select one</option>
-                            <option>Recommendation of teacher</option>
-                            <option>Recommendation of employer</option>
-                            <option>Recommendation of health professional (e.g., therapist or general
+                            <option value="Recommendation of teacher">Recommendation of teacher</option>
+                            <option value="Recommendation of employer">Recommendation of employer</option>
+                            <option value="Recommendation of health professional">Recommendation of health professional (e.g., therapist or general
                                 practitioner)
                             </option>
-                            <option>Recommendation of friend, family , acquaintance, or colleague</option>
-                            <option>Link from blog, chat, or discussion thread</option>
-                            <option>Link from education site</option>
-                            <option>News story</option>
-                            <option>Facebook post</option>
-                            <option>Craigslist ad</option>
-                            <option>Advertisement from other sources</option>
-                            <option>Planned search for information related to this topic</option>
-                            <option>Planned search for this topic in particular</option>
-                            <option>Just surfing the web</option>
-                            <option>Other</option>
-                            <option>Prefer not to answer</option>
+                            <option value="Recommendation of friend, family , acquaintance, or colleague">Recommendation of friend, family , acquaintance, or colleague</option>
+                            <option value="Link from blog, chat, or discussion thread">Link from blog, chat, or discussion thread</option>
+                            <option value="Link from education site">Link from education site</option>
+                            <option value="News story">News story</option>
+                            <option value="Facebook post">Facebook post</option>
+                            <option value="Craigslist ad">Craigslist ad</option>
+                            <option value="Advertisement from other sources">Advertisement from other sources</option>
+                            <option value="Planned search for information related to this topic">Planned search for information related to this topic</option>
+                            <option value="Planned search for this topic in particular">Planned search for this topic in particular</option>
+                            <option value="Just surfing the web">Just surfing the web</option>
+                            <option value="Other">Other</option>
+                            <option value="555">Prefer not to answer</option>
                         </select> </label>
                         </div>
 
                         <div id="PtpReasonOther">
                             <p>Please Specify:
                                 <label>
-                                    <input id="PtpReasonOtherInput" name="PtpReasonOther" type="text" placeholder=""
+                                    <input id="PtpReasonOtherInput" th:field="*{PtpReasonOther}" type="text" placeholder=""
                                            size="50"/>
                                 </label>
                             </p>
@@ -706,7 +721,18 @@
                                     $("#PtpReasonOtherInput").prop('required', false);
                                 }
                             });
+
+
+                            $(document).ready(function () {
+                                $('#form').validate({
+                                    rules: {
+                                        'race': {required: true, minlength: 1}
+                                    }
+                                });
+                            });
                         </script>
+
+
 
 
                         <div style="text-align:center">

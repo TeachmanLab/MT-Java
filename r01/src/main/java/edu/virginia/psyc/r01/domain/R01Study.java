@@ -1,7 +1,6 @@
 package edu.virginia.psyc.r01.domain;
 
 import edu.virginia.psyc.r01.persistence.DASS21_AS;
-import edu.virginia.psyc.r01.persistence.ExpectancyBias;
 import lombok.Data;
 import org.mindtrails.domain.BaseStudy;
 import org.mindtrails.domain.Session;
@@ -10,10 +9,7 @@ import org.mindtrails.domain.tracking.TaskLog;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -25,16 +21,14 @@ import java.util.stream.Stream;
 @DiscriminatorValue("R01")
 public class R01Study extends BaseStudy {
 
-    // positive (all positive words)
-    // positive (all postivie words, w/ negation statement
-    // 50/50 (half positive, half negative, completely random)
-    // 50/50 (half positive, half negative, chunks - first 5 pos, next x are negative ....)
-    // Neutral condition (likely alternate content)
-    public enum CONDITION {POSITIVE, POSITIVE_NEGATION, FIFTY_FIFTY_RANDOM, FIFTY_FIFTY_BLOCKED, NEUTRAL }
-    public static final String PRE_TEST = "preTest";
+    // Computer - CBM-I training delivered by computer
+    // Mobile - CBM-I training delivered by mobile phone
+    // Neutral - Control Condition with alternate content
+    public enum CONDITION {COMPUTER, MOBILE, NEUTRAL}
 
     public enum SESSION {preTest, firstSession, secondSession, thirdSession, fourthSession, fifthSession, PostFollowUp };
 
+    public static final String PRE_TEST = "preTest";
     public static final String FIRST_SESSION = "firstSession";
     public static final String SECOND_SESSION = "secondSession";
     public static final String THIRD_SESSION = "thirdSession";
@@ -141,7 +135,7 @@ public class R01Study extends BaseStudy {
         session1 = new Session(FIRST_SESSION, "Level 1: Beginner", 0, 0);
         session1.setIndex(1);
         session1.addTask(new Task("Affect","Current Feelings", "pre", Task.TYPE.questions, 0));
-        session1.addTask(new Task("Training", "Training Stories", Task.TYPE.angularTraining, 20));
+        session1.addTask(new Task("1", "Training Stories", Task.TYPE.angularTraining, 20));
         session1.addTask(new Task("Affect","Current Feelings", "post", Task.TYPE.questions, 0));
         session1.addTask(new Task("CC","Follow up", Task.TYPE.questions, 0 ));
         session1.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
@@ -150,7 +144,7 @@ public class R01Study extends BaseStudy {
 
         session2 = new Session(SECOND_SESSION, "Level 2: Intermediate", 0, 2);
         session2.setIndex(2);
-        session2.addTask(new Task("mcSession", "Training Stories", Task.TYPE.jspsych, 20));
+        session2.addTask(new Task("2", "Training Stories", Task.TYPE.angularTraining, 20));
         session2.addTask(new Task("OA","Anxiety review", Task.TYPE.questions, 1 ));
         session2.addTask(new Task("ReturnIntention","Intention to Return", Task.TYPE.questions, 0));
         sessions.add(session2);
@@ -158,7 +152,7 @@ public class R01Study extends BaseStudy {
         session3 = new Session(THIRD_SESSION, "Level 3: Advanced", 0, 2);
         session3.setIndex(3);
         session3.addTask(new Task("Affect","Current Feelings", "pre", Task.TYPE.questions, 0));
-        session3.addTask(new Task("thirdSession", "Training Stories", Task.TYPE.jspsych, 20));
+        session3.addTask(new Task("3", "Training Stories", Task.TYPE.angularTraining, 20));
         session3.addTask(new Task("Affect","Current Feelings", "post", Task.TYPE.questions, 0));
         session3.addTask(new Task("CC","Compare and Contrast", Task.TYPE.questions, 0 ));
         session3.addTask(new Task("AnxietyIdentity","Your Identity", Task.TYPE.questions, 0 ));
@@ -176,7 +170,7 @@ public class R01Study extends BaseStudy {
 
         session4 = new Session(FOURTH_SESSION, "Level 4: Expert", 0, 2);
         session4.setIndex(4);
-        session4.addTask(new Task("fourthSession", "Training Stories", Task.TYPE.jspsych, 20));
+        session4.addTask(new Task("4", "Training Stories", Task.TYPE.angularTraining, 20));
         session4.addTask(new Task("OA","OA", Task.TYPE.questions, 1 ));
         session4.addTask(new Task("ReturnIntention","Intention to Return", Task.TYPE.questions, 0));
         sessions.add(session4);
@@ -184,7 +178,7 @@ public class R01Study extends BaseStudy {
         session5 = new Session(FIFTH_SESSION, "Level 5: Master", 0, 2);
         session5.setIndex(5);
         session5.addTask(new Task("Affect","Current Feelings", "pre", Task.TYPE.questions, 0));
-        session5.addTask(new Task("fifthSession", "Training Stories", Task.TYPE.jspsych, 20));
+        session5.addTask(new Task("5", "Training Stories", Task.TYPE.angularTraining, 20));
         session5.addTask(new Task("Affect","Current Feelings", "post", Task.TYPE.questions, 0));
         session5.addTask(new Task("CC","Compare and Contrast", Task.TYPE.questions, 0 ));
         session5.addTask(new Task("AnxietyIdentity","Your Identity", Task.TYPE.questions, 0 ));

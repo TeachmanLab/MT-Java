@@ -28,6 +28,14 @@ public class TempletonEmailService extends EmailServiceImpl implements EmailServ
     @Override
     public List<Email> emailTypes() {
         List<Email> emails = super.emailTypes();
+        emails.add(new Email("day2", "Update from the MindTrails project team"));
+        emails.add(new Email("day4", "Update from the MindTrails project team"));
+        emails.add(new Email("day7", "Important reminder from the MindTrails project team"));
+        emails.add(new Email("day11", "Continuation in the MindTrails project study"));
+        emails.add(new Email("day15", "Final reminder re. continuation in the MindTrails project study"));
+        emails.add(new Email("followup", "Follow-up from the MindTrails project team"));
+        emails.add(new Email("followup2", "Follow-up reminder from the MindTrails project team"));
+        emails.add(new Email("followup3", "Final reminder from the MindTrails project team"));
         emails.add(new Email(RISING_SCORE, "MindTrails Alert! Participant score is rising"));
         emails.add(new Email(FIRST_SESSION, "Bonus feature from the MindTrails team"));
         emails.add(new Email(SECOND_SESSION, "Bonus feature from the MindTrails team"));

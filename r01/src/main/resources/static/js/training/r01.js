@@ -102,7 +102,7 @@ var R01 = (function () {
             }
 
             function updateScore() {
-                document.getElementById('score').textContent = "Score: " + (score_letters + score_questions);
+                //document.getElementById('score').textContent = "Score: " + (score_letters + score_questions);
             }
 
             function updateProgress() {
@@ -127,15 +127,15 @@ var R01 = (function () {
                             return (
                                 "<div class='piIntro'> " +
                                 "<h1><b>Completing Short Stories</b></h1>" +
-                                "<p>You will now read several short stories. For each story:</p>" +
+
+
+                                "<p>You will now read several short stories.</p>" +
                                 "<ul> " +
-                                "<li>Please <b><i>imagine</i></b> yourself in the situation described.</li> " +
-                                "<li>Some stories may describe you reacting to the situation differently than you usually " +
-                                "would. Please really try to imagine yourself responding the way the story describes, even if it would be unusual for you.</li> " +
+                                "<li>Please read each one carefully and try to imagine yourself in the situation.</li>" +
                                 "<li>The last word of each story is incomplete. Click on the missing letter to complete the word.</li> " +
-                                "<li>After you correctly complete the word, you will be asked a question about the story. </li> " +
-                                "<li>Answer the question based on the information in the story, whether or not that matches what you would personally think or do in that situation. </li> " +
+                                "<li>After you correctly complete the word, you will be asked a question about the story. Answer the question based on the information in the story." +
                                 "</ul> " +
+
                                 "</div>"
                                 )
                         },
@@ -283,7 +283,7 @@ var R01 = (function () {
                     if (immersion === "picture") {
                         immersion_trial = {
                             type: 'html-button-response',
-                            stimulus: "<h1 class='title'>Story: " + title + "</h1><img class='sound_image' src='" + my.base_url + "images/" + scenario + ".jpg'>",
+                            stimulus: "<h1 class='title'>Story: " + title + "</h1>",
                             trial_duration: 5000, // Show trial for 5 seconds
                             data: {immersion: immersion, format: format, scenario: scenario},
                             choices: []
@@ -293,7 +293,7 @@ var R01 = (function () {
                             type: 'audio-button-response',
                             stimulus: 'sounds/background/' + scenario + '.mp3',
                             trial_duration: 5000, // Show trial for 5 seconds
-                            prompt: "<h1 class='title'>Story: " + title + "</h1><img class='sound_image' src='" + my.base_url + "images/" + scenario + ".jpg'>",
+                            prompt: "<h1 class='title'>Story: " + title + "</h1>",
                             data: {immersion: immersion, format: format, scenario: scenario},
                             choices: []
                         }
@@ -399,7 +399,7 @@ var R01 = (function () {
                     // *********************************************
 
                     if (k % 5 === 0 && k !== 0) {
-                        timeline.push(vividness_followup)
+                      //  timeline.push(vividness_followup)
                     }
 
                     timeline.push(immersion_trial);

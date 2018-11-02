@@ -16,6 +16,6 @@ import javax.persistence.Table;
 @Data
 public class AnxietyIdentity extends LinkedQuestionnaireData {
 
-    private int anxietyIdentity;
+    private Integer anxietyIdentity;
 }
 

@@ -23,7 +23,6 @@ span.error {
 }
 
 span.label-error {
-    margin-left: 2px;
     display: block;
     float: right;
 }
@@ -66,8 +65,9 @@ div.section {
 }
 
 .statement{
-    font-weight: 600;
-    font-size: 1.2em;
+    font-weight: 500;
+    font-size: 1em;
+    margin-top: 10px;
 }
 
 .tableOptions{
@@ -341,13 +341,7 @@ div.oneToSeven {
     img.sessionImage, img.icon-small-bg {
         height: 100px;
     }
-
 }
-
-
-
-
-
 
 label.radio-inline:hover { background-color: #00ACE4;  color: #000;}
 
@@ -362,10 +356,6 @@ label.radio-inline:hover { background-color: #00ACE4;  color: #000;}
 .user-theme-purple label.radio-inline:hover, .user-theme-purple label.radio-inline::selection, .user-theme-purple label.radio-inline::-moz-selection { background-color: #C98ABB;  color: #000;}
 .user-theme-gold label.radio-inline:hover, .user-theme-gold label.radio-inline::selection, .user-theme-purple label.radio-inline::-moz-selection  { background-color: #ECB800;  color: #000;}
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
 
 .chart div {
     font: 10px sans-serif;
@@ -376,5 +366,4 @@ label.radio-inline:hover { background-color: #00ACE4;  color: #000;}
     color: white;
 }
 
->>>>>>> 3cdcbbaaaf2ec07d631bc5b6adadf3dbdc3d11a0
->>>>>>> templeton_release_nov
+

@@ -23,7 +23,7 @@
     <script type="text/javascript" th:src="@{/bower/jquery-validate/dist/jquery.validate.js}"></script>
 
     <!--Google Font-->
-    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,700,700italic,600' rel='stylesheet' type='text/css'/>
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,700,700italic,600' rel='stylesheet' type='text/css'/>
 
     <!--style sheets-->
     <link rel="stylesheet" media="screen" th:href="@{/bower/bootstrap/dist/css/bootstrap.css}" href="../../static/bower/bootstrap/dist/css/bootstrap.css"/> <!-- Themed bootstream -->
@@ -79,13 +79,13 @@
                 {{#options}}
                 <div class="col-md-1">
                     <label class="radio-inline option">
-                        <input type="radio" name="{{name}}" value="{{value}}" required="true"/>
+                        <input type="radio" name="{{name}}" value="{{value}}" />
                         <span class="shortDesc">{{value}}</span> <span class="fullDesc">{{title}}</span></label>
                 </div>
                 {{/options}}
                 <div class="col-md-1">
                     <label class="radio-inline option">
-                        <input type="radio" name="{{name}}" value="555" required="true"/>
+                        <input type="radio" name="{{name}}" value="555" />
                         <span class="shortDesc">&nbsp;&nbsp;</span> <span class="fullDesc">Prefer not to answer</span></label>
                 </div>
     </div>
@@ -243,9 +243,8 @@
                 </div>
     </div>
     {{/questions}}
-
-
 </textarea>
+
 
 
 
@@ -416,6 +415,19 @@
             </li>
             <li><a th:href="@{/admin/userstats}">User statistics information</a>: allows you to check users statistics information.
             </li>
+            <li><a th:href="@{/coach}">Coach Administration</a>: View a list of all coaches and eligible participants.
+            </li>
+        </ul>
+    </div>
+
+    <!--column two starts-->
+    <div class="adminTools container" sec:authorize="hasRole('ROLE_COACH')">
+        <h5>Coaching Tools</h5>
+        <p>This section is only visible to you because you have been granted coach level access.</p>
+        <ul class="list-info">
+            <li><a th:href="@{/coach}">Coach Overview</a>: View a list of all coaches and eligible participants.
+            </li>
+            <li><a th:href="@{/coach/me}">My Participants</a>: provides a list of the participants assigned to you for coaching</li>
         </ul>
     </div>
 

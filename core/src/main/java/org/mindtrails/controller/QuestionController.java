@@ -4,6 +4,7 @@ import org.mindtrails.domain.ExportMode;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.RestExceptions.NoModelForFormException;
 import org.mindtrails.domain.RestExceptions.WrongFormException;
+import org.mindtrails.domain.questionnaire.HasReturnDate;
 import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 import org.mindtrails.domain.questionnaire.QuestionnaireData;
 import org.mindtrails.service.ExportService;
@@ -18,11 +19,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.WebRequestDataBinder;
 import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.view.RedirectView;
 
+import javax.validation.Validator;
 import java.security.Principal;
 import java.util.Date;
 
@@ -53,6 +53,10 @@ public class QuestionController extends BaseController {
     @Autowired
     private ParticipantService participantService;
 
+    @Autowired
+    private Validator validator;
+
+
     @RequestMapping(value = "{form}", method = RequestMethod.GET)
     public String showForm(ModelMap model, Principal principal, @PathVariable("form") String formName) {
 
@@ -69,6 +73,7 @@ public class QuestionController extends BaseController {
             }
             QuestionnaireData data = (QuestionnaireData) exportService.getDomainType(formName, false).newInstance();
             model.addAllAttributes(data.modelAttributes(participant));
+            model.addAttribute("model", data);
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
@@ -80,11 +85,9 @@ public class QuestionController extends BaseController {
 
     @ExportMode
     @RequestMapping(value = "{form}", method = RequestMethod.POST)
-    public @ResponseBody
-    RedirectView handleForm(@PathVariable("form") String formName,
-                    WebRequest request) throws Exception {
-        saveForm(formName, request);
-        return new RedirectView("/session/next", true);
+    public String handleForm(@PathVariable("form") String formName,
+                    WebRequest request, ModelMap model, Principal principal) throws Exception {
+        return saveForm(formName, request, model, principal);
    }
 
 
@@ -93,7 +96,7 @@ public class QuestionController extends BaseController {
      * you extend this class to handle a custom form submission.
      */
     @ExportMode
-    protected void saveForm(String formName, WebRequest request) throws Exception {
+    public String saveForm(String formName, WebRequest request, ModelMap model, Principal principal)  {
 
         JpaRepository repository = exportService.getRepositoryForName(formName, false);
         if(repository == null) {
@@ -101,16 +104,42 @@ public class QuestionController extends BaseController {
             throw new NoModelForFormException();
         }
         try {
-            QuestionnaireData data = (QuestionnaireData) exportService.getDomainType(formName, false).newInstance();
-            WebRequestDataBinder binder = new WebRequestDataBinder(data);
+            Participant participant = participantService.get(principal);
+            Class<?> questionClass = exportService.getDomainType(formName, false);
+            QuestionnaireData data = (QuestionnaireData)questionClass.newInstance();
+            WebRequestDataBinder binder = new WebRequestDataBinder(data, exportService.getDomainType(formName, false).getName());
             binder.bind(request);
-            recordSessionProgress(formName, data);
-            repository.save(data);
+            data.setDate(new Date());
+            setReturnDate(participant, data);
+            if(data.validate(this.validator)) {
+                recordSessionProgress(formName, data);
+                repository.save(data);
+                return "redirect:/session/next";
+            } else {
+                model.addAttribute("error", "Please complete all required fields.");
+                model.addAllAttributes(data.modelAttributes(participant));
+                model.addAttribute("model", data);
+                return ("questions/" + formName);
+            }
         } catch (ClassCastException | InstantiationException | IllegalAccessException e) {
             LOG.error("Failed to save model '" + formName + "' : " + e.getMessage());
             throw new NoModelForFormException(e);
         }
     }
+
+    /**
+     * If a questionniare implements the hasReturnDate, we should record this on the particpant
+     * model, and include an email invitation in the followup email messages.
+     */
+    private void setReturnDate(Participant participant, QuestionnaireData data) {
+        if(data instanceof HasReturnDate) {
+            HasReturnDate inviteData = (HasReturnDate)data;
+            participant.setReturnDate(inviteData.getReturnDate());
+            participantService.save(participant);
+        }
+
+    }
+
 
     /**
      * Does some tasks common to all forms:
@@ -131,7 +160,7 @@ public class QuestionController extends BaseController {
             participant = participantService.findByEmail(participant.getEmail()); // Refresh session object from database.
 
         // Only treat this as progress in the session if the submitted task is
-        // a part of the regularly occuring questionnaires.  Other questions, such
+        // a part of the regularly occurring questionnaires.  Other questions, such
         // as a "reason for ending" should not be recorded as making progress in the session.
         boolean isProgress = participant.getStudy().isProgress(formName);
 
@@ -163,8 +192,6 @@ public class QuestionController extends BaseController {
             participant.getStudy().completeCurrentTask(timeOnTask);
             participantService.save(participant);
         }
-
-        data.setDate(new Date());
     }
 
 

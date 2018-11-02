@@ -91,6 +91,11 @@ Alternate NavBar Breakpoint - to better support Ipad
 .footer-links li {float:left; padding:0px 10px;}
 .footer-links a {color:#5ECCDE; text-decoration:none; font-weight:700}
 
+.adminTools a {
+    color: #00ACE4;
+    font-size: 1.2em;
+}
+
 /*************** Sections */
 
 div.sessionSection {
@@ -107,7 +112,7 @@ div.sessionSection {
 
 div.sessionSection p.block {
     text-align: left;
-    max-width: 600px;
+    max-width: 500px;
     margin:auto;
     padding-bottom: 10px;
 }
@@ -174,6 +179,19 @@ div.radio label:hover {
 .user-theme-green div.radio label:hover { background:#77B46D; }
 .user-theme-purple div.radio label:hover { background:#C98ABB; }
 .user-theme-gold div.radio label:hover { background:#ECB800; }
+
+div.anxiety-identity-radio label {
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+div.anxiety-identity-radio label:hover {
+    background: #eaecef;
+    border-radius: 10px;
+    -webkit-box-shadow: 0 1px 4px #000;
+    -moz-box-shadow: 0 1px 4px #000;
+    box-shadow: 0 1px 4px #000;
+}
 
 button:hover {
     -webkit-box-shadow: 0 3px 8px #000;
@@ -428,9 +446,8 @@ label.error {
 }
 
 input.error {
-    border: 1px solid green;
-    background: green;
-    color: red;
+    border: 1px solid darkred;
+    background: lightcoral;
 }
 
 

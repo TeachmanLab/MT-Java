@@ -1,5 +1,7 @@
 package org.mindtrails.service;
 
+import net.fortuna.ical4j.model.Calendar;
+import net.fortuna.ical4j.model.component.VEvent;
 import org.hamcrest.Matchers;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
@@ -23,6 +25,11 @@ import org.subethamail.wiser.WiserMessage;
 import org.thymeleaf.context.Context;
 
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.List;
 
@@ -69,6 +76,10 @@ public class EmailServiceImplTest {
         wiser.stop();
     }
 
+    private String getMsgContent(MimeMessage msg) throws Exception {
+        return ((MimeMultipart)msg.getContent()).getBodyPart(0).getContent().toString();
+    }
+
     @Test
     public void sendExportAlertEmail() throws Exception {
 
@@ -84,7 +95,7 @@ public class EmailServiceImplTest {
             assertNotNull("message was null", msg);
             assertEquals("'Subject' did not match", "MindTrails Alert! WICKED.", msg.getSubject());
             assertEquals("'From' address did not match", "test@test.com", msg.getFrom()[0].toString());
-            assertTrue(msg.getContent().toString().contains("Something wicked this way comes"));
+            assertTrue(getMsgContent(msg).contains("Something wicked this way comes"));
             assertEquals("'To' address did not match", "test@test.com",
                     msg.getRecipients(MimeMessage.RecipientType.TO)[0].toString());
 
@@ -95,7 +106,7 @@ public class EmailServiceImplTest {
     @Test
     public void send2DayUsesSiteUrl() throws Exception {
 
-        Email e = emailService.getEmailForType(EmailService.TYPE.day2.toString());
+        Email e = emailService.getEmailForType("day2");
         e.setTo("test@test.com");
         Participant p = new Participant();
         p.setStudy(new TestStudy());
@@ -113,10 +124,10 @@ public class EmailServiceImplTest {
             WiserMessage wMsg = wiser.getMessages().get(0);
             MimeMessage msg = wMsg.getMimeMessage();
             assertNotNull("message was null", msg);
-            assertEquals("'Subject' did not match", "Update from the MindTrails project team", msg.getSubject());
+            assertEquals("'Subject' did not match", "A day 2 email", msg.getSubject());
             assertNotNull(serverUrl);
             assertFalse(serverUrl.isEmpty());
-            assertTrue(msg.getContent().toString().contains(serverUrl));
+            assertTrue(getMsgContent(msg).contains(serverUrl));
         }
     }
 
@@ -145,7 +156,7 @@ public class EmailServiceImplTest {
             assertEquals("'From' address did not match", "test@test.com", msg.getFrom()[0].toString());
             assertEquals("'To' address did not match", "testyMcTester@t.com",
                     msg.getRecipients(MimeMessage.RecipientType.TO)[0].toString());
-            assertTrue("Token is missing", msg.getContent().toString().contains(token));
+            assertTrue("Token is missing", getMsgContent(msg).contains(token));
         }
     }
 
@@ -179,7 +190,7 @@ public class EmailServiceImplTest {
             assertEquals("'From' address did not match", "test@test.com", msg.getFrom()[0].toString());
             assertEquals("'To' address did not match", "testyMcTester2.0@t.com",
                     msg.getRecipients(MimeMessage.RecipientType.TO)[0].toString());
-            assertTrue("url is missing", msg.getContent().toString().contains(url));
+            assertTrue("url is missing", getMsgContent(msg).contains(url));
         }
 
     }
@@ -189,8 +200,8 @@ public class EmailServiceImplTest {
     @Test
     public void testEmailList() {
         List<Email> emails = service.emailTypes();
-        assertThat(emails, hasItem(Matchers.<Email>hasProperty("type", equalTo("day2"))));
-        assertThat(emails, hasItem(Matchers.<Email>hasProperty("subject", equalTo("Update from the MindTrails project team"))));
+        assertThat(emails, hasItem(Matchers.<Email>hasProperty("type", equalTo("resetPass"))));
+        assertThat(emails, hasItem(Matchers.<Email>hasProperty("subject", equalTo("MindTrails - Account Request"))));
     }
 
     /**
@@ -230,7 +241,7 @@ public class EmailServiceImplTest {
                 emailService.shouldSendMidSessionReminder(participant));
 
         // Log the sending of a midSession Email, and try and send again.
-        participant.addEmailLog(new EmailLog(participant, EmailService.TYPE.midSessionStop.toString(), new Date()));
+        participant.addEmailLog(new EmailLog(participant, "midSessionStop", new Date()));
 
         assertFalse("Already sent an email about this, don't repeat it.",
                 emailService.shouldSendMidSessionReminder(participant));
@@ -276,9 +287,12 @@ public class EmailServiceImplTest {
         if (wiser.getMessages().size() > 0) {
             WiserMessage wMsg = wiser.getMessages().get(0);
             MimeMessage msg = wMsg.getMimeMessage();
+
+            // Content likely looks like this: ((MimeMultipart)msg.getContent()).getBodyPart(0).getContent()
+
             assertNotNull("message was null", msg);
             assertEquals("'Subject' did not match", "Incomplete session notice from the MindTrails Team", msg.getSubject());
-            assertTrue("url is missing", msg.getContent().toString().contains("Our records indicate that you got part-way through a session"));
+            assertTrue("url is missing", getMsgContent(msg).contains("Our records indicate that you got part-way through a session"));
         }
     }
 
@@ -291,7 +305,7 @@ public class EmailServiceImplTest {
 
         // Send an email two days after login, if no sessions were completed.
         participant.setLastLoginDate(xDaysAgo(2));
-        assertThat(EmailService.TYPE.day2, is(equalTo(service.getTypeToSend(participant))));
+        assertThat("day2", is(equalTo(service.getTypeToSend(participant))));
 
 
         // Don't send an email two days after login, if a session was completed.
@@ -311,14 +325,14 @@ public class EmailServiceImplTest {
         assertNull(service.getTypeToSend(participant));
 
         study.setLastSessionDate(xDaysAgo(2));
-        assertThat(EmailService.TYPE.day2, is(equalTo(service.getTypeToSend(participant))));
+        assertThat("day2", is(equalTo(service.getTypeToSend(participant))));
 
 
         study.setLastSessionDate(xDaysAgo(3));
         assertNull(service.getTypeToSend(participant));
 
         study.setLastSessionDate(xDaysAgo(4));
-        assertThat(EmailService.TYPE.day4, is(equalTo(service.getTypeToSend(participant))));
+        assertThat("day4", is(equalTo(service.getTypeToSend(participant))));
 
         study.setLastSessionDate(xDaysAgo(5));
         assertNull(service.getTypeToSend(participant));
@@ -327,7 +341,7 @@ public class EmailServiceImplTest {
         assertNull(service.getTypeToSend(participant));
 
         study.setLastSessionDate(xDaysAgo(7));
-        assertThat(EmailService.TYPE.day7, is(equalTo(service.getTypeToSend(participant))));
+        assertThat("day7", is(equalTo(service.getTypeToSend(participant))));
 
         study.setLastSessionDate(xDaysAgo(8));
         assertNull(service.getTypeToSend(participant));
@@ -339,7 +353,7 @@ public class EmailServiceImplTest {
         assertNull(service.getTypeToSend(participant));
 
         study.setLastSessionDate(xDaysAgo(11));
-        assertThat(EmailService.TYPE.day11, is(equalTo(service.getTypeToSend(participant))));
+        assertThat("day11", is(equalTo(service.getTypeToSend(participant))));
 
         study.setLastSessionDate(xDaysAgo(12));
         assertNull(service.getTypeToSend(participant));
@@ -351,7 +365,7 @@ public class EmailServiceImplTest {
         assertNull(service.getTypeToSend(participant));
 
         study.setLastSessionDate(xDaysAgo(15));
-        assertThat(EmailService.TYPE.day15, is(equalTo(service.getTypeToSend(participant))));
+        assertThat("day15", is(equalTo(service.getTypeToSend(participant))));
 
         study.setLastSessionDate(xDaysAgo(16));
         assertNull(service.getTypeToSend(participant));
@@ -360,7 +374,7 @@ public class EmailServiceImplTest {
         assertNull(service.getTypeToSend(participant));
 
         study.setLastSessionDate(xDaysAgo(18));
-        assertThat(EmailService.TYPE.closure, is(equalTo(service.getTypeToSend(participant))));
+        assertThat("closure", is(equalTo(service.getTypeToSend(participant))));
 
         study.setLastSessionDate(xDaysAgo(19));
         assertNull(service.getTypeToSend(participant));
@@ -406,19 +420,19 @@ public class EmailServiceImplTest {
         participant.setLastLoginDate(xDaysAgo(80));
 
         study.setLastSessionDate(xDaysAgo(60));
-        assertThat(EmailService.TYPE.followup, is(equalTo(service.getTypeToSend(participant))));
+        assertThat("followup", is(equalTo(service.getTypeToSend(participant))));
 
         study.setLastSessionDate(xDaysAgo(63));
-        assertThat(EmailService.TYPE.followup2, is(equalTo(service.getTypeToSend(participant))));
+        assertThat("followup2", is(equalTo(service.getTypeToSend(participant))));
 
         study.setLastSessionDate(xDaysAgo(67));
-        assertThat(EmailService.TYPE.followup2, is(equalTo(service.getTypeToSend(participant))));
+        assertThat("followup2", is(equalTo(service.getTypeToSend(participant))));
 
         study.setLastSessionDate(xDaysAgo(70));
-        assertThat(EmailService.TYPE.followup2, is(equalTo(service.getTypeToSend(participant))));
+        assertThat("followup2", is(equalTo(service.getTypeToSend(participant))));
 
         study.setLastSessionDate(xDaysAgo(75));
-        assertThat(EmailService.TYPE.followup3, is(equalTo(service.getTypeToSend(participant))));
+        assertThat("followup3", is(equalTo(service.getTypeToSend(participant))));
 
     }
 
@@ -435,5 +449,43 @@ public class EmailServiceImplTest {
 
     }
 
+    @Test
+    public void testCreateCalendarInvitation() {
+        participant.setTimezone("America/Los_Angeles");
+        LocalDateTime aDateTime = LocalDateTime.of(2018, Month.OCTOBER, 29, 8, 00, 00);
+        Date date = java.util.Date.from(aDateTime.toInstant(ZoneOffset.UTC));
+
+        Calendar calendar = this.emailService.getInvite(participant, date);
+        String calText = calendar.toString();
+        assertTrue(calText.contains("2018"));
+        System.out.println(calendar);
+        System.out.println(((VEvent) calendar.getComponents().get(0)).getProperties().getProperties("DTSTART").get(0));
+        assertNotNull(((VEvent) calendar.getComponents().get(0)).getStartDate());  // should be 30 minutes
+        assertNotNull(((VEvent) calendar.getComponents().get(0)).getEndDate());  // should be 30 minutes
+    }
+
+    @Test
+    public void sendEmailWithCalendarInvite() throws Exception {
+
+        participant.setTimezone("America/Los_Angeles");
+        Email e = new Email("day2", "Testing Email with Calendar Invite");
+        final Context ctx = new Context();
+        e.setContext(ctx);
+        e.setTo("daniel.h.funk@gamil.com");
+        e.setCalendarDate(new Date());
+        e.setParticipant(participant);
+        emailService.sendEmail(e);
+
+        // assert
+        assertEquals("No mail messages found", 1, wiser.getMessages().size());
+
+        if (wiser.getMessages().size() > 0) {
+            WiserMessage wMsg = wiser.getMessages().get(0);
+            MimeMessage msg = wMsg.getMimeMessage();
+
+            assertNotNull("message was null", msg);
+
+        }
+    }
 
 }

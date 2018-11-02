@@ -60,11 +60,12 @@ public class OAController extends QuestionController {
     @RequestMapping(method = RequestMethod.POST)
     RedirectView handleOA(@ModelAttribute("OA") OA oa,
                           Principal principal,
+                          ModelMap model,
                           WebRequest request) throws Exception {
 
         // Save the form, associate it with the participant, and log the
         // process.
-        saveForm("OA", request);
+        saveForm("OA", request, model, principal);
 
         // If the users score differs from there original score and places the user
         // "at-risk", then send a message to the administrator.

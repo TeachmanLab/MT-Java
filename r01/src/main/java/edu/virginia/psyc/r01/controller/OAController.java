@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,11 +62,12 @@ public class OAController extends QuestionController {
     @RequestMapping(method = RequestMethod.POST)
     RedirectView handleOA(@ModelAttribute("OA") OA oa,
                           Principal principal,
+                          ModelMap model,
                           WebRequest request) throws Exception {
 
         // Save the form, associate it with the participant, and log the
         // process.
-        saveForm("OA", request);
+        handleForm("OA", request, model, principal);
 
         // If the users score differs from there original score and places the user
         // "at-risk", then send a message to the administrator.
