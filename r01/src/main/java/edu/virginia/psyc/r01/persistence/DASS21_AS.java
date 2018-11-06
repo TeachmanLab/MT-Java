@@ -71,8 +71,8 @@ public class DASS21_AS extends LinkedQuestionnaireData {
         Map<Integer, String> tmpScale = new TreeMap<>();
         tmpScale.put(0, "Not at all");
         tmpScale.put(1, "Sometimes");
-        tmpScale.put(3, "A lot of the time");
-        tmpScale.put(4, "Most of the time");
+        tmpScale.put(2, "A lot of the time");
+        tmpScale.put(3, "Most of the time");
         return Collections.unmodifiableMap(tmpScale);
     }
 
