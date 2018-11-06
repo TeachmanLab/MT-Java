@@ -15,6 +15,10 @@ body {font-family: 'Source Sans Pro', sans-serif; font-size:20px; box-sizing:bor
 #nav li {float:left; padding:0px 10px;}
 #nav a {color:#5ECCDE; text-decoration:none; font-weight: 700}
 
+.navbar-default .navbar-toggle {
+    background: transparent;
+}
+
 @media (max-width: 767px) {
 .navbar-default .navbar-nav .open .dropdown-menu>li>a {
     color: #FFFFFF;
@@ -65,8 +69,6 @@ Alternate NavBar Breakpoint - to better support Ipad
     }
 }
 
-
-
 .account-bar {
     background: #21336B;
     color:#ffffff;
@@ -77,7 +79,6 @@ Alternate NavBar Breakpoint - to better support Ipad
     text-align:right;
     padding:0px 20px 5px 20px;
     line-height: 25px;
-
 }
 
 .account-bar a, .account-bar span.item {color:#ffffff; padding: 0 10px 0 10px; font-weight:400}
@@ -119,16 +120,11 @@ div.sessionSection p.block {
 
 
 /*************** Button *************************/
-button  {  -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    -webkit-box-shadow: 0px 1px 3px #666;
-    -moz-box-shadow: 0px 1px 3px #666;
-    box-shadow: 0px 1px 3px #666;
-    border-top:1px solid #3399FF;
-    border-left:1px solid #5FBCEA;
-    border-bottom:1px solid #0084AE;
-    border-right:1px solid #0084AE;
+button  {
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
+    border:none;
     color: #ffffff;
     background: #00ACE4;
     padding: 10px 20px 10px 20px;
@@ -140,20 +136,20 @@ button  {  -webkit-border-radius: 5px;
 
 
 /** THEMES **/
-.user-theme-orange button { background:#F77D38; border-top:#F99A65; border-left:#F99A65; border-bottom:#B36B42; border-right:#B36B42;}
-.user-theme-green button { background:#7bb76f; border-top:#99C38D; border-left:#99C38D; border-bottom:#698D63; border-right:#698D63;}
-.user-theme-purple button { background:#C98ABB; border-top:#D4A4CA; border-left:#D4A4CA; border-bottom:#9A7490; border-right:#9A7490;}
-.user-theme-gold button { background:#ECB800; border-top:#F1C657; border-left:#F1C657; border-bottom:#AF8A00; border-right:#AF8A00;}
+.user-theme-orange button { background:#F77D38;}
+.user-theme-green button { background:#7bb76f;}
+.user-theme-purple button { background:#C98ABB;}
+.user-theme-gold button { background:#ECB800;}
 
 .user-theme-orange #nav a { color:#F99A65;}
 .user-theme-green #nav a { color:#99C38D; }
 .user-theme-purple #nav a { color:#D4A4CA; }
 .user-theme-gold #nav a { color:#F1C657;}
 
-.user-theme-orange .account-bar { background:#F77D38; }
-.user-theme-green .account-bar { background:#77B46D; }
-.user-theme-purple .account-bar { background:#C98ABB; }
-.user-theme-gold .account-bar { background:#ECB800; }
+.user-theme-orange .account-bar { background: #fcd3bc; color: #000000; }
+.user-theme-green .account-bar { background:#c3debd; color: #000000; }
+.user-theme-purple .account-bar { background:#eedbea; color: #000000; }
+.user-theme-gold .account-bar { background:#ffea9e; color: #000000; }
 
 .user-theme-orange .page-title { color:#F77D38; }
 .user-theme-green .page-title { color:#77B46D; }
@@ -171,7 +167,9 @@ div.radio label {
 
 div.radio label:hover {
     background:#5FBCEA;
-    border-radius: 10px;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
 }
 .user-theme-orange div.radio label:hover { background:#F77D38; }
 .user-theme-green div.radio label:hover { background:#77B46D; }
@@ -185,19 +183,21 @@ div.anxiety-identity-radio label {
 
 div.anxiety-identity-radio label:hover {
     background: #eaecef;
-    border-radius: 10px;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
 }
 
-button:hover {
-    -webkit-box-shadow: 0 3px 8px #000;
-    -moz-box-shadow: 0 3px 8px #000;
-    box-shadow: 0 3px 8px #000;
-}
+button:hover { background: #0084bc; }
 
-button:active { background:#666;
-    -webkit-box-shadow: 0px 0px 0px #888;
-    -moz-box-shadcoow: 0px 0px 0px #888;
-    box-shadow: 0px 0px 0px #888;
+.user-theme-orange button:hover { background:#ce682f; }
+.user-theme-green button:hover { background:#537a4b; }
+.user-theme-purple button:hover { background:#99688e; }
+.user-theme-gold button:hover { background:#b78f00; }
+
+
+button:active {
+    background:#666;
 }
 
 /**
