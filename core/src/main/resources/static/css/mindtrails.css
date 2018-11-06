@@ -171,9 +171,7 @@ div.radio label {
 
 div.radio label:hover {
     background:#5FBCEA;
-    -webkit-box-shadow: 0 3px 8px #000;
-    -moz-box-shadow: 0 3px 8px #000;
-    box-shadow: 0 3px 8px #000;
+    border-radius: 10px;
 }
 .user-theme-orange div.radio label:hover { background:#F77D38; }
 .user-theme-green div.radio label:hover { background:#77B46D; }
@@ -188,9 +186,6 @@ div.anxiety-identity-radio label {
 div.anxiety-identity-radio label:hover {
     background: #eaecef;
     border-radius: 10px;
-    -webkit-box-shadow: 0 1px 4px #000;
-    -moz-box-shadow: 0 1px 4px #000;
-    box-shadow: 0 1px 4px #000;
 }
 
 button:hover {
