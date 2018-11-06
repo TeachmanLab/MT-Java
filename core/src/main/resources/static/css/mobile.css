@@ -230,14 +230,6 @@ div.oneToSeven {
     cursor: pointer;
 }
 
-.compactQuestion label.radio-inline:hover {
-    background-color: greenyellow;
-}
-
-.compactQuestion label.radio-inline::selection {
-    background-color: greenyellow;
-}
-
 .compactQuestion .radio-inline input[type="radio"] {
     display: inline-block;
     position: absolute;
