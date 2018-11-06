@@ -6,6 +6,7 @@ import org.mindtrails.domain.ExportMode;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.RestExceptions.NoPastProgressException;
 import org.mindtrails.domain.RestExceptions.WrongFormException;
+import org.mindtrails.domain.Study;
 import org.mindtrails.domain.jsPsych.JsPsychTrial;
 import org.mindtrails.persistence.AngularTrainingRepository;
 import org.mindtrails.service.ParticipantService;
@@ -27,7 +28,6 @@ import java.util.List;
  * Created by dan on 7/7/16.
  */
 @Controller
-@RequestMapping("/angularTraining")
 public class AngularTrainingController extends BaseController {
 
     @Autowired
@@ -38,26 +38,27 @@ public class AngularTrainingController extends BaseController {
 
     private static final Logger LOG = LoggerFactory.getLogger(AngularTrainingController.class);
 
-    @RequestMapping(value="{scriptName}", method= RequestMethod.GET)
+    @RequestMapping(value="/angularTraining/{scriptName}", method= RequestMethod.GET)
     public String showTraining(ModelMap model, Principal principal, @PathVariable String scriptName) {
 
         Participant p = participantService.get(principal);
         model.addAttribute("sessionName", p.getStudy().getCurrentSession().getName());
-        return "redirect:/angular_training/index.html/#/training/" + scriptName.toLowerCase();
+        return "angularTraining";
     }
 
     @ExportMode
-    @RequestMapping(method = RequestMethod.POST,
+    @RequestMapping(value="/api/training", method = RequestMethod.POST,
             headers = "content-type=application/json")
     public @ResponseBody
     ResponseEntity<Void> saveProgress(Principal principal,
                  @RequestBody AngularTrainingList list) {
 
+        LOG.info("Recording Progress: " + list.toArray().toString());
+
         Participant p = getParticipant(principal);
 
         for(AngularTraining training: list) {
             training.setParticipant(p);
-            training.setSession(p.getStudy().getCurrentSession().getName());
             training.setDate(new Date());
             this.trainingRepository.save(training);
         }
@@ -65,7 +66,7 @@ public class AngularTrainingController extends BaseController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @RequestMapping("/last")
+    @RequestMapping(value="/api/training", method = RequestMethod.GET)
     public @ResponseBody AngularTraining getLastRecord(Principal principal) {
 
         Participant participant = participantService.findByEmail(principal.getName());
@@ -81,6 +82,15 @@ public class AngularTrainingController extends BaseController {
     }
 
 
+    @RequestMapping(value = "/api/training/study", method = RequestMethod.GET)
+    public @ResponseBody
+    Study getCurrentStudy(Principal principal) {
+        Participant participant = participantService.findByEmail(principal.getName());
+
+        return(participant.getStudy());
+
+    }
+
 
     @RequestMapping("/completed")
     public RedirectView markComplete(ModelMap model, Principal principal) {
@@ -88,9 +98,9 @@ public class AngularTrainingController extends BaseController {
 
         // If the data submitted, isn't the data the user should be completing right now,
         // throw an exception and prevent them from moving forward.
-        String currentTaskName = participant.getStudy().getCurrentSession().getCurrentTask().getName();
-        if(!currentTaskName.equals("Training") && !participant.isAdmin()) {
-            String error = "The current task for this participant is : " + currentTaskName + " however, they completed the angular Training";
+        String taskType = participant.getStudy().getCurrentSession().getCurrentTask().getType().toString();
+        if(!taskType.equals("angularTraining") && !participant.isAdmin()) {
+            String error = "The current task for this participant is : " + taskType + " however, they completed the angular Training";
             LOG.info(error);
             throw new WrongFormException(error);
         }

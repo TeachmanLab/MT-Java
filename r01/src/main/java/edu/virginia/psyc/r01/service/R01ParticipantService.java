@@ -30,12 +30,6 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
     @Autowired
     DASS21_ASRepository dass21RRepository;
 
-    public enum CONDITION_TYPE  {POSITIVE, FIFTY_FIFTY, NEUTRAL}
-    public enum CONDITION_SPLIT {A,B}
-
-    List<CONDITION_TYPE> CONDITION_VALUES =
-            Collections.unmodifiableList(Arrays.asList(CONDITION_TYPE.values()));
-
     @Override
     public Participant create() {
         Participant p = new Participant();
@@ -43,16 +37,11 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
         p.setStudy(study);
         p.setReceiveGiftCards(true);
 
-        CONDITION_TYPE type = CONDITION_VALUES.get(RANDOM.nextInt(CONDITION_VALUES.size()));
-        if(type == CONDITION_TYPE.POSITIVE) {
-            if (RANDOM.nextInt(2) == 1) study.setConditioning(R01Study.CONDITION.POSITIVE.name());
-            else study.setConditioning(R01Study.CONDITION.POSITIVE_NEGATION.name());
-        } else if (type == CONDITION_TYPE.FIFTY_FIFTY) {
-            if (RANDOM.nextInt(2) == 1) study.setConditioning(R01Study.CONDITION.FIFTY_FIFTY_RANDOM.name());
-            else study.setConditioning(R01Study.CONDITION.FIFTY_FIFTY_BLOCKED.name());
-        } else {
-            study.setConditioning(R01Study.CONDITION.NEUTRAL.name());
-        }
+        List<R01Study.CONDITION> CONDITION_VALUES =
+                Collections.unmodifiableList(Arrays.asList(R01Study.CONDITION.values()));
+
+        R01Study.CONDITION type = CONDITION_VALUES.get(RANDOM.nextInt(CONDITION_VALUES.size()));
+        study.setConditioning(type.name());
         return p;
     }
 

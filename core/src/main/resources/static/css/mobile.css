@@ -23,7 +23,6 @@ span.error {
 }
 
 span.label-error {
-    margin-left: 2px;
     display: block;
     float: right;
 }

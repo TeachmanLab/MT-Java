@@ -2,24 +2,16 @@ package org.mindtrails.service;
 
 import org.mindtrails.domain.Email;
 import org.mindtrails.domain.Participant;
+import org.mindtrails.domain.questionnaire.HasReturnDate;
 import org.mindtrails.domain.tango.Reward;
 
+import javax.mail.MessagingException;
 import java.util.List;
 
 /**
  * Created by dan on 5/13/16.
  */
 public interface EmailService {
-
-    /**
-     * Each of these types should have a corresponding template
-     * in resources/templates/email
-     */
-    public enum TYPE {
-        resetPass, alertAdmin, giftCard,
-        day2, day4, day7, day11, day15, closure, debrief,
-        followup, followup2, followup3, midSessionStop
-    }
 
     /**
      * This should send an email to an administrative account
@@ -49,7 +41,7 @@ public interface EmailService {
      * @param email The email object should have a type, subject, address, and context.  If a
      *              participant is specified, it will be passed on to the view.
      */
-    void sendEmail(Email email);
+    void sendEmail(Email email) throws MessagingException;
 
     /**
      * Returns a list of email messages this system can produce.  Along with
@@ -63,7 +55,7 @@ public interface EmailService {
      * Sends an exame email message to an administrator, so they can see what the
      * recipient will see.
      */
-    void sendExample(Email email);
+    void sendExample(Email email) throws MessagingException;
 
     /**
      * Returns an email for a given type
@@ -71,5 +63,6 @@ public interface EmailService {
     Email getEmailForType(String type);
 
     void sendSessionCompletedEmail(Participant participant);
+
 
 }

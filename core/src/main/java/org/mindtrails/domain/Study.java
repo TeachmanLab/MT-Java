@@ -10,51 +10,51 @@ import java.util.Map;
  */
 public interface Study {
 
-    public enum STUDY_STATE {READY, IN_PROGRESS, WAIT, ALL_DONE}
+    enum STUDY_STATE {READY, IN_PROGRESS, WAIT, ALL_DONE}
 
-    public String getName(); // A human readable descriptive name for this Study.
+    String getName(); // A human readable descriptive name for this Study.
 
-    public List<Session> getSessions();  // Returns all sessions, including the participants progress.
+    List<Session> getSessions();  // Returns all sessions, including the participants progress.
 
-    public Session getLastSession(); // returns the last completed session .
+    Session getLastSession(); // returns the last completed session .
 
-    public Session getCurrentSession(); // returns the current session.
+    Session getCurrentSession(); // returns the current session.
 
-    public void forceToSession(String sessionName); // Forces the study to the beginning of session with the given name.
+    void forceToSession(String sessionName); // Forces the study to the beginning of session with the given name.
 
-    public Session getSession(String sessionName); // Returns a session object for the given session name.
+    Session getSession(String sessionName); // Returns a session object for the given session name.
 
-    public Session nextGiftSession(); // returns the current session.
+    Session nextGiftSession(); // returns the current session.
 
-    public void completeCurrentTask(double timeOnTask); // completes a task, moving the participant further through the study/
+    void completeCurrentTask(double timeOnTask); // completes a task, moving the participant further through the study/
 
-    public int getCurrentTaskIndex();  // Returns the index of the task currently underway within the current session.
+    int getCurrentTaskIndex();  // Returns the index of the task currently underway within the current session.
 
-    public Date getLastSessionDate(); // Returns the date and time the participant completed the last session.
+    Date getLastSessionDate(); // Returns the date and time the participant completed the last session.
 
-    public Date getLastTaskDate(); // Returns the date and the the participant completed the last tasks
+    Date getLastTaskDate(); // Returns the date and the the participant completed the last tasks
 
-    public void setLastSessionDate(Date date); // Sets the date and time the participant completed the last session.
+    void setLastSessionDate(Date date); // Sets the date and time the participant completed the last session.
 
-    public STUDY_STATE getState();  // returns the current state of the paricipant in the study.
+    STUDY_STATE getState();  // returns the current state of the paricipant in the study.
 
-    public boolean completed(String sessionName); // returns true if the given session is completed.
+    boolean completed(String sessionName); // returns true if the given session is completed.
 
-    public boolean isReceiveGiftCards();
+    boolean isReceiveGiftCards();
 
-    public void setReceiveGiftCards(boolean value);
+    void setReceiveGiftCards(boolean value);
 
-    public boolean hasTask(String task);
+    boolean hasTask(String task);
 
-    public boolean isProgress(String task);
+    boolean isProgress(String task);
 
-    public String getConditioning();
+    String getConditioning();
 
-    public List<String> getConditions();
+    List<String> getConditions();
 
-    public double getIncreasePercent();
+    double getIncreasePercent();
 
-    public void setIncreasePercent(double value);
+    void setIncreasePercent(double value);
 
 
     /**
@@ -62,7 +62,7 @@ public interface Study {
      *     includes details about the current study, such as
      *     the participants Condition or Prime.
      */
-    public Map<String,Object> getPiPlayerParameters();
+    Map<String,Object> getPiPlayerParameters();
 
-    public long getParticipant();
+    long getParticipant();
 }

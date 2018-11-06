@@ -1,6 +1,15 @@
 package org.mindtrails.service;
 
-import org.joda.time.DateTime;
+import net.fortuna.ical4j.model.Calendar;
+import net.fortuna.ical4j.model.TimeZone;
+import net.fortuna.ical4j.model.TimeZoneRegistry;
+import net.fortuna.ical4j.model.TimeZoneRegistryFactory;
+import net.fortuna.ical4j.model.component.VEvent;
+import net.fortuna.ical4j.model.component.VTimeZone;
+import net.fortuna.ical4j.model.property.*;
+import net.fortuna.ical4j.util.FixedUidGenerator;
+import net.fortuna.ical4j.util.RandomUidGenerator;
+import net.fortuna.ical4j.util.UidGenerator;
 import org.mindtrails.domain.*;
 import org.mindtrails.domain.tango.Reward;
 import org.mindtrails.domain.tracking.EmailLog;
@@ -10,13 +19,23 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import java.net.SocketException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -49,24 +68,17 @@ public class EmailServiceImpl implements EmailService {
     @Value("${email.admin}")
     protected String adminTo;
 
-    @Override
     public List<Email> emailTypes() {
         List<Email> emails = new ArrayList<>();
-        emails.add(new Email(TYPE.resetPass.toString(), "MindTrails - Account Request"));
-        emails.add(new Email(TYPE.alertAdmin.toString(), "MindTrails Alert!"));
-        emails.add(new Email(TYPE.giftCard.toString(), "MindTrails - Your gift card!"));
-        emails.add(new Email(TYPE.day2.toString(), "Update from the MindTrails project team"));
-        emails.add(new Email(TYPE.day4.toString(), "Update from the MindTrails project team"));
-        emails.add(new Email(TYPE.day7.toString(), "Important reminder from the MindTrails project team"));
-        emails.add(new Email(TYPE.day11.toString(), "Continuation in the MindTrails project study"));
-        emails.add(new Email(TYPE.day15.toString(), "Final reminder re. continuation in the MindTrails project study"));
-        emails.add(new Email(TYPE.closure.toString(), "Closure of account in MindTrails project study"));
-        emails.add(new Email(TYPE.followup.toString(), "Follow-up from the MindTrails project team"));
-        emails.add(new Email(TYPE.followup2.toString(), "Follow-up reminder from the MindTrails project team"));
-        emails.add(new Email(TYPE.followup3.toString(), "Final reminder from the MindTrails project team"));
-        emails.add(new Email(TYPE.debrief.toString(), "Explanation of the MindTrails project"));
-        emails.add(new Email(TYPE.midSessionStop.toString(), "Incomplete session notice from the MindTrails Team"));
-        return emails;
+        emails.add(new Email("resetPass", "MindTrails - Account Request"));
+        emails.add(new Email("alertAdmin", "MindTrails Alert!"));
+        emails.add(new Email("giftCard", "MindTrails - Your gift card!"));
+        emails.add(new Email("debrief", "Explanation of the MindTrails project"));
+        emails.add(new Email("midSessionStop", "Incomplete session notice from the MindTrails Team"));
+        emails.add(new Email("closure", "Closure of account in MindTrails project study"));
+        emails.add(new Email("debrief", "Explanation of the MindTrails project"));
+        emails.add(new Email("midSessionStop", "Incomplete session notice from the MindTrails Team"));
+        return  emails;
     }
 
     public Email getEmailForType(String type) {
@@ -82,23 +94,43 @@ public class EmailServiceImpl implements EmailService {
     }
 
     public void sendEmail(Email email) {
-        // Prepare message using a Spring helper
-        final MimeMessage mimeMessage = this.mailSender.createMimeMessage();
-        final MimeMessageHelper message = new MimeMessageHelper(mimeMessage, "UTF-8");
-
-        email.getContext().setVariable("url", this.siteUrl);
-        email.getContext().setVariable("respondTo", this.respondTo);
-        email.getContext().setVariable("participant", email.getParticipant());
-
         try {
+
+            // Prepare message using a Spring helper
+            final MimeMessage message = this.mailSender.createMimeMessage();
+
+            // Create a Multipart
+            Multipart multipart = new MimeMultipart();
+
             message.setSubject(email.getSubject());
-            message.setFrom(this.respondTo);
-            message.setTo(email.getTo());
+            message.setFrom(new InternetAddress(this.respondTo));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(email.getTo()));
+
             // Create the HTML body using Thymeleaf
-            final String htmlContent = this.templateEngine.process("email/" + email.getType(), email.getContext());
-            message.setText(htmlContent, true /* isHtml */);
+            email.getContext().setVariable("url", this.siteUrl);
+            email.getContext().setVariable("respondTo", this.respondTo);
+            email.getContext().setVariable("participant", email.getParticipant());
+            final String htmlContent = this.templateEngine.process("email/" + email.getType(),
+                    email.getContext());
+            MimeBodyPart htmlBodyPart = new MimeBodyPart(); //4
+            htmlBodyPart.setContent(htmlContent, "text/html"); //5
+            multipart.addBodyPart(htmlBodyPart); // 6
+
+            // Add the calendar invite, if the email has a date.
+            if (email.getCalendarDate() != null) {
+                // Another part for the calendar invite
+                MimeBodyPart invite = new MimeBodyPart();
+                invite.setHeader("Content-Class", "urn:content-  classes:calendarmessage");
+                invite.setHeader("Content-ID", "calendar_message");
+                invite.setHeader("Content-Disposition", "inline");
+                invite.setContent(getInvite(email.getParticipant(), email.getCalendarDate()).toString(), "text/calendar");
+                multipart.addBodyPart(invite);
+            }
+
+            message.setContent(multipart);
+
             // Send email
-            this.mailSender.send(mimeMessage);
+            this.mailSender.send(message);
             logEmail(email, null);
         } catch (Exception e) {
             logEmail(email, e);
@@ -111,7 +143,7 @@ public class EmailServiceImpl implements EmailService {
      *
      * @param email
      */
-    public void sendExample(Email email) {
+    public void sendExample(Email email) throws MessagingException {
         sendEmail(email);
     }
 
@@ -121,8 +153,10 @@ public class EmailServiceImpl implements EmailService {
      * @param email
      */
     private void logEmail(Email email, Exception e) {
+        if(email.getParticipant() == null) return; // Don't log emails that are not to a participant.
+
         EmailLog log;
-        Participant participant = email.getParticipant();
+        Participant participant = participantRepository.findOne(email.getParticipant().getId());
 
         if (e == null) LOG.info("Sent an email of type " + email.getType());
         if (e != null) LOG.error("Failed to send an email of type " +
@@ -147,7 +181,7 @@ public class EmailServiceImpl implements EmailService {
     public void sendAdminEmail(String alertSubject, String alertMessage) {
         // Prepare the evaluation context
         final Context ctx = new Context();
-        Email email = getEmailForType(TYPE.alertAdmin.toString());
+        Email email = getEmailForType("alertAdmin");
         email.setSubject(email.getSubject() + " " + alertSubject);
         email.setTo(this.adminTo);
         email.setContext(ctx);
@@ -159,7 +193,7 @@ public class EmailServiceImpl implements EmailService {
     public void sendPasswordReset(Participant participant) {
         // Prepare the evaluation context
         final Context ctx = new Context();
-        Email email = getEmailForType(TYPE.resetPass.toString());
+        Email email = getEmailForType("resetPass");
         email.setContext(ctx);
         email.setTo(participant.getEmail());
         email.setParticipant(participant);
@@ -172,7 +206,7 @@ public class EmailServiceImpl implements EmailService {
     public void sendGiftCard(Participant participant, Reward reward, int amount) {
         // Prepare the evaluation context
         final Context ctx = new Context();
-        Email email = getEmailForType(TYPE.giftCard.toString());
+        Email email = getEmailForType("giftCard");
         email.setTo(participant.getEmail());
         email.setParticipant(participant);
         email.setContext(ctx);
@@ -188,17 +222,16 @@ public class EmailServiceImpl implements EmailService {
         List<Participant> participants;
 
         participants = participantRepository.findAll();
-        TYPE type;
 
         for (Participant participant : participants) {
-            type = getTypeToSend(participant);
+            String type = getTypeToSend(participant);
             if (type != null) {
-                Email email = getEmailForType(type.toString());
+                Email email = getEmailForType(type);
                 email.setTo(participant.getEmail());
                 email.setParticipant(participant);
                 email.setContext(new Context());
                 sendEmail(email);
-                if(type.equals(TYPE.closure)) {
+                if(type.equals("closure")) {
                     participant.setActive(false);
                     participantRepository.save(participant);
                 }
@@ -224,7 +257,7 @@ public class EmailServiceImpl implements EmailService {
     }
 
     public void sendMidSessionEmail(Participant participant) {
-        Email email = getEmailForType(TYPE.midSessionStop.toString());
+        Email email = getEmailForType("midSessionStop");
         email.setTo(participant.getEmail());
         email.setParticipant(participant);
         email.setContext(new Context());
@@ -236,11 +269,11 @@ public class EmailServiceImpl implements EmailService {
         if (!participant.isEmailReminders()) return false;
         Study study = participant.getStudy();
         Session session = study.getCurrentSession();
-        if (participant.previouslySent(TYPE.midSessionStop.toString(),
+        if (participant.previouslySent("midSessionStop",
                                         session.getName())) return false;
         if (session.midSession()) {
-            DateTime lastTaskDate = new DateTime(study.getLastTaskDate());
-            if (DateTime.now().minusHours(3).isAfter(lastTaskDate))
+            LocalDateTime lastTaskDate = LocalDateTime.ofInstant(study.getLastTaskDate().toInstant(), ZoneId.systemDefault());
+            if (LocalDateTime.now().minusHours(3).isAfter(lastTaskDate))
                 return true;
         }
         return false;
@@ -257,9 +290,7 @@ public class EmailServiceImpl implements EmailService {
      * @param p
      * @return
      */
-    public TYPE getTypeToSend(Participant p) {
-        TYPE type = null;
-
+    public String getTypeToSend(Participant p) {
         // Never send more than one email a day.
         if (p.daysSinceLastEmail() < 2) return null;
 
@@ -273,34 +304,40 @@ public class EmailServiceImpl implements EmailService {
         Session session = study.getCurrentSession();
 
         // Don't send emails if they are all done.
-        if(study.getState().equals(Study.STUDY_STATE.ALL_DONE)) return null;
+        if (study.getState().equals(Study.STUDY_STATE.ALL_DONE)) return null;
 
         int days = p.daysSinceLastMilestone();
+        return getTypeToSend(session, days);
+
+    }
+
+    public String getTypeToSend(Session session, int daysSinceLastMilestone) {
+        String type = null;
 
         // If they are waiting for 2 days, then remind them
         // at the end of 2 days, then again after 4,7,11,15, and 18
         // days since their last session.
         if(session.getDaysToWait() <= 2) {
-            switch (days) {
+            switch (daysSinceLastMilestone) {
                 case 1: // noop;
                     break;
                 case 2:
-                    type = TYPE.day2;
+                    type = "day2";
                     break;
                 case 4:
-                    type = TYPE.day4;
+                    type = "day4";
                     break;
                 case 7:
-                    type = TYPE.day7;
+                    type = "day7";
                     break;
                 case 11:
-                    type = TYPE.day11;
+                    type = "day11";
                     break;
                 case 15:
-                    type = TYPE.day15;
+                    type = "day15";
                     break;
                 case 18:
-                    type = TYPE.closure;
+                    type = "closure";
                     break;
             }
         }
@@ -308,27 +345,79 @@ public class EmailServiceImpl implements EmailService {
         // Follow up emails are sent out for tasks for delays of
         // 60 days or more.
         if(session.getDaysToWait() >= 60) {
-            switch (days) {
+            switch (daysSinceLastMilestone) {
                 case 60:
-                    type = TYPE.followup;
+                    type = "followup";
                     break;
                 case 63:
-                    type = TYPE.followup2;
+                    type = "followup2";
                     break;
                 case 67:
-                    type = TYPE.followup2;
+                    type = "followup2";
                     break;
                 case 70:
-                    type = TYPE.followup2;
+                    type = "followup2";
                     break;
                 case 75:
-                    type = TYPE.followup3;
+                    type = "followup3";
                     break;
                 case 120:
-                    type = TYPE.debrief;
+                    type = "debrief";
                     break;
             }
         }
         return type;
+
+    }
+
+
+    Calendar getInvite(Participant participant, Date date) {
+
+        // Create a TimeZone
+        TimeZoneRegistry registry = TimeZoneRegistryFactory.getInstance().createRegistry();
+        TimeZone timezone = registry.getTimeZone(participant.getTimezone());
+        VTimeZone tz = timezone.getVTimeZone();
+
+        // Use LocalDateTime to create a UTC date for the start time and end time.
+        LocalDateTime startDate = LocalDateTime.ofInstant(date.toInstant(), ZoneOffset.UTC);
+        LocalDateTime endDate = startDate.plusMinutes(30);
+
+        // Create the event
+        String eventName = "Next Mindtrails Session";
+        net.fortuna.ical4j.model.DateTime start = new net.fortuna.ical4j.model.DateTime(true);
+        net.fortuna.ical4j.model.DateTime end = new net.fortuna.ical4j.model.DateTime(true);
+        start.setTime(startDate.toInstant(ZoneOffset.UTC).toEpochMilli());
+        end.setTime(endDate.toInstant(ZoneOffset.UTC).toEpochMilli());
+        VEvent meeting = new VEvent(start, end, eventName);
+
+
+        // add timezone info..
+        meeting.getProperties().add(tz.getTimeZoneId());
+
+        // generate unique identifier..
+        Uid uid;
+        try {
+            UidGenerator ug = new FixedUidGenerator("uidGen");
+            uid = ug.generateUid();
+        } catch (SocketException e) {
+            UidGenerator ug = new RandomUidGenerator();
+            uid = ug.generateUid();
+        }
+        meeting.getProperties().add(uid);
+
+        // Set a location and description
+        meeting.getProperties().add(new Location(this.siteUrl));
+        meeting.getProperties().add(new Description("Return to " + this.siteUrl + " to complete your next session."));
+
+        // Create a calendar
+        net.fortuna.ical4j.model.Calendar icsCalendar = new net.fortuna.ical4j.model.Calendar();
+        icsCalendar.getProperties().add(new ProdId("-//Events Calendar//iCal4j 1.0//EN"));
+        icsCalendar.getProperties().add(Version.VERSION_2_0);
+        icsCalendar.getProperties().add(CalScale.GREGORIAN);
+
+        // Add the event and print
+        icsCalendar.getComponents().add(meeting);
+        System.out.println(icsCalendar);
+        return icsCalendar;
     }
 }

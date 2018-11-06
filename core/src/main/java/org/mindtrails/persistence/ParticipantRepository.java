@@ -47,10 +47,40 @@ public interface ParticipantRepository extends JpaRepository<Participant, Long> 
     Participant findByToken(@Param("token") String token);
 
     Long countByLastLoginDateAfter(Date date);
+
     long countByLastLoginDateBetween(Date date1,Date date2);
 
     List<ParticipantStats> findAllStatsBy();
 
     List<Participant> findParticipantsByTestAccountIsFalseAndAdminIsFalse();
+
+
+    Page<Participant> findByCoachedBy(Participant coach, Pageable pageable);
+
+    @Query(" select p from Participant as p" +
+            " where p.coaching is true" +
+            " order by lower(p.fullName)")
+    List<Participant> findCoaches();
+
+    @Query(" select p from Participant as p" +
+            " where " +
+            " p.coachedBy is null and" +
+            " p.coaching = false and " +
+            " p.active = true and " +
+            " p.testAccount = false " +
+            " order by attritionRisk desc")
+    Page<Participant> findEligibleForCoaching(Pageable pageable);
+
+
+    @Query(" select p from Participant as p" +
+            " where lower(p.fullName) like '%' || lower(:search) || '%'" +
+            " or lower(p.email) like '%' || lower(:search) || '%' and" +
+            " p.coachedBy is null and" +
+            " p.coaching = false and " +
+            " p.active = true and " +
+            " p.testAccount = false " +
+            " order by lower(p.fullName)")
+    Page<Participant> searchEligibleForCoaching(@Param("search") String search, Pageable pageable);
+
 
 }

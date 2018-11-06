@@ -1,22 +1,20 @@
-package org.mindtrails.service;
+package edu.virginia.psyc.r01.service;
 
+import edu.virginia.psyc.r01.Application;
+import edu.virginia.psyc.r01.domain.R01Study;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mindtrails.Application;
-import org.mindtrails.MockClasses.TestStudy;
 import org.mindtrails.domain.Participant;
-import org.mindtrails.persistence.ParticipantRepository;
+import org.mindtrails.service.ParticipantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Date;
-import java.util.TimeZone;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -30,21 +28,20 @@ import static org.junit.Assert.assertTrue;
 public class TwilioServiceTest {
 
     @Autowired
-    private TwilioService service;
+    private R01TwilioService service;
 
     @Autowired
-    private ParticipantRepository participantRepository;
+    private R01ParticipantService participantService;
 
     private Participant participant;
 
     @Before
     public void setup() {
         // Create a participant
-        participant = new Participant("Dan", "j.q.tester@gmail.com", true);
+        participant = participantService.create();
         participant.setEmail("tester@test.com");
         participant.setFullName("Tester McTest");
-        participant.setStudy(new TestStudy());
-        participant.setLastLoginDate(xDaysAgo(2));
+        participant.setLastLoginDate(xDaysAgo(7));
     }
 
     private Date xDaysAgo(int i) {
@@ -54,14 +51,14 @@ public class TwilioServiceTest {
 
     @Test
     public void noMessageIfInactive() throws Exception {
-        assertFalse("No message, but should be there", service.getMessage(participant).isEmpty());
+        assertTrue("No message, but should be there", service.participantShouldGetMessages(participant));
         participant.setActive(false);
-        assertTrue("No messages for an inactive participant.", service.getMessage(participant).isEmpty());
+        assertFalse("No messages for an inactive participant.", service.participantShouldGetMessages(participant));
     }
 
     @Test
     public void specificMessageFor18Days() throws Exception {
-        participant.setLastLoginDate(xDaysAgo(18));
+        participant.setLastLoginDate(xDaysAgo(21));
         assert(service.getMessage(participant).startsWith("MindTrails account closed."));
     }
 
@@ -72,8 +69,8 @@ public class TwilioServiceTest {
     }
 
     @Test
-    public void noMessageOnThirdDay() throws Exception {
-        participant.setLastLoginDate(xDaysAgo(3));
+    public void noMessageOnEightDay() throws Exception {
+        participant.setLastLoginDate(xDaysAgo(8));
         assert(service.getMessage(participant).isEmpty());
     }
 
@@ -91,34 +88,11 @@ public class TwilioServiceTest {
 
     @Test
     public void MessageOnSixtythDayIfALongDelay() throws Exception {
-        participant.setLastLoginDate(xDaysAgo(60));
-        participant.setStudy(new TestStudy("PostSession",0));
-        //participant.getStudy().getCurrentSession().setDaysToWait(60);
-        assertFalse(service.getMessage(participant).isEmpty());
+        Participant p = participantService.create();
+        p.setLastLoginDate(xDaysAgo(60));
+        assert(service.getMessage(p).isEmpty());
     }
 
-    @Test
-    public void ifTimeIsCloseItIsTimeToSend() throws Exception {
 
-        // Set the time of day to notify to be right now.
-        service.setNotifyHour(DateTime.now().getHourOfDay());
-        service.setNotifyMinute(DateTime.now().getMinuteOfHour());
-
-
-        assert(service.timeToSendMessage(participant));
-
-        // But not if their timezone is different.
-        participant.setTimezone("America/Anchorage");
-        assertFalse(service.timeToSendMessage(participant));
-
-        // But this timezone should be all good.
-
-
-
-        participant.setTimezone(TimeZone.getDefault().getID());
-        assert(service.timeToSendMessage(participant));
-
-
-    }
 
 }
