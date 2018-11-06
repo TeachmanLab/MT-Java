@@ -125,13 +125,13 @@ public class DASS21_AS extends LinkedQuestionnaireData {
         Integer    sum   = 0;
         double total = 0.0;
 
-        if(dryness    >= 0) { sum += dryness; total++; }
-        if(breathing  >= 0) { sum += breathing; total++; }
-        if(trembling  >= 0) { sum += trembling; total++; }
-        if(worry      >= 0) { sum += worry; total++; }
-        if(panic      >= 0) { sum += panic; total++; }
-        if(heart      >= 0) { sum += heart; total++; }
-        if(scared     >= 0) { sum += scared; total++; }
+        if(dryness    != 555) { sum += dryness; total++; }
+        if(breathing  != 555) { sum += breathing; total++; }
+        if(trembling  != 555) { sum += trembling; total++; }
+        if(worry      != 555) { sum += worry; total++; }
+        if(panic      != 555) { sum += panic; total++; }
+        if(heart      != 555) { sum += heart; total++; }
+        if(scared     != 555) { sum += scared; total++; }
         if(total == 0) return 0; // Avoid division by 0, the user has a 0 score.
         return((sum / total) * 14.0);
     }
