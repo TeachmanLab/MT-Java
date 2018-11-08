@@ -30,6 +30,9 @@ import java.util.TreeMap;
 public class DASS21_AS extends LinkedQuestionnaireData {
 
 
+    @Column(name="over18")
+    protected String over18 = "N/A";  // Only populated when used for eligibility
+    protected String sessionId;
 
     @Column(name="DRY")
     @MeasureField(desc="I was aware of dryness of my mouth.")
@@ -66,6 +69,8 @@ public class DASS21_AS extends LinkedQuestionnaireData {
     @NotNull
     private Integer scared;
 
+
+
     @Override
     public Map<Integer, String> getScale(String scale) {
         Map<Integer, String> tmpScale = new TreeMap<>();
@@ -83,8 +88,6 @@ public class DASS21_AS extends LinkedQuestionnaireData {
         return Collections.unmodifiableMap(desc);
     }
 
-    private String sessionId;
-
     public DASS21_AS() {}
 
     public DASS21_AS(Integer dryness, Integer breathing, Integer trembling, Integer worry, Integer panic, Integer heart, Integer scared) {
@@ -96,23 +99,6 @@ public class DASS21_AS extends LinkedQuestionnaireData {
         this.heart = heart;
         this.scared = scared;
     }
-
-    /**
-     * Returns a new DASS21 data structure, where all the values are decremented by 1.
-     * @return
-     */
-    public DASS21_AS decrementBy1() {
-        DASS21_AS newDass = new DASS21_AS(
-                this.dryness - 1,
-                this.breathing - 1,
-                this.trembling - 1,
-                this.worry - 1,
-                this.panic - 1,
-                this.heart - 1,
-                this.scared - 1);
-        return newDass;
-    }
-
 
     /**
      * Calculates the eligibility of a participant to be in a particular study
@@ -137,7 +123,7 @@ public class DASS21_AS extends LinkedQuestionnaireData {
     }
 
     public boolean eligible() {
-        return(this.score() > 10 );
+        return(this.over18.equals("true") && this.score() > 10 );
     }
 
 }
