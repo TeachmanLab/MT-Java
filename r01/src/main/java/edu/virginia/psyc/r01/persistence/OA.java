@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,15 +37,20 @@ public class OA extends LinkedQuestionnaireData implements Comparable<OA> {
     public static final int MAX_SCORE = 4;
 
     @Column(name="AXF")
-    private int anxious_freq;
+    @NotNull
+    private Integer anxious_freq;
     @Column(name="AXS")
-    private int anxious_sev;
+    @NotNull
+    private Integer anxious_sev;
     @Column(name="AVO")
-    private int avoid;
+    @NotNull
+    private Integer avoid;
     @Column(name="WRK")
-    private int interfere;
+    @NotNull
+    private Integer interfere;
     @Column(name="SOC")
-    private int interfere_social;
+    @NotNull
+    private Integer interfere_social;
 
     public OA(int anxious_freq, int anxious_sev, int avoid, int interfere, int interfere_social) {
         this.anxious_freq=anxious_freq;

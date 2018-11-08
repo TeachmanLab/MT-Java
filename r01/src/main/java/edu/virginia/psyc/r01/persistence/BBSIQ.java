@@ -54,143 +54,143 @@ public class BBSIQ extends LinkedQuestionnaireData {
 
 
     @NotNull
-    @MeasureField(desc = "They did not wish to outstay their welcome.", group="visitors")
+    @MeasureField(order=1, desc="They did not wish to outstay their welcome.", group="visitors")
     private Integer visitors_outstay;
     @NotNull
-    @MeasureField(desc="They had another pressing engagement to go to.", group="visitors")
+    @MeasureField(order=2, desc="They had another pressing engagement to go to.", group="visitors")
     private Integer visitors_engagement;
     @NotNull()
-    @MeasureField(desc="They did not enjoy the visit and were bored with your company.", group="visitors")
+    @MeasureField(order=3, desc="They did not enjoy the visit and were bored with your company.", group="visitors")
     private Integer visitors_bored;
 
     @NotNull()
-    @MeasureField(desc="You are developing the flu.", group="breath")
+    @MeasureField(order=4, desc="You are developing the flu.", group="breath")
     private Integer breath_flu;
     @NotNull()
-    @MeasureField(desc="You are about to suffocate or stop breathing.", group="breath")
+    @MeasureField(order=5, desc="You are about to suffocate or stop breathing.", group="breath")
     private Integer breath_suffocate;
     @NotNull()
-    @MeasureField(desc="You are physically “out of shape”.", group="breath")
+    @MeasureField(order=6, desc="You are physically “out of shape”.", group="breath")
     private Integer breath_physically;
 
     @NotNull()
-    @MeasureField(desc="You have strained your eyes slightly.", group="vision")
+    @MeasureField(order=7, desc="You have strained your eyes slightly.", group="vision")
     private Integer vision_strained;
     @NotNull()
-    @MeasureField(desc="You need to get glasses or change your existing glasses.", group="vision")
+    @MeasureField(order=8, desc="You need to get glasses or change your existing glasses.", group="vision")
     private Integer vision_glasses;
     @NotNull()
-    @MeasureField(desc="This is the sign of a serious illness.", group="vision")
+    @MeasureField(order=9, desc="This is the sign of a serious illness.", group="vision")
     private Integer vision_illness;
 
     @NotNull()
-    @MeasureField(desc="They are bored with their job, and this makes them rude.", group="shop")
+    @MeasureField(order=10, desc="They are bored with their job, and this makes them rude.", group="shop")
     private Integer shop_bored;
     @NotNull()
-    @MeasureField(desc="They are concentrating very hard on something else.", group="shop")
+    @MeasureField(order=11, desc="They are concentrating very hard on something else.", group="shop")
     private Integer shop_concentrating;
     @NotNull()
-    @MeasureField(desc="They find you irritating and resent your presence.", group="shop")
+    @MeasureField(order=12, desc="They find you irritating and resent your presence.", group="shop")
     private Integer shop_irritating;
 
     @NotNull()
-    @MeasureField(desc="You are about to faint.", group="lightheaded")
+    @MeasureField(order=13, desc="You are about to faint.", group="lightheaded")
     private Integer lightheaded_faint;
     @NotNull()
-    @MeasureField(desc="You need to get something to eat.", group="lightheaded")
+    @MeasureField(order=14, desc="You need to get something to eat.", group="lightheaded")
     private Integer lightheaded_eat;
     @NotNull()
-    @MeasureField(desc="You didn’t get enough sleep last night.", group="lightheaded")
+    @MeasureField(order=15, desc="You didn’t get enough sleep last night.", group="lightheaded")
     private Integer lightheaded_sleep;
 
     @NotNull()
-    @MeasureField(desc="Your house is on fire.", group="smoke")
+    @MeasureField(order=16, desc="Your house is on fire.", group="smoke")
     private Integer smoke_house;
     @NotNull()
-    @MeasureField(desc="Some food is burning.", group="smoke")
+    @MeasureField(order=17, desc="Some food is burning.", group="smoke")
     private Integer smoke_food;
     @NotNull()
-    @MeasureField(desc="Someone is smoking a cigarette.", group="smoke")
+    @MeasureField(order=18, desc="Someone is smoking a cigarette.", group="smoke")
     private Integer smoke_cig;
 
     @NotNull()
-    @MeasureField(desc="They are trying to be helpful.", group="friend")
+    @MeasureField(order=19, desc="They are trying to be helpful.", group="friend")
     private Integer friend_helpful;
     @NotNull()
-    @MeasureField(desc="They think you’re incompetent.", group="friend")
+    @MeasureField(order=20, desc="They think you’re incompetent.", group="friend")
     private Integer friend_incompetent;
     @NotNull()
-    @MeasureField(desc="They have done the job more often and know an easier way.", group="friend")
+    @MeasureField(order=21, desc="They have done the job more often and know an easier way.", group="friend")
     private Integer friend_moreoften;
 
     @NotNull()
-    @MeasureField(desc="You have indigestion.", group="chest")
+    @MeasureField(order=22, desc="You have indigestion.", group="chest")
     private Integer chest_indigestion;
     @NotNull()
-    @MeasureField(desc="You have a sore muscle.", group="chest")
+    @MeasureField(order=23, desc="You have a sore muscle.", group="chest")
     private Integer chest_sore;
     @NotNull()
-    @MeasureField(desc="Something is wrong with your heart.", group="chest")
+    @MeasureField(order=24, desc="Something is wrong with your heart.", group="chest")
     private Integer chest_heart;
 
     @NotNull()
-    @MeasureField(desc="You were woken by a dream.", group="jolt")
+    @MeasureField(order=25, desc="You were woken by a dream.", group="jolt")
     private Integer jolt_dream;
     @NotNull()
-    @MeasureField(desc="A burglar broke into your house.", group="jolt")
+    @MeasureField(order=26, desc="A burglar broke into your house.", group="jolt")
     private Integer jolt_burglar;
     @NotNull()
-    @MeasureField(desc="A door or window rattled in the wind.", group="jolt")
+    @MeasureField(order=27, desc="A door or window rattled in the wind.", group="jolt")
     private Integer jolt_wind;
 
     @NotNull()
-    @MeasureField(desc="They did not hear the question.", group="party")
+    @MeasureField(order=28, desc="They did not hear the question.", group="party")
     private Integer party_hear;
     @NotNull()
-    @MeasureField(desc="They think you are uninteresting and boring.", group="party")
+    @MeasureField(order=29, desc="They think you are uninteresting and boring.", group="party")
     private Integer party_boring;
     @NotNull()
-    @MeasureField(desc="They were preoccupied with something else at the time.", group="party")
+    @MeasureField(order=30, desc="They were preoccupied with something else at the time.", group="party")
     private Integer party_preoccupied;
 
     @NotNull()
-    @MeasureField(desc="Because you have been physically active.", group="heart")
+    @MeasureField(order=31, desc="Because you have been physically active.", group="heart")
     private Integer heart_active;
     @NotNull()
-    @MeasureField(desc="Because there is something wrong with your heart.", group="heart")
+    @MeasureField(order=32, desc="Because there is something wrong with your heart.", group="heart")
     private Integer heart_wrong;
     @NotNull()
-    @MeasureField(desc="Because you are feeling excited.", group="heart")
+    @MeasureField(order=33, desc="Because you are feeling excited.", group="heart")
     private Integer heart_excited;
 
     @NotNull()
-    @MeasureField(desc="You are going out of your mind.", group="confused")
+    @MeasureField(order=34, desc="You are going out of your mind.", group="confused")
     private Integer confused_outofmind;
     @NotNull()
-    @MeasureField(desc="You are coming down with a cold.", group="confused")
+    @MeasureField(order=35, desc="You are coming down with a cold.", group="confused")
     private Integer confused_cold;
     @NotNull()
-    @MeasureField(desc="You’ve been working too hard and need a rest.", group="confused")
+    @MeasureField(order=36, desc="You’ve been working too hard and need a rest.", group="confused")
     private Integer confused_work;
 
     @NotNull()
-    @MeasureField(desc="It is junk mail designed to attract your attention.", group="urgent")
+    @MeasureField(order=37, desc="It is junk mail designed to attract your attention.", group="urgent")
     private Integer urgent_junk;
     @NotNull()
-    @MeasureField(desc="You forgot to pay a bill.", group="urgent")
+    @MeasureField(order=38, desc="You forgot to pay a bill.", group="urgent")
     private Integer urgent_bill;
     @NotNull()
-    @MeasureField(desc="It is news that someone you know has died or is seriously ill.", group="urgent")
+    @MeasureField(order=39, desc="It is news that someone you know has died or is seriously ill.", group="urgent")
     private Integer urgent_died;
 
     @NotNull()
-    @MeasureField(desc="You have been overdoing it and are overtired.", group="dizzy")
+    @MeasureField(order=40, desc="You have been overdoing it and are overtired.", group="dizzy")
     private Integer dizzy_overtired;
     @NotNull()
-    @MeasureField(desc="Something you ate disagreed with you.", group="dizzy")
+    @MeasureField(order=41, desc="Something you ate disagreed with you.", group="dizzy")
     private Integer dizzy_ate;
     @NotNull()
-    @MeasureField(desc="You are dangerously ill or going mad.", group="dizzy")
+    @MeasureField(order=42, desc="You are dangerously ill or going mad.", group="dizzy")
     private Integer dizzy_ill;
 
 }

@@ -556,6 +556,17 @@ International Phone Input
     .iti-flag {background-image: url("../bower/intl-tel-input/build/img/flags@2x.png");}
 }
 
+/*********************************
+Miscellaneous
+********************************** */
+.add-question-background {
+    padding: 15px;
+    border-radius: 15px;
+    border: 1px solid #bbb;
+    background-color: #fff;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
 
 
 

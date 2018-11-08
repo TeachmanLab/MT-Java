@@ -21,19 +21,19 @@ import java.util.TreeMap;
 public class Comorbid extends LinkedQuestionnaireData {
 
     @NotNull
-    @MeasureField(desc="Little interest or pleasure in doing things", group="bothered")
+    @MeasureField(order=1, desc="Little interest or pleasure in doing things", group="bothered")
     private Integer pleasure;
     @NotNull
-    @MeasureField(desc="Feeling down, depressed, or hopeless", group="bothered")
+    @MeasureField(order=2, desc="Feeling down, depressed, or hopeless", group="bothered")
     private Integer depressed;
     @NotNull
-    @MeasureField(desc="How often do you have a drink containing alcohol?", group="how_often")
+    @MeasureField(order=3, desc="How often do you have a drink containing alcohol?", group="how_often")
     private Integer howOften;
     @NotNull
-    @MeasureField(desc="How many drinks containing alcohol do you have on a typical day when you are drinking?", group="number")
+    @MeasureField(order=4, desc="How many drinks containing alcohol do you have on a typical day when you are drinking?", group="number")
     private Integer numberOfDrinks;
     @NotNull
-    @MeasureField(desc="How often do you have six or more drinks on one occasion?", group="six_or_more")
+    @MeasureField(order=5, desc="How often do you have six or more drinks on one occasion?", group="six_or_more")
     private Integer sixOrMore;
 
     @Override

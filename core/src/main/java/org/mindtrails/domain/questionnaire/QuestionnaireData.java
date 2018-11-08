@@ -2,6 +2,7 @@ package org.mindtrails.domain.questionnaire;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sun.xml.internal.bind.v2.runtime.reflect.Lister;
 import org.hibernate.annotations.GenericGenerator;
 import org.mindtrails.domain.data.Exportable;
 import org.mindtrails.domain.Participant;
@@ -55,9 +56,21 @@ public abstract class QuestionnaireData implements hasParticipant {
      */
     @JsonIgnore
     public Collection<MeasureGroup> getGroups() {
-        Map<String, MeasureGroup> groups = new TreeMap<>();
+        Map<String, MeasureGroup> groups = new LinkedHashMap<>();
+        Field[] fields = this.getClass().getDeclaredFields();
         MeasureGroup group;
-        for (Field field : this.getClass().getDeclaredFields()) {
+
+        // Order fields by their MeasureField annotation order attribute.
+        Arrays.sort(fields, Comparator.comparing((Field f) -> {
+            if (f.isAnnotationPresent(MeasureField.class)) {
+                return f.getAnnotation(MeasureField.class).order();
+            } else {
+                return 0;
+            }
+        }));
+
+
+        for (Field field : fields) {
             if (field.isAnnotationPresent(MeasureField.class)) {
                 MeasureField mf = field.getAnnotation(MeasureField.class);
                 Measure m = new Measure(field.getName(), mf.desc());
@@ -75,6 +88,8 @@ public abstract class QuestionnaireData implements hasParticipant {
         }
         return groups.values();
     }
+
+
 
     /**
      * Override to set descriptions for each group.
