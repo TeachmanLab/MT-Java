@@ -12,6 +12,7 @@ import org.mindtrails.domain.tango.Order;
 import org.mindtrails.domain.tango.Reward;
 import org.mindtrails.domain.tracking.ErrorLog;
 
+import org.mindtrails.domain.tracking.GiftLog;
 import org.mindtrails.persistence.*;
 
 import org.mindtrails.domain.userstats;
@@ -91,6 +92,8 @@ public class AdminController extends BaseController {
     @Autowired
     private VisitRepository visitRepository;
 
+    @Autowired
+    private GiftLogRepository giftLogRepository;
 
     @Value("${import.url}")
     private String url;
@@ -265,7 +268,9 @@ public class AdminController extends BaseController {
         Participant p = participantService.get(principal);
 
         if(type.equals("giftCard")) {
-            Reward reward = tangoService.createGiftCard(p, "test", 1);  // This would actually award a gift card, if you need to do some testing.
+            GiftLog log = new GiftLog(p, "test", 1);
+            this.giftLogRepository.save(log);
+            Reward reward = tangoService.awardGiftCard(log);  // This would actually award a gift card, if you need to do some testing.
             this.emailService.sendGiftCard(p, reward, 100);
         } else if(type.equals("resetPass")) {
             p.setPasswordToken(new PasswordToken());
@@ -291,18 +296,52 @@ public class AdminController extends BaseController {
 
     // Trying to write a methods to get Tango Account information. By Diheng
     @RequestMapping(value="/tango",method = RequestMethod.GET)
-    public String tangoInfo(ModelMap model, Principal principal){
+    public String tangoInfo(ModelMap model, Principal principal,
+                            final @RequestParam(value = "page", required = false, defaultValue = "0") String pageParam){
+
+        Page<GiftLog> giftPages;
+        PageRequest pageRequest;
+        int page = Integer.parseInt(pageParam);
+        pageRequest = new PageRequest(page, PER_PAGE);
+
         Account a = tangoService.getAccountInfo();
+
+        long numberAwarded = 0, amountAwarded = 0;
+        try {
+            numberAwarded = giftLogRepository.countGiftLogByOrderIdIsNotNull();
+            amountAwarded = giftLogRepository.totalAmountAwarded() / 100;
+        } catch (NullPointerException npe) {
+            // Noop.  These counts might come back as null from JPA Respoitory, so don't fail when that happens/
+        }
+
         model.addAttribute("tango",a);
-        model.addAttribute("loggedIn", true);
+        giftPages = giftLogRepository.findByOrderIdIsNull(pageRequest);
+        model.addAttribute("giftLogs", giftPages);
+        model.addAttribute("numberAwarded",numberAwarded);
+        model.addAttribute("amountAwarded", amountAwarded);
         return "admin/tango";
     }
+
+    // Trying to write a methods to get Tango Account information. By Diheng
+    @RequestMapping(value="/tango",method = RequestMethod.POST)
+    public String awardGiftCards(ModelMap model, Principal principal, @RequestParam(value="id") Long[] ids) {
+
+        for(long id : ids) {
+            GiftLog log = giftLogRepository.findOne(id);
+            Reward reward = this.tangoService.awardGiftCard(log);
+            this.emailService.sendGiftCard(log.getParticipant(), reward, log.getAmount());
+        }
+        return tangoInfo(model, principal, "0");
+    }
+
 
     @RequestMapping(value="/participant/giftCard")
     public String giftCard(ModelMap model, Principal principal) throws Exception {
         Participant p = participantService.get(principal);
-        Reward r = tangoService.createGiftCard(p, "AdminAwarded",100);
-        this.emailService.sendGiftCard(p, r, 100);
+        GiftLog log = new GiftLog(p, "AdminAwarded", 100);
+        this.giftLogRepository.save(log);
+        Reward reward = tangoService.awardGiftCard(log);  // This would actually award a gift card, if you need to do some testing.
+        this.emailService.sendGiftCard(p, reward, 100);
         return "/admin/participant_form";
     }
 

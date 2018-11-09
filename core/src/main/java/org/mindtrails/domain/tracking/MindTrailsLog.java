@@ -22,7 +22,7 @@ public abstract class MindTrailsLog implements Comparable<MindTrailsLog>, hasPar
 
     @Id
     @GeneratedValue
-    protected int id;
+    protected long id;
 
     @ManyToOne
     @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")

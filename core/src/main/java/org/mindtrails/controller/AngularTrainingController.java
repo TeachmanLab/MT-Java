@@ -28,6 +28,7 @@ import java.util.List;
  * Created by dan on 7/7/16.
  */
 @Controller
+@RequestMapping("/angular")
 public class AngularTrainingController extends BaseController {
 
     @Autowired
@@ -38,7 +39,7 @@ public class AngularTrainingController extends BaseController {
 
     private static final Logger LOG = LoggerFactory.getLogger(AngularTrainingController.class);
 
-    @RequestMapping(value="/angularTraining/{scriptName}", method= RequestMethod.GET)
+    @RequestMapping(value="{scriptName}", method= RequestMethod.GET)
     public String showTraining(ModelMap model, Principal principal, @PathVariable String scriptName) {
 
         Participant p = participantService.get(principal);
@@ -47,7 +48,7 @@ public class AngularTrainingController extends BaseController {
     }
 
     @ExportMode
-    @RequestMapping(value="/api/training", method = RequestMethod.POST,
+    @RequestMapping(value="api", method = RequestMethod.POST,
             headers = "content-type=application/json")
     public @ResponseBody
     ResponseEntity<Void> saveProgress(Principal principal,
@@ -66,7 +67,7 @@ public class AngularTrainingController extends BaseController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @RequestMapping(value="/api/training", method = RequestMethod.GET)
+    @RequestMapping(value="api", method = RequestMethod.GET)
     public @ResponseBody AngularTraining getLastRecord(Principal principal) {
 
         Participant participant = participantService.findByEmail(principal.getName());
@@ -82,7 +83,7 @@ public class AngularTrainingController extends BaseController {
     }
 
 
-    @RequestMapping(value = "/api/training/study", method = RequestMethod.GET)
+    @RequestMapping(value = "api/study", method = RequestMethod.GET)
     public @ResponseBody
     Study getCurrentStudy(Principal principal) {
         Participant participant = participantService.findByEmail(principal.getName());
@@ -92,7 +93,7 @@ public class AngularTrainingController extends BaseController {
     }
 
 
-    @RequestMapping("/completed")
+    @RequestMapping("completed")
     public RedirectView markComplete(ModelMap model, Principal principal) {
         Participant participant = participantService.get(principal);
 
