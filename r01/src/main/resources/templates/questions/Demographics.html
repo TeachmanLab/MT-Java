@@ -49,8 +49,14 @@
                         </div>
                         <br/>
 
-                        <div><label class="question"> Birth year <input type="number" min="1900" th:field="*{BirthYear}"
+                        <div><label class="question"> Birth year <input id="age_input" type="number" min="1900" th:field="*{BirthYear}"
                                                                         required="true"/> </label>
+                        <script>
+                            // This will correctly set the date to be 18 years ago, even when we are no longer in 2018.
+                            $(function() {
+                                $('#age_input').attr("max", new Date().getFullYear() - 18);
+                            });
+                        </script>
                         </div>
                         <br/>
 

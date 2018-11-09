@@ -59,7 +59,9 @@ public class EligibleController extends BaseController {
 
         dass.setSessionId(session.getId());
         dass.setDate(new Date());
-
+        if(!dass.getOver18().equals("true")) {  // Deal with null and empty responses.
+            dass.setOver18("false");
+        }
         Set<ConstraintViolation<DASS21_AS>> violations = validator.validate(dass);
         if(!violations.isEmpty()) {
             model.addAttribute("model",dass);

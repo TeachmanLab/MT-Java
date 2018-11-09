@@ -6,6 +6,7 @@ import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 
 @Entity
@@ -13,11 +14,18 @@ import javax.persistence.Table;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class Mechanisms extends LinkedQuestionnaireData {
-    private int cfiViewpoints;
-    private int compActWilling;
-    private int erqPositive;
-    private int erqNegative;
-    private int iusUnexpected;
-    private int iusUncertain;
+
+    @NotNull
+    private Integer cfiViewpoints;
+    @NotNull
+    private Integer compActWilling;
+    @NotNull
+    private Integer erqPositive;
+    @NotNull
+    private Integer erqNegative;
+    @NotNull
+    private Integer iusUnexpected;
+    @NotNull
+    private Integer iusUncertain;
 }
 
