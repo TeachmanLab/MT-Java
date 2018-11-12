@@ -96,10 +96,10 @@ public class SessionController extends BaseController {
             return "sessionHome/siteDisabled";
         }
 
-        // Determine if a gift should be awarded, and award it.
-        if (last.getGiftAmount() > 0 && !p.giftAwardedForSession(last)) {
-            Reward reward = tangoService.createGiftCard(p, last.getName(), last.getGiftAmount());
-            this.emailService.sendGiftCard(p, reward, last.getGiftAmount());
+        // Determine if a gift should be awarded, and if so, create a record so we know to award it
+        // in the admin after review.
+        if (last.getGiftAmount() > 0) {
+            tangoService.prepareGift(p, session, last.getGiftAmount());
             model.addAttribute("giftAwarded", true);
             model.addAttribute("giftAmount", last.getGiftAmount()/100);
         }

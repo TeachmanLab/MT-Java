@@ -98,7 +98,9 @@ public class ParticipantRepositoryTest {
         GiftLog log;
 
         participant = new Participant("Dan", "Smith@x.com", false);
-        logDao = new GiftLog(participant, "code123", "SESSION1");
+        logDao = new GiftLog(participant, "SESSION1", 500);
+        logDao.setOrderId("code123");
+        logDao.setDateSent(new Date());
         participant.addGiftLog(logDao);
         participantRepository.save(participant);
         participantRepository.flush();

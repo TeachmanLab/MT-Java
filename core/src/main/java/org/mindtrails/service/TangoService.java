@@ -1,8 +1,10 @@
 package org.mindtrails.service;
 
+import org.mindtrails.domain.Session;
 import org.mindtrails.domain.tango.*;
 import org.mindtrails.domain.tracking.GiftLog;
 import org.mindtrails.domain.Participant;
+import org.mindtrails.persistence.GiftLogRepository;
 import org.mindtrails.persistence.ParticipantRepository;
 import lombok.Data;
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -60,6 +62,9 @@ public class TangoService {
 
     @Autowired
     private ParticipantRepository participantRepository;
+
+    @Autowired
+    private GiftLogRepository giftLogRepository;
 
     /**
      * HTTP Basic Authentication is required to connect to Tango.
@@ -151,9 +156,10 @@ public class TangoService {
      * Places an order with Tango.  Returns Gift Card details that we can later use
      * to notify Participant.
      */
-    public Reward createGiftCard(Participant participant, String sessionName, int amount) {
+    public Reward awardGiftCard(GiftLog log) {
+        Participant participant = log.getParticipant();
         Recipient recipient = new Recipient(participant.getFullName(), participant.getEmail());
-        Order order = new Order(customer, accountId, tangoCardSku, amount, false);
+        Order order = new Order(customer, accountId, tangoCardSku, log.getAmount(), false);
         order.setRecipient(recipient);
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = headers();
@@ -162,9 +168,10 @@ public class TangoService {
         URI uri = URI.create(url + "/orders");
         try {
             ResponseEntity<OrderResponse> response = restTemplate.exchange(uri, HttpMethod.POST, entity, OrderResponse.class);
-            logGift(participant.getId(), response.getBody().getOrder().getOrder_id(), sessionName);
             Reward r = response.getBody().getOrder().getReward();
             r.setOrder_id(response.getBody().getOrder().getOrder_id());
+            log.markAwarded(r.getOrder_id());
+            giftLogRepository.save(log);
             return response.getBody().getOrder().getReward();
         } catch (HttpClientErrorException e) {
             throw new TangoError(e);
@@ -172,21 +179,15 @@ public class TangoService {
     }
 
     /**
-     * Records the awarding of a gift.
-     *
+     * Makes a record in the gift log table that we have promised someone
+     * a gift card, but it isn't awarded yet.
      */
-    private void logGift(long id, String orderId, String sessionName) {
-        Participant participant;
-        GiftLog logDAO;
-
-        LOGGER.info("Awarded a gift to participant #" + id);
-        participant = participantRepository.findOne(id);
-        if (participant != null) {
-            logDAO = new GiftLog(participant, orderId, sessionName);
-            participant.addGiftLog(logDAO);
-            participantRepository.save(participant);
-        } else {
-            LOGGER.error("Error logging gift with order Id #" + orderId + ".  The Participant (" + id + ") is not in the database.");
+    public void prepareGift(Participant participant, Session session, int amount) {
+        GiftLog logDAO = giftLogRepository.findByParticipantAndSessionName(participant, session.getName());
+        if(logDAO != null) {
+            logDAO = new GiftLog(participant, session.getName(), amount);
+            this.giftLogRepository.save(logDAO);
         }
     }
+
 }

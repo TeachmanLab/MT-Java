@@ -1,6 +1,7 @@
 package org.mindtrails.domain.tracking;
 
 import lombok.Data;
+import org.apache.el.parser.BooleanNode;
 import org.mindtrails.domain.data.DoNotDelete;
 import org.mindtrails.domain.data.Exportable;
 import org.mindtrails.domain.Participant;
@@ -24,14 +25,19 @@ public class GiftLog extends MindTrailsLog {
 
     private String orderId;
     private String sessionName;
+    private Date dateCreated = new Date();
+    private int amount; // amount awarded in cents.
 
     public GiftLog() {};
 
-    public GiftLog(Participant participant, String orderId, String sessionName) {
+    public GiftLog(Participant participant, String sessionName, int amount) {
         this.participant = participant;
-        this.orderId = orderId;
         this.sessionName = sessionName;
-        this.dateSent = new Date();
+        this.amount = amount;
     }
 
+    public void markAwarded(String orderId) {
+        this.orderId = orderId;
+        this.dateSent = new Date();
+    }
 }
