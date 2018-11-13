@@ -12,5 +12,6 @@ public @interface MeasureField {
     public String desc();
     public String group() default "";
     public String groupDesc() default "";
+    public int order() default 0;
 }
 

@@ -5,6 +5,7 @@ import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.tango.Account;
 import org.mindtrails.domain.tango.Order;
 import org.mindtrails.domain.tango.Reward;
+import org.mindtrails.domain.tracking.GiftLog;
 import org.mindtrails.persistence.ParticipantRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,11 +37,6 @@ public class TangoServiceTest {
 
     private Participant participant;
 
-    @Before
-    public void setup() {
-        // Create a participant
-        participant = new Participant("Dan", "j.q.tester@gmail.com", true);
-    }
 
     @Test
     public void testGetAccountInformation() {
@@ -50,7 +46,10 @@ public class TangoServiceTest {
 
     @Test
     public void giveParticipantAGift() {
-        Reward reward = service.createGiftCard(participant, "TEST_SESSION", 1);
+        participant = new Participant("Dan", "j.q.t.p.tester@gmail.com", true);
+        participantRepository.save(participant);
+        GiftLog log = new GiftLog(participant, "TEST_SESSION", 1);
+        Reward reward = service.awardGiftCard(log);
         assertNotNull("A reward is returned.", reward);
         assertNotNull("The reward has a token", reward.getToken());
 
@@ -58,8 +57,11 @@ public class TangoServiceTest {
 
     @Test
     public void getGiftDetails() {
+        participant = new Participant("Dan", "j.a.b.c.tester@gmail.com", true);
+        participantRepository.save(participant);
         // Send a reward
-        Reward reward = service.createGiftCard(participant, "TEST_SESSION", 1);
+        GiftLog log = new GiftLog(participant, "TEST_SESSION", 1);
+        Reward reward = service.awardGiftCard(log);
 
         // Now Get the details of that reward form the API.
         Order order = service.getOrderInfo(reward.getOrder_id());

@@ -3,6 +3,7 @@ package org.mindtrails.controllers;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
+import org.junit.experimental.theories.suppliers.TestedOn;
 import org.mindtrails.controller.AngularTrainingController;
 import org.mindtrails.controller.JSPsychController;
 import org.mindtrails.domain.AngularTraining.AngularTraining;
@@ -49,7 +50,7 @@ public class AngularTrainingControllerTest extends BaseControllerTest {
             "\"device\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.84 Safari/537.36\",\n" +
             "\"rt\":5317.399999999907,\n" +
             "\"rtFirstReact\":5317.399999999907,\n" +
-            "\"session\":\"introSession\",\n" +
+            "\"session\":\"sessionOne\",\n" +
             "\"sessionTitle\":\"Introduction to CalmThinking: undefined\",\n" +
             "\"stepIndex\":0,\n" +
             "\"stepTitle\":\"How Does Calm Thinking Work?\",\n" +
@@ -67,7 +68,7 @@ public class AngularTrainingControllerTest extends BaseControllerTest {
             "\"device\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.84 Safari/537.36\",\n" +
             "\"rt\":4083.900000026915,\n" +
             "\"rtFirstReact\":1662.2000000206754,\n" +
-            "\"session\":\"introSession\",\n" +
+            "\"session\":\"sessionOne\",\n" +
             "\"sessionTitle\":\"Introduction to CalmThinking: undefined\",\n" +
             "\"stepIndex\":0,\n" +
             "\"stepTitle\":\"How Does Calm Thinking Work?\",\n" +
@@ -83,7 +84,7 @@ public class AngularTrainingControllerTest extends BaseControllerTest {
         importService.setMode("export");
         List<AngularTraining> preData = angularTrainingRepository.findAllByParticipantAndSessionOrderByDate(participant,
                 participant.getStudy().getCurrentSession().getName());
-        ResultActions result = mockMvc.perform(post("/api/training")
+        ResultActions result = mockMvc.perform(post("/angular/api")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .with(SecurityMockMvcRequestPostProcessors.user(participant))
                 .content(EXAMPLE_DATA))
@@ -97,7 +98,7 @@ public class AngularTrainingControllerTest extends BaseControllerTest {
     @Test
     public void testPostInImportMode() throws Exception {
         importService.setMode("import");
-        ResultActions result = mockMvc.perform(post("/angularTraining")
+        ResultActions result = mockMvc.perform(post("/angular/api")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .with(SecurityMockMvcRequestPostProcessors.user(participant))
                 .content(EXAMPLE_DATA))
@@ -107,22 +108,33 @@ public class AngularTrainingControllerTest extends BaseControllerTest {
 
     @Test
     public void testGetLastAngularTrainingRecord() throws Exception {
-        mockMvc.perform(get("/api/training")
+        mockMvc.perform(get("/angular/api")
                 .with(SecurityMockMvcRequestPostProcessors.user(participant)))
                 .andExpect((status().is4xxClientError()));
 
         // Send in some data, and make sure we get it back.
         postData();
-        MvcResult result = mockMvc.perform(post("/api/training")
+        MvcResult result = mockMvc.perform(get("/angular/api")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .with(SecurityMockMvcRequestPostProcessors.user(participant))
-                .content(EXAMPLE_DATA))
-                .andExpect((status().isOk()))
+                .with(SecurityMockMvcRequestPostProcessors.user(participant)))
+                .andExpect((status().is2xxSuccessful()))
                 .andReturn();
         ObjectMapper mapper = new ObjectMapper();
         JsonNode jsonResult = mapper.readTree(result.getResponse().getContentAsString());
         assertNotNull(jsonResult);
         assertEquals("Extremely Important", jsonResult.get("buttonPressed").textValue());
 
+    }
+
+    @Test
+    public void testGetStudy() throws  Exception {
+        MvcResult result = mockMvc.perform(get("/angular/api/study")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .with(SecurityMockMvcRequestPostProcessors.user(participant)))
+                .andExpect((status().is2xxSuccessful()))
+                .andReturn();
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode jsonResult = mapper.readTree(result.getResponse().getContentAsString());
+        assertNotNull(jsonResult);
     }
 }

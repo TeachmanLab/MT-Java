@@ -24,13 +24,13 @@ import java.util.TreeMap;
 public class Credibility extends LinkedQuestionnaireData {
 
     @NotNull
-    @MeasureField(desc="How important is reducing your anxiety to you right now?")
+    @MeasureField(order=1, desc="How important is reducing your anxiety to you right now?")
     private Integer important;
     @NotNull
-    @MeasureField(desc="How confident are you that an online training program will reduce your anxiety?")
+    @MeasureField(order=2, desc="How confident are you that an online training program will reduce your anxiety?")
     private Integer confident_online;
     @NotNull
-    @MeasureField(desc="How confident are you that an online training program that is designed to change how you think about situations will be successful in reducing your anxiety?")
+    @MeasureField(order=3, desc="How confident are you that an online training program that is designed to change how you think about situations will be successful in reducing your anxiety?")
     private Integer confident_design;
 
     @Override

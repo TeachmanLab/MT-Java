@@ -30,41 +30,46 @@ import java.util.TreeMap;
 public class DASS21_AS extends LinkedQuestionnaireData {
 
 
+    @Column(name="over18")
+    protected String over18 = "N/A";  // Only populated when used for eligibility
+    protected String sessionId;
 
     @Column(name="DRY")
-    @MeasureField(desc="I was aware of dryness of my mouth.")
+    @MeasureField(order=1, desc="I was aware of dryness of my mouth.")
     @NotNull
     private Integer dryness;
 
     @Column(name="BRE")
-    @MeasureField(desc="I experienced breathing difficulty (e.g., excessively rapid breathing, breathlessness in the absence of physical exertion).")
+    @MeasureField(order=2, desc="I experienced breathing difficulty (e.g., excessively rapid breathing, breathlessness in the absence of physical exertion).")
     @NotNull
     private Integer breathing;
 
     @Column(name="TRE")
-    @MeasureField(desc="I experienced trembling (e.g., in the hands).")
+    @MeasureField(order=3, desc="I experienced trembling (e.g., in the hands).")
     @NotNull
     private Integer trembling;
 
     @Column(name="WOR")
-    @MeasureField(desc="I was worried about situations in which I might panic and make a fool of myself.")
+    @MeasureField(order=4, desc="I was worried about situations in which I might panic and make a fool of myself.")
     @NotNull
     private Integer worry;
 
     @Column(name="PAN")
-    @MeasureField(desc="I felt I was close to panic.")
+    @MeasureField(order=5, desc="I felt I was close to panic.")
     @NotNull
     private Integer panic;
 
     @Column(name="HEA")
-    @MeasureField(desc="I was aware of my heart's action in the absence of exercise (e.g., felt heart rate increase, heart missing a beat).")
+    @MeasureField(order=6, desc="I was aware of my heart's action in the absence of exercise (e.g., felt heart rate increase, heart missing a beat).")
     @NotNull
     private Integer heart;
 
     @Column(name="SCA")
-    @MeasureField(desc="I felt scared without any good reason.")
+    @MeasureField(order=7, desc="I felt scared without any good reason.")
     @NotNull
     private Integer scared;
+
+
 
     @Override
     public Map<Integer, String> getScale(String scale) {
@@ -83,8 +88,6 @@ public class DASS21_AS extends LinkedQuestionnaireData {
         return Collections.unmodifiableMap(desc);
     }
 
-    private String sessionId;
-
     public DASS21_AS() {}
 
     public DASS21_AS(Integer dryness, Integer breathing, Integer trembling, Integer worry, Integer panic, Integer heart, Integer scared) {
@@ -96,23 +99,6 @@ public class DASS21_AS extends LinkedQuestionnaireData {
         this.heart = heart;
         this.scared = scared;
     }
-
-    /**
-     * Returns a new DASS21 data structure, where all the values are decremented by 1.
-     * @return
-     */
-    public DASS21_AS decrementBy1() {
-        DASS21_AS newDass = new DASS21_AS(
-                this.dryness - 1,
-                this.breathing - 1,
-                this.trembling - 1,
-                this.worry - 1,
-                this.panic - 1,
-                this.heart - 1,
-                this.scared - 1);
-        return newDass;
-    }
-
 
     /**
      * Calculates the eligibility of a participant to be in a particular study
@@ -137,7 +123,7 @@ public class DASS21_AS extends LinkedQuestionnaireData {
     }
 
     public boolean eligible() {
-        return(this.score() > 10 );
+        return(this.over18.equals("true") && this.score() > 10 );
     }
 
 }
