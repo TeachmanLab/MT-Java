@@ -166,15 +166,15 @@ div.radio label {
 }
 
 div.radio label:hover {
-    background:#5FBCEA;
+    background:#96e5ff;
     -webkit-border-radius: 7px;
     -moz-border-radius: 7px;
     border-radius: 7px;
 }
-.user-theme-orange div.radio label:hover { background:#F77D38; }
-.user-theme-green div.radio label:hover { background:#77B46D; }
-.user-theme-purple div.radio label:hover { background:#C98ABB; }
-.user-theme-gold div.radio label:hover { background:#ECB800; }
+.user-theme-orange div.radio label:hover { background: #fcd3bc; }
+.user-theme-green div.radio label:hover { background:#c3debd; }
+.user-theme-purple div.radio label:hover { background:#eedbea; }
+.user-theme-gold div.radio label:hover { background:#ffea9e; }
 
 div.anxiety-identity-radio label {
     padding-right: 10px;
@@ -194,11 +194,6 @@ button:hover { background: #0084bc; }
 .user-theme-green button:hover { background:#537a4b; }
 .user-theme-purple button:hover { background:#99688e; }
 .user-theme-gold button:hover { background:#b78f00; }
-
-
-button:active {
-    background:#666;
-}
 
 /**
 Session Overview
