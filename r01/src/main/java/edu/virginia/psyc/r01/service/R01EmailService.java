@@ -27,6 +27,7 @@ public class R01EmailService extends EmailServiceImpl implements EmailService{
     @Override
     public List<Email> emailTypes() {
         List<Email> emails = super.emailTypes();
+        emails.add(new Email("risingScore", "MindTrails Alert! Participant score is rising"));
         emails.add(new Email("day10", "Update from the MindTrails project team"));
         emails.add(new Email("day14", "Update from the MindTrails project team"));
         emails.add(new Email("day18", "Important reminder from the MindTrails project team"));

@@ -116,7 +116,7 @@ public class R01Study extends BaseStudy {
         List<Session> sessions = new ArrayList<>();
         Session pretest, session1, session2, session3, session4, session5, post;
 
-        pretest = new Session (PRE_TEST, "Initial Assessment", 0, 0);
+        pretest = new Session (PRE_TEST, "Initial Assessment", 500, 0);
         pretest.setIndex(0);
         pretest.addTask(new Task("Credibility","Consent to participate", Task.TYPE.questions, 0 ));
         pretest.addTask(new Task("Demographics","Demographics", Task.TYPE.questions, 2 ));
@@ -132,7 +132,7 @@ public class R01Study extends BaseStudy {
         pretest.addTask(new Task("Mechanisms","How I Respond", Task.TYPE.questions, 0 ));
         sessions.add(pretest);
 
-        session1 = new Session(FIRST_SESSION, "Level 1: Beginner", 500, 0);
+        session1 = new Session(FIRST_SESSION, "Level 1: Beginner", 0, 0);
         session1.setIndex(1);
         session1.addTask(new Task("Affect","Current Feelings", "pre", Task.TYPE.questions, 0));
         session1.addTask(new Task("1", "Training Stories", Task.TYPE.angular, 20));
@@ -142,14 +142,14 @@ public class R01Study extends BaseStudy {
         session1.addTask(new Task("ReturnIntention","Intention to Return", Task.TYPE.questions, 0));
         sessions.add(session1);
 
-        session2 = new Session(SECOND_SESSION, "Level 2: Intermediate", 500, 2);
+        session2 = new Session(SECOND_SESSION, "Level 2: Intermediate", 500, 5);
         session2.setIndex(2);
         session2.addTask(new Task("2", "Training Stories", Task.TYPE.angular, 20));
         session2.addTask(new Task("OA","Anxiety review", Task.TYPE.questions, 1 ));
         session2.addTask(new Task("ReturnIntention","Intention to Return", Task.TYPE.questions, 0));
         sessions.add(session2);
 
-        session3 = new Session(THIRD_SESSION, "Level 3: Advanced", 500, 2);
+        session3 = new Session(THIRD_SESSION, "Level 3: Advanced", 500, 5);
         session3.setIndex(3);
         session3.addTask(new Task("Affect","Current Feelings", "pre", Task.TYPE.questions, 0));
         session3.addTask(new Task("3", "Training Stories", Task.TYPE.angular, 20));
@@ -168,14 +168,14 @@ public class R01Study extends BaseStudy {
 
         sessions.add(session3);
 
-        session4 = new Session(FOURTH_SESSION, "Level 4: Expert", 500, 2);
+        session4 = new Session(FOURTH_SESSION, "Level 4: Expert", 0, 5);
         session4.setIndex(4);
         session4.addTask(new Task("4", "Training Stories", Task.TYPE.angular, 20));
         session4.addTask(new Task("OA","OA", Task.TYPE.questions, 1 ));
         session4.addTask(new Task("ReturnIntention","Intention to Return", Task.TYPE.questions, 0));
         sessions.add(session4);
 
-        session5 = new Session(FIFTH_SESSION, "Level 5: Master", 500, 2);
+        session5 = new Session(FIFTH_SESSION, "Level 5: Master", 500, 5);
         session5.setIndex(5);
         session5.addTask(new Task("Affect","Current Feelings", "pre", Task.TYPE.questions, 0));
         session5.addTask(new Task("5", "Training Stories", Task.TYPE.angular, 20));

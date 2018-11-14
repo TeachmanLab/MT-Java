@@ -20,11 +20,11 @@
 <section id="content" class="clearfix">
     <div class="container">
         <h1>Graph of Progress</h1>
-        <p>You completed a questionnaire after each session about how likely you thought different future events were.
-            This allowed us to track changes in your future thinking over the course of the study.</p>
-        <p>The graph below shows the changes in your score on the Expectancy Bias questionnaire, which looks at the
-            difference between your expectations that positive vs. negative future events will occur. On this scale,
-            the higher the score, the more positive future thinking you reported at that point in time.</p>
+        <p>You completed a questionnaire after each session about how your anxiety had been since your
+            last session. This allowed us to track your progress over the course of the MindTrails program.</p>
+        <p>The graph below shows the changes in your score on the anxiety questionnaire, which is called the
+            Overall Anxiety Severity and Impairment Scale. On this scale, the higher the score, the
+            more difficulties with anxiety you reported at that point in time.</p>
         <p>The orange line shows your specific scores on each day. The blue line shows your overall change pattern,
             taking into account the variation that occurred across sessions.</p>
         <div class="longSection">
@@ -37,40 +37,45 @@
 
         <p th:if="${status == 'little'}">
             Your change in scores suggests that you experienced some improvement over the course of the
-            study, but may still have some remaining negative thinking about the future. Congratulations on the progress that
-            you have made thus far, and we encourage you to keep working on your thinking style to
+            study, but may still have some remaining anxiety symptoms. Congratulations on the progress that
+            you have made thus far, and we encourage you to keep working on managing your anxiety to
             experience further improvement!
         </p>
 
         <p th:if="${status == 'same'}">
-            Your change in scores suggests that your thinking about the future did not change a lot over the course of the
+            Your change in scores suggests that your anxiety did not change a lot over the course of the
             study. This could have occurred for many reasons – e.g., the program is not a great match for
             your needs, or you were not in a study group that was expected to be the most effective (see
             below), or this may be an unusually difficult or stressful time for you, etc. We are sorry that the
-            program was not more helpful for you and that you are still experiencing more negative thinking about the future than you might wish. We encourage you to keep working on your thinking style because there
+            program was not more helpful for you and that you are still experiencing significant anxiety
+            symptoms. We strongly encourage you to keep working on managing your anxiety because there
             are many different treatment options that can be helpful, and we hope you will find a program
             that is a good match for you.</p>
 
         <p th:if="${status == 'worse'}">
-            Your change in scores suggests that your negative thinking about the future became somewhat more negative over the course of the
+            Your change in scores suggests that your anxiety became somewhat worse over the course of the
             study. This could have occurred for many reasons – e.g., the program is not a great match for
             your needs, or you were not in a study group that was expected to be the most effective (see
             below), or this may be an unusually difficult or stressful time for you, etc. We are sorry that the
-            program was not more helpful for you and that you are still experiencing more negative thinking about the future than you might wish. We encourage you to keep working on your thinking style because there
+            program was not more helpful for you and that you are still experiencing significant anxiety
+            symptoms. We strongly encourage you to keep working on managing your anxiety because there
             are many different treatment options that can be helpful, and we hope you will find a program
             that is a good match for you.
         </p>
 
-        <p th:if="${participant.study.conditioning.name() == 'POSITIVE'}">When reviewing this graph, we'd like to let you
+        <p th:if="${participant.study.conditioning == 'POSITIVE'}">When reviewing this graph, we'd like to let you
             know that you were in an active training group (rather than a control group, which we did not expect to
-            be as effective). However, if you’re not happy with your progress and/or wish to seek further care, we strongly encourage you to review the Mental Health Resources page, which
+            be as effective). However, if you’re not happy with your progress and/or wish to seek further care for
+            your anxiety difficulties, we strongly encourage you to review the Mental Health Resources page, which
             can help you find other independent (e.g., books, computer, or mobile app) or therapist-guided treatment
             options.</p>
-        <p th:unless="${participant.study.conditioning.name() == 'POSITIVE'}">
+        <p th:unless="${participant.study.conditioning == 'POSITIVE'}">
             When reviewing this graph, we'd like to let you know that you were in a control group, and did not
-            receive the training sessions that we expected would best shift your negative thinking about the future. So, if you’re not happy
-            with your progress, you may now complete the training that we expect will be most helpful. We will
-            provide a link for you to access this training on the final page. In addition, if you wish to seek further care, we strongly encourage you to review the Mental Health Resources page,
+            receive the training sessions that we expected would best improve your anxiety. So, if you’re not happy
+            with your progress, you may now complete the training that we expect will be most helpful. Please send
+            an email to <a href="mailto:studyteam@mindtrails.org">studyteam@mindtrails.org</a> to get started.
+            In addition, if you wish to seek further care
+            for your anxiety difficulties, we strongly encourage you to review the Mental Health Resources page,
             which can help you find other independent (e.g., books, computer, or mobile app) or therapist-guided
             treatment options.
         </p>
@@ -93,7 +98,7 @@
                         tickLength: 0
                     },
                     yaxis: {
-                        axisLabel: 'Expectancy Bias Questionnaire Score'
+                        axisLabel: 'Overall Anxiety Severity and Impairment Scale Score'
                     }
                 });
 
