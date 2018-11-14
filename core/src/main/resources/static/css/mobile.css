@@ -230,14 +230,6 @@ div.oneToSeven {
     cursor: pointer;
 }
 
-.compactQuestion label.radio-inline:hover {
-    background-color: greenyellow;
-}
-
-.compactQuestion label.radio-inline::selection {
-    background-color: greenyellow;
-}
-
 .compactQuestion .radio-inline input[type="radio"] {
     display: inline-block;
     position: absolute;
@@ -343,19 +335,12 @@ div.oneToSeven {
     }
 }
 
-label.radio-inline:hover { background-color: #00ACE4;  color: #000;}
+label.radio-inline:hover { background-color: #96e5ff;  color: #000;}
 
-.user-theme-orange label.radio-inline:hover { background-color: #F77D38;  color: #000;}
-.user-theme-green label.radio-inline:hover { background-color: #77B46D;  color: #000;}
-.user-theme-purple label.radio-inline:hover { background-color: #C98ABB;  color: #000;}
-.user-theme-gold label.radio-inline:hover  { background-color: #ECB800;  color: #000;}
-
-
-.user-theme-orange label.radio-inline:hover, .user-theme-orange label.radio-inline::selection, .user-theme-orange label.radio-inline::-moz-selection { background-color: #F77D38;  color: #000;}
-.user-theme-green label.radio-inline:hover, .user-theme-green label.radio-inline::selection, .user-theme-green label.radio-inline::-moz-selection { background-color: #77B46D;  color: #000;}
-.user-theme-purple label.radio-inline:hover, .user-theme-purple label.radio-inline::selection, .user-theme-purple label.radio-inline::-moz-selection { background-color: #C98ABB;  color: #000;}
-.user-theme-gold label.radio-inline:hover, .user-theme-gold label.radio-inline::selection, .user-theme-purple label.radio-inline::-moz-selection  { background-color: #ECB800;  color: #000;}
-
+.user-theme-orange label.radio-inline:hover { background-color: #fcd3bc;  color: #000;}
+.user-theme-green label.radio-inline:hover { background-color: #c3debd;  color: #000;}
+.user-theme-purple label.radio-inline:hover { background-color: #eedbea;  color: #000;}
+.user-theme-gold label.radio-inline:hover  { background-color: #ffea9e;  color: #000;}
 
 .chart div {
     font: 10px sans-serif;

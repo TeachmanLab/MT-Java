@@ -129,7 +129,7 @@ public class R01Study extends BaseStudy {
         pretest.addTask(new Task("BBSIQ","Why things happen", Task.TYPE.questions, 0 ));
         pretest.addTask(new Task("Comorbid","My Behaviors", Task.TYPE.questions, 0 ));
         pretest.addTask(new Task("Wellness","What I Believe", Task.TYPE.questions, 0 ));
-        pretest.addTask(new Task("Mechanisms","What I Experience", Task.TYPE.questions, 0 ));
+        pretest.addTask(new Task("Mechanisms","How I Respond", Task.TYPE.questions, 0 ));
         sessions.add(pretest);
 
         session1 = new Session(FIRST_SESSION, "Level 1: Beginner", 500, 0);
@@ -163,7 +163,7 @@ public class R01Study extends BaseStudy {
         session3.addTask(new Task("BBSIQ","Why things happen", Task.TYPE.questions, 0 ));
         session3.addTask(new Task("Comorbid","My Behaviors", Task.TYPE.questions, 0 ));
         session3.addTask(new Task("Wellness","What I Believe", Task.TYPE.questions, 0 ));
-        session3.addTask(new Task("Mechanisms","What I Experience", Task.TYPE.questions, 0 ));
+        session3.addTask(new Task("Mechanisms","How I Respond", Task.TYPE.questions, 0 ));
         session3.addTask(new Task("ReturnIntention","Intention to Return", Task.TYPE.questions, 0));
 
         sessions.add(session3);
@@ -189,7 +189,7 @@ public class R01Study extends BaseStudy {
         session5.addTask(new Task("BBSIQ","Why things happen", Task.TYPE.questions, 0 ));
         session5.addTask(new Task("Comorbid","My Behaviors", Task.TYPE.questions, 0 ));
         session5.addTask(new Task("Wellness","What I Believe", Task.TYPE.questions, 0 ));
-        session5.addTask(new Task("Mechanisms","What I Experience", Task.TYPE.questions, 0 ));
+        session5.addTask(new Task("Mechanisms","How I Respond", Task.TYPE.questions, 0 ));
         session5.addTask(new Task("HelpSeeking","Change in Help Seeking", Task.TYPE.questions, 1));
         session5.addTask(new Task("Evaluation","Evaluation", Task.TYPE.questions, 2));
         session5.addTask(new Task("AssessingProgram","Assessing this Program", Task.TYPE.questions, 2));
@@ -206,7 +206,7 @@ public class R01Study extends BaseStudy {
         post.addTask(new Task("BBSIQ","Why things happen", Task.TYPE.questions, 0 ));
         post.addTask(new Task("Comorbid","My Behaviors", Task.TYPE.questions, 0 ));
         post.addTask(new Task("Wellness","What I Believe", Task.TYPE.questions, 0 ));
-        post.addTask(new Task("Mechanisms","What I Experience", Task.TYPE.questions, 0 ));
+        post.addTask(new Task("Mechanisms","How I Respond", Task.TYPE.questions, 0 ));
         post.addTask(new Task("HelpSeeking","Change in Help Seeking", Task.TYPE.questions, 1));
         sessions.add(post);
 
