@@ -184,7 +184,7 @@ public class TangoService {
      */
     public void prepareGift(Participant participant, Session session, int amount) {
         GiftLog logDAO = giftLogRepository.findByParticipantAndSessionName(participant, session.getName());
-        if(logDAO != null) {
+        if(logDAO == null) {
             logDAO = new GiftLog(participant, session.getName(), amount);
             this.giftLogRepository.save(logDAO);
         }
