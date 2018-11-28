@@ -79,7 +79,7 @@ public abstract class QuestionnaireData implements hasParticipant {
                     m.setErrorMessage(validationErrors.get(field.getName()));
                 }
                 if(!groups.containsKey(mf.group())) {
-                    group = new MeasureGroup(mf.group(), getDescription(mf.group()), getScale(mf.group()));
+                    group = new MeasureGroup(mf.group(), getDescription(mf.group()), getPrefNotAns(mf.group()), getScale(mf.group()));
 
                     groups.put(mf.group(), group);
                 }
@@ -101,6 +101,28 @@ public abstract class QuestionnaireData implements hasParticipant {
         return desc;
     }
 
+    /**
+     * Override to set "Prefer to not answer" option style attributes
+     * This would really only be used to set display:none for forms where you do not want the "Prefer to not answer"
+     * option
+     * @return
+     */
+    @JsonIgnore
+    public Map<String, String> getGroupPrefNotAns() {
+        Map<String, String> styles = new TreeMap();
+        return styles;
+    }
+
+    @JsonIgnore
+    public String getPrefNotAns(String group) {
+        Map<String, String> styles = getGroupPrefNotAns();
+        if (styles.containsKey(group)) {
+            return styles.get(group);
+        } else {
+            return "";
+        }
+    }
+
     @JsonIgnore
     private String getDescription(String group) {
         Map<String,String> descriptions = getGroupDescriptions();
@@ -110,6 +132,7 @@ public abstract class QuestionnaireData implements hasParticipant {
             return "";
         }
     }
+
 
     /**
      * Override this to provide the complete scale for all possible answers in a measure.  Maybe
