@@ -145,6 +145,45 @@ public class ParticipantRepositoryTest {
 
     @Test
     @Transactional
+    public void testFindByCondition() {
+        Participant p, p2, p3;
+        TestStudy s, s2, s3;
+
+        // Create a few participants
+        p = new Participant("John", "john@x.com", false);
+        s = new TestStudy();
+        s.setConditioning("unassigned");
+        p.setStudy(s);
+
+        // Create a few participants
+        p2 = new Participant("James", "hames@x.com", false);
+        s2 = new TestStudy();
+        s2.setConditioning("control");
+        p2.setStudy(s2);
+
+        // Create a few participants
+        p3 = new Participant("Mark", "marks@x.com", false);
+        s3 = new TestStudy();
+        s3.setConditioning("unassigned");
+        p3.setStudy(s3);
+
+
+        participantRepository.save(p);
+        participantRepository.save(p2);
+        participantRepository.save(p3);
+        participantRepository.flush();
+
+        // Find the participant by the token.
+        List<Participant> all = participantRepository.findAllByCondition("unassigned");
+
+        Assert.assertNotNull(all);
+        Assert.assertEquals(2, all.size());
+        Assert.assertEquals("unassigned", all.get(0).getStudy().getConditioning());
+        Assert.assertEquals("unassigned", all.get(1).getStudy().getConditioning());
+    }
+
+    @Test
+    @Transactional
     public void testFindCoachesAndCoachees() {
 
         // Create a participant

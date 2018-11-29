@@ -7,6 +7,7 @@ import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by dan on 8/27/15.
@@ -42,4 +43,22 @@ public class Demographics extends LinkedQuestionnaireData {
     @Column(name = "race")
     @NotNull
     private List<String> Race;
+
+    protected static final Random RANDOM = new Random();  // For generating random CBM and Prime values.
+
+
+    public String calculateSegmentation() {
+        if(this.getGender().toLowerCase().equals("male")) {
+            return "male";
+        } else if (this.getGender().toLowerCase().equals("female")) {
+            return "female";
+        } else {
+            // Randomly assign all other gender responses to male or female.
+           if(RANDOM.nextInt(2) == 1) {  // Will be either 0 or 1.
+               return "male";
+           } else {
+               return "female";
+           }
+        }
+    }
 }

@@ -24,7 +24,7 @@ public class R01Study extends BaseStudy {
     // Computer - CBM-I training delivered by computer
     // Mobile - CBM-I training delivered by mobile phone
     // Neutral - Control Condition with alternate content
-    public enum CONDITION {COMPUTER, MOBILE, NEUTRAL}
+    public enum CONDITION {TRAINING, NEUTRAL}
 
     public enum SESSION {preTest, firstSession, secondSession, thirdSession, fourthSession, fifthSession, PostFollowUp };
 

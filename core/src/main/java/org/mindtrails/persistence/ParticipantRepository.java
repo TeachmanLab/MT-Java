@@ -83,4 +83,9 @@ public interface ParticipantRepository extends JpaRepository<Participant, Long> 
     Page<Participant> searchEligibleForCoaching(@Param("search") String search, Pageable pageable);
 
 
+    // Find all participants by condition
+    @Query("SELECT p FROM Participant as p LEFT JOIN p.study s \n" +
+            "            where s.conditioning = :condition")
+    List<Participant> findAllByCondition(@Param("condition") String condition);
+
 }

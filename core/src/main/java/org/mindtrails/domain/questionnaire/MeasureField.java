@@ -14,4 +14,3 @@ public @interface MeasureField {
     public String groupDesc() default "";
     public int order() default 0;
 }
-

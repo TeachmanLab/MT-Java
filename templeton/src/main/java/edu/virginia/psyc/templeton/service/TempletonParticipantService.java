@@ -3,6 +3,8 @@ package edu.virginia.psyc.templeton.service;
 import edu.virginia.psyc.templeton.domain.TempletonStudy;
 import edu.virginia.psyc.templeton.persistence.ExpectancyBias;
 import edu.virginia.psyc.templeton.persistence.ExpectancyBiasRepository;
+import org.mindtrails.domain.Conditions.NoNewConditionException;
+import org.mindtrails.domain.Conditions.RandomCondition;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.RestExceptions.MissingEligibilityException;
 import org.mindtrails.domain.Study;
@@ -83,5 +85,16 @@ public class TempletonParticipantService extends ParticipantServiceImpl implemen
             study.completeEligibility(e);
         }
         save(p); // Re-save participant to record study.
+    }
+
+    @Override
+    public RandomCondition getCondition(Participant p) throws NoNewConditionException {
+        // Templeton assigns conditions immediately, and not part way through the study.
+        throw new NoNewConditionException();
+    }
+
+    @Override
+    public void markConditionAsUsed(RandomCondition rc) {
+        // noop.  Condition blocks are not used.
     }
 }

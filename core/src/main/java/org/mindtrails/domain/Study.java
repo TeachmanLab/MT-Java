@@ -50,6 +50,8 @@ public interface Study {
 
     String getConditioning();
 
+    void setConditioning(String conditioning);
+
     List<String> getConditions();
 
     double getIncreasePercent();
