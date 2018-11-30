@@ -86,14 +86,15 @@ public class Evaluation extends LinkedQuestionnaireData {
 
     @NotNull
     private String idealSessions;
-
     @NotNull
     private Integer similarProgram;
-    /*
     @NotNull
-    private Integer similarProgram;
     private Integer otherTreatment;
 
+    @ElementCollection
+    @CollectionTable(name = "evaluation_places", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "places")
+    private List<String> places;
     private Boolean home;
     private Boolean work;
     private Boolean publicPlace;
@@ -101,6 +102,8 @@ public class Evaluation extends LinkedQuestionnaireData {
     private Boolean vacation;
     private Boolean otherComplete;
     private String otherPlace;
+    /*
+
     private Integer NoAnsWhere;
     @Column(name="evalCondition") // 'Condition' is a reserved word in some databases.
     @NotNull

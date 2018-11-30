@@ -18,10 +18,10 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                    <p>We would like to ask a few questions about your mental health and treatment history. Answers to
-                        these personal questions are kept confidential, but they help us improve
-                        Calm Thinking by figuring out for whom it works well.
-                    </p>
+                <p>We would like to ask a few questions about your mental health and treatment history. Answers to
+                    these personal questions are kept confidential, but they help us improve
+                    Calm Thinking by figuring out for whom it works well.
+                </p>
 
             </div>
         </div>
@@ -48,11 +48,12 @@
 </div>
     {{/questions}}
 <div class="radio">
-    <label class="question"> <input id="{{radio_name}}_other_id" onchange="sub('{{radio_name}}_other_id')" type="checkbox"
+    <label class="question"> <input id="{{radio_name}}_other_id" onchange="sub('{{radio_name}}_other_id')"
+                                    type="checkbox"
                                     name="{{radio_name}}" value="other"/> Other (Please specify)</label>
     <div id="{{radio_name}}_other_id-1" class="oneToSeven">
         <input id="{{radio_name}}_other_text-1" type="text" name="{{radio_name}}_other_text" value="N/A"/>
-        <div >
+        <div>
             <select name="{{radio_name}}_other">
                 <option value="">Please Select One</option>
                 {{#options}}
@@ -88,86 +89,86 @@
             </div>
             <div class="row">
                 <div class="col-md-8 side-border" id="struggled_section"/>
-            <script>
-                var data = {
-                    "radio_name": "disorders",
-                    "options": [
-                        {"value": 1, "title": "Currently Struggling"},
-                        {"value": 2, "title": "Previously Struggled"},
-                        {"value": 3, "title": "Diagnosed by a healthcare professional"}
-                    ],
-                    "questions": [
-                        {
-                            "name": "gad",
-                            "desc": "Generalized anxiety disorder  (GAD)"
-                        },
-                        {
-                            "name": "ocd",
-                            "desc": "Obsessive-compulsive disorder (OCD)"
-                        },
-                        {
-                            "name": "panic_disorder",
-                            "desc": "Panic disorder"
-                        },
-                        {
-                            "name": "agoraphobia",
-                            "desc": "Agoraphobia"
-                        },
-                        {
-                            "name": "ptsd",
-                            "desc": "Posttraumatic stress disorder (PTSD)"
-                        },
-                        {
-                            "name": "social_anxiety",
-                            "desc": "Social anxiety disorder"
-                        },
-                        {
-                            "name": "phobias",
-                            "desc": "Specific phobia(s)"
-                        },
-                        {
-                            "name": "dementia",
-                            "desc": "Dementia or other cognitive disorder"
-                        },
-                        {
-                            "name": "substance_use_disorder",
-                            "desc": "Substance use disorder"
-                        },
-                        {
-                            "name": "schizophrenia",
-                            "desc": "Schizophrenia or other psychotic disorder"
-                        },
-                        {
-                            "name": "depression",
-                            "desc": "Depression"
-                        },
-                        {
-                            "name": "bipolar",
-                            "desc": "Bipolar disorder"
-                        },
-                        {
-                            "name": "eating",
-                            "desc": "Eating disorder"
-                        },
-                        {
-                            "name": "personality",
-                            "desc": "Personality Disorder"
-                        }
-                    ]
-                }
-                $('#struggled_section').html(Mustache.render($('#struggling_template').val(), data));
-            </script>
-            <div class="col-md-4">
-                <br/>
-                <br/>
-                <div class="radio">
-                    <label class="question"><input type="checkbox" name="ChangeHelp" value="555"
-                                                   onchange="disableSection(this)"/> Prefer not to answer
-                    </label>
+                <script>
+                    var data = {
+                        "radio_name": "disorders",
+                        "options": [
+                            {"value": 1, "title": "Currently Struggling"},
+                            {"value": 2, "title": "Previously Struggled"},
+                            {"value": 3, "title": "Diagnosed by a healthcare professional"}
+                        ],
+                        "questions": [
+                            {
+                                "name": "gad",
+                                "desc": "Generalized anxiety disorder  (GAD)"
+                            },
+                            {
+                                "name": "ocd",
+                                "desc": "Obsessive-compulsive disorder (OCD)"
+                            },
+                            {
+                                "name": "panic_disorder",
+                                "desc": "Panic disorder"
+                            },
+                            {
+                                "name": "agoraphobia",
+                                "desc": "Agoraphobia"
+                            },
+                            {
+                                "name": "ptsd",
+                                "desc": "Posttraumatic stress disorder (PTSD)"
+                            },
+                            {
+                                "name": "social_anxiety",
+                                "desc": "Social anxiety disorder"
+                            },
+                            {
+                                "name": "phobias",
+                                "desc": "Specific phobia(s)"
+                            },
+                            {
+                                "name": "dementia",
+                                "desc": "Dementia or other cognitive disorder"
+                            },
+                            {
+                                "name": "substance_use_disorder",
+                                "desc": "Substance use disorder"
+                            },
+                            {
+                                "name": "schizophrenia",
+                                "desc": "Schizophrenia or other psychotic disorder"
+                            },
+                            {
+                                "name": "depression",
+                                "desc": "Depression"
+                            },
+                            {
+                                "name": "bipolar",
+                                "desc": "Bipolar disorder"
+                            },
+                            {
+                                "name": "eating",
+                                "desc": "Eating disorder"
+                            },
+                            {
+                                "name": "personality",
+                                "desc": "Personality Disorder"
+                            }
+                        ]
+                    }
+                    $('#struggled_section').html(Mustache.render($('#struggling_template').val(), data));
+                </script>
+                <div class="col-md-4">
+                    <br/>
+                    <br/>
+                    <div class="radio">
+                        <label class="question"><input type="checkbox" name="ChangeHelp" value="555"
+                                                       onchange="disableSection(this)"/> Prefer not to answer
+                        </label>
+                    </div>
+                    <br/>
+                    <br/>
                 </div>
-                <br/>
-                <br/>
-            </div>
             </div>
         </div>
 
@@ -312,7 +313,8 @@
                     <br/>
                     <div class="radio">
                         <label class="question"> <input type="checkbox" name="help" value="noDiagnosis" id="noDiagnosis"
-                                                        onchange="noHelp('noDiagnosis')"/> I am not seeking help </label>
+                                                        onchange="noHelp('noDiagnosis')"/> I am not seeking help
+                        </label>
                     </div>
                 </div>
 
@@ -451,18 +453,18 @@
             </script>
         </div>
 
-        <div style = "text-align:center">
-            <button type = "submit" > Continue </button>
+        <div style="text-align:center">
+            <button type="submit"> Continue</button>
         </div>
 
 
-        </form>
-        <script src = "http://cdn.jsdelivr.net/jquery.validation/1.14.0/jquery.validate.min.js" />
+    </form>
+    <script src="http://cdn.jsdelivr.net/jquery.validation/1.14.0/jquery.validate.min.js"/>
 
-        <!--features ends-->
+    <!--features ends-->
 
-        <!--divider here-->
-        <div class="spacer-40px"></div>
+    <!--divider here-->
+    <div class="spacer-40px"></div>
 
 </section>
 
@@ -523,9 +525,9 @@
      */
     function disableSection(input) {
         if (input.checked) {
-            $(input).closest('.section').find("input").not(input).prop('checked',false);
-            $(input).closest('.section').find("option").prop('selected',false);
-            $(input).closest('.section').find("select").prop('required',false);
+            $(input).closest('.section').find("input").not(input).prop('checked', false);
+            $(input).closest('.section').find("option").prop('selected', false);
+            $(input).closest('.section').find("select").prop('required', false);
             $(input).closest('.section').find("input").attr("disabled", true);
             $(input).removeAttr("disabled");
         } else {
