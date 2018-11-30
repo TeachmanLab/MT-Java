@@ -22,9 +22,10 @@ public class Evaluation extends LinkedQuestionnaireData {
     @CollectionTable(name = "evaluation_devices", joinColumns = @JoinColumn(name = "id"))
     @Column(name = "devices")
     private List<String> devices;
-    private int smartphone;
-    private int computer;
-    private int tablet;
+
+    private Boolean smartphone;
+    private Boolean computer;
+    private Boolean tablet;
 
     @NotNull
     @MeasureField(order = 1, desc = "How helpful did you find Calm Thinking for reducing your anxiety?", group = "helpful")
@@ -95,6 +96,7 @@ public class Evaluation extends LinkedQuestionnaireData {
     @CollectionTable(name = "evaluation_places", joinColumns = @JoinColumn(name = "id"))
     @Column(name = "places")
     private List<String> places;
+
     private Boolean home;
     private Boolean work;
     private Boolean publicPlace;
@@ -102,13 +104,10 @@ public class Evaluation extends LinkedQuestionnaireData {
     private Boolean vacation;
     private Boolean otherComplete;
     private String otherPlace;
-    /*
 
-    private Integer NoAnsWhere;
     @Column(name="evalCondition") // 'Condition' is a reserved word in some databases.
     @NotNull
     private Integer condition;
-*/
 
     @Override
     public Map<Integer, String> getScale(String group) {

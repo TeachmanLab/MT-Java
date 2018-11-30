@@ -159,7 +159,7 @@
                         <label class="question"> <input id="places_other"
                                                         onchange="sub('places_other');spec('places_other');"
                                                         type="checkbox" name="evaluation"
-                                                        value="otherComplete"/> Other: <input
+                                                        value="otherComplete"/> Other (please specify): <input
                                 id="places_other_spec" type="text" name="otherPlace" value="N/A"/> </label>
                     </div>
                 </div>
@@ -175,6 +175,25 @@
                     <br/>
                 </div>
             </div>
+        </div>
+
+        <div class="container section">
+            <div id="section3"></div>
+            <script>
+                var data = {
+                    "options": [
+                        {"value": 0, "title": "Active training condition"},
+                        {"value": 1, "title": "Control condition"},
+                    ],
+                    "questions": [
+                        {
+                            "name": "condition",
+                            "desc": 'Did you think you were in the active training condition (designed to change your anxious thinking) or a “control” condition (not designed to change your anxious thinking)?'
+                        }
+                    ]
+                }
+                $('#section3').html(Mustache.render($('#template5').val(), data));
+            </script>
         </div>
 
 
