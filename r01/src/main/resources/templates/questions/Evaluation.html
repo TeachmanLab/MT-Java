@@ -12,8 +12,8 @@
 <body>
 <section th:replace="fragment/common :: topFragment"/>
 <section th:replace="fragment/common :: titleBar (title='Evaluating the Program')"/>
-
 <textArea th:replace="fragment/forms :: questionTemplate"/>
+<textArea th:replace="fragment/common :: questionTemplate5"/>
 
 <form th:action="@{/questions/Evaluation}" th:object="${model}" method="POST">
     <!-- Add timer -->
@@ -34,7 +34,6 @@
                         sentences. </p>
             </div>
         </div>
-    </div>
 
     <div class="container section">
         <div class="row">
@@ -65,6 +64,35 @@
     </div>
 
     <section th:replace="fragment/forms :: radioOptions(${model})"/>
+
+    <div class="container section">
+        <label class="question"> This training program was five sessions. How many sessions do you think would have been ideal?
+            <input type="number" min="1" th:field="*{idealSessions}" required="true"/> </label>
+    </div>
+
+        <div class="container section">
+            <div id="section1"></div>
+            <script>
+                var data = {
+                    "options": [
+                        {"value": 0, "title": "No, definitely not"},
+                        {"value": 1, "title": "No, probably not"},
+                        {"value": 2, "title": "Not sure"},
+                        {"value": 3, "title": "Yes, I probably would"},
+                        {"value": 4, "title": "Yes, I definitely would"}
+                    ],
+                    "questions": [
+                        {"name": "similarProgram", "desc": "If you were to seek help for your anxiety again, would you seek a similar program?"}
+                    ]
+                }
+                $('#section1').html(Mustache.render($('#template5').val(), data));
+            </script>
+        </div>
+
+
+
+
+
     <!--
     <div class="container section compactQuestion">
         <div id="section1"></div>
@@ -277,7 +305,7 @@
         <button type="submit"> Continue</button>
     </div>
 -->
-
+    </div>
 </form>
 
 <footer th:replace="fragment/common :: footer"/>

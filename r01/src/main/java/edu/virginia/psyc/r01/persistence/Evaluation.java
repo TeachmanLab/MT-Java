@@ -84,11 +84,12 @@ public class Evaluation extends LinkedQuestionnaireData {
     @MeasureField(order = 17, desc = "On average, while you were completing the training sessions, how  distracted were you?", group = "NA2")
     private Integer distracted;
 
-    /*
     @NotNull
     private String idealSessions;
+
     @NotNull
-    private String whyIdeal;
+    private Integer similarProgram;
+    /*
     @NotNull
     private Integer similarProgram;
     private Integer otherTreatment;
