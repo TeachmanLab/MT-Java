@@ -159,7 +159,7 @@
                         <label class="question"> <input id="places_other"
                                                         onchange="sub('places_other');spec('places_other');"
                                                         type="checkbox" name="evaluation"
-                                                        value="otherComplete"/> Other (please specify): <input
+                                                        value="otherPlaceComplete"/> Other (please specify): <input
                                 id="places_other_spec" type="text" name="otherPlace" value="N/A"/> </label>
                     </div>
                 </div>
@@ -196,174 +196,68 @@
             </script>
         </div>
 
-
-        <!--
-        <div class="container section compactQuestion">
-            <div id="section1"></div>
-            <script>
-                var data = {
-                    "options":  [
-                        { "value":0, "title":"Not at all"},
-                        { "value":1, "title":"Slightly"},
-                        { "value":2, "title":"Somewhat"},
-                        { "value":3, "title":"Mostly"},
-                        { "value":4, "title":"Very"}
-                    ],
-                    "questions": [
-                        { "name":"helpful", "desc" : "How helpful did you find the web program for changing your future thinking?"},
-                        { "name":"quality",   "desc": "How much did the web program improve your overall quality of life?"},
-                        { "name":"overallMood",   "desc": "How much did the web program help improve your overall mood (e.g feeling happier)?"},
-                        { "name":"recommend",   "desc": "How likely would you be to recommend this web program to others with a similar negative future thinking style?"}
-                    ]
-                }
-                $('#section1').html(Mustache.render( $('#template').val(), data ));
-            </script>
-        </div>
-
-        <div class="container section compactQuestion">
-            <div id="section2"></div>
-            <script>
-                var data = {
-                    "options":  [
-                        { "value":0, "title":"Not at all"},
-                        { "value":1, "title":"Slightly"},
-                        { "value":2, "title":"Somewhat"},
-                        { "value":3, "title":"Mostly"},
-                        { "value":4, "title":"Very"}
-                    ],
-                    "questions": [
-                        { "name":"easy",   "desc": "How easy was the web program to use?"},
-                        { "name":"interest",   "desc": "How much did the web program keep your interest and attention?"},
-                        { "name":"likeGral",   "desc": "How much did you like the web program in general?"},
-                        { "name":"likedLooks",   "desc": "How much did you like the way the web program looked?"}
-                    ]
-                }
-                $('#section2').html(Mustache.render( $('#template').val(), data ));
-
-            </script>
-        </div>
-
-        <div class="container section compactQuestion">
-            <div id="section3"></div>
-            <script>
-                var data = {
-                    "options":  [
-                        { "value":0, "title":"Not at all"},
-                        { "value":1, "title":"Slightly"},
-                        { "value":2, "title":"Somewhat"},
-                        { "value":3, "title":"Mostly"},
-                        { "value":4, "title":"Very"}
-                    ],
-                    "questions": [
-                        { "name":"privacy",   "desc": "How worried were you about your privacy in using this web program?"},
-                        { "name":"understandAssessment",   "desc": "How easy were the assessments to understand?"},
-                        { "name":"understandTraining",   "desc": "How easy was the training program (including instructions and materials) to understand?"},
-                        { "name":"trustInfo",   "desc": "How much did you feel you could trust the information?"},
-                        { "name":"problems",   "desc": "To what extent did Internet or computer problems affect your use of the web program?"}
-                    ]
-                }
-                $('#section3').html(Mustache.render( $('#template').val(), data ));
-            </script>
-        </div>
-
+        <!--Display the following two questions only if the user indicated that they think they were in the control
+        condition-->
         <div class="container section">
-            <div class="row title">
-                <div class="col-md-12">
-                    <h4>This training program was 4 sessions.</h4>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    How many sessions do you think would have been ideal?
-                </div>
-                <div class="col-md-6">
-                    <input type="text" size="2" name="idealSessions" required="required"/>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    Why is that number ideal?
-                </div>
-                <div class="col-md-6">
-                    <input type="text" size="50" name="WhyIdeal" required="required"/>
-                </div>
-            </div>
-            <div class="row radio">
-                <div class="col-md-6">
-                <label><input type="checkbox" name="IdealSessions" value="555"
-                              onchange="disableSection(this)"/> Prefer not to
-                    answer </label>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="container section compactQuestion">
             <div id="section4"></div>
             <script>
                 var data = {
-                    "options":  [
-                        { "value":0, "title":"Not at all"},
-                        { "value":1, "title":"Slightly"},
-                        { "value":2, "title":"Somewhat"},
-                        { "value":3, "title":"Mostly"},
-                        { "value":4, "title":"Very"}
+                    "options": [
+                        {"value": 0, "title": "Early in the training program (within the first two sessions)"},
+                        {"value": 1, "title": "Mid-way through the training program (around the third session)"},
+                        {"value": 2, "title": "Later in the training program (within the last two sessions)"},
                     ],
                     "questions": [
-                        { "name":"Tiring",   "desc": "How tiring did you find the assessments?"},
-                        { "name":"Distracted",   "desc": "On average, while you were completing the training sessions, how focused or distracted were you? "},
-                        { "name":"similarProgram",   "desc": "If you were to seek help for your future thinking again, would you seek a similar program?"},
+                        {
+                            "name": "whenCondition",
+                            "desc": "At what point did you think you were in the control condition?"
+                        }
                     ]
                 }
-                $('#section4').html(Mustache.render( $('#template').val(), data ));
+                $('#section4').html(Mustache.render($('#template5').val(), data));
             </script>
         </div>
 
         <div class="container section">
             <div class="row">
                 <div class="col-md-10">
-                    <p class="question"> Where did you complete the training sessions? Select all that
-                        apply </p>
+                    <p><b>Why do you believe you were in the control condition? Check all that apply.</b></p>
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-8 side-border">
                     <div class="radio">
-                        <label><input type="checkbox" name="Home" value="Home"/> At home </label>
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="reasonsControl" value="anxietySame"/> My anxiety wasn’t improving </label>
                     </div>
                     <div class="radio">
-                        <label><input type="checkbox" name="Work" value="Work"/> At work
-                        </label>
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="reasonsControl" value="programUnhelpful"/> I didn’t think that the program that I
+                            was completing could help my anxiety </label>
                     </div>
                     <div class="radio">
-                        <label><input type="checkbox" name="Public" value="Public"/> At a public space, such
-                            as a library, coffee shop, or restaurant
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label><input type="checkbox" name="Commute" value="Commute"/> While
-                            commuting/traveling (e.g on the train to work) </label>
-                    </div>
-                    <div class="radio">
-                        <label><input type="checkbox" name="Vacation" value="Vacation"/> On vacation
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label><input type="checkbox" name="OtherComplete" value="OtherComplete"/> Other
-                            (Please specify) <input type="text" name="Other_Place"/>
+                        <label class="question"> <input id="reasonsControl_other"
+                                                        onchange="sub('reasonsControl_other');spec('reasonsControl_other');"
+                                                        type="checkbox" name="reasonsControl"
+                                                        value="otherReasonControlComplete"/> Other (please specify):
+                            <input
+                                    id="reasonsControl_other_spec" type="text" name="otherReasonControl" value="N/A"/>
                         </label>
                     </div>
                 </div>
-
-                <div class=" cold-md-4">
+                <div class="col-md-4">
                     <br/>
                     <br/>
                     <div class="radio">
-                        <label><input type="checkbox" name="NoAns_where" value="555"
-                                      onchange="disableSection(this)"/> Prefer not to
-                            answer </label>
+                        <label class="question"><input type="checkbox" name="places" value="555"
+                                                       onchange="disableSection(this)"/> Prefer not to answer
+                        </label>
                     </div>
+                    <br/>
+                    <br/>
                 </div>
             </div>
         </div>
@@ -371,46 +265,84 @@
         <div class="container section">
             <div class="row">
                 <div class="col-md-10">
-                    <p class="question"> Did you think you were in the active training condition (designed to change your
-                        future thinking) or the “control” condition (not designed to change your future thinking)?</p>
+                    <p><b>How did you learn about Calm Thinking and/or the MindTrails website?</b></p>
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-8 side-border">
                     <div class="radio">
-                        <label><input class="option" type="radio" name="Condition" value="0" required="true"/> Active
-                            training condition
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="howLearn" value="implicitFront"/> Project Implicit Mental Health site front page
                         </label>
                     </div>
                     <div class="radio">
-                        <label><input class="option" type="radio" name="Condition" value="1"/> Control
-                            condition
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="howLearn" value="implicitStudy"/> At the Project Implicit Mental Health site,
+                            after completing a study about my anxiety symptoms </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="howLearn" value="friendFamily"/> A friend or family member </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="howLearn" value="press"/> Press coverage </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="howLearn" value="internetSearch"/> Internet search for mental health info </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="howLearn" value="professional"/> Mental health professional recommended it
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input id="howLearn_otherLink"
+                                                        onchange="sub('howLearn_otherLink');spec('howLearn_otherLink');"
+                                                        type="checkbox" name="howLearn"
+                                                        value="otherLinkComplete"/> Other (please specify): <input
+                                id="howLearn_otherLink_spec" type="text" name="otherLink" value="N/A"/>
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input id="howLearn_other"
+                                                        onchange="sub('howLearn_other');spec('howLearn_other');"
+                                                        type="checkbox" name="howLearn"
+                                                        value="howLearnOtherComplete"/> Other (please specify): <input
+                                id="howLearn_other_spec" type="text" name="howLearnOther" value="N/A"/>
                         </label>
                     </div>
                 </div>
-                <div class=" cold-md-4">
+                <div class="col-md-4">
                     <br/>
                     <br/>
                     <div class="radio">
-                        <label><input type="checkbox" name="Condition" value="555"
-                                      onchange="disableSection(this)"/>
-                            Prefer not to
-                            answer </label>
+                        <label class="question"><input type="checkbox" name="places" value="555"
+                                                       onchange="disableSection(this)"/> Prefer not to answer
+                        </label>
                     </div>
+                    <br/>
+                    <br/>
                 </div>
-
             </div>
-
         </div>
-
 
         <div style="text-align:center">
             <button type="submit"> Continue</button>
         </div>
-    -->
+
     </div>
 </form>
+
+<script src="http://cdn.jsdelivr.net/jquery.validation/1.14.0/jquery.validate.min.js"/>
 
 <footer th:replace="fragment/common :: footer"/>
 
@@ -424,7 +356,7 @@
 <script type="text/javascript">
 
 
-    // sub(id) and spec(id) are used to conditionally display the text "N/A" in the "Other" response text box.
+    // sub(id) and spec(id) are used to conditionally display the text "N/A" in the "Other" response text boxes.
     function sub(id) {
         if (document.getElementById(id).checked) {
             $("div#" + id + "-1").show();
@@ -466,6 +398,18 @@
             $(input).closest('.section').find("input").removeAttr("disabled");
         }
     }
+
+    // I believe this is meant to make sure the user chooses an answer for the "choose all that apply" questions.
+    // I have yet to get that working.
+    $(document).ready(function () {
+        $('#MHFORM').validate({
+            rules: {
+                'devices': {required: true, minlength: 1},
+                'places': {required: true, minlength: 1},
+                'reasonsControl': {required: true, minlength: 1}
+            }
+        });
+    });
 
 </script>
 

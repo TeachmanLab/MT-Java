@@ -100,12 +100,41 @@ public class Evaluation extends LinkedQuestionnaireData {
     private Boolean publicPlace;
     private Boolean commute;
     private Boolean vacation;
-    private Boolean otherComplete;
+    private Boolean otherPlaceComplete;
     private String otherPlace;
 
     @Column(name="evalCondition") // 'Condition' is a reserved word in some databases.
     @NotNull
     private Integer condition;
+
+    @NotNull
+    private Integer whenCondition;
+
+    @ElementCollection
+    @CollectionTable(name = "evaluation_reasonsControl", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "reasonsControl")
+    private List<String> reasonsControl;
+
+    private Boolean anxietySame;
+    private Boolean programUnhelpful;
+    private Boolean otherReasonControlComplete;
+    private String otherReasonControl;
+
+    @ElementCollection
+    @CollectionTable(name = "evaluation_howLearn", joinColumns= @JoinColumn(name = "id"))
+    @Column(name = "howLearn")
+    private List<String> howLearn;
+
+    private Boolean implicitFront;
+    private Boolean implicitStudy;
+    private Boolean friendFamily;
+    private Boolean press;
+    private Boolean internetSearch;
+    private Boolean professional;
+    private Boolean otherLinkComplete;
+    private String otherLink;
+    private Boolean howLearnOtherComplete;
+    private String howLearnOther;
 
     @Override
     public Map<Integer, String> getScale(String group) {
