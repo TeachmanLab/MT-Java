@@ -11,6 +11,7 @@ public class MeasureGroup {
 
     protected final String name;
     protected final String desc;
+    protected final String prefNotAns;
     protected final Map<Integer, String> scale;  // list of potential values.
     protected List<Measure> measures = new ArrayList<>();
 

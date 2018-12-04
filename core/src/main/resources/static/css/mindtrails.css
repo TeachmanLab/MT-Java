@@ -11,6 +11,10 @@ body {font-family: 'Source Sans Pro', sans-serif; font-size:20px; box-sizing:bor
 .page-title {font-size:1.45em; color:#00ACE4; font-weight:bold; }
 .page-title img {margin-top: -10px; margin-bottom:20px;}
 
+#title {
+    margin-top: 10px;
+}
+
 #nav {font-size:0.6em; list-style:none; padding:15px 0 15px 20px; text-align: right;}
 #nav li {float:left; padding:0px 10px;}
 #nav a {color:#5ECCDE; text-decoration:none; font-weight: 700}
@@ -544,18 +548,6 @@ International Phone Input
 
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
     .iti-flag {background-image: url("../bower/intl-tel-input/build/img/flags@2x.png");}
-}
-
-/*********************************
-Miscellaneous
-********************************** */
-.add-question-background {
-    padding: 15px;
-    border-radius: 15px;
-    border: 1px solid #bbb;
-    background-color: #fff;
-    margin-top: 50px;
-    margin-bottom: 50px;
 }
 
 

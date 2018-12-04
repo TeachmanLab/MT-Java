@@ -202,7 +202,7 @@ public class R01Study extends BaseStudy {
         post.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
         post.addTask(new Task("DASS21_AS","Mood assessment", Task.TYPE.questions, 0 ));
         post.addTask(new Task("recognitionRatings", "Completing short stories", Task.TYPE.jspsych, 5));
-        post.addTask(new Task("RR","ompleting short stories - Continued", Task.TYPE.questions, 0 ));
+        post.addTask(new Task("RR","C1ompleting short stories - Continued", Task.TYPE.questions, 0 ));
         post.addTask(new Task("BBSIQ","Why things happen", Task.TYPE.questions, 0 ));
         post.addTask(new Task("Comorbid","My Behaviors", Task.TYPE.questions, 0 ));
         post.addTask(new Task("Wellness","What I Believe", Task.TYPE.questions, 0 ));
