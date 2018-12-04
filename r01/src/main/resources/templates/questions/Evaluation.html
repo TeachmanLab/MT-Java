@@ -17,7 +17,6 @@
 
 <form th:action="@{/questions/Evaluation}" th:object="${model}" method="POST" id="EVALFORM">
     <!-- Add timer -->
-    <input id="timeOnPage" name="timeOnPage" type="hidden"/>
     <div class="container">
         <div class="row">
             <div class="col-md-10">
@@ -209,8 +208,8 @@
                     <div class="radio">
                         <label class="question"> <input id="places_other"
                                                         onchange="sub('places_other');spec('places_other');"
-                                                        type="checkbox" name="evaluation"
-                                                        value="otherPlaceComplete"/> Other (please specify): <input
+                                                        type="checkbox" name="places"
+                                                        value="other"/> Other (please specify): <input
                                 id="places_other_spec" type="text" name="otherPlace" value="N/A"/> </label>
                     </div>
                 </div>
@@ -308,7 +307,7 @@
                         <label class="question"> <input id="reasonsControl_other"
                                                         onchange="sub('reasonsControl_other');spec('reasonsControl_other');"
                                                         type="checkbox" name="reasonsControl"
-                                                        value="otherReasonControlComplete"/> Other (please specify):
+                                                        value="other"/> Other (please specify):
                             <input
                                     id="reasonsControl_other_spec" type="text" name="otherReasonControl" value="N/A"/>
                         </label>
@@ -374,16 +373,16 @@
                         <label class="question"> <input id="howLearn_otherLink"
                                                         onchange="sub('howLearn_otherLink');spec('howLearn_otherLink');"
                                                         type="checkbox" name="howLearn"
-                                                        value="otherLinkComplete"/> Link from another mental health site
+                                                        value="otherLink"/> Link from another mental health site
                             (please specify): <input
-                                    id="howLearn_otherLink_spec" type="text" name="otherLink" value="N/A"/>
+                                    id="howLearn_otherLink_spec" type="text" name="howLearnOtherLink" value="N/A"/>
                         </label>
                     </div>
                     <div class="radio">
                         <label class="question"> <input id="howLearn_other"
                                                         onchange="sub('howLearn_other');spec('howLearn_other');"
                                                         type="checkbox" name="howLearn"
-                                                        value="howLearnOtherComplete"/> Other (please specify): <input
+                                                        value="other"/> Other (please specify): <input
                                 id="howLearn_other_spec" type="text" name="howLearnOther" value="N/A"/>
                         </label>
                     </div>

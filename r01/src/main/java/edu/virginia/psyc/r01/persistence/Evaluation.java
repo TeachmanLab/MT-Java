@@ -23,10 +23,6 @@ public class Evaluation extends LinkedQuestionnaireData {
     @Column(name = "devices")
     private List<String> devices;
 
-    private Boolean smartphone;
-    private Boolean computer;
-    private Boolean tablet;
-
     @NotNull
     @MeasureField(order = 1, desc = "How helpful did you find Calm Thinking for reducing your anxiety?", group = "block1")
     private Integer helpful;
@@ -93,13 +89,6 @@ public class Evaluation extends LinkedQuestionnaireData {
     @CollectionTable(name = "evaluation_places", joinColumns = @JoinColumn(name = "id"))
     @Column(name = "places")
     private List<String> places;
-
-    private Boolean home;
-    private Boolean work;
-    private Boolean publicPlace;
-    private Boolean commute;
-    private Boolean vacation;
-    private Boolean otherPlaceComplete;
     private String otherPlace;
 
     @Column(name="evalCondition") // 'Condition' is a reserved word in some databases.
@@ -113,26 +102,13 @@ public class Evaluation extends LinkedQuestionnaireData {
     @CollectionTable(name = "evaluation_reasonsControl", joinColumns = @JoinColumn(name = "id"))
     @Column(name = "reasonsControl")
     private List<String> reasonsControl;
-
-    private Boolean anxietySame;
-    private Boolean programUnhelpful;
-    private Boolean otherReasonControlComplete;
     private String otherReasonControl;
 
     @ElementCollection
     @CollectionTable(name = "evaluation_howLearn", joinColumns= @JoinColumn(name = "id"))
     @Column(name = "howLearn")
     private List<String> howLearn;
-
-    private Boolean implicitFront;
-    private Boolean implicitStudy;
-    private Boolean friendFamily;
-    private Boolean press;
-    private Boolean internetSearch;
-    private Boolean professional;
-    private Boolean otherLinkComplete;
-    private String otherLink;
-    private Boolean howLearnOtherComplete;
+    private String howLearnOtherLink;
     private String howLearnOther;
 
     @Override
