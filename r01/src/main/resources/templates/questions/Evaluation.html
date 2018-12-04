@@ -66,6 +66,57 @@
         <section th:replace="fragment/forms :: radioOptions(${model})"/>
 
         <div class="container section">
+            <div class="row header">
+                <div class="col-md-8 statement"><p><b>How much did Internet or computer/phone problems affect your use
+                    of Calm Thinking?</b></p></div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8 side-border">
+
+                    <div class="radio">
+                        <label class="question"> <input type="radio" name="problems" value="1" required="true"
+                                                        onchange="techProblems()"/>Not at all</label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input type="radio" name="problems" value="2" required="true"
+                                                        onchange="techProblems()"/>Slightly</label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input type="radio" name="problems" value="3" required="true"
+                                                        id="problem3"
+                                                        onchange="techProblems()"/>Somewhat</label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input type="radio" name="problems" value="4" required="true"
+                                                        id="problem4" onchange="techProblems()"/>Mostly</label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input type="radio" name="problems" value="5" required="true"
+                                                        id="problem5" onchange="techProblems()"/>Very</label>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <br/>
+                    <div class="radio">
+                        <label class="question"><input type="radio" name="problems" value="555"
+                                                       onchange="techProblems()"/> Prefer not to answer
+                        </label>
+                    </div>
+                    <br/>
+                </div>
+            </div>
+            <div id="describeProblems" style="display: none">
+                <br/>
+                <label class="question"> Please describe the Internet or computer/phone problems that affected your use
+                    of
+                    Calm Thinking:
+                    <input type="text" th:field="*{problemsDesc}" required="true"/> </label>
+            </div>
+        </div>
+
+        <div class="container section">
             <label class="question"> This training program was five sessions. How many sessions do you think would have
                 been ideal?
                 <input type="number" min="1" th:field="*{idealSessions}" required="true"/> </label>
@@ -178,27 +229,42 @@
         </div>
 
         <div class="container section">
-            <div id="section3"></div>
-            <script>
-                var data = {
-                    "options": [
-                        {"value": 0, "title": "Active training condition"},
-                        {"value": 1, "title": "Control condition"},
-                    ],
-                    "questions": [
-                        {
-                            "name": "condition",
-                            "desc": 'Did you think you were in the active training condition (designed to change your anxious thinking) or a “control” condition (not designed to change your anxious thinking)?'
-                        }
-                    ]
-                }
-                $('#section3').html(Mustache.render($('#template5').val(), data));
-            </script>
+            <div class="row header">
+                <div class="col-md-8 statement"><p><b>Did you think you were in the active training condition (designed
+                    to change your anxious thinking) or a “control” condition (not designed to change your anxious
+                    thinking)?</b></p></div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8 side-border">
+
+                    <div class="radio">
+                        <label class="question"> <input type="radio" name="condition" value="0" required="true"
+                                                        onchange="thinkControl('control')"/>Active
+                            training condition</label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input type="radio" name="condition" value="1" required="true"
+                                                        id="control" onchange="thinkControl('control')"/>Control
+                            condition</label>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <br/>
+                    <div class="radio">
+                        <label class="question"><input type="radio" name="condition" value="555"
+                                                       onchange="thinkControl('control')"/> Prefer not to answer
+                        </label>
+                    </div>
+                    <br/>
+                </div>
+            </div>
         </div>
 
         <!--Display the following two questions only if the user indicated that they think they were in the control
         condition-->
-        <div class="container section">
+        <div class="container section" id="whenControl" style="display: none">
             <div id="section4"></div>
             <script>
                 var data = {
@@ -218,7 +284,7 @@
             </script>
         </div>
 
-        <div class="container section">
+        <div class="container section" id="whyControl" style="display: none">
             <div class="row">
                 <div class="col-md-10">
                     <p><b>Why do you believe you were in the control condition? Check all that apply.</b></p>
@@ -308,8 +374,9 @@
                         <label class="question"> <input id="howLearn_otherLink"
                                                         onchange="sub('howLearn_otherLink');spec('howLearn_otherLink');"
                                                         type="checkbox" name="howLearn"
-                                                        value="otherLinkComplete"/> Other (please specify): <input
-                                id="howLearn_otherLink_spec" type="text" name="otherLink" value="N/A"/>
+                                                        value="otherLinkComplete"/> Link from another mental health site
+                            (please specify): <input
+                                    id="howLearn_otherLink_spec" type="text" name="otherLink" value="N/A"/>
                         </label>
                     </div>
                     <div class="radio">
@@ -355,6 +422,25 @@
 
 <script type="text/javascript">
 
+    function techProblems() {
+        if (document.getElementById('problem3').checked || document.getElementById('problem4').checked || document.getElementById('problem5').checked) {
+            $("#describeProblems").show();
+        } else {
+            $("#describeProblems").hide();
+        }
+    }
+
+    // Only show the two questions asking when and how they thought they were in the control group IF the participant
+    // indicates that they think they were in the control group.
+    function thinkControl(id) {
+        if (document.getElementById(id).checked) {
+            $("#whenControl").show();
+            $("#whyControl").show();
+        } else {
+            $("#whenControl").hide();
+            $("#whyControl").hide();
+        }
+    }
 
     // sub(id) and spec(id) are used to conditionally display the text "N/A" in the "Other" response text boxes.
     function sub(id) {

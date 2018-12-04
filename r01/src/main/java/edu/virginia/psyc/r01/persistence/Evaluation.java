@@ -52,7 +52,7 @@ public class Evaluation extends LinkedQuestionnaireData {
     @MeasureField(order = 8, desc = "How much did you like the way Calm Thinking looked?", group = "block1")
     private Integer likedLooks;
     @NotNull
-    @MeasureField(order = 9, desc = "How worried were you about your privacy in using Calm Thinking?", group = "block1")
+    @MeasureField(order = 9, desc = "How worried were you about your privacy in using Calm Thinking?", group = "block2")
     private Integer privacy;
     @NotNull
     @MeasureField(order = 10, desc = "How easy were the assessments to understand?", group = "block2")
@@ -63,25 +63,24 @@ public class Evaluation extends LinkedQuestionnaireData {
     @NotNull
     @MeasureField(order = 12, desc = "How much did you feel you could trust the information?", group = "block2")
     private Integer trustInfo;
-    //Note: When 3 or 4 is selected, the text “Please describe the Internet or computer/phone problems that affected
-    //your use of Calm Thinking”, and a fill-in text field appears after question 17
     @NotNull
-    @MeasureField(order = 13, desc = "How much did Internet or computer/phone problems affect your use of Calm Thinking?", group = "block2")
-    private Integer problems;
-    //bold "training sessions"
-    @NotNull
-    @MeasureField(order = 14, desc = "How tiring did you find the training sessions?", group = "block2")
+    @MeasureField(order = 13, desc = "How tiring did you find the training sessions?", group = "block2")
     private Integer tiringTraining;
     //bold "assessments"
     @NotNull
-    @MeasureField(order = 15, desc = "How tiring did you find the assessments?", group = "block2")
+    @MeasureField(order = 14, desc = "How tiring did you find the assessments?", group = "block2")
     private Integer tiringAssessment;
     @NotNull
-    @MeasureField(order = 16, desc = "On average, while you were completing the training sessions, how focused were you?", group = "block2")
+    @MeasureField(order = 15, desc = "On average, while you were completing the training sessions, how focused were you?", group = "block2")
     private Integer focused;
     @NotNull
-    @MeasureField(order = 17, desc = "On average, while you were completing the training sessions, how  distracted were you?", group = "block2")
+    @MeasureField(order = 16, desc = "On average, while you were completing the training sessions, how  distracted were you?", group = "block2")
     private Integer distracted;
+
+    @NotNull
+    private Integer problems;
+
+    private String problemsDesc;
 
     @NotNull
     private String idealSessions;
@@ -107,7 +106,7 @@ public class Evaluation extends LinkedQuestionnaireData {
     @NotNull
     private Integer condition;
 
-    @NotNull
+    //This should only be @NotNull if condition is is 1, when the person thinks they were in the control group...
     private Integer whenCondition;
 
     @ElementCollection
