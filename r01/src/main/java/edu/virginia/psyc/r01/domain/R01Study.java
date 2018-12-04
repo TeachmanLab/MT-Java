@@ -142,7 +142,7 @@ public class R01Study extends BaseStudy {
         session1.addTask(new Task("ReturnIntention","Intention to Return", Task.TYPE.questions, 0));
         sessions.add(session1);
 
-        session2 = new Session(SECOND_SESSION, "Level 2: Intermediate", 500, 5);
+        session2 = new Session(SECOND_SESSION, "Level 2: Intermediate", 0, 5);
         session2.setIndex(2);
         session2.addTask(new Task("2", "Training Stories", Task.TYPE.angular, 20));
         session2.addTask(new Task("OA","Anxiety review", Task.TYPE.questions, 1 ));
@@ -202,7 +202,7 @@ public class R01Study extends BaseStudy {
         post.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
         post.addTask(new Task("DASS21_AS","Mood assessment", Task.TYPE.questions, 0 ));
         post.addTask(new Task("recognitionRatings", "Completing short stories", Task.TYPE.jspsych, 5));
-        post.addTask(new Task("RR","ompleting short stories - Continued", Task.TYPE.questions, 0 ));
+        post.addTask(new Task("RR","C1ompleting short stories - Continued", Task.TYPE.questions, 0 ));
         post.addTask(new Task("BBSIQ","Why things happen", Task.TYPE.questions, 0 ));
         post.addTask(new Task("Comorbid","My Behaviors", Task.TYPE.questions, 0 ));
         post.addTask(new Task("Wellness","What I Believe", Task.TYPE.questions, 0 ));
