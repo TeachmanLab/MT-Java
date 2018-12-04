@@ -15,7 +15,7 @@
 <textArea th:replace="fragment/forms :: questionTemplate"/>
 <textArea th:replace="fragment/common :: questionTemplate5"/>
 
-<form th:action="@{/questions/Evaluation}" th:object="${model}" method="POST">
+<form th:action="@{/questions/Evaluation}" th:object="${model}" method="POST" id="EVALFORM">
     <!-- Add timer -->
     <input id="timeOnPage" name="timeOnPage" type="hidden"/>
     <div class="container">
@@ -409,7 +409,7 @@
     </div>
 </form>
 
-<script src="http://cdn.jsdelivr.net/jquery.validation/1.14.0/jquery.validate.min.js"/>
+<!--<script src="http://cdn.jsdelivr.net/jquery.validation/1.14.0/jquery.validate.min.js"/>-->
 
 <footer th:replace="fragment/common :: footer"/>
 
@@ -485,14 +485,14 @@
         }
     }
 
-    // I believe this is meant to make sure the user chooses an answer for the "choose all that apply" questions.
-    // I have yet to get that working.
+    // This ensures the user chooses some answer for the "choose all that apply" questions.
     $(document).ready(function () {
-        $('#MHFORM').validate({
+        $('#EVALFORM').validate({
             rules: {
                 'devices': {required: true, minlength: 1},
                 'places': {required: true, minlength: 1},
-                'reasonsControl': {required: true, minlength: 1}
+                'reasonsControl': {required: true, minlength: 1},
+                'howLearn': {required: true, minlength:1}
             }
         });
     });
