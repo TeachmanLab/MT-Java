@@ -15,13 +15,11 @@ import org.mindtrails.MockClasses.TestUndeleteable;
 import org.mindtrails.MockClasses.TestUndeleteableRepository;
 import org.mindtrails.controller.ExportController;
 import org.mindtrails.controller.QuestionController;
+import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.data.DoNotDelete;
 import org.mindtrails.domain.RestExceptions.NotDeleteableException;
-import org.mindtrails.domain.data.Exportable;
 import org.mindtrails.domain.questionnaire.ExportableInfo;
 import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
-import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
-import org.mindtrails.domain.questionnaire.QuestionnaireData;
 import org.mindtrails.service.ImportService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,9 +31,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.thymeleaf.spring4.expression.Mvc;
 
 import java.util.*;
 
@@ -277,7 +272,24 @@ public class ExportControllerTest extends BaseControllerTest {
     }
 
     @Test
-    public void testFetchParticipantSinceLastExport() {
+    public void testConditionAssignment() throws Exception {
+        s.setConditioning("testing");
+        studyRepository.saveAndFlush(s);
+        participantRepository.saveAndFlush(participant);
+
+        String json = "{\"participantId\": " + participant.getId() + "," +
+                "\"condition\": \"newCondition\"}";
+
+        MvcResult result = mockMvc.perform(post("/api/export/condition")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json)
+                .with(SecurityMockMvcRequestPostProcessors.user(admin)))
+                .andExpect((status().is2xxSuccessful()))
+                .andReturn();
+
+        Participant pUpdated = participantRepository.findOne(participant.getId());
+
+        assertEquals("newCondition", pUpdated.getStudy().getConditioning());
 
     }
 

@@ -24,7 +24,7 @@ public class R01Study extends BaseStudy {
     // Computer - CBM-I training delivered by computer
     // Mobile - CBM-I training delivered by mobile phone
     // Neutral - Control Condition with alternate content
-    public enum CONDITION {COMPUTER, MOBILE, NEUTRAL}
+    public enum CONDITION {TRAINING, NEUTRAL}
 
     public enum SESSION {preTest, firstSession, secondSession, thirdSession, fourthSession, fifthSession, PostFollowUp };
 
@@ -142,7 +142,7 @@ public class R01Study extends BaseStudy {
         session1.addTask(new Task("ReturnIntention","Intention to Return", Task.TYPE.questions, 0));
         sessions.add(session1);
 
-        session2 = new Session(SECOND_SESSION, "Level 2: Intermediate", 500, 5);
+        session2 = new Session(SECOND_SESSION, "Level 2: Intermediate", 0, 5);
         session2.setIndex(2);
         session2.addTask(new Task("2", "Training Stories", Task.TYPE.angular, 20));
         session2.addTask(new Task("OA","Anxiety review", Task.TYPE.questions, 1 ));

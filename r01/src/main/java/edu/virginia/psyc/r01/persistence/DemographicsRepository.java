@@ -16,4 +16,6 @@ import org.mindtrails.persistence.QuestionnaireRepository;
  * Additional methods will be provided automatically by following a standard
  * naming convention, as is the case with findByParticipantDAO
  */
-public interface DemographicsRepository extends QuestionnaireRepository<Demographics> {}
+public interface DemographicsRepository extends QuestionnaireRepository<Demographics> {
+    Demographics findByParticipantId(long participantId);
+}

@@ -1,6 +1,8 @@
 package org.mindtrails.service;
 
+import org.mindtrails.domain.Conditions.NoNewConditionException;
 import org.mindtrails.domain.Participant;
+import org.mindtrails.domain.Conditions.RandomCondition;
 import org.mindtrails.domain.Study;
 
 import javax.servlet.http.HttpSession;
@@ -11,6 +13,9 @@ import java.util.List;
  * Provides a means to create and save participants in custom ways.
  */
 public interface ParticipantService {
+
+    String UNASSIGNED_CONDITION = "none";
+    String UNASSIGNED_SEGMENT = "unassigned";
 
     /**
      * Creates a new object that is an instance of, or extension of
@@ -57,4 +62,15 @@ public interface ParticipantService {
     /** Returns the total number of participants **/
     long count();
 
+    /**
+     * Determines the condition to assign a participant.
+     * @return
+     */
+    RandomCondition getCondition(Participant p) throws NoNewConditionException;
+
+    /**
+     * Marks a condition as used, potentially removing it from a
+     * random block of assignable conditions.
+     */
+    void markConditionAsUsed(RandomCondition rc);
 }

@@ -1,5 +1,7 @@
 package org.mindtrails.MockClasses;
 
+import org.mindtrails.domain.Conditions.NoNewConditionException;
+import org.mindtrails.domain.Conditions.RandomCondition;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.Study;
 import org.mindtrails.persistence.ParticipantRepository;
@@ -71,5 +73,15 @@ public class TestParticipantService extends ParticipantServiceImpl {
     @Override
     public long count() {
         return repository.count();
+    }
+
+    @Override
+    public RandomCondition getCondition(Participant p) throws NoNewConditionException {
+        return null;
+    }
+
+    @Override
+    public void markConditionAsUsed(RandomCondition rc) {
+
     }
 }

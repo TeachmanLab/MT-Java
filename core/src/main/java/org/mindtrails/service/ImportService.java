@@ -7,13 +7,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.mindtrails.domain.*;
+import org.mindtrails.domain.Conditions.ConditionAssignment;
+import org.mindtrails.domain.Conditions.NoNewConditionException;
+import org.mindtrails.domain.Conditions.RandomCondition;
 import org.mindtrails.domain.data.DoNotDelete;
 import org.mindtrails.domain.importData.ImportError;
 import org.mindtrails.domain.importData.Scale;
-import org.mindtrails.domain.tracking.MissingDataLog;
 import org.mindtrails.persistence.MissingDataLogRepository;
 import org.mindtrails.persistence.ParticipantRepository;
-import org.mindtrails.persistence.StudyExportRepository;
 import org.mindtrails.persistence.StudyRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -75,6 +76,9 @@ public class ImportService {
 
     @Autowired
     ParticipantRepository participantRepository;
+
+    @Autowired
+    ParticipantService participantService;
 
     @Autowired
     MissingDataLogRepository missingDataLogRepository;
@@ -263,7 +267,51 @@ public class ImportService {
         for (Scale scale : list) {
             importScale(scale.getName(), fetchScale(scale.getName()));
         }
+        // after importing data, update condition assignments for any participants that have updates.
+        updateConditionAssignements();
     }
+
+
+    /**
+     * Using select information only available on the import/secure side,
+     * determine the condition to assign a participant, and post this
+     * information back to the export server.
+     */
+    public void updateConditionAssignements() {
+
+        // find all participants without an assigned condition.
+        List<Participant> participants = participantRepository.findAllByCondition(ParticipantService.UNASSIGNED_CONDITION);
+        RandomCondition assignment;
+
+        // loop through the participants to see if they should be assigned a condition.
+        for (Participant p : participants) {
+            try {
+                assignment = participantService.getCondition(p);
+                updateConditionOnMainServer(p.getId(), assignment.getValue());
+                // if successful, remove the assignment.
+                participantService.markConditionAsUsed(assignment);
+            } catch (NoNewConditionException e1) {
+                // No reason to continue, no new condition is assignable to the participant at this time,
+                // this should happen relatively rarely, but may occur repeatedly for participants that
+                // signup and never complete their first session.
+                LOGGER.info("Participant #" + p.getId() + " does not have enough information to assign a condition.");
+            } catch (IOException e) {
+                e.printStackTrace();
+                // We'll have to try again later, failed to communicate this update to front end server.
+            }
+        }
+    }
+
+    private void updateConditionOnMainServer(Long id, String condition) throws IOException {
+        URI uri = URI.create(this.url + "/api/export/condition");
+        ConditionAssignment ca = new ConditionAssignment(id, condition);
+        HttpEntity<ConditionAssignment> entity = new HttpEntity<>(ca, headers());
+        ResponseEntity<ConditionAssignment> response = restTemplate.postForEntity(uri, entity, ConditionAssignment.class);
+        if(!response.getStatusCode().is2xxSuccessful()) {
+            throw new IOException("failed to update the main server.");
+        }
+    }
+
 
     /**
      * File System Import

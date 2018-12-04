@@ -2,7 +2,6 @@ package edu.virginia.psyc.r01.persistence;
 
 
 
-import edu.virginia.psyc.r01.persistence.DASS21_AS;
 import org.mindtrails.persistence.QuestionnaireRepository;
 
 import org.mindtrails.domain.Participant;
@@ -27,5 +26,6 @@ public interface DASS21_ASRepository extends QuestionnaireRepository<DASS21_AS> 
 
     List<DASS21_AS> findByParticipant(Participant p);
     List<DASS21_AS> findBySessionId(String sessionId);
+    DASS21_AS findFirstByParticipantAndSession(Participant p, String Session);
 }
 

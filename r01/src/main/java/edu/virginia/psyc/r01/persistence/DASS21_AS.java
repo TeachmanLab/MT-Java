@@ -126,5 +126,10 @@ public class DASS21_AS extends LinkedQuestionnaireData {
         return(this.over18.equals("true") && this.score() > 10 );
     }
 
+
+    public String calculateSegmentation() {
+        if (score() < 26) return "med";
+        else return "high";
+    }
 }
 

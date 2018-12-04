@@ -79,7 +79,6 @@ public class SessionController extends BaseController {
 
         model.addAttribute("lastSession", study.getLastSession());
         model.addAttribute("currentSession", session);
-        model.addAttribute("nextGiftSession", study.nextGiftSession());
         model.addAttribute("currentTask", session.getCurrentTask());
         model.addAttribute("sessionState", study.getState().toString());
         model.addAttribute("dateRange", startFormat.print(startDate) + endFormat.print(endDate));
@@ -98,10 +97,13 @@ public class SessionController extends BaseController {
 
         // Determine if a gift should be awarded, and if so, create a record so we know to award it
         // in the admin after review.
-        if (last.getGiftAmount() > 0) {
-            tangoService.prepareGift(p, session, last.getGiftAmount());
-            model.addAttribute("giftAwarded", true);
-            model.addAttribute("giftAmount", last.getGiftAmount()/100);
+        if(p.isReceiveGiftCards() && p.isVerified()) {
+            model.addAttribute("nextGiftSession", study.nextGiftSession());
+            if (last.getGiftAmount() > 0) {
+                tangoService.prepareGift(p, session, last.getGiftAmount());
+                model.addAttribute("giftAwarded", true);
+                model.addAttribute("giftAmount", last.getGiftAmount() / 100);
+            }
         }
 
         switch (study.getState()) {

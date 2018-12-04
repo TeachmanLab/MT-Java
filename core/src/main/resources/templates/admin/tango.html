@@ -86,6 +86,7 @@
                         <th>Participant</th>
                         <th>Session</th>
                         <th>Date Completed</th>
+                        <th>Phone Verified</th>
                     </tr>
                     </thead>
 
@@ -98,6 +99,9 @@
                             <td th:text="${giftLog.sessionName}"></td>
                             <td>
                                 <span th:if="${giftLog.dateCreated}" th:text="${#dates.format(giftLog.dateCreated, 'EEE, dd MMM yyyy h:mm a')}"></span>
+                            </td>
+                            <td>
+                                <span th:if="${giftLog.participant.verified}">true</span>
                             </td>
                         </tr>
                     </tbody>

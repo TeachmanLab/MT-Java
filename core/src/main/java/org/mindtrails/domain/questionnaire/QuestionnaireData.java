@@ -2,7 +2,6 @@ package org.mindtrails.domain.questionnaire;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sun.xml.internal.bind.v2.runtime.reflect.Lister;
 import org.hibernate.annotations.GenericGenerator;
 import org.mindtrails.domain.data.Exportable;
 import org.mindtrails.domain.Participant;

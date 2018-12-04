@@ -174,12 +174,12 @@ public class AccountController extends BaseController {
     @RequestMapping(value="updateChangePhone",method=RequestMethod.POST)
     public String updatePhone( ModelMap model, Principal principal, String phone) {
         Participant p=participantService.get(principal);
-            if(participantService.findByPhone(formatPhone(phone)).isEmpty()){
+            if(p.getPhone().equals(phone) || participantService.findByPhone(formatPhone(phone)).isEmpty()){
                 p.updatePhone(formatPhone(phone));
                 p.setVerificationCode(new VerificationCode(p));
                 participantService.save(p);
                 String code=p.getVerificationCode().getCode();
-                twilioService.sendMessage(code,p);
+                twilioService.sendMessage("MindTrails Verification Code: " + code,p);
 
                 return "redirect:/account/verification";
 

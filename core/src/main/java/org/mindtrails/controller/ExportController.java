@@ -3,8 +3,10 @@ package org.mindtrails.controller;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
+import org.mindtrails.domain.Conditions.ConditionAssignment;
 import org.mindtrails.domain.ExportMode;
 import org.mindtrails.domain.ImportMode;
+import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.data.DoNotDelete;
 import org.mindtrails.domain.RestExceptions.NoSuchIdException;
 import org.mindtrails.domain.RestExceptions.NoSuchQuestionnaireException;
@@ -161,6 +163,25 @@ public class ExportController  {
             reports.add(data.toTrialJson().toInterpretationReport());
         }
         return reports;
+    }
+
+
+    /** Update the control condition to which a participant is assigned.
+     *  useful if the information needed to assign a participant to a
+     *  control condition only resides on the backend/private/import side.
+     */
+    @ExportMode
+    @RequestMapping(value = "condition", method= RequestMethod.POST)
+    public @ResponseBody ConditionAssignment assignCondition(@RequestBody ConditionAssignment assignment) {
+        Participant participant = participantRepository.findOne(assignment.getParticipantId());
+        if(participant != null) {
+            participant.getStudy().setConditioning(assignment.getCondition());
+            participantRepository.save(participant);
+            participantRepository.flush();
+            return assignment;
+        } else {
+            throw new NoSuchIdException();
+        }
     }
 
 
