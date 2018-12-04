@@ -268,7 +268,7 @@ public class ImportService {
             importScale(scale.getName(), fetchScale(scale.getName()));
         }
         // after importing data, update condition assignments for any participants that have updates.
-        updateConditionAssignements();
+        updateConditionAssignments();
     }
 
 
@@ -277,10 +277,9 @@ public class ImportService {
      * determine the condition to assign a participant, and post this
      * information back to the export server.
      */
-    public void updateConditionAssignements() {
+    public void updateConditionAssignments() {
 
-        // find all participants without an assigned condition.
-        List<Participant> participants = participantRepository.findAllByCondition(ParticipantService.UNASSIGNED_CONDITION);
+        List<Participant> participants = participantRepository.findByActive(true);
         RandomCondition assignment;
 
         // loop through the participants to see if they should be assigned a condition.

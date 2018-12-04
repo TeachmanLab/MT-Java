@@ -1,5 +1,6 @@
 package edu.virginia.psyc.r01.service;
 
+import edu.virginia.psyc.r01.persistence.AttritionPrediction;
 import edu.virginia.psyc.r01.persistence.DASS21_AS;
 import edu.virginia.psyc.r01.persistence.Demographics;
 import org.apache.commons.collections.CollectionUtils;
@@ -7,6 +8,7 @@ import org.junit.Test;
 import org.mindtrails.domain.Conditions.RandomCondition;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.supercsv.cellprocessor.ParseDouble;
 import org.supercsv.cellprocessor.ParseInt;
 import org.supercsv.cellprocessor.ParseLong;
 import org.supercsv.cellprocessor.constraint.NotNull;
@@ -28,6 +30,8 @@ public class SegmentationTest {
 
     Map<Long, DASS21_AS> dassMap = loadDassFromCSV();
     Map<Long, Demographics> demMap = loadDemographicsFromCSV();
+    Map<Long, AttritionPrediction> attritionMap = loadAttritionFromCSV();
+
     R01ParticipantService service = new R01ParticipantService();
     Collection mutualIds = CollectionUtils.intersection(dassMap.keySet(), demMap.keySet());
 
@@ -58,6 +62,18 @@ public class SegmentationTest {
                 Collections.frequency(demSegments, "female"),
                 100 * Collections.frequency(demSegments, "female")/demMap.size()));
     }
+
+    @Test
+    public void testAttrition() throws Exception {
+        List<Boolean> attrSegments = attritionMap.values().stream().map(ap -> ap.isAtRisk()).collect(Collectors.toList());
+        System.out.println(String.format("ATTRITION PREDICITON  - Total: %s,  At Risk: %s (%s%%), Not At Risk: %s (%s%%)",
+                attritionMap.size(),
+                Collections.frequency(attrSegments, true),
+                100 * Collections.frequency(attrSegments, true)/attritionMap.size(),
+                Collections.frequency(attrSegments, false),
+                100 * Collections.frequency(attrSegments, false)/attritionMap.size()));
+    }
+
 
     @Test
     public void testOverlapOfIdsBetweenDassAndDemographics() throws Exception {
@@ -107,6 +123,7 @@ public class SegmentationTest {
                 100 * Collections.frequency(conditions, "control")/conditions.size()));
 
     }
+
 
     public RandomCondition getCondition(DASS21_AS dass, Demographics dem) {
         // Generate Random Assingments for Each Segment
@@ -177,6 +194,7 @@ public class SegmentationTest {
                 dass.setScared((Integer)dassList.get(7));
                 dass.setTrembling((Integer)dassList.get(8));
                 dass.setWorry((Integer)dassList.get(9));
+                dass.setDate(new Date());
                 dass21Map.put((Long)dassList.get(1), dass);
             }
         } catch (IOException e) {
@@ -205,6 +223,17 @@ public class SegmentationTest {
                 final List<Object> list = listReader.executeProcessors(processors);
                 Demographics d = new Demographics();
                 d.setGender((String)list.get(1));
+                d.setBirthYear(1972);
+                d.setIncome("nothing");
+                d.setPtpReasonOther("nothing");
+                d.setEmploymentStat("nothing");
+                d.setEthnicity("nothing");
+                d.setRace(new ArrayList<>());
+                d.setDate(new Date());
+                d.setPtpReason("nothing");
+                d.setCountry("nothing");
+                d.setMaritalStat("nothing");
+                d.setEducation("nothing");
                 demographicsMap.put((Long)list.get(0), d);
             }
         } catch (IOException e) {
@@ -213,4 +242,33 @@ public class SegmentationTest {
         return demographicsMap;
     }
 
+    private Map<Long, AttritionPrediction> loadAttritionFromCSV() {
+        ICsvListReader listReader = null;
+        Map<Long, AttritionPrediction> attritionMap = new HashMap<>();
+        try {
+            Resource resource = new ClassPathResource("attrition.csv");
+            InputStream resourceInputStream = resource.getInputStream();
+            listReader = new CsvListReader(new InputStreamReader(resourceInputStream), CsvPreference.STANDARD_PREFERENCE);
+            listReader.getHeader(true); // skip the header (can't be used with CsvListReader)
+
+            final CellProcessor[] processors = new CellProcessor[]{
+                    new ParseLong(), // id
+                    new ParseLong(), // participant id
+                    new ParseDouble() // likelyhood
+            };
+
+            while ((listReader.read()) != null) {
+                // use different processors depending on the number of columns
+                final List<Object> list = listReader.executeProcessors(processors);
+                AttritionPrediction ap = new AttritionPrediction();
+                ap.setId((Long) list.get(0));
+                ap.setLikelihood((Double) list.get(2));
+                attritionMap.put((Long)list.get(1), ap);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return attritionMap;
+    }
 }
+

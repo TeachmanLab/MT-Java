@@ -80,7 +80,7 @@ public class OAController extends QuestionController {
             Study study = participant.getStudy();
             if(oa.atRisk(firstEntry)) {
                 if (!(study.getIncreasePercent() > 50)) { // alert admin only the first time.
-                    emailService.sendAtRiskAdminEmail(participant, firstEntry, oa);                    study.setIncreasePercent(50);
+                    emailService.sendAtRiskAdminEmail(participant, firstEntry, oa);
                     study.setIncreasePercent(oa.getIncrease(firstEntry));
                     participantService.save(participant);
                 }
