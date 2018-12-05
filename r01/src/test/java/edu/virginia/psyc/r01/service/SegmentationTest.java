@@ -1,5 +1,6 @@
 package edu.virginia.psyc.r01.service;
 
+import edu.virginia.psyc.r01.domain.R01Study;
 import edu.virginia.psyc.r01.persistence.AttritionPrediction;
 import edu.virginia.psyc.r01.persistence.DASS21_AS;
 import edu.virginia.psyc.r01.persistence.Demographics;
@@ -22,6 +23,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static edu.virginia.psyc.r01.service.R01ParticipantService.ELIGIBLE_SESSION;
 
 /**
  * Not so much a test as a sanity check that we will correctly segment uesrs.
@@ -195,6 +198,7 @@ public class SegmentationTest {
                 dass.setTrembling((Integer)dassList.get(8));
                 dass.setWorry((Integer)dassList.get(9));
                 dass.setDate(new Date());
+                dass.setSession(ELIGIBLE_SESSION);
                 dass21Map.put((Long)dassList.get(1), dass);
             }
         } catch (IOException e) {

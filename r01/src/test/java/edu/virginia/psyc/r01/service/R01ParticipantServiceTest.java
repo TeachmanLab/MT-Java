@@ -4,6 +4,7 @@ import edu.virginia.psyc.r01.Application;
 import edu.virginia.psyc.r01.domain.R01Study;
 import edu.virginia.psyc.r01.persistence.*;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mindtrails.domain.Conditions.NoNewConditionException;
@@ -18,6 +19,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
@@ -36,7 +39,6 @@ public class R01ParticipantServiceTest {
 
     @Autowired
     AttritionPredictionRepository attritionPredictionRepository;
-
 
     @Autowired
     DASS21_ASRepository dassRepository;
@@ -148,6 +150,7 @@ public class R01ParticipantServiceTest {
      * @throws Exception
      */
     @Test
+    @Ignore("This takes a wicked long time to run, but produces a report on the distribution using historical data.")
     public void segmentationReport() throws Exception {
 
         // Pull in the data
@@ -170,11 +173,52 @@ public class R01ParticipantServiceTest {
             a.setParticipant(p);
             attritionPredictionRepository.save(a);
         }
+        participantRepository.flush();
+        dassRepository.flush();
+        demographicsRepository.flush();
+        attritionPredictionRepository.flush();
 
+        // Now assign everybody a condition.
+        RandomCondition rc;
+        for(int i = 0; i < 2; i++) { // do this twice, because we need re-assign for people at high risk.
+            for (Participant p : participantRepository.findAll()) {
+                try {
+                    rc = service.getCondition(p);
+                    p.getStudy().setConditioning(rc.getValue());
+                    service.markConditionAsUsed(rc);
+                    service.save(p);
+                } catch (NoNewConditionException nnce) {
+                }
+            }
+        }
+        // Now print off the condition counts
+        printConditionCounts();
 
 
 
     }
+
+
+    private void printConditionCounts() {
+        Map<String, Integer> counts = new HashMap<>();
+
+
+        for(Participant p : participantRepository.findAll()) {
+            String c = p.getStudy().getConditioning();
+            String s = service.getSegmentation(p);
+            String key = c + "," + s;
+            if(!counts.containsKey(key)) {
+                counts.put(key, 1);
+            } else {
+                counts.put(key, counts.get(key) + 1);
+            }
+        }
+
+        for (String key : counts.keySet()) {
+            System.out.println(key + "," + counts.get(key));
+        }
+    }
+
 
 
 }

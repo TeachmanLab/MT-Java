@@ -34,7 +34,7 @@ public class AttritionPrediction {
     }
 
     public boolean isAtRisk() {
-        if(likelihood > 50) {
+        if(likelihood > 33) {
             return true;
         } else {
             return false;
