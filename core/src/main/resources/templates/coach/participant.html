@@ -86,6 +86,31 @@
                                     10-05-1972 11:55</span></td>
                     </tr>
                 </table>
+
+                <h2>Feedback during study</h2>
+                <p>The first value in the table below is score from from 1 (not at all) to 5 (extremely)
+                of how helpful the participant found the training.</p>
+                <table class="table table-striped table-bordered participantList">
+                    <thead>
+                        <tr>
+                            <th>Score</th>
+                            <th>Responses</th>
+                        </tr>
+                    </thead>
+
+                    <tr th:each="f : ${feedback}">
+                         <td th:text="${f.helped}"></td>
+                         <td>
+                             <B>Technical Difficulties:</B>
+                             <p th:text="${f.technicalDifficulties}"></p>
+                             <B>Understanding Difficulties:</B>
+                            <p th:text="${f.difficultToUnderstand}"></p>
+                             <B>Other Comments:</B>
+                            <p th:text="${f.otherFeedback}"></p>
+                         </td>
+                    </tr>
+                </table>
+
             </div>
              <section th:replace="/admin/adminCommon :: participantDetails(${participant})"/>
         </div>
