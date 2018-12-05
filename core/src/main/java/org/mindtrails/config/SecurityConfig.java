@@ -65,6 +65,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Configuration
     @Order(2)
+    public static class AngularApiWebSecurityConfig extends WebSecurityConfigurerAdapter{
+        @Autowired
+        RestAuthenticationEntryPoint restAuthenticationEntryPoint;
+
+        @Override
+        protected void configure(HttpSecurity http) throws Exception {
+            http
+                    .csrf().disable()
+                    .antMatcher("/angular/api/**")
+                    .exceptionHandling()
+                    .authenticationEntryPoint(restAuthenticationEntryPoint)
+                    .and()
+                    .authorizeRequests()
+                    .anyRequest().hasRole("USER")
+//                    .anyRequest().permitAll()  // disables API Security if swtiched with line above
+                    .and()
+                    .httpBasic();
+        }
+    }
+
+    @Configuration
+    @Order(3)
     public static class FormWebSecurityConfig extends WebSecurityConfigurerAdapter{
 
         /**
