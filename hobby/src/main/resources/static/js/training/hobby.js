@@ -192,7 +192,7 @@ var HOBBY_STUDY = (function () {
                         var pct_ct_s = Math.round((score_letters / my.total_scenarios) * 100);
                         var pct_ct_c = Math.round((score_questions / followup_count) * 100);
                         var score = score_letters + score_questions;
-                        var feed_back_score = "You scored " + score + " out of a maximum possible score of " + max_score;
+                        ar feed_back_score = "You scored " + score + " out of a maximum possible score of " + max_score;
                         var feed_back_s = 'You filled in the missing letters correctly on the first try ' + pct_ct_s + '% of the time this round. ';
                         var feed_back_c = 'You answered the yes/no question following each story correctly on the first try ' + pct_ct_c + '% of the time this round. ';
 
@@ -217,7 +217,7 @@ var HOBBY_STUDY = (function () {
                                 'each time, including how it ends, and just use the information in the story to ' +
                                 'answer the question. This will allow you to get the most out of the training. If' +
                                 'any aspect of the task is unclear, please email us with any questions at ' +
-                                'studyteam@mindtrails.org.';
+                                'studyteam@mindtrails.org.'; v
 
                         return (
                         '<div class="vividness_followup">' +

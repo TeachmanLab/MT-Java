@@ -44,7 +44,7 @@ public class BBSIQ extends LinkedQuestionnaireData {
         desc.put("friend", "A friend suggests that you change the way that you’re doing a job in your own house. Why? ");
         desc.put("chest", "Your chest feels uncomfortable and tight. Why?");
         desc.put("jolt", "You wake with a jolt in the middle of the night, thinking you heard a noise, but all is quiet. What woke you up?");
-        desc.put("party", "You are introduced to someone at a party. The person fails to reply to a question you ask. Why");
+        desc.put("party", "You are introduced to someone at a party. The person fails to reply to a question you ask. Why?");
         desc.put("heart", "You notice that your heart is beating quickly and pounding. Why?");
         desc.put("confused", "Suddenly, you feel confused and find it hard to think straight. Why?");
         desc.put("urgent", "A letter marked \"URGENT\" arrives. What is in the letter?");
