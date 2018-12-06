@@ -25,12 +25,16 @@
                     original story, whether or not that matches what you would personally think or do in that
                     situation.</p>
             </div>
+
+
         </div>
     </div>
+
 
     <form th:action="@{/questions/RR}" method="POST" th:object="${model}">
         <!-- Add timer -->
         <section th:replace="fragment/forms :: radioOptions(${model})" />
+
         <div class="col-md-12" style="text-align:center">
             <button type="submit">Next</button>
         </div>

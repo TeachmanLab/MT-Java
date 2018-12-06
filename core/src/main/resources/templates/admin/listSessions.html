@@ -18,13 +18,15 @@
 <section id="content" class="clearfix">
     <div class="container">
         <div class="row">
-            <div class="span12">
+            <div class="col-md-8">
 
-                <h1>Sessions</h1>
+                <h1><b>Sessions</b></h1>
                 <p>Here are all the sessions recorded in the system, with links into all the content within each
                     session.</p>
-                <p><i>NOTE:</i>Please be aware that the training sessions are based on your current active session
+                <p>Note: Please be aware that the training sessions are based on your current active session
                 and conditioning.  You will need to <a target="studyEdit" th:href="@{'/admin/study/'+${participant.id}}">change your study settings</a> to get a different experience.</p>
+
+
                 <ul class="list-4col team">
                     <li th:each="session : ${sessions}">
                         <h5 th:text="${session.name}"></h5>

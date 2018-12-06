@@ -49,14 +49,21 @@
                         </div>
                         <br/>
 
-                        <div><label class="question"> Birth year <input id="age_input" type="number" min="1900" th:field="*{BirthYear}"
-                                                                        required="true"/> </label>
-                        <script>
-                            // This will correctly set the date to be 18 years ago, even when we are no longer in 2018.
-                            $(function() {
-                                $('#age_input').attr("max", new Date().getFullYear() - 18);
+                        <div><label class="question">What is your birth year?
+                            <select id="birthYear" required="true" th:field="*{BirthYear}">
+                                <option value="">Please select one</option>
+                            </select></label>
+                            <script th:inline="javascript">
+                                /*<![CDATA[*/
+                                $( document ).ready(function() {
+                                var maxYear = new Date().getFullYear() - 18;
+                                for ( i = 0; i < 100; i++) {
+                                    $('#birthYear').append('<option>' + (maxYear - i) + '</option>');
+                                }
+                                $('#birthYear').append('<option value="555">Prefer Not to Answer</option>');
                             });
-                        </script>
+                            /*]]>*/
+                            </script>
                         </div>
                         <br/>
 

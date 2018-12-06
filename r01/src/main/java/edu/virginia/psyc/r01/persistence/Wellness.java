@@ -8,6 +8,7 @@ import org.mindtrails.domain.questionnaire.MeasureField;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
 import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
@@ -19,9 +20,15 @@ import java.util.TreeMap;
 @Data
 public class Wellness extends LinkedQuestionnaireData {
 
+
+
+
+
+
     // Life Satisfaction
     @NotNull
     Integer satisfaction;
+
 
     // NGSES
     @NotNull
