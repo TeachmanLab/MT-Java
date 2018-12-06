@@ -1,7 +1,9 @@
 package org.mindtrails.controller;
 
+import org.mindtrails.domain.CoachPrompt;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.forms.ParticipantUpdateAdmin;
+import org.mindtrails.persistence.CoachPromptRepository;
 import org.mindtrails.persistence.ParticipantRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +28,10 @@ public class CoachController extends BaseController {
 
     @Autowired
     private ParticipantRepository participantRepository;
+
+    @Autowired
+    private CoachPromptRepository coachPromptRepository;
+
 
     private static final int PER_PAGE=20; // Number of users to display per page.
 
@@ -74,8 +80,10 @@ public class CoachController extends BaseController {
         Participant p;
         ParticipantUpdateAdmin form;
         p    = participantRepository.findOne(id);
+        List<CoachPrompt> cp = coachPromptRepository.findAllByParticipant(p);
         model.addAttribute("participant", p);
         model.addAttribute("coaches", participantRepository.findCoaches());
+        model.addAttribute("feedback", cp);
         return "coach/participant";
     }
 
