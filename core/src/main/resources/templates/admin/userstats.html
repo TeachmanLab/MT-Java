@@ -535,7 +535,18 @@
 
         //console.log(conditionList);
 
-        function segColor(c){ return {POSITIVE:"#807dba", FIFTY_FIFTY_RANDOM:"#B8860B",POSITIVE_NEGATION:"#41ab5d",FIFTY_FIFTY_BLOCKED:"#BA55D3",NEUTRAL:"#CD5C5C"}[c]; }
+        function segColor(c){
+            return {POSITIVE:"#807dba",
+                FIFTY_FIFTY_RANDOM:"#B8860B",
+                POSITIVE_NEGATION:"#41ab5d",
+                FIFTY_FIFTY_BLOCKED:"#BA55D3",
+                NEUTRAL:"#CD5C5C",
+                TRAINING:"#807dba",
+                HR_COACH:"#B8860B",
+                HR_NOCOACH:"#41ab5d",
+                CONTROL:"#BA55D3"
+            }[c];
+        }
 
         // compute total for each state.
         //fData.forEach(function(d){d.total=d.csMap.POSITIVE+d.csMap.FIFTY_FIFTY_RANDOM+d.csMap.POSITIVE_NEGATION+d.csMap.FIFTY_FIFTY_BLOCKED+d.csMap.NEUTRAL;});

@@ -14,8 +14,7 @@ import java.util.List;
  */
 public interface ParticipantService {
 
-    String UNASSIGNED_CONDITION = "none";
-    String UNASSIGNED_SEGMENT = "unassigned";
+
 
     /**
      * Creates a new object that is an instance of, or extension of
