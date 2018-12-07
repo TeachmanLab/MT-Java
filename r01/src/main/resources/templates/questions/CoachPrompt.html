@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
+
+<head th:replace="fragment/common :: headerFragment"/>
+<body>
+<section th:replace="fragment/common :: topFragment"/>
+<section th:replace="fragment/common :: titleBar (title='Feedback')"/>
+<textArea th:replace="fragment/common :: questionTemplate"/>
+
+<style>
+    h4 {
+        margin-left: 20px;
+    }
+    textarea.coach {
+        margin: 0 20px 0 20px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        width: 80%;
+    }
+</style>
+
+<section id="content1" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <p>
+                    Please let us know if you have encountered any issues as you have progressed through the
+                    assessment and exercises.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section id="content2" class="clearfix">
+    <form th:action="@{/questions/CoachPrompt}" method="POST" th:object="${model}">
+        <div class="container section compactQuestion">
+            <div class="row">
+                <div class="row title">
+                    <div class="col-md-12">
+                        <h4>Did you encounter any technical difficulties on this website?</h4>
+                        <textarea class="coach" name="technicalDifficulties"></textarea>
+                    </div>
+                </div>
+                <div class="row title">
+                    <div class="col-md-12">
+                        <h4>Was anything hard to understand or unclear?</h4>
+                        <textarea class="coach" name="difficultToUnderstand"></textarea>
+                    </div>
+                </div>
+                <div class="row title">
+                    <div class="col-md-12">
+                        <h4>Is there anything else you’d like us to know?</h4>
+                        <textarea class="coach" name="otherFeedback"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section th:replace="fragment/forms :: radioOptions(${model})"/>
+        <div class="col-md-12" style="text-align:center">
+            <button type="submit">Next</button>
+        </div>
+
+    </form>
+</section>
+
+<footer th:replace="fragment/common :: footer"/>
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>
+
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts"/>
