@@ -27,13 +27,23 @@ public class TestStudy extends BaseStudy implements Study {
     public TestStudy() {
         super();
         this.setCurrentSession("SessionOne");
+        this.setConditioning("TEST");
     }
 
     public TestStudy(String sessionName, int index) {
         super();
         this.setCurrentSession(sessionName);
         this.setCurrentTaskIndex(index);
+        this.setConditioning("TEST");
     }
+
+    public TestStudy(String sessionName, int index, String condition) {
+        super();
+        this.setCurrentSession(sessionName);
+        this.setCurrentTaskIndex(index);
+        this.setConditioning(condition);
+    }
+
 
     @Override
     public List<Session> getStatelessSessions() {

@@ -4,6 +4,9 @@ import org.mindtrails.domain.Conditions.NoNewConditionException;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.Conditions.RandomCondition;
 import org.mindtrails.domain.Study;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
@@ -72,4 +75,16 @@ public interface ParticipantService {
      * random block of assignable conditions.
      */
     void markConditionAsUsed(RandomCondition rc);
+
+    /**
+     * Finds all paticipants elegible for coaching
+     */
+    Page<Participant> findEligibleForCoaching(Pageable pageable);
+
+    /**
+     * Searches all paticipants elegible for coaching
+     */
+    Page<Participant> searchEligibleForCoaching(Pageable pageable, String searchTerm);
+
+
 }

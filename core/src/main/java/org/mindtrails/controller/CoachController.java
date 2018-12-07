@@ -5,6 +5,7 @@ import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.forms.ParticipantUpdateAdmin;
 import org.mindtrails.persistence.CoachPromptRepository;
 import org.mindtrails.persistence.ParticipantRepository;
+import org.mindtrails.service.ParticipantService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class CoachController extends BaseController {
     private ParticipantRepository participantRepository;
 
     @Autowired
+    private ParticipantService participantService;
+
+    @Autowired
     private CoachPromptRepository coachPromptRepository;
 
 
@@ -47,9 +51,9 @@ public class CoachController extends BaseController {
         int page = Integer.parseInt(pageParam);
         pageRequest = new PageRequest(page, PER_PAGE);
         if(search.isEmpty()) {
-            daoList = participantRepository.findEligibleForCoaching(pageRequest);
+            daoList = participantService.findEligibleForCoaching(pageRequest);
         } else {
-            daoList = participantRepository.searchEligibleForCoaching(search, pageRequest);
+            daoList = participantService.searchEligibleForCoaching(pageRequest, search);
         }
 
         model.addAttribute("coaches", coaches);
