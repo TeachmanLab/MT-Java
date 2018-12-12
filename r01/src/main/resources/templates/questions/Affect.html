@@ -26,6 +26,11 @@
                     <div class="section">
                         <br></br>
                         <div class="question"> How anxious do you feel right now, that is, at the present moment? </div>
+                        <ul>
+                            <li>0 = Absolutely No Anxiety</li>
+                            <li>10 = Moderate Anxiety</li>
+                            <li>20 = Total Anxiety</li>
+                        </ul>
                         <br></br>
                         <input id="posSlider"  type="text" name="PosFeelings" required ="true"/>
                         <br></br>
@@ -37,7 +42,7 @@
                         <script>
                             $("#posSlider").slider({
                                 ticks: [0, 10, 20],
-                                ticks_labels: ['Absolutely no anxiety', 'Moderately anxious', 'Totally anxious'],
+                                ticks_labels: ['0', '10', '20'],
                                 ticks_snap_bounds: 1,
                                 tooltip: "hide",
                                 value: 10,
