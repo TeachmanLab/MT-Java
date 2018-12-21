@@ -124,7 +124,9 @@ public class R01ParticipantServiceTest {
         dassRepository.saveAndFlush(dass);
 
 
-        AttritionPrediction pred = new AttritionPrediction(participant, 88d, 90d);
+        AttritionPrediction pred = new AttritionPrediction();
+        pred.setParticipant(participant);
+        pred.setConfidence(88d);
         attritionPredictionRepository.save(pred);
 
         // Assure that over the a set of 10 assignments, we get at least one person assigned to the

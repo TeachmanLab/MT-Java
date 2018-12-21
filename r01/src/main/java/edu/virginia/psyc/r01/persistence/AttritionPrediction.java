@@ -4,6 +4,7 @@ import lombok.Data;
 import org.mindtrails.domain.Participant;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
@@ -16,25 +17,26 @@ import java.util.Date;
 @Table(name="AttritionPrediction")
 @Data
 public class AttritionPrediction {
+
+    // Note that id and particpant id are the same.
     @Id
     protected Long id;
+    @MapsId
     @OneToOne
+    @JoinColumn(name = "participant_id")   //same name as id @Column
     protected Participant participant;
+    @NotNull
     protected Date date_created;
-    protected Double likelihood;
+    @NotNull
     protected Double confidence;
+    @NotNull
+    protected String version;
+
 
     public AttritionPrediction() {}
 
-    public AttritionPrediction(Participant p, Double likelihood, Double confidence) {
-        this.id = p.getId();
-        this.participant = p;
-        this.likelihood = likelihood;
-        this.confidence = confidence;
-    }
-
     public boolean isAtRisk() {
-        if(likelihood > 33) {
+        if(confidence > 33) {
             return true;
         } else {
             return false;

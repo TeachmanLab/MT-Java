@@ -266,7 +266,7 @@ public class SegmentationTest {
                 final List<Object> list = listReader.executeProcessors(processors);
                 AttritionPrediction ap = new AttritionPrediction();
                 ap.setId((Long) list.get(0));
-                ap.setLikelihood((Double) list.get(2));
+                ap.setConfidence((Double) list.get(2));
                 attritionMap.put((Long)list.get(1), ap);
             }
         } catch (IOException e) {

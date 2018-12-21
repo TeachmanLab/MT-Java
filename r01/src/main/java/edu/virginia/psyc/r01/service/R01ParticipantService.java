@@ -68,7 +68,7 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
                 assignment = nextAssignmentForSegment(segmentation);
                 break;
             case TRAINING:
-                AttritionPrediction pred = attritionPredictionRepository.findFirstByParticipant(p);
+                AttritionPrediction pred = attritionPredictionRepository.findOne(p.getId());
                 if (pred != null && pred.isAtRisk()) {
                     assignment = nextAssignmentForCoaching(segmentation);
                 } else {
