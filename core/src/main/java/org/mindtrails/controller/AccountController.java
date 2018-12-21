@@ -144,8 +144,6 @@ public class AccountController extends BaseController {
             twilioService.sendMessage(code,participant);
             return "redirect:/account/verification";
         }
-
-        LOG.info("Participant authenticated.");
         return "redirect:/account/theme";
     }
 
