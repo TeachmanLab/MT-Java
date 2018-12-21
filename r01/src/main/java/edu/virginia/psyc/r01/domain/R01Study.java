@@ -26,7 +26,7 @@ public class R01Study extends BaseStudy {
     // Neutral - Control Condition with alternate content
     public enum CONDITION {NONE, TRAINING, CONTROL, HR_COACH, HR_NOCOACH}
 
-    public enum SESSION {preTest, firstSession, secondSession, thirdSession, fourthSession, fifthSession, PostFollowUp };
+    public enum SESSION {preTest, firstSession, secondSession, thirdSession, fourthSession, fifthSession, PostFollowUp}
 
     public static final String PRE_TEST = "preTest";
     public static final String FIRST_SESSION = "firstSession";
