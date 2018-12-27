@@ -20,13 +20,9 @@ public class AttritionPrediction {
 
     // Note that id and particpant id are the same.
     @Id
-    protected Long id;
-    @MapsId
-    @OneToOne
-    @JoinColumn(name = "participant_id")   //same name as id @Column
-    protected Participant participant;
+    protected Long participantId;
     @NotNull
-    protected Date date_created;
+    protected Date dateCreated;
     @NotNull
     protected Double confidence;
     @NotNull
@@ -34,14 +30,6 @@ public class AttritionPrediction {
 
 
     public AttritionPrediction() {}
-
-    public boolean isAtRisk() {
-        if(confidence > 33) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 
 
 }

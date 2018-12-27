@@ -2,6 +2,7 @@ package edu.virginia.psyc.r01.service;
 
 import edu.virginia.psyc.r01.domain.R01Study;
 import edu.virginia.psyc.r01.persistence.*;
+import org.mindtrails.domain.Conditions.ConditionAssignment;
 import org.mindtrails.domain.Conditions.NoNewConditionException;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.Conditions.RandomCondition;
@@ -43,6 +44,22 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
     @Autowired
     AttritionPredictionRepository attritionPredictionRepository;
 
+    @Autowired
+    ConditionAssignmentSettingsRepository settingsRepository;
+
+    private ConditionAssignmentSettings settings;
+    public final Double defaultThreshold = 0.33d;
+
+
+    private ConditionAssignmentSettings getSettings() {
+        this.settings = this.settingsRepository.findFirstByOrderByLastModifiedDesc();
+        if(this.settings == null) {
+            this.settings = new ConditionAssignmentSettings();
+            this.settings.setAttritionThreshold(this.defaultThreshold);
+        }
+        return this.settings;
+    }
+
     @Override
     public Participant create() {
         Participant p = new Participant();
@@ -69,8 +86,12 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
                 break;
             case TRAINING:
                 AttritionPrediction pred = attritionPredictionRepository.findOne(p.getId());
-                if (pred != null && pred.isAtRisk()) {
-                    assignment = nextAssignmentForCoaching(segmentation);
+                if (pred != null) {
+                    if(pred.getConfidence() > this.getSettings().getAttritionThreshold()) {
+                        assignment = nextAssignmentForCoaching(segmentation);
+                    } else {
+                        assignment = new RandomCondition(R01Study.CONDITION.LR_TRAINING.toString(), "na");
+                    }
                 } else {
                     // We don't have a prediction for this participant yet.
                     throw new NoNewConditionException();
@@ -84,7 +105,9 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
 
     @Override
     public void markConditionAsUsed(RandomCondition rc) {
-        this.randomBlockRepository.delete(rc);
+        if(rc.getId() > 0) {  // Some conditions may not actually exist in the database.
+            this.randomBlockRepository.delete(rc);
+        }
     }
 
     protected String getSegmentation(Participant p) {
@@ -118,7 +141,7 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
     }
 
     /**
-     * Random blocks for intial assignment are split 75/25 for training and control respectively.
+     * Random blocks for initial assignment are split 75/25 for training and control respectively.
      * @param segment
      */
     private void assureRandomAssignmentsAvailableForSegment(String segment) {
@@ -140,7 +163,7 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
         if(randomBlockRepository.countAllBySegmentName(segment) < 1) {
             Map<String, Float> valuePercentages = new HashMap<>();
             valuePercentages.put(R01Study.CONDITION.HR_COACH.name(), 50.0f);
-            valuePercentages.put(R01Study.CONDITION.HR_NOCOACH.name(), 50.0f);
+            valuePercentages.put(R01Study.CONDITION.HR_NO_COACH.name(), 50.0f);
             List<RandomCondition> blocks = RandomCondition.createBlocks(valuePercentages, 50, segment);
             this.randomBlockRepository.save(blocks);
             this.randomBlockRepository.flush();

@@ -38,6 +38,8 @@ public class SegmentationTest {
     R01ParticipantService service = new R01ParticipantService();
     Collection mutualIds = CollectionUtils.intersection(dassMap.keySet(), demMap.keySet());
 
+    Double threashold = 0.33333;
+
     // To keep testing somewhat fast, we build queus in memory, rather than use the database.
     Queue<RandomCondition> maleHigh = new LinkedList<>();
     Queue<RandomCondition> maleMed = new LinkedList<>();
@@ -68,7 +70,8 @@ public class SegmentationTest {
 
     @Test
     public void testAttrition() throws Exception {
-        List<Boolean> attrSegments = attritionMap.values().stream().map(ap -> ap.isAtRisk()).collect(Collectors.toList());
+        List<Boolean> attrSegments = attritionMap.values().stream().map(ap -> ap.getConfidence() > this.threashold)
+                .collect(Collectors.toList());
         System.out.println(String.format("ATTRITION PREDICITON  - Total: %s,  At Risk: %s (%s%%), Not At Risk: %s (%s%%)",
                 attritionMap.size(),
                 Collections.frequency(attrSegments, true),
@@ -265,7 +268,7 @@ public class SegmentationTest {
                 // use different processors depending on the number of columns
                 final List<Object> list = listReader.executeProcessors(processors);
                 AttritionPrediction ap = new AttritionPrediction();
-                ap.setId((Long) list.get(0));
+                ap.setParticipantId((Long) list.get(0));
                 ap.setConfidence((Double) list.get(2));
                 attritionMap.put((Long)list.get(1), ap);
             }
