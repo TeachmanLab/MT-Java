@@ -75,7 +75,9 @@ public class JSPsychController extends BaseController {
 
     @ExportMode
     @RequestMapping("/completed/{scriptName}")
-    public RedirectView markComplete(Principal principal, @PathVariable String scriptName) {
+    public RedirectView markComplete(Principal principal, @PathVariable String scriptName,
+                                     Device device,
+                                     @RequestHeader(value="User-Agent", defaultValue="foo") String userAgent) {
 
         Participant participant = participantService.get(principal);
 
@@ -99,7 +101,7 @@ public class JSPsychController extends BaseController {
             timeOnTask = trial.getTime_elapsed();
         }
 
-        participant.getStudy().completeCurrentTask(timeOnTask/1000);
+        participant.getStudy().completeCurrentTask(timeOnTask/1000, device, userAgent);
         participantService.save(participant);
 
         return new RedirectView("/session/next", true);

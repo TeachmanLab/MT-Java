@@ -1,6 +1,8 @@
 package edu.virginia.psyc.hobby.service;
 
 import edu.virginia.psyc.hobby.domain.HobbyStudy;
+import org.mindtrails.domain.Conditions.NoNewConditionException;
+import org.mindtrails.domain.Conditions.RandomCondition;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.RestExceptions.MissingEligibilityException;
 import org.mindtrails.domain.Study;
@@ -50,4 +52,14 @@ public class HobbyParticipantService extends ParticipantServiceImpl implements P
     public void saveNew(Participant p, HttpSession session) throws MissingEligibilityException {
         save(p);
         }
+
+    @Override
+    public RandomCondition getCondition(Participant p) throws NoNewConditionException {
+        return null;
+    }
+
+    @Override
+    public void markConditionAsUsed(RandomCondition rc) {
+
+    }
 }

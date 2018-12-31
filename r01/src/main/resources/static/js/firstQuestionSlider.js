@@ -4,9 +4,12 @@
  * radio button is selected.
  */
 
-function scrollTo(elem){console.log(elem)
-    $('html,body').animate({
-        scrollTop: elem.offset().top},'slow');
+function scrollTo(elem) {
+    if (elem.offset()) {
+        $('html,body').animate({
+            scrollTop: elem.offset().top
+        }, 'slow');
+    }
 }
 
 $(document).on('click', '.option', function(e){

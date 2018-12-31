@@ -92,6 +92,7 @@ public class ParticipantCreateAdmin extends ParticipantUpdate {
         p.updatePassword(password);
         p.setOver18(over18);
         p.setActive(active);
+        p.setReceiveGiftCards(receiveGiftCards);
         p.setAdmin(admin);
         p.setCoaching(coaching);
         p.setTestAccount(testAccount);

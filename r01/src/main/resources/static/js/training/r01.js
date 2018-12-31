@@ -279,55 +279,12 @@ var R01 = (function () {
                      ***********************************************/
 
                     var immersion_trial = null;
-
-                    if (immersion === "picture") {
-                        immersion_trial = {
-                            type: 'html-button-response',
-                            stimulus: "<h1 class='title'>Story: " + title + "</h1>",
-                            trial_duration: 5000, // Show trial for 5 seconds
-                            data: {immersion: immersion, format: format, scenario: scenario},
-                            choices: []
-                        }
-                    } else if (immersion === "picture_sound") {
-                        immersion_trial = {
-                            type: 'audio-button-response',
-                            stimulus: 'sounds/background/' + scenario + '.mp3',
-                            trial_duration: 5000, // Show trial for 5 seconds
-                            prompt: "<h1 class='title'>Story: " + title + "</h1>",
-                            data: {immersion: immersion, format: format, scenario: scenario},
-                            choices: []
-                        }
-                    } else {
-                        immersion_trial = {
-                            type: 'html-button-response',
-                            stimulus: "<h1 class='title'>Story: " + title + "</h1>",
-                            trial_duration: 5000,
-                            data: {immersion: immersion, format: format, scenario: scenario},
-                            choices: []
-                        }
-                    }
-
                     var main_trial = null;
-
-                    if (format === "Auditory") {
-                        main_trial = {
-                            type: 'audio-button-response',
-                            stimulus: my.base_url + 'sounds/' + scenario + '.mp3',
-                            trial_ends_after_audio: true,
-                            prompt: '<p>Please listen ...</p>',
-                            data: {immersion: immersion, format: format, scenario: scenario},
-                            choices: []
-                        };
-                    } else {
-                        main_trial = {
-                            type: 'sentence-reveal',
-                            paragraph: paragraph,
-                            data: {immersion: immersion, format: format, scenario: scenario}
-                        };
-                    }
 
                     var phrase_trial = {
                         type: 'missing-letters',
+                        title: title,
+                        paragraph: paragraph,
                         phrase: phrase,
                         letters_to_remove: my.letters_to_remove,
                         data: {immersion: immersion, format: format, scenario: scenario},
@@ -402,18 +359,14 @@ var R01 = (function () {
                       //  timeline.push(vividness_followup)
                     }
 
-                    timeline.push(immersion_trial);
-                    timeline.push(main_trial);
+                    //timeline.push(immersion_trial);
+                    //timeline.push(main_trial);
                     timeline.push(phrase_trial);
 
-                    // Only ask a followup question 2/3rd of the time.
-                    if (Math.random() >= 0.333) {
-                        followup_count++;
-                        if  (scenarios[k]["Correct"]) {
-                            timeline.push(yes_no);
-                        }   else {
-                            timeline.push(mcq);
-                        }
+                    if  (scenarios[k]["Correct"]) {
+                        timeline.push(yes_no);
+                    }   else {
+                        timeline.push(mcq);
                     }
 
                     // Save data to the server after each scenerio is completed.

@@ -76,16 +76,21 @@ public class AccountController extends BaseController {
         binder.addValidators(recaptchaFormValidator);
     }
 
-    @RequestMapping(value="create", method = RequestMethod.GET)
-    public String createForm (ModelMap model, HttpSession session) {
+
+    private  void addAttributesForCreateParticipantForm(ModelMap model) {
         if (importService.isImporting()) {
             model.addAttribute("enableVerification",false);
         } else {
             model.addAttribute("enableVerification",true);
         }
-        model.addAttribute("participantForm", new ParticipantCreate());
         model.addAttribute("recaptchaSiteKey", recaptchaSiteKey);
         model.addAttribute("giftcardsEnabled", tangoService.getEnabled());
+    }
+
+    @RequestMapping(value="create", method = RequestMethod.GET)
+    public String createForm (ModelMap model, HttpSession session) {
+        addAttributesForCreateParticipantForm(model);
+        model.addAttribute("participantForm", new ParticipantCreate());
         if(participantService.isEligible(session) || importService.isImporting()) {
             return "account/create";
         } else {
@@ -104,8 +109,8 @@ public class AccountController extends BaseController {
 
         if(!participantCreate.validParticipant(bindingResult, participantService)) {
             LOG.error("Invalid participant:" + bindingResult.getAllErrors());
-            model.addAttribute("recaptchaSiteKey", recaptchaSiteKey);
-            return "account/create";
+            addAttributesForCreateParticipantForm(model);
+            return ("account/create");
         }
 
         participant = participantService.create();
@@ -139,8 +144,6 @@ public class AccountController extends BaseController {
             twilioService.sendMessage(code,participant);
             return "redirect:/account/verification";
         }
-
-        LOG.info("Participant authenticated.");
         return "redirect:/account/theme";
     }
 

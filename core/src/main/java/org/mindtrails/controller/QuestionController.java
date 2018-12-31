@@ -13,10 +13,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.mobile.device.Device;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.support.WebRequestDataBinder;
@@ -86,8 +88,10 @@ public class QuestionController extends BaseController {
     @ExportMode
     @RequestMapping(value = "{form}", method = RequestMethod.POST)
     public String handleForm(@PathVariable("form") String formName,
-                    WebRequest request, ModelMap model, Principal principal) throws Exception {
-        return saveForm(formName, request, model, principal);
+                             WebRequest request, ModelMap model, Principal principal,
+                             Device device,
+                             @RequestHeader(value="User-Agent", defaultValue="foo") String userAgent) throws Exception {
+        return saveForm(formName, request, model, principal, userAgent, device);
    }
 
 
@@ -96,7 +100,8 @@ public class QuestionController extends BaseController {
      * you extend this class to handle a custom form submission.
      */
     @ExportMode
-    public String saveForm(String formName, WebRequest request, ModelMap model, Principal principal)  {
+    public String saveForm(String formName, WebRequest request, ModelMap model, Principal principal, String userAgent,
+                           Device device)  {
 
         JpaRepository repository = exportService.getRepositoryForName(formName, false);
         if(repository == null) {
@@ -112,7 +117,7 @@ public class QuestionController extends BaseController {
             data.setDate(new Date());
             setReturnDate(participant, data);
             if(data.validate(this.validator)) {
-                recordSessionProgress(formName, data);
+                recordSessionProgress(formName, data, device, userAgent);
                 repository.save(data);
                 return "redirect:/session/next";
             } else {
@@ -151,7 +156,7 @@ public class QuestionController extends BaseController {
      * @param data
      */
     @ExportMode
-    protected void recordSessionProgress(String formName, QuestionnaireData data) {
+    protected void recordSessionProgress(String formName, QuestionnaireData data, Device device, String userAgent) {
 
         Participant participant;
 
@@ -189,7 +194,7 @@ public class QuestionController extends BaseController {
 
         // Update the participant's session status, and save back to the database.
         if(isProgress) {
-            participant.getStudy().completeCurrentTask(timeOnTask);
+            participant.getStudy().completeCurrentTask(timeOnTask, device, userAgent);
             participantService.save(participant);
         }
     }

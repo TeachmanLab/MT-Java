@@ -11,10 +11,12 @@ import org.mindtrails.service.ParticipantService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mobile.device.Device;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.request.WebRequest;
@@ -63,11 +65,13 @@ public class OAController extends QuestionController {
     RedirectView handleOA(@ModelAttribute("OA") OA oa,
                           Principal principal,
                           ModelMap model,
+                          Device device,
+                          @RequestHeader(value="User-Agent", defaultValue="foo") String userAgent,
                           WebRequest request) throws Exception {
 
         // Save the form, associate it with the participant, and log the
         // process.
-        handleForm("OA", request, model, principal);
+        handleForm("OA", request, model, principal, device, userAgent);
 
         // If the users score differs from there original score and places the user
         // "at-risk", then send a message to the administrator.

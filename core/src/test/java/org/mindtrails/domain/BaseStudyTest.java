@@ -25,7 +25,7 @@ public class BaseStudyTest {
         // Assumes that the TestStudy has two sessions, and each session has two tasks.
         Study s = new TestStudy();
         assertEquals(Study.STUDY_STATE.READY, s.getState());
-        s.completeCurrentTask(0);
+        s.completeCurrentTask(0,null, "testing");
         assertEquals(Study.STUDY_STATE.IN_PROGRESS, s.getState());
     }
 
@@ -33,12 +33,12 @@ public class BaseStudyTest {
     public void testWaitADay() {
         Study s = new TestStudy();
         assertEquals(Study.STUDY_STATE.READY, s.getState());
-        s.completeCurrentTask(0);
-        s.completeCurrentTask(0);
+        s.completeCurrentTask(0,null, "testing");
+        s.completeCurrentTask(0,null, "testing");
         assertEquals(Study.STUDY_STATE.WAIT, s.getState());
         s.setLastSessionDate(new DateTime().minus(Days.days(2)).toDate());
         assertTrue(s.getState().equals(Study.STUDY_STATE.READY));
-        s.completeCurrentTask(0);
+        s.completeCurrentTask(0,null, "testing");
         assertEquals(Study.STUDY_STATE.IN_PROGRESS, s.getState());
     }
 
@@ -48,7 +48,7 @@ public class BaseStudyTest {
         // Assumes that the TestStudy has three sessions, and each session has two tasks.
         for(int i=0; i<6; i++) {
             s.setLastSessionDate(new DateTime().minus(Days.days(60)).toDate());
-            s.completeCurrentTask(0);
+            s.completeCurrentTask(0,null, "testing");
         }
         assertTrue(s.completed("SessionTwo"));
         assertEquals(Study.STUDY_STATE.ALL_DONE, s.getState());

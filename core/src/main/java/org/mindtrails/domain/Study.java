@@ -1,6 +1,8 @@
 package org.mindtrails.domain;
 
 
+import org.springframework.mobile.device.Device;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +28,7 @@ public interface Study {
 
     Session nextGiftSession(); // returns the current session.
 
-    void completeCurrentTask(double timeOnTask); // completes a task, moving the participant further through the study/
+    void completeCurrentTask(double timeOnTask, Device device, String userAgent); // completes a task, moving the participant further through the study/
 
     int getCurrentTaskIndex();  // Returns the index of the task currently underway within the current session.
 

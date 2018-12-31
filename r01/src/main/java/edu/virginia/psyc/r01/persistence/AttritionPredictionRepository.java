@@ -5,6 +5,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 
 public interface AttritionPredictionRepository extends JpaRepository<AttritionPrediction,Long> {
-
-    AttritionPrediction findFirstByParticipant(Participant p);
 }
