@@ -1,6 +1,7 @@
+File Edit Options Buffers Tools Help
 /* Modified from  https://www.w3schools.com/css/tryit.asp?filename=tryresponsive_mobilefirst*/
 
-{
+*{
     box-sizing: border-box;
 }
 
@@ -24,37 +25,54 @@ body {
     display: block;
   }
 
-  #current_anxiety_slider:hover {
-    opacity: 1;
-  }
 
   #current_anxiety_slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 30px;
-    height: 30px;
     background: #4CAF50;
     cursor: pointer;
     border-radius: 15px;
-    display: none;
-  }
-
-  #current_anxiety_slider.clicked::-webkit-slider-thumb  {
-    display: block;
+    width: 0px;
+    height: 0px;
   }
 
   #current_anxiety_slider::-moz-range-thumb {
-    width: 30px;
-    height: 30px;
+    -webkit-appearance: none;
+    -moz-appearance: none; /* Ironically doesn't work in Firefox :| */
+    appearance: none;
     background: #4CAF50;
     cursor: pointer;
     border-radius: 15px;
-    display: none;
+    width: 0px;
+    height: 0px;
   }
 
-  #current_anxiety_slider.clicked::-moz-range-thumb  {
-    display: block;
+  #current_anxiety_slider::-ms-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    background: #4CAF50;
+    cursor: pointer;
+    border-radius: 15px;
+    width: 0px;
+    height: 0px;
   }
+
+
+  #current_anxiety_slider.clicked::-webkit-slider-thumb {
+    opacity: 1;
+    width: 30px;
+    height: 30px;
+  }
+
+  #current_anxiety_slider.clicked::-moz-range-thumb {
+    width: 30px;
+    height: 30px;
+  }
+  #current_anxiety_slider.clicked::-ms-thumb   {
+    width: 30px;
+    height: 30px;
+  }
+
 
   .col-1 {width: 8.33%;}
 .col-2 {width: 16.66%;}
@@ -87,6 +105,4 @@ body {
 .right {
     text-align: right;
 }
-
-
 

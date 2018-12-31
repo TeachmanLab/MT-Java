@@ -28,10 +28,11 @@
                     <div class="section">
                         <br></br>
                         <div class="question"> How anxious do you feel right now, that is, at the present moment?</div>
+                        <input id="PosFeelings" type="hidden" name="PosFeelings"/>
                         <br></br>
                         <div class="row">
                             <div class="col-12">
-                                <input id="current_anxiety_slider" type="range" min="0" max="100"></input>
+                                <input id="current_anxiety_slider"  type="range"  min="0" max="100"></input>
                             </div>
                         </div>
                         <div class="row">
@@ -40,21 +41,45 @@
                         </div>
                         <div class="after_slider"><label class="standard">
                             <br></br>
-                            <input id="posSlider-enabled" type="checkbox" name="PosFeelings" value="555"/>
+                            <input id="posSlider-enabled" type="checkbox" value="555"/>
                             Prefer not to answer
                         </label></div>
 
                         <script>
+                            function ensure_clicked_slider() {
+                                if (!$('#current_anxiety_slider').hasClass('clicked')) {
+                                    alert("Please indicate how anxious you are feeling.");
+                                }
+                            }
+
                             $(document).ready(function () {
                                 $('#current_anxiety_slider').one('click', function () {
-                                    var x = event.pageX - this.offsetLeft;
-                                    $('#current_anxiety_slider').val(Math.round(x / this.offsetWidth * 100));
+                                    var slider =  $('#current_anxiety_slider');
+                                    var x = event.pageX - slider.offset().left;
+                                    var value = Math.round(x / slider.width() * 100);
+                                    $('#current_anxiety_slider').val(value);
                                     $('#current_anxiety_slider').addClass('clicked');
+                                    $('#PosFeelings').val(value).trigger('change');
                                 });
 
                                 $('#current_anxiety_slider').click(function () {
-                                    console.log($(this).val())
+                                    $('#PosFeelings').val($(this).val()).trigger('change');
                                 });
+
+                                $('#posSlider-enabled').click(function () {
+                                    if (this.checked) {
+                                        $('#current_anxiety_slider').attr("disabled",true);
+                                        $('#PosFeelings').val(555).trigger('change');
+                                    } else {
+                                        $('#current_anxiety_slider').attr("disabled",false);
+                                        $('#PosFeelings').val($('#current_anxiety_slider').val()).trigger('change');
+                                    }
+                                });
+
+                                $('#PosFeelings').change(function() {
+                                    console.log("Value set to " + $('#PosFeelings').val())
+                                })
+
 
                             });
 
