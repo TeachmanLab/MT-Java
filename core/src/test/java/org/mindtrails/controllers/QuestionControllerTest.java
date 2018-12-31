@@ -4,6 +4,8 @@ import org.mindtrails.Application;
 import org.mindtrails.MockClasses.*;
 import org.mindtrails.controller.QuestionController;
 import org.mindtrails.domain.Participant;
+import org.mindtrails.domain.tracking.TaskLog;
+import org.mindtrails.persistence.TaskLogRepository;
 import org.mindtrails.service.ImportService;
 import org.mindtrails.service.ParticipantService;
 import org.junit.After;
@@ -56,6 +58,10 @@ public class QuestionControllerTest extends BaseControllerTest {
 
     @Autowired
     private ImportService importService;
+
+    @Autowired
+    private TaskLogRepository taskLogRepository;
+
 
     @Override
     public Object[] getControllers() {
@@ -162,6 +168,7 @@ public class QuestionControllerTest extends BaseControllerTest {
         testPostDataForm();
         Assert.assertEquals("cheese", getLastQuestionnaire().getValue());
     }
+
 
     @Test
     public void testParticipantDateAndSessionArePopulated() throws Exception {

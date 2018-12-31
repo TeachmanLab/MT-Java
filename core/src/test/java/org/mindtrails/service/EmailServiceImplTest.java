@@ -18,6 +18,7 @@ import org.mindtrails.domain.tracking.TaskLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mobile.device.Device;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.subethamail.wiser.Wiser;
@@ -225,7 +226,8 @@ public class EmailServiceImplTest {
         assertFalse("New participants should not get mid-session reminders",
                 emailService.shouldSendMidSessionReminder(participant));
 
-        participant.getStudy().completeCurrentTask(0);
+
+        participant.getStudy().completeCurrentTask(0, null, "testing");
 
         assertFalse("Recently completed tasks should not result in mid-session reminders",
                 emailService.shouldSendMidSessionReminder(participant));
@@ -253,14 +255,14 @@ public class EmailServiceImplTest {
 
         participant.setEmailReminders(true);
         Session session = study.getCurrentSession();
-        study.completeCurrentTask(0);
+        study.completeCurrentTask(0, null, "testing");
         assertTrue(study.completed(session.getName()));
         assertFalse ("Participant completed both tasks in the session, so no email should be sent.",
                 emailService.shouldSendMidSessionReminder(participant));
 
         study.forceToSession("SessionTwo");
         study.setLastSessionDate(DateTime.now().minusDays(3).toDate());
-        study.completeCurrentTask(0);
+        study.completeCurrentTask(0, null, "testing");
         lastLog = study.getTaskLogs().get(study.getTaskLogs().size()-1);
         lastLog.setDateCompleted(DateTime.now().minusHours(7).toDate());
         assertTrue("Will send another email so long as it's a difference session..",
@@ -271,7 +273,7 @@ public class EmailServiceImplTest {
 
     @Test
     public void testMidSessionStopEmailContent() throws Exception {
-        participant.getStudy().completeCurrentTask(0);
+        participant.getStudy().completeCurrentTask(0, null, "testing");
         // Set the date of the last tasklog to 7 hours ago.
         TestStudy study = (TestStudy)participant.getStudy();
         TaskLog lastLog = study.getTaskLogs().get(study.getTaskLogs().size()-1);
@@ -439,7 +441,7 @@ public class EmailServiceImplTest {
     @Test
     public void testShouldNotSendEmailsEverIfInComplete() {
         Study study = new TestStudy("PostSession", 1);
-        study.completeCurrentTask(10);
+        study.completeCurrentTask(10, null, "testing");
         participant.setStudy(study);
 
         assertTrue(study.completed("PostSession"));

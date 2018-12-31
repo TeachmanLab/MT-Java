@@ -246,7 +246,7 @@ public class ImportServiceTest extends BaseControllerTest {
         TestStudy testStudy = new TestStudy();
         testStudy.setId(studyId);
 
-        TaskLog log = new TaskLog(testStudy, 25.0);
+        TaskLog log = new TaskLog(testStudy, 25.0, null, "testing");
         this.importService.setMode("import");
         assertEquals(0, this.taskLogRepository.findAll().size());
         importService.importScale("taskLog",IOUtils.toInputStream(this.objectMapper.writeValueAsString(log)));

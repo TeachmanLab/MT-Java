@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mobile.device.Device;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -94,7 +95,9 @@ public class AngularTrainingController extends BaseController {
 
 
     @RequestMapping("completed")
-    public RedirectView markComplete(ModelMap model, Principal principal) {
+    public RedirectView markComplete(ModelMap model, Principal principal,
+                                     Device device,
+                                     @RequestHeader(value="User-Agent", defaultValue="foo") String userAgent) {
         Participant participant = participantService.get(principal);
 
         // If the data submitted, isn't the data the user should be completing right now,
@@ -107,7 +110,7 @@ public class AngularTrainingController extends BaseController {
         }
 
         // Fixme: Calculate time spent on the training session
-        participant.getStudy().completeCurrentTask(0);
+        participant.getStudy().completeCurrentTask(0, device, userAgent);
         participantService.save(participant);
 
         return new RedirectView("/session/next", true);

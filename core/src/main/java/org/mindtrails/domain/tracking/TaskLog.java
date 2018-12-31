@@ -5,6 +5,7 @@ import lombok.Data;
 import org.mindtrails.domain.*;
 import org.mindtrails.domain.data.DoNotDelete;
 import org.mindtrails.domain.data.Exportable;
+import org.springframework.mobile.device.Device;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -42,16 +43,24 @@ public class TaskLog implements Comparable<TaskLog>, HasStudy {
     private Date dateCompleted;
     private String tag;
     private Double timeOnTask;
+    private String device; // general value for the type of device of the user (desktop/tablet/mobile)
+    private String userAgent;  // detailed information about the users device / browser, hard to parse.
 
 
     public TaskLog() {};
-    public TaskLog(Study study, double timeOnTask) {
+    public TaskLog(Study study, double timeOnTask, Device device, String userAgent) {
         this.study = study;
         this.sessionName = study.getCurrentSession().getName();
         this.taskName = study.getCurrentSession().getCurrentTask().getName();
         this.dateCompleted = new Date();
         this.tag = study.getCurrentSession().getCurrentTask().getTag();
         this.timeOnTask = timeOnTask;
+        this.userAgent = userAgent;
+        if(device != null) {
+            if (device.isMobile()) this.device = "mobile";
+            if (device.isTablet()) this.device = "tablet";
+            if (device.isNormal()) this.device = "desktop";
+        }
     }
 
     public static TaskLog completedSession(Study study) {
