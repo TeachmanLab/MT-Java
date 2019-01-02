@@ -119,7 +119,7 @@ public class R01EmailService extends EmailServiceImpl implements EmailService{
         Session currentSession = participant.getStudy().getCurrentSession();
         Email email = null;
 
-
+        if(!participant.isActive() || !participant.isEmailReminders())  return;  // Don't send these messages if they should not get them.
 
         if (currentSession.getName().equals(R01Study.FIRST_SESSION.toString())) {
             email = new Email("SESSION1","Bonus Feature #1 from the MindTrails Project Team");
