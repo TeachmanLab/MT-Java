@@ -13,6 +13,8 @@ import org.mindtrails.domain.Conditions.RandomConditionRepository;
 import org.mindtrails.service.ParticipantService;
 import org.mindtrails.service.ParticipantServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
@@ -110,8 +112,18 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
         }
     }
 
+    @Override
+    public Page<Participant> findEligibleForCoaching(Pageable pageable) {
+        return this.participantRepository.findEligibleForCoaching(R01Study.CONDITION.HR_COACH.name(), pageable);
+    }
+
+    @Override
+    public Page<Participant> searchEligibleForCoaching(Pageable pageable, String searchTerm) {
+        return this.participantRepository.searchEligibleForCoaching(R01Study.CONDITION.HR_COACH.name(), pageable, searchTerm);
+    }
+
     protected String getSegmentation(Participant p) {
-        Demographics demographics = demographicsRepository.findByParticipantId(p.getId());
+        Demographics demographics = demographicsRepository.findFirstByParticipantId(p.getId());
         DASS21_AS dass = dass21RRepository.findFirstByParticipantAndSession(p, ELIGIBLE_SESSION);
         if(demographics != null && dass != null) {
             return getSegmentFromDassAndDemographics(dass, demographics);

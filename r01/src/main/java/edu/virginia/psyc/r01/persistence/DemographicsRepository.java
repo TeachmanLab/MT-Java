@@ -17,5 +17,5 @@ import org.mindtrails.persistence.QuestionnaireRepository;
  * naming convention, as is the case with findByParticipantDAO
  */
 public interface DemographicsRepository extends QuestionnaireRepository<Demographics> {
-    Demographics findByParticipantId(long participantId);
+    Demographics findFirstByParticipantId(long participantId);
 }

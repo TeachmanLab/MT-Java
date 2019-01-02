@@ -33,7 +33,6 @@
                                 <th>Condition</th>
                                 <th>Last Login (in EST)</th>
                                 <th>Return Date (in EST)</th>
-                                <th>Attrition Score</th>
                                 <th></th>
                                 <th></th>
                             </tr>
@@ -50,7 +49,6 @@
                                     10-05-1972 11:55</span></td>
                                 <td><span th:if="${p.returnDate}" th:text="${#dates.format(p.returnDate, 'EEE, dd MMM yyyy h:mm a')}">
                                     10-05-1972 11:55</span></td>
-                                <td><span th:text="${p.attritionRisk}">.04</span></td>
                                 <td>
                                     <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{'/admin/participant/'+${p.id}}">Edit Participant</a>
                                     <a sec:authorize="hasRole('ROLE_COACH')" th:href="@{'/coach/participant/'+${p.id}}">View Participant</a>

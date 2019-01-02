@@ -62,25 +62,21 @@ public interface ParticipantRepository extends JpaRepository<Participant, Long> 
             " order by lower(p.fullName)")
     List<Participant> findCoaches();
 
-    @Query(" select p from Participant as p" +
-            " where " +
-            " p.coachedBy is null and" +
-            " p.coaching = false and " +
-            " p.active = true and " +
-            " p.testAccount = false " +
-            " order by attritionRisk desc")
-    Page<Participant> findEligibleForCoaching(Pageable pageable);
+    @Query("SELECT p FROM Participant as p LEFT JOIN p.study s \n" +
+            "where s.conditioning = :condition and " +
+            "p.coachedBy is null")
+    Page<Participant> findEligibleForCoaching(@Param("condition") String condition,
+                                              Pageable pageable);
 
 
-    @Query(" select p from Participant as p" +
+    @Query("SELECT p FROM Participant as p LEFT JOIN p.study s \n" +
             " where lower(p.fullName) like '%' || lower(:search) || '%'" +
-            " or lower(p.email) like '%' || lower(:search) || '%' and" +
-            " p.coachedBy is null and" +
-            " p.coaching = false and " +
-            " p.active = true and " +
-            " p.testAccount = false " +
-            " order by lower(p.fullName)")
-    Page<Participant> searchEligibleForCoaching(@Param("search") String search, Pageable pageable);
+            " or lower(p.email) like '%' || lower(:search) || '%' and " +
+            "s.conditioning = :condition and " +
+            "p.coachedBy is null")
+    Page<Participant> searchEligibleForCoaching(@Param("condition") String condition,
+                                                Pageable pageable,
+                                                @Param("search") String search);
 
 
     // Find all participants by condition
