@@ -130,7 +130,6 @@ public class R01Study extends BaseStudy {
         pretest.addTask(new Task("Comorbid","My Behaviors", Task.TYPE.questions, 0 ));
         pretest.addTask(new Task("Wellness","What I Believe", Task.TYPE.questions, 0 ));
         pretest.addTask(new Task("Mechanisms","How I Respond", Task.TYPE.questions, 0 ));
-        pretest.addTask(new Task("CoachPrompt","Feedback", Task.TYPE.questions, 0 ));
         sessions.add(pretest);
 
         session1 = new Session(FIRST_SESSION, "Level 1: Beginner", 0, 0);
@@ -148,7 +147,6 @@ public class R01Study extends BaseStudy {
         session2.setIndex(2);
         session2.addTask(new Task("2", "Training Stories", Task.TYPE.angular, 20));
         session2.addTask(new Task("OA","Anxiety review", Task.TYPE.questions, 1 ));
-        session2.addTask(new Task("CoachPrompt","Feedback", Task.TYPE.questions, 0 ));
         session2.addTask(new Task("ReturnIntention","Intention to Return", Task.TYPE.questions, 0));
         sessions.add(session2);
 
@@ -167,7 +165,6 @@ public class R01Study extends BaseStudy {
         session3.addTask(new Task("Comorbid","My Behaviors", Task.TYPE.questions, 0 ));
         session3.addTask(new Task("Wellness","What I Believe", Task.TYPE.questions, 0 ));
         session3.addTask(new Task("Mechanisms","How I Respond", Task.TYPE.questions, 0 ));
-        session3.addTask(new Task("CoachPrompt","Feedback", Task.TYPE.questions, 0 ));
         session3.addTask(new Task("ReturnIntention","Intention to Return", Task.TYPE.questions, 0));
 
         sessions.add(session3);
@@ -176,7 +173,6 @@ public class R01Study extends BaseStudy {
         session4.setIndex(4);
         session4.addTask(new Task("4", "Training Stories", Task.TYPE.angular, 20));
         session4.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
-        session4.addTask(new Task("CoachPrompt","Feedback", Task.TYPE.questions, 0 ));
         session4.addTask(new Task("ReturnIntention","Intention to Return", Task.TYPE.questions, 0));
         sessions.add(session4);
 

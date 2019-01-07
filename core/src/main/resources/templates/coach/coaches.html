@@ -80,6 +80,7 @@
                                 <th>Attrition Score</th>
                                 <th></th>
                                 <th></th>
+                                <th></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -96,7 +97,10 @@
                                     10-05-1972 11:55</span></td>
                                 <td><span th:text="${p.attritionRisk}">.04</span></td>
                                 <td>
-                                    <a th:href="@{'/admin/participant/'+${p.id}}">Edit/View Participant</a>
+                                    <a th:href="@{'/coach/participant/'+${p.id}}">View Participant</a>
+                                </td>
+                                <td>
+                                    <a th:href="@{'/admin/participant/'+${p.id}}">Edit Participant</a>
                                 </td>
                                 <td>
                                     <a th:href="@{'/admin/study/'+${p.id}}">Edit Study</a>

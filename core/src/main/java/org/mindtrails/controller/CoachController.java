@@ -3,6 +3,8 @@ package org.mindtrails.controller;
 import org.mindtrails.domain.CoachPrompt;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.forms.ParticipantUpdateAdmin;
+import org.mindtrails.domain.tracking.CoachLog;
+import org.mindtrails.persistence.CoachLogRepository;
 import org.mindtrails.persistence.CoachPromptRepository;
 import org.mindtrails.persistence.ParticipantRepository;
 import org.mindtrails.service.ParticipantService;
@@ -13,10 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -36,6 +35,8 @@ public class CoachController extends BaseController {
     @Autowired
     private CoachPromptRepository coachPromptRepository;
 
+    @Autowired
+    private CoachLogRepository coachLogRepository;
 
     private static final int PER_PAGE=20; // Number of users to display per page.
 
@@ -91,5 +92,17 @@ public class CoachController extends BaseController {
         return "coach/participant";
     }
 
+    @RequestMapping(value="/log/{id}", method = RequestMethod.POST)
+    public String createLog(ModelMap model, Principal principal,
+                            @PathVariable("id") long coacheeId,
+                            @ModelAttribute CoachLog coachLog) {
+        Participant coach = getParticipant(principal);
+        Participant coachee = participantRepository.findOne(coacheeId);
+        coachLog.setId(0);
+        coachLog.setCoach(coach);
+        coachLog.setParticipant(coachee);
+        this.coachLogRepository.saveAndFlush(coachLog);
+        return "redirect:/coach/participant/" + coacheeId;
+    }
 
 }
