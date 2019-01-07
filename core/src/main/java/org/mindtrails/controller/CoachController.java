@@ -80,13 +80,13 @@ public class CoachController extends BaseController {
     }
 
     @RequestMapping(value="/participant/{id}", method=RequestMethod.GET)
-    public String viewParticipant(ModelMap model,
+    public String viewParticipant(ModelMap model, Principal principal,
                                         @PathVariable("id") long id) {
-        Participant p;
+        Participant coachee;
         ParticipantUpdateAdmin form;
-        p    = participantRepository.findOne(id);
-        List<CoachPrompt> cp = coachPromptRepository.findAllByParticipant(p);
-        model.addAttribute("participant", p);
+        coachee    = participantRepository.findOne(id);
+        List<CoachPrompt> cp = coachPromptRepository.findAllByParticipant(coachee);
+        model.addAttribute("coachee", coachee);
         model.addAttribute("coaches", participantRepository.findCoaches());
         model.addAttribute("feedback", cp);
         return "coach/participant";
