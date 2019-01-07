@@ -52,7 +52,7 @@
                                     10-05-1972 11:55</span></td>
                                 <td><span th:text="${p.totalCoachInteractions}"></span> / <span th:text="${p.successfulCoachInteractions}"></span> </td>
                                 <td>
-                                    <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{'/admin/participant/'+${p.id}}">Edit</a> /
+                                    <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{'/admin/participant/'+${p.id}}">Edit / </a>
                                     <a th:href="@{'/coach/participant/'+${p.id}}">View</a> Participant
                                 </td>
                                 <td>
