@@ -72,7 +72,7 @@ public class AdminControllerTest extends BaseControllerTest {
     public void tangoStatus() throws Exception {
         mockMvc.perform(get("/admin/tango")
                 .with(SecurityMockMvcRequestPostProcessors.user(admin)))
-                .andExpect(model().attributeExists("tango"))
+                .andExpect(model().attributeExists("account"))
                 .andExpect(status().isOk());
     }
 

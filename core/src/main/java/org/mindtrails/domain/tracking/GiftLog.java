@@ -26,7 +26,7 @@ public class GiftLog extends MindTrailsLog {
     private String orderId;
     private String sessionName;
     private Date dateCreated = new Date();
-    private int amount; // amount awarded in cents.
+    private int amount; // amount awarded in dollars.
 
     public GiftLog() {};
 
