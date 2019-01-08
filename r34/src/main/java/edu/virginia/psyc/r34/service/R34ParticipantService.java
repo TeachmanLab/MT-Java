@@ -4,6 +4,8 @@ import edu.virginia.psyc.r34.domain.R34NeutralStudy;
 import edu.virginia.psyc.r34.domain.R34Study;
 import edu.virginia.psyc.r34.persistence.Questionnaire.DASS21_AS;
 import edu.virginia.psyc.r34.persistence.Questionnaire.DASS21_ASRepository;
+import org.mindtrails.domain.Conditions.NoNewConditionException;
+import org.mindtrails.domain.Conditions.RandomCondition;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.Study;
 import org.mindtrails.domain.tracking.TaskLog;
@@ -21,6 +23,7 @@ import java.util.*;
  * save, create, and find customized participant objects.
  */
 @Service
+
 public class R34ParticipantService extends ParticipantServiceImpl implements ParticipantService {
 
     protected static final Random RANDOM = new Random();  // For generating random CBM and Prime values.
@@ -90,6 +93,16 @@ public class R34ParticipantService extends ParticipantServiceImpl implements Par
             dass21_as.setSession("ELIGIBLE");
             dass21_asRepository.save(dass21_as);
         }
+    }
+
+    @Override
+    public RandomCondition getCondition(Participant p) throws NoNewConditionException {
+        return null;
+    }
+
+    @Override
+    public void markConditionAsUsed(RandomCondition rc) {
+
     }
 
 

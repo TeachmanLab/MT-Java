@@ -30,8 +30,6 @@ public class Credibility extends LinkedQuestionnaireData {
     @MeasureField(order=2, desc="How confident are you that an online training program will reduce your anxiety?")
     private Integer confident_online;
     @NotNull
-    @MeasureField(order=3, desc="How confident are you that an online training program that is designed to change how you think about situations will be successful in reducing your anxiety?")
-    private Integer confident_design;
 
     @Override
     public Map<Integer, String> getScale(String scale) {
@@ -40,7 +38,7 @@ public class Credibility extends LinkedQuestionnaireData {
         tmpScale.put(1, "A little");
         tmpScale.put(2, "Somewhat");
         tmpScale.put(3, "A lot");
-        tmpScale.put(4, "Extremely");
+        tmpScale.put(4, "Very");
         return Collections.unmodifiableMap(tmpScale);
     }
 
