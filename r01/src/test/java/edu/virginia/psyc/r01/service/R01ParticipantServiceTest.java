@@ -43,6 +43,8 @@ public class R01ParticipantServiceTest {
     @Autowired
     DASS21_ASRepository dassRepository;
 
+    @Autowired
+    ConditionAssignmentSettingsRepository settingsRepository;
 
     @Autowired
     ParticipantRepository participantRepository;
@@ -81,7 +83,6 @@ public class R01ParticipantServiceTest {
         return (dass);
     }
 
-
     @Test
     public void testParticipantServiceGeneratesRandomBlocksWhenNeeded() throws NoNewConditionException {
 
@@ -107,10 +108,7 @@ public class R01ParticipantServiceTest {
         Assert.assertTrue("One of the random conditions should now go away", randomBlockRepository.findAll().size() == 48);
     }
 
-
-    @Test
-    public void testCoachCondition() throws NoNewConditionException {
-
+    private Participant setupParticipantWithHighRisk() {
         Participant participant = service.create();
         participant.getStudy().setConditioning(R01Study.CONDITION.TRAINING.name());
         Demographics demographics = createDemographics();
@@ -124,8 +122,19 @@ public class R01ParticipantServiceTest {
         dassRepository.saveAndFlush(dass);
 
 
-        AttritionPrediction pred = new AttritionPrediction(participant, 88d, 90d);
+        AttritionPrediction pred = new AttritionPrediction();
+        pred.setParticipantId(participant.getId());
+        pred.setConfidence(0.88d);
+        pred.setVersion("1.0");
+        pred.setDateCreated(new Date());
         attritionPredictionRepository.save(pred);
+
+        return participant;
+    }
+
+    @Test
+    public void testCoachCondition() throws NoNewConditionException {
+        Participant participant = setupParticipantWithHighRisk();
 
         // Assure that over the a set of 10 assignments, we get at least one person assigned to the
         // coaching condition, and at least one person assigned to the non_coaching condition.
@@ -134,14 +143,52 @@ public class R01ParticipantServiceTest {
         for (int i = 0; i < 20; i++) {
             RandomCondition condition = service.getCondition(participant);
             if (condition.getValue().equals(R01Study.CONDITION.HR_COACH.name())) coaching++;
-            if (condition.getValue().equals(R01Study.CONDITION.HR_NOCOACH.name())) nonCoaching++;
+            if (condition.getValue().equals(R01Study.CONDITION.HR_NO_COACH.name())) nonCoaching++;
             service.markConditionAsUsed(condition);
             Assert.assertTrue("High Risk participants should be in either coach or nocoach",
                     condition.getValue().equals(R01Study.CONDITION.HR_COACH.name()) ||
-                            condition.getValue().equals(R01Study.CONDITION.HR_NOCOACH.name()));
+                            condition.getValue().equals(R01Study.CONDITION.HR_NO_COACH.name()));
         }
         Assert.assertTrue(coaching > 0);
         Assert.assertTrue(nonCoaching > 0);
+    }
+
+
+    @Test
+    public void itIsPossibleToChangeAttritionThresholdInDatabase() throws Exception {
+        Participant participant = setupParticipantWithHighRisk();
+
+
+        // Create a new setting for Threshold that puts everyone at low risk
+        ConditionAssignmentSettings settings = new ConditionAssignmentSettings();
+        settings.setAttritionThreshold(1d);
+        settings.setLastModified(new Date());
+        this.settingsRepository.save(settings);
+
+        // Assure that everyone is marked as high risk.
+        int low = 0;
+        for (int i = 0; i < 20; i++) {
+            RandomCondition condition = service.getCondition(participant);
+            if (condition.getValue().equals(R01Study.CONDITION.LR_TRAINING.name())) low++;
+            service.markConditionAsUsed(condition);
+        }
+        Assert.assertTrue(low == 20);
+
+        // Create a new setting for Threshold that puts everyone at high risk
+        settings = new ConditionAssignmentSettings();
+        settings.setAttritionThreshold(0d);
+        settings.setLastModified(new Date());
+        this.settingsRepository.save(settings);
+
+        // Assure that everyone is marked as low risk.
+        low = 0;
+        for (int i = 0; i < 20; i++) {
+            RandomCondition condition = service.getCondition(participant);
+            if (condition.getValue().equals(R01Study.CONDITION.LR_TRAINING.name())) low++;
+            service.markConditionAsUsed(condition);
+        }
+        Assert.assertTrue(low == 0);
+
     }
 
     /** Using the CSV files and logic from the Segmentation test,
@@ -150,7 +197,7 @@ public class R01ParticipantServiceTest {
      * @throws Exception
      */
     @Test
-    @Ignore("This takes a wicked long time to run, but produces a report on the distribution using historical data.")
+//    @Ignore("This takes a wicked long time to run, but produces a report on the distribution using historical data.")
     public void segmentationReport() throws Exception {
 
         // Pull in the data
@@ -170,7 +217,9 @@ public class R01ParticipantServiceTest {
             demographicsRepository.save(d);
 
             AttritionPrediction a = st.attritionMap.get(id);
-            a.setParticipant(p);
+            a.setParticipantId(p.getId());
+            a.setDateCreated(new Date());
+            a.setVersion("1.0");
             attritionPredictionRepository.save(a);
         }
         participantRepository.flush();
@@ -193,11 +242,7 @@ public class R01ParticipantServiceTest {
         }
         // Now print off the condition counts
         printConditionCounts();
-
-
-
     }
-
 
     private void printConditionCounts() {
         Map<String, Integer> counts = new HashMap<>();

@@ -7,9 +7,11 @@ import org.mindtrails.service.ParticipantService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mobile.device.Device;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.view.RedirectView;
@@ -57,7 +59,9 @@ public class PIPlayerController extends BaseController {
     }
 
     @RequestMapping("/completed/{scriptName}")
-    public RedirectView markComplete(Principal principal, @PathVariable String scriptName) {
+    public RedirectView markComplete(Principal principal, @PathVariable String scriptName,
+                                     Device device,
+                                     @RequestHeader(value="User-Agent", defaultValue="foo") String userAgent) {
 
         Participant participant = participantService.get(principal);
 
@@ -70,7 +74,7 @@ public class PIPlayerController extends BaseController {
             throw new WrongFormException(error);
         }
 
-        participant.getStudy().completeCurrentTask(0);
+        participant.getStudy().completeCurrentTask(0, device, userAgent);
         participantService.save(participant);
         return new RedirectView("/session/next", true);
     }

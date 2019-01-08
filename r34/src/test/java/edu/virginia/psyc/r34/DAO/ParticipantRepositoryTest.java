@@ -86,13 +86,13 @@ public class ParticipantRepositoryTest {
 
         // Increment the current task.
         p.getStudy().setLastSessionDate(DateTime.now().minus(Days.days(3)).toDate());
-        p.getStudy().completeCurrentTask(0);
+        p.getStudy().completeCurrentTask(0,  null, "");
         assertEquals(1, p.getStudy().getCurrentTaskIndex());
-        p.getStudy().completeCurrentTask(0);
-        p.getStudy().completeCurrentTask(0);
-        p.getStudy().completeCurrentTask(0);
+        p.getStudy().completeCurrentTask(0,  null, "");
+        p.getStudy().completeCurrentTask(0,  null, "");
+        p.getStudy().completeCurrentTask(0,  null, "");
         assertEquals(4, p.getStudy().getCurrentTaskIndex());
-        p.getStudy().completeCurrentTask(0);
+        p.getStudy().completeCurrentTask(0,  null, "");
         assertEquals(R34Study.NAME.SESSION6.toString(), p.getStudy().getCurrentSession().getName());
 
         // Change the participant's session back to Session1.
@@ -102,7 +102,7 @@ public class ParticipantRepositoryTest {
         pSaved = participantRepository.findByEmail(email);
 
         assertEquals(R34Study.NAME.SESSION1.toString(), pSaved.getStudy().getCurrentSession().getName());
-        pSaved.getStudy().completeCurrentTask(0);
+        pSaved.getStudy().completeCurrentTask(0,  null, "");
         assertEquals(R34Study.NAME.SESSION1.toString(), pSaved.getStudy().getCurrentSession().getName());
 
     }

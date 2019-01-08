@@ -36,6 +36,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
     <title>Calm Thinking</title>
 
+
+    <link rel="icon" type="image/png" th:href="@{favicon.ico}" />
+
     <!-- JavaScript -->
     <script type="text/javascript" th:src="@{/bower/jquery/dist/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/bower/bootstrap/dist/js/bootstrap.min.js}"></script>
@@ -447,6 +450,8 @@
                 data directly if this feature is enabled.
             </li>
             <li><a th:href="@{/admin/userstats}">User statistics information</a>: allows you to check users statistics information.
+            </li>
+            <li><a th:href="@{/admin/settings}">Attrition Threshold</a>: allows you to specify the threshold for setting users as at risk for attrition.
             </li>
             <li><a th:href="@{/coach}">Coach Administration</a>: View a list of all coaches and eligible participants.
             </li>

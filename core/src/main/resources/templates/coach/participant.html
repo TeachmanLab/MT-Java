@@ -111,6 +111,87 @@
                     </tr>
                 </table>
 
+                <h2>Coach Interactions</h2>
+                <p>This is a log of all coaching interactions that have taken place with this
+                participant.  You can add an additional log in the form below.</p>
+                <table class="table table-striped table-bordered participantList">
+                    <thead>
+                    <tr>
+                        <th>Date Attempted</th>
+                        <th>Session</th>
+                        <th>Successful?</th>
+                    </tr>
+                    </thead>
+
+                    <tr th:each="log : ${participant.coachLogs}">
+                        <td><span th:if="${log.dateAttempted}" th:text="${#dates.format(log.dateAttempted,
+                        'EEE, dd MMM yyyy h:mm a')}">10-05-1972 11:55</span></td>
+                        <td th:text="${log.coachingSession}"></td>
+                        <td th:if="${log.successful}">True</td>
+                        <td th:unless="${log.successful}">False</td>
+                    </tr>
+                </table>
+                <h3>Log a new Coaching Interaction</h3>
+                <form id="logForm" action="#"  th:action="@{'/coach/log/'} + ${participant.id}" method="POST">
+                    <input type="hidden" name="particpantId" th:value="${participant.id}"/>
+                    <table class="table table-bordered ">
+                        <tr>
+                            <td>Date</td>
+                            <td>
+                                <div class="input-group date">
+                                    <input type="hidden" id="dateAttempted" name="dateAttempted"/>
+                                    <input id='datepicker' type="text" name="date" class="form-control" required="required" />
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                </div>
+                                <div class="input-group bootstrap-timepicker timepicker" >
+                                    <input id="timepicker" name="time" type="text" class="form-control input-small" required="required"/>
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Coaching Session</td>
+                            <td>
+                                <select name="coachingSession">
+                                    <option>Initial</option>
+                                    <option>First Followup</option>
+                                    <option>Second Followup</option>
+                                    <option>Final</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Successful?</td>
+                            <td>
+                                <input type="checkbox" name="successful"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <button type="submit">Submit</button>
+                    <link rel="stylesheet" media="screen"
+                          th:href="@{/bower/bootstrap-datepicker/dist/css/bootstrap-datepicker.standalone.css}"/>
+                    <script type="text/javascript" th:src="@{/bower/bootstrap-timepicker/js/bootstrap-timepicker.js}"></script>
+                    <script type="text/javascript" th:src="@{/bower/bootstrap-datepicker/dist/js/bootstrap-datepicker.js}"></script>
+                    <script>
+                        $(document).ready(function () {
+                            $('.input-group.date').datepicker({
+                                startDate: '-6w',
+                                endDate: '0d'
+                            });
+                            $('#timepicker').timepicker();
+                            $('#logForm').on('submit', function(e) {
+                                if($('#datepicker').val()) {
+                                    var date = new Date($("#datepicker").val() + ' ' + $("#timepicker").val());
+                                    console.log(date.toISOString());
+                                    $('#dateAttempted').val(date.toISOString());
+                                }
+                            })
+                        });
+                     </script>
+                </form>
+
+
+
             </div>
              <section th:replace="/admin/adminCommon :: participantDetails(${participant})"/>
         </div>

@@ -2,6 +2,7 @@ package org.mindtrails.persistence;
 
 import org.mindtrails.Application;
 import org.mindtrails.MockClasses.TestStudy;
+import org.mindtrails.domain.Study;
 import org.mindtrails.domain.tracking.EmailLog;
 import org.mindtrails.domain.tracking.GiftLog;
 import org.mindtrails.domain.Participant;
@@ -216,6 +217,15 @@ public class ParticipantRepositoryTest {
     @Test
     @Transactional
     public void listParticipantsEligible() {
+
+        Study s1 = new TestStudy("SessionOne", 0, "COACH");
+        Study s2 = new TestStudy("SessionOne", 0, "NO_COACH");
+        Study s3 = new TestStudy("SessionOne", 0, "TRAINING");
+        Study s4 = new TestStudy("SessionOne", 0, "CONTROL");
+        Study s5 = new TestStudy("SessionOne", 0, "COACH");
+        Study s6 = new TestStudy("SessionOne", 0, "COACH");
+
+
         Participant p1 = new Participant("Paul", "paul@beatles.com", false);
         Participant p2 = new Participant("George", "george@beatles.com", false);
         Participant p3 = new Participant("Ringo", "ringo@beatles.com", false);
@@ -223,6 +233,12 @@ public class ParticipantRepositoryTest {
         Participant p5 = new Participant("Scott", "scott@beatles.com", false);
         Participant p6 = new Participant("Francis", "francis@beatles.com", false);
 
+        p1.setStudy(s1);
+        p2.setStudy(s2);
+        p3.setStudy(s3);
+        p4.setStudy(s4);
+        p5.setStudy(s5);
+        p6.setStudy(s6);
 
         p1.setAttritionRisk(.5f);
         p2.setAttritionRisk(.2f);
@@ -238,13 +254,9 @@ public class ParticipantRepositoryTest {
         participantRepository.save(p6);
 
         PageRequest pageRequest = new PageRequest(0, 20);
-        Page<Participant> coachees =  participantRepository.findEligibleForCoaching(pageRequest);
+        Page<Participant> coachees =  participantRepository.findEligibleForCoaching("COACH", pageRequest);
 
-        Assert.assertEquals(4, coachees.getTotalElements() );
-        Assert.assertEquals(p3.getId(), coachees.getContent().get(0).getId());
-        Assert.assertEquals(p1.getId(), coachees.getContent().get(1).getId());
-        Assert.assertEquals(p2.getId(), coachees.getContent().get(2).getId());
-        Assert.assertEquals(p4.getId(), coachees.getContent().get(3).getId());
+        Assert.assertEquals(3, coachees.getTotalElements() );
     }
 
 }

@@ -10,6 +10,7 @@ import org.mindtrails.domain.RestExceptions.WaitException;
 import org.mindtrails.domain.tracking.TaskLog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.mobile.device.Device;
 
 import javax.persistence.*;
 import java.util.*;
@@ -131,9 +132,9 @@ public abstract class BaseStudy implements Study {
 
 
     @Override
-    public void completeCurrentTask(double timeOnTask) {
+    public void completeCurrentTask(double timeOnTask, Device device, String userAgent) {
         // Log the completion of the task
-        this.taskLogs.add(new TaskLog(this, timeOnTask));
+        this.taskLogs.add(new TaskLog(this, timeOnTask, device, userAgent));
 
         if (getState().equals(STUDY_STATE.WAIT)){
             throw new WaitException();

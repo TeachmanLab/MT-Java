@@ -15,6 +15,18 @@ jsPsych.plugins["missing-letters"] = (function () {
         name: 'missing-letters',
         description: '',
         parameters: {
+            title: {
+                type: jsPsych.plugins.parameterType.STRING,
+                pretty_name: 'Title',
+                default: undefined,
+                description: 'The title to show'
+            },
+            paragraph: {
+                type: jsPsych.plugins.parameterType.STRING,
+                pretty_name: 'Paragraph',
+                default: undefined,
+                description: 'The paragraph to display'
+            },
             phrase: {
                 type: jsPsych.plugins.parameterType.STRING,
                 pretty_name: 'Phrase',
@@ -43,9 +55,13 @@ jsPsych.plugins["missing-letters"] = (function () {
         var term;
         var missing_letters;
         var letter_index = 0;
-        [term, missing_letters] = remove_random_letters(trial.phrase, trial.letters_to_remove);
-
-        var html = '<div id="jspsych-missing-letters-letter", class="center-content block-center">' + term + "</div>";
+        var tempList = remove_random_letters(trial.phrase, trial.letters_to_remove);
+        term = tempList[0];
+        missing_letters = tempList[1];
+        var html = "<h1>Story: " + trial.title + "</h1>" ;
+        console.log("Trail.Paragraph:  " + trial.paragraph);
+        html += '<div id="jspsych-sentence-reveal-statement" class="center-content block-center">' + trial.paragraph + '</div>';
+        html += '<div id="jspsych-missing-letters-letter", class="center-content block-center">' + term + "</div>";
         html += '<div id="jspsych-missing-letters-btngroup", class="center-content block-center"></div>';
         html += '</div>';
         display_element.innerHTML = html;

@@ -7,6 +7,8 @@ import org.mindtrails.domain.Study;
 import org.mindtrails.persistence.ParticipantRepository;
 import org.mindtrails.service.ParticipantServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
@@ -83,5 +85,15 @@ public class TestParticipantService extends ParticipantServiceImpl {
     @Override
     public void markConditionAsUsed(RandomCondition rc) {
 
+    }
+
+    @Override
+    public Page<Participant> findEligibleForCoaching(Pageable pageable) {
+        return this.repository.findEligibleForCoaching("TEST", pageable);
+    }
+
+    @Override
+    public Page<Participant> searchEligibleForCoaching(Pageable pageable, String searchTerm) {
+        return this.repository.searchEligibleForCoaching("TEST", pageable, searchTerm);
     }
 }

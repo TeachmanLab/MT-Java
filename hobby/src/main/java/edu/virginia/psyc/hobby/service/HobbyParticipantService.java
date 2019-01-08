@@ -1,6 +1,8 @@
 package edu.virginia.psyc.hobby.service;
 
 import edu.virginia.psyc.hobby.domain.HobbyStudy;
+import org.mindtrails.domain.Conditions.NoNewConditionException;
+import org.mindtrails.domain.Conditions.RandomCondition;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.RestExceptions.MissingEligibilityException;
 import org.mindtrails.domain.Study;
@@ -8,6 +10,8 @@ import org.mindtrails.persistence.ParticipantRepository;
 import org.mindtrails.service.ParticipantService;
 import org.mindtrails.service.ParticipantServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
@@ -50,4 +54,24 @@ public class HobbyParticipantService extends ParticipantServiceImpl implements P
     public void saveNew(Participant p, HttpSession session) throws MissingEligibilityException {
         save(p);
         }
+
+    @Override
+    public RandomCondition getCondition(Participant p) throws NoNewConditionException {
+        return null;
+    }
+
+    @Override
+    public void markConditionAsUsed(RandomCondition rc) {
+
+    }
+
+    @Override
+    public Page<Participant> findEligibleForCoaching(Pageable pageable) {
+        return null;
+    }
+
+    @Override
+    public Page<Participant> searchEligibleForCoaching(Pageable pageable, String searchTerm) {
+        return null;
+    }
 }

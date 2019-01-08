@@ -109,6 +109,11 @@ public class Participant implements UserDetails, HasStudy {
     @OrderBy(value = "dateSent")
     protected SortedSet<ErrorLog> errorLogs = new TreeSet<>();
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "participant")
+    @JsonIgnore
+    @OrderBy(value = "dateAttempted")
+    protected SortedSet<CoachLog> coachLogs = new TreeSet<>();
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -326,6 +331,23 @@ public class Participant implements UserDetails, HasStudy {
             }
         }
         return false;
+    }
+
+    @JsonIgnore
+    public int getTotalCoachInteractions() {
+        return this.coachLogs.size();
+    }
+
+
+    @JsonIgnore
+    public int getSuccessfulCoachInteractions() {
+        int count = 0;
+        for(CoachLog log : getCoachLogs()) {
+            if(log.isSuccessful()) {
+                count ++;
+            }
+        }
+        return count;
     }
 
 }

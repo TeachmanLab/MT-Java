@@ -65,7 +65,7 @@ public class ExpectancyController extends QuestionController {
 
         // Save the form, associate it with the participant, and log the
         // process.
-        saveForm("ExpectancyBias", request, model, principal);
+        saveForm("ExpectancyBias", request, model, principal, "", null);
 
         Participant p = participantService.get(principal);
 
