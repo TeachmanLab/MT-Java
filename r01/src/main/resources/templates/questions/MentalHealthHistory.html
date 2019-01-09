@@ -18,10 +18,21 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                <p>We would like to ask a few questions about your mental health and treatment history. Answers to
-                    these personal questions are kept confidential, but they help us improve
-                    Calm Thinking by figuring out for whom it works well.
+                <p>We are interested in your current and past mental health difficulties. Please read the following list
+                    of disorders and indicate whether you are <b>currently struggling</b> or <b>have struggled in the
+                        past</b> with
+                    these types of mental disorders.</p>
+                <p>If you have struggled with the difficulty in the past <b>and</b> are currently struggling with it
+                    (e.g., you
+                    had depression in the past, it went away, and now you’re struggling with it again), please mark both
+                    “currently struggling” and “struggled with this in the past.” If you have been struggling
+                    continuously with the difficulty for an extended period (e.g., you have been depressed for 10
+                    years), please mark only “currently struggling.” </p>
+                <p>Additionally, please indicate if you have ever received a diagnosis for any of these disorders by a
+                    healthcare professional.
                 </p>
+                <p>If you have never struggled with any of the disorders below, please select “I have not struggled with
+                    a mental disorder”.</p>
 
             </div>
         </div>
@@ -67,12 +78,26 @@
 </textarea>
 
 <textarea style="display: none" id="check_box_template">
-{{#questions}}
-<div class="radio">
-    <label class="question"> <input type="checkbox" name="{{radio_name}}" value="{{name}}"/>
-        {{desc}} </label>
-</div>
-{{/questions}}
+    <div class="col-md-8 side-border">
+    {{#questions}}
+    <div class="radio">
+        <label class="question"> <input type="checkbox" name="{{radio_name}}" value="{{name}}"/>
+            {{desc}} </label>
+    </div>
+    {{/questions}}
+    </div>
+    <div class="col-md-4">
+        <br/>
+        <br/>
+        <div class="radio">
+            <label class="question"><input type="checkbox" name="ChangeHelp" value="555"
+                                           onchange="disableSection(this)"/> Prefer not to answer
+            </label>
+        </div>
+        <br/>
+        <br/>
+
+    </div>
 </textarea>
 
 <section id="content" class="clearfix">
@@ -391,7 +416,7 @@
             <div class="row">
                 <div class="col-md-10">
                     <p><b>There are many reasons people do not get help. Why are you not getting mental health
-                        treatment? Please select all that apply..</b></p>
+                        treatment? Please select all that apply.</b></p>
                 </div>
             </div>
             <div id="why_no_help_section"></div>
