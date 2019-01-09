@@ -6,6 +6,7 @@ import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 
 import javax.persistence.*;
 import java.util.List;
+import javax.validation.constraints.NotNull;
 
 
 @Entity
@@ -75,9 +76,8 @@ public class MentalHealthHistory extends LinkedQuestionnaireData {
     @Column(name = "why_no_help")
     private List<String> why_no_help;
 
-
-
-
+    @NotNull
+    private Integer anxiety_duration;
 }
 
 
