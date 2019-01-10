@@ -18,6 +18,14 @@ import java.util.TreeMap;
 @Data
 public class Evaluation extends LinkedQuestionnaireData {
 
+    @NotNull
+    private Integer sessionDuration;
+
+    @ElementCollection
+    @CollectionTable(name= "evaluation_preferredPlatform", joinColumns = @JoinColumn(name="id"))
+    @Column(name = "preferredPlatform")
+    private List<String> preferredPlatform;
+
     @ElementCollection
     @CollectionTable(name = "evaluation_devices", joinColumns = @JoinColumn(name = "id"))
     @Column(name = "devices")

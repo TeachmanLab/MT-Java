@@ -35,9 +35,83 @@
         </div>
 
         <div class="container section">
+            <div id="section0"></div>
+            <script>
+                var data = {
+                    "options": [
+                        {"value": 1, "title": "Way too short"},
+                        {"value": 2, "title": "Somewhat too short"},
+                        {"value": 3, "title": "The right length"},
+                        {"value": 4, "title": "Somewhat too long"},
+                        {"value": 5, "title": "Way too long"}
+                    ],
+                    "questions": [
+                        {
+                            "name": "sessionDuration",
+                            "desc": "I found the training sessions to be:"
+                        }
+                    ]
+                }
+                $('#section0').html(Mustache.render($('#template5').val(), data));
+            </script>
+        </div>
+
+        <div class="container section">
             <div class="row">
                 <div class="col-md-10">
-                    <p><b>What device(s) did you use to complete the program? Please check all that apply.</b></p>
+                    <p><b>What is your preferred technology platform for delivery of health interventions (e.g., Calm
+                        Thinking)? Check all that apply.</b></p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="preferredPlatform" value="computerBrowser"/> Desktop or laptop computer via an
+                            internet browser (e.g., Firefox, Chrome, Safari) </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="preferredPlatform" value="smartphoneBrowser"/> Smartphone or tablet via an
+                            internet browser (e.g., Firefox, Chrome, Safari) </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="preferredPlatform" value="app"/> Smartphone or tablet via an app </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="preferredPlatform" value="call"/> Telephone call </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="preferredPlatform" value="video"/> Video conferencing (on any device) </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="preferredPlatform" value="email"/> Email (on any device) </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="preferredPlatform" value="none"/> I do not want to use technology to receive
+                            health interventions </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container section">
+            <div class="row">
+                <div class="col-md-10">
+                    <p><b>What device(s) did you use to complete the program? Check all that apply.</b></p>
                 </div>
             </div>
 
@@ -491,7 +565,7 @@
                 'devices': {required: true, minlength: 1},
                 'places': {required: true, minlength: 1},
                 'reasonsControl': {required: true, minlength: 1},
-                'howLearn': {required: true, minlength:1}
+                'howLearn': {required: true, minlength: 1}
             }
         });
     });
