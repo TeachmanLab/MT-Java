@@ -146,8 +146,7 @@ public class R01Study extends BaseStudy {
         session2 = new Session(SECOND_SESSION, "Level 2: Intermediate", 0, 7);
         session2.setIndex(2);
         session2.addTask(new Task("2", "Training Stories", Task.TYPE.angular, 20));
-        session2.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
-        session2.addTask(new Task("CoachPrompt","Feedback", Task.TYPE.questions, 0 ));
+        session2.addTask(new Task("OA","Anxiety review", Task.TYPE.questions, 1 ));
         session2.addTask(new Task("ReturnIntention","Intention to Return", Task.TYPE.questions, 0));
         sessions.add(session2);
 
@@ -174,7 +173,6 @@ public class R01Study extends BaseStudy {
         session4.setIndex(4);
         session4.addTask(new Task("4", "Training Stories", Task.TYPE.angular, 20));
         session4.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
-        session4.addTask(new Task("CoachPrompt","Feedback", Task.TYPE.questions, 0 ));
         session4.addTask(new Task("ReturnIntention","Intention to Return", Task.TYPE.questions, 0));
         sessions.add(session4);
 
