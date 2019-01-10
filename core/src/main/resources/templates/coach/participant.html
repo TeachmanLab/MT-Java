@@ -122,7 +122,6 @@
                         <th>Successful?</th>
                     </tr>
                     </thead>
-
                     <tr th:each="log : ${coachee.coachLogs}">
                         <td><span th:if="${log.dateAttempted}" th:text="${#dates.format(log.dateAttempted,
                         'EEE, dd MMM yyyy h:mm a')}">10-05-1972 11:55</span></td>
