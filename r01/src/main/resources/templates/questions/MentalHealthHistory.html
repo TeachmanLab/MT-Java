@@ -27,27 +27,80 @@
     </div>
 </section>
 
-
+<!-- Template for the response portion of question 1 ("What mental health disorders do you struggle with?") -->
 <textarea style="display: none" id="struggling_template">
     {{#questions}}
-    <div class="radio">
-        <label class="question"> <input id="{{name}}_id" onchange="sub('{{name}}_id')" type="checkbox"
-                                        name="{{radio_name}}"
-                                        value="{{name}}"/> {{desc}}
-        </label>
-    </div>
-        {{/questions}}
-</textarea>
-
-
-<textarea style="display: none" id="basic_checkbox_template">
-    <div class="col-md-8 side-border">
-    {{#questions}}
-    <div class="radio">
-        <label class="question"> <input type="checkbox" name="{{radio_name}}" value="{{name}}"/>
-            {{desc}} </label>
+    <div class="row bottom-border" style="margin-bottom: 5px; padding-bottom: 5px; font-size: .9em;">
+        <div class="col-xs-3">{{desc}}</div>
+        <div class="col-xs-3">
+            <div class="radio text-center">
+                <label class="question"> <input
+                        type="checkbox"
+                        name="{{radio_name}}" value="{{name}}_current"/>
+                </label>
+            </div>
+        </div>
+        <div class="col-xs-3">
+            <div class="radio text-center">
+                <label class="question"> <input
+                        type="checkbox"
+                        name="{{radio_name}}" value="{{name}}_past"/>
+                </label>
+            </div>
+        </div>
+        <div class="col-xs-3">
+            <div class="radio text-center">
+                <label class="question"> <input
+                        type="checkbox"
+                        name="{{radio_name}}" value="{{name}}_diagnosed"/>
+                </label>
+            </div>
+        </div>
     </div>
     {{/questions}}
+
+    <div class="row">
+        <div class="radio">
+            <label class="question"> <input id="struggle_other" onchange="sub('struggle_other');spec('struggle_other');"
+                                            type="checkbox"
+                                            name="mental_health_disorders"
+                                            value="Other"/> Other (please specify):
+                <input id="struggle_other_spec" type="text" name="otherDisorder" value="N/A"/> </label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="radio">
+            <label class="question"><input type="checkbox" name="disorders" value="none"
+                                           onchange="disableSection(this)"/> I have not struggled with a mental
+                        disorder</label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="radio">
+            <label class="question"><input type="checkbox" name="disorders" value="555"
+                                           onchange="disableSection(this)"/> Prefer not to answer</label>
+        </div>
+    </div>
+</textarea>
+
+<!-- A basic checkbox question template. Used for question 5 ("Why are you not getting mental health treatment?") -->
+<textarea style="display: none" id="basic_checkbox_template">
+    <div class="col-md-8 side-border">
+        {{#questions}}
+        <div class="radio">
+            <label class="question"> <input type="checkbox" name="{{radio_name}}" value="{{name}}"/>
+                {{desc}} </label>
+        </div>
+        {{/questions}}
+        <div class="radio">
+            <label class="question"> <input id="template_other" onchange="sub('template_other');spec('template_other');"
+                                            type="checkbox"
+                                            name="{{radio_name}}"
+                                            value="Other"/> Other (please specify):
+                <input id="template_other_spec" type="text" name="other_{{radio_name}}" value="N/A"/> </label>
+        </div>
     </div>
     <div class="col-md-4">
         <br/>
@@ -61,6 +114,7 @@
         <br/>
 
     </div>
+
 </textarea>
 
 <section id="content" class="clearfix">
@@ -69,6 +123,7 @@
         <!-- Add timer -->
         <input id="timeOnPage" name="timeOnPage" type="hidden"/>
 
+        <!-- Very long description before question 1 followed by a JavaScript Mustache call to the question 1 template -->
         <div class="container section">
             <div class="row">
                 <div class="col-md-10">
@@ -104,424 +159,81 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-xs-3">Generalized anxiety disorder (GAD)</div>
-                <div class="col-xs-3">
-                    <div class="radio text-center">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="disorders" value="gad_current"/>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-xs-3">
-                    <div class="radio text-center">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="disorders" value="gad_past"/>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-xs-3">
-                    <div class="radio text-center">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="disorders" value="gad_diagnosed"/>
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-xs-3">Obsessive-compulsive disorder (OCD)</div>
-                <div class="col-xs-3">
-                    <div class="radio text-center">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="disorders" value="ocd_current"/>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-xs-3">
-                    <div class="radio text-center">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="disorders" value="ocd_past"/>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-xs-3">
-                    <div class="radio text-center">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="disorders" value="ocd_diagnosed"/>
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-xs-3">Panic disorder</div>
-                <div class="col-xs-3">
-                    <div class="radio text-center">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="disorders" value="panic_current"/>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-xs-3">
-                    <div class="radio text-center">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="disorders" value="panic_past"/>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-xs-3">
-                    <div class="radio text-center">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="disorders" value="panic_diagnosed"/>
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-xs-3">Agoraphobia</div>
-                <div class="col-xs-3">
-                    <div class="radio text-center">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="disorders" value="agoraphobia_current"/>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-xs-3">
-                    <div class="radio text-center">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="disorders" value="agoraphobia_past"/>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-xs-3">
-                    <div class="radio text-center">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="disorders" value="agoraphobia_diagnosed"/>
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-xs-3">Posttraumatic stress disorder (PTSD)</div>
-                <div class="col-xs-3">
-                    <div class="radio text-center">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="disorders" value="ptsd_current"/>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-xs-3">
-                    <div class="radio text-center">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="disorders" value="ptsd_past"/>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-xs-3">
-                    <div class="radio text-center">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="disorders" value="ptsd_diagnosed"/>
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-xs-3">Social anxiety disorder</div>
-                <div class="col-xs-3">
-                    <div class="radio text-center">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="disorders" value="social_anxiety_current"/>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-xs-3">
-                    <div class="radio text-center">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="disorders" value="social_anxiety_past"/>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-xs-3">
-                    <div class="radio text-center">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="disorders" value="social_anxiety_diagnosed"/>
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-xs-3">Specific phobia(s)</div>
-                <div class="col-xs-3">
-                    <div class="radio text-center">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="disorders" value="phobia_current"/>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-xs-3">
-                    <div class="radio text-center">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="disorders" value="phobia_past"/>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-xs-3">
-                    <div class="radio text-center">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="disorders" value="phobia_diagnosed"/>
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-xs-3">Dementia or other cognitive disorder</div>
-                <div class="col-xs-3">
-                    <div class="radio text-center">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="disorders" value="cognitive_disorder_current"/>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-xs-3">
-                    <div class="radio text-center">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="disorders" value="cognitive_disorder_past"/>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-xs-3">
-                    <div class="radio text-center">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="disorders" value="cognitive_disorder_diagnosed"/>
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-xs-3">Substance use disorder</div>
-                <div class="col-xs-3">
-                    <div class="radio text-center">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="disorders" value="substance_use_current"/>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-xs-3">
-                    <div class="radio text-center">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="disorders" value="substance_use_past"/>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-xs-3">
-                    <div class="radio text-center">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="disorders" value="substance_use_diagnosed"/>
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-xs-3">Schizophrenia or other psychotic disorder</div>
-                <div class="col-xs-3">
-                    <div class="radio text-center">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="disorders" value="psychotic_current"/>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-xs-3">
-                    <div class="radio text-center">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="disorders" value="psychotic_past"/>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-xs-3">
-                    <div class="radio text-center">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="disorders" value="psychotic_diagnosed"/>
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-xs-3">Depression</div>
-                <div class="col-xs-3">
-                    <div class="radio text-center">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="disorders" value="depression_current"/>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-xs-3">
-                    <div class="radio text-center">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="disorders" value="depression_past"/>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-xs-3">
-                    <div class="radio text-center">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="disorders" value="depression_diagnosed"/>
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-xs-3">Bipolar disorder</div>
-                <div class="col-xs-3">
-                    <div class="radio text-center">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="disorders" value="bipolar_current"/>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-xs-3">
-                    <div class="radio text-center">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="disorders" value="bipolar_past"/>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-xs-3">
-                    <div class="radio text-center">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="disorders" value="bipolar_diagnosed"/>
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-xs-3">Eating disorder</div>
-                <div class="col-xs-3">
-                    <div class="radio text-center">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="disorders" value="eating_current"/>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-xs-3">
-                    <div class="radio text-center">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="disorders" value="eating_past"/>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-xs-3">
-                    <div class="radio text-center">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="disorders" value="eating_diagnosed"/>
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-xs-3">Personality disorder</div>
-                <div class="col-xs-3">
-                    <div class="radio text-center">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="disorders" value="personality_current"/>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-xs-3">
-                    <div class="radio text-center">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="disorders" value="personality_past"/>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-xs-3">
-                    <div class="radio text-center">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="disorders" value="personality_diagnosed"/>
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="radio">
-                    <label class="question"> <input id="CHS_O" onchange="sub('CHS_O');spec('CHS_O');"
-                                                    type="checkbox" name="mental_health_disorders"
-                                                    value="Other"/> Other (please specify): <input
-                            id="CHS_O_spec" type="text" name="otherDisorder" value="N/A"/> </label>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="radio">
-                    <label class="question"><input type="checkbox" name="disorders" value="none"
-                                                   onchange="disableSection(this)"/> I have not struggled with a mental
-                        disorder</label>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="radio">
-                    <label class="question"><input type="checkbox" name="disorders" value="555"
-                                                   onchange="disableSection(this)"/> Prefer not to answer</label>
-                </div>
+            <div class="container">
+                <div id="struggled_section"/>
+                <script>
+                    var data = {
+                        "radio_name": "disorders",
+                        "options": [
+                            {"value": 1, "title": "Currently Struggling"},
+                            {"value": 2, "title": "Previously Struggled"},
+                            {"value": 3, "title": "Diagnosed by a healthcare professional"}
+                        ],
+                        "questions": [
+                            {
+                                "name": "gad",
+                                "desc": "Generalized anxiety disorder (GAD)"
+                            },
+                            {
+                                "name": "ocd",
+                                "desc": "Obsessive-compulsive disorder (OCD)"
+                            },
+                            {
+                                "name": "panic",
+                                "desc": "Panic disorder"
+                            },
+                            {
+                                "name": "agoraphobia",
+                                "desc": "Agoraphobia"
+                            },
+                            {
+                                "name": "ptsd",
+                                "desc": "Posttraumatic stress disorder (PTSD)"
+                            },
+                            {
+                                "name": "social_anxiety",
+                                "desc": "Social anxiety disorder"
+                            },
+                            {
+                                "name": "phobia",
+                                "desc": "Specific phobia(s)"
+                            },
+                            {
+                                "name": "cognitive",
+                                "desc": "Dementia or other cognitive disorder"
+                            },
+                            {
+                                "name": "substance_use",
+                                "desc": "Substance use disorder"
+                            },
+                            {
+                                "name": "psychotic",
+                                "desc": "Schizophrenia or other psychotic disorder"
+                            },
+                            {
+                                "name": "depression",
+                                "desc": "Depression"
+                            },
+                            {
+                                "name": "bipolar",
+                                "desc": "Bipolar disorder"
+                            },
+                            {
+                                "name": "eating",
+                                "desc": "Eating disorder"
+                            },
+                            {
+                                "name": "personality",
+                                "desc": "Personality Disorder"
+                            }
+                        ]
+                    }
+                    $('#struggled_section').html(Mustache.render($('#struggling_template').val(), data));
+                </script>
             </div>
         </div>
 
-
+        <!-- Question 2-->
         <div class="container section">
             <div class="row">
                 <div class="col-md-10">
@@ -671,6 +383,8 @@
 
             </div>
         </div>
+
+        <!-- Question 3 -->
         <div class="container section">
             <div class="row">
                 <div class="col-md-10">
@@ -713,10 +427,11 @@
                                 name="change_help" value="end_medication"/> I stopped a prescription medication </label>
                     </div>
                     <div class="radio">
-                        <label class="question"> <input id="CHS_O" onchange="sub('CHS_O');spec('CHS_O');"
+                        <label class="question"> <input id="changes_other"
+                                                        onchange="sub('changes_other');spec('changes_other');"
                                                         type="checkbox" name="change_help"
                                                         value="Other"/> Other (please specify): <input
-                                id="CHS_O_spec" type="text" name="change_help_text" value="N/A"/> </label>
+                                id="changes_other_spec" type="text" name="change_help_text" value="N/A"/> </label>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -734,6 +449,7 @@
             </div>
         </div>
 
+        <!-- Question 4 -->
         <div class="container section">
             <div id="anxietyDuration"></div>
             <script>
@@ -760,6 +476,8 @@
             </script>
         </div>
 
+        <!-- Question 5, which (like Question 1) uses a template defined up top. This question only displays if the user
+         indicates in Question 2 that they are not seeking help -->
         <div class="container section" id="ask_why_no_help" style="display:none">
             <div class="row">
                 <div class="col-md-10">

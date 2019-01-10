@@ -45,6 +45,7 @@ public class MentalHealthHistory extends LinkedQuestionnaireData {
     @CollectionTable(name = "mental_health_why_no_help", joinColumns = @JoinColumn(name = "id"))
     @Column(name = "why_no_help")
     private List<String> why_no_help;
+    private String other_why_no_help;
 
     @NotNull
     private Integer anxiety_duration;
