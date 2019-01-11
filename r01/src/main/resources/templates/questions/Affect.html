@@ -69,9 +69,11 @@
                                 $('#posSlider-enabled').click(function () {
                                     if (this.checked) {
                                         $('#current_anxiety_slider').attr("disabled",true);
+                                        $('#current_anxiety_slider').removeClass("clicked");
                                         $('#PosFeelings').val(555).trigger('change');
                                     } else {
                                         $('#current_anxiety_slider').attr("disabled",false);
+                                        $('#current_anxiety_slider').addClass("clicked");
                                         $('#PosFeelings').val($('#current_anxiety_slider').val()).trigger('change');
                                     }
                                 });
