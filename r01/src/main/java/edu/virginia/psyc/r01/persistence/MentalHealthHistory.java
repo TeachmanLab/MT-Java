@@ -6,6 +6,7 @@ import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 
 import javax.persistence.*;
 import java.util.List;
+import javax.validation.constraints.NotNull;
 
 
 @Entity
@@ -14,41 +15,11 @@ import java.util.List;
 @Data
 public class MentalHealthHistory extends LinkedQuestionnaireData {
 
-    /*
-    Drop the following tables:
-    1.mental_health_disorders;
-    2.mental_health_disorders_past;
-    3.no_help_reason;
-    4.helps_past;
-    5.help;
-    6.help_seeking;
-    7.health_change;
-    8.help_change;
-    9.mental_health_history;
-     */
-
-
     @ElementCollection
     @CollectionTable(name = "mental_health_disorders", joinColumns = @JoinColumn(name = "id"))
-    @Column(name = "disorder")
+    @Column(name = "disorders")
     private List<String> disorders;
-
-    private int gad;
-    private int ocd;
-    private int panic_disorder;
-    private int agoraphobia;
-    private int ptsd;
-    private int social_anxiety;
-    private int phobias;
-    private int dementia;
-    private int substance_use_disorder;
-    private int schizophrenia;
-    private int depression;
-    private int bipolar;
-    private int eating;
-    private int personality;
-    private int disorders_other;
-    private String disorders_other_text;
+    private String otherDisorder;
 
     @ElementCollection
     @CollectionTable(name = "mental_health_help", joinColumns = @JoinColumn(name = "id"))
@@ -74,10 +45,10 @@ public class MentalHealthHistory extends LinkedQuestionnaireData {
     @CollectionTable(name = "mental_health_why_no_help", joinColumns = @JoinColumn(name = "id"))
     @Column(name = "why_no_help")
     private List<String> why_no_help;
+    private String other_why_no_help;
 
-
-
-
+    @NotNull
+    private Integer anxiety_duration;
 }
 
 
