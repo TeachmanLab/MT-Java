@@ -53,7 +53,7 @@
                             }
 
                             $(document).ready(function () {
-                                $('#current_anxiety_slider').one('click', function () {
+                                $('#current_anxiety_slider').one('click', function (event) {
                                     var slider =  $('#current_anxiety_slider');
                                     var x = event.pageX - slider.offset().left;
                                     var value = Math.round(x / slider.width() * 100);
@@ -69,9 +69,11 @@
                                 $('#posSlider-enabled').click(function () {
                                     if (this.checked) {
                                         $('#current_anxiety_slider').attr("disabled",true);
+                                        $('#current_anxiety_slider').removeClass("clicked");
                                         $('#PosFeelings').val(555).trigger('change');
                                     } else {
                                         $('#current_anxiety_slider').attr("disabled",false);
+                                        $('#current_anxiety_slider').addClass("clicked");
                                         $('#PosFeelings').val($('#current_anxiety_slider').val()).trigger('change');
                                     }
                                 });
