@@ -17,6 +17,7 @@ import java.util.stream.Stream;
  * This is where you define the sessions and tasks that make up the study.
  */
 @Entity
+
 @Data
 @DiscriminatorValue("R01")
 public class R01Study extends BaseStudy {
@@ -118,54 +119,54 @@ public class R01Study extends BaseStudy {
 
         pretest = new Session (PRE_TEST, "Initial Assessment", 500, 0);
         pretest.setIndex(0);
-        pretest.addTask(new Task("Credibility","Consent to participate", Task.TYPE.questions, 0 ));
+        pretest.addTask(new Task("Credibility","Readiness Rulers", Task.TYPE.questions, 0 ));
         pretest.addTask(new Task("Demographics","Demographics", Task.TYPE.questions, 2 ));
-        pretest.addTask(new Task("MentalHealthHistory","Mental Health History", Task.TYPE.questions, 2 ));
-        pretest.addTask(new Task("AnxietyIdentity","Your Identity", Task.TYPE.questions, 0 ));
+        pretest.addTask(new Task("MentalHealthHistory","Mental Health and Treatment History", Task.TYPE.questions, 2 ));
+        pretest.addTask(new Task("AnxietyIdentity","Anxiety Identity Circles", Task.TYPE.questions, 0 ));
         pretest.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
-        pretest.addTask(new Task("AnxietyTriggers","Personal anxiety triggers", Task.TYPE.questions, 0 ));
-        pretest.addTask(new Task("recognitionRatings", "Completing short stories", Task.TYPE.jspsych, 5));
-        pretest.addTask(new Task("RR","Completing short stories - Continued", Task.TYPE.questions, 0 ));
-        pretest.addTask(new Task("BBSIQ","Why things happen", Task.TYPE.questions, 0 ));
-        pretest.addTask(new Task("Comorbid","My Behaviors", Task.TYPE.questions, 0 ));
+        pretest.addTask(new Task("AnxietyTriggers","Anxiety Triggers", Task.TYPE.questions, 0 ));
+        pretest.addTask(new Task("recognitionRatings", "Completing Short Stories", Task.TYPE.jspsych, 5));
+        pretest.addTask(new Task("RR","Completing Short Stories, Pt. 2", Task.TYPE.questions, 0 ));
+        pretest.addTask(new Task("BBSIQ","Why Things Happen", Task.TYPE.questions, 0 ));
+        pretest.addTask(new Task("Comorbid","Mood and Drinking Patterns", Task.TYPE.questions, 0 ));
         pretest.addTask(new Task("Wellness","What I Believe", Task.TYPE.questions, 0 ));
         pretest.addTask(new Task("Mechanisms","How I Respond", Task.TYPE.questions, 0 ));
         sessions.add(pretest);
 
         session1 = new Session(FIRST_SESSION, "Level 1: Beginner", 0, 0);
         session1.setIndex(1);
-        session1.addTask(new Task("Affect","Current Feelings", "pre", Task.TYPE.questions, 0));
+        session1.addTask(new Task("Affect","Current Feelings, Pre-Training", "pre", Task.TYPE.questions, 0));
         session1.addTask(new Task("1", "Training Stories", Task.TYPE.angular, 20));
-        session1.addTask(new Task("Affect","Current Feelings", "post", Task.TYPE.questions, 0));
-        session1.addTask(new Task("CC","Follow up", Task.TYPE.questions, 0 ));
+        session1.addTask(new Task("Affect","Current Feelings, Post-Training", "post", Task.TYPE.questions, 0));
+        session1.addTask(new Task("CC","Compare and Contrast", Task.TYPE.questions, 0 ));
         session1.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
-        session1.addTask(new Task("CoachPrompt","Feedback", Task.TYPE.questions, 0 ));
+        session1.addTask(new Task("CoachPrompt","Coaching Prompts", Task.TYPE.questions, 0 ));
         session1.addTask(new Task("ReturnIntention","Intention to Return", Task.TYPE.questions, 0));
         sessions.add(session1);
 
         session2 = new Session(SECOND_SESSION, "Level 2: Intermediate", 0, 7);
         session2.setIndex(2);
         session2.addTask(new Task("2", "Training Stories", Task.TYPE.angular, 20));
-        session2.addTask(new Task("OA","Anxiety review", Task.TYPE.questions, 1 ));
-        session2.addTask(new Task("ReturnIntention","Intention to Return", Task.TYPE.questions, 0));
+        session2.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
+        session2.addTask(new Task("ReturnIntention","Returning to the Program", Task.TYPE.questions, 0));
         sessions.add(session2);
 
         session3 = new Session(THIRD_SESSION, "Level 3: Advanced", 500, 7);
         session3.setIndex(3);
-        session3.addTask(new Task("Affect","Current Feelings", "pre", Task.TYPE.questions, 0));
+        session3.addTask(new Task("Affect","Current Feelings, Pre-Training", "pre", Task.TYPE.questions, 0));
         session3.addTask(new Task("3", "Training Stories", Task.TYPE.angular, 20));
-        session3.addTask(new Task("Affect","Current Feelings", "post", Task.TYPE.questions, 0));
+        session3.addTask(new Task("Affect","Current Feelings, Post-Training", "post", Task.TYPE.questions, 0));
         session3.addTask(new Task("CC","Compare and Contrast", Task.TYPE.questions, 0 ));
-        session3.addTask(new Task("AnxietyIdentity","Your Identity", Task.TYPE.questions, 0 ));
+        session3.addTask(new Task("AnxietyIdentity","Anxiety and Identity Circles", Task.TYPE.questions, 0 ));
         session3.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
-        session3.addTask(new Task("DASS21_AS","Mood assessment", Task.TYPE.questions, 0 ));
-        session3.addTask(new Task("recognitionRatings", "Completing short stories", Task.TYPE.jspsych, 5));
-        session3.addTask(new Task("RR","Completing short stories - Continued", Task.TYPE.questions, 0 ));
-        session3.addTask(new Task("BBSIQ","Why things happen", Task.TYPE.questions, 0 ));
-        session3.addTask(new Task("Comorbid","My Behaviors", Task.TYPE.questions, 0 ));
+        session3.addTask(new Task("DASS21_AS","Mood Assessment", Task.TYPE.questions, 0 ));
+        session3.addTask(new Task("recognitionRatings", "Completing Short Stories", Task.TYPE.jspsych, 5));
+        session3.addTask(new Task("RR","Completing Short Stories, Pt. 2", Task.TYPE.questions, 0 ));
+        session3.addTask(new Task("BBSIQ","Why Things Happen", Task.TYPE.questions, 0 ));
+        session3.addTask(new Task("Comorbid","Mood and Drinking Patterns", Task.TYPE.questions, 0 ));
         session3.addTask(new Task("Wellness","What I Believe", Task.TYPE.questions, 0 ));
         session3.addTask(new Task("Mechanisms","How I Respond", Task.TYPE.questions, 0 ));
-        session3.addTask(new Task("ReturnIntention","Intention to Return", Task.TYPE.questions, 0));
+        session3.addTask(new Task("ReturnIntention","Returning to the Program", Task.TYPE.questions, 0));
 
         sessions.add(session3);
 
@@ -173,42 +174,42 @@ public class R01Study extends BaseStudy {
         session4.setIndex(4);
         session4.addTask(new Task("4", "Training Stories", Task.TYPE.angular, 20));
         session4.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
-        session4.addTask(new Task("ReturnIntention","Intention to Return", Task.TYPE.questions, 0));
+        session4.addTask(new Task("ReturnIntention","Returning to the Program", Task.TYPE.questions, 0));
         sessions.add(session4);
 
         session5 = new Session(FIFTH_SESSION, "Level 5: Master", 500, 7);
         session5.setIndex(5);
-        session5.addTask(new Task("Affect","Current Feelings", "pre", Task.TYPE.questions, 0));
+        session5.addTask(new Task("Affect","Current Feelings, Pre-Training", "pre", Task.TYPE.questions, 0));
         session5.addTask(new Task("5", "Training Stories", Task.TYPE.angular, 20));
-        session5.addTask(new Task("Affect","Current Feelings", "post", Task.TYPE.questions, 0));
+        session5.addTask(new Task("Affect","Current Feelings, Post-Training", "post", Task.TYPE.questions, 0));
         session5.addTask(new Task("CC","Compare and Contrast", Task.TYPE.questions, 0 ));
-        session5.addTask(new Task("AnxietyIdentity","Your Identity", Task.TYPE.questions, 0 ));
+        session5.addTask(new Task("AnxietyIdentity","Anxiety and Identity Circles", Task.TYPE.questions, 0 ));
         session5.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
-        session5.addTask(new Task("DASS21_AS","Mood assessment", Task.TYPE.questions, 0 ));
-        session5.addTask(new Task("recognitionRatings", "Completing short stories", Task.TYPE.jspsych, 5));
-        session5.addTask(new Task("RR","Completing short stories - Continued", Task.TYPE.questions, 0 ));
-        session5.addTask(new Task("BBSIQ","Why things happen", Task.TYPE.questions, 0 ));
-        session5.addTask(new Task("Comorbid","My Behaviors", Task.TYPE.questions, 0 ));
+        session5.addTask(new Task("DASS21_AS","Mood Assessment", Task.TYPE.questions, 0 ));
+        session5.addTask(new Task("recognitionRatings", "Completing Short Stories", Task.TYPE.jspsych, 5));
+        session5.addTask(new Task("RR","Completing Short Stories, Pt. 2", Task.TYPE.questions, 0 ));
+        session5.addTask(new Task("BBSIQ","Why Things Happen", Task.TYPE.questions, 0 ));
+        session5.addTask(new Task("Comorbid","Mood and Drinking Patterns", Task.TYPE.questions, 0 ));
         session5.addTask(new Task("Wellness","What I Believe", Task.TYPE.questions, 0 ));
         session5.addTask(new Task("Mechanisms","How I Respond", Task.TYPE.questions, 0 ));
-        session5.addTask(new Task("HelpSeeking","Change in Help Seeking", Task.TYPE.questions, 1));
-        session5.addTask(new Task("Evaluation","Evaluation", Task.TYPE.questions, 2));
-        session5.addTask(new Task("AssessingProgram","Assessing this Program", Task.TYPE.questions, 2));
+        session5.addTask(new Task("HelpSeeking","Change in Help-Seeking Behavior", Task.TYPE.questions, 1));
+        session5.addTask(new Task("Evaluation","Evaluating the Program", Task.TYPE.questions, 2));
+        session5.addTask(new Task("AssessingProgram","Assessing the Program", Task.TYPE.questions, 2));
 
         sessions.add(session5);
 
         post = new Session(POST_FOLLOWUP, "2 Month Post Training", 1000, 60);
         post.setIndex(6);
-        post.addTask(new Task("AnxietyIdentity","Your Identity", Task.TYPE.questions, 0 ));
+        post.addTask(new Task("AnxietyIdentity","Anxiety and Identity Circles", Task.TYPE.questions, 0 ));
         post.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
-        post.addTask(new Task("DASS21_AS","Mood assessment", Task.TYPE.questions, 0 ));
-        post.addTask(new Task("recognitionRatings", "Completing short stories", Task.TYPE.jspsych, 5));
-        post.addTask(new Task("RR","C1ompleting short stories - Continued", Task.TYPE.questions, 0 ));
-        post.addTask(new Task("BBSIQ","Why things happen", Task.TYPE.questions, 0 ));
-        post.addTask(new Task("Comorbid","My Behaviors", Task.TYPE.questions, 0 ));
+        post.addTask(new Task("DASS21_AS","Mood Assessment", Task.TYPE.questions, 0 ));
+        post.addTask(new Task("recognitionRatings", "Completing Short Stories", Task.TYPE.jspsych, 5));
+        post.addTask(new Task("RR","Completing Short Stories, Pt. 2", Task.TYPE.questions, 0 ));
+        post.addTask(new Task("BBSIQ","Why Things Happen", Task.TYPE.questions, 0 ));
+        post.addTask(new Task("Comorbid","Mood and Drinking Patterns", Task.TYPE.questions, 0 ));
         post.addTask(new Task("Wellness","What I Believe", Task.TYPE.questions, 0 ));
         post.addTask(new Task("Mechanisms","How I Respond", Task.TYPE.questions, 0 ));
-        post.addTask(new Task("HelpSeeking","Change in Help Seeking", Task.TYPE.questions, 1));
+        post.addTask(new Task("HelpSeeking","Change in Help-Seeking Behavior", Task.TYPE.questions, 1));
         sessions.add(post);
 
         return sessions;
