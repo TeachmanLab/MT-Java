@@ -11,7 +11,7 @@ import net.fortuna.ical4j.util.FixedUidGenerator;
 import net.fortuna.ical4j.util.RandomUidGenerator;
 import net.fortuna.ical4j.util.UidGenerator;
 import org.mindtrails.domain.*;
-import org.mindtrails.domain.tango.Reward;
+import org.mindtrails.domain.tango.OrderResponse;
 import org.mindtrails.domain.tracking.EmailLog;
 import org.mindtrails.persistence.ParticipantRepository;
 import org.slf4j.Logger;
@@ -203,7 +203,7 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public void sendGiftCard(Participant participant, Reward reward, int amount) {
+    public void sendGiftCard(Participant participant, OrderResponse order, int amount) {
         // Prepare the evaluation context
         final Context ctx = new Context();
         Email email = getEmailForType("giftCard");
@@ -211,7 +211,7 @@ public class EmailServiceImpl implements EmailService {
         email.setParticipant(participant);
         email.setContext(ctx);
 
-        ctx.setVariable("reward", reward);
+        ctx.setVariable("order", order);
         ctx.setVariable("giftAmount", amount);
         sendEmail(email);
     }

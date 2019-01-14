@@ -21,43 +21,27 @@
                 <table style="width:100%">
                     <tr>
                         <td>Order ID:</td>
-                        <td th:text="${order.order_id}"> blablabla</td>
-                    </tr>
-                    <tr>
-                        <td>Identifier:</td>
-                        <td th:text="${order.account_identifier}"> XXX</td>
-                    </tr>
-                    <tr>
-                        <td>Customer:</td>
-                        <td th:text="${order.customer}"> whatever</td>
+                        <td th:text="${order.referenceOrderID}"> 1234</td>
                     </tr>
                     <tr>
                         <td>Amount:</td>
-                        <td th:text="${order.amount}+' Cents'"> soandso</td>
+                        <td th:text="'$'+${order.amount}"> 50 pesos</td>
                     </tr>
                     <tr>
-                        <td>Delivered At:</td>
-                        <td th:text="${order.delivered_at}"> 0</td>
+                        <td>Award Type / Id:</td>
+                        <td th:text="${order.utid}"> soandso</td>
                     </tr>
                     <tr>
-                        <td>Recipient Name:</td>
-                        <td th:text="${order.recipient.name}"> Adam</td>
+                        <td>Created on:</td>
+                        <td th:text="${#dates.format(order.createdAt, 'EEE, dd MMM yyyy h:mm a')}"> 0</td>
                     </tr>
                     <tr>
-                        <td>Recipient Email:</td>
-                        <td th:text="${order.recipient.email}"> adam@adam.com</td>
-                    </tr>
-                    <tr>
-                        <td>Card Number:</td>
-                        <td th:text="${order.reward.number}"> XXX</td>
-                    </tr>
-                    <tr>
-                        <td>PIN:</td>
-                        <td th:text="${order.reward.pin}"> XX</td>
+                        <td>Status:</td>
+                        <td th:text="${order.status}"> Success</td>
                     </tr>
                     <tr>
                         <td>Redemption URL:</td>
-                        <td th:text="${order.reward.redemption_url}"> www.fallingstone.net</td>
+                        <td th:text="${order.link}"> wildflowers.com</td>
                     </tr>
                 </table>
 
