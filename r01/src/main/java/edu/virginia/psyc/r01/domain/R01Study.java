@@ -119,7 +119,8 @@ public class R01Study extends BaseStudy {
 
         pretest = new Session (PRE_TEST, "Initial Assessment", 500, 0);
         pretest.setIndex(0);
-        pretest.addTask(new Task("Credibility","Readiness Rulers", Task.TYPE.questions, 0 ));
+
+        pretest.addTask(new Task("Credibility","How Does Calm Thinking Work?", Task.TYPE.questions, 0 ));
         pretest.addTask(new Task("Demographics","Demographics", Task.TYPE.questions, 2 ));
         pretest.addTask(new Task("MentalHealthHistory","Mental Health and Treatment History", Task.TYPE.questions, 2 ));
         pretest.addTask(new Task("AnxietyIdentity","Anxiety Identity Circles", Task.TYPE.questions, 0 ));
@@ -135,6 +136,7 @@ public class R01Study extends BaseStudy {
 
         session1 = new Session(FIRST_SESSION, "Level 1: Beginner", 0, 0);
         session1.setIndex(1);
+
         session1.addTask(new Task("Affect","Current Feelings, Pre-Training", "pre", Task.TYPE.questions, 0));
         session1.addTask(new Task("1", "Training Stories", Task.TYPE.angular, 20));
         session1.addTask(new Task("Affect","Current Feelings, Post-Training", "post", Task.TYPE.questions, 0));
@@ -153,6 +155,7 @@ public class R01Study extends BaseStudy {
 
         session3 = new Session(THIRD_SESSION, "Level 3: Advanced", 500, 7);
         session3.setIndex(3);
+
         session3.addTask(new Task("Affect","Current Feelings, Pre-Training", "pre", Task.TYPE.questions, 0));
         session3.addTask(new Task("3", "Training Stories", Task.TYPE.angular, 20));
         session3.addTask(new Task("Affect","Current Feelings, Post-Training", "post", Task.TYPE.questions, 0));
@@ -179,6 +182,7 @@ public class R01Study extends BaseStudy {
 
         session5 = new Session(FIFTH_SESSION, "Level 5: Master", 500, 7);
         session5.setIndex(5);
+
         session5.addTask(new Task("Affect","Current Feelings, Pre-Training", "pre", Task.TYPE.questions, 0));
         session5.addTask(new Task("5", "Training Stories", Task.TYPE.angular, 20));
         session5.addTask(new Task("Affect","Current Feelings, Post-Training", "post", Task.TYPE.questions, 0));
@@ -198,8 +202,9 @@ public class R01Study extends BaseStudy {
 
         sessions.add(session5);
 
-        post = new Session(POST_FOLLOWUP, "2 Month Post Training", 1000, 60);
+        post = new Session(POST_FOLLOWUP, "2 Month Follow-up", 1000, 60);
         post.setIndex(6);
+
         post.addTask(new Task("AnxietyIdentity","Anxiety and Identity Circles", Task.TYPE.questions, 0 ));
         post.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
         post.addTask(new Task("DASS21_AS","Mood Assessment", Task.TYPE.questions, 0 ));

@@ -37,7 +37,7 @@ public class Credibility extends LinkedQuestionnaireData {
         tmpScale.put(1, "A little");
         tmpScale.put(2, "Somewhat");
         tmpScale.put(3, "A lot");
-        tmpScale.put(4, "Extremely");
+        tmpScale.put(4, "Very");
         return Collections.unmodifiableMap(tmpScale);
     }
 

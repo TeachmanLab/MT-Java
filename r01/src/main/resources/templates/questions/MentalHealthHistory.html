@@ -12,67 +12,109 @@
 <body>
 <section th:replace="fragment/common :: topFragment"/>
 <section th:replace="fragment/common :: titleBar (title='Mental Health History')"/>
+<textArea th:replace="fragment/common :: questionTemplate5"/>
 
 
 <section id="content" class="clearfix">
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                <p>We would like to ask a few questions about your mental health and treatment history. Answers to
-                    these personal questions are kept confidential, but they help us improve
-                    Calm Thinking by figuring out for whom it works well.
-                </p>
-
+                <p>We would like to ask a few questions about your mental health and treatment history. Answers to these
+                    personal questions are kept confidential, but they help us improve Calm Thinking by figuring out for
+                    whom it works well.</p>
             </div>
         </div>
     </div>
 </section>
 
-
+<!-- Template for the response portion of question 1 ("What mental health disorders do you struggle with?") -->
 <textarea style="display: none" id="struggling_template">
     {{#questions}}
-
-<div class="radio">
-    <label class="question"> <input id="{{name}}_id" onchange="sub('{{name}}_id')" type="checkbox"
-                                    name="{{radio_name}}" value="{{name}}"/> {{desc}}
-    </label>
-    <div class="oneToSeven" id="{{name}}_id-1">
-        <select name="{{name}}">
-            <option value="">Please Select One</option>
-            {{#options}}
-            <option value="{{value}}">{{title}}</option>
-            {{/options}}
-            <option value="555"> Prefer not to answer</option>
-        </select>
-    </div>
-</div>
-    {{/questions}}
-<div class="radio">
-    <label class="question"> <input id="{{radio_name}}_other_id" onchange="sub('{{radio_name}}_other_id')"
-                                    type="checkbox"
-                                    name="{{radio_name}}" value="other"/> Other (Please specify)</label>
-    <div id="{{radio_name}}_other_id-1" class="oneToSeven">
-        <input id="{{radio_name}}_other_text-1" type="text" name="{{radio_name}}_other_text" value="N/A"/>
-        <div>
-            <select name="{{radio_name}}_other">
-                <option value="">Please Select One</option>
-                {{#options}}
-                <option value="{{value}}">{{title}}</option>
-                {{/options}}
-                <option value="555"> Prefer not to answer</option>
-            </select>
+    <div class="row bottom-border" style="margin-bottom: 5px; padding-bottom: 5px; font-size: .9em;">
+        <div class="col-xs-3">{{desc}}</div>
+        <div class="col-xs-3">
+            <div class="radio text-center">
+                <label class="question"> <input
+                        type="checkbox"
+                        name="{{radio_name}}" value="{{name}}_current"/>
+                </label>
+            </div>
+        </div>
+        <div class="col-xs-3">
+            <div class="radio text-center">
+                <label class="question"> <input
+                        type="checkbox"
+                        name="{{radio_name}}" value="{{name}}_past"/>
+                </label>
+            </div>
+        </div>
+        <div class="col-xs-3">
+            <div class="radio text-center">
+                <label class="question"> <input
+                        type="checkbox"
+                        name="{{radio_name}}" value="{{name}}_diagnosed"/>
+                </label>
+            </div>
         </div>
     </div>
-</div>
+    {{/questions}}
+
+    <div class="row">
+        <div class="radio">
+            <label class="question"> <input id="struggle_other" onchange="sub('struggle_other');spec('struggle_other');"
+                                            type="checkbox"
+                                            name="mental_health_disorders"
+                                            value="Other"/> Other (please specify):
+                <input id="struggle_other_spec" type="text" name="otherDisorder" value="N/A"/> </label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="radio">
+            <label class="question"><input type="checkbox" name="disorders" value="none"
+                                           onchange="disableSection(this)"/> I have not struggled with a mental
+                        disorder</label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="radio">
+            <label class="question"><input type="checkbox" name="disorders" value="555"
+                                           onchange="disableSection(this)"/> Prefer not to answer</label>
+        </div>
+    </div>
 </textarea>
 
-<textarea style="display: none" id="check_box_template">
-{{#questions}}
-<div class="radio">
-    <label class="question"> <input type="checkbox" name="{{radio_name}}" value="{{name}}"/>
-        {{desc}} </label>
-</div>
-{{/questions}}
+<!-- A basic checkbox question template. Used for question 5 ("Why are you not getting mental health treatment?") -->
+<textarea style="display: none" id="basic_checkbox_template">
+    <div class="col-md-8 side-border">
+        {{#questions}}
+        <div class="radio">
+            <label class="question"> <input type="checkbox" name="{{radio_name}}" value="{{name}}"/>
+                {{desc}} </label>
+        </div>
+        {{/questions}}
+        <div class="radio">
+            <label class="question"> <input id="template_other" onchange="sub('template_other');spec('template_other');"
+                                            type="checkbox"
+                                            name="{{radio_name}}"
+                                            value="Other"/> Other (please specify):
+                <input id="template_other_spec" type="text" name="other_{{radio_name}}" value="N/A"/> </label>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <br/>
+        <br/>
+        <div class="radio">
+            <label class="question"><input type="checkbox" name="{{radio_name}}" value="555"
+                                           onchange="disableSection(this)"/> Prefer not to answer
+            </label>
+        </div>
+        <br/>
+        <br/>
+
+    </div>
+
 </textarea>
 
 <section id="content" class="clearfix">
@@ -80,15 +122,45 @@
     <form th:action="@{/questions/MentalHealthHistory}" method="POST" id="MHFORM">
         <!-- Add timer -->
         <input id="timeOnPage" name="timeOnPage" type="hidden"/>
+
+        <!-- Very long description before question 1 followed by a JavaScript Mustache call to the question 1 template -->
         <div class="container section">
             <div class="row">
                 <div class="col-md-10">
                     <p><b>Have you ever struggled with any of the following mental disorders? Please select all that
                         apply.</b></p>
+                    <p>We are interested in your current and past mental health difficulties. Please read the following
+                        list
+                        of disorders and indicate whether you are <b>currently struggling</b> or <b>have struggled in
+                            the
+                            past</b> with
+                        these types of mental disorders.</p>
+                    <p>If you have struggled with the difficulty in the past <b>and</b> are currently struggling with it
+                        (e.g., you
+                        had depression in the past, it went away, and now you’re struggling with it again), please mark
+                        both
+                        “currently struggling” and “struggled with this in the past.” If you have been struggling
+                        continuously with the difficulty for an extended period (e.g., you have been depressed for 10
+                        years), please mark only “currently struggling.” </p>
+                    <p>Additionally, please indicate if you have ever received a diagnosis for any of these disorders by
+                        a
+                        healthcare professional.
+                    </p>
+                    <p>If you have never struggled with any of the disorders below, please select “I have not struggled
+                        with
+                        a mental disorder”.</p>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-8 side-border" id="struggled_section"/>
+            <div class="row" style="background-color: #ddd; font-size: .8em;">
+                <div class="col-xs-3"></div>
+                <div class="col-xs-3 text-center">I am currently struggling with this</div>
+                <div class="col-xs-3 text-center">I have struggled with this in the past</div>
+                <div class="col-xs-3 text-center">I have been diagnosed by a healthcare professional for this problem
+                </div>
+            </div>
+
+            <div class="container">
+                <div id="struggled_section"/>
                 <script>
                     var data = {
                         "radio_name": "disorders",
@@ -100,14 +172,14 @@
                         "questions": [
                             {
                                 "name": "gad",
-                                "desc": "Generalized anxiety disorder  (GAD)"
+                                "desc": "Generalized anxiety disorder (GAD)"
                             },
                             {
                                 "name": "ocd",
                                 "desc": "Obsessive-compulsive disorder (OCD)"
                             },
                             {
-                                "name": "panic_disorder",
+                                "name": "panic",
                                 "desc": "Panic disorder"
                             },
                             {
@@ -123,19 +195,19 @@
                                 "desc": "Social anxiety disorder"
                             },
                             {
-                                "name": "phobias",
+                                "name": "phobia",
                                 "desc": "Specific phobia(s)"
                             },
                             {
-                                "name": "dementia",
+                                "name": "cognitive",
                                 "desc": "Dementia or other cognitive disorder"
                             },
                             {
-                                "name": "substance_use_disorder",
+                                "name": "substance_use",
                                 "desc": "Substance use disorder"
                             },
                             {
-                                "name": "schizophrenia",
+                                "name": "psychotic",
                                 "desc": "Schizophrenia or other psychotic disorder"
                             },
                             {
@@ -158,20 +230,10 @@
                     }
                     $('#struggled_section').html(Mustache.render($('#struggling_template').val(), data));
                 </script>
-                <div class="col-md-4">
-                    <br/>
-                    <br/>
-                    <div class="radio">
-                        <label class="question"><input type="checkbox" name="ChangeHelp" value="555"
-                                                       onchange="disableSection(this)"/> Prefer not to answer
-                        </label>
-                    </div>
-                    <br/>
-                    <br/>
-                </div>
             </div>
         </div>
 
+        <!-- Question 2-->
         <div class="container section">
             <div class="row">
                 <div class="col-md-10">
@@ -313,13 +375,16 @@
                     <br/>
                     <div class="radio">
                         <label class="question"> <input type="checkbox" name="help" value="noDiagnosis" id="noDiagnosis"
-                                                        onchange="noHelp('noDiagnosis')"/> I am not seeking help
+                                                        onchange="noHelp('noDiagnosis'); disableSection(this)"/> I am
+                            not seeking help
                         </label>
                     </div>
                 </div>
 
             </div>
         </div>
+
+        <!-- Question 3 -->
         <div class="container section">
             <div class="row">
                 <div class="col-md-10">
@@ -327,7 +392,6 @@
                         Check all that apply.</b></p>
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-md-8 side-border">
                     <div class="radio">
@@ -363,17 +427,18 @@
                                 name="change_help" value="end_medication"/> I stopped a prescription medication </label>
                     </div>
                     <div class="radio">
-                        <label class="question"> <input id="CHS_O" onchange="sub('CHS_O');spec('CHS_O');"
+                        <label class="question"> <input id="changes_other"
+                                                        onchange="sub('changes_other');spec('changes_other');"
                                                         type="checkbox" name="change_help"
                                                         value="Other"/> Other (please specify): <input
-                                id="CHS_O_spec" type="text" name="change_help_text" value="N/A"/> </label>
+                                id="changes_other_spec" type="text" name="change_help_text" value="N/A"/> </label>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <br/>
                     <br/>
                     <div class="radio">
-                        <label class="question"><input type="checkbox" name="ChangeHelp" value="555"
+                        <label class="question"><input type="checkbox" name="change_help" value="555"
                                                        onchange="disableSection(this)"/> Prefer not to answer
                         </label>
                     </div>
@@ -381,17 +446,43 @@
                     <br/>
 
                 </div>
-
-
             </div>
         </div>
 
+        <!-- Question 4 -->
+        <div class="container section">
+            <div id="anxietyDuration"></div>
+            <script>
+                var data = {
+                    "options": [
+                        {"value": 0, "title": "One week"},
+                        {"value": 1, "title": "Between 1 week and 1 month"},
+                        {"value": 2, "title": "Between 1-3 months"},
+                        {"value": 3, "title": "Between 3-6 months"},
+                        {"value": 4, "title": "Between 6-12 months"},
+                        {"value": 5, "title": "Between 1-2 years"},
+                        {"value": 6, "title": "Between 2-5 years"},
+                        {"value": 7, "title": "Between 5-10 years"},
+                        {"value": 8, "title": "More than 10 years"}
+                    ],
+                    "questions": [
+                        {
+                            "name": "anxiety_duration",
+                            "desc": "How long have you been experiencing moderate-to-severe anxiety symptoms?"
+                        }
+                    ]
+                }
+                $('#anxietyDuration').html(Mustache.render($('#template5').val(), data));
+            </script>
+        </div>
 
+        <!-- Question 5, which (like Question 1) uses a template defined up top. This question only displays if the user
+         indicates in Question 2 that they are not seeking help -->
         <div class="container section" id="ask_why_no_help" style="display:none">
             <div class="row">
                 <div class="col-md-10">
                     <p><b>There are many reasons people do not get help. Why are you not getting mental health
-                        treatment? Please select all that apply..</b></p>
+                        treatment? Please select all that apply.</b></p>
                 </div>
             </div>
             <div id="why_no_help_section"></div>
@@ -449,7 +540,7 @@
                         }
                     ]
                 };
-                $('#why_no_help_section').html(Mustache.render($('#check_box_template').val(), data));
+                $('#why_no_help_section').html(Mustache.render($('#basic_checkbox_template').val(), data));
             </script>
         </div>
 

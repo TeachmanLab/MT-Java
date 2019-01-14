@@ -528,6 +528,10 @@ Re-sizing for forms and displays
     border-right: 1px solid #ddd;
 }
 
+.bottom-border {
+    border-bottom: 1px solid #ddd;
+}
+
 
 .inline-checkbox input {
     height: 40px;

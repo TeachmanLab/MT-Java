@@ -25,6 +25,7 @@ import java.util.*;
  * save, create, and find customized participant objects.
  */
 @Service
+
 public class R34ParticipantService extends ParticipantServiceImpl implements ParticipantService {
 
     protected static final Random RANDOM = new Random();  // For generating random CBM and Prime values.

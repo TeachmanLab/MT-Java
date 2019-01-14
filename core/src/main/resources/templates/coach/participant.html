@@ -17,72 +17,72 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <h1>Participant View</h1>
+                <h1>Participant (coachee) View</h1>
 
                 <table>
                     <tr>
                         <th>Nick Name:</th>
-                        <td th:text="${participant.fullName}"/>
+                        <td th:text="${coachee.fullName}"/>
                     </tr>
                     <tr>
                         <th>Email Address:</th>
-                        <td th:text="${participant.email}"/>
+                        <td th:text="${coachee.email}"/>
                     </tr>
                     <tr>
                         <th>Phone Number:</th>
-                        <td th:text="${participant.phone}"/>
+                        <td th:text="${coachee.phone}"/>
                     </tr>
                     <tr>
                         <th>Email Reminders?:</th>
-                        <td> <span th:if="${participant.emailReminders}">yes</span>
-                        <span th:unless="${participant.emailReminders}">no</span></td>
+                        <td> <span th:if="${coachee.emailReminders}">yes</span>
+                        <span th:unless="${coachee.emailReminders}">no</span></td>
                     </tr>
                     <tr>
                         <th>Phone Reminders?:</th>
-                        <td> <span th:if="${participant.phoneReminders}">yes</span>
-                            <span th:unless="${participant.phoneReminders}">no</span></td>
+                        <td> <span th:if="${coachee.phoneReminders}">yes</span>
+                            <span th:unless="${coachee.phoneReminders}">no</span></td>
                     </tr>
                     <tr>
                         <th>Time Zone:</th>
-                        <td th:text="${participant.timezone}"/>
+                        <td th:text="${coachee.timezone}"/>
                     </tr>
                     <tr>
                         <th>Is Active:</th>
-                        <td> <span th:if="${participant.active}">yes</span>
-                            <span th:unless="${participant.active}">no</span></td>
+                        <td> <span th:if="${coachee.active}">yes</span>
+                            <span th:unless="${coachee.active}">no</span></td>
                     </tr>
                     <tr>
                         <th>Is Admin:</th>
-                        <td> <span th:if="${participant.admin}">yes</span>
-                            <span th:unless="${participant.admin}">no</span></td>
+                        <td> <span th:if="${coachee.admin}">yes</span>
+                            <span th:unless="${coachee.admin}">no</span></td>
                     </tr>
                     <tr>
                         <th>Is Coach:</th>
-                        <td> <span th:if="${participant.coaching}">yes</span>
-                            <span th:unless="${participant.coaching}">no</span></td>
+                        <td> <span th:if="${coachee.coaching}">yes</span>
+                            <span th:unless="${coachee.coaching}">no</span></td>
                     </tr>
                     <tr>
                         <th>Assigned Coach:</th>
-                        <td> <span th:if="${participant.coachedBy}">yes</span></td>
+                        <td> <span th:if="${coachee.coachedBy}">yes</span></td>
                     </tr>
                     <tr>
                         <th>Is Test Account:</th>
-                        <td> <span th:if="${participant.testAccount}">yes</span>
-                            <span th:unless="${participant.testAccount}">no</span></td>
+                        <td> <span th:if="${coachee.testAccount}">yes</span>
+                            <span th:unless="${coachee.testAccount}">no</span></td>
                     </tr>
                     <tr>
                         <th>Is in Blacklist:</th>
-                        <td> <span th:if="${participant.blacklist}">yes</span>
-                            <span th:unless="${participant.blacklist}">no</span></td>
+                        <td> <span th:if="${coachee.blacklist}">yes</span>
+                            <span th:unless="${coachee.blacklist}">no</span></td>
                     </tr>
                     <tr>
                         <th>Last Login</th>
-                        <td><span th:if="${participant.lastLoginDate}" th:text="${#dates.format(participant.lastLoginDate, 'EEE, dd MMM yyyy h:mm a')}">
+                        <td><span th:if="${coachee.lastLoginDate}" th:text="${#dates.format(coachee.lastLoginDate, 'EEE, dd MMM yyyy h:mm a')}">
                                     10-05-1972 11:55</span></td>
                     </tr>
                     <tr>
                         <th>Planning to return on:</th>
-                        <td><span th:if="${participant.returnDate}" th:text="${#dates.format(participant.returnDate, 'EEE, dd MMM yyyy h:mm a')}">
+                        <td><span th:if="${coachee.returnDate}" th:text="${#dates.format(coachee.returnDate, 'EEE, dd MMM yyyy h:mm a')}">
                                     10-05-1972 11:55</span></td>
                     </tr>
                 </table>
@@ -122,8 +122,7 @@
                         <th>Successful?</th>
                     </tr>
                     </thead>
-
-                    <tr th:each="log : ${participant.coachLogs}">
+                    <tr th:each="log : ${coachee.coachLogs}">
                         <td><span th:if="${log.dateAttempted}" th:text="${#dates.format(log.dateAttempted,
                         'EEE, dd MMM yyyy h:mm a')}">10-05-1972 11:55</span></td>
                         <td th:text="${log.coachingSession}"></td>
@@ -132,8 +131,8 @@
                     </tr>
                 </table>
                 <h3>Log a new Coaching Interaction</h3>
-                <form id="logForm" action="#"  th:action="@{'/coach/log/'} + ${participant.id}" method="POST">
-                    <input type="hidden" name="particpantId" th:value="${participant.id}"/>
+                <form id="logForm" action="#"  th:action="@{'/coach/log/'} + ${coachee.id}" method="POST">
+                    <input type="hidden" name="particpantId" th:value="${coachee.id}"/>
                     <table class="table table-bordered ">
                         <tr>
                             <td>Date</td>
@@ -193,7 +192,7 @@
 
 
             </div>
-             <section th:replace="/admin/adminCommon :: participantDetails(${participant})"/>
+             <section th:replace="/admin/adminCommon :: participantDetails(${coachee})"/>
         </div>
     </div>
 </section>
