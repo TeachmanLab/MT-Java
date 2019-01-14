@@ -69,7 +69,11 @@ public class Task {
      * @return
      */
     public String getRequestMapping() {
-        return "/" + type + "/" + name;
+        if (type == TYPE.angular) {
+            return "/" + type;
+        } else {
+            return "/" + type + "/" + name;
+        }
     }
 
     public STATE getState() {
