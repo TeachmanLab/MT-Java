@@ -77,16 +77,16 @@ public class R34Study extends BaseStudy implements Study {
     public List<Session> getStatelessSessions() {
         List<Session> sessions = new ArrayList<Session>();
 
-        sessions.add(new Session(NAME.PRE.toString(), "Initial Assessment", 500, 0, getTasks(NAME.PRE)));
+        sessions.add(new Session(NAME.PRE.toString(), "Initial Assessment", 5, 0, getTasks(NAME.PRE)));
         sessions.add(new Session(NAME.SESSION1.toString(), "Day 1 Training", 0, 0, getTasks(NAME.SESSION1)));
         sessions.add(new Session(NAME.SESSION2.toString(), "Day 2 Training", 0, 2, getTasks(NAME.SESSION2)));
-        sessions.add(new Session(NAME.SESSION3.toString(), "Day 3 Training", 500, 2, getTasks(NAME.SESSION3)));
+        sessions.add(new Session(NAME.SESSION3.toString(), "Day 3 Training", 5, 2, getTasks(NAME.SESSION3)));
         sessions.add(new Session(NAME.SESSION4.toString(), "Day 4 Training", 0, 2, getTasks(NAME.SESSION4)));
         sessions.add(new Session(NAME.SESSION5.toString(), "Day 5 Training", 0, 2, getTasks(NAME.SESSION5)));
-        sessions.add(new Session(NAME.SESSION6.toString(), "Day 6 Training", 500, 2, getTasks(NAME.SESSION6)));
+        sessions.add(new Session(NAME.SESSION6.toString(), "Day 6 Training", 5, 2, getTasks(NAME.SESSION6)));
         sessions.add(new Session(NAME.SESSION7.toString(), "Day 7 Training", 0, 2, getTasks(NAME.SESSION7)));
-        sessions.add(new Session(NAME.SESSION8.toString(), "Day 8 Training", 500, 2, getTasks(NAME.SESSION8)));
-        sessions.add(new Session(NAME.POST.toString(), "2 Months Post Training", 1000, 60, getTasks(NAME.POST)));
+        sessions.add(new Session(NAME.SESSION8.toString(), "Day 8 Training", 5, 2, getTasks(NAME.SESSION8)));
+        sessions.add(new Session(NAME.POST.toString(), "2 Months Post Training", 10, 60, getTasks(NAME.POST)));
 
         // Little messyness here, add an index value to each session as this is used to set the image to
         // display in some of the templates for the r34 study.

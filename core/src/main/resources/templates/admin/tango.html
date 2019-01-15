@@ -26,19 +26,27 @@
                 <table style="width:100%">
                     <tr>
                         <td>Tango Identifier:</td>
-                        <td th:text="${tango.identifier}"> blablabla</td>
+                        <td th:text="${account.accountIdentifier}"> blablabla</td>
                     </tr>
                     <tr>
-                        <td>Tango Account:</td>
-                        <td th:text="${tango.customer}"> whatever</td>
+                        <td>Tango Account #:</td>
+                        <td th:text="${account.displayName}"> whatever</td>
+                    </tr>
+                    <tr>
+                        <td>Account Status:</td>
+                        <td th:text="${account.status}"> whatever</td>
                     </tr>
                     <tr>
                         <td>Tango Email:</td>
-                        <td th:text="${tango.email}"> soandso</td>
+                        <td th:text="${account.contactEmail}"> soandso</td>
+                    </tr>
+                    <tr>
+                        <td>Currency Code:</td>
+                        <td th:text="${account.currencyCode}"> whatever</td>
                     </tr>
                     <tr>
                         <td>Tango Account Balance:</td>
-                        <td>$<span th:text="${#numbers.formatDecimal(tango.available_balance, 0, 'COMMA', 2, 'POINT')}">10.00</span>
+                        <td>$<span th:text="${#numbers.formatDecimal(account.currentBalance, 0, 'COMMA', 2, 'POINT')}">10.00</span>
                         </td>
                     </tr>
                 </table>
