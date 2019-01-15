@@ -11,7 +11,7 @@
 <head th:replace="fragment/common :: headerFragment"/>
 <body>
 <section th:replace="fragment/common :: topFragment"/>
-<section th:replace="fragment/common :: titleBar (title='Mental Health History')"/>
+<section th:replace="fragment/common :: titleBar (title='Mental Health and Treatment History')"/>
 <textArea th:replace="fragment/common :: questionTemplate5"/>
 
 
@@ -478,6 +478,8 @@
 
         <!-- Question 5, which (like Question 1) uses a template defined up top. This question only displays if the user
          indicates in Question 2 that they are not seeking help -->
+
+
         <div class="container section" id="ask_why_no_help" style="display:none">
             <div class="row">
                 <div class="col-md-10">
