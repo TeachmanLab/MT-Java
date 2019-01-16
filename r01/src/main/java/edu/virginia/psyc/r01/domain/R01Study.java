@@ -64,6 +64,13 @@ public class R01Study extends BaseStudy {
         String sessionName = this.getCurrentSession().getName();
         map.put("lettersToRemove",1);
         map.put("sessionName", sessionName);
+        /**
+         * PLEASE NOTE, these settings get passed on to the Recognition Ratings, BUT NOT
+         * to the Angular Training Sessions, which functions much differently, and is directly
+         * modified by the CSV files associated with each Session.  We should do away with this
+         * at a future date, when we have removed JSPsych and the current implemenation of the
+         * recognition ratings.
+         */
         switch(sessionName) {
             case FIRST_SESSION:
                 map.put("lemon", true);
@@ -79,11 +86,11 @@ public class R01Study extends BaseStudy {
                 break;
             case FOURTH_SESSION:
                 map.put("lemon", false);
-                map.put("lettersToRemove",2);
+                map.put("lettersToRemove",1);
                 break;
             case FIFTH_SESSION:
                 map.put("lemon", false);
-                map.put("lettersToRemove",2);
+                map.put("lettersToRemove",1);
                 break;
             default:  // This should only occur in testing / accessing admin etc...
                 map.put("secondWordSet",true);
