@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="/fragment/common :: headerFragment" />
+
+<body>
+<script type="text/javascript" th:src="@{/bower/jqueryui/jquery-ui.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.jWizard.min.js}"></script>
+
+<section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
+<section th:replace="fragment/common :: titleBar (title='Use Your Imagination')"/>
+
+
+<audio id="bing">
+    <source th:src="@{/sounds/bing.mp3}"/>
+    <source th:src="@{/sounds/bing.ogg}"/>
+</audio>
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+    <div class="container">
+
+        <!--features starts-->
+        <div class="row">
+            <div class="col-md-10">
+                <form id="wizard" th:action="@{/questions/ImageryPrime}" method="POST">
+                    <fieldset>
+                    <legend> </legend>
+                        <input id="timeOnPage" name="timeOnPage" type="hidden"/>
+                        <p>The training program requires you to imagine yourself in different situations.
+                            We believe that vividly imagining yourself in these situations is important for the program
+                            to be effective, so we want you to do a practice imagery exercise before you start the
+                            training program.</p>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Step 1 - Use your imagination</legend>
+                        <input type="hidden" name="prime" th:value="${prime}"/>
+                        <div>
+                            <p>Please think of an <b>UPCOMING</b> situation that you expect will make you feel anxious,
+                                worried, or scared.</p>
+                            <ul>
+                                <li>Pick a situation that you worry might go badly, or that you expect will evoke symptoms related to
+                                    anxiety (e.g., racing heart, sweating).</li>
+                                <li>Any situation that will make you feel quite anxious or scared will work, as long as it’s a situation you’re likely to actually encounter.</li>
+                                <li th:if="${notFirst}">This can be the same situation you imagined in a previous session, or a new situation.</li>
+                            </ul>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Step 2 - Note the situation</legend>
+                                <p>
+                                <label>Please describe the situation in a few words.</label>
+                                <textarea name="situation" rows="1"></textarea>
+                                </p>
+                                <p>
+                                    Please click "NEXT" once you have noted the type of situation.
+                                </p>
+                        <br/>
+                        <br/>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Step 3 - Imagine the situation</legend>
+                        <p>
+                            Please imagine the situation as vividly as possible (i.e., so that it feels very real).
+                            <ul>
+                                <li>Try to imagine you are actually in the situation.</li>
+                                <li>Play out the specific parts of the situation in your head.</li>
+                                <li>Try to imagine using all your senses while you think about this situation. Think about the things you
+                                    would see, hear, and smell if you were really in that situation.</li>
+                                <li>Think about the kinds of things you would think or feel if you were actually there.</li>
+                            </ul>
+                            Please click the "Next" button below and play this situation in your head for the next 20 seconds. We will tell you
+                            when the 20 seconds are up. Make sure the sound on your computer is not muted.
+                        </p>
+                    </fieldset>
+                    <fieldset id="step_four">
+                        <legend>Step 4</legend>
+                        <p id="waittext">
+                            We will tell you when the 20 seconds are up.
+                        </p>
+                    </fieldset>
+                </form>
+
+                <script>
+                    var mNext = false;
+                    var mVisit = false;
+                    $("#wizard").on("stepshown", "#step_four", function () {
+                        if (! mVisit)
+                        {
+                            mVisit = true;
+                            $(".jw-button-finish").button("disable");
+                            setTimeout(function() {
+                                document.getElementById("bing").play();
+                                $( "#waittext" ).text("You're 20 seconds are done!");
+                                $(".jw-button-finish").button("enable");
+                                mNext = true;
+                                                  }, 20000);
+                        }
+
+                    }).on("wizardfinish", "#step_four", function () {
+                        if (! mNext)
+                        {
+                            return false;
+                        }
+
+                    }).jWizard({
+                        progress: false,
+                        menu: false,
+                        title: false,
+                        buttons: {
+                            prev: false,
+                            cancel: false
+                            }
+                        });
+
+
+
+                </script>
+            </div>
+        </div>
+        <!--features ends-->
+
+        <!--divider here-->
+        <div class="spacer-40px"></div>
+
+    </div>
+</section>
+
+
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts" />
+
+</body>
+</html>
