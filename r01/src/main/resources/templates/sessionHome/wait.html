@@ -38,11 +38,12 @@
             <img class="sessionImage" th:with="url=(|/images/map-${lastSession.index}-${participant.theme}.png|)"
                  th:src="@{${url}}" alt="icon"/>
 
-            <h2>Congratulations <span th:text="${participant.fullName}">Jim</span>!</h2>
-            You have completed <span th:text="${lastSession.displayName}"/>.
-            Finishing the stories during the next session will be a little more challenging as you move up to
-            <span th:text="${currentSession.displayName}"/>, but we think you’re ready.
-
+            <h2><b>Congratulations <span th:text="${participant.fullName}">Jim</span>!</b></h2>
+            <br></br>
+            <p>You have completed <b><span th:text="${lastSession.displayName}"/></b>.</p>
+            <p>Finishing the stories during the next session will be a little more challenging as you<br/> move up to
+                <b><span th:text="${currentSession.displayName}"/></b>, but we think you’re ready.</p>
+            <br></br>
         </div>
 
         <div class="giftAwarded" th:if="${giftAwarded}">
@@ -53,12 +54,15 @@
                 We will send you an email in the next few days with information on how to redeem it.
                 <span th:if="${nextGiftSession}"><b>Your next gift card</b> will be available when you complete <span
                         th:text="${nextGiftSession.displayName}"/></span>
+                <br></br>
             </div>
         </div>
 
-        <p>UP NEXT: For best results, plan to begin your next session between
-            <br/><em th:text="${dateRange}">July 7 - July 10, 2015</em>
+        <p>For best results, plan to begin your next session between
+            <br/><b th:text="${dateRange}">July 7 - July 10, 2015</b>.
+            <br></br>
             <br/><a th:href="@{/session/overview}">Program Overview</a>
+            <br></br>
         </p>
 
         <div class="nextGift" th:unless="${giftAwarded}" th:if="${nextGiftSession}">
