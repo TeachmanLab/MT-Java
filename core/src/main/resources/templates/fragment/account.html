@@ -134,7 +134,7 @@
                        th:errorclass="error" th:field="*{receiveGiftCards}" />
 
                 <span class="note">
-                    I’d like to receive gift cards for my participation<br/>(we will send you a code to verify your identity, this must be completed to receive gift cards.)
+                    I’d like to receive gift cards for my participation<br/>(we will send a text message to your phone to verify your identity, this must be completed to receive gift cards.)
                 </span>
             </label>
         </div>
@@ -170,6 +170,18 @@
                 <input class="form-control" type="password" id="passwordAgain"
                        name="passwordAgain"/>
             </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+        </div>
+        <div class="custom-control col-sm-10">
+            <label class="col-sm-10">
+                <input class="inline-checkbox" type="checkbox" id="over18" name="over18" th:errorclass="error"
+                       th:field="*{over18}"/>
+                I am over 18.
+            </label>
         </div>
     </div>
 

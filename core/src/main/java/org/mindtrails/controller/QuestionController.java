@@ -117,8 +117,8 @@ public class QuestionController extends BaseController {
             data.setDate(new Date());
             setReturnDate(participant, data);
             if(data.validate(this.validator)) {
-                recordSessionProgress(formName, data, device, userAgent);
                 repository.save(data);
+                recordSessionProgress(formName, data, device, userAgent);
                 return "redirect:/session/next";
             } else {
                 model.addAttribute("error", "Please complete all required fields.");
