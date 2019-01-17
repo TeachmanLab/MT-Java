@@ -406,7 +406,10 @@ public class AccountController extends BaseController {
         participant.setLastLoginDate(new Date()); // Set the last login date, as we will auto-login.
         participantService.save(participant);
         participantService.flush();
+        ParticipantUpdate update = new ParticipantUpdate();
+        update.fromParticipant(participant);
         model.addAttribute("updated", true);
+        model.addAttribute("participantUpdate", update);
         return "account";
     }
 

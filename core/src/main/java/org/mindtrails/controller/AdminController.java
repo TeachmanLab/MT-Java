@@ -270,7 +270,7 @@ public class AdminController extends BaseController {
             GiftLog log = new GiftLog(p, "test", 1);
             this.giftLogRepository.save(log);
             OrderResponse reward = tangoService.awardGiftCard(log);  // This would actually award a gift card, if you need to do some testing.
-            this.emailService.sendGiftCard(p, reward, 100);
+            this.emailService.sendGiftCard(p, reward, 1);
         } else if(type.equals("resetPass")) {
             p.setPasswordToken(new PasswordToken());
             this.emailService.sendPasswordReset(p);
