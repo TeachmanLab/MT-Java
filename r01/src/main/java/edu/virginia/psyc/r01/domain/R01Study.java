@@ -146,6 +146,7 @@ public class R01Study extends BaseStudy {
 
         session1.addTask(new Task("Affect","Current Feelings, Pre-Training", "pre", Task.TYPE.questions, 0));
         session1.addTask(new Task("ImageryPrime","Use Your Imagination", Task.TYPE.questions, 0));
+        session1.addTask(new Task("ImpactAnxiousImagery","Impact Questions", Task.TYPE.questions, 0));
         session1.addTask(new Task("1", "Training Stories", Task.TYPE.angular, 20));
         session1.addTask(new Task("Affect","Current Feelings, Post-Training", "post", Task.TYPE.questions, 0));
         session1.addTask(new Task("CC","Compare and Contrast", Task.TYPE.questions, 0 ));
@@ -157,6 +158,7 @@ public class R01Study extends BaseStudy {
         session2 = new Session(SECOND_SESSION, "Level 2: Intermediate", 0, 7);
         session2.setIndex(2);
         session2.addTask(new Task("ImageryPrime","Use Your Imagination", Task.TYPE.questions, 0));
+        session2.addTask(new Task("ImpactAnxiousImagery","Impact Questions", Task.TYPE.questions, 0));
         session2.addTask(new Task("2", "Training Stories", Task.TYPE.angular, 20));
         session2.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
         session2.addTask(new Task("ReturnIntention","Returning to the Program", Task.TYPE.questions, 0));
@@ -167,6 +169,7 @@ public class R01Study extends BaseStudy {
 
         session3.addTask(new Task("Affect","Current Feelings, Pre-Training", "pre", Task.TYPE.questions, 0));
         session3.addTask(new Task("ImageryPrime","Use Your Imagination", Task.TYPE.questions, 0));
+        session3.addTask(new Task("ImpactAnxiousImagery","Impact Questions", Task.TYPE.questions, 0));
         session3.addTask(new Task("3", "Training Stories", Task.TYPE.angular, 20));
         session3.addTask(new Task("Affect","Current Feelings, Post-Training", "post", Task.TYPE.questions, 0));
         session3.addTask(new Task("CC","Compare and Contrast", Task.TYPE.questions, 0 ));
@@ -185,6 +188,7 @@ public class R01Study extends BaseStudy {
 
         session4 = new Session(FOURTH_SESSION, "Level 4: Expert", 0, 7);
         session4.setIndex(4);
+        session4.addTask(new Task("ImpactAnxiousImagery","Impact Questions", Task.TYPE.questions, 0));
         session4.addTask(new Task("ImageryPrime","Use Your Imagination", Task.TYPE.questions, 0));
         session4.addTask(new Task("4", "Training Stories", Task.TYPE.angular, 20));
         session4.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
@@ -196,6 +200,7 @@ public class R01Study extends BaseStudy {
 
         session5.addTask(new Task("Affect","Current Feelings, Pre-Training", "pre", Task.TYPE.questions, 0));
         session5.addTask(new Task("ImageryPrime","Use Your Imagination", Task.TYPE.questions, 0));
+        session5.addTask(new Task("ImpactAnxiousImagery","Impact Questions", Task.TYPE.questions, 0));
         session5.addTask(new Task("5", "Training Stories", Task.TYPE.angular, 20));
         session5.addTask(new Task("Affect","Current Feelings, Post-Training", "post", Task.TYPE.questions, 0));
         session5.addTask(new Task("CC","Compare and Contrast", Task.TYPE.questions, 0 ));

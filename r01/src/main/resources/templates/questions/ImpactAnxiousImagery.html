@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
+
+<head th:replace="fragment/common :: headerFragment"/>
+<link rel="stylesheet" media="screen" th:href="@{/css/Affect.css}"/>
+<body>
+<section th:replace="fragment/common :: topFragment"/>
+<section th:replace="fragment/common :: titleBar (title='Impact questions')"/>
+<textArea th:replace="fragment/common :: questionTemplate"/>
+<section id="content" class="clearfix">
+
+
+    <form th:action="@{/questions/ImpactAnxiousImagery}" method="POST" th:object="${model}">
+        <section class="clearfix">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="section">
+                            <br></br>
+                            <div class="question"> How anxious did you feel (at the highest level of anxiety) as you
+                                completed the imagery task?
+                            </div>
+                            <input id="anxiety" type="hidden" name="anxiety"/>
+                            <br></br>
+                            <div class="row">
+                                <div class="col-12">
+                                    <input id="current_anxiety_slider" type="range" min="0" max="100"></input>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 left">Absolutely No Anxiety</div>
+                                <div class="col-6 right">Totally Anxious</div>
+                            </div>
+                            <div class="after_slider"><label class="standard">
+                                <br></br>
+                                <input id="posSlider-enabled" type="checkbox" value="555"/>
+                                Prefer not to answer
+                            </label></div>
+
+                            <script>
+                                function ensure_clicked_slider() {
+                                    if (!$('#current_anxiety_slider').hasClass('clicked')) {
+                                        alert("Please indicate how anxious you are feeling.");
+                                    }
+                                }
+
+                                $(document).ready(function () {
+                                    $('#current_anxiety_slider').one('click', function (event) {
+                                        var slider = $('#current_anxiety_slider');
+                                        var x = event.pageX - slider.offset().left;
+                                        var value = Math.round(x / slider.width() * 100);
+                                        $('#current_anxiety_slider').val(value);
+                                        $('#current_anxiety_slider').addClass('clicked');
+                                        $('#anxiety').val(value).trigger('change');
+                                    });
+
+                                    $('#current_anxiety_slider').click(function () {
+                                        $('#anxiety').val($(this).val()).trigger('change');
+                                    });
+
+                                    $('#posSlider-enabled').click(function () {
+                                        if (this.checked) {
+                                            $('#current_anxiety_slider').attr("disabled", true);
+                                            $('#current_anxiety_slider').removeClass("clicked");
+                                            $('#PosFeelings').val(555).trigger('change');
+                                        } else {
+                                            $('#current_anxiety_slider').attr("disabled", false);
+                                            $('#current_anxiety_slider').addClass("clicked");
+                                            $('#anxiety').val($('#current_anxiety_slider').val()).trigger('change');
+                                        }
+                                    });
+
+                                    $('#anxiety').change(function () {
+                                        console.log("Value set to " + $('#anxiety').val())
+                                    })
+
+
+                                });
+
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Add timer -->
+        <section th:replace="fragment/forms :: radioOptions(${model})"/>
+        <div class="col-md-12" style="text-align:center">
+            <button type="submit"> Continue</button>
+        </div>
+    </form>
+
+</section>
+<footer th:replace="fragment/common :: footer"/>
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>
+
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts"/>
