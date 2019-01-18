@@ -40,7 +40,7 @@ public class Comorbid extends LinkedQuestionnaireData {
     public Map<String, String> getGroupDescriptions() {
         Map<String, String> desc = new TreeMap<>();
         desc.put("bothered", "Over the past two weeks, how often have you been bothered by any of the following problems?");
-        desc.put("how_often", "How often do you have a drink containing alcohol?");
+        desc.put("how_often", "");
         desc.put("number", "");
         desc.put("six_or_seven", "");
         return Collections.unmodifiableMap(desc);
