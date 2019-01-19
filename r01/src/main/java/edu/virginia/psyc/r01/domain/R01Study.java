@@ -203,7 +203,6 @@ public class R01Study extends BaseStudy {
         session5.addTask(new Task("Affect","Current Feelings, Pre", "pre", Task.TYPE.questions, 0));
         session5.addTask(new Task("ImageryPrime","Use Your Imagination", Task.TYPE.questions, 0));
         session5.addTask(new Task("ImpactAnxiousImagery","Impact Questions", Task.TYPE.questions, 0));
-        session5.addTask(new Task("5", "Training Stories", Task.TYPE.angular, 20));
         session5.addTask(new Task("5", "Training Session 5", Task.TYPE.angular, 20));
         session5.addTask(new Task("Affect","Current Feelings, Post", "post", Task.TYPE.questions, 0));
         session5.addTask(new Task("CC","Compare and Contrast", Task.TYPE.questions, 0 ));
