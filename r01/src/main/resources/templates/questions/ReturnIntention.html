@@ -32,57 +32,7 @@
             your next session in 6 to 7 days.  We will send you an email shortly that will allow you to add this
             date and time to your calendar as a reminder.</h4>
 
-            <!--
-            <div class="row header">
-                <div class="col-md-2"><p class="tableOptions">Tomorrow</p></div>
-                <div class="col-md-2"><p class="tableOptions">In 2 to 4 days (recommended)</p></div>
-                <div class="col-md-2"><p class="tableOptions">In 5 to 7 days</p></div>
-                <div class="col-md-2"><p class="tableOptions">After more than 7 days</p></div>
-                <div class="col-md-2"><p class="tableOptions">Not planning to come back</p></div>
-            </div>
 
-            <div class="row">
-                <div class="col-md-2">
-                    <label class="radio-inline option"> <input type="radio"
-                                                               name="returnIntention" value="1" onclick="hide_text(reason)"
-                                                               required="true"/>
-                        <span class="shortDesc">1</span> <span class="fullDesc">Tomorrow</span></label>
-                </div>
-                <div class="col-md-2">
-                    <label class="radio-inline option"> <input type="radio"
-                                                               name="returnIntention" value="2" onclick="hide_text(reason)"/>
-                        <span class="shortDesc">2</span> <span
-                                class="fullDesc">In 2 to 4 days (recommended)</span>
-                    </label>
-                </div>
-                <div class="col-md-2">
-                    <label class="radio-inline option"> <input type="radio"
-                                                               name="returnIntention" value="3" onclick="hide_text(reason)"/>
-                        <span class="shortDesc">3</span> <span
-                                class="fullDesc">In 5 to 7 days</span>
-
-                    </label>
-                </div>
-                <div class="col-md-2">
-                    <label class="radio-inline option"> <input type="radio"
-                                                               name="returnIntention" value="4" onclick="hide_text(reason)"/>
-                        <span class="shortDesc">4</span> <span class="fullDesc">After more than 7 days</span>
-                    </label>
-                </div>
-                <div class="col-md-2">
-                    <label class="radio-inline option"> <input type="radio"
-                                                               name="returnIntention" value="5" onclick="show_text(reason)"/>
-                        <span class="shortDesc">5</span> <span class="fullDesc">Not planning to come back</span>
-                    </label>
-                </div>
-            </div>
-
-            <div id="reason" style="display: none">
-                <p>Please let us know why you do not plan to continue</p>
-                <label><input id="notReturnReason" name="notReturnReason" type="text" placeholder="" size="50" /></label>
-
-            </div>
-            -->
             <div class="nextSession">
                 <input type="hidden" id="returnDate" name="returnDateString"/>
                 <div class="input-group date">
@@ -110,7 +60,7 @@
             <script>
                 $(document).ready(function () {
                     $('.input-group.date').datepicker({
-                        startDate: '+1d'
+                        startDate: '+7d'
                     });
                     $('#timepicker').timepicker();
                     $('#form').on('submit', function(e) {
