@@ -5,7 +5,8 @@
 <form name="f" class="form-horizontal" th:action="@{/account/create}" method="post" th:object="${participantForm}"
       th:fragment="create">
 
-    <h3>Create an account</h3>
+    <h2 class="page-title">Create an account</h2>
+    <br/>
     <div class="formErrors">
         <ul class="errors">
             <li th:each="err : ${#fields.errors('*')}" th:text="${err}" class="alert-error">
@@ -174,13 +175,11 @@
     </div>
 
     <div class="form-group row">
-        <div class="col-sm-2">
-        </div>
+        <label class="control-label col-sm-2" for="over18">Over 18</label>
         <div class="custom-control col-sm-10">
-            <label class="col-sm-10">
+            <label class="col-sm-10  inline-checkbox">
                 <input class="inline-checkbox" type="checkbox" id="over18" name="over18" th:errorclass="error"
-                       th:field="*{over18}"/>
-                I am over 18.
+                       th:field="*{over18}"/>I am ove 18
             </label>
         </div>
     </div>
