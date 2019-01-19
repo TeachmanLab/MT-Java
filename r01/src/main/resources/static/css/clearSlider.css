@@ -1,17 +1,6 @@
-File Edit Options Buffers Tools Help
-/* Modified from  https://www.w3schools.com/css/tryit.asp?filename=tryresponsive_mobilefirst*/
 
-*{
+#clearSlider {
     box-sizing: border-box;
-}
-
-body {
-    width: 100%;
-    padding: 15px;
-  }
-
-
-  #current_anxiety_slider {
     -webkit-appearance: none;
     width: 90%;
     height: 20px;
@@ -26,7 +15,7 @@ body {
   }
 
 
-  #current_anxiety_slider::-webkit-slider-thumb {
+  #clearSlider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     background: #4CAF50;
@@ -36,7 +25,7 @@ body {
     height: 0px;
   }
 
-  #current_anxiety_slider::-moz-range-thumb {
+  #clearSlider::-moz-range-thumb {
     -webkit-appearance: none;
     -moz-appearance: none; /* Ironically doesn't work in Firefox :| */
     appearance: none;
@@ -47,7 +36,7 @@ body {
     height: 0px;
   }
 
-  #current_anxiety_slider::-ms-thumb {
+  #clearSlider::-ms-thumb {
     -webkit-appearance: none;
     appearance: none;
     background: #4CAF50;
@@ -58,39 +47,26 @@ body {
   }
 
 
-  #current_anxiety_slider.clicked::-webkit-slider-thumb {
+  #clearSlider.clicked::-webkit-slider-thumb {
     opacity: 1;
     width: 30px;
     height: 30px;
   }
 
-  #current_anxiety_slider.clicked::-moz-range-thumb {
+  #clearSlider.clicked::-moz-range-thumb {
     width: 30px;
     height: 30px;
   }
-  #current_anxiety_slider.clicked::-ms-thumb   {
+  #clearSlider.clicked::-ms-thumb   {
     width: 30px;
     height: 30px;
   }
 
-
-  .col-1 {width: 8.33%;}
-.col-2 {width: 16.66%;}
-.col-3 {width: 25%;}
-.col-4 {width: 33.33%;}
-.col-5 {width: 41.66%;}
-.col-6 {width: 50%;}
-.col-7 {width: 58.33%;}
-.col-8 {width: 66.66%;}
-.col-9 {width: 75%;}
-.col-10 {width: 83.33%;}
-.col-11 {width: 91.66%;}
-.col-12 {width: 100%;}
-
-[class*="col-"] {
-    float: left;
-    padding: 15px;
+  .slider {
+    width: 100%;
   }
+
+
 
   .row::after {
     content: "";
@@ -99,10 +75,16 @@ body {
   }
 
 .left {
-    text-align: left;
+   float: left;
+   padding: 15px;
+   text-align: left;
+   max-width: 30%;
 }
 
 .right {
-    text-align: right;
+  float: right;
+  padding: 15px;
+  text-align: right;
+  max-width: 30%;
 }
 

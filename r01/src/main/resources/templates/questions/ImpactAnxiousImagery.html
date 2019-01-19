@@ -9,7 +9,7 @@
 <html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
 
 <head th:replace="fragment/common :: headerFragment"/>
-<link rel="stylesheet" media="screen" th:href="@{/css/Affect.css}"/>
+<link rel="stylesheet" media="screen" th:href="@{/css/clearSlider.css}"/>
 <body>
 <section th:replace="fragment/common :: topFragment"/>
 <section th:replace="fragment/common :: titleBar (title='Impact questions')"/>
@@ -28,69 +28,28 @@
                             <div class="question"> How anxious did you feel (at the highest level of anxiety) as you
                                 completed the imagery task?
                             </div>
-                            <input id="anxiety" type="hidden" name="anxiety"/>
                             <br></br>
                             <div class="row">
-                                <div class="col-12">
-                                    <input id="current_anxiety_slider" type="range" min="0" max="100"></input>
+                                <div class="slider">
+                                    <input id="sliderValue" type="hidden" name="anxiety"/>
+                                    <input id="clearSlider" type="range" min="0" max="100"></input>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-6 left">Absolutely No Anxiety</div>
-                                <div class="col-6 right">Totally Anxious</div>
+                            <div class="slider-row">
+                                <div class="left">Absolutely No Anxiety</div>
+                                <div class="right">Totally Anxious</div>
                             </div>
                             <div class="after_slider"><label class="standard">
                                 <br></br>
-                                <input id="posSlider-enabled" type="checkbox" value="555"/>
+                                <input id="sliderEnabled" type="checkbox" value="555"/>
                                 Prefer not to answer
                             </label></div>
-
-                            <script>
-                                function ensure_clicked_slider() {
-                                    if (!$('#current_anxiety_slider').hasClass('clicked')) {
-                                        alert("Please indicate how anxious you are feeling.");
-                                    }
-                                }
-
-                                $(document).ready(function () {
-                                    $('#current_anxiety_slider').one('click', function (event) {
-                                        var slider = $('#current_anxiety_slider');
-                                        var x = event.pageX - slider.offset().left;
-                                        var value = Math.round(x / slider.width() * 100);
-                                        $('#current_anxiety_slider').val(value);
-                                        $('#current_anxiety_slider').addClass('clicked');
-                                        $('#anxiety').val(value).trigger('change');
-                                    });
-
-                                    $('#current_anxiety_slider').click(function () {
-                                        $('#anxiety').val($(this).val()).trigger('change');
-                                    });
-
-                                    $('#posSlider-enabled').click(function () {
-                                        if (this.checked) {
-                                            $('#current_anxiety_slider').attr("disabled", true);
-                                            $('#current_anxiety_slider').removeClass("clicked");
-                                            $('#PosFeelings').val(555).trigger('change');
-                                        } else {
-                                            $('#current_anxiety_slider').attr("disabled", false);
-                                            $('#current_anxiety_slider').addClass("clicked");
-                                            $('#anxiety').val($('#current_anxiety_slider').val()).trigger('change');
-                                        }
-                                    });
-
-                                    $('#anxiety').change(function () {
-                                        console.log("Value set to " + $('#anxiety').val())
-                                    })
-
-
-                                });
-
-                            </script>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+        <script type="text/javascript" th:src="@{/js/clearSlider.js}"/>
 
         <!-- Add timer -->
         <section th:replace="fragment/forms :: radioOptions(${model})"/>
