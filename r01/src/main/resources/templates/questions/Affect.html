@@ -36,8 +36,9 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-6 left">Not anxious at all</div>
-                            <div class="col-6 right">Extremely Anxious</div>
+                            <div class="col-5 left">Not anxious at all</div>
+                            <div class="col-2 left"></div>
+                            <div class="col-5 right">Extremely Anxious</div>
                         </div>
                         <div class="after_slider"><label class="standard">
                             <br></br>
@@ -53,7 +54,7 @@
                             }
 
                             $(document).ready(function () {
-                                $('#current_anxiety_slider').one('click', function (event) {
+                                $('#current_anxiety_slider').one('click touchstart', function (event) {
                                     var slider =  $('#current_anxiety_slider');
                                     var x = event.pageX - slider.offset().left;
                                     var value = Math.round(x / slider.width() * 100);
