@@ -29,7 +29,7 @@
         <div class="container section compactQuestion">
 
             <h4>Let us know when you intend to return for your next session.  We recommend you come back to complete
-            your next session in 6 to 7 days.  We will send you an email shortly that will allow you to add this
+            your next session in 5 to 7 days.  We will send you an email shortly that will allow you to add this
             date and time to your calendar as a reminder.</h4>
 
 
@@ -60,7 +60,8 @@
             <script>
                 $(document).ready(function () {
                     $('.input-group.date').datepicker({
-                        startDate: '+7d'
+                        startDate: '+5d',
+                        endDate: '+8d'
                     });
                     $('#timepicker').timepicker();
                     $('#form').on('submit', function(e) {

@@ -155,7 +155,7 @@ public class R01Study extends BaseStudy {
         session1.addTask(new Task("ReturnIntention","Returning to the Program", Task.TYPE.questions, 0));
         sessions.add(session1);
 
-        session2 = new Session(SECOND_SESSION, "Level 2: Intermediate", 0, 7);
+        session2 = new Session(SECOND_SESSION, "Level 2: Intermediate", 0, 5);
         session2.setIndex(2);
 
         session2.addTask(new Task("ImageryPrime","Use Your Imagination", Task.TYPE.questions, 0));
@@ -165,7 +165,7 @@ public class R01Study extends BaseStudy {
         session2.addTask(new Task("ReturnIntention","Returning to the Program", Task.TYPE.questions, 0));
         sessions.add(session2);
 
-        session3 = new Session(THIRD_SESSION, "Level 3: Advanced", 5, 7);
+        session3 = new Session(THIRD_SESSION, "Level 3: Advanced", 5, 5);
         session3.setIndex(3);
 
         session3.addTask(new Task("Affect","Current Feelings, Pre", "pre", Task.TYPE.questions, 0));
@@ -187,7 +187,7 @@ public class R01Study extends BaseStudy {
 
         sessions.add(session3);
 
-        session4 = new Session(FOURTH_SESSION, "Level 4: Expert", 0, 7);
+        session4 = new Session(FOURTH_SESSION, "Level 4: Expert", 0, 5);
         session4.setIndex(4);
 
         session4.addTask(new Task("ImpactAnxiousImagery","Impact Questions", Task.TYPE.questions, 0));
@@ -197,7 +197,7 @@ public class R01Study extends BaseStudy {
         session4.addTask(new Task("ReturnIntention","Returning to the Program", Task.TYPE.questions, 0));
         sessions.add(session4);
 
-        session5 = new Session(FIFTH_SESSION, "Level 5: Master", 5, 7);
+        session5 = new Session(FIFTH_SESSION, "Level 5: Master", 5, 5);
         session5.setIndex(5);
 
         session5.addTask(new Task("Affect","Current Feelings, Pre", "pre", Task.TYPE.questions, 0));

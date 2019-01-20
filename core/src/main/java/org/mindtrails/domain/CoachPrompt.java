@@ -29,8 +29,8 @@ public class CoachPrompt extends LinkedQuestionnaireData {
     String otherFeedback;
 
     @NotNull
-    @MeasureField(desc="To what extent has the training helped you think about challenging or stressful\n" +
-            "situations in your day-to-day life in different ways?")
+    @MeasureField(desc="\n" +
+            "To what extent does the training help you think about challenging or stressful situations in your day-to-day life in different ways?")
     private Integer helped;
 
     @Override
