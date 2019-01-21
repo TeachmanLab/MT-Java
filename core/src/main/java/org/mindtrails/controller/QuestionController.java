@@ -16,6 +16,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.mobile.device.Device;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -117,8 +118,7 @@ public class QuestionController extends BaseController {
             data.setDate(new Date());
             setReturnDate(participant, data);
             if(data.validate(this.validator)) {
-                repository.save(data);
-                recordSessionProgress(formName, data, device, userAgent);
+                recordSessionProgress(formName, data, repository, device, userAgent);
                 return "redirect:/session/next";
             } else {
                 model.addAttribute("error", "Please complete all required fields.");
@@ -156,7 +156,7 @@ public class QuestionController extends BaseController {
      * @param data
      */
     @ExportMode
-    protected void recordSessionProgress(String formName, QuestionnaireData data, Device device, String userAgent) {
+    protected void recordSessionProgress(String formName, QuestionnaireData data, JpaRepository repository, Device device, String userAgent) {
 
         Participant participant;
 
@@ -189,8 +189,15 @@ public class QuestionController extends BaseController {
         if(data instanceof LinkedQuestionnaireData)
             ((LinkedQuestionnaireData) data).setParticipant(participant);
 
-
         data.setSession(participant.getStudy().getCurrentSession().getName());
+
+        // Be sure to save the data BEFORE you mark it as complete in the task log.  Otherwise
+        // it looks like its done in one place, but it isn't complete in the other.  Why did I create
+        // such a stupid duplication of data?  Because we have the delete the questionnaire data and
+        // move it elsewhere for security reasons.  Don't you start in on me with "database hooks",
+        // NoSQL, query back, micro api crap.  Who are you anyway, why are you even reading this? What
+        // do you want from me.  It's late.  I wanted to sleep.  It works here.  Don't move it.
+        repository.save(data);
 
         // Update the participant's session status, and save back to the database.
         if(isProgress) {
