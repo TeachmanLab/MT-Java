@@ -68,6 +68,7 @@ div.section {
     font-weight: 500;
     font-size: 1em;
     margin-top: 10px;
+
 }
 
 .tableOptions{
@@ -189,14 +190,19 @@ div.oneToSeven {
 
 /* Compact Question Format */
 .compactQuestion {
-    font-size: .8em;
+}
+
+
+.compactQuestion  .row:nth-child(even) {
+    background-color: #f8f8f8;
 }
 
 .compactQuestion .tableOptions {
+    font-size: .8em;
     text-align: center;
 }
 
-.compactQuestion .header {
+.compactQuestion .row.header {
     font-weight: 400;
     text-align: center;
     background-color: #ddd;
