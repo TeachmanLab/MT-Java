@@ -376,7 +376,7 @@
                     <div class="radio">
                         <label class="question"> <input type="checkbox" name="help" value="noDiagnosis" id="noDiagnosis"
                                                         onchange="noHelp('noDiagnosis'); disableSection(this)"/> I am
-                            not seeking help
+                            not receiving help
                         </label>
                     </div>
                 </div>
@@ -434,8 +434,8 @@
                                 id="changes_other_spec" type="text" name="change_help_text" value="N/A"/> </label>
                     </div>
                 </div>
+
                 <div class="col-md-4">
-                    <br/>
                     <br/>
                     <div class="radio">
                         <label class="question"><input type="checkbox" name="change_help" value="555"
@@ -443,10 +443,15 @@
                         </label>
                     </div>
                     <br/>
-                    <br/>
+                    <br/><div class="radio">
+                        <label class="question"> <input type="checkbox" name="change_help" value="change_none"/> I haven't
+                            had any changes
+                        </label>
+                    </div>
 
                 </div>
-            </div>
+
+        </div>
         </div>
 
         <!-- Question 4 -->
@@ -540,6 +545,7 @@
                             "desc": "I had treatment previously and didn’t find it helpful.",
                             "name": "prev_not_helpful"
                         }
+
                     ]
                 };
                 $('#why_no_help_section').html(Mustache.render($('#basic_checkbox_template').val(), data));
