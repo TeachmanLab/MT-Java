@@ -38,6 +38,10 @@ div.import {
     padding-left: 13px !important;
 }
 
+.my-account {
+    float: right;
+}
+
 /********************************************************
 Alternate NavBar Breakpoint - to better support Ipad
 ********************************************************/
