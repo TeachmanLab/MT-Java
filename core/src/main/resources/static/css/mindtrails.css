@@ -11,10 +11,6 @@ body {font-family: 'Source Sans Pro', sans-serif; font-size:20px; box-sizing:bor
 .page-title {font-size:1.45em; color:#00ACE4; font-weight:bold; }
 .page-title img {margin-top: -10px; margin-bottom:20px;}
 
-#title {
-    margin-top: 10px;
-}
-
 #nav {font-size:0.6em; list-style:none; padding:15px 0 15px 20px; text-align: right;}
 #nav li {float:left; padding:0px 10px;}
 #nav a {color:#5ECCDE; text-decoration:none; font-weight: 700}
@@ -38,8 +34,26 @@ div.import {
     padding-left: 13px !important;
 }
 
-.my-account {
+.login {
     float: right;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+@media(max-width: 1000px) {
+    .login {
+        float: left;
+        padding-left: 13px;
+        padding-bottom:13px;
+        font-size: 12px;
+    }
+}
+
+.divider-line {
+    background-color: gray;
+    height: 1px;
+    width: 100%;
 }
 
 /********************************************************
@@ -83,19 +97,20 @@ Alternate NavBar Breakpoint - to better support Ipad
 }
 
 .account-bar {
-    background: #21336B;
-    color:#ffffff;
+    /*background: #21336B;*/
+    background: #152145;
     font-weight: bold;
+    color: #ffffff;
+    height: 65px;
     clear:both;
     width:100%;
     font-size:.66em;
     text-align:right;
-    padding:0px 20px 5px 20px;
+    padding:0px 10px 5px 10px;
     line-height: 25px;
 }
 
-.account-bar a, .account-bar span.item {color:#ffffff; padding: 0 10px 0 10px; font-weight:400}
-.account-bar .login {}
+.account-bar a, .account-bar span.item {color:#ffffff; padding-left: 10px; padding-right: 10px; font-weight:400}
 
 /*************** Footer   */
 #footer { margin-top: 20px; background:#21336B; font-size:0.6em; color: #ffffff}
