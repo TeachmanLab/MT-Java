@@ -50,12 +50,6 @@ div.import {
     }
 }
 
-.divider-line {
-    background-color: gray;
-    height: 1px;
-    width: 100%;
-}
-
 /********************************************************
 Alternate NavBar Breakpoint - to better support Ipad
 ********************************************************/
