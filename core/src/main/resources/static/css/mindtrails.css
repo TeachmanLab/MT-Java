@@ -95,12 +95,11 @@ Alternate NavBar Breakpoint - to better support Ipad
 
 /*************** Footer   */
 #footer { margin-top: 20px; background:#21336B; font-size:0.6em; color: #ffffff}
-.footer-logo { display: inline-block; margin: 10px;}
 
 .footer-links {
     text-align: center;
     list-style:none;
-    padding:15px 15px 0 15px;
+    padding:8px 15px 0 15px;
 }
 .footer-links a {
     color:#5ECCDE;
@@ -114,13 +113,10 @@ Alternate NavBar Breakpoint - to better support Ipad
     font-size: 1.2em;
 }
 
-.copyright {
-    display: inline-block;
-    padding-top: 20px;
-}
-
 .footer-bottom {
     text-align: center;
+    padding-top: 8px;
+    padding-bottom: 8px;
 }
 /*************** Sections */
 
