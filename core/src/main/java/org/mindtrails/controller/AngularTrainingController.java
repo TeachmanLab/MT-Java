@@ -40,9 +40,8 @@ public class AngularTrainingController extends BaseController {
 
     private static final Logger LOG = LoggerFactory.getLogger(AngularTrainingController.class);
 
-    @RequestMapping(value="{scriptName}", method= RequestMethod.GET)
-    public String showTraining(ModelMap model, Principal principal, @PathVariable String scriptName) {
-
+    @RequestMapping()
+    public String showTraining(ModelMap model, Principal principal) {
         Participant p = participantService.get(principal);
         model.addAttribute("sessionName", p.getStudy().getCurrentSession().getName());
         return "angularTraining";
@@ -108,6 +107,8 @@ public class AngularTrainingController extends BaseController {
             LOG.info(error);
             throw new WrongFormException(error);
         }
+
+        // Are they really complete?
 
         // Fixme: Calculate time spent on the training session
         participant.getStudy().completeCurrentTask(0, device, userAgent);

@@ -29,7 +29,6 @@ public class Credibility extends LinkedQuestionnaireData {
     @NotNull
     @MeasureField(order=2, desc="How confident are you that an online training program will reduce your anxiety?")
     private Integer confident_online;
-    @NotNull
 
     @Override
     public Map<Integer, String> getScale(String scale) {

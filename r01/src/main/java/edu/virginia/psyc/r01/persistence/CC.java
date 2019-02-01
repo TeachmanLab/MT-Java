@@ -25,11 +25,11 @@ import java.util.TreeMap;
 
 public class CC extends LinkedQuestionnaireData {
 
-    @MeasureField(order=1, desc="While reading the brief stories in the training program, how much did you relate to the situations presented?")
+    @MeasureField(order=1, desc="While reading the material in the training program, to what extent did you feel you could relate to the situations that were presented?")
     @NotNull
     private Integer related;
 
-    @MeasureField(order=2, desc="While reading the brief stories in the training program, how much did you feel like it could be you behaving that way in those stories?")
+    @MeasureField(order=2, desc=" While reading the material in the training program, to what extent did you feel like it could be you behaving that way?")
     @NotNull
     private Integer compare;
 

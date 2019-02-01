@@ -10,6 +10,7 @@ import org.mindtrails.service.ParticipantService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -51,6 +52,9 @@ public class LoginController {
         return importService.isImporting();
     }
 
+    @Value("${landing_page.url}")
+    private String landingPageUrl;
+
     @Autowired
     private EmailService emailService;
 
@@ -63,7 +67,7 @@ public class LoginController {
     @Autowired
     private ImportService importService;
 
-        @RequestMapping(value="/", method = RequestMethod.GET)
+    @RequestMapping(value="/", method = RequestMethod.GET)
     public String printWelcome(Principal principal, HttpSession session, Model model,
                                @RequestHeader(value = "referer", required = false) final String referer,
                                @RequestParam(name="cp", defaultValue = "unknown", required = false) String campaign) {
@@ -79,10 +83,16 @@ public class LoginController {
             model.addAttribute("importMode", true);
             return "importmode";
         } else if(auth == null || !auth.isAuthenticated())
-            return "index";
+            return "login";
         else
             return "redirect:/session";
     }
+
+    @RequestMapping(value="/public/landing", method = RequestMethod.GET)
+    public String showLandingPage(ModelMap model) {
+            return "redirect:" + this.landingPageUrl;
+    }
+
 
     @RequestMapping(value="/login", method = RequestMethod.GET)
     public String showLogin(ModelMap model) {

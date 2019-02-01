@@ -103,7 +103,7 @@ public class R01ParticipantServiceTest {
         Assert.assertNotNull(condition);
         Assert.assertEquals("male_high", segment);
         Assert.assertTrue("There should be records in the randomBlockRepository", randomBlockRepository.findAll().size() > 0);
-        Assert.assertTrue("This should have created 49 blocks", randomBlockRepository.findAll().size() == 49);
+        Assert.assertEquals(49, randomBlockRepository.findAll().size());
         service.markConditionAsUsed(condition);
         Assert.assertTrue("One of the random conditions should now go away", randomBlockRepository.findAll().size() == 48);
     }

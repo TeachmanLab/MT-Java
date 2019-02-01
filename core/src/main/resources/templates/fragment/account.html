@@ -5,7 +5,8 @@
 <form name="f" class="form-horizontal" th:action="@{/account/create}" method="post" th:object="${participantForm}"
       th:fragment="create">
 
-    <h3>Create an account</h3>
+    <h2 class="page-title">Create an account</h2>
+    <br/>
     <div class="formErrors">
         <ul class="errors">
             <li th:each="err : ${#fields.errors('*')}" th:text="${err}" class="alert-error">
@@ -134,7 +135,7 @@
                        th:errorclass="error" th:field="*{receiveGiftCards}" />
 
                 <span class="note">
-                    I’d like to receive gift cards for my participation<br/>(we will send you a code to verify your identity, this must be completed to receive gift cards.)
+                    I’d like to receive gift cards for my participation<br/>(we will send a text message to your phone to verify your identity, this must be completed to receive gift cards.)
                 </span>
             </label>
         </div>
@@ -174,28 +175,13 @@
     </div>
 
     <div class="form-group row">
-        <div class="col-sm-2">
-        </div>
+        <label class="control-label col-sm-2" for="over18">Over 18</label>
         <div class="custom-control col-sm-10">
-            <label class="col-sm-10">
+            <label class="col-sm-10  inline-checkbox">
                 <input class="inline-checkbox" type="checkbox" id="over18" name="over18" th:errorclass="error"
-                       th:field="*{over18}"/>
-                I am over 18.
+                       th:field="*{over18}"/>I am over 18
             </label>
         </div>
-    </div>
-
-    <div class="custom-control col-sm-10">
-        <label class="col-sm-10 inline-checkbox" >
-
-            <input class="inline-checkbox" type="checkbox" id="receiveGiftCards" name="receiveGiftCards" checked="checked"
-                   th:errorclass="error" th:field="*{receiveGiftCards}" />
-
-            <span class="note">
-                    <b>I agree to receive calls and voicemails from a MindTrails coach if assigned to that condition.
-                I agree to the caller identifying themselves as calling from the MindTrails Project.</b>
-                </span>
-        </label>
     </div>
 
     <div class="form-group row">

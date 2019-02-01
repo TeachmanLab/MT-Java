@@ -12,7 +12,8 @@ import org.junit.runner.RunWith;
 import org.mindtrails.Application;
 import org.mindtrails.MockClasses.TestStudy;
 import org.mindtrails.domain.*;
-import org.mindtrails.domain.tango.Reward;
+import org.mindtrails.domain.tango.Order;
+import org.mindtrails.domain.tango.OrderResponse;
 import org.mindtrails.domain.tracking.EmailLog;
 import org.mindtrails.domain.tracking.TaskLog;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -163,22 +164,16 @@ public class EmailServiceImplTest {
 
     @Test
     public void sendGiftCard() throws Exception {
-        Reward reward;
-        String token, number, pin, url, eventnumber, email;
-        token = "ABCD";
-        number ="12345678910";
-        pin = "ASDFJKL:";
-        url = "google.com";
-        eventnumber = "1111111111111111111111";
-        reward = new Reward(token, number, pin, url, eventnumber);
-        email = "testyMcTester2.0@t.com";
-
+        OrderResponse orderResponse;
+        String url = "http://thisistheurl.com";
+        orderResponse = new OrderResponse("1", "1234", "notagift", "success", true, url, 5);
+        String email = "testyMcTester2.0@t.com";
         Participant p = new Participant();
         Study s = new TestStudy("SessionOne",0);
         p.setStudy(s);
         p.setEmail(email);
 
-        emailService.sendGiftCard(p,reward, 100);
+        emailService.sendGiftCard(p, orderResponse, 100);
 
         // assert
         assertEquals("No mail messages found", 1, wiser.getMessages().size());

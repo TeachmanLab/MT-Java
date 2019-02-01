@@ -7,10 +7,13 @@
 <!--<![endif]-->
 <head th:include="/fragment/common :: headerFragment" />
 
-<body th:class="|user-theme-${participant.theme}|">
+<body>
 <script type="text/javascript" th:src="@{/bower/jqueryui/jquery-ui.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/jquery.jWizard.min.js}"></script>
+
 <section id="header" class="clearfix" th:include="/fragment/common :: topFragment" />
+<section th:replace="fragment/common :: titleBar (title='Use Your Imagination')"/>
+
 
 <audio id="bing">
     <source th:src="@{/sounds/bing.mp3}"/>
@@ -21,12 +24,10 @@
 ================================================== -->
 <section id="content" class="clearfix">
     <div class="container">
-        <!--spacer here-->
-        <div class="spacer-30px"></div>
 
         <!--features starts-->
         <div class="row">
-            <div class="span12">
+            <div class="col-md-10">
                 <form id="wizard" th:action="@{/questions/ImageryPrime}" method="POST">
                     <fieldset>
                     <legend> </legend>
@@ -95,7 +96,7 @@
                             $(".jw-button-finish").button("disable");
                             setTimeout(function() {
                                 document.getElementById("bing").play();
-                                $( "#waittext" ).text("Your 20 seconds are done!");
+                                $( "#waittext" ).text("You're 20 seconds are done!");
                                 $(".jw-button-finish").button("enable");
                                 mNext = true;
                                                   }, 20000);

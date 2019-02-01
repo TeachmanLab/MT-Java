@@ -8,8 +8,7 @@ import org.mindtrails.domain.forms.ParticipantCreateAdmin;
 import org.mindtrails.domain.forms.ParticipantUpdateAdmin;
 import org.mindtrails.domain.importData.Scale;
 import org.mindtrails.domain.tango.Account;
-import org.mindtrails.domain.tango.Order;
-import org.mindtrails.domain.tango.Reward;
+import org.mindtrails.domain.tango.OrderResponse;
 import org.mindtrails.domain.tracking.ErrorLog;
 
 import org.mindtrails.domain.tracking.GiftLog;
@@ -270,8 +269,8 @@ public class AdminController extends BaseController {
         if(type.equals("giftCard")) {
             GiftLog log = new GiftLog(p, "test", 1);
             this.giftLogRepository.save(log);
-            Reward reward = tangoService.awardGiftCard(log);  // This would actually award a gift card, if you need to do some testing.
-            this.emailService.sendGiftCard(p, reward, 100);
+            OrderResponse reward = tangoService.awardGiftCard(log);  // This would actually award a gift card, if you need to do some testing.
+            this.emailService.sendGiftCard(p, reward, 1);
         } else if(type.equals("resetPass")) {
             p.setPasswordToken(new PasswordToken());
             this.emailService.sendPasswordReset(p);
@@ -314,7 +313,7 @@ public class AdminController extends BaseController {
             // Noop.  These counts might come back as null from JPA Respoitory, so don't fail when that happens/
         }
 
-        model.addAttribute("tango",a);
+        model.addAttribute("account",a);
         giftPages = giftLogRepository.findByOrderIdIsNull(pageRequest);
         model.addAttribute("giftLogs", giftPages);
         model.addAttribute("numberAwarded",numberAwarded);
@@ -328,7 +327,7 @@ public class AdminController extends BaseController {
 
         for(long id : ids) {
             GiftLog log = giftLogRepository.findOne(id);
-            Reward reward = this.tangoService.awardGiftCard(log);
+            OrderResponse reward = this.tangoService.awardGiftCard(log);
             this.emailService.sendGiftCard(log.getParticipant(), reward, log.getAmount());
         }
         return tangoInfo(model, principal, "0");
@@ -338,16 +337,16 @@ public class AdminController extends BaseController {
     @RequestMapping(value="/participant/giftCard")
     public String giftCard(ModelMap model, Principal principal) throws Exception {
         Participant p = participantService.get(principal);
-        GiftLog log = new GiftLog(p, "AdminAwarded", 100);
+        GiftLog log = new GiftLog(p, "AdminAwarded", 1);
         this.giftLogRepository.save(log);
-        Reward reward = tangoService.awardGiftCard(log);  // This would actually award a gift card, if you need to do some testing.
-        this.emailService.sendGiftCard(p, reward, 100);
-        return "/admin/participant_form";
+        OrderResponse reward = tangoService.awardGiftCard(log);  // This would actually award a gift card, if you need to do some testing.
+        this.emailService.sendGiftCard(p, reward, 1);
+        return "admin/participant_form";
     }
 
     @RequestMapping(value="/rewardInfo/{orderId}", method = RequestMethod.GET)
     public String showRewardInfo(ModelMap model, Principal principal, @PathVariable ("orderId") String orderId) {
-        Order order = tangoService.getOrderInfo(orderId);
+        OrderResponse order = tangoService.getOrderInfo(orderId);
         model.addAttribute("order",order);
         return "admin/rewardInfo";
     }

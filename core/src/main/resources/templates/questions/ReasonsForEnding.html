@@ -11,7 +11,7 @@
 <head th:replace="fragment/common :: headerFragment"/>
 <body>
 <section th:replace="fragment/common :: topFragment"/>
-<section th:replace="fragment/common :: titleBar (title='ReasonsForEnding')"/>
+<section th:replace="fragment/common :: titleBar (title='Reasons for Ending Questionnaire')"/>
 <textArea th:replace="fragment/common :: questionTemplate"/>
 <textArea th:replace="fragment/common :: questionTemplate2"/>
 <section id="content1" class="clearfix">
@@ -19,9 +19,8 @@
         <div class="row">
             <div class="col-md-8">
 
-                <p> We want to improve our program and would like to learn about why you decided to stop the program. We appreciate your feedback!</p>
-                <p>Note that <b>assessment sessions</b> were sessions in which you filled out questionnaires on your thoughts and feelings.
-                    <b>Training sessions</b> were sessions in which you completed words at the end of sentences.</p>
+                <p> We are interested in improving Calm Thinking and would like to learn about why you decided to
+                    stop the program. We appreciate your feedback!</p>
 
 
             </div>
@@ -40,7 +39,43 @@
                 <div class="row">
                     <div class="col-md-10">
 
-                        <p>1. Why did you decide to end the program? (please check all that apply)</p>
+                        <p><b>What device(s) did you use to complete the program? Please check all that apply.</b></p>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8 side-border">
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="deviceUse" value="computer"/>
+                               Computer </label>
+                        </div>
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="deviceUse" value="smartphone"/>
+                                Smartphone </label>
+                        </div>
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="deviceUse" value="tablet"/>
+                                Tablet </label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="radio">
+                            <label class="question"><input type="checkbox" name="changeMed" value="555"
+                                                           onchange="disableSection(this)"/> Prefer not to answer
+                            </label>
+                        </div>
+                        <br/>
+                        <br/>
+                    </div>
+            </div>
+            </div>
+
+            <div class="section">
+                <div class="row">
+                    <div class="col-md-10">
+
+                        <p><b>What is the reason/are the reasons you decided to end the program? Please check all that apply.</b></p>
 
                     </div>
                 </div>
@@ -49,37 +84,37 @@
                     <div class="col-md-8 side-border">
                         <div class="radio">
                             <label class="question"> <input type="checkbox" name="reasons" value="not enough time"/>
-                                I did not have enough time to complete the program. </label>
+                                I did not have enough time to complete the program </label>
                         </div>
 
                         <div class="radio">
                             <label class="question"> <input type="checkbox" name="reasons" value="not helpful"/>
-                                I did not find the program helpful for reducing my anxiety. </label>
+                                I did not find the program helpful for reducing my anxiety </label>
                         </div>
 
                         <div class="radio">
                             <label class="question"> <input type="checkbox" name="reasons" value="not interesting"/>
-                                I did not find the program interesting. </label>
+                                I did not find the program interesting </label>
                         </div>
 
                         <div class="radio">
                             <label class="question"> <input type="checkbox" name="reasons" value="not believe"/>
-                                I did not believe a program like this could work.  </label>
+                                I did not believe a program like this could work  </label>
                         </div>
 
                         <div class="radio">
                             <label class="question"> <input type="checkbox" name="reasons" value="frustrating"/>
-                                I found the program frustrating to use. </label>
+                                I found the program frustrating to use </label>
                         </div>
 
                         <div class="radio">
                             <label class="question"> <input type="checkbox" name="reasons" value="not needed"/>
-                                I no longer needed the program (i.e., I no longer felt anxious).  </label>
+                                I no longer needed the program (i.e., I no longer felt anxious)  </label>
                         </div>
 
                         <div class="radio">
                             <label class="question"> <input type="checkbox" name="reasons" value="in control"/>
-                                I believe I was in the control conditioning (i.e., the conditioning not meant to change anxiety). </label>
+                                I believe I was assigned to the control condition (i.e., the condition not meant to change anxiety) </label>
                         </div>
 
                         <div class="radio">
@@ -110,29 +145,39 @@
                 <div class="row">
                     <div class="col-md-10">
 
-                        <p>2. Even if this is not why you ended the program, do you believe that you were in the control conditioning?</p>
+                        <p><b>Even if it was not your reason for ending the program, do you believe that you were assigned to the control condition?</b></p>
 
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-md-6 side-border" >
+                    <div class="col-md-8 side-border" >
                         <div class="radio">
                             <label class="question"> <input type="radio"  name="thoughtInControl" value="true" required="true"/>Yes</label>
                         </div>
                         <div class="radio">
                             <label class="question"><input type="radio"  name="thoughtInControl" value="false"/>No</label>
                         </div>
+                    </div>
+                        <div class="col-md-4">
+                            <div class="radio">
+                                <label class="question"><input type="checkbox" name="thoughtInControl" value="555"
+                                                               onchange="disableSection(this)"/> Prefer not to answer
+                                </label>
+                            </div>
+                            <br/>
+                            <br/>
+                        </div>
+
 
                     </div>
-                </div>
             </div>
 
             <div class="section" id="thoughtInControlDetail1">
                 <div class="row">
                     <div class="col-md-10">
 
-                        <p>At what point did you think you were in the control conditioning?</p>
+                        <p><b>At what point did you think you were in the control condition?</b></p>
 
                     </div>
                 </div>
@@ -140,30 +185,39 @@
                     <div class="col-md-8 side-border">
 
                         <div class="radio">
-                            <label class="question"> <input type="radio" name="pointInControl" value="early" required="true"/> <b>Early</b> in the training program (within the first 3 sessions).</label>
+                            <label class="question"> <input type="radio" name="pointInControl" value="early" required="true"/> Early in the training program (within the first 2 sessions)</label>
                         </div>
                         <div class="radio">
-                            <label class="question"><input type="radio" name="pointInControl" value="mid-way" /> <b>Mid-way</b> through the training program (around the 4th or 5th session).</label>
+                            <label class="question"><input type="radio" name="pointInControl" value="mid-way" /> Mid-way through the training program (the 3<sup>rd</sup> session)</label>
                         </div>
                         <div class="radio">
-                            <label class="question"><input type="radio" name="pointInControl" value="later" /> <b>Later</b> in the training program (within the last 3 sessions).</label>
+                            <label class="question"><input type="radio" name="pointInControl" value="later" /> Later in the training program (within the last 2 sessions)</label>
                         </div>
-                        <div class="radio">
-                            <label class="question"><input type="radio" name="pointInControl" value="noAnswer" /> Prefer not to answer</label>
-                        </div>
-                    </div>
                 </div>
+                        <div class="col-md-4">
+                <div class="radio">
+                    <label class="question"><input type="checkbox" name="pointInControl" value="555"
+                                                   onchange="disableSection(this)"/> Prefer not to answer
+                    </label>
+                </div>
+                <br/>
+                <br/>
             </div>
+            </div>
+            </div>
+
             <div class="section" id="thoughtInControlDetail2">
 
                 <div class="row">
                     <div class="col-md-10">
 
-                        <p>What made you think you were in the control conditioning? Check all that apply.</p>
+                        <p><b>What made you think you were in the control condition? Check all that apply.</b></p>
 
                     </div>
                 </div>
+
                 <div class="row">
+                    <div class="col-md-8 side-border">
 
                     <div class="radio">
                         <label class="question"><input type="checkbox" name="whyInControl" value="not relieved" /> My anxiety wasn’t being relieved.</label>
@@ -175,14 +229,24 @@
                         <label class="question"><input type="checkbox" name="whyInControl" value="other" id="Q2_2" onchange="spec('Q2_2')"/> Other (Please specify)  </label>
                         <input id="Q2_2_spec" type="text" name="control_Desc" value="N/A"/>
                     </div>
-                </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="radio">
+                            <label class="question"><input type="checkbox" name="whyInControl" value="555"
+                                                           onchange="disableSection(this)"/> Prefer not to answer
+                            </label>
+                        </div>
+                        <br/>
+                        <br/>
+                    </div>
+            </div>
             </div>
         </div>
 
         <div class="container section compactQuestion">
             <div class="row title">
                 <div class="col-md-12">
-                    <h4> 3. To the extent you completed the program... </h4>
+                    <h4><b>To the extent you completed the program...</b></h4>
                 </div>
             </div>
             <div id="section1"></div>
@@ -199,23 +263,23 @@
                     "questions": [
                         {
                             "name": "helpful",
-                            "desc": "how helpful was it for reducing your anxiety?"
+                            "desc": "How helpful was it for reducing your anxiety?"
                         },
                         {
                             "name": "work",
-                            "desc": "how well did the web program work for you?"
+                            "desc": "How well did the web program work for you?"
                         },
                         {
                             "name": "easy",
-                            "desc": "how easy was the web program to use?"
+                            "desc": "How easy was the web program to use?"
                         },
                         {
                             "name": "interest",
-                            "desc": "how much did the web program keep your interest and attention?"
+                            "desc": "How much did the web program keep your interest and attention?"
                         },
                         {
                             "name": "inGeneral",
-                            "desc": "how much did you like the web program in general?"
+                            "desc": "How much did you like the web program in general?"
                         }
                     ]
                 }
@@ -225,7 +289,6 @@
 
         <div class="container section compactQuestion">
             <div class="col-md-12">
-                <h4> 3. To the extent you completed the program... </h4>
             </div>
             <div id="section2"></div>
             <script>
@@ -241,23 +304,23 @@
                     "questions": [
                         {
                             "name": "looked",
-                            "desc": "how much did you like the way the web program looked?"
+                            "desc": "How much did you like the way the web program looked?"
                         },
                         {
                             "name": "privacy",
-                            "desc": "how easy was the web program to use?"
+                            "desc": "How easy was the web program to use?"
                         },
                         {
                             "name": "understandAssessments",
-                            "desc": "how easy were the assessments to understand?"
+                            "desc": "How easy were the assessments to understand?"
                         },
                         {
                             "name": "understandTraining",
-                            "desc": "how easy was the training program to understand? Keep the instructions and material in mind when answering."
+                            "desc": "How easy was the training program to understand? Keep the instructions and material in mind when answering."
                         },
                         {
                             "name": "trust",
-                            "desc": "how much did you feel you could trust the information?"
+                            "desc": "How much did you feel you could trust the information?"
                         }
                     ]
                 }
@@ -272,7 +335,7 @@
             <div class="row">
                 <div class="col-md-10">
 
-                    <p>4. Of the sessions you did complete, where did you primarily complete the program? (please check all that apply)</p>
+                    <p><b>Of the sessions you did complete, where did you primarily complete the program? Please check all that apply.</b></p>
 
                 </div>
             </div>
@@ -322,56 +385,36 @@
             </div>
 
         </div>
-        <div class="col-md-10">
-        <div class="section">
 
-            <div class="question"> 5. While you were completing the treatment sessions, how focused or distracted were you? Please use a 1 (extremely distracted) to 7 (extremely focused) scale.  </div>
-            <input id="posSlider"  type="text" name="focused" required ="true"/>
-            <div class="after_slider"><label class="standard">
-                <input id="posSlider-enabled" type="checkbox" name="focused" value="555"/>
-                Prefer not to answer
-            </label></div>
-            <script>
-                $("#posSlider").slider({
-                    ticks: [1, 2, 3, 4, 5, 6, 7],
-                    ticks_labels: ['1', '2', '3', '4', '5', '6', '7'],
-                    ticks_snap_bounds: 1,
-                    tooltip: "hide",
-                    value: 4,
-                    formatter: function(value) {
-                        $('#posSlider-enabled')[0].required=false;
-                    }
-                });
-
-                $("#posSlider-enabled").click(function() {
-                    if(this.checked) {
-                        $("#posSlider").slider("disable");
-                        $('#posSlider-enabled')[0].required=false;
-                    }
-                    else {
-                        $("#posSlider").slider("enable");
-                    }
-                });
-                $('#posSlider-enabled')[0].required=true;
-
-            </script>
-
-        </div>
+        <div class="container section"><label class="question"><b>While you were completing the Training Sessions, how distracted or focused were you?</b>
+                <select required="true">
+                    <option value="" hidden="hidden">Please select one</option>
+                    <option value="1">1 (Extremely distracted)</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7 (Extremely focused)</option>
+                    <option value="555">Prefer not to answer</option>
+                </select> </label>
+            </div>
     </div>
-    </div>
-
 
         <div class="container section compactQuestion">
-            <div class="col-md-12">
-                <h4> 6. Some people have problems when trying to use a web program. Please read the next items and tell us how much of a problem you had when trying to use the web program. </h4>
+            <div class="col-md-14">
+
+                <h4><b>Some people have problems when trying to use a web program. Please read the next items and tell
+                    us how much of a problem you had when trying to use the web program.</b></h4>
+
             </div>
             <div id="section3"></div>
             <script>
                 var data = {
                     "options": [
                         {"value": 0, "title": "Not a problem"},
-                        {"value": 1, "title": "Little problem"},
-                        {"value": 2, "title": "Major problem"},
+                        {"value": 1, "title": "A little problem"},
+                        {"value": 2, "title": "A major problem"},
                         {"value": 3, "title": "Not Applicable"},
 
                     ],
@@ -407,8 +450,8 @@
                 var data = {
                     "options": [
                         {"value": 0, "title": "Not a problem"},
-                        {"value": 1, "title": "Little problem"},
-                        {"value": 2, "title": "Major problem"},
+                        {"value": 1, "title": "A little problem"},
+                        {"value": 2, "title": "A major problem"},
                         {"value": 3, "title": "Not Applicable"},
 
                     ],
@@ -444,7 +487,7 @@
                 <div class="row">
                     <div class="col-md-10">
 
-                        <p>7. During this program, did you change any medicine, therapy, or other intervention to help your anxiety?(Check all that apply)</p>
+                        <p><b>During this program, did you change any medicine, therapy, or other intervention to help your anxiety? Please check all that apply.</b></p>
 
                     </div>
                 </div>
@@ -452,29 +495,29 @@
                 <div class="row">
                     <div class="col-md-8 side-border">
                         <div class="radio">
-                            <label class="question"> <input type="checkbox" name="changeMed" value="therapyMore" /> I seek in-person therapy more now.</label>
+                            <label class="question"> <input type="checkbox" name="changeMed" value="therapyMore" /> I seek in-person therapy more now</label>
                         </div>
 
                         <div class="radio">
-                            <label class="question"> <input type="checkbox" name="changeMed" value="therapyLess" /> I seek in-person therapy less now.</label>
+                            <label class="question"> <input type="checkbox" name="changeMed" value="therapyLess" /> I seek in-person therapy less now</label>
                         </div>
 
                         <div class="radio">
-                            <label class="question"> <input type="checkbox" name="changeMed" value="medsMore" /> I use prescription medicine more now.</label>
+                            <label class="question"> <input type="checkbox" name="changeMed" value="medsMore" /> I use prescription medicine more now</label>
                         </div>
 
                         <div class="radio">
-                            <label class="question"> <input type="checkbox" name="changeMed" value="medsLess" /> I use prescription medicine less now.</label>
+                            <label class="question"> <input type="checkbox" name="changeMed" value="medsLess" /> I use prescription medicine less now</label>
                         </div>
 
                         <div class="radio">
-                            <label class="question"> <input type="checkbox" name="changeMed" value="onlineMore" /> I use online computer programs (other than MindTrails) or mobile apps more now.</label>
+                            <label class="question"> <input type="checkbox" name="changeMed" value="onlineMore" /> I use online computer programs (other than MindTrails) or mobile apps more now</label>
                         </div>
                         <div class="radio">
-                            <label class="question"> <input type="checkbox" name="changeMed" value="onlineLess" /> I use online computer programs (other than MindTrails) or mobile apps less now.</label>
+                            <label class="question"> <input type="checkbox" name="changeMed" value="onlineLess" /> I use online computer programs (other than MindTrails) or mobile apps less now</label>
                         </div>
                         <div class="radio">
-                            <label class="question"> <input type="checkbox" name="changeMed" value="noChange" /> I did not change my intervention habits.</label>
+                            <label class="question"> <input type="checkbox" name="changeMed" value="noChange" /> I did not change my intervention habits</label>
                         </div>
                         <div class="radio">
                             <label class="question"> <input type="checkbox" name="changeMed" value="Other" id="Q7"

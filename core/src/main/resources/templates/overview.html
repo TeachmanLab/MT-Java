@@ -19,9 +19,9 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                <h1>Overview for <span th:text="${participant.fullName}"/></h1>
+                <h1><b>Overview for <span th:text="${participant.fullName}"/></b></h1>
 
-                <p>Review your progress below. You must wait a minimum of 7 days between
+                <p>Review your progress below. You must wait a minimum of 5 days between
                     levels. We encourage you to begin each new level about one week after completing the previous
                     one.
                     This will give you a chance to practice the new thinking style between sessions.
@@ -61,13 +61,13 @@
                         <div class="col-md-12">
                             <p class=""
                                th:if="${iterStat.index &lt; iterStat.size and study.sessions[iterStat.index + 1].daysToWait > 0}">
-                                Allow about <span th:text="${study.sessions[iterStat.index + 1].daysToWait}"/>
+                                Allow at least <span th:text="${study.sessions[iterStat.index + 1].daysToWait}"/>
                                 days to start the following session.</p>
 
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2" th:if="${session.giftAmount > 0}">$<span th:text="${session.giftAmount/100}"/>
+                <div class="col-md-2" th:if="${session.giftAmount > 0}">$<span th:text="${session.giftAmount}"/>
                     Gift
                     Card!
                     <img th:src="@{/images/gift_card.png}"/>

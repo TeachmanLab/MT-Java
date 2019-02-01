@@ -7,7 +7,6 @@ import org.mindtrails.domain.ExportMode;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.Session;
 import org.mindtrails.domain.Study;
-import org.mindtrails.domain.tango.Reward;
 import org.mindtrails.persistence.ReasonsForEnding;
 import org.mindtrails.persistence.ReasonsForEndingRepository;
 import org.mindtrails.service.*;
@@ -102,7 +101,7 @@ public class SessionController extends BaseController {
             if (last.getGiftAmount() > 0) {
                 tangoService.prepareGift(p, session, last.getGiftAmount());
                 model.addAttribute("giftAwarded", true);
-                model.addAttribute("giftAmount", last.getGiftAmount() / 100);
+                model.addAttribute("giftAmount", last.getGiftAmount());
             }
         }
 
