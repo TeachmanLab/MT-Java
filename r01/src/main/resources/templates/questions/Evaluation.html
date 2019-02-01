@@ -30,80 +30,6 @@
         </div>
 
         <div class="container section">
-            <div id="section0"></div>
-            <script>
-                var data = {
-                    "options": [
-                        {"value": 1, "title": "Way too short"},
-                        {"value": 2, "title": "Somewhat too short"},
-                        {"value": 3, "title": "The right length"},
-                        {"value": 4, "title": "Somewhat too long"},
-                        {"value": 5, "title": "Way too long"}
-                    ],
-                    "questions": [
-                        {
-                            "name": "sessionDuration",
-                            "desc": "I found the training sessions to be:"
-                        }
-                    ]
-                }
-                $('#section0').html(Mustache.render($('#template5').val(), data));
-            </script>
-        </div>
-
-        <div class="container section">
-            <div class="row">
-                <div class="col-md-10">
-                    <p><b>What is your preferred technology platform for delivery of health interventions (e.g., Calm
-                        Thinking)? Check all that apply.</b></p>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="radio">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="preferredPlatform" value="computerBrowser"/> Desktop or laptop computer via an
-                            internet browser (e.g., Firefox, Chrome, Safari) </label>
-                    </div>
-                    <div class="radio">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="preferredPlatform" value="smartphoneBrowser"/> Smartphone or tablet via an
-                            internet browser (e.g., Firefox, Chrome, Safari) </label>
-                    </div>
-                    <div class="radio">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="preferredPlatform" value="app"/> Smartphone or tablet via an app </label>
-                    </div>
-                    <div class="radio">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="preferredPlatform" value="call"/> Telephone call </label>
-                    </div>
-                    <div class="radio">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="preferredPlatform" value="video"/> Video conferencing (on any device) </label>
-                    </div>
-                    <div class="radio">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="preferredPlatform" value="email"/> Email (on any device) </label>
-                    </div>
-                    <div class="radio">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="preferredPlatform" value="none"/> I do not want to use technology to receive
-                            health interventions </label>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="container section">
             <div class="row">
                 <div class="col-md-10">
                     <p><b>What device(s) did you use to complete the program? Check all that apply.</b></p>
@@ -182,6 +108,28 @@
                     Calm Thinking:
                     <input type="text" th:field="*{problemsDesc}" required="true"/> </label>
             </div>
+        </div>
+
+        <div class="container section">
+            <div id="section0"></div>
+            <script>
+                var data = {
+                    "options": [
+                        {"value": 1, "title": "Way too short"},
+                        {"value": 2, "title": "Somewhat too short"},
+                        {"value": 3, "title": "The right length"},
+                        {"value": 4, "title": "Somewhat too long"},
+                        {"value": 5, "title": "Way too long"}
+                    ],
+                    "questions": [
+                        {
+                            "name": "sessionDuration",
+                            "desc": "I found the training sessions to be:"
+                        }
+                    ]
+                }
+                $('#section0').html(Mustache.render($('#template5').val(), data));
+            </script>
         </div>
 
         <div class="container section">
@@ -333,7 +281,7 @@
         <!--Display the following two questions only if the user indicated that they think they were in the control
         condition-->
         <div class="container section" id="whenControl" style="display: none">
-            <div id="section4"></div>
+            <div id="section3"></div>
             <script>
                 var data = {
                     "options": [
@@ -348,7 +296,7 @@
                         }
                     ]
                 }
-                $('#section4').html(Mustache.render($('#template5').val(), data));
+                $('#section3').html(Mustache.render($('#template5').val(), data));
             </script>
         </div>
 
@@ -396,14 +344,241 @@
             </div>
         </div>
 
+        <div class="container section">
+            <div class="row">
+                <div class="col-md-10">
+                    <p><b>What is your preferred technology platform for delivery of health interventions (e.g., Calm
+                        Thinking)? Check all that apply.</b></p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8 side-border">
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="preferredPlatform" value="computerBrowser"/> Desktop or laptop computer via an
+                            internet browser (e.g., Firefox, Chrome, Safari) </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="preferredPlatform" value="smartphoneBrowser"/> Smartphone or tablet via an
+                            internet browser (e.g., Firefox, Chrome, Safari) </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="preferredPlatform" value="app"/> Smartphone or tablet via an app </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="preferredPlatform" value="call"/> Telephone call </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="preferredPlatform" value="video"/> Video conferencing (on any device) </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="preferredPlatform" value="email"/> Email (on any device) </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="preferredPlatform" value="none"/> I do not want to use technology to receive
+                            health interventions </label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <br/>
+                    <br/>
+                    <div class="radio">
+                        <label class="question"><input type="checkbox" name="preferredPlatform" value="555"
+                                                       onchange="disableSection(this)"/> Prefer not to answer
+                        </label>
+                    </div>
+                    <br/>
+                    <br/>
+                </div>
+            </div>
+        </div>
+
+        <div class="container section">
+            <div class="row header">
+                <div class="col-md-8 statement"><p><b>Did you receive telecoaching during the program?</b></p></div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+
+                    <div class="radio">
+                        <label class="question"> <input type="radio" name="receivedTelecoaching" value="1"
+                                                        required="true"
+                                                        id="coaching"
+                                                        onchange="receivedCoaching('coaching')"/>Yes</label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input type="radio" name="receivedTelecoaching" value="0"
+                                                        required="true"
+                                                        onchange="receivedCoaching('coaching')"/>No</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container section" id="coachExperience" style="display: none">
+            <div id="section4"></div>
+            <script>
+                var data = {
+                    "options": [
+                        {"value": 1, "title": "Very negative"},
+                        {"value": 2, "title": "Somewhat negative"},
+                        {"value": 3, "title": "Slightly negative"},
+                        {"value": 4, "title": "Neither negative nor positive"},
+                        {"value": 5, "title": "Slightly positive"},
+                        {"value": 6, "title": "Somewhat positive"},
+                        {"value": 7, "title": "Very positive"}
+                    ],
+                    "questions": [
+                        {
+                            "name": "coachExperience",
+                            "desc": "What was your experience with your MindTrails coach?"
+                        }
+                    ]
+                }
+                $('#section4').html(Mustache.render($('#template5').val(), data));
+            </script>
+        </div>
+
+        <div class="container section" id="coachUnderstood" style="display: none">
+            <div id="section5"></div>
+            <script>
+                var data = {
+                    "options": [
+                        {"value": 1, "title": "Not at all understood"},
+                        {"value": 2, "title": "Slightly understood"},
+                        {"value": 3, "title": "Moderately understood"},
+                        {"value": 4, "title": "Very understood"},
+                        {"value": 5, "title": "Completely understood"}
+                    ],
+                    "questions": [
+                        {
+                            "name": "coachUnderstood",
+                            "desc": "To what extend did you feel understood by your coach?"
+                        }
+                    ]
+                }
+                $('#section5').html(Mustache.render($('#template5').val(), data));
+            </script>
+        </div>
+
+        <div class="container section" id="coachMotivate" style="display: none">
+            <div id="section6"></div>
+            <script>
+                var data = {
+                    "options": [
+                        {"value": 1, "title": "Completely not motivating"},
+                        {"value": 2, "title": "Moderately not motivating"},
+                        {"value": 3, "title": "Slightly not motivating"},
+                        {
+                            "value": 4,
+                            "title": "Not at all a motivating factor (I would have completed the sessions whether I had a coach or not)"
+                        },
+                        {"value": 5, "title": "Slightly motivating"},
+                        {"value": 6, "title": "Somewhat motivating"},
+                        {
+                            "value": 7,
+                            "title": "Completely motivating (I only completed the sessions because I had a coach)"
+                        }
+                    ],
+                    "questions": [
+                        {
+                            "name": "coachMotivate",
+                            "desc": "To what extent did having a coach motivate you to complete training sessions?"
+                        }
+                    ]
+                }
+                $('#section6').html(Mustache.render($('#template5').val(), data));
+            </script>
+        </div>
+
+        <div class="container section" id="coachHelpTopics" style="display: none">
+            <div class="row">
+                <div class="col-md-10">
+                    <p><b>What did your coach help you with? Check all that apply.</b></p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8 side-border">
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="helpTopics" value="techErrors"/> Technical troubleshooting (e.g., helping with
+                            technical errors) </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="helpTopics" value="usability"/> Program usability (e.g., answering questions about
+                            how to use the website) </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="helpTopics" value="programFit"/> Program fit (e.g., helping you understand why it
+                            might be a good treatment for you) </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="helpTopics" value="engagement"/> Engagement with the program (e.g., help with
+                            strategies for visualizing training scenarios </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="places" value="implementation"/> Implementation into your own life (e.g., discuss
+                            how training scenarios might help you feel better in your daily life) </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input id="helpTopics_other"
+                                                        onchange="sub('helpTopics_other');spec('helpTopics_other');"
+                                                        type="checkbox" name="helpTopics"
+                                                        value="other"/> Other (please specify): <input
+                                id="helpTopics_other_spec" type="text" name="otherHelpTopic" value="N/A"/> </label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <br/>
+                    <br/>
+                    <div class="radio">
+                        <label class="question"><input type="checkbox" name="helpTopics" value="555"
+                                                       onchange="disableSection(this)"/> Prefer not to answer
+                        </label>
+                    </div>
+                    <br/>
+                    <br/>
+                </div>
+            </div>
+        </div>
+
+        <div class="container section" id="otherCoaching" style="display: none">
+            <label class="question"> Is there anything else you’d like to tell us about your coaching
+                experience?</label>
+            <br/>
+            <textarea name="otherCoaching" rows="6" cols="50"/>
+        </div>
+
         <div style="text-align:center">
             <button type="submit"> Continue</button>
         </div>
 
     </div>
 </form>
-
-<!--<script src="http://cdn.jsdelivr.net/jquery.validation/1.14.0/jquery.validate.min.js"/>-->
 
 <footer th:replace="fragment/common :: footer"/>
 
@@ -433,6 +608,22 @@
         } else {
             $("#whenControl").hide();
             $("#whyControl").hide();
+        }
+    }
+
+    function receivedCoaching(id) {
+        if (document.getElementById(id).checked) {
+            $("#coachExperience").show();
+            $("#coachUnderstood").show();
+            $("#coachMotivate").show();
+            $("#coachHelpTopics").show();
+            $("#otherCoaching").show();
+        } else {
+            $("#coachExperience").hide();
+            $("#coachUnderstood").hide();
+            $("#coachMotivate").hide();
+            $("#coachHelpTopics").hide();
+            $("#otherCoaching").hide();
         }
     }
 

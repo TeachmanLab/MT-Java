@@ -119,6 +119,22 @@ public class Evaluation extends LinkedQuestionnaireData {
     private String howLearnOtherLink;
     private String howLearnOther;
 
+    @NotNull
+    private Integer receivedTelecoaching;
+
+    // The following three should only be @NotNull if receivedCoaching is 1
+    private Integer coachExperience;
+    private Integer coachUnderstood;
+    private Integer coachMotivate;
+
+    @ElementCollection
+    @CollectionTable(name = "evaluation_coachHelpTopics", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "coachHelpTopics")
+    private List<String> helpTopics;
+    private String otherHelpTopic;
+
+    private String otherCoaching;
+
     @Override
     public Map<Integer, String> getScale(String group) {
         Map<Integer, String> tmpScale = new TreeMap<>();
