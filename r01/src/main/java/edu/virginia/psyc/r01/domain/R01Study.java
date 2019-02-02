@@ -139,6 +139,7 @@ public class R01Study extends BaseStudy {
         pretest.addTask(new Task("Comorbid","Mood and Drinking Patterns", Task.TYPE.questions, 0 ));
         pretest.addTask(new Task("Wellness","What I Believe", Task.TYPE.questions, 0 ));
         pretest.addTask(new Task("Mechanisms","How I Respond", Task.TYPE.questions, 0 ));
+        pretest.addTask(new Task("TechnologyUse", "Technology Use", Task.TYPE.questions, 0));
         sessions.add(pretest);
 
         session1 = new Session(FIRST_SESSION, "Level 1: Beginner", 0, 0);
