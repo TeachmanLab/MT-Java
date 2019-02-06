@@ -48,7 +48,7 @@ public class BBSIQ extends LinkedQuestionnaireData {
         desc.put("heart", "You notice that your heart is beating quickly and pounding. Why?");
         desc.put("confused", "Suddenly, you feel confused and find it hard to think straight. Why?");
         desc.put("urgent", "A letter marked \"URGENT\" arrives. What is in the letter?");
-        desc.put("dizzy", "You notice that your heart is pounding, and you feel breathless, dizzy and unreal. Why?");
+        desc.put("dizzy", "You notice that your heart is pounding, and you feel breathless, dizzy, and unreal. Why?");
         return Collections.unmodifiableMap(desc);
     }
 
@@ -70,7 +70,7 @@ public class BBSIQ extends LinkedQuestionnaireData {
     @MeasureField(order=5, desc="You are about to suffocate or stop breathing.", group="breath")
     private Integer breath_suffocate;
     @NotNull()
-    @MeasureField(order=6, desc="You are physically “out of shape”.", group="breath")
+    @MeasureField(order=6, desc="You are physically “out of shape.”", group="breath")
     private Integer breath_physically;
 
     @NotNull()
