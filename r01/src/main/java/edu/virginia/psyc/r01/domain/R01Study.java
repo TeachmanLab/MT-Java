@@ -151,6 +151,7 @@ public class R01Study extends BaseStudy {
         session1.addTask(new Task("1", "Training Session 1", Task.TYPE.angular, 20));
         session1.addTask(new Task("Affect","Current Feelings, Post", "post", Task.TYPE.questions, 0));
         session1.addTask(new Task("CC","Compare and Contrast", Task.TYPE.questions, 0 ));
+        session1.addTask(new Task("SessionReview", "Session Review", Task.TYPE.questions, 0));
         session1.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
         session1.addTask(new Task("CoachPrompt","Feedback", Task.TYPE.questions, 0 ));
         session1.addTask(new Task("ReturnIntention","Returning to the Program", Task.TYPE.questions, 0));
@@ -162,6 +163,7 @@ public class R01Study extends BaseStudy {
 //        session2.addTask(new Task("ImageryPrime","Use Your Imagination", Task.TYPE.questions, 0));
 //        session2.addTask(new Task("ImpactAnxiousImagery","Impact Questions", Task.TYPE.questions, 0));
         session2.addTask(new Task("2", "Training Session 2", Task.TYPE.angular, 20));
+        session2.addTask(new Task("SessionReview", "Session Review", Task.TYPE.questions, 0));
         session2.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
         session2.addTask(new Task("ReturnIntention","Returning to the Program", Task.TYPE.questions, 0));
         sessions.add(session2);
@@ -175,6 +177,7 @@ public class R01Study extends BaseStudy {
         session3.addTask(new Task("3", "Training Session 3", Task.TYPE.angular, 20));
         session3.addTask(new Task("Affect","Current Feelings, Post", "post", Task.TYPE.questions, 0));
         session3.addTask(new Task("CC","Compare and Contrast", Task.TYPE.questions, 0 ));
+        session3.addTask(new Task("SessionReview", "Session Review", Task.TYPE.questions, 0));
         session3.addTask(new Task("AnxietyIdentity","Anxiety and Me", Task.TYPE.questions, 0 ));
         session3.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
         session3.addTask(new Task("DASS21_AS","Mood Assessment", Task.TYPE.questions, 0 ));
@@ -194,6 +197,7 @@ public class R01Study extends BaseStudy {
 //        session4.addTask(new Task("ImageryPrime","Use Your Imagination", Task.TYPE.questions, 0));
 //        session4.addTask(new Task("ImpactAnxiousImagery","Impact Questions", Task.TYPE.questions, 0));
         session4.addTask(new Task("4", "Training Session 4", Task.TYPE.angular, 20));
+        session4.addTask(new Task("SessionReview", "Session Review", Task.TYPE.questions, 0));
         session4.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
         session4.addTask(new Task("ReturnIntention","Returning to the Program", Task.TYPE.questions, 0));
         sessions.add(session4);
@@ -207,6 +211,7 @@ public class R01Study extends BaseStudy {
         session5.addTask(new Task("5", "Training Session 5", Task.TYPE.angular, 20));
         session5.addTask(new Task("Affect","Current Feelings, Post", "post", Task.TYPE.questions, 0));
         session5.addTask(new Task("CC","Compare and Contrast", Task.TYPE.questions, 0 ));
+        session5.addTask(new Task("SessionReview", "Session Review", Task.TYPE.questions, 0));
         session5.addTask(new Task("AnxietyIdentity","Anxiety and Me", Task.TYPE.questions, 0 ));
         session5.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
         session5.addTask(new Task("DASS21_AS","Mood Assessment", Task.TYPE.questions, 0 ));
