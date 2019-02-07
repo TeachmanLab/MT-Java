@@ -40,8 +40,7 @@
             <p>Here is a list of all questionnaires, in order of appearance. Click a link to download a spreadsheet of all data from a questionnaire. Please
             be aware that we use TAB as delimiter.</p>
             <ul th:each="scale:${scales}">
-                <li th:if="${scale.size>0}"><a th:href="@{${'/api/export/'+scale.name+'.csv'}}" th:text="${scale.name+' (Total Entries: ' + scale.size + ')'}"/> </li>
-                <li th:if="${scale.size==0}"><span th:text="${scale.name+' (Total Entries: ' + scale.size + ')'}"/> </li>
+                <li><a th:href="@{${'/api/export/'+scale.name+'.csv'}}" th:text="${scale.name+' (Total Entries on public server: ' + scale.size + ')'}"/> </li>
            </ul>
             <!--divider here-->
        </div>

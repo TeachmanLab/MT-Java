@@ -7,6 +7,7 @@ import org.mindtrails.domain.forms.ParticipantCreate;
 import org.mindtrails.domain.forms.ParticipantCreateAdmin;
 import org.mindtrails.domain.forms.ParticipantUpdateAdmin;
 import org.mindtrails.domain.importData.Scale;
+import org.mindtrails.domain.questionnaire.ExportableInfo;
 import org.mindtrails.domain.tango.Account;
 import org.mindtrails.domain.tango.OrderResponse;
 import org.mindtrails.domain.tracking.ErrorLog;
@@ -377,6 +378,13 @@ public class AdminController extends BaseController {
         model.addAttribute("hideAccountBar", true);
         return "admin/export";
     }
+
+    @RequestMapping(value="/export/clear" , method= RequestMethod.GET)
+    public String clearOldData(ModelMap model, Principal principal) {
+        importService.clearOldData();
+        return (this.export(model,principal));
+    }
+
 
     @RequestMapping(value="/userstats", method= RequestMethod.GET)
     public String sayAloha(@RequestParam(value="one", required=false, defaultValue="") String name, ModelMap model,Principal principal){
