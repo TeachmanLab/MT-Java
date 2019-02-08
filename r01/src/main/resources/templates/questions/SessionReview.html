@@ -13,8 +13,131 @@
 <section th:replace="fragment/common :: topFragment"/>
 <section th:replace="fragment/common :: titleBar (title='Session Review')"/>
 
-<form th:action="@{/questions/TechnologyUse}" method="POST">
+<form th:action="@{/questions/TechnologyUse}" th:object="${model}" method="POST">
     <div class="container">
+
+        <!-- Question 1 -->
+        <div class="container section">
+            <div class="row header">
+                <div class="col-md-8 statement"><p><b>What location were you in when you completed today’s session?</b>
+                </p></div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8 side-border">
+
+                    <div class="radio">
+                        <label class="question"> <input type="radio" name="location" value="1" required="true"
+                                                        onchange="otherLocation()"/> Home </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input type="radio" name="location" value="2" required="true"
+                                                        onchange="otherLocation()"/> Work </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input type="radio" name="location" value="3" required="true"
+                                                        onchange="otherLocation()"/> School </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input type="radio" name="location" value="4" required="true"
+                                                        onchange="otherLocation()"/> Coffee shop/restaurant
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input type="radio" name="location" value="5" required="true"
+                                                        onchange="otherLocation()"/> Vehicle </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input type="radio" name="location" value="6" required="true"
+                                                        onchange="otherLocation()"/> Friend's house
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input type="radio" name="location" value="7" required="true"
+                                                        onchange="otherLocation()" id="locationOther"/> Other
+                            <input type="text" name="otherLocationDesc" required="true" id="locationOtherText"
+                                   style="display: none"/>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <br/>
+                    <div class="radio">
+                        <label class="question"><input type="radio" name="location" value="555"
+                                                       onchange="otherLocation()"/> Prefer not to answer
+                        </label>
+                    </div>
+                    <br/>
+                </div>
+            </div>
+        </div>
+
+        <!-- Questions 2 & 3 -->
+        <section th:replace="fragment/forms :: radioOptions(${model})"/>
+
+        <!-- Question 4 -->
+        <div class="container section">
+            <div class="row">
+                <div class="col-md-10">
+                    <p><b>What distracted you during the session? Check all that apply.</b></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8 side-border">
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="distractions" value="activitiesAroundMe"/> Activities happening around me </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="distractions" value="thoughts"/> Thoughts, emotions, and/or sensations </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="distractions" value="techIssues"/> Technical issues with the site </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="distractions" value="techInterruptions"/> Technology interruptions (e.g., battery,
+                            other
+                            apps, pop-ups, texts, calls, etc.)
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input id="distractions_other"
+                                                        onchange="sub('distractions_other');spec('distractions_other');"
+                                                        type="checkbox" name="distractions"
+                                                        value="Other"/> Other (please specify): <input
+                                id="distractions_other_spec" type="text" name="otherDistraction" value="N/A"/> </label>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <br/>
+                    <div class="radio">
+                        <label class="question"><input type="checkbox" name="distractions" value="555"
+                                                       onchange="disableSection(this)"/> Prefer not to answer
+                        </label>
+                    </div>
+                    <br/>
+                    <br/>
+                    <div class="radio">
+                        <label class="question"> <input type="checkbox" name="distractions" value="distractions_none"
+                                                        onChange="disableSection(this)"/> Nothing distracted me during
+                            the session
+                        </label>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
         <div style="text-align:center">
             <button type="submit"> Continue</button>
         </div>
@@ -31,6 +154,53 @@
 
 <!--Javascript
 ================================================== -->
+<script type="text/javascript">
+    function otherLocation() {
+        if (document.getElementById('locationOther').checked) {
+            $("#locationOtherText").show();
+        } else {
+            $("#locationOtherText").hide();
+        }
+    }
+
+    function disableSection(input) {
+        if (input.checked) {
+            $(input).closest('.section').find("input").not(input).prop('checked', false);
+            $(input).closest('.section').find("option").prop('selected', false);
+            $(input).closest('.section').find("select").prop('required', false);
+            $(input).closest('.section').find("input").attr("disabled", true);
+            $(input).removeAttr("disabled");
+        } else {
+            $(input).closest('.section').find("input").removeAttr("disabled");
+        }
+    }
+
+    function sub(id) {
+        if (document.getElementById(id).checked) {
+            $("div#" + id + "-1").show();
+            $("div#" + id + "-1 select").prop('required', true);
+        }
+        else {
+            $("div#" + id + "-1").hide();
+        }
+    }
+
+    function spec(id) {
+        if (document.getElementById(id).checked) {
+            document.getElementById(id + "_spec").required = true;
+            if (document.getElementById(id + "_spec").value == "N/A") {
+                document.getElementById(id + "_spec").value = "";
+            }
+
+
+        }
+        else {
+            document.getElementById(id + "_spec").value = "N/A";
+            document.getElementById(id + "_spec").required = false;
+        }
+    }
+</script>
+
 <div th:include="fragment/common :: scripts"/>
 
 </body>
