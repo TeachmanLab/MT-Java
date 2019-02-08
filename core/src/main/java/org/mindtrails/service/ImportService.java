@@ -13,6 +13,7 @@ import org.mindtrails.domain.Conditions.RandomCondition;
 import org.mindtrails.domain.data.DoNotDelete;
 import org.mindtrails.domain.importData.ImportError;
 import org.mindtrails.domain.importData.Scale;
+import org.mindtrails.domain.questionnaire.QuestionnaireData;
 import org.mindtrails.persistence.MissingDataLogRepository;
 import org.mindtrails.persistence.ParticipantRepository;
 import org.mindtrails.persistence.StudyRepository;
@@ -133,6 +134,7 @@ public class ImportService {
             // everything else.
             moveScaleToTopOfList(scales, "ParticipantExport");
             moveScaleToTopOfList(scales, "StudyImportExport");
+
             return scales;
         } catch(RestClientException rce) {
             throw new ImportError("Failed to get the proper response back.  " +
@@ -173,7 +175,8 @@ public class ImportService {
             restTemplate.exchange(uri, HttpMethod.DELETE, request, new ParameterizedTypeReference<String>() {
             });
         } catch (HttpClientErrorException | NullPointerException e) {
-            throw new ImportError(e);
+            LOGGER.info("Failed to delete " + scale + " item #" + id);
+            //throw new ImportError(e);
         }
     }
 
@@ -252,7 +255,32 @@ public class ImportService {
             ((hasParticipant) object).setParticipant(participantRepository.findOne(participantId));
         }
         rep.save(object);
-        //safeDelete(scale,elm.path("id").asLong());
+    }
+
+    private void clearDataForScale(Scale scale) {
+        if(!scale.isDeleteable()) return;
+        JpaRepository rep = exportService.getRepositoryForName(scale.getName(), false);
+        List items = rep.findAll();
+        for(Object i : items) {
+            QuestionnaireData qd  = (QuestionnaireData)i;
+            this.deleteScaleItem(scale.getName(), qd.getId());
+        }
+
+    }
+
+
+    /**
+     * Every five minutes the program will try to download all the data.
+     */
+    public void clearOldData() {
+        if (!this.isImporting()) {
+            return;
+        }
+        LOGGER.info("Importing data from " + this.url);
+        List<Scale> list = fetchListOfScales();
+        for (Scale scale : list) {
+            clearDataForScale(scale);
+        }
     }
 
 

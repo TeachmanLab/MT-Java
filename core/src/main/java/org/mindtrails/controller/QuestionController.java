@@ -76,6 +76,7 @@ public class QuestionController extends BaseController {
             }
             QuestionnaireData data = (QuestionnaireData) exportService.getDomainType(formName, false).newInstance();
             model.addAllAttributes(data.modelAttributes(participant));
+            model.addAttribute("condition", participant.getStudy().getConditioning());
             model.addAttribute("model", data);
         } catch (InstantiationException e) {
             e.printStackTrace();
