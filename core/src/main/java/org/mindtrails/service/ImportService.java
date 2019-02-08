@@ -255,6 +255,8 @@ public class ImportService {
             ((hasParticipant) object).setParticipant(participantRepository.findOne(participantId));
         }
         rep.save(object);
+        long id = elm.path("id").asLong();
+        deleteScaleItem(scale,  id);
     }
 
     private void clearDataForScale(Scale scale) {

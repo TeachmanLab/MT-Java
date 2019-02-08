@@ -21,6 +21,7 @@
         <!--spacer here-->
         <div class="spacer-30px"></div>
 
+        <div th:unless="${importMode}">
         <h1>Export Status</h1>
 
         <h3 th:if="${formsDisabled}">The site is currently disabled!</h3>
@@ -31,18 +32,28 @@
         <p>The total number of completed questionnaires is <span class="bigNumber" th:text="${totalRecords}"/>.  If this
             exceeds <span class="bigNumber" th:text="${exportMaxRecords}"/> then this system will be disabled, and
             participants will receive an error message when they attempt to complete their next session.</p>
-
-        <h1>Questionnaire Downloads</h1>
-        <div th:if="${downloadsDisabled}">
-            <p>Downloads are currently disabled in the application's properties file.</p>
         </div>
-        <div th:unless="${downloadsDisabled}">
-            <p>Here is a list of all questionnaires, in order of appearance. Click a link to download a spreadsheet of all data from a questionnaire. Please
-            be aware that we use TAB as delimiter.</p>
-            <ul th:each="scale:${scales}">
-                <li><a th:href="@{${'/api/export/'+scale.name+'.csv'}}" th:text="${scale.name+' (Total Entries on public server: ' + scale.size + ')'}"/> </li>
-           </ul>
-            <!--divider here-->
+        <h1>Questionnaire Report</h1>
+        <div>
+            <p>Here is a list of all questionnaires. If downloading is enabled, you can click a link to download a spreadsheet of all data from a questionnaire. This is only possible on the Importing private server.  Please be aware that we use TAB as delimiter.</p>
+
+
+            <table class="table table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Local Count</th>
+                    <th th:if="${importMode}">Remote Count</th>
+                    <th>Delete?</th>
+                </tr>
+                </thead>
+                <tr th:each="scale:${scales}">
+                    <td th:classappend="${scale.remoteSize > 0 and scale.deleteable} ? 'error' : ''" th:text="${scale.name}"></td>
+                    <td th:text="${scale.size}"></td>
+                    <td th:if="${importMode}"   th:text="${scale.remoteSize}"></td>
+                    <td><span th:if="${scale.deleteable}">X</span></td>
+                </tr>
+            </table>
        </div>
         <div class="spacer-30px"></div>
 
