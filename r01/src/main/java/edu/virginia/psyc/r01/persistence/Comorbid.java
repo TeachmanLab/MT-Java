@@ -76,7 +76,7 @@ public class Comorbid extends LinkedQuestionnaireData {
                 tmpScale.put(1, "Less than monthly");
                 tmpScale.put(2, "Monthly");
                 tmpScale.put(3, "2 to 3 times per week");
-                tmpScale.put(4, "2 or more times a week");
+                tmpScale.put(4, "4 or more times a week");
                 break;
         }
         return Collections.unmodifiableMap(tmpScale);

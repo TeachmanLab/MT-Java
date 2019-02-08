@@ -22,9 +22,10 @@
             <div class="col-md-8 session">
 
                 <div th:if="${currentSession.index} == 0">
-                    <h2><span th:text="${participant.fullName}">Jim</span>, you're ready to
-                        begin your initial assessment.</h2>
-                    <p>This is an information-gathering session that will take
+                    <h2><b><span th:text="${participant.fullName}">Jim</span>, you're ready to
+                        begin your initial assessment.</b></h2>
+                    <br></br>
+                    <p>This is an information-gathering section that will take
                         approximately <span th:text="${currentSession.duration}">20</span> minutes to complete.</p>
                 </div>
 
@@ -61,10 +62,12 @@
                 <p class="session-note">For best results, complete <span th:text="${currentSession.displayName}"/> by
                     <br/><span class="date" th:text="${completeBy}">July 10, 2015</span>
                 </p>
+                <br></br>
                 <a th:href="@{${currentTask.requestMapping}}" th:if="${currentTask}">
                     <button>Start</button>
                 </a>
                 <p>
+                    <br></br>
                 <a th:href="@{/session/overview}" th:unless="${currentSession.name =='PRE'}">Program Overview</a>
                 </p>
             </div>
