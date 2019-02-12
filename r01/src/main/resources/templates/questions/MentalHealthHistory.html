@@ -15,7 +15,7 @@
 <textArea th:replace="fragment/common :: questionTemplate5"/>
 
 
-<section id="content" class="clearfix">
+<section class="clearfix">
     <div class="container">
         <div class="row">
             <div class="col-md-8">
@@ -26,64 +26,6 @@
         </div>
     </div>
 </section>
-
-<!-- Template for the response portion of question 1 ("What mental health disorders do you struggle with?") -->
-<textarea style="display: none" id="struggling_template">
-    {{#questions}}
-    <div class="row bottom-border" style="margin-bottom: 5px; padding-bottom: 5px; font-size: .9em;">
-        <div class="col-xs-3">{{desc}}</div>
-        <div class="col-xs-3">
-            <div class="radio text-center">
-                <label class="question"> <input
-                        type="checkbox"
-                        name="{{radio_name}}" value="{{name}}_current"/>
-                </label>
-            </div>
-        </div>
-        <div class="col-xs-3">
-            <div class="radio text-center">
-                <label class="question"> <input
-                        type="checkbox"
-                        name="{{radio_name}}" value="{{name}}_past"/>
-                </label>
-            </div>
-        </div>
-        <div class="col-xs-3">
-            <div class="radio text-center">
-                <label class="question"> <input
-                        type="checkbox"
-                        name="{{radio_name}}" value="{{name}}_diagnosed"/>
-                </label>
-            </div>
-        </div>
-    </div>
-    {{/questions}}
-
-    <div class="row">
-        <div class="radio">
-            <label class="question"> <input id="struggle_other" onchange="sub('struggle_other');spec('struggle_other');"
-                                            type="checkbox"
-                                            name="mental_health_disorders"
-                                            value="Other"/> Other (please specify):
-                <input id="struggle_other_spec" type="text" name="otherDisorder" value="N/A"/> </label>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="radio">
-            <label class="question"><input type="checkbox" name="disorders" value="none"
-                                           onchange="disableSection(this)"/> I have not struggled with a mental
-                        disorder</label>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="radio">
-            <label class="question"><input type="checkbox" name="disorders" value="555"
-                                           onchange="disableSection(this)"/> Prefer not to answer</label>
-        </div>
-    </div>
-</textarea>
 
 <!-- A basic checkbox question template. Used for question 5 ("Why are you not getting mental health treatment?") -->
 <textarea style="display: none" id="basic_checkbox_template">
@@ -123,113 +65,113 @@
         <!-- Add timer -->
         <input id="timeOnPage" name="timeOnPage" type="hidden"/>
 
-        <!-- Very long description before question 1 followed by a JavaScript Mustache call to the question 1 template -->
+        <!-- Question 1 -->
         <div class="container section">
             <div class="row">
                 <div class="col-md-10">
-                    <p><b>Have you ever struggled with any of the following mental disorders? Please select all that
-                        apply.</b></p>
-                    <p>We are interested in your current and past mental health difficulties. Please read the following
-                        list
-                        of disorders and indicate whether you are <b>currently struggling</b> or <b>have struggled in
-                            the
-                            past</b> with
-                        these types of mental disorders.</p>
-                    <p>If you have struggled with the difficulty in the past <b>and</b> are currently struggling with it
-                        (e.g., you
-                        had depression in the past, it went away, and now you’re struggling with it again), please mark
-                        both
-                        “currently struggling” and “struggled with this in the past.” If you have been struggling
-                        continuously with the difficulty for an extended period (e.g., you have been depressed for 10
-                        years), please mark only “currently struggling.” </p>
-                    <p>Additionally, please indicate if you have ever received a diagnosis for any of these disorders by
-                        a
-                        healthcare professional.
-                    </p>
-                    <p>If you have never struggled with any of the disorders below, please select “I have not struggled
-                        with
-                        a mental disorder”.</p>
+                    <p><b>Are you <i>currently</i> struggling with any of the following mental disorders? Please select
+                        all that apply.</b></p>
                 </div>
             </div>
-            <div class="row" style="background-color: #ddd; font-size: .8em;">
-                <div class="col-xs-3"></div>
-                <div class="col-xs-3 text-center">I am currently struggling with this</div>
-                <div class="col-xs-3 text-center">I have struggled with this in the past</div>
-                <div class="col-xs-3 text-center">I have been diagnosed by a healthcare professional for this problem
+            <div class="row">
+                <div class="col-md-8 side-border">
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="disorders" value="gad"/> Generalized anxiety disorder (GAD) </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="disorders" value="ocd"/> Obsessive-compulsive disorder (OCD) </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="disorders" value="panic"/> Panic disorder </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="disorders" value="agoraphobia"/> Agoraphobia </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="disorders" value="ptsd"/> Posttraumatic stress disorder (PTSD) </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="disorders" value="social_anxiety"/> Social anxiety disorder </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="disorders" value="phobia"/> Specific phobia(s) </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="disorders" value="cognitive"/> Dementia or other cognitive disorder </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="disorders" value="substance_use"/> Substance use disorder </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="disorders" value="psychotic"/> Schizophrenia or other psychotic disorder </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="disorders" value="depression"/> Depression </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="disorders" value="bipolar"/> Bipolar disorder </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="disorders" value="eating"/> Eating disorder </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="checkbox"
+                                name="disorders" value="personality"/> Personality disorder </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input id="disorders_other"
+                                                        onchange="sub('disorders_other');spec('disorders_other');"
+                                                        type="checkbox" name="disorders"
+                                                        value="Other"/> Other (please specify): <input
+                                id="disorders_other_spec" type="text" name="otherDisorder" value="N/A"/> </label>
+                    </div>
                 </div>
-            </div>
 
-            <div class="container">
-                <div id="struggled_section"/>
-                <script>
-                    var data = {
-                        "radio_name": "disorders",
-                        "options": [
-                            {"value": 1, "title": "Currently Struggling"},
-                            {"value": 2, "title": "Previously Struggled"},
-                            {"value": 3, "title": "Diagnosed by a healthcare professional"}
-                        ],
-                        "questions": [
-                            {
-                                "name": "gad",
-                                "desc": "Generalized anxiety disorder (GAD)"
-                            },
-                            {
-                                "name": "ocd",
-                                "desc": "Obsessive-compulsive disorder (OCD)"
-                            },
-                            {
-                                "name": "panic",
-                                "desc": "Panic disorder"
-                            },
-                            {
-                                "name": "agoraphobia",
-                                "desc": "Agoraphobia"
-                            },
-                            {
-                                "name": "ptsd",
-                                "desc": "Posttraumatic stress disorder (PTSD)"
-                            },
-                            {
-                                "name": "social_anxiety",
-                                "desc": "Social anxiety disorder"
-                            },
-                            {
-                                "name": "phobia",
-                                "desc": "Specific phobia(s)"
-                            },
-                            {
-                                "name": "cognitive",
-                                "desc": "Dementia or other cognitive disorder"
-                            },
-                            {
-                                "name": "substance_use",
-                                "desc": "Substance use disorder"
-                            },
-                            {
-                                "name": "psychotic",
-                                "desc": "Schizophrenia or other psychotic disorder"
-                            },
-                            {
-                                "name": "depression",
-                                "desc": "Depression"
-                            },
-                            {
-                                "name": "bipolar",
-                                "desc": "Bipolar disorder"
-                            },
-                            {
-                                "name": "eating",
-                                "desc": "Eating disorder"
-                            },
-                            {
-                                "name": "personality",
-                                "desc": "Personality Disorder"
-                            }
-                        ]
-                    }
-                    $('#struggled_section').html(Mustache.render($('#struggling_template').val(), data));
-                </script>
+                <div class="col-md-4">
+                    <br/>
+                    <div class="radio">
+                        <label class="question"><input type="checkbox" name="disorders" value="555"
+                                                       onchange="disableSection(this)"/> Prefer not to answer
+                        </label>
+                    </div>
+                    <br/>
+                    <br/>
+                    <div class="radio">
+                        <label class="question"> <input type="checkbox" name="disorders" value="no_disorder"
+                                                        onchange="disableSection(this)"/> I am not struggling with a
+                            mental disorder
+                        </label>
+                    </div>
+
+                </div>
+
             </div>
         </div>
 
@@ -443,15 +385,17 @@
                         </label>
                     </div>
                     <br/>
-                    <br/><div class="radio">
-                        <label class="question"> <input type="checkbox" name="change_help" value="change_none"/> I haven't
+                    <br/>
+                    <div class="radio">
+                        <label class="question"> <input type="checkbox" name="change_help" value="change_none"
+                                                        onchange="disableSection(this)"/> I haven't
                             had any changes
                         </label>
                     </div>
 
                 </div>
 
-        </div>
+            </div>
         </div>
 
         <!-- Question 4 -->

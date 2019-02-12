@@ -2,7 +2,8 @@
 
 
 #header {
-    background: #27306A url(/images/bg-header.png) top left repeat-x;
+    background-color: #21336B;
+    margin-bottom: 10px;
 }
 
 .logo {
@@ -249,6 +250,8 @@ div.oneToSeven {
     background: transparent;
     margin-bottom: 0px;
     border:none;
+    padding-right: 10px;
+    padding-left: 10px;
 }
 
 .navbar-default .navbar-nav>li>a {
@@ -258,10 +261,11 @@ div.oneToSeven {
     font-size: .6em;
 }
 
-.navbar-nav {
-    max-width: 700px;
+@media(max-width: 1067px) {
+    .navbar-nav {
+        max-width: 600px;
+    }
 }
-
 
 .navbar-default .navbar-nav>li>a:hover {
     color: whitesmoke;
@@ -292,7 +296,8 @@ div.oneToSeven {
 }
 
 .login button {
-    padding: 2px 20px;
+    padding: 8px 20px;
+    margin: 0 13px 0 10px;
     font-size: 1em;
     font-weight: 600;
 }

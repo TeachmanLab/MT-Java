@@ -18,6 +18,14 @@ import java.util.TreeMap;
 @Data
 public class Evaluation extends LinkedQuestionnaireData {
 
+    @NotNull
+    private Integer sessionDuration;
+
+    @ElementCollection
+    @CollectionTable(name= "evaluation_preferredPlatform", joinColumns = @JoinColumn(name="id"))
+    @Column(name = "preferredPlatform")
+    private List<String> preferredPlatform;
+
     @ElementCollection
     @CollectionTable(name = "evaluation_devices", joinColumns = @JoinColumn(name = "id"))
     @Column(name = "devices")
@@ -110,6 +118,22 @@ public class Evaluation extends LinkedQuestionnaireData {
     private List<String> howLearn;
     private String howLearnOtherLink;
     private String howLearnOther;
+
+    @NotNull
+    private Integer receivedTelecoaching;
+
+    // The following three should only be @NotNull if receivedCoaching is 1
+    private Integer coachExperience;
+    private Integer coachUnderstood;
+    private Integer coachMotivate;
+
+    @ElementCollection
+    @CollectionTable(name = "evaluation_coachHelpTopics", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "coachHelpTopics")
+    private List<String> helpTopics;
+    private String otherHelpTopic;
+
+    private String otherCoaching;
 
     @Override
     public Map<Integer, String> getScale(String group) {

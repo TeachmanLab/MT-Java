@@ -307,7 +307,6 @@
 <section id="header" class="clearfix" th:fragment="topFragment">
 
     <nav class="navbar navbar-default">
-        <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
@@ -339,8 +338,7 @@
                     </li>
                     <li><a th:href="@{/public/contact}">Contact&nbsp;Us</a></li>
                     <li><a th:href="@{/public/team}">Meet&nbsp;the&nbsp;Team</a></li>
-
-                    <li class="My Account"
+                    <li
                         th:if="${participant} and ${#authorization.expression('hasRole(''ROLE_USER'')')}">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                            aria-expanded="false">My Account<span class="caret"></span></a>
@@ -353,23 +351,26 @@
                             <li><a th:href="@{/logout}">Logout</a></li>
                         </ul>
                     </li>
+
+                    <br/>
+
+                    <div class="login"
+                         th:unless="${#authorization != null} AND ${#authorization.expression('hasRole(''ROLE_USER'')')}">
+                        Already Participating? <a th:href="@{/login}">
+                        <button>Log In</button>
+                    </a>
+                    </div>
+
                 </ul>
             </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
     </nav>
-    <div class="account-bar navbar-default">
-        <div class="container" th:if="${participant} and ${#authorization.expression('hasRole(''ROLE_USER'')')}">
+    <div class="account-bar navbar-default" th:if="${participant} and ${#authorization.expression('hasRole(''ROLE_USER'')')}">
+        <div>
             <a class="nav-progress" th:href="@{/session/overview}">
                 <button>My Progress</button>
             </a>
             <div class="nav-user">Logged in as <span th:text="${participant.fullName}"/>
                 <br/><span class="nav-level" th:text="${participant.study.currentSession.displayName}"/></div>
-        </div>
-        <div class="container login"
-             th:unless="${#authorization != null} AND ${#authorization.expression('hasRole(''ROLE_USER'')')}">
-            Already Participating? <a th:href="@{/login}">
-            <button>Log In</button>
-        </a>
         </div>
     </div>
 </section>
@@ -457,16 +458,7 @@
         </div>
 
         <div class="row">
-            <div class="footer-bottom">
-
-                <div class="footer-logo">
-                    <a target="new" href="https://implicit.harvard.edu/implicit/user/pimh/index.jsp">
-                        <img th:src="@{/images/pimh.png}" alt="Project Implicit Mental Health"/>
-                    </a>
-                </div>
-
-                <div class="copyright">&copy; Copyright 2019 by MindTrails Project &bull; All rights reserved</div>
-            </div>
+            <div class="footer-bottom">&copy; Copyright 2019 by MindTrails Project &bull; All rights reserved</div>
         </div>
 
     </div>

@@ -31,7 +31,6 @@ public class MentalHealthHistory extends LinkedQuestionnaireData {
     private int social_support;
     private int self_help;
     private int otc_medications;
-    private String other_help_text;
     private int other_help;
     private String help_other_text = "";
 

@@ -14,5 +14,6 @@ public class Scale {
 
     private String name;
     private int size;
+    private int localSize;
     private boolean deleteable;
 }
