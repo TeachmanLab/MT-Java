@@ -70,9 +70,9 @@ public class SessionController extends BaseController {
         }
 
         // Provide dates for next visit.
-        DateTime startDate = new DateTime(p.lastMilestone()).plusDays(session.getDaysToWait());
-        DateTime endDate = new DateTime(p.lastMilestone()).plusDays(session.getDaysToWait() + 2);
-        DateTime completeBy = new DateTime(p.lastMilestone()).plusDays(session.getDaysToWait() + 2);
+        DateTime startDate = new DateTime(study.getLastSessionDate()).plusDays(session.getDaysToWait());
+        DateTime endDate = new DateTime(study.getLastSessionDate()).plusDays(session.getDaysToWait() + 2);
+        DateTime completeBy = new DateTime(study.getLastSessionDate()).plusDays(session.getDaysToWait() + 2);
         DateTimeFormatter startFormat = DateTimeFormat.forPattern("MMMM d - ");
         DateTimeFormatter endFormat = DateTimeFormat.forPattern("MMMM d, YYYY");
 
