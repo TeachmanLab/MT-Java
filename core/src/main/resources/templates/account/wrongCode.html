@@ -14,21 +14,20 @@
 
 <!--<![endif]-->
 <section id="content" class="clearfix">
-    <div class="container longSection">
+    <div class="container">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-8">
                 <img th:src="@{/images/map-arrow-orange.png}" alt="icon" class="icon-small-bg"/>
             </div>
             <div class="col-md-8">
-                <h2 class="page-title heading-icon clearfix"><br/>Enter your verification code</h2>
-                <p>The code you entered was <span style="color: #ff0000">incorrect.</span><br/>You are welcome to try again:</p>
+                <h2 class="page-title heading-icon">Verify Your Phone Number</h2>
+                <p>The code you entered was <b>incorrect</b>. You are welcome to try again:</p>
                 <form action="#" th:action="@{/account/updateWrongCode}"  th:object="${participant}"  method="post">
 
                     <div class="row">
                         <div th:if="${invalidPhone}" class="alert alert-success">
                             This phone number already exists, please use another one.
                         </div>
-                        <label class="control-label col-md-2" for="phone">Change Your Cell Phone</label>
                         <div class="col-md-8">
                             <div class="row">
                             <!-- <input type="tel" id="phone"> -->
@@ -36,10 +35,10 @@
                             <input class="form-control" type="tel" id="phone" name="phone" th:errorclass="error"
                                    th:field="*{phone}"/>
                             -->
-                                <div class="col-md-10">
+                                <div class="col-md-5">
                             <input type="hidden" name="phoneCountry" id="phoneCountry"/>
                             <div id="result">
-                                <input class="form-control"  name="phone" id="phone" type="tel" th:field="*{phone}"/>
+                                <input class="form-control input-lg" style="font-size:20px;" maxlength="15" name="phone" id="phone" type="tel" th:field="*{phone}"/>
                             </div>
                             <script th:src="@{/bower/intl-tel-input/build/js/intlTelInput.js}"></script>
                                 <script>
@@ -72,47 +71,40 @@
 
                         <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Phone Error</span>
                                 </div>
-                        <div class="col-md-2">
-                            <span class="pull-left"><button id="subPhone" type="submit" name="sub" value="subPhone">Resend</button></span>
+                            </div>
+                            <div class="row" style="padding-left: 15px;"><span class="pull-left"><button id="subPhone" type="submit" name="sub" value="subPhone" >Send</button></span>
+                            </div>
                         </div>
                             </div>
-                    </div>
-
-                    </div>
+                    <br></br>
                     <div class="row">
                         <div class="col-md-8">
-                            <div class="row">
-                                <div class="col-md-10"><br/><p>Or Reenter the Verification Code:&nbsp;&nbsp;   <input id="verifycode" type="text" name="verifycode"/></p></div>
-                                <div class="col-md-2"><span class="pull-left"><button id="subCode" type="submit" disabled="disabled" name="sub" value="subCode">Verify</button></span></div>
-
+                            <div class="row" style="padding-left: 15px;">
+                                <p>Or you can re-enter your verification code:&nbsp;&nbsp;</p>
+                                <input class="input-lg" style="font-size:30px;" id="verifycode" type="text" maxlength="6" size="2" name="verifycode"/></div>
+                                <div class="row" style="padding-left: 15px;"><span class="pull-left"><button id="subCode" type="submit"
+                                                                                                             disabled="disabled" name="sub"
+                                                                                                             value="subCode">Verify</button></span>
                             </div>
-
                         </div>
                     </div>
                 </form>
-                <br/>
-                <br/>
-                <br/>
-
-                <div class="row">
-                    <div class="col-md-2">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <p><em>if you choose to skip this step, you can verify your phone later under
-                                </em></p>
-                            </div>
-                            <div class="col-md-2">
-                                <span class="pull-left"><a th:href="@{/account/theme}"><button>Skip</button> </a></span>
+                    <div class="row">
+                        <div class="col-md-12">
+                                <div class="row" style="padding-left: 15px;">
+                                    <br></br>
+                                    <p>If you choose to skip this step, you can always
+                                        verify your phone number later.</p>
+                                </div>
+                                <div class="row" style="padding-left: 15px;">
+                                    <a th:href="@{/account/theme}"><button>Skip</button> </a>
+                                </div>
                             </div>
                         </div>
 
                     </div>
                 </div>
-            </div>
         </div>
-    </div>
 </section>
 
 <script th:inline="javascript">

@@ -3,12 +3,7 @@
 
 
 <form name="f" class="form-horizontal" th:action="@{/account/create}" method="post" th:object="${participantForm}"
-      th:fragment="create">
-
-    <h2 class="page-title">Create an account</h2>
-    <br/>
-    <div class="formErrors">
-        <ul class="errors">
+      th:fragment="create">:
             <li th:each="err : ${#fields.errors('*')}" th:text="${err}" class="alert-error">
                 Input is incorrect
             </li>
