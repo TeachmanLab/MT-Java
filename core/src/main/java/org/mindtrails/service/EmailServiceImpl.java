@@ -72,12 +72,11 @@ public class EmailServiceImpl implements EmailService {
         List<Email> emails = new ArrayList<>();
         emails.add(new Email("resetPass", "MindTrails - Account Request"));
         emails.add(new Email("alertAdmin", "MindTrails Alert!"));
-        emails.add(new Email("giftCard", "MindTrails - Your gift card!"));
-        emails.add(new Email("debrief", "Explanation of the MindTrails project"));
-        emails.add(new Email("midSessionStop", "Incomplete session notice from the MindTrails Team"));
-        emails.add(new Email("closure", "Closure of account in MindTrails project study"));
-        emails.add(new Email("debrief", "Explanation of the MindTrails project"));
-        emails.add(new Email("midSessionStop", "Incomplete session notice from the MindTrails Team"));
+        emails.add(new Email("giftCard", "Your E-Gift Card!"));
+        emails.add(new Email("debrief", "Explanation of the Calm Thinking Study"));
+        emails.add(new Email("midSessionStop", "Incomplete Session Notice from the MindTrails Project Team"));
+        emails.add(new Email("closure", "Closure of Account in the Calm Thinking Study"));
+        emails.add(new Email("debrief", "Explanation of the Calm Thinking Study"));
         return  emails;
     }
 
