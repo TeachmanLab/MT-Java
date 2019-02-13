@@ -48,7 +48,7 @@
                 <label class="col-sm-10 inline-checkbox">
                     <input class="inline-checkbox" type="checkbox" id="emailReminders" name="emailReminders"
                            th:errorclass="error" th:field="*{emailReminders}"/>
-                    I would like to receive email reminders when it is time to take the next session.
+                    I would like to receive email reminders when it is time to start the next session.
                     <span class="note">
                         Please note that even if you do not want reminders for each session,
                         you will still receive a few messages from us as you enter
@@ -71,7 +71,7 @@
                 <input class="form-control"  name="phone" id="phone" type="tel" th:field="*{phone}"  th:readonly="${verified}"/>
                     <br/>
                     <span class="note" th:if="${verified}">
-                       Your phone has been verified, so please contact the admin if you want to change your phone.
+                       Your phone number has been verified &mdash; please <a href="mailto:studyteam@mindtrails.org">contact the study team</a> if you wish to change your phone number.
                    </span>
                 </div>
                 <script th:src="@{/bower/intl-tel-input/build/js/intlTelInput.js}"></script>
@@ -113,7 +113,7 @@
                 <label class="col-sm-10 inline-checkbox" >
                     <input class="inline-checkbox" type="checkbox" id="phoneReminders" name="phoneReminders"
                            th:errorclass="error" th:field="*{phoneReminders}"/>
-                    <span id="yesTexts">I would like to receive text reminders to this phone when it is time to take the next session.</span>
+                    <span id="yesTexts">I would like to receive text reminders to this phone when it is time to start the next session.</span>
                     <span id="noTexts" style="display: none;">We can not currently send text reminders to this number.</span>
                 </label>
             </div>

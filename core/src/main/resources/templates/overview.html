@@ -12,14 +12,12 @@
 <body th:class="|user-theme-${participant.theme}|">
 <section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
 
-
-<!-- content starts
-================================================== -->
 <section id="content" class="clearfix">
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                <h1><b>Overview for <span th:text="${participant.fullName}"/></b></h1>
+                <img th:src="@{/images/map-arrow-orange.png}" alt="icon" class="icon-small-bg"/>
+                <h2><font color="#00ACE4"><b>Overview for <span th:text="${participant.fullName}"/></b></font></h2>
 
                 <p>Review your progress below. You must wait a minimum of 5 days between
                     levels. We encourage you to begin each new level about one week after completing the previous
@@ -53,7 +51,7 @@
                                 <span th:text="${#calendars.format(task.dateCompleted,'YYYY-MM-dd')}">10/05/2015</span>
                             </div>
                             <div class="col-md-6 date" th:unless="${task.dateCompleted}"
-                                 th:text="'Est ' + ${task.duration} + ' min. duration'">Est 2 min. duration
+                                 th:text="'Est. ' + ${task.duration} + ' min. duration'">Est. 2 min. duration
                             </div>
                         </div>
                     </div>
@@ -68,7 +66,7 @@
                     </div>
                 </div>
                 <div class="col-md-2" th:if="${session.giftAmount > 0}">$<span th:text="${session.giftAmount}"/>
-                    Gift
+                    E-Gift
                     Card!
                     <img th:src="@{/images/gift_card.png}"/>
                 </div>
