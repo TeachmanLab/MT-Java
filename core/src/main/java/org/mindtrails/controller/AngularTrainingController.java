@@ -24,6 +24,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import java.security.Principal;
 import java.util.Date;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * Created by dan on 7/7/16.
@@ -63,9 +64,9 @@ public class AngularTrainingController extends BaseController {
             training.setDate(new Date());
             this.trainingRepository.save(training);
         }
-
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
 
     @RequestMapping(value="api", method = RequestMethod.GET)
     public @ResponseBody AngularTraining getLastRecord(Principal principal) {
@@ -80,6 +81,16 @@ public class AngularTrainingController extends BaseController {
         } else {
             return (trials.get(trials.size() - 1));
         }
+    }
+
+    @RequestMapping(value="api/scenarios", method = RequestMethod.GET)
+    public @ResponseBody List<AngularTraining> getScenarios(Principal principal) {
+
+        Participant participant = participantService.findByEmail(principal.getName());
+        String sessionName = participant.getStudy().getCurrentSession().getName();
+
+        List<AngularTraining> trials = trainingRepository.findAllByParticipantAndSessionAndStepTitleOrderById(participant, sessionName, "scenario");
+        return trials;
     }
 
 
