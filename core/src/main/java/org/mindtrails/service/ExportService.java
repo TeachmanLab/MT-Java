@@ -5,7 +5,7 @@ import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.Study;
 import org.mindtrails.domain.data.DoNotDelete;
 import org.mindtrails.domain.data.Exportable;
-import org.mindtrails.domain.questionnaire.ExportableInfo;
+import org.mindtrails.domain.importData.Scale;
 import org.mindtrails.domain.tracking.ExportLog;
 import org.mindtrails.persistence.*;
 import org.joda.time.DateTime;
@@ -85,7 +85,7 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
 
     public int totalDeleteableRecords() {
         int sum = 0;
-        for(ExportableInfo i : listRepositories()) {
+        for(Scale i : listRepositories()) {
             if(i.isDeleteable()) sum += i.getSize();
         }
         return sum;
@@ -125,8 +125,8 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
     /**
      * Returns a list of all repositories
      */
-    public List<ExportableInfo> listRepositories() {
-        List<ExportableInfo> names = new ArrayList<>();
+    public List<Scale> listRepositories() {
+        List<Scale> names = new ArrayList<>();
         if(repositories == null) {
             return names;
         }
@@ -134,12 +134,11 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
 
         for (  Class<?> domainType : repositories) {
             Object repository=repositories.getRepositoryFor(domainType);
-            // If this is exportable data (based on @Exportable annotation.
             if(domainType.isAnnotationPresent(Exportable.class)) {
                 deleteableFlag = !domainType.isAnnotationPresent(DoNotDelete.class);
                 JpaRepository rep = (JpaRepository)repository;
-                ExportableInfo info = new ExportableInfo(domainType.getSimpleName(), rep.count(), deleteableFlag);
-                names.add(info);
+                Scale scale = new Scale(domainType.getSimpleName(), rep.count(), deleteableFlag);
+                names.add(scale);
             }
         }
         return names;

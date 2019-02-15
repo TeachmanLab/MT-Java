@@ -1,5 +1,6 @@
 package org.mindtrails.domain.importData;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
@@ -13,7 +14,17 @@ import lombok.Data;
 public class Scale {
 
     private String name;
-    private int size;
-    private int localSize;
+    private long size;
+    @JsonIgnore
+    private long remoteSize;
     private boolean deleteable;
+
+    public Scale() {}
+
+    public Scale(String name, long size, boolean deleteable) {
+        this.name = name;
+        this.size = size;
+        this.deleteable = deleteable;
+    }
+
 }
