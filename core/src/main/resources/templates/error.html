@@ -7,7 +7,7 @@
 <head th:replace="fragment/common :: headerFragment"/>
 <body>
 <section th:replace="fragment/common :: topFragment"/>
-<section th:replace="fragment/common :: titleBar (title='We encountered a problem with your request')"/>
+<section th:replace="fragment/common :: titleBar (title='We Encountered a Problem with Your Request')"/>
 
 <section id="content" class="clearfix">
     <div class="container">
@@ -15,17 +15,17 @@
         <!--features starts-->
         <div class="row vertical-center" th:if="${status == 404}">
             <div class="span12">
-            <h1><span th:text="${status}"/> Not Found.</h1>
-            <p>Sorry, but the page you are looking for is not here. </p>
-            <h2>Please return to the <a th:href="@{/}">main site</a> to continue.</h2>
+            <h2 style="padding-left: 15px"><b><span th:text="${status}"/> Not Found.</b></h2>
+            <p style="padding-left: 15px">Sorry, but the page you are looking for is not here. </p>
+            <h2 style="padding-left: 15px"><b>Please return to the <a th:href="@{/}">main site</a> to continue.</b></h2>
             </div>
         </div>
 
         <div class="row vertical-center" th:unless="${status == 404}">
             <div class="span12">
-                <h1>Sorry! We encountered an unexpected error.</h1>
-                <p sec:authorize="hasRole('ROLE_ADMIN')">This was an '<span th:text="${error}"/>'.  <span th:text="${message}"></span></p>
-                <h2>Please return to the <a th:href="@{/}">main site</a> to continue.</h2>
+                <h2 style="padding-left: 15px"><b>Sorry! We encountered an unexpected error.</b></h2>
+                <p style="padding-left: 15px" sec:authorize="hasRole('ROLE_ADMIN')">This was an '<span th:text="${error}"/>'.  <span th:text="${message}"></span></p>
+                <h2 style="padding-left: 15px"><b>Please return to the <a th:href="@{/}">main site</a> to continue.</b></h2>
             </div>
 
         </div>

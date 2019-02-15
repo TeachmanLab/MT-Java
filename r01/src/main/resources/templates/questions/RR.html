@@ -20,7 +20,8 @@
             <div class="col-md-8">
                 <p>Below, you will see the titles of the nine short stories you just read. After each one, you will
                     see four sentences. None of these sentences are identical to the original story, but some are
-                    more similar than others. Think back to the story you read, and rate how similar each sentence
+                    more similar than others.</p>
+                <p>Think back to the story you read, and rate how similar each sentence
                     is to what you read in the original story. We are interested in your understanding of the
                     original story, whether or not that matches what you would personally think or do in that
                     situation.</p>
@@ -31,7 +32,7 @@
     </div>
 
 
-    <form th:action="@{/questions/RR}" method="POST" th:object="${model}">
+    <form th:action="@{/questions/RR}" method="POST" th:object="${model}" style="padding-left: 30px">
         <!-- Add timer -->
         <section th:replace="fragment/forms :: radioOptions(${model})" />
 
