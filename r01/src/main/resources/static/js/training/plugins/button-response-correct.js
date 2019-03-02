@@ -56,13 +56,13 @@ jsPsych.plugins["button-response-correct"] = (function () {
             correct_message: {
                 type: jsPsych.plugins.parameterType.STRING,
                 pretty_name: 'Correct Message',
-                default: 'Great Job!',
+                default: 'Great job!',
                 description: 'What to display after a correct response'
             },
             incorrect_message: {
                 type: jsPsych.plugins.parameterType.STRING,
                 pretty_name: 'Incorrect Message',
-                default: 'That response is incorrect, in a moment you will have a chance to respond again.',
+                default: 'That response is incorrect. In a moment, you will have a chance to respond again.',
                 description: 'What to display after an incorrect response'
             },
             delay: {

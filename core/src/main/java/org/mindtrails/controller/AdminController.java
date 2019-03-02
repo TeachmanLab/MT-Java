@@ -308,7 +308,7 @@ public class AdminController extends BaseController {
         long numberAwarded = 0, amountAwarded = 0;
         try {
             numberAwarded = giftLogRepository.countGiftLogByOrderIdIsNotNull();
-            amountAwarded = giftLogRepository.totalAmountAwarded() / 100;
+            amountAwarded = giftLogRepository.totalAmountAwarded();
         } catch (NullPointerException npe) {
             // Noop.  These counts might come back as null from JPA Respoitory, so don't fail when that happens/
         }

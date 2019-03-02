@@ -11,15 +11,27 @@
 <head th:replace="fragment/common :: headerFragment"/>
 <body>
 <section th:replace="fragment/common :: topFragment"/>
-<section th:replace="fragment/common :: titleBar (title='Debriefing')"/>
+<section th:replace="fragment/common :: titleBar (title='Thank You for Participating')"/>
 
 <section id="content" class="clearfix">
     <div class="container">
         <div class="row">
             <div class="col-md-8">
 
-                <h3>Effectiveness of interpretation training to reduce anxiety: Evaluating technology-based delivery
-                    models and methods to reduce attrition</h3>
+                    <p>You have now exited the study. It would help us a great deal to
+                        learn why you chose not to complete the study. Please click on Exit
+                        Survey button below to provide your valuable feedback.</p>
+
+                    <a th:href="@{/questions/ReasonsForEnding}">
+                    <button>Exit Survey</button>
+                </a>
+                <br></br>
+                <br></br>
+                <span class="pull-right"><button onclick="window.print();">Print</button></span>
+                <br></br>
+                <h2><b>Debriefing</b></h2>
+                <h3><b>Effectiveness of interpretation training to reduce anxiety: Evaluating technology-based delivery
+                    models and methods to reduce attrition</b></h3>
 
 
                 <p>We are currently investigating experimental approaches to reduce anxiety. The experimental
@@ -48,36 +60,40 @@
                 <p>If you are interested in learning more about modifying thinking patterns, see the following
                     websites:
                     <ul>
-                        <li><a target="new" href="http://www.apa.org/monitor/2011/11/behavior-change.aspx">Behavior change in 15-minute sessions?
+                        <li><a target="new" href="http://www.apa.org/monitor/2011/11/behavior-change.aspx">"Behavior change in 15-minute sessions?"
                         </a></li>
-                        <li><a target="new" href="http://www.economist.com/node/18276234">Therapist-free therapy</a></li>
+                        <li><a target="new" href="http://www.economist.com/node/18276234">"Therapist-free therapy"</a></li>
                     </ul>
                 </p>
 
                 <p> If you have any questions about this study, please email Bethany Teachman and the MindTrails
-                    team at <a href="mailto:studyteam@mindtrails.org">studyteam@mindtrails.org</a>.
+                    team at: <a href="mailto:studyteam@mindtrails.org">studyteam@mindtrails.org</a>.
                 </p>
-
-                <p>For those seeking additional mental health help or advice:</p>
-                <ol>
+                <br></br>
+                <p><b>For those seeking additional mental health help or advice:</b></p>
+                <ul>
                     <li>Do you need immediate help? If you are thinking about harming yourself or someone else,
                         please tell someone who can help immediately:
-                        <ul>
-                            <li>Call 911 for emergency services (in the United States).</li>
-                            <li>Go to a hospital emergency room.</li>
+                        <ul style="list-style-type:disc;">
+                            <li>Call 911 for emergency services (in the United States)</li>
+                            <li>Go to a hospital emergency room</li>
                             <li>Call the toll-free 24-hour hotline of National Suicide Prevention Lifeline at 1-800-273-TALK
-                                (1-800-273-8255) to be connected to a trained counselor at a crisis center near you.</li>
+                                (1-800-273-8255) to be connected to a trained counselor at a crisis center near you</li>
                         </ul>
-
                     </li>
                     <li>If you do not need immediate help, but would like to talk to someone about the problems you
-                        might be having, please follow the mental health resources link on this site. If you have any
+                        might be having, please go to the <a th:href="@{/public/resources}">Mental Health Resources</a> page on this site. Additionally, if you have any
                         questions concerning mental health issues in general or feel especially concerned about your own
-                        thoughts or mood, please visit our mental health links page.</li>
-                </ol>
+                        thoughts or mood, please visit this page.</li>
+                </ul>
+                <br></br>
+                <p>To provide your valuable feedback, please click on Exit Survey button below:</p>
 
-                <button onclick="window.print();">Print this page</button>
-                <p><b>Thank you again for your participation.</b></p>
+                <a th:href="@{/questions/ReasonsForEnding}">
+                    <button>Exit Survey</button></a>
+                <br></br>
+                <br></br>
+                <p align="center"><b>Thank you again for your participation.</b></p>
 
             </div>
         </div>

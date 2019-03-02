@@ -22,20 +22,25 @@
         <div class="spacer-30px"></div>
 
         <div th:unless="${importMode}">
-        <h1>Export Status</h1>
+            <h1>Export Status</h1>
 
-        <h3 th:if="${formsDisabled}">The site is currently disabled!</h3>
+            <h3 th:if="${formsDisabled}">The site is currently disabled!</h3>
 
-        <p>It has been <span class="bigNumber" th:text="${minutesSinceLastExport}"/> minutes since the last export
-            was run.  If this exceeds <span class="bigNumber" th:text="${exportMaxMinutes}"/> minutes, an email will be
-            sent to this projects administrator address.</p>
-        <p>The total number of completed questionnaires is <span class="bigNumber" th:text="${totalRecords}"/>.  If this
-            exceeds <span class="bigNumber" th:text="${exportMaxRecords}"/> then this system will be disabled, and
-            participants will receive an error message when they attempt to complete their next session.</p>
+            <p>It has been <span class="bigNumber" th:text="${minutesSinceLastExport}"/> minutes since the last export
+                was run. If this exceeds <span class="bigNumber" th:text="${exportMaxMinutes}"/> minutes, an email will
+                be
+                sent to this project's administrator address.</p>
+            <p>The total number of completed questionnaires is <span class="bigNumber" th:text="${totalRecords}"/>. If
+                this
+                exceeds <span class="bigNumber" th:text="${exportMaxRecords}"/> then this system will be disabled, and
+                participants will receive an error message when they attempt to complete their next session.</p>
         </div>
+
         <h1>Questionnaire Report</h1>
         <div>
-            <p>Here is a list of all questionnaires. If downloading is enabled, you can click a link to download a spreadsheet of all data from a questionnaire. This is only possible on the Importing private server.  Please be aware that we use TAB as delimiter.</p>
+            <p>Here is a list of all questionnaires. If downloading is enabled, you can click a link to download a
+                spreadsheet of all data from a questionnaire. This is only possible on the Importing private server.
+                Please be aware that we use TAB as delimiter.</p>
 
 
             <table class="table table-striped table-bordered">
@@ -48,13 +53,14 @@
                 </tr>
                 </thead>
                 <tr th:each="scale:${scales}">
-                    <td th:classappend="${scale.remoteSize > 0 and scale.deleteable} ? 'error' : ''" th:text="${scale.name}"></td>
+                    <td th:classappend="${scale.remoteSize > 0 and scale.deleteable} ? 'error' : ''"
+                        th:text="${scale.name}"></td>
                     <td th:text="${scale.size}"></td>
-                    <td th:if="${importMode}"   th:text="${scale.remoteSize}"></td>
+                    <td th:if="${importMode}" th:text="${scale.remoteSize}"></td>
                     <td><span th:if="${scale.deleteable}">X</span></td>
                 </tr>
             </table>
-       </div>
+        </div>
         <div class="spacer-30px"></div>
 
     </div>
