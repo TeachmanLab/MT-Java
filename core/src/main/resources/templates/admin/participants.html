@@ -16,7 +16,7 @@
     <div class="container">
         <div class="row">
             <div class="span12">
-                <h1>Participants</h1>
+                <h1><font color="#00ACE4" style="margin-left: -15px"><b>User Administration</b></font></h1>
 
                 <div class="row">
                     <div class="main-content span8">
@@ -29,7 +29,7 @@
                     <div class="sidebar span4">
                         <p>Found <span th:text="${paging.totalElements}"> 100</span> participants. Showing page <span
                                 th:text="${paging.number + 1}">1</span> of <span
-                                th:text="${paging.totalPages}">10</span><br/>
+                                th:text="${paging.totalPages}">10</span>.<br/>
                             <a th:href="@{/admin/participant/}">New Participant / Admin</a>
                         </p>
                     </div>

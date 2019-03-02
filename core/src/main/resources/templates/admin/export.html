@@ -21,18 +21,19 @@
         <!--spacer here-->
         <div class="spacer-30px"></div>
 
-        <h1>Export Status</h1>
+        <h1><font color="#00ACE4"><b>Exports</b></font></h1>
+        <h2><b>Export Status</b></h2>
 
         <h3 th:if="${formsDisabled}">The site is currently disabled!</h3>
 
         <p>It has been <span class="bigNumber" th:text="${minutesSinceLastExport}"/> minutes since the last export
             was run.  If this exceeds <span class="bigNumber" th:text="${exportMaxMinutes}"/> minutes, an email will be
-            sent to this projects administrator address.</p>
+            sent to this project's administrator address.</p>
         <p>The total number of completed questionnaires is <span class="bigNumber" th:text="${totalRecords}"/>.  If this
             exceeds <span class="bigNumber" th:text="${exportMaxRecords}"/> then this system will be disabled, and
             participants will receive an error message when they attempt to complete their next session.</p>
 
-        <h1>Questionnaire Downloads</h1>
+        <h2><b>Questionnaire Downloads</b></h2>
         <div th:if="${downloadsDisabled}">
             <p>Downloads are currently disabled in the application's properties file.</p>
         </div>

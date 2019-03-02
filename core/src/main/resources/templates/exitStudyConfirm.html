@@ -8,7 +8,7 @@
 <head th:include="fragment/common :: headerFragment" />
 <body>
 <section id="header" class="clearfix" th:include="fragment/common :: topFragment" />
-<section th:include="fragment/common :: titleBar (title='Exit the Study')"/>
+<section th:include="fragment/common :: titleBar (title='Exiting the Study')"/>
 
 
 
@@ -17,20 +17,27 @@
 <section id="content" class="clearfix">
     <div class="container">
         <div class="row">
+            <div class="col-md-8">
             <div id="dialog" title="Are you sure you want to permanently leave the study?">
-                <p>Thank you for your participation. Before you quit the study, please let us know if there are
-                    questions or concerns we can address – we are very interested in making this study work for all
-                    who have kindly agreed to participate, so please let us know if we can help make it work for you.</p>
-                <a th:href="@{'/session'}">
-                    <button>Continue with the study</button>
-                </a>
+                <p>Thank you for your participation in the Calm Thinking Study. Before you decide to exit, please let us know if there are
+                    questions or concerns we can address &mdash; we are very interested in making this study work for all
+                    who have kindly agreed to participate, so let us know if we can help make it work for you.</p>
+                <br></br>
+                <p><b>Are you sure you wish to exit the Calm Thinking Study?</b></p>
+
                 <a th:href="@{'/account/exitStudy'}">
-                    <button>Exit the study permanently</button>
+                    <button>Yes</button>
                 </a>
-                <p>Or</p>
+                <a th:href="@{'/session'}">
+                    <button>No</button>
+                </a>
+                <br></br>
+                <br></br>
+                <p>Alternatively, you can send a message to the MindTrails team:</p>
                 <a href="mailto:studyteam@mindtrails.org">
-                    <button>Send a note to the MindTrails team</button>
+                    <button>Send Email</button>
                 </a>
+            </div>
             </div>
         </div>
     </div>
