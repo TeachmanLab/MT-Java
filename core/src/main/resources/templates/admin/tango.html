@@ -116,10 +116,10 @@
                 </form>
                 <span th:if="${!giftLogs.first}">
                     <a class="mybtn-small"
-                       th:href="@{/tango(page=${giftLogs.number - 1}, search=${search})}">Previous</a>
+                       th:href="@{/admin/tango(page=${giftLogs.number - 1}, search=${search})}">Previous</a>
                 </span>
                 <span th:if="${!giftLogs.last}" style="float:right">
-                    <a class="mybtn-small" th:href="@{/tango(page=${giftLogs.number + 1}, search=${search})}">Next</a>
+                    <a class="mybtn-small" th:href="@{/admin/tango(page=${giftLogs.number + 1}, search=${search})}">Next</a>
                 </span>
 
             </div>

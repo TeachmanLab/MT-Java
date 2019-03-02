@@ -7,7 +7,6 @@ import org.mindtrails.domain.forms.ParticipantCreate;
 import org.mindtrails.domain.forms.ParticipantCreateAdmin;
 import org.mindtrails.domain.forms.ParticipantUpdateAdmin;
 import org.mindtrails.domain.importData.Scale;
-import org.mindtrails.domain.questionnaire.ExportableInfo;
 import org.mindtrails.domain.tango.Account;
 import org.mindtrails.domain.tango.OrderResponse;
 import org.mindtrails.domain.tracking.ErrorLog;
@@ -309,7 +308,7 @@ public class AdminController extends BaseController {
         long numberAwarded = 0, amountAwarded = 0;
         try {
             numberAwarded = giftLogRepository.countGiftLogByOrderIdIsNotNull();
-            amountAwarded = giftLogRepository.totalAmountAwarded() / 100;
+            amountAwarded = giftLogRepository.totalAmountAwarded();
         } catch (NullPointerException npe) {
             // Noop.  These counts might come back as null from JPA Respoitory, so don't fail when that happens/
         }
@@ -355,18 +354,33 @@ public class AdminController extends BaseController {
     @RequestMapping(value="/export", method=RequestMethod.GET)
     public String export(ModelMap model, Principal principal) {
         Participant p = getParticipant(principal);
+        List<Scale> scales;
 
         if (importService.isImporting()) {
-            model.addAttribute("downloadsDisabled",false);
+            try {
+                List<Scale> remoteScales = importService.fetchListOfScales();
+                List<Scale> localScales = exportService.listRepositories();
+                for(Scale local : localScales) {
+                    for (Scale remote : remoteScales) {
+                        if(local.getName().equals(remote.getName())) {
+                            local.setRemoteSize(remote.getSize());
+                        }
+                    }
+                }
+                scales = localScales;
+            } catch (Exception e) {
+                // may not be able to contact the importService, don't just die here.
+                model.addAttribute("scales_error", "unable to load scales from import service.");
+                scales = new ArrayList<>();
+            }
         } else {
-            model.addAttribute("downloadsDisabled", true);
-        };
-        try {
-            model.addAttribute("scales", importService.fetchListOfScales());
-        } catch (Exception e) {
-            // may not be able to contact the importService, don't just die here.
-            model.addAttribute("scales_error", "unable to load scales from import service.");
+            scales = exportService.listRepositories();
         }
+
+        Collections.sort(scales, Comparator.comparing(Scale::getName));
+
+        model.addAttribute("scales", scales);
+        model.addAttribute("importMode",importService.isImporting());
         model.addAttribute("exportMaxMinutes", exportService.getMaxMinutes());
         model.addAttribute("exportMaxRecords", exportService.getMaxRecords());
         model.addAttribute("totalRecords", exportService.totalDeleteableRecords());

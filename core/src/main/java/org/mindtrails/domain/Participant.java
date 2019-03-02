@@ -10,6 +10,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+import org.mindtrails.domain.data.DoNotDelete;
 import org.mindtrails.domain.tracking.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,7 @@ import java.util.*;
 @Table(name = "participant")
 @Data
 @EqualsAndHashCode(exclude={"emailLogs", "giftLogs", "SMSLogs", "passwordToken","verificationCode", "coachees"})
+@DoNotDelete
 public class Participant implements UserDetails, HasStudy {
 
     private static final Logger LOG = LoggerFactory.getLogger(Participant.class);

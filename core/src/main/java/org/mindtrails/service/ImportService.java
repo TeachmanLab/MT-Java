@@ -169,7 +169,7 @@ public class ImportService {
     public void deleteScaleItem(String scale, long id) {
         try {
             boolean deleteable = !exportService.getDomainType(scale, false).isAnnotationPresent(DoNotDelete.class);
-            if(!deleteable) return;
+            if(!deleteable || !deleteMode) return;
             HttpEntity<String> request = new HttpEntity<String>(headers());
             URI uri = URI.create(url + "/api/export/" + scale + '/' + Long.toString(id));
             restTemplate.exchange(uri, HttpMethod.DELETE, request, new ParameterizedTypeReference<String>() {
@@ -255,6 +255,8 @@ public class ImportService {
             ((hasParticipant) object).setParticipant(participantRepository.findOne(participantId));
         }
         rep.save(object);
+        long id = elm.path("id").asLong();
+        deleteScaleItem(scale,  id);
     }
 
     private void clearDataForScale(Scale scale) {

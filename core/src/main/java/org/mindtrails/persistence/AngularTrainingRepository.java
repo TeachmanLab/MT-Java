@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface AngularTrainingRepository extends JpaRepository<AngularTraining, Long> {
 
-    List<AngularTraining> findAllByParticipantAndSessionOrderByDate(Participant participant,
-                                                            String session);
-    List<AngularTraining> findDistinctByParticipantIn(List<Long> participants);
+    List<AngularTraining> findAllByParticipantAndSessionOrderByDate(Participant participant, String session);
+    List<AngularTraining> findAllByParticipantAndSessionAndStepTitleOrderById(Participant participant, String session, String stepTitle);
+
 }
 

@@ -1,6 +1,7 @@
 package org.mindtrails.domain.AngularTraining;
 
 import lombok.Data;
+import org.mindtrails.domain.data.DoNotDelete;
 import org.mindtrails.domain.data.Exportable;
 import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 
@@ -13,6 +14,7 @@ import java.util.Date;
 @Table(name = "AngularTraining")
 @Data
 @Exportable
+@DoNotDelete
 public class AngularTraining extends LinkedQuestionnaireData {
 
 
