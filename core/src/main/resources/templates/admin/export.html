@@ -22,7 +22,8 @@
         <div class="spacer-30px"></div>
 
         <div th:unless="${importMode}">
-            <h1>Export Status</h1>
+            <h1><font color="#00ACE4"><b>Export Status</b></font></h1>
+
 
             <h3 th:if="${formsDisabled}">The site is currently disabled!</h3>
 
@@ -53,6 +54,9 @@
                 </tr>
                 </thead>
                 <tr th:each="scale:${scales}">
+                    <td th:unless="${importMode}" th:classappend="${scale.remoteSize > 0 and scale.deleteable} ? 'error' : ''"  th:text="${scale.name}"></td>
+                    <td th:if="${importMode}"><a th:href="${'/api/export/' + scale.name}"
+                                                 th:text="${scale.name}"></a></td>
                     <td th:classappend="${scale.remoteSize > 0 and scale.deleteable} ? 'error' : ''"
                         th:text="${scale.name}"></td>
                     <td th:text="${scale.size}"></td>
