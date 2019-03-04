@@ -78,12 +78,16 @@
                         $('#reason').show();
                         $('#datepicker').prop('required',false);
                         $('#notReturnReason').prop('required',true);
+                        document.getElementById("datepicker").disabled = true;
+                        document.getElementById("timepicker").disabled = true;
 
                     } else {
                         $('#reason').hide();
                         $('#reason').value='';
                         $('#datepicker').prop('required',true);
                         $('#notReturnReason').prop('required',false);
+                        document.getElementById("datepicker").disabled = false;
+                        document.getElementById("timepicker").disabled = false;
                     }
                 }
             </script>
