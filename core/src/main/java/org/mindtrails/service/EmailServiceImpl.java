@@ -230,13 +230,11 @@ public class EmailServiceImpl implements EmailService {
                 email.setParticipant(participant);
                 email.setContext(new Context());
                 sendEmail(email);
-                if(type.equals("closure")) {
-                    participant.setActive(false);
-                    participantRepository.save(participant);
-                }
             }
         }
     }
+
+
 
     @ExportMode
     @Scheduled(cron = "0 0 * * * *")   // Runs every hour.
@@ -296,8 +294,6 @@ public class EmailServiceImpl implements EmailService {
         // Never send email to an inactive participant;
         if (!p.isActive()) return null;
 
-        // Don't send emails to those that requested no reminders.
-        if (!p.isEmailReminders()) return null;
 
         Study study = p.getStudy();
         Session session = study.getCurrentSession();
@@ -306,6 +302,16 @@ public class EmailServiceImpl implements EmailService {
         if (study.getState().equals(Study.STUDY_STATE.ALL_DONE)) return null;
 
         int days = p.daysSinceLastMilestone();
+
+        // Mark the user as inactive if they are about to get a closure email.
+        if (getTypeToSend(session, days).equals("closure")) {
+            p.setActive(false);
+            participantRepository.save(p);
+        }
+
+        // Don't send emails to those that requested no reminders.
+        if (!p.isEmailReminders()) return null;
+
         return getTypeToSend(session, days);
 
     }
