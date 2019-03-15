@@ -17,7 +17,7 @@
         <div class="row">
             <div class="span12">
 
-        <h1>Alter Study Settings for <span th:text="${participant.getFullName()}"/></h1>
+        <h1><font color="#00ACE4"><b>Alter Study Settings for <span th:text="${participant.getFullName()}"/></b></font></h1>
 
         <form action="#" th:action="@{'/admin/study/'+${participant.id}}"
               th:object="${studyForm}" method="post">

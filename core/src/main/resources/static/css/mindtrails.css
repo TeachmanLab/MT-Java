@@ -196,7 +196,7 @@ button  {
 .user-theme-gold em { color:#ECB800; }
 
 div.radio label {
-    padding-right: 20px;
+    padding-right: 0px;
 }
 
 div.radio label:hover {
