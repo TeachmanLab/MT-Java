@@ -18,7 +18,7 @@ import org.mindtrails.controller.QuestionController;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.data.DoNotDelete;
 import org.mindtrails.domain.RestExceptions.NotDeleteableException;
-import org.mindtrails.domain.questionnaire.ExportableInfo;
+import org.mindtrails.domain.importData.Scale;
 import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 import org.mindtrails.service.ImportService;
 import org.slf4j.Logger;
@@ -102,15 +102,15 @@ public class ExportControllerTest extends BaseControllerTest {
                 .with(SecurityMockMvcRequestPostProcessors.user(admin)))
                 .andExpect((status().is2xxSuccessful()))
                 .andReturn();
-        ExportableInfo[] data = mapper.readValue(result.getResponse().getContentAsString(),
-                ExportableInfo[].class);
+        Scale[] scales = mapper.readValue(result.getResponse().getContentAsString(),
+                Scale[].class);
 
-        assertNotNull(this.findExportByName(data,"studyImportExport"));
-        assertNotNull(this.findExportByName(data,"participantExport"));
-        assertNotNull(this.findExportByName(data,"testQuestionnaire"));
+        assertNotNull(this.findExportByName(scales,"studyImportExport"));
+        assertNotNull(this.findExportByName(scales,"participantExport"));
+        assertNotNull(this.findExportByName(scales,"testQuestionnaire"));
     }
 
-    private ExportableInfo findExportByName(ExportableInfo[] data, String name) {
+    private Scale findExportByName(Scale[] data, String name) {
         for(int i=0; i < data.length; i++) {
             if (data[i].getName().equalsIgnoreCase(name)) {
                 return data[i];

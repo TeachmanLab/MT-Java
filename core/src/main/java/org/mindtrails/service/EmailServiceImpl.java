@@ -77,7 +77,6 @@ public class EmailServiceImpl implements EmailService {
         emails.add(new Email("midSessionStop", "Incomplete Session Notice from the MindTrails Project Team"));
         emails.add(new Email("closure", "Closure of Account in the Calm Thinking Study"));
         emails.add(new Email("debrief", "Explanation of the Calm Thinking Study"));
-        emails.add(new Email("midSessionStop", "Incomplete Session Notice from the MindTrails Project Team"));
         return  emails;
     }
 
