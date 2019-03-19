@@ -62,6 +62,7 @@ Alternate NavBar Breakpoint - to better support Ipad
     }
     .navbar-toggle {
         display: block;
+        margin-top: 15px;
     }
     .navbar-collapse {
         border-top: 1px solid transparent;
@@ -87,6 +88,12 @@ Alternate NavBar Breakpoint - to better support Ipad
     }
     .collapse.in{
         display:block !important;
+    }
+}
+
+@media(max-width: 1000px) {
+    .header-logo {
+        height: 65px;
     }
 }
 

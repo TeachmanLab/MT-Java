@@ -47,7 +47,7 @@
                 <label ><input type="checkbox" name="notReturning" onclick="returning(this)"/>Not planning to come back.</label>
                 <div id="reason" style="display: none">
                     <p>Please let us know why you do not plan to continue</p>
-                    <label><input id="notReturnReason" name="notReturnReason" type="text" placeholder="" size="50" /></label>
+                    <label><textarea id="notReturnReason" name="notReturnReason" type="text" placeholder="" style = "width: 350px; height: 120px;"/></label>
                 </div>
             </div>
 
@@ -78,12 +78,16 @@
                         $('#reason').show();
                         $('#datepicker').prop('required',false);
                         $('#notReturnReason').prop('required',true);
+                        document.getElementById("datepicker").disabled = true;
+                        document.getElementById("timepicker").disabled = true;
 
                     } else {
                         $('#reason').hide();
                         $('#reason').value='';
                         $('#datepicker').prop('required',true);
                         $('#notReturnReason').prop('required',false);
+                        document.getElementById("datepicker").disabled = false;
+                        document.getElementById("timepicker").disabled = false;
                     }
                 }
             </script>
