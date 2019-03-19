@@ -55,7 +55,7 @@
                 </thead>
                 <tr th:each="scale:${scales}">
                     <td th:unless="${importMode}" th:classappend="${scale.remoteSize > 0 and scale.deleteable} ? 'error' : ''"  th:text="${scale.name}"></td>
-                    <td th:if="${importMode}"><a th:href="${'/api/export/' + scale.name}"
+                    <td th:if="${importMode}"><a th:href="${'/api/export/' + scale.name + '.csv'}"
                                                  th:text="${scale.name}"></a></td>
                     <td th:classappend="${scale.remoteSize > 0 and scale.deleteable} ? 'error' : ''"
                         th:text="${scale.name}"></td>
