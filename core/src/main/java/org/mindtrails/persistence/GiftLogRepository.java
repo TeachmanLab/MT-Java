@@ -18,4 +18,9 @@ public interface GiftLogRepository extends JpaRepository<GiftLog, Long> {
 
     @Query(value = "select sum(amount) from GiftLog where order_id is not null")
     Long totalAmountAwarded();
+
+    @Query("select log from GiftLog as log LEFT JOIN log.participant p where " +
+            "log.orderId is null and p.testAccount = false order by log.dateCreated desc")
+    Page<GiftLog> awardableGiftLogs(Pageable pageable);
+
 }

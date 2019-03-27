@@ -314,7 +314,7 @@ public class AdminController extends BaseController {
         }
 
         model.addAttribute("account",a);
-        giftPages = giftLogRepository.findByOrderIdIsNull(pageRequest);
+        giftPages = giftLogRepository.awardableGiftLogs(pageRequest);
         model.addAttribute("giftLogs", giftPages);
         model.addAttribute("numberAwarded",numberAwarded);
         model.addAttribute("amountAwarded", amountAwarded);
