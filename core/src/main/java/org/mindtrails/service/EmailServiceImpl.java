@@ -304,7 +304,7 @@ public class EmailServiceImpl implements EmailService {
         int days = p.daysSinceLastMilestone();
 
         // Mark the user as inactive if they are about to get a closure email.
-        if (getTypeToSend(session, days).equals("closure")) {
+        if (getTypeToSend(session, days) != null && getTypeToSend(session, days).equals("closure")) {
             p.setActive(false);
             participantRepository.save(p);
         }
