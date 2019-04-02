@@ -314,7 +314,7 @@ public class AdminController extends BaseController {
         }
 
         model.addAttribute("account",a);
-        giftPages = giftLogRepository.findByOrderIdIsNull(pageRequest);
+        giftPages = giftLogRepository.awardableGiftLogs(pageRequest);
         model.addAttribute("giftLogs", giftPages);
         model.addAttribute("numberAwarded",numberAwarded);
         model.addAttribute("amountAwarded", amountAwarded);
@@ -334,14 +334,15 @@ public class AdminController extends BaseController {
     }
 
 
-    @RequestMapping(value="/participant/giftCard")
-    public String giftCard(ModelMap model, Principal principal) throws Exception {
-        Participant p = participantService.get(principal);
-        GiftLog log = new GiftLog(p, "AdminAwarded", 1);
+    @RequestMapping(value="/participant/{id}/awardCard", method=RequestMethod.POST)
+    public String giftCard(ModelMap model, @PathVariable("id") long id) throws Exception {
+
+        Participant p = participantRepository.findOne(id);
+        GiftLog log = new GiftLog(p, "AdminAwarded", 5);
         this.giftLogRepository.save(log);
         OrderResponse reward = tangoService.awardGiftCard(log);  // This would actually award a gift card, if you need to do some testing.
-        this.emailService.sendGiftCard(p, reward, 1);
-        return "admin/participant_form";
+        this.emailService.sendGiftCard(p, reward, log.getAmount());
+        return "redirect:/admin/participant/" + id;
     }
 
     @RequestMapping(value="/rewardInfo/{orderId}", method = RequestMethod.GET)

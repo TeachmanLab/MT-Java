@@ -216,22 +216,29 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @ExportMode
-    @Scheduled(cron = "0 0 2 * * *")  // schedules task for 2:00am every day.
+    @Scheduled(cron = "0 0 16 * * *")  // schedules task for 2:00am every day.
     public void sendEmailReminder() {
         List<Participant> participants;
 
         participants = participantRepository.findAll();
 
         for (Participant participant : participants) {
-            String type = getTypeToSend(participant);
-            if (type != null) {
-                Email email = getEmailForType(type);
-                email.setTo(participant.getEmail());
-                email.setParticipant(participant);
-                email.setContext(new Context());
-                sendEmail(email);
+            try {
+                String type = getTypeToSend(participant);
+                if (type != null) {
+                    Email email = getEmailForType(type);
+                    email.setTo(participant.getEmail());
+                    email.setParticipant(participant);
+                    email.setContext(new Context());
+                    sendEmail(email);
+                }
+            } catch(Exception e) {
+                LOG.error("Error calculating email for " +
+                            participant.getId() + " --> " + e.getMessage());
+                e.printStackTrace();
             }
         }
+
     }
 
 
@@ -304,15 +311,18 @@ public class EmailServiceImpl implements EmailService {
         int days = p.daysSinceLastMilestone();
 
         // Mark the user as inactive if they are about to get a closure email.
-        if (getTypeToSend(session, days).equals("closure")) {
+        String type = getTypeToSend(session, days);
+        LOG.info("The type is " + type);
+        if (type != null && type.equals("closure")) {
             p.setActive(false);
+            LOG.info("Marking participant #" + p.getId() + " as inactive.");
             participantRepository.save(p);
         }
 
         // Don't send emails to those that requested no reminders.
         if (!p.isEmailReminders()) return null;
 
-        return getTypeToSend(session, days);
+        return type;
 
     }
 

@@ -70,4 +70,11 @@ public class TangoServiceTest {
 
     }
 
+    @Test
+    public void listCatalog() {
+
+        System.out.println(service.getCatalogInfo());
+
+    }
+
 }

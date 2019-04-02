@@ -135,9 +135,10 @@
                         </tr>
                     </table>
                     <button type="submit">Submit</button>
-                    <button type="button" onclick="location.href='/admin/participant/giftCard'">Send Gift Card</button>
                 </form>
-
+                <form action="#" th:action="@{'/admin/participant/'+ ${participantEdit.id} +'/awardCard'}" method="post">
+                    <button type="submit">Send Gift Card</button>
+                </form>
             </div>
             <section th:replace="admin/adminCommon :: participantDetails(${participantEdit})"/>
         </div>

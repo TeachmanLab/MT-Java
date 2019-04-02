@@ -74,7 +74,6 @@
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Session</th>
-                                <th>Condition</th>
                                 <th>Last Login (in EST)</th>
                                 <th>Return Date (in EST)</th>
                                 <th></th>
@@ -89,16 +88,15 @@
                                 <td th:text="${p.fullName}">Dan Funk</td>
                                 <td th:text="${p.email}">daniel.h.funk@gmail.com</td>
                                 <td th:text="${p.study.currentSession.displayName}">Session One</td>
-                                <td th:text="${p.study.conditioning}">Control</td>
-                                <td><span th:if="${p.lastLoginDate}" th:text="${#dates.format(p.lastLoginDate, 'EEE, dd MMM yyyy h:mm a')}">
+                                <td><span th:if="${p.lastLoginDate}" th:text="${#dates.format(p.lastLoginDate, 'MM/dd/yy h:mm a')}">
                                     10-05-1972 11:55</span></td>
-                                <td><span th:if="${p.returnDate}" th:text="${#dates.format(p.returnDate, 'EEE, dd MMM yyyy h:mm a')}">
+                                <td><span th:if="${p.returnDate}" th:text="${#dates.format(p.returnDate, 'MM/dd/yy h:mm a')}">
                                     10-05-1972 11:55</span></td>
                                 <td>
-                                    <a th:href="@{'/coach/participant/'+${p.id}}">View Participant</a>
+                                    <a th:href="@{'/coach/participant/'+${p.id}}">View</a>
                                 </td>
                                 <td>
-                                    <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{'/admin/participant/'+${p.id}}">Edit Participant</a>
+                                    <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{'/admin/participant/'+${p.id}}">Edit</a>
                                 </td>
                                 <td>
                                     <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{'/admin/study/'+${p.id}}">Edit Study</a>
