@@ -54,10 +54,9 @@ public class EmailServiceImplTest {
     private Wiser wiser;
 
     @Autowired
-    private EmailServiceImpl emailService;
+    private EmailServiceImpl service;
 
     Participant participant;
-    EmailServiceImpl service;
 
     @Before
     public void setUp() throws Exception {
@@ -70,7 +69,6 @@ public class EmailServiceImplTest {
         participant.setFullName("Tester McTest");
         participant.setStudy(new TestStudy());
         participant.setLastLoginDate(xDaysAgo(20));
-        service     = new EmailServiceImpl();
     }
 
     @After
@@ -85,7 +83,7 @@ public class EmailServiceImplTest {
     @Test
     public void sendExportAlertEmail() throws Exception {
 
-        emailService.sendAdminEmail("WICKED.","Something wicked this way comes");
+        this.service.sendAdminEmail("WICKED.","Something wicked this way comes");
 
         // assert
         assertEquals("No mail messages found", 1, wiser.getMessages().size());
@@ -108,7 +106,7 @@ public class EmailServiceImplTest {
     @Test
     public void send2DayUsesSiteUrl() throws Exception {
 
-        Email e = emailService.getEmailForType("day2");
+        Email e = this.service.getEmailForType("day2");
         e.setTo("test@test.com");
         Participant p = new Participant();
         p.setStudy(new TestStudy());
@@ -117,7 +115,7 @@ public class EmailServiceImplTest {
         e.setContext(new Context());
         Study s = new TestStudy("SessionOne",0);
         p.setStudy(s);
-        emailService.sendEmail(e);
+        this.service.sendEmail(e);
 
         // assert
         assertEquals("No mail messages found", 1, wiser.getMessages().size());
@@ -145,7 +143,7 @@ public class EmailServiceImplTest {
         p.setPasswordToken(new PasswordToken(p, new Date(), token));
         Study s = new TestStudy("SessionOne",0);
         p.setStudy(s);
-        emailService.sendPasswordReset(p);
+        this.service.sendPasswordReset(p);
 
         // assert
         assertEquals("No mail messages found", 1, wiser.getMessages().size());
@@ -173,7 +171,7 @@ public class EmailServiceImplTest {
         p.setStudy(s);
         p.setEmail(email);
 
-        emailService.sendGiftCard(p, orderResponse, 100);
+        this.service.sendGiftCard(p, orderResponse, 100);
 
         // assert
         assertEquals("No mail messages found", 1, wiser.getMessages().size());
@@ -182,7 +180,7 @@ public class EmailServiceImplTest {
             WiserMessage wMsg = wiser.getMessages().get(0);
             MimeMessage msg = wMsg.getMimeMessage();
             assertNotNull("message was null", msg);
-            assertEquals("'Subject' did not match", "MindTrails - Your gift card!", msg.getSubject());
+            assertEquals("'Subject' did not match", "Your E-Gift Card!", msg.getSubject());
             assertEquals("'From' address did not match", "test@test.com", msg.getFrom()[0].toString());
             assertEquals("'To' address did not match", "testyMcTester2.0@t.com",
                     msg.getRecipients(MimeMessage.RecipientType.TO)[0].toString());
@@ -219,13 +217,13 @@ public class EmailServiceImplTest {
     public void testShouldSendEmail3HoursAfterLastTaskIfSessionNotCompleted() {
 
         assertFalse("New participants should not get mid-session reminders",
-                emailService.shouldSendMidSessionReminder(participant));
+                this.service.shouldSendMidSessionReminder(participant));
 
 
         participant.getStudy().completeCurrentTask(0, null, "testing");
 
         assertFalse("Recently completed tasks should not result in mid-session reminders",
-                emailService.shouldSendMidSessionReminder(participant));
+                this.service.shouldSendMidSessionReminder(participant));
 
         // Set the date of the last tasklog to 7 hours ago.
         TestStudy study = (TestStudy)participant.getStudy();
@@ -235,17 +233,17 @@ public class EmailServiceImplTest {
 
         assertTrue("When the last completed task took place 7 hours ago, and the session is not" +
                         "complete, there should be a mid-session reminder.",
-                emailService.shouldSendMidSessionReminder(participant));
+                this.service.shouldSendMidSessionReminder(participant));
 
         // Log the sending of a midSession Email, and try and send again.
         participant.addEmailLog(new EmailLog(participant, "midSessionStop", new Date()));
 
         assertFalse("Already sent an email about this, don't repeat it.",
-                emailService.shouldSendMidSessionReminder(participant));
+                this.service.shouldSendMidSessionReminder(participant));
 
         participant.setEmailReminders(false);
         assertFalse ("Email reminders are off, so don't notify participant",
-                emailService.shouldSendMidSessionReminder(participant));
+                this.service.shouldSendMidSessionReminder(participant));
 
 
         participant.setEmailReminders(true);
@@ -253,7 +251,7 @@ public class EmailServiceImplTest {
         study.completeCurrentTask(0, null, "testing");
         assertTrue(study.completed(session.getName()));
         assertFalse ("Participant completed both tasks in the session, so no email should be sent.",
-                emailService.shouldSendMidSessionReminder(participant));
+                this.service.shouldSendMidSessionReminder(participant));
 
         study.forceToSession("SessionTwo");
         study.setLastSessionDate(DateTime.now().minusDays(3).toDate());
@@ -261,7 +259,7 @@ public class EmailServiceImplTest {
         lastLog = study.getTaskLogs().get(study.getTaskLogs().size()-1);
         lastLog.setDateCompleted(DateTime.now().minusHours(7).toDate());
         assertTrue("Will send another email so long as it's a difference session..",
-                emailService.shouldSendMidSessionReminder(participant));
+                this.service.shouldSendMidSessionReminder(participant));
 
 
     }
@@ -276,7 +274,7 @@ public class EmailServiceImplTest {
         assertFalse(study.getCurrentSession().isComplete());
 
 
-        emailService.sendMidSessionEmail(participant);
+        this.service.sendMidSessionEmail(participant);
 
         // assert
         assertEquals("No mail messages found", 1, wiser.getMessages().size());
@@ -288,7 +286,7 @@ public class EmailServiceImplTest {
             // Content likely looks like this: ((MimeMultipart)msg.getContent()).getBodyPart(0).getContent()
 
             assertNotNull("message was null", msg);
-            assertEquals("'Subject' did not match", "Incomplete session notice from the MindTrails Team", msg.getSubject());
+            assertEquals("'Subject' did not match", "Incomplete Session Notice from the MindTrails Project Team", msg.getSubject());
             assertTrue("url is missing", getMsgContent(msg).contains("Our records indicate that you got part-way through a session"));
         }
     }
@@ -452,7 +450,7 @@ public class EmailServiceImplTest {
         LocalDateTime aDateTime = LocalDateTime.of(2018, Month.OCTOBER, 29, 8, 00, 00);
         Date date = java.util.Date.from(aDateTime.toInstant(ZoneOffset.UTC));
 
-        Calendar calendar = this.emailService.getInvite(participant, date);
+        Calendar calendar = this.service.getInvite(participant, date);
         String calText = calendar.toString();
         assertTrue(calText.contains("2018"));
         System.out.println(calendar);
@@ -471,7 +469,7 @@ public class EmailServiceImplTest {
         e.setTo("daniel.h.funk@gamil.com");
         e.setCalendarDate(new Date());
         e.setParticipant(participant);
-        emailService.sendEmail(e);
+        this.service.sendEmail(e);
 
         // assert
         assertEquals("No mail messages found", 1, wiser.getMessages().size());

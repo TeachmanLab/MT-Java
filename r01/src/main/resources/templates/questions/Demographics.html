@@ -67,6 +67,7 @@
                         </div>
                         <br/>
 
+                        <div class="section" style="margin: 0; border: none; padding: 0;">
                         <div class="row">
                             <div class="col-md-8 side-border">
                                 <div><label class="question"> Race (select all the apply)</label></div>
@@ -106,6 +107,7 @@
                                     </label>
                                 </div>
                             </div>
+                        </div>
                         </div>
 
                         <br/>
@@ -726,6 +728,23 @@
                                     }
                                 });
                             });
+
+                            /**
+                             * Disables all other input boxes in the same section as the input
+                             * selected.
+                             * @param input
+                             */
+                            function disableSection(input) {
+                                if (input.checked) {
+                                    $(input).closest('.section').find("input").not(input).prop('checked', false);
+                                    $(input).closest('.section').find("option").prop('selected', false);
+                                    $(input).closest('.section').find("select").prop('required', false);
+                                    $(input).closest('.section').find("input").attr("disabled", true);
+                                    $(input).removeAttr("disabled");
+                                } else {
+                                    $(input).closest('.section').find("input").removeAttr("disabled");
+                                }
+                            }
                         </script>
 
 

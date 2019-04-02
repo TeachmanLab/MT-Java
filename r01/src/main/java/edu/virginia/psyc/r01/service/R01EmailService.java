@@ -28,10 +28,10 @@ public class R01EmailService extends EmailServiceImpl implements EmailService{
     public List<Email> emailTypes() {
         List<Email> emails = super.emailTypes();
         emails.add(new Email("risingScore", "MindTrails Alert! Participant Score Is Rising"));
+        emails.add(new Email("day7", "Update from the MindTrails Project Team"));
         emails.add(new Email("day10", "Update from the MindTrails Project Team"));
         emails.add(new Email("day14", "Update from the MindTrails Project Team"));
         emails.add(new Email("day18", "Important Reminder from the MindTrails Project Team"));
-        emails.add(new Email("day21", "Continuation in the MindTrails Project Study"));
         emails.add(new Email("followup", "Follow-up Reminder from the MindTrails Project Team"));
         emails.add(new Email("followup2", "Follow-up Reminder from the MindTrails Project Team"));
         emails.add(new Email("followup3", "Final Reminder from the MindTrails Project Team"));

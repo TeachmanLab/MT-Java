@@ -118,6 +118,22 @@ public class TangoService {
     }
 
     /**
+     * Returns account info.
+     */
+    public String getCatalogInfo() {
+        RestTemplate restTemplate = new RestTemplate();
+        HttpEntity<String> request = new HttpEntity<String>(headers());
+        URI uri = URI.create(url + "/catalogs");
+        LOGGER.info("Calling url:" + uri.toString());
+        ResponseEntity<String> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, request, String.class);
+        try {
+            String response = responseEntity.getBody();
+            return response;
+        } catch (HttpClientErrorException e) { throw new TangoError(e); }
+    }
+
+
+    /**
      * Returns order / gift info.
      */
     public OrderResponse getOrderInfo(String orderId) {
