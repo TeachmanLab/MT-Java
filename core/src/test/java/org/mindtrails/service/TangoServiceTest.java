@@ -2,9 +2,7 @@ package org.mindtrails.service;
 
 import org.mindtrails.Application;
 import org.mindtrails.domain.Participant;
-import org.mindtrails.domain.tango.Account;
-import org.mindtrails.domain.tango.Order;
-import org.mindtrails.domain.tango.OrderResponse;
+import org.mindtrails.domain.tango.*;
 import org.mindtrails.domain.tracking.GiftLog;
 import org.mindtrails.persistence.ParticipantRepository;
 import org.junit.Before;
@@ -14,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.List;
 
 import static junit.framework.Assert.*;
 
@@ -48,7 +48,7 @@ public class TangoServiceTest {
     public void giveParticipantAGift() {
         participant = new Participant("Dan", "j.q.t.p.tester@gmail.com", true);
         participantRepository.save(participant);
-        GiftLog log = new GiftLog(participant, "TEST_SESSION", 1);
+        GiftLog log = service.createGiftLogUnsafe(participant, "TEST SESSION", 1);
         OrderResponse response  = service.awardGiftCard(log);
         assertNotNull("A reward is returned.", response);
         assertNotNull("The reward has a url", response.getReward());
@@ -60,7 +60,7 @@ public class TangoServiceTest {
         participant = new Participant("Dan", "j.a.b.c.tester@gmail.com", true);
         participantRepository.save(participant);
         // Send a reward
-        GiftLog log = new GiftLog(participant, "TEST_SESSION", 1);
+        GiftLog log = service.createGiftLogUnsafe(participant, "TEST SESSION", 1);
         OrderResponse reward = service.awardGiftCard(log);
 
         // Now Get the details of that reward form the API.
@@ -70,11 +70,30 @@ public class TangoServiceTest {
 
     }
 
-    @Test
-    public void listCatalog() {
 
-        System.out.println(service.getCatalogInfo());
+    @Test
+    public void awardBritishGiftCard() {
+        participant = new Participant("Dan", "j.q.t.p.tester@gmail.com", true);
+        participant.setAwardCountryCode("BR");
+        participantRepository.save(participant);
+        GiftLog log = service.createGiftLogUnsafe(participant, "TEST SESSION", 1);
+        OrderResponse response  = service.awardGiftCard(log);
+        assertNotNull("A reward is returned.", response);
+        assertNotNull("The reward has a url", response.getReward());
 
     }
 
+    @Test
+    public void listCatalog() {
+        Catalog catalog = service.getCatalog();
+        //System.out.println(catalog.toString());
+        List<Item> items = catalog.getItems();
+        System.out.println(items);
+    }
+
+
+    @Test
+    public void listExchangeRates() {
+        System.out.println(service.getExchangeRates());
+    }
 }

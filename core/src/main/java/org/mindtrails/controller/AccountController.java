@@ -7,7 +7,6 @@ import org.mindtrails.domain.ExportMode;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.RestExceptions.MissingEligibilityException;
 import org.mindtrails.domain.VerificationCode;
-import org.mindtrails.domain.data.Exportable;
 import org.mindtrails.domain.forms.ParticipantCreate;
 import org.mindtrails.domain.forms.ParticipantUpdate;
 import org.mindtrails.domain.recaptcha.RecaptchaFormValidator;
@@ -183,9 +182,7 @@ public class AccountController extends BaseController {
                 participantService.save(p);
                 String code=p.getVerificationCode().getCode();
                 twilioService.sendMessage("MindTrails Verification Code: " + code,p);
-
                 return "redirect:/account/verification";
-
             }
             else{
                 return "redirect:/account/changePhone";
@@ -193,7 +190,6 @@ public class AccountController extends BaseController {
             }
 
     }
-
 
 
 //when the user enter a wrong or invalid (>1h) verification code
@@ -209,6 +205,7 @@ public class AccountController extends BaseController {
         return "account/wrongCode";
 
     }
+
     public String formatPhone(String p) {
         String phoneLocale="US";
         if(p == null) return null;
@@ -282,16 +279,14 @@ public class AccountController extends BaseController {
     }
 
 
-//verfication page
+    //verfication page
     @RequestMapping("verification")
     public String verify(ModelMap model, Principal principal) {
         Participant p = participantService.get(principal);
         if (p.isVerified()) {
             return "redirect:/account/verified";
-        } else if (participantService.findByPhone(formatPhone(p.getPhone())).size()>1) {
-            return "redirect:/account/changePhone";
-
-
+//        } else if (participantService.findByPhone(formatPhone(p.getPhone())).size()>1) {
+//           return "redirect:/account/changePhone";
         } else {
             return "account/verification";
 
@@ -317,6 +312,27 @@ public class AccountController extends BaseController {
                 return "redirect:/account/wrongCode";
             }
     }
+
+    @ExportMode
+    @RequestMapping(value="updateCardCountry",method=RequestMethod.POST)
+    public String updateCardCountry( ModelMap model, Principal principal, String phone) {
+        Participant p=participantService.get(principal);
+        if(p.getPhone().equals(phone) || participantService.findByPhone(formatPhone(phone)).isEmpty()){
+            p.updatePhone(formatPhone(phone));
+            p.setVerificationCode(new VerificationCode(p));
+            participantService.save(p);
+            String code=p.getVerificationCode().getCode();
+            twilioService.sendMessage("MindTrails Verification Code: " + code,p);
+            return "redirect:/account/verification";
+        }
+        else{
+            return "redirect:/account/changePhone";
+
+        }
+
+    }
+
+
 
     @RequestMapping("exitStudyConfirm")
     public String exitStudyConfirm(ModelMap model, Principal principal) {

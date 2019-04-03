@@ -18,6 +18,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
+import java.util.List;
 
 /**
  * Used to award a gift certificates to participants.
@@ -59,6 +60,8 @@ public class TangoService {
 
     @Value("${tango.utid}")
     private String utid;
+
+    private Catalog catalog;
 
     @Autowired
     private ParticipantRepository participantRepository;
@@ -120,18 +123,38 @@ public class TangoService {
     /**
      * Returns account info.
      */
-    public String getCatalogInfo() {
+    public Catalog getCatalog() {
+
+        if(this.catalog != null) return catalog;
+
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<String> request = new HttpEntity<String>(headers());
         URI uri = URI.create(url + "/catalogs");
         LOGGER.info("Calling url:" + uri.toString());
-        ResponseEntity<String> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, request, String.class);
+        ResponseEntity<Catalog> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, request, Catalog.class);
         try {
-            String response = responseEntity.getBody();
-            return response;
+            Catalog catalog = responseEntity.getBody();
+            this.catalog = catalog;
+            return catalog;
         } catch (HttpClientErrorException e) { throw new TangoError(e); }
     }
 
+    /**
+     * Returns account info.
+     */
+    public String getExchangeRates() {
+
+        RestTemplate restTemplate = new RestTemplate();
+        HttpEntity<String> request = new HttpEntity<String>(headers());
+        URI uri = URI.create(url + "/exchangerates");
+        LOGGER.info("Calling url:" + uri.toString());
+        ResponseEntity<Catalog> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, request, Catalog.class);
+        try {
+            Catalog catalog = responseEntity.getBody();
+            this.catalog = catalog;
+            return catalog;
+        } catch (HttpClientErrorException e) { throw new TangoError(e); }
+    }
 
     /**
      * Returns order / gift info.
@@ -152,7 +175,7 @@ public class TangoService {
      * to notify Participant.
      */
     public OrderResponse awardGiftCard(GiftLog log) {
-        Order order = new Order(accountId, customerId, utid, log.getAmount(), false);
+        Order order = new Order(accountId, customerId, log.getTangoItemId(), log.getAmount(), false);
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = headers();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -170,15 +193,25 @@ public class TangoService {
     }
 
     /**
+     * Creates a gift log record, without checking to see if one exists yet.
+     */
+    public GiftLog createGiftLogUnsafe(Participant participant, String sessionName, int amount) {
+        Item item = this.catalog.findItemByCountryCode(participant.getAwardCountryCode());
+        GiftLog log = new GiftLog(participant, sessionName, amount, item);
+        this.giftLogRepository.save(log);
+        return log;
+    }
+
+    /**
      * Makes a record in the gift log table that we have promised someone
      * a gift card, but it isn't awarded yet.
      */
-    public void prepareGift(Participant participant, Session session, int amount) {
-        GiftLog logDAO = giftLogRepository.findByParticipantAndSessionName(participant, session.getName());
-        if(logDAO == null) {
-            logDAO = new GiftLog(participant, session.getName(), amount);
-            this.giftLogRepository.save(logDAO);
+    public GiftLog prepareGift(Participant participant, Session session, int amount) {
+        GiftLog log = giftLogRepository.findByParticipantAndSessionName(participant, session.getName());
+        if(log == null) {
+            log = createGiftLogUnsafe(participant, session.getName(), amount);
         }
+        return log;
     }
 
 }

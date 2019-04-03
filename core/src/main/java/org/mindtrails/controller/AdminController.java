@@ -8,6 +8,7 @@ import org.mindtrails.domain.forms.ParticipantCreateAdmin;
 import org.mindtrails.domain.forms.ParticipantUpdateAdmin;
 import org.mindtrails.domain.importData.Scale;
 import org.mindtrails.domain.tango.Account;
+import org.mindtrails.domain.tango.Item;
 import org.mindtrails.domain.tango.OrderResponse;
 import org.mindtrails.domain.tracking.ErrorLog;
 
@@ -267,7 +268,8 @@ public class AdminController extends BaseController {
         Participant p = participantService.get(principal);
 
         if(type.equals("giftCard")) {
-            GiftLog log = new GiftLog(p, "test", 1);
+            Item item = tangoService.getCatalog().findItemByCountryCode("US");
+            GiftLog log = new GiftLog(p, "test", 1, item);
             this.giftLogRepository.save(log);
             OrderResponse reward = tangoService.awardGiftCard(log);  // This would actually award a gift card, if you need to do some testing.
             this.emailService.sendGiftCard(p, reward, 1);
@@ -338,9 +340,8 @@ public class AdminController extends BaseController {
     public String giftCard(ModelMap model, @PathVariable("id") long id) throws Exception {
 
         Participant p = participantRepository.findOne(id);
-        GiftLog log = new GiftLog(p, "AdminAwarded", 5);
-        this.giftLogRepository.save(log);
-        OrderResponse reward = tangoService.awardGiftCard(log);  // This would actually award a gift card, if you need to do some testing.
+        GiftLog log = tangoService.createGiftLogUnsafe(p, "AdminAwarded", 5);
+        OrderResponse reward = tangoService.awardGiftCard(log);
         this.emailService.sendGiftCard(p, reward, log.getAmount());
         return "redirect:/admin/participant/" + id;
     }

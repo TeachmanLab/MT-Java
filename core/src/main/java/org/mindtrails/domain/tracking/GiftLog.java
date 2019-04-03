@@ -5,6 +5,7 @@ import org.apache.el.parser.BooleanNode;
 import org.mindtrails.domain.data.DoNotDelete;
 import org.mindtrails.domain.data.Exportable;
 import org.mindtrails.domain.Participant;
+import org.mindtrails.domain.tango.Item;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -27,13 +28,18 @@ public class GiftLog extends MindTrailsLog {
     private String sessionName;
     private Date dateCreated = new Date();
     private int amount; // amount awarded in dollars.
+    private String currency;
+    private String tangoItemId;
+
 
     public GiftLog() {};
 
-    public GiftLog(Participant participant, String sessionName, int amount) {
+    public GiftLog(Participant participant, String sessionName, int amount, Item item) {
         this.participant = participant;
         this.sessionName = sessionName;
         this.amount = amount;
+        this.currency = item.getCurrencyCode();
+        this.tangoItemId = item.getUtid();
     }
 
     public void markAwarded(String orderId) {
