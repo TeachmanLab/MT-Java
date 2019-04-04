@@ -80,6 +80,7 @@ public class TangoServiceTest {
         OrderResponse response  = service.awardGiftCard(log);
         assertNotNull("A reward is returned.", response);
         assertNotNull("The reward has a url", response.getReward());
+        System.out.println(response.getReward());
 
     }
 

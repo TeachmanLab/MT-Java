@@ -148,12 +148,8 @@ public class TangoService {
         HttpEntity<String> request = new HttpEntity<String>(headers());
         URI uri = URI.create(url + "/exchangerates");
         LOGGER.info("Calling url:" + uri.toString());
-        ResponseEntity<Catalog> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, request, Catalog.class);
-        try {
-            Catalog catalog = responseEntity.getBody();
-            this.catalog = catalog;
-            return catalog;
-        } catch (HttpClientErrorException e) { throw new TangoError(e); }
+        ResponseEntity<String> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, request, String.class);
+        return responseEntity.getBody();
     }
 
     /**
