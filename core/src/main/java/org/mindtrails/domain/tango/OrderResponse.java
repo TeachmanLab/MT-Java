@@ -6,7 +6,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -32,8 +34,8 @@ public class OrderResponse {
         this.status = status;
         this.success = success;
         this.reward = new Reward();
-        this.reward.setCredentials(new Credentials());
-        this.getReward().getCredentials().setRedemptionLink(url);
+        this.reward.setCredentialList(new ArrayList<Credential>());
+        this.reward.getCredentialList().add(new Credential(url));
         this.amountCharged = new AmountCharged();
         this.amountCharged.value = amount;
         this.amountCharged.total = amount;
@@ -41,8 +43,8 @@ public class OrderResponse {
 
     @JsonIgnore
     public String getLink() {
-        return this.getReward().getCredentials().getRedemptionLink();
-    }
+        return this.getReward().redemptionUrl();
+    };
 
     @JsonIgnore
     public int getAmount() {
@@ -61,14 +63,34 @@ class AmountCharged {
 
 @Data
 class Reward {
-    private Credentials credentials;
+    private List<Credential> credentialList;
     private String redemptionInstructions;
+
+    public String redemptionUrl() {
+        for(Credential c: this.credentialList) {
+            if(c.getCredentialType().equals(Credential.REDEMPTION_URL)) {
+                return c.getValue();
+            }
+        }
+        return ("");
+    }
+
 }
 
 @Data
-class Credentials {
-    @JsonProperty("Redemption Link")
-    private String redemptionLink;
+class Credential {
+    public static final String REDEMPTION_URL = "redemptionUrl";
+
+    private String credentialType;
+    private String lable;
+    private String value;
+
+    public Credential() {}
+
+    public Credential(String url) {
+        this.credentialType = REDEMPTION_URL;
+        this.value = url;
+    }
 }
 
 

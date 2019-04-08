@@ -72,11 +72,11 @@ public class TangoServiceTest {
 
 
     @Test
-    public void awardBritishGiftCard() {
-        participant = new Participant("Dan", "j.q.t.p.tester@gmail.com", true);
-        participant.setAwardCountryCode("BR");
+    public void awardItalianGiftCard() {
+        participant = new Participant("Dan", "italy.tester@gmail.com", true);
+        participant.setAwardCountryCode("IT");
         participantRepository.save(participant);
-        GiftLog log = service.createGiftLogUnsafe(participant, "TEST SESSION", 1);
+        GiftLog log = service.createGiftLogUnsafe(participant, "TEST SESSION", 50);
         OrderResponse response  = service.awardGiftCard(log);
         assertNotNull("A reward is returned.", response);
         assertNotNull("The reward has a url", response.getReward());
