@@ -16,12 +16,10 @@ import org.mindtrails.domain.RestExceptions.NoSuchQuestionnaireException;
 import org.mindtrails.domain.RestExceptions.NotDeleteableException;
 import org.mindtrails.domain.importData.Scale;
 import org.mindtrails.domain.tracking.ExportLog;
-import org.mindtrails.persistence.ExportLogRepository;
-import org.mindtrails.persistence.ParticipantRepository;
+import org.mindtrails.domain.tracking.MindTrailsLog;
+import org.mindtrails.persistence.*;
 import org.mindtrails.service.ExportService;
-import org.mindtrails.persistence.QuestionnaireRepository;
 import org.mindtrails.domain.piPlayer.Trial;
-import org.mindtrails.persistence.TrialRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,14 +70,20 @@ public class ExportController  {
                  @RequestParam(value = "after", required = false, defaultValue = "1972-10-05-00-00-00")
                  @DateTimeFormat(pattern=ExportService.DATE_FORMAT)Date date) {
         JpaRepository rep = exportService.getRepositoryForName(name, true);
+        List<Object> results;
         if (rep != null) {
             if (rep instanceof TrialRepository) {
-                return(getTrialSummary((TrialRepository) rep));
+                results = getTrialSummary((TrialRepository) rep);
+            } else if(rep instanceof TaskLogRepository) {
+                results = ((TaskLogRepository) rep).findByDateCompletedGreaterThan(date);
+            } else if(rep instanceof LogRepository) {
+                results = ((LogRepository) rep).findByDateSentGreaterThan(date);
             } else if(rep instanceof QuestionnaireRepository) {
-                return ((QuestionnaireRepository) rep).findByDateGreaterThan(date);
+                results = ((QuestionnaireRepository) rep).findByDateGreaterThan(date);
             } else {
-                return rep.findAll();
+                results = rep.findAll();
             }
+            return results;
         }
         throw new NoSuchQuestionnaireException();
     }
@@ -88,6 +92,7 @@ public class ExportController  {
     @RequestMapping(value="{name}/{id}", method=RequestMethod.DELETE)
     public @ResponseBody void delete(@PathVariable String name, @PathVariable long id) {
         Class<?> domainType = exportService.getDomainType(name, false);
+        LOG.info("Deleting " + name  + " / " + id);
         if (domainType != null) {
             if (domainType.isAnnotationPresent(DoNotDelete.class))
                 throw new NotDeleteableException();

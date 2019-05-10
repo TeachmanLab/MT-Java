@@ -39,6 +39,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
+import javax.persistence.EntityManager;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -98,6 +99,8 @@ public class ImportService {
     @Autowired
     private RestTemplate restTemplate;
 
+    @Autowired
+    private EntityManager entityManager;
 
     /**
      * Just to help with testing, should be set with a config file in general
@@ -261,8 +264,8 @@ public class ImportService {
                     log.incrementError();
                 }
             }
-        } catch (IOException e) {
-            String message = "Exception encountered parsing Json for scale " + scale + ". " + e.getMessage();
+        } catch (Exception e) {
+            String message = "Exception encountered loading  scale " + scale + ". " + e.getMessage();
             LOGGER.error(message);
             log.setError(message);
         } finally {
@@ -284,24 +287,21 @@ public class ImportService {
      */
     private void importNode(JsonNode elm, Class clz, ObjectMapper mapper, JpaRepository rep, String scale) throws IOException {
         ObjectNode node = elm.deepCopy();
-        saveMissingLog(elm, clz.getName()); // TODO: Strip this out.  Do something sensible.
         long studyId = -1;
         long participantId = -1;
         Participant participant = null;
-
-        if(scale.equals("Credibility")) {
-            LOGGER.info("It's credible?");
-        }
 
         if (elm.has("study")) {
             studyId = elm.path("study").asLong();
             node.remove("study");
         }
-        if (elm.has("participant")) {
+        if (elm.has("participant") && !elm.path("participant").equals("0")) {
             participantId = elm.path("participant").asLong();
-            participant = participantRepository.findOne(participantId);
+            // Request a proxy for the particpant, much much faster than loading the thing up with .find(id)
+            participant = entityManager.getReference(Participant.class, participantId);
             node.remove("participant");
         }
+
         Object object = mapper.readValue(node.toString(), clz);
         if (object instanceof HasStudy) {
             ((HasStudy) object).setStudy(studyRepository.findById(studyId));
@@ -312,7 +312,9 @@ public class ImportService {
         rep.save(object);
         long id = elm.path("id").asLong();
 
+        LOGGER.info("Adding " + scale + " id " + id);
         if(this.deleteable(scale)) {
+            LOGGER.info("Deleteing remote  " + scale + " id " + id);
             if(object instanceof hasParticipant && participant != null) {
                 deleteScaleItem(scale, id);
             } else if (participantId > 0){
@@ -335,13 +337,13 @@ public class ImportService {
 
 
     /**
-     * Every five minutes the program will try to download all the data.
+     * DANGER METHOD.  This just clears the data, and doesn't check to see if it exists.
      */
     public void clearOldData() {
         if (!this.isImporting()) {
             return;
         }
-        LOGGER.info("Importing data from " + this.url);
+        LOGGER.info("CLEARING ALL data from " + this.url);
         List<Scale> list = fetchListOfScales();
         for (Scale scale : list) {
             clearDataForScale(scale);
