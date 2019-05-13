@@ -9,6 +9,7 @@ import org.apache.http.client.utils.URIBuilder;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.joda.time.DateTime;
 import org.joda.time.Hours;
+import org.joda.time.Minutes;
 import org.mindtrails.domain.*;
 import org.mindtrails.domain.Conditions.ConditionAssignment;
 import org.mindtrails.domain.Conditions.NoNewConditionException;
@@ -180,8 +181,8 @@ public class ImportService {
             // add a date parameter if we have successuflly pulled from this scale in the past.
             if(null != log) {
                 DateTime sinceDate = new DateTime(log.getDateStarted());
-                // Step it back an hour, as extra safely to assure we don't miss anything.
-                sinceDate = sinceDate.minus(Hours.hours(1));
+                // Step it back five minutes, as extra safely to assure we don't miss anything.
+                sinceDate = sinceDate.minus(Minutes.minutes(5));
                 DateFormat formatter = new SimpleDateFormat(ExportService.DATE_FORMAT);
                 b.addParameter("after", formatter.format(sinceDate.toDate()));
             }
@@ -295,7 +296,7 @@ public class ImportService {
             studyId = elm.path("study").asLong();
             node.remove("study");
         }
-        if (elm.has("participant") && !elm.path("participant").equals("0")) {
+        if (elm.has("participant") && !elm.path("participant").asText().equals("null")) {
             participantId = elm.path("participant").asLong();
             // Request a proxy for the particpant, much much faster than loading the thing up with .find(id)
             participant = entityManager.getReference(Participant.class, participantId);

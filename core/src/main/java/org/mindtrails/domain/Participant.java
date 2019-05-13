@@ -92,27 +92,27 @@ public class Participant implements UserDetails, HasStudy {
     // IMPORTANT: Automatic email notifications start failing when
     // these relationships are setup with a FetchType.LAZY. Please
     // leave this eager, or address that problem.
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "participant")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "participant")
     @JsonIgnore
     @OrderBy(value = "dateSent")
     protected SortedSet<EmailLog> emailLogs = new TreeSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "participant")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "participant")
     @JsonIgnore
     @OrderBy(value = "dateSent")
     protected SortedSet<SMSLog> smsLogs = new TreeSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "participant")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "participant")
     @JsonIgnore
     @OrderBy(value = "dateSent")
     protected SortedSet<GiftLog> giftLogs = new TreeSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "participant")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "participant")
     @JsonIgnore
     @OrderBy(value = "dateSent")
     protected SortedSet<ErrorLog> errorLogs = new TreeSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "participant")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "participant")
     @JsonIgnore
     @OrderBy(value = "dateAttempted")
     protected SortedSet<CoachLog> coachLogs = new TreeSet<>();
