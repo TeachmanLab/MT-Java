@@ -30,8 +30,8 @@
                 </div>
 
                 <div th:if="${currentSession.name == 'PostFollowUp'} ">
-                    <h2 th:if="#{participant.study.index == 0}">Welcome back <span
-                            th:text="${participant.fullName}">Jim</span>.
+                    <h2 th:if="#{participant.study.index == 0}"><b>Welcome back <span
+                            th:text="${participant.fullName}">Jim</span>.</b>
                     </h2>
                     <p>You are ready to begin <span th:text="${currentSession.displayName}"/></p>
                     <br></br>
@@ -42,10 +42,10 @@
 
                 <div th:if="${currentSession.index &gt; 0 and currentSession.name != 'PostFollowUp'}" >
                     <h2 th:if="#{currentSession.index == 0}"><b>Nice work, <span
-                            th:text="${participant.fullName}">Jim</span></b>.
+                            th:text="${participant.fullName}">Jim</span>.</b>
                     </h2>
-                    <h2 th:unless="#{currentSession.index == 0}"><b>Welcome back, <span
-                            th:text="${participant.fullName}">Jim</span></b>.
+                    <h2 th:unless="#{currentSession.index == 0}"><b>Welcome back <span
+                            th:text="${participant.fullName}">Jim</span>.</b>
                     </h2>
                     <p>You are ready to begin <span th:text="${currentSession.displayName}"/>!</p>
                     <br></br>
@@ -59,8 +59,8 @@
 
 
                 <div th:if="${giftAwarded}">
-                    <h3>Congratulations! You have earned a $5 gift card.</h3> Please check your email for information on
-                    how to redeem it.
+                    <h3>Congratulations! You have earned a $5 e-gift card.</h3> You will receive your e-gift card by email along with information on how
+                    to redeem it – please wait up to two business days for receipt of this email.
                 </div>
                 <p class="session-note">For best results, complete <span th:text="${currentSession.displayName}"/> by
                     <br/><b><span class="date" th:text="${completeBy}">July 10, 2015</span>.</b>
