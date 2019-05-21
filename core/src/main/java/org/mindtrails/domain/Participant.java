@@ -68,6 +68,7 @@ public class Participant implements UserDetails, HasStudy {
     protected Date returnDate; // Date this user plans to return for next session.
     protected float attritionRisk;  // percentage likelihood this person will leave the study early.
     protected boolean canTextMessage;  // can send and receive text messages
+    protected String awardCountryCode = "US";
 
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
