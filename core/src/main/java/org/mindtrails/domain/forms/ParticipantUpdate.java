@@ -32,6 +32,7 @@ public class ParticipantUpdate implements HasPhone {
     protected boolean emailReminders = true;
     protected boolean phoneReminders = true;
     protected boolean receiveGiftCards = false;
+    protected boolean canTextMessage = true;
 
     protected String timezone;
 
@@ -46,12 +47,9 @@ public class ParticipantUpdate implements HasPhone {
         this.theme = p.getTheme();
         this.phone = p.getPhone();
         this.timezone = p.getTimezone();
+        this.canTextMessage = p.isCanTextMessage();
     }
 
-    public Participant toParticipant() {
-        Participant p = new Participant();
-        return updateParticipant(p);
-    }
 
     public Participant updateParticipant(Participant p) {
         p.setFullName(this.getFullName());
@@ -60,6 +58,7 @@ public class ParticipantUpdate implements HasPhone {
         p.setPhoneReminders(this.isPhoneReminders());
         p.setPhone(formatPhone(this.phone));
         p.setTimezone(this.getTimezone());
+        p.setCanTextMessage(this.canTextMessage);
         if(this.theme != null) p.setTheme(this.getTheme());
         return p;
     }

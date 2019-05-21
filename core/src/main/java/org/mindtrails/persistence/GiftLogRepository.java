@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface GiftLogRepository extends JpaRepository<GiftLog, Long> {
+public interface GiftLogRepository extends LogRepository<GiftLog> {
 
     GiftLog findByParticipantAndSessionName(Participant p,  String sessionName);
     Page<GiftLog> findByOrderIdIsNull(Pageable pageable);
