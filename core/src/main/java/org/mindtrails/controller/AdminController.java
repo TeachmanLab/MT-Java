@@ -269,7 +269,7 @@ public class AdminController extends BaseController {
 
         if(type.equals("giftCard")) {
             Item item = tangoService.getCatalog().findItemByCountryCode("US");
-            GiftLog log = new GiftLog(p, "test", 1, item);
+            GiftLog log = new GiftLog(p, "test", 1,1, item);
             this.giftLogRepository.save(log);
             OrderResponse reward = tangoService.awardGiftCard(log);  // This would actually award a gift card, if you need to do some testing.
             this.emailService.sendGiftCard(p, reward, 1);
@@ -322,6 +322,21 @@ public class AdminController extends BaseController {
         model.addAttribute("amountAwarded", amountAwarded);
         return "admin/tango";
     }
+
+    // Trying to write a methods to get Tango Account information. By Diheng
+    @RequestMapping(value="/tangoHistory",method = RequestMethod.GET)
+    public String tangoHistory(ModelMap model, Principal principal,
+                            final @RequestParam(value = "page", required = false, defaultValue = "0") String pageParam){
+
+        Page<GiftLog> giftPages;
+        PageRequest pageRequest;
+        int page = Integer.parseInt(pageParam);
+        pageRequest = new PageRequest(page, PER_PAGE);
+        giftPages = giftLogRepository.findAll(pageRequest);
+        model.addAttribute("giftLogs", giftPages);
+        return "admin/tangoHistory";
+    }
+
 
     // Trying to write a methods to get Tango Account information. By Diheng
     @RequestMapping(value="/tango",method = RequestMethod.POST)

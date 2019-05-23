@@ -47,17 +47,24 @@ public class OrderResponse {
     };
 
     @JsonIgnore
-    public int getAmount() {
+    public float getAmount() {
         return this.getAmountCharged().value;
+    }
+
+    @JsonIgnore
+    public float getUsAmount() {
+        return this.getAmountCharged().total;
     }
 
 }
 
 @Data
 class AmountCharged {
-    int value;
     String currencyCode;
-    int total;
+    float eschangeRate;
+    float value;
+    float fee;
+    float total;
 }
 
 

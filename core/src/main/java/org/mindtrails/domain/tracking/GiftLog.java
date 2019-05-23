@@ -27,17 +27,19 @@ public class GiftLog extends MindTrailsLog {
     private String orderId;
     private String sessionName;
     private Date dateCreated = new Date();
-    private int amount; // amount awarded in dollars.
+    private double amount;
     private String currency;
+    private double dollarAmount;
     private String tangoItemId;
 
 
     public GiftLog() {};
 
-    public GiftLog(Participant participant, String sessionName, int amount, Item item) {
+    public GiftLog(Participant participant, String sessionName, double amount, double dollarAmount, Item item) {
         this.participant = participant;
         this.sessionName = sessionName;
         this.amount = amount;
+        this.dollarAmount = dollarAmount;
         this.currency = item.getCurrencyCode();
         this.tangoItemId = item.getUtid();
     }

@@ -49,7 +49,7 @@
                     (including the
                     American Cancer Society, Clean Water Fund, and Habitat for Humanity).</p>
 
-                <p>Tango Card offers 14 country-facing options, which you can select from below. Values are awarded in
+                <p>Tango Card offers several country-facing options, which you can select from below. Values are awarded in
                     USD – options in other currencies will be converted from USD based on current exchange rates.
                     Please view <a target="new" href="https://www.tangocard.com/reward-link/">this link</a> for more
                     information on
@@ -59,43 +59,35 @@
                     other countries. Note that by navigating to "Verify My Phone" in the Account menu, you will be able
                     to change your chosen country-facing option for future awards.</p>
 
-                <select style="width: 300px">
-                    <option value="USA">United States (default)</option>
-                    <option value="ARG">Argentina</option>
-                    <option value="AUS">Australia</option>
-                    <option value="BRA">Brazil</option>
-                    <option value="CAN">Canada</option>
-                    <option value="DEU">Germany</option>
-                    <option value="IND">India</option>
-                    <option value="IRL">Ireland</option>
-                    <option value="ITA">Italy</option>
-                    <option value="NLD">Netherlands</option>
-                    <option value="SGP">Singapore</option>
-                    <option value="ESP">Spain</option>
-                    <option value="UAE">United Arab Emirates</option>
-                    <option value="GBR">United Kingdom</option>
+                <select style="width: 300px" name="country">
+                    <option value="US">United States (default)</option>
+                    <option value="AR">Argentina</option>
+                    <option value="AU">Australia</option>
+                    <option value="BR">Brazil</option>
+                    <option value="CA">Canada</option>
+                    <option value="DE">Germany</option>
+                    <option value="IN">India</option>
+                    <option value="IE">Ireland</option>
+                    <option value="IT">Italy</option>
+                    <option value="NL">Netherlands</option>
+                    <option value="SG">Singapore</option>
+                    <option value="ES">Spain</option>
+                    <option value="GB">United Kingdom</option>
                 </select>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-md-2">
-                <br></br>
-                <span class="pull-left"><a th:href="@{/account/theme}"><button>Next</button> </a></span>
-            </div>
+        <div class="col-md-2">
+            <br></br>
+            <span class="pull-left"><button>Submit</button></span>
+        </div>
         </div>
         <br/>
         <br/>
     </div>
     </form>
 </section>
-
-
-<script th:inline="javascript">
-    console.log([[${participant.verified}]]);
-
-</script>
-
 
 <footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
 <section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>

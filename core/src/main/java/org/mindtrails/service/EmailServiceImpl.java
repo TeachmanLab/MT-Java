@@ -204,7 +204,7 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public void sendGiftCard(Participant participant, OrderResponse order, int amount) {
+    public void sendGiftCard(Participant participant, OrderResponse order, double amount) {
         // Prepare the evaluation context
         final Context ctx = new Context();
         Email email = getEmailForType("giftCard");

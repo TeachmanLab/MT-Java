@@ -264,7 +264,14 @@ public class AccountController extends BaseController {
         return "account/verified";
     }
 
-   //when a user want to do the phone verification during the study
+    //when an account is verified
+    @RequestMapping(value="/tango",method= RequestMethod.POST)
+    public String setGiftCard(){
+        return "account/tango";
+    }
+
+
+    //when a user want to do the phone verification during the study
     //it is a link under "My Account"
     @RequestMapping("PostVerification")
     public String PostVerification(@RequestParam(value="verifycode", required=false, defaultValue="NAN") String verifycode,ModelMap model, Principal principal) {
@@ -315,21 +322,11 @@ public class AccountController extends BaseController {
 
     @ExportMode
     @RequestMapping(value="updateCardCountry",method=RequestMethod.POST)
-    public String updateCardCountry( ModelMap model, Principal principal, String phone) {
+    public String updateCardCountry( ModelMap model, Principal principal, @RequestParam String country) {
         Participant p=participantService.get(principal);
-        if(p.getPhone().equals(phone) || participantService.findByPhone(formatPhone(phone)).isEmpty()){
-            p.updatePhone(formatPhone(phone));
-            p.setVerificationCode(new VerificationCode(p));
-            participantService.save(p);
-            String code=p.getVerificationCode().getCode();
-            twilioService.sendMessage("MindTrails Verification Code: " + code,p);
-            return "redirect:/account/verification";
-        }
-        else{
-            return "redirect:/account/changePhone";
-
-        }
-
+        p.setAwardCountryCode(country);
+        participantService.save(p);
+        return "redirect:/account/theme";
     }
 
 

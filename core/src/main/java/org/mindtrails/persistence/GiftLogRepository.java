@@ -16,7 +16,7 @@ public interface GiftLogRepository extends LogRepository<GiftLog> {
     Page<GiftLog> findByOrderIdIsNull(Pageable pageable);
     Long countGiftLogByOrderIdIsNotNull();
 
-    @Query(value = "select sum(amount) from GiftLog where order_id is not null")
+    @Query(value = "select sum(dollarAmount) from GiftLog where order_id is not null")
     Long totalAmountAwarded();
 
     @Query("select log from GiftLog as log LEFT JOIN log.participant p where " +

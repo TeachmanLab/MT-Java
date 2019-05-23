@@ -103,7 +103,7 @@ public class ParticipantRepositoryTest {
         Item item = new Item();
         item.setCurrencyCode("USD");
         item.setUtid("XXX111222");
-        logDao = new GiftLog(participant, "SESSION1", 5, item);
+        logDao = new GiftLog(participant, "SESSION1", 5, 5, item);
         logDao.setOrderId("code123");
         logDao.setDateSent(new Date());
         participant.addGiftLog(logDao);

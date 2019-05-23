@@ -1,5 +1,7 @@
 package org.mindtrails.service;
 
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.mindtrails.domain.Session;
 import org.mindtrails.domain.tango.*;
 import org.mindtrails.domain.tracking.GiftLog;
@@ -12,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
@@ -62,6 +65,9 @@ public class TangoService {
     private String utid;
 
     private Catalog catalog;
+
+    private ExchangeRates exchangeRates;
+
 
     @Autowired
     private ParticipantRepository participantRepository;
@@ -142,14 +148,20 @@ public class TangoService {
     /**
      * Returns account info.
      */
-    public String getExchangeRates() {
+    public ExchangeRates getExchangeRates() {
 
+        if(this.exchangeRates != null && this.exchangeRates.populated() &&
+            this.exchangeRates.lastModifedDate().after(
+                DateTime.now().minus(Days.days(1)).toDate())) {
+            return this.exchangeRates;
+        }
+        LOGGER.info("RE-Loading Exchange Rates.");
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<String> request = new HttpEntity<String>(headers());
         URI uri = URI.create(url + "/exchangerates");
-        LOGGER.info("Calling url:" + uri.toString());
-        ResponseEntity<String> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, request, String.class);
-        return responseEntity.getBody();
+        ResponseEntity<ExchangeRates> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, request, ExchangeRates.class);
+        this.exchangeRates = responseEntity.getBody();
+        return this.exchangeRates;
     }
 
     /**
@@ -191,21 +203,26 @@ public class TangoService {
     /**
      * Creates a gift log record, without checking to see if one exists yet.
      */
-    public GiftLog createGiftLogUnsafe(Participant participant, String sessionName, int amount) {
+    public GiftLog createGiftLogUnsafe(Participant participant, String sessionName, int dollarAmount) {
+        if(participant.getAwardCountryCode() == null) {
+            participant.setAwardCountryCode("US");
+        }
         Item item = this.catalog.findItemByCountryCode(participant.getAwardCountryCode());
-        GiftLog log = new GiftLog(participant, sessionName, amount, item);
+        double convertedAmount = this.getExchangeRates().convertFromUSDollars(dollarAmount, item.getCurrencyCode());
+        GiftLog log = new GiftLog(participant, sessionName, convertedAmount, dollarAmount, item);
         this.giftLogRepository.save(log);
         return log;
     }
+
 
     /**
      * Makes a record in the gift log table that we have promised someone
      * a gift card, but it isn't awarded yet.
      */
-    public GiftLog prepareGift(Participant participant, Session session, int amount) {
+    public GiftLog prepareGift(Participant participant, Session session, int dollarAmount) {
         GiftLog log = giftLogRepository.findByParticipantAndSessionName(participant, session.getName());
         if(log == null) {
-            log = createGiftLogUnsafe(participant, session.getName(), amount);
+            log = createGiftLogUnsafe(participant, session.getName(), dollarAmount);
         }
         return log;
     }
