@@ -47,7 +47,6 @@ public class ExportServiceTest {
         entityManager.persist(p);
         entityManager.persist(new TestQuestionnaire("MyTestValue",p));
         entityManager.persist(new TestUndeleteable("MyTestValue"));
-        entityManager.persist(new GiftLog(p, "Session 1", 500));
         entityManager.persist(new EmailLog(p,"Email1"));
     }
 

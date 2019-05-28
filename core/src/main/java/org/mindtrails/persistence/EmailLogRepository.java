@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Date;
 
 @Repository
-public interface EmailLogRepository extends JpaRepository<EmailLog, Long> {
+public interface EmailLogRepository extends LogRepository<EmailLog> {
     Long countByDateSentAfter(Date date);
 }

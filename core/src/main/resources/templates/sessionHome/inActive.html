@@ -20,20 +20,21 @@
             </div>
 
             <div class="col-md-8 session">
-                <h2 th:unless="${completed_exit_survey}">Welcome back <span th:text="${participant.fullName}">Jim</span>!<br/></h2>
+                <h2 th:unless="${completed_exit_survey}"><b>Welcome back <span th:text="${participant.fullName}">Jim</span>!</b></h2>
 
-                <h2 th:if="${completed_exit_survey}">Thank you for completing the exit survey <span th:text="${participant.fullName}">Jim</span>!<br/></h2>
+                <h2 th:if="${completed_exit_survey}"><b>Thank you for completing the exit survey, <span th:text="${participant.fullName}">Jim</span>!</b>></h2>
 
-                <p>Your account is currently marked as inactive.  But you can choose to
+                <p>Your account is currently marked as inactive. But you can choose to
                 continue the study at any time, and pick back up where you left off.</p>
 
                 <a th:href="@{/session?activate=true}">
                     <button>Resume the Study</button>
                 </a>
+                <br></br>
                 <a th:href="@{${currentTask.requestMapping}}" th:if="${currentTask}">
                     <button>Continue</button>
                 </a>
-
+                <br></br>
                 <div th:unless="${completed_exit_survey}">
                 <p>Otherwise, it would help us a great deal to
                 learn why you chose not to complete the study.  Please select Exit

@@ -32,7 +32,7 @@ public interface EmailService {
      * contain details on how to obtain the gift card.
      * @param participant
      */
-    void sendGiftCard(Participant participant, OrderResponse reward, int amountDollars);
+    void sendGiftCard(Participant participant, OrderResponse reward, double amount);
 
     /**
      * Send a custom email message, of the specified type to

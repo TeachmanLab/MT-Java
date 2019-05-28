@@ -47,7 +47,7 @@
     <form th:action="${eligibility}? @{/public/eligibilityCheck} : @{/questions/DASS21_AS}"
             th:object="${model}" method="POST">
         <section th:replace="fragment/forms :: radioOptions(${model})"/>
-        <div class="col-md-12" style="text-align:center">
+        <div class="col-md-12" style="text-align:center; padding-left: 20px">
             <div th:if="${eligibility}" class="form-group row">
                 <div class="col-sm-2">
                 </div>

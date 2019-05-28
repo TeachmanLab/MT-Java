@@ -129,7 +129,7 @@ var R01 = (function () {
                                 "<h1><b>Completing Short Stories</b></h1>" +
 
 
-                                "<p>You will now read several short stories.</p>" +
+                                "<p>In this brief exercise, you will read several short stories.</p>" +
                                 "<ul> " +
                                 "<li>Please read each one carefully and try to imagine yourself in the situation.</li>" +
                                 "<li>The last word of each story is incomplete. Click on the missing letter to complete the word.</li> " +

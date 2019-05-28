@@ -186,9 +186,9 @@ public class QuestionController extends BaseController {
 
         if(timeOnTask == 0d) throw new RuntimeException("Missing Time on Page, please add it.");
 
-        // Attempt to set the participant link, depending on sub-class type
-        if(data instanceof LinkedQuestionnaireData)
-            ((LinkedQuestionnaireData) data).setParticipant(participant);
+        // Set the link to Participant (don't need to check for linked data, all questionniare data
+        // should accept a participant id.) 
+        data.setParticipant(participant);
 
         data.setSession(participant.getStudy().getCurrentSession().getName());
 
