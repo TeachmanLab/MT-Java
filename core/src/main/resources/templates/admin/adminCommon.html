@@ -42,11 +42,15 @@
                 <tr>
                     <th>Order ID</th>
                     <th>Date</th>
+                    <th></th>
                 </tr>
                 <tr th:each="log : ${participant.giftLogs}">
                     <td ><a th:href="@{'/admin/rewardInfo/'+${log.orderId}}"
                             th:text="${log.orderId}"/></td>
                     <td th:text="${log.dateSent}"/>
+                    <td><a th:href="@{'/admin/participant/' + ${participant.id} +'/resendGift/' + ${log.id}}">
+                        Resend
+                    </a></td>
                 </tr>
             </table>
         </div>

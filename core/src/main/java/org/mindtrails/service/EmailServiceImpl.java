@@ -11,8 +11,10 @@ import net.fortuna.ical4j.util.FixedUidGenerator;
 import net.fortuna.ical4j.util.RandomUidGenerator;
 import net.fortuna.ical4j.util.UidGenerator;
 import org.mindtrails.domain.*;
+import org.mindtrails.domain.tango.ExchangeRates;
 import org.mindtrails.domain.tango.OrderResponse;
 import org.mindtrails.domain.tracking.EmailLog;
+import org.mindtrails.domain.tracking.GiftLog;
 import org.mindtrails.persistence.ParticipantRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -204,7 +206,7 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public void sendGiftCard(Participant participant, OrderResponse order, double amount) {
+    public void sendGiftCard(Participant participant, OrderResponse order, GiftLog log) {
         // Prepare the evaluation context
         final Context ctx = new Context();
         Email email = getEmailForType("giftCard");
@@ -212,8 +214,16 @@ public class EmailServiceImpl implements EmailService {
         email.setParticipant(participant);
         email.setContext(ctx);
 
+        if(log.getCurrency().equals(ExchangeRates.US_DOLLARS)) {
+            ctx.setVariable("amount",
+                    "$" + log.getAmount());
+        } else {
+            ctx.setVariable("amount",
+                    log.getAmount() + " " + log.getCurrency() +
+                            " ($" + (int)log.getDollarAmount() + ")");
+        }
+
         ctx.setVariable("order", order);
-        ctx.setVariable("giftAmount", amount);
         sendEmail(email);
     }
 
