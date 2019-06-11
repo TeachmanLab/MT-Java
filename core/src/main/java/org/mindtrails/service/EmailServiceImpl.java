@@ -11,8 +11,10 @@ import net.fortuna.ical4j.util.FixedUidGenerator;
 import net.fortuna.ical4j.util.RandomUidGenerator;
 import net.fortuna.ical4j.util.UidGenerator;
 import org.mindtrails.domain.*;
+import org.mindtrails.domain.tango.ExchangeRates;
 import org.mindtrails.domain.tango.OrderResponse;
 import org.mindtrails.domain.tracking.EmailLog;
+import org.mindtrails.domain.tracking.GiftLog;
 import org.mindtrails.persistence.ParticipantRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +22,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
@@ -202,7 +206,7 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public void sendGiftCard(Participant participant, OrderResponse order, int amount) {
+    public void sendGiftCard(Participant participant, OrderResponse order, GiftLog log) {
         // Prepare the evaluation context
         final Context ctx = new Context();
         Email email = getEmailForType("giftCard");
@@ -210,13 +214,22 @@ public class EmailServiceImpl implements EmailService {
         email.setParticipant(participant);
         email.setContext(ctx);
 
+        if(log.getCurrency().equals(ExchangeRates.US_DOLLARS)) {
+            ctx.setVariable("amount",
+                    "$" + log.getAmount());
+        } else {
+            ctx.setVariable("amount",
+                    log.getAmount() + " " + log.getCurrency() +
+                            " ($" + (int)log.getDollarAmount() + ")");
+        }
+
         ctx.setVariable("order", order);
-        ctx.setVariable("giftAmount", amount);
         sendEmail(email);
     }
 
     @ExportMode
     @Scheduled(cron = "0 0 16 * * *")  // schedules task for 2:00am every day.
+    @Transactional(propagation= Propagation.REQUIRED, readOnly=false, noRollbackFor=Exception.class)
     public void sendEmailReminder() {
         List<Participant> participants;
 
@@ -249,6 +262,7 @@ public class EmailServiceImpl implements EmailService {
      * Sends emails to participants when they stopped in the middle of a session
      * and didn't return to it for 3 hours.
      */
+    @Transactional(propagation= Propagation.REQUIRED, readOnly=false, noRollbackFor=Exception.class)
     public void checkForMidSessionIncompleteAndSendEmails() {
         List<Participant> participants;
         participants = participantRepository.findAll();
@@ -312,7 +326,6 @@ public class EmailServiceImpl implements EmailService {
 
         // Mark the user as inactive if they are about to get a closure email.
         String type = getTypeToSend(session, days);
-        LOG.info("The type is " + type);
         if (type != null && type.equals("closure")) {
             p.setActive(false);
             LOG.info("Marking participant #" + p.getId() + " as inactive.");

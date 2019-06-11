@@ -20,6 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -97,6 +99,7 @@ public abstract class TwilioServiceImpl implements TwilioService {
 
     @ExportMode
     @Scheduled(cron = "0 */30 * * * *")  // evey 30 minutes
+    @Transactional(propagation=Propagation.REQUIRED, readOnly=false, noRollbackFor=Exception.class)
     public void sendTextReminder() {
         List<Participant> participants;
         String message;

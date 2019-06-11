@@ -40,6 +40,8 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
 
     private static final Logger LOG = LoggerFactory.getLogger(ExportService.class);
 
+    public static final String DATE_FORMAT = "yyyy-MM-dd-HH-mm-ss";
+
     @Value("${export.maxRecords}")
     private int maxRecords;
 

@@ -3,6 +3,7 @@ package org.mindtrails.persistence;
 import org.mindtrails.Application;
 import org.mindtrails.MockClasses.TestStudy;
 import org.mindtrails.domain.Study;
+import org.mindtrails.domain.tango.Item;
 import org.mindtrails.domain.tracking.EmailLog;
 import org.mindtrails.domain.tracking.GiftLog;
 import org.mindtrails.domain.Participant;
@@ -99,7 +100,10 @@ public class ParticipantRepositoryTest {
         GiftLog log;
 
         participant = new Participant("Dan", "Smith@x.com", false);
-        logDao = new GiftLog(participant, "SESSION1", 500);
+        Item item = new Item();
+        item.setCurrencyCode("USD");
+        item.setUtid("XXX111222");
+        logDao = new GiftLog(participant, "SESSION1", 5, 5, item);
         logDao.setOrderId("code123");
         logDao.setDateSent(new Date());
         participant.addGiftLog(logDao);

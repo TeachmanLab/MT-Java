@@ -26,12 +26,11 @@ public class FlowCount {
         List<Participant> realAccount = participantRepository.findParticipantsByTestAccountIsFalseAndAdminIsFalse();
         List<Study> realStudies = realAccount.stream()
                 .map(Participant::getStudy).collect(Collectors.toList());
-        List<Long> realID = realAccount.stream().map(Participant::getId).collect(Collectors.toList());
         //List<Study> realStudies = studyRepository.findDistinctByParticipantIn(realAccount);
         this.accessAttempt = Long.valueOf(visitRepository.findAll().size());
         this.passAttempt = this.accessAttempt - visitRepository.findAllByNameEndsWith("_not_pass").size();
         this.totalAccount = Long.valueOf(realAccount.size());
-        this.ittCount = jsPsychRepository.findDistinctByParticipantIn(realID).stream().map(JsPsychTrial::getParticipant).collect(Collectors.toList()).stream().distinct().count();
+        this.ittCount = jsPsychRepository.findDistinctByParticipantIn(realAccount).stream().map(JsPsychTrial::getParticipant).collect(Collectors.toList()).stream().distinct().count();
 
         this.pairs.add(new countMap("Assessed for eligibility",this.accessAttempt,duplicated));
         this.pairs.add(new countMap("Eligible", this.passAttempt,duplicated));

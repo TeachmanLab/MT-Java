@@ -10,13 +10,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface GiftLogRepository extends JpaRepository<GiftLog, Long> {
+public interface GiftLogRepository extends LogRepository<GiftLog> {
 
     GiftLog findByParticipantAndSessionName(Participant p,  String sessionName);
     Page<GiftLog> findByOrderIdIsNull(Pageable pageable);
     Long countGiftLogByOrderIdIsNotNull();
 
-    @Query(value = "select sum(amount) from GiftLog where order_id is not null")
+    @Query(value = "select sum(dollarAmount) from GiftLog where order_id is not null")
     Long totalAmountAwarded();
 
     @Query("select log from GiftLog as log LEFT JOIN log.participant p where " +

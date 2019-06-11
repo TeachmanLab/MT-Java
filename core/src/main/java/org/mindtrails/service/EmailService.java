@@ -3,6 +3,7 @@ package org.mindtrails.service;
 import org.mindtrails.domain.Email;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.tango.OrderResponse;
+import org.mindtrails.domain.tracking.GiftLog;
 
 import javax.mail.MessagingException;
 import java.util.List;
@@ -32,7 +33,7 @@ public interface EmailService {
      * contain details on how to obtain the gift card.
      * @param participant
      */
-    void sendGiftCard(Participant participant, OrderResponse reward, int amountDollars);
+    void sendGiftCard(Participant participant, OrderResponse reward, GiftLog log);
 
     /**
      * Send a custom email message, of the specified type to
