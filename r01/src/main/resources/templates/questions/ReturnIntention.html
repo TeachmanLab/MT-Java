@@ -45,38 +45,33 @@
                 </div>
 
                 <br></br>
-
-
                 <h4>Please select your timezone, if different from indicated:</h4>
                 <script th:src="@{/js/jstz.min.js}"></script>
-                <select id="timezone" style="width: 400px" />
-
-
-                <script>var newOptions=jstz.olson.timezones;
-                var selectedOption = 'green';
-
-
-
-                var select = $('#timezone');
-                if(select.prop) {
-                    var options = select.prop('options');
-                }
-                else {
-                    var options = select.attr('options');
-                }
-                $('option', select).remove();
-
-                $.each(newOptions, function(val, text) {
-                    options[options.length] = new Option(text, val);
-                });
-                select.val(selectedOption);</script>
-
-
-                <br></br>
-                <br></br>
+                <select id="timezone" name="timezone" style="width: 400px">
+                </select>
+                <script th:inline="javascript">
+                    /*<![CDATA[*/
+                    var selectedOption = /*[[${participant.timezone}]]*/ '';
+                    var newOptions = jstz.olson.timezones;
+                    var select = $('#timezone');
+                    if(select.prop) {
+                        var options = select.prop('options');
+                    }
+                    else {
+                        var options = select.attr('options');
+                    }
+                    $('option', select).remove();
+                    $.each(newOptions, function(val, text) {
+                        options[options.length] = new Option(text, text)
+                    });
+                    select.val(selectedOption);
+                    /*]]>*/
+                </script>
+                <br/>
+                <br/>
                 <label ><input type="checkbox" name="notReturning" onclick="returning(this)"/>&nbsp;&nbsp;Not planning to come back.</label>
                 <div id="reason" style="display: none">
-                    <br></br>
+                    <br/>
                     <h4>Please let us know why you do not plan to continue:</h4>
                     <label><textarea id="notReturnReason" name="notReturnReason" type="text" placeholder="" style = "width: 400px; height: 120px;"/></label>
                 </div>

@@ -11,4 +11,6 @@ public interface HasReturnDate {
 
     Date getReturnDate();
 
+    String getTimezone();
+
 }
