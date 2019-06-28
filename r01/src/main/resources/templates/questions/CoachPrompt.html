@@ -43,6 +43,12 @@
 
 <section id="content2" class="clearfix">
     <form th:action="@{/questions/CoachPrompt}" method="POST" th:object="${model}">
+        <!-- Add action sequence log -->
+        <input id="actionSequence" name="actionSequence" type="hidden">
+
+        <!-- Add timer -->
+        <input id="timeOnPage" name="timeOnPage" type="hidden"/>
+        
         <div class="container section compactQuestion">
             <div class="row">
                 <div class="row title">

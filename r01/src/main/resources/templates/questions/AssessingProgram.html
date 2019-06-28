@@ -15,6 +15,9 @@
 <section id="content" class="clearfix">
 
     <form th:action="@{/questions/AssessingProgram}" method="POST">
+        <!-- Add action sequence log -->
+        <input id="actionSequence" name="actionSequence" type="hidden">
+        
         <!-- Add timer -->
         <input id="timeOnPage" name="timeOnPage" type="hidden"/>
         <div class="container section compactQuestion">

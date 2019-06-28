@@ -20,6 +20,9 @@
             <div class="col-md-10">
                 <form th:action="@{/questions/AnxietyIdentity}" method="POST">
 
+                    <!-- Add action sequence log -->
+                    <input id="actionSequence" name="actionSequence" type="hidden">
+                    
                     <!-- Add timer -->
                     <input id="timeOnPage" name="timeOnPage" type="hidden"/>
 

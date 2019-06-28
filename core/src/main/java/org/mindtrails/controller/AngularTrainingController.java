@@ -74,7 +74,7 @@ public class AngularTrainingController extends BaseController {
         Participant participant = participantService.findByEmail(principal.getName());
 
         List<AngularTraining> trials = trainingRepository.findAllByParticipantAndSessionOrderByDate(participant,
-                participant.getStudy().getCurrentSession().getName());
+                participant.getStudy().().getName());
 
         if (trials.size() == 0) {
             throw new NoPastProgressException();

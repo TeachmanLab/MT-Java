@@ -59,7 +59,6 @@ public class QuestionController extends BaseController {
     @Autowired
     private Validator validator;
 
-
     @RequestMapping(value = "{form}", method = RequestMethod.GET)
     public String showForm(ModelMap model, Principal principal, @PathVariable("form") String formName) {
 
@@ -184,6 +183,9 @@ public class QuestionController extends BaseController {
 
         // Save time on Task to TaskLog.
         double timeOnTask = data.getTimeOnPage();
+
+        // TODO: Calculate and save task latencies
+
 
         if(timeOnTask == 0d) throw new RuntimeException("Missing Time on Page, please add it.");
 

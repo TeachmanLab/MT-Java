@@ -76,6 +76,8 @@ public class ExportController  {
                 results = getTrialSummary((TrialRepository) rep);
             } else if(rep instanceof TaskLogRepository) {
                 results = ((TaskLogRepository) rep).findByDateCompletedGreaterThan(date);
+            } else if(rep instanceof ActionSequenceRepository) {
+                results = ((ActionSequenceRepository) rep).findByDateCompletedGreaterThan(date);
             } else if(rep instanceof LogRepository) {
                 results = ((LogRepository) rep).findByDateSentGreaterThan(date);
             } else if(rep instanceof QuestionnaireRepository) {

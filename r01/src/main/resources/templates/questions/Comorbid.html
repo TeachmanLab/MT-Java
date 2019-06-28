@@ -26,7 +26,6 @@
 </div>
 
 <form th:action="@{/questions/Comorbid}" method="POST" style="padding-left:30px" th:object="${model}">
-    <!-- Add timer -->
     <section th:replace="fragment/forms :: radioOptions(${model})" />
     <div class="col-md-12" style="text-align:center">
         <button type="submit">Next</button>

@@ -30,9 +30,7 @@
     <div class="container">
 
                 <form th:action="@{/questions/Wellness}" method="POST" th:object="${model}">
-                    <!-- Add timer -->
-
-
+                    
                     <div class="container section"><label class="question">All things considered, how satisfied are you with your life as a whole?
                     <select required="true" th:field="*{satisfaction}">
                         <option value="" hidden="hidden">Please select one</option>

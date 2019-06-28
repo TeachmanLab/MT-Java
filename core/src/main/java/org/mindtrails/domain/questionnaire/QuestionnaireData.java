@@ -42,11 +42,13 @@ public abstract class QuestionnaireData implements hasParticipant {
     protected String tag; // Optional additional data defined by a task definition
 
     @NotNull
-    protected double timeOnPage; // Time spend on page in seconds.
+    protected double timeOnPage; // Time spent on page in seconds.
 
     @JsonIgnore
     @Transient
     protected Map<String,String> validationErrors = new HashMap<>();
+
+    // TODO: Add data structure / rep for action sequence. Would be dictionary of <String, DateTime> pairs.
 
     /**
      * Provides a list of measures grouped by measures with the same scale.  Often there is just one scale,
