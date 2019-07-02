@@ -69,6 +69,7 @@ public class Participant implements UserDetails, HasStudy {
     protected float attritionRisk;  // percentage likelihood this person will leave the study early.
     protected boolean canTextMessage;  // can send and receive text messages
     protected String awardCountryCode = "US";
+    protected String averageLatency; // Added by Anna 7/2/19
 
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

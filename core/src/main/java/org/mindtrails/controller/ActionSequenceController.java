@@ -1,101 +1,64 @@
 package org.mindtrails.controller;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * Created by dan on 7/7/16.
+ * Created by Anna on 7/2/19
  */
+
+
+/* We need to do two main things:
+
+    1. Record a participant's average latency between actions. This will be useful for finding predictors of attrition.
+    2. In the Action database table, create 1 entry per 1 action duple (action1, action2) that includes:
+        - The participant id
+        - The questionnaire name
+        - The latency time
+
+ */  
+
 @Controller
 @RequestMapping("/action-sequence")
-public class ActionSequenceController extends BaseController {
+public class ActionController extends BaseController {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ActionRepository.class);
 
     @Autowired
-    ActionSequenceRepository actionSequenceRepository;
+    ActionRepository ActionRepository;
 
-    private static final Logger LOG = LoggerFactory.getLogger(actionSequenceRepository.class);
 
-    @RequestMapping()
-    // Not sure what should go here
-
+    // Set participant's average latency
     @ExportMode
-    @RequestMapping(value="api", method = RequestMethod.POST,
+    @RequestMapping(value="average", method = RequestMethod.POST,
             headers = "content-type=application/json")
     public @ResponseBody
-    ResponseEntity<Void> saveProgress(Principal principal,
-                 @RequestBody AngularTrainingList list) {
+    ResponseEntity<Void> saveAverageLatency(Principal principal,
+                 @RequestBody ActionList actionList) {
 
-        LOG.info("Recording Progress: " + list.toArray().toString());
+        LOG.info("Recording participant's average latency")
 
         Participant p = getParticipant(principal);
 
-        for(AngularTraining training: list) {
-            training.setParticipant(p);
-            training.setDate(new Date());
-            this.trainingRepository.save(training);
+        int num_actions = actionList.length
+        int averageLatency = 0
+        Date timestamp1, timestamp2;
+
+        for(int i=0; i< num_actions-1; i++) {
+            timestamp1 = actionList[i].getTimestamp()
+            timestamp2 = actionList[i+1].getTimestamp()
+            averageLatency = averageLatency + (timestamp1.getTime() - timestamp2.getTime())
         }
+        
+        averageLatency = averageLatency / float(num_actions)
+        averageLatency = (participant.getAverageLatency() + averageLatency) / 2.0
+
+        participant.setAverageLatency(averageLatency);
+        participantService.save(participant);
+
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-
-    @RequestMapping(value="api", method = RequestMethod.GET)
-    public @ResponseBody AngularTraining getLastRecord(Principal principal) {
-
-        Participant participant = participantService.findByEmail(principal.getName());
-
-        List<AngularTraining> trials = trainingRepository.findAllByParticipantAndSessionOrderByDate(participant,
-                participant.getStudy().getCurrentSession().getName());
-
-        if (trials.size() == 0) {
-            throw new NoPastProgressException();
-        } else {
-            return (trials.get(trials.size() - 1));
-        }
-    }
-
-    @RequestMapping(value="api/scenarios", method = RequestMethod.GET)
-    public @ResponseBody List<AngularTraining> getScenarios(Principal principal) {
-
-        Participant participant = participantService.findByEmail(principal.getName());
-        String sessionName = participant.getStudy().getCurrentSession().getName();
-
-        List<AngularTraining> trials = trainingRepository.findAllByParticipantAndSessionAndStepTitleOrderById(participant, sessionName, "scenario");
-        return trials;
-    }
-
-
-    @RequestMapping(value = "api/study", method = RequestMethod.GET)
-    public @ResponseBody
-    Study getCurrentStudy(Principal principal) {
-        Participant participant = participantService.findByEmail(principal.getName());
-
-        return(participant.getStudy());
-
-    }
-
-
-    @RequestMapping("completed")
-    public RedirectView markComplete(ModelMap model, Principal principal,
-                                     Device device,
-                                     @RequestHeader(value="User-Agent", defaultValue="foo") String userAgent) {
-        Participant participant = participantService.get(principal);
-
-        // If the data submitted, isn't the data the user should be completing right now,
-        // throw an exception and prevent them from moving forward.
-        String taskType = participant.getStudy().getCurrentSession().getCurrentTask().getType().toString();
-        if(!taskType.equals("angular") && !participant.isAdmin()) {
-            String error = "The current task for this participant is : " + taskType + " however, they completed the angular Training";
-            LOG.info(error);
-            throw new WrongFormException(error);
-        }
-
-        // Are they really complete?
-
-        // Fixme: Calculate time spent on the training session
-        participant.getStudy().completeCurrentTask(0, device, userAgent);
-        participantService.save(participant);
-
-        return new RedirectView("/session/next", true);
-
-    }
-
+    // Create entries in action table
 
 }
 
