@@ -29,13 +29,13 @@ import java.util.List;
  * Created by Anna on 7/2/19
  */
 
-/* We need to do two main things:
+/* 
 
-    1. Record a participant's average latency between actions. This will be useful for finding predictors of attrition.
-    2. In the Action database table, create 1 entry per 1 action duple (action1, action2) that includes:
+    In the Action repository, create 1 entry per 1 action object that includes:
         - The participant id
         - The questionnaire name
-        - The latency time
+        - The action name
+        - The action timestamp
 
  */  
 
@@ -52,79 +52,35 @@ public class ActionController extends BaseController {
         Save the action sequence to the repo, for the given questionnaire
      */
     @ExportMode
-    @RequestMapping(value="/questionnaire/{id}", method = RequestMethod.POST,
+    @RequestMapping(value="/questionnaire/{formName}", method = RequestMethod.POST,
             headers = "content-type=application/json")
     public @ResponseBody
     ResponseEntity<Void> saveActionSequence(Principal principal,
-                 @RequestBody ActionList actionList) {
+                 @PathVariable("formName") String formName, @RequestBody ActionList actionList) {
 
         LOG.info("Saving action sequence to database for questionnaire...")
 
         Participant p = getParticipant(principal);
+        Session session = p.getStudy().getCurrentSession()
 
         for(ActionList action: list) {
             action.setParticipant(p);
             action.setDate(new Date());
+            action.setSession(session));
             this.actionRepository.save(action);
         }
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    /* For later implementation, if we want to view action sequences in the web dashboard */
+
+    /* 
     @RequestMapping(value="/questionnaire/{id}", method = RequestMethod.GET)
-    public String getQuestionnaireLatencies(ModelMap model, @PathVariable("id") long id) {
-        
-
-
-
-
-    }
-
-    @RequestMapping(value="/participant/{id}", method=RequestMethod.GET)
-    public String participantUpdateForm(ModelMap model,
-                           @PathVariable("id") long id) {
-        Participant p;
-        ParticipantUpdateAdmin form;
-        p    = participantRepository.findOne(id);
-        form = new ParticipantUpdateAdmin(p);
-        model.addAttribute("participantUpdateAdmin", form);
-        model.addAttribute("participantEdit", p);
-        model.addAttribute("coaches", participantRepository.findCoaches());
-        return "admin/participantUpdate";
-    }
-
-        @RequestMapping(value="/listSessions", method=RequestMethod.GET)
-    public String listSessions(ModelMap model, Principal principal) {
-        Participant p = participantService.get(principal);
-        model.addAttribute("sessions", p.getStudy().getSessions());
-        return "admin/listSessions";
-    }
-
-
-
+    public String getQuestionnaireLatencies(ModelMap model, @PathVariable("id") long id) 
+    
+    } 
+    */
 }
 
-
-        int num_actions = actionList.length
-        int latency;
-        Date timestamp1, timestamp2;
-
-        for(int i=0; i< num_actions-1; i++) {
-
-            training.setParticipant(p);
-            training.setDate(new Date());
-
-            timestamp1 = actionList[i].getTimestamp()
-            timestamp2 = actionList[i+1].getTimestamp()
-            latency = timestamp1.getTime() - timestamp2.getTime()
-        }
-        
-        averageLatency = averageLatency / float(num_actions)
-        averageLatency = (participant.getAverageLatency() + averageLatency) / 2.0
-
-
-
-
-        participant.setAverageLatency(averageLatency);
-        participantService.save(participant);
 
