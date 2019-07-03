@@ -32,8 +32,8 @@
 </section>
 
 <section id="content" class="clearfix">
-
-    <form th:action="@{/questions/OA}" method="POST">
+        <input id="formName" name="formName" value="OA" th:value="${form.name}"> 
+        <form th:action="@{/questions/{name}(name=${form.name})}" method="POST">
         <!-- Add action sequence log -->
         <input id="actionSequence" name="actionSequence" type="hidden">
 

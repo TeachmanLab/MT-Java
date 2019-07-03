@@ -33,7 +33,8 @@
 
 
 <section id="content" class="clearfix">
-    <form th:action="@{/questions/BBSIQ}" method="POST" th:object="${model}">
+    <input id="formName" name="formName" value="BBSIQ" th:value="${form.name}">
+    <form th:action="@{/questions/{name}(name=${form.name})}" method="POST" th:object="${model}">
         <section th:replace="fragment/forms :: radioOptions(${model})"/>
         <div class="col-md-12" style="text-align:center">
             <button type="submit">Next</button>

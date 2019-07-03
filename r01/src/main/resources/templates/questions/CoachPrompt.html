@@ -6,15 +6,17 @@
 <!--[if IE 8 ]>
 <html class="ie ie8" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!-->
-<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
 
-<head th:replace="fragment/common :: headerFragment"/>
+<head th:replace="fragment/common :: headerFragment" />
+
 <body>
-<section th:replace="fragment/common :: topFragment"/>
-<section th:replace="fragment/common :: titleBar (title='Feedback')"/>
-<textArea th:replace="fragment/common :: questionTemplate"/>
+    <section th:replace="fragment/common :: topFragment" />
+    <section th:replace="fragment/common :: titleBar (title='Feedback')" />
+    <textArea th:replace="fragment/common :: questionTemplate" />
 
-<style>
+    <style>
     h4 {
         margin-left: 20px;
     }
@@ -42,7 +44,8 @@
 
 
 <section id="content2" class="clearfix">
-    <form th:action="@{/questions/CoachPrompt}" method="POST" th:object="${model}">
+    <input id="formName" name="formName" value="CoachPrompt" th:value="${form.name}">
+    <form th:action="@{/questions/{name}(name=${form.name})}" method="POST" th:object="${model}">
         <!-- Add action sequence log -->
         <input id="actionSequence" name="actionSequence" type="hidden">
 
@@ -55,40 +58,41 @@
                     <div class="col-md-12">
                         <h4><b>Have you encountered any technical difficulties on this website?</b></h4>
                         <textarea rows="4" cols="20"  class="coach" name="technicalDifficulties"></textarea>
-                    </div>
-                </div>
-                <br />
-                <div class="row title">
-                    <div class="col-md-12">
-                        <h4><b>Was anything hard to understand or unclear?</b></h4>
-                        <textarea rows="4" cols="20" class="coach" name="difficultToUnderstand"></textarea>
-                    </div>
-                </div>
-                <br />
-                <div class="row title">
-                    <div class="col-md-12">
-                        <h4><b>Is there anything else you’d like us to know?</b></h4>
-                        <textarea rows="4" cols="20" class="coach" name="otherFeedback"></textarea>
-                    </div>
-                </div>
-            </div>
+    </div>
+    </div>
+    <br />
+    <div class="row title">
+        <div class="col-md-12">
+            <h4><b>Was anything hard to understand or unclear?</b></h4>
+            <textarea rows="4" cols="20" class="coach" name="difficultToUnderstand"></textarea>
         </div>
+    </div>
+    <br />
+    <div class="row title">
+        <div class="col-md-12">
+            <h4><b>Is there anything else you’d like us to know?</b></h4>
+            <textarea rows="4" cols="20" class="coach" name="otherFeedback"></textarea>
+        </div>
+    </div>
+    </div>
+    </div>
 
-        <section th:replace="fragment/forms :: radioOptions(${model})"/>
-        <div class="col-md-12" style="text-align:center">
-            <button type="submit">Next</button>
-        </div>
+    <section th:replace="fragment/forms :: radioOptions(${model})" />
+    <div class="col-md-12" style="text-align:center">
+        <button type="submit">Next</button>
+    </div>
 
     </form>
-</section>
+    </section>
 
-<footer th:replace="fragment/common :: footer"/>
-<div th:include="fragment/common :: scripts"/>
+    <footer th:replace="fragment/common :: footer" />
+    <div th:include="fragment/common :: scripts" />
 
 </body>
+
 </html>
 
 
 <!--Javascript
 ================================================== -->
-<div th:include="fragment/common :: scripts"/>
+<div th:include="fragment/common :: scripts" />

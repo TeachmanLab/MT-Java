@@ -18,7 +18,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-10">
-                <form th:action="@{/questions/AnxietyIdentity}" method="POST">
+                <input id="formName" name="formName" value="AnxietyIdentity" th:value="${form.name}">
+                <form th:action="@{/questions/{name}(name=${form.name})}" method="POST">
 
                     <!-- Add action sequence log -->
                     <input id="actionSequence" name="actionSequence" type="hidden">

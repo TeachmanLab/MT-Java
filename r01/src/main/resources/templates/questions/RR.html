@@ -31,8 +31,8 @@
         </div>
     </div>
 
-
-    <form th:action="@{/questions/RR}" method="POST" th:object="${model}" style="padding-left: 30px">
+    <input id="formName" name="formName" value="RR" th:value="${form.name}"> 
+    <form th:action="@{/questions/{name}(name=${form.name})}" method="POST" th:object="${model}" style="padding-left: 30px">
         <!-- Add timer -->
         <section th:replace="fragment/forms :: radioOptions(${model})" />
 

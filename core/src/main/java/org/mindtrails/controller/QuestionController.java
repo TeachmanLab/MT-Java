@@ -59,6 +59,9 @@ public class QuestionController extends BaseController {
     @Autowired
     private Validator validator;
 
+    @Autowired
+    private ActionRepository actionRepository;
+
     @RequestMapping(value = "{form}", method = RequestMethod.GET)
     public String showForm(ModelMap model, Principal principal, @PathVariable("form") String formName) {
 
@@ -119,6 +122,7 @@ public class QuestionController extends BaseController {
             setReturnDate(participant, data);
             if(data.validate(this.validator)) {
                 recordSessionProgress(formName, data, repository, device, userAgent);
+                
                 return "redirect:/session/next";
             } else {
                 model.addAttribute("error", "Please complete all required fields.");
@@ -143,9 +147,7 @@ public class QuestionController extends BaseController {
             participant.setTimezone(inviteData.getTimezone());
             participantService.save(participant);
         }
-
     }
-
 
     /**
      * Does some tasks common to all forms:
@@ -203,12 +205,18 @@ public class QuestionController extends BaseController {
         // do you want from me.  It's late.  I wanted to sleep.  It works here.  Don't move it.
         repository.save(data);
 
+
+
+
+
         // Update the participant's session status, and save back to the database.
         if(isProgress) {
             participant.getStudy().completeCurrentTask(timeOnTask, device, userAgent);
             participantService.save(participant);
         }
     }
+
+
 
 
 }

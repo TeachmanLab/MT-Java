@@ -26,8 +26,8 @@
             </div>
         </div>
     </section>
-
-    <form th:action="@{/questions/Mechanisms}" method="POST" style="padding-left: 30px">
+    <input id="formName" name="formName" value="Mechanisms" th:value="${form.name}"> 
+    <form th:action="@{/questions/{name}(name=${form.name})}" method="POST" style="padding-left: 30px">
         <!-- Add action sequence log -->
         <input id="actionSequence" name="actionSequence" type="hidden">
         

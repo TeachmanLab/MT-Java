@@ -28,8 +28,8 @@
 
 <section id="content" class="clearfix">
     <div class="container">
-
-                <form th:action="@{/questions/Wellness}" method="POST" th:object="${model}">
+            <input id="formName" name="formName" value="Wellness" th:value="${form.name}"> 
+            <form th:action="@{/questions/{name}(name=${form.name})}" method="POST" th:object="${model}">
                     
                     <div class="container section"><label class="question">All things considered, how satisfied are you with your life as a whole?
                     <select required="true" th:field="*{satisfaction}">

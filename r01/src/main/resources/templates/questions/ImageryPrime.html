@@ -28,7 +28,8 @@
         <!--features starts-->
         <div class="row">
             <div class="col-md-10">
-                <form id="wizard" th:action="@{/questions/ImageryPrime}" method="POST">
+                <input id="formName" name="formName" value="HelpSeeking" th:value="${form.name}"> 
+                <form id="wizard" th:action="@{/questions/{name}(name=${form.name})}" method="POST">
                     <fieldset>
                     <legend> </legend>
                         <!-- Add action sequence log -->

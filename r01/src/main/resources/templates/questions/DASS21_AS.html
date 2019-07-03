@@ -44,7 +44,8 @@
 </section>
 
 <section id="contentTest" class="clearfix">
-    <form th:action="${eligibility}? @{/public/eligibilityCheck} : @{/questions/DASS21_AS}"
+    <input id="formName" name="formName" value="DASS21_AS" th:value="${form.name}">
+    <form th:action="${eligibility}? @{/public/eligibilityCheck} : @{/questions/{name}(name=${form.name})}"
             th:object="${model}" method="POST">
         <section th:replace="fragment/forms :: radioOptions(${model})"/>
         <div class="col-md-12" style="text-align:center; padding-left: 20px">

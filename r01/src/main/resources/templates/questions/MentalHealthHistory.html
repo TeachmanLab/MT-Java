@@ -60,8 +60,8 @@
 </textarea>
 
 <section id="content" class="clearfix" style="padding-left:30px" >
-
-    <form th:action="@{/questions/MentalHealthHistory}" method="POST" id="MHFORM">
+        <input id="formName" name="formName" value="MentalHealthHistory" th:value="${form.name}"> 
+        <form th:action="@{/questions/{name}(name=${form.name})}" method="POST" id="MHFORM">
         <!-- Add action sequence log -->
         <input id="actionSequence" name="actionSequence" type="hidden">
         

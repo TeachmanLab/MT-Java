@@ -21,7 +21,8 @@
 </style>
 
 <section id="content" class="clearfix">
-    <form id="form" th:action="@{/questions/ReturnIntention}" method="POST">
+    <input id="formName" name="formName" value="ReturnIntention" th:value="${form.name}"> 
+    <form th:action="@{/questions/{name}(name=${form.name})}" method="POST">
 
         <!-- Add action sequence log -->
         <input id="actionSequence" name="actionSequence" type="hidden">

@@ -48,8 +48,6 @@ public abstract class QuestionnaireData implements hasParticipant {
     @Transient
     protected Map<String,String> validationErrors = new HashMap<>();
 
-    // TODO: Add data structure / rep for action sequence. Would be dictionary of <String, DateTime> pairs.
-
     /**
      * Provides a list of measures grouped by measures with the same scale.  Often there is just one scale,
      * so all measures are returned as a part of a single group with a blank name.
