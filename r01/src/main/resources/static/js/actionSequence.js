@@ -10,16 +10,10 @@ $(document).ready(function() {
     });
 
     $(document).on('submit', 'form', function() {
+        url = $("#formName").val()
         $.ajax({
             type: "POST",
-            url: '/action/average',
-            data: JSON.stringify(action_sequence),
-            success: success, // Add success function
-            dataType: 'json'
-        });
-        $.ajax({
-            type: "POST",
-            url: '/action/all',
+            url: url,
             data: JSON.stringify(action_sequence),
             success: success, // Add success function
             dataType: 'json'

@@ -19,9 +19,7 @@
 
     <input id="formName" name="formName" value="Evaluation" th:value="${form.name}"> 
     <form th:action="@{/questions/{name}(name=${form.name})}" th:object="${model}" method="POST" id="EVALFORM">
-    <!-- Add action sequence log -->
-    <input id="actionSequence" name="actionSequence" type="hidden">
-        
+  
     <!-- Add timer -->
     <div class="container">
         <div class="row">

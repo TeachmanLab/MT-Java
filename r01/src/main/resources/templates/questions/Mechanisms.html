@@ -28,9 +28,7 @@
     </section>
     <input id="formName" name="formName" value="Mechanisms" th:value="${form.name}"> 
     <form th:action="@{/questions/{name}(name=${form.name})}" method="POST" style="padding-left: 30px">
-        <!-- Add action sequence log -->
-        <input id="actionSequence" name="actionSequence" type="hidden">
-        
+
         <!-- Add timer -->
         <input id="timeOnPage" name="timeOnPage" type="hidden"/>
         <div class="container section compactQuestion">

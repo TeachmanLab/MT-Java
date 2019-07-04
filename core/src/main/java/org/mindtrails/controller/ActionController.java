@@ -58,10 +58,11 @@ public class ActionController extends BaseController {
     ResponseEntity<Void> saveActionSequence(Principal principal,
                  @PathVariable("formName") String formName, @RequestBody ActionList actionList) {
 
-        LOG.info("Saving action sequence to database for questionnaire...")
+        String message = "Saving action sequence to database for questionnaire..." + formName;
+        LOG.info(message);
 
         Participant p = getParticipant(principal);
-        Session session = p.getStudy().getCurrentSession()
+        Session session = p.getStudy().getCurrentSession();
 
         for(ActionList action: list) {
             action.setParticipant(p);
@@ -72,6 +73,8 @@ public class ActionController extends BaseController {
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    /* Should we save participant average latency as well? This would come in handy as a feature. */
 
     /* For later implementation, if we want to view action sequences in the web dashboard */
 

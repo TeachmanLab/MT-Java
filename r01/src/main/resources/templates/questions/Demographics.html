@@ -37,9 +37,6 @@
                     <input id="formName" name="formName" value="Demographics" th:value="${form.name}">
                     <form th:action="@{/questions/{name}(name=${form.name})}" method="POST"  th:object="${model}">
 
-                        <!-- Add action sequence log -->
-                        <input id="actionSequence" name="actionSequence" type="hidden">
-
                         <!-- Add timer -->
                         <input id="timeOnPage" name="timeOnPage" type="hidden" />
 
