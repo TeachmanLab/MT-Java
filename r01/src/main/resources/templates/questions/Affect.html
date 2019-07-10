@@ -23,9 +23,6 @@
                 <input id="formName" name="formName" value="Affect" th:value="${form.name}">
                 <form id="affectForm" th:action="@{/questions/{name}(name=${form.name})}" method="POST">
 
-                    <!-- Add action sequence log -->
-                    <input id="actionSequence" name="actionSequence" type="hidden"/>
-
                     <!-- Add timer -->
                     <input id="timeOnPage" name="timeOnPage" type="hidden"/>
 

@@ -10,6 +10,7 @@ $(document).ready(function() {
     });
 
     $(document).on('submit', 'form', function() {
+        url = $("#formName").val()
         $.ajax({
             type: "POST",
             url: '/action',
