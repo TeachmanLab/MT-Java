@@ -12,14 +12,7 @@ $(document).ready(function() {
     $(document).on('submit', 'form', function() {
         $.ajax({
             type: "POST",
-            url: '/action/average',
-            data: JSON.stringify(action_sequence),
-            success: success, // Add success function
-            dataType: 'json'
-        });
-        $.ajax({
-            type: "POST",
-            url: '/action/all',
+            url: '/action',
             data: JSON.stringify(action_sequence),
             success: success, // Add success function
             dataType: 'json'

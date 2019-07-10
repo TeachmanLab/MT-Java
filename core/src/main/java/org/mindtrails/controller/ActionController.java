@@ -52,11 +52,11 @@ public class ActionController extends BaseController {
         Save the action sequence to the repo, for the given questionnaire
      */
     @ExportMode
-    @RequestMapping(value="/questionnaire/{formName}", method = RequestMethod.POST,
+    @RequestMapping(method = RequestMethod.POST,
             headers = "content-type=application/json")
     public @ResponseBody
     ResponseEntity<Void> saveActionSequence(Principal principal,
-                 @PathVariable("formName") String formName, @RequestBody ActionList actionList) {
+                 @RequestParam String formName, @RequestBody ActionList actionList) {
 
         LOG.info("Saving action sequence to database for questionnaire...")
 

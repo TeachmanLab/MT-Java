@@ -33,22 +33,22 @@
         }
 
         gtag('js', new Date());
-        gtag('set', {'user_id': '[[${participant.id}]]'});
+        gtag('set', { 'user_id': '[[${participant.id}]]' });
         gtag('config', 'UA-77944674-4');
     </script>
 </head>
 
 
 <head id="headerFragment" th:fragment="headerFragment">
-    <meta charset="utf-8"/>
-    <meta name="description" content="Calm Thinking"/>
-    <meta name="keywords" content="anxiety virginia psychology implicit mindtrails cognitive behavioral"/>
-    <meta name="author" content="virginia.edu"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <meta charset="utf-8" />
+    <meta name="description" content="Calm Thinking" />
+    <meta name="keywords" content="anxiety virginia psychology implicit mindtrails cognitive behavioral" />
+    <meta name="author" content="virginia.edu" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <title>Calm Thinking</title>
 
 
-    <link rel="icon" type="image/png" th:href="@{/favicon.ico}"/>
+    <link rel="icon" type="image/png" th:href="@{/favicon.ico}" />
 
     <!-- JavaScript -->
     <script type="text/javascript" th:src="@{/bower/jquery/dist/jquery.min.js}"></script>
@@ -56,22 +56,22 @@
     <script type="text/javascript" th:src="@{/bower/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/firstQuestionSlider.js}"></script>
     <script type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
+        src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
     <script type="text/javascript" th:src="@{/bower/timeme.js/timeme.js}"></script>
     <script type="text/javascript" th:src="@{/bower/jquery-validate/dist/jquery.validate.js}"></script>
 
     <!--Google Font-->
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,700,700italic,600'
-          rel='stylesheet' type='text/css'/>
+        rel='stylesheet' type='text/css' />
 
     <!--style sheets-->
     <link rel="stylesheet" media="screen" th:href="@{/bower/bootstrap/dist/css/bootstrap.css}"
-          href="../../static/bower/bootstrap/dist/css/bootstrap.css"/> <!-- Themed bootstream -->
+        href="../../static/bower/bootstrap/dist/css/bootstrap.css" /> <!-- Themed bootstream -->
     <link rel="stylesheet" media="screen"
-          th:href="@{/bower/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css}"/>
-    <link rel="stylesheet" media="screen" th:href="@{/css/mindtrails.css}"/>
-    <link rel="stylesheet" media="screen" th:href="@{/css/mobile.css}"/>
-    <link rel="stylesheet" media="print" th:href="@{/css/print.css}" href="../../static/css/print.css"/>
+        th:href="@{/bower/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css}" />
+    <link rel="stylesheet" media="screen" th:href="@{/css/mindtrails.css}" />
+    <link rel="stylesheet" media="screen" th:href="@{/css/mobile.css}" />
+    <link rel="stylesheet" media="print" th:href="@{/css/print.css}" href="../../static/css/print.css" />
 
     <!-- Timer here -->
     <script type="text/javascript">
@@ -104,7 +104,7 @@
         }
 
         gtag('js', new Date());
-        gtag('set', {'user_id': '[[${participant.id}]]'});
+        gtag('set', { 'user_id': '[[${participant.id}]]' });
         gtag('config', 'UA-77944674-4');
     </script>
 
@@ -119,10 +119,10 @@
 
 <body>
 
-<!-- This is the template for asking a series of statements that all have the same
+    <!-- This is the template for asking a series of statements that all have the same
      possible radio options as answers.  It uses the Mustache framework to populate
       the answers. -->
-<textarea style="display: none" id="template" th:fragment="questionTemplate">
+    <textarea style="display: none" id="template" th:fragment="questionTemplate">
     <div class="row header">
         <div class="col-md-6"><p class="tableOptions"></p></div>
     {{#options}}
@@ -154,7 +154,7 @@
 </textarea>
 
 
-<textarea style="display: none" id="template2" th:fragment="questionTemplate2">
+    <textarea style="display: none" id="template2" th:fragment="questionTemplate2">
 
     <div class="row header">
         <div class="col-md-4"><p class="tableOptions"></p></div>
@@ -180,7 +180,7 @@
 </textarea>
 
 
-<textarea style="display: none" id="template3" th:fragment="questionTemplate3">
+    <textarea style="display: none" id="template3" th:fragment="questionTemplate3">
 
     {{#reasons}}
      <div class="row">
@@ -197,7 +197,7 @@
 
 </textarea>
 
-<textarea style="display: none" id="template4" th:fragment="questionTemplate4">
+    <textarea style="display: none" id="template4" th:fragment="questionTemplate4">
 
     {{#questions}}
      <div class="row">
@@ -237,7 +237,7 @@
 </textarea>
 
 
-<textarea style="display: none" id="template5" th:fragment="questionTemplate5">
+    <textarea style="display: none" id="template5" th:fragment="questionTemplate5">
 
 
     {{#questions}}
@@ -275,7 +275,7 @@
 </textarea>
 
 
-<textarea style="display: none" id="template6" th:fragment="questionTemplate6">
+    <textarea style="display: none" id="template6" th:fragment="questionTemplate6">
     <div class="row header">
         <div class="col-md-4"><p class="tableOptions"></p></div>
     {{#options}}
@@ -304,20 +304,20 @@
 </textarea>
 
 
-<section id="header" class="clearfix" th:fragment="topFragment">
+    <section id="header" class="clearfix" th:fragment="topFragment">
 
-    <nav class="navbar navbar-default">
+        <nav class="navbar navbar-default">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                        data-target="#main-navbar-collapse" aria-expanded="false">
+                    data-target="#main-navbar-collapse" aria-expanded="false">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
                 <a th:href="@{/}">
-                    <img alt="MindTrails" class="header-logo" th:src="@{/images/logo.png}"/>
+                    <img alt="MindTrails" class="header-logo" th:src="@{/images/logo.png}" />
                 </a>
             </div>
 
@@ -337,8 +337,7 @@
                     </li>
                     <li><a th:href="@{/public/contact}">Contact&nbsp;Us</a></li>
                     <li><a th:href="@{/public/team}">Meet&nbsp;the&nbsp;Team</a></li>
-                    <li
-                        th:if="${participant} and ${#authorization.expression('hasRole(''ROLE_USER'')')}">
+                    <li th:if="${participant} and ${#authorization.expression('hasRole(''ROLE_USER'')')}">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                            aria-expanded="false">My Account<span class="caret"></span></a>
                         <ul class="dropdown-menu">
@@ -517,10 +516,29 @@
 
 <!--If you need to include javascript at the end of the page.  -->
 <div id="scripts" th:fragment="scripts">
-
-    <!-- Use Jquery-Validate plugin to validate all forms. -->
     <script>
         $(document).ready(function () {
+
+            // Capture the action sequence
+            action_sequence = []
+
+            // TODO - Fix so it will also work with slider vals - Anna
+            $("input").change(function () {
+                action_sequence.push({ 'name': $(this).attr("name"), 'time': Date.now() });
+            });
+
+            // Record the action sequence
+            $(document).on('submit', 'form', function () {
+                $.ajax({
+                    type: "POST",
+                    url: '/action?formName=' + $('#formName').val(),
+                    data: JSON.stringify(action_sequence),
+                    success: success, // TODO: Add success function - Anna
+                    dataType: 'json'
+                });
+            });
+
+            // Use Jquery-Validate plugin to validate all forms.
             $("form").validate({
                 errorElement: "span",
                 errorPlacement: function (error, element) {
