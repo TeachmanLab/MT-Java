@@ -22,14 +22,17 @@ import java.util.Date;
 @Exportable
 @DoNotDelete
 public class Action {
-    private String name;
-    private Date timestamp;
-    private String study;
-    private String task;
-    private double latency;
     @ManyToOne
     @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
     @JsonIdentityReference(alwaysAsId=true) // otherwise first ref as POJO, others as id
+
+    private String action1;
+    private String action2;
+    private String studyName;
+    private String sessionName;
+    private String taskName;
+    private double latency;
+
     @JsonProperty(value = "participant")
     protected Participant participant;
 }

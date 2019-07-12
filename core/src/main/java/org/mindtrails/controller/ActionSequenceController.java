@@ -29,61 +29,38 @@ import java.util.List;
  * Created by Anna on 7/2/19
  */
 
-/* 
-
-    In the Action repository, create 1 entry per 1 action object that includes:
-        - The participant id
-        - The questionnaire name
-        - The action name
-        - The action timestamp
-
- */  
-
 @Controller
 @RequestMapping("/action")
 public class ActionController extends BaseController {
 
     @Autowired
-    ActionRepository actionRepository;
+    ActionSequenceRepository actionSequenceRepository;
 
-    private static final Logger LOG = LoggerFactory.getLogger(actionRepository.class);
+    private static final Logger LOG = LoggerFactory.getLogger(actionSequenceRepository.class);
 
-    /* 
-        Save the action sequence to the repo, for the given questionnaire
-     */
     @ExportMode
     @RequestMapping(method = RequestMethod.POST,
             headers = "content-type=application/json")
     public @ResponseBody
-    ResponseEntity<Void> saveActionSequence(Principal principal,
-                 @RequestParam String formName, @RequestBody ActionList actionList) {
+    ResponseEntity<Void> saveActionSequence(Principal principal, 
+        @RequestBody ActionSequence actionSequence) {
 
         String message = "Saving action sequence to database for questionnaire..." + formName;
         LOG.info(message);
 
         Participant p = getParticipant(principal);
-        Session session = p.getStudy().getCurrentSession();
+        String studyName = p.getStudy().getName();
+        String sessionName = p.getStudy().getCurrentSession().getName();
+        String taskName =  p.getStudy().getCurrentSession().getCurrentTask().getName();
+        
+        actionSequence.setStudyName(studyName);
+        actionSequence.setSessionName(studyName);
+        actionSequence.setTaskName(studyName);
 
-        for(ActionList action: list) {
-            action.setParticipant(p);
-            action.setDate(new Date());
-            action.setSession(session));
-            this.actionRepository.save(action);
-        }
+        this.actionSequenceRepository.save(action);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-
-    /* Should we save participant average latency as well? This would come in handy as a feature. */
-
-    /* For later implementation, if we want to view action sequences in the web dashboard */
-
-    /* 
-    @RequestMapping(value="/questionnaire/{id}", method = RequestMethod.GET)
-    public String getQuestionnaireLatencies(ModelMap model, @PathVariable("id") long id) 
-    
-    } 
-    */
 }
 
 
