@@ -6,17 +6,15 @@
 <!--[if IE 8 ]>
 <html class="ie ie8" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!-->
-<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
-<!--<![endif]-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
 
-<head th:replace="fragment/common :: headerFragment" />
-
+<head th:replace="fragment/common :: headerFragment"/>
 <body>
-    <section th:replace="fragment/common :: topFragment" />
-    <section th:replace="fragment/common :: titleBar (title='Why Things Happen')" />
-    <textArea th:replace="fragment/common :: questionTemplate" />
+<section th:replace="fragment/common :: topFragment"/>
+<section th:replace="fragment/common :: titleBar (title='Why Things Happen')"/>
+<textArea th:replace="fragment/common :: questionTemplate"/>
 
-    <section id="content1" class="clearfix">
+<section id="content1" class="clearfix">
     <div class="container">
         <div class="row">
             <div class="col-md-8">
@@ -33,8 +31,8 @@
 
 
 <section id="content" class="clearfix">
-    <input id="formName" name="formName" value="BBSIQ" th:value="${form.name}">
-    <form th:action="@{/questions/{name}(name=${form.name})}" method="POST" th:object="${model}">
+    <form th:action="@{/questions/BBSIQ}" method="POST" th:object="${model}">
+        <!-- Add timer -->
         <section th:replace="fragment/forms :: radioOptions(${model})"/>
         <div class="col-md-12" style="text-align:center">
             <button type="submit">Next</button>
@@ -48,3 +46,5 @@
 
 </body>
 </html>
+
+

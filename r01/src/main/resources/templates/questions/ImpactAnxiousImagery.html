@@ -15,8 +15,9 @@
 <section th:replace="fragment/common :: titleBar (title='Impact questions')"/>
 <textArea th:replace="fragment/common :: questionTemplate"/>
 <section id="content" class="clearfix">
-    <input id="formName" name="formName" value="ImpactAnxiousImagery" th:value="${form.name}"> 
-    <form th:action="@{/questions/{name}(name=${form.name})}" method="POST" th:object="${model}">
+
+
+    <form th:action="@{/questions/ImpactAnxiousImagery}" method="POST" th:object="${model}">
         <section class="clearfix">
             <div class="container">
                 <div class="row">
@@ -50,6 +51,7 @@
         </section>
         <script type="text/javascript" th:src="@{/js/clearSlider.js}"/>
 
+        <!-- Add timer -->
         <section th:replace="fragment/forms :: radioOptions(${model})"/>
         <div class="col-md-12" style="text-align:center">
             <button type="submit"> Continue</button>

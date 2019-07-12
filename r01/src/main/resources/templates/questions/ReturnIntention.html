@@ -21,8 +21,8 @@
 </style>
 
 <section id="content" class="clearfix">
-    <input id="formName" name="formName" value="ReturnIntention" th:value="${form.name}"> 
-    <form th:action="@{/questions/{name}(name=${form.name})}" method="POST">
+    <form id="form" th:action="@{/questions/ReturnIntention}" method="POST">
+
 
         <!-- Add timer -->
         <input id="timeOnPage" name="timeOnPage" type="hidden"/>

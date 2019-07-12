@@ -6,20 +6,16 @@
 <!--[if IE 8 ]>
 <html class="ie ie8" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!-->
-<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
-<!--<![endif]-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
 
-<head th:replace="fragment/common :: headerFragment" />
-
+<head th:replace="fragment/common :: headerFragment"/>
 <body>
-    <section th:replace="fragment/common :: topFragment" />
-    <section th:replace="fragment/common :: titleBar (title='Evaluating the Program')" />
-    <textArea th:replace="fragment/forms :: questionTemplate" />
-    <textArea th:replace="fragment/common :: questionTemplate5"/>
+<section th:replace="fragment/common :: topFragment"/>
+<section th:replace="fragment/common :: titleBar (title='Evaluating the Program')"/>
+<textArea th:replace="fragment/forms :: questionTemplate"/>
+<textArea th:replace="fragment/common :: questionTemplate5"/>
 
-    <input id="formName" name="formName" value="Evaluation" th:value="${form.name}"> 
-    <form th:action="@{/questions/{name}(name=${form.name})}" th:object="${model}" method="POST" id="EVALFORM">
-  
+<form th:action="@{/questions/Evaluation}" th:object="${model}" method="POST" id="EVALFORM">
     <!-- Add timer -->
     <div class="container">
         <div class="row">
@@ -119,11 +115,11 @@
             <script>
                 var data = {
                     "options": [
-                        { "value": 1, "title": "Way too short" },
-                        { "value": 2, "title": "Somewhat too short" },
-                        { "value": 3, "title": "The right length" },
-                        { "value": 4, "title": "Somewhat too long" },
-                        { "value": 5, "title": "Way too long" }
+                        {"value": 1, "title": "Way too short"},
+                        {"value": 2, "title": "Somewhat too short"},
+                        {"value": 3, "title": "The right length"},
+                        {"value": 4, "title": "Somewhat too long"},
+                        {"value": 5, "title": "Way too long"}
                     ],
                     "questions": [
                         {
@@ -147,11 +143,11 @@
             <script>
                 var data = {
                     "options": [
-                        { "value": 0, "title": "No, definitely not" },
-                        { "value": 1, "title": "No, probably not" },
-                        { "value": 2, "title": "Not sure" },
-                        { "value": 3, "title": "Yes, I probably would" },
-                        { "value": 4, "title": "Yes, I definitely would" }
+                        {"value": 0, "title": "No, definitely not"},
+                        {"value": 1, "title": "No, probably not"},
+                        {"value": 2, "title": "Not sure"},
+                        {"value": 3, "title": "Yes, I probably would"},
+                        {"value": 4, "title": "Yes, I definitely would"}
                     ],
                     "questions": [
                         {
@@ -169,11 +165,11 @@
             <script>
                 var data = {
                     "options": [
-                        { "value": 0, "title": "Much more likely" },
-                        { "value": 1, "title": "A little more likely" },
-                        { "value": 2, "title": "Not sure" },
-                        { "value": 3, "title": "A little less likely" },
-                        { "value": 4, "title": "Much less likely" },
+                        {"value": 0, "title": "Much more likely"},
+                        {"value": 1, "title": "A little more likely"},
+                        {"value": 2, "title": "Not sure"},
+                        {"value": 3, "title": "A little less likely"},
+                        {"value": 4, "title": "Much less likely"},
                         {
                             "value": 5,
                             "title": "Not applicable (e.g., I'm currently undergoing another form of treatment)"
@@ -289,9 +285,9 @@
             <script>
                 var data = {
                     "options": [
-                        { "value": 0, "title": "Early in the training program (within the first two sessions)" },
-                        { "value": 1, "title": "Mid-way through the training program (around the third session)" },
-                        { "value": 2, "title": "Later in the training program (within the last two sessions)" },
+                        {"value": 0, "title": "Early in the training program (within the first two sessions)"},
+                        {"value": 1, "title": "Mid-way through the training program (around the third session)"},
+                        {"value": 2, "title": "Later in the training program (within the last two sessions)"},
                     ],
                     "questions": [
                         {
@@ -438,13 +434,13 @@
             <script>
                 var data = {
                     "options": [
-                        { "value": 1, "title": "Very negative" },
-                        { "value": 2, "title": "Somewhat negative" },
-                        { "value": 3, "title": "Slightly negative" },
-                        { "value": 4, "title": "Neither negative nor positive" },
-                        { "value": 5, "title": "Slightly positive" },
-                        { "value": 6, "title": "Somewhat positive" },
-                        { "value": 7, "title": "Very positive" }
+                        {"value": 1, "title": "Very negative"},
+                        {"value": 2, "title": "Somewhat negative"},
+                        {"value": 3, "title": "Slightly negative"},
+                        {"value": 4, "title": "Neither negative nor positive"},
+                        {"value": 5, "title": "Slightly positive"},
+                        {"value": 6, "title": "Somewhat positive"},
+                        {"value": 7, "title": "Very positive"}
                     ],
                     "questions": [
                         {
@@ -462,11 +458,11 @@
             <script>
                 var data = {
                     "options": [
-                        { "value": 1, "title": "Not at all understood" },
-                        { "value": 2, "title": "Slightly understood" },
-                        { "value": 3, "title": "Moderately understood" },
-                        { "value": 4, "title": "Very understood" },
-                        { "value": 5, "title": "Completely understood" }
+                        {"value": 1, "title": "Not at all understood"},
+                        {"value": 2, "title": "Slightly understood"},
+                        {"value": 3, "title": "Moderately understood"},
+                        {"value": 4, "title": "Very understood"},
+                        {"value": 5, "title": "Completely understood"}
                     ],
                     "questions": [
                         {
@@ -484,15 +480,15 @@
             <script>
                 var data = {
                     "options": [
-                        { "value": 1, "title": "Completely not motivating" },
-                        { "value": 2, "title": "Moderately not motivating" },
-                        { "value": 3, "title": "Slightly not motivating" },
+                        {"value": 1, "title": "Completely not motivating"},
+                        {"value": 2, "title": "Moderately not motivating"},
+                        {"value": 3, "title": "Slightly not motivating"},
                         {
                             "value": 4,
                             "title": "Not at all a motivating factor (I would have completed the sessions whether I had a coach or not)"
                         },
-                        { "value": 5, "title": "Slightly motivating" },
-                        { "value": 6, "title": "Somewhat motivating" },
+                        {"value": 5, "title": "Slightly motivating"},
+                        {"value": 6, "title": "Somewhat motivating"},
                         {
                             "value": 7,
                             "title": "Completely motivating (I only completed the sessions because I had a coach)"
@@ -678,10 +674,10 @@
     $(document).ready(function () {
         $('#EVALFORM').validate({
             rules: {
-                'devices': { required: true, minlength: 1 },
-                'places': { required: true, minlength: 1 },
-                'reasonsControl': { required: true, minlength: 1 },
-                'howLearn': { required: true, minlength: 1 }
+                'devices': {required: true, minlength: 1},
+                'places': {required: true, minlength: 1},
+                'reasonsControl': {required: true, minlength: 1},
+                'howLearn': {required: true, minlength: 1}
             }
         });
     });

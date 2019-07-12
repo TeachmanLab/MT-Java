@@ -32,9 +32,8 @@
 </section>
 
 <section id="content" class="clearfix">
-        <input id="formName" name="formName" value="OA" th:value="${form.name}"> 
-        <form th:action="@{/questions/{name}(name=${form.name})}" method="POST">
 
+    <form th:action="@{/questions/OA}" method="POST">
         <!-- Add timer -->
         <input id="timeOnPage" name="timeOnPage" type="hidden"/>
         <div class="container">

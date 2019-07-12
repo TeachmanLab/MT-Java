@@ -14,8 +14,7 @@
 <section th:replace="fragment/common :: topFragment"/>
 <section th:replace="fragment/common :: titleBar (title='Technology Use')"/>
 
-<input id="formName" name="formName" value="TechnologyUse" th:value="${form.name}"> 
-<form th:action="@{/questions/{name}(name=${form.name})}" th:object="${model}" method="POST" id="EVALFORM">
+<form th:action="@{/questions/TechnologyUse}" th:object="${model}" method="POST" id="EVALFORM">
     <div class="container">
         <section th:replace="fragment/forms :: radioOptions(${model})"/>
         <div style="text-align:center">

@@ -13,8 +13,7 @@
 <section th:replace="fragment/common :: topFragment"/>
 <section th:replace="fragment/common :: titleBar (title='Session Review')"/>
 
-<input id="formName" name="formName" value="SessionReview" th:value="${form.name}"> 
-<form th:action="@{/questions/{name}(name=${form.name})}" th:object="${model}" method="POST">
+<form th:action="@{/questions/SessionReview}" th:object="${model}" method="POST">
     <div class="container">
 
         <!-- Question 1 -->
