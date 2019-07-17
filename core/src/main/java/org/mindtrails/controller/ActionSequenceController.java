@@ -45,13 +45,13 @@ public class ActionController extends BaseController {
     ResponseEntity<Void> saveActionSequence(Principal principal, 
         @RequestBody ActionSequence actionSequence) {
 
-        String message = "Saving action sequence to database for questionnaire..." + formName;
-        LOG.info(message);
-
         Participant p = getParticipant(principal);
         String studyName = p.getStudy().getName();
         String sessionName = p.getStudy().getCurrentSession().getName();
         String taskName =  p.getStudy().getCurrentSession().getCurrentTask().getName();
+
+        String message = "Saving action sequence to database for questionnaire " + taskName;
+        LOG.info(message);
         
         actionSequence.setStudyName(studyName);
         actionSequence.setSessionName(studyName);
