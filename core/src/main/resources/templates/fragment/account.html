@@ -76,17 +76,21 @@
                     <span id="error-msg" class="error hide"></span>
                 </div>
 
-
-
+                <link rel="stylesheet" type="text/css" th:href="@{/bower/intl-tel-input/build/css/intlTelInput.css}"/>
                 <script th:src="@{/bower/intl-tel-input/build/js/intlTelInput.js}"></script>
+
                 <script th:inline="javascript">
                     /*<![CDATA[*/
                     $( document ).ready(function() {
                         // initialise plugin
                         input = document.querySelector("#phone");
+
                         var iti = window.intlTelInput(input, {
                                 utilsScript:/*[[@{/bower/intl-tel-input/build/js/utils.js}]]*/ "path/to/util.js"
-                            });
+                        });
+                        console.log("Utility Script:" + iti.utilsScript)
+                        window.intlTelInputGlobals.loadUtils(/*[[@{/bower/intl-tel-input/build/js/utils.js}]]*/ );
+                        console.log("Utility Script:" + iti.utilsScript)
 
                         // here, the index maps to the error code returned from getValidationError - see readme
                         var errorMap = [ "Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
@@ -117,25 +121,6 @@
                                 }
                             }
                         });
-
-                        // on blur: validate
-                        /*
-                        input.blur(function() {
-                            var phoneReminders = $("#phoneReminders");
-                            var countryData = $("#phone").intlTelInput("getSelectedCountryData");
-                            if (countryData.iso2 != "us") {
-                                phoneReminders.attr('checked', false);
-                                phoneReminders.prop('disabled', true);
-                                $("#noTexts").show();
-                                $("#yesTexts").hide();
-                            } else {
-                                phoneReminders.prop('disabled', false);
-                                phoneReminders.attr('checked', true);
-                                $("#noTexts").hide();
-                                $("#yesTexts").show();
-                            }
-                        });
-                        */
                     });
                     /*]]>*/
                 </script>
