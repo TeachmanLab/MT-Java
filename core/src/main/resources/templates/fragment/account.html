@@ -67,7 +67,9 @@
                        th:field="*{phone}"/>
                 -->
                 <div id="result">
-                <input class="form-control"  name="phone" id="phone" type="tel" th:field="*{phone}" th:errorclass="error" th:readonly="${verified}" required="true"/>
+                    <input type="hidden" name="phone" id="hidden_phone" th:field="*{phone}" th:errorclass="error" th:readonly="${verified}" required="true"/>
+
+                <input   name="phone_control" id="phone" type="tel" th:readonly="${verified}" required="true"/>
                     <br/>
                     <span class="note" th:if="${verified}">
                        Your phone number has been verified &mdash; please <a href="mailto:studyteam@mindtrails.org">contact the study team</a> if you wish to change your phone number.
@@ -76,17 +78,24 @@
                     <span id="error-msg" class="error hide"></span>
                 </div>
 
-
-
+                <link rel="stylesheet" type="text/css" th:href="@{/bower/intl-tel-input/build/css/intlTelInput.css}"/>
                 <script th:src="@{/bower/intl-tel-input/build/js/intlTelInput.js}"></script>
+
                 <script th:inline="javascript">
                     /*<![CDATA[*/
                     $( document ).ready(function() {
                         // initialise plugin
-                        input = document.querySelector("#phone");
+                        let input = document.querySelector("#phone");
+                        let hidden_input = document.querySelector("#hidden_phone");
+
+                        input.value = hidden_input.value;
+
                         var iti = window.intlTelInput(input, {
-                                utilsScript:/*[[@{/bower/intl-tel-input/build/js/utils.js}]]*/ "path/to/util.js"
-                            });
+                                utilsScript:/*[[@{/bower/intl-tel-input/build/js/utils.js}]]*/ "path/to/util.js",
+                        });
+                        console.log("Utility Script:" + iti.utilsScript)
+                        window.intlTelInputGlobals.loadUtils(/*[[@{/bower/intl-tel-input/build/js/utils.js}]]*/ );
+                        console.log("Utility Script:" + iti.utilsScript)
 
                         // here, the index maps to the error code returned from getValidationError - see readme
                         var errorMap = [ "Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
@@ -109,6 +118,7 @@
                             if (input.value.trim()) {
                                 if (iti.isValidNumber()) {
                                     validMsg.classList.remove("hide");
+                                    hidden_input.value = iti.getNumber()
                                 } else {
                                     input.classList.add("error");
                                     var errorCode = iti.getValidationError();
@@ -117,25 +127,6 @@
                                 }
                             }
                         });
-
-                        // on blur: validate
-                        /*
-                        input.blur(function() {
-                            var phoneReminders = $("#phoneReminders");
-                            var countryData = $("#phone").intlTelInput("getSelectedCountryData");
-                            if (countryData.iso2 != "us") {
-                                phoneReminders.attr('checked', false);
-                                phoneReminders.prop('disabled', true);
-                                $("#noTexts").show();
-                                $("#yesTexts").hide();
-                            } else {
-                                phoneReminders.prop('disabled', false);
-                                phoneReminders.attr('checked', true);
-                                $("#noTexts").hide();
-                                $("#yesTexts").show();
-                            }
-                        });
-                        */
                     });
                     /*]]>*/
                 </script>
