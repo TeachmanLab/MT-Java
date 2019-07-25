@@ -86,11 +86,12 @@
                     $( document ).ready(function() {
                         // initialise plugin
                         let input = document.querySelector("#phone");
-                        input.value = document.querySelector("#hidden_phone").value;
+                        let hidden_input = document.querySelector("#hidden_phone");
+
+                        input.value = hidden_input.value;
 
                         var iti = window.intlTelInput(input, {
                                 utilsScript:/*[[@{/bower/intl-tel-input/build/js/utils.js}]]*/ "path/to/util.js",
-                                hiddenInput:'phone'
                         });
                         console.log("Utility Script:" + iti.utilsScript)
                         window.intlTelInputGlobals.loadUtils(/*[[@{/bower/intl-tel-input/build/js/utils.js}]]*/ );
@@ -117,6 +118,7 @@
                             if (input.value.trim()) {
                                 if (iti.isValidNumber()) {
                                     validMsg.classList.remove("hide");
+                                    hidden_input.value = iti.getNumber()
                                 } else {
                                     input.classList.add("error");
                                     var errorCode = iti.getValidationError();
