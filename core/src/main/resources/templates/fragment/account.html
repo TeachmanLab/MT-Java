@@ -67,7 +67,9 @@
                        th:field="*{phone}"/>
                 -->
                 <div id="result">
-                <input class="form-control"  name="phone" id="phone" type="tel" th:field="*{phone}" th:errorclass="error" th:readonly="${verified}" required="true"/>
+                    <input type="hidden" name="phone" id="hidden_phone" th:field="*{phone}" th:errorclass="error" th:readonly="${verified}" required="true"/>
+
+                <input   name="phone_control" id="phone" type="tel" th:readonly="${verified}" required="true"/>
                     <br/>
                     <span class="note" th:if="${verified}">
                        Your phone number has been verified &mdash; please <a href="mailto:studyteam@mindtrails.org">contact the study team</a> if you wish to change your phone number.
@@ -83,10 +85,12 @@
                     /*<![CDATA[*/
                     $( document ).ready(function() {
                         // initialise plugin
-                        input = document.querySelector("#phone");
+                        let input = document.querySelector("#phone");
+                        input.value = document.querySelector("#hidden_phone").value;
 
                         var iti = window.intlTelInput(input, {
-                                utilsScript:/*[[@{/bower/intl-tel-input/build/js/utils.js}]]*/ "path/to/util.js"
+                                utilsScript:/*[[@{/bower/intl-tel-input/build/js/utils.js}]]*/ "path/to/util.js",
+                                hiddenInput:'phone'
                         });
                         console.log("Utility Script:" + iti.utilsScript)
                         window.intlTelInputGlobals.loadUtils(/*[[@{/bower/intl-tel-input/build/js/utils.js}]]*/ );
