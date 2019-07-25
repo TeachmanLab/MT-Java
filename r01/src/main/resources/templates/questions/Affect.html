@@ -20,8 +20,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-10">
-                <input id="formName" name="formName" value="Affect" th:value="${form.name}">
-                <form id="affectForm" th:action="@{/questions/{name}(name=${form.name})}" method="POST">
+
+                <form id="affectForm" th:action="@{/questions/Affect}" method="POST">
 
                     <!-- Add timer -->
                     <input id="timeOnPage" name="timeOnPage" type="hidden"/>

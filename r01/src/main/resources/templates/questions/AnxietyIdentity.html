@@ -18,8 +18,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-10">
-                <input id="formName" name="formName" value="AnxietyIdentity" th:value="${form.name}">
-                <form th:action="@{/questions/{name}(name=${form.name})}" method="POST">
+                <form th:action="@{/questions/AnxietyIdentity}" method="POST">
 
                     <!-- Add timer -->
                     <input id="timeOnPage" name="timeOnPage" type="hidden"/>
