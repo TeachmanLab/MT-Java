@@ -1,4 +1,4 @@
-package org.mindtrails.domain.Action;
+package org.mindtrails.domain;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
@@ -17,11 +17,11 @@ import javax.persistence.Table;
 import java.util.Date;
 
 @Entity
-@Table(name = "Action")
+@Table(name = "ActionSequence")
 @Data
 @Exportable
 @DoNotDelete
-public class Action {
+public class ActionSequence {
     @ManyToOne
     @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
     @JsonIdentityReference(alwaysAsId=true) // otherwise first ref as POJO, others as id
