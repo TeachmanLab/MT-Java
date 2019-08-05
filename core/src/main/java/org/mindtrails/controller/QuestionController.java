@@ -141,6 +141,7 @@ public class QuestionController extends BaseController {
         if(data instanceof HasReturnDate) {
             HasReturnDate inviteData = (HasReturnDate)data;
             participant.setReturnDate(inviteData.getReturnDate());
+            participant.setTimezone(inviteData.getTimezone());
             participantService.save(participant);
         }
 

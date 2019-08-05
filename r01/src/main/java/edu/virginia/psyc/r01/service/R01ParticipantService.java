@@ -210,10 +210,12 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
         R01Study study = (R01Study)p.getStudy();
 
         // Now that p is saved, connect any Expectancy Bias eligibility data back to the
-        // session, and log it in the TaskLog
+        // session, and log it in the TaskLog.  Update the date time so that it is
+        // properly picked up in the export routine.
         for (DASS21_AS e : forms) {
             e.setParticipant(p);
             e.setSession(ELIGIBLE_SESSION);
+            e.setDate(new Date());
             dass21RRepository.save(e);
             study.completeEligibility(e);
         }

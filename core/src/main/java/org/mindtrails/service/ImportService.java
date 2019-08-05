@@ -313,7 +313,6 @@ public class ImportService {
         rep.save(object);
         long id = elm.path("id").asLong();
 
-        LOGGER.info("Adding " + scale + " id " + id);
         if(this.deleteable(scale)) {
             LOGGER.info("Deleteing remote  " + scale + " id " + id);
             if(object instanceof hasParticipant && participant != null) {

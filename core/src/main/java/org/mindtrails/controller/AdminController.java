@@ -272,7 +272,7 @@ public class AdminController extends BaseController {
             GiftLog log = new GiftLog(p, "test", 1,1, item);
             this.giftLogRepository.save(log);
             OrderResponse reward = tangoService.awardGiftCard(log);  // This would actually award a gift card, if you need to do some testing.
-            this.emailService.sendGiftCard(p, reward, 1);
+            this.emailService.sendGiftCard(p, reward, log);
         } else if(type.equals("resetPass")) {
             p.setPasswordToken(new PasswordToken());
             this.emailService.sendPasswordReset(p);
@@ -345,7 +345,7 @@ public class AdminController extends BaseController {
         for(long id : ids) {
             GiftLog log = giftLogRepository.findOne(id);
             OrderResponse reward = this.tangoService.awardGiftCard(log);
-            this.emailService.sendGiftCard(log.getParticipant(), reward, log.getAmount());
+            this.emailService.sendGiftCard(log.getParticipant(), reward, log);
         }
         return tangoInfo(model, principal, "0");
     }
@@ -357,7 +357,7 @@ public class AdminController extends BaseController {
         Participant p = participantRepository.findOne(id);
         GiftLog log = tangoService.createGiftLogUnsafe(p, "AdminAwarded", 5);
         OrderResponse reward = tangoService.awardGiftCard(log);
-        this.emailService.sendGiftCard(p, reward, log.getAmount());
+        this.emailService.sendGiftCard(p, reward, log);
         return "redirect:/admin/participant/" + id;
     }
 
@@ -367,6 +367,17 @@ public class AdminController extends BaseController {
         model.addAttribute("order",order);
         return "admin/rewardInfo";
     }
+
+    @RequestMapping(value="/participant/{id}/resendGift/{giftLogId}", method=RequestMethod.GET)
+    public String resendGiftCard(@PathVariable("id") long id,
+                                 @PathVariable("giftLogId") long giftLogId) throws Exception {
+        GiftLog log = giftLogRepository.findOne(giftLogId);
+        Participant p = participantRepository.findOne(id);
+        OrderResponse reward = tangoService.getOrderInfo(log.getOrderId());
+        this.emailService.sendGiftCard(p, reward, log);
+        return "redirect:/admin/participant/" + id;
+    }
+
 
     @RequestMapping(value="/export", method=RequestMethod.GET)
     public String export(ModelMap model, Principal principal) {

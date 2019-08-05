@@ -40,6 +40,7 @@ public class ReturnIntention extends LinkedQuestionnaireData implements HasRetur
 
     private Long daysTillReturning;
 
+    private String timezone;
 
     /*
      * MASSIVE HACK, as after 4 hours, I was never able to get spring to correctly prase and set the
