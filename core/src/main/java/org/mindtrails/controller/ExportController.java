@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import org.joda.time.DateTime;
-import org.joda.time.Days;
 import org.joda.time.Years;
 import org.mindtrails.domain.Conditions.ConditionAssignment;
 import org.mindtrails.domain.ExportMode;
@@ -16,7 +15,6 @@ import org.mindtrails.domain.RestExceptions.NoSuchQuestionnaireException;
 import org.mindtrails.domain.RestExceptions.NotDeleteableException;
 import org.mindtrails.domain.importData.Scale;
 import org.mindtrails.domain.tracking.ExportLog;
-import org.mindtrails.domain.tracking.MindTrailsLog;
 import org.mindtrails.persistence.*;
 import org.mindtrails.service.ExportService;
 import org.mindtrails.domain.piPlayer.Trial;
@@ -76,8 +74,8 @@ public class ExportController  {
                 results = getTrialSummary((TrialRepository) rep);
             } else if(rep instanceof TaskLogRepository) {
                 results = ((TaskLogRepository) rep).findByDateCompletedGreaterThan(date);
-            } else if(rep instanceof ActionSequenceRepository) {
-                results = ((ActionSequenceRepository) rep).findByDateCompletedGreaterThan(date);
+            } else if(rep instanceof ActionLogRepository) {
+                results = ((ActionLogRepository) rep).findByDateRecordedGreaterThan(date);
             } else if(rep instanceof LogRepository) {
                 results = ((LogRepository) rep).findByDateSentGreaterThan(date);
             } else if(rep instanceof QuestionnaireRepository) {

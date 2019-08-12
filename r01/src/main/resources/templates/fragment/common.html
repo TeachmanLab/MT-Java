@@ -518,42 +518,21 @@
 <div id="scripts" th:fragment="scripts">
     <script>
         $(document).ready(function () {
-            
-            // Track the last input that was changed
-            var $input1 = $();
-            var start_time = $.now();
-            var end_time;
 
-            // Capture the action sequence
-            var action_sequence = {};
-
+            // Post every time the user performs an action within the task (questionnaire)
             // TODO - Fix so it will also work with slider vals - Anna
-            $("input").on('keyup keypress blur change', function () {
-                if (isEmpty($input1)) {
-                    $input1 = $(this);
-                }
-                
-                else if (!$(this).is($input1)) {
-                    $input2 = $(this);
-                    end_time = $.now();
-                    action_sequence= {
-                        'action1': $input1.attr('name'),
-                        'action2': $input2.attr('name'),
-                        'latency': end_time.getSeconds() - start_time.getSeconds()
-                    }
-                }
-               
-            });
-
-            // Record the action sequence
-            $(document).on('submit', 'form', function () {
+            $("input").on('change', function () {
                 $.ajax({
                     type: "POST",
                     url: '/action',
-                    data: JSON.stringify(action_sequence),
-                    success: success, // TODO: Add success function - Anna
-                    dataType: 'json'
+                    contentType: "application/json; charset=utf-8",
+                    dataType: 'json',
+                    data: {
+                        'actionName': JSON.stringify($(this).attr('name'))
+                    },
+                    success: console.log("posted action"), // TODO: Add success function - Anna
                 });
+
             });
 
             // Use Jquery-Validate plugin to validate all forms.
