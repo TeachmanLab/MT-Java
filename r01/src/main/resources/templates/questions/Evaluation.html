@@ -581,14 +581,7 @@
 </form>
 
 <footer th:replace="fragment/common :: footer"/>
-
-</body>
-</html>
-
-
-<!--Javascript
-================================================== -->
-
+<div th:include="fragment/common :: scripts"/>
 <script type="text/javascript">
 
     function techProblems() {
@@ -684,4 +677,6 @@
 
 </script>
 
-<div th:include="fragment/common :: scripts"/>
+</body>
+</html>
+
