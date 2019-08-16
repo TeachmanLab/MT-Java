@@ -36,8 +36,10 @@ public class ActionLog {
     private String taskName;
     private Date dateRecorded;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonProperty(value = "participant")
+    @ManyToOne
+    @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
+    @JsonIdentityReference(alwaysAsId=true)
+    @JsonProperty("participant")
     protected Participant participant;
 
     public ActionLog() {};
