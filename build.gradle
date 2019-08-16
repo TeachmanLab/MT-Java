@@ -1,0 +1,45 @@
+
+allprojects {
+    apply plugin: 'idea'
+
+    group = 'org.mindtrails'
+    version = '0.0.1-SNAPSHOT'
+}
+
+subprojects {
+
+    apply plugin: 'java'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+    
+    project.ext {
+        springBootVersion = '1.5.16.RELEASE'
+    }
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url "http://repo.spring.io/libs-snapshot" }
+    }
+
+    dependencies {
+        compile("org.projectlombok:lombok:1.16.20")  // avoid boiler plate constructors, getter/setter, hash, toString
+        compile("org.springframework.boot:spring-boot-starter-data-jpa")
+        compile("org.springframework:spring-jdbc")
+        compile("org.springframework.security:spring-security-web")
+        compile("org.springframework.security:spring-security-config")
+        compile("org.springframework:spring-context-support") //  Email
+        compile("javax.mail:mail:1.4.7") // also Email
+        compile('commons-codec:commons-codec:1.10') // Base64 encoding / decoding to help with storing encrypted data.
+        compile("org.apache.httpcomponents:httpclient")  // For calling google's recaptcha api
+        testCompile("org.springframework.boot:spring-boot-starter-test")
+        testCompile("org.springframework.security:spring-security-test")
+
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.7'
+}
+
