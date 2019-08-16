@@ -154,6 +154,9 @@
 
 <!--Javascript
 ================================================== -->
+
+<div th:include="fragment/common :: scripts"/>
+
 <script type="text/javascript">
     function otherLocation() {
         if (document.getElementById('locationOther').checked) {
@@ -200,8 +203,6 @@
         }
     }
 </script>
-
-<div th:include="fragment/common :: scripts"/>
 
 </body>
 </html>

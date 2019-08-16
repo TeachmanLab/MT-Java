@@ -518,10 +518,11 @@
 <div id="scripts" th:fragment="scripts">
     <script>
         $(document).ready(function () {
-
+            console.log("Doc is ready");
             // Post every time the user performs an action within the task (questionnaire)
             // TODO - Fix so it will also work with slider vals - Anna
             $("input").on('change', function () {
+                console.log()
                 $.ajax({
                     type: "POST",
                     url: '/action',
