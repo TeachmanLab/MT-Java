@@ -1,6 +1,8 @@
 package org.mindtrails.controllers;
 
 import org.junit.Test;
+import org.mindtrails.controller.ActionController;
+import org.mindtrails.controller.AdminController;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.tracking.ActionLog;
 import org.mindtrails.persistence.ActionLogRepository;
@@ -21,9 +23,11 @@ import static junit.framework.TestCase.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class ActionControllerTest {
+public class ActionControllerTest extends BaseControllerTest {
+
+
     @Autowired
-    protected MockMvc mockMvc;
+    private ActionController actionController;
 
     @Autowired
     protected ActionLogRepository actionLogRepository;
@@ -31,10 +35,9 @@ public class ActionControllerTest {
     @Autowired
     private ImportService importService;
     
-    protected Participant participant;
 
     public Object[] getControllers() {
-        return (new Object[]{actionLogRepository});
+        return (new Object[]{actionController});
     }
 
     private static final String EXAMPLE_DATA = "{\n" +
