@@ -22,10 +22,10 @@ public interface ActionLogRepository extends JpaRepository<ActionLog, Long> {
     List<ActionLog> findAllByParticipantAndStudyNameAndSessionNameAndTaskNameOrderByDateRecorded(Participant participant, String studyName, String sessionName, String taskName);
 
 //    Allows us to calculate a single participant's avg latency within a particular session (across all tasks)
-    List<ActionLog> findAllByParticipantAndStudyNameAndSessionNameOrderByDateRecorded(Participant participant, String studyName, String sessionName, String taskName);
+    List<ActionLog> findAllByParticipantAndStudyNameAndSessionNameOrderByDateRecorded(Participant participant, String studyName, String sessionName);
 
     //    Allows us to calculate a single participant's avg latency within a particular study (across all tasks in all sessions)
-    List<ActionLog> findAllByParticipantAndStudyNameOrderByDateRecorded(Participant participant, String studyName, String sessionName, String taskName);
+    List<ActionLog> findAllByParticipantAndStudyNameOrderByDateRecorded(Participant participant, String studyName);
 
 }
 

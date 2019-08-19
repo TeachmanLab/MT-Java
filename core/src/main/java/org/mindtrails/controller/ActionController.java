@@ -29,6 +29,7 @@ public class ActionController extends BaseController {
 
     private static final Logger LOG = LoggerFactory.getLogger(ActionController.class);
 
+    @ExportMode
     @RequestMapping(method = RequestMethod.POST,
             headers = "content-type=application/json")
     public @ResponseBody ResponseEntity<ActionLog> createLog(Principal principal,

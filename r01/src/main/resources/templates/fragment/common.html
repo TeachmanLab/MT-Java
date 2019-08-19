@@ -528,9 +528,9 @@
                     url: '/action',
                     contentType: "application/json; charset=utf-8",
                     dataType: 'json',
-                    data: {
-                        'actionName': JSON.stringify($(this).attr('name'))
-                    },
+                    data: JSON.stringify({
+                        'actionName': $(this).attr('name')
+                    }),
                     success: console.log("posted action"), // TODO: Add success function - Anna
                 });
 
