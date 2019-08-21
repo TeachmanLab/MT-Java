@@ -1,10 +1,9 @@
 package org.mindtrails.controller;
 
-import org.mindtrails.domain.data.Exportable;
-import org.mindtrails.domain.tracking.ActionLog;
+import org.mindtrails.domain.tracking.ActionLog.Action;
+import org.mindtrails.domain.tracking.ActionLog.ActionLog;
 import org.mindtrails.domain.ExportMode;
 import org.mindtrails.domain.Participant;
-import org.mindtrails.domain.tracking.ActionLog;
 import org.mindtrails.persistence.ActionLogRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +32,7 @@ public class ActionController extends BaseController {
     @RequestMapping(method = RequestMethod.POST,
             headers = "content-type=application/json")
     public @ResponseBody ResponseEntity<ActionLog> createLog(Principal principal,
-                                                             @RequestBody String actionName) {
+                                                             @RequestBody Action action) {
 
         Participant p = getParticipant(principal);
         String studyName = p.getStudy().getName();
@@ -43,7 +42,7 @@ public class ActionController extends BaseController {
         String message = "Saving action sequence to database for questionnaire " + taskName;
         LOG.info(message);
 
-        ActionLog actionLog = new ActionLog(actionName, studyName, sessionName, taskName, p);
+        ActionLog actionLog = new ActionLog(action, studyName, sessionName, taskName, p);
         this.actionLogRepository.save(actionLog);
     
         return new ResponseEntity<>(actionLog, HttpStatus.CREATED);

@@ -521,15 +521,16 @@
             console.log("Doc is ready");
             // Post every time the user performs an action within the task (questionnaire)
             // TODO - Fix so it will also work with slider vals - Anna
-            $("input").on('change', function () {
+            $("input:not('#clearSlider'), select").on('change', function () {
                 console.log()
                 $.ajax({
                     type: "POST",
                     url: '/action',
-                    contentType: "application/json; charset=utf-8",
+                    contentType: "application/json; charset=UTF-8",
                     dataType: 'json',
                     data: JSON.stringify({
-                        'actionName': $(this).attr('name')
+                        'name': $(this).attr('name'),
+                        'value': $(this).val()
                     }),
                     success: console.log("posted action"), // TODO: Add success function - Anna
                 });

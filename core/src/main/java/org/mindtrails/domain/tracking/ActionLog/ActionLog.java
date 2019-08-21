@@ -1,4 +1,4 @@
-package org.mindtrails.domain.tracking;
+package org.mindtrails.domain.tracking.ActionLog;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
@@ -31,6 +31,7 @@ public class ActionLog {
     protected long id;
 
     private String actionName;
+    private String actionValue;
     private String studyName;
     private String sessionName;
     private String taskName;
@@ -44,9 +45,10 @@ public class ActionLog {
 
     public ActionLog() {};
 
-    public ActionLog(String actionName, String studyName, String sessionName,
+    public ActionLog(Action action, String studyName, String sessionName,
                      String taskName, Participant participant) {
-        this.actionName = actionName;
+        this.actionName = action.getName();
+        this.actionValue = action.getValue();
         this.studyName = studyName;
         this.sessionName = sessionName;
         this.taskName = taskName;

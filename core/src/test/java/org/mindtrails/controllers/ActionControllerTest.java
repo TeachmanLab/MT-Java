@@ -2,18 +2,12 @@ package org.mindtrails.controllers;
 
 import org.junit.Test;
 import org.mindtrails.controller.ActionController;
-import org.mindtrails.controller.AdminController;
-import org.mindtrails.domain.Participant;
-import org.mindtrails.domain.tracking.ActionLog;
+import org.mindtrails.domain.tracking.ActionLog.ActionLog;
 import org.mindtrails.persistence.ActionLogRepository;
-import org.mindtrails.persistence.ParticipantRepository;
 import org.mindtrails.service.ImportService;
-import org.mindtrails.service.ParticipantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
-import org.springframework.security.web.FilterChainProxy;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.List;
