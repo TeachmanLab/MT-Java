@@ -75,7 +75,7 @@ public class ExportController  {
             } else if(rep instanceof TaskLogRepository) {
                 results = ((TaskLogRepository) rep).findByDateCompletedGreaterThan(date);
             } else if(rep instanceof ActionLogRepository) {
-                results = ((ActionLogRepository) rep).findByDateRecordedGreaterThan(date);
+                results = ((ActionLogRepository) rep).findByDateGreaterThan(date);
             } else if(rep instanceof LogRepository) {
                 results = ((LogRepository) rep).findByDateSentGreaterThan(date);
             } else if(rep instanceof QuestionnaireRepository) {

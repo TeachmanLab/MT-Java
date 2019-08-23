@@ -35,7 +35,8 @@ public class ActionLog {
     private String studyName;
     private String sessionName;
     private String taskName;
-    private Date dateRecorded;
+    private int latency;
+    private Date date;
 
     @ManyToOne
     @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
@@ -52,7 +53,8 @@ public class ActionLog {
         this.studyName = studyName;
         this.sessionName = sessionName;
         this.taskName = taskName;
-        this.dateRecorded = new Date();
+        this.latency = action.getLatency();
+        this.date = new Date();
         this.participant = participant;
     };
 }

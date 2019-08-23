@@ -51,7 +51,7 @@ public class ActionControllerTest extends BaseControllerTest {
         List<ActionLog> data = actionLogRepository.findAllByParticipantAndStudyNameOrderByDateRecorded(participant,
                 participant.getStudy().getName());
         assertNotNull(data);
-        assertEquals(preData.size() + 2, data.size());
+        assertEquals(preData.size() + 1, data.size());
     }
 
     @Test

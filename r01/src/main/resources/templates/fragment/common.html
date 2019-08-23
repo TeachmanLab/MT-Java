@@ -520,21 +520,31 @@
         $(document).ready(function () {
             console.log("Doc is ready");
             // Post every time the user performs an action within the task (questionnaire)
-            // TODO - Fix so it will also work with slider vals - Anna
+            var startTime = Date.now();
+            var latency = -1;
+            // Delay timer source: https://stackoverflow.com/questions/7849221/ajax-delay-for-search-on-typing-in-form-field
+            var delayTimer;
             $("input:not('#clearSlider'), select").on('change', function () {
-                console.log()
-                $.ajax({
-                    type: "POST",
-                    url: '/action',
-                    contentType: "application/json; charset=UTF-8",
-                    dataType: 'json',
-                    data: JSON.stringify({
-                        'name': $(this).attr('name'),
-                        'value': $(this).val()
-                    }),
-                    success: console.log("posted action"), // TODO: Add success function - Anna
-                });
+                latency = Date.now() - startTime;
 
+                let data = JSON.stringify({
+                    'name': $(this).attr('name'),
+                    'value': $(this).val(),
+                    'latency': latency
+                });
+                if(delayTimer) {
+                    window.clearTimeout(delayTimer);
+                }
+                delayTimer = window.setTimeout(function() {
+                    $.ajax({
+                        type: "POST",
+                        url: '/action',
+                        contentType: "application/json; charset=UTF-8",
+                        dataType: 'json',
+                        data: data,
+                        success: console.log("posted action"), // TODO: Add success function - Anna
+                    });
+                }, 1000); // Will do the ajax stuff after 1000 ms, or 1 s
             });
 
             // Use Jquery-Validate plugin to validate all forms.

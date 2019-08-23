@@ -446,7 +446,7 @@ public class AdminController extends BaseController {
         Long SMSLogs = SMSLogRepository.countByDateSentAfter(lastWeek);
 
         Long taskLogs = taskLogRepository.countByDateCompletedAfter(lastWeek);
-        Long actionLogs = actionSequenceRepository.countByDateRecordedAfter(lastWeek);
+        Long actionLogs = actionSequenceRepository.countByDateAfter(lastWeek);
 
         daoList=participantRepository.findAllStatsBy();
         studyList=studyRepository.findAllStatsBy();
