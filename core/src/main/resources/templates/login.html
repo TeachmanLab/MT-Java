@@ -28,8 +28,14 @@
                         <div th:if="${param.created}" class="alert alert-success">
                             Account created. Please log in.
                         </div>
+                        <div th:if="${reset}" class="alert alert-success">
+                            Your password was updated. Please log in.
+                        </div>
                         <div th:if="${invalidCode}" class="alert alert-success">
                             The password reset code you provided is not valid.
+                        </div>
+                        <div th:if="${resetSent}" class="alert alert-success">
+                            You should receive an email soon with a link to reset your password.
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="email">Email</label>

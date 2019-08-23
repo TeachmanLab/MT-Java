@@ -125,7 +125,8 @@ public class LoginController {
         participantService.save(p);
 
         emailService.sendPasswordReset(p);
-        return("redirect:login");
+        model.addAttribute("resetSent", true);
+        return("login");
     }
 
     @RequestMapping(value="/resetPassStep2/{token}", method = RequestMethod.GET)
@@ -188,7 +189,8 @@ public class LoginController {
         Authentication auth = new UsernamePasswordAuthenticationToken( participant.getEmail(), participant.getPassword());
         SecurityContextHolder.getContext().setAuthentication(auth);
         LOG.info("Participant authenticated.");
-        return "redirect:/session";
+        model.addAttribute("reset", true);
+        return "login";
     }
 
     /**
