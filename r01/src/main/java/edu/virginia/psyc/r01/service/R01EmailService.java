@@ -121,13 +121,13 @@ public class R01EmailService extends EmailServiceImpl implements EmailService{
 
         if(!participant.isActive() || !participant.isEmailReminders())  return;  // Don't send these messages if they should not get them.
 
-        if (currentSession.getName().equals(R01Study.FIRST_SESSION.toString())) {
+        if (currentSession.getName().equals(R01Study.SECOND_SESSION.toString())) {
             email = new Email("SESSION1","Bonus Feature #1 from the MindTrails Project Team");
-        } else if (currentSession.getName().equals(R01Study.SECOND_SESSION.toString())) {
-            email = new Email("SESSION2","Bonus Feature #2 from the MindTrails Project Team");
         } else if (currentSession.getName().equals(R01Study.THIRD_SESSION.toString())) {
-            email = new Email("SESSION3","Bonus Feature #3 from the MindTrails Project Team");
+            email = new Email("SESSION2","Bonus Feature #2 from the MindTrails Project Team");
         } else if (currentSession.getName().equals(R01Study.FOURTH_SESSION.toString())) {
+            email = new Email("SESSION3","Bonus Feature #3 from the MindTrails Project Team");
+        } else if (currentSession.getName().equals(R01Study.FIFTH_SESSION.toString())) {
             email = new Email("SESSION4","Bonus Feature #4 from the MindTrails Project Team");
         }
         if (email != null) {

@@ -90,7 +90,7 @@ public class LoginController {
 
     @RequestMapping(value="/public/landing", method = RequestMethod.GET)
     public String showLandingPage(ModelMap model) {
-            return "redirect:" + this.landingPageUrl;
+        return "redirect:" + this.landingPageUrl;
     }
 
 
