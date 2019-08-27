@@ -84,6 +84,9 @@ public class AdminController extends BaseController {
     private TaskLogRepository taskLogRepository;
 
     @Autowired
+    private ActionLogRepository actionSequenceRepository;
+
+    @Autowired
     private StudyRepository studyRepository;
 
     @Autowired
@@ -443,6 +446,7 @@ public class AdminController extends BaseController {
         Long SMSLogs = SMSLogRepository.countByDateSentAfter(lastWeek);
 
         Long taskLogs = taskLogRepository.countByDateCompletedAfter(lastWeek);
+        Long actionLogs = actionSequenceRepository.countByDateAfter(lastWeek);
 
         daoList=participantRepository.findAllStatsBy();
         studyList=studyRepository.findAllStatsBy();
@@ -470,7 +474,8 @@ public class AdminController extends BaseController {
         model.addAttribute("emailLogs", emailLogs);
         model.addAttribute("SMSLogs", SMSLogs);
         model.addAttribute("participants", daoList);
-        model.addAttribute("taskLogs",taskLogs);
+        model.addAttribute("taskLogs", taskLogs);
+        model.addAttribute("actionLogs", actionLogs);
         model.addAttribute("lastLoginNum",lastLoginNum);
         model.addAttribute("users",users);
         model.addAttribute("csData",csData);

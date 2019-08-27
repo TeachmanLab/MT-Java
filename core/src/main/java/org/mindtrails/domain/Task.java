@@ -11,7 +11,7 @@ import java.util.Date;
  * Date: 6/24/14
  * Time: 4:57 PM
  * A Session is made of an ordered series of Tasks.  Tasks can be either questionniares or
- * PIPlayer scenerios.  A participant completes a session by completing all of it's tasks.
+ * PIPlayer scenerios.  A participant completes a session by completing all of its tasks.
  */
 @Data
 public class Task {
