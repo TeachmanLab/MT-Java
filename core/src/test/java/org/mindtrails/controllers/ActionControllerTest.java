@@ -41,14 +41,14 @@ public class ActionControllerTest extends BaseControllerTest {
     @Test
     public void postData() throws Exception {
         importService.setMode("export");
-        List<ActionLog> preData = actionLogRepository.findAllByParticipantAndStudyNameOrderByDateRecorded(participant,
+        List<ActionLog> preData = actionLogRepository.findAllByParticipantAndStudyNameOrderByDate(participant,
                 participant.getStudy().getName());
         ResultActions result = mockMvc.perform(post("/action")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .with(SecurityMockMvcRequestPostProcessors.user(participant))
                 .content(EXAMPLE_DATA))
                 .andExpect((status().isCreated()));
-        List<ActionLog> data = actionLogRepository.findAllByParticipantAndStudyNameOrderByDateRecorded(participant,
+        List<ActionLog> data = actionLogRepository.findAllByParticipantAndStudyNameOrderByDate(participant,
                 participant.getStudy().getName());
         assertNotNull(data);
         assertEquals(preData.size() + 1, data.size());

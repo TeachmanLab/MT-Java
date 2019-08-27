@@ -516,7 +516,7 @@
 
 <!--If you need to include javascript at the end of the page.  -->
 <div id="scripts" th:fragment="scripts">
-    <script>
+    <script  th:inline="javascript">
         $(document).ready(function () {
             console.log("Doc is ready");
             // Post every time the user performs an action within the task (questionnaire)
@@ -535,10 +535,12 @@
                 if(delayTimer) {
                     window.clearTimeout(delayTimer);
                 }
+                var url = /*[[@{/action}]]*/ '/action';
+
                 delayTimer = window.setTimeout(function() {
                     $.ajax({
                         type: "POST",
-                        url: '/action',
+                        url: url,
                         contentType: "application/json; charset=UTF-8",
                         dataType: 'json',
                         data: data,
