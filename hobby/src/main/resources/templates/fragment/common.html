@@ -447,6 +447,8 @@
         $("form").each(function() {
             $(this).submit(function() {
                 $(this).find("#timeOnPage").val(TimeMe.getTimeOnCurrentPageInSeconds());
+
+                // TODO: For each item in the action sequence, also convert the time to seconds
             });
         });
      </script>
