@@ -233,6 +233,7 @@ var R01 = (function () {
                     type: 'call-function',
                     func: function () {
                         saveData(function () {
+                            console.log("Data", data);
                             jsPsych.data.aaData = []; // Clear data just sent.
                             console.log("DATA IS " + jsPsych.data.get());
                         })
@@ -391,11 +392,12 @@ var R01 = (function () {
                         cache: false,
                         url: my.post_url, // this is the path to the above PHP script
                         data: JSON.stringify(data_to_save),
+                        dataType: 'json',
                         success: callback,
                         error: function (XMLHttpRequest, textStatus, errorThrown) {
                             my.lastSaveIndex = saved_from;
-                            alert("Status: " + textStatus);
-                            alert("Error: " + errorThrown);
+                            window.onbeforeunload = null; // Remove any warnings about leaving the page.
+                            location.reload();
                         }
                     });
                 }
