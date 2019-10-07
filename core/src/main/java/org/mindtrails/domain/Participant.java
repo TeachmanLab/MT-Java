@@ -70,7 +70,6 @@ public class Participant implements UserDetails, HasStudy {
     protected boolean canTextMessage;  // can send and receive text messages
     protected String awardCountryCode = "US";
 
-
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     protected PasswordToken passwordToken;

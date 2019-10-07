@@ -133,8 +133,8 @@
         </div>
 
         <div class="container section">
-            <label class="question"> This training program was five sessions. How many sessions do you think would have
-                been ideal?
+            <label class="question"> The Calm Thinking program had five training sessions. How many sessions do you think would have
+                been ideal?<br/><br/>
                 <input type="number" min="1" th:field="*{idealSessions}" required="true"/> </label>
         </div>
 
@@ -226,7 +226,7 @@
                         <label class="question"> <input id="places_other"
                                                         onchange="sub('places_other');spec('places_other');"
                                                         type="checkbox" name="places"
-                                                        value="other"/> &nbsp;&nbsp;Other (please specify): <input
+                                                        value="other"/> &nbsp;&nbsp;Other (please specify):&nbsp; <input
                                 id="places_other_spec" type="text" name="otherPlace" value="N/A"/> </label>
                     </div>
                 </div>
@@ -324,7 +324,7 @@
                         <label class="question"> <input id="reasonsControl_other"
                                                         onchange="sub('reasonsControl_other');spec('reasonsControl_other');"
                                                         type="checkbox" name="reasonsControl"
-                                                        value="other"/> Other (please specify):
+                                                        value="other"/> Other (please specify):&nbsp;
                             <input
                                     id="reasonsControl_other_spec" type="text" name="otherReasonControl" value="N/A"/>
                         </label>
@@ -347,7 +347,7 @@
         <div class="container section">
             <div class="row">
                 <div class="col-md-10">
-                    <p><b>What is your preferred technology platform for delivery of health interventions (e.g., Calm
+                    <p><b>What is your preferred technology platform for delivery of health interventions (such as Calm
                         Thinking)? Check all that apply.</b></p>
                 </div>
             </div>
@@ -358,13 +358,13 @@
                         <label class="question"> <input
                                 type="checkbox"
                                 name="preferredPlatform" value="computerBrowser"/> &nbsp;&nbsp;Desktop or laptop computer via an
-                            internet browser (e.g., Firefox, Chrome, Safari) </label>
+                            Internet browser (e.g., Chrome, Firefox, Safari) </label>
                     </div>
                     <div class="radio">
                         <label class="question"> <input
                                 type="checkbox"
                                 name="preferredPlatform" value="smartphoneBrowser"/> &nbsp;&nbsp;Smartphone or tablet via an
-                            internet browser (e.g., Firefox, Chrome, Safari) </label>
+                            Internet browser (e.g., Chrome, Firefox, Safari) </label>
                     </div>
                     <div class="radio">
                         <label class="question"> <input
@@ -386,19 +386,19 @@
                                 type="checkbox"
                                 name="preferredPlatform" value="email"/> &nbsp;&nbsp;Email (on any device) </label>
                     </div>
-                    <div class="radio">
-                        <label class="question"> <input
-                                type="checkbox"
-                                name="preferredPlatform" value="none"/> &nbsp;&nbsp;I do not want to use technology to receive
-                            health interventions </label>
-                    </div>
                 </div>
                 <div class="col-md-4">
                     <br/>
                     <br/>
                     <div class="radio">
+                            <label class="question"><input type="checkbox" name="preferredPlatform" value="none"
+                                                           onchange="disableSection(this)"/> &nbsp;&nbsp;I do not want to use technology to receive
+                                health interventions
+                            </label>
+                        <br/>
+                        <br/>
                         <label class="question"><input type="checkbox" name="preferredPlatform" value="555"
-                                                       onchange="disableSection(this)"/> Prefer not to answer
+                                                       onchange="disableSection(this)"/> &nbsp;&nbsp;Prefer not to answer
                         </label>
                     </div>
                     <br/>
@@ -517,38 +517,43 @@
                     <div class="radio">
                         <label class="question"> <input
                                 type="checkbox"
+                                required="true"
                                 name="helpTopics" value="techErrors"/> &nbsp;&nbsp;Technical troubleshooting (e.g., helping with
                             technical errors) </label>
                     </div>
                     <div class="radio">
                         <label class="question"> <input
                                 type="checkbox"
+                                required="true"
                                 name="helpTopics" value="usability"/> &nbsp;&nbsp;Program usability (e.g., answering questions about
                             how to use the website) </label>
                     </div>
                     <div class="radio">
                         <label class="question"> <input
                                 type="checkbox"
+                                required="true"
                                 name="helpTopics" value="programFit"/> &nbsp;&nbsp;Program fit (e.g., helping you understand why it
                             might be a good treatment for you) </label>
                     </div>
                     <div class="radio">
                         <label class="question"> <input
                                 type="checkbox"
+                                required="true"
                                 name="helpTopics" value="engagement"/> &nbsp;&nbsp;Engagement with the program (e.g., help with
                             strategies for visualizing training scenarios </label>
                     </div>
                     <div class="radio">
                         <label class="question"> <input
                                 type="checkbox"
+                                required="true"
                                 name="places" value="implementation"/> &nbsp;&nbsp;Implementation into your own life (e.g., discuss
                             how training scenarios might help you feel better in your daily life) </label>
                     </div>
                     <div class="radio">
                         <label class="question"> <input id="helpTopics_other"
                                                         onchange="sub('helpTopics_other');spec('helpTopics_other');"
-                                                        type="checkbox" name="helpTopics"
-                                                        value="other"/> &nbsp;&nbsp;Other (please specify): <input
+                                                        type="checkbox" required="true" name="helpTopics"
+                                                        value="other"/> &nbsp;&nbsp;Other (please specify):&nbsp; <input
                                 id="helpTopics_other_spec" type="text" name="otherHelpTopic" value="N/A"/> </label>
                     </div>
                 </div>
@@ -581,14 +586,7 @@
 </form>
 
 <footer th:replace="fragment/common :: footer"/>
-
-</body>
-</html>
-
-
-<!--Javascript
-================================================== -->
-
+<div th:include="fragment/common :: scripts"/>
 <script type="text/javascript">
 
     function techProblems() {
@@ -684,4 +682,6 @@
 
 </script>
 
-<div th:include="fragment/common :: scripts"/>
+</body>
+</html>
+

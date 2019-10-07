@@ -33,7 +33,7 @@
                     <!-- Add timer -->
 
 
-                    <div class="container section"><label class="question">All things considered, how satisfied are you with your life as a whole?
+                    <div class="container section"><label class="question">All things considered, how satisfied are you with your life as a whole?<br/><br/>
                     <select required="true" th:field="*{satisfaction}">
                         <option value="" hidden="hidden">Please select one</option>
                         <option value="0">0 (Completely dissatisfied)</option>
@@ -65,8 +65,3 @@
 
 </body>
 </html>
-
-
-<!--Javascript
-================================================== -->
-<div th:include="fragment/common :: scripts"/>-

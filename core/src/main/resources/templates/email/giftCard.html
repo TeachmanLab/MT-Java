@@ -16,13 +16,14 @@
                     Hi Fred,
                 </p>
                 <p style="margin-top:5px">Congratulations. For completing a recent set of assessments in the Calm Thinking Study you have
-                    earned a $<span th:text="${giftAmount}"/> e-gift card. Here&rsquo;s how to redeem your card.</p>
+                    earned a <span th:text="${amount}"/>
+                    e-gift card. Here&rsquo;s how to redeem your card.</p>
                 <div style="border-radius: 15px; background: #fff; text-align:center; border: 1px solid #666; margin: 20px;">
                     <div style="border-top-right-radius: 15px; border-top-left-radius: 15px; width:100%; height:20px; background:#F77D38;"> </div>
                     <img style="margin:auto; padding: 10px;" th:src="${url} + '/images/gift_card_lg.png'" alt="" border="none"/>
-                    <div style="padding:20px; font-weight:700">TO REDEEM YOUR $<span th:text="${giftAmount}"/> E-GIFT CARD</div>
+                    <div style="padding:20px; font-weight:700">TO REDEEM YOUR <span th:text="${amount}"/> E-GIFT CARD</div>
 
-                    <a th:href="${order.reward.credentials.redemptionLink}" target="_blank">Your Redemption Link</a>.<br/>
+                    <a th:href="${order.reward.redemptionUrl()}" target="_blank">Your Redemption Link</a>.<br/>
 
                     <p style="margin-top:5px">Click the redemption link above to activate your Reward Link, and retrieve your e-gift card. </p>
                 </div>
