@@ -13,7 +13,7 @@
 <section th:replace="fragment/common :: topFragment"/>
 <section th:replace="fragment/common :: titleBar (title='Thank You for Participating')"/>
 
-<section id="content" class="clearfix">
+<section th:if="${isExiting==true}">
     <div class="container">
         <div class="row">
             <div class="col-md-8">
@@ -24,9 +24,17 @@
 
                     <a th:href="@{/questions/ReasonsForEnding}">
                     <button>Exit Survey</button>
-                </a>
+                    </a>
                 <br></br>
                 <br></br>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="contentTest" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
                 <span class="pull-right"><button onclick="window.print();">Print</button></span>
                 <br></br>
                 <h2><b>Debriefing</b></h2>
@@ -87,10 +95,12 @@
                         thoughts or mood, please visit this page.</li>
                 </ul>
                 <br></br>
+                <section th:if="${isExiting==true}">
                 <p>To provide your valuable feedback, please click on Exit Survey button below:</p>
 
                 <a th:href="@{/questions/ReasonsForEnding}">
                     <button>Exit Survey</button></a>
+                </section>
                 <br></br>
                 <br></br>
                 <p align="center"><b>Thank you again for your participation.</b></p>

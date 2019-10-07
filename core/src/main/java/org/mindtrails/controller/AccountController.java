@@ -342,12 +342,14 @@ public class AccountController extends BaseController {
         Participant p      = participantService.get(principal);
         p.setActive(false);
         participantService.save(p);
+        model.addAttribute("isExiting", true);
         return "debriefing";
     }
 
     @RequestMapping("debriefing")
     public String showDebriefing(ModelMap model, Principal principal) {
         Participant p = participantService.get(principal);
+        model.addAttribute("isExiting", false);
         return "debriefing";
     }
 

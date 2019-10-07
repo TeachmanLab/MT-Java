@@ -20,14 +20,21 @@
             </div>
 
             <div class="col-md-8 session">
-                <h2>Thank you <span th:text="${participant.fullName}">Jim</span>!<br/> you have reached the end of the Study.</h2>
+                <h2><b>Congratulations, <span th:text="${participant.fullName}">Jim</span>!</b></h2>
 
-                <p>You are all finished!</p>
-                <p>Please read the <a th:href="@{/account/debriefing}">debriefing</a>, now that have completed your study.</p>
-                <span th:if="${participant.receiveGiftCards}">We will send an email with details on how to get your bonus gift card.</span>
-                <p>You can now <a th:href="@{/graph}">review your progress</a> through the study, to see how you performed,
-                and find out if you were part of the control group, or if you received the full treatment.</p>
-            </div>
+                <p>You previously completed the Calm Thinking program, and now that you have finished the 2-month
+                    followup assessment, you have reached the end of the Calm Thinking study!</p>
+
+                <p>The MindTrails research team would like to thank you for your time and participation &mdash; this research
+                    wouldn't be possible without participants like you.</p>
+
+                <p>Now that you have finished, you can review your <a th:href="@{/graph}">Graph of Progress</a> to see how
+                your anxiety changed over the course of the program. This page also reveals if you were in the
+                    Active Training condition, or the control condition.</p>
+
+                <p>Additionally, you can now read the <a th:href="@{/account/debriefing}">Debriefing page</a>, which provides a full explanation of the
+                    purpose of the study.</p>
+                </div>
         </div>
     </div>
 </section>
