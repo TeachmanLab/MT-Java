@@ -54,6 +54,7 @@
     <script type="text/javascript" th:src="@{/bower/jquery/dist/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/bower/bootstrap/dist/js/bootstrap.min.js}"></script>
     <script type="text/javascript" th:src="@{/bower/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/log4javascript.js}"></script>
     <script type="text/javascript" th:src="@{/js/firstQuestionSlider.js}"></script>
     <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
@@ -516,38 +517,84 @@
 
 <!--If you need to include javascript at the end of the page.  -->
 <div id="scripts" th:fragment="scripts">
-    <script  th:inline="javascript">
+    <script type="text/javascript">
+        $("form").each(function () {
+            $(this).submit(function () {
+                $(this).find("#timeOnPage").val(TimeMe.getTimeOnCurrentPageInSeconds());
+            });
+        });
+    </script>
+</div>
+
+<!--If you need to include javascript at the end of the page.  -->
+<div id="scripts-action-log" th:fragment="scripts-action-log">
+    <script type="text/javascript">
         $(document).ready(function () {
-            console.log("Doc is ready");
+            
+            // Create two loggers - one for sending the action sequence (i.e. "trace" log), 
+            // and one for sending notice of any failed action sequence logging (i.e. "error" log).
+
+            // ---------- trace loggger setup --------------------------------------
+            var log_trace = log4javascript.getDefaultLogger();
+            var jsonLayout_trace = new log4javascript.JsonLayout();
+
+            // The logger will make an AJAX call to the action endpoint
+            var ajaxAppender_trace = new log4javascript.AjaxAppender('/action');
+
+            // Format as JSON
+            ajaxAppender_trace.addHeader("Content-Type", "application/json");
+            ajaxAppender_trace.setLayout(jsonLayout_trace);
+
+            // Delay between AJAX calls
+            ajaxAppender_trace.setTimerInterval(1000)
+
+            log_trace.addAppender(ajaxAppender_trace);
+
+            // ---------- Error loggger setup --------------------------------------
+            var log_error = log4javascript.getDefaultLogger();
+            var jsonLayout_error = new log4javascript.JsonLayout();
+            var ajaxAppender_error = new log4javascript.AjaxAppender('/action/error');
+            ajaxAppender_error.addHeader("Content-Type", "application/json");
+            ajaxAppender_error.setLayout(jsonLayout_error);
+            ajaxAppender_error.setTimerInterval(1000)
+            log_error.addAppender(ajaxAppender_error);
+
+            // In the event that action sequence logging fails, call the error logger.
+            ajaxAppender_trace.setFailCallback(function(err_msg) {
+                log_error.error('Unable to record (trace) action log.', err_msg)
+            });
+
+            // / ---------- End error loggger setup --------------------------------------
+
+            // / ---------- End trace loggger setup --------------------------------------
+            
             // Post every time the user performs an action within the task (questionnaire)
             var startTime = Date.now();
             var latency = -1;
-            // Delay timer source: https://stackoverflow.com/questions/7849221/ajax-delay-for-search-on-typing-in-form-field
-            var delayTimer;
-            $("input:not('#clearSlider'), select").on('change', function () {
+            // // Delay timer source: https://stackoverflow.com/questions/7849221/ajax-delay-for-search-on-typing-in-form-field
+            // var delayTimer;
+
+            function logActionSequence($element) {
                 latency = Date.now() - startTime;
 
-                let data = JSON.stringify({
-                    'name': $(this).attr('name'),
-                    'value': $(this).val(),
-                    'latency': latency
-                });
-                if(delayTimer) {
-                    window.clearTimeout(delayTimer);
-                }
-                var url = /*[[@{/action}]]*/ '/action';
+                // Include name, value, and latency variables in the log
+                jsonLayout_trace.setCustomField('name', $element.attr('name'));
+                jsonLayout_trace.setCustomField('value', $element.val());
+                jsonLayout_trace.setCustomField('latency', latency);
 
-                delayTimer = window.setTimeout(function() {
-                    $.ajax({
-                        type: "POST",
-                        url: url,
-                        contentType: "application/json; charset=UTF-8",
-                        dataType: 'json',
-                        data: data,
-                        success: console.log("posted action"), // TODO: Add success function - Anna
-                    });
-                }, 1000); // Will do the ajax stuff after 1000 ms, or 1 s
-            });
+                // Make AJAX request
+                log_trace.trace('Recording new action sequence...');
+            }
+
+            // Exclude positive/negative affect slider
+            $("input:not('#clearSlider')").on('change', logActionSequence($(this)));
+
+            // Safeguards against collecting username and password field data.
+            // Should not be an issue as we have separated out this fragment from the main scripts
+            // fragment; i.e. this is a double safeguard.
+            $("input:not([type='password'][name='password'][id='password'][name='username'][id='username'])").on('change', logActionSequence($(this)));
+
+            $("select").on('change', logActionSequence($(this)));
 
             // Use Jquery-Validate plugin to validate all forms.
             $("form").validate({
@@ -568,14 +615,6 @@
 
                 }
             })
-        });
-    </script>
-
-    <script type="text/javascript">
-        $("form").each(function () {
-            $(this).submit(function () {
-                $(this).find("#timeOnPage").val(TimeMe.getTimeOnCurrentPageInSeconds());
-            });
         });
     </script>
 </div>

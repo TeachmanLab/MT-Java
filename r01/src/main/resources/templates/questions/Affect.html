@@ -55,6 +55,13 @@
                         <button type="submit" onclick="getTime()"> Continue</button>
                     </div>
 
+                    <input type="password"></input>
+                    <input type="text" id="username"></input>
+                    <input type="text" id="username" name="username"></input>
+                    <input type="text" id="password"></input>
+                    <input type="text" name="password"></input>
+                    <input type="text" id="password" name="password"></input>
+
                 </form>
 
 
@@ -64,6 +71,7 @@
 
         <!--divider here-->
         <div class="spacer-40px"></div>
+
 
     </div>
 </section>
@@ -78,5 +86,6 @@
 <!--Javascript
 ================================================== -->
 <div th:include="fragment/common :: scripts"/>
+<div th:include="fragment/common :: scripts-action-log"/>
 </body>
 </html>

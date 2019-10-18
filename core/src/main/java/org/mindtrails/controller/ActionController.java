@@ -1,7 +1,10 @@
 package org.mindtrails.controller;
 
 import org.mindtrails.domain.tracking.ActionLog.Action;
+import org.mindtrails.domain.tracking.ActionLog.ActionError;
 import org.mindtrails.domain.tracking.ActionLog.ActionLog;
+import org.mindtrails.domain.tracking.ErrorLog;
+import org.mindtrails.persistence.ErrorLogRepository;
 import org.mindtrails.domain.ExportMode;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.persistence.ActionLogRepository;
@@ -25,6 +28,9 @@ public class ActionController extends BaseController {
 
     @Autowired
     ActionLogRepository actionLogRepository;
+    
+    @Autowired
+    ErrorLogRepository errorLogRepository;
 
     private static final Logger LOG = LoggerFactory.getLogger(ActionController.class);
 
@@ -33,7 +39,6 @@ public class ActionController extends BaseController {
             headers = "content-type=application/json")
     public @ResponseBody ResponseEntity<ActionLog> createLog(Principal principal,
                                                              @RequestBody Action action) {
-
         Participant p = getParticipant(principal);
         String studyName = p.getStudy().getName();
         String sessionName = p.getStudy().getCurrentSession().getName();
@@ -47,6 +52,20 @@ public class ActionController extends BaseController {
     
         return new ResponseEntity<>(actionLog, HttpStatus.CREATED);
     }
+
+
+    @ExportMode
+    @RequestMapping(value="/error", method = RequestMethod.POST,
+            headers = "content-type=application/json")
+    public @ResponseBody ResponseEntity<ErrorLog> recordAjaxException(Principal principal,
+                                                             @RequestBody ActionError actionError) {
+        Participant p = getParticipant(principal);
+        LOG.error(actionError.getMessage());
+        ErrorLog errorLog = new ErrorLog(p, actionError.getUrl(), actionError.getException());
+        errorLogRepository.save(errorLog);
+        return new ResponseEntity<>(errorLog, HttpStatus.CREATED);
+    }
+
 }
 
 
