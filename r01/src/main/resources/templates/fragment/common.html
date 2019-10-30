@@ -518,36 +518,6 @@
 <div id="scripts" th:fragment="scripts">
     <script  th:inline="javascript">
         $(document).ready(function () {
-            console.log("Doc is ready");
-            // Post every time the user performs an action within the task (questionnaire)
-            var startTime = Date.now();
-            var latency = -1;
-            // Delay timer source: https://stackoverflow.com/questions/7849221/ajax-delay-for-search-on-typing-in-form-field
-            var delayTimer;
-            $("input:not('#clearSlider'), select").on('change', function () {
-                latency = Date.now() - startTime;
-
-                let data = JSON.stringify({
-                    'name': $(this).attr('name'),
-                    'value': $(this).val(),
-                    'latency': latency
-                });
-                if(delayTimer) {
-                    window.clearTimeout(delayTimer);
-                }
-                var url = /*[[@{/action}]]*/ '/action';
-
-                delayTimer = window.setTimeout(function() {
-                    $.ajax({
-                        type: "POST",
-                        url: url,
-                        contentType: "application/json; charset=UTF-8",
-                        dataType: 'json',
-                        data: data,
-                        success: console.log("posted action"), // TODO: Add success function - Anna
-                    });
-                }, 1000); // Will do the ajax stuff after 1000 ms, or 1 s
-            });
 
             // Use Jquery-Validate plugin to validate all forms.
             $("form").validate({
