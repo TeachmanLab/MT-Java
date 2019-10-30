@@ -3,6 +3,8 @@ package edu.virginia.psyc.r01.service;
 import edu.virginia.psyc.r01.Application;
 import edu.virginia.psyc.r01.domain.R01Study;
 import edu.virginia.psyc.r01.persistence.*;
+import org.joda.time.DateTime;
+import org.joda.time.Period;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -103,9 +105,9 @@ public class R01ParticipantServiceTest {
         Assert.assertNotNull(condition);
         Assert.assertEquals("male_high", segment);
         Assert.assertTrue("There should be records in the randomBlockRepository", randomBlockRepository.findAll().size() > 0);
-        Assert.assertEquals(49, randomBlockRepository.findAll().size());
+        int total = randomBlockRepository.findAll().size();
         service.markConditionAsUsed(condition);
-        Assert.assertTrue("One of the random conditions should now go away", randomBlockRepository.findAll().size() == 48);
+        Assert.assertTrue("One of the random conditions should now go away", randomBlockRepository.findAll().size() == total - 1);
     }
 
     private Participant setupParticipantWithHighRisk() {
@@ -145,7 +147,7 @@ public class R01ParticipantServiceTest {
             if (condition.getValue().equals(R01Study.CONDITION.HR_COACH.name())) coaching++;
             if (condition.getValue().equals(R01Study.CONDITION.HR_NO_COACH.name())) nonCoaching++;
             service.markConditionAsUsed(condition);
-            Assert.assertTrue("High Risk participants should be in either coach or nocoach",
+            Assert.assertTrue("High Risk participants should be in either coach or nocoach, but was " + condition.getValue(),
                     condition.getValue().equals(R01Study.CONDITION.HR_COACH.name()) ||
                             condition.getValue().equals(R01Study.CONDITION.HR_NO_COACH.name()));
         }
@@ -162,7 +164,8 @@ public class R01ParticipantServiceTest {
         // Create a new setting for Threshold that puts everyone at low risk
         ConditionAssignmentSettings settings = new ConditionAssignmentSettings();
         settings.setAttritionThreshold(1d);
-        settings.setLastModified(new Date());
+        // put it in the past to avoid race conditions in following code.
+        settings.setLastModified(new DateTime().minus(Period.days(1)).toDate());
         this.settingsRepository.save(settings);
 
         // Assure that everyone is marked as high risk.
@@ -187,7 +190,7 @@ public class R01ParticipantServiceTest {
             if (condition.getValue().equals(R01Study.CONDITION.LR_TRAINING.name())) low++;
             service.markConditionAsUsed(condition);
         }
-        Assert.assertTrue(low == 0);
+        Assert.assertTrue("Low should be 0, but was " + low, low == 0);
 
     }
 
