@@ -154,13 +154,15 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
 
     /**
      * Random blocks for initial assignment are split 75/25 for training and control respectively.
+     * NOTE: 10/30/2019 - modified to be a 90/10 split between training and control to
+     * account for an inbalance in assignments that occurred due to early attrition.
      * @param segment
      */
     private void assureRandomAssignmentsAvailableForSegment(String segment) {
         if(randomBlockRepository.countAllBySegmentName(segment) < 1) {
             Map<String, Float> valuePercentages = new HashMap<>();
-            valuePercentages.put(R01Study.CONDITION.TRAINING.name(), 75.0f);
-            valuePercentages.put(R01Study.CONDITION.CONTROL.name(), 25.0f);
+            valuePercentages.put(R01Study.CONDITION.TRAINING.name(), 90.0f);
+            valuePercentages.put(R01Study.CONDITION.CONTROL.name(), 10.0f);
             List<RandomCondition> blocks = RandomCondition.createBlocks(valuePercentages, 50, segment);
             this.randomBlockRepository.save(blocks);
             this.randomBlockRepository.flush();
