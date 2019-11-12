@@ -9,8 +9,5 @@ public class Action {
     private String name;
 
     @Getter
-    private String value;
-
-    @Getter
     private int latency;
 }
