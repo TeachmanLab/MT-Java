@@ -226,6 +226,7 @@ public class AccountController extends BaseController {
         if( sub.equals("subCode") ){
             if (p.getVerificationCode().getCode().equals(verifycode)&&p.getVerificationCode().valid()) {
                 p.setVerified(true);
+                p.setReceiveGiftCards(true);
                 //p.updateGiftCardsQualification();
                 participantService.save(p);
                 return "redirect:/account/verified";
@@ -310,14 +311,14 @@ public class AccountController extends BaseController {
             return "redirect:/account/verified";
         }
          if (code.equals(verifycode)&&p.getVerificationCode().valid()) {
-                p.setVerified(true);
-                participantService.save(p);
-                return "redirect:/account/verified";
-            }
-            else {
-
-                return "redirect:/account/wrongCode";
-            }
+             p.setVerified(true);
+             p.setReceiveGiftCards(true);
+             participantService.save(p);
+             return "redirect:/account/verified";
+         }
+         else {
+             return "redirect:/account/wrongCode";
+         }
     }
 
     @ExportMode
