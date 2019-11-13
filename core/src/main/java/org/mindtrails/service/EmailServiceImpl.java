@@ -8,6 +8,7 @@ import net.fortuna.ical4j.model.component.VEvent;
 import net.fortuna.ical4j.model.component.VTimeZone;
 import net.fortuna.ical4j.model.property.*;
 import net.fortuna.ical4j.util.FixedUidGenerator;
+import net.fortuna.ical4j.util.MapTimeZoneCache;
 import net.fortuna.ical4j.util.RandomUidGenerator;
 import net.fortuna.ical4j.util.UidGenerator;
 import org.mindtrails.domain.*;
@@ -400,6 +401,10 @@ public class EmailServiceImpl implements EmailService {
 
 
     Calendar getInvite(Participant participant, Date date) {
+
+        // This corrects for an iCal issue which defaults to having a dependency on a caching service
+        // https://github.com/ical4j/ical4j/issues/195q
+        System.setProperty("net.fortuna.ical4j.timezone.cache.impl", MapTimeZoneCache.class.getName());
 
         // Create a TimeZone
         TimeZoneRegistry registry = TimeZoneRegistryFactory.getInstance().createRegistry();
