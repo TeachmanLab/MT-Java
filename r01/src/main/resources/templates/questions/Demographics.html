@@ -17,7 +17,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                <p>We would like to start with a few questions to get to know you better. Answers to
+                <p th:text="#{demographics.intro}">We would like to start with a few questions to get to know you
+                    better. Answers to
                     these personal questions are kept confidential, but they help us improve
                     Calm Thinking by figuring out for whom it works well.
                 </p>
@@ -32,99 +33,120 @@
         <div class="row">
             <div class="col-md-12">
 
-                <form id="form" th:action="@{/questions/Demographics}" method="POST" th:object="${model}" >
+                <form id="form" th:action="@{/questions/Demographics}" method="POST" th:object="${model}">
                     <!-- Add timer -->
                     <input id="timeOnPage" name="timeOnPage" type="hidden"/>
 
                     <div class="section">
-                        <div><label class="question">What is your gender identity?<br/><br/>
+                        <div><label class="question" th:text="#{demographics.gender}">What is your gender
+                            identity?</label><br/><br/>
                             <select required="true" th:field="*{gender}">
-                            <option value="">Please select one</option>
-                            <option value="Female">Female</option>
-                            <option value="Male">Male</option>
-                            <option value="Transgender Female">Transgender Female</option>
-                                <option value="Transgender Male">Transgender Male</option>
-                            <option value="Other">Other</option>
-                            <option value="555">Prefer not to answer</option>
-                        </select> </label>
+                                <option value="" th:text="#{please_select_one}">Please select one</option>
+                                <option value="Female" th:text="#{demographics.female}">Female</option>
+                                <option value="Male" th:text="#{demographics.male}">Male</option>
+                                <option value="Transgender Female" th:text="#{demographics.trans_female}">Transgender
+                                    Female
+                                </option>
+                                <option value="Transgender Male" th:text="#{demographics.trans_male}">Transgender Male
+                                </option>
+                                <option value="Other" th:text="#{other}">Other</option>
+                                <option value="555" th:text="#{prefer_not_to_answer}">Prefer not to answer</option>
+                            </select>
                         </div>
                         <br/>
 
-                        <div><label class="question">What is your birth year?<br/><br/>
+                        <div><label class="question" th:text="#{demographics.birth_year}">What is your birth
+                            year?</label><br/><br/>
                             <select id="birthYear" required="true" th:field="*{BirthYear}">
-                                <option value="">Please select one</option>
-                            </select></label>
+                                <option value="" th:text="#{please_select_one}">Please select one</option>
+                            </select>
                             <script th:inline="javascript">
                                 /*<![CDATA[*/
-                                $( document ).ready(function() {
-                                var maxYear = new Date().getFullYear() - 18;
-                                for ( i = 0; i < 100; i++) {
-                                    $('#birthYear').append('<option>' + (maxYear - i) + '</option>');
-                                }
-                                $('#birthYear').append('<option value="555">Prefer not to answer</option>');
-                            });
-                            /*]]>*/
+                                $(document).ready(function () {
+                                    var maxYear = new Date().getFullYear() - 18;
+                                    for (i = 0; i < 100; i++) {
+                                        $('#birthYear').append('<option>' + (maxYear - i) + '</option>');
+                                    }
+                                    $('#birthYear').append('<option value="555" th:text="#{prefer_not_to_answer}">Prefer not to answer</option>');
+                                });
+                                /*]]>*/
                             </script>
                         </div>
                         <br/>
 
                         <div class="section" style="margin: 0; border: none; padding: 0;">
-                        <div class="row">
-                            <div class="col-md-8">
-                                <div><label class="question"> What is your race? Please select all that apply.</label></div>
-                                <div class="radio">
-                                    <label> <input type="checkbox" th:field="*{race}" value="American Indian/Alaska Native"/>
-                                        &nbsp;&nbsp;American Indian/Alaska Native</label>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div><label class="question" th:text="#{demographics.race}">What is your race?
+                                        Please select all that apply.</label></div>
+                                    <div class="radio">
+                                        <label> <input type="checkbox" th:field="*{race}"
+                                                       value="American Indian/Alaska Native"
+                                                       th:text="#{demographics.american_indian}">&nbsp;&nbsp;American
+                                            Indian/Alaska Native</input></label>
+                                    </div>
+                                    <div class="radio">
+                                        <label> <input type="checkbox" th:field="*{race}" value="East Asian"
+                                                       th:text="#{demographics.east_asian}"> &nbsp;&nbsp;East
+                                            Asian</input></label>
+                                    </div>
+                                    <div class="radio">
+                                        <label> <input type="checkbox" th:field="*{race}" value="South Asian"
+                                                       th:text="#{demographics.south_asian}"> &nbsp;&nbsp;South
+                                            Asian</input></label>
+                                    </div>
+                                    <div class="radio">
+                                        <label> <input type="checkbox" th:field="*{race}"
+                                                       value="Native Hawaiian/Pacific Islander"
+                                                       th:text="#{demographics.pacific}"> &nbsp;&nbsp;Native
+                                            Hawaiian/Pacific Islander</input></label>
+                                    </div>
+                                    <div class="radio">
+                                        <label> <input type="checkbox" th:field="*{race}" value="Black/African origin"
+                                                       th:text="#{demographics.black}">
+                                            &nbsp;&nbsp;Black/African origin</input></label>
+                                    </div>
+                                    <div class="radio">
+                                        <label> <input type="checkbox" th:field="*{race}" value="White/European origin"
+                                                       th:text="#{demographics.white}">
+                                            &nbsp;&nbsp;White/European origin</input></label>
+                                    </div>
+                                    <div class="radio">
+                                        <label> <input type="checkbox" th:field="*{race}" value="Other or Unknown"
+                                                       th:text="#{demographics.race_other}"> &nbsp;&nbsp;Other or
+                                            Unknown</input></label>
+                                    </div>
+                                    <div class="radio">
+                                        <label class="question"><input type="checkbox" th:field="*{race}" value="555"
+                                                                       onchange="disableSection(this)"
+                                                                       th:text="#{prefer_not_to_answer}"> &nbsp;&nbsp;Prefer
+                                            not to answer</input>
+                                        </label>
+                                    </div>
                                 </div>
-                                <div class="radio">
-                                    <label> <input type="checkbox" th:field="*{race}" value="East Asian"/> &nbsp;&nbsp;East Asian</label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input type="checkbox" th:field="*{race}" value="South Asian"/> &nbsp;&nbsp;South Asian</label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input type="checkbox" th:field="*{race}"
-                                                   value="Native Hawaiian/Pacific Islander"/> &nbsp;&nbsp;Native Hawaiian/Pacific
-                                        Islander</label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input type="checkbox" th:field="*{race}" value="Black/African origin"/>
-                                        &nbsp;&nbsp;Black/African origin</label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input type="checkbox" th:field="*{race}" value="White/European origin"/>
-                                        &nbsp;&nbsp;White/European origin</label>
-                                </div>
-                                <div class="radio">
-                                    <label> <input type="checkbox" th:field="*{race}" value="Other or Unknown"/> &nbsp;&nbsp;Other or
-                                        Unknown</label>
-                                </div>
-                                <div class="radio">
-                                    <label class="question"><input type="checkbox" th:field="*{race}" value="555"
-                                                                   onchange="disableSection(this)"/> &nbsp;&nbsp;Prefer not to
-                                        answer
-                                    </label>
                             </div>
                         </div>
-                        </div>
-                        </div>
                         <br/>
 
-                        <div><label class="question"> What is your ethnicity?<br/><br/> <select th:field="*{Ethnicity}" required="true">
-                            <option value="">Please select one</option>
-                            <option value="Hispanic or Latino">Hispanic or Latino</option>
-                            <option value="Not Hispanic or Latino">Not Hispanic or Latino</option>
-                            <option value="Unknown">Unknown</option>
-                            <option value="555">Prefer not to answer</option>
-                        </select> </label>
+                        <div><label class="question" th:text="#{demographics.ethnicity}">What is your ethnicity?</label><br/><br/>
+                            <select
+                                    th:field="*{Ethnicity}"
+                                    required="true">
+                                <option value="" th:text="#{please_select_one}">Please select one</option>
+                                <option value="Hispanic or Latino" th:text="#{demographics.hispanic}">Hispanic or Latino</option>
+                                <option value="Not Hispanic or Latino" th:text="#{demographics.not_hispanic}">Not Hispanic or Latino</option>
+                                <option value="Unknown" th:text="#{demographics.ethnicity_unknown}">Unknown</option>
+                                <option value="555" th:text="#{prefer_not_to_answer}">Prefer not to answer</option>
+                            </select>
                         </div>
 
                         <br/>
 
-                        <div><label class="question"> What is your country of residence?<br/><br/> <select required="true" class="auto-selector"
-                                                                                   placeholder="Type your country of residence"
-                                                                                   th:field="*{Country}" autofocus="autofocus"
-                                                                                   autocorrect="off" autocomplete="off">
+                        <div><label class="question"> What is your country of residence?<br/><br/> <select
+                                required="true" class="auto-selector"
+                                placeholder="Type your country of residence"
+                                th:field="*{Country}" autofocus="autofocus"
+                                autocorrect="off" autocomplete="off">
                             <option value="" selected="selected">Please select one</option>
                             <option value="United States" data-relevancy-booster="3.5"
                                     data-alternative-spellings="US USA United States of America">United States
@@ -618,13 +640,15 @@
 
                         <br/>
 
-                        <div><label class="question"> What is your relationship status?<br/><br/> <select th:field="*{MaritalStat}"
-                                                                                           required="true">
+                        <div><label class="question"> What is your relationship status?<br/><br/> <select
+                                th:field="*{MaritalStat}"
+                                required="true">
                             <option value="">Please select one</option>
                             <option value="Single">Single</option>
                             <option value="Single,dating">Single, but casually dating</option>
                             <option value="Single,engaged">Single, but currently engaged to be married</option>
-                            <option value="Single,marriagelike">Single, but currently living with someone in a marriage-like relationship
+                            <option value="Single,marriagelike">Single, but currently living with someone in a
+                                marriage-like relationship
                             </option>
                             <option value="Married">Married</option>
                             <option value="civilunion">In a domestic or civil union</option>
@@ -638,14 +662,17 @@
 
                         <br/>
 
-                        <div><label class="question"> What is your employment status?<br/><br/> <select th:field="*{EmploymentStat}"
-                                                                                              required="true">
+                        <div><label class="question"> What is your employment status?<br/><br/> <select
+                                th:field="*{EmploymentStat}"
+                                required="true">
                             <option value="">Please select one</option>
                             <option value="Working full-time">Working full-time</option>
                             <option value="Working part-time">Working part-time</option>
                             <option value="Unemployed or laid off">Unemployed or laid off</option>
                             <option value="Looking for work">Looking for work</option>
-                            <option value="Homemaker/keeping house or raising children full-time">Homemaker/keeping house or raising children full-time</option>
+                            <option value="Homemaker/keeping house or raising children full-time">Homemaker/keeping
+                                house or raising children full-time
+                            </option>
                             <option value="Retired">Retired</option>
                             <option value="Student">Student</option>
                             <option value="Other">Other</option>
@@ -657,7 +684,8 @@
                         <br/>
 
                         <div><label class="question"> What is your household annual income, before taxes and other
-                            deductions (in US dollars or equivalent)?<br/><br/> <select th:field="*{Income}" required="true">
+                            deductions (in US dollars or equivalent)?<br/><br/> <select th:field="*{Income}"
+                                                                                        required="true">
                                 <option value="">Please select one</option>
                                 <option value="Less than $5,000">Less than $5,000</option>
                                 <option value="$5,000 through $11,999">$5,000 through $11,999</option>
@@ -678,25 +706,38 @@
 
                         <br/>
 
-                        <div><label class="question"> How did you learn about Calm Thinking and/or The MindTrails Project?<br/><br/> <select th:field="*{PtpReason}"
-                                                                                                required="true">
-                            <option value="">Please select one</option>
-                            <option value="Project Implicit Mental Health site front page">Project Implicit Mental Health site front page</option>
-                            <option value="At the Project Implicit Mental Health site, after completing a study about my anxiety symptoms">At the Project Implicit Mental Health site, after completing a study about my anxiety symptoms</option>
-                            <option value="A friend or family member">A friend or family member</option>
-                            <option value="Press coverage">Press coverage</option>
-                            <option value="Internet search for mental health info">Internet search for mental health info</option>
-                            <option value="Mental health professional recommended it">Mental health professional recommended it</option>
-                            <option value="Link from another mental health site">Link from another mental health site</option>
-                            <option value="Other">Other</option>
-                            <option value="555">Prefer not to answer</option>
-                        </select> </label>
+                        <div><label class="question"> How did you learn about Calm Thinking and/or The MindTrails
+                            Project?<br/><br/> <select th:field="*{PtpReason}"
+                                                       required="true">
+                                <option value="">Please select one</option>
+                                <option value="Project Implicit Mental Health site front page">Project Implicit Mental
+                                    Health site front page
+                                </option>
+                                <option value="At the Project Implicit Mental Health site, after completing a study about my anxiety symptoms">
+                                    At the Project Implicit Mental Health site, after completing a study about my
+                                    anxiety symptoms
+                                </option>
+                                <option value="A friend or family member">A friend or family member</option>
+                                <option value="Press coverage">Press coverage</option>
+                                <option value="Internet search for mental health info">Internet search for mental health
+                                    info
+                                </option>
+                                <option value="Mental health professional recommended it">Mental health professional
+                                    recommended it
+                                </option>
+                                <option value="Link from another mental health site">Link from another mental health
+                                    site
+                                </option>
+                                <option value="Other">Other</option>
+                                <option value="555">Prefer not to answer</option>
+                            </select> </label>
                         </div>
 
                         <div id="PtpReasonOther">
                             <p>Please specify:&nbsp;&nbsp;
                                 <label>
-                                    <input id="PtpReasonOtherInput" th:field="*{PtpReasonOther}" type="text" placeholder=""
+                                    <input id="PtpReasonOtherInput" th:field="*{PtpReasonOther}" type="text"
+                                           placeholder=""
                                            size="50"/>
                                 </label>
                             </p>
@@ -741,8 +782,6 @@
                                 }
                             }
                         </script>
-
-
 
 
                         <div style="text-align:center"><br/><br/>

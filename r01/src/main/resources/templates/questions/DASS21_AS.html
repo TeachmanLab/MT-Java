@@ -16,7 +16,8 @@
 <section id="header-btm" class="clearfix">
     <div class="container">
         <div class="row">
-            <h2 class="page-title heading-icon clearfix"> <img th:src="@{/images/map-arrow-orange.png}" alt="icon" class="icon-small-bg" />
+            <h2 class="page-title heading-icon clearfix"><img th:src="@{/images/map-arrow-orange.png}" alt="icon"
+                                                              class="icon-small-bg"/>
                 <br/>
                 <span th:text="${eligibility}? 'Eligibility Questionnaire' : 'Mood Assessment'"/>
             </h2>
@@ -24,16 +25,15 @@
     </div>
 </section>
 
-<h1 th:text="#{title}">This is the title</h1>
-<p th:text="#{message}">This is the message</p>
-
-<section id="content" class="clearfix"  th:if="${eligibility}">
+<section id="content" class="clearfix" th:if="${eligibility}">
     <div class="container">
         <div class="row">
             <div class="col-md-8" style="padding-left: 0px">
-                <p th:text="#{dass21_as.intro1}">Please note that in order to participate in the Calm Thinking study, regular access to a laptop/desktop
+                <p th:text="#{dass21_as.intro1}">Please note that in order to participate in the Calm Thinking study,
+                    regular access to a laptop/desktop
                     computer, tablet, and/or smartphone with Internet connection is required.</p>
-                <p  th:text="#{dass21_as.intro2}">Please read each statement below. Then, select the number that best shows how much the statement
+                <p th:text="#{dass21_as.intro2}">Please read each statement below. Then, select the number that best
+                    shows how much the statement
                     applied to you over the past week. There are no right or wrong answers. Do not spend too much time
                     on any statement.
                 </p>
@@ -47,7 +47,7 @@
 
 <section id="contentTest" class="clearfix">
     <form th:action="${eligibility}? @{/public/eligibilityCheck} : @{/questions/DASS21_AS}"
-            th:object="${model}" method="POST">
+          th:object="${model}" method="POST">
         <section th:replace="fragment/forms :: radioOptions(${model})"/>
         <div class="col-md-12" style="text-align:center; padding-left: 20px">
             <div th:if="${eligibility}" class="form-group row">
@@ -55,12 +55,12 @@
                 </div>
                 <div class="col-sm-10">
                     <label class="col-sm-10">
-                        <input class="inline-checkbox" type="checkbox" id="over18" name="over18" value="true"/>
-                        I am over 18 years of age.
+                        <input class="inline-checkbox" type="checkbox" id="over18" name="over18" value="true"
+                               th:text="#{dass21_as.over18}"> I am over 18 years of age.</input>
                     </label>
                 </div>
             </div>
-            <button type="submit">Next</button>
+            <button type="submit" th:text="#{next}">Next</button>
         </div>
     </form>
 </section>
