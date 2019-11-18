@@ -19,7 +19,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                <p>We would like to ask a few questions about your mental health and treatment history. Answers to these
+                <p th:text="#{mentalhealthhistory.intro}">We would like to ask a few questions about your mental health
+                    and treatment history. Answers to these
                     personal questions are kept confidential, but they help us improve Calm Thinking by figuring out for
                     whom it works well.</p>
             </div>
@@ -29,7 +30,7 @@
 
 <!-- A basic checkbox question template. Used for question 5 ("Why are you not getting mental health treatment?") -->
 <textarea style="display: none" id="basic_checkbox_template">
-    <div class="col-md-8 side-border" >
+    <div class="col-md-8 side-border">
         {{#questions}}
         <div class="radio">
             <label class="question"> <input type="checkbox" name="{{radio_name}}" value="{{name}}"/>
@@ -59,7 +60,7 @@
 
 </textarea>
 
-<section id="content" class="clearfix" style="padding-left:30px" >
+<section id="content" class="clearfix" style="padding-left:30px">
 
     <form th:action="@{/questions/MentalHealthHistory}" method="POST" id="MHFORM">
         <!-- Add timer -->
@@ -67,91 +68,107 @@
 
         <!-- Question 1 -->
 
-        <div class="container section" >
+        <div class="container section">
             <div class="row">
                 <div class="col-md-8">
-                    <p><b>Are you <i>currently</i> struggling with any of the following mental disorders? Please select
+                    <p th:text="#{mentalhealthhistory.currently_struggling}"><b>Are you <i>currently</i> struggling with
+                        any of the following mental disorders? Please select
                         all that apply.</b></p>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-8 side-border" >
+                <div class="col-md-8 side-border">
                     <div class="radio">
                         <label class="question"> <input
                                 type="checkbox"
-                                name="disorders" value="gad"/> &nbsp;&nbsp;Generalized anxiety disorder (GAD) </label>
+                                name="disorders" value="gad" th:text="#{mentalhealthhistory.gad}"> &nbsp;&nbsp;Generalized
+                            anxiety disorder (GAD)</input> </label>
                     </div>
                     <div class="radio">
                         <label class="question"> <input
                                 type="checkbox"
-                                name="disorders" value="ocd"/> &nbsp;&nbsp;Obsessive-compulsive disorder (OCD) </label>
+                                name="disorders" value="ocd" th:text="#{mentalhealthhistory.ocd}"> &nbsp;&nbsp;Obsessive-compulsive
+                            disorder (OCD)</input> </label>
                     </div>
                     <div class="radio">
                         <label class="question"> <input
                                 type="checkbox"
-                                name="disorders" value="panic"/> &nbsp;&nbsp;Panic disorder </label>
+                                name="disorders" value="panic" th:text="#{mentalhealthhistory.panic}"> &nbsp;&nbsp;Panic
+                            disorder</input> </label>
                     </div>
                     <div class="radio">
                         <label class="question"> <input
                                 type="checkbox"
-                                name="disorders" value="agoraphobia"/> &nbsp;&nbsp;Agoraphobia </label>
+                                name="disorders" value="agoraphobia" th:text="#{mentalhealthhistory.agoraphobia}">
+                            &nbsp;&nbsp;Agoraphobia</input> </label>
                     </div>
                     <div class="radio">
                         <label class="question"> <input
                                 type="checkbox"
-                                name="disorders" value="ptsd"/> &nbsp;&nbsp;Posttraumatic stress disorder (PTSD) </label>
+                                name="disorders" value="ptsd" th:text="#{mentalhealthhistory.ptsd}"> &nbsp;&nbsp;Posttraumatic
+                            stress disorder (PTSD)</input> </label>
                     </div>
                     <div class="radio">
                         <label class="question"> <input
                                 type="checkbox"
-                                name="disorders" value="social_anxiety"/> &nbsp;&nbsp;Social anxiety disorder </label>
+                                name="disorders" value="social_anxiety" th:text="#{mentalhealthhistory.social_anxiety}">
+                            &nbsp;&nbsp;Social anxiety disorder</input> </label>
                     </div>
                     <div class="radio">
                         <label class="question"> <input
                                 type="checkbox"
-                                name="disorders" value="phobia"/> &nbsp;&nbsp;Specific phobia(s) </label>
+                                name="disorders" value="phobia" th:text="mentalhealthhistory.phobia"> &nbsp;&nbsp;Specific
+                            phobia(s)</input> </label>
                     </div>
                     <div class="radio">
                         <label class="question"> <input
                                 type="checkbox"
-                                name="disorders" value="cognitive"/> &nbsp;&nbsp;Dementia or other cognitive disorder </label>
+                                name="disorders" value="cognitive" th:text="mentalhealthhistory.cognitive"> &nbsp;&nbsp;Dementia
+                            or other cognitive disorder</input> </label>
                     </div>
                     <div class="radio">
                         <label class="question"> <input
                                 type="checkbox"
-                                name="disorders" value="substance_use"/> &nbsp;&nbsp;Substance use disorder </label>
+                                name="disorders" value="substance_use" th:text="#{mentalhealthhistory.substance_use}">
+                            &nbsp;&nbsp;Substance use disorder</input> </label>
                     </div>
                     <div class="radio">
                         <label class="question"> <input
                                 type="checkbox"
-                                name="disorders" value="psychotic"/> &nbsp;&nbsp;Schizophrenia or other psychotic disorder </label>
+                                name="disorders" value="psychotic" th:text="#{mentalhealthhistory.psychotic}"> &nbsp;&nbsp;Schizophrenia
+                            or other psychotic disorder</input> </label>
                     </div>
                     <div class="radio">
                         <label class="question"> <input
                                 type="checkbox"
-                                name="disorders" value="depression"/> &nbsp;&nbsp;Depression </label>
+                                name="disorders" value="depression" th:text="#{mentalhealthhistory.depression}"> &nbsp;&nbsp;Depression</input>
+                        </label>
                     </div>
                     <div class="radio">
                         <label class="question"> <input
                                 type="checkbox"
-                                name="disorders" value="bipolar"/> &nbsp;&nbsp;Bipolar disorder </label>
+                                name="disorders" value="bipolar" th:text="#{mentalhealthhistory.bipolar}"> &nbsp;&nbsp;Bipolar
+                            disorder</input> </label>
                     </div>
                     <div class="radio">
                         <label class="question"> <input
                                 type="checkbox"
-                                name="disorders" value="eating"/> &nbsp;&nbsp;Eating disorder </label>
+                                name="disorders" value="eating" th:text="#{mentalhealthhistory.eating}"> &nbsp;&nbsp;Eating
+                            disorder</input> </label>
                     </div>
                     <div class="radio">
                         <label class="question"> <input
                                 type="checkbox"
-                                name="disorders" value="personality"/> &nbsp;&nbsp;Personality disorder </label>
+                                name="disorders" value="personality" th:text="#{mentalhealthhistory.personality}">
+                            &nbsp;&nbsp;Personality disorder</input> </label>
                     </div>
                     <div class="radio">
                         <label class="question"> <input id="disorders_other"
                                                         onchange="sub('disorders_other');spec('disorders_other');"
                                                         type="checkbox" name="disorders"
-                                                        value="Other"/> &nbsp;&nbsp;Other (please specify):&nbsp;&nbsp;<input
-                                id="disorders_other_spec" type="text" name="otherDisorder" value="N/A"/> </label>
+                                                        value="Other" th:text="#{other_specify}"> &nbsp;&nbsp;Other
+                            (please specify):&nbsp;&nbsp;</input>
+                            <input id="disorders_other_spec" type="text" name="otherDisorder" value="N/A"/> </label>
                     </div>
                 </div>
 
@@ -159,15 +176,18 @@
                     <br/>
                     <div class="radio">
                         <label class="question"> <input type="checkbox" name="disorders" value="no_disorder"
-                                                        onchange="disableSection(this)"/> &nbsp;&nbsp;I am not struggling with a
-                            mental disorder
+                                                        onchange="disableSection(this)"
+                                                        th:text="#{mentalhealthhistory.no_disorder}"> &nbsp;&nbsp;I am
+                            not struggling with a mental disorder</input>
                         </label>
                     </div>
                     <br/>
                     <br/>
                     <div class="radio">
                         <label class="question"><input type="checkbox" name="disorders" value="555"
-                                                       onchange="disableSection(this)"/> &nbsp;&nbsp;Prefer not to answer
+                                                       onchange="disableSection(this)"
+                                                       th:text="#{prefer_not_to_answer}"> &nbsp;&nbsp;Prefer not to
+                            answer</input>
                         </label>
                     </div>
 
@@ -181,7 +201,7 @@
         <div class="container section">
             <div class="row">
                 <div class="col-md-8">
-                    <p><b>Are you <i>currently</i> receiving help for any of the previously listed disorders?
+                    <p th:text="#{mentalhealthhistory.treatment}"><b>Are you <i>currently</i> receiving help for any of the previously listed disorders?
                         Please select all that apply, or “I am not receiving help”.</b></p>
                 </div>
             </div>
@@ -191,27 +211,29 @@
                     <div class="radio">
                         <label class="question"> <input id="Q3-1" onchange="sub('Q3-1')" type="checkbox"
                                                         name="help"
-                                                        value="therapy"/> &nbsp;&nbsp;<b>Therapy</b> (talking with a trained
-                            professional)
-                            <p>Examples: psychologist, licensed mental health practitioner (LMHC), school counselor,
+                                                        value="therapy" th:text="#{mentalhealthhistory.therapy}"> &nbsp;&nbsp;<b>Therapy</b> (talking with a
+                            trained
+                            professional)</input>
+                            <p th:text="#{mentalhealthhistory.therapy_desc}">Examples: psychologist, licensed mental health practitioner (LMHC), school counselor,
                                 social worker, marriage and family therapist, group therapist</p></label>
-                        <div class="oneToSeven" id="Q3-1-1"><label> Has this been helpful? </label>
+                        <div class="oneToSeven" id="Q3-1-1"><label th:text="#{mentalhealthhistory.treatment_helpful}"> Has this been helpful? </label>
                             <select name="therapy">
-                                <option value=""> Please select one</option>
-                                <option value="1"> 1 (Not helpful at all)</option>
-                                <option> 2</option>
-                                <option> 3</option>
-                                <option> 4 (Somewhat helpful)</option>
-                                <option> 5</option>
-                                <option> 6</option>
-                                <option value="7"> 7 (Extremely helpful)</option>
-                                <option value="555"> Prefer not to answer</option>
+                                <option value="" th:text="#{please_select_one}"> Please select one</option>
+                                <option value="1" th:text="#{mentalhealthhistory.helpful1}"> 1 (Not helpful at all)</option>
+                                <option th:text="#{mentalhealthhistory.helpful2}"> 2</option>
+                                <option th:text="#{mentalhealthhistory.helpful3}"> 3</option>
+                                <option th:text="#{mentalhealthhistory.helpful4}"> 4 (Somewhat helpful)</option>
+                                <option th:text="#{mentalhealthhistory.helpful5}"> 5</option>
+                                <option th:text="#{mentalhealthhistory.helpful6}"> 6</option>
+                                <option value="7" th:text="#{mentalhealthhistory.helpful7}"> 7 (Extremely helpful)</option>
+                                <option value="555" th:text="#{prefer_not_to_answer}"> Prefer not to answer</option>
                             </select>
                         </div>
                     </div>
                     <div class="radio">
                         <label class="question"> <input id="Q3-2" onchange="sub('Q3-2')" type="checkbox" name="help"
-                                                        value="medications"/> &nbsp;&nbsp;<b>Prescription medications</b>
+                                                        value="medications"/> &nbsp;&nbsp;<b>Prescription
+                            medications</b>
                             <p>Examples: Psychiatrist, medical doctor</p></label>
                         <div class="oneToSeven" id="Q3-2-1"><label> Has this been helpful? </label>
                             <select name="medications">
@@ -229,7 +251,8 @@
                     </div>
                     <div class="radio">
                         <label class="question"> <input id="Q3-3" onchange="sub('Q3-3')" type="checkbox"
-                                                        name="help" value="social_support"/> &nbsp;&nbsp;<b>Seeking social
+                                                        name="help" value="social_support"/> &nbsp;&nbsp;<b>Seeking
+                            social
                             support</b>
                             (talking with non-professionals)
                             <p>Examples: Teacher, family member, friend, religious leader, coach</p>
@@ -289,7 +312,8 @@
                         <label class="question"> <input id="Q3-16"
                                                         onchange="sub('Q3-16');spec('Q3-16');"
                                                         type="checkbox" name="help"
-                                                        value="other_help_current"/> &nbsp;&nbsp;<b>Other (please specify):&nbsp;&nbsp;</b>
+                                                        value="other_help_current"/> &nbsp;&nbsp;<b>Other (please
+                            specify):&nbsp;&nbsp;</b>
                             <input id="Q3-16_spec" type="text" name="help_other_text" value="N/A"/> </label>
                         <div class="oneToSeven" id="Q3-16-1"><label> Has this been helpful? </label>
                             <select name="other_help">
@@ -312,7 +336,8 @@
                     <br/>
                     <div class="radio">
                         <label class="question"> <input type="checkbox" name="help" value="noDiagnosis" id="noDiagnosis"
-                                                        onchange="noHelp('noDiagnosis'); disableSection(this)"/> &nbsp;&nbsp;I am
+                                                        onchange="noHelp('noDiagnosis'); disableSection(this)"/> &nbsp;&nbsp;I
+                            am
                             not receiving help
                         </label>
                     </div>
@@ -320,7 +345,8 @@
                     <br/>
                     <div class="radio">
                         <label class="question"> <input type="checkbox" name="help" value="555"
-                                                        onchange="disableSection(this)"/> &nbsp;&nbsp;Prefer not to answer
+                                                        onchange="disableSection(this)"/> &nbsp;&nbsp;Prefer not to
+                            answer
                         </label>
                     </div>
                 </div>
@@ -356,26 +382,30 @@
                     <div class="radio">
                         <label class="question"> <input
                                 type="checkbox"
-                                name="change_help" value="change_dose"/> &nbsp;&nbsp;My prescriber changed my prescription dose
+                                name="change_help" value="change_dose"/> &nbsp;&nbsp;My prescriber changed my
+                            prescription dose
                         </label>
                     </div>
                     <div class="radio">
                         <label class="question"> <input
                                 type="checkbox"
-                                name="change_help" value="start_medication"/> &nbsp;&nbsp;I started a prescription medication
+                                name="change_help" value="start_medication"/> &nbsp;&nbsp;I started a prescription
+                            medication
                         </label>
                     </div>
                     <div class="radio">
                         <label class="question"> <input
                                 type="checkbox"
-                                name="change_help" value="end_medication"/> &nbsp;&nbsp;I stopped a prescription medication </label>
+                                name="change_help" value="end_medication"/> &nbsp;&nbsp;I stopped a prescription
+                            medication </label>
                     </div>
                     <div class="radio">
                         <label class="question"> <input id="changes_other"
                                                         onchange="sub('changes_other');spec('changes_other');"
                                                         type="checkbox" name="change_help"
-                                                        value="Other"/> &nbsp;&nbsp;Other (please specify):&nbsp;&nbsp; <input
-                                id="changes_other_spec" type="text" name="change_help_text" value="N/A"/> </label>
+                                                        value="Other"/> &nbsp;&nbsp;Other (please specify):&nbsp;&nbsp;
+                            <input
+                                    id="changes_other_spec" type="text" name="change_help_text" value="N/A"/> </label>
                     </div>
                 </div>
 
@@ -391,7 +421,8 @@
                     <br/>
                     <div class="radio">
                         <label class="question"><input type="checkbox" name="change_help" value="555"
-                                                       onchange="disableSection(this)"/> &nbsp;&nbsp;Prefer not to answer
+                                                       onchange="disableSection(this)"/> &nbsp;&nbsp;Prefer not to
+                            answer
                         </label>
                     </div>
 
