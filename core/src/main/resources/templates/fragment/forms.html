@@ -14,7 +14,7 @@
     <div th:each="group: ${model.groups}" class="container section compactQuestion">
         <div class="row title">
             <div class="col-md-12">
-                <h4><b th:text="#{${group.desc}}"></b></h4>
+                <h4><b th:text="${group.desc}"></b></h4>
             </div>
         </div>
 
