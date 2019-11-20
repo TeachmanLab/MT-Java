@@ -36,6 +36,7 @@ public class ActionControllerTest extends BaseControllerTest {
 
     private static final String EXAMPLE_DATA = "{\n" +
             "\"actionName\":\"SampleActionName\"\n" +
+            "\"latency\":\"50000\"\n" +
             "}\n";
 
     @Test
