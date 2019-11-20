@@ -28,7 +28,7 @@ public class ExportModeAspect {
             Object proceed = joinPoint.proceed();
             return proceed;
         } else {
-            throw new ExportModeException();
+            return false;
         }
 
     }

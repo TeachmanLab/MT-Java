@@ -112,7 +112,7 @@
     <!-- Themes -->
     <script type="text/javascript" th:if="${participant}" th:inline="javascript">
         $(document).ready(function () {
-            $("body").addClass("user-theme-" + /*[[${participant.theme}]]*/)
+            $("body").addClass("user-theme-");
         });
     </script>
 
@@ -517,12 +517,8 @@
 
 <!--If you need to include javascript at the end of the page.  -->
 <div id="scripts" th:fragment="scripts">
-    <script type="text/javascript">
-        $("form").each(function () {
-            $(this).submit(function () {
-                $(this).find("#timeOnPage").val(TimeMe.getTimeOnCurrentPageInSeconds());
-            });
-        });
+    <script  th:inline="javascript">
+        $(document).ready(function () {
 
         // Use Jquery-Validate plugin to validate all forms.
         $("form").validate({
@@ -543,6 +539,7 @@
 
                 }
         });
+    });
     </script>
 </div>
 

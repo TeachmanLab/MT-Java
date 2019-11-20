@@ -9,8 +9,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.data.DoNotDelete;
 import org.mindtrails.domain.data.Exportable;
-import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.mindtrails.domain.hasParticipant;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -20,7 +19,7 @@ import java.util.Date;
 @Data
 @Exportable
 @DoNotDelete
-public class ActionLog {
+public class ActionLog implements hasParticipant {
     @Id
     @GenericGenerator(name = "ACTLOG_GEN", strategy = "org.mindtrails.persistence.MindtrailsIdGenerator", parameters = {
             @org.hibernate.annotations.Parameter(name = "table_name", value = "ID_GEN"),
