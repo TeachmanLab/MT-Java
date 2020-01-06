@@ -17,6 +17,7 @@ import org.mindtrails.domain.tango.OrderResponse;
 import org.mindtrails.domain.tracking.EmailLog;
 import org.mindtrails.domain.tracking.GiftLog;
 import org.mindtrails.domain.tracking.TaskLog;
+import org.mindtrails.persistence.ParticipantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -56,6 +57,10 @@ public class EmailServiceImplTest {
 
     @Autowired
     private EmailServiceImpl service;
+
+    @Autowired
+    private ParticipantRepository participantRepository;
+
 
     @Autowired
     private TangoService tangoService;
@@ -174,6 +179,7 @@ public class EmailServiceImplTest {
         Study s = new TestStudy("SessionOne",0);
         p.setStudy(s);
         p.setEmail(email);
+        participantRepository.save(p);
         GiftLog log = tangoService.createGiftLogUnsafe(p, "sessionOne", 5);
         this.service.sendGiftCard(p, orderResponse, log);
 

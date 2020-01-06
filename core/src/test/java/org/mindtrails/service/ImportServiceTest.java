@@ -4,6 +4,7 @@ import org.apache.commons.io.IOUtils;
 import org.codehaus.groovy.runtime.ArrayUtil;
 import org.joda.time.DateTime;
 import org.joda.time.Hours;
+import org.joda.time.Minutes;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -112,7 +113,7 @@ public class ImportServiceTest extends BaseControllerTest {
     }
 
 
-    @Test(expected = ImportError.class)
+    @Test()
     public void callFunction() {
         this.server.expect(requestTo(this.url + "/api/export/nosuch/1"))
                 .andRespond(withBadRequest());
@@ -154,9 +155,9 @@ public class ImportServiceTest extends BaseControllerTest {
         log.setDateStarted(startDate);
         importLogRepository.saveAndFlush(log);
 
-        // The date we should request from the export service should be an hour earlier.
+        // The date we should request from the export service should be five minutes earlier
         DateFormat formater = new SimpleDateFormat(ExportService.DATE_FORMAT);
-        Date offsetDate = new DateTime(startDate).minus(Hours.hours(1)).toDate();
+        Date offsetDate = new DateTime(startDate).minus(Minutes.minutes(5)).toDate();
 
 
         this.server.expect(requestTo(this.url + "/api/export/simpleQuestions?after=" +
