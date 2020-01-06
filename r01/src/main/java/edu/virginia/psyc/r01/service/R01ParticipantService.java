@@ -12,6 +12,7 @@ import org.mindtrails.persistence.ParticipantRepository;
 import org.mindtrails.domain.Conditions.RandomConditionRepository;
 import org.mindtrails.service.ParticipantService;
 import org.mindtrails.service.ParticipantServiceImpl;
+import org.mindtrails.service.TangoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -49,6 +50,9 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
     @Autowired
     ConditionAssignmentSettingsRepository settingsRepository;
 
+    @Autowired
+    TangoService tangoService;
+
     private ConditionAssignmentSettings settings;
     public final Double defaultThreshold = 0.33d;
 
@@ -66,8 +70,9 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
     public Participant create() {
         Participant p = new Participant();
         R01Study study = new R01Study();
+        p.setReceiveGiftCards(tangoService.getEnabled());
+        study.setReceiveGiftCards(tangoService.getEnabled());
         p.setStudy(study);
-        p.setReceiveGiftCards(true);
         study.setConditioning(R01Study.CONDITION.NONE.name());
         return p;
     }

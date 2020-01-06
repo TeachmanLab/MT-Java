@@ -65,7 +65,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2" th:if="${session.giftAmount > 0}">$<span th:text="${session.giftAmount}"/>
+                <div class="col-md-2" th:if="${giftcardsEnabled and session.giftAmount > 0}">$<span th:text="${session.giftAmount}"/>
                     E-Gift
                     Card!
                     <img th:src="@{/images/gift_card.png}"/>
