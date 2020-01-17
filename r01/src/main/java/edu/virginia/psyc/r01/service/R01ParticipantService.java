@@ -163,7 +163,7 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
      * account for an inbalance in assignments that occurred due to early attrition.
      * @param segment
      */
-    private void assureRandomAssignmentsAvailableForSegment(String segment) {
+    private void original_assureRandomAssignmentsAvailableForSegment(String segment) {
         if(randomBlockRepository.countAllBySegmentName(segment) < 1) {
             Map<String, Float> valuePercentages = new HashMap<>();
             valuePercentages.put(R01Study.CONDITION.TRAINING.name(), 90.0f);
@@ -173,6 +173,26 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
             this.randomBlockRepository.flush();
         }
     }
+
+    /**
+     * This is the second study, which divided users up into 4 different conditions
+     * all of which were training conditions.
+     * @param segment
+     */
+    private void assureRandomAssignmentsAvailableForSegment(String segment) {
+        if(randomBlockRepository.countAllBySegmentName(segment) < 1) {
+            Map<String, Float> valuePercentages = new HashMap<>();
+            valuePercentages.put(R01Study.CONDITION.TRAINING_ORIG.name(), 25.0f);
+            valuePercentages.put(R01Study.CONDITION.TRAINING_30.name(), 25.0f);
+            valuePercentages.put(R01Study.CONDITION.TRAINING_ED.name(), 25.0f);
+            valuePercentages.put(R01Study.CONDITION.TRAINING_CREATE.name(), 25.0f);
+            List<RandomCondition> blocks = RandomCondition.createBlocks(valuePercentages, 50, segment);
+            this.randomBlockRepository.save(blocks);
+            this.randomBlockRepository.flush();
+        }
+    }
+
+
 
     /**
      * Random blocks for coaching assignment are split 50/50 for coaching and no coaching
