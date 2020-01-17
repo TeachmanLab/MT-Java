@@ -126,6 +126,7 @@ public class SessionController extends BaseController {
         Study study  = p.getStudy();
 
         model.addAttribute("study", study);
+        model.addAttribute("giftcardsEnabled", study.isReceiveGiftCards());
         model.addAttribute("complete", p.getStudy().getCurrentSession().getName().equals("COMPLETE"));
 
         return "overview";
