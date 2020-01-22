@@ -15,6 +15,8 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
 
+/* This is claudia writing a random comment to test git */
+
 /**
  * This DASS21 questionnaire is used to gage eligibility in the study
  * This data should not be deleted after export, since there is a slight
@@ -23,7 +25,7 @@ import java.util.TreeMap;
  * obscured for this reason.
  *
  *
- *  A Note on Tanslations:  For questionnaires like the DASS21 where the content for
+ *  A Note on Translations:  For questionnaires like the DASS21 where the content for
  *  the page is loaded from the Measure Field annotations, you will need to create
  *  entires in the message.properties file that is named specifically after the class
  *  name and the field name (DASS21_AS.dryness=....) These translations should be picked
