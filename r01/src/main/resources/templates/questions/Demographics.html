@@ -146,7 +146,7 @@
 
                         <br/>
 
-                        <div><label class="question"> What is your country of residence?<br/><br/> <select
+                        <div><label class="question" th:text="#{demographics.country}"> What is your country of residence?<br/><br/> <select
                                 required="true" class="auto-selector"
                                 placeholder="Type your country of residence"
                                 th:field="*{Country}" autofocus="autofocus"
@@ -1011,7 +1011,7 @@
                                 <option value="Looking for work" th:text="#{demographics.looking}">Looking for work
                                 </option>
                                 <option value="Homemaker/keeping house or raising children full-time"
-                                        th:text="demographics.homemaker">Homemaker/keeping
+                                        th:text="#{demographics.homemaker}">Homemaker/keeping
                                     house or raising children full-time
                                 </option>
                                 <option value="Retired" th:text="#{demographics.retired}">Retired</option>
