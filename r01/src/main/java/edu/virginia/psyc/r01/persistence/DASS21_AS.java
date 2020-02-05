@@ -15,8 +15,6 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
 
-/* This is claudia writing a random comment to test git */
-
 /**
  * This DASS21 questionnaire is used to gage eligibility in the study
  * This data should not be deleted after export, since there is a slight
