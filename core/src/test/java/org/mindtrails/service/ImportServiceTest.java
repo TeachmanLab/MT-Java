@@ -280,6 +280,7 @@ public class ImportServiceTest extends BaseControllerTest {
 
         TaskLog log = new TaskLog(testStudy, 25.0, null, "testing");
         this.importService.setMode("import");
+        this.taskLogRepository.deleteAll();
         assertEquals(0, this.taskLogRepository.findAll().size());
         importService.importScale("taskLog",IOUtils.toInputStream(this.objectMapper.writeValueAsString(log)));
         assertEquals(1, this.taskLogRepository.findAll().size());

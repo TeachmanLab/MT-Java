@@ -174,7 +174,7 @@ public class EmailServiceImplTest {
         OrderResponse orderResponse;
         String url = "http://thisistheurl.com";
         orderResponse = new OrderResponse("1", "1234", "notagift", "success", true, url, 5);
-        String email = "testyMcTester2.0@t.com";
+        String email = "testyMcTesterGiftCard@t.com";
         Participant p = new Participant();
         Study s = new TestStudy("SessionOne",0);
         p.setStudy(s);
@@ -324,6 +324,7 @@ public class EmailServiceImplTest {
     public void testShouldSendEmailAfter3_7_11_15_and_18() {
 
         Study study = participant.getStudy();
+        participant.setEmail("TestyMycTesterAfter_3_7@test.com");
 
         // Send emails on the correct days, but not on any other days.
         study.setLastSessionDate(xDaysAgo(1));
