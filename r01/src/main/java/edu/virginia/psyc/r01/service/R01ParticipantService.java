@@ -12,6 +12,7 @@ import org.mindtrails.persistence.ParticipantRepository;
 import org.mindtrails.domain.Conditions.RandomConditionRepository;
 import org.mindtrails.service.ParticipantService;
 import org.mindtrails.service.ParticipantServiceImpl;
+import org.mindtrails.service.TangoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -49,6 +50,9 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
     @Autowired
     ConditionAssignmentSettingsRepository settingsRepository;
 
+    @Autowired
+    TangoService tangoService;
+
     private ConditionAssignmentSettings settings;
     public final Double defaultThreshold = 0.33d;
 
@@ -66,8 +70,9 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
     public Participant create() {
         Participant p = new Participant();
         R01Study study = new R01Study();
+        p.setReceiveGiftCards(tangoService.getEnabled());
+        study.setReceiveGiftCards(tangoService.getEnabled());
         p.setStudy(study);
-        p.setReceiveGiftCards(true);
         study.setConditioning(R01Study.CONDITION.NONE.name());
         return p;
     }
@@ -158,7 +163,7 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
      * account for an inbalance in assignments that occurred due to early attrition.
      * @param segment
      */
-    private void assureRandomAssignmentsAvailableForSegment(String segment) {
+    private void original_assureRandomAssignmentsAvailableForSegment(String segment) {
         if(randomBlockRepository.countAllBySegmentName(segment) < 1) {
             Map<String, Float> valuePercentages = new HashMap<>();
             valuePercentages.put(R01Study.CONDITION.TRAINING.name(), 90.0f);
@@ -168,6 +173,26 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
             this.randomBlockRepository.flush();
         }
     }
+
+    /**
+     * This is the second study, which divided users up into 4 different conditions
+     * all of which were training conditions.
+     * @param segment
+     */
+    private void assureRandomAssignmentsAvailableForSegment(String segment) {
+        if(randomBlockRepository.countAllBySegmentName(segment) < 1) {
+            Map<String, Float> valuePercentages = new HashMap<>();
+            valuePercentages.put(R01Study.CONDITION.TRAINING_ORIG.name(), 25.0f);
+            valuePercentages.put(R01Study.CONDITION.TRAINING_30.name(), 25.0f);
+            valuePercentages.put(R01Study.CONDITION.TRAINING_ED.name(), 25.0f);
+            valuePercentages.put(R01Study.CONDITION.TRAINING_CREATE.name(), 25.0f);
+            List<RandomCondition> blocks = RandomCondition.createBlocks(valuePercentages, 50, segment);
+            this.randomBlockRepository.save(blocks);
+            this.randomBlockRepository.flush();
+        }
+    }
+
+
 
     /**
      * Random blocks for coaching assignment are split 50/50 for coaching and no coaching
