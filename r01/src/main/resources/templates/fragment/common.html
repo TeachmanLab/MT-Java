@@ -539,7 +539,14 @@
 
                 }
         });
-    });
+
+        $("form").each(function () {
+            $(this).submit(function () {
+                $(this).find("#timeOnPage").val(TimeMe.getTimeOnCurrentPageInSeconds());
+            });
+        });
+
+        });
     </script>
 </div>
 
