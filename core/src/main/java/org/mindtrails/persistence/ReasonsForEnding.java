@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -16,12 +17,17 @@ import java.util.List;
 @Data
 public class ReasonsForEnding extends LinkedQuestionnaireData {
 
+    @ElementCollection
+    @CollectionTable(name= "reasonsForEnding_deviceUse", joinColumns = @JoinColumn(name="id"))
+    @Column(name = "deviceUse")
+    List<String> deviceUse;
 
     @ElementCollection
     @CollectionTable(name = "reasonsForEnding_Reasons", joinColumns = @JoinColumn(name = "id"))
     @Column(name = "reason")
     List<String> reasons;
     String End_Other_Desc;
+
     boolean thoughtInControl;
     String pointInControl="N/A";
     String whyInControl;

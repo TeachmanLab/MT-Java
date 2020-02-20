@@ -94,6 +94,16 @@ public class AngularTrainingController extends BaseController {
     }
 
 
+    @RequestMapping(value="api/all_scenarios/{type}", method = RequestMethod.GET)
+    public @ResponseBody List<AngularTraining> getScenarios(@PathVariable String type,
+                                                            Principal principal) {
+
+        Participant participant = participantService.findByEmail(principal.getName());
+
+        List<AngularTraining> trials = trainingRepository.findAllByParticipantAndTrialType(participant, type);
+        return trials;
+    }
+
     @RequestMapping(value = "api/study", method = RequestMethod.GET)
     public @ResponseBody
     Study getCurrentStudy(Principal principal) {
