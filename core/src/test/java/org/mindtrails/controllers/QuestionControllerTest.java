@@ -125,7 +125,7 @@ public class QuestionControllerTest extends BaseControllerTest {
     @Test
     public void testPostInImportMode() throws Exception {
         this.importService.setMode("import");
-        ResultActions result = mockMvc.perform(post("/questions/TestQuestionnaire")
+        mockMvc.perform(post("/questions/TestQuestionnaire")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .with(SecurityMockMvcRequestPostProcessors.user(participant))
                 .param("value", "cheese")

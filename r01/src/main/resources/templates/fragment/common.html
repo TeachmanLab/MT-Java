@@ -54,6 +54,7 @@
     <script type="text/javascript" th:src="@{/bower/jquery/dist/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/bower/bootstrap/dist/js/bootstrap.min.js}"></script>
     <script type="text/javascript" th:src="@{/bower/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/log4javascript.js}"></script>
     <script type="text/javascript" th:src="@{/js/firstQuestionSlider.js}"></script>
     <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
@@ -519,8 +520,8 @@
     <script  th:inline="javascript">
         $(document).ready(function () {
 
-            // Use Jquery-Validate plugin to validate all forms.
-            $("form").validate({
+        // Use Jquery-Validate plugin to validate all forms.
+        $("form").validate({
                 errorElement: "span",
                 errorPlacement: function (error, element) {
                     var template_statement = element.parents(".row").first().children(".statement")
@@ -537,15 +538,14 @@
                     }
 
                 }
-            })
         });
-    </script>
 
-    <script type="text/javascript">
         $("form").each(function () {
             $(this).submit(function () {
                 $(this).find("#timeOnPage").val(TimeMe.getTimeOnCurrentPageInSeconds());
             });
+        });
+
         });
     </script>
 </div>

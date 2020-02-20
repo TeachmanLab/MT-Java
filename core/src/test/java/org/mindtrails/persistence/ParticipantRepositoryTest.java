@@ -260,7 +260,9 @@ public class ParticipantRepositoryTest {
         PageRequest pageRequest = new PageRequest(0, 20);
         Page<Participant> coachees =  participantRepository.findEligibleForCoaching("COACH", pageRequest);
 
-        Assert.assertEquals(3, coachees.getTotalElements() );
+        // Should be two, because three are three participants in the COACH condition, all have no coach assigned, but
+        // one of them is a test account.
+        Assert.assertEquals(2, coachees.getTotalElements() );
     }
 
 }
