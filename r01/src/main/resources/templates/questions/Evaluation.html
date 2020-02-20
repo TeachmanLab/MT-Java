@@ -244,42 +244,42 @@
             </div>
         </div>
 
-        <div class="container section">
-            <div class="row header">
-                <div class="col-md-8 statement"><p><b>Did you think you were in the active training condition (designed
-                    to change your anxious thinking) or a “control” condition (not designed to change your anxious
-                    thinking)?</b></p></div>
+        <!--                <div class="container section">
+    <div class="row header">
+        <div class="col-md-8 statement"><p><b>Did you think you were in the active training condition (designed
+            to change your anxious thinking) or a “control” condition (not designed to change your anxious
+            thinking)?</b></p></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 side-border">
+
+            <div class="radio">
+                <label class="question"> <input type="radio" name="condition" value="0" required="true"
+                                                onchange="thinkControl('control')"/>Active
+                    training condition</label>
             </div>
-
-            <div class="row">
-                <div class="col-md-8 side-border">
-
-                    <div class="radio">
-                        <label class="question"> <input type="radio" name="condition" value="0" required="true"
-                                                        onchange="thinkControl('control')"/>Active
-                            training condition</label>
-                    </div>
-                    <div class="radio">
-                        <label class="question"> <input type="radio" name="condition" value="1" required="true"
-                                                        id="control" onchange="thinkControl('control')"/>Control
-                            condition</label>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <br/>
-                    <div class="radio">
-                        <label class="question"><input type="radio" name="condition" value="555"
-                                                       onchange="thinkControl('control')"/> Prefer not to answer
-                        </label>
-                    </div>
-                    <br/>
-                </div>
+            <div class="radio">
+                <label class="question"> <input type="radio" name="condition" value="1" required="true"
+                                                id="control" onchange="thinkControl('control')"/>Control
+                    condition</label>
             </div>
         </div>
 
-        <!--Display the following two questions only if the user indicated that they think they were in the control
-        condition-->
+        <div class="col-md-4">
+            <br/>
+            <div class="radio">
+                <label class="question"><input type="radio" name="condition" value="555"
+                                               onchange="thinkControl('control')"/> Prefer not to answer
+                </label>
+            </div>
+            <br/>
+        </div>
+    </div>
+</div>-->
+
+<!--Display the following two questions only if the user indicated that they think they were in the control
+condition-->
         <div class="container section" id="whenControl" style="display: none">
             <div id="section3"></div>
             <script>
@@ -407,278 +407,278 @@
             </div>
         </div>
 
-        <div class="container section">
-            <div class="row header">
-                <div class="col-md-8 statement"><p><b>Did you receive telecoaching during the program?</b></p></div>
-            </div>
-            <div class="row">
-                <div class="col-md-8">
-
-                    <div class="radio">
-                        <label class="question"> <input type="radio" name="receivedTelecoaching" value="1"
-                                                        required="true"
-                                                        id="coaching"
-                                                        onchange="receivedCoaching('coaching')"/>Yes</label>
-                    </div>
-                    <div class="radio">
-                        <label class="question"> <input type="radio" name="receivedTelecoaching" value="0"
-                                                        required="true"
-                                                        onchange="receivedCoaching('coaching')"/>No</label>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="container section" id="coachExperience" style="display: none">
-            <div id="section4"></div>
-            <script>
-                var data = {
-                    "options": [
-                        {"value": 1, "title": "Very negative"},
-                        {"value": 2, "title": "Somewhat negative"},
-                        {"value": 3, "title": "Slightly negative"},
-                        {"value": 4, "title": "Neither negative nor positive"},
-                        {"value": 5, "title": "Slightly positive"},
-                        {"value": 6, "title": "Somewhat positive"},
-                        {"value": 7, "title": "Very positive"}
-                    ],
-                    "questions": [
-                        {
-                            "name": "coachExperience",
-                            "desc": "What was your experience with your MindTrails coach?"
-                        }
-                    ]
-                }
-                $('#section4').html(Mustache.render($('#template5').val(), data));
-            </script>
-        </div>
-
-        <div class="container section" id="coachUnderstood" style="display: none">
-            <div id="section5"></div>
-            <script>
-                var data = {
-                    "options": [
-                        {"value": 1, "title": "Not at all understood"},
-                        {"value": 2, "title": "Slightly understood"},
-                        {"value": 3, "title": "Moderately understood"},
-                        {"value": 4, "title": "Very understood"},
-                        {"value": 5, "title": "Completely understood"}
-                    ],
-                    "questions": [
-                        {
-                            "name": "coachUnderstood",
-                            "desc": "To what extend did you feel understood by your coach?"
-                        }
-                    ]
-                }
-                $('#section5').html(Mustache.render($('#template5').val(), data));
-            </script>
-        </div>
-
-        <div class="container section" id="coachMotivate" style="display: none">
-            <div id="section6"></div>
-            <script>
-                var data = {
-                    "options": [
-                        {"value": 1, "title": "Completely not motivating"},
-                        {"value": 2, "title": "Moderately not motivating"},
-                        {"value": 3, "title": "Slightly not motivating"},
-                        {
-                            "value": 4,
-                            "title": "Not at all a motivating factor (I would have completed the sessions whether I had a coach or not)"
-                        },
-                        {"value": 5, "title": "Slightly motivating"},
-                        {"value": 6, "title": "Somewhat motivating"},
-                        {
-                            "value": 7,
-                            "title": "Completely motivating (I only completed the sessions because I had a coach)"
-                        }
-                    ],
-                    "questions": [
-                        {
-                            "name": "coachMotivate",
-                            "desc": "To what extent did having a coach motivate you to complete training sessions?"
-                        }
-                    ]
-                }
-                $('#section6').html(Mustache.render($('#template5').val(), data));
-            </script>
-        </div>
-
-        <div class="container section" id="coachHelpTopics" style="display: none">
-            <div class="row">
-                <div class="col-md-10">
-                    <p><b>What did your coach help you with? Check all that apply.</b></p>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-8 side-border">
-                    <div class="radio">
-                        <label class="question"> <input
-                                type="checkbox"
-                                required="true"
-                                name="helpTopics" value="techErrors"/> &nbsp;&nbsp;Technical troubleshooting (e.g., helping with
-                            technical errors) </label>
-                    </div>
-                    <div class="radio">
-                        <label class="question"> <input
-                                type="checkbox"
-                                required="true"
-                                name="helpTopics" value="usability"/> &nbsp;&nbsp;Program usability (e.g., answering questions about
-                            how to use the website) </label>
-                    </div>
-                    <div class="radio">
-                        <label class="question"> <input
-                                type="checkbox"
-                                required="true"
-                                name="helpTopics" value="programFit"/> &nbsp;&nbsp;Program fit (e.g., helping you understand why it
-                            might be a good treatment for you) </label>
-                    </div>
-                    <div class="radio">
-                        <label class="question"> <input
-                                type="checkbox"
-                                required="true"
-                                name="helpTopics" value="engagement"/> &nbsp;&nbsp;Engagement with the program (e.g., help with
-                            strategies for visualizing training scenarios </label>
-                    </div>
-                    <div class="radio">
-                        <label class="question"> <input
-                                type="checkbox"
-                                required="true"
-                                name="places" value="implementation"/> &nbsp;&nbsp;Implementation into your own life (e.g., discuss
-                            how training scenarios might help you feel better in your daily life) </label>
-                    </div>
-                    <div class="radio">
-                        <label class="question"> <input id="helpTopics_other"
-                                                        onchange="sub('helpTopics_other');spec('helpTopics_other');"
-                                                        type="checkbox" required="true" name="helpTopics"
-                                                        value="other"/> &nbsp;&nbsp;Other (please specify):&nbsp; <input
-                                id="helpTopics_other_spec" type="text" name="otherHelpTopic" value="N/A"/> </label>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <br/>
-                    <br/>
-                    <div class="radio">
-                        <label class="question"><input type="checkbox" name="helpTopics" value="555"
-                                                       onchange="disableSection(this)"/> &nbsp;&nbsp;Prefer not to answer
-                        </label>
-                    </div>
-                    <br/>
-                    <br/>
-                </div>
-            </div>
-        </div>
-
-        <div class="container section" id="otherCoaching" style="display: none">
-            <label class="question"> Is there anything else you’d like to tell us about your coaching
-                experience?</label>
-            <br/>
-            <textarea name="otherCoaching" rows="6" cols="50"/>
-        </div>
-
-        <div style="text-align:center">
-            <button type="submit"> Continue</button>
-        </div>
-
+        <!--               <div class="container section">
+    <div class="row header">
+        <div class="col-md-8 statement"><p><b>Did you receive telecoaching during the program?</b></p></div>
     </div>
+    <div class="row">
+        <div class="col-md-8">
+
+            <div class="radio">
+                <label class="question"> <input type="radio" name="receivedTelecoaching" value="1"
+                                                required="true"
+                                                id="coaching"
+                                                onchange="receivedCoaching('coaching')"/>Yes</label>
+            </div>
+            <div class="radio">
+                <label class="question"> <input type="radio" name="receivedTelecoaching" value="0"
+                                                required="true"
+                                                onchange="receivedCoaching('coaching')"/>No</label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container section" id="coachExperience" style="display: none">
+    <div id="section4"></div>
+    <script>
+        var data = {
+            "options": [
+                {"value": 1, "title": "Very negative"},
+                {"value": 2, "title": "Somewhat negative"},
+                {"value": 3, "title": "Slightly negative"},
+                {"value": 4, "title": "Neither negative nor positive"},
+                {"value": 5, "title": "Slightly positive"},
+                {"value": 6, "title": "Somewhat positive"},
+                {"value": 7, "title": "Very positive"}
+            ],
+            "questions": [
+                {
+                    "name": "coachExperience",
+                    "desc": "What was your experience with your MindTrails coach?"
+                }
+            ]
+        }
+        $('#section4').html(Mustache.render($('#template5').val(), data));
+    </script>
+</div>
+
+<div class="container section" id="coachUnderstood" style="display: none">
+    <div id="section5"></div>
+    <script>
+        var data = {
+            "options": [
+                {"value": 1, "title": "Not at all understood"},
+                {"value": 2, "title": "Slightly understood"},
+                {"value": 3, "title": "Moderately understood"},
+                {"value": 4, "title": "Very understood"},
+                {"value": 5, "title": "Completely understood"}
+            ],
+            "questions": [
+                {
+                    "name": "coachUnderstood",
+                    "desc": "To what extend did you feel understood by your coach?"
+                }
+            ]
+        }
+        $('#section5').html(Mustache.render($('#template5').val(), data));
+    </script>
+</div>
+
+<div class="container section" id="coachMotivate" style="display: none">
+    <div id="section6"></div>
+    <script>
+        var data = {
+            "options": [
+                {"value": 1, "title": "Completely not motivating"},
+                {"value": 2, "title": "Moderately not motivating"},
+                {"value": 3, "title": "Slightly not motivating"},
+                {
+                    "value": 4,
+                    "title": "Not at all a motivating factor (I would have completed the sessions whether I had a coach or not)"
+                },
+                {"value": 5, "title": "Slightly motivating"},
+                {"value": 6, "title": "Somewhat motivating"},
+                {
+                    "value": 7,
+                    "title": "Completely motivating (I only completed the sessions because I had a coach)"
+                }
+            ],
+            "questions": [
+                {
+                    "name": "coachMotivate",
+                    "desc": "To what extent did having a coach motivate you to complete training sessions?"
+                }
+            ]
+        }
+        $('#section6').html(Mustache.render($('#template5').val(), data));
+    </script>
+</div>
+
+<div class="container section" id="coachHelpTopics" style="display: none">
+    <div class="row">
+        <div class="col-md-10">
+            <p><b>What did your coach help you with? Check all that apply.</b></p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 side-border">
+            <div class="radio">
+                <label class="question"> <input
+                        type="checkbox"
+                        required="true"
+                        name="helpTopics" value="techErrors"/> &nbsp;&nbsp;Technical troubleshooting (e.g., helping with
+                    technical errors) </label>
+            </div>
+            <div class="radio">
+                <label class="question"> <input
+                        type="checkbox"
+                        required="true"
+                        name="helpTopics" value="usability"/> &nbsp;&nbsp;Program usability (e.g., answering questions about
+                    how to use the website) </label>
+            </div>
+            <div class="radio">
+                <label class="question"> <input
+                        type="checkbox"
+                        required="true"
+                        name="helpTopics" value="programFit"/> &nbsp;&nbsp;Program fit (e.g., helping you understand why it
+                    might be a good treatment for you) </label>
+            </div>
+            <div class="radio">
+                <label class="question"> <input
+                        type="checkbox"
+                        required="true"
+                        name="helpTopics" value="engagement"/> &nbsp;&nbsp;Engagement with the program (e.g., help with
+                    strategies for visualizing training scenarios </label>
+            </div>
+            <div class="radio">
+                <label class="question"> <input
+                        type="checkbox"
+                        required="true"
+                        name="places" value="implementation"/> &nbsp;&nbsp;Implementation into your own life (e.g., discuss
+                    how training scenarios might help you feel better in your daily life) </label>
+            </div>
+            <div class="radio">
+                <label class="question"> <input id="helpTopics_other"
+                                                onchange="sub('helpTopics_other');spec('helpTopics_other');"
+                                                type="checkbox" required="true" name="helpTopics"
+                                                value="other"/> &nbsp;&nbsp;Other (please specify):&nbsp; <input
+                        id="helpTopics_other_spec" type="text" name="otherHelpTopic" value="N/A"/> </label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <br/>
+            <br/>
+            <div class="radio">
+                <label class="question"><input type="checkbox" name="helpTopics" value="555"
+                                               onchange="disableSection(this)"/> &nbsp;&nbsp;Prefer not to answer
+                </label>
+            </div>
+            <br/>
+            <br/>
+        </div>
+    </div>
+</div>-->
+
+<div class="container section" id="otherCoaching" style="display: none">
+    <label class="question"> Is there anything else you’d like to tell us about your coaching
+        experience?</label>
+    <br/>
+    <textarea name="otherCoaching" rows="6" cols="50"/>
+</div>
+
+<div style="text-align:center">
+    <button type="submit"> Continue</button>
+</div>
+
+</div>
 </form>
 
 <footer th:replace="fragment/common :: footer"/>
 <div th:include="fragment/common :: scripts"/>
 <script type="text/javascript">
 
-    function techProblems() {
-        if (document.getElementById('problem3').checked || document.getElementById('problem4').checked || document.getElementById('problem5').checked) {
-            $("#describeProblems").show();
-        } else {
-            $("#describeProblems").hide();
-        }
+function techProblems() {
+if (document.getElementById('problem3').checked || document.getElementById('problem4').checked || document.getElementById('problem5').checked) {
+    $("#describeProblems").show();
+} else {
+    $("#describeProblems").hide();
+}
+}
+
+// Only show the two questions asking when and how they thought they were in the control group IF the participant
+// indicates that they think they were in the control group.
+function thinkControl(id) {
+if (document.getElementById(id).checked) {
+    $("#whenControl").show();
+    $("#whyControl").show();
+} else {
+    $("#whenControl").hide();
+    $("#whyControl").hide();
+}
+}
+
+function receivedCoaching(id) {
+if (document.getElementById(id).checked) {
+    $("#coachExperience").show();
+    $("#coachUnderstood").show();
+    $("#coachMotivate").show();
+    $("#coachHelpTopics").show();
+    $("#otherCoaching").show();
+} else {
+    $("#coachExperience").hide();
+    $("#coachUnderstood").hide();
+    $("#coachMotivate").hide();
+    $("#coachHelpTopics").hide();
+    $("#otherCoaching").hide();
+}
+}
+
+// sub(id) and spec(id) are used to conditionally display the text "N/A" in the "Other" response text boxes.
+function sub(id) {
+if (document.getElementById(id).checked) {
+    $("div#" + id + "-1").show();
+    $("div#" + id + "-1 select").prop('required', true);
+}
+else {
+    $("div#" + id + "-1").hide();
+}
+}
+
+function spec(id) {
+if (document.getElementById(id).checked) {
+    document.getElementById(id + "_spec").required = true;
+    if (document.getElementById(id + "_spec").value == "N/A") {
+        document.getElementById(id + "_spec").value = "";
     }
 
-    // Only show the two questions asking when and how they thought they were in the control group IF the participant
-    // indicates that they think they were in the control group.
-    function thinkControl(id) {
-        if (document.getElementById(id).checked) {
-            $("#whenControl").show();
-            $("#whyControl").show();
-        } else {
-            $("#whenControl").hide();
-            $("#whyControl").hide();
-        }
+
+}
+else {
+    document.getElementById(id + "_spec").value = "N/A";
+    document.getElementById(id + "_spec").required = false;
+}
+}
+
+/**
+* Disables all other input boxes in the same section as the input
+* selected.
+* @param input
+*/
+function disableSection(input) {
+if (input.checked) {
+    $(input).closest('.section').find("input").not(input).prop('checked', false);
+    $(input).closest('.section').find("option").prop('selected', false);
+    $(input).closest('.section').find("select").prop('required', false);
+    $(input).closest('.section').find("input").attr("disabled", true);
+    $(input).removeAttr("disabled");
+} else {
+    $(input).closest('.section').find("input").removeAttr("disabled");
+}
+}
+
+// This ensures the user chooses some answer for the "choose all that apply" questions.
+$(document).ready(function () {
+$('#EVALFORM').validate({
+    rules: {
+        'devices': {required: true, minlength: 1},
+        'places': {required: true, minlength: 1},
+        'reasonsControl': {required: true, minlength: 1},
+        'howLearn': {required: true, minlength: 1}
     }
-
-    function receivedCoaching(id) {
-        if (document.getElementById(id).checked) {
-            $("#coachExperience").show();
-            $("#coachUnderstood").show();
-            $("#coachMotivate").show();
-            $("#coachHelpTopics").show();
-            $("#otherCoaching").show();
-        } else {
-            $("#coachExperience").hide();
-            $("#coachUnderstood").hide();
-            $("#coachMotivate").hide();
-            $("#coachHelpTopics").hide();
-            $("#otherCoaching").hide();
-        }
-    }
-
-    // sub(id) and spec(id) are used to conditionally display the text "N/A" in the "Other" response text boxes.
-    function sub(id) {
-        if (document.getElementById(id).checked) {
-            $("div#" + id + "-1").show();
-            $("div#" + id + "-1 select").prop('required', true);
-        }
-        else {
-            $("div#" + id + "-1").hide();
-        }
-    }
-
-    function spec(id) {
-        if (document.getElementById(id).checked) {
-            document.getElementById(id + "_spec").required = true;
-            if (document.getElementById(id + "_spec").value == "N/A") {
-                document.getElementById(id + "_spec").value = "";
-            }
-
-
-        }
-        else {
-            document.getElementById(id + "_spec").value = "N/A";
-            document.getElementById(id + "_spec").required = false;
-        }
-    }
-
-    /**
-     * Disables all other input boxes in the same section as the input
-     * selected.
-     * @param input
-     */
-    function disableSection(input) {
-        if (input.checked) {
-            $(input).closest('.section').find("input").not(input).prop('checked', false);
-            $(input).closest('.section').find("option").prop('selected', false);
-            $(input).closest('.section').find("select").prop('required', false);
-            $(input).closest('.section').find("input").attr("disabled", true);
-            $(input).removeAttr("disabled");
-        } else {
-            $(input).closest('.section').find("input").removeAttr("disabled");
-        }
-    }
-
-    // This ensures the user chooses some answer for the "choose all that apply" questions.
-    $(document).ready(function () {
-        $('#EVALFORM').validate({
-            rules: {
-                'devices': {required: true, minlength: 1},
-                'places': {required: true, minlength: 1},
-                'reasonsControl': {required: true, minlength: 1},
-                'howLearn': {required: true, minlength: 1}
-            }
-        });
-    });
+});
+});
 
 </script>
 
