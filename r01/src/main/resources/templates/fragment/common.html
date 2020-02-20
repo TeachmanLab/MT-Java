@@ -112,7 +112,7 @@
     <!-- Themes -->
     <script type="text/javascript" th:if="${participant}" th:inline="javascript">
         $(document).ready(function () {
-            $("body").addClass("user-theme-");
+            $("body").addClass("user-theme-" + /*[[${participant.theme}]]*/)
         });
     </script>
 
