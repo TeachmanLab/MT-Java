@@ -476,23 +476,23 @@
         <!-- Question 4 -->
         <div class="container section">
             <div id="anxietyDuration"></div>
-            <script>
+            <script th:inline="javascript">
                 var data = {
                     "options": [
-                        {"value": 0, "title": "One week"},
-                        {"value": 1, "title": "Between 1 week and 1 month"},
-                        {"value": 2, "title": "Between 1-3 months"},
-                        {"value": 3, "title": "Between 3-6 months"},
-                        {"value": 4, "title": "Between 6-12 months"},
-                        {"value": 5, "title": "Between 1-2 years"},
-                        {"value": 6, "title": "Between 2-5 years"},
-                        {"value": 7, "title": "Between 5-10 years"},
-                        {"value": 8, "title": "More than 10 years"}
+                        {"value": 0, "title": /*[[#{mentalhealthhistory.1_week}]]*/"One week", "opt_desc": "One week"},
+                        {"value": 1, "title": /*[[#{mentalhealthhistory.1_week_1_month}]]*/"Between 1 week and 1 month", "opt_desc": "Between 1 week and 1 month"},
+                        {"value": 2, "title": /*[[#{mentalhealthhistory.1_3_months}]]*/"Between 1-3 months", "opt_desc": "Between 1-3 months"},
+                        {"value": 3, "title": /*[[#{mentalhealthhistory.3_6_months}]]*/"Between 3-6 months", "opt_desc": "Between 3-6 months"},
+                        {"value": 4, "title": /*[[#{mentalhealthhistory.6_12_months}]]*/"Between 6-12 months", "opt_desc": "Between 6-12 months"},
+                        {"value": 5, "title": /*[[#{mentalhealthhistory.1_2_years}]]*/"Between 1-2 years", "opt_desc": "Between 1-2 years"},
+                        {"value": 6, "title": /*[[#{mentalhealthhistory.2_5_years}]]*/"Between 2-5 years", "opt_desc": "Between 2-5 years"},
+                        {"value": 7, "title": /*[[#{mentalhealthhistory.5_10_years}]]*/"Between 5-10 years", "opt_desc": "Between 5-10 years"},
+                        {"value": 8, "title": /*[[#{mentalhealthhistory.more_10_years}]]*/"More than 10 years", "opt_desc": "More than 10 years"}
                     ],
                     "questions": [
                         {
                             "name": "anxiety_duration",
-                            "desc": "How long have you been experiencing moderate-to-severe anxiety symptoms?"
+                            "desc": /*[[#{mentalhealthhistory.how_long}]]*/"How long have you been experiencing moderate-to-severe anxiety symptoms?"
                         }
                     ]
                 }
@@ -507,61 +507,61 @@
         <div class="container section" id="ask_why_no_help" style="display:none">
             <div class="row">
                 <div class="col-md-10">
-                    <p><b>There are many reasons people do not get help. Why are you not getting mental health
+                    <p><b th:text="#{mentalhealthhistory.why_no_help}">There are many reasons people do not get help. Why are you not getting mental health
                         treatment? Please select all that apply.</b></p>
                 </div>
             </div>
             <div id="why_no_help_section"></div>
-            <script>
+            <script th:inline="javascript">
                 var data = {
                     "radio_name": "why_no_help",
                     "questions": [
                         {
-                            "desc": "I don’t think a prescription medication would help me",
+                            "desc": /*[[#{mentalhealthhistory.meds_not_helpful}]]*/"I don’t think a prescription medication would help me",
                             "name": "meds_not_helpful"
                         },
                         {
-                            "desc": "I don’t like the idea of taking prescription medication",
+                            "desc": /*[[#{mentalhealthhistory.idea_of_meds}]]*/"I don’t like the idea of taking prescription medication",
                             "name": "idea_of_meds"
                         },
                         {
-                            "desc": "I can’t afford to pay for treatment",
+                            "desc": /*[[#{mentalhealthhistory.cant_afford}]]*/"I can’t afford to pay for treatment",
                             "name": "cant_afford"
                         },
                         {
-                            "desc": "I don’t want to talk to a mental health professional (e.g., a therapist)",
+                            "desc": /*[[#{mentalhealthhistory.dont_want_to_talk}]]*/"I don’t want to talk to a mental health professional (e.g., a therapist)",
                             "name": "dont_want_to_talk"
                         },
                         {
-                            "desc": "I don’t think that a mental health professional can help me",
+                            "desc": /*[[#{mentalhealthhistory.prof_not_helpful}]]*/"I don’t think that a mental health professional can help me",
                             "name": "prof_not_helpful"
                         },
                         {
-                            "desc": "It is hard to find a mental health professional near me",
+                            "desc": /*[[#{mentalhealthhistory.prof_hard_find}]]*/"It is hard to find a mental health professional near me",
                             "name": "prof_hard_find"
                         },
                         {
-                            "desc": "I don’t know how to find a mental health professional",
+                            "desc": /*[[#{mentalhealthhistory.prof_find_how}]]*/"I don’t know how to find a mental health professional",
                             "name": "prof_find_how"
                         },
                         {
-                            "desc": "I am embarrassed to seek treatment",
+                            "desc": /*[[#{mentalhealthhistory.embarassed}]]*/"I am embarrassed to seek treatment",
                             "name": "embarrassed"
                         },
                         {
-                            "desc": "I don’t want to be asked to face my fears (e.g., not wanting to interact with a spider for a person with spider fear)",
+                            "desc": /*[[#{mentalhealthhistory.face_fears}]]*/"I don’t want to be asked to face my fears (e.g., not wanting to interact with a spider for a person with spider fear)",
                             "name": "face_fears"
                         },
                         {
-                            "desc": "I don’t want to talk about my feelings",
+                            "desc": /*[[#{mentalhealthhistory.talk_feelings}]]*/"I don’t want to talk about my feelings",
                             "name": "talk_feelings"
                         },
                         {
-                            "desc": "I don’t have time",
+                            "desc": /*[[#{mentalhealthhistory.no_time}]]*/"I don’t have time",
                             "name": "no_time"
                         },
                         {
-                            "desc": "I had treatment previously and didn’t find it helpful",
+                            "desc": /*[[#{mentalhealthhistory.prev_not_helpful}]]*/"I had treatment previously and didn’t find it helpful",
                             "name": "prev_not_helpful"
                         }
 
@@ -572,7 +572,7 @@
         </div>
 
         <div style="text-align:center">
-            <button type="submit"> Continue</button>
+            <button type="submit" th:text="#{continue}"> Continue</button>
         </div>
 
 
