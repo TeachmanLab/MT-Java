@@ -10,6 +10,7 @@ public interface AngularTrainingRepository extends QuestionnaireRepository<Angul
 
     List<AngularTraining> findAllByParticipantAndSessionOrderByDate(Participant participant, String session);
     List<AngularTraining> findAllByParticipantAndSessionAndStepTitleOrderById(Participant participant, String session, String stepTitle);
+    List<AngularTraining> findAllByParticipantAndTrialType(Participant participant, String trialType);
 
 }
 

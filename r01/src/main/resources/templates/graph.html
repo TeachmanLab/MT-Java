@@ -103,20 +103,15 @@
                     </p>
                 </div>
 
-                <div th:unless="${participant.study.conditioning == 'CONTROL'}">
-                    <h3><b>You were in the Active Training Condition.</b></h3>
+                <div th:if="${participant.study.conditioning == 'TRAINING' or 'LR_TRAINING' or 'HR_COACH' or 'HR_NO_COACH'}">
+                    <h3><b>You were in the active training condition.</b></h3>
                     <p>When reviewing this graph, we'd like to let you
                         know that you were in an active training group (rather than a control group, which we did not
                         expect to
                         be as effective). However, if you’re not happy with your progress and/or wish to seek further
                         care for
-                        your anxiety difficulties, we strongly encourage you to review the <a
-                                href="https://mindtrails.virginia.edu/calm/public/resources">Mental Health Resources</a>
-                        page,
-                        which
-                        can help you find other independent (e.g., books, computer, or mobile app) or therapist-guided
-                        treatment
-                        options.</p>
+                        your anxiety difficulties, we strongly encourage you to review the <a href="https://mindtrails.virginia.edu/calm/public/resources">Mental Health Resources</a>
+                        page, which can help you find other independent (e.g., books, computer, or mobile app) or therapist-guided treatment options.</p>
                 </div>
 
                 <script th:inline="javascript">

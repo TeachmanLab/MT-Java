@@ -55,8 +55,10 @@
                 </div>
                 <div class="col-sm-10">
                     <label class="col-sm-10">
-                        <input class="inline-checkbox" type="checkbox" id="over18" name="over18" value="true"
-                               th:text="#{dass21_as.over18}"> I am over 18 years of age.</input>
+                        <input class="inline-checkbox" type="checkbox" id="over18" name="over18" value="true" th:text="#{dass21_as.over18}">
+                        I am at least age 18*</input><br/>
+                        <span th:text="#{dass21_as.nebraska_pr1}">(* If based in Nebraska, I am at least age 19; if based in Puerto Rico, I am at least age 21.</span><br/> <span th:text="#{dass21_as.nebraska_pr2}">See</span>
+                         <a th:href="@{/public/disclaimer#item8}" th:text="#{dass21_as.nebraska_pr3}">Terms and Conditions > Age of Consent</a>.)
                     </label>
                 </div>
             </div>
@@ -66,6 +68,7 @@
 </section>
 <footer th:replace="fragment/common :: footer"/>
 <div th:include="fragment/common :: scripts"/>
+<div th:unless="${eligibility}" th:include="fragment/action_log :: scripts-action-log"/>
 
 </body>
 </html>

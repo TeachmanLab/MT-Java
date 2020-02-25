@@ -17,6 +17,7 @@ import org.mindtrails.domain.tango.OrderResponse;
 import org.mindtrails.domain.tracking.EmailLog;
 import org.mindtrails.domain.tracking.GiftLog;
 import org.mindtrails.domain.tracking.TaskLog;
+import org.mindtrails.persistence.ParticipantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -56,6 +57,10 @@ public class EmailServiceImplTest {
 
     @Autowired
     private EmailServiceImpl service;
+
+    @Autowired
+    private ParticipantRepository participantRepository;
+
 
     @Autowired
     private TangoService tangoService;
@@ -169,11 +174,12 @@ public class EmailServiceImplTest {
         OrderResponse orderResponse;
         String url = "http://thisistheurl.com";
         orderResponse = new OrderResponse("1", "1234", "notagift", "success", true, url, 5);
-        String email = "testyMcTester2.0@t.com";
+        String email = "testyMcTesterGiftCard@t.com";
         Participant p = new Participant();
         Study s = new TestStudy("SessionOne",0);
         p.setStudy(s);
         p.setEmail(email);
+        participantRepository.save(p);
         GiftLog log = tangoService.createGiftLogUnsafe(p, "sessionOne", 5);
         this.service.sendGiftCard(p, orderResponse, log);
 
@@ -318,6 +324,7 @@ public class EmailServiceImplTest {
     public void testShouldSendEmailAfter3_7_11_15_and_18() {
 
         Study study = participant.getStudy();
+        participant.setEmail("TestyMycTesterAfter_3_7@test.com");
 
         // Send emails on the correct days, but not on any other days.
         study.setLastSessionDate(xDaysAgo(1));

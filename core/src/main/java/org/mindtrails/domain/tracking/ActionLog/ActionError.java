@@ -4,10 +4,13 @@ import lombok.Getter;
 
 import java.util.Date;
 
-public class Action {
+public class ActionError {
     @Getter
-    private String name;
+    private String url;
 
     @Getter
-    private int latency;
+    private String message;
+
+    @Getter
+    private String exception;
 }

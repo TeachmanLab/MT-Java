@@ -74,7 +74,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             http
                     .csrf().disable()
                     .antMatcher("/angular/api/**")
-//                    .antMatcher("/action")
+                    .antMatcher("/action")
                     .exceptionHandling()
                     .authenticationEntryPoint(restAuthenticationEntryPoint)
                     .and()
