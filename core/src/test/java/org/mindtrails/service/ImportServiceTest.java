@@ -2,6 +2,9 @@ package org.mindtrails.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
 import org.codehaus.groovy.runtime.ArrayUtil;
+import org.joda.time.DateTime;
+import org.joda.time.Hours;
+import org.joda.time.Minutes;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,6 +21,7 @@ import org.mindtrails.domain.Study;
 import org.mindtrails.domain.importData.ImportError;
 import org.mindtrails.domain.importData.Scale;
 import org.mindtrails.domain.jsPsych.JsPsychTrial;
+import org.mindtrails.domain.tracking.ImportLog;
 import org.mindtrails.domain.tracking.TaskLog;
 import org.mindtrails.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +39,8 @@ import org.springframework.web.client.support.RestGatewaySupport;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -80,6 +86,9 @@ public class ImportServiceTest extends BaseControllerTest {
     @Autowired
     StudyExportRepository studyExportRepository;
 
+    @Autowired
+    ImportLogRepository importLogRepository;
+
     @PersistenceContext
     private EntityManager em;
 
@@ -104,7 +113,7 @@ public class ImportServiceTest extends BaseControllerTest {
     }
 
 
-    @Test(expected = ImportError.class)
+    @Test()
     public void callFunction() {
         this.server.expect(requestTo(this.url + "/api/export/nosuch/1"))
                 .andRespond(withBadRequest());
@@ -133,7 +142,30 @@ public class ImportServiceTest extends BaseControllerTest {
         assertEquals(1, list.size());
     }
 
+    @Test
+    public void testFetchScaleUsesLastSuccessfulImportDate() {
 
+        String response = "[{\"name\":\"simpleQuestions\", \"size\":20, \"deleteable\": true}]";
+
+        Date startDate = new Date();
+
+        // Make it appear that a successful request of simpleQuestions has occured before.
+        ImportLog log = new ImportLog("simpleQuestions");
+        log.setSuccessful(true);
+        log.setDateStarted(startDate);
+        importLogRepository.saveAndFlush(log);
+
+        // The date we should request from the export service should be five minutes earlier
+        DateFormat formater = new SimpleDateFormat(ExportService.DATE_FORMAT);
+        Date offsetDate = new DateTime(startDate).minus(Minutes.minutes(5)).toDate();
+
+
+        this.server.expect(requestTo(this.url + "/api/export/simpleQuestions?after=" +
+                                    formater.format(offsetDate)))
+                .andRespond(withSuccess(response, MediaType.APPLICATION_JSON));
+        this.importService.fetchScale("simpleQuestions");
+
+    }
 
 
 
@@ -248,6 +280,7 @@ public class ImportServiceTest extends BaseControllerTest {
 
         TaskLog log = new TaskLog(testStudy, 25.0, null, "testing");
         this.importService.setMode("import");
+        this.taskLogRepository.deleteAll();
         assertEquals(0, this.taskLogRepository.findAll().size());
         importService.importScale("taskLog",IOUtils.toInputStream(this.objectMapper.writeValueAsString(log)));
         assertEquals(1, this.taskLogRepository.findAll().size());
@@ -277,6 +310,7 @@ public class ImportServiceTest extends BaseControllerTest {
     }
 
 
+
     @Test
     public void testQuestionnaire() throws Exception {
         long participantId = 21L;
@@ -292,13 +326,26 @@ public class ImportServiceTest extends BaseControllerTest {
         q.setMultiValue(values);
 
         assertEquals(0, testQuestionnaireRepository.findAll().size());
+
+        int originalLogCount = importLogRepository.findAll().size();
+
         importService.importScale("TestQuestionnaire",IOUtils.toInputStream(this.objectMapper.writeValueAsString(q)));
         assertEquals(1, testQuestionnaireRepository.findAll().size());
         TestQuestionnaire savedQ = testQuestionnaireRepository.findAll().get(0);
         assertEquals(values, savedQ.getMultiValue());
         assertEquals("someValue", savedQ.getValue());
         assertEquals(participantId, savedQ.getParticipant().getId());
+
+        // Assure the logs are updated after import.
+        assertEquals(originalLogCount + 1, importLogRepository.findAll().size());
+        ImportLog log = importLogRepository.findFirstByScaleAndSuccessfulOrderByDateStartedDesc("TestQuestionnaire", true);
+        assertEquals("TestQuestionnaire", log.getScale());
+        assertEquals(1, log.getSuccessCount());
+        assertEquals(0, log.getErrorCount());
+        assertTrue(log.isSuccessful());
+        assertNotNull(log.getDateStarted());
     }
+
 
 
     @Test
@@ -332,6 +379,12 @@ public class ImportServiceTest extends BaseControllerTest {
         assertEquals("delightAndInspire", updatedS.getConditioning());
         assertEquals(42, updatedS.getCurrentTaskIndex());
         assertEquals("PostSession", updatedS.getCurrentSession().getName());
+    }
+
+
+    @Test
+    public void testDateDrivenBackup() throws Exception {
+
     }
 
 

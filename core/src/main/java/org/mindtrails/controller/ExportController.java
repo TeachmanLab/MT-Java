@@ -3,6 +3,8 @@ package org.mindtrails.controller;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
+import org.joda.time.DateTime;
+import org.joda.time.Years;
 import org.mindtrails.domain.Conditions.ConditionAssignment;
 import org.mindtrails.domain.ExportMode;
 import org.mindtrails.domain.ImportMode;
@@ -13,23 +15,22 @@ import org.mindtrails.domain.RestExceptions.NoSuchQuestionnaireException;
 import org.mindtrails.domain.RestExceptions.NotDeleteableException;
 import org.mindtrails.domain.importData.Scale;
 import org.mindtrails.domain.tracking.ExportLog;
-import org.mindtrails.persistence.ExportLogRepository;
-import org.mindtrails.persistence.ParticipantRepository;
+import org.mindtrails.persistence.*;
 import org.mindtrails.service.ExportService;
-import org.mindtrails.persistence.QuestionnaireRepository;
 import org.mindtrails.domain.piPlayer.Trial;
-import org.mindtrails.persistence.TrialRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -62,17 +63,27 @@ public class ExportController  {
     }
 
     @RequestMapping(value="{name}", method= RequestMethod.GET)
-    public @ResponseBody List<Object> listData(@PathVariable String name, @
-                RequestParam(value = "greaterThan", required = false, defaultValue = "0") long id) {
+    public @ResponseBody List<Object> listData
+                (@PathVariable String name,
+                 @RequestParam(value = "after", required = false, defaultValue = "1972-10-05-00-00-00")
+                 @DateTimeFormat(pattern=ExportService.DATE_FORMAT)Date date) {
         JpaRepository rep = exportService.getRepositoryForName(name, true);
+        List<Object> results;
         if (rep != null) {
             if (rep instanceof TrialRepository) {
-                return(getTrialSummary((TrialRepository) rep));
+                results = getTrialSummary((TrialRepository) rep);
+            } else if(rep instanceof TaskLogRepository) {
+                results = ((TaskLogRepository) rep).findByDateCompletedGreaterThan(date);
+            } else if(rep instanceof ActionLogRepository) {
+                results = ((ActionLogRepository) rep).findByDateGreaterThan(date);
+            } else if(rep instanceof LogRepository) {
+                results = ((LogRepository) rep).findByDateSentGreaterThan(date);
+            } else if(rep instanceof QuestionnaireRepository) {
+                results = ((QuestionnaireRepository) rep).findByDateGreaterThan(date);
             } else {
-                if(id != 0 && rep instanceof QuestionnaireRepository) {
-                    return ((QuestionnaireRepository) rep).findByIdGreaterThan(id);
-                } else return rep.findAll();
+                results = rep.findAll();
             }
+            return results;
         }
         throw new NoSuchQuestionnaireException();
     }
@@ -81,6 +92,7 @@ public class ExportController  {
     @RequestMapping(value="{name}/{id}", method=RequestMethod.DELETE)
     public @ResponseBody void delete(@PathVariable String name, @PathVariable long id) {
         Class<?> domainType = exportService.getDomainType(name, false);
+        LOG.info("Deleting " + name  + " / " + id);
         if (domainType != null) {
             if (domainType.isAnnotationPresent(DoNotDelete.class))
                 throw new NotDeleteableException();
@@ -134,7 +146,7 @@ public class ExportController  {
     @RequestMapping(value = "{name}.csv", method= RequestMethod.GET)
     public void listAsCSV(HttpServletResponse response, @PathVariable String name) throws IOException {
 
-        List<Object> json = listData(name,0);
+        List<Object> json = listData(name, DateTime.now().minus(Years.years(5)).toDate());
         response.setContentType("text/plain; charset=utf-8");
         Class<?> domainType = exportService.getDomainType(name, true);
         CsvMapper mapper = new CsvMapper();

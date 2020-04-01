@@ -16,7 +16,6 @@
     <div class="container">
         <div class="row">
             <div class="span12">
-                <h1>Select your theme from the options below ...</h1>
                 <form action="#" th:action="@{/account/updateTheme}" th:object="${participant}" method="post">
                     <section  th:include="fragment/account :: themeSelection"/>
                 </form>

@@ -42,7 +42,7 @@ public abstract class QuestionnaireData implements hasParticipant {
     protected String tag; // Optional additional data defined by a task definition
 
     @NotNull
-    protected double timeOnPage; // Time spend on page in seconds.
+    protected double timeOnPage; // Time spent on page in seconds.
 
     @JsonIgnore
     @Transient

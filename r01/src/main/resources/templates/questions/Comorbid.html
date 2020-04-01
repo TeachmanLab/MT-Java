@@ -25,7 +25,7 @@
     </div>
 </div>
 
-<form th:action="@{/questions/Comorbid}" method="POST" th:object="${model}">
+<form th:action="@{/questions/Comorbid}" method="POST" style="padding-left:30px" th:object="${model}">
     <!-- Add timer -->
     <section th:replace="fragment/forms :: radioOptions(${model})" />
     <div class="col-md-12" style="text-align:center">
@@ -36,11 +36,7 @@
 </section>
 <footer th:replace="fragment/common :: footer"/>
 <div th:include="fragment/common :: scripts"/>
+<div th:include="fragment/action_log :: scripts-action-log"/>
 
 </body>
 </html>
-
-
-<!--Javascript
-================================================== -->
-<div th:include="fragment/common :: scripts"/>

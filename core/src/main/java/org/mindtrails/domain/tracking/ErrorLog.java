@@ -39,4 +39,16 @@ public class ErrorLog extends MindTrailsLog {
         if(errorMessage.length() > 255) errorMessage = errorMessage.substring(0,255);
     }
 
+    public ErrorLog(Participant participant, String requestedUrl, String exceptionString) {
+        this.participant = participant;
+        this.dateSent = new Date();
+        this.requestedUrl = requestedUrl;
+        this.errorType = "ActionError (Failed AJAX POST request)";
+        this.errorMessage = exceptionString;
+
+        // We store error messages as short strings, truncate to avoid mysql errors.
+        if(errorMessage.length() > 255) errorMessage = errorMessage.substring(0,255);
+    }
+
+
 }

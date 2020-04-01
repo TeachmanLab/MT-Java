@@ -5,7 +5,11 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.apache.http.client.utils.URIBuilder;
 import org.apache.tomcat.util.codec.binary.Base64;
+import org.joda.time.DateTime;
+import org.joda.time.Hours;
+import org.joda.time.Minutes;
 import org.mindtrails.domain.*;
 import org.mindtrails.domain.Conditions.ConditionAssignment;
 import org.mindtrails.domain.Conditions.NoNewConditionException;
@@ -14,6 +18,8 @@ import org.mindtrails.domain.data.DoNotDelete;
 import org.mindtrails.domain.importData.ImportError;
 import org.mindtrails.domain.importData.Scale;
 import org.mindtrails.domain.questionnaire.QuestionnaireData;
+import org.mindtrails.domain.tracking.ImportLog;
+import org.mindtrails.persistence.ImportLogRepository;
 import org.mindtrails.persistence.MissingDataLogRepository;
 import org.mindtrails.persistence.ParticipantRepository;
 import org.mindtrails.persistence.StudyRepository;
@@ -34,11 +40,15 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
+import javax.persistence.EntityManager;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 
@@ -85,8 +95,13 @@ public class ImportService {
     MissingDataLogRepository missingDataLogRepository;
 
     @Autowired
+    ImportLogRepository importLogRepository;
+
+    @Autowired
     private RestTemplate restTemplate;
 
+    @Autowired
+    private EntityManager entityManager;
 
     /**
      * Just to help with testing, should be set with a config file in general
@@ -154,22 +169,40 @@ public class ImportService {
     /**
      * Call the API and get all data on a given scale.
      */
-    public InputStream fetchScale(String scale) {
+    public InputStream fetchScale(String scale)  {
         HttpEntity<String> request = new HttpEntity<>(headers());
-        URI uri = URI.create(this.url + "/api/export/" + scale);
-        ResponseEntity<Resource> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, request,
-                Resource.class);
+
+        // Find the last time data was successfully exported for this scale.
+        ImportLog log = importLogRepository.findFirstByScaleAndSuccessfulOrderByDateStartedDesc(scale, true);
+
+        // Create url with a data parmeter
         try {
+            URIBuilder b = new URIBuilder(this.url + "/api/export/" + scale);
+            // add a date parameter if we have successuflly pulled from this scale in the past.
+            if(null != log) {
+                DateTime sinceDate = new DateTime(log.getDateStarted());
+                // Step it back five minutes, as extra safely to assure we don't miss anything.
+                sinceDate = sinceDate.minus(Minutes.minutes(5));
+                DateFormat formatter = new SimpleDateFormat(ExportService.DATE_FORMAT);
+                b.addParameter("after", formatter.format(sinceDate.toDate()));
+            }
+            URI uri = b.build();
+            ResponseEntity<Resource> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, request,
+                Resource.class);
             return responseEntity.getBody().getInputStream();
-        } catch (HttpClientErrorException | IOException e) {
+        } catch (HttpClientErrorException | IOException | URISyntaxException e) {
             throw new ImportError(e);
         }
     }
 
+    public boolean deleteable(String scale) {
+        return !exportService.getDomainType(scale, false).isAnnotationPresent(DoNotDelete.class);
+    }
+
     public void deleteScaleItem(String scale, long id) {
         try {
-            boolean deleteable = !exportService.getDomainType(scale, false).isAnnotationPresent(DoNotDelete.class);
-            if(!deleteable || !deleteMode) return;
+            if(!this.deleteable(scale) || !deleteMode) return;
+
             HttpEntity<String> request = new HttpEntity<String>(headers());
             URI uri = URI.create(url + "/api/export/" + scale + '/' + Long.toString(id));
             restTemplate.exchange(uri, HttpMethod.DELETE, request, new ParameterizedTypeReference<String>() {
@@ -195,32 +228,52 @@ public class ImportService {
      */
     @ImportMode
     public void importScale(String scale, InputStream is) {
+        ImportLog log = new ImportLog(scale);
         ObjectMapper mapper = new ObjectMapper();
         mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
         JpaRepository rep = exportService.getRepositoryForName(scale, false);
         if (rep == null) {
-            throw new ImportError("No Repository exists for scale:" + scale);
-        }
-        Class<?> clz = exportService.getDomainType(scale, false);
-        if (clz == null) {
-            throw new ImportError("No class could be found for scale:" + scale);
+            String message = "No Repository exists for scale:" + scale;
+            throw new ImportError(message);
         }
         try {
+            Class<?> clz = exportService.getDomainType(scale, false);
+            if (clz == null) {
+                String message = "No class could be found for scale:" + scale;
+                throw new ImportError(message);
+            }
             JsonNode obj = mapper.readTree(is);
-            saveMissingLog(obj, scale);  // TODO: Strip this out.  It doesn't make sense.
             if (obj.isArray()) {
                 Iterator itr = obj.elements();
                 while (itr.hasNext()) {
                     JsonNode elm = (JsonNode) itr.next();
-                    this.importNode(elm, clz, mapper, rep, scale);
+                    try {
+                        this.importNode(elm, clz, mapper, rep, scale);
+                        log.incrementSuccess();
+                    } catch (IOException ioe) {
+                        log.setError("Node Import Failed:" + ioe.getMessage());
+                        log.incrementError();
+                    }
                 }
             } else {
-                this.importNode(obj, clz, mapper, rep, scale);
+                try {
+                    this.importNode(obj, clz, mapper, rep, scale);
+                    log.incrementSuccess();
+                } catch (IOException ioe) {
+                    LOGGER.error("Node Import Failed:" + ioe.getMessage());
+                    log.setError("Node Import Failed:" + ioe.getMessage());
+                    log.incrementError();
+                }
             }
-        } catch (IOException e) {
-            throw new ImportError(e);
+        } catch (Exception e) {
+            String message = "Exception encountered loading  scale " + scale + ". " + e.getMessage();
+            LOGGER.error(message);
+            log.setError(message);
         } finally {
-            rep.flush();
+            if(log.worthSaving()) {
+                importLogRepository.save(log);
+                rep.flush();
+            }
         }
     }
 
@@ -235,28 +288,40 @@ public class ImportService {
      */
     private void importNode(JsonNode elm, Class clz, ObjectMapper mapper, JpaRepository rep, String scale) throws IOException {
         ObjectNode node = elm.deepCopy();
-        saveMissingLog(elm, clz.getName()); // TODO: Strip this out.  Do something sensible.
         long studyId = -1;
         long participantId = -1;
+        Participant participant = null;
 
         if (elm.has("study")) {
             studyId = elm.path("study").asLong();
             node.remove("study");
         }
-        if (elm.has("participant")) {
+        if (elm.has("participant") && !elm.path("participant").asText().equals("null")) {
             participantId = elm.path("participant").asLong();
+            // Request a proxy for the particpant, much much faster than loading the thing up with .find(id)
+            participant = entityManager.getReference(Participant.class, participantId);
             node.remove("participant");
         }
+
         Object object = mapper.readValue(node.toString(), clz);
         if (object instanceof HasStudy) {
             ((HasStudy) object).setStudy(studyRepository.findById(studyId));
         }
         if (object instanceof hasParticipant) {
-            ((hasParticipant) object).setParticipant(participantRepository.findOne(participantId));
+            ((hasParticipant) object).setParticipant(participant);
         }
         rep.save(object);
         long id = elm.path("id").asLong();
-        deleteScaleItem(scale,  id);
+
+        if(this.deleteable(scale)) {
+            LOGGER.info("Deleteing remote  " + scale + " id " + id);
+            if(object instanceof hasParticipant && participant != null) {
+                deleteScaleItem(scale, id);
+            } else if (participantId > 0){
+                LOGGER.error("Scale id# " + id + " in scale " + scale + " references a participant #" + participantId +
+                "that does not exist in the database.");
+            }
+        }
     }
 
     private void clearDataForScale(Scale scale) {
@@ -272,13 +337,13 @@ public class ImportService {
 
 
     /**
-     * Every five minutes the program will try to download all the data.
+     * DANGER METHOD.  This just clears the data, and doesn't check to see if it exists.
      */
     public void clearOldData() {
         if (!this.isImporting()) {
             return;
         }
-        LOGGER.info("Importing data from " + this.url);
+        LOGGER.info("CLEARING ALL data from " + this.url);
         List<Scale> list = fetchListOfScales();
         for (Scale scale : list) {
             clearDataForScale(scale);
@@ -323,7 +388,6 @@ public class ImportService {
                 // No reason to continue, no new condition is assignable to the participant at this time,
                 // this should happen relatively rarely, but may occur repeatedly for participants that
                 // signup and never complete their first session.
-                LOGGER.info("Participant #" + p.getId() + " does not have enough information to assign a condition.");
             } catch (IOException e) {
                 e.printStackTrace();
                 // We'll have to try again later, failed to communicate this update to front end server.
@@ -348,7 +412,7 @@ public class ImportService {
      */
     @ImportMode
     //@Scheduled(cron = "0 * * * * *")
-    public void backUpData() {
+    public void backUpData() throws IOException {
         int errorFile = 0;
         List<Scale> list = fetchListOfScales();
         for (Scale scale : list) {
@@ -364,14 +428,10 @@ public class ImportService {
      * @return
      */
     @ImportMode
-    public void localBackup(String scale, File[] list) {
+    public void localBackup(String scale, File[] list) throws IOException {
         if (list != null) {
             for (File file : list) {
-                try {
-                    importScale(scale, Files.newInputStream(file.toPath()));
-                } catch (ImportError | IOException e) {
-                    throw new ImportError(e);
-                }
+                importScale(scale, Files.newInputStream(file.toPath()));
             }
         }
     }

@@ -13,7 +13,7 @@
 <section th:replace="fragment/common :: topFragment"/>
 <section th:replace="fragment/common :: titleBar (title='Thank You for Participating')"/>
 
-<section id="content" class="clearfix">
+<section th:if="${isExiting==true}">
     <div class="container">
         <div class="row">
             <div class="col-md-8">
@@ -24,9 +24,17 @@
 
                     <a th:href="@{/questions/ReasonsForEnding}">
                     <button>Exit Survey</button>
-                </a>
+                    </a>
                 <br></br>
                 <br></br>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="contentTest" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
                 <span class="pull-right"><button onclick="window.print();">Print</button></span>
                 <br></br>
                 <h2><b>Debriefing</b></h2>
@@ -41,21 +49,36 @@
                     problems.
                 </p>
 
-                <p>In the current study, we are evaluating if it is possible to change interpretation patterns over the
-                    Internet, and whether changing these interpretation patterns will reduce anxiety symptoms. We are
-                    also testing whether we can identify people at risk of dropping out of the study and provide them
-                    a personal coach to encourage them to stay in the study. Finally, we are examining whether
-                    participants obtain different results by completing the intervention on their mobile phone, tablet,
-                    or personal computer. </p>
+                <div th:if="${participant.study.conditioning == 'TRAINING' or 'CONTROL' or 'LR_TRAINING' or 'HR_COACH' or 'HR_NO_COACH'}">
+
+                    <p>In the current study, we are evaluating if it is possible to change interpretation patterns over the
+                        Internet, and whether changing these interpretation patterns will reduce anxiety symptoms. We are
+                        also testing whether we can identify people at risk of dropping out of the study and provide them
+                        a personal coach to encourage them to stay in the study. Finally, we are examining whether
+                        participants obtain different results by completing the intervention on their mobile phone, tablet,
+                        or personal computer. </p>
+
                 <p>Depending on your condition, you may have been asked to read and imagine yourself in a series of
                     brief stories. In this active condition, the last word (or word fragment) gave almost all of the
                     brief stories a positive meaning. We expect this will encourage a more flexible and less negative
                     thinking style. In an alternative condition, which we do not expect to be as effective as the
                     active condition, you simply read about characteristics of anxiety.</p>
+
                 <p>For some participants, if your early activity on the site suggested you might be at risk of dropping
                     out of the study, you may have been connected with a personal coach to support your participation
                     in the study. We expect that participants who had the opportunity to work with a coach will have
-                    better outcomes than participants at risk for dropping out who did not work with a coach.  </p>
+                    better outcomes than participants at risk for dropping out who did not work with a coach.</p>
+                </div>
+
+                <div th:if="${participant.study.conditioning == 'TRAINING_ORIG' or 'TRAINING_30' or 'TRAINING_ED' or 'TRAINING_CREATE'}">
+
+                <p>In the current study, we are evaluating if it is possible to change interpretation patterns over the Internet, and whether changing these interpretation patterns will reduce anxiety symptoms.
+                    We are also testing four conditions of the training program to see which one is most effective.</p>
+
+                <p>In each of the conditions, you were asked to read and imagine yourself in a series of brief stories.
+                    Depending on the assigned condition, you may also have been asked to complete an additional task, such as writing your own brief story or reading educational information about anxiety problems and their treatment.
+                    In the training stories, the last word (or word fragment) gave almost all of the brief stories a positive meaning. We expect this will encourage a more flexible and less negative thinking style.</p>
+                </div>
 
                 <p>If you are interested in learning more about modifying thinking patterns, see the following
                     websites:
@@ -87,10 +110,12 @@
                         thoughts or mood, please visit this page.</li>
                 </ul>
                 <br></br>
+                <section th:if="${isExiting==true}">
                 <p>To provide your valuable feedback, please click on Exit Survey button below:</p>
 
                 <a th:href="@{/questions/ReasonsForEnding}">
                     <button>Exit Survey</button></a>
+                </section>
                 <br></br>
                 <br></br>
                 <p align="center"><b>Thank you again for your participation.</b></p>

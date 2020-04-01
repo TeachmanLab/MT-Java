@@ -98,7 +98,7 @@ public class AngularTrainingControllerTest extends BaseControllerTest {
     @Test
     public void testPostInImportMode() throws Exception {
         importService.setMode("import");
-        ResultActions result = mockMvc.perform(post("/angular/api")
+        mockMvc.perform(post("/angular/api")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .with(SecurityMockMvcRequestPostProcessors.user(participant))
                 .content(EXAMPLE_DATA))

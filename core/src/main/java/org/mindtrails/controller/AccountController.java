@@ -7,7 +7,6 @@ import org.mindtrails.domain.ExportMode;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.RestExceptions.MissingEligibilityException;
 import org.mindtrails.domain.VerificationCode;
-import org.mindtrails.domain.data.Exportable;
 import org.mindtrails.domain.forms.ParticipantCreate;
 import org.mindtrails.domain.forms.ParticipantUpdate;
 import org.mindtrails.domain.recaptcha.RecaptchaFormValidator;
@@ -183,9 +182,7 @@ public class AccountController extends BaseController {
                 participantService.save(p);
                 String code=p.getVerificationCode().getCode();
                 twilioService.sendMessage("MindTrails Verification Code: " + code,p);
-
                 return "redirect:/account/verification";
-
             }
             else{
                 return "redirect:/account/changePhone";
@@ -193,7 +190,6 @@ public class AccountController extends BaseController {
             }
 
     }
-
 
 
 //when the user enter a wrong or invalid (>1h) verification code
@@ -209,6 +205,7 @@ public class AccountController extends BaseController {
         return "account/wrongCode";
 
     }
+
     public String formatPhone(String p) {
         String phoneLocale="US";
         if(p == null) return null;
@@ -229,6 +226,7 @@ public class AccountController extends BaseController {
         if( sub.equals("subCode") ){
             if (p.getVerificationCode().getCode().equals(verifycode)&&p.getVerificationCode().valid()) {
                 p.setVerified(true);
+                p.setReceiveGiftCards(true);
                 //p.updateGiftCardsQualification();
                 participantService.save(p);
                 return "redirect:/account/verified";
@@ -267,7 +265,14 @@ public class AccountController extends BaseController {
         return "account/verified";
     }
 
-   //when a user want to do the phone verification during the study
+    //when an account is verified
+    @RequestMapping(value="/tango",method= RequestMethod.POST)
+    public String setGiftCard(){
+        return "account/tango";
+    }
+
+
+    //when a user want to do the phone verification during the study
     //it is a link under "My Account"
     @RequestMapping("PostVerification")
     public String PostVerification(@RequestParam(value="verifycode", required=false, defaultValue="NAN") String verifycode,ModelMap model, Principal principal) {
@@ -282,16 +287,14 @@ public class AccountController extends BaseController {
     }
 
 
-//verfication page
+    //verfication page
     @RequestMapping("verification")
     public String verify(ModelMap model, Principal principal) {
         Participant p = participantService.get(principal);
         if (p.isVerified()) {
             return "redirect:/account/verified";
-        } else if (participantService.findByPhone(formatPhone(p.getPhone())).size()>1) {
-            return "redirect:/account/changePhone";
-
-
+//        } else if (participantService.findByPhone(formatPhone(p.getPhone())).size()>1) {
+//           return "redirect:/account/changePhone";
         } else {
             return "account/verification";
 
@@ -308,15 +311,26 @@ public class AccountController extends BaseController {
             return "redirect:/account/verified";
         }
          if (code.equals(verifycode)&&p.getVerificationCode().valid()) {
-                p.setVerified(true);
-                participantService.save(p);
-                return "redirect:/account/verified";
-            }
-            else {
-
-                return "redirect:/account/wrongCode";
-            }
+             p.setVerified(true);
+             p.setReceiveGiftCards(true);
+             participantService.save(p);
+             return "redirect:/account/verified";
+         }
+         else {
+             return "redirect:/account/wrongCode";
+         }
     }
+
+    @ExportMode
+    @RequestMapping(value="updateCardCountry",method=RequestMethod.POST)
+    public String updateCardCountry( ModelMap model, Principal principal, @RequestParam String country) {
+        Participant p=participantService.get(principal);
+        p.setAwardCountryCode(country);
+        participantService.save(p);
+        return "redirect:/account/theme";
+    }
+
+
 
     @RequestMapping("exitStudyConfirm")
     public String exitStudyConfirm(ModelMap model, Principal principal) {
@@ -328,12 +342,14 @@ public class AccountController extends BaseController {
         Participant p      = participantService.get(principal);
         p.setActive(false);
         participantService.save(p);
+        model.addAttribute("isExiting", true);
         return "debriefing";
     }
 
     @RequestMapping("debriefing")
     public String showDebriefing(ModelMap model, Principal principal) {
         Participant p = participantService.get(principal);
+        model.addAttribute("isExiting", false);
         return "debriefing";
     }
 

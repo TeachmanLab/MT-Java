@@ -4,6 +4,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.mindtrails.domain.RestExceptions.ExportModeException;
+import org.mindtrails.domain.RestExceptions.ImportModeException;
 import org.mindtrails.service.ImportService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +29,7 @@ public class ExportModeAspect {
             Object proceed = joinPoint.proceed();
             return proceed;
         } else {
-            throw new ExportModeException();
+            throw new ImportModeException();
         }
 
     }

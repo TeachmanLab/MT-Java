@@ -45,7 +45,7 @@ label.error {
 
 }
 
-@media (max-width: 992px) { #login-button {
+@media (max-width: 1000px) { #login-button {
     padding: 0;
     margin: 0;
 }}
@@ -57,7 +57,7 @@ label.error {
 
 div.section {
     position: relative;
-    margin: 50px auto;
+    margin: 50px 15px 15px 0px;
     padding: 15px;
     border-radius: 15px;
     border: 1px solid #bbb;
@@ -65,16 +65,38 @@ div.section {
     font-weight: 400;
 }
 
+.compactQuestion label.radio-inline.preferNotToAnswer {
+background-color: #eeeeee;
+    margin-bottom: 20px;
+}
+
+label.radio-inline.preferNotToAnswer:hover { background-color: #ffffe0;  color: #000;}
+
+@media only screen and (min-width: 1000px) {
+    div.section {
+        position: relative;
+        margin: 50px auto;
+        padding: 15px;
+        border-radius: 15px;
+        border: 1px solid #bbb;
+        background: #FFF;
+        font-weight: 400;
+    }
+}
+
 .statement{
     font-weight: 500;
     font-size: 1em;
     margin-top: 10px;
+    padding-bottom:15px;
+    padding-top:15px;
 
 }
 
 .tableOptions{
     font-weight: 500;
     font-size: 0.9em;
+    padding-bottom: 25px;
 }
 .question {
     font-weight: 600;
@@ -143,7 +165,7 @@ div.oneToSeven {
 }
 
 
-@media (max-width: 992px) { .slider.slider-horizontal {
+@media (max-width: 1000px) { .slider.slider-horizontal {
     width: 80%;
     margin: 0 10%;
 }}
@@ -191,6 +213,7 @@ div.oneToSeven {
 
 /* Compact Question Format */
 .compactQuestion {
+
 }
 
 
@@ -210,40 +233,78 @@ div.oneToSeven {
 }
 
 .compactQuestion label.radio-inline {
-    width: 90%;
-    height: 65px;
+    width: 95%;
+    height: 45px;
     font-weight: 400;
     vertical-align: middle;
     color: #5f5f5f;
-    text-align: center;
-    padding: 26px 0 0 0;
-    margin: 5px 0 10px 5px;
-    background-color: #eee;
+    text-align: left;
+    padding: 10px 0 0 0;
+    margin: 3px 0 3px 3px;
+    background-color: #d6d6d6;
     border-radius: 7px;
     cursor: pointer;
+    font-size:18px;
 }
+
+@media screen and (min-width:1000px) {
+    .compactQuestion label.radio-inline {
+        width: 90%;
+        height: 65px;
+        font-weight: 400;
+        vertical-align: middle;
+        color: #5f5f5f;
+        text-align: center;
+        padding: 26px 0 0 0;
+        margin: 5px 0 10px 5px;
+        background-color: #eee;
+        border-radius: 7px;
+        cursor: pointer;
+    }
+}
+@media screen and (min-width: 1000px) {
+    .compactQuestion label.text-inline {
+        width: 90%;
+        height: 65px;
+        font-weight: 400;
+        vertical-align: middle;
+        color: #5f5f5f;
+        padding: 26px 0 0 0;
+        margin: 5px 0 10px 5px;
+        background-color: #eee;
+        border-radius: 7px;
+        cursor: pointer;
+    }
+}
+    .compactQuestion .radio-inline input[type="radio"] {
+        display: block;
+        position: absolute;
+        margin-left: 24px;
+        margin-top: -10px;
+    }
 
 .compactQuestion label.text-inline {
     width: 90%;
-    height: 65px;
+    height: 45px;
     font-weight: 400;
     vertical-align: middle;
     color: #5f5f5f;
     text-align: center;
-    padding: 26px 0 0 0;
+    padding: 10px 0 0 0;
     margin: 5px 0 10px 5px;
     background-color: #eee;
     border-radius: 7px;
     cursor: pointer;
 }
 
-.compactQuestion .radio-inline input[type="radio"] {
-    display: inline-block;
-    position: absolute;
-    align-content: center;
-    text-align: center;
-    margin-left: -3px;
-    margin-top: -10px;
+@media only screen and (max-width: 1200px) and (min-width: 1000px) {
+    .compactQuestion .radio-inline input[type="radio"] {
+        display: inline-block;
+        position: absolute;
+        align-content: center;
+        margin-left: -2px;
+        margin-top: -10px;
+    }
 }
 
 .navbar {
@@ -261,9 +322,9 @@ div.oneToSeven {
     font-size: .6em;
 }
 
-@media(max-width: 1067px) {
+@media(max-width: 1000px) {
     .navbar-nav {
-        max-width: 600px;
+        max-width: 1000px;
     }
 }
 
@@ -312,13 +373,14 @@ div.oneToSeven {
 }
 
 /* Small devices (tablets, 768px and up) */
-@media (max-width: 992px) {
+@media (max-width: 1000px) {
     .compactQuestion .radio-inline input[type="radio"] {
         display: inline;
         position: relative;
         align-content: center;
         text-align: center;
         margin-top: 0px;
+        margin-right: 25px;
     }
     .compactQuestion .header {
         display: none;

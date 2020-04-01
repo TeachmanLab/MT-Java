@@ -37,19 +37,20 @@
                     <input id="timeOnPage" name="timeOnPage" type="hidden"/>
 
                     <div class="section">
-                        <div><label class="question">What is your gender identity?
+                        <div><label class="question">What is your gender identity?<br/><br/>
                             <select required="true" th:field="*{gender}">
                             <option value="">Please select one</option>
                             <option value="Female">Female</option>
                             <option value="Male">Male</option>
-                            <option value="Transgender">Transgender</option>
+                            <option value="Transgender Female">Transgender Female</option>
+                                <option value="Transgender Male">Transgender Male</option>
                             <option value="Other">Other</option>
                             <option value="555">Prefer not to answer</option>
                         </select> </label>
                         </div>
                         <br/>
 
-                        <div><label class="question">What is your birth year?
+                        <div><label class="question">What is your birth year?<br/><br/>
                             <select id="birthYear" required="true" th:field="*{BirthYear}">
                                 <option value="">Please select one</option>
                             </select></label>
@@ -60,57 +61,56 @@
                                 for ( i = 0; i < 100; i++) {
                                     $('#birthYear').append('<option>' + (maxYear - i) + '</option>');
                                 }
-                                $('#birthYear').append('<option value="555">Prefer Not to Answer</option>');
+                                $('#birthYear').append('<option value="555">Prefer not to answer</option>');
                             });
                             /*]]>*/
                             </script>
                         </div>
                         <br/>
 
+                        <div class="section" style="margin: 0; border: none; padding: 0;">
                         <div class="row">
-                            <div class="col-md-8 side-border">
-                                <div><label class="question"> Race (select all the apply)</label></div>
+                            <div class="col-md-8">
+                                <div><label class="question"> What is your race? Please select all that apply.</label></div>
                                 <div class="radio">
                                     <label> <input type="checkbox" th:field="*{race}" value="American Indian/Alaska Native"/>
-                                        American Indian/Alaska Native</label>
+                                        &nbsp;&nbsp;American Indian/Alaska Native</label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input type="checkbox" th:field="*{race}" value="East Asian"/> East Asian</label>
+                                    <label> <input type="checkbox" th:field="*{race}" value="East Asian"/> &nbsp;&nbsp;East Asian</label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input type="checkbox" th:field="*{race}" value="South Asian"/> South Asian</label>
+                                    <label> <input type="checkbox" th:field="*{race}" value="South Asian"/> &nbsp;&nbsp;South Asian</label>
                                 </div>
                                 <div class="radio">
                                     <label> <input type="checkbox" th:field="*{race}"
-                                                   value="Native Hawaiian/Pacific Islander"/> Native Hawaiian/Pacific
+                                                   value="Native Hawaiian/Pacific Islander"/> &nbsp;&nbsp;Native Hawaiian/Pacific
                                         Islander</label>
                                 </div>
                                 <div class="radio">
                                     <label> <input type="checkbox" th:field="*{race}" value="Black/African origin"/>
-                                        Black/African origin</label>
+                                        &nbsp;&nbsp;Black/African origin</label>
                                 </div>
                                 <div class="radio">
                                     <label> <input type="checkbox" th:field="*{race}" value="White/European origin"/>
-                                        White/European origin</label>
+                                        &nbsp;&nbsp;White/European origin</label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input type="checkbox" th:field="*{race}" value="Other or Unknown"/> Other or
+                                    <label> <input type="checkbox" th:field="*{race}" value="Other or Unknown"/> &nbsp;&nbsp;Other or
                                         Unknown</label>
                                 </div>
-                            </div>
-                            <div class="col-md-4">
                                 <div class="radio">
                                     <label class="question"><input type="checkbox" th:field="*{race}" value="555"
-                                                                   onchange="disableSection(this)"/> Prefer not to
+                                                                   onchange="disableSection(this)"/> &nbsp;&nbsp;Prefer not to
                                         answer
                                     </label>
-                                </div>
                             </div>
                         </div>
-
+                        </div>
+                        </div>
                         <br/>
 
-                        <div><label class="question"> Ethnicity <select th:field="*{Ethnicity}" required="true">
+                        <div><label class="question"> What is your ethnicity?<br/><br/> <select th:field="*{Ethnicity}" required="true">
                             <option value="">Please select one</option>
                             <option value="Hispanic or Latino">Hispanic or Latino</option>
                             <option value="Not Hispanic or Latino">Not Hispanic or Latino</option>
@@ -121,7 +121,7 @@
 
                         <br/>
 
-                        <div><label class="question"> Country of Residence <select required="true" class="auto-selector"
+                        <div><label class="question"> What is your country of residence?<br/><br/> <select required="true" class="auto-selector"
                                                                                    placeholder="Type your country of residence"
                                                                                    th:field="*{Country}" autofocus="autofocus"
                                                                                    autocorrect="off" autocomplete="off">
@@ -566,9 +566,6 @@
                                     data-alternative-spellings="GB Great Britain England UK Wales Scotland Northern Ireland"
                                     data-relevancy-booster="2.5">United Kingdom
                             </option>
-                            <option value="United States" data-relevancy-booster="3.5"
-                                    data-alternative-spellings="US USA United States of America">United States
-                            </option>
                             <option value="United States Minor Outlying Islands" data-alternative-spellings="UM">
                                 United States Minor Outlying Islands
                             </option>
@@ -598,7 +595,7 @@
 
                         <br/>
 
-                        <div><label class="question"> Please indicate your highest educational attainment <select
+                        <div><label class="question"> What is your highest educational attainment?<br/><br/> <select
                                 required="true" th:field="*{Education}">
                             <option value="">Please select one</option>
                             <option value="Elementary School">Elementary School</option>
@@ -621,7 +618,7 @@
 
                         <br/>
 
-                        <div><label class="question"> What is your relationship status? <select th:field="*{MaritalStat}"
+                        <div><label class="question"> What is your relationship status?<br/><br/> <select th:field="*{MaritalStat}"
                                                                                            required="true">
                             <option value="">Please select one</option>
                             <option value="Single">Single</option>
@@ -641,7 +638,7 @@
 
                         <br/>
 
-                        <div><label class="question"> What is your employment status? <select th:field="*{EmploymentStat}"
+                        <div><label class="question"> What is your employment status?<br/><br/> <select th:field="*{EmploymentStat}"
                                                                                               required="true">
                             <option value="">Please select one</option>
                             <option value="Working full-time">Working full-time</option>
@@ -659,8 +656,8 @@
 
                         <br/>
 
-                        <div><label class="question"> What is your household annual income (before taxes and other
-                            deductions)? <select th:field="*{Income}" required="true">
+                        <div><label class="question"> What is your household annual income, before taxes and other
+                            deductions (in US dollars or equivalent)?<br/><br/> <select th:field="*{Income}" required="true">
                                 <option value="">Please select one</option>
                                 <option value="Less than $5,000">Less than $5,000</option>
                                 <option value="$5,000 through $11,999">$5,000 through $11,999</option>
@@ -681,7 +678,7 @@
 
                         <br/>
 
-                        <div><label class="question"> How did you learn about Calm Thinking and/or The MindTrails Project? <select th:field="*{PtpReason}"
+                        <div><label class="question"> How did you learn about Calm Thinking and/or The MindTrails Project?<br/><br/> <select th:field="*{PtpReason}"
                                                                                                 required="true">
                             <option value="">Please select one</option>
                             <option value="Project Implicit Mental Health site front page">Project Implicit Mental Health site front page</option>
@@ -697,7 +694,7 @@
                         </div>
 
                         <div id="PtpReasonOther">
-                            <p>Please Specify:
+                            <p>Please specify:&nbsp;&nbsp;
                                 <label>
                                     <input id="PtpReasonOtherInput" th:field="*{PtpReasonOther}" type="text" placeholder=""
                                            size="50"/>
@@ -726,12 +723,29 @@
                                     }
                                 });
                             });
+
+                            /**
+                             * Disables all other input boxes in the same section as the input
+                             * selected.
+                             * @param input
+                             */
+                            function disableSection(input) {
+                                if (input.checked) {
+                                    $(input).closest('.section').find("input").not(input).prop('checked', false);
+                                    $(input).closest('.section').find("option").prop('selected', false);
+                                    $(input).closest('.section').find("select").prop('required', false);
+                                    $(input).closest('.section').find("input").attr("disabled", true);
+                                    $(input).removeAttr("disabled");
+                                } else {
+                                    $(input).closest('.section').find("input").removeAttr("disabled");
+                                }
+                            }
                         </script>
 
 
 
 
-                        <div style="text-align:center">
+                        <div style="text-align:center"><br/><br/>
                             <button type="submit"> Continue</button>
                         </div>
                     </div>

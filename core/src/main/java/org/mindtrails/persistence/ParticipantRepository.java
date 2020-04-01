@@ -64,7 +64,8 @@ public interface ParticipantRepository extends JpaRepository<Participant, Long> 
 
     @Query("SELECT p FROM Participant as p LEFT JOIN p.study s \n" +
             "where s.conditioning = :condition and " +
-            "p.coachedBy is null")
+            "p.coachedBy is null and p.testAccount = false order by " +
+            "p.lastLoginDate desc")
     Page<Participant> findEligibleForCoaching(@Param("condition") String condition,
                                               Pageable pageable);
 
@@ -73,7 +74,8 @@ public interface ParticipantRepository extends JpaRepository<Participant, Long> 
             " where lower(p.fullName) like '%' || lower(:search) || '%'" +
             " or lower(p.email) like '%' || lower(:search) || '%' and " +
             "s.conditioning = :condition and " +
-            "p.coachedBy is null")
+            "p.coachedBy is null and p.testAccount = false order by " +
+            "p.lastLoginDate desc")
     Page<Participant> searchEligibleForCoaching(@Param("condition") String condition,
                                                 Pageable pageable,
                                                 @Param("search") String search);
