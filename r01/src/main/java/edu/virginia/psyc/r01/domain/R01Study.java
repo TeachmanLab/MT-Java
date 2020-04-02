@@ -28,9 +28,9 @@ public class R01Study extends BaseStudy {
 
     public enum CONDITION {NONE, TRAINING, CONTROL, LR_TRAINING, HR_COACH, HR_NO_COACH,
                             TRAINING_ORIG, TRAINING_30, TRAINING_ED, TRAINING_CREATE }
-
-
-
+da
+vco
+asdfasdddd
     public enum SESSION {preTest, firstSession, secondSession, thirdSession, fourthSession, fifthSession, PostFollowUp}
 
     public static final String PRE_TEST = "preTest";
@@ -143,7 +143,7 @@ public class R01Study extends BaseStudy {
         pretest.addTask(new Task("Comorbid","Mood and Drinking Patterns", Task.TYPE.questions, 0 ));
         pretest.addTask(new Task("Wellness","What I Believe", Task.TYPE.questions, 0 ));
         pretest.addTask(new Task("Mechanisms","How I Respond", Task.TYPE.questions, 0 ));
-        pretest.addTask(new Task("Covid19","COVID-19", Task.TYPE.questions, 0 ));
+//        pretest.addTask(new Task("Covid19","COVID-19", Task.TYPE.questions, 0 ));
         pretest.addTask(new Task("TechnologyUse", "Technology Use", Task.TYPE.questions, 0));
         sessions.add(pretest);
 
@@ -192,7 +192,7 @@ public class R01Study extends BaseStudy {
         session3.addTask(new Task("Comorbid","Mood and Drinking Patterns", Task.TYPE.questions, 0 ));
         session3.addTask(new Task("Wellness","What I Believe", Task.TYPE.questions, 0 ));
         session3.addTask(new Task("Mechanisms","How I Respond", Task.TYPE.questions, 0 ));
-        session3.addTask(new Task("Covid19","COVID-19", Task.TYPE.questions, 0 ));
+//        session3.addTask(new Task("Covid19","COVID-19", Task.TYPE.questions, 0 ));
         session3.addTask(new Task("ReturnIntention","Returning to the Program", Task.TYPE.questions, 0));
 
         sessions.add(session3);
@@ -227,7 +227,7 @@ public class R01Study extends BaseStudy {
         session5.addTask(new Task("Comorbid","Mood and Drinking Patterns", Task.TYPE.questions, 0 ));
         session5.addTask(new Task("Wellness","What I Believe", Task.TYPE.questions, 0 ));
         session5.addTask(new Task("Mechanisms","How I Respond", Task.TYPE.questions, 0 ));
-        session5.addTask(new Task("Covid19","COVID-19", Task.TYPE.questions, 0 ));
+//        session5.addTask(new Task("Covid19","COVID-19", Task.TYPE.questions, 0 ));
         session5.addTask(new Task("HelpSeeking","Change in Help-Seeking Behavior", Task.TYPE.questions, 1));
         session5.addTask(new Task("Evaluation","Evaluating the Program", Task.TYPE.questions, 2));
         session5.addTask(new Task("AssessingProgram","Assessing the Program", Task.TYPE.questions, 2));
@@ -246,7 +246,7 @@ public class R01Study extends BaseStudy {
         post.addTask(new Task("Comorbid","Mood and Drinking Patterns", Task.TYPE.questions, 0 ));
         post.addTask(new Task("Wellness","What I Believe", Task.TYPE.questions, 0 ));
         post.addTask(new Task("Mechanisms","How I Respond", Task.TYPE.questions, 0 ));
-        post.addTask(new Task("Covid19","COVID-19", Task.TYPE.questions, 0 ));
+//        post.addTask(new Task("Covid19","COVID-19", Task.TYPE.questions, 0 ));
         post.addTask(new Task("HelpSeeking","Change in Help-Seeking Behavior", Task.TYPE.questions, 1));
         sessions.add(post);
 
