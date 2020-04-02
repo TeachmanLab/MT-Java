@@ -45,6 +45,8 @@ public class Covid19 extends LinkedQuestionnaireData {
     @NotNull
     private Integer family;
     @NotNull
+    private Integer partners;
+    @NotNull
     private Integer friends;
     @NotNull
     private Integer sleep;
@@ -72,7 +74,7 @@ public class Covid19 extends LinkedQuestionnaireData {
     @MeasureField(order = 6, desc = "Cleaned my home or did laundry more than usual", group = "behaviors")
     private Integer laundry;
     @NotNull
-    @MeasureField(order = 7, desc = "Checked in with friends and family more than usual", group = "behaviors")
+    @MeasureField(order = 7, desc = "Checked in with friends, family, and romantic partners more than usual", group = "behaviors")
     private Integer checkedIn;
     @NotNull
     @MeasureField(order = 8, desc = "Practiced social distancing (i.e., stayed in my home as much as possible and limited interactions with people outside my home)", group = "behaviors")
