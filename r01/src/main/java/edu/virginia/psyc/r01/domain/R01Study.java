@@ -28,9 +28,7 @@ public class R01Study extends BaseStudy {
 
     public enum CONDITION {NONE, TRAINING, CONTROL, LR_TRAINING, HR_COACH, HR_NO_COACH,
                             TRAINING_ORIG, TRAINING_30, TRAINING_ED, TRAINING_CREATE }
-da
-vco
-asdfasdddd
+
     public enum SESSION {preTest, firstSession, secondSession, thirdSession, fourthSession, fifthSession, PostFollowUp}
 
     public static final String PRE_TEST = "preTest";

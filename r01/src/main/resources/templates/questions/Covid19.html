@@ -45,6 +45,7 @@
         <option value="5">Minimal negative change</option>
         <option value="6">Moderate negative change</option>
         <option value="7">Extreme negative change</option>
+        <option value="NA">Not applicable</option>
         <option value="555">Prefer not to answer</option>
     </select> </label></p>
     <p><label class="question">Income/finances<br/>
@@ -57,6 +58,7 @@
         <option value="5">Minimal negative change</option>
         <option value="6">Moderate negative change</option>
         <option value="7">Extreme negative change</option>
+        <option value="NA">Not applicable</option>
         <option value="555">Prefer not to answer</option>
     </select> </label></p>
     <p><label class="question">Having enough food to eat<br/>
@@ -69,6 +71,7 @@
             <option value="5">Minimal negative change</option>
             <option value="6">Moderate negative change</option>
             <option value="7">Extreme negative change</option>
+            <option value="NA">Not applicable</option>
             <option value="555">Prefer not to answer</option>
         </select> </label></p>
             <p><label class="question">Childcare<br/>
@@ -81,6 +84,7 @@
                     <option value="5">Minimal negative change</option>
                     <option value="6">Moderate negative change</option>
                     <option value="7">Extreme negative change</option>
+                    <option value="NA">Not applicable</option>
                     <option value="555">Prefer not to answer</option>
                 </select> </label></p>
             <p><label class="question">Emotional well-being (e.g., anxiety, sadness, stress, worry)<br/>
@@ -93,6 +97,7 @@
                     <option value="5">Minimal negative change</option>
                     <option value="6">Moderate negative change</option>
                     <option value="7">Extreme negative change</option>
+                    <option value="NA">Not applicable</option>
                     <option value="555">Prefer not to answer</option>
                 </select> </label></p>
             <p><label class="question">Physical health<br/>
@@ -105,6 +110,7 @@
                     <option value="5">Minimal negative change</option>
                     <option value="6">Moderate negative change</option>
                     <option value="7">Extreme negative change</option>
+                    <option value="NA">Not applicable</option>
                     <option value="555">Prefer not to answer</option>
                 </select> </label></p>
             <p><label class="question">Getting the medication and other healthcare you need<br/>
@@ -117,6 +123,7 @@
                     <option value="5">Minimal negative change</option>
                     <option value="6">Moderate negative change</option>
                     <option value="7">Extreme negative change</option>
+                    <option value="NA">Not applicable</option>
                     <option value="555">Prefer not to answer</option>
                 </select> </label></p>
                 </div>
@@ -131,6 +138,7 @@
                     <option value="5">Minimal negative change</option>
                     <option value="6">Moderate negative change</option>
                     <option value="7">Extreme negative change</option>
+                    <option value="NA">Not applicable</option>
                     <option value="555">Prefer not to answer</option>
                 </select> </label></p>
             <p><label class="question">Ability to focus<br/>
@@ -143,6 +151,7 @@
                     <option value="5">Minimal negative change</option>
                     <option value="6">Moderate negative change</option>
                     <option value="7">Extreme negative change</option>
+                    <option value="NA">Not applicable</option>
                     <option value="555">Prefer not to answer</option>
                 </select> </label></p>
             <p><label class="question">Exercise<br/>
@@ -155,6 +164,7 @@
                     <option value="5">Minimal negative change</option>
                     <option value="6">Moderate negative change</option>
                     <option value="7">Extreme negative change</option>
+                    <option value="NA">Not applicable</option>
                     <option value="555">Prefer not to answer</option>
                 </select> </label></p>
             <p><label class="question">Relationships with family<br/>
@@ -167,8 +177,22 @@
                     <option value="5">Minimal negative change</option>
                     <option value="6">Moderate negative change</option>
                     <option value="7">Extreme negative change</option>
+                    <option value="NA">Not applicable</option>
                     <option value="555">Prefer not to answer</option>
                 </select> </label></p>
+             <p><label class="question">Relationships with romantic partners<br/>
+                 <select required="true" th:field="*{partners}">
+                     <option value="" hidden="hidden"></option>
+                     <option value="1">Extreme positive change</option>
+                     <option value="2">Moderate positive change</option>
+                     <option value="3">Minimal positive change</option>
+                     <option value="4">No change</option>
+                     <option value="5">Minimal negative change</option>
+                     <option value="6">Moderate negative change</option>
+                     <option value="7">Extreme negative change</option>
+                     <option value="NA">Not applicable</option>
+                     <option value="555">Prefer not to answer</option>
+                            </select> </label></p>
             <p><label class="question">Relationships with friends<br/>
                 <select required="true" th:field="*{friends}">
                     <option value="" hidden="hidden"></option>
@@ -179,6 +203,7 @@
                     <option value="5">Minimal negative change</option>
                     <option value="6">Moderate negative change</option>
                     <option value="7">Extreme negative change</option>
+                    <option value="NA">Not applicable</option>
                     <option value="555">Prefer not to answer</option>
                 </select> </label></p>
             <p><label class="question">Sleep<br/>
@@ -191,6 +216,7 @@
                     <option value="5">Minimal negative change</option>
                     <option value="6">Moderate negative change</option>
                     <option value="7">Extreme negative change</option>
+                    <option value="NA">Not applicable</option>
                     <option value="555">Prefer not to answer</option>
                 </select> </label></p>
             <p><label class="question">Loss of planned events (e.g., graduation, parties, travel)<br/>
@@ -203,6 +229,7 @@
                     <option value="5">Minimal negative change</option>
                     <option value="6">Moderate negative change</option>
                     <option value="7">Extreme negative change</option>
+                    <option value="NA">Not applicable</option>
                     <option value="555">Prefer not to answer</option>
                 </select> </label></p>
                     </div>

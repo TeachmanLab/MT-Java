@@ -41,7 +41,7 @@ public class AnxietyTriggers extends LinkedQuestionnaireData {
     @MeasureField(order=6, desc="Anxiety related to reminders of a prior traumatic experience (e.g., natural disaster, accident, assault, or exposure to combat or violence)")
     private Integer priorTrauma;
     @NotNull
-    @MeasureField(order=7, desc="Anxiety about COVID-19 and its impact on my and others’ health, work, relationships, finances, and social life.")
+    @MeasureField(order=7, desc="Anxiety about COVID-19 and its impact on my and others’ health, work, relationships, finances, and social life")
     private Integer coronavirus;
 
     @Override
