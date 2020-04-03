@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.mindtrails.domain.data.DoNotDelete;
 import org.mindtrails.domain.questionnaire.HasReturnDate;
 import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 
@@ -24,6 +25,7 @@ import java.util.Date;
 @Table(name="ReturnIntention")
 @EqualsAndHashCode(callSuper = true)
 @Data
+@DoNotDelete
 public class ReturnIntention extends LinkedQuestionnaireData implements HasReturnDate {
 
     @Lob
@@ -38,6 +40,7 @@ public class ReturnIntention extends LinkedQuestionnaireData implements HasRetur
 
     private Long daysTillReturning;
 
+    private String timezone;
 
     /*
      * MASSIVE HACK, as after 4 hours, I was never able to get spring to correctly prase and set the

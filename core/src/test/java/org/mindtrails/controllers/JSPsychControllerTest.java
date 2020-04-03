@@ -130,7 +130,7 @@ public class JSPsychControllerTest extends BaseControllerTest {
     @Test
     public void testPostInImportMode() throws Exception {
         importService.setMode("import");
-        ResultActions result = mockMvc.perform(post("/jspsych")
+        mockMvc.perform(post("/jspsych")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .with(SecurityMockMvcRequestPostProcessors.user(participant))
                 .content(EXAMPLE_DATA))

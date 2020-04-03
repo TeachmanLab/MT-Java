@@ -8,16 +8,25 @@
 <!--[if (gte IE 9)|!(IE)]><!-->
 <html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
 <!--<![endif]-->
+
+
 <head th:include="fragment/common :: headerFragment"/>
-<body th:class="|user-theme-${participant.theme}|">
+<body>
+<div th:class="|user-theme-${participant.theme}|">
 <section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
 
 
 <!-- content starts
 ================================================== -->
-<section id="content" class="clearfix">
+    <section th:replace="fragment/common :: titleBar (title='Rising Score During the Study')"/>
+
+    <section id="content" class="clearfix">
     <div class="container">
-        <h1>Dear <span th:text="${participant.fullName}"/>,</h1>
+        <div class="row">
+            <div class="col-md-8">
+
+                <br/>
+                <p>Dear <span th:text="${participant.fullName}"/>,</p>
 
         <p>We want to let you know that your score on
             the anxiety symptom measure that you complete each session is
@@ -34,18 +43,21 @@
             <a th:href="@{https://mindtrails.virginia.edu/calm/public/resources}">Mental Health Resources</a>.
             Further, while we do not endorse any particular organization or provider (see our
             <a th:href="@{https://mindtrails.virginia.edu/calm/public/disclaimer}">Terms and Conditions</a>), you may
-            contact us via email at <a href="mailto:studyteam@mindtrails.org">studyteam@mindtrails.org</a>
+            contact us via email at <a href="mailto:studyteam@mindtrails.org">studyteam@mindtrails.org</a>,
             if you want help in determining how to find nearby referrals for in-person treatment should such treatment be available.</p>
 
         <p style="margin-top:5px">Thank you for your participation in the study and we hope you’re
-            having a good week.  Please click "Continue" below to continue today's
-            session. </p>
-
-        <p>You can now <a th:href="@{/session}">Continue</a> with your session, if you choose to do so.</p>
+            having a good week.  Please click the 'Continue' button below to resume the current
+            session, if you choose to do so. </p>
+                <br/>
+                <p><a th:href="@{/session}"><button>Continue</button></a></p>
     </div>
-    <br/>
-    <br/>
+        </div>
+</div>
 </section>
+</div>
+    <br/>
+    <br/>
 
 <!-- footer starts
 ================================================== -->
@@ -58,6 +70,5 @@
 <!--Javascript
 ================================================== -->
 <div th:include="fragment/common :: scripts"/>
-
 </body>
 </html>

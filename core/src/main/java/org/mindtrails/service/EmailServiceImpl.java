@@ -8,11 +8,14 @@ import net.fortuna.ical4j.model.component.VEvent;
 import net.fortuna.ical4j.model.component.VTimeZone;
 import net.fortuna.ical4j.model.property.*;
 import net.fortuna.ical4j.util.FixedUidGenerator;
+import net.fortuna.ical4j.util.MapTimeZoneCache;
 import net.fortuna.ical4j.util.RandomUidGenerator;
 import net.fortuna.ical4j.util.UidGenerator;
 import org.mindtrails.domain.*;
+import org.mindtrails.domain.tango.ExchangeRates;
 import org.mindtrails.domain.tango.OrderResponse;
 import org.mindtrails.domain.tracking.EmailLog;
+import org.mindtrails.domain.tracking.GiftLog;
 import org.mindtrails.persistence.ParticipantRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +23,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
@@ -202,7 +207,7 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public void sendGiftCard(Participant participant, OrderResponse order, int amount) {
+    public void sendGiftCard(Participant participant, OrderResponse order, GiftLog log) {
         // Prepare the evaluation context
         final Context ctx = new Context();
         Email email = getEmailForType("giftCard");
@@ -210,28 +215,44 @@ public class EmailServiceImpl implements EmailService {
         email.setParticipant(participant);
         email.setContext(ctx);
 
+        if(log.getCurrency().equals(ExchangeRates.US_DOLLARS)) {
+            ctx.setVariable("amount",
+                    "$" + log.getAmount());
+        } else {
+            ctx.setVariable("amount",
+                    log.getAmount() + " " + log.getCurrency() +
+                            " ($" + (int)log.getDollarAmount() + ")");
+        }
+
         ctx.setVariable("order", order);
-        ctx.setVariable("giftAmount", amount);
         sendEmail(email);
     }
 
     @ExportMode
-    @Scheduled(cron = "0 0 2 * * *")  // schedules task for 2:00am every day.
+    @Scheduled(cron = "0 0 16 * * *")  // schedules task for 2:00am every day.
+    @Transactional(propagation= Propagation.REQUIRED, readOnly=false, noRollbackFor=Exception.class)
     public void sendEmailReminder() {
         List<Participant> participants;
 
         participants = participantRepository.findAll();
 
         for (Participant participant : participants) {
-            String type = getTypeToSend(participant);
-            if (type != null) {
-                Email email = getEmailForType(type);
-                email.setTo(participant.getEmail());
-                email.setParticipant(participant);
-                email.setContext(new Context());
-                sendEmail(email);
+            try {
+                String type = getTypeToSend(participant);
+                if (type != null) {
+                    Email email = getEmailForType(type);
+                    email.setTo(participant.getEmail());
+                    email.setParticipant(participant);
+                    email.setContext(new Context());
+                    sendEmail(email);
+                }
+            } catch(Exception e) {
+                LOG.error("Error calculating email for " +
+                            participant.getId() + " --> " + e.getMessage());
+                e.printStackTrace();
             }
         }
+
     }
 
 
@@ -242,6 +263,7 @@ public class EmailServiceImpl implements EmailService {
      * Sends emails to participants when they stopped in the middle of a session
      * and didn't return to it for 3 hours.
      */
+    @Transactional(propagation= Propagation.REQUIRED, readOnly=false, noRollbackFor=Exception.class)
     public void checkForMidSessionIncompleteAndSendEmails() {
         List<Participant> participants;
         participants = participantRepository.findAll();
@@ -304,15 +326,17 @@ public class EmailServiceImpl implements EmailService {
         int days = p.daysSinceLastMilestone();
 
         // Mark the user as inactive if they are about to get a closure email.
-        if (getTypeToSend(session, days).equals("closure")) {
+        String type = getTypeToSend(session, days);
+        if (type != null && type.equals("closure")) {
             p.setActive(false);
+            LOG.info("Marking participant #" + p.getId() + " as inactive.");
             participantRepository.save(p);
         }
 
         // Don't send emails to those that requested no reminders.
         if (!p.isEmailReminders()) return null;
 
-        return getTypeToSend(session, days);
+        return type;
 
     }
 
@@ -377,6 +401,10 @@ public class EmailServiceImpl implements EmailService {
 
 
     Calendar getInvite(Participant participant, Date date) {
+
+        // This corrects for an iCal issue which defaults to having a dependency on a caching service
+        // https://github.com/ical4j/ical4j/issues/195q
+        System.setProperty("net.fortuna.ical4j.timezone.cache.impl", MapTimeZoneCache.class.getName());
 
         // Create a TimeZone
         TimeZoneRegistry registry = TimeZoneRegistryFactory.getInstance().createRegistry();

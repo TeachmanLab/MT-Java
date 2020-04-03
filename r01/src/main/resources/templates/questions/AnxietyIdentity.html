@@ -18,7 +18,6 @@
     <div class="container">
         <div class="row">
             <div class="col-md-10">
-
                 <form th:action="@{/questions/AnxietyIdentity}" method="POST">
 
                     <!-- Add timer -->
@@ -28,10 +27,10 @@
                          style="padding: 15px; border-radius: 15px; border: 1px solid #bbb; background-color: #fff; margin-top: 40px; margin-bottom: 20px;">
 
                         <div class="row header">
-                            <div class="col-md-8 statement"><p>To what extent is your anxiety a central part of who you
-                                are currently?</p></div>
+                            <div class="col-md-8 statement"><h4><b>To what extent is your anxiety a central part of who you
+                                are currently?</b></h4></div>
                         </div>
-
+                        <br></br>
                         <div class="row">
                             <div class="col-md-8 side-border">
 
@@ -148,7 +147,7 @@
                             <br/>
                             <div class="anxiety-identity-radio">
                                 <label class="question"><input type="radio" name="anxietyIdentity" value="555"/>
-                                    Prefer not to answer </label>
+                                    &nbsp;&nbsp;Prefer not to answer </label>
                             </div>
                             <br/>
                             <br/>
@@ -184,5 +183,6 @@
 <!--Javascript
 ================================================== -->
 <div th:include="fragment/common :: scripts"/>
+<div th:include="fragment/action_log :: scripts-action-log"/>
 </body>
 </html>

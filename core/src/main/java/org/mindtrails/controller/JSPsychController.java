@@ -94,12 +94,23 @@ public class JSPsychController extends BaseController {
         List<JsPsychTrial> trials = jsPsychRepository.findAllByParticipantAndSession(participant,
                 participant.getStudy().getCurrentSession().getName());
 
+        // If no data exists in the trails, then something went wrong - a session timeout or other issue occurred.  They
+        // will need to complete the trials to move forward.
+        if(trials.size() < 10) {
+            String error = "Recognition rations were not completed in full.";
+            LOG.info(error);
+            throw new WrongFormException(error);
+        }
+
+
         // Find the greatest time_elapsed value for the data returned, this is time spent on the trial.
         double timeOnTask = 0.0;
         for (JsPsychTrial trial : trials) {
             if(trial.getTime_elapsed() > timeOnTask)
             timeOnTask = trial.getTime_elapsed();
         }
+
+
 
         participant.getStudy().completeCurrentTask(timeOnTask/1000, device, userAgent);
         participantService.save(participant);

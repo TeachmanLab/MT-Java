@@ -8,6 +8,7 @@ import org.mindtrails.domain.forms.ParticipantCreateAdmin;
 import org.mindtrails.domain.forms.ParticipantUpdateAdmin;
 import org.mindtrails.domain.importData.Scale;
 import org.mindtrails.domain.tango.Account;
+import org.mindtrails.domain.tango.Item;
 import org.mindtrails.domain.tango.OrderResponse;
 import org.mindtrails.domain.tracking.ErrorLog;
 
@@ -81,6 +82,9 @@ public class AdminController extends BaseController {
 
     @Autowired
     private TaskLogRepository taskLogRepository;
+
+    @Autowired
+    private ActionLogRepository actionSequenceRepository;
 
     @Autowired
     private StudyRepository studyRepository;
@@ -267,10 +271,11 @@ public class AdminController extends BaseController {
         Participant p = participantService.get(principal);
 
         if(type.equals("giftCard")) {
-            GiftLog log = new GiftLog(p, "test", 1);
+            Item item = tangoService.getCatalog().findItemByCountryCode("US");
+            GiftLog log = new GiftLog(p, "test", 1,1, item);
             this.giftLogRepository.save(log);
             OrderResponse reward = tangoService.awardGiftCard(log);  // This would actually award a gift card, if you need to do some testing.
-            this.emailService.sendGiftCard(p, reward, 1);
+            this.emailService.sendGiftCard(p, reward, log);
         } else if(type.equals("resetPass")) {
             p.setPasswordToken(new PasswordToken());
             this.emailService.sendPasswordReset(p);
@@ -314,12 +319,27 @@ public class AdminController extends BaseController {
         }
 
         model.addAttribute("account",a);
-        giftPages = giftLogRepository.findByOrderIdIsNull(pageRequest);
+        giftPages = giftLogRepository.awardableGiftLogs(pageRequest);
         model.addAttribute("giftLogs", giftPages);
         model.addAttribute("numberAwarded",numberAwarded);
         model.addAttribute("amountAwarded", amountAwarded);
         return "admin/tango";
     }
+
+    // Trying to write a methods to get Tango Account information. By Diheng
+    @RequestMapping(value="/tangoHistory",method = RequestMethod.GET)
+    public String tangoHistory(ModelMap model, Principal principal,
+                            final @RequestParam(value = "page", required = false, defaultValue = "0") String pageParam){
+
+        Page<GiftLog> giftPages;
+        PageRequest pageRequest;
+        int page = Integer.parseInt(pageParam);
+        pageRequest = new PageRequest(page, PER_PAGE);
+        giftPages = giftLogRepository.findAll(pageRequest);
+        model.addAttribute("giftLogs", giftPages);
+        return "admin/tangoHistory";
+    }
+
 
     // Trying to write a methods to get Tango Account information. By Diheng
     @RequestMapping(value="/tango",method = RequestMethod.POST)
@@ -328,20 +348,20 @@ public class AdminController extends BaseController {
         for(long id : ids) {
             GiftLog log = giftLogRepository.findOne(id);
             OrderResponse reward = this.tangoService.awardGiftCard(log);
-            this.emailService.sendGiftCard(log.getParticipant(), reward, log.getAmount());
+            this.emailService.sendGiftCard(log.getParticipant(), reward, log);
         }
         return tangoInfo(model, principal, "0");
     }
 
 
-    @RequestMapping(value="/participant/giftCard")
-    public String giftCard(ModelMap model, Principal principal) throws Exception {
-        Participant p = participantService.get(principal);
-        GiftLog log = new GiftLog(p, "AdminAwarded", 1);
-        this.giftLogRepository.save(log);
-        OrderResponse reward = tangoService.awardGiftCard(log);  // This would actually award a gift card, if you need to do some testing.
-        this.emailService.sendGiftCard(p, reward, 1);
-        return "admin/participant_form";
+    @RequestMapping(value="/participant/{id}/awardCard", method=RequestMethod.POST)
+    public String giftCard(ModelMap model, @PathVariable("id") long id) throws Exception {
+
+        Participant p = participantRepository.findOne(id);
+        GiftLog log = tangoService.createGiftLogUnsafe(p, "AdminAwarded", 5);
+        OrderResponse reward = tangoService.awardGiftCard(log);
+        this.emailService.sendGiftCard(p, reward, log);
+        return "redirect:/admin/participant/" + id;
     }
 
     @RequestMapping(value="/rewardInfo/{orderId}", method = RequestMethod.GET)
@@ -350,6 +370,17 @@ public class AdminController extends BaseController {
         model.addAttribute("order",order);
         return "admin/rewardInfo";
     }
+
+    @RequestMapping(value="/participant/{id}/resendGift/{giftLogId}", method=RequestMethod.GET)
+    public String resendGiftCard(@PathVariable("id") long id,
+                                 @PathVariable("giftLogId") long giftLogId) throws Exception {
+        GiftLog log = giftLogRepository.findOne(giftLogId);
+        Participant p = participantRepository.findOne(id);
+        OrderResponse reward = tangoService.getOrderInfo(log.getOrderId());
+        this.emailService.sendGiftCard(p, reward, log);
+        return "redirect:/admin/participant/" + id;
+    }
+
 
     @RequestMapping(value="/export", method=RequestMethod.GET)
     public String export(ModelMap model, Principal principal) {
@@ -415,6 +446,7 @@ public class AdminController extends BaseController {
         Long SMSLogs = SMSLogRepository.countByDateSentAfter(lastWeek);
 
         Long taskLogs = taskLogRepository.countByDateCompletedAfter(lastWeek);
+        Long actionLogs = actionSequenceRepository.countByDateAfter(lastWeek);
 
         daoList=participantRepository.findAllStatsBy();
         studyList=studyRepository.findAllStatsBy();
@@ -442,7 +474,8 @@ public class AdminController extends BaseController {
         model.addAttribute("emailLogs", emailLogs);
         model.addAttribute("SMSLogs", SMSLogs);
         model.addAttribute("participants", daoList);
-        model.addAttribute("taskLogs",taskLogs);
+        model.addAttribute("taskLogs", taskLogs);
+        model.addAttribute("actionLogs", actionLogs);
         model.addAttribute("lastLoginNum",lastLoginNum);
         model.addAttribute("users",users);
         model.addAttribute("csData",csData);

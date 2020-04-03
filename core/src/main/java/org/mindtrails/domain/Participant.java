@@ -67,7 +67,8 @@ public class Participant implements UserDetails, HasStudy {
     protected String campaign; // A key passed into the landing page, to help identify where people come from.
     protected Date returnDate; // Date this user plans to return for next session.
     protected float attritionRisk;  // percentage likelihood this person will leave the study early.
-
+    protected boolean canTextMessage;  // can send and receive text messages
+    protected String awardCountryCode = "US";
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
@@ -91,27 +92,27 @@ public class Participant implements UserDetails, HasStudy {
     // IMPORTANT: Automatic email notifications start failing when
     // these relationships are setup with a FetchType.LAZY. Please
     // leave this eager, or address that problem.
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "participant")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "participant")
     @JsonIgnore
     @OrderBy(value = "dateSent")
     protected SortedSet<EmailLog> emailLogs = new TreeSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "participant")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "participant")
     @JsonIgnore
     @OrderBy(value = "dateSent")
     protected SortedSet<SMSLog> smsLogs = new TreeSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "participant")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "participant")
     @JsonIgnore
     @OrderBy(value = "dateSent")
     protected SortedSet<GiftLog> giftLogs = new TreeSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "participant")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "participant")
     @JsonIgnore
     @OrderBy(value = "dateSent")
     protected SortedSet<ErrorLog> errorLogs = new TreeSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "participant")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "participant")
     @JsonIgnore
     @OrderBy(value = "dateAttempted")
     protected SortedSet<CoachLog> coachLogs = new TreeSet<>();

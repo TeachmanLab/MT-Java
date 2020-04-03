@@ -2,6 +2,9 @@ package org.mindtrails.controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
+import org.joda.time.Hours;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -32,6 +35,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MvcResult;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static junit.framework.TestCase.assertTrue;
@@ -70,6 +75,9 @@ public class ExportControllerTest extends BaseControllerTest {
     private TestUndeleteableRepository repoU;
     @Autowired
     ObjectMapper mapper;
+
+    Date defaultDate = DateTime.now().minus(Days.days(2)).toDate();
+
 
     @Rule
     public ExpectedException thrown= ExpectedException.none();
@@ -123,7 +131,7 @@ public class ExportControllerTest extends BaseControllerTest {
     @Test
     public void testEntryDataIsReturned() {
         createTestEntry();
-        List data = exportController.listData("TestQuestionnaire",0);
+        List data = exportController.listData("TestQuestionnaire", defaultDate);
         assertThat((List<Object>)data, hasItem(hasProperty("value", is("MyTestValue"))));
     }
 
@@ -134,7 +142,7 @@ public class ExportControllerTest extends BaseControllerTest {
         TestQuestionnaire q = createTestEntry();
         LinkedQuestionnaireData qd;
 
-        List data =  exportController.listData("TestQuestionnaire",0);
+        List data =  exportController.listData("TestQuestionnaire", defaultDate);
         assertThat(data.size(), greaterThan(0));
 
         // Going to make the assumption this is QuestionnaireData
@@ -144,7 +152,7 @@ public class ExportControllerTest extends BaseControllerTest {
             exportController.delete("TestQuestionnaire",qd.getId());
         }
 
-        data =  exportController.listData("TestQuestionnaire",0);
+        data =  exportController.listData("TestQuestionnaire", defaultDate);
         assertThat(data.size(), is(0));
     }
 
@@ -169,7 +177,7 @@ public class ExportControllerTest extends BaseControllerTest {
 
         LinkedQuestionnaireData qd;
 
-        List data =  exportController.listData("TestUndeleteable",0);
+        List data =  exportController.listData("TestUndeleteable", defaultDate);
         assertThat(data.size(), greaterThan(0));
 
         qd = (LinkedQuestionnaireData)data.get(0);
@@ -290,6 +298,34 @@ public class ExportControllerTest extends BaseControllerTest {
         Participant pUpdated = participantRepository.findOne(participant.getId());
 
         assertEquals("newCondition", pUpdated.getStudy().getConditioning());
+
+    }
+
+    @Test
+    public void testDateParameter() throws Exception {
+        TestUndeleteable u1 = new TestUndeleteable();
+        TestUndeleteable u2 = new TestUndeleteable();
+
+        u1.setDate(DateTime.now().minus(Days.days(2)).toDate());
+        u2.setDate(new Date());
+
+        u1.setValue("My Old data record");
+        u1.setValue("My new data record");
+
+        repoU.save(u1);
+        repoU.save(u2);
+        repoU.flush();
+
+        LinkedQuestionnaireData qd;
+
+
+        List data =  exportController.listData("TestUndeleteable",
+                DateTime.now().minus(Hours.hours(1)).toDate());
+        assertEquals(1, data.size());
+
+        data =  exportController.listData("TestUndeleteable",
+                DateTime.now().minus(Days.days(10)).toDate());
+        assertEquals(2, data.size());
 
     }
 

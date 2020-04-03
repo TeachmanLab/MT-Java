@@ -7,10 +7,9 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface JsPsychRepository extends JpaRepository<JsPsychTrial, Long> {
+public interface JsPsychRepository extends QuestionnaireRepository<JsPsychTrial> {
 
     List<JsPsychTrial> findAllByParticipantAndSession(Participant participant,
                                                               String session);
-    List<JsPsychTrial> findDistinctByParticipantIn(List<Long> participants);
 }
 

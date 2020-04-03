@@ -23,7 +23,8 @@
           "timeme.js":"2.0.0",
           "d3":"4.11.0",
           "bootstrap-datepicker":"1.8.0",
-          "bootstrap-timepicker":"0.5.0"
+          "bootstrap-timepicker":"0.5.0",
+          "intl-tel-input":"16.0.2"
   }
 
 }

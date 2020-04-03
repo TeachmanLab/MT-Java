@@ -33,7 +33,6 @@ subprojects {
         compile("javax.mail:mail:1.4.7") // also Email
         compile('commons-codec:commons-codec:1.10') // Base64 encoding / decoding to help with storing encrypted data.
         compile("org.apache.httpcomponents:httpclient")  // For calling google's recaptcha api
-
         testCompile("org.springframework.boot:spring-boot-starter-test")
         testCompile("org.springframework.security:spring-security-test")
 

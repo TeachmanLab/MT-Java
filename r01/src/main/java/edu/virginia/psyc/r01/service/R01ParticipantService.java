@@ -12,6 +12,7 @@ import org.mindtrails.persistence.ParticipantRepository;
 import org.mindtrails.domain.Conditions.RandomConditionRepository;
 import org.mindtrails.service.ParticipantService;
 import org.mindtrails.service.ParticipantServiceImpl;
+import org.mindtrails.service.TangoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -49,6 +50,9 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
     @Autowired
     ConditionAssignmentSettingsRepository settingsRepository;
 
+    @Autowired
+    TangoService tangoService;
+
     private ConditionAssignmentSettings settings;
     public final Double defaultThreshold = 0.33d;
 
@@ -66,8 +70,9 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
     public Participant create() {
         Participant p = new Participant();
         R01Study study = new R01Study();
+        p.setReceiveGiftCards(tangoService.getEnabled());
+        study.setReceiveGiftCards(tangoService.getEnabled());
         p.setStudy(study);
-        p.setReceiveGiftCards(true);
         study.setConditioning(R01Study.CONDITION.NONE.name());
         return p;
     }
@@ -154,18 +159,40 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
 
     /**
      * Random blocks for initial assignment are split 75/25 for training and control respectively.
+     * NOTE: 10/30/2019 - modified to be a 90/10 split between training and control to
+     * account for an inbalance in assignments that occurred due to early attrition.
      * @param segment
      */
-    private void assureRandomAssignmentsAvailableForSegment(String segment) {
+    private void original_assureRandomAssignmentsAvailableForSegment(String segment) {
         if(randomBlockRepository.countAllBySegmentName(segment) < 1) {
             Map<String, Float> valuePercentages = new HashMap<>();
-            valuePercentages.put(R01Study.CONDITION.TRAINING.name(), 75.0f);
-            valuePercentages.put(R01Study.CONDITION.CONTROL.name(), 25.0f);
+            valuePercentages.put(R01Study.CONDITION.TRAINING.name(), 90.0f);
+            valuePercentages.put(R01Study.CONDITION.CONTROL.name(), 10.0f);
             List<RandomCondition> blocks = RandomCondition.createBlocks(valuePercentages, 50, segment);
             this.randomBlockRepository.save(blocks);
             this.randomBlockRepository.flush();
         }
     }
+
+    /**
+     * This is the second study, which divided users up into 4 different conditions
+     * all of which were training conditions.
+     * @param segment
+     */
+    private void assureRandomAssignmentsAvailableForSegment(String segment) {
+        if(randomBlockRepository.countAllBySegmentName(segment) < 1) {
+            Map<String, Float> valuePercentages = new HashMap<>();
+            valuePercentages.put(R01Study.CONDITION.TRAINING_ORIG.name(), 25.0f);
+            valuePercentages.put(R01Study.CONDITION.TRAINING_30.name(), 25.0f);
+            valuePercentages.put(R01Study.CONDITION.TRAINING_ED.name(), 25.0f);
+            valuePercentages.put(R01Study.CONDITION.TRAINING_CREATE.name(), 25.0f);
+            List<RandomCondition> blocks = RandomCondition.createBlocks(valuePercentages, 50, segment);
+            this.randomBlockRepository.save(blocks);
+            this.randomBlockRepository.flush();
+        }
+    }
+
+
 
     /**
      * Random blocks for coaching assignment are split 50/50 for coaching and no coaching
@@ -210,10 +237,12 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
         R01Study study = (R01Study)p.getStudy();
 
         // Now that p is saved, connect any Expectancy Bias eligibility data back to the
-        // session, and log it in the TaskLog
+        // session, and log it in the TaskLog.  Update the date time so that it is
+        // properly picked up in the export routine.
         for (DASS21_AS e : forms) {
             e.setParticipant(p);
             e.setSession(ELIGIBLE_SESSION);
+            e.setDate(new Date());
             dass21RRepository.save(e);
             study.completeEligibility(e);
         }

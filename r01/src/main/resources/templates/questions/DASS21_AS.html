@@ -47,14 +47,16 @@
     <form th:action="${eligibility}? @{/public/eligibilityCheck} : @{/questions/DASS21_AS}"
             th:object="${model}" method="POST">
         <section th:replace="fragment/forms :: radioOptions(${model})"/>
-        <div class="col-md-12" style="text-align:center">
+        <div class="col-md-12" style="text-align:center; padding-left: 20px">
             <div th:if="${eligibility}" class="form-group row">
                 <div class="col-sm-2">
                 </div>
                 <div class="col-sm-10">
                     <label class="col-sm-10">
                         <input class="inline-checkbox" type="checkbox" id="over18" name="over18" value="true"/>
-                        I am over 18 years of age.
+                        I am at least age 18*<br/>
+                        (* If based in Nebraska, I am at least age 19; if based in Puerto Rico, I am at least age 21.<br/> See
+                         <a th:href="@{/public/disclaimer#item8}">Terms and Conditions > Age of Consent</a>.)
                     </label>
                 </div>
             </div>
@@ -64,11 +66,7 @@
 </section>
 <footer th:replace="fragment/common :: footer"/>
 <div th:include="fragment/common :: scripts"/>
+<div th:unless="${eligibility}" th:include="fragment/action_log :: scripts-action-log"/>
 
 </body>
 </html>
-
-
-<!--Javascript
-================================================== -->
-<div th:include="fragment/common :: scripts"/>

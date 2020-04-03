@@ -28,6 +28,7 @@
 
 <section id="content1" class="clearfix">
     <form th:action="@{/questions/Covid19}" method="POST" th:object="${model}">
+    <!-- Don't add timer, it's added in one of the form fragments.-->
     <div class="container">
         <div class="container section compactQuestion">
             <h3><b>COVID-19 is affecting people in many different ways. <i>Thinking about the past 2 weeks</i>,
@@ -239,13 +240,12 @@
         <section th:replace="fragment/forms :: radioOptions(${model})"/>
 
             <!-- Add timer -->
-            <input id="timeOnPage" name="timeOnPage" type="hidden"/>
             <div class="container section compactQuestion">
                 <h3><b>On an average day over the past 2 weeks, how much time per day (in minutes) did you spend reading news stories about COVID-19?</b></h3>
-                <h3><textarea name="news" rows="1" cols="1" maxlength="4" style="resize: none; font-size: 30px; text-align:center;" required="required"/> &nbsp;minutes per day</h3>
+                <h3><textarea name="news" rows="1" cols="4" maxlength="4" style="resize: none; font-size: 30px; text-align:center;" required="required"/> &nbsp;minutes per day</h3>
                 <br/>
                 <h3><b>On an average day over the past 2 weeks, how much time per day (in minutes) did you spend reading social media about COVID-19?</b></h3>
-                <h3><textarea name="socialMedia" rows="1" cols="1" maxlength="4" style="resize: none; font-size: 30px; text-align:center;" required="required"/> &nbsp;minutes per day</h3>
+                <h3><textarea name="socialMedia" rows="1" cols="4" maxlength="4" style="resize: none; font-size: 30px; text-align:center;" required="required"/> &nbsp;minutes per day</h3>
             </div>
 
         <div class="container section">
@@ -325,7 +325,6 @@
 </section>
 
 <footer th:replace="fragment/common :: footer"/>
-<div th:include="fragment/common :: scripts"/>
 <div th:include="fragment/common :: scripts"/>
 
 </body>
