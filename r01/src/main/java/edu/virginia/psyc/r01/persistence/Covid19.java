@@ -124,7 +124,7 @@ public class Covid19 extends LinkedQuestionnaireData {
         Map<Integer, String> tmpScale = new TreeMap<>();
         tmpScale.put(1, "  Very little");
         tmpScale.put(2, "");
-        tmpScale.put(3, "");
+        tmpScale.put(3, "Somewhat");
         tmpScale.put(4, "");
         tmpScale.put(5, "Very much");
         return Collections.unmodifiableMap(tmpScale);
