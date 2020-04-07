@@ -70,6 +70,7 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
     public Participant create() {
         Participant p = new Participant();
         R01Study study = new R01Study();
+        study.setStudyExtension("TET");  // All new studies are TET Studies,an extension of R01.
         p.setReceiveGiftCards(tangoService.getEnabled());
         study.setReceiveGiftCards(tangoService.getEnabled());
         p.setStudy(study);

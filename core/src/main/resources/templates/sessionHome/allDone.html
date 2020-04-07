@@ -31,7 +31,7 @@
                 <p>Now that you have finished, you can review your <a th:href="@{/graph}">Graph of Progress</a> to see how
                     your anxiety changed over the course of the program.</p>
 
-                <div th:if="${participant.study.conditioning == 'TRAINING' or 'CONTROL' or 'LR_TRAINING' or 'HR_COACH' or 'HR_NO_COACH'}">
+                <div th:if="${participant.study.conditioning != 'CONTROL'}">
                     <p>This page also reveals if you were in the active training condition, or the control condition.</p>
                 </div>
 

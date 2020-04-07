@@ -101,7 +101,7 @@ public class Evaluation extends LinkedQuestionnaireData {
 
     @Column(name="evalCondition") // 'Condition' is a reserved word in some databases.
     @NotNull
-    private Integer condition;
+    private Integer condition = 999;  // 999 = No longer collected
 
     //This should only be @NotNull if condition is is 1, when the person thinks they were in the control group...
     private Integer whenCondition;
@@ -120,7 +120,7 @@ public class Evaluation extends LinkedQuestionnaireData {
     private String howLearnOther;
 
     @NotNull
-    private Integer receivedTelecoaching;
+    private Integer receivedTelecoaching = 999; // 999 = No longer collected
 
     // The following three should only be @NotNull if receivedCoaching is 1
     private Integer coachExperience;
