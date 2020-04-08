@@ -103,7 +103,7 @@
                     </p>
                 </div>
 
-                <div th:if="${participant.study.conditioning == 'TRAINING' or 'LR_TRAINING' or 'HR_COACH' or 'HR_NO_COACH'}">
+                <div th:if="${participant.study.conditioning != 'CONTROL'}">
                     <h3><b>You were in the active training condition.</b></h3>
                     <p>When reviewing this graph, we'd like to let you
                         know that you were in an active training group (rather than a control group, which we did not

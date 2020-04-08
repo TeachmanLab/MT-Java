@@ -32,5 +32,5 @@ public class StudyImportExport {
     private Date lastSessionDate;
     private boolean receiveGiftCards;
     private double increasePercent;
-
+    private String studyExtension;
 }
