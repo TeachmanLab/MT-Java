@@ -39,6 +39,9 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
     DASS21_ASRepository dass21RRepository;
 
     @Autowired
+    OARepository oaRepository;
+
+    @Autowired
     DemographicsRepository demographicsRepository;
 
     @Autowired
@@ -220,8 +223,12 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
     @Override
     public boolean isEligible(HttpSession session) {
         List<DASS21_AS> forms = dass21RRepository.findBySessionId(session.getId());
+        List<OA> oa_forms = oaRepository.findBySessionId(session.getId());
         for (DASS21_AS e : forms) {
             if (e.eligible()) return true;
+        }
+        for (OA oa : oa_forms) {
+            if (oa.eligible()) return true;
         }
         return false;
     }
@@ -230,6 +237,11 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
     public void saveNew(Participant p, HttpSession session) throws MissingEligibilityException {
 
         List<DASS21_AS> forms = dass21RRepository.findBySessionId(session.getId());
+        if(forms.size() < 1) {
+            throw new MissingEligibilityException();
+        }
+
+        List<OA> oa_forms = oaRepository.findBySessionId(session.getId());
         if(forms.size() < 1) {
             throw new MissingEligibilityException();
         }
@@ -247,6 +259,16 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
             dass21RRepository.save(e);
             study.completeEligibility(e);
         }
+
+        for (OA oa : oa_forms) {
+            oa.setParticipant(p);
+            oa.setSession(ELIGIBLE_SESSION);
+            oa.setDate(new Date());
+            oaRepository.save(oa);
+            study.completeEligibility(oa);
+        }
+
+
         save(p); // Re-save participant to record study.
     }
 }

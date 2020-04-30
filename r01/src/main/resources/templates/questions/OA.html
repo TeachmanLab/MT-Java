@@ -11,11 +11,28 @@
 <head th:replace="fragment/common :: headerFragment"/>
 <body>
 <section th:replace="fragment/common :: topFragment"/>
-<section th:replace="fragment/common :: titleBar (title='Anxiety Review')"/>
 <textArea th:replace="fragment/common :: questionTemplate5"/>
+
+
+<section id="header-btm" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <h2 class="page-title heading-icon clearfix"> <img th:src="@{/images/map-arrow-orange.png}" alt="icon" class="icon-small-bg" />
+                <br/>
+                <span th:text="${eligibility}? 'Eligibility Questionnaire :Part 2' : 'Mood Assessment'"/>
+            </h2>
+
+        </div>
+    </div>
+</section>
 
 <section id="content1" class="clearfix">
     <div class="container">
+        <div class="row"  th:if="${eligibility}">
+            <div class="col-md-8" style="padding-left: 0px">
+                <p>This is part two in a two step questionnaire.</p>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-8">
 
@@ -32,8 +49,9 @@
 </section>
 
 <section id="content" class="clearfix">
+    <form th:action="${eligibility}? @{/public/eligibilityCheckStep2} : @{/questions/OA}"
+            th:object="${model}" method="POST">
 
-    <form th:action="@{/questions/OA}" method="POST">
         <!-- Add timer -->
         <input id="timeOnPage" name="timeOnPage" type="hidden"/>
         <div class="container">

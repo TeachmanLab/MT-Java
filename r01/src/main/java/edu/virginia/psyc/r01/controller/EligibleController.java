@@ -2,7 +2,10 @@ package edu.virginia.psyc.r01.controller;
 
 import edu.virginia.psyc.r01.persistence.DASS21_AS;
 import edu.virginia.psyc.r01.persistence.DASS21_ASRepository;
+import edu.virginia.psyc.r01.persistence.OA;
+import edu.virginia.psyc.r01.persistence.OARepository;
 import org.mindtrails.controller.BaseController;
+import org.mindtrails.service.ParticipantService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 
@@ -33,7 +37,14 @@ public class EligibleController extends BaseController {
     private static final String BIAS_SESSION = "bias";
 
     @Autowired
-    private DASS21_ASRepository repository;
+    private DASS21_ASRepository dassRepository;
+
+    @Autowired
+    private OARepository oaRepository;
+
+    @Autowired
+    private ParticipantService participantService;
+
 
     private Validator validator;
 
@@ -48,35 +59,48 @@ public class EligibleController extends BaseController {
     public String showEligibility(ModelMap model) {
         // Template will set a difference form action if this variable is set to true.
         DASS21_AS dass = new DASS21_AS();
-        model.addAttribute("model",dass);
-        model.addAttribute("eligibility",true);
+        model.addAttribute("model", dass);
+        model.addAttribute("eligibility", true);
         return "questions/DASS21_AS";
     }
 
-    @RequestMapping(value="public/eligibilityCheck", method = RequestMethod.POST)
-    public String checkEligibility(@ModelAttribute("DASS21as")DASS21_AS dass,
+
+    @RequestMapping(value = "public/eligibilityCheck", method = RequestMethod.POST)
+    public String checkEligibility(@ModelAttribute("DASS21as") DASS21_AS dass,
                                    ModelMap model, HttpSession session) {
 
         dass.setSessionId(session.getId());
         dass.setDate(new Date());
-        if(!dass.getOver18().equals("true")) {  // Deal with null and empty responses.
+        if (!dass.getOver18().equals("true")) {  // Deal with null and empty responses.
             dass.setOver18("false");
         }
         Set<ConstraintViolation<DASS21_AS>> violations = validator.validate(dass);
-        if(!violations.isEmpty()) {
-            model.addAttribute("model",dass);
-            model.addAttribute("eligibility",true);
+        if (!violations.isEmpty()) {
+            model.addAttribute("model", dass);
+            model.addAttribute("eligibility", true);
             model.addAttribute("error", "Please complete all required fields.");
             return "questions/DASS21_AS";
         } else {
-            repository.save(dass);
-            if (dass.eligible()) {
-                return "invitation";
-            } else {
-                return "ineligible";
-            }
+            dassRepository.save(dass);
+            OA oa = new OA();
+            model.addAttribute("model", oa);
+            model.addAttribute("eligibility", true);
+            return "questions/OA";
         }
     }
 
+    @RequestMapping(value = "public/eligibilityCheckStep2", method = RequestMethod.POST)
+    public String checkEligibilityStep2(@ModelAttribute("OA") OA oa,
+                                        ModelMap model, HttpSession session) {
 
+        oa.setSessionId(session.getId());
+        oa.setDate(new Date());
+        oaRepository.save(oa);
+
+        if(participantService.isEligible(session)) {
+            return "invitation";
+        } else {
+            return "ineligible";
+        }
+    }
 }
