@@ -58,16 +58,30 @@ public class EligibleController extends BaseController {
     @RequestMapping("public/eligibility")
     public String showEligibility(ModelMap model) {
         // Template will set a difference form action if this variable is set to true.
+        OA oa = new OA();
+        model.addAttribute("model", oa);
+        model.addAttribute("eligibility", true);
+        return "questions/OA";
+    }
+
+
+    @RequestMapping(value = "public/eligibilityCheck", method = RequestMethod.POST)
+    public String checkEligibility(@ModelAttribute("OA") OA oa,
+                                   ModelMap model, HttpSession session) {
+
+        oa.setSessionId(session.getId());
+        oa.setDate(new Date());
+        oaRepository.save(oa);
+
         DASS21_AS dass = new DASS21_AS();
         model.addAttribute("model", dass);
         model.addAttribute("eligibility", true);
         return "questions/DASS21_AS";
     }
 
-
-    @RequestMapping(value = "public/eligibilityCheck", method = RequestMethod.POST)
-    public String checkEligibility(@ModelAttribute("DASS21as") DASS21_AS dass,
-                                   ModelMap model, HttpSession session) {
+    @RequestMapping(value = "public/eligibilityCheckStep2", method = RequestMethod.POST)
+    public String checkEligibilityStep2(@ModelAttribute("DASS21as") DASS21_AS dass,
+                                        ModelMap model, HttpSession session) {
 
         dass.setSessionId(session.getId());
         dass.setDate(new Date());
@@ -82,25 +96,11 @@ public class EligibleController extends BaseController {
             return "questions/DASS21_AS";
         } else {
             dassRepository.save(dass);
-            OA oa = new OA();
-            model.addAttribute("model", oa);
-            model.addAttribute("eligibility", true);
-            return "questions/OA";
-        }
-    }
-
-    @RequestMapping(value = "public/eligibilityCheckStep2", method = RequestMethod.POST)
-    public String checkEligibilityStep2(@ModelAttribute("OA") OA oa,
-                                        ModelMap model, HttpSession session) {
-
-        oa.setSessionId(session.getId());
-        oa.setDate(new Date());
-        oaRepository.save(oa);
-
-        if(participantService.isEligible(session)) {
-            return "invitation";
-        } else {
-            return "ineligible";
+            if (participantService.isEligible(session)) {
+                return "invitation";
+            } else {
+                return "ineligible";
+            }
         }
     }
 }
