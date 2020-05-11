@@ -137,7 +137,6 @@ public class R01Study extends BaseStudy {
         pretest.addTask(new Task("Demographics","Personal Background", Task.TYPE.questions, 2 ));
         pretest.addTask(new Task("MentalHealthHistory","Mental Health and Treatment History", Task.TYPE.questions, 2 ));
         pretest.addTask(new Task("AnxietyIdentity","Anxiety and Me", Task.TYPE.questions, 0 ));
-        pretest.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
         pretest.addTask(new Task("AnxietyTriggers","Anxiety Triggers", Task.TYPE.questions, 0 ));
         pretest.addTask(new Task("recognitionRatings", "Completing Short Stories", Task.TYPE.jspsych, 5));
         pretest.addTask(new Task("RR","Completing Short Stories, Pt. 2", Task.TYPE.questions, 0 ));
