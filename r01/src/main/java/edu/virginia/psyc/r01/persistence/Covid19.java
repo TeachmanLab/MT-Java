@@ -19,6 +19,15 @@ import java.util.TreeMap;
 @Data
 public class Covid19 extends LinkedQuestionnaireData {
 
+    @Override
+    public Map<String, String> getGroupDescriptions() {
+        Map<String, String> desc = new TreeMap<>();
+        desc.put("behaviors", "Please indicate if you have engaged in any of the following behaviors as a result of COVID-19.");
+        desc.put("symptoms", "Please indicate how much you agree with the following statements:");
+        desc.put("challenges", "Please rate how often you use each of the following strategies to cope with challenges/stressors related to COVID-19.");
+        return Collections.unmodifiableMap(desc);
+    }
+
     // 1. COVID-19 is affecting people in many different ways. Thinking about the past 2 weeks,
     // please indicate in what ways the following areas of your life have been affected as a result of COVID-19
 
@@ -79,6 +88,9 @@ public class Covid19 extends LinkedQuestionnaireData {
     @NotNull
     @MeasureField(order = 8, desc = "Practiced social distancing (i.e., stayed in my home as much as possible and limited interactions with people outside my home)", group = "behaviors")
     private Integer distancing;
+
+    // 3. Please indicate how much you agree with the following statements:
+
     @NotNull
     @MeasureField(order = 9, desc = "It scares me when I am short of breath or coughing.", group = "symptoms")
     private Integer cough;
@@ -100,21 +112,33 @@ public class Covid19 extends LinkedQuestionnaireData {
     @NotNull
     @MeasureField(order = 15, desc = "When I’m upset about COVID-19, I believe there is nothing I can do to make myself feel better.", group = "symptoms")
     private Integer upset;
-    @NotNull
-    @MeasureField(order = 16, desc = "I can control whether I get COVID-19.", group = "symptoms")
-    private Integer test;
-    @NotNull
-    @MeasureField(order = 17, desc = "When I’m upset about COVID-19, I believe there is nothing I can do to make myself feel better.", group = "symptoms")
-    private Integer test2;
 
-    // 3. & 4. On an average day over the past 2 weeks, how much time per day in minutes did you spend reading news stories/social media about COVID-19?
+    // 4. Please rate how often you use each of the following strategies to cope with challenges/stressors related to COVID-19.
+
+    @NotNull
+    @MeasureField(order = 16, desc = "I try to let my emotions out.", group = "challenges")
+    private Integer emotions;
+    @NotNull
+    @MeasureField(order = 17, desc = "I make a plan of action and follow it.", group = "challenges")
+    private Integer plan;
+    @NotNull
+    @MeasureField(order = 18, desc = "I look for the silver lining or try to look on the bright side of things.", group = "challenges")
+    private Integer brightside;
+    @NotNull
+    @MeasureField(order = 19, desc = "I try to put the problem out of my mind.", group = "challenges")
+    private Integer problem;
+    @NotNull
+    @MeasureField(order = 20, desc = "I keep my thoughts and feelings to myself.", group = "challenges")
+    private Integer thoughts;
+
+    // 5. On an average day over the past 2 weeks, how much time per day in minutes did you spend reading news stories/social media about COVID-19?
 
     @NotNull
     private String news;
     @NotNull
     private String socialMedia;
 
-    // 5. Based on criteria from the Center for Disease Control, are you at high risk for serious illness following infection of COVID-19?
+    // 6. Based on criteria from the Center for Disease Control, are you at high risk for serious illness following infection of COVID-19?
 
     @NotNull
     private Integer highRisk;
@@ -122,21 +146,13 @@ public class Covid19 extends LinkedQuestionnaireData {
     @Override
     public Map<Integer, String> getScale(String group) {
         Map<Integer, String> tmpScale = new TreeMap<>();
-        tmpScale.put(1, "  Very little");
+        tmpScale.put(1, "Very little");
         tmpScale.put(2, "");
         tmpScale.put(3, "Somewhat");
         tmpScale.put(4, "");
         tmpScale.put(5, "Very much");
         return Collections.unmodifiableMap(tmpScale);
 
-
     }
 
-    @Override
-    public Map<String, String> getGroupDescriptions() {
-        Map<String, String> desc = new TreeMap<>();
-        desc.put("behaviors", "Please indicate if you have engaged in any of the following behaviors as a result of COVID-19.");
-        desc.put("symptoms", "Please indicate how much you agree with the following statements:");
-        return Collections.unmodifiableMap(desc);
     }
-}
