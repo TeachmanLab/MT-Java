@@ -130,6 +130,12 @@ public class Covid19 extends LinkedQuestionnaireData {
     @NotNull
     @MeasureField(order = 20, desc = "I keep my thoughts and feelings to myself.", group = "challenges")
     private Integer thoughts;
+    @NotNull
+    @MeasureField(order = 21, desc = "I get emotional support from others.", group = "challenges")
+    private Integer support;
+    @NotNull
+    @MeasureField(order = 22, desc = "I accept the reality of the fact that it has happened.", group = "challenges")
+    private Integer reality;
 
     // 5. On an average day over the past 2 weeks, how much time per day in minutes did you spend reading news stories/social media about COVID-19?
 
