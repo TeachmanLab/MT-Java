@@ -143,7 +143,10 @@ public class AccountController extends BaseController {
             twilioService.sendMessage(code,participant);
             return "redirect:/account/verification";
         }
-        return "redirect:/account/theme";
+//        return "redirect:/account/theme";
+    // Removing option to customize theme, for the demo
+        participant.setTheme("blue");
+        return "redirect:/session";
     }
 
 
