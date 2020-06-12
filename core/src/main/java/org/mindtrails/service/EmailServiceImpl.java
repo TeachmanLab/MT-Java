@@ -78,10 +78,10 @@ public class EmailServiceImpl implements EmailService {
         emails.add(new Email("resetPass", "MindTrails - Account Request"));
         emails.add(new Email("alertAdmin", "MindTrails Alert!"));
         emails.add(new Email("giftCard", "Your E-Gift Card!"));
-        emails.add(new Email("debrief", "Explanation of the Calm Thinking Study"));
+        emails.add(new Email("debrief", "Explanation of the MindTrails Study"));
         emails.add(new Email("midSessionStop", "Incomplete Session Notice from the MindTrails Project Team"));
-        emails.add(new Email("closure", "Closure of Account in the Calm Thinking Study"));
-        emails.add(new Email("debrief", "Explanation of the Calm Thinking Study"));
+        emails.add(new Email("closure", "Closure of Account in the MindTrails Study"));
+        emails.add(new Email("debrief", "Explanation of the MindTrails Study"));
         return  emails;
     }
 
