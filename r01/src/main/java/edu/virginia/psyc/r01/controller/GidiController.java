@@ -74,7 +74,9 @@ public class GidiController extends QuestionController {
         if(gidi.getAccepted() != null && gidi.getAccepted().equals("true")) {
             R01Study study = (R01Study) participant.getStudy();
             study.setStudyExtension(R01Study.STUDY_EXTENSIONS.GIDI.name());
-            study.setReceiveGiftCards(true);
+            study.setReceiveGiftCards(true);  // Turns gift cards on for the study,
+            // but gift cards will also need to be set to true for participant as
+            // well once they are verified, which will happen during the next steps.
             studyRepository.save(study);
 
             return new RedirectView("/account/changePhone", true);
