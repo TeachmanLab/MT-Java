@@ -134,7 +134,7 @@ public class R01Study extends BaseStudy {
         List<Session> sessions = new ArrayList<>();
         Session pretest, session1, session2, session3, session4, session5, post, post2;
 
-        pretest = new Session (PRE_TEST, "Initial Assessment", 5, 0);
+        pretest = new Session (PRE_TEST, "Initial Assessment", 0, 0);
         pretest.setIndex(0);
 
         pretest.addTask(new Task("Credibility","How Does MindTrails Work?", Task.TYPE.questions, 0 ));

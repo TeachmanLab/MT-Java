@@ -74,6 +74,7 @@ public class GidiController extends QuestionController {
         if(gidi.getAccepted() != null && gidi.getAccepted().equals("true")) {
             R01Study study = (R01Study) participant.getStudy();
             study.setStudyExtension(R01Study.STUDY_EXTENSIONS.GIDI.name());
+            study.setReceiveGiftCards(true);
             studyRepository.save(study);
 
             return new RedirectView("/account/changePhone", true);
