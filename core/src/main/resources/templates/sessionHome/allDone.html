@@ -22,8 +22,8 @@
             <div class="col-md-8 session">
                 <h2><b>Congratulations, <span th:text="${participant.fullName}">Jim</span>!</b></h2>
 
-                <p>You previously completed the Calm Thinking program, and now that you have finished the 2-month
-                    followup assessment, you have reached the end of the Calm Thinking study!</p>
+                <p>You completed the MindTrails program, and now that you have finished the 2-month
+                    followup assessment, you have reached the end of the MindTrails study!</p>
 
                 <p>The MindTrails research team would like to thank you for your time and participation &mdash; this research
                     wouldn't be possible without participants like you.</p>
@@ -31,8 +31,7 @@
                 <p>Now that you have finished, you can review your <a th:href="@{/graph}">Graph of Progress</a> to see how
                     your anxiety changed over the course of the program.</p>
 
-                <div th:if="${participant.study.conditioning == 'TRAINING' or participant.study.conditioning == 'CONTROL' or participant.study.conditioning == 'LR_TRAINING' or participant.study.conditioning == 'HR_COACH' or participant.study.conditioning == 'HR_NO_COACH'}">
-                    <p>This page also reveals if you were in the active training condition, or the control condition.</p>
+                    <p>This page also reveals if you were in the active training group, or a control group.</p>
                 </div>
 
                 <p>Additionally, you can now read the <a th:href="@{/account/debriefing}">Debriefing page</a>, which provides a full explanation of the
