@@ -44,11 +44,21 @@
                     phone number will not be shared with third parties.</p>
                 <p>All other MindTrails policies detailed in the original consent form are the same for this additional
                     study.</p>
-                <a th:href="@{/public/resources}">
-                    <button>I have read this informed consent statement and agree to participate.</button></a>
-                <a th:href="@{/public/faq}">
-                    <button>No thanks, I do not want to participate in this additional study, and will continue with
-                        the original MindTrails study only.</button></a>
+
+            <form th:action="@{/questions/gidi}" method="POST">
+                <!-- Add timer -->
+                <input id="timeOnPage" name="timeOnPage" type="hidden"/>
+
+                <button type="submit" name="declined" value="true"
+                        class="btn btn-lg myBtn_accept" title="accept">
+                    No thanks, I do not want to participate in this additional study,
+                    and will continue with the original MindTrails study only.
+                </button>
+                <button type="submit" name="accepted" value="true"
+                        class="btn btn-lg myBtn_decline" title="decline">
+                    I have read this informed consent statement and agree to participate.
+                </button>
+            </form>
         </div>
     </div>
     </div>
