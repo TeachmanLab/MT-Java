@@ -26,42 +26,58 @@
         <div class="row">
             <div class="col-md-8">
                 <p>We are inviting some of our MindTrails visitors to participate in an additional study that is tracking
-                    people’s anxiety and the impact of COVID-19 over time. This additional study is entirely optional. If
+                    people’s anxiety and the impact of COVID-19 over time. <i>This additional study is entirely optional.</i> If
                     you choose to participate, it will not change your activities in the MindTrails program except in the
                     following ways:</p>
-                        <ol>You will complete 1 additional follow-up assessment (lasting about 20 minutes) 6 months
-                            after you finish the MindTrails program.</ol>
-                        <ol>Currently, we do not offer payments for completing the assessments, but we will be offering
-                            gift cards for completing the assessments for persons who join this additional study. You
-                            will receive:</ol>
-                            <li>$5 for completing the assessment at the end of session 3 training</li>
-                            <li>$5 for completing the assessment at the end of session 5 training</li>
-                            <li>$15 for completing the assessment 2 months after you finish the MindTrails training</li>
-                            <li>$15 for completing the assessment 6 months after you finish the MindTrails training</li>
-                <p>You will receive the gift cards via email from Tango Card, where you can choose from top name-brands
-                    like Amazon.com, Starbucks, iTunes, Target, and many more options, or you can donate the value to a
-                    charity. To receive gift cards, you will need to verify your phone number. Your email address and
+                <ul style="padding-right: 10px">
+                    <li>You will complete an additional follow-up assessment (lasting about 20 minutes) 6 months
+                            after you finish the MindTrails program</li>
+                    <li>Currently, we do not offer payments for completing the assessments, but we will be offering
+                            e-gift cards for persons who join this additional study</li></ul>
+                <p>If you join the study, you will receive the following amount (or US Dollar equivalent&nbsp;&#x2020;) in e-gift cards:</p>
+                <ul style="padding-right: 10px">
+                    <li>$5 for completing the assessment at the end of session 3 training</li>
+                    <li>$5 for completing the assessment at the end of session 5 training</li>
+                    <li>$15 for completing the assessment 2 months after you finish the MindTrails program</li>
+                    <li>$15 for completing the assessment 6 months after you finish the MindTrails program</li></ul>
+                <p>You will receive your e-gift card via email, within 2 business days after completion of each assessment. E-gift cards are distributed
+                    by Tango Card, an online awards service where you can choose from top name-brands like Amazon, Starbucks, iTunes, Target, and many more options, or you can donate the value to a
+                    charity. To receive e-gift cards, you will need to verify your phone number. Your email address and
                     phone number will not be shared with third parties.</p>
                 <p>All other MindTrails policies detailed in the original consent form are the same for this additional
                     study.</p>
+            </div>
+        </div>
 
             <form th:action="@{/questions/gidi}" method="POST">
                 <!-- Add timer -->
                 <input id="timeOnPage" name="timeOnPage" type="hidden"/>
 
-                <button type="submit" name="declined" value="true"
-                        class="btn btn-lg myBtn_accept" title="accept">
-                    No thanks, I do not want to participate in this additional study,
-                    and will continue with the original MindTrails study only.
-                </button>
-                <button type="submit" name="accepted" value="true"
+                <div class="row">
+                    <div class="col-md-4">
+                <a><button type="submit" name="accepted" value="true"
                         class="btn btn-lg myBtn_decline" title="decline">
-                    I have read this informed consent statement and agree to participate.
-                </button>
+                    <b>I have read this <br/> &nbsp;&nbsp; informed consent statement and agree &nbsp;&nbsp; <br/> to participate.</b>
+                </button></a>
+                    </div>
+                    <div class="col-md-4">
+                            <button type="submit" name="declined" value="true"
+                                    class="btn btn-lg myBtn_accept" title="accept">
+                                <b>No thanks, I do not want to participate <br/> in this additional study,
+                                    and will continue <br/> with the original MindTrails study only.</b>
+                            </button>
+                        </div>
+                    </div>
+                <br/>
+                <div class="row">
+                    <div class="col-md-8">
+                        <p style="margin-left: 20px; text-indent: -20px; font-size: 16px;">&#x2020; <small>&nbsp;&nbsp;&nbsp;In addition to the United States, Tango Card
+                            features e-gift card options for the following countries and respective currencies: Argentina, Australia, Brazil, Canada, Germany, India, Ireland, Italy,
+                    Netherlands, Singapore, Spain, United Kingdom.</small></p>
+                    </div>
+                </div>
             </form>
         </div>
-    </div>
-    </div>
 </section>
 
 
