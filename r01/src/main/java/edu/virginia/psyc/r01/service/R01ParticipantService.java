@@ -73,7 +73,7 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
     public Participant create() {
         Participant p = new Participant();
         R01Study study = new R01Study();
-        study.setStudyExtension("TET");  // All new studies are TET Studies,an extension of R01.
+        study.setStudyExtension(R01Study.STUDY_EXTENSIONS.TET.name());  // All new studies are TET Studies,an extension of R01.
         p.setReceiveGiftCards(tangoService.getEnabled());
         study.setReceiveGiftCards(tangoService.getEnabled());
         p.setStudy(study);
@@ -186,10 +186,11 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
     private void assureRandomAssignmentsAvailableForSegment(String segment) {
         if(randomBlockRepository.countAllBySegmentName(segment) < 1) {
             Map<String, Float> valuePercentages = new HashMap<>();
-            valuePercentages.put(R01Study.CONDITION.TRAINING_ORIG.name(), 25.0f);
-            valuePercentages.put(R01Study.CONDITION.TRAINING_30.name(), 25.0f);
-            valuePercentages.put(R01Study.CONDITION.TRAINING_ED.name(), 25.0f);
-            valuePercentages.put(R01Study.CONDITION.TRAINING_CREATE.name(), 25.0f);
+            valuePercentages.put(R01Study.CONDITION.TRAINING_ORIG.name(), 20.0f);
+            valuePercentages.put(R01Study.CONDITION.TRAINING_30.name(), 20.0f);
+            valuePercentages.put(R01Study.CONDITION.TRAINING_ED.name(), 20.0f);
+            valuePercentages.put(R01Study.CONDITION.TRAINING_CREATE.name(), 20.0f);
+            valuePercentages.put(R01Study.CONDITION.CONTROL.name(), 20.0f);
             List<RandomCondition> blocks = RandomCondition.createBlocks(valuePercentages, 50, segment);
             this.randomBlockRepository.save(blocks);
             this.randomBlockRepository.flush();
