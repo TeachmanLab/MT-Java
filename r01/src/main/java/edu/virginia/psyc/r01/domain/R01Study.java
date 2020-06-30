@@ -32,7 +32,9 @@ public class R01Study extends BaseStudy {
     public enum CONDITION {NONE, TRAINING, CONTROL, LR_TRAINING, HR_COACH, HR_NO_COACH,
                             TRAINING_ORIG, TRAINING_30, TRAINING_ED, TRAINING_CREATE }
 
-    public enum SESSION {preTest, firstSession, secondSession, thirdSession, fourthSession, fifthSession, PostFollowUp}
+    public enum SESSION {preTest, firstSession, secondSession, thirdSession, fourthSession, fifthSession, PostFollowUp, PostFollowUp2}
+
+    public enum STUDY_EXTENSIONS {TET, GIDI}
 
     public static final String PRE_TEST = "preTest";
     public static final String FIRST_SESSION = "firstSession";
@@ -41,6 +43,7 @@ public class R01Study extends BaseStudy {
     public static final String FOURTH_SESSION = "fourthSession";
     public static final String FIFTH_SESSION = "fifthSession";
     public static final String POST_FOLLOWUP = "PostFollowUp";
+    public static final String POST_FOLLOWUP2 = "PostFollowUp2";
 
     @Override
     public String getName() {return "R01";}
@@ -116,8 +119,8 @@ public class R01Study extends BaseStudy {
                 !getCurrentSession().getName().equals(R01Study.SESSION.thirdSession.toString())&&
                 !getCurrentSession().getName().equals(R01Study.SESSION.fourthSession.toString())&&
                 !getCurrentSession().getName().equals(R01Study.SESSION.fifthSession.toString())&&
-                !getCurrentSession().getName().equals(R01Study.SESSION.PostFollowUp.toString()));
-
+                !getCurrentSession().getName().equals(R01Study.SESSION.PostFollowUp.toString()))&&
+                !getCurrentSession().getName().equals(R01Study.SESSION.PostFollowUp2.toString());
     }
 
 
@@ -127,13 +130,14 @@ public class R01Study extends BaseStudy {
      */
     @Override
     public List<Session> getStatelessSessions() {
-        List<Session> sessions = new ArrayList<>();
-        Session pretest, session1, session2, session3, session4, session5, post;
 
-        pretest = new Session (PRE_TEST, "Initial Assessment", 5, 0);
+        List<Session> sessions = new ArrayList<>();
+        Session pretest, session1, session2, session3, session4, session5, post, post2;
+
+        pretest = new Session (PRE_TEST, "Initial Assessment", 0, 0);
         pretest.setIndex(0);
 
-        pretest.addTask(new Task("Credibility","How Does Calm Thinking Work?", Task.TYPE.questions, 0 ));
+        pretest.addTask(new Task("Credibility","How Does MindTrails Work?", Task.TYPE.questions, 0 ));
         pretest.addTask(new Task("Demographics","Personal Background", Task.TYPE.questions, 2 ));
         pretest.addTask(new Task("MentalHealthHistory","Mental Health and Treatment History", Task.TYPE.questions, 2 ));
         pretest.addTask(new Task("AnxietyIdentity","Anxiety and Me", Task.TYPE.questions, 0 ));
@@ -160,6 +164,7 @@ public class R01Study extends BaseStudy {
         session1.addTask(new Task("SessionReview", "Session Review", Task.TYPE.questions, 0));
         session1.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
         session1.addTask(new Task("CoachPrompt","Feedback", Task.TYPE.questions, 0 ));
+        session1.addTask(new Task("Gidi","GIDI Study", Task.TYPE.questions, 0 ));
         session1.addTask(new Task("ReturnIntention","Returning to the Program", Task.TYPE.questions, 0));
         sessions.add(session1);
 
@@ -235,7 +240,13 @@ public class R01Study extends BaseStudy {
 
         sessions.add(session5);
 
-        post = new Session(POST_FOLLOWUP, "2 Month Post Training", 10, 60);
+
+        int gift_amount = 10;
+        if(this.studyExtension != null &&
+                this.studyExtension.equals(STUDY_EXTENSIONS.GIDI.name())) {
+            gift_amount = 15;
+        }
+        post = new Session(POST_FOLLOWUP, "2 Month Post Training", gift_amount, 60);
         post.setIndex(6);
 
         post.addTask(new Task("AnxietyIdentity","Anxiety and Me", Task.TYPE.questions, 0 ));
@@ -251,6 +262,25 @@ public class R01Study extends BaseStudy {
         post.addTask(new Task("HelpSeeking","Change in Help-Seeking Behavior", Task.TYPE.questions, 1));
         sessions.add(post);
 
+
+        // Only GIDI Participants will get the final post followup.
+        if(this.studyExtension != null &&
+                this.studyExtension.equals(STUDY_EXTENSIONS.GIDI.name())) {
+            post2 = new Session(POST_FOLLOWUP2, "6 Month Post Training", 15, 180);
+            post2.setIndex(7);
+            post2.addTask(new Task("AnxietyIdentity", "Anxiety and Me", Task.TYPE.questions, 0));
+            post2.addTask(new Task("OA", "Anxiety Review", Task.TYPE.questions, 1));
+            post2.addTask(new Task("DASS21_AS", "Mood Assessment", Task.TYPE.questions, 0));
+            post2.addTask(new Task("recognitionRatings", "Completing Short Stories", Task.TYPE.jspsych, 5));
+            post2.addTask(new Task("RR", "Completing Short Stories, Pt. 2", Task.TYPE.questions, 0));
+            post2.addTask(new Task("BBSIQ", "Why Things Happen", Task.TYPE.questions, 0));
+            post2.addTask(new Task("Comorbid", "Mood and Drinking Patterns", Task.TYPE.questions, 0));
+            post2.addTask(new Task("Wellness", "What I Believe", Task.TYPE.questions, 0));
+            post2.addTask(new Task("Mechanisms", "How I Respond", Task.TYPE.questions, 0));
+            post2.addTask(new Task("Covid19", "COVID-19", Task.TYPE.questions, 0));
+            post2.addTask(new Task("HelpSeeking", "Change in Help-Seeking Behavior", Task.TYPE.questions, 1));
+            sessions.add(post2);
+        }
         return sessions;
     }
 }

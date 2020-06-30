@@ -35,7 +35,7 @@
                     please indicate in what ways the following areas of your life have been affected as a result of COVID-19:</b></h3><br/>
             <div class="row">
             <div class="col-md-6">
-    <p><label class="question">Work<br/>
+    <p><label class="question">Work (employment or school)<br/>
     <select required="true" th:field="*{work}">
         <option value="" hidden="hidden"></option>
         <option value="1">Extreme positive change</option>
@@ -248,7 +248,7 @@
                 <h3><textarea name="socialMedia" rows="1" cols="4" maxlength="4" style="resize: none; font-size: 30px; text-align:center;" required="required"/> &nbsp;minutes per day</h3>
             </div>
 
-        <div class="container section" th:if="${currentSession == preTest}">
+        <div class="container section">
             <div class="row header">
                 <div class="col-md-12 statement">
                     <h3><b>Based on criteria from the Center for Disease Control, are you at high risk for serious
@@ -275,46 +275,6 @@
                     <br/>
                 </div>
             </div>
-        </div>
-
-        <div class="container section compactQuestion">
-            <h4><b>Please rate how often you use each of the following strategies to cope with challenges/stressors related to COVID-19.</b></h4>
-            <div id="section4"></div>
-            <script>
-                var data = {
-                    "options": [
-                        {"value": 1, "title": "Never"},
-                        {"value": 2, "title": "Seldom"},
-                        {"value": 3, "title": "Sometimes"},
-                        {"value": 4, "title": "Often"},
-                        {"value": 5, "title": "Almost Always"},
-
-                    ],
-                    "questions": [
-                        {
-                            "name": "emotions",
-                            "desc": "I try to let my emotions out."
-                        },
-                        {
-                            "name": "plan",
-                            "desc": "I make a plan of action and follow it."
-                        },
-                        {
-                            "name": "brightside",
-                            "desc": "I look for the silver lining or try to look on the bright side of things."
-                        },
-                        {
-                            "name": "problem",
-                            "desc": "I try to put the problem out of my mind."
-                        },
-                        {
-                            "name": "thoughts",
-                            "desc": "I keep my thoughts and feelings to myself."
-                        }
-                    ]
-                }
-                $('#section4').html(Mustache.render($('#template').val(), data));
-            </script>
         </div>
 
         <div class="col-md-12" style="text-align:center">

@@ -327,7 +327,7 @@ public class AccountController extends BaseController {
         Participant p=participantService.get(principal);
         p.setAwardCountryCode(country);
         participantService.save(p);
-        return "redirect:/account/theme";
+        return "redirect:/session/next";
     }
 
 
