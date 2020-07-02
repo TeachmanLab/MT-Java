@@ -69,42 +69,8 @@ public class R01Study extends BaseStudy {
     @Override
     /** Check out the Templeton Study for building a more complex setup. */
     public Map<String,Object> getPiPlayerParameters() {
+        // No longer used for R01, just return an empty map.
         Map<String,Object> map = super.getPiPlayerParameters();
-        String sessionName = this.getCurrentSession().getName();
-        map.put("lettersToRemove",1);
-        map.put("sessionName", sessionName);
-        /**
-         * PLEASE NOTE, these settings get passed on to the Recognition Ratings, BUT NOT
-         * to the Angular Training Sessions, which functions much differently, and is directly
-         * modified by the CSV files associated with each Session.  We should do away with this
-         * at a future date, when we have removed JSPsych and the current implemenation of the
-         * recognition ratings.
-         */
-        switch(sessionName) {
-            case FIRST_SESSION:
-                map.put("lemon", true);
-                map.put("lettersToRemove",1);
-                break;
-            case SECOND_SESSION:
-                map.put("lemon", false);
-                map.put("lettersToRemove",1);
-                break;
-            case THIRD_SESSION:
-                map.put("lemon", false);
-                map.put("lettersToRemove",1);
-                break;
-            case FOURTH_SESSION:
-                map.put("lemon", false);
-                map.put("lettersToRemove",1);
-                break;
-            case FIFTH_SESSION:
-                map.put("lemon", false);
-                map.put("lettersToRemove",1);
-                break;
-            default:  // This should only occur in testing / accessing admin etc...
-                map.put("secondWordSet",true);
-                map.put("lettersToRemove",1);
-        }
         return map;
     }
 
@@ -142,7 +108,7 @@ public class R01Study extends BaseStudy {
         pretest.addTask(new Task("MentalHealthHistory","Mental Health and Treatment History", Task.TYPE.questions, 2 ));
         pretest.addTask(new Task("AnxietyIdentity","Anxiety and Me", Task.TYPE.questions, 0 ));
         pretest.addTask(new Task("AnxietyTriggers","Anxiety Triggers", Task.TYPE.questions, 0 ));
-        pretest.addTask(new Task("recognitionRatings", "Completing Short Stories", Task.TYPE.jspsych, 5));
+        pretest.addTask(new Task("recognitionRatings", "Completing Short Stories", Task.TYPE.angular, 5));
         pretest.addTask(new Task("RR","Completing Short Stories, Pt. 2", Task.TYPE.questions, 0 ));
         pretest.addTask(new Task("BBSIQ","Why Things Happen", Task.TYPE.questions, 0 ));
         pretest.addTask(new Task("Comorbid","Mood and Drinking Patterns", Task.TYPE.questions, 0 ));
@@ -192,7 +158,7 @@ public class R01Study extends BaseStudy {
         session3.addTask(new Task("AnxietyIdentity","Anxiety and Me", Task.TYPE.questions, 0 ));
         session3.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
         session3.addTask(new Task("DASS21_AS","Mood Assessment", Task.TYPE.questions, 0 ));
-        session3.addTask(new Task("recognitionRatings", "Completing Short Stories", Task.TYPE.jspsych, 5));
+        session3.addTask(new Task("recognitionRatings", "Completing Short Stories", Task.TYPE.angular, 5));
         session3.addTask(new Task("RR","Completing Short Stories, Pt. 2", Task.TYPE.questions, 0 ));
         session3.addTask(new Task("BBSIQ","Why Things Happen", Task.TYPE.questions, 0 ));
         session3.addTask(new Task("Comorbid","Mood and Drinking Patterns", Task.TYPE.questions, 0 ));
@@ -227,7 +193,7 @@ public class R01Study extends BaseStudy {
         session5.addTask(new Task("AnxietyIdentity","Anxiety and Me", Task.TYPE.questions, 0 ));
         session5.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
         session5.addTask(new Task("DASS21_AS","Mood Assessment", Task.TYPE.questions, 0 ));
-        session5.addTask(new Task("recognitionRatings", "Completing Short Stories", Task.TYPE.jspsych, 5));
+        session5.addTask(new Task("recognitionRatings", "Completing Short Stories", Task.TYPE.angular, 5));
         session5.addTask(new Task("RR","Completing Short Stories, Pt. 2", Task.TYPE.questions, 0 ));
         session5.addTask(new Task("BBSIQ","Why Things Happen", Task.TYPE.questions, 0 ));
         session5.addTask(new Task("Comorbid","Mood and Drinking Patterns", Task.TYPE.questions, 0 ));
@@ -252,7 +218,7 @@ public class R01Study extends BaseStudy {
         post.addTask(new Task("AnxietyIdentity","Anxiety and Me", Task.TYPE.questions, 0 ));
         post.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
         post.addTask(new Task("DASS21_AS","Mood Assessment", Task.TYPE.questions, 0 ));
-        post.addTask(new Task("recognitionRatings", "Completing Short Stories", Task.TYPE.jspsych, 5));
+        post.addTask(new Task("recognitionRatings", "Completing Short Stories", Task.TYPE.angular, 5));
         post.addTask(new Task("RR","Completing Short Stories, Pt. 2", Task.TYPE.questions, 0 ));
         post.addTask(new Task("BBSIQ","Why Things Happen", Task.TYPE.questions, 0 ));
         post.addTask(new Task("Comorbid","Mood and Drinking Patterns", Task.TYPE.questions, 0 ));
@@ -271,7 +237,7 @@ public class R01Study extends BaseStudy {
             post2.addTask(new Task("AnxietyIdentity", "Anxiety and Me", Task.TYPE.questions, 0));
             post2.addTask(new Task("OA", "Anxiety Review", Task.TYPE.questions, 1));
             post2.addTask(new Task("DASS21_AS", "Mood Assessment", Task.TYPE.questions, 0));
-            post2.addTask(new Task("recognitionRatings", "Completing Short Stories", Task.TYPE.jspsych, 5));
+            post2.addTask(new Task("recognitionRatings", "Completing Short Stories", Task.TYPE.angular, 5));
             post2.addTask(new Task("RR", "Completing Short Stories, Pt. 2", Task.TYPE.questions, 0));
             post2.addTask(new Task("BBSIQ", "Why Things Happen", Task.TYPE.questions, 0));
             post2.addTask(new Task("Comorbid", "Mood and Drinking Patterns", Task.TYPE.questions, 0));
