@@ -84,6 +84,9 @@ and Security header integration.
 It is built in Java using the Spring Framework and Spring Boot.  There is exceptional documentation
 on these technologies here:  http://spring.io/guides#gs
 
+# Previous Names
+Until 5/18/2020, this repository was called "MindTrails".
+
 RELEASES
 ==========
 We are currently working on a beta release of our core libraries in the "split_sites" branch, with an expected

@@ -36,6 +36,8 @@ public class OA extends LinkedQuestionnaireData implements Comparable<OA> {
     public static int NO_ANSWER = 555;
     public static final int MAX_SCORE = 4;
 
+    protected String sessionId; // OA and DASS are both used for eligibility with TET study extension to R01
+
     @Column(name="AXF")
     @NotNull
     private Integer anxious_freq;
@@ -77,6 +79,11 @@ public class OA extends LinkedQuestionnaireData implements Comparable<OA> {
         if (total == 0) return 0;
         return(sum / total) * 5;
     }
+
+    public boolean eligible() {
+        return(this.score() >= 6 );
+    }
+
 
     private boolean noAnswers() {
         return(

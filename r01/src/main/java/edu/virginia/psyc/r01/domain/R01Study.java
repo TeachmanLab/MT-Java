@@ -1,11 +1,14 @@
 package edu.virginia.psyc.r01.domain;
 
 import edu.virginia.psyc.r01.persistence.DASS21_AS;
+import edu.virginia.psyc.r01.persistence.OA;
 import lombok.Data;
 import org.mindtrails.domain.BaseStudy;
 import org.mindtrails.domain.Session;
 import org.mindtrails.domain.Task;
+import org.mindtrails.domain.questionnaire.QuestionnaireData;
 import org.mindtrails.domain.tracking.TaskLog;
+import org.mindtrails.persistence.QuestionnaireRepository;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -54,12 +57,13 @@ public class R01Study extends BaseStudy {
         super(currentSession, taskIndex, lastSessionDate, taskLogs, receiveGiftCards);
     }
 
-    public void completeEligibility(DASS21_AS dass) {
+    public void completeEligibility(QuestionnaireData q) {
         TaskLog t = new TaskLog();
-        t.setDateCompleted(dass.getDate());
-        t.setTaskName("DASS21_AS");
+        t.setDateCompleted(q.getDate());
+        t.setTaskName(q.getClass().getSimpleName());
         t.setSessionName("Eligibility");
         t.setStudy(this);
+        t.setTimeOnTask(q.getTimeOnPage());
         taskLogs.add(t);
     }
 

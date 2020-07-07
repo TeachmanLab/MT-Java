@@ -49,7 +49,7 @@
                     problems.
                 </p>
 
-                <div th:if="${participant.study.conditioning == 'TRAINING' or 'CONTROL' or 'LR_TRAINING' or 'HR_COACH' or 'HR_NO_COACH'}">
+                <div th:if="${participant.study.conditioning == 'TRAINING' or participant.study.conditioning == 'CONTROL' or participant.study.conditioning == 'LR_TRAINING' or participant.study.conditioning == 'HR_COACH' or participant.study.conditioning == 'HR_NO_COACH'}">
 
                     <p>In the current study, we are evaluating if it is possible to change interpretation patterns over the
                         Internet, and whether changing these interpretation patterns will reduce anxiety symptoms. We are
@@ -70,7 +70,7 @@
                     better outcomes than participants at risk for dropping out who did not work with a coach.</p>
                 </div>
 
-                <div th:if="${participant.study.conditioning == 'TRAINING_ORIG' or 'TRAINING_30' or 'TRAINING_ED' or 'TRAINING_CREATE'}">
+                <div th:if="${participant.study.conditioning == 'TRAINING_ORIG' or participant.study.conditioning == 'TRAINING_30' or participant.study.conditioning == 'TRAINING_ED' or participant.study.conditioning == 'TRAINING_CREATE'}">
 
                 <p>In the current study, we are evaluating if it is possible to change interpretation patterns over the Internet, and whether changing these interpretation patterns will reduce anxiety symptoms.
                     We are also testing four conditions of the training program to see which one is most effective.</p>

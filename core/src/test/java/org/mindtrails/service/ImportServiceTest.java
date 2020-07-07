@@ -202,6 +202,7 @@ public class ImportServiceTest extends BaseControllerTest {
         study.setCurrentTaskIndex("14");
         study.setLastSessionDate(new Date());
         study.setReceiveGiftCards(true);
+        study.setStudyExtension("Bubbles");
 
         importService.setMode("import");
         importService.importScale("study", IOUtils.toInputStream(
