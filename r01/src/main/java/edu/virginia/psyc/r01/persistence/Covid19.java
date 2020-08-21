@@ -88,53 +88,56 @@ public class Covid19 extends LinkedQuestionnaireData {
     @NotNull
     @MeasureField(order = 8, desc = "Practiced social distancing (i.e., stayed in my home as much as possible and limited interactions with people outside my home)", group = "behaviors")
     private Integer distancing;
+    @NotNull
+    @MeasureField(order = 9, desc = "Wear a mask (face covering) when in public", group = "behaviors")
+    private Integer mask;
 
     // 3. Please indicate how much you agree with the following statements:
 
     @NotNull
-    @MeasureField(order = 9, desc = "It scares me when I am short of breath or coughing.", group = "symptoms")
+    @MeasureField(order = 10, desc = "It scares me when I am short of breath or coughing.", group = "symptoms")
     private Integer cough;
     @NotNull
-    @MeasureField(order = 10, desc = "It scares me when others around me are short of breath or coughing.", group = "symptoms")
+    @MeasureField(order = 11, desc = "It scares me when others around me are short of breath or coughing.", group = "symptoms")
     private Integer coughOthers;
     @NotNull
-    @MeasureField(order = 11, desc = "It scares me when I have a runny nose.", group = "symptoms")
+    @MeasureField(order = 12, desc = "It scares me when I have a runny nose.", group = "symptoms")
     private Integer nose;
     @NotNull
-    @MeasureField(order = 12, desc = "It scares me when others around me have a runny nose.", group = "symptoms")
+    @MeasureField(order = 13, desc = "It scares me when others around me have a runny nose.", group = "symptoms")
     private Integer noseOthers;
     @NotNull
-    @MeasureField(order = 13, desc = "I am worried about my COVID-19 risk.", group = "symptoms")
+    @MeasureField(order = 14, desc = "I am worried about my COVID-19 risk.", group = "symptoms")
     private Integer worry;
     @NotNull
-    @MeasureField(order = 14, desc = "I can control whether I get COVID-19.", group = "symptoms")
+    @MeasureField(order = 15, desc = "I can control whether I get COVID-19.", group = "symptoms")
     private Integer control;
     @NotNull
-    @MeasureField(order = 15, desc = "When I’m upset about COVID-19, I believe there is nothing I can do to make myself feel better.", group = "symptoms")
+    @MeasureField(order = 16, desc = "When I’m upset about COVID-19, I believe there is nothing I can do to make myself feel better.", group = "symptoms")
     private Integer upset;
 
     // 4. Please rate how often you use each of the following strategies to cope with challenges/stressors related to COVID-19.
 
     @NotNull
-    @MeasureField(order = 16, desc = "I try to let my emotions out.", group = "challenges")
+    @MeasureField(order = 17, desc = "I try to let my emotions out.", group = "challenges")
     private Integer emotions;
     @NotNull
-    @MeasureField(order = 17, desc = "I make a plan of action and follow it.", group = "challenges")
+    @MeasureField(order = 18, desc = "I make a plan of action and follow it.", group = "challenges")
     private Integer plan;
     @NotNull
-    @MeasureField(order = 18, desc = "I look for the silver lining or try to look on the bright side of things.", group = "challenges")
+    @MeasureField(order = 19, desc = "I look for the silver lining or try to look on the bright side of things.", group = "challenges")
     private Integer brightside;
     @NotNull
-    @MeasureField(order = 19, desc = "I try to put the problem out of my mind.", group = "challenges")
+    @MeasureField(order = 20, desc = "I try to put the problem out of my mind.", group = "challenges")
     private Integer problem;
     @NotNull
-    @MeasureField(order = 20, desc = "I keep my thoughts and feelings to myself.", group = "challenges")
+    @MeasureField(order = 21, desc = "I keep my thoughts and feelings to myself.", group = "challenges")
     private Integer thoughts;
     @NotNull
-    @MeasureField(order = 21, desc = "I get emotional support from others.", group = "challenges")
+    @MeasureField(order = 22, desc = "I get emotional support from others.", group = "challenges")
     private Integer support;
     @NotNull
-    @MeasureField(order = 22, desc = "I accept the reality of the fact that it has happened.", group = "challenges")
+    @MeasureField(order = 23, desc = "I accept the reality of the fact that it has happened.", group = "challenges")
     private Integer reality;
 
     // 5. On an average day over the past 2 weeks, how much time per day in minutes did you spend reading news stories/social media about COVID-19?
