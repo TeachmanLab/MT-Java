@@ -266,7 +266,6 @@
                     <div class="radio">
                         <label class="question"><input type="radio" name="highRisk" value="0" required="true"/>No</label>
                     </div>
-                    <br/>
                 </div>
                 <div class="col-md-4">
                     <div class="radio"><br/>
@@ -336,11 +335,11 @@
                                                        onchange="testCovidCheck('testCovidYes')"/> Prefer not to answer</label>
                     </div>
                 </div>
-            </div>
 
             <div class="col-md-12 statement" id="testCovidPositive" style="display: none">
                 <p><b>Did you ever have a positive result?</b></p>
 
+                <div class="row">
                 <div class="col-md-8 side-border">
                         <div class="radio">
                             <label class="question"><input type="radio" name="testCovidResult" value="1" required="true" id="testCovidResultYes"
@@ -361,19 +360,23 @@
                                                            onchange="testCovidResultCheck('testCovidResultYes')"/>Prefer not to answer</label>
                         </div>
                     </div>
-          </div>
                     <div class="col-md-12 statement" id="testCovidDate" style="display: none">
                         <p><b>Please give the approximate date when you received your result.</b></p>
-                        <div class="col-md-8 side-border">
+                        <div class="col-md-4">
                             <input type="hidden" id="testCovidDate" name="returnDateString"/>
                             <div class="input-group date">
                                 <input id='datepicker' type="text" name="date" class="form-control" required="required" />
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                        </div>
+                            <div class="radio"><br/>
+                                <label class="question"><input type="radio" name="testCovidDate" value="555"/>Prefer not to answer</label>
+                            </div>
                     </div>
-
                     </div>
-            </div>
+        </div>
+        </div>
+        </div>
+        </div>
 
 
 
@@ -432,13 +435,15 @@
                         <div class="col-md-12 statement" id="testAntibodyDate" style="display: none">
                             <p><b>Please give the approximate date when you received your result.</b></p>
 
-                            <div class="col-md-6 side-border">
+                            <div class="col-md-4">
                                 <input type="hidden" id="testAntibodyDate"/>
                                 <div class="input-group date">
                                     <input id='datepicker' type="text" name="date" class="form-control" required="required" />
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                 </div>
-
+                                <div class="radio"><br/>
+                                    <label class="question"><input type="radio" name="testAntibodyDate" value="555"/> Prefer not to answer</label>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -485,7 +490,8 @@
             <div class="row">
                 <div class="col-md-8 side-border">
                     <div class="radio">
-                        <label class="question"><input type="radio" name="symptoms" value="1" required="true"/>Yes</label>
+                        <label class="question"><input type="radio" name="symptoms" value="1" id="symptomsYes" required="true"
+                                                       onchange="symptomsCheck('symptomsYes')"/>Yes</label>
                     </div>
                     <div class="radio">
                         <label class="question"><input type="radio" name="symptoms" value="0" required="true"/>No</label>
@@ -497,6 +503,21 @@
                 <div class="col-md-4">
                     <div class="radio"><br/>
                         <label class="question"><input type="radio" name="symptoms" value="555"/> Prefer not to answer</label>
+                    </div>
+                </div>
+                <div class="col-md-12 statement" id="symptomsDate" style="display: none">
+                    <p><b>Please give the approximate date when you last had symptoms.</b></p>
+
+                    <div class="col-md-4">
+                        <input type="hidden" id="symptomsDate"/>
+                        <div class="input-group date">
+                            <input id='datepicker' type="text" name="date" class="form-control" required="required" />
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                        </div>
+                            <div class="radio"><br/>
+                                <label class="question"><input type="radio" name="symptomsDate" value="555"/> Prefer not to answer</label>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -552,6 +573,13 @@
         }
     }
 
+    function symptomsCheck(id) {
+        if (document.getElementById(id).checked) {
+            $("#symptomsDate").show();
+        } else {
+            $("#symptomsDate").hide();
+        }
+    }
 
 </script>
 
