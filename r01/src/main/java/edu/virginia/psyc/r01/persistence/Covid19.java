@@ -9,7 +9,9 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -151,6 +153,40 @@ public class Covid19 extends LinkedQuestionnaireData {
 
     @NotNull
     private Integer highRisk;
+
+    @NotNull
+    private Integer diagnosis;
+
+    @NotNull
+    private Integer testCovid;
+
+    private Integer testCovidResult;
+
+    private Date testCovidDate;
+
+    private Integer testCovidDateNoAnswer;
+
+
+    @NotNull
+    private Integer testAntibody;
+
+    private Integer testAntibodyResult;
+
+    private Date testAntibodyDate;
+
+    private Integer testAntibodyDateNoAnswer;
+
+
+    @NotNull
+    private Integer covidKnow;
+
+    @NotNull
+    private Integer symptoms;
+
+    private Date symptomsDate;
+
+    private Integer symptomsDateNoAnswer;
+
 
     @Override
     public Map<Integer, String> getScale(String group) {
