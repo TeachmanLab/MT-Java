@@ -346,8 +346,8 @@
                                                            onchange="testCovidResultCheck('testCovidResultYes')"/>Yes</label>
                         </div>
                         <div class="radio">
-                            <label class="question"><input type="radio" name="testCovidResult" value="0" required="true" id="testCovidResultYes"
-                                                           onchange="testCovidResultCheck('testCovidResultYes')"/>No</label>
+                            <label class="question"><input type="radio" name="testCovidResult" value="0" required="true" id="testCovidResultNo"
+                                                           onchange="testCovidResultCheck('testCovidResultNo')"/>No</label>
                         </div>
                         <div class="radio">
                             <label class="question"><input type="radio" name="testCovidResult" value="2" required="true"
@@ -418,8 +418,8 @@
                                                                onchange="testAntibodyResultCheck('testAntibodyResultYes')"/>Yes</label>
                             </div>
                             <div class="radio">
-                                <label class="question"><input type="radio" name="testAntibodyResult" value="0" required="true"
-                                                               onchange="testAntibodyResultCheck('testAntibodyResultYes')" />No</label>
+                                <label class="question"><input type="radio" name="testAntibodyResult" value="0" required="true" id="testAntibodyResultNo"
+                                                               onchange="testAntibodyResultCheck('testAntibodyResultNo')" />No</label>
                             </div>
                             <div class="radio">
                                 <label class="question"><input type="radio" name="testAntibodyResult" value="2" required="true"
@@ -494,15 +494,18 @@
                                                        onchange="symptomsCheck('symptomsYes')"/>Yes</label>
                     </div>
                     <div class="radio">
-                        <label class="question"><input type="radio" name="symptoms" value="0" required="true"/>No</label>
+                        <label class="question"><input type="radio" name="symptoms" value="0" required="true"
+                                                       onchange="symptomsCheck('symptomsYes')"/>No</label>
                     </div>
                     <div class="radio">
-                        <label class="question"><input type="radio" name="symptoms" value="2" required="true"/>Unsure</label>
+                        <label class="question"><input type="radio" name="symptoms" value="2" required="true"
+                                                       onchange="symptomsCheck('symptomsYes')"/>Unsure</label>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="radio"><br/>
-                        <label class="question"><input type="radio" name="symptoms" value="555"/> Prefer not to answer</label>
+                        <label class="question"><input type="radio" name="symptoms" value="555" required="true"
+                                                       onchange="symptomsCheck('symptomsYes')"/>Prefer not to answer</label>
                     </div>
                 </div>
                 <div class="col-md-12 statement" id="symptomsDate" style="display: none">
