@@ -22,6 +22,12 @@
             var latency = -1;
             var delayTimer;
 
+            var url = window.location.protocol + "//" + window.location.host
+            if (window.location.hostname != "localhost") {
+                url = url + '/calm'
+            }
+            console.log(url)
+
             $("input:not('#clearSlider'), select").on('change', function () {
 
                 latency = Date.now() - startTime;
@@ -33,7 +39,7 @@
                 delayTimer = window.setTimeout(function() {
                     $.ajax({
                         type: "POST",
-                        url: '/action',
+                        url: url + '/action',
                         contentType: "application/json; charset=UTF-8",
                         dataType: 'json',
                         data: data,
@@ -41,7 +47,7 @@
                         error: function(xhr, err) {
                             $.ajax({
                                 type: "POST",
-                                url: '/action/error',
+                                url: url + '/action/error',
                                 contentType: "application/json; charset=UTF-8",
                                 dataType: 'json',
                                 data: JSON.stringify({
