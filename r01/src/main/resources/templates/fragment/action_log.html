@@ -18,7 +18,6 @@
         /*<![CDATA[*/
 
 
-
         $(document).ready(function () {
             
             // Post every time the user performs an action within the task (questionnaire)
@@ -26,6 +25,7 @@
             var latency = -1;
             var delayTimer;
             var action_url = /*[[@{/action}]]*/ 'action';
+            var action_err_url = /*[[@{/action/error}]]*/ 'action/error';
 
 
             $("input:not('#clearSlider'), select").on('change', function () {
@@ -47,7 +47,7 @@
                         error: function(xhr, err) {
                             $.ajax({
                                 type: "POST",
-                                url: url + '/action/error',
+                                url: action_err_url,
                                 contentType: "application/json; charset=UTF-8",
                                 dataType: 'json',
                                 data: JSON.stringify({
