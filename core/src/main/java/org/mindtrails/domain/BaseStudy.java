@@ -47,6 +47,7 @@ public abstract class BaseStudy implements Study {
     protected boolean receiveGiftCards;
     protected String conditioning;
     protected double increasePercent;
+    protected String studyExtension;  // for flagging a study as an extension of an ongoing study.
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "study")
     @JsonIgnore
@@ -61,6 +62,7 @@ public abstract class BaseStudy implements Study {
         this.lastSessionDate = lastSessionDate;
         this.taskLogs = taskLogs;
         this.receiveGiftCards = receiveGiftCards;
+        this.studyExtension = "";
     }
 
     public boolean isProgress(String formName)

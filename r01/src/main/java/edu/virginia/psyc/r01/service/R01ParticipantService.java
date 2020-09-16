@@ -39,6 +39,9 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
     DASS21_ASRepository dass21RRepository;
 
     @Autowired
+    OARepository oaRepository;
+
+    @Autowired
     DemographicsRepository demographicsRepository;
 
     @Autowired
@@ -70,6 +73,7 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
     public Participant create() {
         Participant p = new Participant();
         R01Study study = new R01Study();
+        study.setStudyExtension(R01Study.STUDY_EXTENSIONS.TET.name());  // All new studies are TET Studies,an extension of R01.
         p.setReceiveGiftCards(tangoService.getEnabled());
         study.setReceiveGiftCards(tangoService.getEnabled());
         p.setStudy(study);
@@ -182,10 +186,11 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
     private void assureRandomAssignmentsAvailableForSegment(String segment) {
         if(randomBlockRepository.countAllBySegmentName(segment) < 1) {
             Map<String, Float> valuePercentages = new HashMap<>();
-            valuePercentages.put(R01Study.CONDITION.TRAINING_ORIG.name(), 25.0f);
-            valuePercentages.put(R01Study.CONDITION.TRAINING_30.name(), 25.0f);
-            valuePercentages.put(R01Study.CONDITION.TRAINING_ED.name(), 25.0f);
-            valuePercentages.put(R01Study.CONDITION.TRAINING_CREATE.name(), 25.0f);
+            valuePercentages.put(R01Study.CONDITION.TRAINING_ORIG.name(), 20.0f);
+            valuePercentages.put(R01Study.CONDITION.TRAINING_30.name(), 20.0f);
+            valuePercentages.put(R01Study.CONDITION.TRAINING_ED.name(), 20.0f);
+            valuePercentages.put(R01Study.CONDITION.TRAINING_CREATE.name(), 20.0f);
+            valuePercentages.put(R01Study.CONDITION.CONTROL.name(), 20.0f);
             List<RandomCondition> blocks = RandomCondition.createBlocks(valuePercentages, 50, segment);
             this.randomBlockRepository.save(blocks);
             this.randomBlockRepository.flush();
@@ -218,18 +223,23 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
 
     @Override
     public boolean isEligible(HttpSession session) {
-        List<DASS21_AS> forms = dass21RRepository.findBySessionId(session.getId());
-        for (DASS21_AS e : forms) {
-            if (e.eligible()) return true;
-        }
-        return false;
+        DASS21_AS dass = dass21RRepository.findFirstBySessionIdOrderByDateDesc(session.getId());
+        OA oa = oaRepository.findFirstBySessionIdOrderByDateDesc(session.getId());
+        if (!dass.getOver18().equals("true")) return false;
+        if (dass.eligible()) return true;
+        return oa.eligible();
     }
 
     @Override
     public void saveNew(Participant p, HttpSession session) throws MissingEligibilityException {
 
-        List<DASS21_AS> forms = dass21RRepository.findBySessionId(session.getId());
-        if(forms.size() < 1) {
+        List<DASS21_AS> dass_list = dass21RRepository.findBySessionId(session.getId());
+        if(dass_list.size() < 1) {
+            throw new MissingEligibilityException();
+        }
+
+        List<OA> oa_list = oaRepository.findBySessionId(session.getId());
+        if(oa_list.size() < 1) {
             throw new MissingEligibilityException();
         }
 
@@ -239,13 +249,23 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
         // Now that p is saved, connect any Expectancy Bias eligibility data back to the
         // session, and log it in the TaskLog.  Update the date time so that it is
         // properly picked up in the export routine.
-        for (DASS21_AS e : forms) {
+        for (DASS21_AS e : dass_list) {
             e.setParticipant(p);
             e.setSession(ELIGIBLE_SESSION);
             e.setDate(new Date());
             dass21RRepository.save(e);
             study.completeEligibility(e);
         }
+
+        for (OA oa : oa_list) {
+            oa.setParticipant(p);
+            oa.setSession(ELIGIBLE_SESSION);
+            oa.setDate(new Date());
+            oaRepository.save(oa);
+            study.completeEligibility(oa);
+        }
+
+
         save(p); // Re-save participant to record study.
     }
 }

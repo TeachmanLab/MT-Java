@@ -32,31 +32,31 @@ public class Evaluation extends LinkedQuestionnaireData {
     private List<String> devices;
 
     @NotNull
-    @MeasureField(order = 1, desc = "How helpful did you find Calm Thinking for reducing your anxiety?", group = "block1")
+    @MeasureField(order = 1, desc = "How helpful did you find MindTrails for reducing your anxiety?", group = "block1")
     private Integer helpful;
     @NotNull
-    @MeasureField(order = 2, desc = "How much did Calm Thinking improve your overall quality of life?", group = "block1")
+    @MeasureField(order = 2, desc = "How much did MindTrails improve your overall quality of life?", group = "block1")
     private Integer quality;
     @NotNull
-    @MeasureField(order = 3, desc = "How much did Calm Thinking help improve your overall mood (e.g., feeling happier)?", group = "block1")
+    @MeasureField(order = 3, desc = "How much did MindTrails help improve your overall mood (e.g., feeling happier)?", group = "block1")
     private Integer overallMood;
     @NotNull
-    @MeasureField(order = 4, desc = "How likely would you be to recommend Calm Thinking to others with similar anxiety difficulties?", group="block1")
+    @MeasureField(order = 4, desc = "How likely would you be to recommend MindTrails to others with similar anxiety difficulties?", group="block1")
     private Integer recommend;
     @NotNull
-    @MeasureField(order = 5, desc = "How easy was Calm Thinking to use?", group = "block1")
+    @MeasureField(order = 5, desc = "How easy was MindTrails to use?", group = "block1")
     private Integer easy;
     @NotNull
-    @MeasureField(order = 6, desc = "How much did Calm Thinking keep your interest and attention?", group = "block1")
+    @MeasureField(order = 6, desc = "How much did MindTrails keep your interest and attention?", group = "block1")
     private Integer interest;
     @NotNull
-    @MeasureField(order = 7, desc = "How much did you like Calm Thinking in general?", group = "block1")
+    @MeasureField(order = 7, desc = "How much did you like MindTrails in general?", group = "block1")
     private Integer likeGral;
     @NotNull
-    @MeasureField(order = 8, desc = "How much did you like the way Calm Thinking looked?", group = "block1")
+    @MeasureField(order = 8, desc = "How much did you like the way MindTrails looked?", group = "block1")
     private Integer likedLooks;
     @NotNull
-    @MeasureField(order = 9, desc = "How worried were you about your privacy in using Calm Thinking?", group = "block2")
+    @MeasureField(order = 9, desc = "How worried were you about your privacy in using MindTrails?", group = "block2")
     private Integer privacy;
     @NotNull
     @MeasureField(order = 10, desc = "How easy were the assessments to understand?", group = "block2")
@@ -101,7 +101,7 @@ public class Evaluation extends LinkedQuestionnaireData {
 
     @Column(name="evalCondition") // 'Condition' is a reserved word in some databases.
     @NotNull
-    private Integer condition;
+    private Integer condition = 999;  // 999 = No longer collected
 
     //This should only be @NotNull if condition is is 1, when the person thinks they were in the control group...
     private Integer whenCondition;
@@ -120,7 +120,7 @@ public class Evaluation extends LinkedQuestionnaireData {
     private String howLearnOther;
 
     @NotNull
-    private Integer receivedTelecoaching;
+    private Integer receivedTelecoaching = 999; // 999 = No longer collected
 
     // The following three should only be @NotNull if receivedCoaching is 1
     private Integer coachExperience;

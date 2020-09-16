@@ -16,10 +16,9 @@
 <section id="header-btm" class="clearfix">
     <div class="container">
         <div class="row">
-            <h2 class="page-title heading-icon clearfix"><img th:src="@{/images/map-arrow-orange.png}" alt="icon"
-                                                              class="icon-small-bg"/>
+            <h2 class="page-title heading-icon clearfix" style="padding-left: 15px"> <img th:src="@{/images/map-arrow-orange.png}" alt="icon" class="icon-small-bg"/>
                 <br/>
-                <span th:text="${eligibility}? 'Eligibility Questionnaire' : 'Mood Assessment'"/>
+                <span th:text="${eligibility}? 'Eligibility Questionnaire, Part 2' : 'Mood Assessment'"/>
             </h2>
         </div>
     </div>
@@ -28,16 +27,12 @@
 <section id="content" class="clearfix" th:if="${eligibility}">
     <div class="container">
         <div class="row">
-            <div class="col-md-8" style="padding-left: 0px">
-                <p th:text="#{dass21_as.intro1}">Please note that in order to participate in the Calm Thinking study,
-                    regular access to a laptop/desktop
-                    computer, tablet, and/or smartphone with Internet connection is required.</p>
-                <p th:text="#{dass21_as.intro2}">Please read each statement below. Then, select the number that best
-                    shows how much the statement
+            <div class="col-md-12" style="padding-left: 15px">
+                <p th:text="#{dass21_as.intro1}">This is part two in a two-step questionnaire.</p>
+                <p th:text="#{dass21_as.intro2}">Please read each statement below. Then, select the number that best shows how much the statement
                     applied to you over the past week. There are no right or wrong answers. Do not spend too much time
                     on any statement.
                 </p>
-
                 <p class="alert-error" th:text="${error}"></p>
 
             </div>
@@ -45,11 +40,11 @@
     </div>
 </section>
 
-<section id="contentTest" class="clearfix">
-    <form th:action="${eligibility}? @{/public/eligibilityCheck} : @{/questions/DASS21_AS}"
-          th:object="${model}" method="POST">
+<section id="contentTest" class="clearfix" style="padding-left: 30px">
+    <form th:action="${eligibility}? @{/public/eligibilityCheckStep2} : @{/questions/DASS21_AS}"
+            th:object="${model}" method="POST">
         <section th:replace="fragment/forms :: radioOptions(${model})"/>
-        <div class="col-md-12" style="text-align:center; padding-left: 20px">
+        <div class="col-md-12" style="text-align:center">
             <div th:if="${eligibility}" class="form-group row">
                 <div class="col-sm-2">
                 </div>

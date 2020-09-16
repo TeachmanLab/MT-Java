@@ -43,8 +43,8 @@ public class AngularTrainingController extends BaseController {
 
     @RequestMapping()
     public String showTraining(ModelMap model, Principal principal) {
-        Participant p = participantService.get(principal);
-        model.addAttribute("sessionName", p.getStudy().getCurrentSession().getName());
+//        Participant p = participantService.get(principal);
+//        model.addAttribute("sessionName", p.getStudy().getCurrentSession().getName());
         return "angularTraining";
     }
 
