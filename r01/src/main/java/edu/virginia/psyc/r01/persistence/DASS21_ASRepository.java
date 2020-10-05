@@ -26,6 +26,7 @@ public interface DASS21_ASRepository extends QuestionnaireRepository<DASS21_AS> 
 
     List<DASS21_AS> findByParticipant(Participant p);
     List<DASS21_AS> findBySessionId(String sessionId);
+    DASS21_AS findFirstBySessionIdOrderByDateDesc(String sessionId);
     DASS21_AS findFirstByParticipantAndSession(Participant p, String Session);
 }
 

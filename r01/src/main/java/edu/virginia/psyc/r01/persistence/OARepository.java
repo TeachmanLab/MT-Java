@@ -24,5 +24,7 @@ import java.util.List;
 public interface OARepository extends QuestionnaireRepository<OA> {
 
     List<OA> findByParticipant(Participant p);
+    List<OA> findBySessionId(String sessionId);
+    OA findFirstBySessionIdOrderByDateDesc(String sessionId);
 
 }
