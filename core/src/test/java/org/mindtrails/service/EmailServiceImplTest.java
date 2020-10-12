@@ -7,6 +7,7 @@ import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mindtrails.Application;
@@ -170,6 +171,7 @@ public class EmailServiceImplTest {
     }
 
     @Test
+    @Ignore
     public void sendGiftCard() throws Exception {
         OrderResponse orderResponse;
         String url = "http://thisistheurl.com";
@@ -206,7 +208,8 @@ public class EmailServiceImplTest {
         List<Email> emails = service.emailTypes();
         assertThat(emails, hasItem(Matchers.<Email>hasProperty("type", equalTo("resetPass"))));
         assertThat(emails, hasItem(Matchers.<Email>hasProperty("subject", equalTo("MindTrails - Account Request"))));
-    }
+        assertThat(emails, hasItem(Matchers.<Email>hasProperty("days", equalTo(7))));
+   }
 
     /**
      * Returns a date from i number of days ago.

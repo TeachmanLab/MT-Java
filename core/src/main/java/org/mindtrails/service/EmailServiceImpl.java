@@ -81,7 +81,6 @@ public class EmailServiceImpl implements EmailService {
         emails.add(new Email("debrief", "Explanation of the MindTrails Study"));
         emails.add(new Email("midSessionStop", "Incomplete Session Notice from the MindTrails Project Team"));
         emails.add(new Email("closure", "Closure of Account in the MindTrails Study"));
-        emails.add(new Email("debrief", "Explanation of the MindTrails Study"));
         return  emails;
     }
 
@@ -161,7 +160,6 @@ public class EmailServiceImpl implements EmailService {
 
         EmailLog log;
         Participant participant = participantRepository.findOne(email.getParticipant().getId());
-
         if (e == null) LOG.info("Sent an email of type " + email.getType());
         if (e != null) LOG.error("Failed to send an email of type " +
                 email.getType() + "; " + e.getLocalizedMessage());
