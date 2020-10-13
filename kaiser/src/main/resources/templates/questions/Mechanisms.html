@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
+
+<head th:replace="fragment/common :: headerFragment"/>
+<body>
+<section th:replace="fragment/common :: topFragment"/>
+<section th:replace="fragment/common :: titleBar (title='How I Respond')"/>
+<textArea th:replace="fragment/common :: questionTemplate6"/>
+<section id="content" class="clearfix">
+
+    <section id="content1" class="clearfix">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+
+                    <p>Below, a number of statements related to thoughts and beliefs are presented. For each
+                        statement, select the number for the answer that best describes your own perspective.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <form th:action="@{/questions/Mechanisms}" method="POST" style="padding-left: 30px">
+        <!-- Add timer -->
+        <input id="timeOnPage" name="timeOnPage" type="hidden"/>
+        <div class="container section compactQuestion">
+            <div id="section1"></div>
+            <script>
+                var data = {
+                    "options": [
+                        {"value": 1, "title": "Strongly disagree"},
+                        {"value": 2, "title": "Disagree"},
+                        {"value": 3, "title": "Somewhat disagree"},
+                        {"value": 4, "title": "Neutral"},
+                        {"value": 5, "title": "Somewhat agree"},
+                        {"value": 6, "title": "Agree"},
+                        {"value": 7, "title": "Strongly agree"}
+                    ],
+                    "questions": [
+                        {
+                            "name": "cfiViewpoints",
+                            "desc": "I often look at a situation from different viewpoints."
+                        },
+                        {
+                            "name": "compActWilling",
+                            "desc": "I am willing to fully experience whatever thoughts, feelings, and sensations come up for me, without trying to change them."
+                        },
+                        {
+                            "name": "erqPositive",
+                            "desc": "When I want to feel more positive emotion, I change the way I’m thinking about the situation."
+                        },
+                        {
+                            "name": "erqNegative",
+                            "desc": "When I want to feel less negative emotion, I change the way I’m thinking about the situation."
+                        },
+                        {
+                            "name": "iusUnexpected",
+                            "desc": "Unexpected events upset me greatly."
+                        },
+                        {
+                            "name": "iusUncertain",
+                            "desc": "When I am uncertain, I can’t function very well."
+                        }
+                ]
+                }
+                $('#section1').html(Mustache.render($('#template6').val(), data));
+            </script>
+        </div>
+
+
+        <div class="col-md-12" style="text-align:center">
+            <button type="submit">Next</button>
+        </div>
+
+    </form>
+
+
+</section>
+<footer th:replace="fragment/common :: footer"/>
+<div th:include="fragment/common :: scripts"/>
+<div th:include="fragment/action_log :: scripts-action-log"/>
+
+</body>
+</html>

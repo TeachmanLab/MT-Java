@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
+
+<head th:replace="fragment/common :: headerFragment"/>
+<link rel="stylesheet" media="screen" th:href="@{/css/clearSlider.css}"/>
+<body>
+<section th:replace="fragment/common :: topFragment"/>
+<section th:replace="fragment/common :: titleBar (title='Impact questions')"/>
+<textArea th:replace="fragment/common :: questionTemplate"/>
+<section id="content" class="clearfix">
+
+
+    <form th:action="@{/questions/ImpactAnxiousImagery}" method="POST" th:object="${model}">
+        <section class="clearfix">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="section">
+                            <br></br>
+                            <div class="question"> How anxious did you feel (at the highest level of anxiety) as you
+                                completed the imagery task?
+                            </div>
+                            <br></br>
+                            <div class="row">
+                                <div class="slider">
+                                    <input id="sliderValue" type="hidden" name="anxiety"/>
+                                    <input id="clearSlider" type="range" min="0" max="100"></input>
+                                </div>
+                            </div>
+                            <div class="slider-row">
+                                <div class="left">Absolutely No Anxiety</div>
+                                <div class="right">Totally Anxious</div>
+                            </div>
+                            <div class="after_slider"><label class="standard">
+                                <br></br>
+                                <input id="sliderEnabled" type="checkbox" value="555"/>
+                                Prefer not to answer
+                            </label></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <script type="text/javascript" th:src="@{/js/clearSlider.js}"/>
+
+        <!-- Add timer -->
+        <section th:replace="fragment/forms :: radioOptions(${model})"/>
+        <div class="col-md-12" style="text-align:center">
+            <button type="submit"> Continue</button>
+        </div>
+    </form>
+
+</section>
+<footer th:replace="fragment/common :: footer"/>
+<div th:include="fragment/common :: scripts"/>
+<div th:include="fragment/action_log :: scripts-action-log"/>
+
+</body>
+</html>
