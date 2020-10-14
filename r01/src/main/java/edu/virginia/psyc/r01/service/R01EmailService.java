@@ -32,9 +32,19 @@ public class R01EmailService extends EmailServiceImpl implements EmailService{
         emails.add(new Email("day10", "Update from the MindTrails Project Team"));
         emails.add(new Email("day14", "Update from the MindTrails Project Team"));
         emails.add(new Email("day18", "Important Reminder from the MindTrails Project Team"));
-        emails.add(new Email("followup", "Follow-up Reminder from the MindTrails Project Team"));
-        emails.add(new Email("followup2", "Follow-up Reminder from the MindTrails Project Team"));
-        emails.add(new Email("followup3", "Final Reminder from the MindTrails Project Team"));
+
+        emails.add(new Email("headsup1", "The MindTrails Two Month Follow-Up Survey is Just 2 Weeks Away!"));
+
+        emails.add(new Email("followup", "It’s Time to Complete the MindTrails Two Month Follow-Up Survey!"));
+        emails.add(new Email("followup2", " We’d love to hear from you!"));
+        emails.add(new Email("followup3", "We’d love to help!"));
+
+        emails.add(new Email("headsup2", "The MindTrails Six Month Follow-Up Survey is Just 2 Weeks Away!"));
+        emails.add(new Email("followup1_6month", "It’s Time to Complete the MindTrails Six Month Follow-Up Survey!"));
+        emails.add(new Email("followup2_6month", "We’d love to hear from you!"));
+        emails.add(new Email("followup3_6month", "We’d love to help!"));
+        emails.add(new Email("followup3", "We’d love to help!"));
+
         emails.add(new Email("SESSION1", "Bonus Feature #1 from the MindTrails Project Team"));
         emails.add(new Email("SESSION2", "Bonus Feature #2 from the MindTrails Project Team"));
         emails.add(new Email("SESSION3", "Bonus Feature #3 from the MindTrails Project Team"));

@@ -1,10 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
+<head th:include="fragment/email :: headerFragment"/>
+
+<body style="font-family: 'Source Sans Pro', sans-serif; font-size:20px; box-sizing:border-box; background-color: #FFF">
+
+<div id="body_style" style="padding:15px">
+
+    <table cellpadding="0" cellspacing="0" width="600" align="center" th:include="fragment/email :: logoFragment"/>
+
+    <table cellpadding="0" cellspacing="0" width="600" align="center" style="margin-top:20px">
+
+        <tr>
+            <td width="400">
+
+                <h2 th:text="'Dear ' +  ${participant.fullName} + ','" style="margin-top:0; margin-bottom:10px">
+                    Dear,</h2>
+
+
+                <h10 th:text="'We recently sent you an email on' +  ${sixmonth.date} + ','" style="margin-top:0; margin-bottom:10px">
+                    We recently sent you an email on </h10> with instructions for completing the six month follow-up survey for MindTrails. We’d love for you to contribute and help us improve the MindTrails program. If you need assistance, let us know by replying to this email. Thank you!
+
+
+                <p style="margin-top:30px">Best,</p>
+
+                <p style="margin:0 0 0 0; font-weight: bold;"> The MindTrails Team
+                </p>
+
+
+            </td>
+        </tr>
+    </table>
+</div>
 </body>
 </html>
