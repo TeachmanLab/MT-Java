@@ -84,10 +84,14 @@ public class KaiserStudy extends BaseStudy {
         List<Session> sessions = new ArrayList<>();
         Session pretest, session1, session2, session3, session4, session5, post, post2;
 
+        // TODO: Get questionnaire orderings for main sessions from Bethany and implement them here
+        // NOTE from Anna: I think I've got the ordering correct. RAs just need to ensure content is correct now.
+
         pretest = new Session (PRE_TEST, "Initial Assessment", 0, 0);
         pretest.setIndex(0);
-        // TODO: Add Readiness Rulers
-        // TODO: Provider Questions (would you like us to tell provider… if yes, who)
+        pretest.addTask(new Task("Credibility","How Does MindTrails Work?", Task.TYPE.questions, 0 ));
+        
+        // TODO: Add Provider Questions (would you like us to tell provider… if yes, who)
         pretest.addTask(new Task("Demographics","Personal Background", Task.TYPE.questions, 2 ));
         pretest.addTask(new Task("MentalHealthHistory","Mental Health and Treatment History", Task.TYPE.questions, 2 ));
         pretest.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
@@ -97,45 +101,30 @@ public class KaiserStudy extends BaseStudy {
         pretest.addTask(new Task("RR","Completing Short Stories, Pt. 2", Task.TYPE.questions, 0 ));
         pretest.addTask(new Task("BBSIQ","Why Things Happen", Task.TYPE.questions, 0 ));
 
-        // TODO: Change Comorbid symptom measures to include PHQ-2, AUDIT-C, and Cannabis Question
         // TODO: Change description for comorbid measures
         pretest.addTask(new Task("Comorbid","Mood and Drinking Patterns", Task.TYPE.questions, 0 ));
-
-        // TODO: Ensure Wellness questions include life Satisfaction, NGSES, Growth Mindset, LOT-R
         pretest.addTask(new Task("Wellness","What I Believe", Task.TYPE.questions, 0 ));
-
-        // TODO: Ensure mechanisms questions include CFI, CompACT, ERQ, IUS-12
         pretest.addTask(new Task("Mechanisms","How I Respond", Task.TYPE.questions, 0 ));
         pretest.addTask(new Task("TechnologyUse", "Technology Use", Task.TYPE.questions, 0));
 
         // TODO: Ask Bethany if COVID-19 questions should be retained in pretest. Megan didn't list it but it's included
         // in the followup
         sessions.add(pretest);
-
-        // TODO: Get questionnaire orderings for main sessions from Bethany and implement them here
-
+        
         session1 = new Session(FIRST_SESSION, "Level 1: Beginner", 0, 0);
         session1.setIndex(1);
 
-        // TODO: Add Pre-test SUDS
-
-        // session1.addTask(new Task("Affect","Current Feelings, Pre", "pre", Task.TYPE.questions, 0));
+        session1.addTask(new Task("Affect","Current Feelings, Pre", "pre", Task.TYPE.questions, 0));
 //        session1.addTask(new Task("ImageryPrime","Use Your Imagination", Task.TYPE.questions, 0));
 //        session1.addTask(new Task("ImpactAnxiousImagery","Impact Questions", Task.TYPE.questions, 0));
         session1.addTask(new Task("1", "Training Session 1", Task.TYPE.angular, 20));
-
-        // TODO: Add Vividness of Scenario Imagery - Is this imagery prime?
-        // TODO: Add Readiness Rulers
-        // TODO: Add Quick thinking
-        // TODO: Add Post-session SUDS
-        session1.addTask(new Task("CC","Compare and Contrast", Task.TYPE.questions, 0 ));
-        
-        // TODO: Add Post-Session User Experience - Is this session review?
+        session1.addTask(new Task("Affect","Current Feelings, Post", "post", Task.TYPE.questions, 0));
+        session1.addTask(new Task("Credibility","How Does MindTrails Work?", Task.TYPE.questions, 0 ));
+        session1.addTask(new Task("CC","Compare and Contrast", Task.TYPE.questions, 0 ));        
         session1.addTask(new Task("SessionReview", "Session Review", Task.TYPE.questions, 0));
         session1.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
         session1.addTask(new Task("CoachPrompt","Feedback", Task.TYPE.questions, 0 ));
-        
-        //TODO: Add COVID-19 Questionnaire2
+        session1.addTask(new Task("Covid19","COVID-19", Task.TYPE.questions, 0 ));
         session1.addTask(new Task("ReturnIntention","Returning to the Program", Task.TYPE.questions, 0));
         sessions.add(session1);
 
@@ -145,30 +134,27 @@ public class KaiserStudy extends BaseStudy {
 //        session2.addTask(new Task("ImageryPrime","Use Your Imagination", Task.TYPE.questions, 0));
 //        session2.addTask(new Task("ImpactAnxiousImagery","Impact Questions", Task.TYPE.questions, 0));
         session2.addTask(new Task("2", "Training Session 2", Task.TYPE.angular, 20));
-        
-        // TODO: Add Vividness of Scenario Imagery - Is this imagery prime?
-        // TODO: Add Quick thinking
         session2.addTask(new Task("SessionReview", "Session Review", Task.TYPE.questions, 0));
         session2.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
-        
-        // TODO: Add Post-Session User Experience - Is this session review?
         session2.addTask(new Task("ReturnIntention","Returning to the Program", Task.TYPE.questions, 0));
         sessions.add(session2);
 
         session3 = new Session(THIRD_SESSION, "Level 3: Advanced", 5, 5);
         session3.setIndex(3);
-
         session3.addTask(new Task("Affect","Current Feelings, Pre", "pre", Task.TYPE.questions, 0));
+
 //        session3.addTask(new Task("ImageryPrime","Use Your Imagination", Task.TYPE.questions, 0));
 //        session3.addTask(new Task("ImpactAnxiousImagery","Impact Questions", Task.TYPE.questions, 0));
         session3.addTask(new Task("3", "Training Session 3", Task.TYPE.angular, 20));
+        session3.addTask(new Task("Affect","Current Feelings, Post", "post", Task.TYPE.questions, 0));
+        session3.addTask(new Task("CC","Compare and Contrast", Task.TYPE.questions, 0 ));        
         session3.addTask(new Task("SessionReview", "Session Review", Task.TYPE.questions, 0));
-        session3.addTask(new Task("AnxietyIdentity","Anxiety and Me", Task.TYPE.questions, 0 ));
         session3.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
         session3.addTask(new Task("DASS21_AS","Mood Assessment", Task.TYPE.questions, 0 ));
         session3.addTask(new Task("recognitionRatings", "Completing Short Stories", Task.TYPE.angular, 5));
         session3.addTask(new Task("RR","Completing Short Stories, Pt. 2", Task.TYPE.questions, 0 ));
-        session3.addTask(new Task("BBSIQ","Why Things Happen", Task.TYPE.questions, 0 ));
+      
+        // TODO: Change description for comorbid measures
         session3.addTask(new Task("Comorbid","Mood and Drinking Patterns", Task.TYPE.questions, 0 ));
         session3.addTask(new Task("Wellness","What I Believe", Task.TYPE.questions, 0 ));
         session3.addTask(new Task("Mechanisms","How I Respond", Task.TYPE.questions, 0 ));
@@ -180,6 +166,7 @@ public class KaiserStudy extends BaseStudy {
         session4 = new Session(FOURTH_SESSION, "Level 4: Expert", 0, 5);
         session4.setIndex(4);
 
+
 //        session4.addTask(new Task("ImageryPrime","Use Your Imagination", Task.TYPE.questions, 0));
 //        session4.addTask(new Task("ImpactAnxiousImagery","Impact Questions", Task.TYPE.questions, 0));
         session4.addTask(new Task("4", "Training Session 4", Task.TYPE.angular, 20));
@@ -190,26 +177,26 @@ public class KaiserStudy extends BaseStudy {
 
         session5 = new Session(FIFTH_SESSION, "Level 5: Master", 5, 5);
         session5.setIndex(5);
-
         session5.addTask(new Task("Affect","Current Feelings, Pre", "pre", Task.TYPE.questions, 0));
-//        session5.addTask(new Task("ImageryPrime","Use Your Imagination", Task.TYPE.questions, 0));
+        //session5.addTask(new Task("ImageryPrime","Use Your Imagination", Task.TYPE.questions, 0));
 //        session5.addTask(new Task("ImpactAnxiousImagery","Impact Questions", Task.TYPE.questions, 0));
         session5.addTask(new Task("5", "Training Session 5", Task.TYPE.angular, 20));
         session5.addTask(new Task("Affect","Current Feelings, Post", "post", Task.TYPE.questions, 0));
-        session5.addTask(new Task("CC","Compare and Contrast", Task.TYPE.questions, 0 ));
+        session5.addTask(new Task("CC","Compare and Contrast", Task.TYPE.questions, 0 ));      
         session5.addTask(new Task("SessionReview", "Session Review", Task.TYPE.questions, 0));
-        session5.addTask(new Task("AnxietyIdentity","Anxiety and Me", Task.TYPE.questions, 0 ));
         session5.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
         session5.addTask(new Task("DASS21_AS","Mood Assessment", Task.TYPE.questions, 0 ));
-        session5.addTask(new Task("recognitionRatings", "Completing Short Stories", Task.TYPE.angular, 5));
         session5.addTask(new Task("RR","Completing Short Stories, Pt. 2", Task.TYPE.questions, 0 ));
-        session5.addTask(new Task("BBSIQ","Why Things Happen", Task.TYPE.questions, 0 ));
+        session5.addTask(new Task("recognitionRatings", "Completing Short Stories", Task.TYPE.angular, 5));
         session5.addTask(new Task("Comorbid","Mood and Drinking Patterns", Task.TYPE.questions, 0 ));
         session5.addTask(new Task("Wellness","What I Believe", Task.TYPE.questions, 0 ));
         session5.addTask(new Task("Mechanisms","How I Respond", Task.TYPE.questions, 0 ));
         session5.addTask(new Task("Covid19","COVID-19", Task.TYPE.questions, 0 ));
         session5.addTask(new Task("HelpSeeking","Change in Help-Seeking Behavior", Task.TYPE.questions, 1));
-        session5.addTask(new Task("Evaluation","Evaluating the Program", Task.TYPE.questions, 2));
+        
+        // TODO - Add multi-session user experience (different from "Evaluation" commented out below)
+
+        // session5.addTask(new Task("Evaluation","Evaluating the Program", Task.TYPE.questions, 2));
         session5.addTask(new Task("AssessingProgram","Assessing the Program", Task.TYPE.questions, 2));
 
         sessions.add(session5);
@@ -224,18 +211,13 @@ public class KaiserStudy extends BaseStudy {
         post.addTask(new Task("recognitionRatings", "Completing Short Stories", Task.TYPE.angular, 5));
         post.addTask(new Task("RR","Completing Short Stories, Pt. 2", Task.TYPE.questions, 0 ));
 
-        // TODO: Change Comorbid symptom measures to include PHQ-2, AUDIT-C, and Cannabis Question
         // TODO: Change description for comorbid measures
         post.addTask(new Task("Comorbid","Mood and Drinking Patterns", Task.TYPE.questions, 0 ));
-        
-        // TODO: Ensure Wellness questions include life Satisfaction, NGSES, Growth Mindset, LOT-R
         post.addTask(new Task("Wellness","What I Believe", Task.TYPE.questions, 0 ));
-        
-        // TODO: Ensure mechanisms questions include CFI, CompACT, ERQ, IUS-12
         post.addTask(new Task("Mechanisms","How I Respond", Task.TYPE.questions, 0 ));
-        post.addTask(new Task("TechnologyUse", "Technology Use", Task.TYPE.questions, 0));
         post.addTask(new Task("Covid19","COVID-19", Task.TYPE.questions, 0 ));
-        sessions.add(post);
+        post.addTask(new Task("HelpSeeking","Change in Help-Seeking Behavior", Task.TYPE.questions, 1));
+        post.add(post);
 
         return sessions;
     }
