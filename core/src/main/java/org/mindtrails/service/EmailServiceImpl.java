@@ -75,6 +75,7 @@ public class EmailServiceImpl implements EmailService {
 
     public List<Email> emailTypes() {
         List<Email> emails = new ArrayList<>();
+        // These are EVENT based emails that are called out
         emails.add(new Email("resetPass", "MindTrails - Account Request"));
         emails.add(new Email("alertAdmin", "MindTrails Alert!"));
         emails.add(new Email("giftCard", "Your E-Gift Card!"));
@@ -236,9 +237,8 @@ public class EmailServiceImpl implements EmailService {
 
         for (Participant participant : participants) {
             try {
-                String type = getTypeToSend(participant);
-                if (type != null) {
-                    Email email = getEmailForType(type);
+                Email email = getEmailToSend(participant);
+                if (email != null) {
                     email.setTo(participant.getEmail());
                     email.setParticipant(participant);
                     email.setContext(new Context());
@@ -307,13 +307,12 @@ public class EmailServiceImpl implements EmailService {
      * @param p
      * @return
      */
-    public String getTypeToSend(Participant p) {
-        // Never send more than one email a day.
+    public Email getEmailToSend(Participant p) {
+        // Never send more than one email a day.  (do we want to keep this?)
         if (p.daysSinceLastEmail() < 2) return null;
 
         // Never send email to an inactive participant;
         if (!p.isActive()) return null;
-
 
         Study study = p.getStudy();
         Session session = study.getCurrentSession();
@@ -321,81 +320,34 @@ public class EmailServiceImpl implements EmailService {
         // Don't send emails if they are all done.
         if (study.getState().equals(Study.STUDY_STATE.ALL_DONE)) return null;
 
-        int days = p.daysSinceLastMilestone();
+        int daysSinceLastMilestone = p.daysSinceLastMilestone();
 
-        // Mark the user as inactive if they are about to get a closure email.
-        String type = getTypeToSend(session, days);
-        if (type != null && type.equals("closure")) {
-            p.setActive(false);
-            LOG.info("Marking participant #" + p.getId() + " as inactive.");
-            participantRepository.save(p);
-        }
+        for(Email email: emailTypes()) {
+            // todo: Handle adding calendar notification
+            // todo handle setting user as innactive if we send out a closure email.
+/*
+            // Mark the user as inactive if they are about to get a closure email.
+            if (type != null && type.equals("closure")) {
+                p.setActive(false);
+                LOG.info("Marking participant #" + p.getId() + " as inactive.");
+                participantRepository.save(p);
+            }
+*/
+            // todo Check for participant turning off email reminders (!p.isEmailReminders()) ;
+            if(email.getSessions().contains(session.getName())) {
+                // This email refers to this session.
+                if (email.getScheduleType().equals(Email.SCHEDULE_TYPE.INACTIVITY) &&
+                        email.getDays().contains(daysSinceLastMilestone)) {
+                    // This email should be sent out today based on inactivity
+                    return email;
+                } else if (email.getScheduleType().equals(Email.SCHEDULE_TYPE.SINCE_COMPLETION)) {
 
-        // Don't send emails to those that requested no reminders.
-        if (!p.isEmailReminders()) return null;
-
-        return type;
-
-    }
-
-    public String getTypeToSend(Session session, int daysSinceLastMilestone) {
-        String type = null;
-
-        // If they are waiting for 2 days, then remind them
-        // at the end of 2 days, then again after 4,7,11,15, and 18
-        // days since their last session.
-        if(session.getDaysToWait() <= 2) {
-            switch (daysSinceLastMilestone) {
-                case 1: // noop;
-                    break;
-                case 2:
-                    type = "day2";
-                    break;
-                case 4:
-                    type = "day4";
-                    break;
-                case 7:
-                    type = "day7";
-                    break;
-                case 11:
-                    type = "day11";
-                    break;
-                case 15:
-                    type = "day15";
-                    break;
-                case 18:
-                    type = "closure";
-                    break;
+                }
             }
         }
-
-        // Follow up emails are sent out for tasks for delays of
-        // 60 days or more.
-        if(session.getDaysToWait() >= 60) {
-            switch (daysSinceLastMilestone) {
-                case 60:
-                    type = "followup";
-                    break;
-                case 63:
-                    type = "followup2";
-                    break;
-                case 67:
-                    type = "followup2";
-                    break;
-                case 70:
-                    type = "followup2";
-                    break;
-                case 75:
-                    type = "followup3";
-                    break;
-                case 120:
-                    type = "debrief";
-                    break;
-            }
-        }
-        return type;
-
+        return(null);
     }
+
 
 
     Calendar getInvite(Participant participant, Date date) {

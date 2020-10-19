@@ -5,6 +5,7 @@ import org.mindtrails.service.EmailService;
 import org.mindtrails.service.EmailServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -12,7 +13,26 @@ public class TestEmailService extends EmailServiceImpl implements EmailService {
     @Override
     public List<Email> emailTypes() {
         List<Email> emails = super.emailTypes();
-        emails.add(new Email("day2", "A day 2 email"));
+        List<String> core_sessions = Arrays.asList("SessionOne", "SessionTwo");
+
+        // Reminder emails when users are inactive longer than they should be in the core sessions (2,3,4,5)
+        emails.add(new Email("day2", "A day 2 email",
+                null, core_sessions, 2, Email.SCHEDULE_TYPE.INACTIVITY));
+        emails.add(new Email("day4", "Update from the MindTrails Project Team",
+                null, core_sessions, 4, Email.SCHEDULE_TYPE.INACTIVITY));
+        emails.add(new Email("day7", "Update from the MindTrails Project Team",
+                null, core_sessions, 7, Email.SCHEDULE_TYPE.INACTIVITY));
+        emails.add(new Email("day11", "Update from the MindTrails Project Team",
+                null, core_sessions, 11, Email.SCHEDULE_TYPE.INACTIVITY));
+        emails.add(new Email("day15", "Update from the MindTrails Project Team",
+                null, core_sessions, 15, Email.SCHEDULE_TYPE.INACTIVITY));
+        emails.add(new Email("closure", "Important Reminder from the MindTrails Project Team",
+                null, core_sessions, 18, Email.SCHEDULE_TYPE.INACTIVITY));
+
+        emails.add(new Email("followup", "Update from the MindTrails Project Team",
+                null, "PostSession", 60, Email.SCHEDULE_TYPE.INACTIVITY));
+
+
         return emails;
     }
 }

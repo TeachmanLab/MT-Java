@@ -3,6 +3,7 @@ package org.mindtrails.domain;
 import lombok.Data;
 import org.thymeleaf.context.Context;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -25,9 +26,9 @@ public class Email {
 
 
     private String studyExtension;  // If specific to a particular study extension
-    private List<String> sessions; // The session(s) we are checking against, if not set, always applied.
+    private List<String> sessions = new ArrayList<>(); // The session(s) we are checking against, if not set, always applied.
     private List<Integer> days; // # of days to measure
-    private SCHEDULE_TYPE schedule_type; // how to measure, either days of inactivity within session
+    private SCHEDULE_TYPE scheduleType; // how to measure, either days of inactivity within session
                                   // or days since the session was completed.
 
 
@@ -35,7 +36,7 @@ public class Email {
         /* Creates an event based email, that can be sent on demand at any time, but is not scheduled */
         this.type = type;
         this.subject = subject;
-        this.schedule_type = SCHEDULE_TYPE.EVENT;
+        this.scheduleType = SCHEDULE_TYPE.EVENT;
     }
 
 
@@ -49,7 +50,7 @@ public class Email {
         this.studyExtension = studyExtension;
         this.sessions = sessions;
         this.days = Collections.singletonList(days);
-        this.schedule_type = measureType;
+        this.scheduleType = measureType;
     }
 
 
@@ -60,7 +61,7 @@ public class Email {
         this.studyExtension = studyExtension;
         this.sessions = Collections.singletonList(session);
         this.days = Collections.singletonList(days);
-        this.schedule_type = measureType;
+        this.scheduleType = measureType;
     }
 
 
@@ -71,7 +72,7 @@ public class Email {
         this.studyExtension = studyExtension;
         this.sessions = Collections.singletonList(session);
         this.days = days;
-        this.schedule_type = measureType;
+        this.scheduleType = measureType;
     }
 
 

@@ -10,15 +10,12 @@ import org.mindtrails.service.EmailServiceImpl;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 /**
- * A basic email service that behcaves exactly like the core configuration,
- * sending email reminders each day at 2 am and providing endpoints for
- * dealing with standard email messages such as resetting passwords.
+ * This is now a more complex email service that can define emails be sent out using a number of different rules.
  */
 @Service
 public class R01EmailService extends EmailServiceImpl implements EmailService{
@@ -29,33 +26,10 @@ public class R01EmailService extends EmailServiceImpl implements EmailService{
     public List<Email> emailTypes() {
         List<Email> emails = super.emailTypes();
         List<String> core_sessions = Arrays.asList(R01Study.SECOND_SESSION, R01Study.THIRD_SESSION,
-                R01Study.FOURTH_SESSION, R01Study.FIFTH_SESSION;
+                R01Study.FOURTH_SESSION, R01Study.FIFTH_SESSION);
 
 
         emails.add(new Email("risingScore", "MindTrails Alert! Participant Score Is Rising"));
-<<<<<<< HEAD
-        emails.add(new Email("day7", "Update from the MindTrails Project Team"));
-        emails.add(new Email("day10", "Update from the MindTrails Project Team"));
-        emails.add(new Email("day14", "Update from the MindTrails Project Team"));
-        emails.add(new Email("day18", "Important Reminder from the MindTrails Project Team"));
-
-        emails.add(new Email("headsup1", "The MindTrails Two Month Follow-Up Survey is Just 2 Weeks Away!"));
-
-        emails.add(new Email("followup", "It’s Time to Complete the MindTrails Two Month Follow-Up Survey!"));
-        emails.add(new Email("followup2", " We’d love to hear from you!"));
-        emails.add(new Email("followup3", "We’d love to help!"));
-
-        emails.add(new Email("headsup2", "The MindTrails Six Month Follow-Up Survey is Just 2 Weeks Away!"));
-        emails.add(new Email("followup1_6month", "It’s Time to Complete the MindTrails Six Month Follow-Up Survey!"));
-        emails.add(new Email("followup2_6month", "We’d love to hear from you!"));
-        emails.add(new Email("followup3_6month", "We’d love to help!"));
-        emails.add(new Email("followup3", "We’d love to help!"));
-
-        emails.add(new Email("SESSION1", "Bonus Feature #1 from the MindTrails Project Team"));
-        emails.add(new Email("SESSION2", "Bonus Feature #2 from the MindTrails Project Team"));
-        emails.add(new Email("SESSION3", "Bonus Feature #3 from the MindTrails Project Team"));
-        emails.add(new Email("SESSION4", "Bonus Feature #4 from the MindTrails Project Team"));
-=======
 
         // Bonus feature emails that come at the end of a session.
         emails.add(new Email("SESSION1", "Bonus Feature #1 from the MindTrails Project Team",
@@ -116,7 +90,6 @@ public class R01EmailService extends EmailServiceImpl implements EmailService{
         emails.add(new Email("newsletter6", "Mindtrails Newsletter #6",
                 R01Study.STUDY_EXTENSIONS.GIDI.name(), R01Study.POST_FOLLOWUP, 150, Email.SCHEDULE_TYPE.SINCE_COMPLETION));
 
->>>>>>> 45ecc400150baf1243aa4a6113eab5ef421d955a
         return emails;
     }
 
@@ -136,18 +109,6 @@ public class R01EmailService extends EmailServiceImpl implements EmailService{
         sendEmail(email);
     }
 
-
-    @Override
-    public String getTypeToSend(Session session, int daysSinceLastMilestone) {
-
-        for(Email email: emailTypes()) {
-
-            if(email.getSessions().contains(session.getName()) ) {
-
-            }
-
-        }
-    }
 
     @Override
     public void sendSessionCompletedEmail(Participant participant) {
