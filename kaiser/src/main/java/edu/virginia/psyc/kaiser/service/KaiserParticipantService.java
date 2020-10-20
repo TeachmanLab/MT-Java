@@ -76,82 +76,69 @@ public class KaiserParticipantService extends ParticipantServiceImpl implements 
         p.setReceiveGiftCards(tangoService.getEnabled());
         study.setReceiveGiftCards(tangoService.getEnabled());
         p.setStudy(study);
-        study.setConditioning(KaiserStudy.CONDITION.NONE.name());
+        study.setConditioning((String)session.getAttribute("condition"));
         return p;
     }
 
-    @Override
-    public RandomCondition getCondition(Participant p) throws NoNewConditionException {
-        String segmentation = getSegmentation(p);
+    // @Override
+    // public RandomCondition getCondition(Participant p) throws NoNewConditionException {
+    //     String segmentation = getSegmentation(p);
 
-        // We have to know their segmentation to set a new condition.
-        if (segmentation.equals(UNASSIGNED_SEGMENT)) throw new NoNewConditionException();
+    //     // We have to know their segmentation to set a new condition.
+    //     if (segmentation.equals(UNASSIGNED_SEGMENT)) throw new NoNewConditionException();
 
-        // For NONE, and TRAINING, it may be possible to update the condition.
-        RandomCondition assignment;
-        KaiserStudy.CONDITION condition = KaiserStudy.CONDITION.valueOf(p.getStudy().getConditioning());
-        switch (condition) {
-            case NONE:
-                assignment = nextAssignmentForSegment(segmentation);
-                break;
-            // case TRAINING:
-            //     AttritionPrediction pred = attritionPredictionRepository.findOne(p.getId());
-            //     if (pred != null) {
-            //         if(pred.getConfidence() > this.getSettings().getAttritionThreshold()) {
-            //             assignment = nextAssignmentForCoaching(segmentation);
-            //         } else {
-            //             assignment = new RandomCondition(KaiserStudy.CONDITION.LR_TRAINING.toString(), "na");
-            //         }
-            //     } else {
-            //         // We don't have a prediction for this participant yet.
-            //         throw new NoNewConditionException();
-            //     }
-            //     break;
-            default:  // Once assigned, we no longer assign new conditions.
-                throw new NoNewConditionException();
-        }
-        return assignment;
-    }
+    //     // For NONE, and TRAINING, it may be possible to update the condition.
+    //     RandomCondition assignment;
+    //     KaiserStudy.CONDITION condition = KaiserStudy.CONDITION.valueOf(p.getStudy().getConditioning());
+    //     switch (condition) {
+    //         case NONE:
+    //             assignment = nextAssignmentForSegment(segmentation);
+    //             break;
+    //         default:  // Once assigned, we no longer assign new conditions.
+    //             throw new NoNewConditionException();
+    //     }
+    //     return assignment;
+    // }
+
+    // @Override
+    // public void markConditionAsUsed(RandomCondition rc) {
+    //     if(rc.getId() > 0) {  // Some conditions may not actually exist in the database.
+    //         this.randomBlockRepository.delete(rc);
+    //     }
+    // }
 
     @Override
-    public void markConditionAsUsed(RandomCondition rc) {
-        if(rc.getId() > 0) {  // Some conditions may not actually exist in the database.
-            this.randomBlockRepository.delete(rc);
-        }
+    public Page<Participant> findEligibleForCoachingWithOptIn(Pageable pageable) {
+        return this.participantRepository.findEligibleForCoachingWithOptIn(KaiserStudy.CONDITION.CAN_COACH_0.name(), pageable);
     }
 
     @Override
-    public Page<Participant> findEligibleForCoaching(Pageable pageable) {
-        return this.participantRepository.findEligibleForCoaching(KaiserStudy.CONDITION.CAN_COACH_0.name(), pageable);
+    public Page<Participant> searchEligibleForCoachingWithOptIn(Pageable pageable, String searchTerm) {
+        return this.participantRepository.searchEligibleForCoachingWithOptIn(KaiserStudy.CONDITION.CAN_COACH_0.name(), pageable, searchTerm);
     }
 
-    @Override
-    public Page<Participant> searchEligibleForCoaching(Pageable pageable, String searchTerm) {
-        return this.participantRepository.searchEligibleForCoaching(KaiserStudy.CONDITION.CAN_COACH_0.name(), pageable, searchTerm);
-    }
+    // protected String getSegmentation(Participant p) {
+    //     Demographics demographics = demographicsRepository.findFirstByParticipantId(p.getId());
+    //     DASS21_AS dass = dass21RRepository.findFirstByParticipantAndSession(p, ELIGIBLE_SESSION);
+    //     if(demographics != null && dass != null) {
+    //         return getSegmentFromDassAndDemographics(dass, demographics);
+    //     } else {
+    //         return UNASSIGNED_SEGMENT;
+    //     }
+    // }
 
-    protected String getSegmentation(Participant p) {
-        Demographics demographics = demographicsRepository.findFirstByParticipantId(p.getId());
-        DASS21_AS dass = dass21RRepository.findFirstByParticipantAndSession(p, ELIGIBLE_SESSION);
-        if(demographics != null && dass != null) {
-            return getSegmentFromDassAndDemographics(dass, demographics);
-        } else {
-            return UNASSIGNED_SEGMENT;
-        }
-    }
-
-    protected String getSegmentFromDassAndDemographics(DASS21_AS dass, Demographics demographics) {
-        String gender_seg = demographics.calculateSegmentation();
-        String dass_seg = dass.calculateSegmentation();
-        return gender_seg + "_" + dass_seg;
-    }
+    // protected String getSegmentFromDassAndDemographics(DASS21_AS dass, Demographics demographics) {
+    //     String gender_seg = demographics.calculateSegmentation();
+    //     String dass_seg = dass.calculateSegmentation();
+    //     return gender_seg + "_" + dass_seg;
+    // }
 
 
-    private RandomCondition nextAssignmentForSegment(String segment) {
-        assureRandomAssignmentsAvailableForSegment(segment);
-        RandomCondition assignment = randomBlockRepository.findFirstBySegmentNameOrderById(segment);
-        return assignment;
-    }
+    // private RandomCondition nextAssignmentForSegment(String segment) {
+    //     assureRandomAssignmentsAvailableForSegment(segment);
+    //     RandomCondition assignment = randomBlockRepository.findFirstBySegmentNameOrderById(segment);
+    //     return assignment;
+    // }
 
     // No need to treat coaching as a special case, for Kaiser - coaching randomization
     // happens as part of randomization for all conditions
@@ -164,22 +151,22 @@ public class KaiserParticipantService extends ParticipantServiceImpl implements 
     // }
 
 
-    /**
-     * @param segment
-     */
-    private void assureRandomAssignmentsAvailableForSegment(String segment) {
-        if(randomBlockRepository.countAllBySegmentName(segment) < 1) {
-            Map<String, Float> valuePercentages = new HashMap<>();
-            for (KaiserStudy.CONDITION condition: KaiserStudy.CONDITION.values()) {
-                valuePercentages.put(condition.name(), 16.66f);
-            }
-            // TODO: Ensure 16% condition assignment works ok...might need to add complex code for createBlocks after all,
-            // as 16% split will leave 4% unaccounted for :/ 
-            List<RandomCondition> blocks = RandomCondition.createBlocks(valuePercentages, 16, segment);
-            this.randomBlockRepository.save(blocks);
-            this.randomBlockRepository.flush();
-        }
-    }
+    // /**
+    //  * @param segment
+    //  */
+    // private void assureRandomAssignmentsAvailableForSegment(String segment) {
+    //     if(randomBlockRepository.countAllBySegmentName(segment) < 1) {
+    //         Map<String, Float> valuePercentages = new HashMap<>();
+    //         for (KaiserStudy.CONDITION condition: KaiserStudy.CONDITION.values()) {
+    //             valuePercentages.put(condition.name(), 16.66f);
+    //         }
+    //         // TODO: Ensure 16% condition assignment works ok...might need to add complex code for createBlocks after all,
+    //         // as 16% split will leave 4% unaccounted for :/ 
+    //         List<RandomCondition> blocks = RandomCondition.createBlocks(valuePercentages, 16, segment);
+    //         this.randomBlockRepository.save(blocks);
+    //         this.randomBlockRepository.flush();
+    //     }
+    // }
 
     // /**
     //  * Random blocks for coaching assignment are split 50/50 for coaching and no coaching
@@ -205,10 +192,8 @@ public class KaiserParticipantService extends ParticipantServiceImpl implements 
 
     @Override
     public boolean isEligible(HttpSession session) {
-        DASS21_AS dass = dass21RRepository.findFirstBySessionIdOrderByDateDesc(session.getId());
-        if (!dass.getOver18().equals("true")) return false else return true;
         // There is no eligibility requirement for the Kaiser study
-        // return true; 
+        return true; 
     }
 
     @Override

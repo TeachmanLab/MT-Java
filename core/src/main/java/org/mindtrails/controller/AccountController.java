@@ -87,7 +87,10 @@ public class AccountController extends BaseController {
     }
 
     @RequestMapping(value="create", method = RequestMethod.GET)
-    public String createForm (ModelMap model, HttpSession session) {
+    public String createForm (ModelMap model, 
+                              HttpSession session,
+                              final @RequestParam(value = "condition", required = true) String condition)) {
+        session.setAttribute("condition", condition);
         addAttributesForCreateParticipantForm(model);
         model.addAttribute("participantForm", new ParticipantCreate());
         if(participantService.isEligible(session) || importService.isImporting()) {
