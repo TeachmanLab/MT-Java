@@ -11,12 +11,16 @@ import net.fortuna.ical4j.util.FixedUidGenerator;
 import net.fortuna.ical4j.util.MapTimeZoneCache;
 import net.fortuna.ical4j.util.RandomUidGenerator;
 import net.fortuna.ical4j.util.UidGenerator;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.mindtrails.domain.*;
 import org.mindtrails.domain.tango.ExchangeRates;
 import org.mindtrails.domain.tango.OrderResponse;
 import org.mindtrails.domain.tracking.EmailLog;
 import org.mindtrails.domain.tracking.GiftLog;
+import org.mindtrails.domain.tracking.TaskLog;
 import org.mindtrails.persistence.ParticipantRepository;
+import org.mindtrails.persistence.TaskLogRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +64,9 @@ public class EmailServiceImpl implements EmailService {
 
     @Autowired
     protected ParticipantRepository participantRepository;
+
+    @Autowired
+    protected TaskLogRepository taskLogRepository;
 
     @Value("${server.url}")
     protected String siteUrl;
@@ -243,7 +250,14 @@ public class EmailServiceImpl implements EmailService {
                     email.setParticipant(participant);
                     email.setContext(new Context());
                     sendEmail(email);
+                    // Mark the user as inactive if they are about to get a closure email.
+                    if (email.getType() != null && email.getType().equals("closure")) {
+                        participant.setActive(false);
+                        LOG.info("Marking participant #" + participant.getId() + " as inactive.");
+                        participantRepository.save(participant);
+                    }
                 }
+
             } catch(Exception e) {
                 LOG.error("Error calculating email for " +
                             participant.getId() + " --> " + e.getMessage());
@@ -315,39 +329,57 @@ public class EmailServiceImpl implements EmailService {
         if (!p.isActive()) return null;
 
         Study study = p.getStudy();
-        Session session = study.getCurrentSession();
 
         // Don't send emails if they are all done.
         if (study.getState().equals(Study.STUDY_STATE.ALL_DONE)) return null;
 
         int daysSinceLastMilestone = p.daysSinceLastMilestone();
 
+        Email emailToSend = null;
         for(Email email: emailTypes()) {
-            // todo: Handle adding calendar notification
-            // todo handle setting user as innactive if we send out a closure email.
-/*
-            // Mark the user as inactive if they are about to get a closure email.
-            if (type != null && type.equals("closure")) {
-                p.setActive(false);
-                LOG.info("Marking participant #" + p.getId() + " as inactive.");
-                participantRepository.save(p);
+
+            // If a study extension is set, respect it.
+            if(email.getStudyExtension() != null && email.getStudyExtension() != p.getStudy().getStudyExtension()) {
+                continue;
             }
-*/
-            // todo Check for participant turning off email reminders (!p.isEmailReminders()) ;
-            if(email.getSessions().contains(session.getName())) {
+
+            Session currentSession = study.getCurrentSession();
+            if(email.getSessions().contains(currentSession.getName())) {
                 // This email refers to this session.
                 if (email.getScheduleType().equals(Email.SCHEDULE_TYPE.INACTIVITY) &&
                         email.getDays().contains(daysSinceLastMilestone)) {
-                    // This email should be sent out today based on inactivity
-                    return email;
-                } else if (email.getScheduleType().equals(Email.SCHEDULE_TYPE.SINCE_COMPLETION)) {
-
+                    emailToSend = email;
+                    break;
+                }
+            }
+            if (email.getScheduleType().equals(Email.SCHEDULE_TYPE.SINCE_COMPLETION)) {
+                for(String sessionName : email.getSessions()) {
+                    int days = daysSinceCompletion(study, sessionName);
+                    if(email.getDays().contains(days)) {
+                        emailToSend = email;
+                        break;
+                    }
                 }
             }
         }
-        return(null);
+        // If this email should include a calendar invite, and the participant set a return date,
+        // set the date on the email
+        if(emailToSend != null && emailToSend.isIncludeCalendarInvite() && p.getReturnDate() != null) {
+            emailToSend.setCalendarDate(p.getReturnDate());
+        }
+
+        return(emailToSend);
     }
 
+    public int daysSinceCompletion(Study study, String sessionName) {
+        TaskLog log = taskLogRepository.findByStudyAndSessionNameAndTaskName(study, sessionName, TaskLog.SESSION_COMPLETE);
+        if(log != null) {
+            return Days.daysBetween(new DateTime(log.getDateCompleted()), new DateTime()).getDays();
+        } else {
+            return -1;
+        }
+
+    }
 
 
     Calendar getInvite(Participant participant, Date date) {

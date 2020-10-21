@@ -54,6 +54,10 @@ public interface Study {
 
     void setConditioning(String conditioning);
 
+    String getStudyExtension();
+
+    void setStudyExtension(String extension);
+
     List<String> getConditions();
 
     double getIncreasePercent();

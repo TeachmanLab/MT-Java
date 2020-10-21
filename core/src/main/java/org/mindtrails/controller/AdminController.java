@@ -260,7 +260,11 @@ public class AdminController extends BaseController {
     @RequestMapping(value="/listEmails", method=RequestMethod.GET)
     public String listEmails(ModelMap model, Principal principal) {
         Participant p = participantService.get(principal);
-        model.addAttribute("emails", emailService.emailTypes());
+
+        // group emails by type.
+        List<Email> emails = emailService.emailTypes();
+        Collections.sort(emails, new EmailComparator());
+        model.addAttribute("emails", emails);
         return "admin/listEmails";
     }
 
