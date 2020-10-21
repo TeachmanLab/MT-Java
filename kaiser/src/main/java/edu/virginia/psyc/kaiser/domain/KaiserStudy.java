@@ -217,7 +217,7 @@ public class KaiserStudy extends BaseStudy {
         post.addTask(new Task("Mechanisms","How I Respond", Task.TYPE.questions, 0 ));
         post.addTask(new Task("Covid19","COVID-19", Task.TYPE.questions, 0 ));
         post.addTask(new Task("HelpSeeking","Change in Help-Seeking Behavior", Task.TYPE.questions, 1));
-        post.add(post);
+        sessions.add(post);
 
         return sessions;
     }

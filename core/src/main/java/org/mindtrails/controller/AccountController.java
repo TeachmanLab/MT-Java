@@ -89,7 +89,7 @@ public class AccountController extends BaseController {
     @RequestMapping(value="create", method = RequestMethod.GET)
     public String createForm (ModelMap model, 
                               HttpSession session,
-                              final @RequestParam(value = "condition", required = true) String condition)) {
+                              final @RequestParam(value = "condition", required = true) String condition) {
         session.setAttribute("condition", condition);
         addAttributesForCreateParticipantForm(model);
         model.addAttribute("participantForm", new ParticipantCreate());
@@ -121,6 +121,15 @@ public class AccountController extends BaseController {
         participant.setVerificationCode(new VerificationCode(participant));
         participant.setReference((String)session.getAttribute("referer"));
         participant.setCampaign((String)session.getAttribute("campaign"));
+
+        // Set conditioning during account creation if Kaiser study
+        try {
+            participant.getStudy().setConditioning((String)session.getAttribute("condition"));
+        }
+        catch(Exception e) {
+            // TODO - any reason to add message here?
+        }
+       
 
         // Be sure to call saveNew rather than save, allowing
         // any data associated with the session to get

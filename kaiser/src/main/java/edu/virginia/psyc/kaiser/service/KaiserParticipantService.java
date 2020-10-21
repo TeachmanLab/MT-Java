@@ -76,44 +76,30 @@ public class KaiserParticipantService extends ParticipantServiceImpl implements 
         p.setReceiveGiftCards(tangoService.getEnabled());
         study.setReceiveGiftCards(tangoService.getEnabled());
         p.setStudy(study);
-        study.setConditioning((String)session.getAttribute("condition"));
         return p;
     }
 
-    // @Override
-    // public RandomCondition getCondition(Participant p) throws NoNewConditionException {
-    //     String segmentation = getSegmentation(p);
+     @Override
+     public RandomCondition getCondition(Participant p) throws NoNewConditionException {
+        // No segmentation needed on our end, for Kaiser
+         throw new NoNewConditionException();
+     }
 
-    //     // We have to know their segmentation to set a new condition.
-    //     if (segmentation.equals(UNASSIGNED_SEGMENT)) throw new NoNewConditionException();
-
-    //     // For NONE, and TRAINING, it may be possible to update the condition.
-    //     RandomCondition assignment;
-    //     KaiserStudy.CONDITION condition = KaiserStudy.CONDITION.valueOf(p.getStudy().getConditioning());
-    //     switch (condition) {
-    //         case NONE:
-    //             assignment = nextAssignmentForSegment(segmentation);
-    //             break;
-    //         default:  // Once assigned, we no longer assign new conditions.
-    //             throw new NoNewConditionException();
-    //     }
-    //     return assignment;
-    // }
-
-    // @Override
-    // public void markConditionAsUsed(RandomCondition rc) {
-    //     if(rc.getId() > 0) {  // Some conditions may not actually exist in the database.
-    //         this.randomBlockRepository.delete(rc);
-    //     }
-    // }
+     // Do we still need this method? - Anna
+     @Override
+     public void markConditionAsUsed(RandomCondition rc) {
+         if(rc.getId() > 0) {  // Some conditions may not actually exist in the database.
+             this.randomBlockRepository.delete(rc);
+         }
+     }
 
     @Override
-    public Page<Participant> findEligibleForCoachingWithOptIn(Pageable pageable) {
+    public Page<Participant> findEligibleForCoaching(Pageable pageable) {
         return this.participantRepository.findEligibleForCoachingWithOptIn(KaiserStudy.CONDITION.CAN_COACH_0.name(), pageable);
     }
 
     @Override
-    public Page<Participant> searchEligibleForCoachingWithOptIn(Pageable pageable, String searchTerm) {
+    public Page<Participant> searchEligibleForCoaching(Pageable pageable, String searchTerm) {
         return this.participantRepository.searchEligibleForCoachingWithOptIn(KaiserStudy.CONDITION.CAN_COACH_0.name(), pageable, searchTerm);
     }
 

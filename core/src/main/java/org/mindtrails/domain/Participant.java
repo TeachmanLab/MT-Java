@@ -56,6 +56,7 @@ public class Participant implements UserDetails, HasStudy {
     protected String timezone;
     protected boolean active = true;
     protected Date lastLoginDate;
+    protected boolean wantsCoaching;
     protected boolean receiveGiftCards = false;
     protected boolean verified = false;
     protected boolean blacklist = false;
