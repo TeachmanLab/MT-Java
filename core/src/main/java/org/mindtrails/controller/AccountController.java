@@ -129,7 +129,6 @@ public class AccountController extends BaseController {
         catch(Exception e) {
             // TODO - any reason to add message here?
         }
-       
 
         // Be sure to call saveNew rather than save, allowing
         // any data associated with the session to get
@@ -155,9 +154,29 @@ public class AccountController extends BaseController {
             twilioService.sendMessage(code,participant);
             return "redirect:/account/verification";
         }
+
+        // TODO: Ask Dan if bad to check for string equality here. Not sure if we can access the Kaiser-specific condition settings so this is what I did
+        // TODO: Add check for study type?
+        if (participant.getStudy().getConditioning().equals("CAN_COACH_0")) {
+            return "redirect:/account/coachingOptIn";
+        }
+
         return "redirect:/account/theme";
     }
 
+    @RequestMapping("coachingOptIn")
+    public String showCoachingOptIn(ModelMap model, Principal principal) {
+        return "account/coachingOptIn";
+    }
+
+    @ExportMode
+    @RequestMapping(value="setCoachingPreference", method = RequestMethod.POST)
+    public String setCoachingPreference(ModelMap model, Boolean wantsCoaching, Principal principal) {
+        Participant p = participantService.get(principal);
+        p.setWantsCoaching(wantsCoaching);
+        participantService.save(p);
+        return "redirect:/account/theme";
+    }
 
 
     @RequestMapping("theme")

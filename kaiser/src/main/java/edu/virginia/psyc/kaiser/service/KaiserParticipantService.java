@@ -58,7 +58,6 @@ public class KaiserParticipantService extends ParticipantServiceImpl implements 
     private ConditionAssignmentSettings settings;
     public final Double defaultThreshold = 0.33d;
 
-
     private ConditionAssignmentSettings getSettings() {
         this.settings = this.settingsRepository.findFirstByOrderByLastModifiedDesc();
         if(this.settings == null) {
