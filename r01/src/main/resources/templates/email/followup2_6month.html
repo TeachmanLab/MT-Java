@@ -11,14 +11,21 @@
         <tr>
             <td width="400">
 
-                <h2 th:text="'Dear ' +  ${participant.fullName} + ','" style="margin-top:0; margin-bottom:10px">
-                    Dear,</h2>
+                <img src="email_logo.png">
+                <br/>
 
-                <p style="margin-top:5px">It was great to hear from many of our participants this past week. We'd love to hear from you too! Your response to the follow-up survey will help us improve the MindTrails program and is greatly appreciated. If you need assistance, let us know by replying to this email. Thank you!</p>
+                <p th:text="'Dear ' +  ${participant.fullName} + ','" style="margin-top:0; margin-bottom:10px">
+                    Dear,</p>
+
+                <p style="margin-top:5px">It was great to hear from many of our participants this past week.
+                    We'd love to hear from you too! Your response to the follow-up survey will help us improve the MindTrails program and is greatly appreciated.
+                    If you need assistance, let us know by <a href = "mailto: studyteam@mindtrails.net">
+                        studyteam@mindtrails.net</a>. Thank you!
 
                 <p style="margin-top:30px">Best,</p>
+                <p style="margin:0 0 0 0;">The MindTrails Team</p>
 
-                <p style="margin:0 0 0 0; font-weight: bold;">The MindTrails Team</p>
+                <div id="footer" class="clearfix" th:fragment="footerFragment">
 
             </td>
         </tr>

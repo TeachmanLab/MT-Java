@@ -11,8 +11,11 @@
         <tr>
             <td width="400">
 
-                <h2 th:text="'Dear ' +  ${participant.fullName} + ','" style="margin-top:0; margin-bottom:10px">
-                    Dear,</h2>
+                <img src="email_logo.png">
+                <br/>
+
+                <p th:text="'Dear ' +  ${participant.fullName} + ','" style="margin-top:0; margin-bottom:10px">
+                    Dear,</p>
 
                 <p style="margin-top:5px">Thank you for participating in MindTrails. We hope that the skills you learned during the study have helped you in your everyday life. </p>
 
@@ -23,17 +26,18 @@
                 <h10 th:text="'To complete the follow-up on or after' +  ${twomonth.date} + ','" style="margin-top:0; margin-bottom:10px">
                     To complete the follow-up (on or after </h10>):
 
-                <p style="margin-top:15px;margin-left: 50px;">1. Log into your MindTrails account. </p>
-                <p style="margin-top:10px;margin-left: 50px;">2. Click on ‘Continue’ </p>
-                <p style="margin-top:10px;margin-left: 50px;">3. Complete the survey, which will take approximately 15 minutes.  </p>
+                <p style="margin-top:15px;margin-left: 50px;">1. Log into your <a href="https://mindtrails.virginia.edu/calm/login">MindTrails account</a>.</p>
+                <p style="margin-top:10px;margin-left: 50px;">2. Click on "Continue".</p>
+                <p style="margin-top:10px;margin-left: 50px;">3. Complete the survey, which will take approximately 15 minutes.</p>
 
-                <p style="margin-top:5px">Thank you for taking the time to complete these follow-ups. If you have any questions, let us know by replying to this email.
-
-                    <div id="footer" class="clearfix" th:fragment="footerFragment">
+                <p style="margin-top:5px">If you have any questions, let us know by contacting us at
+                    <a href = "mailto: studyteam@mindtrails.net">
+                        studyteam@mindtrails.net</a>.</p>
 
                 <p style="margin-top:30px">Best,</p>
+                <p style="margin:0 0 0 0;">The MindTrails Team</p>
 
-                <p style="margin:0 0 0 0; font-weight: bold;">The MindTrails Team</p>
+                <div id="footer" class="clearfix" th:fragment="footerFragment">
 
             </td>
         </tr>
