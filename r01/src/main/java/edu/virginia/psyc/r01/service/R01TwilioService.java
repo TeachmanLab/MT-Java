@@ -21,16 +21,16 @@ public class R01TwilioService extends TwilioServiceImpl implements TwilioService
         if (session.getDaysToWait() <= 10) {
             switch (daysSinceLastMilestone) {
                 case 7:
-                    message = "Time to start your next MindTrails Session!  Visit :" + serverUrl;
+                    message = "Time to start your next MindTrails Session! Visit :" + serverUrl;
                     break;
                 case 10:
-                    message = "Complete your next MindTrails session soon!  Visit :" + serverUrl;
+                    message = "Complete your next MindTrails session soon! Visit :" + serverUrl;
                     break;
                 case 14:
-                    message = "It has been two weeks since your last MindTrails Session.  Start Now :" + serverUrl;
+                    message = "It has been two weeks since your last MindTrails session.  Start Now :" + serverUrl;
                     break;
                 case 18:
-                    message = "Final reminder about your MindTrails Account!  You can start back up here:" + serverUrl;
+                    message = "Final reminder about your MindTrails account!  You can start back up here:" + serverUrl;
                     break;
                 case 21:
                     message = "MindTrails account closed. Would you mind completing a quick survey?"
@@ -44,19 +44,19 @@ public class R01TwilioService extends TwilioServiceImpl implements TwilioService
         if (session.getDaysToWait()  >= 60) {
             switch (daysSinceLastMilestone) {
                 case 60:
-                    message = "Time to complete the final survey on MindTrails: " + serverUrl;
+                    message = "The MindTrails 2 month follow-up is ready now! Follow this link to complete: " + serverUrl;
                     break;
                 case 63:
-                    message = "Final MindTrails Survey is ready: " + serverUrl;
+                    message = "Final MindTrails survey is ready: " + serverUrl;
                     break;
                 case 67:
-                    message = "Final MindTrails Survey is ready: " + serverUrl;
+                    message = "Time to complete the MindTrails 2 month follow-up! Follow this link to complete: " + serverUrl;
                     break;
                 case 70:
-                    message = "Final MindTrails Survey is ready: " + serverUrl;
+                    message = "Final MindTrails survey is ready: " + serverUrl;
                     break;
                 case 75:
-                    message = "Final Request to please complete a final MindTrails survey: " + serverUrl;
+                    message = "Time to complete the MindTrails 2 month follow-up! Follow this link to complete: " + serverUrl;
                     break;
             }
         }
