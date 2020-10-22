@@ -101,10 +101,13 @@ public class KaiserStudy extends BaseStudy {
         pretest.addTask(new Task("RR","Completing Short Stories, Pt. 2", Task.TYPE.questions, 0 ));
         pretest.addTask(new Task("BBSIQ","Why Things Happen", Task.TYPE.questions, 0 ));
 
-        // TODO: Change description for comorbid measures
-        pretest.addTask(new Task("Comorbid","Mood and Drinking Patterns", Task.TYPE.questions, 0 ));
+        // TODO: Include marijuana items
+        pretest.addTask(new Task("Comorbid","Mood, Drinking, and Marijuana Use", Task.TYPE.questions, 0 ));
         pretest.addTask(new Task("Wellness","What I Believe", Task.TYPE.questions, 0 ));
         pretest.addTask(new Task("Mechanisms","How I Respond", Task.TYPE.questions, 0 ));
+
+        // TODO: Ensure this is shorter version
+        pretest.addTask(new Task("Covid19","COVID-19", Task.TYPE.questions, 0 ));
         pretest.addTask(new Task("TechnologyUse", "Technology Use", Task.TYPE.questions, 0));
 
         // TODO: Ask Bethany if COVID-19 questions should be retained in pretest. Megan didn't list it but it's included
@@ -119,12 +122,10 @@ public class KaiserStudy extends BaseStudy {
 //        session1.addTask(new Task("ImpactAnxiousImagery","Impact Questions", Task.TYPE.questions, 0));
         session1.addTask(new Task("1", "Training Session 1", Task.TYPE.angular, 20));
         session1.addTask(new Task("Affect","Current Feelings, Post", "post", Task.TYPE.questions, 0));
-        session1.addTask(new Task("Credibility","How Does MindTrails Work?", Task.TYPE.questions, 0 ));
         session1.addTask(new Task("CC","Compare and Contrast", Task.TYPE.questions, 0 ));        
         session1.addTask(new Task("SessionReview", "Session Review", Task.TYPE.questions, 0));
         session1.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
         session1.addTask(new Task("CoachPrompt","Feedback", Task.TYPE.questions, 0 ));
-        session1.addTask(new Task("Covid19","COVID-19", Task.TYPE.questions, 0 ));
         session1.addTask(new Task("ReturnIntention","Returning to the Program", Task.TYPE.questions, 0));
         sessions.add(session1);
 
@@ -154,10 +155,12 @@ public class KaiserStudy extends BaseStudy {
         session3.addTask(new Task("recognitionRatings", "Completing Short Stories", Task.TYPE.angular, 5));
         session3.addTask(new Task("RR","Completing Short Stories, Pt. 2", Task.TYPE.questions, 0 ));
       
-        // TODO: Change description for comorbid measures
-        session3.addTask(new Task("Comorbid","Mood and Drinking Patterns", Task.TYPE.questions, 0 ));
+        // TODO: Include marijuana items
+        session3.addTask(new Task("Comorbid","Mood, Drinking, and Marijuana Use", Task.TYPE.questions, 0 ));
         session3.addTask(new Task("Wellness","What I Believe", Task.TYPE.questions, 0 ));
         session3.addTask(new Task("Mechanisms","How I Respond", Task.TYPE.questions, 0 ));
+        
+        // TODO: Ensure this is shorter version
         session3.addTask(new Task("Covid19","COVID-19", Task.TYPE.questions, 0 ));
         session3.addTask(new Task("ReturnIntention","Returning to the Program", Task.TYPE.questions, 0));
 
@@ -165,7 +168,6 @@ public class KaiserStudy extends BaseStudy {
 
         session4 = new Session(FOURTH_SESSION, "Level 4: Expert", 0, 5);
         session4.setIndex(4);
-
 
 //        session4.addTask(new Task("ImageryPrime","Use Your Imagination", Task.TYPE.questions, 0));
 //        session4.addTask(new Task("ImpactAnxiousImagery","Impact Questions", Task.TYPE.questions, 0));
@@ -188,15 +190,23 @@ public class KaiserStudy extends BaseStudy {
         session5.addTask(new Task("DASS21_AS","Mood Assessment", Task.TYPE.questions, 0 ));
         session5.addTask(new Task("RR","Completing Short Stories, Pt. 2", Task.TYPE.questions, 0 ));
         session5.addTask(new Task("recognitionRatings", "Completing Short Stories", Task.TYPE.angular, 5));
-        session5.addTask(new Task("Comorbid","Mood and Drinking Patterns", Task.TYPE.questions, 0 ));
+        
+        // TODO: Include marijuana items
+        session5.addTask(new Task("Comorbid","Mood, Drinking, and Marijuana Use", Task.TYPE.questions, 0 ));
         session5.addTask(new Task("Wellness","What I Believe", Task.TYPE.questions, 0 ));
         session5.addTask(new Task("Mechanisms","How I Respond", Task.TYPE.questions, 0 ));
+
+         // TODO: Ensure this is shorter version
         session5.addTask(new Task("Covid19","COVID-19", Task.TYPE.questions, 0 ));
         session5.addTask(new Task("HelpSeeking","Change in Help-Seeking Behavior", Task.TYPE.questions, 1));
         
         // TODO - Add multi-session user experience (different from "Evaluation" commented out below)
 
-        // session5.addTask(new Task("Evaluation","Evaluating the Program", Task.TYPE.questions, 2));
+        // Multi-session user experience
+        // TODO: Revise
+        session5.addTask(new Task("Evaluation","Evaluating the Program", Task.TYPE.questions, 2));
+
+        // Assessing perceived value of the program
         session5.addTask(new Task("AssessingProgram","Assessing the Program", Task.TYPE.questions, 2));
 
         sessions.add(session5);
@@ -211,10 +221,13 @@ public class KaiserStudy extends BaseStudy {
         post.addTask(new Task("recognitionRatings", "Completing Short Stories", Task.TYPE.angular, 5));
         post.addTask(new Task("RR","Completing Short Stories, Pt. 2", Task.TYPE.questions, 0 ));
 
-        // TODO: Change description for comorbid measures
-        post.addTask(new Task("Comorbid","Mood and Drinking Patterns", Task.TYPE.questions, 0 ));
+        
+        // TODO: Include marijuana items
+        post.addTask(new Task("Comorbid","Mood, Drinking, and Marijuana Use", Task.TYPE.questions, 0 ));
         post.addTask(new Task("Wellness","What I Believe", Task.TYPE.questions, 0 ));
         post.addTask(new Task("Mechanisms","How I Respond", Task.TYPE.questions, 0 ));
+
+        // TODO: Ensure this is shorter version
         post.addTask(new Task("Covid19","COVID-19", Task.TYPE.questions, 0 ));
         post.addTask(new Task("HelpSeeking","Change in Help-Seeking Behavior", Task.TYPE.questions, 1));
         sessions.add(post);
