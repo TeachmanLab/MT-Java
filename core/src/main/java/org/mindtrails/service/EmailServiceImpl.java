@@ -25,6 +25,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.transaction.annotation.Propagation;
@@ -68,6 +70,9 @@ public class EmailServiceImpl implements EmailService {
     @Autowired
     protected TaskLogRepository taskLogRepository;
 
+    @Autowired
+    protected ResourceLoader resourceLoader;
+
     @Value("${server.url}")
     protected String siteUrl;
 
@@ -98,6 +103,11 @@ public class EmailServiceImpl implements EmailService {
         }
         throw new RuntimeException("Unknown Email type:" + type);
     }
+
+    public boolean emailTemplateExists(String type) {
+        Resource resource = resourceLoader.getResource("classpath:/templates/email/" + type + ".html");
+        return resource.exists();
+        }
 
     @Override
     public void sendSessionCompletedEmail(Participant participant) {

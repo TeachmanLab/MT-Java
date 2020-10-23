@@ -31,6 +31,8 @@ public class Email {
     private SCHEDULE_TYPE scheduleType; // how to measure, either days of inactivity within session
                                   // or days since the session was completed.
     private boolean includeCalendarInvite = false;
+    private boolean templateExists = false;  // Verify that the template for the email exists.
+
 
 
     public Email (String type, String subject) {

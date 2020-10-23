@@ -88,6 +88,11 @@ public class R01EmailService extends EmailServiceImpl implements EmailService{
         emails.add(new Email("newsletter6", "MindTrails Newsletter #6",
                 R01Study.STUDY_EXTENSIONS.GIDI.name(), R01Study.POST_FOLLOWUP, 150, Email.SCHEDULE_TYPE.SINCE_COMPLETION, false));
 
+        // Check that all the emails exist, and set this on the Email object.
+        for(Email email: emails) {
+            email.setTemplateExists(this.emailTemplateExists(email.getType()));
+        }
+
         return emails;
     }
 

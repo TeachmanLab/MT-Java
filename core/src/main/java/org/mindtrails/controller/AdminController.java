@@ -1,8 +1,8 @@
 package org.mindtrails.controller;
 
 import lombok.Data;
-import org.mindtrails.domain.*;
 import org.joda.time.DateTime;
+import org.mindtrails.domain.*;
 import org.mindtrails.domain.forms.ParticipantCreate;
 import org.mindtrails.domain.forms.ParticipantCreateAdmin;
 import org.mindtrails.domain.forms.ParticipantUpdateAdmin;
@@ -11,11 +11,8 @@ import org.mindtrails.domain.tango.Account;
 import org.mindtrails.domain.tango.Item;
 import org.mindtrails.domain.tango.OrderResponse;
 import org.mindtrails.domain.tracking.ErrorLog;
-
 import org.mindtrails.domain.tracking.GiftLog;
 import org.mindtrails.persistence.*;
-
-import org.mindtrails.domain.userstats;
 import org.mindtrails.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
