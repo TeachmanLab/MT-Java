@@ -6,6 +6,7 @@ import com.google.i18n.phonenumbers.Phonenumber;
 import org.mindtrails.domain.ExportMode;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.RestExceptions.MissingEligibilityException;
+import org.mindtrails.domain.RestExceptions.NoConditionSpecifiedException;
 import org.mindtrails.domain.VerificationCode;
 import org.mindtrails.domain.forms.ParticipantCreate;
 import org.mindtrails.domain.forms.ParticipantUpdate;
@@ -28,6 +29,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
@@ -88,9 +90,18 @@ public class AccountController extends BaseController {
 
     @RequestMapping(value="create", method = RequestMethod.GET)
     public String createForm (ModelMap model, 
-                              HttpSession session,
-                              final @RequestParam(value = "condition", required = true) String condition) {
-        session.setAttribute("condition", condition);
+                              HttpServletRequest request,
+                              HttpSession session) {
+        
+        String requestURI = request.getRequestURI();
+
+        // Prevent joining the Kaiser study without a randomization condition
+        // Kaiser study has a separate RequestMapping setup that handles query params (e.g. when condition is specified)
+        // This shouldn't be needed, but is an extra layer of protection in case someone finds the account/create url
+        if ((requestURI.contains("kaiser")) && ((String)session.getAttribute("condition") == null)) {
+            throw new NoConditionSpecifiedException();
+        }
+
         addAttributesForCreateParticipantForm(model);
         model.addAttribute("participantForm", new ParticipantCreate());
         if(participantService.isEligible(session) || importService.isImporting()) {
@@ -157,7 +168,7 @@ public class AccountController extends BaseController {
 
         // TODO: Ask Dan if bad to check for string equality here. Not sure if we can access the Kaiser-specific condition settings so this is what I did
         // TODO: Add check for study type?
-        if (participant.getStudy().getConditioning().equals("CAN_COACH_0")) {
+        if (participant.getStudy().getConditioning().equals("CAN_COACH")) {
             return "redirect:/account/coachingOptIn";
         }
 

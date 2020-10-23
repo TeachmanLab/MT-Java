@@ -20,6 +20,8 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpSession;
 import java.util.*;
 
+import static edu.virginia.psyc.kaiser.domain.KaiserStudy.CONDITION.CAN_COACH;
+
 /**
  * Largely a wrapper around the Participant Repository.  Allows us to
  * save, create, and find customized participant objects.
@@ -94,12 +96,12 @@ public class KaiserParticipantService extends ParticipantServiceImpl implements 
 
     @Override
     public Page<Participant> findEligibleForCoaching(Pageable pageable) {
-        return this.participantRepository.findEligibleForCoachingWithOptIn(KaiserStudy.CONDITION.CAN_COACH_0.name(), pageable);
+        return this.participantRepository.findEligibleForCoachingWithOptIn(CAN_COACH.name(), pageable);
     }
 
     @Override
     public Page<Participant> searchEligibleForCoaching(Pageable pageable, String searchTerm) {
-        return this.participantRepository.searchEligibleForCoachingWithOptIn(KaiserStudy.CONDITION.CAN_COACH_0.name(), pageable, searchTerm);
+        return this.participantRepository.searchEligibleForCoachingWithOptIn(CAN_COACH.name(), pageable, searchTerm);
     }
 
     // protected String getSegmentation(Participant p) {

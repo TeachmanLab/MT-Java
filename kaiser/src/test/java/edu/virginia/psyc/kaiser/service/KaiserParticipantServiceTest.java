@@ -109,29 +109,29 @@ public class KaiserParticipantServiceTest {
     //     Assert.assertTrue("One of the random conditions should now go away", randomBlockRepository.findAll().size() == total - 1);
     // }
 
-    private Participant setupParticipantWithHighRisk() {
-        Participant participant = service.create();
-        participant.getStudy().setConditioning(KaiserStudy.CONDITION.TRAINING.name());
-        Demographics demographics = createDemographics();
-        demographics.setGender("Male");
-        demographics.setParticipant(participant);
-        DASS21_AS dass = createDass();
-        dass.setParticipant(participant);
-
-        participantRepository.saveAndFlush(participant);
-        demographicsRepository.saveAndFlush(demographics);
-        dassRepository.saveAndFlush(dass);
-
-
-        AttritionPrediction pred = new AttritionPrediction();
-        pred.setParticipantId(participant.getId());
-        pred.setConfidence(0.88d);
-        pred.setVersion("1.0");
-        pred.setDateCreated(new Date());
-        attritionPredictionRepository.save(pred);
-
-        return participant;
-    }
+//    private Participant setupParticipantWithHighRisk() {
+//        Participant participant = service.create();
+//        participant.getStudy().setConditioning(KaiserStudy.CONDITION.TRAINING.name());
+//        Demographics demographics = createDemographics();
+//        demographics.setGender("Male");
+//        demographics.setParticipant(participant);
+//        DASS21_AS dass = createDass();
+//        dass.setParticipant(participant);
+//
+//        participantRepository.saveAndFlush(participant);
+//        demographicsRepository.saveAndFlush(demographics);
+//        dassRepository.saveAndFlush(dass);
+//
+//
+//        AttritionPrediction pred = new AttritionPrediction();
+//        pred.setParticipantId(participant.getId());
+//        pred.setConfidence(0.88d);
+//        pred.setVersion("1.0");
+//        pred.setDateCreated(new Date());
+//        attritionPredictionRepository.save(pred);
+//
+//        return participant;
+//    }
 
     // @Test
     // public void testCoachCondition() throws NoNewConditionException {
@@ -155,43 +155,43 @@ public class KaiserParticipantServiceTest {
     // }
 
 
-    @Test
-    public void itIsPossibleToChangeAttritionThresholdInDatabase() throws Exception {
-        Participant participant = setupParticipantWithHighRisk();
-
-
-        // Create a new setting for Threshold that puts everyone at low risk
-        ConditionAssignmentSettings settings = new ConditionAssignmentSettings();
-        settings.setAttritionThreshold(1d);
-        // put it in the past to avoid race conditions in following code.
-        settings.setLastModified(new DateTime().minus(Period.days(1)).toDate());
-        this.settingsRepository.save(settings);
-
-        // Assure that everyone is marked as high risk.
-        int low = 0;
-        for (int i = 0; i < 20; i++) {
-            RandomCondition condition = service.getCondition(participant);
-            if (condition.getValue().equals(KaiserStudy.CONDITION.LR_TRAINING.name())) low++;
-            service.markConditionAsUsed(condition);
-        }
-        Assert.assertTrue(low == 20);
-
-        // Create a new setting for Threshold that puts everyone at high risk
-        settings = new ConditionAssignmentSettings();
-        settings.setAttritionThreshold(0d);
-        settings.setLastModified(new Date());
-        this.settingsRepository.save(settings);
-
-        // Assure that everyone is marked as low risk.
-        low = 0;
-        for (int i = 0; i < 20; i++) {
-            RandomCondition condition = service.getCondition(participant);
-            if (condition.getValue().equals(KaiserStudy.CONDITION.LR_TRAINING.name())) low++;
-            service.markConditionAsUsed(condition);
-        }
-        Assert.assertTrue("Low should be 0, but was " + low, low == 0);
-
-    }
+//    @Test
+////    public void itIsPossibleToChangeAttritionThresholdInDatabase() throws Exception {
+////        Participant participant = setupParticipantWithHighRisk();
+////
+////
+////        // Create a new setting for Threshold that puts everyone at low risk
+////        ConditionAssignmentSettings settings = new ConditionAssignmentSettings();
+////        settings.setAttritionThreshold(1d);
+////        // put it in the past to avoid race conditions in following code.
+////        settings.setLastModified(new DateTime().minus(Period.days(1)).toDate());
+////        this.settingsRepository.save(settings);
+////
+////        // Assure that everyone is marked as high risk.
+////        int low = 0;
+////        for (int i = 0; i < 20; i++) {
+////            RandomCondition condition = service.getCondition(participant);
+////            if (condition.getValue().equals(KaiserStudy.CONDITION.LR_TRAINING.name())) low++;
+////            service.markConditionAsUsed(condition);
+////        }
+////        Assert.assertTrue(low == 20);
+////
+////        // Create a new setting for Threshold that puts everyone at high risk
+////        settings = new ConditionAssignmentSettings();
+////        settings.setAttritionThreshold(0d);
+////        settings.setLastModified(new Date());
+////        this.settingsRepository.save(settings);
+////
+////        // Assure that everyone is marked as low risk.
+////        low = 0;
+////        for (int i = 0; i < 20; i++) {
+////            RandomCondition condition = service.getCondition(participant);
+////            if (condition.getValue().equals(KaiserStudy.CONDITION.LR_TRAINING.name())) low++;
+////            service.markConditionAsUsed(condition);
+////        }
+////        Assert.assertTrue("Low should be 0, but was " + low, low == 0);
+////
+////    }
 
     /** Using the CSV files and logic from the Segmentation test,
      * build out data as it appears in R01, and show the distribution
@@ -246,25 +246,25 @@ public class KaiserParticipantServiceTest {
     //     printConditionCounts();
     // }
 
-    private void printConditionCounts() {
-        Map<String, Integer> counts = new HashMap<>();
-
-
-        for(Participant p : participantRepository.findAll()) {
-            String c = p.getStudy().getConditioning();
-            String s = service.getSegmentation(p);
-            String key = c + "," + s;
-            if(!counts.containsKey(key)) {
-                counts.put(key, 1);
-            } else {
-                counts.put(key, counts.get(key) + 1);
-            }
-        }
-
-        for (String key : counts.keySet()) {
-            System.out.println(key + "," + counts.get(key));
-        }
-    }
+//    private void printConditionCounts() {
+//        Map<String, Integer> counts = new HashMap<>();
+//
+//
+//        for(Participant p : participantRepository.findAll()) {
+//            String c = p.getStudy().getConditioning();
+//            String s = service.getSegmentation(p);
+//            String key = c + "," + s;
+//            if(!counts.containsKey(key)) {
+//                counts.put(key, 1);
+//            } else {
+//                counts.put(key, counts.get(key) + 1);
+//            }
+//        }
+//
+//        for (String key : counts.keySet()) {
+//            System.out.println(key + "," + counts.get(key));
+//        }
+//    }
 
 
 

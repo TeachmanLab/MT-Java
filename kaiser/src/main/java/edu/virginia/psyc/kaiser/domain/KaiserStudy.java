@@ -24,7 +24,8 @@ import java.util.stream.Stream;
 @DiscriminatorValue("KAISER")
 public class KaiserStudy extends BaseStudy {
 
-    public enum CONDITION {NONE, NO_COACH_0, CAN_COACH_0, TESTIMONIAL_0, NO_COACH_5, NO_COACH_10, NO_COACH_20}
+    // TODO: Write test to ensure we never get a "NONE" as a condition
+    public enum CONDITION {NO_INCENTIVE, CAN_COACH, TESTIMONIALS, BONUS_5, BONUS_1O, BONUS_20}
 
     public enum SESSION {preTest, firstSession, secondSession, thirdSession, fourthSession, fifthSession, PostFollowUp }
 

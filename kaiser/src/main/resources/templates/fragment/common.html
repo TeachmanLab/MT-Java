@@ -519,8 +519,8 @@
     <script  th:inline="javascript">
         $(document).ready(function () {
 
-        // Use Jquery-Validate plugin to validate all forms.
-        $("form").validate({
+            // Use Jquery-Validate plugin to validate all forms.
+            $("form").validate({
                 errorElement: "span",
                 errorPlacement: function (error, element) {
                     var template_statement = element.parents(".row").first().children(".statement")
@@ -537,13 +537,24 @@
                     }
 
                 }
-        });
-
-        $("form").each(function () {
-            $(this).submit(function () {
-                $(this).find("#timeOnPage").val(TimeMe.getTimeOnCurrentPageInSeconds());
             });
-        });
+
+
+            // Tracking time spent on page
+            $("form").each(function () {
+                $(this).submit(function () {
+                    $(this).find("#timeOnPage").val(TimeMe.getTimeOnCurrentPageInSeconds());
+                });
+            });
+
+
+            // Coaching opt-in page display
+            $('#wantsCoaching').click(function () {
+                $('#wantsCoachingStatement').show();
+            });
+            $('#declinesCoaching').click(function () {
+                $('#wantsCoachingStatement').hide();
+            });
 
         });
     </script>

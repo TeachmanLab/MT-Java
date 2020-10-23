@@ -88,78 +88,78 @@ public class SegmentationTest {
                 mutualIds.size()));
     }
 
-    @Test
-    public void testSegmentationTotalCount() {
-        List<String> segments = new ArrayList<>();
-        for(Object ido : mutualIds) {
-            Long id = (Long) ido;
-            segments.add(service.getSegmentFromDassAndDemographics(dassMap.get(ido), demMap.get(ido)));
-        }
-        System.out.println(String.format("male_high: %s, male_med: %s, female_high:%s, female_med,%s",
-                Collections.frequency(segments, "male_high"),
-                Collections.frequency(segments, "male_med"),
-                Collections.frequency(segments, "female_high"),
-                Collections.frequency(segments, "female_med")));
-    }
-
-    @Test
-    public void testFemaleHighConditions() {
-        // Generate Random Assingments for Each Segment
-        Map<String, Float> valuePercentages = new HashMap<>();
-        valuePercentages.put("control", 25.0f);
-        valuePercentages.put("training", 75.0f);
-        List<String> conditions = new ArrayList<>();
-        String segment;
-
-        for(Object ido : mutualIds) {
-            segment = service.getSegmentFromDassAndDemographics(dassMap.get(ido), demMap.get(ido));
-            if(segment.equals("female_high")) {
-                if(femaleHigh.size() == 0) {
-                    femaleHigh.addAll(RandomCondition.createBlocks(valuePercentages, 50, "female_high"));
-                }
-                conditions.add(femaleHigh.poll().getValue());
-            }
-        }
-        System.out.println(String.format("FEMALE HIGH Conditions: total: %s, training: %s (%s%%), control: %s (%s%%)",
-                conditions.size(),
-                Collections.frequency(conditions, "training"),
-                100 * Collections.frequency(conditions, "training")/conditions.size(),
-                Collections.frequency(conditions, "control"),
-                100 * Collections.frequency(conditions, "control")/conditions.size()));
-
-    }
-
-
-    public RandomCondition getCondition(DASS21_AS dass, Demographics dem) {
-        // Generate Random Assingments for Each Segment
-        Map<String, Float> valuePercentages = new HashMap<>();
-        valuePercentages.put("control", 25.0f);
-        valuePercentages.put("training", 75.0f);
-        String segment = service.getSegmentFromDassAndDemographics(dass, dem);
-        switch (segment) {
-            case("male_high"):
-                if(maleHigh.size() == 0) {
-                    maleHigh.addAll(RandomCondition.createBlocks(valuePercentages, 50, "male_high"));
-                }
-                return maleHigh.poll();
-            case("male_med"):
-                if(maleMed.size() == 0) {
-                    maleMed.addAll(RandomCondition.createBlocks(valuePercentages, 50, "male_med"));
-                }
-                return maleMed.poll();
-            case("female_high"):
-                if(femaleHigh.size() == 0) {
-                    femaleHigh.addAll(RandomCondition.createBlocks(valuePercentages, 50, "female_high"));
-                }
-                return femaleHigh.poll();
-            case("female_med"):
-                if(femaleMed.size() == 0) {
-                    femaleMed.addAll(RandomCondition.createBlocks(valuePercentages, 50, "female_high"));
-                }
-                return femaleMed.poll();
-        }
-        throw new RuntimeException("unknown segment.");
-    }
+//    @Test
+//    public void testSegmentationTotalCount() {
+//        List<String> segments = new ArrayList<>();
+//        for(Object ido : mutualIds) {
+//            Long id = (Long) ido;
+//            segments.add(service.getSegmentFromDassAndDemographics(dassMap.get(ido), demMap.get(ido)));
+//        }
+//        System.out.println(String.format("male_high: %s, male_med: %s, female_high:%s, female_med,%s",
+//                Collections.frequency(segments, "male_high"),
+//                Collections.frequency(segments, "male_med"),
+//                Collections.frequency(segments, "female_high"),
+//                Collections.frequency(segments, "female_med")));
+//    }
+//
+//    @Test
+//    public void testFemaleHighConditions() {
+//        // Generate Random Assingments for Each Segment
+//        Map<String, Float> valuePercentages = new HashMap<>();
+//        valuePercentages.put("control", 25.0f);
+//        valuePercentages.put("training", 75.0f);
+//        List<String> conditions = new ArrayList<>();
+//        String segment;
+//
+//        for(Object ido : mutualIds) {
+//            segment = service.getSegmentFromDassAndDemographics(dassMap.get(ido), demMap.get(ido));
+//            if(segment.equals("female_high")) {
+//                if(femaleHigh.size() == 0) {
+//                    femaleHigh.addAll(RandomCondition.createBlocks(valuePercentages, 50, "female_high"));
+//                }
+//                conditions.add(femaleHigh.poll().getValue());
+//            }
+//        }
+//        System.out.println(String.format("FEMALE HIGH Conditions: total: %s, training: %s (%s%%), control: %s (%s%%)",
+//                conditions.size(),
+//                Collections.frequency(conditions, "training"),
+//                100 * Collections.frequency(conditions, "training")/conditions.size(),
+//                Collections.frequency(conditions, "control"),
+//                100 * Collections.frequency(conditions, "control")/conditions.size()));
+//
+//    }
+//
+//
+//    public RandomCondition getCondition(DASS21_AS dass, Demographics dem) {
+//        // Generate Random Assingments for Each Segment
+//        Map<String, Float> valuePercentages = new HashMap<>();
+//        valuePercentages.put("control", 25.0f);
+//        valuePercentages.put("training", 75.0f);
+//        String segment = service.getSegmentFromDassAndDemographics(dass, dem);
+//        switch (segment) {
+//            case("male_high"):
+//                if(maleHigh.size() == 0) {
+//                    maleHigh.addAll(RandomCondition.createBlocks(valuePercentages, 50, "male_high"));
+//                }
+//                return maleHigh.poll();
+//            case("male_med"):
+//                if(maleMed.size() == 0) {
+//                    maleMed.addAll(RandomCondition.createBlocks(valuePercentages, 50, "male_med"));
+//                }
+//                return maleMed.poll();
+//            case("female_high"):
+//                if(femaleHigh.size() == 0) {
+//                    femaleHigh.addAll(RandomCondition.createBlocks(valuePercentages, 50, "female_high"));
+//                }
+//                return femaleHigh.poll();
+//            case("female_med"):
+//                if(femaleMed.size() == 0) {
+//                    femaleMed.addAll(RandomCondition.createBlocks(valuePercentages, 50, "female_high"));
+//                }
+//                return femaleMed.poll();
+//        }
+//        throw new RuntimeException("unknown segment.");
+//    }
 
 
 

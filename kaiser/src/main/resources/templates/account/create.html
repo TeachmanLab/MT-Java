@@ -96,6 +96,19 @@
 
 
                 <br></br>
+                
+                <!-- NO_INCENTIVE, CAN_COACH, TESTIMONIALS, BONUS_5, BONUS_1O, BONUS_20 -->
+                <div th:if="${#strings.equals(session.condition,'CAN_COACH')}">
+                        <p><b><h3>Who can help me during the program?</h3></b></p>
+                        
+                        <p>You have the option of having a personal support coach via phone, email, and/or texts, to discuss your progress in the study. Your contact with the coach will be brief (typically just a few minutes each week). The coach will not be providing therapy, but can address questions, support your work, and help troubleshoot any issues that come up when doing the online training program.</p>  
+                </div>
+                <div th:if="${!#strings.equals(session.condition,'TESTIMONIALS') and !#strings.equals(session.condition,'CAN_COACH')}">
+                    <p><b><h3>Is there a bonus for signing up and starting training?</h3></b></p>
+                    
+                    <p th:switch="${session.condition}">After completing the first training session, you will receive a <span th:case="BONUS_5">$5</span> <span th:case="BONUS_10">$10</span> <span th:case="BONUS_20">$20</span> electronic gift card. The gift card will be sent via email within 2 business days of being awarded. The cards are submitted through Tango Card, an e-gift cards service through which you can choose from top name-brands like Amazon, Starbucks, iTunes, Target, and many more options; or you can donate the value to a charity.</p>  
+                </div>
+
                 <p><b><h3>Can I stop at any time?</h3></b></p>
 
                 <p>While we hope that you will complete the entire study, remember that participation in this study is
