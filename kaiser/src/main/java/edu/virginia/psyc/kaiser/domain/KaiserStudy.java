@@ -8,11 +8,9 @@ import org.mindtrails.domain.tracking.TaskLog;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /**
@@ -26,6 +24,7 @@ public class KaiserStudy extends BaseStudy {
 
     // TODO: Write test to ensure we never get a "NONE" as a condition
     public enum CONDITION {NO_INCENTIVE, CAN_COACH, TESTIMONIALS, BONUS_5, BONUS_1O, BONUS_20}
+    public static Map<String, Enum<?>> conditionMappings = new HashMap<String, Enum<?>>();
 
     public enum SESSION {preTest, firstSession, secondSession, thirdSession, fourthSession, fifthSession, PostFollowUp }
 
@@ -45,6 +44,13 @@ public class KaiserStudy extends BaseStudy {
 
     public KaiserStudy() {
         this.currentSession = PRE_TEST;
+
+        conditionMappings.put("2AOM8dDBOJ", CONDITION.NO_INCENTIVE);
+        conditionMappings.put("DSDvBmGcYE", CONDITION.CAN_COACH);
+        conditionMappings.put("WtQgTY7a1w", CONDITION.TESTIMONIALS);
+        conditionMappings.put("oLewA3TOBh", CONDITION.BONUS_5);
+        conditionMappings.put("TtBdqsBNiZ", CONDITION.BONUS_1O);
+        conditionMappings.put("X1dwxumXD4", CONDITION.BONUS_20);
     }
 
     public KaiserStudy(String currentSession, int taskIndex, Date lastSessionDate, List<TaskLog> taskLogs, boolean receiveGiftCards) {

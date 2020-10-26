@@ -13,10 +13,9 @@ import javax.servlet.http.HttpSession;
 import java.util.Arrays;
 
 @Controller
-@RequestMapping("/kaiserStudyAccount")
 public class KaiserAccountController extends BaseController {
 
-    @RequestMapping(value="create", method = RequestMethod.GET)
+    @RequestMapping(value="kaiserStudyAccount/create", method = RequestMethod.GET)
     public String setCondition(HttpSession session,
                                final @RequestParam(value = "condition", required = true) String condition) {
 
@@ -26,14 +25,15 @@ public class KaiserAccountController extends BaseController {
 
         // Check if one of the six randomization conditions
         // Protects against someone trying to join study without being randomize
-        boolean isAllowableCondition = Arrays.stream(KaiserStudy.CONDITION.values()).anyMatch((t) -> t.name().equals(condition));
+        // boolean isAllowableCondition = Arrays.stream(KaiserStudy.CONDITION.values()).anyMatch((t) -> t.name().equals(condition));
+        boolean isAllowableCondition = KaiserStudy.conditionMappings.containsKey(condition);
         if (!isAllowableCondition) {
             throw new NoSuchConditionException();
         } else {
 
             // In case of Kaiser study, store condition as session attribute then
             // continue into regular account creation method in the AccountController
-            session.setAttribute("condition", condition);
+            session.setAttribute("condition", KaiserStudy.conditionMappings.get(condition));
             return "redirect:/account/create";
         }
     }
