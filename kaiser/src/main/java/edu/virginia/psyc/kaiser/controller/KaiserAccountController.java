@@ -2,8 +2,8 @@ package edu.virginia.psyc.kaiser.controller;
 
 import edu.virginia.psyc.kaiser.domain.KaiserStudy;
 import org.mindtrails.controller.BaseController;
-import org.mindtrails.domain.RestExceptions.NoConditionSpecifiedException;
-import org.mindtrails.domain.RestExceptions.NoSuchConditionException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,12 +15,16 @@ import java.util.Arrays;
 @Controller
 public class KaiserAccountController extends BaseController {
 
-    @RequestMapping(value="kaiserStudyAccount/create", method = RequestMethod.GET)
+    private static final Logger LOG = LoggerFactory.getLogger(KaiserAccountController.class);
+
+    @RequestMapping(path="/public/kaiser", method = RequestMethod.GET)
     public String setCondition(HttpSession session,
-                               final @RequestParam(value = "condition", required = true) String condition) {
+                               final @RequestParam(value = "condition", required = false) String condition) {
+
+        LOG.info("Yes, Dan you are getting here.");
 
         if (condition == null || condition.length() == 0) {
-            throw new NoConditionSpecifiedException();
+            return "noCondition";
         }
 
         // Check if one of the six randomization conditions
@@ -28,7 +32,7 @@ public class KaiserAccountController extends BaseController {
         // boolean isAllowableCondition = Arrays.stream(KaiserStudy.CONDITION.values()).anyMatch((t) -> t.name().equals(condition));
         boolean isAllowableCondition = KaiserStudy.conditionMappings.containsKey(condition);
         if (!isAllowableCondition) {
-            throw new NoSuchConditionException();
+            return "noCondition";
         } else {
 
             // In case of Kaiser study, store condition as session attribute then
