@@ -2,8 +2,8 @@ package edu.virginia.psyc.kaiser.controller;
 
 import edu.virginia.psyc.kaiser.domain.KaiserStudy;
 import org.mindtrails.controller.BaseController;
-import org.mindtrails.domain.RestExceptions.NoConditionSpecifiedException;
-import org.mindtrails.domain.RestExceptions.NoSuchConditionException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,22 +13,27 @@ import javax.servlet.http.HttpSession;
 import java.util.Arrays;
 
 @Controller
-@RequestMapping("/kaiserStudyAccount")
 public class KaiserAccountController extends BaseController {
 
-    @RequestMapping(value="create", method = RequestMethod.GET)
+    private static final Logger LOG = LoggerFactory.getLogger(KaiserAccountController.class);
+
+    @RequestMapping(path="/public/kaiser", method = RequestMethod.GET)
     public String setCondition(HttpSession session,
-                               final @RequestParam(value = "condition", required = true) String condition) {
+                               final @RequestParam(value = "condition", required = false) String condition) {
+
+        LOG.info("Yes, Dan you are getting here.");
 
         if (condition == null || condition.length() == 0) {
-            throw new NoConditionSpecifiedException();
+            return "noCondition";
+            //throw new NoConditionSpecifiedException();
         }
 
         // Check if one of the six randomization conditions
         // Protects against someone trying to join study without being randomize
         boolean isAllowableCondition = Arrays.stream(KaiserStudy.CONDITION.values()).anyMatch((t) -> t.name().equals(condition));
         if (!isAllowableCondition) {
-            throw new NoSuchConditionException();
+            return "noCondition";
+//            throw new NoSuchConditionException();
         } else {
 
             // In case of Kaiser study, store condition as session attribute then
