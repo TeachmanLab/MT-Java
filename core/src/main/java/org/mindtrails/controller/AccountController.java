@@ -6,7 +6,6 @@ import com.google.i18n.phonenumbers.Phonenumber;
 import org.mindtrails.domain.ExportMode;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.RestExceptions.MissingEligibilityException;
-import org.mindtrails.domain.RestExceptions.NoConditionSpecifiedException;
 import org.mindtrails.domain.VerificationCode;
 import org.mindtrails.domain.forms.ParticipantCreate;
 import org.mindtrails.domain.forms.ParticipantUpdate;
@@ -92,15 +91,8 @@ public class AccountController extends BaseController {
     public String createForm (ModelMap model, 
                               HttpServletRequest request,
                               HttpSession session) {
-        
-        String requestURI = request.getRequestURI();
 
-        // Prevent joining the Kaiser study without a randomization condition
-        // Kaiser study has a separate RequestMapping setup that handles query params (e.g. when condition is specified)
-        // This shouldn't be needed, but is an extra layer of protection in case someone finds the account/create url
-        if ((requestURI.contains("kaiser")) && ((String)session.getAttribute("condition") == null)) {
-            throw new NoConditionSpecifiedException();
-        }
+        String requestURI = request.getRequestURI();
 
         addAttributesForCreateParticipantForm(model);
         model.addAttribute("participantForm", new ParticipantCreate());
@@ -182,9 +174,10 @@ public class AccountController extends BaseController {
 
     @ExportMode
     @RequestMapping(value="setCoachingPreference", method = RequestMethod.POST)
-    public String setCoachingPreference(ModelMap model, Boolean wantsCoaching, Principal principal) {
+    public String setCoachingPreference(ModelMap model, Boolean wantsCoaching, String firstCoachingFormat, Principal principal) {
         Participant p = participantService.get(principal);
         p.setWantsCoaching(wantsCoaching);
+        p.setFirstCoachingFormat(firstCoachingFormat);
         participantService.save(p);
         return "redirect:/account/theme";
     }

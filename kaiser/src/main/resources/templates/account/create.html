@@ -28,33 +28,42 @@
                 <ul style="padding-right: 10px">
                     <li>&nbsp;&nbsp;One initial assessment</li>
                     <li>&nbsp;&nbsp;Training sessions 1-5 (with additional assessments following Sessions 3 and 5)</li>
-                    <li>&nbsp;&nbsp;One follow-up assessment</li></ul>
+                    <li>&nbsp;&nbsp;One follow-up assessment</li>
+                </ul>
 
                 <p> The program runs over the course of five weeks (one training session per week) with a two-month
-                follow-up assessment. Each of the assessments and training sessions will take approximately 20 minutes to complete.
+                    follow-up assessment. Each of the assessments and training sessions will take approximately 20
+                    minutes to complete.
 
                 </p>
-                    <br></br>
+                <br></br>
                 <p><b><h3>What will I be asked to do?</h3></b></p>
-                <p>The <b>assessments</b> consist of a number of questionnaires about your thoughts and mood, your background,
+                <p>The <b>assessments</b> consist of a number of questionnaires about your thoughts and mood, your
+                    background,
                     and personal mental health history. You will be asked to complete four assessment parts total:
                     prior to session 1, after sessions 3 and 5, and two months following completion of session 5.
                 </p>
 
                 <p> In the <b>training sessions</b>, you will be presented with one of a few different training programs
                     designed to shift how you think about situations. You may be asked to read information about anxiety
-                    problems and their treatment, and answer questions, or read brief stories and complete word fragments,
-                    by filling in one or more missing letters in a word. We are testing which program most effectively reduces anxiety.
+                    problems and their treatment, and answer questions, or read brief stories and complete word
+                    fragments,
+                    by filling in one or more missing letters in a word. We are testing which program most effectively
+                    reduces anxiety.
                 </p>
 
                 <p> Although our prediction of which training program will be most effective is based on previous work
                     in the laboratory, it is important to compare the effects of each program in the real world
-                    before drawing any conclusions. In psychology research, a common way to compare programs is to randomly assign each
+                    before drawing any conclusions. In psychology research, a common way to compare programs is to
+                    randomly assign each
                     participant to one of the training versions.</p>
 
-                <p> If you get randomly assigned to a program that we do not think will be the strongest one, you will have the
-                    opportunity to complete the program that we expect to be most effective <i>after</i> you finish the study.
-                    In other words, EVERYBODY will eventually get the chance to try the program that we expect will be most effective.
+                <p> If you get randomly assigned to a program that we do not think will be the strongest one, you will
+                    have the
+                    opportunity to complete the program that we expect to be most effective <i>after</i> you finish the
+                    study.
+                    In other words, EVERYBODY will eventually get the chance to try the program that we expect will be
+                    most effective.
                 </p>
                 <!--<p><b><h3>What else should I know about participating?</h3></b></p>
 
@@ -64,7 +73,8 @@
                 will not be providing therapy, but can address questions, support your work, and help troubleshoot any
                 issues that that come up when interacting with the online training program. </p>-->
 
-                <p>At the end of the study, you will receive more details about the study’s rationale and design. You will also
+                <p>At the end of the study, you will receive more details about the study’s rationale and design. You
+                    will also
                     receive feedback about the progress you made during the program. </p>
                 <br></br>
                 <!--<div th:if="${giftcardsEnabled}">
@@ -82,45 +92,62 @@
 
                 <p><b><h3>Are there any benefits or risks to participating?</h3></b></p>
 
-                <p>There may be no direct benefits to you. Depending on the version of the training program that you complete,
-                you may complete procedures that may help reduce symptoms of anxiety.</p>
+                <p>There may be no direct benefits to you. Depending on the version of the training program that you
+                    complete,
+                    you may complete procedures that may help reduce symptoms of anxiety.</p>
 
-                <p>For some participants, being asked to complete assessments about their thoughts and mood can be temporarily distressing;
-                    however, most people experience minimal-to-no distress or do not feel distressed for extended periods of time.</p>
+                <p>For some participants, being asked to complete assessments about their thoughts and mood can be
+                    temporarily distressing;
+                    however, most people experience minimal-to-no distress or do not feel distressed for extended
+                    periods of time.</p>
 
                 <p>Please note that MindTrails does not provide specific diagnostic or medical advice on our website,
                     and we are limited in how we can respond to your personal requests.</p>
 
-                <p><b>MindTrails is not able to offer financial compensation or to absorb the costs of treatment should you
+                <p><b>MindTrails is not able to offer financial compensation or to absorb the costs of treatment should
+                    you
                     feel you have been injured as a result of participating in the MindTrails research study.</b></p>
 
 
                 <br></br>
-                
+
                 <!-- NO_INCENTIVE, CAN_COACH, TESTIMONIALS, BONUS_5, BONUS_1O, BONUS_20 -->
                 <div th:if="${#strings.equals(session.condition,'CAN_COACH')}">
-                        <p><b><h3>Who can help me during the program?</h3></b></p>
-                        
-                        <p>You have the option of having a personal support coach via phone, email, and/or texts, to discuss your progress in the study. Your contact with the coach will be brief (typically just a few minutes each week). The coach will not be providing therapy, but can address questions, support your work, and help troubleshoot any issues that come up when doing the online training program.</p>  
+                    <p><b><h3>Who can help me during the program?</h3></b></p>
+
+                    <p>You have the option of having a personal support coach via phone, email, and/or texts, to discuss
+                        your progress in the study. Your contact with the coach will be brief (typically just a few
+                        minutes each week). The coach will not be providing therapy, but can address questions, support
+                        your work, and help troubleshoot any issues that come up when doing the online training
+                        program.</p>
                 </div>
-                <div th:if="${!#strings.equals(session.condition,'TESTIMONIALS') and !#strings.equals(session.condition,'CAN_COACH')}">
+                <div th:if="${#strings.contains(session.condition, 'BONUS')}">
                     <p><b><h3>Is there a bonus for signing up and starting training?</h3></b></p>
-                    
-                    <p th:switch="${session.condition}">After completing the first training session, you will receive a <span th:case="BONUS_5">$5</span> <span th:case="BONUS_10">$10</span> <span th:case="BONUS_20">$20</span> electronic gift card. The gift card will be sent via email within 2 business days of being awarded. The cards are submitted through Tango Card, an e-gift cards service through which you can choose from top name-brands like Amazon, Starbucks, iTunes, Target, and many more options; or you can donate the value to a charity.</p>  
+
+                    <p th:switch="${session.condition}">After completing the first training session, you will receive a
+                        <span th:case="'BONUS_5'">$5</span> <span th:case="'BONUS_10'">$10</span> <span th:case="'BONUS_20'">$20</span>
+                        electronic gift card. The gift card will be sent via email within 2 business days of being
+                        awarded. The cards are submitted through Tango Card, an e-gift cards service through which you
+                        can choose from top name-brands like Amazon, Starbucks, iTunes, Target, and many more options;
+                        or you can donate the value to a charity.</p>
                 </div>
 
                 <p><b><h3>Can I stop at any time?</h3></b></p>
 
                 <p>While we hope that you will complete the entire study, remember that participation in this study is
-                voluntary, and you may end your individual session participation at any time by closing the study window.
-                Further, your participation in this study has no bearing on your standing with other ongoing therapy or employers.
-                Contact the team <a href="mailto:studyteam@mindtrails.org">here</a> if you have any questions about the study or to withdraw completely from the study.</p>
+                    voluntary, and you may end your individual session participation at any time by closing the study
+                    window.
+                    Further, your participation in this study has no bearing on your standing with other ongoing therapy
+                    or employers.
+                    Contact the team <a href="mailto:studyteam@mindtrails.org">here</a> if you have any questions about
+                    the study or to withdraw completely from the study.</p>
 
                 <br></br>
                 <p><b><h3>What is the MindTrails Privacy Policy?</h3></b></p>
 
                 <p>MindTrails uses the same secure hypertext transfer protocol (HTTPS) that banks and other commercial
-                    websites use to transfer credit card information in an encrypted format. This provides strong security
+                    websites use to transfer credit card information in an encrypted format. This provides strong
+                    security
                     for data transfer to and from our website, though privacy is necessarily limited by the security
                     of the technology that is being used. To view the entire privacy policy in a separate page,
                     please <a th:href="@{/public/privacy}" target="_blank">click here</a>.</p>
@@ -164,19 +191,23 @@
                     which can stop sharing the research information. Please note that NDA cannot take back information
                     that was shared before you changed your mind. If you would like more information about NDA, this is
                     available online at
-                    <a target="_new" href="https://data-archive.nimh.nih.gov/">https://data-archive.nimh.nih.gov/</a>.</p>
+                    <a target="_new" href="https://data-archive.nimh.nih.gov/">https://data-archive.nimh.nih.gov/</a>.
+                </p>
 
                 <br></br>
                 <p><b>To obtain more information about the study, ask questions about the research procedures,
-                    express concerns about your participation, or report illness, injury or other problems, please contact:</b></p>
-                <p style="margin-left:50px">Tonya Moon, Chair, Institutional Review Board for the Social and Behavioral Sciences, One Morton Dr.
+                    express concerns about your participation, or report illness, injury or other problems, please
+                    contact:</b></p>
+                <p style="margin-left:50px">Tonya Moon, Chair, Institutional Review Board for the Social and Behavioral
+                    Sciences, One Morton Dr.
                     Suite 500, University of Virginia, P.O. Box 800392, Charlottesville, VA 22908-0392. Telephone: (434)
                     924-5999; Email: <a href="mailto:irbsbshelp@virginia.edu">irbsbshelp@virginia.edu</a>; Website:
                     <a target="_new" href="www.virginia.edu/vprgs/irb">www.virginia.edu/vprgs/irb</a>.</p>
 
                 <p><b>You can also contact the Principal Investigator:</b></p>
                 <p style="margin-left:50px;">Prof. Bethany Teachman, Department of Psychology, Millmont Building,
-                    1023 Millmont St, University of Virginia, Charlottesville, VA 22903. Telephone: (434) 924-0676; Email:
+                    1023 Millmont St, University of Virginia, Charlottesville, VA 22903. Telephone: (434) 924-0676;
+                    Email:
                     <a href="mailto:studyteam@mindtrails.org">studyteam@mindtrails.org</a>.</p>
 
                 <p>Please use the form below to create your new account.</p>

@@ -21,8 +21,8 @@ public class KaiserAccountController extends BaseController {
     public String setCondition(HttpSession session,
                                final @RequestParam(value = "condition", required = false) String condition) {
 
-        LOG.info("Yes, Dan you are getting here.");
-
+//        LOG.info("Yes, Dan you are getting here.");
+//
         if (condition == null || condition.length() == 0) {
             return "noCondition";
         }
@@ -38,6 +38,7 @@ public class KaiserAccountController extends BaseController {
             // In case of Kaiser study, store condition as session attribute then
             // continue into regular account creation method in the AccountController
             session.setAttribute("condition", KaiserStudy.conditionMappings.get(condition));
+            LOG.info("Condition is " + session.getAttribute("condition"));
             return "redirect:/account/create";
         }
     }
