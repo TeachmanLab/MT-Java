@@ -18,6 +18,8 @@ public interface Study {
 
     List<Session> getSessions();  // Returns all sessions, including the participants progress.
 
+    List<String> getSessionNames();  // Returns a list of all the session names, in order.
+
     Session getLastSession(); // returns the last completed session .
 
     Session getCurrentSession(); // returns the current session.

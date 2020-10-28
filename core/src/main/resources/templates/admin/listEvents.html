@@ -16,28 +16,36 @@
   <div class="container">
     <div class="row">
       <div class="span12">
-        <h1>Email Messages</h1>
-        <p>Here are the major reminder emails sent by the system. Clicking on any of these
+        <h1>Scheduled Notifications and Events</h1>
+        <p>Here are the major reminder emails, text messages and data changes sent by the system at paticular points within the Study. Clicking on the email messages
           will cause the reminder email to be sent to your email address: <span th:text="${participant.email}"> dan@sartography.com</span>
         </p>
         <table class="table table-bordered table-striped">
           <tr>
-              <th>Type</th>
               <th>Sessions</th>
               <th>Days</th>
+              <th>Schedule</th>
+              <th>Type</th>
               <th>Template</th>
               <th>Exists?</th>
               <th>Subject</th>
               <th>Extension</th>
           </tr>
-          <tr th:each="email : ${emails}">
-            <td><p th:text="${email.scheduleType}"></p></td>
-            <td><p th:text="${email.sessions}"></p></td>
-            <td><p th:text="${email.days}"></p></td>
-            <td><a th:href="@{'/admin/sendEmail/' + ${email.type}}" th:text="${email.type}"/></td>
-            <td th:style="${email.templateExists==false} ? 'color: red'"><p th:text="${email.templateExists}"></p></td>
-            <td><p th:text="${email.subject}"></p></td>
-            <td><p th:text="${email.studyExtension}"></p></td>
+          <tr th:each="event: ${events}">
+              <td><p th:text="${event.sessions}"></p></td>
+              <td><p th:text="${event.days}"></p></td>
+              <td><p th:text="${event.scheduleType}"></p></td>
+              <td><p th:text="${event.eventType}"></p></td>
+              <td>
+                  <a th:if="${event.eventType.toString().equals('EMAIL')}" th:href="@{'/admin/sendEmail/' + ${event.type}}" th:text="${event.type}"/>
+                  <span th:if="${event.eventType.toString().equals('TEXT')}">
+                      <span th:text="${event.type}"/>
+                      <span th:if="${event.onlyIfNoEmails}"> (if email disabled)</span>
+                  </span>
+              </td>
+              <td th:style="${event.templateExists==false} ? 'color: red'"><p th:text="${event.templateExists}"></p></td>
+              <td><p th:text="${event.content()}"></p></td>
+              <td><p th:text="${event.studyExtension}"></p></td>
           </tr>
         </table>
 

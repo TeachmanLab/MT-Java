@@ -3,6 +3,7 @@ package edu.virginia.psyc.hobby.service;
 import edu.virginia.psyc.hobby.domain.HobbyStudy;
 import org.mindtrails.domain.Email;
 import org.mindtrails.domain.Participant;
+import org.mindtrails.domain.ScheduledEvent;
 import org.mindtrails.domain.Session;
 import org.mindtrails.service.EmailService;
 import org.mindtrails.service.EmailServiceImpl;
@@ -22,8 +23,8 @@ public class HobbyEmailService extends EmailServiceImpl implements EmailService{
     private String SECOND_SESSION = "SESSION2";
 
     @Override
-    public List<Email> emailTypes() {
-        List<Email> emails = super.emailTypes();
+    public List<ScheduledEvent> emailTypes() {
+        List<ScheduledEvent> emails = super.emailTypes();
         emails.add(new Email(FIRST_SESSION, "Bonus feature from the MindTrails team"));
         emails.add(new Email(SECOND_SESSION, "Bonus feature from the MindTrails team"));
         return emails;

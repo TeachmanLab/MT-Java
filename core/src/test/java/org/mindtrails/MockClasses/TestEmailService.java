@@ -1,6 +1,7 @@
 package org.mindtrails.MockClasses;
 
 import org.mindtrails.domain.Email;
+import org.mindtrails.domain.ScheduledEvent;
 import org.mindtrails.service.EmailService;
 import org.mindtrails.service.EmailServiceImpl;
 import org.springframework.stereotype.Service;
@@ -11,11 +12,9 @@ import java.util.List;
 @Service
 public class TestEmailService extends EmailServiceImpl implements EmailService {
     @Override
-    public List<Email> emailTypes() {
-        List<Email> emails = super.emailTypes();
+    public List<ScheduledEvent> emailTypes() {
+        List<ScheduledEvent> emails = super.emailTypes();
         List<String> core_sessions = Arrays.asList("SessionOne", "SessionTwo");
-
-
 
         // Reminder emails when users are inactive longer than they should be in the core sessions (2,3,4,5)
         emails.add(new Email("gidiOnly", "a Gidi Only Email",

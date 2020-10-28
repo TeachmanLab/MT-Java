@@ -2,6 +2,7 @@ package org.mindtrails.service;
 
 import org.mindtrails.domain.Email;
 import org.mindtrails.domain.Participant;
+import org.mindtrails.domain.ScheduledEvent;
 import org.mindtrails.domain.tango.OrderResponse;
 import org.mindtrails.domain.tracking.GiftLog;
 
@@ -41,7 +42,7 @@ public interface EmailService {
      * @param email The email object should have a type, subject, address, and context.  If a
      *              participant is specified, it will be passed on to the view.
      */
-    void sendEmail(Email email) throws MessagingException;
+    void sendEmail(Email email);
 
     /**
      * Returns a list of email messages this system can produce.  Along with
@@ -49,12 +50,12 @@ public interface EmailService {
      * by the admin interface to provide links so custom email messages
      * can be sent out.
      */
-    List<Email> emailTypes();
+    public List<ScheduledEvent> emailTypes();
 
-    /**
-     * Sends an exame email message to an administrator, so they can see what the
-     * recipient will see.
-     */
+        /**
+         * Sends an exame email message to an administrator, so they can see what the
+         * recipient will see.
+         */
     void sendExample(Email email) throws MessagingException;
 
     /**

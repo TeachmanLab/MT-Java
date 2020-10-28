@@ -1,13 +1,18 @@
 package edu.virginia.psyc.templeton.service;
 
 import org.mindtrails.domain.Participant;
+import org.mindtrails.domain.ScheduledEvent;
 import org.mindtrails.domain.Session;
 import org.mindtrails.domain.Study;
 import org.mindtrails.service.TwilioServiceImpl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TempletonTwilioService extends TwilioServiceImpl {
 
-    @Override
+
+
     public String getMessage(Participant p) {
         String message = null;
 
@@ -61,5 +66,10 @@ public class TempletonTwilioService extends TwilioServiceImpl {
             }
         }
         return message;
+    }
+
+    @Override
+    public List<ScheduledEvent> messageTypes() {
+        return new ArrayList<>();
     }
 }

@@ -4,6 +4,7 @@ import edu.virginia.psyc.r34.domain.R34Study;
 import edu.virginia.psyc.r34.persistence.Questionnaire.OA;
 import org.mindtrails.domain.Email;
 import org.mindtrails.domain.Participant;
+import org.mindtrails.domain.ScheduledEvent;
 import org.mindtrails.domain.Session;
 import org.mindtrails.service.EmailService;
 import org.mindtrails.service.EmailServiceImpl;
@@ -11,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
-import edu.virginia.psyc.r34.domain.forms.R34StudyForm;
 
 import javax.mail.MessagingException;
 import java.util.List;
@@ -41,8 +41,8 @@ public class R34EmailService extends EmailServiceImpl implements EmailService {
 
 
     @Override
-    public List<Email> emailTypes() {
-        List<Email> emails = super.emailTypes();
+    public List<ScheduledEvent> emailTypes() {
+        List<ScheduledEvent> emails = super.emailTypes();
         emails.add(new Email(RISING_SCORE, "MindTrails Alert! Participant score is rising"));
         emails.add(new Email(SESSION1, "Bonus feature from the MindTrails team"));
         emails.add(new Email(SESSION2, "Bonus feature from the MindTrails team"));

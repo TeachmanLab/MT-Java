@@ -54,6 +54,8 @@ public class AdminController extends BaseController {
     @Autowired
     private EmailService emailService;
 
+    @Autowired
+    private ScheduledEventService scheduledEventService;
 
     @Autowired
     private TangoService tangoService;
@@ -254,15 +256,15 @@ public class AdminController extends BaseController {
     }
 
 
-    @RequestMapping(value="/listEmails", method=RequestMethod.GET)
-    public String listEmails(ModelMap model, Principal principal) {
+    @RequestMapping(value="/listEvents", method=RequestMethod.GET)
+    public String listEvents(ModelMap model, Principal principal) {
         Participant p = participantService.get(principal);
 
         // group emails by type.
-        List<Email> emails = emailService.emailTypes();
-        Collections.sort(emails, new EmailComparator());
-        model.addAttribute("emails", emails);
-        return "admin/listEmails";
+        List<ScheduledEvent> events = scheduledEventService.getScheduledEvents();
+        Collections.sort(events, new ScheduledEventComparator(p.getStudy()));
+        model.addAttribute("events", events);
+        return "admin/listEvents";
     }
 
     @ExportMode
@@ -289,7 +291,7 @@ public class AdminController extends BaseController {
             email.setContext(new Context());
             emailService.sendExample(email);
         }
-        return "redirect:/admin/listEmails";
+        return "redirect:/admin/listEvents";
     }
 
     @RequestMapping(value="/listSessions", method=RequestMethod.GET)

@@ -6,6 +6,7 @@ import com.google.i18n.phonenumbers.Phonenumber;
 import org.mindtrails.domain.ExportMode;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.RestExceptions.MissingEligibilityException;
+import org.mindtrails.domain.TextMessage;
 import org.mindtrails.domain.VerificationCode;
 import org.mindtrails.domain.forms.ParticipantCreate;
 import org.mindtrails.domain.forms.ParticipantUpdate;
@@ -140,7 +141,8 @@ public class AccountController extends BaseController {
 
         if (participant.isReceiveGiftCards()){
             String code=participant.getVerificationCode().getCode();
-            twilioService.sendMessage(code,participant);
+            TextMessage message = new TextMessage("verificationCode", code);
+            twilioService.sendMessage(message,participant);
             return "redirect:/account/verification";
         }
         return "redirect:/account/theme";
@@ -172,24 +174,30 @@ public class AccountController extends BaseController {
         return "account/changePhone";
     }
 
+    private void sendNewVerificationCode(Participant p) {
+        p.setVerificationCode(new VerificationCode(p));
+        participantService.save(p);
+        String code=p.getVerificationCode().getCode();
+        TextMessage message = new TextMessage("verificationCode", code);
+        twilioService.sendMessage(message,p);
+    }
+
     @ExportMode
     @RequestMapping(value="updateChangePhone",method=RequestMethod.POST)
     public String updatePhone( ModelMap model, Principal principal, String phone) {
         Participant p=participantService.get(principal);
             if(p.getPhone().equals(phone) || participantService.findByPhone(formatPhone(phone)).isEmpty()){
                 p.updatePhone(formatPhone(phone));
-                p.setVerificationCode(new VerificationCode(p));
-                participantService.save(p);
-                String code=p.getVerificationCode().getCode();
-                twilioService.sendMessage("MindTrails Verification Code: " + code,p);
+                sendNewVerificationCode(p);
                 return "redirect:/account/verification";
             }
             else{
                 return "redirect:/account/changePhone";
 
             }
-
     }
+
+
 
 
 //when the user enter a wrong or invalid (>1h) verification code
@@ -240,12 +248,8 @@ public class AccountController extends BaseController {
 
            if(participantService.findByPhone(formatPhone(phone)).isEmpty()||formatPhone(phone).equals(p.getPhone())){
                 p.updatePhone(formatPhone(phone));
-                p.setVerificationCode(new VerificationCode(p));
-                participantService.save(p);
-                String code=p.getVerificationCode().getCode();
-                twilioService.sendMessage(code,p);
+                sendNewVerificationCode(p);
                 return "redirect:/account/verification";
-
             }
             else{
                model.addAttribute("invalidPhone", true);
@@ -277,12 +281,7 @@ public class AccountController extends BaseController {
     @RequestMapping("PostVerification")
     public String PostVerification(@RequestParam(value="verifycode", required=false, defaultValue="NAN") String verifycode,ModelMap model, Principal principal) {
         Participant p = participantService.get(principal);
-
-        p.setReceiveGiftCards(true);
-        p.setVerificationCode(new VerificationCode(p));
-        participantService.save(p);
-        String code=p.getVerificationCode().getCode();
-        twilioService.sendMessage(code,p);
+        sendNewVerificationCode(p);
         return "redirect:/account/verification";
     }
 

@@ -4,6 +4,7 @@ import edu.virginia.psyc.r01.domain.R01Study;
 import edu.virginia.psyc.r01.persistence.OA;
 import org.mindtrails.domain.Email;
 import org.mindtrails.domain.Participant;
+import org.mindtrails.domain.ScheduledEvent;
 import org.mindtrails.domain.Session;
 import org.mindtrails.service.EmailService;
 import org.mindtrails.service.EmailServiceImpl;
@@ -23,8 +24,8 @@ public class R01EmailService extends EmailServiceImpl implements EmailService{
     private String RISING_SCORE = "risingScore";
 
     @Override
-    public List<Email> emailTypes() {
-        List<Email> emails = super.emailTypes();
+    public List<ScheduledEvent> emailTypes() {
+        List<ScheduledEvent> emails = super.emailTypes();
         List<String> core_sessions = Arrays.asList(R01Study.SECOND_SESSION, R01Study.THIRD_SESSION,
                 R01Study.FOURTH_SESSION, R01Study.FIFTH_SESSION);
 
@@ -89,7 +90,7 @@ public class R01EmailService extends EmailServiceImpl implements EmailService{
                 R01Study.STUDY_EXTENSIONS.GIDI.name(), R01Study.POST_FOLLOWUP, 150, Email.SCHEDULE_TYPE.SINCE_COMPLETION, false));
 
         // Check that all the emails exist, and set this on the Email object.
-        for(Email email: emails) {
+        for(ScheduledEvent email: emails) {
             email.setTemplateExists(this.emailTemplateExists(email.getType()));
         }
 

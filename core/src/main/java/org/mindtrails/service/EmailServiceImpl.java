@@ -11,14 +11,11 @@ import net.fortuna.ical4j.util.FixedUidGenerator;
 import net.fortuna.ical4j.util.MapTimeZoneCache;
 import net.fortuna.ical4j.util.RandomUidGenerator;
 import net.fortuna.ical4j.util.UidGenerator;
-import org.joda.time.DateTime;
-import org.joda.time.Days;
 import org.mindtrails.domain.*;
 import org.mindtrails.domain.tango.ExchangeRates;
 import org.mindtrails.domain.tango.OrderResponse;
 import org.mindtrails.domain.tracking.EmailLog;
 import org.mindtrails.domain.tracking.GiftLog;
-import org.mindtrails.domain.tracking.TaskLog;
 import org.mindtrails.persistence.ParticipantRepository;
 import org.mindtrails.persistence.TaskLogRepository;
 import org.slf4j.Logger;
@@ -85,8 +82,8 @@ public class EmailServiceImpl implements EmailService {
     @Value("${email.admin}")
     protected String adminTo;
 
-    public List<Email> emailTypes() {
-        List<Email> emails = new ArrayList<>();
+    public List<ScheduledEvent> emailTypes() {
+        List<ScheduledEvent> emails = new ArrayList<>();
         // These are EVENT based emails that are called out
         emails.add(new Email("resetPass", "MindTrails - Account Request"));
         emails.add(new Email("alertAdmin", "MindTrails Alert!"));
@@ -98,8 +95,8 @@ public class EmailServiceImpl implements EmailService {
     }
 
     public Email getEmailForType(String type) {
-        for (Email e : emailTypes()) {
-            if (e.getType().equals(type)) return e;
+        for (ScheduledEvent e : emailTypes()) {
+            if (e.getType().equals(type)) return (Email)e;
         }
         throw new RuntimeException("Unknown Email type:" + type);
     }
@@ -244,40 +241,6 @@ public class EmailServiceImpl implements EmailService {
         sendEmail(email);
     }
 
-    @ExportMode
-    @Scheduled(cron = "0 0 16 * * *")  // schedules task for 2:00am every day.
-    @Transactional(propagation= Propagation.REQUIRED, readOnly=false, noRollbackFor=Exception.class)
-    public void sendEmailReminder() {
-        List<Participant> participants;
-
-        participants = participantRepository.findAll();
-
-        for (Participant participant : participants) {
-            try {
-                Email email = getEmailToSend(participant);
-                if (email != null) {
-                    email.setTo(participant.getEmail());
-                    email.setParticipant(participant);
-                    email.setContext(new Context());
-                    sendEmail(email);
-                    // Mark the user as inactive if they are about to get a closure email.
-                    if (email.getType() != null && email.getType().equals("closure")) {
-                        participant.setActive(false);
-                        LOG.info("Marking participant #" + participant.getId() + " as inactive.");
-                        participantRepository.save(participant);
-                    }
-                }
-
-            } catch(Exception e) {
-                LOG.error("Error calculating email for " +
-                            participant.getId() + " --> " + e.getMessage());
-                e.printStackTrace();
-            }
-        }
-
-    }
-
-
 
     @ExportMode
     @Scheduled(cron = "0 0 * * * *")   // Runs every hour.
@@ -318,77 +281,6 @@ public class EmailServiceImpl implements EmailService {
                 return true;
         }
         return false;
-    }
-
-    /**
-     * Given a participant, determines which email to send that
-     * participant.  In no email should be sent at this time, then
-     * it returns null.  In the future we should consider abstracting
-     * out individual emails into classes and have those classes
-     * determine if an email should be sent or not.  But the logic
-     * here is still pretty simple, so I'm consolidating that code here.
-     *
-     * @param p
-     * @return
-     */
-    public Email getEmailToSend(Participant p) {
-        // Never send more than one email a day.  (do we want to keep this?)
-        if (p.daysSinceLastEmail() < 2) return null;
-
-        // Never send email to an inactive participant;
-        if (!p.isActive()) return null;
-
-        Study study = p.getStudy();
-
-        // Don't send emails if they are all done.
-        if (study.getState().equals(Study.STUDY_STATE.ALL_DONE)) return null;
-
-        int daysSinceLastMilestone = p.daysSinceLastMilestone();
-
-        Email emailToSend = null;
-        for(Email email: emailTypes()) {
-
-            // If a study extension is set, respect it.
-            if(email.getStudyExtension() != null && email.getStudyExtension() != p.getStudy().getStudyExtension()) {
-                continue;
-            }
-
-            Session currentSession = study.getCurrentSession();
-            if(email.getSessions().contains(currentSession.getName())) {
-                // This email refers to this session.
-                if (email.getScheduleType().equals(Email.SCHEDULE_TYPE.INACTIVITY) &&
-                        email.getDays().contains(daysSinceLastMilestone)) {
-                    emailToSend = email;
-                    break;
-                }
-            }
-            if (email.getScheduleType().equals(Email.SCHEDULE_TYPE.SINCE_COMPLETION)) {
-                for(String sessionName : email.getSessions()) {
-                    int days = daysSinceCompletion(study, sessionName);
-                    if(email.getDays().contains(days)) {
-                        emailToSend = email;
-                        break;
-                    }
-                }
-            }
-        }
-        // If this email should include a calendar invite, and the participant set a return date,
-        // set the date on the email
-        if(emailToSend != null && emailToSend.isIncludeCalendarInvite() && p.getReturnDate() != null) {
-            emailToSend.setCalendarDate(p.getReturnDate());
-        }
-
-        return(emailToSend);
-    }
-
-    public int daysSinceCompletion(Study study, String sessionName) {
-        TaskLog log = taskLogRepository.findByStudyAndSessionNameAndTaskName(study, sessionName, TaskLog.SESSION_COMPLETE);
-        if(log != null) {
-            return Days.daysBetween(new DateTime(log.getDateCompleted()), new DateTime()).getDays();
-        } else {
-            return -1;
-        }
-
     }
 
 
