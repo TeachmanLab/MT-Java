@@ -37,7 +37,7 @@ public class KaiserAccountController extends BaseController {
 
             // In case of Kaiser study, store condition as session attribute then
             // continue into regular account creation method in the AccountController
-            session.setAttribute("condition", KaiserStudy.conditionMappings.get(condition));
+            session.setAttribute("condition", KaiserStudy.conditionMappings.get(condition).name());
             LOG.info("Condition is " + session.getAttribute("condition"));
             return "redirect:/account/create";
         }

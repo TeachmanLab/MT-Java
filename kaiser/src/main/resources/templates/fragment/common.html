@@ -547,15 +547,17 @@
                 });
             });
 
-
             // Coaching opt-in page display
-            $('#wantsCoaching').click(function () {
+            // For radio buttons, Thymeleaf has appended a "1" to the first selection option's id, which is why we
+            // specify "#wantsCoaching1" here.
+            $('#wantsCoaching1').click(function () {
+                console.log('wants coaching');
                 $('#wantsCoachingStatement').show();
             });
-            $('#declinesCoaching').click(function () {
+
+            $('#wantsCoaching2').click(function () {
                 $('#wantsCoachingStatement').hide();
             });
-
         });
     </script>
 </div>

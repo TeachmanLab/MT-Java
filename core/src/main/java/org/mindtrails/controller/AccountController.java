@@ -131,6 +131,8 @@ public class AccountController extends BaseController {
         }
         catch(Exception e) {
             // TODO - any reason to add message here?
+            LOG.error("Unable to set participant study conditioning");
+            LOG.error(e.getMessage());
         }
 
         // Be sure to call saveNew rather than save, allowing
