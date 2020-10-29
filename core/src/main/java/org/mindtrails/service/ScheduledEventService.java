@@ -134,9 +134,6 @@ public class ScheduledEventService {
                 !event.getStudyExtension().equals(participant.getStudy().getStudyExtension()))
             return false;
 
-        // Has this event already caused a notification to the participant in the past?
-        if (alreadySentToParticipant(event, participant)) return false;
-
         // If this event is based on inactivity for the current session ....
         Session currentSession = participant.getStudy().getCurrentSession();
         if (event.getScheduleType().equals(ScheduledEvent.SCHEDULE_TYPE.INACTIVITY) &&
@@ -158,16 +155,6 @@ public class ScheduledEventService {
         return false;
     }
 
-    protected boolean alreadySentToParticipant(ScheduledEvent event, Participant participant) {
-        // Has this event already occurred in the past?
-        if (event instanceof Email) {
-            if (emailLogRepository.countByEmailTypeAndParticipant(event.getType(), participant) > 0) return true;
-        }
-        if (event instanceof TextMessage) {
-            if (smsLogRepository.countByTypeAndParticipant(event.getType(), participant) > 0) return true;
-        }
-        return false;
-    }
 
     protected int daysSinceCompletion(Study study, String sessionName) {
         TaskLog log = taskLogRepository.findByStudyAndSessionNameAndTaskName(study, sessionName, TaskLog.SESSION_COMPLETE);
