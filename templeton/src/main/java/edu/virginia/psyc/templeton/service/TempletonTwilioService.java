@@ -1,7 +1,7 @@
 package edu.virginia.psyc.templeton.service;
 
 import org.mindtrails.domain.Participant;
-import org.mindtrails.domain.ScheduledEvent;
+import org.mindtrails.domain.Scheduled.ScheduledEvent;
 import org.mindtrails.domain.Session;
 import org.mindtrails.domain.Study;
 import org.mindtrails.service.TwilioServiceImpl;

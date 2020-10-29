@@ -6,7 +6,7 @@ import com.google.i18n.phonenumbers.Phonenumber;
 import org.mindtrails.domain.ExportMode;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.RestExceptions.MissingEligibilityException;
-import org.mindtrails.domain.TextMessage;
+import org.mindtrails.domain.Scheduled.TextMessage;
 import org.mindtrails.domain.VerificationCode;
 import org.mindtrails.domain.forms.ParticipantCreate;
 import org.mindtrails.domain.forms.ParticipantUpdate;

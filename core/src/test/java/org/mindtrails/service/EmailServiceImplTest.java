@@ -13,6 +13,8 @@ import org.junit.runner.RunWith;
 import org.mindtrails.Application;
 import org.mindtrails.MockClasses.TestStudy;
 import org.mindtrails.domain.*;
+import org.mindtrails.domain.Scheduled.Email;
+import org.mindtrails.domain.Scheduled.ScheduledEvent;
 import org.mindtrails.domain.tango.OrderResponse;
 import org.mindtrails.domain.tracking.EmailLog;
 import org.mindtrails.domain.tracking.GiftLog;

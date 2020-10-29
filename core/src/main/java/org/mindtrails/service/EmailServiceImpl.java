@@ -12,6 +12,8 @@ import net.fortuna.ical4j.util.MapTimeZoneCache;
 import net.fortuna.ical4j.util.RandomUidGenerator;
 import net.fortuna.ical4j.util.UidGenerator;
 import org.mindtrails.domain.*;
+import org.mindtrails.domain.Scheduled.Email;
+import org.mindtrails.domain.Scheduled.ScheduledEvent;
 import org.mindtrails.domain.tango.ExchangeRates;
 import org.mindtrails.domain.tango.OrderResponse;
 import org.mindtrails.domain.tracking.EmailLog;
@@ -88,9 +90,7 @@ public class EmailServiceImpl implements EmailService {
         emails.add(new Email("resetPass", "MindTrails - Account Request"));
         emails.add(new Email("alertAdmin", "MindTrails Alert!"));
         emails.add(new Email("giftCard", "Your E-Gift Card!"));
-        emails.add(new Email("debrief", "Explanation of the MindTrails Study"));
         emails.add(new Email("midSessionStop", "Incomplete Session Notice from the MindTrails Project Team"));
-        emails.add(new Email("closure", "Closure of Account in the MindTrails Study"));
         return  emails;
     }
 

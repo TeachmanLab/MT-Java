@@ -8,7 +8,9 @@ import org.junit.runner.RunWith;
 import org.mindtrails.Application;
 import org.mindtrails.MockClasses.TestDevice;
 import org.mindtrails.MockClasses.TestStudy;
-import org.mindtrails.domain.*;
+import org.mindtrails.domain.Participant;
+import org.mindtrails.domain.Scheduled.*;
+import org.mindtrails.domain.Study;
 import org.mindtrails.domain.tracking.EmailLog;
 import org.mindtrails.domain.tracking.TaskLog;
 import org.mindtrails.persistence.ParticipantRepository;
@@ -369,6 +371,41 @@ public class ScheduledEventServiceTest {
         events = scheduledEventService.getEventsForParticipant(participant);
         assertEquals(0, events.size());
     }
+
+    @Test
+    public void testInactiveEventCorrectlyFires() {
+        participant.setEmail("testInactiveEventCorrectlyFires@test.com");
+        participant.setEmailReminders(false);
+        participant.setPhoneReminders(false);
+        participant.setLastLoginDate(xDaysAgo(18));
+        participant.getStudy().setStudyExtension("tet");
+        participantRepository.save(participant);
+        List<ScheduledEvent> events = scheduledEventService.getEventsForParticipant(participant);
+        assertEquals(1, events.size());
+        assertTrue(events.get(0) instanceof MarkInactiveEvent);
+        events.get(0).execute(participant, null, null);
+        assertEquals(false, participant.isActive());
+        events = scheduledEventService.getEventsForParticipant(participant);
+        assertEquals(0, events.size());
+    }
+
+    @Test
+    public void testForceSessionFires() {
+        participant.setEmail("testForceSessionFires@test.com");
+        participant.setEmailReminders(false);
+        participant.setPhoneReminders(false);
+        participant.setLastLoginDate(xDaysAgo(18));
+        participant.getStudy().setStudyExtension("gidi"); // event is gidi only
+        participantRepository.save(participant);
+        List<ScheduledEvent> events = scheduledEventService.getEventsForParticipant(participant);
+        assertEquals(1, events.size());
+        assertTrue(events.get(0) instanceof ForceSessionEvent);
+        events.get(0).execute(participant, null, null);
+        assertEquals("PostSession", participant.getStudy().getCurrentSession().getName());
+        events = scheduledEventService.getEventsForParticipant(participant);
+        assertEquals(0, events.size());
+    }
+
 
 
 }

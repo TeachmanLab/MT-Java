@@ -1,6 +1,9 @@
-package org.mindtrails.domain;
+package org.mindtrails.domain.Scheduled;
 
 import lombok.Data;
+import org.mindtrails.domain.Participant;
+import org.mindtrails.service.EmailService;
+import org.mindtrails.service.TwilioService;
 import org.thymeleaf.context.Context;
 
 import java.util.Collections;
@@ -60,8 +63,16 @@ public class Email extends ScheduledEvent {
         this.includeCalendarInvite = includeCalendarInvite;
     }
 
-    public String content() {
+    @Override
+    public String getDescription() {
         return subject;
     }
+
+    @Override
+    public void execute(Participant p, EmailService emailService,
+                                 TwilioService twilioService) {
+        emailService.sendEmail(this);
+    }
+
 
 }

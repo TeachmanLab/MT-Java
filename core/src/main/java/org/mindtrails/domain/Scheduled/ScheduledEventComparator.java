@@ -1,6 +1,7 @@
-package org.mindtrails.domain;
+package org.mindtrails.domain.Scheduled;
 
 import org.apache.commons.lang3.builder.CompareToBuilder;
+import org.mindtrails.domain.Study;
 
 import java.util.Comparator;
 import java.util.List;

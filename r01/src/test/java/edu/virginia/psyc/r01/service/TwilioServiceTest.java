@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mindtrails.domain.Participant;
-import org.mindtrails.domain.ScheduledEvent;
+import org.mindtrails.domain.Scheduled.ScheduledEvent;
 import org.mindtrails.persistence.ParticipantRepository;
 import org.mindtrails.service.ScheduledEventService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +73,7 @@ public class TwilioServiceTest {
         participant.setLastLoginDate(xDaysAgo(21));
         participant.getStudy().forceToSession("secondSession");
         List<ScheduledEvent> events = scheduledEventService.getEventsForParticipant(participant);
-        assert(events.get(0).content().startsWith("MindTrails account closed."));
+        assert(events.get(0).getDescription().startsWith("MindTrails account closed."));
     }
 
     @Test

@@ -6,7 +6,7 @@ import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
 import lombok.Data;
 import org.mindtrails.domain.Participant;
-import org.mindtrails.domain.TextMessage;
+import org.mindtrails.domain.Scheduled.TextMessage;
 import org.mindtrails.domain.tracking.SMSLog;
 import org.mindtrails.persistence.ParticipantRepository;
 import org.slf4j.Logger;

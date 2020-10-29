@@ -7,6 +7,9 @@ import org.joda.time.DateTimeZone;
 import org.joda.time.Days;
 import org.joda.time.Interval;
 import org.mindtrails.domain.*;
+import org.mindtrails.domain.Scheduled.Email;
+import org.mindtrails.domain.Scheduled.ScheduledEvent;
+import org.mindtrails.domain.Scheduled.TextMessage;
 import org.mindtrails.domain.tracking.TaskLog;
 import org.mindtrails.persistence.EmailLogRepository;
 import org.mindtrails.persistence.ParticipantRepository;
@@ -76,13 +79,8 @@ public class ScheduledEventService {
             if (!timeToSendMessage(participant)) continue;
             List<ScheduledEvent> events = getEventsForParticipant(participant);
             for (ScheduledEvent event : events) {
-                if (event instanceof Email) {
-                    twilioService.sendMessage((TextMessage) event, participant);
-                } else if (event instanceof TextMessage) {
-                    emailService.sendEmail((Email) event);
-                }
-                // todo: Handle and log errors
-                // todo: HANDLE Closure event and other non-notifiactions, mark as inactive
+                event.execute(participant, emailService, twilioService);
+                participantRepository.save(participant);
             }
         }
     }
@@ -107,6 +105,8 @@ public class ScheduledEventService {
                     if (participant.daysSinceLastSMSMessage() < 2) continue;
                     TextMessage tm = (TextMessage)event;
                     if (tm.getOnlyIfNoEmails() && participant.isEmailReminders()) continue;
+                    currentEvents.add(event);
+                } else {
                     currentEvents.add(event);
                 }
             }
@@ -134,7 +134,7 @@ public class ScheduledEventService {
                 !event.getStudyExtension().equals(participant.getStudy().getStudyExtension()))
             return false;
 
-        // Has this event already caused a notification to the particpant in the past?
+        // Has this event already caused a notification to the participant in the past?
         if (alreadySentToParticipant(event, participant)) return false;
 
         // If this event is based on inactivity for the current session ....

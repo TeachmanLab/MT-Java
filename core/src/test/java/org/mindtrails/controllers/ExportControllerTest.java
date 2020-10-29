@@ -19,8 +19,8 @@ import org.mindtrails.MockClasses.TestUndeleteableRepository;
 import org.mindtrails.controller.ExportController;
 import org.mindtrails.controller.QuestionController;
 import org.mindtrails.domain.Participant;
-import org.mindtrails.domain.data.DoNotDelete;
 import org.mindtrails.domain.RestExceptions.NotDeleteableException;
+import org.mindtrails.domain.data.DoNotDelete;
 import org.mindtrails.domain.importData.Scale;
 import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 import org.mindtrails.service.ImportService;
@@ -35,9 +35,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MvcResult;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.hamcrest.CoreMatchers.hasItem;
@@ -46,7 +47,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.beans.HasPropertyWithValue.hasProperty;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -321,11 +323,11 @@ public class ExportControllerTest extends BaseControllerTest {
 
         List data =  exportController.listData("TestUndeleteable",
                 DateTime.now().minus(Hours.hours(1)).toDate());
-        assertEquals(1, data.size());
+        int orig_count = data.size();
 
         data =  exportController.listData("TestUndeleteable",
                 DateTime.now().minus(Days.days(10)).toDate());
-        assertEquals(2, data.size());
+        assertEquals(orig_count + 1, data.size());
 
     }
 

@@ -2,7 +2,8 @@ package edu.virginia.psyc.r01.service;
 
 
 import edu.virginia.psyc.r01.domain.R01Study;
-import org.mindtrails.domain.*;
+import org.mindtrails.domain.Scheduled.ScheduledEvent;
+import org.mindtrails.domain.Scheduled.TextMessage;
 import org.mindtrails.service.TwilioService;
 import org.mindtrails.service.TwilioServiceImpl;
 import org.springframework.stereotype.Service;

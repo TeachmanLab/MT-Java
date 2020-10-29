@@ -1,7 +1,7 @@
 package org.mindtrails.MockClasses;
 
-import org.mindtrails.domain.ScheduledEvent;
-import org.mindtrails.domain.TextMessage;
+import org.mindtrails.domain.Scheduled.ScheduledEvent;
+import org.mindtrails.domain.Scheduled.TextMessage;
 import org.mindtrails.service.TwilioService;
 import org.mindtrails.service.TwilioServiceImpl;
 import org.springframework.stereotype.Service;

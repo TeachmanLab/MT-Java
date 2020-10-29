@@ -1,8 +1,8 @@
 package org.mindtrails.service;
 
 import org.mindtrails.domain.Participant;
-import org.mindtrails.domain.ScheduledEvent;
-import org.mindtrails.domain.TextMessage;
+import org.mindtrails.domain.Scheduled.ScheduledEvent;
+import org.mindtrails.domain.Scheduled.TextMessage;
 
 import java.util.List;
 

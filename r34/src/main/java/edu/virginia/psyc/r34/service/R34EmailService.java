@@ -2,9 +2,9 @@ package edu.virginia.psyc.r34.service;
 
 import edu.virginia.psyc.r34.domain.R34Study;
 import edu.virginia.psyc.r34.persistence.Questionnaire.OA;
-import org.mindtrails.domain.Email;
+import org.mindtrails.domain.Scheduled.Email;
 import org.mindtrails.domain.Participant;
-import org.mindtrails.domain.ScheduledEvent;
+import org.mindtrails.domain.Scheduled.ScheduledEvent;
 import org.mindtrails.domain.Session;
 import org.mindtrails.service.EmailService;
 import org.mindtrails.service.EmailServiceImpl;

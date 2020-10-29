@@ -1,18 +1,22 @@
-package org.mindtrails.domain;
+package org.mindtrails.domain.Scheduled;
 
 import lombok.Data;
+import org.mindtrails.domain.Participant;
+import org.mindtrails.service.EmailService;
+import org.mindtrails.service.TwilioService;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
  * Represents an email sent to a participant or admin.
  */
 @Data
-public class ScheduledEvent {
+public abstract class ScheduledEvent {
 
     public enum SCHEDULE_TYPE {EVENT, INACTIVITY, SINCE_COMPLETION}
-    public enum EVENT_TYPE {EMAIL, TEXT, UPDATE}
+    public enum EVENT_TYPE {EMAIL, TEXT, MARK_INACTIVE, FORCE_SESSION}
 
     private EVENT_TYPE eventType;
     private Participant participant;  // participant receiving this email, or that this email is about.
@@ -43,7 +47,37 @@ public class ScheduledEvent {
         this.scheduleType = scheduleType;
     }
 
-    public String content() {
-        return "none";
+    public ScheduledEvent(EVENT_TYPE eventType, String type, String studyExtension,
+                          List<String> sessions,
+                          int days,
+                          SCHEDULE_TYPE scheduleType) {
+        /* Constructs an email that is sent out on a specific schedule, based on inactivity
+           or completion date.
+         */
+        this.eventType = eventType;
+        this.type = type;
+        this.studyExtension = studyExtension;
+        if(sessions != null) { this.sessions = sessions; }
+        this.days = Collections.singletonList(days);
+        this.scheduleType = scheduleType;
     }
+
+
+    /**
+     * Returns a description of this task.
+     * @return
+     */
+    public abstract String getDescription();
+
+    /**
+     * Returns a description of this task.
+     * @return
+     */
+    public abstract void execute(Participant p, EmailService emailService,
+                                 TwilioService twilioService);
+
+
+
+
+
 }

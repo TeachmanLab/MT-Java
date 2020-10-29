@@ -1,12 +1,15 @@
-package org.mindtrails.domain;
+package org.mindtrails.domain.Scheduled;
 
 import lombok.Data;
+import org.mindtrails.domain.Participant;
+import org.mindtrails.service.EmailService;
+import org.mindtrails.service.TwilioService;
 
 import java.util.Collections;
 import java.util.List;
 
 /**
- * Represents an email sent to a participant or admin.
+ * Represents an text message sent to a participant, possibly based on a pre-defined schedule.
  */
 @Data
 public class TextMessage extends ScheduledEvent {
@@ -38,8 +41,16 @@ public class TextMessage extends ScheduledEvent {
         this.onlyIfNoEmails = onlyIfNoEmails;
     }
 
-    public String content() {
+    @Override
+    public String getDescription() {
         return content;
     }
+
+    @Override
+    public void execute(Participant p, EmailService emailService,
+                        TwilioService twilioService) {
+        twilioService.sendMessage(this, p);
+    }
+
 
 }

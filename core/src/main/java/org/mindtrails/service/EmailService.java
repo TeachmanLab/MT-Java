@@ -1,8 +1,8 @@
 package org.mindtrails.service;
 
-import org.mindtrails.domain.Email;
+import org.mindtrails.domain.Scheduled.Email;
 import org.mindtrails.domain.Participant;
-import org.mindtrails.domain.ScheduledEvent;
+import org.mindtrails.domain.Scheduled.ScheduledEvent;
 import org.mindtrails.domain.tango.OrderResponse;
 import org.mindtrails.domain.tracking.GiftLog;
 

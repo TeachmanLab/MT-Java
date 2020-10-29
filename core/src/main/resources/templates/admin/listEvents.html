@@ -23,16 +23,17 @@
         <table class="table table-bordered table-striped">
           <tr>
               <th>Sessions</th>
+              <th>Extension</th>
               <th>Days</th>
               <th>Schedule</th>
               <th>Type</th>
               <th>Template</th>
-              <th>Exists?</th>
-              <th>Subject</th>
-              <th>Extension</th>
+              <th>Description</th>
+              <th>Warnings</th>
           </tr>
           <tr th:each="event: ${events}">
               <td><p th:text="${event.sessions}"></p></td>
+              <td><p th:text="${event.studyExtension}"></p></td>
               <td><p th:text="${event.days}"></p></td>
               <td><p th:text="${event.scheduleType}"></p></td>
               <td><p th:text="${event.eventType}"></p></td>
@@ -43,9 +44,8 @@
                       <span th:if="${event.onlyIfNoEmails}"> (if email disabled)</span>
                   </span>
               </td>
-              <td th:style="${event.templateExists==false} ? 'color: red'"><p th:text="${event.templateExists}"></p></td>
-              <td><p th:text="${event.content()}"></p></td>
-              <td><p th:text="${event.studyExtension}"></p></td>
+              <td><p th:text="${event.getDescription()}"></p></td>
+              <td th:style="${event.templateExists==false} ? 'color: red'"><p th:if="${event.templateExists==false}">Email Template is missing</p></td>
           </tr>
         </table>
 
