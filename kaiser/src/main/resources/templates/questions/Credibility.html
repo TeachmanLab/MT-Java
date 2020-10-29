@@ -19,30 +19,83 @@
         <div class="row">
             <div class="col-md-8">
 
-            <p> In our program, we are helping you change the way you think about common but potentially stressful
-                situations in order to reduce your anxiety. During each session, you will be asked either to read
-                information about anxiety problems and their treatment and then answer questions; or to read brief stories
-                and then complete word fragments by filling in one or more missing letters in a word. These tasks are not
-                meant to be tricky or too difficult.</p>
+                <p> In our program, we are helping you change the way you think about common but potentially stressful
+                    situations in order to reduce your anxiety. During each session, you will be asked to read brief
+                    stories about situations that may generate anxiety and then complete word fragments by filling in
+                    one or more missing letters in a word. These tasks are not
+                    meant to be tricky or too difficult.</p>
 
-            <p> The exercises are designed to help you change the way you make sense of events that may cause anxiety.
-                The program can feel a little repetitive, but <u>the repetition is important so you develop a more balanced thinking
-                style.</u> Don’t worry if you don’t use smartphones or computers much — the tasks are not designed to be
-                difficult, and you can always email questions to the team at <a>studyteam@mindtrails.org</a>.</p>
+                <p> The exercises are designed to help you change the way you make sense of events that may cause
+                    anxiety.
+                    The program can feel a little repetitive, but <u>the repetition is important so you develop a more
+                        balanced thinking
+                        style.</u> Don’t worry if you don’t use smartphones or computers much — the tasks are not
+                    designed to be
+                    difficult, and you can always email questions to the team at <a>studyteam@mindtrails.org</a>.</p>
 
-            <p>This is an experimental program that is still in the testing phase, but prior research suggests this
-                program may be able to reduce anxious thinking as effectively as therapy for some people. We want to determine
-                if it can be helpful for you. If you would like to learn more about the science behind MindTrails,
-                take a look at the "The Science of MindTrails" button at the top of the page.</p>
+                <p>This is an experimental program that is still in the testing phase, but prior research suggests this
+                    program may be able to reduce anxious thinking as effectively as therapy for some people. We want to
+                    determine
+                    if it can be helpful for you. If you would like to learn more about the science behind MindTrails,
+                    take a look at the "The Science of MindTrails" button at the top of the page.</p>
 
-        </div>
+            </div>
         </div>
     </div>
 </section>
 
 
 <section id="content2" class="clearfix">
+
     <form th:action="@{/questions/Credibility}" method="POST" th:object="${model}">
+
+        <div class="container section">
+            <div class="row header">
+                <div class="col-md-12 statement">
+                    <p><b>Would you like your provider(s) notified about your participation in the MindTrails program?</b></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8 side-border">
+                    <div class="radio">
+                        <label class="question"><input type="radio" name="notified" value="1" id="notifiedYes" required="true"
+                                                       onchange="notifiedCheck('notifiedYes')"/>Yes</label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"><input type="radio" name="notified" value="0" required="true"
+                                                       onchange="notifiedCheck('notifiedYes')"/>No</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="radio"><br/>
+                        <label class="question"><input type="radio" name="notified" value="555" required="true"
+                                                       onchange="notifiedCheck('notifiedYes')"/>Prefer not to answer</label>
+                    </div>
+                </div>
+            </div>
+            <div id="providerNameDiv" style="display: none">
+                <div class="row">
+                    <div class="col-md-12 statement" >
+                        <p><b>What is the name of the provider(s) you would like notified?</b></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 side-border">
+                        <div>
+                            <input id="providerName" type="text" name="providerName" class="form-control" required="required" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="radio">
+                            <label id="" class="question"><input type="checkbox" name="providerNameNoAnswer" value="555" id="providerNameNoAnswer"
+                                                                 onclick="toggle('providerNameNoAnswer', 'providerName')"/> Prefer not to answer</label>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <section th:replace="fragment/forms :: radioOptions(${model})"/>
         <div class="col-md-12" style="text-align:center">
             <button type="submit">Next</button>
@@ -64,6 +117,33 @@
 ================================================== -->
 <div th:include="fragment/common :: scripts"/>
 <div th:include="fragment/action_log :: scripts-action-log"/>
+<script>
+
+    function notifiedCheck(id) {
+        if (document.getElementById(id).checked) {
+            $("#providerNameDiv").show();
+        } else {
+            $("#providerNameDiv").hide();
+        }
+    }
+
+    function toggle(toggle, subject) {
+        t = document.getElementById(toggle);
+        s = document.getElementById(subject);
+
+        if (t.checked) {
+            console.log("Is Checked");
+            s.required = false;
+            s.disabled = true;
+            s.value = null;
+        } else {
+            console.log("Not Checked");
+            s.required = true;
+            s.disabled = false;
+        }
+    }
+
+</script>
 
 </body>
 </html>

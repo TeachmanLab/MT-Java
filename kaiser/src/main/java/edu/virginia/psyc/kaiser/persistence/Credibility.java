@@ -24,6 +24,11 @@ import java.util.TreeMap;
 public class Credibility extends LinkedQuestionnaireData {
 
     @NotNull
+    private Integer notified;
+    private String providerName;
+    private Integer providerNameNoAnswer;
+
+    @NotNull
     @MeasureField(order=1, desc="How important is reducing your anxiety to you right now?")
     private Integer important;
     @NotNull
