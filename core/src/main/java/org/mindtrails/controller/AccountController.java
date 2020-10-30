@@ -28,7 +28,6 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
@@ -88,11 +87,7 @@ public class AccountController extends BaseController {
     }
 
     @RequestMapping(value="create", method = RequestMethod.GET)
-    public String createForm (ModelMap model, 
-                              HttpServletRequest request,
-                              HttpSession session) {
-
-        String requestURI = request.getRequestURI();
+    public String createForm (ModelMap model, HttpSession session) {
 
         addAttributesForCreateParticipantForm(model);
         model.addAttribute("participantForm", new ParticipantCreate());
@@ -125,16 +120,6 @@ public class AccountController extends BaseController {
         participant.setReference((String)session.getAttribute("referer"));
         participant.setCampaign((String)session.getAttribute("campaign"));
 
-        // Set conditioning during account creation if Kaiser study
-        try {
-            participant.getStudy().setConditioning((String)session.getAttribute("condition"));
-        }
-        catch(Exception e) {
-            // TODO - any reason to add message here?
-            LOG.error("Unable to set participant study conditioning");
-            LOG.error(e.getMessage());
-        }
-
         // Be sure to call saveNew rather than save, allowing
         // any data associated with the session to get
         // captured.  If this is in the importService mode, then we need to allow
@@ -160,8 +145,8 @@ public class AccountController extends BaseController {
             return "redirect:/account/verification";
         }
 
-        // TODO: Ask Dan if bad to check for string equality here. Not sure if we can access the Kaiser-specific condition settings so this is what I did
-        // TODO: Add check for study type?
+        // This is a bit of hack for a specific study, just trying to hold this together and get it
+        // out he door quickly.
         if (participant.getStudy().getConditioning().equals("CAN_COACH")) {
             return "redirect:/account/coachingOptIn";
         }

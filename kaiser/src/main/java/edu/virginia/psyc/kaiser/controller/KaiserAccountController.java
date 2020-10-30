@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
-import java.util.Arrays;
 
 @Controller
 public class KaiserAccountController extends BaseController {
@@ -21,10 +20,8 @@ public class KaiserAccountController extends BaseController {
     public String setCondition(HttpSession session,
                                final @RequestParam(value = "condition", required = false) String condition) {
 
-//        LOG.info("Yes, Dan you are getting here.");
-//
         if (condition == null || condition.length() == 0) {
-            return "noCondition";
+            return "eligibility";
         }
 
         // Check if one of the six randomization conditions
@@ -32,7 +29,7 @@ public class KaiserAccountController extends BaseController {
         // boolean isAllowableCondition = Arrays.stream(KaiserStudy.CONDITION.values()).anyMatch((t) -> t.name().equals(condition));
         boolean isAllowableCondition = KaiserStudy.conditionMappings.containsKey(condition);
         if (!isAllowableCondition) {
-            return "noCondition";
+            return "eligibility";
         } else {
 
             // In case of Kaiser study, store condition as session attribute then
