@@ -1,27 +1,21 @@
 package edu.virginia.psyc.kaiser.service;
 
 import edu.virginia.psyc.kaiser.Application;
-import edu.virginia.psyc.kaiser.domain.KaiserStudy;
 import edu.virginia.psyc.kaiser.persistence.*;
-import org.joda.time.DateTime;
-import org.joda.time.Period;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mindtrails.domain.Conditions.NoNewConditionException;
-import org.mindtrails.domain.Conditions.RandomCondition;
-import org.mindtrails.domain.Participant;
-import org.mindtrails.persistence.ParticipantRepository;
 import org.mindtrails.domain.Conditions.RandomConditionRepository;
+import org.mindtrails.persistence.ParticipantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+
+import static junit.framework.TestCase.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
@@ -82,6 +76,11 @@ public class KaiserParticipantServiceTest {
         dass.setScared(2);
         dass.setDate(new Date());
         return (dass);
+    }
+
+    @Test
+    public void testSanity() {
+        assertTrue(true);
     }
 
     // @Test
