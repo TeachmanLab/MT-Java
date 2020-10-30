@@ -3,12 +3,12 @@
 
 <form name="f" class="form-horizontal" th:action="@{/account/create}" method="post" th:object="${participantForm}"
       th:fragment="create">
-        <ul>
-            <li th:each="err : ${#fields.errors('*')}" th:text="${err}" class="alert-error">
-                Input is incorrect
-            </li>
-        </ul>
-        <div class="spacer-20px"></div>
+    <ul>
+        <li th:each="err : ${#fields.errors('*')}" th:text="${err}" class="alert-error">
+            Input is incorrect
+        </li>
+    </ul>
+    <div class="spacer-20px"></div>
 
     <div th:fragment="editable">
 
@@ -23,30 +23,12 @@
         </script>
 
         <div class="form-group row">
-            <label class="control-label col-sm-2" for="fullName">First Name</label>
+            <label class="control-label col-sm-2" for="fullName">Nick name</label>
             <div class="col-sm-10">
-                <input class="form-control" type="text" id="firstName" name="firstName" th:errorclass="error"
-                       th:field="*{firstName}"/>
+                <input class="form-control" type="text" id="fullName" name="fullName" th:errorclass="error"
+                       th:field="*{fullName}"/>
             </div>
-            <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Name Error</span>
-        </div>
-
-        <div class="form-group row">
-            <label class="control-label col-sm-2" for="surname">Surname</label>
-            <div class="col-sm-10">
-                <input class="form-control" type="text" id="surname" name="surname" th:errorclass="error"
-                       th:field="*{surname}"/>
-            </div>
-            <span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Name Error</span>
-        </div>
-
-        <div class="birthDate">
-            <label class="control-label col-sm-2" for="birthDate">Date of birth</label>
-            <input type="hidden" id="birthDate" name="birthDate"/>
-            <div class="input-group date">
-                <input id='datepicker' type="text" name="date" class="form-control" required="required" />
-                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-            </div>
+            <span th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">Name Error</span>
         </div>
 
         <div class="form-group row">
@@ -57,8 +39,6 @@
             </div>
             <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</span>
         </div>
-
-
 
         <div class="form-group row">
             <div class="col-sm-2">
@@ -88,7 +68,7 @@
                 <div id="result">
                     <input type="hidden" name="phone" id="hidden_phone" th:field="*{phone}" th:errorclass="error" th:readonly="${verified}" required="true"/>
 
-                <input   name="phone_control" id="phone" type="tel" th:readonly="${verified}" required="true"/>
+                    <input   name="phone_control" id="phone" type="tel" th:readonly="${verified}" required="true"/>
                     <br/>
                     <span class="note" th:if="${verified}">
                        Your phone number has been verified &mdash; please <a href="mailto:studyteam@mindtrails.org">contact the study team</a> if you wish to change your phone number.
@@ -110,7 +90,7 @@
                         input.value = hidden_input.value;
 
                         var iti = window.intlTelInput(input, {
-                                utilsScript:/*[[@{/bower/intl-tel-input/build/js/utils.js}]]*/ "path/to/util.js",
+                            utilsScript:/*[[@{/bower/intl-tel-input/build/js/utils.js}]]*/ "path/to/util.js",
                         });
                         console.log("Utility Script:" + iti.utilsScript)
                         window.intlTelInputGlobals.loadUtils(/*[[@{/bower/intl-tel-input/build/js/utils.js}]]*/ );
@@ -153,7 +133,6 @@
             </div>
             <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Phone Error</span>
         </div>
-
 
         <div class="form-group row">
             <div class="col-sm-2">
@@ -200,6 +179,21 @@
         </div>
 
     </div>
+    <div class="form-group row" th:if="${giftcardsEnabled}">
+        <div class="col-sm-2">
+        </div>
+        <div class="custom-control col-sm-10">
+            <label class="col-sm-10 inline-checkbox" >
+
+                <input class="inline-checkbox" type="checkbox" id="receiveGiftCards" name="receiveGiftCards" checked="checked"
+                       th:errorclass="error" th:field="*{receiveGiftCards}" />
+
+                <span class="note">
+                    I’d like to receive gift cards for my participation<br/>(we will send a text message to your phone to verify your identity, this must be completed to receive gift cards.)
+                </span>
+            </label>
+        </div>
+    </div>
 
     <div th:fragment="password">
 
@@ -235,6 +229,16 @@
     </div>
 
     <div class="form-group row">
+        <label class="control-label col-sm-2" for="over18">Over 18</label>
+        <div class="custom-control col-sm-10">
+            <label class="col-sm-10  inline-checkbox">
+                <input class="inline-checkbox" type="checkbox" id="over18" name="over18" th:errorclass="error"
+                       th:field="*{over18}"/>I am over 18
+            </label>
+        </div>
+    </div>
+
+    <div class="form-group row">
         <div class="col-sm-2"></div>
         <div class="custom-control col-sm-10" id="g-recaptcha"></div>
     </div>
@@ -257,20 +261,22 @@
     <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&amp;render=explicit" async="true"
             defer="true"></script>
 
+    <br></br>
     <p><b>By clicking the 'Give Consent and Create Account' button below...</b></p>
 
-    <p> I have read the above and am satisfied with my understanding of the study, its possible benefits, risks, and alternatives.
+    <p style="margin-left:50px">I have read the above and am satisfied with my understanding of the study, its possible benefits, risks, and alternatives.
         My questions about the study have been answered. I hereby voluntarily consent to participate in the research study as described.
         I will be given a copy of this consent form, which includes the Authorization To Use and Disclose Protected Health
         Information and of the attached "Research Participants' Bill of Rights."</p>
 
-    <p> I have read the above and am satisfied with my understanding of the study, its possible benefits, risks, and alternatives.
+    <p style="margin-left:50px">I have read the above and am satisfied with my understanding of the study, its possible benefits, risks, and alternatives.
         My questions about the study have been answered. I hereby voluntarily consent to participate in the research study as described.
         I will be given a copy of this consent form, which includes the Authorization To Use and Disclose Protected Health
         Information and of the attached "Research Participants' Bill of Rights."</p>
 
-    <p> By electronically clicking 'Give Consent and Create Account', I am giving my permission to allow the use and
+    <p style="margin-left:50px">By electronically clicking 'Give Consent and Create Account', I am giving my permission to allow the use and
         disclosure of my PHI for the research study as described above.</p>
+    <br></br>
 
     <div style="text-align: center;">
         <button>Give Consent and Create Account</button>
