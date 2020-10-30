@@ -10,7 +10,6 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /**
@@ -96,6 +95,8 @@ public class KaiserStudy extends BaseStudy {
 
         pretest = new Session (PRE_TEST, "Initial Assessment", 0, 0);
         pretest.setIndex(0);
+        pretest.addTask(new Task("Identity","Your Identify", Task.TYPE.questions, 0 ));
+
         pretest.addTask(new Task("Credibility","How Does MindTrails Work?", Task.TYPE.questions, 0 ));
         
         // TODO: Add Provider Questions (would you like us to tell provider… if yes, who)

@@ -191,26 +191,14 @@ public class KaiserParticipantService extends ParticipantServiceImpl implements 
     @Override
     public void saveNew(Participant p, HttpSession session) throws MissingEligibilityException {
 
+
+
+        // Set the participants condition based on the session attribute.
+        p.getStudy().setConditioning((String)session.getAttribute("condition"));
         save(p); // Just save the participant
 
-        // Generally we would connect any elegibility scores back to the participant at this point,
-        // but kaiser does not have this issue.
-        /*
-        List<DASS21_AS> dass_list = dass21RRepository.findBySessionId(session.getId());
-        if(dass_list.size() < 1) {
-            throw new MissingEligibilityException();
-        }
-        save(p);
-        KaiserStudy study = (KaiserStudy)p.getStudy();
 
-        for (DASS21_AS e : dass_list) {
-            e.setParticipant(p);
-            e.setSession(ELIGIBLE_SESSION);
-            e.setDate(new Date());
-            dass21RRepository.save(e);
-            study.completeEligibility(e);
-        }
-        */
 
+        // Generally we would connect any elegibility scores back to the participant at this point, but kaiser does not have this issue.
     }
 }
