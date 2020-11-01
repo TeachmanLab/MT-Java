@@ -231,12 +231,10 @@ public class SegmentationTest {
                 d.setGender((String)list.get(1));
                 d.setBirthYear(1972);
                 d.setIncome("nothing");
-                d.setPtpReasonOther("nothing");
                 d.setEmploymentStat("nothing");
                 d.setEthnicity("nothing");
                 d.setRace(new ArrayList<>());
                 d.setDate(new Date());
-                d.setPtpReason("nothing");
                 d.setCountry("nothing");
                 d.setMaritalStat("nothing");
                 d.setEducation("nothing");

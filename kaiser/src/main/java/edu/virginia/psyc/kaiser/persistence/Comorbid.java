@@ -36,6 +36,9 @@ public class Comorbid extends LinkedQuestionnaireData {
     @MeasureField(order=5, desc="How often do you have six or more drinks on one occasion?", group="six_or_more")
     private Integer sixOrMore;
 
+    @NotNull
+    private Integer howOftenMarijuana;
+
     @Override
     public Map<String, String> getGroupDescriptions() {
         Map<String, String> desc = new TreeMap<>();

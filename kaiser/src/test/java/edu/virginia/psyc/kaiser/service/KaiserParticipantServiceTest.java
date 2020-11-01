@@ -56,8 +56,6 @@ public class KaiserParticipantServiceTest {
         d.setMaritalStat("bachelor");
         d.setIncome("mostly poor");
         d.setEmploymentStat("gainfully bumming");
-        d.setPtpReason("unsure");
-        d.setPtpReasonOther("unset");
         d.setGender("male");
         d.setRace(new ArrayList<>());
         return d;

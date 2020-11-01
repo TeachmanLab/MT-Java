@@ -11,7 +11,7 @@
 <head th:replace="fragment/common :: headerFragment"/>
 <body>
 <section th:replace="fragment/common :: topFragment"/>
-<section th:replace="fragment/common :: titleBar (title='Mood and Drinking Patterns')"/>
+<section th:replace="fragment/common :: titleBar (title='Drinking and Marijuana Use')"/>
 <textArea th:replace="fragment/common :: questionTemplate"/>
 <section id="content" class="clearfix">
 
@@ -28,6 +28,57 @@
 <form th:action="@{/questions/Comorbid}" method="POST" style="padding-left:30px" th:object="${model}">
     <!-- Add timer -->
     <section th:replace="fragment/forms :: radioOptions(${model})" />
+
+    <div class="container section">
+        <div class="row header">
+            <div class="col-md-12 statement">
+                <p><b>During the past 30 days, how often did you use marijuana in any form?</b></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 side-border">
+                <div class="radio">
+                    <label class="question"><input type="radio" name="howOftenMarijuana" value="0" required="true"/>
+                        Never</label>
+                </div>
+                <div class="radio">
+                    <label class="question"><input type="radio" name="howOftenMarijuana" value="1" required="true"/>
+                        Occasionally, but less than once a week</label>
+                </div>
+                <div class="radio">
+                    <label class="question"><input type="radio" name="howOftenMarijuana" value="2" required="true"/>
+                        About once a week</label>
+                </div>
+                <div class="radio">
+                    <label class="question"><input type="radio" name="howOftenMarijuana" value="3" required="true"/>
+                        Every few days</label>
+                </div>
+                <div class="radio">
+                    <label class="question"><input type="radio" name="howOftenMarijuana" value="4" required="true"/>
+                        Almost every day</label>
+                </div>
+                <div class="radio">
+                    <label class="question"><input type="radio" name="howOftenMarijuana" value="5" required="true"/>
+                        Every day</label>
+                </div>
+                <div class="radio">
+                    <label class="question"><input type="radio" name="howOftenMarijuana" value="6" required="true"/>
+                        Twice a day</label>
+                </div>
+                <div class="radio">
+                    <label class="question"><input type="radio" name="howOftenMarijuana" value="7" required="true"/>
+                        More than twice a day</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="radio"><br/>
+                    <label class="question"><input type="radio" name="howOftenMarijuana" value="555" required="true"/>
+                        Prefer not to answer</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="col-md-12" style="text-align:center">
         <button type="submit">Next</button>
     </div>
