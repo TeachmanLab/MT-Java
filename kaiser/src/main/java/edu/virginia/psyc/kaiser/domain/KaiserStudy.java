@@ -98,8 +98,6 @@ public class KaiserStudy extends BaseStudy {
         pretest.addTask(new Task("Identity","Your Identity", Task.TYPE.questions, 0 ));
 
         pretest.addTask(new Task("Credibility","How Does MindTrails Work?", Task.TYPE.questions, 0 ));
-        
-        // TODO: Add Provider Questions (would you like us to tell provider… if yes, who)
         pretest.addTask(new Task("Demographics","Personal Background", Task.TYPE.questions, 2 ));
         pretest.addTask(new Task("MentalHealthHistory","Mental Health and Treatment History", Task.TYPE.questions, 2 ));
         pretest.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
@@ -107,14 +105,10 @@ public class KaiserStudy extends BaseStudy {
         pretest.addTask(new Task("AnxietyTriggers","Anxiety Triggers", Task.TYPE.questions, 0 ));
         pretest.addTask(new Task("recognitionRatings", "Completing Short Stories", Task.TYPE.angular, 5));
         pretest.addTask(new Task("RR","Completing Short Stories, Pt. 2", Task.TYPE.questions, 0 ));
-        pretest.addTask(new Task("BBSIQ","Why Things Happen", Task.TYPE.questions, 0 ));
-
-        // TODO: Include marijuana items
+        //pretest.addTask(new Task("BBSIQ","Why Things Happen", Task.TYPE.questions, 0 ));
         pretest.addTask(new Task("Comorbid","Mood, Drinking, and Marijuana Use", Task.TYPE.questions, 0 ));
         pretest.addTask(new Task("Wellness","What I Believe", Task.TYPE.questions, 0 ));
         pretest.addTask(new Task("Mechanisms","How I Respond", Task.TYPE.questions, 0 ));
-
-        // TODO: Ensure this is shorter version
         pretest.addTask(new Task("Covid19","COVID-19", Task.TYPE.questions, 0 ));
         pretest.addTask(new Task("TechnologyUse", "Technology Use", Task.TYPE.questions, 0));
 
@@ -162,13 +156,9 @@ public class KaiserStudy extends BaseStudy {
         session3.addTask(new Task("DASS21_AS","Mood Assessment", Task.TYPE.questions, 0 ));
         session3.addTask(new Task("recognitionRatings", "Completing Short Stories", Task.TYPE.angular, 5));
         session3.addTask(new Task("RR","Completing Short Stories, Pt. 2", Task.TYPE.questions, 0 ));
-      
-        // TODO: Include marijuana items
         session3.addTask(new Task("Comorbid","Mood, Drinking, and Marijuana Use", Task.TYPE.questions, 0 ));
         session3.addTask(new Task("Wellness","What I Believe", Task.TYPE.questions, 0 ));
         session3.addTask(new Task("Mechanisms","How I Respond", Task.TYPE.questions, 0 ));
-        
-        // TODO: Ensure this is shorter version
         session3.addTask(new Task("Covid19","COVID-19", Task.TYPE.questions, 0 ));
         session3.addTask(new Task("ReturnIntention","Returning to the Program", Task.TYPE.questions, 0));
 
@@ -198,13 +188,9 @@ public class KaiserStudy extends BaseStudy {
         session5.addTask(new Task("DASS21_AS","Mood Assessment", Task.TYPE.questions, 0 ));
         session5.addTask(new Task("RR","Completing Short Stories, Pt. 2", Task.TYPE.questions, 0 ));
         session5.addTask(new Task("recognitionRatings", "Completing Short Stories", Task.TYPE.angular, 5));
-        
-        // TODO: Include marijuana items
         session5.addTask(new Task("Comorbid","Mood, Drinking, and Marijuana Use", Task.TYPE.questions, 0 ));
         session5.addTask(new Task("Wellness","What I Believe", Task.TYPE.questions, 0 ));
         session5.addTask(new Task("Mechanisms","How I Respond", Task.TYPE.questions, 0 ));
-
-         // TODO: Ensure this is shorter version
         session5.addTask(new Task("Covid19","COVID-19", Task.TYPE.questions, 0 ));
         session5.addTask(new Task("HelpSeeking","Change in Help-Seeking Behavior", Task.TYPE.questions, 1));
         
@@ -228,14 +214,9 @@ public class KaiserStudy extends BaseStudy {
         post.addTask(new Task("DASS21_AS","Mood Assessment", Task.TYPE.questions, 0 ));
         post.addTask(new Task("recognitionRatings", "Completing Short Stories", Task.TYPE.angular, 5));
         post.addTask(new Task("RR","Completing Short Stories, Pt. 2", Task.TYPE.questions, 0 ));
-
-        
-        // TODO: Include marijuana items
         post.addTask(new Task("Comorbid","Mood, Drinking, and Marijuana Use", Task.TYPE.questions, 0 ));
         post.addTask(new Task("Wellness","What I Believe", Task.TYPE.questions, 0 ));
         post.addTask(new Task("Mechanisms","How I Respond", Task.TYPE.questions, 0 ));
-
-        // TODO: Ensure this is shorter version
         post.addTask(new Task("Covid19","COVID-19", Task.TYPE.questions, 0 ));
         post.addTask(new Task("HelpSeeking","Change in Help-Seeking Behavior", Task.TYPE.questions, 1));
         sessions.add(post);
