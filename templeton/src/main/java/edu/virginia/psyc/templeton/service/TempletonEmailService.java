@@ -2,8 +2,9 @@ package edu.virginia.psyc.templeton.service;
 
 import edu.virginia.psyc.templeton.domain.TempletonStudy;
 import edu.virginia.psyc.templeton.persistence.ExpectancyBias;
-import org.mindtrails.domain.Email;
+import org.mindtrails.domain.Scheduled.Email;
 import org.mindtrails.domain.Participant;
+import org.mindtrails.domain.Scheduled.ScheduledEvent;
 import org.mindtrails.domain.Session;
 import org.mindtrails.service.EmailService;
 import org.mindtrails.service.EmailServiceImpl;
@@ -26,8 +27,8 @@ public class TempletonEmailService extends EmailServiceImpl implements EmailServ
     private String FOURTH_SESSION = "SESSION4";
 
     @Override
-    public List<Email> emailTypes() {
-        List<Email> emails = super.emailTypes();
+    public List<ScheduledEvent> emailTypes() {
+        List<ScheduledEvent> emails = super.emailTypes();
         emails.add(new Email("day2", "Update from the MindTrails project team"));
         emails.add(new Email("day4", "Update from the MindTrails project team"));
         emails.add(new Email("day7", "Important reminder from the MindTrails project team"));

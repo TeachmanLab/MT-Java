@@ -87,6 +87,17 @@ public abstract class BaseStudy implements Study {
         return sessions;
     }
 
+    @Override
+    @JsonIgnore
+    public List<String> getSessionNames() {
+        List<Session> sessions = getStatelessSessions();
+        List<String> sessionNames = new ArrayList<>();
+        for(Session s : sessions) {
+            sessionNames.add(s.getName());
+        }
+        return sessionNames;
+    }
+
 
     /**
      * This should return a full list of sessions that define the study, but
