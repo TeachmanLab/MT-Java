@@ -2,15 +2,16 @@ package edu.virginia.psyc.kaiser.service;
 
 import edu.virginia.psyc.kaiser.domain.KaiserStudy;
 import edu.virginia.psyc.kaiser.persistence.OA;
-import org.mindtrails.domain.Email;
 import org.mindtrails.domain.Participant;
-import org.mindtrails.domain.Session;
+import org.mindtrails.domain.Scheduled.Email;
+import org.mindtrails.domain.Scheduled.MarkInactiveEvent;
+import org.mindtrails.domain.Scheduled.ScheduledEvent;
 import org.mindtrails.service.EmailService;
 import org.mindtrails.service.EmailServiceImpl;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 
-import java.util.Date;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -24,21 +25,52 @@ public class KaiserEmailService extends EmailServiceImpl implements EmailService
     private String RISING_SCORE = "risingScore";
 
     @Override
-    public List<Email> emailTypes() {
-        List<Email> emails = super.emailTypes();
-        emails.add(new Email("risingScore", "MindTrails Alert! Participant Score Is Rising"));
-        emails.add(new Email("day7", "Update from the MindTrails Project Team"));
-        emails.add(new Email("day10", "Update from the MindTrails Project Team"));
-        emails.add(new Email("day14", "Update from the MindTrails Project Team"));
-        emails.add(new Email("day18", "Important Reminder from the MindTrails Project Team"));
-        emails.add(new Email("followup", "Follow-up Reminder from the MindTrails Project Team"));
-        emails.add(new Email("followup2", "Follow-up Reminder from the MindTrails Project Team"));
-        emails.add(new Email("followup3", "Final Reminder from the MindTrails Project Team"));
-        emails.add(new Email("SESSION1", "Bonus Feature #1 from the MindTrails Project Team"));
-        emails.add(new Email("SESSION2", "Bonus Feature #2 from the MindTrails Project Team"));
-        emails.add(new Email("SESSION3", "Bonus Feature #3 from the MindTrails Project Team"));
-        emails.add(new Email("SESSION4", "Bonus Feature #4 from the MindTrails Project Team"));
-        return emails;
+    public List<ScheduledEvent> emailTypes() {
+        List<ScheduledEvent> events = super.emailTypes();
+        List<String> core_sessions = Arrays.asList(KaiserStudy.SECOND_SESSION, KaiserStudy.THIRD_SESSION,
+                KaiserStudy.FOURTH_SESSION, KaiserStudy.FIFTH_SESSION);
+
+        events.add(new Email("risingScore", "MindTrails Alert! Participant Score Is Rising"));
+        // Bonus feature emails that come at the end of a session.
+        events.add(new Email("SESSION1", "Bonus Feature #1 from the MindTrails Project Team",
+                null, KaiserStudy.FIRST_SESSION, 0, Email.SCHEDULE_TYPE.SINCE_COMPLETION, true));
+        events.add(new Email("SESSION2", "Bonus Feature #2 from the MindTrails Project Team",
+                null, KaiserStudy.SECOND_SESSION, 0, Email.SCHEDULE_TYPE.SINCE_COMPLETION, true));
+        events.add(new Email("SESSION3", "Bonus Feature #3 from the MindTrails Project Team",
+                null, KaiserStudy.THIRD_SESSION, 0, Email.SCHEDULE_TYPE.SINCE_COMPLETION, true));
+        events.add(new Email("SESSION4", "Bonus Feature #4 from the MindTrails Project Team",
+                null, KaiserStudy.FOURTH_SESSION, 0, Email.SCHEDULE_TYPE.SINCE_COMPLETION, true));
+
+        // Reminder emails when users are inactive longer than they should be in the core sessions (2,3,4,5)
+        events.add(new Email("day7", "Update from the MindTrails Project Team",
+                null, core_sessions, 7, Email.SCHEDULE_TYPE.INACTIVITY, false));
+        events.add(new Email("day10", "Update from the MindTrails Project Team",
+                null, core_sessions, 10, Email.SCHEDULE_TYPE.INACTIVITY, false));
+        events.add(new Email("day14", "Update from the MindTrails Project Team",
+                null, core_sessions, 14, Email.SCHEDULE_TYPE.INACTIVITY, false));
+        events.add(new Email("day18", "Important Reminder from the MindTrails Project Team",
+                null, core_sessions, 18, Email.SCHEDULE_TYPE.INACTIVITY, false));
+        events.add(new Email("closure", "Closure of Account in the MindTrails Study",
+                null, core_sessions, 21, Email.SCHEDULE_TYPE.INACTIVITY, false));
+
+        // Close accounts after 21 days of inactivity in core sessions
+        events.add(new MarkInactiveEvent("markInactive", null, core_sessions,
+                21, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY));
+
+        // TET Only Notifications in Followup Session
+        events.add(new Email("followup", "It’s Time to Complete the MindTrails Two Month Follow-Up Survey!",
+                null, KaiserStudy.POST_FOLLOWUP, 60, Email.SCHEDULE_TYPE.INACTIVITY, false));
+
+        events.add(new Email("followup2", "Follow-up Reminder from the MindTrails Project Team",
+                null, KaiserStudy.POST_FOLLOWUP, Arrays.asList(63, 70), Email.SCHEDULE_TYPE.INACTIVITY, false));
+        events.add(new Email("followup3", "We’d love to help!",
+                null, KaiserStudy.POST_FOLLOWUP, 75, Email.SCHEDULE_TYPE.INACTIVITY, false));
+
+        // Close TET account after 120 days of inactivity on the POST_FOLLOWUP
+        events.add(new MarkInactiveEvent("markInactive", null, Arrays.asList(KaiserStudy.POST_FOLLOWUP),
+                120, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY));
+
+        return events;
     }
 
 
@@ -56,92 +88,5 @@ public class KaiserEmailService extends EmailServiceImpl implements EmailService
 
         sendEmail(email);
     }
-
-
-    @Override
-    public String getTypeToSend(Session session, int daysSinceLastMilestone) {
-        String type = null;
-
-        // If they are waiting for 2 days, then remind them
-        // at the end of 2 days, then again after 4,7,11,15, and 18
-        // days since their last session.
-        if(session.getDaysToWait() <= 7) {
-            switch (daysSinceLastMilestone) {
-                case 7:
-                    type = "day7";
-                    break;
-                case 10:
-                    type = "day10";
-                    break;
-                case 14:
-                    type = "day14";
-                    break;
-                case 18:
-                    type = "day18";
-                    break;
-                case 21:
-                    type = "closure";
-                    break;
-            }
-        }
-
-        // Follow up emails are sent out for tasks for delays of
-        // 60 days or more.
-        if(session.getDaysToWait() >= 60) {
-            switch (daysSinceLastMilestone) {
-                case 60:
-                    type = "followup";
-                    break;
-                case 63:
-                    type = "followup2";
-                    break;
-                case 67:
-                    type = "followup2";
-                    break;
-                case 70:
-                    type = "followup2";
-                    break;
-                case 75:
-                    type = "followup3";
-                    break;
-                case 120:
-                    type = "debrief";
-                    break;
-            }
-        }
-        return type;
-
-    }
-
-    @Override
-    public void sendSessionCompletedEmail(Participant participant) {
-        Session currentSession = participant.getStudy().getCurrentSession();
-        Email email = null;
-
-        if(!participant.isActive() || !participant.isEmailReminders())  return;  // Don't send these messages if they should not get them.
-
-        if (currentSession.getName().equals(KaiserStudy.SECOND_SESSION.toString())) {
-            email = new Email("SESSION1","Bonus Feature #1 from the MindTrails Project Team");
-        } else if (currentSession.getName().equals(KaiserStudy.THIRD_SESSION.toString())) {
-            email = new Email("SESSION2","Bonus Feature #2 from the MindTrails Project Team");
-        } else if (currentSession.getName().equals(KaiserStudy.FOURTH_SESSION.toString())) {
-            email = new Email("SESSION3","Bonus Feature #3 from the MindTrails Project Team");
-        } else if (currentSession.getName().equals(KaiserStudy.FIFTH_SESSION.toString())) {
-            email = new Email("SESSION4","Bonus Feature #4 from the MindTrails Project Team");
-        }
-        if (email != null) {
-
-            // If the date the participant is returning is after today, then include a calendar invite
-            // in this follow up email.
-            if(participant.getReturnDate() != null && participant.getReturnDate().after(new Date()))
-                email.setCalendarDate(participant.getReturnDate());
-
-            email.setTo(participant.getEmail());
-            email.setParticipant(participant);
-            email.setContext(new Context());
-            sendEmail(email);
-        }
-    }
-
 
 }

@@ -1,10 +1,9 @@
 package org.mindtrails.domain.tracking;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Data;
+import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.data.DoNotDelete;
 import org.mindtrails.domain.data.Exportable;
-import org.mindtrails.domain.Participant;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -21,6 +20,7 @@ import java.util.Date;
 public class SMSLog extends MindTrailsLog {
 
 
+    private String type;
     private String message;
     private boolean successful = true;
     private String exception = "";

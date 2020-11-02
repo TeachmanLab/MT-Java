@@ -1,65 +1,68 @@
 package edu.virginia.psyc.kaiser.service;
 
 
-import org.mindtrails.domain.Participant;
-import org.mindtrails.domain.Session;
-import org.mindtrails.domain.Study;
+import edu.virginia.psyc.kaiser.domain.KaiserStudy;
+import org.mindtrails.domain.Scheduled.ScheduledEvent;
+import org.mindtrails.domain.Scheduled.TextMessage;
 import org.mindtrails.service.TwilioService;
 import org.mindtrails.service.TwilioServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 @Service
 public class KaiserTwilioService extends TwilioServiceImpl implements TwilioService {
+    public List<ScheduledEvent> messageTypes() {
+        List<ScheduledEvent> messages = new ArrayList<>();
+        List<String> core_sessions = Arrays.asList(
+                KaiserStudy.SECOND_SESSION, KaiserStudy.THIRD_SESSION,
+                KaiserStudy.FOURTH_SESSION, KaiserStudy.FIFTH_SESSION);
 
-    @Override
-    public String getMessage(Participant p) {
-        String message = "";
-        int daysSinceLastMilestone = p.daysSinceLastMilestone();
-        Study study = p.getStudy();
-        Session session = study.getCurrentSession();
 
-        if (session.getDaysToWait() <= 10) {
-            switch (daysSinceLastMilestone) {
-                case 7:
-                    message = "Time to start your next MindTrails Session!  Visit :" + serverUrl;
-                    break;
-                case 10:
-                    message = "Complete your next MindTrails session soon!  Visit :" + serverUrl;
-                    break;
-                case 14:
-                    message = "It has been two weeks since your last MindTrails Session.  Start Now :" + serverUrl;
-                    break;
-                case 18:
-                    message = "Final reminder about your MindTrails Account!  You can start back up here:" + serverUrl;
-                    break;
-                case 21:
-                    message = "MindTrails account closed. Would you mind completing a quick survey?"
-                            + serverUrl + "'/questions/ReasonsForEnding'";
-                    break;
-            }
-        }
+        messages.add(new TextMessage("7day",
+                "Time to start your next MindTrails Session! Visit :" + serverUrl,
+                null, core_sessions, 7, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY, true));
 
-        // Follow up emails are sent out for tasks for delays of
-        // 60 days or more.1
-        if (session.getDaysToWait()  >= 60) {
-            switch (daysSinceLastMilestone) {
-                case 60:
-                    message = "Time to complete the final survey on MindTrails: " + serverUrl;
-                    break;
-                case 63:
-                    message = "Final MindTrails Survey is ready: " + serverUrl;
-                    break;
-                case 67:
-                    message = "Final MindTrails Survey is ready: " + serverUrl;
-                    break;
-                case 70:
-                    message = "Final MindTrails Survey is ready: " + serverUrl;
-                    break;
-                case 75:
-                    message = "Final Request to please complete a final MindTrails survey: " + serverUrl;
-                    break;
-            }
-        }
-        return message;
+        messages.add(new TextMessage("10day",
+                "Complete your next MindTrails session soon! Visit :" + serverUrl,
+                null, core_sessions, 10, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY, true));
+
+        messages.add(new TextMessage("14day",
+                "It has been two weeks since your last MindTrails session.  Start Now :" + serverUrl,
+                null, core_sessions, 14, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY, true));
+
+        messages.add(new TextMessage("18day",
+                "Final reminder about your MindTrails account!  You can start back up here:" + serverUrl,
+                null, core_sessions, 18, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY, true));
+
+        messages.add(new TextMessage("21day",
+                "MindTrails account closed. Would you mind completing a quick survey?"
+                        + serverUrl + "'/questions/ReasonsForEnding'",
+                null, core_sessions, 21, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY, true));
+
+        messages.add(new TextMessage("60day",
+                "The MindTrails 2 month follow-up is ready now! Follow this link to complete: " + serverUrl,
+                null, KaiserStudy.POST_FOLLOWUP, 60, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY, true));
+
+        messages.add(new TextMessage("63day",
+                "Final MindTrails survey is ready: " + serverUrl,
+                null, KaiserStudy.POST_FOLLOWUP, 63, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY, true));
+
+        messages.add(new TextMessage("67day",
+                "Time to complete the MindTrails 2 month follow-up! Follow this link to complete: " + serverUrl,
+                null, KaiserStudy.POST_FOLLOWUP, 67, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY, true));
+
+        messages.add(new TextMessage("70day",
+                "Final MindTrails survey is ready: " + serverUrl,
+                null, KaiserStudy.POST_FOLLOWUP, 70, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY, true));
+
+        messages.add(new TextMessage("75day",
+                "Time to complete the MindTrails 2 month follow-up! Follow this link to complete: " + serverUrl,
+                null, KaiserStudy.POST_FOLLOWUP, 75, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY, true));
+
+        return messages;
     }
 }
+

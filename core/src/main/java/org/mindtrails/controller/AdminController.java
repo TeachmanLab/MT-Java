@@ -1,8 +1,11 @@
 package org.mindtrails.controller;
 
 import lombok.Data;
-import org.mindtrails.domain.*;
 import org.joda.time.DateTime;
+import org.mindtrails.domain.*;
+import org.mindtrails.domain.Scheduled.Email;
+import org.mindtrails.domain.Scheduled.ScheduledEvent;
+import org.mindtrails.domain.Scheduled.ScheduledEventComparator;
 import org.mindtrails.domain.forms.ParticipantCreate;
 import org.mindtrails.domain.forms.ParticipantCreateAdmin;
 import org.mindtrails.domain.forms.ParticipantUpdateAdmin;
@@ -11,11 +14,8 @@ import org.mindtrails.domain.tango.Account;
 import org.mindtrails.domain.tango.Item;
 import org.mindtrails.domain.tango.OrderResponse;
 import org.mindtrails.domain.tracking.ErrorLog;
-
 import org.mindtrails.domain.tracking.GiftLog;
 import org.mindtrails.persistence.*;
-
-import org.mindtrails.domain.userstats;
 import org.mindtrails.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,6 +57,8 @@ public class AdminController extends BaseController {
     @Autowired
     private EmailService emailService;
 
+    @Autowired
+    private ScheduledEventService scheduledEventService;
 
     @Autowired
     private TangoService tangoService;
@@ -257,11 +259,15 @@ public class AdminController extends BaseController {
     }
 
 
-    @RequestMapping(value="/listEmails", method=RequestMethod.GET)
-    public String listEmails(ModelMap model, Principal principal) {
+    @RequestMapping(value="/listEvents", method=RequestMethod.GET)
+    public String listEvents(ModelMap model, Principal principal) {
         Participant p = participantService.get(principal);
-        model.addAttribute("emails", emailService.emailTypes());
-        return "admin/listEmails";
+
+        // group emails by type.
+        List<ScheduledEvent> events = scheduledEventService.getScheduledEvents();
+        Collections.sort(events, new ScheduledEventComparator(p.getStudy()));
+        model.addAttribute("events", events);
+        return "admin/listEvents";
     }
 
     @ExportMode
@@ -288,7 +294,7 @@ public class AdminController extends BaseController {
             email.setContext(new Context());
             emailService.sendExample(email);
         }
-        return "redirect:/admin/listEmails";
+        return "redirect:/admin/listEvents";
     }
 
     @RequestMapping(value="/listSessions", method=RequestMethod.GET)

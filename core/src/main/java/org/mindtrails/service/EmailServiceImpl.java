@@ -12,15 +12,20 @@ import net.fortuna.ical4j.util.MapTimeZoneCache;
 import net.fortuna.ical4j.util.RandomUidGenerator;
 import net.fortuna.ical4j.util.UidGenerator;
 import org.mindtrails.domain.*;
+import org.mindtrails.domain.Scheduled.Email;
+import org.mindtrails.domain.Scheduled.ScheduledEvent;
 import org.mindtrails.domain.tango.ExchangeRates;
 import org.mindtrails.domain.tango.OrderResponse;
 import org.mindtrails.domain.tracking.EmailLog;
 import org.mindtrails.domain.tracking.GiftLog;
 import org.mindtrails.persistence.ParticipantRepository;
+import org.mindtrails.persistence.TaskLogRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.transaction.annotation.Propagation;
@@ -61,6 +66,12 @@ public class EmailServiceImpl implements EmailService {
     @Autowired
     protected ParticipantRepository participantRepository;
 
+    @Autowired
+    protected TaskLogRepository taskLogRepository;
+
+    @Autowired
+    protected ResourceLoader resourceLoader;
+
     @Value("${server.url}")
     protected String siteUrl;
 
@@ -73,24 +84,27 @@ public class EmailServiceImpl implements EmailService {
     @Value("${email.admin}")
     protected String adminTo;
 
-    public List<Email> emailTypes() {
-        List<Email> emails = new ArrayList<>();
+    public List<ScheduledEvent> emailTypes() {
+        List<ScheduledEvent> emails = new ArrayList<>();
+        // These are EVENT based emails that are called out
         emails.add(new Email("resetPass", "MindTrails - Account Request"));
         emails.add(new Email("alertAdmin", "MindTrails Alert!"));
         emails.add(new Email("giftCard", "Your E-Gift Card!"));
-        emails.add(new Email("debrief", "Explanation of the MindTrails Study"));
         emails.add(new Email("midSessionStop", "Incomplete Session Notice from the MindTrails Project Team"));
-        emails.add(new Email("closure", "Closure of Account in the MindTrails Study"));
-        emails.add(new Email("debrief", "Explanation of the MindTrails Study"));
         return  emails;
     }
 
     public Email getEmailForType(String type) {
-        for (Email e : emailTypes()) {
-            if (e.getType().equals(type)) return e;
+        for (ScheduledEvent e : emailTypes()) {
+            if (e.getType().equals(type)) return (Email)e;
         }
         throw new RuntimeException("Unknown Email type:" + type);
     }
+
+    public boolean emailTemplateExists(String type) {
+        Resource resource = resourceLoader.getResource("classpath:/templates/email/" + type + ".html");
+        return resource.exists();
+        }
 
     @Override
     public void sendSessionCompletedEmail(Participant participant) {
@@ -161,7 +175,6 @@ public class EmailServiceImpl implements EmailService {
 
         EmailLog log;
         Participant participant = participantRepository.findOne(email.getParticipant().getId());
-
         if (e == null) LOG.info("Sent an email of type " + email.getType());
         if (e != null) LOG.error("Failed to send an email of type " +
                 email.getType() + "; " + e.getLocalizedMessage());
@@ -228,34 +241,6 @@ public class EmailServiceImpl implements EmailService {
         sendEmail(email);
     }
 
-    @ExportMode
-    @Scheduled(cron = "0 0 16 * * *")  // schedules task for 2:00am every day.
-    @Transactional(propagation= Propagation.REQUIRED, readOnly=false, noRollbackFor=Exception.class)
-    public void sendEmailReminder() {
-        List<Participant> participants;
-
-        participants = participantRepository.findAll();
-
-        for (Participant participant : participants) {
-            try {
-                String type = getTypeToSend(participant);
-                if (type != null) {
-                    Email email = getEmailForType(type);
-                    email.setTo(participant.getEmail());
-                    email.setParticipant(participant);
-                    email.setContext(new Context());
-                    sendEmail(email);
-                }
-            } catch(Exception e) {
-                LOG.error("Error calculating email for " +
-                            participant.getId() + " --> " + e.getMessage());
-                e.printStackTrace();
-            }
-        }
-
-    }
-
-
 
     @ExportMode
     @Scheduled(cron = "0 0 * * * *")   // Runs every hour.
@@ -296,107 +281,6 @@ public class EmailServiceImpl implements EmailService {
                 return true;
         }
         return false;
-    }
-
-    /**
-     * Given a participant, determines which email to send that
-     * participant.  In no email should be sent at this time, then
-     * it returns null.  In the future we should consider abstracting
-     * out individual emails into classes and have those classes
-     * determine if an email should be sent or not.  But the logic
-     * here is still pretty simple, so I'm consolidating that code here.
-     *
-     * @param p
-     * @return
-     */
-    public String getTypeToSend(Participant p) {
-        // Never send more than one email a day.
-        if (p.daysSinceLastEmail() < 2) return null;
-
-        // Never send email to an inactive participant;
-        if (!p.isActive()) return null;
-
-
-        Study study = p.getStudy();
-        Session session = study.getCurrentSession();
-
-        // Don't send emails if they are all done.
-        if (study.getState().equals(Study.STUDY_STATE.ALL_DONE)) return null;
-
-        int days = p.daysSinceLastMilestone();
-
-        // Mark the user as inactive if they are about to get a closure email.
-        String type = getTypeToSend(session, days);
-        if (type != null && type.equals("closure")) {
-            p.setActive(false);
-            LOG.info("Marking participant #" + p.getId() + " as inactive.");
-            participantRepository.save(p);
-        }
-
-        // Don't send emails to those that requested no reminders.
-        if (!p.isEmailReminders()) return null;
-
-        return type;
-
-    }
-
-    public String getTypeToSend(Session session, int daysSinceLastMilestone) {
-        String type = null;
-
-        // If they are waiting for 2 days, then remind them
-        // at the end of 2 days, then again after 4,7,11,15, and 18
-        // days since their last session.
-        if(session.getDaysToWait() <= 2) {
-            switch (daysSinceLastMilestone) {
-                case 1: // noop;
-                    break;
-                case 2:
-                    type = "day2";
-                    break;
-                case 4:
-                    type = "day4";
-                    break;
-                case 7:
-                    type = "day7";
-                    break;
-                case 11:
-                    type = "day11";
-                    break;
-                case 15:
-                    type = "day15";
-                    break;
-                case 18:
-                    type = "closure";
-                    break;
-            }
-        }
-
-        // Follow up emails are sent out for tasks for delays of
-        // 60 days or more.
-        if(session.getDaysToWait() >= 60) {
-            switch (daysSinceLastMilestone) {
-                case 60:
-                    type = "followup";
-                    break;
-                case 63:
-                    type = "followup2";
-                    break;
-                case 67:
-                    type = "followup2";
-                    break;
-                case 70:
-                    type = "followup2";
-                    break;
-                case 75:
-                    type = "followup3";
-                    break;
-                case 120:
-                    type = "debrief";
-                    break;
-            }
-        }
-        return type;
-
     }
 
 
