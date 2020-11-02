@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head th:include="fragment/email :: headerFragment"/>
+
+<body style="font-family: 'Source Sans Pro', sans-serif; font-size:20px; box-sizing:border-box; background-color: #FFF">
+
+<div id="body_style" style="padding:15px">
+
+    <table cellpadding="0" cellspacing="0" width="600" align="center" style="margin-top:20px" th:fragment="logoFragment">
+        <tr>
+            <td width="600">
+                <a th:href="${url}" target="_blank" >
+                    <img src="../../static/images/newsletter/mtheader.png" th:src="${url} + '/images/newsletter/mtheader.png'"
+                         alt="The MindTrails Project" title="MindTrails" style="display:block" border="0"/>
+                </a>
+            </td>
+        </tr>
+    </table>
+
+    <table cellpadding="0" cellspacing="0" width="400" align="center" th:include="fragment/email :: logoFragment"/>
+
+    <table cellpadding="0" cellspacing="0" width="600" align="center" style="margin-top:20px">
+        <tr>
+            <td width="400">
+                <h2 style="margin-top:20px; margin-bottom:10px">Hello from the MindTrails team!</h2>
+                <p  style="margin-top:5px">
+                    While completing the MindTrails study, you might've been wondering: ''Who's behind all this?''
+                </p>
+                <p  style="margin-top:5px">
+                    Well, here's your answer! This newsletter will introduce you to some of the members of the MindTrails team.
+                </p>
+                <p  style="margin-top:5px">
+                    If you have more questions after reading, <b>contact us at</b> <a href="studyteam@mindtrails.org">studyteam@mindtrails.org</a>.
+                </p>
+                <br><br/>
+
+                <h2 style="margin-top:20px; margin-bottom:10px">Meet the MindTrails Team</h2>
+
+                <center>
+                    <img src="../../static/images/newsletter/bethany.jpg" th:src="${url} + '/images/newsletter/bethany.jpg'"
+                         width="200" alt="Bethany_Bio_Pic" title="MindTrails" style="display:block" border="0"/>
+                </center>
+
+                <p  style="margin-top:5px">
+                    <b>Bethany Teachman, Ph.D.</b>, is the Director of MindTrails as well as the Director of Clinical Training and a Professor of Psychology at the University of Virginia. She is a researcher, teacher, mom to two girls, and a licensed clinical psychologist who has been treating anxiety disorders for more than 20 years. Check out her website at <a href="http://teachman.org/index.html">teachman.org</a> and this video of her talking about MindTrails for <a href="https://mindtrails.virginia.edu/video/ignite_mindtrails.mp4.">Ignite Mental Health</a>. P.S. She has seven siblings!
+                </p>
+                <br><br/>
+
+                <center>
+                    <img src="../../static/images/newsletter/dan.png" th:src="${url} + '/images/newsletter/dan.png'"
+                         width="200" alt="Dan_Bio_Pic" title="MindTrails" style="display:block" border="0"/>
+                </center>
+
+                <p  style="margin-top:5px">
+                    <b>Dan Funk</b> is the lead software developer for MindTrails. He also is the founder of Sartography, which is a software development company based in Staunton, Virginia. His mission is to partner with innovators and scientists to create engaging software that improves the health and well-being of our communities. He is also an incredible sandcastle architect!
+                </p>
+                <br><br/>
+
+                <center>
+                    <img src="../../static/images/newsletter/henry.jpg" th:src="${url} + '/images/newsletter/henry.jpg'"
+                         width="150" alt="Henry_Bio_Pic" title="MindTrails" style="display:block" border="0"/>
+                </center>
+
+                <p  style="margin-top:5px">
+                    <b>Henry Behan</b> is the Project Coordinator on the MindTrails team. He's originally from Ireland, and his name in Irish is 'Anra&iacute;' which is pronounced similar to 'Henry' in French. He works on many different aspects of the project, including programming the website, data processing and management, content development, and participant recruitment. When not working, Henry is a big music head and he likes to spend his free time playing drums and DJing. Here is a photo of him performing onstage a while ago, which not only looks like it was taken in the 1970s, but feels like it too.
+                </p>
+                <br><br/>
+
+                <center>
+                    <img src="../../static/images/newsletter/alex.jpeg" th:src="${url} + '/images/newsletter/alex.jpeg'"
+                         width="175" alt="Alex_Bio_Pic" title="MindTrails" style="display:block" border="0"/>
+                </center>
+
+                <p  style="margin-top:5px">
+                    <b>Alex Werntz, Ph.D.</b>, is a researcher on the psychology side of the MindTrails team. Although she's worked with the team since MindTrails started, her current role is adapting the program to meet the needs of children and teens who may not otherwise have access to mental health services. And, since the pandemic started, her office-mates have been three talkative hairless cats (she's obsessed with her cats!).
+                </p>
+                <br><br/>
+
+                <center>
+                    <img src="../../static/images/newsletter/jeremy.png" th:src="${url} + '/images/newsletter/jeremy.png'"
+                         width="200" alt="Jeremy_Bio_Pic" title="MindTrails" style="display:block" border="0"/>
+                </center>
+
+                <p  style="margin-top:5px">
+                    <b>Jeremy Eberle, MA</b>, and is a Ph.D. student in clinical psychology. He's been working on the MindTrails team since 2017 with a focus on research methodology, data management, and statistical analysis. His research concerns pinpointing exactly how interventions like MindTrails alleviate emotional distress. He's embracing the ability to grow a pandemic beard that's a bit longer than usual, which actually reduces his health risk given that he once accidentally trimmed off half his eyebrow!
+                </p>
+                <br><br/>
+
+                <center>
+                    <img src="../../static/images/newsletter/maria.jpg" th:src="${url} + '/images/newsletter/maria.jpg'"
+                         width="300" alt="Maria_Bio_Pic" title="MindTrails" style="display:block" border="0"/>
+                </center>
+
+                <p  style="margin-top:5px">
+                    <b>Mar&iacute;a Larrazabal</b> is a clinical psychology graduate student who works with other team members to optimize participants' experience in the program. They test out ways to keep participants engaged in MindTrails and explore the effects of COVID-19 on the effectiveness of MindTrails as a tool to help people think more flexibly. The first time Mar&iacute;a read the Harry Potter books was when they were over the age of 20 (and loved them!)
+                </p>
+                <br><br/>
+
+                <center>
+                    <img src="../../static/images/newsletter/allie.jpg" th:src="${url} + '/images/newsletter/allie.jpg'"
+                         width="300" alt="Allie_Bio_Pic" title="MindTrails" style="display:block" border="0"/>
+                </center>
+
+                <p  style="margin-top:5px">
+                    <b>Allie Silverman</b> is a graduate student in psychology working with the MindTrails team. Right now, her efforts are focused on helping to expand the reach of our program so that even more individuals who are experiencing anxiety have access to MindTrails. Outside of graduate school, she loves getting outside as much as possible, whether it's on a bike ride or hiking in the Blue Ridge mountains.
+                </p>
+                <br><br/>
+
+
+                <center>
+                    <img src="../../static/images/newsletter/suraj.jpg" th:src="${url} + '/images/newsletter/suraj.jpg'"
+                         width="200" alt="Suraj_Bio_Pic" title="MindTrails" style="display:block" border="0"/>
+                </center>
+
+                <p  style="margin-top:5px">
+                    <b>Suraj Patel</b> is a third-year undergraduate student at the University of Virginia studying Psychology and Gender Studies. Some of the work that he's done with MindTrails includes working as a coach for participants at high-risk to dropout. Currently, he's working on analyzing the data of participants who received coaching to find out the influence of characteristics like gender and age on the engagement of participants with their coaches. Some fun facts about him are that his front teeth are all fake and he almost exclusively ate meat for about a year!
+                </p>
+                <br><br/>
+
+                <center>
+                    <img src="../../static/images/newsletter/tylar.jpg" th:src="${url} + '/images/newsletter/tylar.jpg'"
+                         width="300" alt="Tylar_Bio_Pic" title="MindTrails" style="display:block" border="0"/>
+                </center>
+
+                <p  style="margin-top:5px">
+                    <b>Tylar Schmitt</b> is a second-year undergraduate at the University of Virginia studying psychology. Her work on the MindTrails project includes analyzing demographic data, developing retention strategies, and adapting the program for adolescents. One of the things that she's missed the most since being in quarantine is holding the lab tarantulas!
+                </p>
+                <br><br/>
+
+                <h2 style="margin-top:20px; margin-bottom:10px">Thanks for reading!</h2>
+                <br/>
+
+                <p style="margin-top:5px">
+                    Thank you for reading this newsletter. If you have any questions, <b>contact us at</b> <a href="studyteam@mindtrails.org">studyteam@mindtrails.org</a>.
+                </p>
+                <p style="margin-top:15px">Best,</p>
+                <p style="margin-top:5px">The MindTrails Project Team</p>
+
+                <p style="margin-top:40px; font-size:.7em; text-align:left; border-top: 1px solid black; padding-top: 4px" >
+                    To make sure you receive our emails, please add our email address (mindtrails@virginia.edu)
+                    to your list of contacts. By adding us to your contacts, you ensure all our emails don't end up in your spam folder.</p>
+
+                <p style="margin-top:20px; font-size:.7em; text-align:left; padding-top: 4px" >
+                Please note that email is not a secure form of communication and should not be used to discuss any
+                    confidential matters, including personal health information, given that its confidentiality cannot be assured.</p>
+
+                <p style="margin-top:20px; font-size:.7em; text-align:left; padding-top: 4px" >You received this email because you signed up to participate in the MindTrails study. You
+                    can manage your contact preferences, or exit the study at any time by visiting your
+                    <a th:href="${url} + '/account'">Account Settings.</a></p>
+
+            </td>
+        </tr>
+    </table>
+
+    <p style="margin-top:0"></p>
+
+</div>
+</body>
+</html>

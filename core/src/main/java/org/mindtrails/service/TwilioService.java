@@ -1,6 +1,10 @@
 package org.mindtrails.service;
 
 import org.mindtrails.domain.Participant;
+import org.mindtrails.domain.Scheduled.ScheduledEvent;
+import org.mindtrails.domain.Scheduled.TextMessage;
+
+import java.util.List;
 
 /**
  * Sends (and, potentially receives) Text Messages through the Twilio Service.
@@ -11,18 +15,17 @@ public interface TwilioService {
 
     /**
      * Sends a text message to the given participant;
+     *
      * @param textMessage
      * @param participant
      */
-    public void sendMessage(String textMessage, Participant participant);
+    public void sendMessage(TextMessage textMessage, Participant participant);
 
 
     /**
-     * Given a participant, determines which message to send that
-     * participant.  If no message should be sent, returns Null.
-     * @param p
+     * Returns a list of possible messages that we can send out.
+     *
      * @return
      */
-    public String getMessage(Participant p);
-
+    public List<ScheduledEvent> messageTypes();
 }
