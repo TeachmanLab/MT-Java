@@ -87,6 +87,7 @@
                                 <td th:text="${p.id}">0</td>
                                 <td th:text="${p.fullName}">Dan Funk</td>
                                 <td th:text="${p.email}">daniel.h.funk@gmail.com</td>
+                                <td th:text="${p.firstCoachingFormat}"></td>
                                 <td th:text="${p.study.currentSession.displayName}">Session One</td>
                                 <td><span th:if="${p.lastLoginDate}" th:text="${#dates.format(p.lastLoginDate, 'MM/dd/yy h:mm a')}">
                                     10-05-1972 11:55</span></td>

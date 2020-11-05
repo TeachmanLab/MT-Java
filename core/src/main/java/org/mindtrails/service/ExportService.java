@@ -1,5 +1,7 @@
 package org.mindtrails.service;
 
+import org.joda.time.DateTime;
+import org.joda.time.Duration;
 import org.mindtrails.domain.ExportMode;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.Study;
@@ -8,8 +10,6 @@ import org.mindtrails.domain.data.Exportable;
 import org.mindtrails.domain.importData.Scale;
 import org.mindtrails.domain.tracking.ExportLog;
 import org.mindtrails.persistence.*;
-import org.joda.time.DateTime;
-import org.joda.time.Duration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -137,10 +137,13 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
         for (  Class<?> domainType : repositories) {
             Object repository=repositories.getRepositoryFor(domainType);
             if(domainType.isAnnotationPresent(Exportable.class)) {
-                deleteableFlag = !domainType.isAnnotationPresent(DoNotDelete.class);
-                JpaRepository rep = (JpaRepository)repository;
-                Scale scale = new Scale(domainType.getSimpleName(), rep.count(), deleteableFlag);
-                names.add(scale);
+                Exportable exportable = domainType.getAnnotation(Exportable.class);
+                if(exportable.export()) {
+                    deleteableFlag = !domainType.isAnnotationPresent(DoNotDelete.class);
+                    JpaRepository rep = (JpaRepository) repository;
+                    Scale scale = new Scale(domainType.getSimpleName(), rep.count(), deleteableFlag);
+                    names.add(scale);
+                }
             }
         }
         return names;

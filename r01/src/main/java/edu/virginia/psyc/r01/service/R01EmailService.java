@@ -2,19 +2,17 @@ package edu.virginia.psyc.r01.service;
 
 import edu.virginia.psyc.r01.domain.R01Study;
 import edu.virginia.psyc.r01.persistence.OA;
-import org.mindtrails.domain.Scheduled.Email;
 import org.mindtrails.domain.Participant;
+import org.mindtrails.domain.Scheduled.Email;
 import org.mindtrails.domain.Scheduled.ForceSessionEvent;
 import org.mindtrails.domain.Scheduled.MarkInactiveEvent;
 import org.mindtrails.domain.Scheduled.ScheduledEvent;
-import org.mindtrails.domain.Session;
 import org.mindtrails.service.EmailService;
 import org.mindtrails.service.EmailServiceImpl;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -136,37 +134,5 @@ public class R01EmailService extends EmailServiceImpl implements EmailService{
 
         sendEmail(email);
     }
-
-
-    @Override
-    public void sendSessionCompletedEmail(Participant participant) {
-        Session currentSession = participant.getStudy().getCurrentSession();
-        Email email = null;
-
-        if(!participant.isActive() || !participant.isEmailReminders())  return;  // Don't send these messages if they should not get them.
-
-        if (currentSession.getName().equals(R01Study.SECOND_SESSION.toString())) {
-            email = new Email("SESSION1","Bonus Feature #1 from the MindTrails Project Team");
-        } else if (currentSession.getName().equals(R01Study.THIRD_SESSION.toString())) {
-            email = new Email("SESSION2","Bonus Feature #2 from the MindTrails Project Team");
-        } else if (currentSession.getName().equals(R01Study.FOURTH_SESSION.toString())) {
-            email = new Email("SESSION3","Bonus Feature #3 from the MindTrails Project Team");
-        } else if (currentSession.getName().equals(R01Study.FIFTH_SESSION.toString())) {
-            email = new Email("SESSION4","Bonus Feature #4 from the MindTrails Project Team");
-        }
-        if (email != null) {
-
-            // If the date the participant is returning is after today, then include a calendar invite
-            // in this follow up email.
-            if(participant.getReturnDate() != null && participant.getReturnDate().after(new Date()))
-                email.setCalendarDate(participant.getReturnDate());
-
-            email.setTo(participant.getEmail());
-            email.setParticipant(participant);
-            email.setContext(new Context());
-            sendEmail(email);
-        }
-    }
-
 
 }

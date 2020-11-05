@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
+
+<head th:replace="fragment/common :: headerFragment"/>
+<body>
+<section th:replace="fragment/common :: topFragment"/>
+<section th:include="fragment/common :: titleBar (title='Returning to the Program')"/>
+
+<style>
+    div.nextSession {
+        max-width: 400px;
+        margin: 20px auto;
+    }
+</style>
+
+<section id="content" class="clearfix">
+    <form id="form" th:action="@{/questions/ReturnIntention}" method="POST">
+
+
+        <!-- Add timer -->
+        <input id="timeOnPage" name="timeOnPage" type="hidden"/>
+        <div class="container section compactQuestion">
+
+            <h4>Let us know when you intend to return for your next session.  We recommend you come back to complete
+            your next session in 5 to 7 days.  We will send you an email shortly that will allow you to add this
+            date and time to your calendar as a reminder.</h4>
+
+
+            <div class="nextSession">
+                <input type="hidden" id="returnDate" name="returnDateString"/>
+                <div class="input-group date">
+                    <input id='datepicker' type="text" name="date" class="form-control" required="required" />
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                </div>
+                <div class="input-group bootstrap-timepicker timepicker" >
+                    <input id="timepicker" name="time" type="text" class="form-control input-small" required="required"/>
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                </div>
+
+                <br></br>
+                <h4>Please select your timezone, if different from indicated:</h4>
+                <script th:src="@{/js/jstz.min.js}"></script>
+                <select id="timezone" name="timezone" style="width: 400px">
+                </select>
+                <script th:inline="javascript">
+                    /*<![CDATA[*/
+                    var selectedOption = /*[[${participant.timezone}]]*/ '';
+                    var newOptions = jstz.olson.timezones;
+                    var select = $('#timezone');
+                    if(select.prop) {
+                        var options = select.prop('options');
+                    }
+                    else {
+                        var options = select.attr('options');
+                    }
+                    $('option', select).remove();
+                    $.each(newOptions, function(val, text) {
+                        options[options.length] = new Option(text, text)
+                    });
+                    select.val(selectedOption);
+                    /*]]>*/
+                </script>
+                <br/>
+                <br/>
+                <label ><input type="checkbox" name="notReturning" onclick="returning(this)"/>&nbsp;&nbsp;Not planning to come back.</label>
+                <div id="reason" style="display: none">
+                    <br/>
+                    <h4>Please let us know why you do not plan to continue:</h4>
+                    <label><textarea id="notReturnReason" name="notReturnReason" type="text" placeholder="" style = "width: 400px; height: 120px;"/></label>
+                </div>
+        </div>
+        </div>
+            <link rel="stylesheet" media="screen"
+                  th:href="@{/bower/bootstrap-datepicker/dist/css/bootstrap-datepicker.standalone.css}"/>
+            <script type="text/javascript" th:src="@{/bower/bootstrap-timepicker/js/bootstrap-timepicker.js}"></script>
+            <script type="text/javascript" th:src="@{/bower/bootstrap-datepicker/dist/js/bootstrap-datepicker.js}"></script>
+            <script>
+                $(document).ready(function () {
+                    $('.input-group.date').datepicker({
+                        startDate: '+5d',
+                        endDate: '+8d'
+                    });
+                    $('#timepicker').timepicker();
+                    $('#form').on('submit', function(e) {
+                        if($('#datepicker').val()) {
+                            var date = new Date($("#datepicker").val() + ' ' + $("#timepicker").val());
+                            console.log(date.toISOString());
+                            $('#returnDate').val(date.toISOString());
+                        }
+                    })
+                });
+
+                function returning(checkbox) {
+                    if(checkbox.checked) {
+                        $('#reason').show();
+                        $('#datepicker').prop('required',false);
+                        $('#timezone').prop('required',false);
+                        $('#notReturnReason').prop('required',true);
+                        document.getElementById("datepicker").disabled = true;
+                        document.getElementById("timepicker").disabled = true;
+                        document.getElementById("timezone").disabled = true;
+
+                    } else {
+                        $('#reason').hide();
+                        $('#reason').value='';
+                        $('#datepicker').prop('required',true);
+                        $('#timezone').prop('required',true);
+                        $('#notReturnReason').prop('required',false);
+                        document.getElementById("datepicker").disabled = false;
+                        document.getElementById("timepicker").disabled = false;
+                        document.getElementById("timezone").disabled = false;
+                    }
+                }
+            </script>
+
+            <div class="col-md-12" style="text-align:center">
+                <button type="submit"> Next</button>
+            </div>
+
+    </form>
+</section>
+
+<footer th:replace="fragment/common :: footer"/>
+<div th:include="fragment/common :: scripts"/>
+</body>
+</html>
+
+

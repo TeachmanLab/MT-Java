@@ -69,6 +69,13 @@ public interface ParticipantRepository extends JpaRepository<Participant, Long> 
     Page<Participant> findEligibleForCoaching(@Param("condition") String condition,
                                               Pageable pageable);
 
+    @Query("SELECT p FROM Participant as p LEFT JOIN p.study s \n" +
+            "where s.conditioning = :condition and " +
+            "p.wantsCoaching is true and " + 
+            "p.coachedBy is null and p.testAccount = false order by " +
+            "p.lastLoginDate desc")
+    Page<Participant> findEligibleForCoachingWithOptIn(@Param("condition") String condition,
+                                                        Pageable pageable);
 
     @Query("SELECT p FROM Participant as p LEFT JOIN p.study s \n" +
             " where lower(p.fullName) like '%' || lower(:search) || '%'" +
@@ -79,6 +86,17 @@ public interface ParticipantRepository extends JpaRepository<Participant, Long> 
     Page<Participant> searchEligibleForCoaching(@Param("condition") String condition,
                                                 Pageable pageable,
                                                 @Param("search") String search);
+
+    @Query("SELECT p FROM Participant as p LEFT JOIN p.study s \n" +
+            " where lower(p.fullName) like '%' || lower(:search) || '%'" +
+            " or lower(p.email) like '%' || lower(:search) || '%' and " +
+            "s.conditioning = :condition and " +
+            "p.wantsCoaching is true and " + 
+            "p.coachedBy is null and p.testAccount = false order by " +
+            "p.lastLoginDate desc")
+    Page<Participant> searchEligibleForCoachingWithOptIn(@Param("condition") String condition,
+                                                        Pageable pageable,
+                                                        @Param("search") String search);
 
 
     // Find all participants by condition

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
+
+<head th:replace="fragment/common :: headerFragment"/>
+<body>
+<section th:replace="fragment/common :: topFragment"/>
+<section th:replace="fragment/common :: titleBar (title='Anxiety Triggers')"/>
+<textArea th:replace="fragment/common :: questionTemplate"/>
+
+<section id="content1" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <p>
+                    People become anxious for lots of different reasons. To what extent do you routinely experience
+                    moderate-to-severe anxiety in the following situations? For each situation, select the number that best describes your experience.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section id="content2" class="clearfix" style="padding-left: 30px">
+    <form th:action="@{/questions/AnxietyTriggers}" method="POST" th:object="${model}">
+            <section th:replace="fragment/forms :: radioOptions(${model})"/>
+        <div class="col-md-12" style="text-align:center">
+            <button type="submit">Next</button>
+        </div>
+    </form>
+</section>
+
+<footer th:replace="fragment/common :: footer"/>
+<div th:include="fragment/common :: scripts"/>
+<div th:include="fragment/action_log :: scripts-action-log"/>
+
+</body>
+</html>

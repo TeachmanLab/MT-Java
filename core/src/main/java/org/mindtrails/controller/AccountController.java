@@ -89,6 +89,7 @@ public class AccountController extends BaseController {
 
     @RequestMapping(value="create", method = RequestMethod.GET)
     public String createForm (ModelMap model, HttpSession session) {
+
         addAttributesForCreateParticipantForm(model);
         model.addAttribute("participantForm", new ParticipantCreate());
         if(participantService.isEligible(session) || importService.isImporting()) {
@@ -145,9 +146,30 @@ public class AccountController extends BaseController {
             twilioService.sendMessage(message,participant);
             return "redirect:/account/verification";
         }
+
+        // This is a bit of hack for a specific study, just trying to hold this together and get it
+        // out he door quickly.
+        if (participant.getStudy().getConditioning().equals("CAN_COACH")) {
+            return "redirect:/account/coachingOptIn";
+        }
+
         return "redirect:/account/theme";
     }
 
+    @RequestMapping("coachingOptIn")
+    public String showCoachingOptIn(ModelMap model, Principal principal) {
+        return "account/coachingOptIn";
+    }
+
+    @ExportMode
+    @RequestMapping(value="setCoachingPreference", method = RequestMethod.POST)
+    public String setCoachingPreference(ModelMap model, Boolean wantsCoaching, String firstCoachingFormat, Principal principal) {
+        Participant p = participantService.get(principal);
+        p.setWantsCoaching(wantsCoaching);
+        p.setFirstCoachingFormat(firstCoachingFormat);
+        participantService.save(p);
+        return "redirect:/account/theme";
+    }
 
 
     @RequestMapping("theme")

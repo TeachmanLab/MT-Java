@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="fragment/common :: headerFragment"/>
+<body>
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
+
+<section id="content" class="clearfix">
+    <div class="container" th:if="${isExportMode}">
+        <div class="row">
+            <div class="span12">
+                <h1><font color="#00ACE4"><b>Attrition Settings</b></font></h1>
+                <p>These settings should only be altered on the importing server, as
+                decisions about condition assignment can only be made there.  Please
+                connect to that system if you need to make changes.</p>
+            </div>
+        </div>
+    </div>
+    <div class="container" th:unless="${isExportMode}">
+        <div class="row">
+            <div class="span12">
+                <h1>R01 Attrition Settings</h1>
+                <p>Attrition prediction scores are in the range of 0 to 1. You can use this
+                    form to update the threshold used to place participants in high or low risk
+                    conditions.</p>
+                <form action="/admin/settings" th:action="@{/admin/settings}" method="post">
+                    <input type="text" name="attritionThreshold" value=""/>
+                    <input type="submit" value="update Attrition Threshold"/>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span12">
+                <p>If no table is displayed below, then a default value
+                    (<span th:text="${default}"></span>) will be used to set the
+                    threshold. Each time the Threshold is updated, we will keep a record of the new
+                    value and the date it was specified. Values are ordered by date, with the most
+                    recent / current setting at the top.</p>
+                <table class="table table-striped table-bordered">
+                    <tr>
+                        <th>Threshold Value</th>
+                        <th>Date Set</th>
+                    </tr>
+                    <tr th:each="s: ${settings}">
+                        <td th:text="${s.attritionThreshold}"></td>
+                        <td><span th:text="${#dates.format(s.lastModified, 'EEE, dd MMM yyyy h:mm a')}">
+                                    10-05-1972 11:55</span></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
+<div th:include="fragment/common :: scripts"/>
+
+
+</body>
+</html>

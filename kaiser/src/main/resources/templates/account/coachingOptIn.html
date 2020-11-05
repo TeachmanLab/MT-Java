@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+
+<head th:include="fragment/common :: headerFragment"/>
+
+<body>
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
+
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <form action="#" th:action="@{/account/setCoachingPreference}" th:object="${participant}"
+                      method="post">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h2>Opportunity to be Coached</h2>
+                            <p>Thank you for participating in the MindTrails program! You have the option to talk
+                                with a personal coach via text or phone call to help you with the program. Coaching is
+                                completely optional, and you can decide to continue participating in the MindTrails program
+                                even if you don’t want to talk with a coach.</p>
+
+                            <h3>How does coaching work?</h3>
+                            <ul>
+                                <li>Coaches are trained members of the MindTrails team, but are not trained
+                                    therapists.
+                                </li>
+                                <li>Coaches offer weekly check-ins via text message or phone call (whichever you
+                                    prefer).
+                                </li>
+                                <li>Coaches can explain more about how MindTrails works, address any concerns you
+                                    have
+                                    with any
+                                    of the exercises, help troubleshoot technical issues, and provide reminders for
+                                    sessions.
+                                </li>
+                                <li>Coaching check-ins last about 10 minutes, and are scheduled for a time that fits
+                                    with your
+                                    schedule.
+                                </li>
+                                <li>Coaching is completely voluntary and you may decide at any time that you no
+                                    longer
+                                    wish to
+                                    work with a coach.
+                                </li>
+                            </ul>
+
+                            <p>If you are interested in having a coach, one of our team members will reach out to you
+                                via email to schedule your first check-in after you finish your first MindTrails training.</p>
+
+
+                            <p><b>Would you like to work with a MindTrails Coach?</b></p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-8 side-border">
+                            <div class="radio">
+                                <label class="question"> <input type="radio" th:field="*{wantsCoaching}" value="true"
+                                                                required="true"/>
+                                    &nbsp;&nbsp;Yes, I’d like to try it. </label>
+                            </div>
+                            <div class="radio">
+                                <label class="question"> <input type="radio" th:field="*{wantsCoaching}" value="false"/>
+                                    &nbsp;&nbsp;No, I’m not interested in this right now.</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="wantsCoachingStatement" style="display:none;">
+                        <div class="row">
+                            <div class="col-md-8">
+                                Would you like your first chat with your coach to be a phone call or text messaging
+                                session?
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8 side-border">
+                                <div class="radio">
+                                    <label class="question"> <input type="radio" th:field="*{firstCoachingFormat}" value="phoneCall"
+                                                                    required="true"/>
+                                        Phone Call</label>
+                                </div>
+                                <div class="radio">
+                                    <label class="question"> <input type="radio" th:field="*{firstCoachingFormat}" value="textMessage"/>
+                                        Text Message</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            Please look out for an email from your coach over the next 24 hours to set up your first
+                            check-in!
+                        </div>
+                    </div>
+                    <div style="text-align: center;">
+                        <button>Set Coaching Preferences</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+
+</html>
