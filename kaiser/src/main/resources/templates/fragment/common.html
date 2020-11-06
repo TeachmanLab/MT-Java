@@ -9,10 +9,12 @@
 <html class="not-ie" lang="en">
 <!--<![endif]-->
 
+
+
 <head th:fragment="googleAnalytics">
     <!-- Google Analytics -->
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-77944674-4"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-77944674-5"></script>
 
     <script th:unless="${participant}" th:inline="javascript">
         window.dataLayer = window.dataLayer || [];
@@ -22,7 +24,7 @@
         }
 
         gtag('js', new Date());
-        gtag('config', 'UA-77944674-4');
+        gtag('config', 'UA-77944674-5');
     </script>
 
     <script th:if="${participant}" th:inline="javascript">
@@ -34,7 +36,7 @@
 
         gtag('js', new Date());
         gtag('set', { 'user_id': '[[${participant.id}]]' });
-        gtag('config', 'UA-77944674-4');
+        gtag('config', 'UA-77944674-5');
     </script>
 </head>
 
@@ -82,9 +84,8 @@
         });
     </script>
 
-    <!-- Google Analytics -->
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-77944674-4"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-77944674-5"></script>
 
     <script th:unless="${participant}" th:inline="javascript">
         window.dataLayer = window.dataLayer || [];
@@ -94,7 +95,7 @@
         }
 
         gtag('js', new Date());
-        gtag('config', 'UA-77944674-4');
+        gtag('config', 'UA-77944674-5');
     </script>
 
     <script th:if="${participant}" th:inline="javascript">
@@ -106,7 +107,7 @@
 
         gtag('js', new Date());
         gtag('set', { 'user_id': '[[${participant.id}]]' });
-        gtag('config', 'UA-77944674-4');
+        gtag('config', 'UA-77944674-5');
     </script>
 
     <!-- Themes -->
