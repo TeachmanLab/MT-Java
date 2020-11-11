@@ -57,19 +57,19 @@
     <script type="text/javascript" th:src="@{/js/log4javascript.js}"></script>
     <script type="text/javascript" th:src="@{/js/firstQuestionSlider.js}"></script>
     <script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
+            src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
     <script type="text/javascript" th:src="@{/bower/timeme.js/timeme.js}"></script>
     <script type="text/javascript" th:src="@{/bower/jquery-validate/dist/jquery.validate.js}"></script>
 
     <!--Google Font-->
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,700,700italic,600'
-        rel='stylesheet' type='text/css' />
+          rel='stylesheet' type='text/css' />
 
     <!--style sheets-->
     <link rel="stylesheet" media="screen" th:href="@{/bower/bootstrap/dist/css/bootstrap.css}"
-        href="../../static/bower/bootstrap/dist/css/bootstrap.css" /> <!-- Themed bootstream -->
+          href="../../static/bower/bootstrap/dist/css/bootstrap.css" /> <!-- Themed bootstream -->
     <link rel="stylesheet" media="screen"
-        th:href="@{/bower/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css}" />
+          th:href="@{/bower/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css}" />
     <link rel="stylesheet" media="screen" th:href="@{/css/mindtrails.css}" />
     <link rel="stylesheet" media="screen" th:href="@{/css/mobile.css}" />
     <link rel="stylesheet" media="print" th:href="@{/css/print.css}" href="../../static/css/print.css" />
@@ -120,10 +120,10 @@
 
 <body>
 
-    <!-- This is the template for asking a series of statements that all have the same
-     possible radio options as answers.  It uses the Mustache framework to populate
-      the answers. -->
-    <textarea style="display: none" id="template" th:fragment="questionTemplate">
+<!-- This is the template for asking a series of statements that all have the same
+ possible radio options as answers.  It uses the Mustache framework to populate
+  the answers. -->
+<textarea style="display: none" id="template" th:fragment="questionTemplate">
     <div class="row header">
         <div class="col-md-6"><p class="tableOptions"></p></div>
     {{#options}}
@@ -155,7 +155,7 @@
 </textarea>
 
 
-    <textarea style="display: none" id="template2" th:fragment="questionTemplate2">
+<textarea style="display: none" id="template2" th:fragment="questionTemplate2">
 
     <div class="row header">
         <div class="col-md-4"><p class="tableOptions"></p></div>
@@ -181,7 +181,7 @@
 </textarea>
 
 
-    <textarea style="display: none" id="template3" th:fragment="questionTemplate3">
+<textarea style="display: none" id="template3" th:fragment="questionTemplate3">
 
     {{#reasons}}
      <div class="row">
@@ -198,7 +198,7 @@
 
 </textarea>
 
-    <textarea style="display: none" id="template4" th:fragment="questionTemplate4">
+<textarea style="display: none" id="template4" th:fragment="questionTemplate4">
 
     {{#questions}}
      <div class="row">
@@ -238,7 +238,7 @@
 </textarea>
 
 
-    <textarea style="display: none" id="template5" th:fragment="questionTemplate5">
+<textarea style="display: none" id="template5" th:fragment="questionTemplate5">
 
 
     {{#questions}}
@@ -276,7 +276,7 @@
 </textarea>
 
 
-    <textarea style="display: none" id="template6" th:fragment="questionTemplate6">
+<textarea style="display: none" id="template6" th:fragment="questionTemplate6">
     <div class="row header">
         <div class="col-md-4"><p class="tableOptions"></p></div>
     {{#options}}
@@ -305,27 +305,22 @@
 </textarea>
 
 
-    <section id="header" class="clearfix" th:fragment="topFragment">
+<section id="header" class="clearfix" th:fragment="topFragment">
 
-        <nav class="navbar navbar-default">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+    <nav class="navbar navbar-default">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                     data-target="#main-navbar-collapse" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a th:href="@{/}">
-                    <img alt="MindTrails" class="header-logo" th:src="@{/images/logo.png}" />
-                </a>
-            </div>
-
-
-            <div class="import" th:if="${@environment.getProperty('import.mode') == 'import'}">This is a Data Collection
-                System. Importing Data from another Instance.
-            </div>
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a th:href="@{/}">
+                <img alt="MindTrails" class="header-logo" th:src="@{/images/logo.png}" />
+            </a>
+        </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="main-navbar-collapse">
@@ -350,17 +345,45 @@
                         </ul>
                     </li>
 
-                    <br/>
+        <div class="import" th:if="${@environment.getProperty('import.mode') == 'import'}">This is a Data Collection
+            System. Importing Data from another Instance.
+        </div>
 
-                    <div class="login"
-                         th:unless="${#authorization != null} AND ${#authorization.expression('hasRole(''ROLE_USER'')')}">
-                        Already Participating? <a th:href="@{/login}">
-                        <button>Log In</button>
-                    </a>
-                    </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="main-navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a th:href="@{/public/landing}">Home</a></li>
+                <li><a th:href="@{/public/about}">About</a></li>
+                <li><a th:href="@{/public/faq}">FAQ</a></li>
+                <li><a th:href="@{/public/researchSupport}">The&nbsp;Science&nbsp;of&nbsp;MindTrails</a></li>
+                <li><a th:href="@{/public/resources}">Mental&nbsp;Health&nbsp;Resources</a>
+                </li>
+                <li><a th:href="@{/public/contact}">Contact&nbsp;Us</a></li>
+                <li><a th:href="@{/public/team}">Meet&nbsp;the&nbsp;Team</a></li>
+                <li th:if="${participant} and ${#authorization.expression('hasRole(''ROLE_USER'')')}">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">My Account<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a th:href="@{/session/overview}">Progress</a></li>
+                        <li><a th:href="@{/account}">Account Settings</a></li>
+                        <li><a th:href="@{/account/changePass}">Change Password</a></li>
+                        <li><a th:href="@{/account/changePhone}">Verify Phone</a></li>
+                        <li><a th:href="@{/account/exitStudyConfirm}">Exit the Study</a></li>
+                        <li><a th:href="@{/logout}">Logout</a></li>
+                    </ul>
+                </li>
 
-                </ul>
-            </div><!-- /.navbar-collapse -->
+                <br/>
+
+                <div class="login"
+                     th:unless="${#authorization != null} AND ${#authorization.expression('hasRole(''ROLE_USER'')')}">
+                    Already Participating? <a th:href="@{/login}">
+                    <button>Log In</button>
+                </a>
+                </div>
+
+            </ul>
+        </div><!-- /.navbar-collapse -->
     </nav>
     <div class="account-bar navbar-default" th:if="${participant} and ${#authorization.expression('hasRole(''ROLE_USER'')')}">
         <div>
@@ -517,8 +540,26 @@
     <script  th:inline="javascript">
         $(document).ready(function () {
 
-        // Use Jquery-Validate plugin to validate all forms.
-        $("form").validate({
+            //Form Wizard controls
+            $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
+
+                var $target = $(e.target);
+                if ($target.parent().hasClass('disabled')) {
+                    return false;
+                }
+            });
+            $(".next-step").click(function (e) {
+                var $active = $('.wizard .nav-tabs li.active');
+                $active.next().removeClass('disabled').find('a[data-toggle="tab"]').click();
+            });
+            $(".prev-step").click(function (e) {
+                var $active = $('.wizard .nav-tabs li.active');
+                $active.prev().find('a[data-toggle="tab"]').click();
+            });
+
+
+            // Use Jquery-Validate plugin to validate all forms.
+            $("form").validate({
                 errorElement: "span",
                 errorPlacement: function (error, element) {
                     var template_statement = element.parents(".row").first().children(".statement")
@@ -535,13 +576,13 @@
                     }
 
                 }
-        });
-
-        $("form").each(function () {
-            $(this).submit(function () {
-                $(this).find("#timeOnPage").val(TimeMe.getTimeOnCurrentPageInSeconds());
             });
-        });
+
+            $("form").each(function () {
+                $(this).submit(function () {
+                    $(this).find("#timeOnPage").val(TimeMe.getTimeOnCurrentPageInSeconds());
+                });
+            });
 
         });
     </script>
