@@ -16,13 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -144,7 +142,6 @@ public class SessionController extends BaseController {
         if(study.getState() == Study.STUDY_STATE.IN_PROGRESS && p.isActive()) {
             return new RedirectView(study.getCurrentSession().getCurrentTask().getRequestMapping(), true);
         } else {
-            emailService.sendSessionCompletedEmail(p);
             return new RedirectView("/session", true);
         }
     }

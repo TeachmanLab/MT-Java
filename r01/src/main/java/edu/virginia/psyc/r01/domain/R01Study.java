@@ -1,18 +1,19 @@
 package edu.virginia.psyc.r01.domain;
 
-import edu.virginia.psyc.r01.persistence.DASS21_AS;
-import edu.virginia.psyc.r01.persistence.OA;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.mindtrails.domain.BaseStudy;
 import org.mindtrails.domain.Session;
 import org.mindtrails.domain.Task;
 import org.mindtrails.domain.questionnaire.QuestionnaireData;
 import org.mindtrails.domain.tracking.TaskLog;
-import org.mindtrails.persistence.QuestionnaireRepository;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -87,6 +88,16 @@ public class R01Study extends BaseStudy {
                 !getCurrentSession().getName().equals(R01Study.SESSION.fifthSession.toString())&&
                 !getCurrentSession().getName().equals(R01Study.SESSION.PostFollowUp.toString()))&&
                 !getCurrentSession().getName().equals(R01Study.SESSION.PostFollowUp2.toString());
+    }
+
+    @Override
+    @JsonIgnore
+    public List<String> getSessionNames() {
+        List<String> names = new ArrayList<>();
+        for(int index = 0; index < SESSION.values().length; index++) {
+            names.add(SESSION.values()[index].name());
+        }
+        return names;
     }
 
 

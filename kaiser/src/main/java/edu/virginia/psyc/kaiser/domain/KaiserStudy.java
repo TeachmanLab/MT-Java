@@ -22,7 +22,7 @@ import java.util.stream.Stream;
 public class KaiserStudy extends BaseStudy {
 
     // TODO: Write test to ensure we never get a "NONE" as a condition
-    public enum CONDITION {NO_INCENTIVE, CAN_COACH, TESTIMONIALS, BONUS_5, BONUS_1O, BONUS_20}
+    public enum CONDITION {NO_INCENTIVE, CAN_COACH, TESTIMONIALS, BONUS_5, BONUS_10, BONUS_20}
     public static Map<String, Enum<?>> conditionMappings = new HashMap<String, Enum<?>>();
 
     public enum SESSION {preTest, firstSession, secondSession, thirdSession, fourthSession, fifthSession, PostFollowUp }
@@ -48,7 +48,7 @@ public class KaiserStudy extends BaseStudy {
         conditionMappings.put("DSDvBmGcYE", CONDITION.CAN_COACH);
         conditionMappings.put("WtQgTY7a1w", CONDITION.TESTIMONIALS);
         conditionMappings.put("oLewA3TOBh", CONDITION.BONUS_5);
-        conditionMappings.put("TtBdqsBNiZ", CONDITION.BONUS_1O);
+        conditionMappings.put("TtBdqsBNiZ", CONDITION.BONUS_10);
         conditionMappings.put("X1dwxumXD4", CONDITION.BONUS_20);
     }
 
@@ -186,8 +186,8 @@ public class KaiserStudy extends BaseStudy {
         session5.addTask(new Task("SessionReview", "Session Review", Task.TYPE.questions, 0));
         session5.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
         session5.addTask(new Task("DASS21_AS","Mood Assessment", Task.TYPE.questions, 0 ));
-        session5.addTask(new Task("RR","Completing Short Stories, Pt. 2", Task.TYPE.questions, 0 ));
         session5.addTask(new Task("recognitionRatings", "Completing Short Stories", Task.TYPE.angular, 5));
+        session5.addTask(new Task("RR","Completing Short Stories, Pt. 2", Task.TYPE.questions, 0 ));
         session5.addTask(new Task("Comorbid","Mood, Drinking, and Marijuana Use", Task.TYPE.questions, 0 ));
         session5.addTask(new Task("Wellness","What I Believe", Task.TYPE.questions, 0 ));
         session5.addTask(new Task("Mechanisms","How I Respond", Task.TYPE.questions, 0 ));

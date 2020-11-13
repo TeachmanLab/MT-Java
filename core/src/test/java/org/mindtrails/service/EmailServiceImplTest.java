@@ -7,21 +7,23 @@ import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mindtrails.Application;
 import org.mindtrails.MockClasses.TestStudy;
 import org.mindtrails.domain.*;
-import org.mindtrails.domain.tango.Order;
+import org.mindtrails.domain.Scheduled.Email;
+import org.mindtrails.domain.Scheduled.ScheduledEvent;
 import org.mindtrails.domain.tango.OrderResponse;
 import org.mindtrails.domain.tracking.EmailLog;
 import org.mindtrails.domain.tracking.GiftLog;
 import org.mindtrails.domain.tracking.TaskLog;
 import org.mindtrails.persistence.ParticipantRepository;
+import org.mindtrails.persistence.TaskLogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.mobile.device.Device;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.subethamail.wiser.Wiser;
@@ -32,14 +34,14 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.time.ZoneId;
 import java.time.ZoneOffset;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import static junit.framework.Assert.assertNull;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItem;
 import static org.junit.Assert.*;
 
 /**
@@ -61,6 +63,8 @@ public class EmailServiceImplTest {
     @Autowired
     private ParticipantRepository participantRepository;
 
+    @Autowired
+    private TaskLogRepository taskLogRepository;
 
     @Autowired
     private TangoService tangoService;
@@ -170,6 +174,7 @@ public class EmailServiceImplTest {
     }
 
     @Test
+    @Ignore
     public void sendGiftCard() throws Exception {
         OrderResponse orderResponse;
         String url = "http://thisistheurl.com";
@@ -200,13 +205,13 @@ public class EmailServiceImplTest {
     }
 
 
-
     @Test
     public void testEmailList() {
-        List<Email> emails = service.emailTypes();
+        List<ScheduledEvent> emails = service.emailTypes();
         assertThat(emails, hasItem(Matchers.<Email>hasProperty("type", equalTo("resetPass"))));
         assertThat(emails, hasItem(Matchers.<Email>hasProperty("subject", equalTo("MindTrails - Account Request"))));
-    }
+        assertThat(emails, hasItem(Matchers.<Email>hasProperty("days", equalTo(Collections.singletonList(7)))));
+   }
 
     /**
      * Returns a date from i number of days ago.
@@ -217,11 +222,6 @@ public class EmailServiceImplTest {
         return new DateTime().minus(Period.days(i)).toDate();
     }
 
-    @Test
-    public void testShouldSendEmailOnCreation() {
-        // A new user that never logs in should not get an email.
-        assertNull(service.getTypeToSend(participant));
-    }
 
     @Test
     public void testShouldSendEmail3HoursAfterLastTaskIfSessionNotCompleted() {
@@ -302,158 +302,6 @@ public class EmailServiceImplTest {
     }
 
 
-    @Test
-    public void testShouldSendEmailAfterLogin() {
-        // No email the day after login, even if no sessions were completed.
-        participant.setLastLoginDate(xDaysAgo(1));
-        assertNull(service.getTypeToSend(participant));
-
-        // Send an email two days after login, if no sessions were completed.
-        participant.setLastLoginDate(xDaysAgo(2));
-        assertThat("day2", is(equalTo(service.getTypeToSend(participant))));
-
-
-        // Don't send an email two days after login, if a session was completed.
-        participant.setLastLoginDate(xDaysAgo(2));
-        participant.getStudy().setLastSessionDate(xDaysAgo(1));
-        assertNull(service.getTypeToSend(participant));
-    }
-
-
-    @Test
-    public void testShouldSendEmailAfter3_7_11_15_and_18() {
-
-        Study study = participant.getStudy();
-        participant.setEmail("TestyMycTesterAfter_3_7@test.com");
-
-        // Send emails on the correct days, but not on any other days.
-        study.setLastSessionDate(xDaysAgo(1));
-        assertNull(service.getTypeToSend(participant));
-
-        study.setLastSessionDate(xDaysAgo(2));
-        assertThat("day2", is(equalTo(service.getTypeToSend(participant))));
-
-
-        study.setLastSessionDate(xDaysAgo(3));
-        assertNull(service.getTypeToSend(participant));
-
-        study.setLastSessionDate(xDaysAgo(4));
-        assertThat("day4", is(equalTo(service.getTypeToSend(participant))));
-
-        study.setLastSessionDate(xDaysAgo(5));
-        assertNull(service.getTypeToSend(participant));
-
-        study.setLastSessionDate(xDaysAgo(6));
-        assertNull(service.getTypeToSend(participant));
-
-        study.setLastSessionDate(xDaysAgo(7));
-        assertThat("day7", is(equalTo(service.getTypeToSend(participant))));
-
-        study.setLastSessionDate(xDaysAgo(8));
-        assertNull(service.getTypeToSend(participant));
-
-        study.setLastSessionDate(xDaysAgo(9));
-        assertNull(service.getTypeToSend(participant));
-
-        study.setLastSessionDate(xDaysAgo(10));
-        assertNull(service.getTypeToSend(participant));
-
-        study.setLastSessionDate(xDaysAgo(11));
-        assertThat("day11", is(equalTo(service.getTypeToSend(participant))));
-
-        study.setLastSessionDate(xDaysAgo(12));
-        assertNull(service.getTypeToSend(participant));
-
-        study.setLastSessionDate(xDaysAgo(13));
-        assertNull(service.getTypeToSend(participant));
-
-        study.setLastSessionDate(xDaysAgo(14));
-        assertNull(service.getTypeToSend(participant));
-
-        study.setLastSessionDate(xDaysAgo(15));
-        assertThat("day15", is(equalTo(service.getTypeToSend(participant))));
-
-        study.setLastSessionDate(xDaysAgo(16));
-        assertNull(service.getTypeToSend(participant));
-
-        study.setLastSessionDate(xDaysAgo(17));
-        assertNull(service.getTypeToSend(participant));
-
-        study.setLastSessionDate(xDaysAgo(18));
-        assertThat("closure", is(equalTo(service.getTypeToSend(participant))));
-
-        study.setLastSessionDate(xDaysAgo(19));
-        assertNull(service.getTypeToSend(participant));
-
-        study.setLastSessionDate(xDaysAgo(20));
-        assertNull(service.getTypeToSend(participant));
-
-        study.setLastSessionDate(xDaysAgo(100));
-        assertNull(service.getTypeToSend(participant));
-
-    }
-
-
-    @Test
-    public void testShouldNotSendEmailAfter3_7_11_15_and_18_postSession8() {
-
-        // Set up the sessions so we are starting the post session.
-        Study study = new TestStudy("PostSession", 0);
-        participant.setStudy(study);
-
-        study.setLastSessionDate(xDaysAgo(2));
-        assertNull(service.getTypeToSend(participant));
-        study.setLastSessionDate(xDaysAgo(4));
-        assertNull(service.getTypeToSend(participant));
-        study.setLastSessionDate(xDaysAgo(7));
-        assertNull(service.getTypeToSend(participant));
-        study.setLastSessionDate(xDaysAgo(11));
-        assertNull(service.getTypeToSend(participant));
-        study.setLastSessionDate(xDaysAgo(15));
-        assertNull(service.getTypeToSend(participant));
-        study.setLastSessionDate(xDaysAgo(18));
-        assertNull(service.getTypeToSend(participant));
-
-    }
-
-
-
-    @Test
-    public void testShouldSendEmailAfter60_63_67_75_onSession8() {
-        // Set up the sessions so we are in a post session, but not finished with the Post session.
-        Study study = new TestStudy("PostSession", 0);
-        participant.setStudy(study);
-        participant.setLastLoginDate(xDaysAgo(80));
-
-        study.setLastSessionDate(xDaysAgo(60));
-        assertThat("followup", is(equalTo(service.getTypeToSend(participant))));
-
-        study.setLastSessionDate(xDaysAgo(63));
-        assertThat("followup2", is(equalTo(service.getTypeToSend(participant))));
-
-        study.setLastSessionDate(xDaysAgo(67));
-        assertThat("followup2", is(equalTo(service.getTypeToSend(participant))));
-
-        study.setLastSessionDate(xDaysAgo(70));
-        assertThat("followup2", is(equalTo(service.getTypeToSend(participant))));
-
-        study.setLastSessionDate(xDaysAgo(75));
-        assertThat("followup3", is(equalTo(service.getTypeToSend(participant))));
-
-    }
-
-    @Test
-    public void testShouldNotSendEmailsEverIfInComplete() {
-        Study study = new TestStudy("PostSession", 1);
-        study.completeCurrentTask(10, null, "testing");
-        participant.setStudy(study);
-
-        assertTrue(study.completed("PostSession"));
-        assertTrue(study.getState() == Study.STUDY_STATE.ALL_DONE);
-        study.setLastSessionDate(xDaysAgo(2));
-        assertNull(service.getTypeToSend(participant));
-
-    }
 
     @Test
     public void testCreateCalendarInvitation() {

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="fragment/common :: headerFragment"/>
+<body>
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
+
+<section id="content" class="clearfix">
+  <div class="container">
+    <div class="row">
+      <div class="span12">
+        <h1>Scheduled Notifications and Events</h1>
+        <p>Here are the major reminder emails, text messages and data changes sent by the system at paticular points within the Study. Clicking on the email messages
+          will cause the reminder email to be sent to your email address: <span th:text="${participant.email}"> dan@sartography.com</span>
+        </p>
+        <table class="table table-bordered table-striped">
+          <tr>
+              <th>Sessions</th>
+              <th>Extension</th>
+              <th>Days</th>
+              <th>Schedule</th>
+              <th>Type</th>
+              <th>Template</th>
+              <th>Description</th>
+              <th>Warnings</th>
+          </tr>
+          <tr th:each="event: ${events}">
+              <td><p th:text="${event.sessions}"></p></td>
+              <td><p th:text="${event.studyExtension}"></p></td>
+              <td><p th:text="${event.days}"></p></td>
+              <td><p th:text="${event.scheduleType}"></p></td>
+              <td><p th:text="${event.eventType}"></p></td>
+              <td>
+                  <a th:if="${event.eventType.toString().equals('EMAIL')}" th:href="@{'/admin/sendEmail/' + ${event.type}}" th:text="${event.type}"/>
+                  <span th:if="${event.eventType.toString().equals('TEXT')}">
+                      <span th:text="${event.type}"/>
+                      <span th:if="${event.onlyIfNoEmails}"> (if email disabled)</span>
+                  </span>
+              </td>
+              <td><p th:text="${event.getDescription()}"></p></td>
+              <td th:style="${event.templateExists==false} ? 'color: red'"><p th:if="${event.templateExists==false}">Email Template is missing</p></td>
+          </tr>
+        </table>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+<div th:include="fragment/common :: scripts" />
+
+</body>
+</html>
