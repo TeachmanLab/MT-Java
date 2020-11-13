@@ -144,17 +144,57 @@
             <label class="question">What did you talk about?</label>
             <br/>
             <div class="col-md-8 side-border">
-                <textarea name="talkedAbout" rows="6" cols="50" id="talkedAbout_textbox"/>
+                <textarea name="talkedAbout" rows="6" cols="50" id="talkedAbout_textbox" required="true"/>
             </div>
             <div class="col-md-4">
                 <br/>
                 <div class="radio">
-                    <label class="question"><input type="checkbox" name="talkedAbout" value="555"
-                                                   onchange="document.getElementById('talkedAbout_textbox').disabled = true;"/>
+                    <label class="question"><input id="talkedAbout_555" type="checkbox" name="talkedAbout" value="555"
+                                                   onchange="toggleTextBox2()"/>
                         Prefer not to answer
                     </label>
                 </div>
                 <br/>
+            </div>
+        </div>
+
+        <div class="container section">
+            <div class="row header">
+                <div class="col-md-8 statement"><b>To what extent is MindTrails a useful addition to the care you are
+                    receiving through Kaiser Permanente to support your mental health?</b></div>
+            </div>
+            <div class="row">
+                <div class="col-md-8 side-border">
+                    <div class="radio">
+                        <label class="question"> <input type="radio" name="usefulAddition" value="1"
+                                                        required="true"/>1 – Not at all useful</label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input type="radio" name="usefulAddition" value="2"
+                                                        required="true"/>2</label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input type="radio" name="usefulAddition" value="3"
+                                                        required="true"/>3</label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input type="radio" name="usefulAddition" value="4"
+                                                        required="true"/>4</label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input type="radio" name="usefulAddition" value="5"
+                                                        required="true"/>5 – Extremely useful</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <br/>
+                    <div class="radio">
+                        <label class="question"><input type="radio" name="usefulAddition" value="555"/>
+                            Prefer not to answer
+                        </label>
+                    </div>
+                    <br/>
+                </div>
             </div>
         </div>
 
@@ -657,6 +697,14 @@
         }
     }
 
+    function toggleTextBox2() {
+        if (document.getElementById("talkedAbout_555").checked) {
+            document.getElementById("talkedAbout_textbox").disabled = true
+        } else {
+            document.getElementById("talkedAbout_textbox").disabled = false;
+        }
+    }
+
     function techProblems() {
         if (document.getElementById('problem3').checked || document.getElementById('problem4').checked || document.getElementById('problem5').checked) {
             $("#describeProblems").show();
@@ -730,8 +778,7 @@
             rules: {
                 'devices': {required: true, minlength: 1},
                 'places': {required: true, minlength: 1},
-                'reasonsControl': {required: true, minlength: 1},
-                'howLearn': {required: true, minlength: 1}
+                'reasonsControl': {required: true, minlength: 1}
             }
         });
     });

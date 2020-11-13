@@ -29,6 +29,9 @@ public class Evaluation extends LinkedQuestionnaireData {
     private Integer helpfulTalk;
     private String talkedAbout;
 
+    @NotNull
+    private Integer usefulAddition;
+
     @ElementCollection
     @CollectionTable(name= "evaluation_preferredPlatform", joinColumns = @JoinColumn(name="id"))
     @Column(name = "preferredPlatform")
@@ -106,13 +109,6 @@ public class Evaluation extends LinkedQuestionnaireData {
     @Column(name = "places")
     private List<String> places;
     private String otherPlace;
-
-    @ElementCollection
-    @CollectionTable(name = "evaluation_howLearn", joinColumns= @JoinColumn(name = "id"))
-    @Column(name = "howLearn")
-    private List<String> howLearn;
-    private String howLearnOtherLink;
-    private String howLearnOther;
 
     @NotNull
     private Integer receivedTelecoaching;
