@@ -406,6 +406,16 @@ public class ScheduledEventServiceTest {
         assertEquals(0, events.size());
     }
 
+    @Test
+    public void testInvalidTimezoneUsesEST() {
+        participant.setEmail("TestySendEmailOnCreation@test.com");
+        participant.setLastLoginDate(xDaysAgo(20));
+        participant.setTimezone("thisAintRight");
+        participantRepository.save(participant);
+        assertEquals(0, scheduledEventService.getEventsForParticipant(participant).size());
+    }
+
+
 
 
 }

@@ -15,6 +15,8 @@ import org.mindtrails.persistence.EmailLogRepository;
 import org.mindtrails.persistence.ParticipantRepository;
 import org.mindtrails.persistence.SMSLogRepository;
 import org.mindtrails.persistence.TaskLogRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -32,6 +34,8 @@ import java.util.List;
 @Data
 @Service
 public class ScheduledEventService {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ScheduledEventService.class);
 
 
     @Autowired
@@ -69,18 +73,25 @@ public class ScheduledEventService {
 
 
     @ExportMode
-    @Scheduled(cron = "0 */30 * * * *")  // this runs every 30 minutes
+    @Scheduled(cron = "* 0/30 * * * *")  // this runs every 30 minutes
     @Transactional(propagation=Propagation.REQUIRED, readOnly=false, noRollbackFor=Exception.class)
     public void processEvents() {
 
         List<Participant> participants = participantRepository.findByActive(true);
-
+        LOG.info("Running scheduled event service.");
         for (Participant participant : participants) {
-            if (!timeToSendMessage(participant)) continue;
-            List<ScheduledEvent> events = getEventsForParticipant(participant);
-            for (ScheduledEvent event : events) {
-                event.execute(participant, emailService, twilioService);
-                participantRepository.save(participant);
+            try {
+                if (!timeToSendMessage(participant)) {
+                    continue;
+                }
+                List<ScheduledEvent> events = getEventsForParticipant(participant);
+                LOG.info("Checking events for Participant " + participant.getId() + " Total Events: " + events.size());
+                for (ScheduledEvent event : events) {
+                    event.execute(participant, emailService, twilioService);
+                    participantRepository.save(participant);
+                }
+            } catch (Exception e) {
+                LOG.info("Notifications failed for Participant " + participant.getId() + ".  " + e.getMessage());
             }
         }
     }
@@ -175,10 +186,19 @@ public class ScheduledEventService {
      * @return
      */
     public boolean timeToSendMessage(Participant participant) {
-        // This is 30 minute interval around the users current time.
+
+        // Try to pick up the user's timezone, but fall back to the default otherwise.
+        String timezone = "America/New_York";
+        if(participant.getTimezone() != null && DateTimeZone.getAvailableIDs().contains(participant.getTimezone())) {
+            timezone = participant.getTimezone();
+        } else {
+            LOG.error("Participant #" + participant.getId() + " has an invalid timezone of " + participant.getTimezone());
+        }
+
+        // This is 1.5 hour interval around the users current time.
         Interval interval = new Interval(
-                new DateTime(DateTimeZone.forID(participant.getTimezone())).minusMinutes(15),
-                new DateTime(DateTimeZone.forID(participant.getTimezone())).plusMinutes(15));
+                new DateTime(DateTimeZone.forID(timezone)).minusMinutes(45),
+                new DateTime(DateTimeZone.forID(timezone)).plusMinutes(45));
 
         // The time today when we should send a text message. (typically around 5pm)
         DateTime timeToSend = new DateTime(DateTimeZone.forID(participant.getTimezone()))
