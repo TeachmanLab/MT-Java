@@ -9,7 +9,6 @@ import org.mindtrails.service.ParticipantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 
-import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -85,10 +84,10 @@ public class AdminControllerTest extends BaseControllerTest {
     }
 
     @Test
-    public void listEmails() throws Exception {
-        mockMvc.perform(get("/admin/listEmails")
+    public void listEvents() throws Exception {
+        mockMvc.perform(get("/admin/listEvents")
                 .with(SecurityMockMvcRequestPostProcessors.user(admin)))
-                .andExpect(model().attributeExists("emails"))
+                .andExpect(model().attributeExists("events"))
                 .andExpect(status().isOk());
     }
 

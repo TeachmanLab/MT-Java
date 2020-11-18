@@ -143,6 +143,13 @@ CREATE DATABASE r01 CHARACTER SET utf8 COLLATE utf8_general_ci;
 GRANT ALL PRIVILEGES ON r01.* TO 'pi_user'@'%' IDENTIFIED BY 'pi_password' WITH GRANT OPTION;
 ```
 
+And for Kaiser
+```mysql
+CREATE DATABASE kaiser CHARACTER SET utf8 COLLATE utf8_general_ci;
+GRANT ALL PRIVILEGES ON kaiser.* TO 'pi_user'@'%' IDENTIFIED BY 'pi_password' WITH GRANT OPTION;
+```
+
+
 
 Installing Javascript Dependencies
 -------------------

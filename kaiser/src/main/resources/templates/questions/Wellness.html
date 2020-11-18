@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
+
+<head th:replace="fragment/common :: headerFragment"/>
+<body>
+<section th:replace="fragment/common :: topFragment"/>
+<section th:replace="fragment/common :: titleBar (title='What I Believe')"/>
+<textArea th:replace="fragment/common :: questionTemplate"/>
+
+<section id="content1" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+
+                <p>Below, a number of statements related to thoughts and feelings are presented. For each
+                    statement, select the number for the answer that best describes your own perspective.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="content" class="clearfix">
+    <div class="container">
+
+                <form th:action="@{/questions/Wellness}" method="POST" th:object="${model}">
+                    <!-- Add timer -->
+
+
+                    <div class="container section"><label class="question">All things considered, how satisfied are you with your life as a whole?<br/><br/>
+                    <select required="true" th:field="*{satisfaction}">
+                        <option value="" hidden="hidden">Please select one</option>
+                        <option value="0">0 (Completely dissatisfied)</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5 (Neither satisfied nor dissatisfied)</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10 (Completely satisfied)</option>
+                        <option value="555">Prefer not to answer</option>
+                    </select> </label>
+                    </div>
+
+                    <section th:replace="fragment/forms :: radioOptions(${model})"/>
+                    <div style="text-align:center">
+                        <button type="submit"> Continue</button>
+                    </div>
+                </form>
+
+
+            </div>
+</section>
+<footer th:replace="fragment/common :: footer"/>
+<div th:include="fragment/common :: scripts"/>
+<div th:include="fragment/action_log :: scripts-action-log"/>
+
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
+
+<head th:replace="fragment/common :: headerFragment"/>
+<body>
+<section th:replace="fragment/common :: topFragment"/>
+<section th:replace="fragment/common :: titleBar (title='Identity')"/>
+<textArea th:replace="fragment/common :: questionTemplate"/>
+
+<style>
+    h4 {
+        margin-left: 20px;
+    }
+    textarea.coach {
+        margin: 0 20px 0 20px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        width: 80%;
+    }
+</style>
+
+<section id="content1" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <p>
+                    As a participant in this study, we need to know your full name and date of birth in
+                    order to connect you with your medical history.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section id="content2" class="clearfix">
+    <form th:action="@{/questions/Identity}" method="POST" th:object="${model}">
+        <div class="container section">
+            <div class="row">
+                <div class="row">
+                    <div class="col-md-2">
+                        <h4><b>First Name</b></h4>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" name="firstName"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <h4><b>Last Name</b></h4>
+                    </div>
+                    <div class="col-md-4">
+                    <input type="text" name="lastName"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <h4><b>Date of Birth</b></h4>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group date">
+                            <input id='datepicker' type="text" name="dateOfBirth" class="form-control" required="required" />
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section th:replace="fragment/forms :: radioOptions(${model})"/>
+        <div class="col-md-12" style="text-align:center">
+            <button type="submit">Next</button>
+        </div>
+    </form>
+</section>
+<link rel="stylesheet" media="screen"
+      th:href="@{/bower/bootstrap-datepicker/dist/css/bootstrap-datepicker.standalone.css}"/>
+<script type="text/javascript" th:src="@{/bower/bootstrap-datepicker/dist/js/bootstrap-datepicker.js}"></script>
+<script>
+    $(document).ready(function () {
+        $('.input-group.date').datepicker({});
+        $('#form').on('submit', function(e) {
+            if($('#datepicker').val()) {
+                var date = new Date($("#datepicker").val());
+                console.log(date.toISOString());
+                $('#dateOfBirth').val(date.toISOString());
+            }
+        })
+    });
+</script>
+
+<footer th:replace="fragment/common :: footer"/>
+<div th:include="fragment/common :: scripts"/>
+<div th:include="fragment/action_log :: scripts-action-log"/>
+
+</body>
+</html>

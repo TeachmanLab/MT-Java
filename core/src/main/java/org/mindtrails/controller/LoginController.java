@@ -101,6 +101,7 @@ public class LoginController {
 
     @RequestMapping(value="/public/{page}", method = RequestMethod.GET)
     public String showLogin(ModelMap model, @PathVariable("page") String page) {
+
         return page;
     }
 

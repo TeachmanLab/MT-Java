@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
+
+<head th:replace="fragment/common :: headerFragment"/>
+<body>
+<section th:replace="fragment/common :: topFragment"/>
+<section th:replace="fragment/common :: titleBar (title='Assessing the Program')"/>
+<section id="content" class="clearfix">
+
+    <form id="assessForm" th:action="@{/questions/AssessingProgram}" method="POST">
+        <!-- Add timer -->
+        <input id="timeOnPage" name="timeOnPage" type="hidden"/>
+        <input type="hidden" id="worthPerWeek" name="worthPerWeek"/>
+        <input type="hidden" id="compareToOthers" name="compareToOthers"/>
+
+        <div class="container section compactQuestion">
+            <h3><b>Compared to other mental health services, how much is MindTrails worth?</b></h3>
+            <p>For reference, in US dollars: meditation apps cost approximately $2 per week, online services that allow
+                you to text a therapist cost approximately $50 per week,
+                and in-person psychotherapy costs approximately $100 per week (note that we are not asking people to pay
+                for MindTrails, but want to learn more about how much people value the program).</p>
+            <br></br>
+            <textarea class="input-lg" maxlength="8" rows="1" cols="3"  required="true"
+                          onchange="disableSection(this, 'worthPerWeek')"/> &nbsp;&nbsp;
+                <b>per week (in US dollars)</b>
+            <br/><br/>
+            <label>
+            <input type="checkbox" onchange="disableSection(this, 'worthPerWeek')" value="555"/>&nbsp;&nbsp;Prefer not to answer
+            </label>
+        </div>
+        <div class="container section compactQuestion">
+            <br/>
+            <h3><b>How does MindTrails compare to other anxiety treatments that you have tried (such as going to
+                therapy or taking medications)?</b></h3>
+            <p>When answering, please note what treatment(s) you are comparing MindTrails to. You can consider such
+                factors as helpfulness, enjoyment, and overall satisfaction.</p>
+            <br></br>
+            <textarea rows="6" cols="50" required="true" onchange="disableSection(this, 'compareToOthers')" />
+            <br/>
+            <br/>
+            <div class="radio">
+                <label class="question"><input type="checkbox" value="N/A"
+                                               onchange="disableSection(this, 'compareToOthers')"/>
+                    &nbsp;&nbsp;Not applicable</label>
+            </div>
+            <div class="radio">
+                <label class="question"> <input type="checkbox" value="555"
+                                                onchange="disableSection(this, 'compareToOthers')"/>
+                    &nbsp;&nbsp;Prefer not to answer
+                </label>
+            </div>
+        </div>
+        <script>
+            /*<![CDATA[*/
+            function disableSection(input, name) {
+                console.log("Disabling everything for " + name);
+
+                if ( input.checked || ($(input).is("textarea") && input.value !== '')) {
+                    console.log("It is checked");
+                    console.log($(input).closest('.section').find("input"));
+                    $(input).closest('.section').find("input").not(input).prop('checked', false);
+                    $(input).closest('.section').find("input").not(input).prop("disabled", true);
+                    $(input).closest('.section').find("textarea").not(input).prop("disabled", true);
+                    $(input).closest('.section').find("textarea").not(input).prop("required", false);
+                    $(input).closest('.section').find("option").prop('selected', false);
+                    $(input).closest('.section').find("select").prop('required', false);
+                    $(input).removeAttr("disabled");
+                    document.getElementById(name).value = $(input).val()
+                    console.log(name, "value is set to: " + document.getElementById(name).value)
+                } else {
+                    console.log("It is not checked")
+                    $(input).closest('.section').find("input").removeAttr("disabled");
+                    $(input).closest('.section').find("textarea").removeAttr("disabled");
+                    $(input).closest('.section').find("select").prop('required', true);
+                }
+            }
+            /*]]>*/
+        </script>
+
+
+        <div class="col-md-12" style="text-align:center">
+            <button type="submit">Next</button>
+        </div>
+    </form>
+
+</section>
+<footer th:replace="fragment/common :: footer"/>
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>
