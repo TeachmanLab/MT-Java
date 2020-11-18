@@ -191,10 +191,17 @@ public class KaiserParticipantService extends ParticipantServiceImpl implements 
     @Override
     public void saveNew(Participant p, HttpSession session) throws MissingEligibilityException {
 
+        Study study = p.getStudy();
+        String condition = (String)session.getAttribute("condition");
 
+        // Set the participant's condition based on the session attribute.
+        study.setConditioning(condition);
 
-        // Set the participants condition based on the session attribute.
-        p.getStudy().setConditioning((String)session.getAttribute("condition"));
+        // Update ability to receive gift cards, based on condition
+        if (!condition.contains("BONUS")) {
+            p.setReceiveGiftCards(false);
+            study.setReceiveGiftCards(false);
+        }
         save(p); // Just save the participant
 
 

@@ -521,6 +521,9 @@
         $(document).ready(function () {
 
             //Form Wizard controls
+            $('#totalsteps').text($("#steptabs").children().length);
+
+
             $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
 
                 var $target = $(e.target);
@@ -530,11 +533,16 @@
             });
             $(".next-step").click(function (e) {
                 var $active = $('.wizard .nav-tabs li.active');
-                $active.next().removeClass('disabled').find('a[data-toggle="tab"]').click();
+                var $next = $active.next();
+                $('#stepnum').text($next.index() + 1);
+                $next.removeClass('disabled').find('a[data-toggle="tab"]').click();
+
             });
             $(".prev-step").click(function (e) {
                 var $active = $('.wizard .nav-tabs li.active');
-                $active.prev().find('a[data-toggle="tab"]').click();
+                var $prev = $active.prev();
+                $('#stepnum').text($prev.index() + 1);
+                $prev.find('a[data-toggle="tab"]').click();
             });
 
             // Use Jquery-Validate plugin to validate all forms.

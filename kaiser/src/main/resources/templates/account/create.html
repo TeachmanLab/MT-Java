@@ -17,14 +17,22 @@
 
     <section id="content" class="clearfix">
         <div class="container">
-
-            <div style="text-align:right">
-                <a href="#" onclick="window.print();return false;">Print Consent Forms</a></div>
-
+            <div class="row">
+                <div class="col-md-4">
+                    <div style="text-align:left">
+                        Step <b><span id="stepnum">1</span></b> of <b><span id="totalsteps"></span></b>
+                    </div>
+                </div> 
+                <div class="col-md-4">
+                    <div style="text-align:right">
+                        <a href="#" onclick="window.print();return false;">Print Consent Forms</a>
+                    </div>        
+                </div> 
+            </div>
             <div class="row">
                 <div class="col-md-8">
                     <div class="wizard">
-                        <ul class="nav nav-tabs" role="tablist" style="display:none;">
+                        <ul id="steptabs" class="nav nav-tabs" role="tablist" style="display:none;">
                             <li role="presentation" class="active">
                                 <a href="#consent-whatismt" data-toggle="tab" aria-controls="consent-whatismt" role="tab"
                                     title="What is MindTrails"></a>
