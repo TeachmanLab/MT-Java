@@ -86,7 +86,9 @@
 <script type="text/javascript" th:src="@{/bower/bootstrap-datepicker/dist/js/bootstrap-datepicker.js}"></script>
 <script>
     $(document).ready(function () {
-        $('.input-group.date').datepicker({});
+        $('.input-group.date').datepicker({
+            startView: 2 // for years
+        });
         $('#form').on('submit', function(e) {
             if($('#datepicker').val()) {
                 var date = new Date($("#datepicker").val());
