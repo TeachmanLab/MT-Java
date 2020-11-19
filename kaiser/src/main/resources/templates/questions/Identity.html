@@ -11,7 +11,7 @@
 <head th:replace="fragment/common :: headerFragment"/>
 <body>
 <section th:replace="fragment/common :: topFragment"/>
-<section th:replace="fragment/common :: titleBar (title='Identity')"/>
+<section th:replace="fragment/common :: titleBar (title='Personal Information')"/>
 <textArea th:replace="fragment/common :: questionTemplate"/>
 
 <style>
@@ -32,8 +32,8 @@
         <div class="row">
             <div class="col-md-8">
                 <p>
-                    As a participant in this study, we need to know your full name and date of birth in
-                    order to connect you with your medical history.
+                    As a participant in this study, we need to know your full name and date of birth
+                    in order to connect you with your Kaiser Permanente electronic health record.
                 </p>
             </div>
         </div>
@@ -47,7 +47,7 @@
             <div class="row">
                 <div class="row">
                     <div class="col-md-2">
-                        <h4><b>First Name</b></h4>
+                        <h4><b>First name</b></h4>
                     </div>
                     <div class="col-md-4">
                         <input type="text" name="firstName"/>
@@ -55,7 +55,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-2">
-                        <h4><b>Last Name</b></h4>
+                        <h4><b>Last name</b></h4>
                     </div>
                     <div class="col-md-4">
                     <input type="text" name="lastName"/>
@@ -63,7 +63,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-2">
-                        <h4><b>Date of Birth</b></h4>
+                        <h4><b>Date of birth</b></h4>
                     </div>
                     <div class="col-md-4">
                         <div class="input-group date">
