@@ -95,7 +95,7 @@ public class KaiserStudy extends BaseStudy {
 
         pretest = new Session (PRE_TEST, "Initial Assessment", 0, 0);
         pretest.setIndex(0);
-        pretest.addTask(new Task("Identity","Your Identity", Task.TYPE.questions, 0 ));
+        pretest.addTask(new Task("Identity","Personal Information", Task.TYPE.questions, 0 ));
 
         pretest.addTask(new Task("Credibility","How Does MindTrails Work?", Task.TYPE.questions, 0 ));
         pretest.addTask(new Task("Demographics","Personal Background", Task.TYPE.questions, 2 ));
