@@ -521,8 +521,17 @@
         $(document).ready(function () {
 
             //Form Wizard controls
+            $('#stepnum').text(1);
             $('#totalsteps').text($("#steptabs").children().length);
 
+            // Don't make user go through the form wizard again if they have errors trying to create an account
+            /*<![CDATA[*/
+            if (localStorage.hasOwnProperty("reachedLastStep") && localStorage.getItem("reachedLastStep") === "true") {
+                $('#stepnum').text($("#steptabs").children().length);
+                var $active = $('.wizard .nav-tabs li:last-child');
+                $active.removeClass('disabled').find('a[data-toggle="tab"]').click();
+            }
+            /*]]>*/
 
             $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
 
@@ -535,6 +544,9 @@
                 var $active = $('.wizard .nav-tabs li.active');
                 var $next = $active.next();
                 $('#stepnum').text($next.index() + 1);
+                if (($next.index() + 1) == $("#steptabs").children().length) {
+                    localStorage.setItem("reachedLastStep", "true");
+                }
                 $next.removeClass('disabled').find('a[data-toggle="tab"]').click();
 
             });
