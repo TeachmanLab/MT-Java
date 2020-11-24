@@ -74,8 +74,6 @@ public class KaiserParticipantService extends ParticipantServiceImpl implements 
         Participant p = new Participant();
         KaiserStudy study = new KaiserStudy();
         study.setStudyExtension(KaiserStudy.STUDY_EXTENSIONS.KAISER.name());
-        p.setReceiveGiftCards(tangoService.getEnabled());
-        study.setReceiveGiftCards(tangoService.getEnabled());
         p.setStudy(study);
         return p;
     }
@@ -201,11 +199,11 @@ public class KaiserParticipantService extends ParticipantServiceImpl implements 
         if (!condition.contains("BONUS")) {
             p.setReceiveGiftCards(false);
             study.setReceiveGiftCards(false);
+        } else {
+            p.setReceiveGiftCards(tangoService.getEnabled());
+            study.setReceiveGiftCards(tangoService.getEnabled());
         }
-        save(p); // Just save the participant
-
-
-
+        save(p);
         // Generally we would connect any elegibility scores back to the participant at this point, but kaiser does not have this issue.
     }
 }
