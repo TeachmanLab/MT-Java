@@ -28,11 +28,11 @@ public class ReasonsForEnding extends LinkedQuestionnaireData {
     List<String> reasons;
     String End_Other_Desc;
 
-    boolean thoughtInControl;
-    String pointInControl="N/A";
-    String whyInControl;
-    String otherWhyInControl;
-    String control_Desc;
+    //boolean thoughtInControl;
+    //String pointInControl="N/A";
+    //String whyInControl;
+    //String otherWhyInControl;
+    //String control_Desc;
     int helpful;
     int work;
     int easy;
