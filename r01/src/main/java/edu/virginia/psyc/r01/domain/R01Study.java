@@ -243,7 +243,7 @@ public class R01Study extends BaseStudy {
         // Only GIDI Participants will get the final post followup.
         if(this.studyExtension != null &&
                 this.studyExtension.equals(STUDY_EXTENSIONS.GIDI.name())) {
-            post2 = new Session(POST_FOLLOWUP2, "6 Month Post Training", 15, 180);
+            post2 = new Session(POST_FOLLOWUP2, "6 Month Post Training", 15, 120);
             post2.setIndex(7);
             post2.addTask(new Task("AnxietyIdentity", "Anxiety and Me", Task.TYPE.questions, 0));
             post2.addTask(new Task("OA", "Anxiety Review", Task.TYPE.questions, 1));

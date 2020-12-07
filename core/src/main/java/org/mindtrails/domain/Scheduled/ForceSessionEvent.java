@@ -1,11 +1,14 @@
 package org.mindtrails.domain.Scheduled;
 
 import lombok.Data;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.service.EmailService;
 import org.mindtrails.service.TwilioService;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -16,18 +19,14 @@ import java.util.List;
 public class ForceSessionEvent extends ScheduledEvent {
 
     private String toSession;
+    private int inactivityDays; // Once moved to a session, sets the number of days of innactivity, default is 0
 
-    public ForceSessionEvent(String type, String toSession, String studyExtension,
+    public ForceSessionEvent(String type, String toSession, int inactivityDays, String studyExtension,
                        List<String> sessions, int days, SCHEDULE_TYPE scheduleType) {
         super(EVENT_TYPE.FORCE_SESSION, type, studyExtension, sessions, Collections.singletonList(days), scheduleType);
         this.toSession = toSession;
+        this.inactivityDays = inactivityDays;
     }
-
-
-    public void execute(Participant p) {
-        p.getStudy().forceToSession(toSession);
-    }
-
 
     @Override
     public String getDescription() {
@@ -38,5 +37,9 @@ public class ForceSessionEvent extends ScheduledEvent {
     public void execute(Participant p, EmailService emailService,
                         TwilioService twilioService) {
         p.getStudy().forceToSession(toSession);
+        Date new_date = DateTime.now().minus(Days.days(inactivityDays)).toDate();
+        p.getStudy().setLastSessionDate(new_date);
+        p.setLastLoginDate(new_date);
+        System.out.println(p.daysSinceLastMilestone());
     }
 }

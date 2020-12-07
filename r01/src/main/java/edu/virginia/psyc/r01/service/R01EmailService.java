@@ -67,14 +67,16 @@ public class R01EmailService extends EmailServiceImpl implements EmailService{
                 R01Study.STUDY_EXTENSIONS.GIDI.name(), R01Study.POST_FOLLOWUP, 46, Email.SCHEDULE_TYPE.INACTIVITY, false));
         events.add(new Email("followup", "It’s Time to Complete the MindTrails Two Month Follow-Up Survey!",
                 null, R01Study.POST_FOLLOWUP, 60, Email.SCHEDULE_TYPE.INACTIVITY, false));
+        events.add(new Email("followup2", "Follow-up Reminder from the MindTrails Project Team",
+                R01Study.STUDY_EXTENSIONS.TET.name(), R01Study.POST_FOLLOWUP, 63, Email.SCHEDULE_TYPE.INACTIVITY, false));
         events.add(new Email("followup2", "We’d love to hear from you!",
                 null, R01Study.POST_FOLLOWUP, 67, Email.SCHEDULE_TYPE.INACTIVITY, false));
-        events.add(new Email("followup3", "We’d love to help!",
-                null, R01Study.POST_FOLLOWUP, 75, Email.SCHEDULE_TYPE.INACTIVITY, false));
+        events.add(new Email("followup2", "Follow-up Reminder from the MindTrails Project Team",
+                R01Study.STUDY_EXTENSIONS.TET.name(), R01Study.POST_FOLLOWUP, 70, Email.SCHEDULE_TYPE.INACTIVITY, false));
         events.add(new Email("followup3", "We’d love to help!",
                 null, R01Study.POST_FOLLOWUP, 75, Email.SCHEDULE_TYPE.INACTIVITY, false));
         events.add(new Email("debrief", "Explanation of the MindTrails Study",
-                null, R01Study.POST_FOLLOWUP, 120, Email.SCHEDULE_TYPE.INACTIVITY, false));
+                R01Study.STUDY_EXTENSIONS.TET.name(), R01Study.POST_FOLLOWUP, 120, Email.SCHEDULE_TYPE.INACTIVITY, false));
 
         // Close TET account after 120 days of inactivity on the POST_FOLLOWUP
         events.add(new MarkInactiveEvent("markInactive", R01Study.STUDY_EXTENSIONS.TET.name(),
@@ -82,21 +84,22 @@ public class R01EmailService extends EmailServiceImpl implements EmailService{
                 120, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY));
 
         // Force GIDI to POST_FOLLOWUP2 120 days after completing session 5.
-        events.add(new ForceSessionEvent("forceSession", R01Study.POST_FOLLOWUP2, R01Study.STUDY_EXTENSIONS.GIDI.name(), Arrays.asList(R01Study.FIFTH_SESSION),
+        // ********************* Set it to GIDI, and set last activity to 120 days ago.
+        events.add(new ForceSessionEvent("forceSession", R01Study.POST_FOLLOWUP2, 60, R01Study.STUDY_EXTENSIONS.GIDI.name(), Arrays.asList(R01Study.FIFTH_SESSION),
                 120, ScheduledEvent.SCHEDULE_TYPE.SINCE_COMPLETION));
-        
 
         events.add(new Email("headsup2", "The MindTrails Six Month Follow-Up Survey is Just 2 Weeks Away!",
-                R01Study.STUDY_EXTENSIONS.GIDI.name(), R01Study.POST_FOLLOWUP, 166, Email.SCHEDULE_TYPE.SINCE_COMPLETION, false));
+                R01Study.STUDY_EXTENSIONS.GIDI.name(), R01Study.POST_FOLLOWUP2, 106, Email.SCHEDULE_TYPE.INACTIVITY, false));
         events.add(new Email("followup_6month", "It’s Time to Complete the MindTrails Six Month Follow-Up Survey!",
-                R01Study.STUDY_EXTENSIONS.GIDI.name(), R01Study.POST_FOLLOWUP, 180, Email.SCHEDULE_TYPE.SINCE_COMPLETION, false));
+                R01Study.STUDY_EXTENSIONS.GIDI.name(), R01Study.POST_FOLLOWUP2, 120, Email.SCHEDULE_TYPE.INACTIVITY, false));
         events.add(new Email("followup2_6month", "We’d love to hear from you!",
-                R01Study.STUDY_EXTENSIONS.GIDI.name(), R01Study.POST_FOLLOWUP2, 7, Email.SCHEDULE_TYPE.INACTIVITY, false));
+                R01Study.STUDY_EXTENSIONS.GIDI.name(), R01Study.POST_FOLLOWUP2, 127, Email.SCHEDULE_TYPE.INACTIVITY, false));
         events.add(new Email("followup3_6month", "We’d love to help!",
-                R01Study.STUDY_EXTENSIONS.GIDI.name(), R01Study.POST_FOLLOWUP2, 14, Email.SCHEDULE_TYPE.INACTIVITY, false));
+                R01Study.STUDY_EXTENSIONS.GIDI.name(), R01Study.POST_FOLLOWUP2, 134, Email.SCHEDULE_TYPE.INACTIVITY, false));
 
         // GIDI Newsletter events
         events.add(new Email("newsletter1", "MindTrails Newsletter #1",
+
                 R01Study.STUDY_EXTENSIONS.GIDI.name(), R01Study.FIRST_SESSION, 2, Email.SCHEDULE_TYPE.SINCE_COMPLETION, false));
         events.add(new Email("newsletter2", "MindTrails Newsletter #2",
                 R01Study.STUDY_EXTENSIONS.GIDI.name(), R01Study.POST_FOLLOWUP, 7, Email.SCHEDULE_TYPE.SINCE_COMPLETION, false));

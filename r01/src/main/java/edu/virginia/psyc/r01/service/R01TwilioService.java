@@ -43,7 +43,7 @@ public class R01TwilioService extends TwilioServiceImpl implements TwilioService
                 null, core_sessions, 21, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY, true));
 
         messages.add(new TextMessage("gidiHeadsUp",
-                "The MindTrails 2 month follow-up is two weeks away! We’ll text you when it’s ready. " + serverUrl,
+                "The MindTrails 2 month follow-up is two weeks away! We’ll text you when it’s ready.",
                 R01Study.STUDY_EXTENSIONS.GIDI.name(), R01Study.POST_FOLLOWUP, 46, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY, true));
         messages.add(new TextMessage("60day",
                 "The MindTrails 2 month follow-up is ready now! Follow this link to complete: " + serverUrl,
@@ -51,7 +51,7 @@ public class R01TwilioService extends TwilioServiceImpl implements TwilioService
 
         messages.add(new TextMessage("63day",
                 "Final MindTrails survey is ready: " + serverUrl,
-                null, R01Study.POST_FOLLOWUP, 63, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY, true));
+                R01Study.STUDY_EXTENSIONS.TET.name(), R01Study.POST_FOLLOWUP, 63, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY, true));
 
         messages.add(new TextMessage("67day",
                 "Time to complete the MindTrails 2 month follow-up! Follow this link to complete: " + serverUrl,
@@ -59,7 +59,7 @@ public class R01TwilioService extends TwilioServiceImpl implements TwilioService
 
         messages.add(new TextMessage("70day",
                 "Final MindTrails survey is ready: " + serverUrl,
-                null, R01Study.POST_FOLLOWUP, 70, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY, true));
+                R01Study.STUDY_EXTENSIONS.TET.name(), R01Study.POST_FOLLOWUP, 70, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY, true));
 
         messages.add(new TextMessage("75day",
                 "Time to complete the MindTrails 2 month follow-up! Follow this link to complete: " + serverUrl,
@@ -70,30 +70,32 @@ public class R01TwilioService extends TwilioServiceImpl implements TwilioService
                 R01Study.STUDY_EXTENSIONS.GIDI.name(),
                 R01Study.POST_FOLLOWUP, 81, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY, false));
 
+
+
         messages.add(new TextMessage("headsup2",
-                "The MindTrails 6 month follow-up is two weeks away! We’ll text you when it’s ready.  " + serverUrl,
+                "The MindTrails 6 month follow-up is two weeks away! We’ll text you when it’s ready.",
                 R01Study.STUDY_EXTENSIONS.GIDI.name(),
-                R01Study.FIFTH_SESSION, 166, ScheduledEvent.SCHEDULE_TYPE.SINCE_COMPLETION, true));
+                R01Study.FIFTH_SESSION, 106, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY, true));
 
         messages.add(new TextMessage("followup_6month",
                 "The MindTrails 6 month follow-up is ready now! Follow this link to complete: " + serverUrl,
                 R01Study.STUDY_EXTENSIONS.GIDI.name(),
-                R01Study.POST_FOLLOWUP2, 0, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY, true));
+                R01Study.POST_FOLLOWUP2, 120, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY, true));
 
         messages.add(new TextMessage("followup2_6month",
                 "Time to complete the MindTrails 6 month follow-up! Follow this link to access the survey: " + serverUrl,
                 R01Study.STUDY_EXTENSIONS.GIDI.name(),
-                R01Study.POST_FOLLOWUP2, 7, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY, true));
+                R01Study.POST_FOLLOWUP2, 127, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY, true));
 
         messages.add(new TextMessage("followup3_6month",
                 "Time to complete the MindTrails 6 month follow-up! Follow this link to access the survey: " + serverUrl,
                 R01Study.STUDY_EXTENSIONS.GIDI.name(),
-                R01Study.POST_FOLLOWUP2, 14, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY, true));
+                R01Study.POST_FOLLOWUP2, 134, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY, true));
 
         messages.add(new TextMessage("followup3_6month",
                 "Time to complete the MindTrails 6 month follow-up! Follow this link to access the survey: " + serverUrl,
                 R01Study.STUDY_EXTENSIONS.GIDI.name(),
-                R01Study.POST_FOLLOWUP2, 21, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY, false));
+                R01Study.POST_FOLLOWUP2, 141, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY, false));
 
         return messages;
     }
