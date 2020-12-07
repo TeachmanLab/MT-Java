@@ -141,7 +141,7 @@ public class R01Study extends BaseStudy {
         session1.addTask(new Task("SessionReview", "Session Review", Task.TYPE.questions, 0));
         session1.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
         session1.addTask(new Task("CoachPrompt","Feedback", Task.TYPE.questions, 0 ));
-        session1.addTask(new Task("Gidi","GIDI Study", Task.TYPE.questions, 0 ));
+//        session1.addTask(new Task("Gidi","GIDI Study", Task.TYPE.questions, 0 ));
         session1.addTask(new Task("ReturnIntention","Returning to the Program", Task.TYPE.questions, 0));
         sessions.add(session1);
 
