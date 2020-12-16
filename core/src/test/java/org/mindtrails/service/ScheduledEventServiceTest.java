@@ -402,13 +402,14 @@ public class ScheduledEventServiceTest {
         assertTrue(events.get(0) instanceof ForceSessionEvent);
         events.get(0).execute(participant, null, null);
         assertEquals("PostSession", participant.getStudy().getCurrentSession().getName());
+        assertEquals(30, participant.daysSinceLastMilestone());
         events = scheduledEventService.getEventsForParticipant(participant);
         assertEquals(0, events.size());
     }
 
     @Test
     public void testInvalidTimezoneUsesEST() {
-        participant.setEmail("TestySendEmailOnCreation@test.com");
+        participant.setEmail("TestySendEmailOnCreation2@test.com");
         participant.setLastLoginDate(xDaysAgo(20));
         participant.setTimezone("thisAintRight");
         participantRepository.save(participant);

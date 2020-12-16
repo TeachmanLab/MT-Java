@@ -49,9 +49,9 @@ public class TestEmailService extends EmailServiceImpl implements EmailService {
                 Arrays.asList("SessionOne"),
                 18, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY));
 
-        events.add(new ForceSessionEvent("forceSession", "PostSession", "gidi", Arrays.asList("SessionOne"),
+        events.add(new ForceSessionEvent("forceSession", "PostSession", 30, "gidi", Arrays.asList("SessionOne"),
                 18, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY));
-
+        
 
         events.add(new Email("followup", "Update from the MindTrails Project Team",
                 null, "PostSession", 60, Email.SCHEDULE_TYPE.INACTIVITY, false));
