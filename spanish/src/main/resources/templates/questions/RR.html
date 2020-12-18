@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
+
+<head th:replace="fragment/common :: headerFragment"/>
+<body>
+<section th:replace="fragment/common :: topFragment"/>
+<section th:replace="fragment/common :: titleBar (title=#{rr.title})"/>
+<textArea th:replace="fragment/common :: questionTemplate"/>
+<section id="content" class="clearfix">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <p th:text="#{rr.instructions1}">Below, you will see the titles of the nine short stories you just read. After each one, you will
+                    see four sentences. None of these sentences are identical to the original story, but some are
+                    more similar than others.</p>
+                <p th:text="#{rr.instructions2}">Think back to the story you read, and rate how similar each sentence
+                    is to what you read in the original story. We are interested in your understanding of the
+                    original story, whether or not that matches what you would personally think or do in that
+                    situation.</p>
+            </div>
+
+
+        </div>
+    </div>
+
+
+    <form th:action="@{/questions/RR}" method="POST" th:object="${model}" style="padding-left: 30px">
+        <!-- Add timer -->
+        <section th:replace="fragment/forms :: radioOptions(${model})" />
+
+        <div class="col-md-12" style="text-align:center">
+            <button type="submit" th:text="#{next}">Next</button>
+        </div>
+    </form>
+
+</section>
+<footer th:replace="fragment/common :: footer"/>
+<div th:include="fragment/common :: scripts"/>
+<div th:include="fragment/action_log :: scripts-action-log"/>
+
+</body>
+</html>

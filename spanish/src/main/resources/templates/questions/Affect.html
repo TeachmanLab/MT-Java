@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
+
+<head th:replace="fragment/common :: headerFragment"/>
+<link rel="stylesheet" media="screen" th:href="@{/css/clearSlider.css}"/>
+<script type="text/javascript" th:src="@{/js/clearSlider.js}"/>
+
+<body>
+<section th:replace="fragment/common :: topFragment"/>
+<section th:replace="fragment/common :: titleBar (title=#{affect.title})"/>
+
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10">
+
+                <form id="affectForm" th:action="@{/questions/Affect}" method="POST">
+
+                    <!-- Add timer -->
+                    <input id="timeOnPage" name="timeOnPage" type="hidden"/>
+
+                    <div class="section">
+                        <div class="question" th:text="#{affect.how_anxious}"> How anxious do you feel right now, that is, at the present moment?</div>
+                        <div th:text="#{affect.click_bar}"> (Click the bar to make the slider appear.) </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-12">
+                                <input id="sliderValue" type="hidden" name="PosFeelings"/>
+                                <input id="clearSlider"  type="range"  min="0" max="100"></input>
+                            </div>
+                        </div>
+                        <div class="slider-row">
+                            <div class="left" th:text="#{affect.not_anxious}">Not anxious at all</div>
+                            <div class="right" th:text="#{extremely_anxious}">Extremely anxious</div>
+                        </div>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <div class="after_slider"><label class="standard">
+                          <span align="right"> <input id="sliderEnabled" type="checkbox" value="555" th:text="#{affect.prefer_not_to_answer}">
+                              Prefer not to answer</input></span>
+                        </label></div>
+                    </div>
+
+                    <div style="text-align:center">
+                        <button type="submit" onclick="getTime()" th:text="#{continue}"> Continue</button>
+                    </div>
+
+                </form>
+
+
+            </div>
+        </div>
+        <!--features ends-->
+
+        <!--divider here-->
+        <div class="spacer-40px"></div>
+
+
+    </div>
+</section>
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts"/>
+<div th:include="fragment/action_log :: scripts-action-log"/>
+</body>
+</html>
