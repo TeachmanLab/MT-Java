@@ -1,3 +1,5 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head th:include="fragment/email :: headerFragment"/>
 
 <body style="font-family: 'Source Sans Pro', sans-serif; font-size:20px; box-sizing:border-box; background-color: #FFF">
@@ -10,21 +12,18 @@
 
         <tr>
             <td width="400">
-
-                <img src="email_logo.png">
-                <br/>
-
                 <p th:text="'Dear ' +  ${participant.fullName} + ','" style="margin-top:0; margin-bottom:10px">
                     Dear,</p>
 
                 <p style="margin-top:5px">Thank you for participating in MindTrails. We hope that the skills you learned during the study have helped you in your everyday life. </p>
 
 
-                <h10 th:text="'We are reminding you to complete the two month follow-up, which will be available beginning on ' +  ${twomonth.date} + ','" style="margin-top:0; margin-bottom:10px">
-                    We are reminding you to complete the two month follow-up, which will be available beginning on </h10>. Your responses will help us improve our intervention for future participants and are greatly appreciated.</p>
+                <p style="margin-top:15px;margin-left: 50px;" th:text="'We are reminding you to complete the two month follow-up, which will be available beginning on ' +  ${twomonth.date} + ','" style="margin-top:0; margin-bottom:10px">
+                    We are reminding you to complete the two month follow-up, which will be available beginning on</p>
+                <p>Your responses will help us improve our intervention for future participants and are greatly appreciated.</p>
 
-                <h10 th:text="'To complete the follow-up on or after' +  ${twomonth.date} + ','" style="margin-top:0; margin-bottom:10px">
-                    To complete the follow-up (on or after </h10>):
+                <p style="margin-top:15px;margin-left: 50px;" th:text="'To complete the follow-up on or after' +  ${twomonth.date} + ','" style="margin-top:0; margin-bottom:10px">
+                    To complete the follow-up (on or after </p>):
 
                 <p style="margin-top:15px;margin-left: 50px;">1. Log into your <a href="https://mindtrails.virginia.edu/calm/login">MindTrails account</a>.</p>
                 <p style="margin-top:10px;margin-left: 50px;">2. Click on "Continue".</p>
@@ -37,7 +36,7 @@
                 <p style="margin-top:30px">Best,</p>
                 <p style="margin:0 0 0 0;">The MindTrails Team</p>
 
-                <div id="footer" class="clearfix" th:fragment="footerFragment">
+                <div id="footer" class="clearfix" th:fragment="footerFragment"/>
 
             </td>
         </tr>

@@ -1,3 +1,5 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head th:include="fragment/email :: headerFragment"/>
 
 <body style="font-family: 'Source Sans Pro', sans-serif; font-size:20px; box-sizing:border-box; background-color: #FFF">
@@ -10,10 +12,6 @@
 
         <tr>
             <td width="400">
-
-                <img src="email_logo.png">
-                <br/>
-
                 <p th:text="'Dear ' +  ${participant.fullName} + ','" style="margin-top:0; margin-bottom:10px">
                     Dear,</p>
 
@@ -25,7 +23,7 @@
                 <p style="margin-top:30px">Best,</p>
                 <p style="margin:0 0 0 0;">The MindTrails Team</p>
 
-                <div id="footer" class="clearfix" th:fragment="footerFragment">
+                <div id="footer" class="clearfix" th:fragment="footerFragment"/>
 
             </td>
         </tr>
