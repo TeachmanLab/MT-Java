@@ -2,8 +2,6 @@
 
 <body style="font-family: 'Source Sans Pro', sans-serif; font-size:20px; box-sizing:border-box; background-color: #FFF">
 
-<div id="body_style" style="padding:15px">
-
     <table cellpadding="0" cellspacing="0" width="600" align="center" th:include="fragment/email :: logoFragment"/>
 
     <table cellpadding="0" cellspacing="0" width="600" align="center" style="margin-top:20px">
@@ -11,7 +9,7 @@
         <tr>
             <td width="400">
 
-                <img src="email_logo.png">
+                <img src="email_logo.png"/>
                 <br/>
 
                 <p th:text="'Dear ' +  ${participant.fullName} + ','" style="margin-top:0; margin-bottom:10px">
@@ -26,16 +24,16 @@
                 <p style="margin-top:10px;margin-left: 50px;">3. Complete the survey, which will take approximately 15 minutes.</p>
 
                 <p style="margin-top:15px">Thank you for taking the time to complete this follow-up. If you have any questions, let us know by contacting us at <a href = "mailto: studyteam@mindtrails.net">
-                    studyteam@mindtrails.net</a>.
+                    studyteam@mindtrails.net</a>.</p>
 
                 <p style="margin-top:30px">Best,</p>
                 <p style="margin:0 0 0 0;">The MindTrails Team</p>
 
-                <div id="footer" class="clearfix" th:fragment="footerFragment">
+                <div id="footer" class="clearfix" th:fragment="footerFragment"/>
 
             </td>
         </tr>
     </table>
-</div>
+
 </body>
 </html>
