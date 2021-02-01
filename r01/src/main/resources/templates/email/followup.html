@@ -1,8 +1,9 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
 <head th:include="fragment/email :: headerFragment"/>
 
 <body style="font-family: 'Source Sans Pro', sans-serif; font-size:20px; box-sizing:border-box; background-color: #FFF">
-
-<div id="body_style" style="padding:15px">
 
     <table cellpadding="0" cellspacing="0" width="600" align="center" th:include="fragment/email :: logoFragment"/>
 
@@ -11,32 +12,33 @@
         <tr>
             <td width="400">
 
-                <img src="email_logo.png">
-                <br/>
-
                 <p th:text="'Dear ' +  ${participant.fullName} + ','" style="margin-top:0; margin-bottom:10px">
                     Dear,</p>
 
-                <p style="margin-top:5px">It's time to complete the two-month follow-up survey! Your responses will help us improve our intervention for future participants and are greatly appreciated. </p>
+                <p style="margin-top:5px">It's time to complete the two-month follow-up survey! Your responses will help
+                    us improve our intervention for future participants and are greatly appreciated. </p>
 
                 <p style="margin-top:5px">To complete the follow-up: </p>
 
-                <p style="margin-top:15px;margin-left: 50px;">1. Log into your <a href="https://mindtrails.virginia.edu/calm/login">MindTrails account</a>.</p>
+                <p style="margin-top:15px;margin-left: 50px;">1. Log into your <a
+                        href="https://mindtrails.virginia.edu/calm/login">MindTrails account</a>.</p>
                 <p style="margin-top:10px;margin-left: 50px;">2. Click on "Continue".</p>
-                <p style="margin-top:10px;margin-left: 50px;">3. Complete the survey, which will take approximately 15 minutes.</p>
+                <p style="margin-top:10px;margin-left: 50px;">3. Complete the survey, which will take approximately 15
+                    minutes.</p>
 
-                <p style="margin-top:5px">Thank you for taking the time to complete this follow-up. If you have any questions, let us know by contacting us at
-                    <a href = "mailto: studyteam@mindtrails.net">
+                <p style="margin-top:5px">Thank you for taking the time to complete this follow-up. If you have any
+                    questions, let us know by contacting us at
+                    <a href="mailto: studyteam@mindtrails.net">
                         studyteam@mindtrails.net</a>.</p>
 
                 <p style="margin-top:30px">Best,</p>
                 <p style="margin:0 0 0 0;">The MindTrails Team</p>
 
-                <div id="footer" class="clearfix" th:fragment="footerFragment">
+                <div id="footer" class="clearfix" th:fragment="footerFragment"/>
 
             </td>
         </tr>
     </table>
-</div>
+
 </body>
 </html>
