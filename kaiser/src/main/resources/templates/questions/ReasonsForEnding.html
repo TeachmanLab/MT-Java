@@ -147,7 +147,8 @@
                 </div>
             </div>
 
-            <div class="section">
+            <!-- Removed items about control condition for Kaiser-->
+            <!--<div class="section">
                 <div class="row">
                     <div class="col-md-10">
 
@@ -258,9 +259,8 @@
                         <br/>
                         <br/>
                     </div>
-                </div>
+                </div>-->
             </div>
-        </div>
 
         <div class="container section compactQuestion">
             <div class="row title">
@@ -643,7 +643,6 @@
                 'deviceUse': {required: true, minlength: 1},
                 'reasons': {required: true, minlength: 1},
                 'location': {required: true, minlength: 1},
-                'whyInControl': {required: true, minlength: 1},
                 'changeMed': {required: true, minlength: 1},
                 'helpful': {required: true},
                 'work': {required: true},
@@ -665,18 +664,6 @@
                 'takeTooLong': {required: true},
                 'tooManyWords': {required: true},
                 'hardToRead': {required: true},
-            }
-        });
-
-
-        $("input[name$='thoughtInControl']").click(function () {
-            if ($(this).val() == "true") {
-                $('#thoughtInControlDetail1').fadeIn('slow');
-                $('#thoughtInControlDetail2').fadeIn('slow');
-
-            } else {
-                $('#thoughtInControlDetail1').fadeOut('slow');
-                $('#thoughtInControlDetail2').fadeOut('slow');
             }
         });
     });
