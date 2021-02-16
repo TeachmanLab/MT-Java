@@ -124,7 +124,7 @@ public class AccountController extends BaseController {
         // Be sure to call saveNew rather than save, allowing
         // any data associated with the session to get
         // captured.  If this is in the importService mode, then we need to allow
-        // the creation of a new account /without/ capturing any addtional eligiblity
+        // the creation of a new account /without/ capturing any additional eligibility
         // requirements.
         if(this.importService.isImporting()) {
             participantService.save(participant);

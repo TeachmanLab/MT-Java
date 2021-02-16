@@ -74,8 +74,6 @@ public class KaiserParticipantService extends ParticipantServiceImpl implements 
         Participant p = new Participant();
         KaiserStudy study = new KaiserStudy();
         study.setStudyExtension(KaiserStudy.STUDY_EXTENSIONS.KAISER.name());
-        p.setReceiveGiftCards(tangoService.getEnabled());
-        study.setReceiveGiftCards(tangoService.getEnabled());
         p.setStudy(study);
         return p;
     }
@@ -191,14 +189,21 @@ public class KaiserParticipantService extends ParticipantServiceImpl implements 
     @Override
     public void saveNew(Participant p, HttpSession session) throws MissingEligibilityException {
 
+        Study study = p.getStudy();
+        String condition = (String)session.getAttribute("condition");
 
+        // Set the participant's condition based on the session attribute.
+        study.setConditioning(condition);
 
-        // Set the participants condition based on the session attribute.
-        p.getStudy().setConditioning((String)session.getAttribute("condition"));
-        save(p); // Just save the participant
-
-
-
+        // Update ability to receive gift cards, based on condition
+        if (!condition.contains("BONUS")) {
+            p.setReceiveGiftCards(false);
+            study.setReceiveGiftCards(false);
+        } else {
+            p.setReceiveGiftCards(tangoService.getEnabled());
+            study.setReceiveGiftCards(tangoService.getEnabled());
+        }
+        save(p);
         // Generally we would connect any elegibility scores back to the participant at this point, but kaiser does not have this issue.
     }
 }
