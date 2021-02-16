@@ -27,6 +27,7 @@ public class Evaluation extends LinkedQuestionnaireData {
     private String whoMentioned;
     private String otherWhoMentioned;
     private Integer helpfulTalk;
+    @Lob  /// Allow them to enter more than 255 characters!
     private String talkedAbout;
 
     @NotNull
@@ -123,6 +124,7 @@ public class Evaluation extends LinkedQuestionnaireData {
     private List<String> helpTopics;
     private String otherHelpTopic;
 
+    @Lob
     private String otherCoaching;
 
     @Override
