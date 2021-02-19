@@ -27,7 +27,7 @@
                         th:text="${lastSession.displayName}"/>.</b></h2>
                 You have completed all the training sessions! We will email you in <span th:text="${currentSession.daysToWait}">30</span>
                 days, when it is time to complete the
-                follow up assessment <span th:if="${participant.receiveGiftCards}">and get your bonus gift card</span>.
+                follow up assessment<!--<span th:if="${participant.receiveGiftCards}">and get your bonus gift card</span>-->.
             </div>
         </div>
     </div>
@@ -50,10 +50,11 @@
             <img th:src="@{/images/gift_card_sm.png}"/>
 
             <div class="message">
-                <em>Congratulations! You have earned a $<span th:text="${giftAmount}"/> gift card.</em><br/>
-                We will send you an email in the next few days with information on how to redeem it.
-                <span th:if="${nextGiftSession}"><b>Your next gift card</b> will be available when you complete <span
-                        th:text="${nextGiftSession.displayName}"/></span>
+                <em>Congratulations! You have earned a $<span th:text="${giftAmount}"/> e-gift card.</em><br/>
+                You will receive this by email within the next few days.
+                <!--Removed for Kaiser-->
+                <!--<span th:if="${nextGiftSession}"><b>Your next gift card</b> will be available when you complete <span
+                        th:text="${nextGiftSession.displayName}"/></span>-->
                 <br></br>
             </div>
         </div>
@@ -65,11 +66,12 @@
             <br></br>
         </p>
 
-        <div class="nextGift" th:unless="${giftAwarded}" th:if="${nextGiftSession}">
+        <!--Removed for Kaiser-->
+        <!--<div class="nextGift" th:unless="${giftAwarded}" th:if="${nextGiftSession}">
             <img th:src="@{/images/gift_card_sm.png}"/>
             <span>Your next gift card will be available when you complete <span
                     th:text="${nextGiftSession.displayName}"/></span>
-        </div>
+        </div>-->
 
 
     </div>
