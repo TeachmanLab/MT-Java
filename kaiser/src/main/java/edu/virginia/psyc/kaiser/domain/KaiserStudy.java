@@ -92,11 +92,11 @@ public class KaiserStudy extends BaseStudy {
         //Changes from RO1: In Kaiser, baseline OASIS and DASS moved to Pre-Test from Eligibility. BBSIQ is not administered.
 
         int giftAmount = 0;
-        if (this.conditioning == CONDITION.BONUS_5.name()) {
+        if (this.conditioning.equals(CONDITION.BONUS_5.name())) {
             giftAmount = 5;
-        } else if (this.conditioning == CONDITION.BONUS_10.name()) {
+        } else if (this.conditioning.equals(CONDITION.BONUS_10.name())) {
             giftAmount = 10;
-        } else if (this.conditioning == CONDITION.BONUS_20.name()) {
+        } else if (this.conditioning.equals(CONDITION.BONUS_20.name())) {
             giftAmount = 20;
         }
 
@@ -119,7 +119,7 @@ public class KaiserStudy extends BaseStudy {
         pretest.addTask(new Task("TechnologyUse", "Technology Use", Task.TYPE.questions, 0));
         sessions.add(pretest);
         
-        session1 = new Session(FIRST_SESSION, "Level 1: Beginner", 5, 0);
+        session1 = new Session(FIRST_SESSION, "Level 1: Beginner", giftAmount, 0);
         session1.setIndex(1);
 
         session1.addTask(new Task("Affect","Current Feelings, Pre", "pre", Task.TYPE.questions, 0));
