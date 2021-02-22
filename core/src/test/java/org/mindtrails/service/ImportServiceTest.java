@@ -1,9 +1,7 @@
 package org.mindtrails.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
-import org.codehaus.groovy.runtime.ArrayUtil;
 import org.joda.time.DateTime;
-import org.joda.time.Hours;
 import org.joda.time.Minutes;
 import org.junit.Assert;
 import org.junit.Before;
@@ -18,7 +16,6 @@ import org.mindtrails.controller.QuestionController;
 import org.mindtrails.controllers.BaseControllerTest;
 import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.Study;
-import org.mindtrails.domain.importData.ImportError;
 import org.mindtrails.domain.importData.Scale;
 import org.mindtrails.domain.jsPsych.JsPsychTrial;
 import org.mindtrails.domain.tracking.ImportLog;
@@ -29,7 +26,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.client.AutoConfigureWebClient;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.client.MockRestServiceServer;
@@ -45,9 +41,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withBadRequest;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
@@ -179,11 +173,13 @@ public class ImportServiceTest extends BaseControllerTest {
         testP.setStudy(new TestStudy());
         testP.setTheme("blue");
         testP.setOver18(true);
+        testP.setDateCreated(new Date());
 
         importService.setMode("import");
         importService.importScale("participant", IOUtils.toInputStream(objectMapper.writeValueAsString(testP)));
         Participant savedParticipant = participantRepository.findOne(testId);
         Assert.assertNotNull("The participant should be saved under the same id as it was before", savedParticipant);
+        Assert.assertEquals(testP.getDateCreated(), savedParticipant.getDateCreated());
     }
 
 
