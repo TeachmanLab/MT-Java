@@ -81,9 +81,8 @@ public class SpanishStudy extends BaseStudy {
         session1.addTask(new Task("Demographics","Personal Background", Task.TYPE.questions, 2 ));
         session1.addTask(new Task("MentalHealthHistory","Mental Health and Treatment History", Task.TYPE.questions, 2 ));
         // To Add: Short Acculturation Scale
-        // To add Multigroup Ethnic Identity
-        // To Add PHQ-2
-        session1.addTask(new Task("Comorbid","Mood, Drinking, and Marijuana Use", Task.TYPE.questions, 0 ));
+        // To Add Multigroup Ethnic Identity
+        session1.addTask(new Task("Comorbid","Mood Assessment", Task.TYPE.questions, 0 ));
         session1.addTask(new Task("recognitionRatings", "Completing Short Stories", Task.TYPE.angular, 5));
         session1.addTask(new Task("RR","Completing Short Stories, Pt. 2", Task.TYPE.questions, 0 ));
         session1.addTask(new Task("Covid19","COVID-19", Task.TYPE.questions, 0 ));
@@ -101,8 +100,8 @@ public class SpanishStudy extends BaseStudy {
         session2.addTask(new Task("2", "Training Session 2", Task.TYPE.angular, 20));
         session2.addTask(new Task("Affect","Current Feelings, Pre", "post", Task.TYPE.questions, 0));
         session2.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
-        session2.addTask(new Task("Comorbid","Mood, Drinking, and Marijuana Use", Task.TYPE.questions, 0 ));
-        session2.addTask(new Task("DASS21_AS","Mood Assessment", Task.TYPE.questions, 0 ));
+        session2.addTask(new Task("Comorbid","Mood Assessment", Task.TYPE.questions, 0 ));
+        session2.addTask(new Task("DASS21_AS","Mood Assessment, Pt. 2", Task.TYPE.questions, 0 ));
         session2.addTask(new Task("recognitionRatings", "Completing Short Stories", Task.TYPE.angular, 5));
         session2.addTask(new Task("RR","Completing Short Stories, Pt. 2", Task.TYPE.questions, 0 ));
         session2.addTask(new Task("Evaluation","Evaluating the Program", Task.TYPE.questions, 2));

@@ -11,7 +11,7 @@
 <head th:replace="fragment/common :: headerFragment"/>
 <body>
 <section th:replace="fragment/common :: topFragment"/>
-<section th:replace="fragment/common :: titleBar (title='Evaluating the Program')"/>
+<section th:replace="fragment/common :: titleBar (title=#{evaluation.title})"/>
 <textArea th:replace="fragment/forms :: questionTemplate"/>
 <textArea th:replace="fragment/common :: questionTemplate5"/>
 
@@ -21,7 +21,7 @@
         <div class="row">
             <div class="col-md-10">
 
-                <p> Thank you for taking the time to go through MindTrails!
+                <p th:text="#{evaluation.instructions}"> Thank you for taking the time to go through MindTrails!
                     We are interested in your feedback and reactions to the training programs, assessments, and
                     other aspects of the website.
                     Please answer the following questions openly and honestly. Your feedback will help us improve
@@ -32,7 +32,7 @@
         <div class="container section">
             <div class="row">
                 <div class="col-md-10">
-                    <p><b>What device(s) did you use to complete the program? Check all that apply.</b></p>
+                    <p th:text="#{Evaluation.devices}"><b>What device(s) did you use to complete the program? Check all that apply.</b></p>
                 </div>
             </div>
 
@@ -61,8 +61,7 @@
 
         <div class="container section">
             <div class="row header">
-                <div class="col-md-8 statement"><p><b>How much did Internet or computer/phone problems affect your use
-                    of MindTrails?</b></p></div>
+                <div class="col-md-8 statement"><p th:text="#{Evaluation.internet}"><b>¿En qué medida afectaron los problemas de internet o computadoras/teléfono tu uso de MindTrails?</b></p></div>
             </div>
 
             <div class="row">
@@ -101,7 +100,7 @@
                     <br/>
                 </div>
             </div>
-            <div id="describeProblems" style="display: none">
+            <div id="describeProblems" style="display: none" th:text="#{Evaluation.problemsDesc}">
                 <br/>
                 <label class="question"> Please describe the Internet or computer/phone problems that affected your use
                     of MindTrails:
@@ -132,7 +131,7 @@
         </div>
 
         <div class="container section">
-            <label class="question"> The MindTrails program had five training sessions. How many sessions do you think would have
+            <label class="question" th:text="#{Evaluation.idealSessions}"> The MindTrails program had five training sessions. How many sessions do you think would have
                 been ideal?<br/><br/>
                 <input type="number" min="1" th:field="*{idealSessions}" required="true"/> </label>
         </div>
@@ -188,7 +187,7 @@
         <div class="container section">
             <div class="row">
                 <div class="col-md-10">
-                    <p><b>Where did you complete the training sessions? Check all that apply.</b></p>
+                    <p th:text="#{Evaluation.places}"><b>Where did you complete the training sessions? Check all that apply.</b></p>
                 </div>
             </div>
 
@@ -243,7 +242,8 @@
             </div>
         </div>
 
-                        <div class="container section">
+        <!--Not in MT Spanish-->
+                      <!-- <div class="container section">
     <div class="row header">
         <div class="col-md-8 statement"><p><b>Did you think you were in the active training condition (designed
             to change your anxious thinking) or a “control” condition (not designed to change your anxious
@@ -275,11 +275,11 @@
             <br/>
         </div>
     </div>
-</div>
+</div>-->
 
 <!--Display the following two questions only if the user indicated that they think they were in the control
 condition-->
-        <div class="container section" id="whenControl" style="display: none">
+        <!--<div class="container section" id="whenControl" style="display: none">
             <div id="section3"></div>
             <script>
                 var data = {
@@ -341,13 +341,12 @@ condition-->
                     <br/>
                 </div>
             </div>
-        </div>
+        </div>-->
 
         <div class="container section">
             <div class="row">
                 <div class="col-md-10">
-                    <p><b>What is your preferred technology platform for delivery of health interventions (such as Calm
-                        Thinking)? Check all that apply.</b></p>
+                    <p th:text="#{Evaluation.preferredPlatform}"><b>What is your preferred technology platform for delivery of health interventions (such as MindTrails)? Check all that apply.</b></p>
                 </div>
             </div>
 
@@ -568,14 +567,14 @@ condition-->
             <br/>
         </div>
     </div>
-</div>-->
+</div>
 
 <div class="container section" id="otherCoaching" style="display: none">
     <label class="question"> Is there anything else you’d like to tell us about your coaching
         experience?</label>
     <br/>
     <textarea name="otherCoaching" rows="6" cols="50"/>
-</div>
+</div>-->
 
 <div style="text-align:center">
     <button type="submit"> Continue</button>

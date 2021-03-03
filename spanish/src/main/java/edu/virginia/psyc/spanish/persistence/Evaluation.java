@@ -44,41 +44,43 @@ public class Evaluation extends LinkedQuestionnaireData {
     @MeasureField(order = 4, desc = "How likely would you be to recommend MindTrails to others with similar anxiety difficulties?", group="block1")
     private Integer recommend;
     @NotNull
-    @MeasureField(order = 5, desc = "How easy was MindTrails to use?", group = "block1")
+    @MeasureField(order = 5, desc = "How likely would you be to recommend MindTrails to others who are Hispanic and have anxiety difficulties?", group="block1")
+    private Integer recommendHispanic;
+    @NotNull
+    @MeasureField(order = 6, desc = "To what extent did these stories reflect situations that are important to you?", group="block1")
+    private Integer situations;
+    @NotNull
+    @MeasureField(order = 7, desc = "To what extent did these stories reflect situations that are important to your family and community?", group="block1")
+    private Integer family;
+    @NotNull
+    @MeasureField(order = 8, desc = "How easy was MindTrails to use?", group = "block1")
     private Integer easy;
     @NotNull
-    @MeasureField(order = 6, desc = "How much did MindTrails keep your interest and attention?", group = "block1")
+    @MeasureField(order = 9, desc = "How much did MindTrails keep your interest and attention?", group = "block1")
     private Integer interest;
     @NotNull
-    @MeasureField(order = 7, desc = "How much did you like MindTrails in general?", group = "block1")
+    @MeasureField(order = 10, desc = "How much did you like MindTrails in general?", group = "block1")
     private Integer likeGral;
     @NotNull
-    @MeasureField(order = 8, desc = "How much did you like the way MindTrails looked?", group = "block1")
+    @MeasureField(order = 11, desc = "How much did you like the way MindTrails looked?", group = "block1")
     private Integer likedLooks;
     @NotNull
-    @MeasureField(order = 9, desc = "How worried were you about your privacy in using MindTrails?", group = "block2")
+    @MeasureField(order = 12, desc = "How worried were you about your privacy in using MindTrails?", group = "block2")
     private Integer privacy;
     @NotNull
-    @MeasureField(order = 10, desc = "How easy were the assessments to understand?", group = "block2")
+    @MeasureField(order = 13, desc = "How easy were the assessments to understand?", group = "block2")
     private Integer understandAssessment;
     @NotNull
-    @MeasureField(order = 11, desc = "How easy was the training program (including instructions and materials) to understand?", group = "block2")
+    @MeasureField(order = 14, desc = "How easy was the training program (including instructions and materials) to understand?", group = "block2")
     private Integer understandTraining;
     @NotNull
-    @MeasureField(order = 12, desc = "How much did you feel you could trust the information?", group = "block2")
+    @MeasureField(order = 15, desc = "How much did you feel you could trust the information?", group = "block2")
     private Integer trustInfo;
     @NotNull
-    @MeasureField(order = 13, desc = "How tiring did you find the training sessions?", group = "block2")
-    private Integer tiringTraining;
-    //bold "assessments"
-    @NotNull
-    @MeasureField(order = 14, desc = "How tiring did you find the assessments?", group = "block2")
-    private Integer tiringAssessment;
-    @NotNull
-    @MeasureField(order = 15, desc = "On average, while you were completing the training sessions, how focused were you?", group = "block2")
+    @MeasureField(order = 16, desc = "On average, while you were completing the training sessions, how focused were you?", group = "block2")
     private Integer focused;
     @NotNull
-    @MeasureField(order = 16, desc = "On average, while you were completing the training sessions, how  distracted were you?", group = "block2")
+    @MeasureField(order = 17, desc = "On average, while you were completing the training sessions, how  distracted were you?", group = "block2")
     private Integer distracted;
 
     @NotNull
@@ -104,36 +106,36 @@ public class Evaluation extends LinkedQuestionnaireData {
     private Integer condition = 999;  // 999 = No longer collected
 
     //This should only be @NotNull if condition is is 1, when the person thinks they were in the control group...
-    private Integer whenCondition;
+    //private Integer whenCondition;
 
-    @ElementCollection
-    @CollectionTable(name = "evaluation_reasonsControl", joinColumns = @JoinColumn(name = "id"))
-    @Column(name = "reasonsControl")
-    private List<String> reasonsControl;
-    private String otherReasonControl;
+    //@ElementCollection
+    //@CollectionTable(name = "evaluation_reasonsControl", joinColumns = @JoinColumn(name = "id"))
+    //@Column(name = "reasonsControl")
+    //private List<String> reasonsControl;
+    //private String otherReasonControl;
 
-    @ElementCollection
-    @CollectionTable(name = "evaluation_howLearn", joinColumns= @JoinColumn(name = "id"))
-    @Column(name = "howLearn")
-    private List<String> howLearn;
-    private String howLearnOtherLink;
-    private String howLearnOther;
+    //@ElementCollection
+    //@CollectionTable(name = "evaluation_howLearn", joinColumns= @JoinColumn(name = "id"))
+    //@Column(name = "howLearn")
+    //private List<String> howLearn;
+    //private String howLearnOtherLink;
+    //private String howLearnOther;
 
-    @NotNull
-    private Integer receivedTelecoaching = 999; // 999 = No longer collected
+    //@NotNull
+    //private Integer receivedTelecoaching = 999; // 999 = No longer collected
 
     // The following three should only be @NotNull if receivedCoaching is 1
-    private Integer coachExperience;
-    private Integer coachUnderstood;
-    private Integer coachMotivate;
+    //private Integer coachExperience;
+    //private Integer coachUnderstood;
+    //private Integer coachMotivate;
 
-    @ElementCollection
-    @CollectionTable(name = "evaluation_coachHelpTopics", joinColumns = @JoinColumn(name = "id"))
-    @Column(name = "coachHelpTopics")
-    private List<String> helpTopics;
-    private String otherHelpTopic;
+    //@ElementCollection
+    //@CollectionTable(name = "evaluation_coachHelpTopics", joinColumns = @JoinColumn(name = "id"))
+    //@Column(name = "coachHelpTopics")
+    //private List<String> helpTopics;
+    //private String otherHelpTopic;
 
-    private String otherCoaching;
+    //private String otherCoaching;
 
     @Override
     public Map<Integer, String> getScale(String group) {

@@ -11,7 +11,7 @@
 <head th:replace="fragment/common :: headerFragment"/>
 <body>
 <section th:replace="fragment/common :: topFragment"/>
-<section th:replace="fragment/common :: titleBar (title='COVID-19 Questionnaire')"/>
+<section th:replace="fragment/common :: titleBar (title=#{covid19.title})"/>
 <textArea th:replace="fragment/common :: questionTemplate"/>
 <textArea th:replace="fragment/common :: questionTemplate5"/>
 
@@ -19,7 +19,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                <p>The following questions ask about the current coronavirus (COVID-19) outbreak.
+                <p th:text="#{covid19.instructions}">The following questions ask about the current coronavirus (COVID-19) outbreak.
                     For each set of questions, select the answer that best describes your experience.</p>
             </div>
         </div>
@@ -31,11 +31,11 @@
         <!-- Don't add timer, it's added in one of the form fragments.-->
         <div class="container">
             <div class="container section compactQuestion">
-                <h3><b>COVID-19 is affecting people in many different ways. <i>Thinking about the past 2 weeks</i>,
+                <h3 th:text="#{covid19.affected}"><b>COVID-19 is affecting people in many different ways. <i>Thinking about the past 2 weeks</i>,
                     please indicate in what ways the following areas of your life have been affected as a result of COVID-19:</b></h3><br/>
                 <div class="row">
                     <div class="col-md-6">
-                        <p><label class="question">Work (employment or school)<br/>
+                        <p><label class="question" th:text="#{covid19.work}">Work (employment or school)<br/>
                             <select required="true" th:field="*{work}">
                                 <option value="" hidden="hidden"></option>
                                 <option value="1">Extreme positive change</option>
@@ -239,21 +239,22 @@
 
         <section th:replace="fragment/forms :: radioOptions(${model})"/>
 
-        <!-- Add timer -->
+        <!-- Not in MT Spanish -->
+        <!--
         <div class="container section compactQuestion">
             <h3><b>On an average day over the past 2 weeks, how much time per day (in minutes) did you spend reading news stories about COVID-19?</b></h3>
             <h3><textarea name="news" rows="1" cols="4" maxlength="4" style="resize: none; font-size: 30px; text-align:center;" required="required"/> &nbsp;minutes per day</h3>
             <br/>
             <h3><b>On an average day over the past 2 weeks, how much time per day (in minutes) did you spend reading social media about COVID-19?</b></h3>
             <h3><textarea name="socialMedia" rows="1" cols="4" maxlength="4" style="resize: none; font-size: 30px; text-align:center;" required="required"/> &nbsp;minutes per day</h3>
-        </div>
+        </div>-->
 
         <div class="container section">
             <div class="row header">
                 <div class="col-md-12 statement">
-                    <h3><b>Based on criteria from the Center for Disease Control, are you at high risk for serious
+                    <h3 th:text="#{covid19.highRisk1}"><b>Based on criteria from the Center for Disease Control, are you at high risk for serious
                         illness following infection of COVID-19?</b></h3>
-                    <p>The Center for Disease Control suggests that people over 65, those struggling with heart
+                    <p th:text="#{covid19.highRisk2}">The Center for Disease Control suggests that people over 65, those struggling with heart
                         and lung disease, those who are immunocompromised (suppressed immune system), those who are obese, and those with diabetes are at
                         high risk for serious illness.</p>
                 </div>
@@ -261,15 +262,15 @@
             <div class="row">
                 <div class="col-md-8 side-border">
                     <div class="radio">
-                        <label class="question"><input type="radio" name="highRisk" value="1" required="true"/>Yes</label>
+                        <label class="question"><input th:text="#{covid19.yes}" type="radio" name="highRisk" value="1" required="true"/></label>
                     </div>
                     <div class="radio">
-                        <label class="question"><input type="radio" name="highRisk" value="0" required="true"/>No</label>
+                        <label class="question"><input th:text="#{covid19.no}" type="radio" name="highRisk" value="0" required="true"/></label>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="radio"><br/>
-                        <label class="question"><input type="radio" name="highRisk" value="555"/> Prefer not to answer</label>
+                        <label class="question"><input th:text="#{covid19.prefer_not_to_answer}" type="radio" name="highRisk" value="555"/> Prefer not to answer</label>
                     </div>
                 </div>
             </div>
@@ -281,24 +282,24 @@
         <div class="container section">
             <div class="row header">
                 <div class="col-md-12 statement">
-                    <p><b>Have you been diagnosed with COVID-19?</b></p>
+                    <p th:text="#{covid19.diagnosis}"><b>Have you been diagnosed with COVID-19?</b></p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-8 side-border">
                     <div class="radio">
-                        <label class="question"><input type="radio" name="diagnosis" value="1" required="true"/>Yes</label>
+                        <label class="question"><input th:text="#{covid19.yes}" type="radio" name="diagnosis" value="1" required="true"/></label>
                     </div>
                     <div class="radio">
-                        <label class="question"><input type="radio" name="diagnosis" value="0" required="true"/>No</label>
+                        <label class="question"><input th:text="#{covid19.no}" type="radio" name="diagnosis" value="0" required="true"/></label>
                     </div>
                     <div class="radio">
-                        <label class="question"><input type="radio" name="diagnosis" value="2" required="true"/>Unsure</label>
+                        <label class="question"><input th:text="#{covid19.unsure}" type="radio" name="diagnosis" value="2" required="true"/></label>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="radio"><br/>
-                        <label class="question"><input type="radio" name="diagnosis" value="555"/> Prefer not to answer</label>
+                        <label class="question"><input th:text="#{covid19.prefer_not_to_answer}" type="radio" name="diagnosis" value="555"/></label>
                     </div>
                 </div>
             </div>
@@ -309,55 +310,55 @@
         <div class="container section">
             <div class="row header">
                 <div class="col-md-12 statement">
-                    <p><b>Have you gotten a test for COVID-19?</b></p>
+                    <p th:text="#{covid19.testCovid}"><b>Have you gotten a test for COVID-19?</b></p>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-md-8 side-border">
                     <div class="radio">
-                        <label class="question"> <input type="radio" name="testCovid" value="1" required="true" id="testCovidYes"
-                                                       onchange="testCovidCheck('testCovidYes')"/>Yes</label>
+                        <label class="question"> <input th:text="#{covid19.yes}" type="radio" name="testCovid" value="1" required="true" id="testCovidYes"
+                                                       onchange="testCovidCheck('testCovidYes')"/></label>
                     </div>
                     <div class="radio">
-                        <label class="question"> <input type="radio" name="testCovid" value="0" required="true"
-                                                       onchange="testCovidCheck('testCovidYes')"/>No</label>
+                        <label class="question"> <input th:text="#{covid19.no}" type="radio" name="testCovid" value="0" required="true"
+                                                       onchange="testCovidCheck('testCovidYes')"/></label>
                     </div>
                     <div class="radio">
-                        <label class="question"> <input type="radio" name="testCovid" value="2" required="true"
-                                                       onchange="testCovidCheck('testCovidYes')"/>Unsure</label>
+                        <label class="question"> <input th:text="#{covid19.unsure}" type="radio" name="testCovid" value="2" required="true"
+                                                       onchange="testCovidCheck('testCovidYes')"/></label>
                     </div>
                 </div>
 
                 <div class="col-md-4"><br/>
                     <div class="radio">
-                        <label class="question"><input type="radio" name="testCovid" value="555"
-                                                       onchange="testCovidCheck('testCovidYes')"/> Prefer not to answer</label>
+                        <label class="question"><input th:text="#{covid19.prefer_not_to_answer}" type="radio" name="testCovid" value="555"
+                                                       onchange="testCovidCheck('testCovidYes')"/></label>
                     </div>
                 </div>
 
             <div class="col-md-12 statement" id="testCovidPositive" style="display: none">
-                <p><b>Did you ever have a positive result?</b></p>
+                <p th:text="#{covid19.testCovidResult}"><b>Did you ever have a positive result?</b></p>
 
                 <div class="row">
                 <div class="col-md-8 side-border">
                         <div class="radio">
-                            <label class="question"><input type="radio" name="testCovidResult" value="1" required="true" id="testCovidResultYes"
-                                                           onchange="testCovidResultCheck('testCovidResultYes')"/>Yes</label>
+                            <label class="question"><input th:text="#{covid19.yes}" type="radio" name="testCovidResult" value="1" required="true" id="testCovidResultYes"
+                                                           onchange="testCovidResultCheck('testCovidResultYes')"/></label>
                         </div>
                         <div class="radio">
-                            <label class="question"><input type="radio" name="testCovidResult" value="0" required="true" id="testCovidResultNo"
-                                                           onchange="testCovidResultCheck('testCovidResultNo')"/>No</label>
+                            <label class="question"><input th:text="#{covid19.no}" type="radio" name="testCovidResult" value="0" required="true" id="testCovidResultNo"
+                                                           onchange="testCovidResultCheck('testCovidResultNo')"/></label>
                         </div>
                         <div class="radio">
-                            <label class="question"><input type="radio" name="testCovidResult" value="2" required="true"
-                                                           onchange="testCovidResultCheck('testCovidResultYes')"/>Unsure</label>
+                            <label class="question"><input th:text="#{covid19.unsure}" type="radio" name="testCovidResult" value="2" required="true"
+                                                           onchange="testCovidResultCheck('testCovidResultYes')"/></label>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="radio"><br/>
-                            <label class="question"><input type="radio" name="testCovidResult" value="555"
-                                                           onchange="testCovidResultCheck('testCovidResultYes')"/>Prefer not to answer</label>
+                            <label class="question"><input th:text="#{covid19.prefer_not_to_answer}" type="radio" name="testCovidResult" value="555"
+                                                           onchange="testCovidResultCheck('testCovidResultYes')"/></label>
                         </div>
                     </div>
                 </div>
@@ -365,7 +366,7 @@
                 <div id="testCovidDateDiv" style="display: none">
                     <div class="row">
                         <div class="col-md-12 statement" >
-                            <p><b>Please give the approximate date when you received your result.</b></p>
+                            <p th:text="#{covid19.testCovidDate}"><b>Please give the approximate date when you received your result.</b></p>
                         </div>
                     </div>
                     <div class="row">
@@ -377,8 +378,8 @@
                         </div>
                         <div class="col-md-4">
                             <div class="radio">
-                                <label class="question"><input type="checkbox" name="testCovidDateNoAnswer" value="555" id="resultDateNoAnswer"
-                                                               onclick="toggle('resultDateNoAnswer', 'datepicker')"/>Prefer not to answer</label>
+                                <label class="question"><input th:text="#{covid19.prefer_not_to_answer}" type="checkbox" name="testCovidDateNoAnswer" value="555" id="resultDateNoAnswer"
+                                                               onclick="toggle('resultDateNoAnswer', 'datepicker')"/></label>
                         </div>
 
                         </div>
@@ -395,58 +396,58 @@
         <div class="container section">
             <div class="row header">
                 <div class="col-md-12 statement">
-                    <p><b>Have you gotten an antibody test for COVID-19?</b></p>
+                    <p th:text="#{covid19.testAntibody}"><b>Have you gotten an antibody test for COVID-19?</b></p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-8 side-border">
                     <div class="radio">
-                        <label class="question"><input type="radio" name="testAntibody" value="1" required="true" id="testAntibodyYes"
-                                                       onchange="testAntibodyCheck('testAntibodyYes')"/>Yes</label>
+                        <label class="question"><input th:text="#{covid19.yes}" type="radio" name="testAntibody" value="1" required="true" id="testAntibodyYes"
+                                                       onchange="testAntibodyCheck('testAntibodyYes')"/></label>
                     </div>
                     <div class="radio">
-                        <label class="question"><input type="radio" name="testAntibody" value="0" required="true"
-                                                       onchange="testAntibodyCheck('testAntibodyYes')"/>No</label>
+                        <label class="question"><input th:text="#{covid19.no}" type="radio" name="testAntibody" value="0" required="true"
+                                                       onchange="testAntibodyCheck('testAntibodyYes')"/></label>
                     </div>
                     <div class="radio">
-                        <label class="question"><input type="radio" name="testAntibody" value="2" required="true"
-                                                       onchange="testAntibodyCheck('testAntibodyYes')"/>Unsure</label>
+                        <label class="question"><input th:text="#{covid19.unsure}" type="radio" name="testAntibody" value="2" required="true"
+                                                       onchange="testAntibodyCheck('testAntibodyYes')"/></label>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="radio"><br/>
-                        <label class="question"><input type="radio" name="testAntibody" value="555"
-                                                       onchange="testAntibodyCheck('testAntibodyYes')"/> Prefer not to answer</label>
+                        <label class="question"><input th:text="#{covid19.prefer_not_to_answer}" type="radio" name="testAntibody" value="555"
+                                                       onchange="testAntibodyCheck('testAntibodyYes')"/></label>
                     </div>
                 </div>
                 <div class="col-md-12 statement" id="testAntibodyPositiveDiv" style="display: none">
-                    <p><b>Did you ever have a positive result?</b></p>
+                    <p th:text="#{covid19.testAntibodyResult}"><b>Did you ever have a positive result?</b></p>
                     <div class="row">
                         <div class="col-md-8 side-border">
                             <div class="radio">
-                                <label class="question"><input type="radio" name="testAntibodyResult" value="1" required="true" id="testAntibodyResultYes"
-                                                               onchange="testAntibodyResultCheck('testAntibodyResultYes')"/>Yes</label>
+                                <label class="question"><input th:text="#{covid19.yes}" type="radio" name="testAntibodyResult" value="1" required="true" id="testAntibodyResultYes"
+                                                               onchange="testAntibodyResultCheck('testAntibodyResultYes')"/></label>
                             </div>
                             <div class="radio">
-                                <label class="question"><input type="radio" name="testAntibodyResult" value="0" required="true" id="testAntibodyResultNo"
-                                                               onchange="testAntibodyResultCheck('testAntibodyResultNo')" />No</label>
+                                <label class="question"><input th:text="#{covid19.no}" type="radio" name="testAntibodyResult" value="0" required="true" id="testAntibodyResultNo"
+                                                               onchange="testAntibodyResultCheck('testAntibodyResultNo')" /></label>
                             </div>
                             <div class="radio">
-                                <label class="question"><input type="radio" name="testAntibodyResult" value="2" required="true"
-                                                               onchange="testAntibodyResultCheck('testAntibodyResultYes')" />Unsure</label>
+                                <label class="question"><input th:text="#{covid19.unsure}" type="radio" name="testAntibodyResult" value="2" required="true"
+                                                               onchange="testAntibodyResultCheck('testAntibodyResultYes')" /></label>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="radio"><br/>
-                                <label class="question"><input type="radio" name="testAntibodyResult" value="555"
-                                                               onchange="testAntibodyResultCheck('testAntibodyResultYes')"/> Prefer not to answer</label>
+                                <label class="question"><input th:text="#{covid19.prefer_not_to_answer}" type="radio" name="testAntibodyResult" value="555"
+                                                               onchange="testAntibodyResultCheck('testAntibodyResultYes')" /></label>
                             </div>
                         </div>
                     </div>
                     <div id="testAntibodyDateDiv" style="display: none">
                         <div class="row">
                             <div class="col-md-12 statement" >
-                                <p><b>Please give the approximate date when you received your result.</b></p>
+                                <p th:text="#{covid19.testAntibodyDate}"><b>Please give the approximate date when you received your result.</b></p>
                             </div>
                         </div>
                         <div class="row">
@@ -457,9 +458,8 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                    <label class="question"><input type="checkbox" name="testAntibodyDateNoAnswer" value="555" id="pnaTestAntibodyDate"
-                                    onclick="toggle('pnaTestAntibodyDate', 'datepickerAntibody')"/> Prefer not to answer</label>
-
+                                    <label class="question"><input th:text="#{covid19.prefer_not_to_answer}" type="checkbox" name="testAntibodyDateNoAnswer" value="555" id="pnaTestAntibodyDate"
+                                    onclick="toggle('pnaTestAntibodyDate', 'datepickerAntibody')"/></label>
                             </div>
                         </div>
                     </div>
@@ -472,24 +472,24 @@
         <div class="container section">
             <div class="row header">
                 <div class="col-md-12 statement">
-                    <p><b>Do you know of a family member or close friend who has or had COVID-19?</b></p>
+                    <p th:text="#{covid19.covidKnow}"><b>Do you know of a family member or close friend who has or had COVID-19?</b></p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-8 side-border">
                     <div class="radio">
-                        <label class="question"><input type="radio" name="covidKnow" value="1" required="true"/>Yes</label>
+                        <label class="question"><input th:text="#{covid19.yes}" type="radio" name="covidKnow" value="1" required="true"/></label>
                     </div>
                     <div class="radio">
-                        <label class="question"><input type="radio" name="covidKnow" value="0" required="true"/>No</label>
+                        <label class="question"><input th:text="#{covid19.no}" type="radio" name="covidKnow" value="0" required="true"/></label>
                     </div>
                     <div class="radio">
-                        <label class="question"><input type="radio" name="covidKnow" value="2" required="true"/>Unsure</label>
+                        <label class="question"><input th:text="#{covid19.unsure}" type="radio" name="covidKnow" value="2" required="true"/></label>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="radio">
-                        <label class="question"><input type="radio" name="covidKnow" value="555"/> Prefer not to answer</label>
+                        <label class="question"><input th:text="#{covid19.prefer_not_to_answer}" type="radio" name="covidKnow" value="555"/></label>
                     </div>
                 </div>
             </div>
@@ -500,35 +500,35 @@
         <div class="container section">
             <div class="row header">
                 <div class="col-md-12 statement">
-                    <p><b>Have you had symptoms consistent with COVID-19?</b></p>
+                    <p th:text="#{covid19.symptoms}"><b>Have you had symptoms consistent with COVID-19?</b></p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-8 side-border">
                     <div class="radio">
-                        <label class="question"><input type="radio" name="symptoms" value="1" id="symptomsYes" required="true"
-                                                       onchange="symptomsCheck('symptomsYes')"/>Yes</label>
+                        <label class="question"><input th:text="#{covid19.yes}" type="radio" name="symptoms" value="1" id="symptomsYes" required="true"
+                                                       onchange="symptomsCheck('symptomsYes')"/></label>
                     </div>
                     <div class="radio">
-                        <label class="question"><input type="radio" name="symptoms" value="0" required="true"
-                                                       onchange="symptomsCheck('symptomsYes')"/>No</label>
+                        <label class="question"><input th:text="#{covid19.no}" type="radio" name="symptoms" value="0" required="true"
+                                                       onchange="symptomsCheck('symptomsYes')"/></label>
                     </div>
                     <div class="radio">
-                        <label class="question"><input type="radio" name="symptoms" value="2" required="true"
-                                                       onchange="symptomsCheck('symptomsYes')"/>Unsure</label>
+                        <label class="question"><input th:text="#{covid19.unsure}" type="radio" name="symptoms" value="2" required="true"
+                                                       onchange="symptomsCheck('symptomsYes')"/></label>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="radio"><br/>
-                        <label class="question"><input type="radio" name="symptoms" value="555" required="true"
-                                                       onchange="symptomsCheck('symptomsYes')"/>Prefer not to answer</label>
+                        <label class="question"><input th:text="#{covid19.prefer_not_to_answer}" type="radio" name="symptoms" value="555" required="true"
+                                                       onchange="symptomsCheck('symptomsYes')"/></label>
                     </div>
                 </div>
             </div>
             <div id="symptomsDateDiv" style="display: none">
                 <div class="row">
                     <div class="col-md-12 statement" >
-                        <p><b>Please give the approximate date when you last had symptoms.</b></p>
+                        <p th:text="#{covid19.symptomsDate}"><b>Please give the approximate date when you last had symptoms.</b></p>
                     </div>
                 </div>
                 <div class="row">
@@ -540,8 +540,8 @@
                     </div>
                     <div class="col-md-4">
                         <div class="radio">
-                            <label class="question"><input type="checkbox" name="symptomsDateNoAnswer" value="555" id="symptomsDateNoAnswer"
-                                                           onclick="toggle('symptomsDateNoAnswer', 'datepickerSymptoms')"/> Prefer not to answer</label>
+                            <label class="question"><input th:text="#{covid19.prefer_not_to_answer}" type="checkbox" name="symptomsDateNoAnswer" value="555" id="symptomsDateNoAnswer"
+                                                           onclick="toggle('symptomsDateNoAnswer', 'datepickerSymptoms')"/></label>
                         </div>
 
                     </div>
@@ -550,7 +550,7 @@
         </div>
 
 
-        <div class="col-md-12" style="text-align:center">
+        <div class="col-md-12" style="text-align:center" th:text="#{next}">
             <!-- Add timer -->
             <button type="submit">Next</button>
         </div>

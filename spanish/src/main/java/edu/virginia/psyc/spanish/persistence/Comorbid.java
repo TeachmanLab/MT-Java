@@ -25,23 +25,25 @@ public class Comorbid extends LinkedQuestionnaireData {
     @NotNull
     @MeasureField(order=2, desc="Feeling down, depressed, or hopeless", group="bothered")
     private Integer depressed;
-    @NotNull
-    @MeasureField(order=3, desc="How often do you have a drink containing alcohol?", group="how_often")
-    private Integer howOften;
-    @NotNull
-    @MeasureField(order=4, desc="How many drinks containing alcohol do you have on a typical day when you are drinking?", group="number")
-    private Integer numberOfDrinks;
-    @NotNull
-    @MeasureField(order=5, desc="How often do you have six or more drinks on one occasion?", group="six_or_more")
-    private Integer sixOrMore;
+
+    // Not in MT Spanish
+    //@NotNull
+    //@MeasureField(order=3, desc="How often do you have a drink containing alcohol?", group="how_often")
+    //private Integer howOften;
+    //@NotNull
+    //@MeasureField(order=4, desc="How many drinks containing alcohol do you have on a typical day when you are drinking?", group="number")
+    //private Integer numberOfDrinks;
+    //@NotNull
+    //@MeasureField(order=5, desc="How often do you have six or more drinks on one occasion?", group="six_or_more")
+    //private Integer sixOrMore;
 
     @Override
     public Map<String, String> getGroupDescriptions() {
         Map<String, String> desc = new TreeMap<>();
-        desc.put("bothered", "Over the past two weeks, how often have you been bothered by any of the following problems?");
+        desc.put("bothered", "");
         desc.put("how_often", "");
         desc.put("number", "");
-        desc.put("six_or_seven", "");
+        desc.put("six_or_more", "");
         return Collections.unmodifiableMap(desc);
     }
 
