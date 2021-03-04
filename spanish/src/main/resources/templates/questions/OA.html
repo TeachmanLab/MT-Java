@@ -30,13 +30,13 @@
     <div class="container">
         <div class="row"  th:if="${eligibility}">
             <div class="col-md-8" style="padding-left: 15px">
-                <p th:text="#{oa.instructions1}">Please note that in order to participate in the MindTrails study, regular access to a laptop/desktop
+                <p th:text="#{oa.eligibility1}">Please note that in order to participate in the MindTrails study, regular access to a laptop/desktop
                     computer, tablet, and/or smartphone with Internet connection is required.</p>
-                <p th:text="#{oa.instructions2}">This is part one in a two-step questionnaire.</p>
+                <p th:text="#{oa.eligibility2}">This is part one in a two-step questionnaire.</p>
             </div>
         </div>
-        <div class="row" th:text="#{oa.instructions3}">
-            <div class="col-md-8">
+        <div class="row" th:text="#{oa.instructions}">
+            <div class="col-md-10" style="padding-left: 15px">
                 <p>The following questions ask about anxiety and fear.
                     For each question, select the answer that best describes your experience over the past week.</p>
             </div>
@@ -89,7 +89,7 @@
                         "questions": [
                             {
                                 "name": "anxious_sev",
-                                "desc": [[#{oa.anxiety_intensity}]], "In the past week, when you have felt anxious, how intense or severe was your anxiety?"
+                                "desc": [[#{oa.anxiety_intensity}]], "opt_desc" :"In the past week, when you have felt anxious, how intense or severe was your anxiety?"
                             }
 
 
@@ -115,7 +115,7 @@
                         "questions": [
                             {
                                 "name": "avoid",
-                                "desc": [[#{oa.avoid}]], "In the past week, how often did you avoid situations, places, objects, or activities because of anxiety or fear?"
+                                "desc": [[#{oa.avoid}]], "opt_desc" :"In the past week, how often did you avoid situations, places, objects, or activities because of anxiety or fear?"
                             }
 
 
@@ -131,7 +131,7 @@
                 <script th:inline="javascript">
                     var data = {
                         "options": [
-                            {"value": 0, "title": [[#{oa.not_at_all}]]*, "opt_desc": "No interference at work/home/school from anxiety"},
+                            {"value": 0, "title": [[#{oa.not_at_all}]], "opt_desc": "No interference at work/home/school from anxiety"},
                             {"value": 1, "title": [[#{oa.mildly}]], "opt_desc": "My anxiety has caused some interference at work/home/school. Things are more difficult, but everything that needs to be done is still getting done."},
                             {"value": 2, "title": [[#{oa.moderately}]], "opt_desc": "My anxiety definitely interferes with tasks. Most things are still getting done, but few things are being done as well as in the past."},
                             {"value": 3, "title": [[#{oa.severely}]], "opt_desc": "My anxiety has really changed my ability to get things done. Some tasks are still being done, but many things are not. My performance has definitely suffered."},
@@ -140,7 +140,7 @@
                         "questions": [
                             {
                                 "name": "interfere",
-                                "desc": [[#{oa.interfere_work}]], "In the past week, how much did your anxiety interfere with your ability to do the things you needed to do at work, at school, or at home?"
+                                "desc": [[#{oa.interfere_work}]], "opt_desc" :"In the past week, how much did your anxiety interfere with your ability to do the things you needed to do at work, at school, or at home?"
                             }
 
 

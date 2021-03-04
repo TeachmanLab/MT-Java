@@ -11,21 +11,21 @@
 <head th:replace="fragment/common :: headerFragment"/>
 <body>
 <section th:replace="fragment/common :: topFragment"/>
-<section th:replace="fragment/common :: titleBar (title=#{comorbid.title})"/>
+<section th:replace="fragment/common :: titleBar (title=#{acculturation.title})"/>
 <textArea th:replace="fragment/common :: questionTemplate"/>
 <section id="content" class="clearfix">
 
 <div class="container">
     <div class="row">
         <div class="col-md-8">
-            <p th:text="#{comorbid.instructions}">The following questions ask about your mood.
+            <p th:text="#{acculturation.instructions}">The following questions ask about your mood.
                 For each question, select the number for the answer that best describes your experience.
             </p>
         </div>
     </div>
 </div>
 
-<form th:action="@{/questions/Comorbid}" method="POST" style="padding-left:30px" th:object="${model}">
+<form th:action="@{/questions/Acculturation}" method="POST" style="padding-left:30px" th:object="${model}">
     <!-- Add timer -->
     <section th:replace="fragment/forms :: radioOptions(${model})" />
     <div class="col-md-12" style="text-align:center">

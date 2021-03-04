@@ -131,7 +131,7 @@
         </div>
 
         <div class="container section">
-            <label class="question" th:text="#{Evaluation.idealSessions}"> The MindTrails program had five training sessions. How many sessions do you think would have
+            <label class="question" th:text="#{Evaluation.idealSessions}"> The MindTrails program had two training sessions. How many sessions do you think would have
                 been ideal?<br/><br/>
                 <input type="number" min="1" th:field="*{idealSessions}" required="true"/> </label>
         </div>
@@ -159,7 +159,7 @@
         </div>
 
         <div class="container section">
-            <div id="section2"></div>
+            <div th:text="#{Evaluation.otherTreatment}" id="section2"></div>
             <script>
                 var data = {
                     "options": [
@@ -176,7 +176,7 @@
                     "questions": [
                         {
                             "name": "otherTreatment",
-                            "desc": "If you were to experience moderate-to-severe anxiety in the future, does this program make you more or less likely to consider other forms of therapy (e.g., medications, therapy)?"
+                            "desc": "Does this program make you more or less likely to consider other forms of therapy (e.g., medications, therapy)?"
                         }
                     ]
                 }
@@ -405,6 +405,107 @@ condition-->
             </div>
         </div>
 
+        <div class="container section">
+            <div class="row">
+                <div class="col-md-10">
+                    <p th:text="#{Evaluation.pronouns}"><b>What is your preferred formality of subject pronouns for a site like MindTrails?</b></p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8 side-border">
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="radio"
+                                name="pronouns" value="tu"/> &nbsp;&nbsp;Tú </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="radio"
+                                name="pronouns" value="usted"/> &nbsp;&nbsp;Usted (Vosotros) </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="radio"
+                                name="pronouns" value="other"/> &nbsp;&nbsp;Other </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container section compactQuestion">
+            <div class="row">
+                <div class="row title">
+                    <div class="col-md-12">
+                        <h4 th:text="#{Evaluation.topics}"><b>What are other topics for stories that would have been helpful?</b></h4>
+                        <textarea rows="4" cols="20"  class="coach" name="technicalDifficulties"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container section">
+            <div class="row">
+                <div class="col-md-10">
+                    <p th:text="#{Evaluation.fit}"><b>How well does MindTrails fit with the other care you are pursuing (e.g., medication, talk therapy)?</b></p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8 side-border">
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="radio"
+                                name="places" value="home"/> &nbsp;&nbsp;Very well </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="radio"
+                                name="places" value="work"/> &nbsp;&nbsp;Mostly well </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="radio"
+                                name="places" value="publicPlace"/> &nbsp;&nbsp;Somewhat well </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="radio"
+                                name="places" value="commute"/> &nbsp;&nbsp;Slightly well
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                type="radio"
+                                name="places" value="vacation"/> &nbsp;&nbsp;Not at all well </label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <br/>
+                    <br/>
+                    <div class="radio">
+                        <label class="question"><input type="radio" name="places" value="555"
+                                                       onchange="disableSection(this)"/> &nbsp;&nbsp;Prefer not to answer
+                        </label>
+                    </div>
+                    <br/>
+                    <br/>
+                </div>
+            </div>
+        </div>
+
+        <div class="container section compactQuestion">
+            <div class="row">
+                <div class="row title">
+                    <div class="col-md-12">
+                        <h4 th:text="#{Evaluation.goal}"><b>What were you hoping to get out of completing the MindTrails study?</b></h4>
+                        <textarea rows="4" cols="20"  class="coach" name="technicalDifficulties"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <!--               <div class="container section">
     <div class="row header">
         <div class="col-md-8 statement"><p><b>Did you receive telecoaching during the program?</b></p></div>
@@ -577,7 +678,7 @@ condition-->
 </div>-->
 
 <div style="text-align:center">
-    <button type="submit"> Continue</button>
+    <button type="submit" th:text="#{next}"> Next</button>
 </div>
 
 </div>

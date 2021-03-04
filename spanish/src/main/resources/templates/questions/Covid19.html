@@ -35,202 +35,202 @@
                     please indicate in what ways the following areas of your life have been affected as a result of COVID-19:</b></h3><br/>
                 <div class="row">
                     <div class="col-md-6">
-                        <p><label class="question" th:text="#{covid19.work}">Work (employment or school)<br/>
+                        <p><label class="question">Work (employment or school)<br/>
                             <select required="true" th:field="*{work}">
                                 <option value="" hidden="hidden"></option>
-                                <option value="1">Extreme positive change</option>
-                                <option value="2">Moderate positive change</option>
-                                <option value="3">Minimal positive change</option>
-                                <option value="4">No change</option>
-                                <option value="5">Minimal negative change</option>
-                                <option value="6">Moderate negative change</option>
-                                <option value="7">Extreme negative change</option>
-                                <option value="0">Not applicable</option>
-                                <option value="555">Prefer not to answer</option>
+                                <option th:text="#{extreme_positive_change}" value="1">Extreme positive change</option>
+                                <option th:text="#{moderate_positive_change}" value="2">Moderate positive change</option>
+                                <option th:text="#{minimal_positive_change}" value="3">Minimal positive change</option>
+                                <option th:text="#{no_change}" value="4">No change</option>
+                                <option th:text="#{minimal_negative_change}" value="5">Minimal negative change</option>
+                                <option th:text="#{moderate_negative_change}" value="6">Moderate negative change</option>
+                                <option th:text="#{extreme_negative_change}" value="7">Extreme negative change</option>
+                                <option th:text="#{not_applicable}" value="0">Not applicable</option>
+                                <option th:text="#{prefer_not_to_answer}" value="555">Prefer not to answer</option>
                             </select> </label></p>
                         <p><label class="question">Income/finances<br/>
                             <select required="true" th:field="*{finances}">
                                 <option value="" hidden="hidden"></option>
-                                <option value="1">Extreme positive change</option>
-                                <option value="2">Moderate positive change</option>
-                                <option value="3">Minimal positive change</option>
-                                <option value="4">No change</option>
-                                <option value="5">Minimal negative change</option>
-                                <option value="6">Moderate negative change</option>
-                                <option value="7">Extreme negative change</option>
-                                <option value="0">Not applicable</option>
-                                <option value="555">Prefer not to answer</option>
+                                <option th:text="#{extreme_positive_change}" value="1">Extreme positive change</option>
+                                <option th:text="#{moderate_positive_change}" value="2">Moderate positive change</option>
+                                <option th:text="#{minimal_positive_change}" value="3">Minimal positive change</option>
+                                <option th:text="#{no_change}" value="4">No change</option>
+                                <option th:text="#{minimal_negative_change}" value="5">Minimal negative change</option>
+                                <option th:text="#{moderate_negative_change}" value="6">Moderate negative change</option>
+                                <option th:text="#{extreme_negative_change}" value="7">Extreme negative change</option>
+                                <option th:text="#{not_applicable}" value="0">Not applicable</option>
+                                <option th:text="#{prefer_not_to_answer}" value="555">Prefer not to answer</option>
                             </select> </label></p>
                         <p><label class="question">Having enough food to eat<br/>
                             <select required="true" th:field="*{food}">
                                 <option value="" hidden="hidden"></option>
-                                <option value="1">Extreme positive change</option>
-                                <option value="2">Moderate positive change</option>
-                                <option value="3">Minimal positive change</option>
-                                <option value="4">No change</option>
-                                <option value="5">Minimal negative change</option>
-                                <option value="6">Moderate negative change</option>
-                                <option value="7">Extreme negative change</option>
-                                <option value="0">Not applicable</option>
-                                <option value="555">Prefer not to answer</option>
+                                <option th:text="#{extreme_positive_change}" value="1">Extreme positive change</option>
+                                <option th:text="#{moderate_positive_change}" value="2">Moderate positive change</option>
+                                <option th:text="#{minimal_positive_change}" value="3">Minimal positive change</option>
+                                <option th:text="#{no_change}" value="4">No change</option>
+                                <option th:text="#{minimal_negative_change}" value="5">Minimal negative change</option>
+                                <option th:text="#{moderate_negative_change}" value="6">Moderate negative change</option>
+                                <option th:text="#{extreme_negative_change}" value="7">Extreme negative change</option>
+                                <option th:text="#{not_applicable}" value="0">Not applicable</option>
+                                <option th:text="#{prefer_not_to_answer}" value="555">Prefer not to answer</option>
                             </select> </label></p>
                         <p><label class="question">Childcare<br/>
                             <select required="true" th:field="*{childcare}">
                                 <option value="" hidden="hidden"></option>
-                                <option value="1">Extreme positive change</option>
-                                <option value="2">Moderate positive change</option>
-                                <option value="3">Minimal positive change</option>
-                                <option value="4">No change</option>
-                                <option value="5">Minimal negative change</option>
-                                <option value="6">Moderate negative change</option>
-                                <option value="7">Extreme negative change</option>
-                                <option value="0">Not applicable</option>
-                                <option value="555">Prefer not to answer</option>
+                                <option th:text="#{extreme_positive_change}" value="1">Extreme positive change</option>
+                                <option th:text="#{moderate_positive_change}" value="2">Moderate positive change</option>
+                                <option th:text="#{minimal_positive_change}" value="3">Minimal positive change</option>
+                                <option th:text="#{no_change}" value="4">No change</option>
+                                <option th:text="#{minimal_negative_change}" value="5">Minimal negative change</option>
+                                <option th:text="#{moderate_negative_change}" value="6">Moderate negative change</option>
+                                <option th:text="#{extreme_negative_change}" value="7">Extreme negative change</option>
+                                <option th:text="#{not_applicable}" value="0">Not applicable</option>
+                                <option th:text="#{prefer_not_to_answer}" value="555">Prefer not to answer</option>
                             </select> </label></p>
                         <p><label class="question">Emotional well-being (e.g., anxiety, sadness, stress, worry)<br/>
                             <select required="true" th:field="*{wellbeing}">
                                 <option value="" hidden="hidden"></option>
-                                <option value="1">Extreme positive change</option>
-                                <option value="2">Moderate positive change</option>
-                                <option value="3">Minimal positive change</option>
-                                <option value="4">No change</option>
-                                <option value="5">Minimal negative change</option>
-                                <option value="6">Moderate negative change</option>
-                                <option value="7">Extreme negative change</option>
-                                <option value="0">Not applicable</option>
-                                <option value="555">Prefer not to answer</option>
+                                <option th:text="#{extreme_positive_change}" value="1">Extreme positive change</option>
+                                <option th:text="#{moderate_positive_change}" value="2">Moderate positive change</option>
+                                <option th:text="#{minimal_positive_change}" value="3">Minimal positive change</option>
+                                <option th:text="#{no_change}" value="4">No change</option>
+                                <option th:text="#{minimal_negative_change}" value="5">Minimal negative change</option>
+                                <option th:text="#{moderate_negative_change}" value="6">Moderate negative change</option>
+                                <option th:text="#{extreme_negative_change}" value="7">Extreme negative change</option>
+                                <option th:text="#{not_applicable}" value="0">Not applicable</option>
+                                <option th:text="#{prefer_not_to_answer}" value="555">Prefer not to answer</option>
                             </select> </label></p>
                         <p><label class="question">Physical health<br/>
                             <select required="true" th:field="*{physical}">
                                 <option value="" hidden="hidden"></option>
-                                <option value="1">Extreme positive change</option>
-                                <option value="2">Moderate positive change</option>
-                                <option value="3">Minimal positive change</option>
-                                <option value="4">No change</option>
-                                <option value="5">Minimal negative change</option>
-                                <option value="6">Moderate negative change</option>
-                                <option value="7">Extreme negative change</option>
-                                <option value="0">Not applicable</option>
-                                <option value="555">Prefer not to answer</option>
+                                <option th:text="#{extreme_positive_change}" value="1">Extreme positive change</option>
+                                <option th:text="#{moderate_positive_change}" value="2">Moderate positive change</option>
+                                <option th:text="#{minimal_positive_change}" value="3">Minimal positive change</option>
+                                <option th:text="#{no_change}" value="4">No change</option>
+                                <option th:text="#{minimal_negative_change}" value="5">Minimal negative change</option>
+                                <option th:text="#{moderate_negative_change}" value="6">Moderate negative change</option>
+                                <option th:text="#{extreme_negative_change}" value="7">Extreme negative change</option>
+                                <option th:text="#{not_applicable}" value="0">Not applicable</option>
+                                <option th:text="#{prefer_not_to_answer}" value="555">Prefer not to answer</option>
                             </select> </label></p>
                         <p><label class="question">Getting the medication and other healthcare you need<br/>
                             <select required="true" th:field="*{healthcare}">
                                 <option value="" hidden="hidden"></option>
-                                <option value="1">Extreme positive change</option>
-                                <option value="2">Moderate positive change</option>
-                                <option value="3">Minimal positive change</option>
-                                <option value="4">No change</option>
-                                <option value="5">Minimal negative change</option>
-                                <option value="6">Moderate negative change</option>
-                                <option value="7">Extreme negative change</option>
-                                <option value="0">Not applicable</option>
-                                <option value="555">Prefer not to answer</option>
+                                <option th:text="#{extreme_positive_change}" value="1">Extreme positive change</option>
+                                <option th:text="#{moderate_positive_change}" value="2">Moderate positive change</option>
+                                <option th:text="#{minimal_positive_change}" value="3">Minimal positive change</option>
+                                <option th:text="#{no_change}" value="4">No change</option>
+                                <option th:text="#{minimal_negative_change}" value="5">Minimal negative change</option>
+                                <option th:text="#{moderate_negative_change}" value="6">Moderate negative change</option>
+                                <option th:text="#{extreme_negative_change}" value="7">Extreme negative change</option>
+                                <option th:text="#{not_applicable}" value="0">Not applicable</option>
+                                <option th:text="#{prefer_not_to_answer}" value="555">Prefer not to answer</option>
                             </select> </label></p>
                         <p><label class="question">Productivity<br/>
                             <select required="true" th:field="*{productivity}">
                                 <option value="" hidden="hidden"></option>
-                                <option value="1">Extreme positive change</option>
-                                <option value="2">Moderate positive change</option>
-                                <option value="3">Minimal positive change</option>
-                                <option value="4">No change</option>
-                                <option value="5">Minimal negative change</option>
-                                <option value="6">Moderate negative change</option>
-                                <option value="7">Extreme negative change</option>
-                                <option value="0">Not applicable</option>
-                                <option value="555">Prefer not to answer</option>
+                                <option th:text="#{extreme_positive_change}" value="1">Extreme positive change</option>
+                                <option th:text="#{moderate_positive_change}" value="2">Moderate positive change</option>
+                                <option th:text="#{minimal_positive_change}" value="3">Minimal positive change</option>
+                                <option th:text="#{no_change}" value="4">No change</option>
+                                <option th:text="#{minimal_negative_change}" value="5">Minimal negative change</option>
+                                <option th:text="#{moderate_negative_change}" value="6">Moderate negative change</option>
+                                <option th:text="#{extreme_negative_change}" value="7">Extreme negative change</option>
+                                <option th:text="#{not_applicable}" value="0">Not applicable</option>
+                                <option th:text="#{prefer_not_to_answer}" value="555">Prefer not to answer</option>
                             </select> </label></p>
                     </div>
                     <div class="col-md-6">
                         <p><label class="question">Ability to focus<br/>
                             <select required="true" th:field="*{focus}">
                                 <option value="" hidden="hidden"></option>
-                                <option value="1">Extreme positive change</option>
-                                <option value="2">Moderate positive change</option>
-                                <option value="3">Minimal positive change</option>
-                                <option value="4">No change</option>
-                                <option value="5">Minimal negative change</option>
-                                <option value="6">Moderate negative change</option>
-                                <option value="7">Extreme negative change</option>
-                                <option value="0">Not applicable</option>
-                                <option value="555">Prefer not to answer</option>
+                                <option th:text="#{extreme_positive_change}" value="1">Extreme positive change</option>
+                                <option th:text="#{moderate_positive_change}" value="2">Moderate positive change</option>
+                                <option th:text="#{minimal_positive_change}" value="3">Minimal positive change</option>
+                                <option th:text="#{no_change}" value="4">No change</option>
+                                <option th:text="#{minimal_negative_change}" value="5">Minimal negative change</option>
+                                <option th:text="#{moderate_negative_change}" value="6">Moderate negative change</option>
+                                <option th:text="#{extreme_negative_change}" value="7">Extreme negative change</option>
+                                <option th:text="#{not_applicable}" value="0">Not applicable</option>
+                                <option th:text="#{prefer_not_to_answer}" value="555">Prefer not to answer</option>
                             </select> </label></p>
                         <p><label class="question">Exercise<br/>
                             <select required="true" th:field="*{exercise}">
                                 <option value="" hidden="hidden"></option>
-                                <option value="1">Extreme positive change</option>
-                                <option value="2">Moderate positive change</option>
-                                <option value="3">Minimal positive change</option>
-                                <option value="4">No change</option>
-                                <option value="5">Minimal negative change</option>
-                                <option value="6">Moderate negative change</option>
-                                <option value="7">Extreme negative change</option>
-                                <option value="0">Not applicable</option>
-                                <option value="555">Prefer not to answer</option>
+                                <option th:text="#{extreme_positive_change}" value="1">Extreme positive change</option>
+                                <option th:text="#{moderate_positive_change}" value="2">Moderate positive change</option>
+                                <option th:text="#{minimal_positive_change}" value="3">Minimal positive change</option>
+                                <option th:text="#{no_change}" value="4">No change</option>
+                                <option th:text="#{minimal_negative_change}" value="5">Minimal negative change</option>
+                                <option th:text="#{moderate_negative_change}" value="6">Moderate negative change</option>
+                                <option th:text="#{extreme_negative_change}" value="7">Extreme negative change</option>
+                                <option th:text="#{not_applicable}" value="0">Not applicable</option>
+                                <option th:text="#{prefer_not_to_answer}" value="555">Prefer not to answer</option>
                             </select> </label></p>
                         <p><label class="question">Relationships with family<br/>
                             <select required="true" th:field="*{family}">
                                 <option value="" hidden="hidden"></option>
-                                <option value="1">Extreme positive change</option>
-                                <option value="2">Moderate positive change</option>
-                                <option value="3">Minimal positive change</option>
-                                <option value="4">No change</option>
-                                <option value="5">Minimal negative change</option>
-                                <option value="6">Moderate negative change</option>
-                                <option value="7">Extreme negative change</option>
-                                <option value="0">Not applicable</option>
-                                <option value="555">Prefer not to answer</option>
+                                <option th:text="#{extreme_positive_change}" value="1">Extreme positive change</option>
+                                <option th:text="#{moderate_positive_change}" value="2">Moderate positive change</option>
+                                <option th:text="#{minimal_positive_change}" value="3">Minimal positive change</option>
+                                <option th:text="#{no_change}" value="4">No change</option>
+                                <option th:text="#{minimal_negative_change}" value="5">Minimal negative change</option>
+                                <option th:text="#{moderate_negative_change}" value="6">Moderate negative change</option>
+                                <option th:text="#{extreme_negative_change}" value="7">Extreme negative change</option>
+                                <option th:text="#{not_applicable}" value="0">Not applicable</option>
+                                <option th:text="#{prefer_not_to_answer}" value="555">Prefer not to answer</option>
                             </select> </label></p>
                         <p><label class="question">Relationships with romantic partners<br/>
                             <select required="true" th:field="*{partners}">
                                 <option value="" hidden="hidden"></option>
-                                <option value="1">Extreme positive change</option>
-                                <option value="2">Moderate positive change</option>
-                                <option value="3">Minimal positive change</option>
-                                <option value="4">No change</option>
-                                <option value="5">Minimal negative change</option>
-                                <option value="6">Moderate negative change</option>
-                                <option value="7">Extreme negative change</option>
-                                <option value="0">Not applicable</option>
-                                <option value="555">Prefer not to answer</option>
+                                <option th:text="#{extreme_positive_change}" value="1">Extreme positive change</option>
+                                <option th:text="#{moderate_positive_change}" value="2">Moderate positive change</option>
+                                <option th:text="#{minimal_positive_change}" value="3">Minimal positive change</option>
+                                <option th:text="#{no_change}" value="4">No change</option>
+                                <option th:text="#{minimal_negative_change}" value="5">Minimal negative change</option>
+                                <option th:text="#{moderate_negative_change}" value="6">Moderate negative change</option>
+                                <option th:text="#{extreme_negative_change}" value="7">Extreme negative change</option>
+                                <option th:text="#{not_applicable}" value="0">Not applicable</option>
+                                <option th:text="#{prefer_not_to_answer}" value="555">Prefer not to answer</option>
                             </select> </label></p>
                         <p><label class="question">Relationships with friends<br/>
                             <select required="true" th:field="*{friends}">
                                 <option value="" hidden="hidden"></option>
-                                <option value="1">Extreme positive change</option>
-                                <option value="2">Moderate positive change</option>
-                                <option value="3">Minimal positive change</option>
-                                <option value="4">No change</option>
-                                <option value="5">Minimal negative change</option>
-                                <option value="6">Moderate negative change</option>
-                                <option value="7">Extreme negative change</option>
-                                <option value="0">Not applicable</option>
-                                <option value="555">Prefer not to answer</option>
+                                <option th:text="#{extreme_positive_change}" value="1">Extreme positive change</option>
+                                <option th:text="#{moderate_positive_change}" value="2">Moderate positive change</option>
+                                <option th:text="#{minimal_positive_change}" value="3">Minimal positive change</option>
+                                <option th:text="#{no_change}" value="4">No change</option>
+                                <option th:text="#{minimal_negative_change}" value="5">Minimal negative change</option>
+                                <option th:text="#{moderate_negative_change}" value="6">Moderate negative change</option>
+                                <option th:text="#{extreme_negative_change}" value="7">Extreme negative change</option>
+                                <option th:text="#{not_applicable}" value="0">Not applicable</option>
+                                <option th:text="#{prefer_not_to_answer}" value="555">Prefer not to answer</option>
                             </select> </label></p>
                         <p><label class="question">Sleep<br/>
                             <select required="true" th:field="*{sleep}">
                                 <option value="" hidden="hidden"></option>
-                                <option value="1">Extreme positive change</option>
-                                <option value="2">Moderate positive change</option>
-                                <option value="3">Minimal positive change</option>
-                                <option value="4">No change</option>
-                                <option value="5">Minimal negative change</option>
-                                <option value="6">Moderate negative change</option>
-                                <option value="7">Extreme negative change</option>
-                                <option value="0">Not applicable</option>
-                                <option value="555">Prefer not to answer</option>
+                                <option th:text="#{extreme_positive_change}" value="1">Extreme positive change</option>
+                                <option th:text="#{moderate_positive_change}" value="2">Moderate positive change</option>
+                                <option th:text="#{minimal_positive_change}" value="3">Minimal positive change</option>
+                                <option th:text="#{no_change}" value="4">No change</option>
+                                <option th:text="#{minimal_negative_change}" value="5">Minimal negative change</option>
+                                <option th:text="#{moderate_negative_change}" value="6">Moderate negative change</option>
+                                <option th:text="#{extreme_negative_change}" value="7">Extreme negative change</option>
+                                <option th:text="#{not_applicable}" value="0">Not applicable</option>
+                                <option th:text="#{prefer_not_to_answer}" value="555">Prefer not to answer</option>
                             </select> </label></p>
                         <p><label class="question">Loss of planned events (e.g., graduation, parties, travel)<br/>
                             <select required="true" th:field="*{events}">
                                 <option value="" hidden="hidden"></option>
-                                <option value="1">Extreme positive change</option>
-                                <option value="2">Moderate positive change</option>
-                                <option value="3">Minimal positive change</option>
-                                <option value="4">No change</option>
-                                <option value="5">Minimal negative change</option>
-                                <option value="6">Moderate negative change</option>
-                                <option value="7">Extreme negative change</option>
-                                <option value="0">Not applicable</option>
-                                <option value="555">Prefer not to answer</option>
+                                <option th:text="#{extreme_positive_change}" value="1">Extreme positive change</option>
+                                <option th:text="#{moderate_positive_change}" value="2">Moderate positive change</option>
+                                <option th:text="#{minimal_positive_change}" value="3">Minimal positive change</option>
+                                <option th:text="#{no_change}" value="4">No change</option>
+                                <option th:text="#{minimal_negative_change}" value="5">Minimal negative change</option>
+                                <option th:text="#{moderate_negative_change}" value="6">Moderate negative change</option>
+                                <option th:text="#{extreme_negative_change}" value="7">Extreme negative change</option>
+                                <option th:text="#{not_applicable}" value="0">Not applicable</option>
+                                <option th:text="#{prefer_not_to_answer}" value="555">Prefer not to answer</option>
                             </select> </label></p>
                     </div>
                 </div>
@@ -270,7 +270,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="radio"><br/>
-                        <label class="question"><input th:text="#{covid19.prefer_not_to_answer}" type="radio" name="highRisk" value="555"/> Prefer not to answer</label>
+                        <label class="question"><input th:text="#{covid19.prefer_not_to_answer}" type="radio" name="highRisk" value="555"/></label>
                     </div>
                 </div>
             </div>
@@ -550,9 +550,9 @@
         </div>
 
 
-        <div class="col-md-12" style="text-align:center" th:text="#{next}">
+        <div class="col-md-12" style="text-align:center">
             <!-- Add timer -->
-            <button type="submit">Next</button>
+            <button type="submit" th:text="#{next}">Next</button>
         </div>
 
     </form>

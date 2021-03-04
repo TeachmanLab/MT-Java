@@ -80,8 +80,8 @@ public class SpanishStudy extends BaseStudy {
 
         session1.addTask(new Task("Demographics","Personal Background", Task.TYPE.questions, 2 ));
         session1.addTask(new Task("MentalHealthHistory","Mental Health and Treatment History", Task.TYPE.questions, 2 ));
-        // To Add: Short Acculturation Scale
-        // To Add Multigroup Ethnic Identity
+        session1.addTask(new Task("Acculturation","Language Preferences", Task.TYPE.questions, 0 ));
+        session1.addTask(new Task("Ethnicity","My Ethnicity", Task.TYPE.questions, 0 ));
         session1.addTask(new Task("Comorbid","Mood Assessment", Task.TYPE.questions, 0 ));
         session1.addTask(new Task("recognitionRatings", "Completing Short Stories", Task.TYPE.angular, 5));
         session1.addTask(new Task("RR","Completing Short Stories, Pt. 2", Task.TYPE.questions, 0 ));
@@ -90,7 +90,6 @@ public class SpanishStudy extends BaseStudy {
         session1.addTask(new Task("1", "Training Session 1", Task.TYPE.angular, 20));
         session1.addTask(new Task("Affect","Current Feelings, Post", "post", Task.TYPE.questions, 0));
         session1.addTask(new Task("CC","Compare and Contrast", Task.TYPE.questions, 0 ));
-        session1.addTask(new Task("ReturnIntention","Returning to the Program", Task.TYPE.questions, 0));
         sessions.add(session1);
 
 
