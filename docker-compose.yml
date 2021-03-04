@@ -1,0 +1,32 @@
+db:
+  image: mariadb:latest
+  environment:
+    MYSQL_ROOT_PASSWORD: pi_password
+    MYSQL_DATABASE: r01
+    MYSQL_USER: pi_user
+    MYSQL_PASSWORD: pi_password
+  volumes:
+   - ./dockerconfs/50-server.cnf:/etc/mysql/mariadb.conf.d/50-server.cnf
+   - ../docker-volumes/db-1:/var/lib/mysql
+  ports:
+    - 3306:3306
+  command: --default-authentication-plugin=mysql_native_password
+
+web:
+  image: mt-calm:latest
+  environment:
+    JDBC_URL: jdbc:mysql://db:3306/r0?connectTimeout=0&amp;socketTimeout=0&amp;autoReconnect=true
+    import.mode: export
+    import.username: daniel.h.funk@gmail.com
+    import.password: 1234!@#$Abc
+    import.url: http://localhost:8080
+    import.path: /tmp
+    import.delete: "true"
+    import.rate.in.milliseconds: 60000
+  volumes:
+   - ./dockerconfs/context.xml:/usr/local/tomcat/conf/context.xml
+  ports:
+   - 80:8080
+   - 8001:8000
+  links:
+    - db
