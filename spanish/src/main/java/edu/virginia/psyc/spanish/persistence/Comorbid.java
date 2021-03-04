@@ -29,7 +29,7 @@ public class Comorbid extends LinkedQuestionnaireData {
     @Override
     public Map<String, String> getGroupDescriptions() {
         Map<String, String> desc = new TreeMap<>();
-        desc.put("bothered", "");
+        desc.put("bothered", "x");
         return Collections.unmodifiableMap(desc);
     }
 
@@ -38,7 +38,7 @@ public class Comorbid extends LinkedQuestionnaireData {
         Map<Integer, String> tmpScale = new TreeMap<>();
         switch (group) {
             case("bothered"):
-                tmpScale.put(1, "not_at_all");
+                tmpScale.put(1, "comorbid_not_at_all");
                 tmpScale.put(2, "several_days");
                 tmpScale.put(3, "more_than_half_of_the_days");
                 tmpScale.put(4, "nearly_every_day");

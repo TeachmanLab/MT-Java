@@ -39,19 +39,19 @@
             <div class="row">
                 <div class="col-md-8">
                     <div class="radio">
-                        <label class="question"> <input
+                        <label class="question"> <input th:text="#{Evaluation.smartphone}"
                                 type="checkbox"
-                                name="devices" value="smartphone"/> &nbsp;&nbsp;Smartphone </label>
+                                name="devices" value="smartphone"/></label>
                     </div>
                     <div class="radio">
-                        <label class="question"> <input
+                        <label class="question"> <input th:text="#{Evaluation.computer}"
                                 type="checkbox"
-                                name="devices" value="computer"/> &nbsp;&nbsp;Computer </label>
+                                name="devices" value="computer"/></label>
                     </div>
                     <div class="radio">
-                        <label class="question"> <input
+                        <label class="question"> <input th:text="#{Evaluation.tablet}"
                                 type="checkbox"
-                                name="devices" value="tablet"/> &nbsp;&nbsp;Tablet </label>
+                                name="devices" value="tablet"/></label>
                     </div>
                 </div>
             </div>
@@ -429,18 +429,16 @@ condition-->
                                 type="radio"
                                 name="pronouns" value="other"/> &nbsp;&nbsp;Other </label>
                     </div>
-                </div>
             </div>
+                </div>
         </div>
 
         <div class="container section compactQuestion">
             <div class="row">
-                <div class="row title">
-                    <div class="col-md-12">
+                    <div class="col-md-10">
                         <h4 th:text="#{Evaluation.topics}"><b>What are other topics for stories that would have been helpful?</b></h4>
-                        <textarea rows="4" cols="20"  class="coach" name="technicalDifficulties"></textarea>
+                        <textarea style="resize: none;" rows="2" cols="70"  name="topics"></textarea>
                     </div>
-                </div>
             </div>
         </div>
 
@@ -456,35 +454,35 @@ condition-->
                     <div class="radio">
                         <label class="question"> <input
                                 type="radio"
-                                name="places" value="home"/> &nbsp;&nbsp;Very well </label>
+                                name="fit" value="4"/> &nbsp;&nbsp;Very well </label>
                     </div>
                     <div class="radio">
                         <label class="question"> <input
                                 type="radio"
-                                name="places" value="work"/> &nbsp;&nbsp;Mostly well </label>
+                                name="fit" value="3"/> &nbsp;&nbsp;Mostly well </label>
                     </div>
                     <div class="radio">
                         <label class="question"> <input
                                 type="radio"
-                                name="places" value="publicPlace"/> &nbsp;&nbsp;Somewhat well </label>
+                                name="fit" value="2"/> &nbsp;&nbsp;Somewhat well </label>
                     </div>
                     <div class="radio">
                         <label class="question"> <input
                                 type="radio"
-                                name="places" value="commute"/> &nbsp;&nbsp;Slightly well
+                                name="fit" value="1"/> &nbsp;&nbsp;Slightly well
                         </label>
                     </div>
                     <div class="radio">
                         <label class="question"> <input
                                 type="radio"
-                                name="places" value="vacation"/> &nbsp;&nbsp;Not at all well </label>
+                                name="fit" value="0"/> &nbsp;&nbsp;Not at all well </label>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <br/>
                     <br/>
                     <div class="radio">
-                        <label class="question"><input type="radio" name="places" value="555"
+                        <label class="question"><input type="radio" name="fit" value="555"
                                                        onchange="disableSection(this)"/> &nbsp;&nbsp;Prefer not to answer
                         </label>
                     </div>
@@ -496,12 +494,10 @@ condition-->
 
         <div class="container section compactQuestion">
             <div class="row">
-                <div class="row title">
-                    <div class="col-md-12">
+                    <div class="col-md-10">
                         <h4 th:text="#{Evaluation.goal}"><b>What were you hoping to get out of completing the MindTrails study?</b></h4>
-                        <textarea rows="4" cols="20"  class="coach" name="technicalDifficulties"></textarea>
+                        <textarea style="resize: none;" rows="2" cols="70" name="goal"></textarea>
                     </div>
-                </div>
             </div>
         </div>
 

@@ -48,10 +48,10 @@ public class Evaluation extends LinkedQuestionnaireData {
     private Integer recommendHispanic;
     @NotNull
     @MeasureField(order = 6, desc = "To what extent did these stories reflect situations that are important to you?", group="block1")
-    private Integer situations;
+    private Integer situationsYou;
     @NotNull
     @MeasureField(order = 7, desc = "To what extent did these stories reflect situations that are important to your family and community?", group="block1")
-    private Integer family;
+    private Integer situationsFamily;
     @NotNull
     @MeasureField(order = 8, desc = "How easy was MindTrails to use?", group = "block1")
     private Integer easy;
@@ -140,11 +140,11 @@ public class Evaluation extends LinkedQuestionnaireData {
     @Override
     public Map<Integer, String> getScale(String group) {
         Map<Integer, String> tmpScale = new TreeMap<>();
-            tmpScale.put(1, "Not at all");
-            tmpScale.put(2, "Slightly");
-            tmpScale.put(3, "Somewhat");
-            tmpScale.put(4, "Mostly");
-            tmpScale.put(5, "Very");
+            tmpScale.put(1, "not_at_all");
+            tmpScale.put(2, "slightly");
+            tmpScale.put(3, "somewhat");
+            tmpScale.put(4, "mostly");
+            tmpScale.put(5, "very");
 
         return Collections.unmodifiableMap(tmpScale);
     }
