@@ -112,13 +112,15 @@ public class Covid19 extends LinkedQuestionnaireData {
     @Override
     public Map<Integer, String> getScale(String group) {
         Map<Integer, String> tmpScale = new TreeMap<>();
-        tmpScale.put(1, "Very little");
-        tmpScale.put(2, "x");
-        tmpScale.put(3, "Somewhat");
-        tmpScale.put(4, "y");
-        tmpScale.put(5, "Very much");
-        return Collections.unmodifiableMap(tmpScale);
-
-    }
-
+        switch (group) {
+            case ("symptoms"):
+                tmpScale.put(1, "very_little");
+                tmpScale.put(2, "x");
+                tmpScale.put(3, "somewhat");
+                tmpScale.put(4, "x");
+                tmpScale.put(5, "very_much");
+                break;
+        }
+                return Collections.unmodifiableMap(tmpScale);
+        }
     }
