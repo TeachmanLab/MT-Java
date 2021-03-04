@@ -143,10 +143,29 @@
                                 <option value="555" th:text="#{prefer_not_to_answer}">Prefer not to answer</option>
                             </select>
                         </div>
-
                         <br/>
 
-                        <div><label class="question" th:text="#{demographics.country}"> What is your country of residence?<br/><br/>
+                        <div><label class="question" required="true"
+                                    th:field="*{Birthplace}" th:text="#{demographics.birthplace}">What is your birthplace?</label><br/>
+                            <div class="col-md-8">
+                            <textarea style="resize: none;" rows="1" cols="30" required="true" />
+                        </div>
+                            </div>
+                        <br/>
+                        <br/>
+                        <br/>
+
+                        <div><label class="question" required="true"
+                                    th:field="*{Nationality}" th:text="#{demographics.nationality}">What nationality or nationalities is/are associated with your family history?</label><br/>
+                            <div class="col-md-8">
+                                <textarea style="resize: none;" rows="1" cols="30" required="true" />
+                            </div>
+                        </div>
+                        <br/>
+                        <br/>
+                        <br/>
+
+                        <div><label class="question" th:text="#{demographics.country}"> What is your country of residence?
                             <select
                                 required="true" class="auto-selector"
                                 placeholder="Type your country of residence"
