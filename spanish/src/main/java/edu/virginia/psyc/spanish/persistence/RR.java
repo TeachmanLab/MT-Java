@@ -145,15 +145,15 @@ public class RR extends LinkedQuestionnaireData {
     @Override
     public Map<String, String> getGroupDescriptions() {
         Map<String, String> desc = new TreeMap<>();
-        desc.put("elevator", "THE ELEVATOR: The building looks old, and as you get on the elevator...");
-        desc.put("wedding", "THE WEDDING RECEPTION: As you enter the room...");
-        desc.put("job", "THE JOB: You think about not having an income for a few weeks...");
-        desc.put("noise", "THE LOUD NOISE: As you walk downstairs...");
-        desc.put("friend", "MEETING A FRIEND: You arrive a little late, and...");
-        desc.put("lunch", "THE LUNCH: Your friend looks at you...");
-        desc.put("scrape", "THE SCRAPE: The scrape hurts a bit...");
-        desc.put("shopping", "THE SHOPPING TRIP: You think about your recent health...");
-        desc.put("blood", "THE BLOOD TEST: The doctor says he will call you in a few weeks...");
+        desc.put("elevator", "x");
+        desc.put("wedding", "x");
+        desc.put("job", "x");
+        desc.put("noise", "x");
+        desc.put("friend", "x");
+        desc.put("lunch", "x");
+        desc.put("scrape", "x");
+        desc.put("shopping", "x");
+        desc.put("blood", "x");
         return Collections.unmodifiableMap(desc);
     }
 

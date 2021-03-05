@@ -65,6 +65,7 @@ public class Acculturation extends LinkedQuestionnaireData {
                 tmpScale.put(3, "both_equally");
                 tmpScale.put(4, "english_better_than_spanish");
                 tmpScale.put(5, "only_english");
+                break;
             case ("languages2"):
                 tmpScale.put(1, "only_spanish");
                 tmpScale.put(2, "more_spanish_than_english");

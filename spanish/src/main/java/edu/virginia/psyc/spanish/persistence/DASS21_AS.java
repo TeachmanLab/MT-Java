@@ -47,37 +47,37 @@ public class DASS21_AS extends LinkedQuestionnaireData {
     protected String sessionId;
 
     @Column(name="DRY")
-    @MeasureField(order=1, desc="I was aware of dryness of my mouth.")
+    @MeasureField(order=1, desc="I was aware of dryness of my mouth.", group="problems")
     @NotNull
     private Integer dryness;
 
     @Column(name="BRE")
-    @MeasureField(order=2, desc="I experienced breathing difficulty (e.g., excessively rapid breathing, breathlessness in the absence of physical exertion).")
+    @MeasureField(order=2, desc="I experienced breathing difficulty (e.g., excessively rapid breathing, breathlessness in the absence of physical exertion).", group="problems")
     @NotNull
     private Integer breathing;
 
     @Column(name="TRE")
-    @MeasureField(order=3, desc="I experienced trembling (e.g., in the hands).")
+    @MeasureField(order=3, desc="I experienced trembling (e.g., in the hands).", group="problems")
     @NotNull
     private Integer trembling;
 
     @Column(name="WOR")
-    @MeasureField(order=4, desc="I was worried about situations in which I might panic and make a fool of myself.")
+    @MeasureField(order=4, desc="I was worried about situations in which I might panic and make a fool of myself.", group="problems")
     @NotNull
     private Integer worry;
 
     @Column(name="PAN")
-    @MeasureField(order=5, desc="I felt I was close to panic.")
+    @MeasureField(order=5, desc="I felt I was close to panic.", group="problems")
     @NotNull
     private Integer panic;
 
     @Column(name="HEA")
-    @MeasureField(order=6, desc="I was aware of my heart's action in the absence of exercise (e.g., felt heart rate increase, heart missing a beat).")
+    @MeasureField(order=6, desc="I was aware of my heart's action in the absence of exercise (e.g., felt heart rate increase, heart missing a beat).", group="problems")
     @NotNull
     private Integer heart;
 
     @Column(name="SCA")
-    @MeasureField(order=7, desc="I felt scared without any good reason.")
+    @MeasureField(order=7, desc="I felt scared without any good reason.", group="problems")
     @NotNull
     private Integer scared;
 
@@ -96,7 +96,7 @@ public class DASS21_AS extends LinkedQuestionnaireData {
     @Override
     public Map<String, String> getGroupDescriptions() {
         Map<String, String> desc = new TreeMap<>();
-        desc.put("", "DASS21_AS_desc_over_last_week");
+        desc.put("problems", "x");
         return Collections.unmodifiableMap(desc);
     }
 

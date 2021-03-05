@@ -22,7 +22,7 @@ public class Covid19 extends LinkedQuestionnaireData {
     @Override
     public Map<String, String> getGroupDescriptions() {
         Map<String, String> desc = new TreeMap<>();
-        desc.put("symptoms", "Please indicate how much you agree with the following statements:");
+        desc.put("risk", "x");
         return Collections.unmodifiableMap(desc);
     }
 
@@ -64,10 +64,10 @@ public class Covid19 extends LinkedQuestionnaireData {
     // 3. Please indicate how much you agree with the following statements:
 
     @NotNull
-    @MeasureField(order = 1, desc = "I am worried about my COVID-19 risk.", group = "symptoms")
+    @MeasureField(order = 1, desc = "I am worried about my COVID-19 risk.", group = "risk")
     private Integer worry;
     @NotNull
-    @MeasureField(order = 2, desc = "I can control whether I get COVID-19.", group = "symptoms")
+    @MeasureField(order = 2, desc = "I can control whether I get COVID-19.", group = "risk")
     private Integer control;
 
     // 3. Based on criteria from the Center for Disease Control, are you at high risk for serious illness following infection of COVID-19?
@@ -113,7 +113,7 @@ public class Covid19 extends LinkedQuestionnaireData {
     public Map<Integer, String> getScale(String group) {
         Map<Integer, String> tmpScale = new TreeMap<>();
         switch (group) {
-            case ("symptoms"):
+            case ("risk"):
                 tmpScale.put(1, "very_little");
                 tmpScale.put(2, "x");
                 tmpScale.put(3, "somewhat");
