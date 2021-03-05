@@ -8,7 +8,7 @@
 <head th:include="fragment/common :: headerFragment" />
 <body>
 <section id="header" class="clearfix" th:include="fragment/common :: topFragment" />
-<section th:include="fragment/common :: titleBar (title='About')"/>
+<section th:include="fragment/common :: titleBar (title=#{about.title})"/>
 
 <!-- content starts
 ================================================== -->
@@ -17,32 +17,32 @@
         <div class="row">
             <div class="col-md-10">
 
-                <h3><b>What Is the MindTrails Project?</b></h3>
+                <h3 th:text="about.heading1"><b>What Is the MindTrails Project?</b></h3>
 
-                <p>The MindTrails Project is a web-based, public research site that offers free interpretation bias
+                <p th:text="about.p1">The MindTrails Project is a web-based, public research site that offers free interpretation bias
                 training programs to promote healthier thinking patterns for people with anxiety and other emotional
                 difficulties. Research shows that people prone to anxiety tend to think about situations negatively.
                 MindTrails programs give you practice thinking about situations in new ways. This encourages more
                 flexible thinking styles in your everyday life. Learn more <a href="https://mindtrails.virginia.edu/calm/public/researchSupport">about the science</a>.</p>
 
-                    <p>Developed by an interdisciplinary team of clinical psychologists, computer scientists, and
+                    <p th:text="about.p2">Developed by an interdisciplinary team of clinical psychologists, computer scientists, and
                 engineers at the University of Virginia, MindTrails aims to efficiently test which training
                 programs work best for different people and problem areas. We strive to continually improve these
                 programs for the next generation. Our team is excited to learn whether these programs can help address
                 the desperate need for greater delivery of care that has good research support.</p>
                 <br/>
 
-                <h3><b>MindTrails Study</b></h3>
+                <h3 th:text="about.heading2"><b>MindTrails Study</b></h3>
 
-                <p>We are currently offering free training programs as part of a study on promoting healthier
+                <p th:text="about.p3">We are currently offering free training programs as part of a study on promoting healthier
                     thinking patterns for people with anxiety. The programs consist of five 15-20 minute sessions
                     spread out over five weeks. Click <a href="https://mindtrails.virginia.edu/kaiser/public/eligibility">here</a>
                     to participate.</p>
                 <br/>
 
-                <h3><b>Videos</b></h3>
+                <h3 th:text="about.heading3"><b>Videos</b></h3>
 
-                <p>Check out these videos by MindTrails team members who address some common questions about the training,
+                <p th:text="about.p4">Check out these videos by MindTrails team members who address some common questions about the training,
                 and provide tips on using the program more effectively:</p>
                 <br/>
 
@@ -51,13 +51,13 @@
                 <iframe width="420" height="315"
                         src="https://www.youtube.com/embed/SNrXoTFFeok">
                 </iframe>
-                    <p>"Why MindTrails Doesn't Have All Stories End Positively"</p>
+                    <p th:text="about.video1">"Why MindTrails Doesn't Have All Stories End Positively"</p>
                     </div>
                     <div class="col-md-6">
                         <iframe width="420" height="315"
                                 src="https://www.youtube.com/embed/hhFjs0rIGRg">
                         </iframe>
-                            <p>"Why It’s Important to Really Imagine Yourself in the MindTrails Stories and How to Do That"</p>
+                            <p th:text="about.video2">"Why It’s Important to Really Imagine Yourself in the MindTrails Stories and How to Do That"</p>
                     </div>
                 </div>
                 <br/>
@@ -66,13 +66,13 @@
                         <iframe width="420" height="315"
                                 src="https://www.youtube.com/embed/mktHMDGfzu8">
                         </iframe>
-                        <p>"Why MindTrails Involves Repetition"</p>
+                        <p th:text="about.video3">"Why MindTrails Involves Repetition"</p>
                     </div>
                     <div class="col-md-6">
                         <iframe width="420" height="315"
                                 src="https://www.youtube.com/embed/IFlj72zBzYY">
                         </iframe>
-                        <p>"How the MindTrails Training Can Shift Your Experiences in the Real World"</p>
+                        <p th:text="about.video4">"How the MindTrails Training Can Shift Your Experiences in the Real World"</p>
                         <br/>
                         <br/>
                     </div>
