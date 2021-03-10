@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head th:include="fragment/email :: headerFragment"/>
+
+<body style="font-family: 'Source Sans Pro', sans-serif; font-size:20px; box-sizing:border-box; background-color: #FFF">
+
+<div id="body_style" style="padding:15px">
+
+    <table cellpadding="0" cellspacing="0" width="600" align="center" style="margin-top:20px" th:fragment="logoFragment">
+        <tr>
+            <td width="600">
+                <a th:href="${url}" target="_blank" >
+                    <img src="../../static/images/newsletter/mtheader.png" th:src="${url} + '/images/newsletter/mtheader.png'"
+                         alt="The MindTrails Project" title="MindTrails" style="display:block" border="0"/>
+                </a>
+            </td>
+        </tr>
+    </table>
+
+    <table cellpadding="0" cellspacing="0" width="400" align="center" th:include="fragment/email :: logoFragment"/>
+
+    <table cellpadding="0" cellspacing="0" width="600" align="center" style="margin-top:20px">
+        <tr>
+            <td width="400">
+                <h2 style="margin-top:20px; margin-bottom:10px">Hello from the MindTrails Team!</h2>
+                <br/>
+
+                <p  style="margin-top:5px">
+                    We hope that you've had a wonderful month!
+                </p>
+
+                <p  style="margin-top:5px">
+                    This is the <b>last</b> newsletter that you'll be receiving from our team. We've enjoyed making them for you, and we hope that you've enjoyed reading them!
+                </p>
+
+                <p  style="margin-top:5px">
+                    This month, we'll be <b>recapping</b> all that you've done as a MindTrails participant and <b>asking for your feedback</b>.
+                </p>
+
+                <p  style="margin-top:5px">
+                    If you have more questions after reading, <b>contact us at</b> <a href="studyteam@mindtrails.org">studyteam@mindtrails.org</a>.
+                </p>
+                <br/>
+                <h2 style="margin-top:20px; margin-bottom:10px">Thank You</h2>
+                <br/>
+
+                <p  style="margin-top:5px">
+                    Thank you for participating in MindTrails. Your involvement is <b>very important</b> to the growth of the program.
+                    Ultimately, our goal is to create an accessible and cost-effective program that reduces symptoms of anxiety,
+                    and we cannot reach that goal <b>without you</b>.</p>
+                </p>
+
+                <p  style="margin-top:5px">
+                    You did a lot as a MindTrails participant. During your weekly training sessions, you read about ambiguous emotional situations
+                    that were designed to help you develop <b>more flexible, less rigidly negative thinking patterns</b> that you could use in your
+                    everyday life.</p>
+                </p>
+
+                <p  style="margin-top:5px">
+                    MindTrails uses <b>cognitive bias modification for interpretation (CBM-I)</b> to help you develop more flexible thinking skills. It does this by
+                    targeting cognitive biases, which are patterns of thinking that relate to our emotional responses, and affect how we think about situations.
+                    People with anxiety often assume a negative outcome. Through repeated practice, CBM targets your cognitive biases to teach you how to interpret
+                    information in new ways so you can consider different perspectives. This is why we had you complete five training sessions over the course of five weeks!</p>
+                </p>
+
+                <p  style="margin-top:5px">
+                If you are interested in learning more about the science behind MindTrails, check out these papers that were
+                    written by members of the MindTrails team and include data from the MindTrails study: <a href="https://mindtrails.virginia.edu/calm/public/researchSupport">The Science of MindTrails</a>
+                </p>
+
+                <p  style="margin-top:5px">
+                    We'd love to hear <b>feedback</b> from you on your experience with the program. You can provide feedback now by emailing us at <b><a href="studyteam@mindtrails.org">studyteam@mindtrails.org</a></b>.
+                </p>
+
+                <p  style="margin-top:5px">
+                    Lastly, <b>don't forget to complete the six-month follow-up survey</b>. Your responses to this survey will give us a better understanding of what MindTrails was
+                    like for you and how we can improve the program for future participants. Also, it will help us understand how people are
+                    managing their anxiety during this particularly challenging time with the coronavirus. We will remind you about the survey by email in the coming weeks.
+                </p>
+
+                <p  style="margin-top:5px">
+                    Thank you again for participating in MindTrails.
+                </p>
+
+                <br/>
+                <h2 style="margin-top:20px; margin-bottom:10px">
+                    Thanks for reading!
+                </h2>
+                <br/>
+
+                <p style="margin-top:5px">
+                    Thank you for reading this newsletter. If you have any questions, <b>contact us at <a href="studyteam@mindtrails.org">studyteam@mindtrails.org</a></b>.
+                </p>
+                <p style="margin-top:15px">Best,</p>
+                <p style="margin-top:5px">The MindTrails Project Team</p>
+
+                <p style="margin-top:20px; font-size:.9em; text-align:left; padding-top: 4px" >
+                    To make sure you receive our emails, please add our email address (mindtrails@virginia.edu)
+                    to your list of contacts. By adding us to your contacts, you ensure all our emails don't end up in your spam folder.</p>
+
+                <p style="margin-top:40px; font-size:.7em; text-align:left; border-top: 1px solid black; padding-top: 4px" >
+                    Please note that email is not a secure form of communication and should not be used to discuss any
+                    confidential matters, including personal health information, given that its confidentiality cannot be assured.</p>
+
+                <p style="margin-top:20px; font-size:.7em; text-align:left; padding-top: 4px" >You received this email because you signed up to participate in the MindTrails study. You
+                    can manage your contact preferences, or exit the study at any time by visiting your
+                    <a th:href="${url} + '/account'">Account Settings.</a></p>
+
+            </td>
+        </tr>
+    </table>
+
+    <p style="margin-top:0"></p>
+
+</div>
+</body>
+</html>
