@@ -23,13 +23,13 @@
                         <td align="center" style="margin: 0 auto; width: 400px"><img th:src="@{/images/MeetTheTeam/Bethany.jpg}" style="text-align: center;" height="220"/></td>
                     </tr>
                     <tr>
-                        <td th:text="#{team.p1a}" align="justify"><br></br><b>Bethany Teachman</b>, Ph.D., is the Director of MindTrails. Bethany is a licensed
+                        <td align="justify"><br></br><b>Bethany Teachman</b><span th:text="#{team.bethany1}">, is the Director of MindTrails. Bethany is a licensed
                             clinical psychologist and Professor of Psychology at the University of Virginia. Her
                             research focuses on biased thought patterns associated with anxiety and other forms
-                            of mental illness (see <a href="http://projectimplicit.net/bethany/">teachman.org</a>).
-                            She also directs <a href="https://implicit.harvard.edu/implicit/user/pimh/index.jsp">Project Implicit Mental Health</a>,
+                            of mental illness (see</span> <a th:text="#{team.link1}" href="http://projectimplicit.net/bethany/">teachman.org</a><span th:text="#{team.bethany2}">).
+                            She also directs</span> <a th:text="#{team.link2}" href="https://implicit.harvard.edu/implicit/user/pimh/index.jsp">Project Implicit Health</a><span th:text="#{team.bethany3}">,
                             a website where visitors can learn about their automatic associations toward different
-                            mental health topics.</td>
+                            mental health topics.</span></td>
                     </tr>
                 </table>
             </div>
@@ -39,11 +39,11 @@
                         <td align="center" style="margin: 0 auto; width: 400px"><img th:src='@{/images/MeetTheTeam/Dan.jpg}' height="220"/></td>
                     </tr>
                     <tr>
-                        <td th:text="#{team.p2a}" align="justify"><br></br><b>Dan Funk</b> is the lead software developer for MindTrails. Dan runs a software development
-                            company out of Staunton, Virginia called <a href="http://sartography.com/">Sartography</a>. Sartography's mission is to partner with
+                        <td align="justify"><br></br><b>Dan Funk</b> <span th:text="#{team.dan1}"> is the lead software developer for MindTrails. Dan runs a software development
+                            company out of Staunton, Virginia called</span> <a th:text="#{team.link3}" href="http://sartography.com/">Sartography</a><span th:text="#{team.dan2}">. Sartography's mission is to partner with
                             scientists and innovators to create engaging software that improves the health and well
                             being of our communities. Some of Dan's favorite projects are at the
-                            University of Virginia, working with leading experts to make the world a better place to live.</td>
+                            University of Virginia, working with leading experts to make the world a better place to live.</span></td>
                     </tr>
                 </table>
                 <br></br>
@@ -56,11 +56,11 @@
                         <td align="center" style="margin: 0 auto; width: 400px"><img th:src='@{/images/MeetTheTeam/Laura.jpg}' height="220"/></td>
                     </tr>
                     <tr>
-                        <td th:text="#{team.p3a}" align="justify"><br></br><b>Laura Barnes</b>, Ph.D., is an associate professor in the School of Engineering and Applied Science Engineering,
+                        <td align="justify"><br></br><b>Laura Barnes</b><span th:text="#{team.laura}">, is an associate professor in the School of Engineering and Applied Science Engineering,
                             the Data Science Institute, and the Link Lab at the University of Virginia.
                             She directs the Sensing Systems for Health Lab. Her research focuses on the design of
                             intelligent systems for understanding the dynamics and personalization of health and
-                            well-being.</td>
+                            well-being.</span></td>
                     </tr>
                 </table>
             </div>
@@ -71,10 +71,10 @@
                         <td align="center" style="margin: 0 auto; width: 400px"><img th:src='@{/images/MeetTheTeam/Hongning.jpg}' height="220"/></td>
                     </tr>
                     <tr>
-                        <td th:text="#{team.p4a}" align="justify"><br></br><b>Hongning Wang</b>, Ph.D., is an assistant professor in the Department of Computer Science
+                        <td align="justify"><br></br><b>Hongning Wang</b><span th:text="#{team.hongning}">, is an assistant professor in the Department of Computer Science
                             at the University of Virginia. His research interest includes data mining, machine learning,
                             and information retrieval, with a special emphasis on computational user behavior modeling.
-                            He obtained his Ph.D. degree from the University of Illinois at Urbana-Champaign in May 2014.</td>
+                            He obtained his Ph.D. degree from the University of Illinois at Urbana-Champaign in May 2014.</span></td>
                     </tr>
                 </table>
                 <br></br>
@@ -160,7 +160,7 @@
                     <br></br>
                 </div>
         </div>
-        <p th:text="#{team.heading6}" align="center"><b>Thank you to Gibson Design Associates.</b></p>
+        <p th:text="#{team.thanks}" align="center"><b>Thank you to Gibson Design Associates.</b></p>
         <br></br>
         </div>
 </section>

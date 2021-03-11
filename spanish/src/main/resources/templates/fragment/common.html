@@ -333,7 +333,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a th:text="#{home.title}" th:href="@{/public/landing}">Home</a></li>
                     <li><a th:text="#{about.title}" th:href="@{/public/about}">About</a></li>
-                    <li><a th:text="#{faq.title}" th:href="@{/public/faq}">FAQ</a></li>
+                    <li><a th:text="#{faq.shortTitle}" th:href="@{/public/faq}">FAQ</a></li>
                     <li><a th:text="#{researchSupport.title}" th:href="@{/public/researchSupport}">The&nbsp;Science&nbsp;of&nbsp;MindTrails</a></li>
                     <li><a th:text="#{resources.title}" th:href="@{/public/resources}">Mental&nbsp;Health&nbsp;Resources</a>
                     </li>
@@ -354,9 +354,9 @@
                     <br/>
 
                     <div class="login"
-                         th:text="#{participating}" th:unless="${#authorization != null} AND ${#authorization.expression('hasRole(''ROLE_USER'')')}">
+                         th:unless="${#authorization != null} AND ${#authorization.expression('hasRole(''ROLE_USER'')')}">
                         Already Participating? <a th:href="@{/login}">
-                        <button th:text="#{login}">Log In</button>
+                        <button>Log In</button>
                     </a>
                     </div>
 
@@ -438,7 +438,7 @@
         <div class="row">
             <div class="footer-links">
                 <a th:text="#{about.title}" th:href="@{/public/about}">About</a>
-                <a th:text="#{faq.title}" th:href="@{/public/faq}">FAQ</a>
+                <a th:text="#{faq.shortTitle}" th:href="@{/public/faq}">FAQ</a>
                 <a th:text="#{researchSupport.title}" th:href="@{/public/researchSupport}">The Science of MindTrails</a>
                 <a th:text="#{resources.title}" th:href="@{/public/resources}">Mental Health Resources</a>
                 <a th:text="#{contact.title}" th:href="@{/public/contact}">Contact Us</a>
