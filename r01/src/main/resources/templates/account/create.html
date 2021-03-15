@@ -16,39 +16,50 @@
 <section id="content" class="clearfix">
     <div class="container">
 
-        <a href="#" onclick="window.print();return false;">Print This Page</a>
+        <div class="row">
+            <div class="col-md-4">
+                <div style="text-align:left">
+                    Step <b><span id="stepnum">1</span></b> of <b><span id="totalsteps"></span></b>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div style="text-align:right">
+                    <span class="pull-right"><button onclick="window.print();return false">Print</button></span>
+                </div>
+            </div>
+        </div>
 
         <div class="row">
             <div class="wizard">
                 <div class="col-md-8">
-                    <ul class="nav nav-tabs" role="tablist" style="display:none;">
+                    <ul id="steptabs" class="nav nav-tabs" role="tablist" style="display:none;">
                         <li role="presentation" class="active">
-                            <a href="#consent-step1" data-toggle="tab" aria-controls="step1" role="tab" title="Step 1" />
+                            <a href="#consent-whatismt" data-toggle="tab" aria-controls="consent-whatismt" role="tab" title="What is Calm Thinking" />
                         </li>
                         <li role="presentation">
-                            <a href="#consent-step2" data-toggle="tab" aria-controls="step2" role="tab" title="Step 2" />
+                            <a href="#consent-tasks" data-toggle="tab" aria-controls="consent-tasks" role="tab" title="Tasks" />
+                        </li>
+                        <li th:if="${giftcardsEnabled}" role="presentation">
+                            <a href="#consent-earnings" data-toggle="tab" aria-controls="consent-earnings" role="tab" title="Earnings" />
                         </li>
                         <li role="presentation">
-                            <a href="#consent-step2b" data-toggle="tab" aria-controls="step2b" role="tab" title="Step 2b" />
+                            <a href="#consent-benefits" data-toggle="tab" aria-controls="consent-benefits" role="tab" title="Benefits" />
                         </li>
                         <li role="presentation">
-                            <a href="#consent-step3" data-toggle="tab" aria-controls="step3" role="tab" title="Step 3" />
+                            <a href="#consent-stop" data-toggle="tab" aria-controls="consent-stop" role="tab" title="Stop" />
                         </li>
                         <li role="presentation">
-                            <a href="#consent-step4" data-toggle="tab" aria-controls="step4" role="tab" title="Step 4" />
+                            <a href="#consent-privacy" data-toggle="tab" aria-controls="consent-privacy" role="tab" title="Privacy" />
                         </li>
                         <li role="presentation">
-                            <a href="#consent-step5" data-toggle="tab" aria-controls="step5" role="tab" title="Step 5" />
+                            <a href="#consent-contact" data-toggle="tab" aria-controls="consent-contact" role="tab" title="Contact" />
                         </li>
                         <li role="presentation">
-                            <a href="#consent-step5" data-toggle="tab" aria-controls="step6" role="tab" title="Step 5" />
-                        </li>
-                        <li role="presentation">
-                            <a href="#consent-step5" data-toggle="tab" aria-controls="step7" role="tab" title="Step 5" />
+                            <a href="#consent-create" data-toggle="tab" aria-controls="consent-create" role="tab" title="Create" />
                         </li>
                     </ul>
                     <div class="tab-content">
-                        <div class="tab-pane active" role="tabpanel" id="consent-step1">
+                        <div class="tab-pane active" role="tabpanel" id="consent-whatismt">
                             <p><b><h3>What is the Calm Thinking Study?</h3></b></p>
                             <p>The purpose of this study is to investigate a new, experimental anxiety reduction program called
                                 Calm Thinking. The program consists of the following parts:</p>
@@ -65,7 +76,7 @@
                                 <li><button type="button" class="btn btn-primary next-step">Next</button></li>
                             </ul>
                         </div>
-                        <div class="tab-pane" role="tabpanel" id="consent-step2">
+                        <div class="tab-pane" role="tabpanel" id="consent-tasks">
                             <p><b><h3>What will I be asked to do?</h3></b></p>
                             <p>The <b>assessments</b> consist of a number of questionnaires about your thoughts and mood, your background,
                                 and personal mental health history. You will be asked to complete four assessment parts total:
@@ -103,7 +114,7 @@
                                 <li><button type="button" class="btn btn-primary next-step">Next</button></li>
                             </ul>
                         </div>
-                        <div th:if="${giftcardsEnabled}" class="tab-pane" role="tabpanel" id="consent-step2b">
+                        <div th:if="${giftcardsEnabled}" class="tab-pane" role="tabpanel" id="consent-earnings">
 
                             <p><b><h3>How much will I earn by participating?</h3></b></p>
                             <p> You will be eligible to receive a $5 electronic gift card for completing the initial assessment
@@ -120,7 +131,7 @@
                                 <li><button type="button" class="btn btn-primary next-step">Next</button></li>
                             </ul>
                         </div>
-                        <div class="tab-pane" role="tabpanel" id="consent-step3">
+                        <div class="tab-pane" role="tabpanel" id="consent-benefits">
                             <p><b><h3>Are there any benefits or risks to participating?</h3></b></p>
 
                             <p>There may be no direct benefits to you. Depending on the version of the training program that you complete,
@@ -135,9 +146,12 @@
                             <p><b>MindTrails is not able to offer financial compensation or to absorb the costs of treatment should you
                                 feel you have been injured as a result of participating in the MindTrails research study.</b></p>
 
-
+                            <ul class="list-inline pull-right">
+                                <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
+                                <li><button type="button" class="btn btn-primary next-step">Next</button></li>
+                            </ul>
                         </div>
-                        <div class="tab-pane" role="tabpanel" id="consent-step4">
+                        <div class="tab-pane" role="tabpanel" id="consent-stop">
                             <p><b><h3>Can I stop at any time?</h3></b></p>
 
                             <p>While we hope that you will complete the entire study, remember that participation in this study is
@@ -149,7 +163,7 @@
                                 <li><button type="button" class="btn btn-primary next-step">Next</button></li>
                             </ul>
                         </div>
-                        <div class="tab-pane" role="tabpanel" id="consent-step5">
+                        <div class="tab-pane" role="tabpanel" id="consent-privacy">
                             <p><b><h3>What is the MindTrails Privacy Policy?</h3></b></p>
 
                             <p>MindTrails uses the same secure hypertext transfer protocol (HTTPS) that banks and other commercial
@@ -203,7 +217,7 @@
                                 <li><button type="button" class="btn btn-primary next-step">Next</button></li>
                             </ul>
                         </div>
-                        <div class="tab-pane" role="tabpanel" id="consent-step6">
+                        <div class="tab-pane" role="tabpanel" id="consent-contact">
                             <p><b><h3>Study Team Contact Info</h3></b></p>
                             <p><b> To obtain more information about the study, ask questions about the research procedures,
                                 express concerns about your participation, or report illness, injury or other problems, please contact:
@@ -217,7 +231,7 @@
                                 <li><button type="button" class="btn btn-primary next-step">Next</button></li>
                             </ul>
                         </div>
-                        <div class="tab-pane" role="tabpanel" id="consent-step7">
+                        <div class="tab-pane" role="tabpanel" id="consent-create">
                             <p><b><h3>Account Creation</h3></b></p>
                             <p>Please use the form below to create your new account.</p>
                             <br></br>
