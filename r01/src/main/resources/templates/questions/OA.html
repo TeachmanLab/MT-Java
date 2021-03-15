@@ -14,18 +14,6 @@
 <section th:replace="fragment/common :: titleBar (title=#{oa.title})"/>
 <textArea th:replace="fragment/common :: questionTemplate5"/>
 
-
-<section id="header-btm" class="clearfix">
-    <div class="container">
-        <div class="row">
-            <h2 class="page-title heading-icon clearfix" style="padding-left: 15px"> <img th:src="@{/images/map-arrow-orange.png}" alt="icon" class="icon-small-bg" />
-                <br/>
-                <span th:text="${eligibility}? 'Eligibility Questionnaire, Part 1' : 'Mood Assessment'" />
-            </h2>
-        </div>
-    </div>
-</section>
-
 <section id="content1" class="clearfix">
     <div class="container">
         <div class="row"  th:if="${eligibility}">
