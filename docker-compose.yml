@@ -13,7 +13,7 @@ db:
   command: --default-authentication-plugin=mysql_native_password
 
 web:
-  image: mt-calm:latest
+  image: quay.io/sartography/mt-dev:r01
   environment:
     JDBC_URL: jdbc:mysql://db:3306/r0?connectTimeout=0&amp;socketTimeout=0&amp;autoReconnect=true
     import.mode: export

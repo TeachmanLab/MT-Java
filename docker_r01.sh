@@ -15,4 +15,5 @@ cp r01/build/libs/r01-0.0.1.war calm.war
 
 cp r01/src/main/resources/application.properties.example r01/src/main/resources/application.properties
 
-docker build . -t mt-calm 
+docker build . -t quay.io/sartography/mt-dev:r01
+docker push quay.io/sartography/mt-dev:r01
