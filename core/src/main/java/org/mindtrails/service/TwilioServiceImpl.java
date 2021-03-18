@@ -56,12 +56,19 @@ public abstract class TwilioServiceImpl implements TwilioService {
                             textMessage.getContent())
                     .create();
         } catch(ApiException apiError) {
-            LOGGER.error("Failed to send SMS message:" + apiError.getLocalizedMessage());
-            log.setError(apiError);
+            String message = redactPhone(apiError.getLocalizedMessage());
+            LOGGER.error("Failed to send SMS message:" + message);
+            log.setError(new ApiException(message));  // Use the new redacted message.
         } finally {
             participant.addSMSLog(log);
             participantRepository.save(participant);
         }
     }
+
+    public String redactPhone(String error) {
+        // Removes phone numbers in the format +15404570024, which is how we represent and send them out.
+        return error.replaceAll("\\+\\d*", "[REDACTED]");
+    }
+
 
 }

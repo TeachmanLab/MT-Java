@@ -28,4 +28,10 @@ public interface TwilioService {
      * @return
      */
     public List<ScheduledEvent> messageTypes();
+
+
+    /**
+     * Redact the phone number from a string - useful for logging.
+     */
+    public String redactPhone(String message);
 }

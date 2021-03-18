@@ -14,6 +14,7 @@ import org.mindtrails.domain.data.DoNotDelete;
 import org.mindtrails.domain.tracking.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -71,6 +72,8 @@ public class Participant implements UserDetails, HasStudy {
     protected float attritionRisk;  // percentage likelihood this person will leave the study early.
     protected boolean canTextMessage;  // can send and receive text messages
     protected String awardCountryCode = "US";
+    @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+    private Date dateCreated = new Date();
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore

@@ -66,7 +66,11 @@ public class GraphController extends BaseController {
         for(OA oa : oaList) {
             point = new ArrayList<>();
             Session session = study.getSession(oa.getSession());
-            point.add(session.getDisplayName());
+            if(session != null) {
+                point.add(session.getDisplayName());
+            } else {
+                point.add(oa.getSession());
+            }
             point.add(oa.score());
             points.add(point);
             if(oa.equals(original)) {

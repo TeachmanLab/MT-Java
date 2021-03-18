@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <!--[if lt IE 7 ]>
 <html class="ie ie6" lang="en"> <![endif]-->
 <!--[if IE 7 ]>
@@ -47,7 +46,7 @@
 
                 <div class="row">
                     <div class="col-md-8 side-border">
-                        <div class="">
+                        <div class="radio">
                             <label class="question"> <input type="checkbox" name="deviceUse" value="computer"/>
                                 &nbsp;&nbsp;Computer </label>
                         </div>
@@ -64,7 +63,8 @@
                         <div class="radio">
 
                             <label class="question"><input type="checkbox" name="deviceUse" value="555"
-                                                           onchange="disableSection(this)"/> &nbsp;&nbsp;Prefer not to answer
+                                                           onchange="disableSection(this)"/> &nbsp;&nbsp;Prefer not to
+                                answer
                             </label>
                         </div>
                         <br/>
@@ -101,7 +101,7 @@
 
                         <div class="radio">
                             <label class="question"> <input type="checkbox" name="reasons" value="not believe"/>
-                                &nbsp;&nbsp;I did not believe a program like this could work  </label>
+                                &nbsp;&nbsp;I did not believe a program like this could work </label>
                         </div>
 
                         <div class="radio">
@@ -111,68 +111,77 @@
 
                         <div class="radio">
                             <label class="question"> <input type="checkbox" name="reasons" value="not needed"/>
-                                &nbsp;&nbsp;I no longer needed the program (i.e., I no longer felt anxious)  </label>
+                                &nbsp;&nbsp;I no longer needed the program (i.e., I no longer felt anxious) </label>
                         </div>
-
+                        <!-- Removed for Kaiser launch -->
+                        <!--
                         <div class="radio">
                             <label class="question"> <input type="checkbox" name="reasons" value="in control"/>
                                 &nbsp;&nbsp;I believe I was assigned to the control condition (vs. the program we think will be most effective) </label>
                         </div>
+                        -->
 
                         <div class="radio">
                             <label class="question"> <input type="checkbox" name="reasons" value="Other" id="Q1_7"
-                                                    onchange="spec('Q1_7')"/> &nbsp;&nbsp;Other (please specify):&nbsp;</label>
+                                                            onchange="spec('Q1_7')"/> &nbsp;&nbsp;Other (please
+                                specify):&nbsp;</label>
                             <input id="Q1_7_spec" type="text" name="End_Other_Desc" value="N/A"/>
 
                         </div>
 
                     </div>
 
-                <div class="col-md-4">
-                    <br/>
-                    <br/>
-                    <div class="radio">
-                        <label class="question"><input type="checkbox" name="reasons" value="555"
-                                                       onchange="disableSection(this)"/> &nbsp;&nbsp;Prefer not to answer
-                        </label>
+                    <div class="col-md-4">
+                        <br/>
+                        <br/>
+                        <div class="radio">
+                            <label class="question"><input type="checkbox" name="reasons" value="555"
+                                                           onchange="disableSection(this)"/> &nbsp;&nbsp;Prefer not to
+                                answer
+                            </label>
+                        </div>
+                        <br/>
+                        <br/>
                     </div>
-                    <br/>
-                    <br/>
-                </div>
 
-             </div>
+                </div>
             </div>
 
-            <div class="section">
+            <!-- Removed items about control condition for Kaiser-->
+            <!--<div class="section">
                 <div class="row">
                     <div class="col-md-10">
 
-                        <p><b>Even if it was not your reason for ending the program, do you believe that you were assigned to the control condition?</b></p>
+                        <p><b>Even if it was not your reason for ending the program, do you believe that you were
+                            assigned to the control condition?</b></p>
 
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-md-8 side-border" >
+                    <div class="col-md-8 side-border">
                         <div class="radio">
-                            <label class="question"> <input type="radio"  name="thoughtInControl" value="true" required="true"/>Yes</label>
+                            <label class="question"> <input type="radio" name="thoughtInControl" value="true"
+                                                            required="true"/>Yes</label>
                         </div>
                         <div class="radio">
-                            <label class="question"><input type="radio"  name="thoughtInControl" value="false"/>No</label>
+                            <label class="question"><input type="radio" name="thoughtInControl"
+                                                           value="false"/>No</label>
                         </div>
                     </div>
-                        <div class="col-md-4">
-                            <div class="radio">
-                                <label class="question"><input type="checkbox" name="thoughtInControl" value="555"
-                                                               onchange="disableSection(this)"/> &nbsp;&nbsp;Prefer not to answer
-                                </label>
-                            </div>
-                            <br/>
-                            <br/>
+                    <div class="col-md-4">
+                        <div class="radio">
+                            <label class="question"><input type="checkbox" name="thoughtInControl" value="555"
+                                                           onchange="disableSection(this)"/> &nbsp;&nbsp;Prefer not to
+                                answer
+                            </label>
                         </div>
-
-
+                        <br/>
+                        <br/>
                     </div>
+
+
+                </div>
             </div>
 
             <div class="section" id="thoughtInControlDetail1">
@@ -187,25 +196,30 @@
                     <div class="col-md-8 side-border">
 
                         <div class="radio">
-                            <label class="question"> <input type="radio" name="pointInControl" value="early" required="true"/> Early in the training program (within the first two sessions)</label>
+                            <label class="question"> <input type="radio" name="pointInControl" value="early"
+                                                            required="true"/> Early in the training program (within the
+                                first two sessions)</label>
                         </div>
                         <div class="radio">
-                            <label class="question"><input type="radio" name="pointInControl" value="mid-way" /> Mid-way through the training program (during the third session)</label>
+                            <label class="question"><input type="radio" name="pointInControl" value="mid-way"/> Mid-way
+                                through the training program (during the third session)</label>
                         </div>
                         <div class="radio">
-                            <label class="question"><input type="radio" name="pointInControl" value="later" /> Later in the training program (within the last two sessions)</label>
+                            <label class="question"><input type="radio" name="pointInControl" value="later"/> Later in
+                                the training program (within the last two sessions)</label>
                         </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="radio">
+                            <label class="question"><input type="checkbox" name="pointInControl" value="555"
+                                                           onchange="disableSection(this)"/> &nbsp;&nbsp;Prefer not to
+                                answer
+                            </label>
+                        </div>
+                        <br/>
+                        <br/>
+                    </div>
                 </div>
-                        <div class="col-md-4">
-                <div class="radio">
-                    <label class="question"><input type="checkbox" name="pointInControl" value="555"
-                                                   onchange="disableSection(this)"/> &nbsp;&nbsp;Prefer not to answer
-                    </label>
-                </div>
-                <br/>
-                <br/>
-            </div>
-            </div>
             </div>
 
             <div class="section" id="thoughtInControlDetail2">
@@ -221,29 +235,32 @@
                 <div class="row">
                     <div class="col-md-8 side-border">
 
-                    <div class="radio">
-                        <label class="question"><input type="checkbox" name="whyInControl" value="not relieved" /> &nbsp;&nbsp;My anxiety wasn’t being relieved</label>
-                    </div>
-                    <div class="radio">
-                        <label class="question"><input type="checkbox" name="whyInControl" value="not helpful" /> &nbsp;&nbsp;I didn’t think that the program that I was completing could help my anxiety</label>
-                    </div>
-                    <div class="radio">
-                        <label class="question"><input type="checkbox" name="whyInControl" value="other" id="Q2_2" onchange="spec('Q2_2')"/> &nbsp;&nbsp;Other (please specify):&nbsp;</label>
-                        <input id="Q2_2_spec" type="text" name="control_Desc" value="N/A"/>
-                    </div>
+                        <div class="radio">
+                            <label class="question"><input type="checkbox" name="whyInControl" value="not relieved"/>
+                                &nbsp;&nbsp;My anxiety wasn’t being relieved</label>
+                        </div>
+                        <div class="radio">
+                            <label class="question"><input type="checkbox" name="whyInControl" value="not helpful"/>
+                                &nbsp;&nbsp;I didn’t think that the program that I was completing could help my anxiety</label>
+                        </div>
+                        <div class="radio">
+                            <label class="question"><input type="checkbox" name="whyInControl" value="other" id="Q2_2"
+                                                           onchange="spec('Q2_2')"/> &nbsp;&nbsp;Other (please specify):&nbsp;</label>
+                            <input id="Q2_2_spec" type="text" name="control_Desc" value="N/A"/>
+                        </div>
                     </div>
                     <div class="col-md-4">
                         <div class="radio">
                             <label class="question"><input type="checkbox" name="whyInControl" value="555"
-                                                           onchange="disableSection(this)"/> &nbsp;&nbsp;Prefer not to answer
+                                                           onchange="disableSection(this)"/> &nbsp;&nbsp;Prefer not to
+                                answer
                             </label>
                         </div>
                         <br/>
                         <br/>
                     </div>
-                </div>
+                </div>-->
             </div>
-        </div>
 
         <div class="container section compactQuestion">
             <div class="row title">
@@ -331,65 +348,74 @@
         </div>
 
 
-    <div class="container">
+        <div class="container">
 
-        <div class="section">
-            <div class="row">
-                <div class="col-md-10">
+            <div class="section">
+                <div class="row">
+                    <div class="col-md-10">
 
-                    <p><b>Of the sessions you did complete, where did you primarily complete the program? Please check all that apply.</b></p>
+                        <p><b>Of the sessions you did complete, where did you primarily complete the program? Please
+                            check all that apply.</b></p>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8 side-border">
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="location" value="home"/> &nbsp;&nbsp;At
+                                home </label>
+                        </div>
+
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="location" value="work"/> &nbsp;&nbsp;At
+                                work</label>
+                        </div>
+
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="location" value="library"/> &nbsp;&nbsp;At
+                                the library, coffee shop, restaurant or other public spaces</label>
+                        </div>
+
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="location" value="commuting"/> &nbsp;&nbsp;While
+                                commuting/travelling (e.g., on the train to work)</label>
+                        </div>
+
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="location" value="vacation"/> &nbsp;&nbsp;On
+                                vacation</label>
+                        </div>
+
+                        <div class="radio">
+                            <label class="question"> <input type="checkbox" name="location" value="Other" id="Q4"
+                                                            onchange="spec('Q4')"/> &nbsp;&nbsp;Other (please specify):&nbsp;
+                                <input
+                                        id="Q4_spec" type="text" name="location_Desc" value="N/A"/> </label>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4">
+                        <br/>
+                        <br/>
+                        <div class="radio">
+                            <label class="question"><input type="checkbox" name="location" value="555"
+                                                           onchange="disableSection(this)"/> &nbsp;&nbsp;Prefer not to
+                                answer
+                            </label>
+                        </div>
+                        <br/>
+                        <br/>
+                    </div>
 
                 </div>
+
             </div>
 
-            <div class="row">
-                <div class="col-md-8 side-border">
-                    <div class="radio">
-                        <label class="question"> <input type="checkbox" name="location" value="home"/> &nbsp;&nbsp;At home </label>
-                    </div>
-
-                    <div class="radio">
-                        <label class="question"> <input type="checkbox" name="location" value="work" /> &nbsp;&nbsp;At work</label>
-                    </div>
-
-                    <div class="radio">
-                        <label class="question"> <input type="checkbox" name="location" value="library" /> &nbsp;&nbsp;At the library, coffee shop, restaurant or other public spaces</label>
-                    </div>
-
-                    <div class="radio">
-                        <label class="question"> <input type="checkbox" name="location" value="commuting" /> &nbsp;&nbsp;While commuting/travelling (e.g., on the train to work)</label>
-                    </div>
-
-                    <div class="radio">
-                        <label class="question"> <input type="checkbox" name="location" value="vacation" /> &nbsp;&nbsp;On vacation</label>
-                    </div>
-
-                    <div class="radio">
-                        <label class="question"> <input type="checkbox" name="location" value="Other" id="Q4"
-                                                        onchange="spec('Q4')"/> &nbsp;&nbsp;Other (please specify):&nbsp; <input
-                                id="Q4_spec" type="text" name="location_Desc" value="N/A"/> </label>
-                    </div>
-
-                </div>
-
-                <div class="col-md-4">
-                    <br/>
-                    <br/>
-                    <div class="radio">
-                        <label class="question"><input type="checkbox" name="location" value="555"
-                                                       onchange="disableSection(this)"/> &nbsp;&nbsp;Prefer not to answer
-                        </label>
-                    </div>
-                    <br/>
-                    <br/>
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="container section"><label class="question"><b>While you were completing the training sessions, how distracted or focused were you?</b>
-            <br/><br/>
+            <div class="container section"><label class="question"><b>While you were completing the training sessions,
+                how distracted or focused were you?</b>
+                <br/><br/>
                 <select required="true">
                     <option value="" hidden="hidden">Please select one</option>
                     <option value="1">1 (Extremely distracted)</option>
@@ -402,12 +428,13 @@
                     <option value="555">Prefer not to answer</option>
                 </select> </label>
             </div>
-    </div>
+        </div>
 
         <div class="container section compactQuestion">
             <div class="col-md-14">
 
-                <h4><b>Some people have problems when trying to use a web program. Please read the following statements and tell
+                <h4><b>Some people have problems when trying to use a web program. Please read the following statements
+                    and tell
                     us how much of a problem you had when trying to use the web program.</b></h4>
 
             </div>
@@ -490,7 +517,8 @@
                 <div class="row">
                     <div class="col-md-10">
 
-                        <p><b>During this program, did you change any medicine, therapy, or other intervention to help your anxiety? Please check all that apply.</b></p>
+                        <p><b>During this program, did you change any medicine, therapy, or other intervention to help
+                            your anxiety? Please check all that apply.</b></p>
 
                     </div>
                 </div>
@@ -498,34 +526,42 @@
                 <div class="row">
                     <div class="col-md-8 side-border">
                         <div class="radio">
-                            <label class="question"> <input type="checkbox" name="changeMed" value="therapyMore" /> &nbsp;&nbsp;I seek in-person therapy more now</label>
+                            <label class="question"> <input type="checkbox" name="changeMed" value="therapyMore"/>
+                                &nbsp;&nbsp;I seek in-person therapy more now</label>
                         </div>
 
                         <div class="radio">
-                            <label class="question"> <input type="checkbox" name="changeMed" value="therapyLess" /> &nbsp;&nbsp;I seek in-person therapy less now</label>
+                            <label class="question"> <input type="checkbox" name="changeMed" value="therapyLess"/>
+                                &nbsp;&nbsp;I seek in-person therapy less now</label>
                         </div>
 
                         <div class="radio">
-                            <label class="question"> <input type="checkbox" name="changeMed" value="medsMore" />&nbsp;&nbsp; I use prescription medicine more now</label>
+                            <label class="question"> <input type="checkbox" name="changeMed" value="medsMore"/>&nbsp;&nbsp;
+                                I use prescription medicine more now</label>
                         </div>
 
                         <div class="radio">
-                            <label class="question"> <input type="checkbox" name="changeMed" value="medsLess" /> &nbsp;&nbsp;I use prescription medicine less now</label>
+                            <label class="question"> <input type="checkbox" name="changeMed" value="medsLess"/> &nbsp;&nbsp;I
+                                use prescription medicine less now</label>
                         </div>
 
                         <div class="radio">
-                            <label class="question"> <input type="checkbox" name="changeMed" value="onlineMore" /> &nbsp;&nbsp;I use online computer programs (other than MindTrails) or mobile apps more now</label>
+                            <label class="question"> <input type="checkbox" name="changeMed" value="onlineMore"/> &nbsp;&nbsp;I
+                                use online computer programs (other than MindTrails) or mobile apps more now</label>
                         </div>
                         <div class="radio">
-                            <label class="question"> <input type="checkbox" name="changeMed" value="onlineLess" /> &nbsp;&nbsp;I use online computer programs (other than MindTrails) or mobile apps less now</label>
+                            <label class="question"> <input type="checkbox" name="changeMed" value="onlineLess"/> &nbsp;&nbsp;I
+                                use online computer programs (other than MindTrails) or mobile apps less now</label>
                         </div>
                         <div class="radio">
-                            <label class="question"> <input type="checkbox" name="changeMed" value="noChange" /> &nbsp;&nbsp;I did not change my intervention habits</label>
+                            <label class="question"> <input type="checkbox" name="changeMed" value="noChange"/> &nbsp;&nbsp;I
+                                did not change my intervention habits</label>
                         </div>
                         <div class="radio">
                             <label class="question"> <input type="checkbox" name="changeMed" value="Other" id="Q7"
-                                                            onchange="spec('Q7')"/> &nbsp;&nbsp;Other (please specify):&nbsp; <input
-                                    id="Q7_spec" type="text" name="changeMed_Desc" value="N/A"/> </label>
+                                                            onchange="spec('Q7')"/> &nbsp;&nbsp;Other (please specify):&nbsp;
+                                <input
+                                        id="Q7_spec" type="text" name="changeMed_Desc" value="N/A"/> </label>
 
                         </div>
 
@@ -536,7 +572,8 @@
                         <br/>
                         <div class="radio">
                             <label class="question"><input type="checkbox" name="changeMed" value="555"
-                                                           onchange="disableSection(this)"/> &nbsp;&nbsp;Prefer not to answer
+                                                           onchange="disableSection(this)"/> &nbsp;&nbsp;Prefer not to
+                                answer
                             </label>
                         </div>
                         <br/>
@@ -549,9 +586,8 @@
         </div>
 
 
-
         <div class="col-md-12" style="text-align:center">
-            <button type="submit">Next</button>
+            <button type="submit">Submit</button>
         </div>
 
     </form>
@@ -564,7 +600,7 @@
     function spec(id) {
         if (document.getElementById(id).checked) {
             document.getElementById(id + "_spec").required = true;
-            if(document.getElementById(id + "_spec").value == "N/A"){
+            if (document.getElementById(id + "_spec").value == "N/A") {
                 document.getElementById(id + "_spec").value = "";
             }
 
@@ -575,6 +611,7 @@
             //document.getElementById(id + "_spec").required = false;
         }
     }
+
     function disableSection(input) {
         if (input.checked) {
             $(input).closest('.section').find("input").attr("disabled", true);
@@ -590,7 +627,7 @@
             errorPlacement: function (error, element) {
                 var template_statement = element.parents(".row").first().children(".statement")
                 var after_slider = element.parents(".after_slider").first()
-                if(template_statement.length > 0) {
+                if (template_statement.length > 0) {
                     error.appendTo(template_statement);
                 } else if (after_slider.length > 0) {
                     error.addClass("label-error");
@@ -606,7 +643,6 @@
                 'deviceUse': {required: true, minlength: 1},
                 'reasons': {required: true, minlength: 1},
                 'location': {required: true, minlength: 1},
-                'whyInControl':{required: true, minlength: 1},
                 'changeMed': {required: true, minlength: 1},
                 'helpful': {required: true},
                 'work': {required: true},
@@ -630,27 +666,10 @@
                 'hardToRead': {required: true},
             }
         });
-
-
-        $("input[name$='thoughtInControl']").click(function () {
-            if ($(this).val() == "true") {
-                $('#thoughtInControlDetail1').fadeIn('slow');
-                $('#thoughtInControlDetail2').fadeIn('slow');
-
-            } else {
-                $('#thoughtInControlDetail1').fadeOut('slow');
-                $('#thoughtInControlDetail2').fadeOut('slow');
-            }
-        });
     });
 
 
-
 </script>
-
-
-
-
 
 
 <footer th:replace="fragment/common :: footer"/>
