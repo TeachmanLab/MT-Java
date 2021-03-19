@@ -58,11 +58,11 @@ public class Ethnicity extends LinkedQuestionnaireData {
     @Override
     public Map<Integer, String> getScale(String group) {
         Map<Integer, String> tmpScale = new TreeMap<>();
-                tmpScale.put(1, "strongly_disagree");
-                tmpScale.put(2, "disagree");
-                tmpScale.put(3, "in_the_middle");
-                tmpScale.put(4, "agree");
-                tmpScale.put(5, "strongly_agree");
+                tmpScale.put(1, "ethnicity.strongly_disagree");
+                tmpScale.put(2, "ethnicity.disagree");
+                tmpScale.put(3, "ethnicity.in_the_middle");
+                tmpScale.put(4, "ethnicity.agree");
+                tmpScale.put(5, "ethnicity.strongly_agree");
         return Collections.unmodifiableMap(tmpScale);
     }
 }

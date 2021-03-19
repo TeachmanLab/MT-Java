@@ -8,7 +8,7 @@
 <head th:include="fragment/common :: headerFragment" />
 <body>
 <section id="header" class="clearfix" th:include="fragment/common :: topFragment" />
-<section th:include="fragment/common :: titleBar (title='Terms and Conditions')"/>
+<section th:include="fragment/common :: titleBar (title=#{terms.title})"/>
 
 
 <!-- content starts
@@ -19,104 +19,109 @@
             <div class="col-md-8">
                 <br></br>
 
-                <ul><li><u><a href="#item1">Participation in Online Anxiety Intervention Study</a></u></li></ul>
-                <ul><li><u><a href="#item2">Diagnostic and Treatment Information</a></u></li></ul>
-                <ul><li><u><a href="#item3">Gift Cards</a></u></li></ul>
-                <ul><li><u><a href="#item4">Links to Other Sites</a></u></li></ul>
-                <ul><li><u><a href="#item5">Links from Other Sites</a></u></li></ul>
-                <ul><li><u><a href="#item6">Pop-Up Advertisements</a></u></li></ul>
-                <ul><li><u><a href="#item7">Ownership and Use of This Site</a></u></li></ul>
-                <ul><li><u><a href="#item8">Age of Consent</a></u></li></ul>
-                <ul><li><u><a href="#item9">Information for Former Study Participants</a></u></li></ul>
-                <ul><li><u><a href="#item10">Diagnosis and Treatment</a></u></li></ul>
-                <ul><li><u><a href="#item11">Disclaimer</a></u></li></ul>
-                <ul><li><u><a href="#item12">Release</a></u></li></ul>
+                <ul><li><u><a th:text="#{terms.heading1}" href="#item1">Participation in Online Anxiety Intervention Study</a></u></li></ul>
+                <ul><li><u><a th:text="#{terms.heading2}" href="#item2">Diagnostic and Treatment Information</a></u></li></ul>
+                <ul><li><u><a th:text="#{terms.heading3}" href="#item3">Gift Cards</a></u></li></ul>
+                <ul><li><u><a th:text="#{terms.heading4}" href="#item4">Links to Other Sites</a></u></li></ul>
+                <ul><li><u><a th:text="#{terms.heading5}" href="#item5">Links from Other Sites</a></u></li></ul>
+                <ul><li><u><a th:text="#{terms.heading6}" href="#item6">Pop-Up Advertisements</a></u></li></ul>
+                <ul><li><u><a th:text="#{terms.heading7}" href="#item7">Ownership and Use of This Site</a></u></li></ul>
+                <ul><li><u><a th:text="#{terms.heading8}" href="#item8">Age of Consent</a></u></li></ul>
+                <ul><li><u><a th:text="#{terms.heading9}" href="#item9">Information for Former Study Participants</a></u></li></ul>
+                <ul><li><u><a th:text="#{terms.heading10}" href="#item10">Diagnosis and Treatment</a></u></li></ul>
+                <ul><li><u><a th:text="#{terms.heading11}" href="#item11">Disclaimer</a></u></li></ul>
+                <ul><li><u><a th:text="#{terms.heading12}" href="#item12">Release</a></u></li></ul>
 
                 <br></br>
 
-                <h3><b>By accessing or using this site, you agree to the following terms and conditions:</b></h3>
+                <p><b><h3 th:text="#{terms.intro}">By accessing or using this site, you agree to the following terms and conditions:</h3></b></p>
 
                 <br></br>
 
-                <h3 id="item1"><b>Participation in Online Anxiety Intervention Study</b></h3>
+                <p><b><h3 th:text="#{terms.heading1}" id="item1">Participation in Online Anxiety Intervention Study</h3></b></p>
 
-                <p>These Terms and Conditions supplement the Consent Agreement that you will sign as a research study
+                <p th:text="#{terms.p1}">These Terms and Conditions supplement the Consent Agreement that you will sign as a research study
                     participant, during the term of your active participation in the study.  If any provision in the
                     Consent Agreement conflicts with these Terms and Conditions, the provision in the Consent Agreement
                     applies to your participation in the study, not the conflicting provision in these Terms and
                     Conditions. If you are a former participant in the research study and are accessing this site to do
                     the exercises on your own, please see “Information for Former Study Participants” below.</p>
                 <br></br>
-                <h3 id="item2"><b>Diagnostic and Treatment Information</b></h3>
+                <p><b><h3 th:text="#{terms.heading2}" id="item2">Diagnostic and Treatment Information</h3></b></p>
 
-				<p>Please see the <a href="javascript:window.open('/public/consent','Consent Agreement','width=600,height=600')">Consent Agreement</a>
+				<p th:text="#{terms.p2}">Please see the <a href="javascript:window.open('/public/consent','Consent Agreement','width=600,height=600')">Consent Agreement</a>
                     if you are a current research study participant.  If you are a former participant in the research study and are
                     accessing this site to do the exercises on your own, please see “Information for Former Study Participants” below.</p>
                 <br></br>
-                <h3 id="item3"><b>Gift Cards</b></h3>
+                <p><b><h3 th:text="#{terms.heading3}" id="item3">Gift Cards</h3></b></p>
 
-                <p>The awarding of gift cards for completion of the research study assessments will be
+                <p th:text="#{terms.p3}">The awarding of gift cards for completion of the research study assessments will be
                     available while supplies lasts.</p>
                 <br></br>
-                <h3 id="item4"><b>Links to Other Sites</b></h3>
+                <p><b><h3 th:text="#{terms.heading4}" id="item4">Links to Other Sites</h3></b></p>
 
-                <p>Some MindTrails web pages may link to those of other organizations. Appearance of a website link here
+                <p th:text="#{terms.p4}">Some MindTrails web pages may link to those of other organizations. Appearance of a website link here
                     does not imply an endorsement of their views, policies or products. Once you click on a link to
                     another site, you are subject to its privacy policy. MindTrails has not participated in the
                     development of the sites of other organizations and does not exert any control over the content of
                     those sites. MindTrails is not responsible for the accuracy or content of information contained in
                     those sites.</p>
                 <br></br>
-                <h3 id="item5"><b>Links from Other Sites</b></h3>
+                <p><b><h3 th:text="#{terms.heading5}" id="item5">Links from Other Sites</h3></b></p>
 
-                <p>MindTrails does not exert any control over the content of sites linking to the MindTrails website.
+                <p th:text="#{terms.p5}">MindTrails does not exert any control over the content of sites linking to the MindTrails website.
                     MindTrails is not responsible for the accuracy or content of information contained in those sites.</p>
                 <br></br>
-                <h3 id="item6"><b>Pop-Up Advertisements</b></h3>
+                <p><b><h3 th:text="#{terms.heading6}" id="item6">Pop-Up Advertisements</h3></b></p>
 
-                <p>When visiting our site, your Web browser may produce "pop-up" advertisements (advertisements that
+                <p th:text="#{terms.p6}">When visiting our site, your Web browser may produce "pop-up" advertisements (advertisements that
                     spontaneously appear on your computer screen). The most likely source of such an advertisement is
                     another website you visited or third-party software on your computer. MindTrails does not endorse or
                     recommend products or services featured in advertisements that "pop up" during your visit to our
                     site.</p>
                 <br></br>
-                <h3 id="item7"><b>Ownership and Use of This Site</b></h3>
+                <p><b><h3 th:text="#{terms.heading7}" id="item7">Ownership and Use of This Site</h3></b></p>
 
-                <p>The MindTrails website and all intellectual property associated with it is owned by the University of
+                <span th:text="#{terms.p7}">The MindTrails website and all intellectual property associated with it is owned by the University of
                     Virginia, and may not be used, reproduced or distributed for any commercial purpose. It may be used
                     for non-commercial purposes, such as educational or research purposes, only with prior written
-                    permission. To apply for permission, contact <a href="mailto:studyteam@mindtrails.org">studyteam@mindtrails.org</a>.</p>
+                    permission. To apply for permission, contact</span> <a th:text="#{terms.link}" href="mailto:studyteam@mindtrails.org">studyteam@mindtrails.org</a>.
                 <br></br>
-                <h3 id="item8"><b>Age of Consent</b></h3>
+                <br></br>
+                <p><b><h3 th:text="#{terms.heading8}" id="item8">Age of Consent</h3></b></p>
 
-                <p>In the United States, the minimum age for consent to participate in research studies in most states and territories is 18, with the exception of Nebraska (19)
+                <p th:text="#{terms.p8}">In the United States, the minimum age for consent to participate in research studies in most states and territories is 18, with the exception of Nebraska (19)
                     and Puerto Rico (21). To be eligible to participate in MindTrails studies, individuals must have attained the legal age for consent to participate in research studies under the applicable
                     law of their local jurisdiction.
                 </p>
                 <br></br>
-                <h3 id="item9"><b>Information for Former Study Participants</b></h3>
+                <p><b><h3 th:text="#{terms.heading9}" id="item9">Information for Former Study Participants</h3></b></p>
 
-                <p>If you are a former research study participant and wish to access mental health resources, please
+                <span th:text="#{terms.p9}">If you are a former research study participant and wish to access mental health resources, please
                     click on the "Mental Health Resources" tab at the top of this webpage.
-                    If you need to contact the MindTrails team, please email <a href="mailto:studyteam@mindtrails.org">studyteam@mindtrails.org</a>.</p>
+                    If you need to contact the MindTrails team, please email</span> <a th:text="#{terms.link}" href="mailto:studyteam@mindtrails.org">studyteam@mindtrails.org</a>.
                 <br></br>
-                    <h3 id="item10"><b>Diagnosis and Treatment</b></h3>
-                    <p>This site does not provide personalized diagnostic, medical or treatment advice. You should
+                <br></br>
+                <p><b><h3 th:text="#{terms.heading10}" id="item10">Diagnosis and Treatment</h3></b></p>
+
+                    <p th:text="#{terms.p10}">This site does not provide personalized diagnostic, medical or treatment advice. You should
                         consult with a qualified mental health or health care provider for diagnosis and treatment
                         information. We do not offer crisis management or real-time monitoring of email. If you are
                         experiencing a medical or mental health emergency, you should not rely on any information on
                         this website, and should seek appropriate emergency medical assistance, such as by calling
                         911.</p>
                 <br></br>
-                <h3 id="item11"><b>Disclaimer</b></h3>
-                    <p>The creators and owner of MindTrails are not responsible for, and disclaim all liability for
+                <p><b><h3 th:text="#{terms.heading11}" id="item11">Disclaimer</h3></b></p>
+
+                    <p th:text="#{terms.p11}">The creators and owner of MindTrails are not responsible for, and disclaim all liability for
                         damages of any kind arising out of participation in the tests, the training programs, and other
                         general interest and educational use of this site, or reference to or reliance on any
                         information contained within this site. The user’s use of this website is at the user’s sole
                         risk.</p>
                 <br></br>
-                <h3 id="item12"><b>Release</b></h3>
-                    <p>In consideration for being permitted to use this site, you agree that all use of this site shall
+                <p><b><h3 th:text="#{terms.heading12}" id="item12">Release</h3></b></p>
+
+                    <p th:text="#{terms.p12}">In consideration for being permitted to use this site, you agree that all use of this site shall
                         be undertaken at your own risk, and that the University of Virginia, its officers, agents and
                         employees shall not be liable for any claims, damages, injuries, actions, or causes of action
                         whatsoever, to you or to your executors, heirs, or assigns, arising out of or connected with

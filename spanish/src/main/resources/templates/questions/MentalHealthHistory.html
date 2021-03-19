@@ -167,9 +167,9 @@
                         <label class="question"> <input id="disorders_other"
                                                         onchange="sub('disorders_other');spec('disorders_other');"
                                                         type="checkbox" name="disorders"
-                                                        value="Other" th:text="#{other_specify}"> &nbsp;&nbsp;Other
-                            (please specify):&nbsp;&nbsp;</input>
-                            <input id="disorders_other_spec" type="text" name="otherDisorder" value="N/A"/> </label>
+                                                        value="Other" th:text="#{other_specify}"> Other
+                            (please specify):</input>
+                            &nbsp;&nbsp;<input id="disorders_other_spec" type="text" name="otherDisorder" value="N/A"/> </label>
                     </div>
                 </div>
 
@@ -205,7 +205,7 @@
                 <div class="col-md-8">
                     <b><span th:text="#{mentalhealthhistory.treatment_1}"></span>
                         <i><span th:text="#{mentalhealthhistory.treatment_2}"></span></i>
-                        <span th:text="#{mentalhealthhistory.treatment_3}">Are you <i>currently</i> receiving
+                        <span th:text="#{mentalhealthhistory.treatment_3}">Are you currently receiving
                         help for any of the previously listed disorders? Please select all that apply, or “I am not receiving help”.</span></b>
                 </div>
             </div>
@@ -213,12 +213,10 @@
             <div class="row">
                 <div class="col-md-8 side-border">
                     <div class="radio">
-                        <label class="question"> <input id="Q3-1" onchange="sub('Q3-1')" type="checkbox"
+                        <label class="question"> <span><b><input id="Q3-1" onchange="sub('Q3-1')" type="checkbox"
                                                         name="help"
-                                                        value="therapy" th:text="#{mentalhealthhistory.therapy}"> &nbsp;&nbsp;<b>Therapy</b>
-                            (talking with a
-                            trained
-                            professional)</input>
+                                                        value="therapy" th:text="#{mentalhealthhistory.therapy}"> &nbsp;&nbsp;Therapy
+                            (talking with a trained professional)</input></b></span>
                             <p th:text="#{mentalhealthhistory.therapy_desc}">Examples: psychologist, licensed mental
                                 health practitioner (LMHC), school counselor,
                                 social worker, marriage and family therapist, group therapist</p></label>
@@ -240,10 +238,9 @@
                         </div>
                     </div>
                     <div class="radio">
-                        <label class="question"> <input id="Q3-2" onchange="sub('Q3-2')" type="checkbox" name="help"
+                        <label class="question"> <span><b><input id="Q3-2" onchange="sub('Q3-2')" type="checkbox" name="help"
                                                         value="medications" th:text="#{mentalhealthhistory.medication}">
-                            &nbsp;&nbsp;<b>Prescription
-                                medications</b></input>
+                            &nbsp;&nbsp;Prescription medications</input></b></span>
                             <p th:text="#{mentalhealthhistory.medication_desc}">Examples: Psychiatrist, medical
                                 doctor</p></label>
                         <div class="oneToSeven" id="Q3-2-1"><label th:text="#{mentalhealthhistory.treatment_helpful}">
@@ -264,11 +261,10 @@
                         </div>
                     </div>
                     <div class="radio">
-                        <label class="question"> <input id="Q3-3" onchange="sub('Q3-3')" type="checkbox"
+                        <label class="question"> <span><b><input id="Q3-3" onchange="sub('Q3-3')" type="checkbox"
                                                         name="help" value="social_support"
-                                                        th:text="#{mentalhealthhistory.social}"> &nbsp;&nbsp;<b>Seeking
-                            social
-                            support</b> (talking with non-professionals)</input>
+                                                        th:text="#{mentalhealthhistory.social}"> &nbsp;&nbsp;Seeking
+                            social support (talking with non-professionals)</input></b></span>
                             <p th:text="#{mentalhealthhistory.social_desc}">Examples: Teacher, family member, friend,
                                 religious leader, coach</p>
                         </label>
@@ -290,9 +286,9 @@
                         </div>
                     </div>
                     <div class="radio">
-                        <label class="question"> <input id="Q3-4" onchange="sub('Q3-4')" type="checkbox" name="help"
-                                                        value="Self_help" th:text="#{mentalhealthhistory.self}"> &nbsp;&nbsp;<b>Self-guided
-                            help</b></input>
+                        <label class="question"> <span><b><input id="Q3-4" onchange="sub('Q3-4')" type="checkbox" name="help"
+                                                        value="Self_help" th:text="#{mentalhealthhistory.self}"> &nbsp;&nbsp;Self-guided
+                            help</input></b></span>
                             <p th:text="#{mentalhealthhistory.self_desc}">Examples: Self-help book, blogs, online
                                 intervention (other than MindTrails), mobile
                                 applications</p></label>
@@ -314,10 +310,10 @@
                         </div>
                     </div>
                     <div class="radio">
-                        <label class="question"> <input id="Q3-5" onchange="sub('Q3-5')" type="checkbox"
+                        <label class="question"> <span><b><input id="Q3-5" onchange="sub('Q3-5')" type="checkbox"
                                                         name="help" value="otc_medications"
-                                                        th:text="#{mentalhealthhistory.otc}"> &nbsp;&nbsp;<b>Over-the-counter
-                            medications and/or supplements</b></input></label>
+                                                        th:text="#{mentalhealthhistory.otc}"> &nbsp;&nbsp;Over-the-counter
+                            medications and/or supplements</input></b></span></label>
                         <div class="oneToSeven" id="Q3-5-1"><label th:text="#{mentalhealthhistory.treatment_helpful}">Has
                             this been helpful? </label>
                             <select name="otc_medications">
@@ -336,13 +332,12 @@
                         </div>
                     </div>
                     <div class="radio">
-                        <label class="question"> <input id="Q3-16"
+                        <label class="question"> <span><b><input id="Q3-16"
                                                         onchange="sub('Q3-16');spec('Q3-16');"
                                                         type="checkbox" name="help"
                                                         value="other_help_current"
                                                         th:text="#{mentalhealthhistory.treatment_other}">
-                            &nbsp;&nbsp;<b>Other (please
-                                specify):&nbsp;&nbsp;</b></input>
+                            Other (please specify):</input></b></span>&nbsp;&nbsp;
                             <input id="Q3-16_spec" type="text" name="help_other_text" value="N/A"/> </label>
                         <div class="oneToSeven" id="Q3-16-1"><label th:text="#{mentalhealthhistory.treatment_helpful}"> Has this been helpful? </label>
                             <select name="other_help">
@@ -444,8 +439,8 @@
                                                         onchange="sub('changes_other');spec('changes_other');"
                                                         type="checkbox" name="change_help"
                                                         value="Other" th:text="#{mentalhealthhistory.other_specify}">
-                            &nbsp;&nbsp;Other (please specify):&nbsp;&nbsp;
-                            </input><input id="changes_other_spec" type="text" name="change_help_text" value="N/A"/>
+                            Other (please specify):
+                            </input>&nbsp;&nbsp;<input id="changes_other_spec" type="text" name="change_help_text" value="N/A"/>
                         </label>
                     </div>
                 </div>

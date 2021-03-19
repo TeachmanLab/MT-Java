@@ -18,8 +18,7 @@
         <div class="row">
             <div class="col-md-8">
                 <p th:text="#{demographics.intro}">We would like to start with a few questions to get to know you
-                    better. Answers to
-                    these personal questions are kept confidential, but they help us improve
+                    better. Answers to these personal questions are kept confidential, but they help us improve
                     MindTrails by figuring out for whom it works well.
                 </p>
 
@@ -165,7 +164,7 @@
                         <br/>
                         <br/>
 
-                        <div><label class="question" th:text="#{demographics.country}"> What is your country of residence?
+                        <div><label class="question"> <span th:text="#{demographics.country}">What is your country of residence?</span><br/><br/>
                             <select
                                 required="true" class="auto-selector"
                                 placeholder="Type your country of residence"
@@ -1091,24 +1090,22 @@
 
                         <br/>
 
-                        <div><label class="question" th:text="#{demographics.how_learn}"> How did you learn about Calm
-                            Thinking and/or The MindTrails Project?</label><br/><br/>
+                        <div><label class="question" th:text="#{demographics.how_learn}"> How did you learn about MindTrails?</label><br/><br/>
                             <select th:field="*{PtpReason}" required="true">
                                 <option value="" th:text="#{please_select_one}">Please select one</option>
-                                <option value="Project Implicit Mental Health site front page"
-                                        th:text="#{demographics.implicit_front_page}">Project Implicit Mental
-                                    Health site front page
+                                <option value="PIH front page"
+                                        th:text="#{demographics.implicit_front_page}">Project Implicit Health site front page
                                 </option>
-                                <option value="At the Project Implicit Mental Health site, after completing a study about my anxiety symptoms"
+                                <option value="PIH after participating"
                                         th:text="#{demographics.implicit_study}">
-                                    At the Project Implicit Mental Health site, after completing a study about my
+                                    At the Project Implicit Health site, after completing a study about my
                                     anxiety symptoms
                                 </option>
-                                <option value="A friend or family member" th:text="#{demographics.friend_fam}">A friend
+                                <option value="Friend or family member" th:text="#{demographics.friend_fam}">A friend
                                     or family member
                                 </option>
                                 <option value="Press coverage" th:text="#{demographics.press}">Press coverage</option>
-                                <option value="Internet search for mental health info"
+                                <option value="Internet search"
                                         th:text="#{demographics.internet}">Internet search for mental health
                                     info
                                 </option>
@@ -1126,8 +1123,8 @@
                         </div>
 
                         <div id="PtpReasonOther">
-                            <span th:text="#{demographics.please_specify}">Please specify:&nbsp;&nbsp;</span>
-                            <label>
+                            <span th:text="#{demographics.please_specify}">Please specify:</span>
+                            <label>&nbsp;
                                 <input id="PtpReasonOtherInput" th:field="*{PtpReasonOther}" type="text"
                                        placeholder=""
                                        size="50"/>

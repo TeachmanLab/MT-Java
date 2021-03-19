@@ -86,10 +86,10 @@ public class DASS21_AS extends LinkedQuestionnaireData {
     @Override
     public Map<Integer, String> getScale(String scale) {
         Map<Integer, String> tmpScale = new TreeMap<>();
-        tmpScale.put(0, "not_at_all");
-        tmpScale.put(1, "sometimes");
-        tmpScale.put(2, "a_lot_of_the_time");
-        tmpScale.put(3, "most_of_the_time");
+        tmpScale.put(0, "dass.not_at_all");
+        tmpScale.put(1, "dass.sometimes");
+        tmpScale.put(2, "dass.lot_of_the_time");
+        tmpScale.put(3, "dass.most_of_the_time");
         return Collections.unmodifiableMap(tmpScale);
     }
 

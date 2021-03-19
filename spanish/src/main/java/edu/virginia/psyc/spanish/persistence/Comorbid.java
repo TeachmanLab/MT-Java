@@ -38,10 +38,10 @@ public class Comorbid extends LinkedQuestionnaireData {
         Map<Integer, String> tmpScale = new TreeMap<>();
         switch (group) {
             case("bothered"):
-                tmpScale.put(1, "comorbid_not_at_all");
-                tmpScale.put(2, "several_days");
-                tmpScale.put(3, "more_than_half_of_the_days");
-                tmpScale.put(4, "nearly_every_day");
+                tmpScale.put(1, "comorbid.not_at_all");
+                tmpScale.put(2, "comorbid.several_days");
+                tmpScale.put(3, "comorbid.more_than_half_of_the_days");
+                tmpScale.put(4, "comorbid.nearly_every_day");
                 break;
         }
         return Collections.unmodifiableMap(tmpScale);

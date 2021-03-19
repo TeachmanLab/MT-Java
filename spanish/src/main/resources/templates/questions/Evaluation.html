@@ -32,24 +32,24 @@
         <div class="container section">
             <div class="row">
                 <div class="col-md-10">
-                    <p th:text="#{Evaluation.devices}"><b>What device(s) did you use to complete the program? Check all that apply.</b></p>
+                    <b><p th:text="#{Evaluation.devices}">What device(s) did you use to complete the program? Check all that apply.</p></b>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-md-8">
                     <div class="radio">
-                        <label class="question"> <input th:text="#{evaluation.smartphone}"
+                        <label class="question"><input th:text="#{evaluation.smartphone}"
                                 type="checkbox"
                                 name="devices" value="smartphone"/></label>
                     </div>
                     <div class="radio">
-                        <label class="question"> <input th:text="#{evaluation.computer}"
+                        <label class="question"><input th:text="#{evaluation.computer}"
                                 type="checkbox"
                                 name="devices" value="computer"/></label>
                     </div>
                     <div class="radio">
-                        <label class="question"> <input th:text="#{evaluation.tablet}"
+                        <label class="question"><input th:text="#{evaluation.tablet}"
                                 type="checkbox"
                                 name="devices" value="tablet"/></label>
                     </div>
@@ -61,7 +61,7 @@
 
         <div class="container section">
             <div class="row header">
-                <div class="col-md-8 statement"><p th:text="#{Evaluation.internet}"><b>How much did Internet or computer/phone problems affect your use of Calm Thinking?</b></p></div>
+                <div class="col-md-8 statement"><b><p th:text="#{Evaluation.internet}">How much did Internet or computer/phone problems affect your use of Calm Thinking?</p></b></div>
             </div>
 
             <div class="row">
@@ -102,9 +102,9 @@
             </div>
             <div id="describeProblems" style="display: none" >
                 <br/>
-                <label class="question" th:text="#{Evaluation.problemsDesc}"> Please describe the Internet or computer/phone problems that affected your use
-                    of MindTrails:
-                    <input type="text" th:field="*{problemsDesc}" required="true"/> </label>
+                <label class="question"> <span th:text="#{Evaluation.problemsDesc}">Please describe the Internet or computer/phone problems that affected your use
+                    of MindTrails:</span>
+                    <input type="text" th:field="*{problemsDesc}" size="50" required="true"/> </label>
             </div>
         </div>
 
@@ -113,11 +113,11 @@
             <script th:inline="javascript">
                 var data = {
                     "options": [
-                        {"value": 1, "title": [[#{evaluation.way_too_short}]], "opt_desc":"Way too short"},
+                        {"value": 1, "title": [[#{evaluation.much_too_short}]], "opt_desc":"Much too short"},
                         {"value": 2, "title": [[#{evaluation.somewhat_too_short}]], "opt_desc":"Somewhat too short"},
                         {"value": 3, "title": [[#{evaluation.right_length}]], "opt_desc":"The right length"},
                         {"value": 4, "title": [[#{evaluation.somewhat_too_long}]], "opt_desc":"Somewhat too long"},
-                        {"value": 5, "title": [[#{evaluation.way_too_long}]], "opt_desc": "Way too long"}
+                        {"value": 5, "title": [[#{evaluation.much_too_long}]], "opt_desc": "Much too long"}
                     ],
                     "questions": [
                         {
@@ -131,9 +131,9 @@
         </div>
 
         <div class="container section">
-            <label class="question" th:text="#{Evaluation.idealSessions}"> The MindTrails program had two training sessions. How many sessions do you think would have
-                been ideal?<br/><br/>
-                <input type="number" min="1" th:field="*{idealSessions}" required="true"/> </label>
+            <label class="question"> <span th:text="#{Evaluation.idealSessions}">The MindTrails program had two training sessions. How many sessions do you think would have
+                been ideal?</span><br/><br/>
+                <input type="number" min="1" size="5" th:field="*{idealSessions}" required="true"/> </label>
         </div>
 
         <div class="container section">
@@ -185,7 +185,7 @@
         <div class="container section">
             <div class="row">
                 <div class="col-md-10">
-                    <p th:text="#{Evaluation.places}"><b>Where did you complete the training sessions? Check all that apply.</b></p>
+                    <b><p th:text="#{Evaluation.places}">Where did you complete the training sessions? Check all that apply.</p></b>
                 </div>
             </div>
 
@@ -220,9 +220,11 @@
                     <div class="radio">
                         <label class="question"> <input id="places_other"
                                                         onchange="sub('places_other');spec('places_other');"
-                                                        type="checkbox" name="places"
-                                                        value="other" /> &nbsp;&nbsp;&nbsp; <input
-                                th:text="#{other_specify}" id="places_other_spec" type="text" name="otherPlace" value="N/A"/> </label>
+                                                        type="checkbox" name="pronouns"
+                                                        value="other" th:text="#{other_specify}">
+                            Other (please specify):
+                            </input>&nbsp;&nbsp;<input id="places_other_spec" type="text" name="otherPlace" value="N/A"/>
+                        </label>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -242,7 +244,7 @@
         <div class="container section">
             <div class="row">
                 <div class="col-md-10">
-                    <p th:text="#{Evaluation.preferredPlatform}"><b>What is your preferred technology platform for delivery of health interventions (such as MindTrails)? Check all that apply.</b></p>
+                    <b><p th:text="#{Evaluation.preferredPlatform}">What is your preferred technology platform for delivery of health interventions (such as MindTrails)? Check all that apply.</p></b>
                 </div>
             </div>
 
@@ -301,7 +303,7 @@
         <div class="container section">
             <div class="row">
                 <div class="col-md-10">
-                    <p th:text="#{Evaluation.pronouns}"><b>What is your preferred formality of subject pronouns for a site like MindTrails?</b></p>
+                    <b><p th:text="#{Evaluation.pronouns}">What is your preferred formality of subject pronouns for a site like MindTrails?</p></b>
                 </div>
             </div>
 
@@ -318,27 +320,50 @@
                                 name="pronouns" value="usted"/> &nbsp;&nbsp;</label>
                     </div>
                     <div class="radio">
-                        <label class="question"> <input th:text="#{evaluation.other}"
-                                type="radio"
-                                name="pronouns" value="other"/> &nbsp;&nbsp;</label>
+                        <label class="question"> <input id="pronouns_other"
+                                                        onchange="sub('pronouns_other');spec('pronouns_other');"
+                                                        type="radio" name="pronouns"
+                                                        value="Other" th:text="#{other_specify}">
+                            Other (please specify):
+                            </input>&nbsp;&nbsp;<input id="pronouns_other_spec" type="text" name="otherPronouns" value="N/A"/>
+                        </label>
                     </div>
             </div>
+                <div class="col-md-4">
+                    <div class="radio">
+                        <label class="question"><input th:text="#{prefer_not_to_answer}" type="radio" name="pronouns" value="555"
+                                                       onchange="disableSection(this)"/> &nbsp;&nbsp;
+                        </label>
+                    </div>
+                </div>
                 </div>
         </div>
 
-        <div class="container section compactQuestion">
+        <div class="container section">
             <div class="row">
-                    <div class="col-md-10">
-                        <h4 th:text="#{Evaluation.topics}"><b>What are other topics for stories that would have been helpful?</b></h4>
-                        <textarea style="resize: none;" rows="2" cols="70"  name="topics"></textarea>
+                <div class="col-md-10">
+                    <b><p th:text="#{Evaluation.topics}">What are other topics for stories that would have been helpful?</p></b>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8 side-border">
+                    <textarea style="resize: none;" rows="3" cols="60" name="topics" onchange="disableSection(this)"></textarea>
+                </div>
+                <div class="col-md-4">
+                    <div class="radio">
+                        <label class="question"><input th:text="#{prefer_not_to_answer}" type="radio" name="fit" value="555"
+                                                       onchange="disableSection(this)"/> &nbsp;&nbsp;
+                        </label>
                     </div>
+                </div>
             </div>
         </div>
 
         <div class="container section">
             <div class="row">
                 <div class="col-md-10">
-                    <p th:text="#{Evaluation.fit}"><b>How well does MindTrails fit with the other care you are pursuing (e.g., medication, talk therapy)?</b></p>
+                    <b><p th:text="#{Evaluation.fit}">How well does MindTrails fit with the other care you are pursuing (e.g., medication, talk therapy)?</p></b>
                 </div>
             </div>
 
@@ -385,20 +410,33 @@
             </div>
         </div>
 
-        <div class="container section compactQuestion">
+        <div class="container section">
             <div class="row">
-                    <div class="col-md-10">
-                        <h4 th:text="#{Evaluation.goal}"><b>What were you hoping to get out of completing the MindTrails study?</b></h4>
-                        <textarea style="resize: none;" rows="2" cols="70" name="goal"></textarea>
+                <div class="col-md-10">
+                    <b><p th:text="#{Evaluation.goal}">What were you hoping to get out of completing the MindTrails study?</p></b>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8 side-border">
+                    <textarea style="resize: none;" rows="3" cols="60" name="goal" onchange="disableSection(this)"></textarea>
+                    </div>
+                <div class="col-md-4">
+                <div class="radio">
+                    <label class="question"><input th:text="#{prefer_not_to_answer}" type="radio" name="fit" value="555"
+                                                   onchange="disableSection(this)"/> &nbsp;&nbsp;
+                    </label>
+                </div>
                     </div>
             </div>
         </div>
+    </div>
+
 
 <div style="text-align:center">
     <button type="submit" th:text="#{next}"> Next</button>
 </div>
 
-</div>
 </form>
 
 <footer th:replace="fragment/common :: footer"/>

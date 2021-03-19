@@ -60,25 +60,25 @@ public class Acculturation extends LinkedQuestionnaireData {
         Map<Integer, String> tmpScale = new TreeMap<>();
         switch (group) {
             case ("languages1"):
-                tmpScale.put(1, "only_spanish");
-                tmpScale.put(2, "spanish_better_than_english");
-                tmpScale.put(3, "both_equally");
-                tmpScale.put(4, "english_better_than_spanish");
-                tmpScale.put(5, "only_english");
+                tmpScale.put(1, "acculturation.only_spanish");
+                tmpScale.put(2, "acculturation.spanish_better_than_english");
+                tmpScale.put(3, "acculturation.both_equally");
+                tmpScale.put(4, "acculturation.english_better_than_spanish");
+                tmpScale.put(5, "acculturation.only_english");
                 break;
             case ("languages2"):
-                tmpScale.put(1, "only_spanish");
-                tmpScale.put(2, "more_spanish_than_english");
-                tmpScale.put(3, "both_equally");
-                tmpScale.put(4, "more_english_than_spanish");
-                tmpScale.put(5, "only_english");
+                tmpScale.put(1, "acculturation.only_spanish");
+                tmpScale.put(2, "acculturation.more_spanish_than_english");
+                tmpScale.put(3, "acculturation.both_equally");
+                tmpScale.put(4, "acculturation.more_english_than_spanish");
+                tmpScale.put(5, "acculturation.only_english");
                 break;
             case ("friends"):
-                tmpScale.put(1, "all_latinos_hispanics");
-                tmpScale.put(2, "more_latinos_than_hispanics");
-                tmpScale.put(3, "about_half_and_half");
-                tmpScale.put(4, "more_americans_than_hispanics");
-                tmpScale.put(5, "all_americans");
+                tmpScale.put(1, "acculturation.all_latinos_hispanics");
+                tmpScale.put(2, "acculturation.more_latinos_than_hispanics");
+                tmpScale.put(3, "acculturation.about_half_and_half");
+                tmpScale.put(4, "acculturation.more_americans_than_hispanics");
+                tmpScale.put(5, "acculturation.all_americans");
                 break;
         }
         return Collections.unmodifiableMap(tmpScale);

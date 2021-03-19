@@ -37,55 +37,23 @@
             <div class="col-md-8">
                 <span class="pull-right"><button onclick="window.print();">Print</button></span>
                 <br></br>
-                <h2><b>Debriefing</b></h2>
-                <h3><b>Effectiveness of interpretation training to reduce anxiety: Evaluating technology-based delivery
-                    models and methods to reduce attrition</b></h3>
+                <h2 th:text="#{debriefing.title}">Debriefing</h2>
+                <h3 th:text="#{debriefing.name}">MindTrails Spanish Language Version</h3>
 
-                <p>We are currently investigating experimental approaches to reduce anxiety. The experimental
-                    approaches used in the study are based on models of anxiety, which have shown that anxious people
-                    tend to interpret ambiguous situations as threatening. It has been proposed that the tendency to
-                    interpret things in a threatening way plays a role in the onset of, and recovery from, anxiety
-                    problems.
-                </p>
+                <p th:text="#{debriefing.p1}">We are studying new approaches to reduce anxiety. The approach used in the study is based on models of anxiety, which have shown that
+                    anxious people tend to interpret ambiguous situations as threatening. It has been proposed that the tendency to interpret things in a threatening
+                    way plays a role in the onset of, and recovery from, anxiety problems. Thus, during training, you were asked to read and imagine yourself in a
+                    series of brief stories and the last word (or word fragment) gave almost all of the brief stories a positive meaning. We expect this will encourage
+                    a more flexible and less negative thinking style.</p>
 
-                <div th:if="${participant.study.conditioning == 'TRAINING' or participant.study.conditioning == 'CONTROL' or participant.study.conditioning == 'LR_TRAINING' or participant.study.conditioning == 'HR_COACH' or participant.study.conditioning == 'HR_NO_COACH'}">
+                <p th:text="#{debriefing.p2}">>In the current study, we are evaluating a new version of our program that is specifically designed to meet the needs of individuals experiencing anxiety
+                    who identify as Hispanic. We are offering the program in its original English form and also in a new Spanish form, and we are inviting some people to complete
+                    the program who describe themselves as fluent in both English and Spanish, and other people who describe themselves as fluent in Spanish but not in English.
+                    We are also testing whether different messages inviting people to participate in the program are more or less effective at encouraging people to enroll.
+                    For instance, some people received an invitation to participate that emphasized how the program might help relieve physical symptoms of anxiety while other
+                    people received an invitation to participate that emphasized how the program might help them enjoy more time with their family.</p>
 
-                    <p>In the current study, we are evaluating if it is possible to change interpretation patterns over the
-                        Internet, and whether changing these interpretation patterns will reduce anxiety symptoms. We are
-                        also testing whether we can identify people at risk of dropping out of the study and provide them
-                        a personal coach to encourage them to stay in the study. Finally, we are examining whether
-                        participants obtain different results by completing the intervention on their mobile phone, tablet,
-                        or personal computer. </p>
-
-                <p>Depending on your condition, you may have been asked to read and imagine yourself in a series of
-                    brief stories. In this active condition, the last word (or word fragment) gave almost all of the
-                    brief stories a positive meaning. We expect this will encourage a more flexible and less negative
-                    thinking style. In an alternative condition, which we do not expect to be as effective as the
-                    active condition, you simply read about characteristics of anxiety.</p>
-
-                <p>For some participants, if your early activity on the site suggested you might be at risk of dropping
-                    out of the study, you may have been connected with a personal coach to support your participation
-                    in the study. We expect that participants who had the opportunity to work with a coach will have
-                    better outcomes than participants at risk for dropping out who did not work with a coach.</p>
-                </div>
-
-                <div th:if="${participant.study.conditioning == 'TRAINING_ORIG' or participant.study.conditioning == 'TRAINING_30' or participant.study.conditioning == 'TRAINING_ED' or participant.study.conditioning == 'TRAINING_CREATE'}">
-
-                <p>In the current study, we are evaluating if it is possible to change interpretation patterns over the Internet, and whether changing these interpretation patterns will reduce anxiety symptoms.
-                    Additionally, we are examining whether participants obtain different results by completing the intervention on their mobile phone, tablet,
-                    or personal computer. </p>
-
-                    <p>Depending on your condition, you may have been asked to read and imagine yourself in a series of
-                        brief stories. In this active condition, the last word (or word fragment) gave almost all of the
-                        brief stories a positive meaning. We expect this will encourage a more flexible and less negative
-                        thinking style. In an alternative condition, which we do not expect to be as effective as the
-                        active condition, you simply read about characteristics of anxiety.</p>
-
-                <p>In the active condition, we are also testing four conditions of the training program to see which one is most effective. Depending on the assigned condition, you may also have been asked to complete an additional task, such as writing your own brief story or reading educational information about anxiety problems and their treatment.
-                    In the training stories, the last word (or word fragment) gave almost all of the brief stories a positive meaning. We expect this will encourage a more flexible and less negative thinking style.</p>
-                </div>
-
-                <p>If you are interested in learning more about modifying thinking patterns, see the following
+                <p th:text="#{debriefing.p3}">If you are interested in learning more about modifying thinking patterns, see the following
                     websites:
                     <ul>
                         <li><a target="new" href="http://www.apa.org/monitor/2011/11/behavior-change.aspx">"Behavior change in 15-minute sessions?"

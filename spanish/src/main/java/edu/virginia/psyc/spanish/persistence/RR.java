@@ -160,10 +160,10 @@ public class RR extends LinkedQuestionnaireData {
     @Override
     public Map<Integer, String> getScale(String group) {
         Map<Integer, String> tmpScale = new TreeMap<>();
-        tmpScale.put(1, "very_different");
-        tmpScale.put(2, "different");
-        tmpScale.put(3, "similar");
-        tmpScale.put(4, "very_similar");
+        tmpScale.put(1, "rr.very_different");
+        tmpScale.put(2, "rr.different");
+        tmpScale.put(3, "rr.similar");
+        tmpScale.put(4, "rr.very_similar");
         return Collections.unmodifiableMap(tmpScale);
     }
 }

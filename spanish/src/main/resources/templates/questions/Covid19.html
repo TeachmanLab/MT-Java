@@ -31,206 +31,206 @@
         <!-- Don't add timer, it's added in one of the form fragments.-->
         <div class="container">
             <div class="container section compactQuestion">
-                <h3 th:text="#{covid19.affected}"><b>COVID-19 is affecting people in many different ways. <i>Thinking about the past 2 weeks</i>,
-                    please indicate in what ways the following areas of your life have been affected as a result of COVID-19:</b></h3><br/>
+                <p><b><h3 th:text="#{covid19.affected}">COVID-19 is affecting people in many different ways. Thinking about the past 2 weeks,
+                please indicate in what ways the following areas of your life have been affected as a result of COVID-19:</h3></b></p><br/>
                 <div class="row">
                     <div class="col-md-6">
-                        <p><label class="question">Work (employment or school)<br/>
+                        <p><label class="question"><span th:text="#{covid19.work}">Work (employment or school)</span><br/>
                             <select required="true" th:field="*{work}">
                                 <option value="" hidden="hidden"></option>
-                                <option th:text="#{extreme_positive_change}" value="1">Extreme positive change</option>
-                                <option th:text="#{moderate_positive_change}" value="2">Moderate positive change</option>
-                                <option th:text="#{minimal_positive_change}" value="3">Minimal positive change</option>
-                                <option th:text="#{no_change}" value="4">No change</option>
-                                <option th:text="#{minimal_negative_change}" value="5">Minimal negative change</option>
-                                <option th:text="#{moderate_negative_change}" value="6">Moderate negative change</option>
-                                <option th:text="#{extreme_negative_change}" value="7">Extreme negative change</option>
-                                <option th:text="#{not_applicable}" value="0">Not applicable</option>
-                                <option th:text="#{prefer_not_to_answer}" value="555">Prefer not to answer</option>
+                                <option th:text="#{covid19.extreme_positive_change}" value="1">Extreme positive change</option>
+                                <option th:text="#{covid19.moderate_positive_change}" value="2">Moderate positive change</option>
+                                <option th:text="#{covid19.minimal_positive_change}" value="3">Minimal positive change</option>
+                                <option th:text="#{covid19.no_change}" value="4">No change</option>
+                                <option th:text="#{covid19.minimal_negative_change}" value="5">Minimal negative change</option>
+                                <option th:text="#{covid19.moderate_negative_change}" value="6">Moderate negative change</option>
+                                <option th:text="#{covid19.extreme_negative_change}" value="7">Extreme negative change</option>
+                                <option th:text="#{covid19.not_applicable}" value="0">Not applicable</option>
+                                <option th:text="#{covid19.prefer_not_to_answer}" value="555">Prefer not to answer</option>
                             </select> </label></p>
-                        <p><label class="question">Income/finances<br/>
+                        <p><label class="question"><span th:text="#{covid19.finances}">Income/finances</span><br/>
                             <select required="true" th:field="*{finances}">
                                 <option value="" hidden="hidden"></option>
-                                <option th:text="#{extreme_positive_change}" value="1">Extreme positive change</option>
-                                <option th:text="#{moderate_positive_change}" value="2">Moderate positive change</option>
-                                <option th:text="#{minimal_positive_change}" value="3">Minimal positive change</option>
-                                <option th:text="#{no_change}" value="4">No change</option>
-                                <option th:text="#{minimal_negative_change}" value="5">Minimal negative change</option>
-                                <option th:text="#{moderate_negative_change}" value="6">Moderate negative change</option>
-                                <option th:text="#{extreme_negative_change}" value="7">Extreme negative change</option>
-                                <option th:text="#{not_applicable}" value="0">Not applicable</option>
-                                <option th:text="#{prefer_not_to_answer}" value="555">Prefer not to answer</option>
+                                <option th:text="#{covid19.extreme_positive_change}" value="1">Extreme positive change</option>
+                                <option th:text="#{covid19.moderate_positive_change}" value="2">Moderate positive change</option>
+                                <option th:text="#{covid19.minimal_positive_change}" value="3">Minimal positive change</option>
+                                <option th:text="#{covid19.no_change}" value="4">No change</option>
+                                <option th:text="#{covid19.minimal_negative_change}" value="5">Minimal negative change</option>
+                                <option th:text="#{covid19.moderate_negative_change}" value="6">Moderate negative change</option>
+                                <option th:text="#{covid19.extreme_negative_change}" value="7">Extreme negative change</option>
+                                <option th:text="#{covid19.not_applicable}" value="0">Not applicable</option>
+                                <option th:text="#{covid19.prefer_not_to_answer}" value="555">Prefer not to answer</option>
                             </select> </label></p>
-                        <p><label class="question">Having enough food to eat<br/>
+                        <p><label class="question"><span th:text="#{covid19.food}">Having enough food to eat</span><br/>
                             <select required="true" th:field="*{food}">
                                 <option value="" hidden="hidden"></option>
-                                <option th:text="#{extreme_positive_change}" value="1">Extreme positive change</option>
-                                <option th:text="#{moderate_positive_change}" value="2">Moderate positive change</option>
-                                <option th:text="#{minimal_positive_change}" value="3">Minimal positive change</option>
-                                <option th:text="#{no_change}" value="4">No change</option>
-                                <option th:text="#{minimal_negative_change}" value="5">Minimal negative change</option>
-                                <option th:text="#{moderate_negative_change}" value="6">Moderate negative change</option>
-                                <option th:text="#{extreme_negative_change}" value="7">Extreme negative change</option>
-                                <option th:text="#{not_applicable}" value="0">Not applicable</option>
-                                <option th:text="#{prefer_not_to_answer}" value="555">Prefer not to answer</option>
+                                <option th:text="#{covid19.extreme_positive_change}" value="1">Extreme positive change</option>
+                                <option th:text="#{covid19.moderate_positive_change}" value="2">Moderate positive change</option>
+                                <option th:text="#{covid19.minimal_positive_change}" value="3">Minimal positive change</option>
+                                <option th:text="#{covid19.no_change}" value="4">No change</option>
+                                <option th:text="#{covid19.minimal_negative_change}" value="5">Minimal negative change</option>
+                                <option th:text="#{covid19.moderate_negative_change}" value="6">Moderate negative change</option>
+                                <option th:text="#{covid19.extreme_negative_change}" value="7">Extreme negative change</option>
+                                <option th:text="#{covid19.not_applicable}" value="0">Not applicable</option>
+                                <option th:text="#{covid19.prefer_not_to_answer}" value="555">Prefer not to answer</option>
                             </select> </label></p>
-                        <p><label class="question">Childcare<br/>
+                        <p><label class="question"><span th:text="#{covid19.childcare}">Childcare</span><br/>
                             <select required="true" th:field="*{childcare}">
                                 <option value="" hidden="hidden"></option>
-                                <option th:text="#{extreme_positive_change}" value="1">Extreme positive change</option>
-                                <option th:text="#{moderate_positive_change}" value="2">Moderate positive change</option>
-                                <option th:text="#{minimal_positive_change}" value="3">Minimal positive change</option>
-                                <option th:text="#{no_change}" value="4">No change</option>
-                                <option th:text="#{minimal_negative_change}" value="5">Minimal negative change</option>
-                                <option th:text="#{moderate_negative_change}" value="6">Moderate negative change</option>
-                                <option th:text="#{extreme_negative_change}" value="7">Extreme negative change</option>
-                                <option th:text="#{not_applicable}" value="0">Not applicable</option>
-                                <option th:text="#{prefer_not_to_answer}" value="555">Prefer not to answer</option>
+                                <option th:text="#{covid19.extreme_positive_change}" value="1">Extreme positive change</option>
+                                <option th:text="#{covid19.moderate_positive_change}" value="2">Moderate positive change</option>
+                                <option th:text="#{covid19.minimal_positive_change}" value="3">Minimal positive change</option>
+                                <option th:text="#{covid19.no_change}" value="4">No change</option>
+                                <option th:text="#{covid19.minimal_negative_change}" value="5">Minimal negative change</option>
+                                <option th:text="#{covid19.moderate_negative_change}" value="6">Moderate negative change</option>
+                                <option th:text="#{covid19.extreme_negative_change}" value="7">Extreme negative change</option>
+                                <option th:text="#{covid19.not_applicable}" value="0">Not applicable</option>
+                                <option th:text="#{covid19.prefer_not_to_answer}" value="555">Prefer not to answer</option>
                             </select> </label></p>
-                        <p><label class="question">Emotional well-being (e.g., anxiety, sadness, stress, worry)<br/>
+                        <p><label class="question"><span th:text="#{covid19.wellbeing}">Emotional well-being (e.g., anxiety, sadness, stress, worry)</span><br/>
                             <select required="true" th:field="*{wellbeing}">
                                 <option value="" hidden="hidden"></option>
-                                <option th:text="#{extreme_positive_change}" value="1">Extreme positive change</option>
-                                <option th:text="#{moderate_positive_change}" value="2">Moderate positive change</option>
-                                <option th:text="#{minimal_positive_change}" value="3">Minimal positive change</option>
-                                <option th:text="#{no_change}" value="4">No change</option>
-                                <option th:text="#{minimal_negative_change}" value="5">Minimal negative change</option>
-                                <option th:text="#{moderate_negative_change}" value="6">Moderate negative change</option>
-                                <option th:text="#{extreme_negative_change}" value="7">Extreme negative change</option>
-                                <option th:text="#{not_applicable}" value="0">Not applicable</option>
-                                <option th:text="#{prefer_not_to_answer}" value="555">Prefer not to answer</option>
+                                <option th:text="#{covid19.extreme_positive_change}" value="1">Extreme positive change</option>
+                                <option th:text="#{covid19.moderate_positive_change}" value="2">Moderate positive change</option>
+                                <option th:text="#{covid19.minimal_positive_change}" value="3">Minimal positive change</option>
+                                <option th:text="#{covid19.no_change}" value="4">No change</option>
+                                <option th:text="#{covid19.minimal_negative_change}" value="5">Minimal negative change</option>
+                                <option th:text="#{covid19.moderate_negative_change}" value="6">Moderate negative change</option>
+                                <option th:text="#{covid19.extreme_negative_change}" value="7">Extreme negative change</option>
+                                <option th:text="#{covid19.not_applicable}" value="0">Not applicable</option>
+                                <option th:text="#{covid19.prefer_not_to_answer}" value="555">Prefer not to answer</option>
                             </select> </label></p>
-                        <p><label class="question">Physical health<br/>
+                        <p><label class="question"><span th:text="#{covid19.physical}">Physical health</span><br/>
                             <select required="true" th:field="*{physical}">
                                 <option value="" hidden="hidden"></option>
-                                <option th:text="#{extreme_positive_change}" value="1">Extreme positive change</option>
-                                <option th:text="#{moderate_positive_change}" value="2">Moderate positive change</option>
-                                <option th:text="#{minimal_positive_change}" value="3">Minimal positive change</option>
-                                <option th:text="#{no_change}" value="4">No change</option>
-                                <option th:text="#{minimal_negative_change}" value="5">Minimal negative change</option>
-                                <option th:text="#{moderate_negative_change}" value="6">Moderate negative change</option>
-                                <option th:text="#{extreme_negative_change}" value="7">Extreme negative change</option>
-                                <option th:text="#{not_applicable}" value="0">Not applicable</option>
-                                <option th:text="#{prefer_not_to_answer}" value="555">Prefer not to answer</option>
+                                <option th:text="#{covid19.extreme_positive_change}" value="1">Extreme positive change</option>
+                                <option th:text="#{covid19.moderate_positive_change}" value="2">Moderate positive change</option>
+                                <option th:text="#{covid19.minimal_positive_change}" value="3">Minimal positive change</option>
+                                <option th:text="#{covid19.no_change}" value="4">No change</option>
+                                <option th:text="#{covid19.minimal_negative_change}" value="5">Minimal negative change</option>
+                                <option th:text="#{covid19.moderate_negative_change}" value="6">Moderate negative change</option>
+                                <option th:text="#{covid19.extreme_negative_change}" value="7">Extreme negative change</option>
+                                <option th:text="#{covid19.not_applicable}" value="0">Not applicable</option>
+                                <option th:text="#{covid19.prefer_not_to_answer}" value="555">Prefer not to answer</option>
                             </select> </label></p>
-                        <p><label class="question">Getting the medication and other healthcare you need<br/>
+                        <p><label class="question"><span th:text="#{covid19.healthcare}">Getting the medication and other healthcare you need</span><br/>
                             <select required="true" th:field="*{healthcare}">
                                 <option value="" hidden="hidden"></option>
-                                <option th:text="#{extreme_positive_change}" value="1">Extreme positive change</option>
-                                <option th:text="#{moderate_positive_change}" value="2">Moderate positive change</option>
-                                <option th:text="#{minimal_positive_change}" value="3">Minimal positive change</option>
-                                <option th:text="#{no_change}" value="4">No change</option>
-                                <option th:text="#{minimal_negative_change}" value="5">Minimal negative change</option>
-                                <option th:text="#{moderate_negative_change}" value="6">Moderate negative change</option>
-                                <option th:text="#{extreme_negative_change}" value="7">Extreme negative change</option>
-                                <option th:text="#{not_applicable}" value="0">Not applicable</option>
-                                <option th:text="#{prefer_not_to_answer}" value="555">Prefer not to answer</option>
+                                <option th:text="#{covid19.extreme_positive_change}" value="1">Extreme positive change</option>
+                                <option th:text="#{covid19.moderate_positive_change}" value="2">Moderate positive change</option>
+                                <option th:text="#{covid19.minimal_positive_change}" value="3">Minimal positive change</option>
+                                <option th:text="#{covid19.no_change}" value="4">No change</option>
+                                <option th:text="#{covid19.minimal_negative_change}" value="5">Minimal negative change</option>
+                                <option th:text="#{covid19.moderate_negative_change}" value="6">Moderate negative change</option>
+                                <option th:text="#{covid19.extreme_negative_change}" value="7">Extreme negative change</option>
+                                <option th:text="#{covid19.not_applicable}" value="0">Not applicable</option>
+                                <option th:text="#{covid19.prefer_not_to_answer}" value="555">Prefer not to answer</option>
                             </select> </label></p>
-                        <p><label class="question">Productivity<br/>
+                        <p><label class="question"><span th:text="#{covid19.productivity}">Productivity</span><br/>
                             <select required="true" th:field="*{productivity}">
                                 <option value="" hidden="hidden"></option>
-                                <option th:text="#{extreme_positive_change}" value="1">Extreme positive change</option>
-                                <option th:text="#{moderate_positive_change}" value="2">Moderate positive change</option>
-                                <option th:text="#{minimal_positive_change}" value="3">Minimal positive change</option>
-                                <option th:text="#{no_change}" value="4">No change</option>
-                                <option th:text="#{minimal_negative_change}" value="5">Minimal negative change</option>
-                                <option th:text="#{moderate_negative_change}" value="6">Moderate negative change</option>
-                                <option th:text="#{extreme_negative_change}" value="7">Extreme negative change</option>
-                                <option th:text="#{not_applicable}" value="0">Not applicable</option>
-                                <option th:text="#{prefer_not_to_answer}" value="555">Prefer not to answer</option>
+                                <option th:text="#{covid19.extreme_positive_change}" value="1">Extreme positive change</option>
+                                <option th:text="#{covid19.moderate_positive_change}" value="2">Moderate positive change</option>
+                                <option th:text="#{covid19.minimal_positive_change}" value="3">Minimal positive change</option>
+                                <option th:text="#{covid19.no_change}" value="4">No change</option>
+                                <option th:text="#{covid19.minimal_negative_change}" value="5">Minimal negative change</option>
+                                <option th:text="#{covid19.moderate_negative_change}" value="6">Moderate negative change</option>
+                                <option th:text="#{covid19.extreme_negative_change}" value="7">Extreme negative change</option>
+                                <option th:text="#{covid19.not_applicable}" value="0">Not applicable</option>
+                                <option th:text="#{covid19.prefer_not_to_answer}" value="555">Prefer not to answer</option>
                             </select> </label></p>
                     </div>
                     <div class="col-md-6">
-                        <p><label class="question">Ability to focus<br/>
+                        <p><label class="question"><span th:text="#{covid19.focus}">Ability to focus</span><br/>
                             <select required="true" th:field="*{focus}">
                                 <option value="" hidden="hidden"></option>
-                                <option th:text="#{extreme_positive_change}" value="1">Extreme positive change</option>
-                                <option th:text="#{moderate_positive_change}" value="2">Moderate positive change</option>
-                                <option th:text="#{minimal_positive_change}" value="3">Minimal positive change</option>
-                                <option th:text="#{no_change}" value="4">No change</option>
-                                <option th:text="#{minimal_negative_change}" value="5">Minimal negative change</option>
-                                <option th:text="#{moderate_negative_change}" value="6">Moderate negative change</option>
-                                <option th:text="#{extreme_negative_change}" value="7">Extreme negative change</option>
-                                <option th:text="#{not_applicable}" value="0">Not applicable</option>
-                                <option th:text="#{prefer_not_to_answer}" value="555">Prefer not to answer</option>
+                                <option th:text="#{covid19.extreme_positive_change}" value="1">Extreme positive change</option>
+                                <option th:text="#{covid19.moderate_positive_change}" value="2">Moderate positive change</option>
+                                <option th:text="#{covid19.minimal_positive_change}" value="3">Minimal positive change</option>
+                                <option th:text="#{covid19.no_change}" value="4">No change</option>
+                                <option th:text="#{covid19.minimal_negative_change}" value="5">Minimal negative change</option>
+                                <option th:text="#{covid19.moderate_negative_change}" value="6">Moderate negative change</option>
+                                <option th:text="#{covid19.extreme_negative_change}" value="7">Extreme negative change</option>
+                                <option th:text="#{covid19.not_applicable}" value="0">Not applicable</option>
+                                <option th:text="#{covid19.prefer_not_to_answer}" value="555">Prefer not to answer</option>
                             </select> </label></p>
-                        <p><label class="question">Exercise<br/>
+                        <p><label class="question"><span th:text="#{covid19.exercise}">Exercise</span><br/>
                             <select required="true" th:field="*{exercise}">
                                 <option value="" hidden="hidden"></option>
-                                <option th:text="#{extreme_positive_change}" value="1">Extreme positive change</option>
-                                <option th:text="#{moderate_positive_change}" value="2">Moderate positive change</option>
-                                <option th:text="#{minimal_positive_change}" value="3">Minimal positive change</option>
-                                <option th:text="#{no_change}" value="4">No change</option>
-                                <option th:text="#{minimal_negative_change}" value="5">Minimal negative change</option>
-                                <option th:text="#{moderate_negative_change}" value="6">Moderate negative change</option>
-                                <option th:text="#{extreme_negative_change}" value="7">Extreme negative change</option>
-                                <option th:text="#{not_applicable}" value="0">Not applicable</option>
-                                <option th:text="#{prefer_not_to_answer}" value="555">Prefer not to answer</option>
+                                <option th:text="#{covid19.extreme_positive_change}" value="1">Extreme positive change</option>
+                                <option th:text="#{covid19.moderate_positive_change}" value="2">Moderate positive change</option>
+                                <option th:text="#{covid19.minimal_positive_change}" value="3">Minimal positive change</option>
+                                <option th:text="#{covid19.no_change}" value="4">No change</option>
+                                <option th:text="#{covid19.minimal_negative_change}" value="5">Minimal negative change</option>
+                                <option th:text="#{covid19.moderate_negative_change}" value="6">Moderate negative change</option>
+                                <option th:text="#{covid19.extreme_negative_change}" value="7">Extreme negative change</option>
+                                <option th:text="#{covid19.not_applicable}" value="0">Not applicable</option>
+                                <option th:text="#{covid19.prefer_not_to_answer}" value="555">Prefer not to answer</option>
                             </select> </label></p>
-                        <p><label class="question">Relationships with family<br/>
+                        <p><label class="question"><span th:text="#{covid19.family}">Relationships with family</span><br/>
                             <select required="true" th:field="*{family}">
                                 <option value="" hidden="hidden"></option>
-                                <option th:text="#{extreme_positive_change}" value="1">Extreme positive change</option>
-                                <option th:text="#{moderate_positive_change}" value="2">Moderate positive change</option>
-                                <option th:text="#{minimal_positive_change}" value="3">Minimal positive change</option>
-                                <option th:text="#{no_change}" value="4">No change</option>
-                                <option th:text="#{minimal_negative_change}" value="5">Minimal negative change</option>
-                                <option th:text="#{moderate_negative_change}" value="6">Moderate negative change</option>
-                                <option th:text="#{extreme_negative_change}" value="7">Extreme negative change</option>
-                                <option th:text="#{not_applicable}" value="0">Not applicable</option>
-                                <option th:text="#{prefer_not_to_answer}" value="555">Prefer not to answer</option>
+                                <option th:text="#{covid19.extreme_positive_change}" value="1">Extreme positive change</option>
+                                <option th:text="#{covid19.moderate_positive_change}" value="2">Moderate positive change</option>
+                                <option th:text="#{covid19.minimal_positive_change}" value="3">Minimal positive change</option>
+                                <option th:text="#{covid19.no_change}" value="4">No change</option>
+                                <option th:text="#{covid19.minimal_negative_change}" value="5">Minimal negative change</option>
+                                <option th:text="#{covid19.moderate_negative_change}" value="6">Moderate negative change</option>
+                                <option th:text="#{covid19.extreme_negative_change}" value="7">Extreme negative change</option>
+                                <option th:text="#{covid19.not_applicable}" value="0">Not applicable</option>
+                                <option th:text="#{covid19.prefer_not_to_answer}" value="555">Prefer not to answer</option>
                             </select> </label></p>
-                        <p><label class="question">Relationships with romantic partners<br/>
+                        <p><label class="question"><span th:text="#{covid19.partners}">Relationships with romantic partners</span><br/>
                             <select required="true" th:field="*{partners}">
                                 <option value="" hidden="hidden"></option>
-                                <option th:text="#{extreme_positive_change}" value="1">Extreme positive change</option>
-                                <option th:text="#{moderate_positive_change}" value="2">Moderate positive change</option>
-                                <option th:text="#{minimal_positive_change}" value="3">Minimal positive change</option>
-                                <option th:text="#{no_change}" value="4">No change</option>
-                                <option th:text="#{minimal_negative_change}" value="5">Minimal negative change</option>
-                                <option th:text="#{moderate_negative_change}" value="6">Moderate negative change</option>
-                                <option th:text="#{extreme_negative_change}" value="7">Extreme negative change</option>
-                                <option th:text="#{not_applicable}" value="0">Not applicable</option>
-                                <option th:text="#{prefer_not_to_answer}" value="555">Prefer not to answer</option>
+                                <option th:text="#{covid19.extreme_positive_change}" value="1">Extreme positive change</option>
+                                <option th:text="#{covid19.moderate_positive_change}" value="2">Moderate positive change</option>
+                                <option th:text="#{covid19.minimal_positive_change}" value="3">Minimal positive change</option>
+                                <option th:text="#{covid19.no_change}" value="4">No change</option>
+                                <option th:text="#{covid19.minimal_negative_change}" value="5">Minimal negative change</option>
+                                <option th:text="#{covid19.moderate_negative_change}" value="6">Moderate negative change</option>
+                                <option th:text="#{covid19.extreme_negative_change}" value="7">Extreme negative change</option>
+                                <option th:text="#{covid19.not_applicable}" value="0">Not applicable</option>
+                                <option th:text="#{covid19.prefer_not_to_answer}" value="555">Prefer not to answer</option>
                             </select> </label></p>
-                        <p><label class="question">Relationships with friends<br/>
+                        <p><label class="question"><span th:text="#{covid19.friends}">Relationships with friends</span><br/>
                             <select required="true" th:field="*{friends}">
                                 <option value="" hidden="hidden"></option>
-                                <option th:text="#{extreme_positive_change}" value="1">Extreme positive change</option>
-                                <option th:text="#{moderate_positive_change}" value="2">Moderate positive change</option>
-                                <option th:text="#{minimal_positive_change}" value="3">Minimal positive change</option>
-                                <option th:text="#{no_change}" value="4">No change</option>
-                                <option th:text="#{minimal_negative_change}" value="5">Minimal negative change</option>
-                                <option th:text="#{moderate_negative_change}" value="6">Moderate negative change</option>
-                                <option th:text="#{extreme_negative_change}" value="7">Extreme negative change</option>
-                                <option th:text="#{not_applicable}" value="0">Not applicable</option>
-                                <option th:text="#{prefer_not_to_answer}" value="555">Prefer not to answer</option>
+                                <option th:text="#{covid19.extreme_positive_change}" value="1">Extreme positive change</option>
+                                <option th:text="#{covid19.moderate_positive_change}" value="2">Moderate positive change</option>
+                                <option th:text="#{covid19.minimal_positive_change}" value="3">Minimal positive change</option>
+                                <option th:text="#{covid19.no_change}" value="4">No change</option>
+                                <option th:text="#{covid19.minimal_negative_change}" value="5">Minimal negative change</option>
+                                <option th:text="#{covid19.moderate_negative_change}" value="6">Moderate negative change</option>
+                                <option th:text="#{covid19.extreme_negative_change}" value="7">Extreme negative change</option>
+                                <option th:text="#{covid19.not_applicable}" value="0">Not applicable</option>
+                                <option th:text="#{covid19.prefer_not_to_answer}" value="555">Prefer not to answer</option>
                             </select> </label></p>
-                        <p><label class="question">Sleep<br/>
+                        <p><label class="question"><span th:text="#{covid19.sleep}">Sleep</span><br/>
                             <select required="true" th:field="*{sleep}">
                                 <option value="" hidden="hidden"></option>
-                                <option th:text="#{extreme_positive_change}" value="1">Extreme positive change</option>
-                                <option th:text="#{moderate_positive_change}" value="2">Moderate positive change</option>
-                                <option th:text="#{minimal_positive_change}" value="3">Minimal positive change</option>
-                                <option th:text="#{no_change}" value="4">No change</option>
-                                <option th:text="#{minimal_negative_change}" value="5">Minimal negative change</option>
-                                <option th:text="#{moderate_negative_change}" value="6">Moderate negative change</option>
-                                <option th:text="#{extreme_negative_change}" value="7">Extreme negative change</option>
-                                <option th:text="#{not_applicable}" value="0">Not applicable</option>
-                                <option th:text="#{prefer_not_to_answer}" value="555">Prefer not to answer</option>
+                                <option th:text="#{covid19.extreme_positive_change}" value="1">Extreme positive change</option>
+                                <option th:text="#{covid19.moderate_positive_change}" value="2">Moderate positive change</option>
+                                <option th:text="#{covid19.minimal_positive_change}" value="3">Minimal positive change</option>
+                                <option th:text="#{covid19.no_change}" value="4">No change</option>
+                                <option th:text="#{covid19.minimal_negative_change}" value="5">Minimal negative change</option>
+                                <option th:text="#{covid19.moderate_negative_change}" value="6">Moderate negative change</option>
+                                <option th:text="#{covid19.extreme_negative_change}" value="7">Extreme negative change</option>
+                                <option th:text="#{covid19.not_applicable}" value="0">Not applicable</option>
+                                <option th:text="#{covid19.prefer_not_to_answer}" value="555">Prefer not to answer</option>
                             </select> </label></p>
-                        <p><label class="question">Loss of planned events (e.g., graduation, parties, travel)<br/>
+                        <p><label class="question"><span th:text="#{covid19.events}">Loss of planned events (e.g., graduation, parties, travel)</span><br/>
                             <select required="true" th:field="*{events}">
                                 <option value="" hidden="hidden"></option>
-                                <option th:text="#{extreme_positive_change}" value="1">Extreme positive change</option>
-                                <option th:text="#{moderate_positive_change}" value="2">Moderate positive change</option>
-                                <option th:text="#{minimal_positive_change}" value="3">Minimal positive change</option>
-                                <option th:text="#{no_change}" value="4">No change</option>
-                                <option th:text="#{minimal_negative_change}" value="5">Minimal negative change</option>
-                                <option th:text="#{moderate_negative_change}" value="6">Moderate negative change</option>
-                                <option th:text="#{extreme_negative_change}" value="7">Extreme negative change</option>
-                                <option th:text="#{not_applicable}" value="0">Not applicable</option>
-                                <option th:text="#{prefer_not_to_answer}" value="555">Prefer not to answer</option>
+                                <option th:text="#{covid19.extreme_positive_change}" value="1">Extreme positive change</option>
+                                <option th:text="#{covid19.moderate_positive_change}" value="2">Moderate positive change</option>
+                                <option th:text="#{covid19.minimal_positive_change}" value="3">Minimal positive change</option>
+                                <option th:text="#{covid19.no_change}" value="4">No change</option>
+                                <option th:text="#{covid19.minimal_negative_change}" value="5">Minimal negative change</option>
+                                <option th:text="#{covid19.moderate_negative_change}" value="6">Moderate negative change</option>
+                                <option th:text="#{covid19.extreme_negative_change}" value="7">Extreme negative change</option>
+                                <option th:text="#{covid19.not_applicable}" value="0">Not applicable</option>
+                                <option th:text="#{covid19.prefer_not_to_answer}" value="555">Prefer not to answer</option>
                             </select> </label></p>
                     </div>
                 </div>
@@ -252,8 +252,8 @@
         <div class="container section">
             <div class="row header">
                 <div class="col-md-12 statement">
-                    <h3 th:text="#{covid19.highRisk1}"><b>Based on criteria from the Center for Disease Control, are you at high risk for serious
-                        illness following infection of COVID-19?</b></h3>
+                    <p><b><h3 th:text="#{covid19.highRisk1}">Based on criteria from the Center for Disease Control, are you at high risk for serious
+                        illness following infection of COVID-19?</h3></b></p>
                     <p th:text="#{covid19.highRisk2}">The Center for Disease Control suggests that people over 65, those struggling with heart
                         and lung disease, those who are immunocompromised (suppressed immune system), those who are obese, and those with diabetes are at
                         high risk for serious illness.</p>
@@ -282,7 +282,7 @@
         <div class="container section">
             <div class="row header">
                 <div class="col-md-12 statement">
-                    <p th:text="#{covid19.diagnosis}"><b>Have you been diagnosed with COVID-19?</b></p>
+                    <b><p th:text="#{covid19.diagnosis}">Have you been diagnosed with COVID-19?</p></b>
                 </div>
             </div>
             <div class="row">
@@ -310,7 +310,7 @@
         <div class="container section">
             <div class="row header">
                 <div class="col-md-12 statement">
-                    <p th:text="#{covid19.testCovid}"><b>Have you gotten a test for COVID-19?</b></p>
+                    <b><p th:text="#{covid19.testCovid}">Have you gotten a test for COVID-19?</p></b>
                 </div>
             </div>
 
@@ -338,7 +338,7 @@
                 </div>
 
             <div class="col-md-12 statement" id="testCovidPositive" style="display: none">
-                <p th:text="#{covid19.testCovidResult}"><b>Did you ever have a positive result?</b></p>
+                <b><p th:text="#{covid19.testCovidResult}">Did you ever have a positive result?</p></b>
 
                 <div class="row">
                 <div class="col-md-8 side-border">
@@ -366,7 +366,7 @@
                 <div id="testCovidDateDiv" style="display: none">
                     <div class="row">
                         <div class="col-md-12 statement" >
-                            <p th:text="#{covid19.testCovidDate}"><b>Please give the approximate date when you received your result.</b></p>
+                            <b><p th:text="#{covid19.testCovidDate}">Please give the approximate date when you received your result.</p></b>
                         </div>
                     </div>
                     <div class="row">
@@ -396,7 +396,7 @@
         <div class="container section">
             <div class="row header">
                 <div class="col-md-12 statement">
-                    <p th:text="#{covid19.testAntibody}"><b>Have you gotten an antibody test for COVID-19?</b></p>
+                    <b><p th:text="#{covid19.testAntibody}">Have you gotten an antibody test for COVID-19?</p></b>
                 </div>
             </div>
             <div class="row">
@@ -421,7 +421,7 @@
                     </div>
                 </div>
                 <div class="col-md-12 statement" id="testAntibodyPositiveDiv" style="display: none">
-                    <p th:text="#{covid19.testAntibodyResult}"><b>Did you ever have a positive result?</b></p>
+                    <b><p th:text="#{covid19.testAntibodyResult}">Did you ever have a positive result?</p></b>
                     <div class="row">
                         <div class="col-md-8 side-border">
                             <div class="radio">
@@ -447,7 +447,7 @@
                     <div id="testAntibodyDateDiv" style="display: none">
                         <div class="row">
                             <div class="col-md-12 statement" >
-                                <p th:text="#{covid19.testAntibodyDate}"><b>Please give the approximate date when you received your result.</b></p>
+                                <b><p th:text="#{covid19.testAntibodyDate}">Please give the approximate date when you received your result.</p></b>
                             </div>
                         </div>
                         <div class="row">
@@ -472,7 +472,7 @@
         <div class="container section">
             <div class="row header">
                 <div class="col-md-12 statement">
-                    <p th:text="#{covid19.covidKnow}"><b>Do you know of a family member or close friend who has or had COVID-19?</b></p>
+                    <b><p th:text="#{covid19.covidKnow}">Do you know of a family member or close friend who has or had COVID-19?</p></b>
                 </div>
             </div>
             <div class="row">
@@ -500,7 +500,7 @@
         <div class="container section">
             <div class="row header">
                 <div class="col-md-12 statement">
-                    <p th:text="#{covid19.symptoms}"><b>Have you had symptoms consistent with COVID-19?</b></p>
+                    <b><p th:text="#{covid19.symptoms}">Have you had symptoms consistent with COVID-19?</p></b>
                 </div>
             </div>
             <div class="row">
@@ -528,7 +528,7 @@
             <div id="symptomsDateDiv" style="display: none">
                 <div class="row">
                     <div class="col-md-12 statement" >
-                        <p th:text="#{covid19.symptomsDate}"><b>Please give the approximate date when you last had symptoms.</b></p>
+                        <b><p th:text="#{covid19.symptomsDate}">Please give the approximate date when you last had symptoms.</p></b>
                     </div>
                 </div>
                 <div class="row">

@@ -29,7 +29,7 @@
 
                 <br></br>
 
-                <p><h3 th:text="#{privacy.heading1}" id="item1"><b>OUR COMMITMENT TO PRIVACY</b></h3></p>
+                <p><b><h3 th:text="#{privacy.heading1}" id="item1">OUR COMMITMENT TO PRIVACY</h3></b></p>
 
                     <p th:text="#{privacy.p1a}">The MindTrails team and The University of Virginia are strongly committed to maintaining the privacy
                     and security of confidential personal information and other highly sensitive data that it collects.
@@ -51,7 +51,7 @@
                     be associated with the data.</p>
 
                 <br></br>
-                    <p><h3 th:text="#{privacy.heading2}" id="item2"><b>NOTICE ABOUT THE INFORMATION WE COLLECT</b></h3></p>
+                    <p><b><h3 th:text="#{privacy.heading2}" id="item2">NOTICE ABOUT THE INFORMATION WE COLLECT</h3></b></p>
 
                     <p th:text="#{privacy.p2a}">This notice applies to all information collected by the MindTrails website. The following information
                     explains the Internet privacy policy and practices that MindTrails has adopted, and complies with the
@@ -65,20 +65,21 @@
                 <br></br>
                                 <br></br>
 
-                                <p><h3 th:text="#{privacy.heading3}" id="item3"><b>AUTOMATICALLY COLLECTED ACCESS INFORMATION</b></h3></p>
+                                <p><b><h3 th:text="#{privacy.heading3}" id="item3">AUTOMATICALLY COLLECTED ACCESS INFORMATION</h3></b></p>
 
                                 <ul>
-                                    <li><b>Client information:</b> the Internet domain and Internet address of the computer you are using.</li>
-                                    <li><b>Essential technical information:</b> identification of the page or service you are requesting, type of browser and operating system you are using and the date and time of access.</li>
-                                    <li><b>Nonessential technical information:</b> the Internet address of the website from which you linked directly to our website and the "cookie information" described below.</li>
-                                    <li><b>Form data:</b> when you complete online forms, all the data you choose to fill in or confirm.</li></ul>
+                                    <li th:text="#{privacy.p3a}"><b>Client information:</b> the Internet domain and Internet address of the computer you are using.</li>
+                                    <li th:text="#{privacy.p3b}"><b>Essential technical information:</b> identification of the page or service you are requesting, type of browser and operating system you are using and the date and time of access.</li>
+                                    <li th:text="#{privacy.p3c}"><b>Nonessential technical information:</b> the Internet address of the website from which you linked directly to our website and the "cookie information" described below.</li>
+                                    <li th:text="#{privacy.p3d}"><b>Form data:</b> when you complete online forms, all the data you choose to fill in or confirm.</li></ul>
 
-                                <p>Some of the information we collect is highly sensitive in nature. We comply the University of Virginia’s
-                                guidelines for the management of this information. You can read more about our policies
-                                <a href="http://security.virginia.edu/university-use-highly-sensitive-data-standard">here</a>.</p>
+                                <span th:text="#{privacy.p3e}">Some of the information we collect is highly sensitive in nature. We comply the University of Virginia’s
+                                guidelines for the management of this information. You can read more about our policies</span>
+                                <a th:text="#{privacy.link3}" href="http://security.virginia.edu/university-use-highly-sensitive-data-standard">here</a>.
 
+                <br></br>
                                 <br></br>
-                                <p><h3 th:text="#{privacy.heading4}" id="item4"><b>THE WAY WE USE INFORMATION</b></h3></p>
+                                <p><b><h3 th:text="#{privacy.heading4}" id="item4">THE WAY WE USE INFORMATION</h3></b></p>
 
                                 <p th:text="#{privacy.p4a}">Client information is used to route the requested Web page to your computer for viewing.
                                     In theory, the requested Web page and the routing information could be discerned by other entities
@@ -108,7 +109,7 @@
 
 
                                 <br></br>
-                                <p><h3 th:text="#{privacy.heading5}" id="item5"><b>USE OF COOKIES</b></h3></p>
+                                <p><b><h3 th:text="#{privacy.heading5}" id="item5">USE OF COOKIES</h3></b></p>
 
                                 <p th:text="#{privacy.p5}">MindTrails uses "cookies". We use a cookie to identify users as they make progress through a study.
                                     For this kind of cookie, the information stored in that cookie might include the following
@@ -124,56 +125,25 @@
 
 
                                 <br></br>
-                                <p><h3 th:text="#{privacy.heading6}" id="item6"><b>DATA SHARING</b></h3></p>
+                <p><b><h3 th:text="#{privacy.heading6}" id="item6">DATA SHARING</h3></b></p>
 
                                 <p><u>Google Analytics</u></p>
 
-                                <p th:text="#{privacy.p6a}">MindTrails uses Google Analytics, a web analytics service by Google that tracks and reports website
+                                <p th:text="#{privacy.p6}">MindTrails uses Google Analytics, a web analytics service by Google that tracks and reports website
                                 traffic. MindTrails uses this service to track device usage, navigation patterns, and referrals.
                                 While MindTrails can connect this data to other information you provide, we will not share any of
                                 your personal information with Google. The information that Google collects is anonymous in nature,
                                 and will not be personally identifiable. By participating in any MindTrails study, you consent to
                                 this information being collected by Google Analytics.</p>
 
-                                <br></br>
-                                <p><u>National Institute of Mental Health Data Archive</u></p>
-
-                                <p>Data from this study may be submitted to the National Institute of Mental Health Data Archive (NDA).
-                                    The NDA is a data repository run by the National Institute of Mental Health (NIMH) that allows
-                                    esearchers studying mental health and substance use to collect and share deidentified information
-                                    with each other. A data repository is a large database where information from many studies is stored
-                                    and managed. Deidentified information means that all personal information about research participants
-                                    such as name, address, and phone number is removed and replaced with a code number. With an easier
-                                    way to share, researchers hope to learn new and important things about mental illnesses more quickly
-                                    than before.</p>
-
-                                <p>During and after the study, the researchers will send deidentified information about your
-                                    health and behavior and in some cases, your genetic information, to NDA. Other
-                                    researchers nationwide can then file an application with NIMH to obtain access to
-                                    your deidentified study data for research purposes. Experts at NIMH who know how to
-                                    protect health and science information will look at every request carefully to minimize
-                                    risks to your privacy. </p>
-
-                                <p>You may not benefit directly from allowing your information to be shared with NDA.
-                                    The information provided to NDA may help researchers find better treatments.
-                                    NIMH will also report to Congress and on its web site about the different studies
-                                    that researchers are conducting using NDA data. However, you will not be contacted directly
-                                    about the data you contributed to NDA. </p>
-
-                                <p>You may decide now or later that you do not want to share your information using NDA. If so,
-                                    contact the MindTrails team <a href="studyteam@mindtrails.org">here</a> and we will tell NDA, which can stop sharing the research
-                                    information. Please note that NDA cannot take back information that was shared before you
-                                    changed your mind. If you would like more information about NDA, this is available at: <a href="http://data-archive.nimh.nih.gov">http://data-archive.nimh.nih.gov</a>.</p>
-
 
                                     <br></br>
-                                <p><h3 th:text="#{privacy.heading7}" id="item7"><b>OUR COMMITMENT TO DATA SECURITY</b></h3></p>
+                <p><b><h3 th:text="#{privacy.heading7}" id="item7">OUR COMMITMENT TO DATA SECURITY</h3></b></p>
 
                                 <p th:text="#{privacy.p7}">To prevent unauthorized access, maintain data accuracy and ensure the correct use of information,
                                     we have put in place appropriate physical, electronic and managerial procedures to safeguard and
                                     secure the information we collect online, consistent with the policies of the University and with
                                     the laws and regulations of the Commonwealth of Virginia.</p>
-                                <br/>
 
                                 <br></br>
 

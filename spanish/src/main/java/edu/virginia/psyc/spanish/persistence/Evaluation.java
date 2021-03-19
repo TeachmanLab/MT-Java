@@ -108,11 +108,11 @@ public class Evaluation extends LinkedQuestionnaireData {
     @Override
     public Map<Integer, String> getScale(String group) {
         Map<Integer, String> tmpScale = new TreeMap<>();
-            tmpScale.put(1, "not_at_all");
-            tmpScale.put(2, "slightly");
-            tmpScale.put(3, "somewhat");
-            tmpScale.put(4, "mostly");
-            tmpScale.put(5, "very");
+            tmpScale.put(1, "evaluation.not_at_all");
+            tmpScale.put(2, "evaluation.slightly");
+            tmpScale.put(3, "evaluation.somewhat");
+            tmpScale.put(4, "evaluation.mostly");
+            tmpScale.put(5, "evaluation.very");
 
         return Collections.unmodifiableMap(tmpScale);
     }
