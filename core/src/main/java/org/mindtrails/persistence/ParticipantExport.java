@@ -40,4 +40,5 @@ public class ParticipantExport {
     @JsonIdentityReference(alwaysAsId=true) // otherwise first ref as POJO, others as id
     @JsonProperty(value = "study")
     protected Study study;
+    private Date dateCreated;
 }

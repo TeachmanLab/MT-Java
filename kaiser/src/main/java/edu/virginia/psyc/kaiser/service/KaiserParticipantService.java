@@ -74,8 +74,6 @@ public class KaiserParticipantService extends ParticipantServiceImpl implements 
         Participant p = new Participant();
         KaiserStudy study = new KaiserStudy();
         study.setStudyExtension(KaiserStudy.STUDY_EXTENSIONS.KAISER.name());
-        p.setReceiveGiftCards(tangoService.getEnabled());
-        study.setReceiveGiftCards(tangoService.getEnabled());
         p.setStudy(study);
         return p;
     }
@@ -104,72 +102,6 @@ public class KaiserParticipantService extends ParticipantServiceImpl implements 
         return this.participantRepository.searchEligibleForCoachingWithOptIn(CAN_COACH.name(), pageable, searchTerm);
     }
 
-    // protected String getSegmentation(Participant p) {
-    //     Demographics demographics = demographicsRepository.findFirstByParticipantId(p.getId());
-    //     DASS21_AS dass = dass21RRepository.findFirstByParticipantAndSession(p, ELIGIBLE_SESSION);
-    //     if(demographics != null && dass != null) {
-    //         return getSegmentFromDassAndDemographics(dass, demographics);
-    //     } else {
-    //         return UNASSIGNED_SEGMENT;
-    //     }
-    // }
-
-    // protected String getSegmentFromDassAndDemographics(DASS21_AS dass, Demographics demographics) {
-    //     String gender_seg = demographics.calculateSegmentation();
-    //     String dass_seg = dass.calculateSegmentation();
-    //     return gender_seg + "_" + dass_seg;
-    // }
-
-
-    // private RandomCondition nextAssignmentForSegment(String segment) {
-    //     assureRandomAssignmentsAvailableForSegment(segment);
-    //     RandomCondition assignment = randomBlockRepository.findFirstBySegmentNameOrderById(segment);
-    //     return assignment;
-    // }
-
-    // No need to treat coaching as a special case, for Kaiser - coaching randomization
-    // happens as part of randomization for all conditions
-
-    // private RandomCondition nextAssignmentForCoaching(String segment) {
-    //     String coachSegment = "coach_" + segment;
-    //     assureRandomAssignmentsAvailableForCoaching(coachSegment);
-    //     RandomCondition assignment = randomBlockRepository.findFirstBySegmentNameOrderById(coachSegment);
-    //     return assignment;
-    // }
-
-
-    // /**
-    //  * @param segment
-    //  */
-    // private void assureRandomAssignmentsAvailableForSegment(String segment) {
-    //     if(randomBlockRepository.countAllBySegmentName(segment) < 1) {
-    //         Map<String, Float> valuePercentages = new HashMap<>();
-    //         for (KaiserStudy.CONDITION condition: KaiserStudy.CONDITION.values()) {
-    //             valuePercentages.put(condition.name(), 16.66f);
-    //         }
-    //         // TODO: Ensure 16% condition assignment works ok...might need to add complex code for createBlocks after all,
-    //         // as 16% split will leave 4% unaccounted for :/ 
-    //         List<RandomCondition> blocks = RandomCondition.createBlocks(valuePercentages, 16, segment);
-    //         this.randomBlockRepository.save(blocks);
-    //         this.randomBlockRepository.flush();
-    //     }
-    // }
-
-    // /**
-    //  * Random blocks for coaching assignment are split 50/50 for coaching and no coaching
-    //  * @param segment
-    //  */
-    // private void assureRandomAssignmentsAvailableForCoaching(String segment) {
-    //     if(randomBlockRepository.countAllBySegmentName(segment) < 1) {
-    //         Map<String, Float> valuePercentages = new HashMap<>();
-    //         valuePercentages.put(KaiserStudy.CONDITION.HR_COACH.name(), 50.0f);
-    //         valuePercentages.put(KaiserStudy.CONDITION.HR_NO_COACH.name(), 50.0f);
-    //         List<RandomCondition> blocks = RandomCondition.createBlocks(valuePercentages, 50, segment);
-    //         this.randomBlockRepository.save(blocks);
-    //         this.randomBlockRepository.flush();
-    //     }
-    // }
-
     @Override
     public List<Study> getStudies() {
         List<Study> studies = new ArrayList<>();
@@ -191,14 +123,21 @@ public class KaiserParticipantService extends ParticipantServiceImpl implements 
     @Override
     public void saveNew(Participant p, HttpSession session) throws MissingEligibilityException {
 
+        Study study = p.getStudy();
+        String condition = (String)session.getAttribute("condition");
 
+        // Set the participant's condition based on the session attribute.
+        study.setConditioning(condition);
 
-        // Set the participants condition based on the session attribute.
-        p.getStudy().setConditioning((String)session.getAttribute("condition"));
-        save(p); // Just save the participant
-
-
-
+        // Update ability to receive gift cards, based on condition
+        if (!condition.contains("BONUS")) {
+            p.setReceiveGiftCards(false);
+            study.setReceiveGiftCards(false);
+        } else {
+            p.setReceiveGiftCards(tangoService.getEnabled());
+            study.setReceiveGiftCards(tangoService.getEnabled());
+        }
+        save(p);
         // Generally we would connect any elegibility scores back to the participant at this point, but kaiser does not have this issue.
     }
 }

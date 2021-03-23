@@ -5,8 +5,6 @@
 
 <body style="font-family: 'Source Sans Pro', sans-serif; font-size:20px; box-sizing:border-box; background-color: #FFF">
 
-<div id="body_style" style="padding:15px">
-
 	<table cellpadding="0" cellspacing="0" width="600" align="center" style="margin-top:20px" th:fragment="logoFragment">
 		<tr>
 			<td width="600">
@@ -17,8 +15,6 @@
 			</td>
 		</tr>
 	</table>
-
-	<table cellpadding="0" cellspacing="0" width="400" align="center" th:include="fragment/email :: logoFragment"/>
 
 	<table cellpadding="0" cellspacing="0" width="600" align="center" style="margin-top:20px">
 		<tr>
@@ -41,7 +37,7 @@
 					Now that you've completed the MindTrails program, you'll be asked to <b>complete the two- and six-month follow-up surveys</b>. Along with your progress during the training, these follow-up surveys will help us to understand whether MindTrails has lasting effects. We'll send you reminder emails to let you know when the two- and six-month follow-up surveys are ready. We'll also share steps on how to complete them.</p>
 				<p  style="margin-top:5px">
 
-				During the time between the surveys, we'll be sending you <b>newsletters like this one</b>. These newsletters will cover information like meeting the MindTrails team, myths and misconceptions about anxiety, and more. If you <b>do not</b> want to receive these newsletters, you can opt out of email communications <a href=https://mindtrails.virginia.edu/calm/account>here</a>.
+				During the time between the surveys, we'll be sending you <b>newsletters like this one</b>. These newsletters will cover information like meeting the MindTrails team, myths and misconceptions about anxiety, and more. If you <b>do not</b> want to receive these newsletters, you can opt out of email communications <a href="https://mindtrails.virginia.edu/calm/account">here</a>.
 				</p>
 				<br/>
 				<h2 style="margin-top:20px; margin-bottom:10px">
@@ -66,7 +62,7 @@
 				<br/>
 				<h2 style="margin-top:20px; margin-bottom:10px">References</h2>
 				<p  style="margin-top:5px">
-					Princing, McKenna (2018, October 24). <i>Is Watching Horror Movies Bad for Your Mental Health?</i> Right as Rain by UW Medicine.<br><a href="https://rightasrain.uwmedicine.org/life/leisure/horror-movies-mental-health">https://rightasrain.uwmedicine.org/life/leisure/horror-movies-mental-health</a>
+					Princing, McKenna (2018, October 24). <i>Is Watching Horror Movies Bad for Your Mental Health?</i> Right as Rain by UW Medicine.<br/><a href="https://rightasrain.uwmedicine.org/life/leisure/horror-movies-mental-health">https://rightasrain.uwmedicine.org/life/leisure/horror-movies-mental-health</a>
 				</p>
 
 				<p style="margin-top:20px; font-size:.9em; text-align:left; padding-top: 4px" >
@@ -81,12 +77,11 @@
 					can manage your contact preferences, or exit the study at any time by visiting your
 					<a th:href="${url} + '/account'">Account Settings.</a></p>
 
+				<div id="footer" class="clearfix" th:fragment="footerFragment"/>
+
 			</td>
 		</tr>
 	</table>
 
-	<p style="margin-top:0"></p>
-
-</div>
 </body>
 </html>

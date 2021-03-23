@@ -21,6 +21,18 @@ public class Evaluation extends LinkedQuestionnaireData {
     @NotNull
     private Integer sessionDuration;
 
+    @NotNull
+    private Integer talkedProvider;
+
+    private String whoMentioned;
+    private String otherWhoMentioned;
+    private Integer helpfulTalk;
+    @Lob  /// Allow them to enter more than 255 characters!
+    private String talkedAbout;
+
+    @NotNull
+    private Integer usefulAddition;
+
     @ElementCollection
     @CollectionTable(name= "evaluation_preferredPlatform", joinColumns = @JoinColumn(name="id"))
     @Column(name = "preferredPlatform")
@@ -99,30 +111,9 @@ public class Evaluation extends LinkedQuestionnaireData {
     private List<String> places;
     private String otherPlace;
 
-    @Column(name="evalCondition") // 'Condition' is a reserved word in some databases.
     @NotNull
-    private Integer condition = 999;  // 999 = No longer collected
+    private Integer receivedTelecoaching;
 
-    //This should only be @NotNull if condition is is 1, when the person thinks they were in the control group...
-    private Integer whenCondition;
-
-    @ElementCollection
-    @CollectionTable(name = "evaluation_reasonsControl", joinColumns = @JoinColumn(name = "id"))
-    @Column(name = "reasonsControl")
-    private List<String> reasonsControl;
-    private String otherReasonControl;
-
-    @ElementCollection
-    @CollectionTable(name = "evaluation_howLearn", joinColumns= @JoinColumn(name = "id"))
-    @Column(name = "howLearn")
-    private List<String> howLearn;
-    private String howLearnOtherLink;
-    private String howLearnOther;
-
-    @NotNull
-    private Integer receivedTelecoaching = 999; // 999 = No longer collected
-
-    // The following three should only be @NotNull if receivedCoaching is 1
     private Integer coachExperience;
     private Integer coachUnderstood;
     private Integer coachMotivate;
@@ -133,6 +124,7 @@ public class Evaluation extends LinkedQuestionnaireData {
     private List<String> helpTopics;
     private String otherHelpTopic;
 
+    @Lob
     private String otherCoaching;
 
     @Override

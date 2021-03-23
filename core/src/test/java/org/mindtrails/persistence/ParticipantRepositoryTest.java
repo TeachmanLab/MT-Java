@@ -60,6 +60,12 @@ public class ParticipantRepositoryTest {
 
     }
 
+    @Test
+    public void testDateCreatedIsSetOnCreation() {
+        Participant p;
+        p = new Participant("Dan Funk", "daniel.h.funk@gmail.com", false);
+        Assert.assertNotNull(p.getDateCreated());
+    }
 
     @Test
     @Transactional

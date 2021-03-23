@@ -21,7 +21,9 @@
             </div>
             <div class="col-md-8">
                 <h2 class="page-title heading-icon">Verify Your Phone Number</h2>
-                <p>The code you entered was <b>incorrect</b>. You are welcome to try again:</p>
+                <p>The code you entered was <b>incorrect</b>. You can re-enter your phone number here:</p>
+
+
                 <form action="#" th:action="@{/account/updateWrongCode}"  th:object="${participant}"  method="post">
 
                     <div class="row">
@@ -93,8 +95,6 @@
                         <div class="col-md-12">
                                 <div class="row" style="padding-left: 15px;">
                                     <br></br>
-                                    <p>If you choose to skip this step, you can always
-                                        verify your phone number later.</p>
                                 </div>
                                 <div class="row" style="padding-left: 15px;">
                                     <a th:href="@{/account/theme}"><button>Skip</button> </a>

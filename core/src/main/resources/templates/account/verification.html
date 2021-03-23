@@ -22,7 +22,8 @@
             </div>
             <div class="col-md-8">
                 <h2 class="page-title heading-icon">Verify Your Phone Number</h2>
-                <p>We just sent you a text message with a <b>six digit</b> code. When you receive the code, please enter it in the field below and click the "Verify" button.</p>
+                <p>To receive an e-gift card after you complete the first session, we need to verify your phone number.</p>
+                <p>We just sent you a text message with a <b>six digit</b> code to the phone number assigned to your account. When you receive the code, please enter it in the field below and click the "Verify" button.</p>
                 <form action="#" th:action="@{/account/updateVerification}" method="post">
                     <div class="row">
                         <div class="col-md-8">
@@ -37,13 +38,10 @@
                     </div>
                 </form>
                 <br></br>
-                <!-- 2020-08-26: Section disabled after we removed the 'Verify Phone' link in the menu bar
+
                 <div class="row">
                     <div class="col-md-10">
                         <div class="row">
-                                <div class="row" style="padding-left: 30px;">
-                                <p>If you choose to skip this step, you can always verify your phone number later.</p>
-                            </div>
                                 <div class="row" style="padding-left: 30px;">
                                 <a th:href="@{/account/theme}"><button>Skip</button> </a>
                             </div>
@@ -51,7 +49,7 @@
                         </div>
 
             </div>
-                -->
+
         </div>
     </div>
     </div>
