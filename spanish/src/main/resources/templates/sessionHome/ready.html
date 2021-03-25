@@ -21,14 +21,34 @@
 
             <div class="col-md-8 session">
 
+                <!--Start, Session 1-->
                 <div th:if="${currentSession.index} == 0">
-                    <h2><b><span th:text="${participant.fullName}">Jim</span>, you're ready to
-                        begin your initial assessment.</b></h2>
+                    <h2><b><span th:text="${participant.fullName}">Jim</span>
+                        <span th:text="#{start.p1a}">, you're ready to begin Session 1.</span></b></h2>
                     <br></br>
-                    <p>This is an information-gathering section that will take
-                        approximately <span th:text="${currentSession.duration}">20</span> minutes to complete.</p>
+                    <p><b><span th:text="${start.p2}">This includes:</span></b></p>
+                    <img th:with="url=(|/images/clock-20-${participant.theme}.png|)" th:src="@{${url}}" alt="icon" padding-bottom="15px"/>
+                    <p> <span style="font-family:Wingdings">&#9745;</span> <span th:text="${start.p3a}">A 15 minute initial assessment</span></p>
+                    <img th:with="url=(|/images/clock-20-${participant.theme}.png|)" th:src="@{${url}}" alt="icon"/>
+                    <p> <span style="font-family:Wingdings">&#9745;</span> <span th:text="${start.p3b}">A 15 to 20-minute training session</span></p>
+                    <br></br>
                 </div>
 
+                <!--Start, Session 2-->
+                <div th:if="${currentSession.index} == 1">
+                    <h2><b><span th:text="#{welcome}">Welcome back</span> <span th:text="${participant.fullName}">Jim</span>
+                        <br></br>
+                        <span th:text="#{start.p1b}">You're ready to begin Session 2.</span></b></h2>
+                    <br></br>
+                    <p th:text="${start.p2}"><b>This includes:</b></p>
+                    <img th:with="url=(|/images/clock-20-${participant.theme}.png|)" th:src="@{${url}}" alt="icon"/>
+                    <p> <span style="font-family:Wingdings">&#9745;</span> <span th:text="${start.p3b}">A 15 to 20-minute training session</span></p>
+                    <img th:with="url=(|/images/clock-20-${participant.theme}.png|)" th:src="@{${url}}" alt="icon" padding-bottom="15px"/>
+                    <p> <span style="font-family:Wingdings">&#9745;</span> <span th:text="${start.p3c}">A 15 minute followup assessment</span></p>
+                    <br></br>
+                </div>
+
+                <!--
                 <div th:if="${currentSession.name == 'PostFollowUp'} ">
                     <h2 th:if="#{participant.study.index == 0}"><b>Welcome back <span
                             th:text="${participant.fullName}">Jim</span>.</b>
@@ -39,7 +59,9 @@
                     <img th:with="url=(|/images/clock-1-${participant.theme}.png|)" th:src="@{${url}}" alt="icon"/>
                     <p>A brief follow-up</p>
                 </div>
+                -->
 
+                <!--
                 <div th:if="${currentSession.index &gt; 0 and currentSession.name != 'PostFollowUp'}" >
                     <h2 th:if="#{currentSession.index == 0}"><b>Nice work, <span
                             th:text="${participant.fullName}">Jim</span>.</b>
@@ -56,22 +78,25 @@
                     <p> <span style="font-family:Wingdings">&#9745;</span> A brief follow-up</p>
                     <br></br>
                 </div>
+                -->
 
-
+                <!--
                 <div th:if="${giftAwarded}">
                     <h3>Congratulations! You have earned a $20 e-gift card.</h3> You will receive your e-gift card by email along with information on how
                     to redeem it – please wait up to two business days for receipt of this email.
                 </div>
-                <p th:text="#{start.p4}" class="session-note">For best results, complete <span th:text="${currentSession.displayName}"/> by
+                -->
+
+                <p th:text="#{start.p4}" class="session-note">For best results, complete Session 2 by
                     <br/><b><span class="date" th:text="${completeBy}">July 10, 2015</span>.</b>
                 </p>
                 <br></br>
                 <a th:href="@{${currentTask.requestMapping}}" th:if="${currentTask}">
-                    <button>Start</button>
+                    <button th:text="#{start}">Start</button>
                 </a>
                 <p>
                     <br></br>
-                <a th:href="@{/session/overview}" th:unless="${currentSession.name =='PRE'}">Program Overview</a>
+                <a th:href="@{/session/overview}" th:unless="${currentSession.name =='PRE'}" th:text="#{programOverview}">Program Overview</a>
                 </p>
             </div>
         </div>

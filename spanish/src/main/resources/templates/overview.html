@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="fragment/common :: headerFragment"/>
+<body th:class="|user-theme-${participant.theme}|">
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
+
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <img th:src="@{/images/map-arrow-orange.png}" alt="icon" class="icon-small-bg"/>
+                <h2><font color="#00ACE4"><b><span th:text="#{overview.title}">Overview for</span> <span th:text="${participant.fullName}"/></b></font></h2>
+
+                <span th:text="#{overview.p1a}">Review your progress below. You must wait a minimum of 5 days between
+                    levels. We encourage you to begin each new level about one week after completing the previous
+                    one.
+                    This will give you a chance to practice the new thinking style between sessions.
+                    When you're done reviewing, head back to</span> <a th:text="#{overview.link}" th:href="@{/session}">home</a>
+                <span th:text="#{overview.p1b}"> to start your next
+                    session.</span>
+            </div>
+        </div>
+
+        <div th:each="session,iterStat : ${study.sessions}"
+             th:unless="${session.name == 'COMPLETE' || session.name == 'ELIGIBLE'}">
+
+            <div class="row sessionGrouping">
+
+                <div class="col-md-2" th:if="${session.index} &lt; ${iterStat.size} - 2">
+                    <img class="sessionMarker"
+                         th:src="@{'/images/marker-'+${session.index}+'-'+${participant.theme}+'.png'}"/>
+                </div>
+                <div class="col-md-2 sessionMarker" th:unless="${session.index} &lt; ${iterStat.size} - 2">
+                    <img class="sessionMarker" th:src="@{'/images/marker-0-'+${participant.theme}+'.png'}"/>
+                </div>
+                <div class="col-md-6">
+                    <div class="sessionOverview">
+                        <h3 th:text="${session.displayName}">Session Title</h3>
+                        <div class="row sessionOverviewTable" th:each="task : ${session.tasks}"
+                             th:if="${task.duration} > 0">
+                            <div class="col-md-6 sessionTitle" th:text="${task.displayName}">Session Title</div>
+                            <div class="col-md-6" th:if="${task.dateCompleted}">
+                                <img th:src="@{'/images/check-'+${participant.theme}+'.png'}"/>
+                                <span th:text="${#calendars.format(task.dateCompleted,'YYYY-MM-dd')}">10/05/2015</span>
+                            </div>
+                            <div class="col-md-6 date" th:unless="${task.dateCompleted}"
+                                 th:text="'Est. ' + ${task.duration} + ' min. duration'">Est. 2 min. duration
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p class=""
+                               th:if="${iterStat.index &lt; iterStat.size and study.sessions[iterStat.index + 1].daysToWait > 0}">
+                                <span th:text="#{overview.p3a}">Allow at least</span> <span th:text="${study.sessions[iterStat.index + 1].daysToWait}"/>
+                                <span th:text="#{overview.p3b}">days to start the following session.</span></p>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2" th:if="${giftcardsEnabled and session.giftAmount > 0}">$<span th:text="${session.giftAmount}"/>
+                    <span th:text="#{overview.giftcard}">E-Gift Card!</span>
+                    <img th:src="@{/images/gift_card.png}"/>
+                </div>
+            </div>
+        </div>
+
+        <!--
+        <p class="allow2days"
+           th:if="${iterStat.index &lt; iterStat.size and study.sessions[iterStat.index + 1].daysToWait > 0}">
+            Allow <span th:text="${study.sessions[iterStat.index + 1].daysToWait}"/> to
+            <span th:text="${study.sessions[iterStat.index + 1].daysToWait + 1}"/>
+            days between each session.</p>
+        -->
+        <!--
+        <div class="row">
+            <div class="col-md-8">
+                <p th:if="${complete}">You can now <a th:href="@{/graph}">review your progress</a> through the study, to see how
+                    you performed, and find out if you were part of the control group, or if you received the full treatment.</p>
+
+                <p th:unless="${complete}">Once you're done with all the sessions, you can get feedback on your progress.</p>
+                <p>Head back <a th:href="@{/session}">home</a>.</p>-->
+            </div>
+
+ </section>
+
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>

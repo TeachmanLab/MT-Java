@@ -18,19 +18,21 @@
         <div class="row">
             <div class="col-md-8">
 
-                    <p>You have now exited the study. It would help us a great deal to
-                        learn why you chose not to complete the study. Please click on Exit
-                        Survey button below to provide your valuable feedback.</p>
+                    <p th:text="#{exitStudy}">You have now exited the study. Thank you for your participation.</p>
 
+                <!--
                     <a th:href="@{/questions/ReasonsForEnding}">
                     <button>Exit Survey</button>
                     </a>
+                    -->
+
                 <br></br>
                 <br></br>
             </div>
         </div>
     </div>
 </section>
+
 <section id="contentTest" class="clearfix">
     <div class="container">
         <div class="row">
@@ -93,6 +95,7 @@
                         thoughts or mood, please visit this page.</li>
                 </ul>
                 <br></br>
+                <!--
                 <section th:if="${isExiting==true}">
                 <p>To provide your valuable feedback, please click on Exit Survey button below:</p>
 
@@ -101,7 +104,11 @@
                 </section>
                 <br></br>
                 <br></br>
+                -->
+
+                <!--
                 <p align="center"><b>Thank you again for your participation.</b></p>
+                -->
 
             </div>
         </div>

@@ -273,6 +273,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
+                <!--
                 <h2><font color="#00ACE4"><b>Select Your Theme</b></font></h2>
                 <p>To customize the appearance of MindTrails, select one of the options below. You can change your
                     theme at any time by clicking "My Account" and then "Account Settings" in the menu bar above. </p>
@@ -374,13 +375,13 @@
                                 <img th:src="@{/images/settings-gold-sm.png}" alt="gold Theme"/>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
-            </label>
         </div>
-        <button>Update</button>
+        <button th:text="#{update}">Update</button>
     </div>
 </section>
+
 <script type="text/javascript">
     function Verify(){
         if (document.getElementById("receiveGiftCards").checked) {

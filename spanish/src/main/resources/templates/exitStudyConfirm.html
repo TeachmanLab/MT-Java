@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<!--<![endif]-->
+<head th:include="fragment/common :: headerFragment" />
+<body>
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment" />
+<section th:include="fragment/common :: titleBar (title=#{exitStudyConfirm.title})"/>
+
+
+
+<!-- content starts
+================================================== -->
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+            <div id="dialog" title="Are you sure you want to permanently leave the study?">
+                <p th:text="#{exitStudyConfirm.p1}">Thank you for your participation in the MindTrails study. Before you decide to exit, please let us know if there are
+                    questions or concerns we can address &mdash; we are very interested in making this study work for all
+                    who have kindly agreed to participate, so let us know if we can help make it work for you.</p>
+                <br></br>
+                <p><b><span th:text="#{exitStudyConfirm.p2}">Are you sure you wish to exit the MindTrails study?</span></b></p>
+
+                <a th:href="@{'/account/exitStudy'}">
+                    <button th:text="#{exitStudyConfirm.yes}">Yes</button>
+                </a>
+                <a th:href="@{'/session'}">
+                    <button th:text="#{exitStudyConfirm.no}">No</button>
+                </a>
+                <br></br>
+                <br></br>
+                <p th:text="#{exitStudyConfirm.p3}">Alternatively, you can send a message to the MindTrails team:</p>
+                <a href="mailto:studyteam@mindtrails.org">
+                    <button th:text="#{exitStudyConfirm.email}">Send Email</button>
+                </a>
+            </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts" />
+
+</body>
+</html>
