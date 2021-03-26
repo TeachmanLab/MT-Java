@@ -33,6 +33,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private ParticipantRepository participantRepository;
 
+    @Autowired
+    private LocaleSettingAuthenticationSuccessHandler localeHandler;
+
     /**
      * Checks database for user details
      */
@@ -88,7 +91,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Configuration
     @Order(3)
-    public static class FormWebSecurityConfig extends WebSecurityConfigurerAdapter{
+    public class FormWebSecurityConfig extends WebSecurityConfigurerAdapter{
 
         /**
          * Poke a hole completely through to allow posting to the data endpoint
@@ -124,6 +127,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .defaultSuccessUrl("/session")
                         .loginPage("/login")
                         .permitAll()
+                        .successHandler(localeHandler)
                         .and()
                     .logout()
                         .permitAll();

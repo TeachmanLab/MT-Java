@@ -47,9 +47,9 @@
                     <h2 th:unless="#{currentSession.index == 0}"><b>Welcome back <span
                             th:text="${participant.fullName}">Jim</span>.</b>
                     </h2>
-                    <p th:text="${start.p1b}">You are ready to begin <span th:text="${currentSession.displayName}"/>!</p>
+                    <p th:text="#{start.p1b}">You are ready to begin <span th:text="${currentSession.displayName}"/>!</p>
                     <br></br>
-                    <p th:text="${start.p2}"><b>This includes:</b></p>
+                    <p th:text="#{start.p2}"><b>This includes:</b></p>
                     <img th:with="url=(|/images/clock-20-${participant.theme}.png|)" th:src="@{${url}}" alt="icon" padding-bottom="15px"/>
                     <p> <span style="font-family:Wingdings">&#9745;</span> A 20 to 30-minute training session</p>
                     <img th:with="url=(|/images/clock-1-${participant.theme}.png|)" th:src="@{${url}}" alt="icon"/>

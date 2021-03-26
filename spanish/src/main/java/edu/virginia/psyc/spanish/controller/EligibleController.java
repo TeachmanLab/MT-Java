@@ -1,5 +1,6 @@
 package edu.virginia.psyc.spanish.controller;
 
+import edu.virginia.psyc.spanish.domain.SpanishStudy;
 import edu.virginia.psyc.spanish.persistence.DASS21_AS;
 import edu.virginia.psyc.spanish.persistence.DASS21_ASRepository;
 import edu.virginia.psyc.spanish.persistence.OA;
@@ -14,13 +15,18 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.LocaleResolver;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Set;
 
 
@@ -44,6 +50,15 @@ public class EligibleController extends BaseController {
     @Autowired
     private ParticipantService participantService;
 
+    @Autowired
+    private HttpServletRequest request;
+
+    @Autowired
+    private HttpServletResponse response;
+
+    @Autowired
+    private LocaleResolver localeResolver;
+
 
     private Validator validator;
 
@@ -55,13 +70,45 @@ public class EligibleController extends BaseController {
 
 
     @RequestMapping("public/eligibility")
-    public String showEligibility(ModelMap model) {
-        // Template will set a difference form action if this variable is set to true.
-        OA oa = new OA();
-        model.addAttribute("model", oa);
-        model.addAttribute("eligibility", true);
-        return "questions/OA";
+    public String showEligibility(ModelMap model,
+                                  HttpSession session,
+                                  final @RequestParam(value = "condition", required = false) String conditionCode) {
+
+        if (conditionCode == null || conditionCode.length() == 0) {
+            return "inviteOnly";
+        }
+
+        // Check if one of the randomization conditions
+        // Protects against someone trying to join study without being randomized
+        boolean isAllowableCondition = SpanishStudy.conditionMappings.containsKey(conditionCode);
+        if (!isAllowableCondition) {
+            return "inviteOnly";
+        } else {
+            // store condition as session attribute then
+            // continue into the eligibility process.
+            SpanishStudy.CONDITION condition = SpanishStudy.conditionMappings.get(conditionCode);
+            session.setAttribute("condition", condition.name());
+
+            // Use the condition to set the language
+            updateLanguage(condition);
+
+            // Present the form
+            OA oa = new OA();
+            model.addAttribute("model", oa);
+            model.addAttribute("eligibility", true);
+            return "questions/OA";
+        }
     }
+
+    private void updateLanguage(SpanishStudy.CONDITION condition) {
+
+        Locale locale = Locale.US;
+        if(condition != SpanishStudy.CONDITION.ENGLISH) {
+            locale = new Locale("es");
+        }
+        localeResolver.setLocale(request, response, locale);
+    }
+
 
 
     @RequestMapping(value = "public/eligibilityCheck", method = RequestMethod.POST)

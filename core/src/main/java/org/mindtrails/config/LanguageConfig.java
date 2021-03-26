@@ -1,5 +1,7 @@
 package org.mindtrails.config;
 
+import org.mindtrails.persistence.ParticipantRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -12,13 +14,16 @@ import java.util.Locale;
 @Configuration
 public class LanguageConfig extends WebMvcConfigurerAdapter {
 
+    @Autowired
+    private ParticipantRepository participantRepository;
+
     @Bean
     public SessionLocaleResolver localeResolver() {
         SessionLocaleResolver sessionLocaleResolver = new SessionLocaleResolver();
         sessionLocaleResolver.setDefaultLocale(Locale.US);
         return sessionLocaleResolver;
-    }
 
+    }
 
     @Bean
     public LocaleChangeInterceptor localeChangeInterceptor() {

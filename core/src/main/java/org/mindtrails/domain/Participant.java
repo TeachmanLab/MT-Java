@@ -74,6 +74,7 @@ public class Participant implements UserDetails, HasStudy {
     protected String awardCountryCode = "US";
     @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ")
     private Date dateCreated = new Date();
+    private String language = "en";  // Preferred language, should be either "en" or "es" for spanish
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore

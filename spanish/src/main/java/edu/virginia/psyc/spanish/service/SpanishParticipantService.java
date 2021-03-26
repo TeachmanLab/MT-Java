@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.LocaleResolver;
 
 import javax.servlet.http.HttpSession;
 import java.util.*;
@@ -45,6 +46,9 @@ public class SpanishParticipantService extends ParticipantServiceImpl implements
 
     @Autowired
     RandomConditionRepository randomBlockRepository;
+
+    @Autowired
+    private LocaleResolver localeResolver;
 
 
     @Autowired
@@ -94,22 +98,73 @@ public class SpanishParticipantService extends ParticipantServiceImpl implements
 
     @Override
     public boolean isEligible(HttpSession session) {
+
         // Safeguard in case someone finds the original account creation path, account/create
         // This will kick them back into the AccountController, which is set to redirect to the eligibilityCheck,
         // which simply produces an error for the Kaiser study.
         if (session.getAttribute("condition") == null) {
             return false;
         }
-        return true; 
+        DASS21_AS dass = dass21RRepository.findFirstBySessionIdOrderByDateDesc(session.getId());
+        OA oa = oaRepository.findFirstBySessionIdOrderByDateDesc(session.getId());
+        if (!dass.getOver18().equals("true")) return false;
+        if (dass.eligible()) return true;
+        return oa.eligible();
     }
 
     @Override
     public void saveNew(Participant p, HttpSession session) throws MissingEligibilityException {
 
+        // Get the condition from the session.
+        String condition = (String)session.getAttribute("condition");
+        Locale locale;
+
         // Set the participants condition based on the session attribute.
-        p.getStudy().setConditioning((String)session.getAttribute("condition"));
+        p.getStudy().setConditioning(condition);
+
+        // Update the participants language based on the condition.
+        if(condition == SpanishStudy.CONDITION.ENGLISH.toString()) {
+            locale = new Locale("en");
+        } else {
+            locale = new Locale("es");
+        }
+        p.setLanguage(locale.toString());
+
+        // Now that p is saved, connect any Expectancy Bias eligibility data back to the
+        // session, and log it in the TaskLog.  Update the date time so that it is
+        // properly picked up in the export routine.
+        List<DASS21_AS> dass_list = dass21RRepository.findBySessionId(session.getId());
+        if(dass_list.size() < 1) {
+            throw new MissingEligibilityException();
+        }
+
+        List<OA> oa_list = oaRepository.findBySessionId(session.getId());
+        if(oa_list.size() < 1) {
+            throw new MissingEligibilityException();
+        }
+
+        save(p);
+        SpanishStudy study = (SpanishStudy) p.getStudy();
+
+        for (DASS21_AS e : dass_list) {
+            e.setParticipant(p);
+            e.setSession(ELIGIBLE_SESSION);
+            e.setDate(new Date());
+            dass21RRepository.save(e);
+            study.completeEligibility(e);
+        }
+
+        for (OA oa : oa_list) {
+            oa.setParticipant(p);
+            oa.setSession(ELIGIBLE_SESSION);
+            oa.setDate(new Date());
+            oaRepository.save(oa);
+            study.completeEligibility(oa);
+        }
+
         save(p); // Just save the participant
 
-        // Generally we would connect any elegibility scores back to the participant at this point, but kaiser does not have this issue.
     }
+
+
 }

@@ -4,6 +4,7 @@ import lombok.Data;
 import org.mindtrails.domain.BaseStudy;
 import org.mindtrails.domain.Session;
 import org.mindtrails.domain.Task;
+import org.mindtrails.domain.questionnaire.QuestionnaireData;
 import org.mindtrails.domain.tracking.TaskLog;
 
 import javax.persistence.DiscriminatorValue;
@@ -22,7 +23,7 @@ import java.util.stream.Stream;
 public class SpanishStudy extends BaseStudy {
 
     public enum CONDITION {ENGLISH, SPANISH, SPANISH_FLUENT}
-    public static Map<String, Enum<?>> conditionMappings = new HashMap<String, Enum<?>>();
+    public static Map<String, CONDITION> conditionMappings = new HashMap<String, CONDITION>();
 
     public enum SESSION { firstSession, secondSession }
 
@@ -46,6 +47,15 @@ public class SpanishStudy extends BaseStudy {
         super(currentSession, taskIndex, lastSessionDate, taskLogs, receiveGiftCards);
     }
 
+    public void completeEligibility(QuestionnaireData q) {
+        TaskLog t = new TaskLog();
+        t.setDateCompleted(q.getDate());
+        t.setTaskName(q.getClass().getSimpleName());
+        t.setSessionName("Eligibility");
+        t.setStudy(this);
+        t.setTimeOnTask(q.getTimeOnPage());
+        taskLogs.add(t);
+    }
 
     @Override
     /** Check out the Templeton Study for building a more complex setup. */
