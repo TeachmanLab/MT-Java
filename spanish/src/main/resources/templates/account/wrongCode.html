@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="fragment/common :: headerFragment"/>
+<body >
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
+
+<!--<![endif]-->
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <img th:src="@{/images/map-arrow-orange.png}" alt="icon" class="icon-small-bg"/>
+            </div>
+            <div class="col-md-8">
+                <h2 th:text="${verification.title}" class="page-title heading-icon">Verify Your Phone Number</h2>
+                <span th:text="${verification.p3a}">The code you entered was</span> <span th:text="${verification.p3b}"><b>incorrect</b></span>
+                <span th:text="${verification.p3c}">. You can re-enter your phone number here:</span>
+
+
+                <form action="#" th:action="@{/account/updateWrongCode}"  th:object="${participant}"  method="post">
+
+                    <div class="row">
+                        <div th:if="${invalidPhone}" class="alert alert-success">
+                            <span th:text="${verification.p4}">This phone number already exists, please use another one.</span>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="row">
+                            <!-- <input type="tel" id="phone"> -->
+                            <!--
+                            <input class="form-control" type="tel" id="phone" name="phone" th:errorclass="error"
+                                   th:field="*{phone}"/>
+                            -->
+                                <div class="col-md-5">
+                            <input type="hidden" name="phoneCountry" id="phoneCountry"/>
+                            <div id="result">
+                                <input class="form-control input-lg" style="font-size:20px;" maxlength="15" name="phone" id="phone" type="tel" th:field="*{phone}"/>
+                            </div>
+                            <script th:src="@{/bower/intl-tel-input/build/js/intlTelInput.js}"></script>
+                                <script>
+                                    var telInput = $("#phone");
+                                    // initialise plugin
+                                    telInput.intlTelInput({
+                                        utilsScript:"https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.1.4/css/intlTelInput.css"
+                                    });
+
+                                    // on blur: validate
+                                    telInput.blur(function() {
+                                        var phoneReminders = $("#phoneReminders");
+                                        var countryData = $("#phone").intlTelInput("getSelectedCountryData");
+                                        if (countryData.iso2 != "us") {
+                                            phoneReminders.attr('checked', false);
+                                            phoneReminders.prop('disabled', true);
+                                            $("#noTexts").show();
+                                            $("#yesTexts").hide();
+                                        } else {
+                                            phoneReminders.prop('disabled', false);
+                                            phoneReminders.attr('checked', true);
+                                            $("#noTexts").hide();
+                                            $("#yesTexts").show();
+                                        }
+                                    });
+
+                                </script>
+
+
+
+                        <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Phone Error</span>
+                                </div>
+                            </div>
+                            <div class="row" style="padding-left: 15px;"><span class="pull-left"><button id="subPhone" type="submit" name="sub" value="subPhone" >Send</button></span>
+                            </div>
+                        </div>
+                            </div>
+                    <br></br>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="row" style="padding-left: 15px;">
+                                <p>Or you can re-enter your verification code:&nbsp;&nbsp;</p>
+                                <input class="input-lg" style="font-size:30px;" id="verifycode" type="text" maxlength="6" size="2" name="verifycode"/></div>
+                                <div class="row" style="padding-left: 15px;"><span class="pull-left"><button id="subCode" type="submit"
+                                                                                                             disabled="disabled" name="sub"
+                                                                                                             value="subCode">Verify</button></span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                    <div class="row">
+                        <div class="col-md-12">
+                                <div class="row" style="padding-left: 15px;">
+                                    <br></br>
+                                </div>
+                                <div class="row" style="padding-left: 15px;">
+                                    <a th:href="@{/account/theme}"><button>Skip</button> </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+        </div>
+</section>
+
+<script th:inline="javascript">
+
+    $("#verifycode").keyup(function() {
+            if (document.getElementById("verifycode").value.length == 6) {
+                $('#subCode').removeAttr('disabled');
+            }
+            else {
+                $('#subCode').attr('disabled', 'disabled');
+            }
+        }
+    )
+
+</script>
+
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>
+

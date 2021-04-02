@@ -89,6 +89,22 @@ public class Evaluation extends LinkedQuestionnaireData {
     private String problemsDesc;
 
     @NotNull
+    @MeasureField(order = 18, desc = "Support from a trained mental health professional (e.g., therapist, counselor, psychiatrist, social worker, etc.)", group = "block3")
+    private Integer mhProfessional;
+    @NotNull
+    @MeasureField(order = 19, desc = "Support from a digital intervention (e.g., MindTrails or another website or application)", group = "block3")
+    private Integer digital;
+    @NotNull
+    @MeasureField(order = 20, desc = "Support from a non-professional (e.g., religious or spiritual leader, close friend, family member)", group = "block3")
+    private Integer nonProfessional;
+    @NotNull
+    @MeasureField(order = 21, desc = "Support that is self-guided and does not involve others (e.g., self-help book)", group = "block3")
+    private Integer self;
+
+    @MeasureField(order = 22, desc = "Support that is self-guided and does not involve others (e.g., self-help book)", group = "block4")
+    private Integer technology;
+
+    @NotNull
     private String idealSessions;
     @NotNull
     private Integer similarProgram;
@@ -106,14 +122,45 @@ public class Evaluation extends LinkedQuestionnaireData {
     private Integer condition = 999;  // 999 = No longer collected
 
     @Override
+    public Map<String, String> getGroupDescriptions() {
+        Map<String, String> desc = new TreeMap<>();
+        desc.put("support", "x");
+        return Collections.unmodifiableMap(desc);
+    }
+
+    @Override
     public Map<Integer, String> getScale(String group) {
         Map<Integer, String> tmpScale = new TreeMap<>();
-            tmpScale.put(1, "evaluation.not_at_all");
-            tmpScale.put(2, "evaluation.slightly");
-            tmpScale.put(3, "evaluation.somewhat");
-            tmpScale.put(4, "evaluation.mostly");
-            tmpScale.put(5, "evaluation.very");
-
+        switch (group) {
+            case ("block1"):
+                tmpScale.put(1, "evaluation.not_at_all");
+                tmpScale.put(2, "evaluation.slightly");
+                tmpScale.put(3, "evaluation.somewhat");
+                tmpScale.put(4, "evaluation.mostly");
+                tmpScale.put(5, "evaluation.very");
+                break;
+            case ("block2"):
+                tmpScale.put(1, "evaluation.not_at_all");
+                tmpScale.put(2, "evaluation.slightly");
+                tmpScale.put(3, "evaluation.somewhat");
+                tmpScale.put(4, "evaluation.mostly");
+                tmpScale.put(5, "evaluation.very");
+                break;
+            case ("block3"):
+                tmpScale.put(1, "evaluation.extremely_negative");
+                tmpScale.put(2, "evaluation.somewhat_negative");
+                tmpScale.put(3, "evaluation.neutral");
+                tmpScale.put(4, "evaluation.somewhat_positive");
+                tmpScale.put(5, "evaluation.extremely_positive");
+                break;
+            case ("block4"):
+                tmpScale.put(1, "evaluation.extremely_negative");
+                tmpScale.put(2, "evaluation.somewhat_negative");
+                tmpScale.put(3, "evaluation.neutral");
+                tmpScale.put(4, "evaluation.somewhat_positive");
+                tmpScale.put(5, "evaluation.extremely_positive");
+                break;
+        }
         return Collections.unmodifiableMap(tmpScale);
     }
 }

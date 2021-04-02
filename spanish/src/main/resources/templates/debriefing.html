@@ -11,7 +11,7 @@
 <head th:replace="fragment/common :: headerFragment"/>
 <body>
 <section th:replace="fragment/common :: topFragment"/>
-<section th:replace="fragment/common :: titleBar (title='Thank You for Participating')"/>
+<section th:replace="fragment/common :: titleBar (title=#{exitStudy.title})"/>
 
 <section th:if="${isExiting==true}">
     <div class="container">
@@ -37,62 +37,66 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                <span class="pull-right"><button onclick="window.print();">Print</button></span>
+                <span class="pull-right"><button onclick="window.print();" th:text="#{debriefing.print}">Print</button></span>
                 <br></br>
-                <h2 th:text="#{debriefing.title}">Debriefing</h2>
-                <h3 th:text="#{debriefing.name}">MindTrails Spanish Language Version</h3>
+                <p><b><h2 th:text="#{debriefing.title}">Debriefing</h2></b></p>
+                <p><b><h3 th:text="#{debriefing.name}">MindTrails Spanish Language Version</h3></b></p>
 
-                <p th:text="#{debriefing.p1}">We are studying new approaches to reduce anxiety. The approach used in the study is based on models of anxiety, which have shown that
+                <p th:text="#{debriefing.p1a}">We are studying new approaches to reduce anxiety. The approach used in the study is based on models of anxiety, which have shown that
                     anxious people tend to interpret ambiguous situations as threatening. It has been proposed that the tendency to interpret things in a threatening
                     way plays a role in the onset of, and recovery from, anxiety problems. Thus, during training, you were asked to read and imagine yourself in a
                     series of brief stories and the last word (or word fragment) gave almost all of the brief stories a positive meaning. We expect this will encourage
                     a more flexible and less negative thinking style.</p>
 
-                <p th:text="#{debriefing.p2}">>In the current study, we are evaluating a new version of our program that is specifically designed to meet the needs of individuals experiencing anxiety
+                <p th:text="#{debriefing.p1b}">>In the current study, we are evaluating a new version of our program that is specifically designed to meet the needs of individuals experiencing anxiety
                     who identify as Hispanic. We are offering the program in its original English form and also in a new Spanish form, and we are inviting some people to complete
                     the program who describe themselves as fluent in both English and Spanish, and other people who describe themselves as fluent in Spanish but not in English.
                     We are also testing whether different messages inviting people to participate in the program are more or less effective at encouraging people to enroll.
                     For instance, some people received an invitation to participate that emphasized how the program might help relieve physical symptoms of anxiety while other
                     people received an invitation to participate that emphasized how the program might help them enjoy more time with their family.</p>
 
-                <p th:text="#{debriefing.p3}">If you are interested in learning more about modifying thinking patterns, see the following
-                    websites:
+                <p th:text="#{debriefing.p1c}">If you are interested in learning more about modifying thinking patterns, see the following
+                    websites:</p>
                     <ul>
                         <li><a target="new" href="http://www.apa.org/monitor/2011/11/behavior-change.aspx">"Behavior change in 15-minute sessions?"
                         </a></li>
                         <li><a target="new" href="http://www.economist.com/node/18276234">"Therapist-free therapy"</a></li>
                     </ul>
-                </p>
 
                 <br></br>
-                <p><b>To obtain more information about the study, ask questions about the research procedures,
-                    express concerns about your participation, or report illness, injury or other problems, please contact:</b></p>
-                <p style="margin-left:50px">Tonya Moon, Chair, Institutional Review Board for the Social and Behavioral Sciences, One Morton Dr.
-                    Suite 500, University of Virginia, P.O. Box 800392, Charlottesville, VA 22908-0392. Telephone: (434)
-                    924-5999; Email: <a href="mailto:irbsbshelp@virginia.edu">irbsbshelp@virginia.edu</a>; Website:
-                    <a target="_new" href="www.virginia.edu/vprgs/irb">www.virginia.edu/vprgs/irb</a>.</p>
+                <b><span th:text="#{debriefing.p2a}">To obtain more information about the study, ask questions about the research procedures,
+                    express concerns about your participation, or report illness, injury or other problems, please contact:</span></b><br/>
+                    <span style="margin-left:50px">Tonya Moon, Chair, Institutional Review Board for the Social and Behavioral Sciences, One Morton Dr.
+                    Suite 500, University of Virginia, P.O. Box 800392, Charlottesville, VA 22908-0392.</span> <span th:text="#{debriefing.p2b}">Telephone:</span>
+                    (434) 924-5999; <span th:text="#{debriefing.p2c}">Email:</span> <a href="mailto:irbsbshelp@virginia.edu">irbsbshelp@virginia.edu</a>;
+                    <span th:text="#{debriefing.p2d}">Website:</span> <a target="_new" href="www.virginia.edu/vprgs/irb">www.virginia.edu/vprgs/irb</a>.
+                <br></br>
+                <br></br>
 
-                <p><b>You can also contact the Principal Investigator and the MindTrails team with any questions about this study:</b></p>
-                <p style="margin-left:50px;">Prof. Bethany Teachman, Department of Psychology, Millmont Building,
-                    1023 Millmont St, University of Virginia, Charlottesville, VA 22903. Telephone: (434) 924-0676; Email:
-                    <a href="mailto:studyteam@mindtrails.org">studyteam@mindtrails.org</a>.</p>
+                <b><p th:text="#{debriefing.p3}">You can also contact the Principal Investigator and the MindTrails team with any questions about this study:</p></b>
+                <span style="margin-left:50px;">Prof. Bethany Teachman, Department of Psychology, Millmont Building,
+                    1023 Millmont St, University of Virginia, Charlottesville, VA 22903.</span> <span th:text="#{debriefing.p2b}">Telephone:</span> (434) 924-0676;
+                    <span th:text="#{debriefing.p2c}">Email:</span> <a href="mailto:studyteam@mindtrails.org">studyteam@mindtrails.org</a>.
 
                 <br></br>
-                <p><b>For those seeking additional mental health help or advice:</b></p>
+                <br></br>
+
+                <b><span th:text="#{debriefing.p4a}">For those seeking additional mental health help or advice:</span></b>
                 <ul>
-                    <li>Do you need immediate help? If you are thinking about harming yourself or someone else,
-                        please tell someone who can help immediately:
+                    <li><span th:text="#{debriefing.p4b}">Do you need immediate help? If you are thinking about harming yourself or someone else,
+                        please tell someone who can help immediately:</span>
                         <ul style="list-style-type:disc;">
-                            <li>Call 911 for emergency services (in the United States)</li>
-                            <li>Go to a hospital emergency room</li>
-                            <li>Call the toll-free 24-hour hotline of National Suicide Prevention Lifeline at 1-800-273-TALK
+                            <li th:text="#{debriefing.p4c}">Call 911 for emergency services (in the United States)</li>
+                            <li th:text="#{debriefing.p4d}">Go to a hospital emergency room</li>
+                            <li th:text="#{debriefing.p4e}">Call the toll-free 24-hour hotline of National Suicide Prevention Lifeline at 1-800-273-TALK
                                 (1-800-273-8255) to be connected to a trained counselor at a crisis center near you</li>
                         </ul>
                     </li>
-                    <li>If you do not need immediate help, but would like to talk to someone about the problems you
-                        might be having, please go to the <a th:href="@{/public/resources}">Mental Health Resources</a> page on this site. Additionally, if you have any
+                    <li><span th:text="#{debriefing.p4f}">If you do not need immediate help, but would like to talk to someone about the problems you
+                        might be having, please go to the</span> <a th:href="@{/public/resources}" th:text="#{debriefing.p4g}">Mental Health Resources</a>
+                        <span th:text="#{debriefing.p4h}"> page on this site. Additionally, if you have any
                         questions concerning mental health issues in general or feel especially concerned about your own
-                        thoughts or mood, please visit this page.</li>
+                        thoughts or mood, please visit this page.</span></li>
                 </ul>
                 <br></br>
                 <!--

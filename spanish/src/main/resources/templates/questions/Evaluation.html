@@ -363,6 +363,42 @@
         <div class="container section">
             <div class="row">
                 <div class="col-md-10">
+                    <b><p th:text="#{Evaluation.coach}">While using the MindTrails program, would you like to have a coach from the MindTrails team to talk about your progress completing the program?</p></b>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8 side-border">
+                    <div class="radio">
+                        <label class="question"> <input
+                                                        type="radio"
+                                                        name="coach" value="0"/> &nbsp;&nbsp;<span th:text="#{evaluation.no}">No</span></label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                                        type="radio"
+                                                        name="coach" value="1"/> &nbsp;&nbsp;<span th:text="#{evaluation.yes}">Yes</span></label>
+                    </div>
+                    <div class="radio">
+                        <label class="question"> <input
+                                                        type="radio"
+                                                        name="coach" value="2"/> &nbsp;&nbsp;<span th:text="#{evaluation.not_sure}">Not sure</span></label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="radio">
+                        <label class="question"><input th:text="#{prefer_not_to_answer}" type="radio" name="coach" value="555"
+                                                       onchange="disableSection(this)"/> &nbsp;&nbsp;
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container section">
+            <div class="row">
+                <div class="col-md-10">
                     <b><p th:text="#{Evaluation.fit}">How well does MindTrails fit with the other care you are pursuing (e.g., medication, talk therapy)?</p></b>
                 </div>
             </div>
