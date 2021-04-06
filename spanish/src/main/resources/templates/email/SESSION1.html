@@ -18,27 +18,27 @@
                     <p th:text="#{bonus.p2}" style="margin-top:5px">Thank you for your participation in the MindTrails Study!</p>
                     <p th:text="#{bonus.p3}" style="margin-top:5px">Your next training session is coming up soon. In the meantime, to show our appreciation for your commitment to the study,
                         here's an interesting psychology demonstration.</p>
-                    <p><a th:text="#{bonus.link}" style="margin-top:5px" href="http://www.paulekman.com/universal-facial-expressions/">Universal Facial Expressions
+                    <p><a th:text="#{bonus.p4}" style="margin-top:5px" href="http://www.paulekman.com/universal-facial-expressions/">Universal Facial Expressions
                     </a></p>
-                    <p th:text="#{bonus.p4}" style="margin-top:5px">Additionally, to learn more about how to manage the range of difficult emotions tied to the coronavirus threat, check out
+                    <p th:text="#{bonus.p5a}" style="margin-top:5px">Additionally, to learn more about how to manage the range of difficult emotions tied to the coronavirus threat, check out
                         this new webinar from the Director of MindTrails:</p>
-                        <p><a style="margin-top:5px" href="https://adaa.org/webinar/consumer/managing-roller-coaster-emotions-during-covid-19/">Managing the Roller Coaster of Emotions During COVID-19
+                        <p><a style="margin-top:5px" th:text="#{bonus.p5b}" href="https://adaa.org/webinar/consumer/managing-roller-coaster-emotions-during-covid-19/">Managing the Roller Coaster of Emotions During COVID-19
                         </a></p>
-                    <p th:text="#{bonus.p5}" style="margin-top:5px">We also have some videos by MindTrails team members who address common questions about the training
-                        and provide tips on using the program more effectively on our <a style="margin-top:5px" href="https://mindtrails.virginia.edu/calm/public/about">About</a> page.</p>
-                    <p th:text="#{bonus.p6}" style="margin-top:5px">Your participation can make a difference for the millions of people experiencing emotional difficulties across the world!</p>
+                    <span th:text="#{bonus.p6a}" style="margin-top:5px">We also have some videos by MindTrails team members who address common questions about the training
+                        and provide tips on using the program more effectively on our</span> <a th:text="#{bonus.p6b}" style="margin-top:5px" href="https://mindtrails.virginia.edu/calm/public/about">About</a> <span th:text="#{bonus.p6c}">page.</span>
+                    <p th:text="#{bonus.p7}" style="margin-top:5px">Your participation can make a difference for the millions of people experiencing emotional difficulties across the world!</p>
                     <div id="footer" class="clearfix" th:fragment="footerFragment">
-                        <p style="margin-top:30px">Best,</p>
+                        <p style="margin-top:30px" th:text="#{bonus.sig1}">Best,</p>
                         <img style="border: none; margin-top: 40px;" th:src="${url} + '/images/bethany_sig.png'" alt="" border="none"/>
                         <p style="margin:0 0 0 0; font-weight: bold;">Bethany Teachman, Ph.D.</p>
-                        <p style="margin:2px 0 0 0; font-style: italic">Project Director</p>
-                        <p style="margin:10px 0 0 0; ">and the MindTrails team</p>
+                        <p style="margin:2px 0 0 0; font-style: italic" th:text="#{bonus.sig2}">Project Director</p>
+                        <p style="margin:10px 0 0 0; " th:text="#{bonus.sig3}">and the MindTrails team</p>
 
-                        <p style="margin:10px 0 0 0; font-weight: bold;">Relevant Citation:</p>
+                        <p style="margin:10px 0 0 0; font-weight: bold;" th:text="#{bonus.p8}">Relevant Citation:</p>
                         <p style="margin:2px 0 0 0; font-style: italic">Ekman, P., &amp; Friesen, W. V. (1971). Constants across culture in the face and emotion.
                             Journal of Personality and Social Psychology, 17(2), 124-129.</p>
                     </div>
-                    <p style="margin-top:40px; font-size:.9em; text-align:left; border-top: 1px solid black; padding-top: 4px" >
+                    <p style="margin-top:40px; font-size:.9em; text-align:left; border-top: 1px solid black; padding-top: 4px" th:text="#{bonus.footer}">
                         Engaging with these bonus materials is not a part of the study. These links are included for
                         entertainment purposes only and do not imply an
                         endorsement of their views, policies, or products.
