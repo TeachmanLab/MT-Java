@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="fragment/common :: headerFragment"/>
+<body>
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
+
+<section id="content" class="clearfix">
+    <div class="container sessionSection">
+        <div class="row">
+            <div class="col-md-4">
+                <img th:src="@{/images/map-0-orange.png}" alt="icon" class="icon-small-bg"/>
+            </div>
+
+            <div class="col-md-8 session">
+                <h2><b><span th:text="#{complete2.p1}">Congratulations,</span> <span th:text="${participant.fullName}">Jim</span>!</b></h2>
+
+                <p th:text="#{complete2.p2}">You have completed the MindTrails study.</p>
+
+                <p th:text="#{complete2.p3}">The MindTrails research team would like to thank you for your time and participation &mdash; this research
+                    wouldn't be possible without participants like you.</p>
+
+                <!--
+                <p>Now that you have finished, you can review your <a th:href="@{/graph}">Graph of Progress</a> to see how
+                    your anxiety changed over the course of the program.</p>
+
+                    <p>This page also reveals if you were in the active training group, or a control group.</p>
+                </div>
+                -->
+
+                <span th:text="#{complete2.p4a}">Now that you have finished, you can read the</span>
+                <a th:text="#{complete2.link}" th:href="@{/account/debriefing}">Debriefing page</a>
+                <span th:text="#{complete2.p4b}">, which provides a full explanation of the purpose of the study.</span>
+
+                <div class="giftAwarded" th:if="${giftAwarded}">
+                    <img th:src="@{/images/gift_card_sm.png}"/>
+
+                    <div class="message">
+                        <em th:text="#{complete2.p5a}">Congratulations! You have earned a $20 e-gift card.</em><br/>
+                        <span th:text="#{complete2.p5b}">We will send you an email in the next few days with information on how to redeem it.</span>
+                        <br></br>
+                        </div>
+                    </div>
+
+                    </div>
+                </div>
+            </div>
+
+</section>
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>

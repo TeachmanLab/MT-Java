@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="fragment/common :: headerFragment"/>
+<body>
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
+
+<section id="content" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+    <h2 class="page-title" th:text="#{forgot.title}">Reset Your Password</h2>
+
+    <div th:if="${forgot.invalidEmail}" th:text="#{invalidEmail}" class="alert alert-error">
+        Sorry, we have no account with that email address in our system.
+    </div>
+    <p th:text="#{forgot.text}">Enter the email address you used to create your account on MindTrails and click on the 'Reset Password' button.
+        We will email you a link which will enable you to reset your password.</p>
+                <br/>
+    <form action="#" th:action="@{'/resetPass'}" method="post">
+        <p>
+            <label for="email"><span th:text="#{forgot.email}">Email:</span>&nbsp;&nbsp;</label>
+            <input type="text" id="email" name="email"/>
+        </p>
+        <br/>
+        <button th:text="#{reset}">Reset Password</button>
+    </form>
+</div>
+        </div>
+    </div>
+</section>
+
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright" />
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts" />
+
+</body>
+</html>

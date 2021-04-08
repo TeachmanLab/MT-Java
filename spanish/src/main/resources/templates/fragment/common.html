@@ -341,13 +341,13 @@
                     <li><a th:text="#{team.title}" th:href="@{/public/team}">Meet&nbsp;the&nbsp;Team</a></li>
                     <li th:if="${participant} and ${#authorization.expression('hasRole(''ROLE_USER'')')}">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                           aria-expanded="false">My Account<span class="caret"></span></a>
+                           aria-expanded="false" th:text="#{header.account}">My Account<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a th:href="@{/session/overview}">Progress</a></li>
-                            <li><a th:href="@{/account}">Account Settings</a></li>
-                            <li><a th:href="@{/account/changePass}">Change Password</a></li>
-                            <li><a th:href="@{/account/exitStudyConfirm}">Exit the Study</a></li>
-                            <li><a th:href="@{/logout}">Logout</a></li>
+                            <li><a th:href="@{/session/overview}" th:text="#{header.overview}">Progress</a></li>
+                            <li><a th:href="@{/account}" th:text="#{header.settings}">Account Settings</a></li>
+                            <li><a th:href="@{/account/changePass}" th:text="#{header.change}">Change Password</a></li>
+                            <li><a th:href="@{/account/exitStudyConfirm}" th:text="#{header.exit}">Exit the Study</a></li>
+                            <li><a th:href="@{/logout}" th:text="#{header.logout}">Logout</a></li>
                         </ul>
                     </li>
 
@@ -355,8 +355,8 @@
 
                     <div class="login"
                          th:unless="${#authorization != null} AND ${#authorization.expression('hasRole(''ROLE_USER'')')}">
-                        Already Participating? <a th:href="@{/login}">
-                        <button>Log In</button>
+                        <span th:text="#{header.participating}">Already Participating?</span> <a th:href="@{/login}">
+                        <button th:text="#{header.login}">Log In</button>
                     </a>
                     </div>
 
@@ -366,9 +366,9 @@
     <div class="account-bar navbar-default" th:if="${participant} and ${#authorization.expression('hasRole(''ROLE_USER'')')}">
         <div>
             <a class="nav-progress" th:href="@{/session/overview}">
-                <button>My Progress</button>
+                <button th:text="#{header.progress}">My Progress</button>
             </a>
-            <div class="nav-user">Logged in as <span th:text="${participant.fullName}"/>
+            <div class="nav-user"><span th:text="#{header.loggedin}">Logged in as</span> <span th:text="${participant.fullName}"/>
                 <br/><span class="nav-level" th:text="${participant.study.currentSession.displayName}"/></div>
         </div>
     </div>

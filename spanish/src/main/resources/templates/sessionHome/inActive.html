@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="fragment/common :: headerFragment"/>
+<body>
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
+
+<section id="content" class="clearfix">
+    <div class="container sessionSection">
+        <div class="row">
+            <div class="col-md-4">
+                <img th:src="@{/images/map-0-orange.png}" alt="icon" class="icon-small-bg"/>
+            </div>
+
+            <div class="col-md-8 session">
+                <h2><b><span th:text="#{welcome}">Welcome back</span> <span th:text="${participant.fullName}">Jim</span>!</b></h2>
+
+                <!--
+                <h2 th:if="${completed_exit_survey}"><b>Thank you for completing the exit survey, <span th:text="${participant.fullName}">Jim</span>!</b></h2>
+                -->
+
+                <p th:text="#{inactive.p1}">Your account is currently marked as inactive. But you can choose to
+                continue the study at any time, and pick back up where you left off.</p>
+
+                <a th:href="@{/session?activate=true}">
+                    <button th:text="#{inactive.p2}">Resume the Study</button>
+                </a>
+                <br></br>
+                <a th:href="@{${currentTask.requestMapping}}" th:if="${currentTask}">
+                    <button>Continue</button>
+                </a>
+                <br></br>
+
+                <!--
+                <div th:unless="${completed_exit_survey}">
+                <p>Otherwise, it would help us a great deal to
+                learn why you chose not to complete the study.  Please select Exit
+                Survey below to provide your valuable feedback.</p>
+                <a th:href="@{/questions/ReasonsForEnding}">
+                    <button>Take Exit Survey</button>
+                </a>
+                </div>
+                -->
+
+                <div th:if="${completed_exit_survey}">
+                    <p>Please read the <a th:href="@{/account/debriefing}">debriefing</a>, now that you have completed your study.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- footer starts
+================================================== -->
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
+
+<!-- copyright starts
+================================================== -->
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
+
+<!--Javascript
+================================================== -->
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>

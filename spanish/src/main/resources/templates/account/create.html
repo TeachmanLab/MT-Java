@@ -17,7 +17,7 @@
     <div class="container">
 
         <div style="text-align:right">
-        <a href="#" onclick="window.print();return false;">Print This Page</a></div>
+        <a href="#" onclick="window.print();return false;" th:text="#{consent.print}">Print This Page</a></div>
 
         <div class="row">
             <div class="col-md-8">
@@ -32,6 +32,8 @@
                     <li th:text="#{consent.p1c}">&nbsp;&nbsp;2 weekly training sessions</li>
                     <li th:text="#{consent.p1d}">&nbsp;&nbsp;A set of questionnaires after you finish the 2 training sessions</li>
                 </ul>
+
+                <p th:text="#{consent.p1e}"> Each of the assessments and training sessions will take approximately 20 minutes to complete.</p>
 
                 <br></br>
 
@@ -70,18 +72,27 @@
 
                     <p><b><h3 th:text="#{consent.heading5}">Can I stop at any time?</h3></b></p>
 
-                    <p th:text="#{consent.p5a}">MindTrails uses the same secure hypertext transfer protocol (HTTPS) that banks and other commercial
-                        websites use to transfer credit card information in an encrypted format. This provides strong security for data transfer to
-                        and from our website, though privacy is necessarily limited by the security of the technology and wifi that is being used.
-                        Please note that completing the study in a public place where others might view your screen, and use of open networks or free
-                        Wi-Fi can increase the chance for loss of privacy.
-                    </p>
+                    <span th:text="#{consent.p5a}">While we hope that you will complete the entire study, </span>
+                    <span th:text="#{consent.p5b}"><b>participation in this study is voluntary</b></span>
+                    <span th:text="#{consent.p5c}">, and you may end your individual session participation at any time by closing the study window.
+                        Further, your participation in this study is not at all related to your standing with other ongoing therapy or employers.</span>
+                    <span th:text="#{consent.p5d}">Contact the team if you have any questions about the study or wish to be removed from the study.</span>
 
-                <p th:text="#{consent.p5b}">To view the entire privacy policy in a separate page, please click</p>
+                <br></br>
+                <p><b><h3 th:text="#{consent.heading6}">What is the MindTrails Privacy Policy?</h3></b></p>
+
+                <span th:text="#{consent.p6a}">MindTrails uses the same secure hypertext transfer protocol (HTTPS) that banks and other commercial websites use
+                    to transfer credit card information in an encrypted format. This provides strong security for data transfer to and from our website, though
+                    privacy is necessarily limited by the security of the technology and wifi that is being used. Please note that completing the study in a public
+                    place where others might view your screen, and use of open networks or free Wi-Fi can increase the chance for loss of privacy.</span>
+                <span th:text="#{consent.p6b}">Please note that completing the study in a public place where others might view your screen, and use of open networks
+                    or free Wi-Fi can increase the chance for loss of privacy.</span>
+                <span th:text="#{consent.p6c}">To view the entire privacy policy in a separate page, please click</span>
+                <span th:text="#{consent.p6d}">here</span>.
 
                 <p><u>Google Analytics</u></p>
 
-                <p th:text="#{consent.p5c}"> MindTrails uses Google Analytics, a web analytics service by Google that tracks and reports website
+                <p th:text="#{consent.p6e}"> MindTrails uses Google Analytics, a web analytics service by Google that tracks and reports website
                     traffic. MindTrails uses this service to track device usage, navigation patterns, and referrals.
                     While MindTrails can connect this data to other information you provide, we will not share any of
                     your personal information with Google. The information that Google collects is anonymous in nature,
@@ -89,9 +100,9 @@
                     this information being collected by Google Analytics.</p>
                 <br></br>
 
-                <p th:text="#{consent.p5d}"><u>Data Sharing</u></p>
+                <span th:text="#{consent.p6f}"><u>Data Sharing</u></span>
 
-                <p th:text="#{consent.p5e}"> We wish to share de-identified data from this protocol online. Many funding agencies and journal outlets
+                <p th:text="#{consent.p6g}"> We wish to share de-identified data from this protocol online. Many funding agencies and journal outlets
                     encourage researchers to make data available to other researchers online. This is becoming a common practice
                     in research endeavors around the world and data sharing helps ensure that best practices in data analysis
                     are being upheld. The publication of data online involves preparing a data file for other researchers
@@ -101,19 +112,24 @@
                     and identifying information are never connected to the data they provide.</p>
                 <br></br>
 
-                <p><b><h3 th:text="#{consent.heading6}">Study Team Contact Info</h3></b></p>
+                <p><b><h3 th:text="#{consent.heading7}">Study Team Contact Info</h3></b></p>
 
-
-                <p th:text="#{consent.p6a}"><b>To obtain more information about the study, ask questions about the research procedures,
+                <p th:text="#{consent.p7a}"><b>To obtain more information about the study, ask questions about the research procedures,
                     express concerns about your participation, or report illness, injury or other problems, please
                     contact:</b></p>
 
-                <p style="margin-left:50px">Tonya Moon, Chair, Institutional Review Board for the Social and Behavioral
-                    Sciences, One Morton Dr. Suite 500, University of Virginia, P.O. Box 800392, Charlottesville, VA 22908-0392.
-                    Telephone: (434) 924-5999; Email: <a href="mailto:irbsbshelp@virginia.edu">irbsbshelp@virginia.edu</a>;
-                    Website: <a target="_new" href="www.virginia.edu/vprgs/irb">www.virginia.edu/vprgs/irb</a>.</p>
+                <span style="margin-left:50px">Tonya Moon, Chair, Institutional Review Board for the Social and Behavioral
+                    Sciences, One Morton Dr. Suite 500, University of Virginia, P.O. Box 800392, Charlottesville, VA 22908-0392.</span>
+                    <span th:text="#{consent.p7b}">Telephone:</span> (434) 924-5999; <span th:text="#{consent.p7c}">Email:</span>
+                    <a href="mailto:irbsbshelp@virginia.edu">irbsbshelp@virginia.edu</a>;
+                    <span th:text="#{consent.p7d}">Website:</span> <a target="_new" href="www.virginia.edu/vprgs/irb">www.virginia.edu/vprgs/irb</a>.
 
-                <p style="margin-left:50px"> IRB-SBS Protocol #: 4117</p>
+                <span style="margin-left:50px"> IRB-SBS </span><span th:text="#{consent.p7e}">Protocol #: 4117</span>
+
+                <span style="margin-left:50px">Principal Investigator:</span>
+                <span>Prof. Bethany Teachman, Department of Psychology, Millmont Building, 1023 Millmont St, Rm 234, University of Virginia, Charlottesville, VA 22903.</span>
+                <span th:text="#{consent.p7b}">Telephone:</span> (434) 924-0676; <span th:text="#{consent.p7c}">Email:</span> <a href="mailto:bteachman@virginia.edu">bteachman@virginia.edu</a>.
+
                 <br></br>
 
 

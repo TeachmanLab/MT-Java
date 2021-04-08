@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+<head th:include="fragment/common :: headerFragment"/>
+<body >
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
+
+<!-- header-btm starts
+================================================== -->
+
+<!--<![endif]-->
+<section id="content" class="clearfix">
+    <div class="container longSection">
+        <div class="row">
+            <div class="col-md-8">
+                <img th:src="@{/images/map-arrow-orange.png}" alt="icon" class="icon-small-bg"/>
+            </div>
+            <div class="col-md-8">
+                <h2 class="page-title heading-icon">Verify Your Phone Number</h2>
+                <p>If you are eligible to receive e-gift cards, in order to receive them, we will need to verify your phone number. Enter your phone number below and we will send you a text message
+                    with a code which we will use to verify your number.</p>
+                <form action="#" th:action="@{/account/updateChangePhone}"  th:object="${participant}"  method="post">
+
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="row">
+
+                                <!-- <input type="tel" id="phone"> -->
+                                <!--
+                                <input class="form-control" type="tel" id="phone" name="phone" th:errorclass="error"
+                                       th:field="*{phone}"/>
+                                -->
+                                <div class="col-md-5">
+                                    <input type="hidden" name="phoneCountry" id="phoneCountry"/>
+                                    <div id="result">
+                                        <input class="form-control input-lg" style="font-size:20px;" maxlength="15" name="phone" id="phone" type="tel" th:field="*{phone}"/>
+                                    </div>
+                                    <script th:src="@{/bower/intl-tel-input/build/js/intlTelInput.js}"></script>
+                                    <script>
+                                        var telInput = $("#phone");
+                                        // initialise plugin
+                                        telInput.intlTelInput({
+                                            utilsScript:"https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.1.4/css/intlTelInput.css"
+                                        });
+
+                                        // on blur: validate
+                                        telInput.blur(function() {
+                                            var phoneReminders = $("#phoneReminders");
+                                            var countryData = $("#phone").intlTelInput("getSelectedCountryData");
+                                            if (countryData.iso2 != "us") {
+                                                phoneReminders.attr('checked', false);
+                                                phoneReminders.prop('disabled', true);
+                                                $("#noTexts").show();
+                                                $("#yesTexts").hide();
+                                            } else {
+                                                phoneReminders.prop('disabled', false);
+                                                phoneReminders.attr('checked', true);
+                                                $("#noTexts").hide();
+                                                $("#yesTexts").show();
+                                            }
+                                        });
+
+                                    </script>
+                                    <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Phone Error</span>
+                                </div>
+
+                        </div>
+                        </div>
+                    </div>
+                <div class="row" style="padding-left: 15px;"><span class="pull-left"><button type="submit" name="sub" >Send</button></span>
+                </div>
+                </form>
+                <br></br>
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="row" style="padding-left: 30px;">
+                                <p>If you choose to skip this step, you can always verify your phone number later.</p>
+                            </div>
+                            <div class="row" style="padding-left: 30px;">
+                                <a th:href="@{/account/theme}"><button>Skip</button> </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<script th:inline="javascript">
+
+</script>
+
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>
+

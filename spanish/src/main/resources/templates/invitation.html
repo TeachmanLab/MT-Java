@@ -8,7 +8,7 @@
 <head th:include="fragment/common :: headerFragment" />
 <body>
 <section id="header" class="clearfix" th:include="fragment/common :: topFragment" />
-<section th:include="fragment/common :: titleBar (title='You Are Eligible to Participate!')"/>
+<section th:include="fragment/common :: titleBar (title=#{eligible.title})"/>
 
 <!-- content starts
 ================================================== -->
@@ -17,28 +17,26 @@
         <div class="row">
             <div class="col-md-8">
 
-                <p>You reported experiencing some anxiety. As a result, you are eligible to participate in the
+                <p th:text="#{eligible.p1a}">You reported experiencing some anxiety. As a result, you are eligible to participate in the
                     MindTrails study, a new Internet-based program designed to reduce anxious thinking.</p>
 
-                <p>This is an experimental program, so it is still in the testing phase, but there are
+                <p th:text="#{eligible.p1b}">This is an experimental program, so it is still in the testing phase, but there are
                     many good reasons for you to participate. </p>
 
-               <b>Reasons to participate:</b>
+               <span th:text="#{eligible.p2a}"><b>Reasons to participate:</b></span>
                 <ul>
-                    <li>Prior research says it may reduce anxious thinking as effectively as therapy for some people.</li>
-                    <li>It's FREE.</li>
-                    <li>It will not require a lot of your time.</li>
-                    <li>It can be completed anywhere — all you need is a computer, tablet, or smartphone with Internet access.</li>
-                    <li>At the end of the study, we’ll give you feedback about how your anxiety symptoms have changed.</li>
-                    <li>You can access a fun and interesting psychology demonstration after each session.</li>
-                <!--    <li>You will receive up to 5 small payments for completing the assessments.</li> -->
+                    <li th:text="#{eligible.p2b}">Prior research says it may reduce anxious thinking as effectively as therapy for some people.</li>
+                    <li th:text="#{eligible.p2c}">It's FREE.</li>
+                    <li th:text="#{eligible.p2d}">It will not require a lot of your time.</li>
+                    <li th:text="#{eligible.p2e}">It can be completed anywhere — all you need is a computer, tablet, or smartphone with Internet access.</li>
+                    <li th:text="#{eligible.p2f}">You will receive a $20 e-gift card for completing the study.</li>
 
                 </ul>
 
-                <p>If you would like to participate, click the “Learn More” button below. If you do not wish to
-                    participate, consider reviewing these alternate
-                    <a th:href="@{/public/resources}">Mental Health Resources</a> for dealing with your anxiety.</p>
-                <p><a th:href="@{/account/create}"><button>Learn More</button></a></p>
+                <span th:text="#{eligible.p3a}">If you would like to participate, click the “Learn More” button below. If you do not wish to
+                    participate, consider reviewing these alternate</span>
+                    <a th:href="@{/public/resources}" th:text="#{eligible.p3b}">Mental Health Resources</a> <span th:text="#{eligible.p3c}">for dealing with your anxiety.</span>
+                <p><a th:href="@{/account/create}"><button th:text="#{eligible.button}">Learn More</button></a></p>
                 <img th:src="@{/public/track/templeton_pass.gif}" alt=" "/>
 
             </div>

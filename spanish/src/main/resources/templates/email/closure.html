@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml">
 
 <head th:include="fragment/email :: headerFragment"/>
 
@@ -12,29 +12,29 @@
     <table cellpadding="0" cellspacing="0" width="600" align="center" style="margin-top:20px">
         <tr>
             <td width="400">
-                <p th:text="'Hi ' +  ${participant.fullName} + ','" style="margin-top:0; margin-bottom:10px">
+                <p th:text="#{closure.p1}" th:text="'Hi ' +  ${participant.fullName} + ','" style="margin-top:0; margin-bottom:10px">
                     Hi Fred,
                 </p>
 
-                <p style="margin-top:5px">We haven't heard from you for 3 weeks, so we have now
+                <p th:text="#{closure.p2}" style="margin-top:5px">We haven't heard from you for 3 weeks, so we have now
                     closed your account in the study.</p>
 
-                <p  style="margin-top:5px">Thank you for your participation in the study. Please click on this
-                    link to learn more about the study and what we were investigating:
-                    <a href="/session" th:href="${url} + '/calm/account/debriefing'" style="color: #637580ff; text-decoration: none; font-weight: bold">MindTrails Debriefing</a>.</p>
+                <span th:text="#{closure.p3}" style="margin-top:5px">Thank you for your participation in the study. Please click on this
+                    link to learn more about the study and what we were investigating:</span>
+                    <a th:text="#{closure.link}" href="/session" th:href="${url} + '/calm/account/debriefing'" style="color: #637580ff; text-decoration: none; font-weight: bold">MindTrails Debriefing</a>
 
-                <p style="margin-top:5px">It helps us a great deal to learn why someone chooses not to
+                <!--<p style="margin-top:5px">It helps us a great deal to learn why someone chooses not to
                     complete the study. Please complete this brief survey to let us
                     know why you're ending your participation:
                     <a href="/session" th:href="${url} + '/questions/ReasonsForEnding'" style="color: #637580ff; text-decoration: none; font-weight: bold">Exit Survey</a>.</p>
-                    <!--
+
                         <span th:if="${giftCards}">After the survey, you will be rewarded a $5 gift card.</span> </p>
                     -->
-                <p style="margin-top:5px">As always, please let us know if you have any concerns about your
+                <span th:text="#{closure.p4}" style="margin-top:5px">As always, please let us know if you have any concerns about your
                     participation that we can address. You can contact the study team
-                    at studyteam@mindtrails.org.</p>
+                    at</span> <a th:text="#{closure.email}" href="mailto:studyteam@mindtrails.org">studyteam@mindtrails.org</a>.
 
-                <p style="margin-top:5px">Thank you for your participation in the study and we hope you're
+                <p th:text="#{closure.p5}" style="margin-top:5px">Thank you for your participation in the study and we hope you're
                     having a good week.</p>
 
                 <div id="footer" th:include="fragment/email :: footerFragment"/>

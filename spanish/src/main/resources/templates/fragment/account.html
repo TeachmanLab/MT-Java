@@ -23,7 +23,7 @@
         </script>
 
         <div class="form-group row">
-            <label class="control-label col-sm-2" for="fullName">Nickname</label>
+            <label class="control-label col-sm-2" for="fullName" th:text="#{consent.p8a}">Name / Nickname</label>
             <div class="col-sm-10">
                 <input class="form-control" type="text" id="fullName" name="fullName" th:errorclass="error"
                        th:field="*{fullName}"/>
@@ -32,7 +32,7 @@
         </div>
 
         <div class="form-group row">
-            <label class="control-label col-sm-2" for="email">Email</label>
+            <label class="control-label col-sm-2" for="email" th:text="#{consent.p8b}">Email</label>
             <div class="col-sm-10">
                 <input class="form-control" type="email" id="email" name="email" th:errorclass="error"
                        th:field="*{email}"/>
@@ -46,9 +46,9 @@
             <div class="custom-control col-sm-10">
                 <label class="col-sm-10 inline-checkbox">
                     <input class="inline-checkbox" type="checkbox" id="emailReminders" name="emailReminders"
-                           th:errorclass="error" th:field="*{emailReminders}"/>
+                           th:errorclass="error" th:field="*{emailReminders}" th:text="#{consent.p8c}"/>
                     I would like to receive email reminders when it is time to start the next session.
-                    <span class="note">
+                    <span class="note" th:text="#{consent.p8d}">
                         Please note that even if you do not want reminders for each session,
                         you will still receive a few messages from us as you enter
                         new phases in the study or if you are inactive for an extended period.
@@ -58,7 +58,7 @@
         </div>
 
         <div class="form-group row">
-            <label class="control-label col-sm-2" for="phone">Phone</label>
+            <label class="control-label col-sm-2" for="phone" th:text="#{consent.p8e}">Phone</label>
             <div class="col-sm-10">
                 <!-- <input type="tel" id="phone"> -->
                 <!--
@@ -139,10 +139,10 @@
             <div class="col-sm-2">
             </div>
             <div class="custom-control col-sm-10">
-                <label class="col-sm-10 inline-checkbox" >
+                <label class="col-sm-10 inline-checkbox">
                     <input class="inline-checkbox" type="checkbox" id="textMessages" name="canTextMessage"
                            th:errorclass="error" th:field="*{canTextMessage}"/>
-                    <span>I can receive text messages at this number.</span>
+                    <span th:text="#{consent.p8f}">I can receive text messages at this number.</span>
                 </label>
                 <script>
                     $(document).ready(function() {
@@ -174,7 +174,7 @@
                 <label class="col-sm-10 inline-checkbox" >
                     <input class="inline-checkbox" type="checkbox" id="phoneReminders" name="phoneReminders"
                            th:errorclass="error" th:field="*{phoneReminders}"/>
-                    <span class="note">I would like to receive text reminders to this phone when it is time to start the next session.</span>
+                    <span class="note" th:text="#{consent.p8g}">I would like to receive text reminders to this phone when it is time to start the next session.</span>
                 </label>
             </div>
         </div>
@@ -184,7 +184,7 @@
     <div th:fragment="password">
 
         <div class="form-group row">
-            <label class="control-label col-sm-2" for="password">Password</label>
+            <label class="control-label col-sm-2" for="password" th:text="#{consent.p8g}">Password</label>
             <div class="col-sm-10">
                 <input class="form-control" type="password" id="password" name="password" th:field="*{password}"
                        th:errorclass="error"/>
@@ -206,7 +206,7 @@
 
 
         <div class="form-group row">
-            <label class="control-label col-sm-2" for="passwordAgain">Confirm Password</label>
+            <label class="control-label col-sm-2" for="passwordAgain" th:text="#{consent.p8h}">Confirm Password</label>
             <div class="col-sm-10">
                 <input class="form-control" type="password" id="passwordAgain"
                        name="passwordAgain"/>
@@ -219,7 +219,7 @@
         <div class="custom-control col-sm-10">
             <label class="col-sm-10  inline-checkbox">
                 <input class="inline-checkbox" type="checkbox" id="over18" name="over18" th:errorclass="error"
-                       th:field="*{over18}"/>I am over 18
+                       th:field="*{over18}" th:text="#{consent.p8i}"/>I am over 18
             </label>
         </div>
     </div>
@@ -248,24 +248,11 @@
             defer="true"></script>
     <br></br>
 
-    <p><b>By clicking the 'Give Consent and Create Account' button below...</b></p>
-
-    <p style="margin-left:50px"> I have read the above and am satisfied with my understanding of the study, its possible benefits, risks, and alternatives.
-        My questions about the study have been answered. I hereby voluntarily consent to participate in the research study as described.
-        I will be given a copy of this consent form, which includes the Authorization To Use and Disclose Protected Health
-        Information and of the attached "Research Participants' Bill of Rights."</p>
-
-    <p style="margin-left:50px"> I have read the above and am satisfied with my understanding of the study, its possible benefits, risks, and alternatives.
-        My questions about the study have been answered. I hereby voluntarily consent to participate in the research study as described.
-        I will be given a copy of this consent form, which includes the Authorization To Use and Disclose Protected Health
-        Information and of the attached "Research Participants' Bill of Rights."</p>
-
-    <p style="margin-left:50px"> By electronically clicking 'Give Consent and Create Account', I am giving my permission to allow the use and
-        disclosure of my PHI for the research study as described above.</p>
+    <span th:text="#{consent.p8j}"><b>By clicking the button below you are indicating that you have read the informed consent statement above and agree to participate.</b></span>
     <br></br>
 
     <div style="text-align: center;">
-        <button>Give Consent and Create Account</button>
+        <button th:text="#{consent.p8k}">Give Consent and Create Account</button>
     </div>
 </form>
 
@@ -273,6 +260,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
+                <!--
                 <h2><font color="#00ACE4"><b>Select Your Theme</b></font></h2>
                 <p>To customize the appearance of MindTrails, select one of the options below. You can change your
                     theme at any time by clicking "My Account" and then "Account Settings" in the menu bar above. </p>
@@ -374,13 +362,13 @@
                                 <img th:src="@{/images/settings-gold-sm.png}" alt="gold Theme"/>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
-            </label>
         </div>
-        <button>Update</button>
+        <button th:text="#{update}">Update</button>
     </div>
 </section>
+
 <script type="text/javascript">
     function Verify(){
         if (document.getElementById("receiveGiftCards").checked) {
