@@ -590,10 +590,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $('.input-group.date').datepicker({
-            startDate: '01/01/2020',
-        });
-
+        $('.input-group.date').datepicker({ minDate: "01/01/2020", maxDate: "+0D" });
         console.log("Set up datepicker.")
 
         /* $('#form').on('submit', function(e) {
