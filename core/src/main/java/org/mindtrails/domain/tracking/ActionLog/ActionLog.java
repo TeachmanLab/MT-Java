@@ -1,9 +1,6 @@
 package org.mindtrails.domain.tracking.ActionLog;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 import org.mindtrails.domain.Participant;
@@ -34,6 +31,7 @@ public class ActionLog implements hasParticipant {
     private String sessionName;
     private String taskName;
     private int latency;
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="EEE, dd MMM yyyy HH:mm:ss Z", timezone="EST")
     private Date date;
 
     @ManyToOne

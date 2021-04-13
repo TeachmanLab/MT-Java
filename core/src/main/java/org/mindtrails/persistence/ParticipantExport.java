@@ -40,5 +40,6 @@ public class ParticipantExport {
     @JsonIdentityReference(alwaysAsId=true) // otherwise first ref as POJO, others as id
     @JsonProperty(value = "study")
     protected Study study;
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="EEE, dd MMM yyyy HH:mm:ss Z", timezone="EST")
     private Date dateCreated;
 }
