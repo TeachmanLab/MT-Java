@@ -227,7 +227,7 @@
                         <div class="radio">
                             <label class="question"> <input id="{{id}}" onchange="spec('{{id}}')" type="checkbox"
                                                             name="{{name}}"
-                                                            value="Other"/> Other (Please specify) <input
+                                                            value="Other"/> th:text="#{other_specify}" <input
                                     id="Q2_15_spec" type="text"
                                     name="Other_DescNo" value="N/A"/></label>
                         </div>
@@ -263,7 +263,7 @@
                     <br/>
                     <br/>
                     <div class="radio">
-                        <label class="question"><input type="radio" name="{{name}}" value="555"/> Prefer not to answer </label>
+                        <label class="question"><input type="radio" name="{{name}}" th:text="#{prefer_not_to_answer}" value="555"/></label>
                     </div>
                     <br/>
                     <br/>

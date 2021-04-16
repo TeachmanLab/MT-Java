@@ -18,7 +18,8 @@
         <div class="row">
             <h2 class="page-title heading-icon clearfix" style="padding-left: 15px"> <img th:src="@{/images/map-arrow-orange.png}" alt="icon" class="icon-small-bg"/>
                 <br/>
-                <span th:text="${eligibility}? 'Eligibility Questionnaire, Part 2' : 'Mood Assessment, Part 2'"/>
+                <span th:if="${eligibility}" th:text="#{dass.titleEligibility}">Eligibility Questionnaire, Part 2</span>
+                <span th:unless="${eligibility}" th:text="#{dass.title}">Mood Assessment, Part 2</span>
             </h2>
         </div>
     </div>
