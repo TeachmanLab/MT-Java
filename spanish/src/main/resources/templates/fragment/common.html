@@ -369,7 +369,7 @@
                 <button th:text="#{header.progress}">My Progress</button>
             </a>
             <div class="nav-user"><span th:text="#{header.loggedin}">Logged in as</span> <span th:text="${participant.fullName}"/>
-                <br/><span class="nav-level" th:text="${participant.study.currentSession.displayName}"/></div>
+                <br/><span class="nav-level" th:text="#{${participant.study.currentSession.displayName}}"/></div>
         </div>
     </div>
 </section>

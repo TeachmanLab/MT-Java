@@ -85,7 +85,7 @@ public class SpanishStudy extends BaseStudy {
         List<Session> sessions = new ArrayList<>();
         Session session1, session2;
 
-        session1 = new Session(FIRST_SESSION, "Level 1: Beginner", 0, 0);
+        session1 = new Session(FIRST_SESSION, "level1", 0, 0);
         session1.setIndex(1);
 
         session1.addTask(new Task("Demographics","Personal Background", Task.TYPE.questions, 2 ));
@@ -103,11 +103,11 @@ public class SpanishStudy extends BaseStudy {
         sessions.add(session1);
 
 
-        session2 = new Session(SECOND_SESSION, "Level 2: Advanced", 0, 5);
+        session2 = new Session(SECOND_SESSION, "level2", 0, 5);
         session2.setIndex(2);
         session2.addTask(new Task("Affect","Current Feelings, Pre", "pre", Task.TYPE.questions, 0));
         session2.addTask(new Task("2", "Training Session 2", Task.TYPE.angular, 20));
-        session2.addTask(new Task("Affect","Current Feelings, Pre", "post", Task.TYPE.questions, 0));
+        session2.addTask(new Task("Affect","Current Feelings, Post", "post", Task.TYPE.questions, 0));
         session2.addTask(new Task("OA","Anxiety Review", Task.TYPE.questions, 1 ));
         session2.addTask(new Task("Comorbid","Mood Assessment", Task.TYPE.questions, 0 ));
         session2.addTask(new Task("DASS21_AS","Mood Assessment, Pt. 2", Task.TYPE.questions, 0 ));

@@ -59,10 +59,10 @@ public class Evaluation extends LinkedQuestionnaireData {
     @MeasureField(order = 9, desc = "How much did MindTrails keep your interest and attention?", group = "block1")
     private Integer interest;
     @NotNull
-    @MeasureField(order = 10, desc = "How much did you like MindTrails in general?", group = "block1")
+    @MeasureField(order = 10, desc = "How much did you like MindTrails in general?", group = "block2")
     private Integer likeGral;
     @NotNull
-    @MeasureField(order = 11, desc = "How much did you like the way MindTrails looked?", group = "block1")
+    @MeasureField(order = 11, desc = "How much did you like the way MindTrails looked?", group = "block2")
     private Integer likedLooks;
     @NotNull
     @MeasureField(order = 12, desc = "How worried were you about your privacy in using MindTrails?", group = "block2")
@@ -101,7 +101,7 @@ public class Evaluation extends LinkedQuestionnaireData {
     @MeasureField(order = 21, desc = "Support that is self-guided and does not involve others (e.g., self-help book)", group = "block3")
     private Integer self;
 
-    @MeasureField(order = 22, desc = "Support that is self-guided and does not involve others (e.g., self-help book)", group = "block4")
+    @MeasureField(order = 22, desc = "How was your experience using technology to address your anxiety?", group = "block4")
     private Integer technology;
 
     @NotNull
@@ -124,7 +124,7 @@ public class Evaluation extends LinkedQuestionnaireData {
     @Override
     public Map<String, String> getGroupDescriptions() {
         Map<String, String> desc = new TreeMap<>();
-        desc.put("support", "x");
+        desc.put("block3", "x");
         return Collections.unmodifiableMap(desc);
     }
 

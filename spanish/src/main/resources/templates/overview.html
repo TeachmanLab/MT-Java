@@ -43,16 +43,16 @@
                 </div>
                 <div class="col-md-6">
                     <div class="sessionOverview">
-                        <h3 th:text="${session.displayName}">Session Title</h3>
+                        <h3 th:text="#{${session.displayName}}">Session Title</h3>
                         <div class="row sessionOverviewTable" th:each="task : ${session.tasks}"
                              th:if="${task.duration} > 0">
-                            <div class="col-md-6 sessionTitle" th:text="${task.displayName}">Session Title</div>
+                            <div class="col-md-6 sessionTitle" th:text="#{${task.displayName}}">Session Title</div>
                             <div class="col-md-6" th:if="${task.dateCompleted}">
                                 <img th:src="@{'/images/check-'+${participant.theme}+'.png'}"/>
                                 <span th:text="${#calendars.format(task.dateCompleted,'YYYY-MM-dd')}">10/05/2015</span>
                             </div>
                             <div class="col-md-6 date" th:unless="${task.dateCompleted}"
-                                 th:text="'Est. ' + ${task.duration} + ' min. duration'">Est. 2 min. duration
+                                 th:text="#{'Est. ' + ${task.duration} + ' min. duration'}">Est. 2 min. duration
                             </div>
                         </div>
                     </div>
@@ -60,8 +60,8 @@
                         <div class="col-md-12">
                             <p class=""
                                th:if="${iterStat.index &lt; iterStat.size and study.sessions[iterStat.index + 1].daysToWait > 0}">
-                                <span th:text="#{overview.p3a}">Allow at least</span> <span th:text="${study.sessions[iterStat.index + 1].daysToWait}"/>
-                                <span th:text="#{overview.p3b}">days to start the following session.</span></p>
+                                <span th:text="#{overview.p2a}">Allow at least</span> <span th:text="${study.sessions[iterStat.index + 1].daysToWait}"/>
+                                <span th:text="#{overview.p2b}">days to start the following session.</span></p>
 
                         </div>
                     </div>
