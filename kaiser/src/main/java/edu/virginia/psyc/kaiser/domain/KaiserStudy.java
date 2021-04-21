@@ -22,7 +22,7 @@ import java.util.stream.Stream;
 public class KaiserStudy extends BaseStudy {
 
     // TODO: Write test to ensure we never get a "NONE" as a condition
-    public enum CONDITION {NO_INCENTIVE, CAN_COACH, TESTIMONIALS, BONUS_5, BONUS_10, BONUS_20}
+    public enum CONDITION {NO_INCENTIVE, NO_INCENTIVE_SHORTM, CAN_COACH, TESTIMONIALS, BONUS_5, BONUS_10, BONUS_20}
     public static Map<String, Enum<?>> conditionMappings = new HashMap<String, Enum<?>>();
 
     public enum SESSION {preTest, firstSession, secondSession, thirdSession, fourthSession, fifthSession, PostFollowUp }
@@ -45,6 +45,7 @@ public class KaiserStudy extends BaseStudy {
         this.currentSession = PRE_TEST;
 
         conditionMappings.put("2AOM8dDBOJ", CONDITION.NO_INCENTIVE);
+        conditionMappings.put("q3R5OsNiAW", CONDITION.NO_INCENTIVE_SHORTM);
         conditionMappings.put("DSDvBmGcYE", CONDITION.CAN_COACH);
         conditionMappings.put("WtQgTY7a1w", CONDITION.TESTIMONIALS);
         conditionMappings.put("oLewA3TOBh", CONDITION.BONUS_5);
