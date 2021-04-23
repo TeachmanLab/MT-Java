@@ -41,7 +41,7 @@ public class Evaluation extends LinkedQuestionnaireData {
     @MeasureField(order = 3, desc = "How much did MindTrails help improve your overall mood (e.g., feeling happier)?", group = "block1")
     private Integer overallMood;
     @NotNull
-    @MeasureField(order = 4, desc = "How likely would you be to recommend MindTrails to others with similar anxiety difficulties?", group="block1")
+    @MeasureField(order = 4, desc = "How likely would you be to recommend MindTrails to others with anxiety like yours?", group="block1")
     private Integer recommend;
     @NotNull
     @MeasureField(order = 5, desc = "How likely would you be to recommend MindTrails to others who are Hispanic and have anxiety difficulties?", group="block1")

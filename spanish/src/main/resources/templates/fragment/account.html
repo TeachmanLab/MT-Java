@@ -183,7 +183,7 @@
     <div th:fragment="password">
 
         <div class="form-group row">
-            <label class="control-label col-sm-2" for="password" th:text="#{consent.p8g}">Password</label>
+            <label class="control-label col-sm-2" for="password" th:text="#{consent.p8h}">Password</label>
             <div class="col-sm-10">
                 <input class="form-control" type="password" id="password" name="password" th:field="*{password}"
                        th:errorclass="error"/>
@@ -205,7 +205,7 @@
 
 
         <div class="form-group row">
-            <label class="control-label col-sm-2" for="passwordAgain" th:text="#{consent.p8h}">Confirm Password</label>
+            <label class="control-label col-sm-2" for="passwordAgain" th:text="#{consent.p8i}">Confirm Password</label>
             <div class="col-sm-10">
                 <input class="form-control" type="password" id="passwordAgain"
                        name="passwordAgain"/>
@@ -218,7 +218,7 @@
         <div class="custom-control col-sm-10">
             <label class="col-sm-10  inline-checkbox">
                 <input class="inline-checkbox" type="checkbox" id="over18" name="over18" th:errorclass="error"
-                       th:field="*{over18}" th:text="#{consent.p8i}"/>I am over 18
+                       th:field="*{over18}" th:text="#{consent.p8j}"/>
             </label>
         </div>
     </div>
@@ -247,11 +247,11 @@
             defer="true"></script>
     <br></br>
 
-    <span th:text="#{consent.p8j}"><b>By clicking the button below you are indicating that you have read the informed consent statement above and agree to participate.</b></span>
+    <span th:text="#{consent.p8k}"><b>By clicking the button below you are indicating that you have read the informed consent statement above and agree to participate.</b></span>
     <br></br>
 
     <div style="text-align: center;">
-        <button th:text="#{consent.p8k}">Give Consent and Create Account</button>
+        <button th:text="#{consent.p8l}">Give Consent and Create Account</button>
     </div>
 </form>
 
