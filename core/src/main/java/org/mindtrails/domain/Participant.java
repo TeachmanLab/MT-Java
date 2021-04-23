@@ -342,6 +342,14 @@ public class Participant implements UserDetails, HasStudy {
         return false;
     }
 
+    public Locale locale() {
+        if (this.getLanguage() != null) {
+            return new Locale(this.getLanguage());
+        } else {
+            return Locale.ENGLISH;
+        }
+    }
+
     @JsonIgnore
     public int getTotalCoachInteractions() {
         return this.coachLogs.size();

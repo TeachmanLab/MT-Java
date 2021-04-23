@@ -7,7 +7,6 @@ import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.RestExceptions.NoPastProgressException;
 import org.mindtrails.domain.RestExceptions.WrongFormException;
 import org.mindtrails.domain.Study;
-import org.mindtrails.domain.jsPsych.JsPsychTrial;
 import org.mindtrails.persistence.AngularTrainingRepository;
 import org.mindtrails.service.ParticipantService;
 import org.slf4j.Logger;
@@ -24,13 +23,13 @@ import org.springframework.web.servlet.view.RedirectView;
 import java.security.Principal;
 import java.util.Date;
 import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.Locale;
 
 /**
  * Created by dan on 7/7/16.
  */
 @Controller
-@RequestMapping("/angular")
+@RequestMapping(value={"/angular", "/angular-es"})
 public class AngularTrainingController extends BaseController {
 
     @Autowired
@@ -43,9 +42,12 @@ public class AngularTrainingController extends BaseController {
 
     @RequestMapping()
     public String showTraining(ModelMap model, Principal principal) {
-//        Participant p = participantService.get(principal);
-//        model.addAttribute("sessionName", p.getStudy().getCurrentSession().getName());
-        return "angularTraining";
+        Participant p = participantService.get(principal);
+        if(p.locale().equals(new Locale("es"))) {
+            return "angularTraining-es";
+        } else {
+            return "angularTraining";
+        }
     }
 
     @ExportMode

@@ -11,7 +11,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Locale;
 
 /**
  * Sets the language when users log into the system.
@@ -33,10 +32,7 @@ public class LocaleSettingAuthenticationSuccessHandler extends SavedRequestAware
             Object principal = authentication.getPrincipal();
             if (principal instanceof Participant) {
                 Participant p = (Participant) principal;
-                if (p.getLanguage() != null) {
-                    Locale providedLocale = new Locale(p.getLanguage());
-                    localeResolver.setLocale(request, response, providedLocale);
-                }
+                localeResolver.setLocale(request, response, p.locale());
             }
         }
     }
