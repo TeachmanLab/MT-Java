@@ -188,16 +188,15 @@
                 <input class="form-control" type="password" id="password" name="password" th:field="*{password}"
                        th:errorclass="error"/>
                 <div id="pswd_info">
-                    <h4>Password must meet the following requirements:</h4>
+                    <h4 th:text="#{password.message}">Password must meet the following requirements:</h4>
                     <ul>
-                        <li id="letter" class="invalid">At least <strong>one letter</strong></li>
-                        <li id="capital" class="invalid">At least <strong>one capital letter</strong></li>
-                        <li id="number" class="invalid">At least <strong>one number</strong></li>
-                        <li id="symbol" class="invalid">At least <strong>one symbol</strong><br/>( ! # $ @ _ ' + , ? [ ]
-                            . - and
-                            space)
+                        <li id="letter" class="invalid"><span th:text="#{password.least}">At least</span> <span th:text="#{password1}"><b>one letter</b></span></li>
+                        <li id="capital" class="invalid"><span th:text="#{password.least}">At least</span> <span th:text="#{password2}"><b>one capital letter</b></span></li>
+                        <li id="number" class="invalid"><span th:text="#{password.least}">At least</span> <span th:text="#{password3}"><b>one number</b></span></li>
+                        <li id="symbol" class="invalid"><span th:text="#{password.least}">At least</span> <span th:text="#{password4a}"><b>one symbol</b></span><br/>( ! # $ @ _ ' + , ? [ ]
+                            . - <span th:text="#{password4b}">and space)</span>
                         </li>
-                        <li id="length" class="invalid">At least <strong>8 characters</strong></li>
+                        <li id="length" class="invalid"><span th:text="#{password.least}">At least</span> <span th:text="#{password5}"><b>8 characters</b></span></li>
                     </ul>
                 </div>
             </div>
