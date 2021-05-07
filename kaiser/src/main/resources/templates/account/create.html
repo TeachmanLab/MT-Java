@@ -113,11 +113,8 @@
                                 <p> At the end of the study, you will receive more details about the study's rationale
                                     and design. You will also receive feedback about the progress you made during the program.</p>
                                 <br></br>
-                                <ul class="list-inline pull-right">
-                                    <li><button type="button" class="btn btn-primary next-step">Next</button></li>
-                                </ul>
                             </div>
-                            <div th:if="${#strings.equals(session.condition,'CAN_COACH')}" class="tab-pane" role="tabpanel" id="consent-coach">
+                            <div th:if="${#strings.equals(session.condition,'CAN_COACH')} or ${#strings.equals(session.condition,'CAN_COACH_SHORTM')}" class="tab-pane" role="tabpanel" id="consent-coach">
                                 <p><b><h3>Who can help me during the program?</h3></b></p>
 
                                 <p> You have the option of <b>talking with a personal support coach</b> via phone, email, and/or texts, to discuss
@@ -126,10 +123,7 @@
                                     your work, and help troubleshoot any issues that come up when doing the online training
                                     program.</p>
                                 <br></br>
-                                <ul class="list-inline pull-right">
-                                    <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                                    <li><button type="button" class="btn btn-primary next-step">Next</button></li>
-                                </ul>
+
                             </div>
                             <div class="tab-pane" role="tabpanel" id="consent-benefits">
 
@@ -143,12 +137,10 @@
                                     distressing; however, most people experience minimal-to-no distress or do not feel distressed for extended
                                     periods of time.</p>
 
-                                <!-- START: NO_INCENTIVE, NO_INCENTIVE_SHORTM, CAN_COACH, TESTIMONIALS, BONUS_5, BONUS_1O, BONUS_20 -->
 
                                 <p> Please note that MindTrails does not provide specific diagnostic or medical advice on our website, and
                                     we are limited in how we can respond to your personal requests.
-                                    <div th:if="${#strings.equals(session.condition,'NO_INCENTIVE')} or ${#strings.equals(session.condition,'NO_INCENTIVE_SHORTM')} or ${#strings.equals(session.condition,'CAN_COACH')}
-                                            or ${#strings.equals(session.condition,'TESTIMONIALS')}">There is no compensation for participating
+                                    <div th:if="${#strings.contains(session.condition,'NO_INCENTIVE')} or ${#strings.contains(session.condition,'CAN_COACH')} or ${#strings.contains(session.condition,'TESTIMONIALS')}">There is no compensation for participating
                                     in this study.</div></p>
 
                                 <p> Any time information is collected, there is a potential risk for loss of confidentiality. While this is a
@@ -159,26 +151,19 @@
                                     worsened as a result of participating in the MindTrails research study.</p>
                                 <br></br>
 
-                                <ul class="list-inline pull-right">
-                                    <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                                    <li><button type="button" class="btn btn-primary next-step">Next</button></li>
-                                </ul>
+
                             </div>
                             <div th:if="${#strings.contains(session.condition, 'BONUS')}" class="tab-pane" role="tabpanel" id="consent-incentives">
                                 <p><b><h3>Is there a bonus for signing up and starting training?</h3></b></p>
 
-                                <p th:switch="${session.condition}">After completing the first training session, you will receive a
-                                    <span th:case="BONUS_5">$5</span> <span th:case="BONUS_10">$10</span> <span th:case="BONUS_20">$20</span>
+                                <p>After completing the first training session, you will receive a
+                                    <span th:if="${#strings.contains(session.condition, 'BONUS_5')}">$5</span> <span th:if="${#strings.contains(session.condition, 'BONUS_10')}">$10</span> <span th:if="${#strings.contains(session.condition, 'BONUS_20')}">$20</span>
                                     electronic gift card. The gift card will be sent via email within 2 business days of being
                                     awarded. The cards are submitted through Tango Card, an e-gift cards service through which you
                                     can choose from top name-brands like Amazon, Starbucks, iTunes, Target, and many more options;
                                     or you can donate the value to a charity.</p>
                                 <br></br>
-                                <!-- END: NO_INCENTIVE, NO_INCENTIVE_SHORTM, CAN_COACH, TESTIMONIALS, BONUS_5, BONUS_1O, BONUS_20 -->
-                                <ul class="list-inline pull-right">
-                                    <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                                    <li><button type="button" class="btn btn-primary next-step">Next</button></li>
-                                </ul>
+
                             </div>
                             <div class="tab-pane" role="tabpanel" id="consent-stop">
 
@@ -193,10 +178,7 @@
                                 This survey is voluntary and will take less than 5 minutes of your time.</p>
                                 <br></br>
 
-                                <ul class="list-inline pull-right">
-                                    <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                                    <li><button type="button" class="btn btn-primary next-step">Next</button></li>
-                                </ul>
+
                             </div>
                             <div class="tab-pane" role="tabpanel" id="consent-confidentiality">
 
@@ -225,10 +207,7 @@
                                 </ul>
                                 <br></br>
 
-                                <ul class="list-inline pull-right">
-                                    <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                                    <li><button type="button" class="btn btn-primary next-step">Next</button></li>
-                                </ul>
+
                             </div>
                             <div class="tab-pane" role="tabpanel" id="consent-privacy">
                                 <p><b><h3>What is the MindTrails Privacy Policy?</h3></b></p>
@@ -264,10 +243,7 @@
                                     online. Importantly, open data sharing practices pose no threat to participants, as participants' names
                                     and identifying information are never connected to the data they provide.</p>
                                 <br></br>
-                                <ul class="list-inline pull-right">
-                                    <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                                    <li><button type="button" class="btn btn-primary next-step">Next</button></li>
-                                </ul>
+
                             </div>
                             <div class="tab-pane" role="tabpanel" id="consent-phi-auth">
 
@@ -388,10 +364,7 @@
 
                                 <p style="margin-left:50px"> IRB-SBS Protocol #: 2949</p>
                                 <br></br>
-                                <ul class="list-inline pull-right">
-                                    <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                                    <li><button type="button" class="btn btn-primary next-step">Next</button></li>
-                                </ul>
+
                             </div>
                             <div class="tab-pane" role="tabpanel" id="consent-kaiser">
 
@@ -428,11 +401,11 @@
                                         or experiment without the intervention of any element of force, fraud, deceit, duress, coercion,
                                         or undue influence upon the participant’s decision.</li>
                                 </ol>
-                                <ul class="list-inline pull-right">
-                                    <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                                    <li><button type="button" class="btn btn-primary next-step">Next</button></li>
-                                </ul>
                             </div>
+                            <ul id="next-prev-buttons" class="list-inline pull-right">
+                                <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
+                                <li><button type="button" class="btn btn-primary next-step">Next</button></li>
+                            </ul>
                             <div class="tab-pane" role="tabpanel" id="consent-create">
                                 <p><b><h3>Account Creation</h3></b></p>
                                 <p>Please use the form below to create your new account.</p>

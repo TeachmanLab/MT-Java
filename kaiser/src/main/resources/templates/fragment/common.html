@@ -543,18 +543,18 @@
             $(".next-step").click(function (e) {
                 var $active = $('.wizard .nav-tabs li.active');
                 var $next = $active.next();
-                $('#stepnum').text($next.index() + 1);
                 if (($next.index() + 1) == $("#steptabs").children().length) {
                     localStorage.setItem("reachedLastStep", "true");
+                    $('#next-prev-buttons').hide();
                 }
                 $next.removeClass('disabled').find('a[data-toggle="tab"]').click();
-
+                $('#stepnum').text($next.index() + 1);
             });
             $(".prev-step").click(function (e) {
                 var $active = $('.wizard .nav-tabs li.active');
                 var $prev = $active.prev();
-                $('#stepnum').text($prev.index() + 1);
                 $prev.find('a[data-toggle="tab"]').click();
+                $('#stepnum').text($prev.index() + 1);
             });
 
             // Use Jquery-Validate plugin to validate all forms.

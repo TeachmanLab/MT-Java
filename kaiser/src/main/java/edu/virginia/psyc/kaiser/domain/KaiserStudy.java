@@ -22,7 +22,7 @@ import java.util.stream.Stream;
 public class KaiserStudy extends BaseStudy {
 
     // TODO: Write test to ensure we never get a "NONE" as a condition
-    public enum CONDITION {NO_INCENTIVE, NO_INCENTIVE_SHORTM, CAN_COACH, TESTIMONIALS, BONUS_5, BONUS_10, BONUS_20}
+    public enum CONDITION {NO_INCENTIVE, NO_INCENTIVE_SHORTM, CAN_COACH, CAN_COACH_SHORTM, TESTIMONIALS, TESTIMONIALS_SHORTM, BONUS_5, BONUS_5_SHORTM, BONUS_10, BONUS_10_SHORTM, BONUS_20, BONUS_20_SHORTM}
     public static Map<String, Enum<?>> conditionMappings = new HashMap<String, Enum<?>>();
 
     public enum SESSION {preTest, firstSession, secondSession, thirdSession, fourthSession, fifthSession, PostFollowUp }
@@ -45,12 +45,17 @@ public class KaiserStudy extends BaseStudy {
         this.currentSession = PRE_TEST;
 
         conditionMappings.put("2AOM8dDBOJ", CONDITION.NO_INCENTIVE);
-        conditionMappings.put("q3R5OsNiAW", CONDITION.NO_INCENTIVE_SHORTM);
+        conditionMappings.put("q3R5OsNiAWkaiser", CONDITION.NO_INCENTIVE_SHORTM);
         conditionMappings.put("DSDvBmGcYE", CONDITION.CAN_COACH);
+        conditionMappings.put("PJy60pTXaM", CONDITION.CAN_COACH_SHORTM);
         conditionMappings.put("WtQgTY7a1w", CONDITION.TESTIMONIALS);
+        conditionMappings.put("O4mi6hD0Wd", CONDITION.TESTIMONIALS_SHORTM);
         conditionMappings.put("oLewA3TOBh", CONDITION.BONUS_5);
+        conditionMappings.put("8sXj54aeOq", CONDITION.BONUS_5_SHORTM);
         conditionMappings.put("TtBdqsBNiZ", CONDITION.BONUS_10);
+        conditionMappings.put("N70rEL8MwX", CONDITION.BONUS_10_SHORTM);
         conditionMappings.put("X1dwxumXD4", CONDITION.BONUS_20);
+        conditionMappings.put("w72gBJwnpu", CONDITION.BONUS_20_SHORTM);
     }
 
     public KaiserStudy(String currentSession, int taskIndex, Date lastSessionDate, List<TaskLog> taskLogs, boolean receiveGiftCards) {
