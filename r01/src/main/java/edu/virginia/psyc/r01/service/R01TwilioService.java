@@ -83,17 +83,17 @@ public class R01TwilioService extends TwilioServiceImpl implements TwilioService
                 R01Study.POST_FOLLOWUP2, 120, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY, true));
 
         messages.add(new TextMessage("followup2_6month",
-                "Time to complete the MindTrails 6 month follow-up! Follow this link to access the survey: " + serverUrl,
+                "Time to complete the MindTrails 6 month follow-up! Follow this link to complete it and earn $15: " + serverUrl,
                 R01Study.STUDY_EXTENSIONS.GIDI.name(),
                 R01Study.POST_FOLLOWUP2, 127, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY, true));
 
         messages.add(new TextMessage("followup3_6month",
-                "Time to complete the MindTrails 6 month follow-up! Follow this link to access the survey: " + serverUrl,
+                "Time to complete the MindTrails 6 month follow-up! Follow this link to complete it and earn $15: " + serverUrl,
                 R01Study.STUDY_EXTENSIONS.GIDI.name(),
                 R01Study.POST_FOLLOWUP2, 134, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY, true));
 
         messages.add(new TextMessage("followup3_6month",
-                "Time to complete the MindTrails 6 month follow-up! Follow this link to access the survey: " + serverUrl,
+                "Time to complete the MindTrails 6 month follow-up! Follow this link to complete it and earn $15: " + serverUrl,
                 R01Study.STUDY_EXTENSIONS.GIDI.name(),
                 R01Study.POST_FOLLOWUP2, 141, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY, false));
 
