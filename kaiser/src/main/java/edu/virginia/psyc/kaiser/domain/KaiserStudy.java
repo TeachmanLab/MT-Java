@@ -45,7 +45,7 @@ public class KaiserStudy extends BaseStudy {
         this.currentSession = PRE_TEST;
 
         conditionMappings.put("2AOM8dDBOJ", CONDITION.NO_INCENTIVE);
-        conditionMappings.put("q3R5OsNiAWkaiser", CONDITION.NO_INCENTIVE_SHORTM);
+        conditionMappings.put("q3R5OsNiAW", CONDITION.NO_INCENTIVE_SHORTM);
         conditionMappings.put("DSDvBmGcYE", CONDITION.CAN_COACH);
         conditionMappings.put("PJy60pTXaM", CONDITION.CAN_COACH_SHORTM);
         conditionMappings.put("WtQgTY7a1w", CONDITION.TESTIMONIALS);
