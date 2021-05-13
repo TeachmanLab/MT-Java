@@ -1,10 +1,10 @@
 package org.mindtrails.domain.tracking;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import org.apache.el.parser.BooleanNode;
+import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.data.DoNotDelete;
 import org.mindtrails.domain.data.Exportable;
-import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.tango.Item;
 
 import javax.persistence.Entity;
@@ -26,6 +26,7 @@ public class GiftLog extends MindTrailsLog {
 
     private String orderId;
     private String sessionName;
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="EEE, dd MMM yyyy HH:mm:ss Z", timezone="EST")
     private Date dateCreated = new Date();
     private double amount;
     private String currency;

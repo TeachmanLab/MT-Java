@@ -1,15 +1,14 @@
 package edu.virginia.psyc.r01.persistence;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.mindtrails.domain.questionnaire.LinkedQuestionnaireData;
 import org.mindtrails.domain.questionnaire.MeasureField;
 
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Map;
@@ -162,6 +161,7 @@ public class Covid19 extends LinkedQuestionnaireData {
 
     private Integer testCovidResult;
 
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="EEE, dd MMM yyyy HH:mm:ss Z", timezone="EST")
     private Date testCovidDate;
 
     private Integer testCovidDateNoAnswer;
@@ -172,6 +172,7 @@ public class Covid19 extends LinkedQuestionnaireData {
 
     private Integer testAntibodyResult;
 
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="EEE, dd MMM yyyy HH:mm:ss Z", timezone="EST")
     private Date testAntibodyDate;
 
     private Integer testAntibodyDateNoAnswer;
@@ -183,6 +184,7 @@ public class Covid19 extends LinkedQuestionnaireData {
     @NotNull
     private Integer symptoms;
 
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="EEE, dd MMM yyyy HH:mm:ss Z", timezone="EST")
     private Date symptomsDate;
 
     private Integer symptomsDateNoAnswer;

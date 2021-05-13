@@ -40,6 +40,7 @@ public class TaskLog implements Comparable<TaskLog>, HasStudy {
     private Study study;
     private String sessionName;
     private String taskName;
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="EEE, dd MMM yyyy HH:mm:ss Z", timezone="EST")
     private Date dateCompleted;
     private String tag;
     private Double timeOnTask;

@@ -3,8 +3,7 @@
 
 <head th:include="fragment/email :: headerFragment"/>
 
-<body style="background:#eee; min-height:1000px; color:#000;font-family:Arial, Helvetica, sans-serif; font-size:12px"
-      alink="#FF0000" link="#FF0000" bgcolor="#767676" text="#FFFFFF" yahoo="fix">
+<body style="font-family: 'Source Sans Pro', sans-serif; font-size:20px; box-sizing:border-box; background-color: #FFF">
 
 <div id="body_style" style="padding:15px" border="5px solid #767676">
 
@@ -14,20 +13,18 @@
         <tr>
             <td width="400">
                 <p style="margin-top:0; margin-bottom:10px">Dear MindTrails Staff, </p>
-                <p style="margin-top:5px">A participant with ID <b><span th:text="${participant.id}"/></b> just
-                    completed the
+                <p style="margin-top:5px">A participant with ID <b><span th:text="${participant.id}"/></b> in the
+                    <b><span th:text="${participant.study.name}"/>
+                    <span th:if="${participant.study.studyExtension}" th:text="${participant.study.studyExtension}">
+                    </span></b> study just completed the
                     assessment scale and received a score that exceeds our threshold. The participant will
-                    receive
-                    an notification explaining these declining results. Their original score was
+                    receive a notification explaining these declining results. Their original score was
                     <span th:text="${orig.score()}"/>, they recently scored
                     <span th:text="${latest.score()}"/></p>
             </td>
         </tr>
     </table>
-
     <p style="margin-top:0"></p>
-
-
 </div>
 
 </body>
