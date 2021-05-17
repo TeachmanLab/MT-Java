@@ -37,7 +37,7 @@
                                 <a href="#consent-whatismt" data-toggle="tab" aria-controls="consent-whatismt" role="tab"
                                     title="What is MindTrails"></a>
                             </li>
-                            <li th:if="${#strings.equals(session.condition,'CAN_COACH')}" role="presentation">
+                            <li th:if="${#strings.contains(session.condition,'CAN_COACH')}" role="presentation">
                                 <a href="#consent-coach" data-toggle="tab" aria-controls="consent-coach" role="tab" title="Coaching"></a>
                             </li>
                             <li role="presentation">
@@ -114,7 +114,7 @@
                                     and design. You will also receive feedback about the progress you made during the program.</p>
                                 <br></br>
                             </div>
-                            <div th:if="${#strings.equals(session.condition,'CAN_COACH')} or ${#strings.equals(session.condition,'CAN_COACH_SHORTM')}" class="tab-pane" role="tabpanel" id="consent-coach">
+                            <div th:if="${#strings.contains(session.condition,'CAN_COACH')}" class="tab-pane" role="tabpanel" id="consent-coach">
                                 <p><b><h3>Who can help me during the program?</h3></b></p>
 
                                 <p> You have the option of <b>talking with a personal support coach</b> via phone, email, and/or texts, to discuss
