@@ -36,6 +36,7 @@ public class ParticipantExport {
     private String campaign;
     private boolean over18;
     protected boolean wantsCoaching;
+    protected String firstCoachingFormat;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity=BaseStudy.class)
     @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
     @JsonIdentityReference(alwaysAsId=true) // otherwise first ref as POJO, others as id
