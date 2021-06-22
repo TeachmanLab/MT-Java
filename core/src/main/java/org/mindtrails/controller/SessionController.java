@@ -71,8 +71,8 @@ public class SessionController extends BaseController {
         DateTime startDate = new DateTime(study.getLastSessionDate()).plusDays(session.getDaysToWait());
         DateTime endDate = new DateTime(study.getLastSessionDate()).plusDays(session.getDaysToWait() + 2);
         DateTime completeBy = new DateTime(study.getLastSessionDate()).plusDays(session.getDaysToWait() + 2);
-        DateTimeFormatter startFormat = DateTimeFormat.forPattern("MMMM d - ");
-        DateTimeFormatter endFormat = DateTimeFormat.forPattern("MMMM d, YYYY");
+        DateTimeFormatter startFormat = DateTimeFormat.forPattern("YYYY-M-d - ");
+        DateTimeFormatter endFormat = DateTimeFormat.forPattern("YYYY-M-d");
 
         model.addAttribute("lastSession", study.getLastSession());
         model.addAttribute("currentSession", session);

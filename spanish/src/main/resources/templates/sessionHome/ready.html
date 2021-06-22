@@ -22,9 +22,8 @@
             <div class="col-md-8 session">
 
                 <!--Start, Session 1-->
-                <div th:if="${currentSession.index} == 0">
-                    <h2><b><span th:text="${participant.fullName}">Jim</span>
-                        <span th:text="#{start.p1a}">, you're ready to begin Session 1.</span></b></h2>
+                <div th:if="${currentSession.index} == 1">
+                    <h2><b><span th:text="#{welcome.a}">Welcome</span> <span th:text="${participant.fullName}">Jim</span><span th:text="#{start.p1a}"> you're ready to begin Session 1.</span></b></h2>
                     <br></br>
                     <p><b><span th:text="#{start.p2}">This includes:</span></b></p>
                     <img th:with="url=(|/images/clock-15-${participant.theme}.png|)" th:src="@{${url}}" alt="icon" padding-bottom="15px"/>
@@ -32,11 +31,13 @@
                     <img th:with="url=(|/images/clock-20-${participant.theme}.png|)" th:src="@{${url}}" alt="icon"/>
                     <p> <span style="font-family:Wingdings">&#9745;</span> <span th:text="#{start.p3b}">A 15 to 20-minute training session</span></p>
                     <br></br>
+                    <span th:text="#{start.p4a}" class="session-note">For best results, complete Session 1 by</span><br/><span th:text="#{start.p4c}"></span>
+                        <b><span class="date" th:text="${completeBy}">July 10, 2015</span></b>.
                 </div>
 
                 <!--Start, Session 2-->
-                <div th:if="${currentSession.index} == 1">
-                    <h2><b><span th:text="#{welcome}">Welcome back</span> <span th:text="${participant.fullName}">Jim</span>
+                <div th:if="${currentSession.index} == 2">
+                    <h2><b><span th:text="#{welcome.b}">Welcome back</span> <span th:text="${participant.fullName}">Jim</span>!
                         <br></br>
                         <span th:text="#{start.p1b}">You're ready to begin Session 2.</span></b></h2>
                     <br></br>
@@ -46,7 +47,9 @@
                     <img th:with="url=(|/images/clock-15-${participant.theme}.png|)" th:src="@{${url}}" alt="icon" padding-bottom="15px"/>
                     <p> <span style="font-family:Wingdings">&#9745;</span> <span th:text="#{start.p3c}">A 15 minute followup assessment</span></p>
                     <br></br>
-                </div>
+                    <span th:text="#{start.p4b}" class="session-note">For best results, complete Session 1 by</span><br/><span th:text="#{start.p4d}"></span>
+                    <b><span class="date" th:text="${completeBy}">July 10, 2015</span></b>.
+                    </div>
 
                 <!--
                 <div th:if="${currentSession.name == 'PostFollowUp'} ">
@@ -87,9 +90,6 @@
                 </div>
                 -->
 
-                <p th:text="#{start.p4}" class="session-note">For best results, complete Session 2 by
-                    <br/><b><span class="date" th:text="${completeBy}">July 10, 2015</span>.</b>
-                </p>
                 <br></br>
                 <a th:href="@{${currentTask.requestMapping}}" th:if="${currentTask}">
                     <button th:text="#{start}">Start</button>

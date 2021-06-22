@@ -258,10 +258,10 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                <!--
-                <h2><font color="#00ACE4"><b>Select Your Theme</b></font></h2>
-                <p>To customize the appearance of MindTrails, select one of the options below. You can change your
-                    theme at any time by clicking "My Account" and then "Account Settings" in the menu bar above. </p>
+
+                <h2 th:text="#{theme.title}"><font color="#00ACE4"><b>Select Your Theme</b></font></h2>
+                <p th:text="#{theme.info}">To customize the appearance of MindTrails, select one of the options below. You can change your
+                    theme at any time by clicking "My Account" and then "Account Settings" in the menu bar above.</p>
             </div>
         </div>
         <div class="row">
@@ -269,7 +269,7 @@
                 <div class="themeSection blue">
                     <div class="col-md-1">
                         <input type="radio" th:field="*{theme}" value="blue" required="true"/>
-                        Blue
+                        <span th:text="#{theme.blue}">Blue</span>
                     </div>
                     <div class="col-md-11">
                         <div class="themeOption">
@@ -289,7 +289,7 @@
                 <div class="themeSection orange">
                     <div class="col-md-1">
                         <input type="radio" th:field="*{theme}" value="orange" required="true"/>
-                        Orange
+                        <span th:text="#{theme.orange}">Orange</span>
                     </div>
                     <div class="col-md-11">
                         <div class="themeOption">
@@ -309,7 +309,7 @@
                 <div class="themeSection green">
                     <div class="col-md-1">
                         <input type="radio" th:field="*{theme}" value="green" required="true"/>
-                        Green
+                        <span th:text="#{theme.green}">Green</span>
                     </div>
                     <div class="col-md-11">
                         <div class="themeOption">
@@ -329,7 +329,7 @@
                 <div class="themeSection purple">
                     <div class="col-md-1">
                         <input type="radio" th:field="*{theme}" value="purple" required="true"/>
-                        Purple
+                        <span th:text="#{theme.purple}">Purple</span>
                     </div>
                     <div class="col-md-11">
                         <div class="themeOption">
@@ -349,7 +349,7 @@
                 <div class="themeSection gold">
                     <div class="col-md-1">
                         <input type="radio" th:field="*{theme}" value="gold" required="true"/>
-                        Gold
+                        <span th:text="#{theme.gold}">Gold</span>
                     </div>
                     <div class="col-md-11">
                         <div class="themeOption">
@@ -360,9 +360,11 @@
                                 <img th:src="@{/images/settings-gold-sm.png}" alt="gold Theme"/>
                             </div>
                         </div>
-                    </div>-->
+                    </div>
                 </div>
+            </label>
         </div>
+
         <button th:text="#{update}">Update</button>
     </div>
 </section>

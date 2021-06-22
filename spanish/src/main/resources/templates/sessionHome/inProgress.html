@@ -19,12 +19,14 @@
             <div class="col-md-4">
                 <img th:src="@{/images/map-arrow-orange.png}" alt="icon" class="icon-small-bg"/>
             </div>
+
             <div class="col-md-8 session">
+                <h2><b><span th:text="#{resume.p1}">Welcome back</span> <span th:text="${participant.fullName}">Jim</span>.</b></h2>
 
-                <h2><b><span th:text="#{welcome}">Welcome back</span> <span th:text="${participant.fullName}">Jim</span>.</b></h2>
-
-                <span th:text="#{resume.p1}">You are part way through the</span> <span th:text="${currentSession.displayName}"/>.
-                <span th:text="#{resume.p2}">You can now pick back up where you left off.</span>
+                <span th:text="#{resume.p2}">You are part way through the current session.</span>
+                <span th:text="#{resume.p3}">You can now pick back up where you left off.</span>
+                <br></br>
+                <br></br>
                 <a th:href="@{${currentTask.requestMapping}}" th:if="${currentTask}">
                     <button th:text="#{continue}">Continue</button>
                 </a>
