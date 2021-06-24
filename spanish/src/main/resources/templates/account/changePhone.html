@@ -23,10 +23,12 @@
                 <img th:src="@{/images/map-arrow-orange.png}" alt="icon" class="icon-small-bg"/>
             </div>
             <div class="col-md-8">
-                <h2 class="page-title heading-icon">Verify Your Phone Number</h2>
-                <p>If you are eligible to receive e-gift cards, in order to receive them, we will need to verify your phone number. Enter your phone number below and we will send you a text message
-                    with a code which we will use to verify your number.</p>
-                <form action="#" th:action="@{/account/updateChangePhone}"  th:object="${participant}"  method="post">
+                <h2 class="page-title heading-icon" th:text="#{verification.title}">Verify Your Phone Number</h2>
+                <span th:text="#{verification.p1}">To receive an e-gift card when you complete the study, we need to verify your phone number. Enter your phone number in the field below and a text message with a verification code will be sent to your phone.</span>
+                <span th:text="#{verification.p2}">Enter your phone number in the field below and a text message with a verification code will be sent to your phone.</span>
+                <br></br>
+                <br></br>
+                <form action="#" th:action="@{/account/updateChangePhone}" th:object="${participant}"  method="post">
 
                     <div class="row">
                         <div class="col-md-8">
@@ -74,18 +76,18 @@
                         </div>
                         </div>
                     </div>
-                <div class="row" style="padding-left: 15px;"><span class="pull-left"><button type="submit" name="sub" >Send</button></span>
+                    <br></br>
+                <div class="row" style="padding-left: 15px;"><span class="pull-left"><button th:text="#{verification.send}" type="submit" name="sub" >Send</button></span>
                 </div>
                 </form>
-                <br></br>
                 <div class="row">
                     <div class="col-md-10">
                         <div class="row">
-                            <div class="row" style="padding-left: 30px;">
+                            <!--<div class="row" style="padding-left: 30px;">
                                 <p>If you choose to skip this step, you can always verify your phone number later.</p>
-                            </div>
+                            </div>-->
                             <div class="row" style="padding-left: 30px;">
-                                <a th:href="@{/account/theme}"><button>Skip</button> </a>
+                                <a th:href="@{/account/theme}"><button th:text="#{verification.skip}">Skip</button> </a>
                             </div>
                         </div>
                     </div>
