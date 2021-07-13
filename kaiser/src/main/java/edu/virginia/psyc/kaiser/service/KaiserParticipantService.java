@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import java.util.*;
 
 import static edu.virginia.psyc.kaiser.domain.KaiserStudy.CONDITION.CAN_COACH;
+import static edu.virginia.psyc.kaiser.domain.KaiserStudy.CONDITION.CAN_COACH_SHORTM;
 
 /**
  * Largely a wrapper around the Participant Repository.  Allows us to
@@ -94,12 +95,14 @@ public class KaiserParticipantService extends ParticipantServiceImpl implements 
 
     @Override
     public Page<Participant> findEligibleForCoaching(Pageable pageable) {
-        return this.participantRepository.findEligibleForCoachingWithOptIn(CAN_COACH.name(), pageable);
+        List<String> conditions = Arrays.asList(CAN_COACH.name(), CAN_COACH_SHORTM.name());
+        return this.participantRepository.findEligibleForCoachingWithOptIn(conditions, pageable);
     }
 
     @Override
     public Page<Participant> searchEligibleForCoaching(Pageable pageable, String searchTerm) {
-        return this.participantRepository.searchEligibleForCoachingWithOptIn(CAN_COACH.name(), pageable, searchTerm);
+        List<String> conditions = Arrays.asList(CAN_COACH.name(), CAN_COACH_SHORTM.name());
+        return this.participantRepository.searchEligibleForCoachingWithOptIn(conditions, pageable, searchTerm);
     }
 
     @Override

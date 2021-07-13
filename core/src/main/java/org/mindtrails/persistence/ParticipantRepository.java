@@ -70,11 +70,11 @@ public interface ParticipantRepository extends JpaRepository<Participant, Long> 
                                               Pageable pageable);
 
     @Query("SELECT p FROM Participant as p LEFT JOIN p.study s \n" +
-            "where s.conditioning = :condition and " +
-            "p.wantsCoaching is true and " + 
+            "where s.conditioning in :conditions and " +
+            "p.wantsCoaching is true and " +
             "p.coachedBy is null and p.testAccount = false order by " +
             "p.lastLoginDate desc")
-    Page<Participant> findEligibleForCoachingWithOptIn(@Param("condition") String condition,
+    Page<Participant> findEligibleForCoachingWithOptIn(@Param("conditions") List<String> conditions,
                                                         Pageable pageable);
 
     @Query("SELECT p FROM Participant as p LEFT JOIN p.study s \n" +
@@ -90,11 +90,11 @@ public interface ParticipantRepository extends JpaRepository<Participant, Long> 
     @Query("SELECT p FROM Participant as p LEFT JOIN p.study s \n" +
             " where lower(p.fullName) like '%' || lower(:search) || '%'" +
             " or lower(p.email) like '%' || lower(:search) || '%' and " +
-            "s.conditioning = :condition and " +
-            "p.wantsCoaching is true and " + 
+            "s.conditioning in :conditions and " +
+            "p.wantsCoaching is true and " +
             "p.coachedBy is null and p.testAccount = false order by " +
             "p.lastLoginDate desc")
-    Page<Participant> searchEligibleForCoachingWithOptIn(@Param("condition") String condition,
+    Page<Participant> searchEligibleForCoachingWithOptIn(@Param("conditions") List<String> conditions,
                                                         Pageable pageable,
                                                         @Param("search") String search);
 

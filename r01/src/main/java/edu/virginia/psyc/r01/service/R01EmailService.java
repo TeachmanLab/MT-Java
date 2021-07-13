@@ -92,9 +92,9 @@ public class R01EmailService extends EmailServiceImpl implements EmailService{
                 R01Study.STUDY_EXTENSIONS.GIDI.name(), R01Study.POST_FOLLOWUP2, 106, Email.SCHEDULE_TYPE.INACTIVITY, false));
         events.add(new Email("followup_6month", "It’s Time to Complete the MindTrails Six Month Follow-Up Survey!",
                 R01Study.STUDY_EXTENSIONS.GIDI.name(), R01Study.POST_FOLLOWUP2, 120, Email.SCHEDULE_TYPE.INACTIVITY, false));
-        events.add(new Email("followup2_6month", "We’d love to hear from you!",
+        events.add(new Email("followup2_6month", "Time to Complete the MindTrails Six-Month Follow-Up ($15)!",
                 R01Study.STUDY_EXTENSIONS.GIDI.name(), R01Study.POST_FOLLOWUP2, 127, Email.SCHEDULE_TYPE.INACTIVITY, false));
-        events.add(new Email("followup3_6month", "We’d love to help!",
+        events.add(new Email("followup3_6month", "There’s Still Time to Complete the MindTrails Six-Month Follow-Up Survey ($15)!",
                 R01Study.STUDY_EXTENSIONS.GIDI.name(), R01Study.POST_FOLLOWUP2, 134, Email.SCHEDULE_TYPE.INACTIVITY, false));
 
         // GIDI Newsletter events

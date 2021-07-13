@@ -18,6 +18,11 @@
                </a>
             </td>
         </tr>
+        <tr>
+            <td width="100" styl="margin-top:20px; font-size:.9em; text-align:left; padding-top: 4px">
+
+            </td>
+        </tr>
     </table>
 
     <div id="footer" class="clearfix" th:fragment="footerFragment">
@@ -45,6 +50,12 @@
         <p style="margin-top:20px; font-size:.9em; text-align:left; padding-top: 4px" >You received this email because you signed up to participate in the MindTrails study. You
             can manage your contact preferences, or exit the study at any time by visiting your
             <a th:href="${url} + '/account'">Account Settings.</a></p>
+
+        <p style="margin-top:20px; font-size:.8em; text-align:left; padding-top: 4px" >
+            This email was sent as a part of the <b><span th:text="${participant.study.name}"/>
+            <span th:if="${participant.study.studyExtension}" th:text="${participant.study.studyExtension}"></span></b>
+            study.
+        </p>
     </div>
 
 

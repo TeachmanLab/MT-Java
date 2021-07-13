@@ -149,7 +149,7 @@ public class AccountController extends BaseController {
 
         // This is a bit of hack for a specific study, just trying to hold this together and get it
         // out he door quickly.
-        if (participant.getStudy().getConditioning().equals("CAN_COACH")) {
+        if (participant.getStudy().getConditioning().equals("CAN_COACH") || (participant.getStudy().getConditioning().equals("CAN_COACH_SHORTM"))) {
             return "redirect:/account/coachingOptIn";
         }
 
