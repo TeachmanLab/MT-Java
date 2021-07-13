@@ -19,6 +19,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import java.util.*;
@@ -56,6 +57,8 @@ public class Participant implements UserDetails, HasStudy {
     protected boolean phoneReminders = true;
     protected String timezone;
     protected boolean active = true;
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="EEE, dd MMM yyyy HH:mm:ss Z", timezone="EST")
+    @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ")
     protected Date lastLoginDate;
     protected boolean wantsCoaching;
     protected String firstCoachingFormat;
@@ -72,6 +75,8 @@ public class Participant implements UserDetails, HasStudy {
     protected float attritionRisk;  // percentage likelihood this person will leave the study early.
     protected boolean canTextMessage;  // can send and receive text messages
     protected String awardCountryCode = "US";
+
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="EEE, dd MMM yyyy HH:mm:ss Z", timezone="EST")
     @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ")
     private Date dateCreated = new Date();
     private String language = "en";  // Preferred language, should be either "en" or "es" for spanish

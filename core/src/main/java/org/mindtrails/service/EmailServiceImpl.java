@@ -67,6 +67,9 @@ public class EmailServiceImpl implements EmailService {
     protected ParticipantRepository participantRepository;
 
     @Autowired
+    protected ParticipantService participantService;
+
+    @Autowired
     protected TaskLogRepository taskLogRepository;
 
     @Autowired
@@ -111,6 +114,16 @@ public class EmailServiceImpl implements EmailService {
         return;
     }
 
+
+    private String getStudyName() {
+        List<Study> studies = participantService.getStudies();
+        String name = "";
+        for(Study s : studies) { // Typically just one, so use that.
+            name = s.getName();
+        }
+        return name;
+    }
+
     public void sendEmail(Email email) {
         try {
 
@@ -128,6 +141,8 @@ public class EmailServiceImpl implements EmailService {
             email.getContext().setVariable("url", this.siteUrl);
             email.getContext().setVariable("respondTo", this.respondTo);
             email.getContext().setVariable("participant", email.getParticipant());
+            email.getContext().setVariable("studyName", getStudyName());
+
             final String htmlContent = this.templateEngine.process("email/" + email.getType(),
                     email.getContext());
             MimeBodyPart htmlBodyPart = new MimeBodyPart(); //4
