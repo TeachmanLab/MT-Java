@@ -58,8 +58,6 @@ public class SpanishParticipantService extends ParticipantServiceImpl implements
     public Participant create() {
         Participant p = new Participant();
         SpanishStudy study = new SpanishStudy();
-        p.setReceiveGiftCards(tangoService.getEnabled());
-        study.setReceiveGiftCards(tangoService.getEnabled());
         p.setStudy(study);
         return p;
     }
@@ -79,13 +77,15 @@ public class SpanishParticipantService extends ParticipantServiceImpl implements
     @Override
     public Page<Participant> findEligibleForCoaching(Pageable pageable) {
         // Returns nothing, as Spanish doesn't do coaching
-        return this.participantRepository.findEligibleForCoachingWithOptIn("NA", pageable);
+        List<String> conditions = Arrays.asList("NA");
+        return this.participantRepository.findEligibleForCoachingWithOptIn(conditions, pageable);
     }
 
     @Override
     public Page<Participant> searchEligibleForCoaching(Pageable pageable, String searchTerm) {
         // Returns nothing, as Spanish doesn't do coaching
-        return this.participantRepository.searchEligibleForCoachingWithOptIn("NA", pageable, searchTerm);
+        List<String> conditions = Arrays.asList("NA");
+        return this.participantRepository.searchEligibleForCoachingWithOptIn(conditions, pageable, searchTerm);
     }
 
 
@@ -121,6 +121,10 @@ public class SpanishParticipantService extends ParticipantServiceImpl implements
 
         // Set the participants condition based on the session attribute.
         p.getStudy().setConditioning(condition);
+
+        // All Spanish Participants should recieve gift cards if they are available.
+        p.setReceiveGiftCards(tangoService.getEnabled());
+        p.getStudy().setReceiveGiftCards(tangoService.getEnabled());
 
         // Update the participants language based on the condition.
         if(condition == SpanishStudy.CONDITION.ENGLISH.toString()) {

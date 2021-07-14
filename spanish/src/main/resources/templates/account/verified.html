@@ -3,7 +3,7 @@
 <html class="ie ie6" lang="en"> <![endif]-->
 <!--[if IE 7 ]>
 <html class="ie ie7" lang="en"> <![endif]-->
-<!--[if IE 8 ]>
+<!--[if IE 8 ]>indtrails
 <html class="ie ie8" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!-->
 <html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
@@ -24,9 +24,9 @@
         </div>
         <div class="row">
             <div class="col-md-8">
-                <h2 th:text="${verified.title}" class="page-title heading-icon">Your Account Is Verified!</h2>
+                <h2 th:text="#{verified.title}" class="page-title heading-icon">Your Account Is Verified!</h2>
 
-                <span th:text="${verified.p1}">You will receive your e-gift card by email after you complete the first training session.</span> <span th:text="${verified.p2}"><b>Please allow up to 2 business days
+                <span th:text="#{verified.p1}">You will receive your e-gift card by email after you complete the first training session.</span> <span th:text="#{verified.p2}"><b>Please allow up to 2 business days
                     for receipt of this email.</b></span>
             </div>
         </div>
@@ -38,13 +38,12 @@
                 <align-center><img th:src="@{/images/tango_card_icon.png}"/></align-center>
                 <br></br>
                 <br></br>
-                <span th:text="${verified.p3a}">MindTrails uses</span> <a target="new" href="https://www.tangocard.com/">Tango Card</a>
-                    <span th:text="${verified.p3c}">, an awards delivery program, for distribution of e-gift cards to participants.
+                <span th:text="#{verified.p3a}">MindTrails uses</span> <a target="new" href="https://www.tangocard.com/" th:text="#{verified.p3b}">Tango Card</a>
+                    <span th:text="#{verified.p3c}">, an awards delivery program, for distribution of e-gift cards to participants.
                     With a Tango e-gift card, you can choose to use your award among a range of retailers and
                     services (such as Amazon, Apple App Store &amp; iTunes, Nike, Uber, and more) or donate the value to a range of non-profits
                     (including the American Cancer Society, Clean Water Fund, and Habitat for Humanity).</span>
 
-            <!--Not needed for Kaiser
                 <p>Tango Card offers several country-facing options, which you can select from below. Values are awarded in
                     USD – options in other currencies will be converted from USD based on current exchange rates.
                     Please view <a target="new" href="https://www.tangocard.com/reward-link/">this link</a> for more
@@ -69,14 +68,14 @@
                     <option value="SG">Singapore</option>
                     <option value="ES">Spain</option>
                     <option value="GB">United Kingdom</option>
-                </select>-->
+                </select>
             </div>
         </div>
 
         <div class="row">
         <div class="col-md-2">
             <br></br>
-            <span class="pull-left"><button>Next</button></span>
+            <span class="pull-left"><button th:text="#{next}">Next</button></span>
         </div>
         </div>
         <br/>

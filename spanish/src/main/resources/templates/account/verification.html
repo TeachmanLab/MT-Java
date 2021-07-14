@@ -21,17 +21,17 @@
                 <img th:src="@{/images/map-arrow-orange.png}" alt="icon" class="icon-small-bg"/>
             </div>
             <div class="col-md-8">
-                <h2 th:text="${verification.title}" class="page-title heading-icon">Verify Your Phone Number</h2>
-                <p th:text="${verification.p1}">To receive an e-gift card when you complete the study, we need to verify your phone number.</p>
-                <span th:text="${verification.p2a}">We just sent you a text message with a</span> <span th:text="${verification.p2b}"><b>six digit</b></span>
-                    <span th:text="${verification.p2c}">code to the phone number assigned to your account. When you receive the code, please enter it in the field below and click the "Verify" button.</span>
+                <h2 th:text="#{verification.title}" class="page-title heading-icon">Verify Your Phone Number</h2>
+                <p th:text="#{verification.p1}">To receive an e-gift card when you complete the study, we need to verify your phone number.</p>
+                <span th:text="#{verification.p2a}">We just sent you a text message with a</span> <span th:text="#{verification.p2b}"><b>six digit</b></span>
+                    <span th:text="#{verification.p2c}">code to the phone number assigned to your account. When you receive the code, please enter it in the field below and click the "Verify" button.</span>
                 <form action="#" th:action="@{/account/updateVerification}" method="post">
                     <div class="row">
                         <div class="col-md-8">
                             <div class="row" style="padding-left: 15px;"><input class="input-lg" style="font-size:30px;" id="verifycode" type="text" maxlength="6" size="2"
                                                                                    name="verifycode"/></div>
                             <div class="row" style="padding-left: 15px;"><span class="pull-left"><button id="subCode" type="submit"
-                                                                                      disabled="disabled" th:text="${verification.verify}">Verify</button>
+                                                                                      disabled="disabled" th:text="#{verification.verify}">Verify</button>
                             </span>
                                 </div>
 
@@ -44,7 +44,7 @@
                     <div class="col-md-10">
                         <div class="row">
                                 <div class="row" style="padding-left: 30px;">
-                                <a th:href="@{/account/theme}" th:text="${verification.skip}"><button>Skip</button> </a>
+                                <a th:href="@{/account/theme}" th:text="#{verification.skip}"><button>Skip</button> </a>
                             </div>
                 </div>
                         </div>
