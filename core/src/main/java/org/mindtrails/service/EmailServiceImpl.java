@@ -142,7 +142,9 @@ public class EmailServiceImpl implements EmailService {
             email.getContext().setVariable("respondTo", this.respondTo);
             email.getContext().setVariable("participant", email.getParticipant());
             email.getContext().setVariable("studyName", getStudyName());
-
+            if (email.getParticipant() != null) {
+                email.getContext().setLocale(email.getParticipant().locale());
+            }
             final String htmlContent = this.templateEngine.process("email/" + email.getType(),
                     email.getContext());
             MimeBodyPart htmlBodyPart = new MimeBodyPart(); //4

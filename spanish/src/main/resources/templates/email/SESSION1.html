@@ -12,9 +12,7 @@
         <table cellpadding="0" cellspacing="0" width="600" align="center" style="margin-top:20px">
             <tr>
                 <td width="400">
-                    <p th:text="#{bonus.p1}" th:text="'Hi ' +  ${participant.fullName} + ','" style="margin-top:0; margin-bottom:10px">
-                        Hi,
-                    </p>
+                    <p><span  th:text="#{bonus.p1}"></span> <span th:text="${participant.fullName}"></span>,</p>
                     <p th:text="#{bonus.p2}" style="margin-top:5px">Thank you for your participation in the MindTrails Study!</p>
                     <p th:text="#{bonus.p3a}" style="margin-top:5px">Your next training session is coming up soon. In the meantime, to show our appreciation for your commitment to the study,
                         here's an interesting psychology demonstration.</p>

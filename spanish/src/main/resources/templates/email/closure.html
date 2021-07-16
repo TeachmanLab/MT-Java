@@ -12,10 +12,7 @@
     <table cellpadding="0" cellspacing="0" width="600" align="center" style="margin-top:20px">
         <tr>
             <td width="400">
-                <p th:text="#{closure.p1}" th:text="'Hi ' +  ${participant.fullName} + ','" style="margin-top:0; margin-bottom:10px">
-                    Hi Fred,
-                </p>
-
+                <p><span  th:text="#{closure.p1}"></span> <span th:text="${participant.fullName}"></span>,</p>
                 <p th:text="#{closure.p2}" style="margin-top:5px">We haven't heard from you for 3 weeks, so we have now
                     closed your account in the study.</p>
 
