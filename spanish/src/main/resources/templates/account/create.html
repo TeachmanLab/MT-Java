@@ -39,10 +39,10 @@
 
                 <p><b><h3 th:text="#{consent.heading2}">What will I be asked to do?</h3></b></p>
 
-                <p th:text="#{consent.p2a}"><b> Assessments </b></p>
+                <p th:text="#{consent.p2a}"><b><i> Assessments </i></b></p>
                 <p th:text="#{consent.p2b}"> You will be asked to complete questionnaires about your thoughts, mood, background, and personal mental health history.</p>
 
-                <p th:text="#{consent.p2c}"><b> Training </b></p>
+                <p th:text="#{consent.p2c}"><b><i> Training </i></b></p>
                 <p th:text="#{consent.p2d}"> You will be presented with a training program designed to shift how you think about situations. You will be
                     asked to read brief stories about situations that often produce anxiety and fill in missing letters to complete words.</p>
 
@@ -77,8 +77,9 @@
                     <span th:text="#{consent.p5c}">, and you may end your individual session participation at any time by closing the study window.
                         Further, your participation in this study is not at all related to your standing with other ongoing therapy or employers.</span>
                     <span th:text="#{consent.p5d}">Contact the team if you have any questions about the study or wish to be removed from the study.</span>
-
                 <br></br>
+                <br></br>
+
                 <p><b><h3 th:text="#{consent.heading6}">What is the MindTrails Privacy Policy?</h3></b></p>
 
                 <span th:text="#{consent.p6a}">MindTrails uses the same secure hypertext transfer protocol (HTTPS) that banks and other commercial websites use
@@ -88,7 +89,7 @@
                 <span th:text="#{consent.p6b}">Please note that completing the study in a public place where others might view your screen, and use of open networks
                     or free Wi-Fi can increase the chance for loss of privacy.</span>
                 <span th:text="#{consent.p6c}">To view the entire privacy policy in a separate page, please click</span>
-                <span th:text="#{consent.p6d}">here</span>.
+                <span th:text="#{consent.p6d}"><a th:href="@{/public/privacy}" target="_blank">here</a></span>.
                 <br></br>
 
                 <p><u>Google Analytics</u></p>
@@ -99,7 +100,6 @@
                     your personal information with Google. The information that Google collects is anonymous in nature,
                     and will not be personally identifiable. By participating in the MindTrails study, you consent to
                     this information being collected by Google Analytics.</p>
-                <br></br>
 
                 <p th:text="#{consent.p6f}"><u>Data Sharing</u></p>
 
