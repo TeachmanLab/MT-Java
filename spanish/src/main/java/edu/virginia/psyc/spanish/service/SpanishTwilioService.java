@@ -21,25 +21,25 @@ public class SpanishTwilioService extends TwilioServiceImpl implements TwilioSer
 
 
         messages.add(new TextMessage("7day",
-                "Time to start your next MindTrails Session! Visit :" + serverUrl,
+                "text.7day" + serverUrl,
                 null, core_sessions, 7, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY, true));
 
         messages.add(new TextMessage("10day",
-                "Complete your next MindTrails session soon! Visit :" + serverUrl,
+                "text.10day" + serverUrl,
                 null, core_sessions, 10, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY, true));
 
         messages.add(new TextMessage("14day",
-                "It has been two weeks since your last MindTrails session.  Start Now :" + serverUrl,
+                "text.14day" + serverUrl,
                 null, core_sessions, 14, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY, true));
 
         messages.add(new TextMessage("18day",
-                "Final reminder about your MindTrails account!  You can start back up here:" + serverUrl,
+                "text.18day" + serverUrl,
                 null, core_sessions, 18, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY, true));
 
-        messages.add(new TextMessage("21day",
-                "MindTrails account closed. Would you mind completing a quick survey?"
-                        + serverUrl + "'/questions/ReasonsForEnding'",
-                null, core_sessions, 21, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY, true));
+//        messages.add(new TextMessage("21day",
+//                "MindTrails account closed. Would you mind completing a quick survey?"
+//                        + serverUrl + "'/questions/ReasonsForEnding'",
+//                null, core_sessions, 21, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY, true));
 
         return messages;
     }
