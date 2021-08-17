@@ -12,29 +12,9 @@
 <body th:class="|user-theme-${participant.theme}|">
 
 <section id="header" class="clearfix" th:include="fragment/common :: topFragment"/>
-
 <!-- content starts
 ================================================== -->
 <section id="content" class="clearfix">
-    <div class="container sessionSection" th:if="${currentSession.daysToWait > 10}">
-
-        <!--
-        <div class="row">
-            <div class="col-md-4">
-                <img th:src="@{/images/map-arrow-orange.png}" alt="icon" class="icon-small-bg"/>
-            </div>
-
-
-            <div class="col-md-8 session">
-                <h2><b>Great Job, <span th:text="${participant.fullName}">Jim</span>!<br/>You have completed <span
-                        th:text="${lastSession.displayName}"/>.</b></h2>
-                You have completed all the training sessions! We will email you in <span th:text="${currentSession.daysToWait}">30</span>
-                days, when it is time to complete the
-                follow up assessment <span th:if="${participant.receiveGiftCards}">and get your bonus gift card</span>.
-            </div>
-        </div>
-    </div>
-    -->
 
     <div class="container sessionSection"
          th:if="${currentSession.daysToWait &gt; 0 and currentSession.daysToWait &lt; 10}">
@@ -78,8 +58,6 @@
                     th:text="${nextGiftSession.displayName}"/></span>
         </div>
         -->
-
-    </div>
     </div>
 </section>
 
