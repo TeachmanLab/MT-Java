@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head th:include="fragment/email :: headerFragment"/>
+
+<body style="font-family: 'Source Sans Pro', sans-serif; font-size:20px; box-sizing:border-box; background-color: #FFF">
+
+<div id="body_style" style="padding:15px">
+
+    <table cellpadding="0" cellspacing="0" width="600" align="center" th:include="fragment/email :: logoFragment"/>
+
+    <table cellpadding="0" cellspacing="0" width="600" align="center" style="margin-top:20px">
+        <tr>
+            <td width="400">
+                <p><span  th:text="#{gift.p1}"></span> <span th:text="${participant.fullName}"></span>,</p>
+                <p style="margin-top:5px">
+                    <span th:text="#{gift.p2.a}">Congratulations. For completing a recent set of assessments
+                        in the MindTrails Study you haveearned a </span>
+                    <span th:text="${amount}"/>
+                    <span th:text="#{gift.p2.b}">e-gift card. Here&rsquo;s how to redeem your card. </span></p>
+                <div style="border-radius: 15px; background: #fff; text-align:center; border: 1px solid #666; margin: 20px;">
+                    <div style="border-top-right-radius: 15px; border-top-left-radius: 15px; width:100%; height:20px; background:#F77D38;"> </div>
+                    <img style="margin:auto; padding: 10px;" th:src="${url} + '/images/gift_card_lg.png'" alt="" border="none"/>
+                    <div th:text="#{gift.p3}" style="padding:20px; font-weight:700">TO REDEEM YOUR <span th:text="${amount}"/> E-GIFT CARD</div>
+
+                    <a th:text="#{gift.link}" th:href="${order.reward.redemptionUrl()}" target="_blank">Your Redemption Link</a>.<br/>
+
+                    <p th:text="#{gift.p4}" style="margin-top:5px">Click the redemption link above to activate your Reward Link, and retrieve your e-gift card. </p>
+                </div>
+
+                <p  th:text="#{gift.p5}" style="margin-top:5px">Thank you for your participation in the study and we hope you&rsquo;re having a good week.</p>
+
+                <div id="footer" th:include="fragment/email :: footerFragment"/>
+
+            </td>
+        </tr>
+    </table>
+    <p style="margin-top:0"></p>
+</div>
+</body>
+</html>
+

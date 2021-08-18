@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+    <head th:include="fragment/email :: headerFragment"/>
+
+    <body style="font-family: 'Source Sans Pro', sans-serif; font-size:20px; box-sizing:border-box; background-color: #FFF">
+
+    <div id="body_style" style="padding:15px">
+
+        <table cellpadding="0" cellspacing="0" width="600" align="center" th:include="fragment/email :: logoFragment"/>
+
+        <table cellpadding="0" cellspacing="0" width="600" align="center" style="margin-top:20px">
+            <tr>
+                <td width="400">
+                    <p><span  th:text="#{stop.hi}"></span> <span th:text="${participant.fullName}"></span>,</p>
+
+                    <p th:text="#{stop.p1}" style="margin-top:5px">Thank you for your participation in the MindTrails study!</p>
+
+                    <p style="margin-top:5px"><span th:text="#{stop.p2}">Our records indicate that you got part-way through a session and then stopped for
+                    an extended period. If you encountered any technical difficulties or have any
+                        questions we can address, please let us know at </span> <a href="mailto:studyteam@mindtrails.org">
+                            studyteam@mindtrails.org</a>.</p>
+
+                    <p style="margin-top:5px">
+                        <span th:text="#{stop.p3}">We greatly appreciate your participation and want to encourage you to complete the
+                            session as soon as you are able. You can login to your MindTrails account when you are ready: </span> <a th:text="#{stop.account}" href="https://mindtrails.virginia.edu/calm/login">MindTrails account</a> </p>
+
+                    <p th:text="#{stop.p4}" style="margin-top:5px">Your ongoing participation in the MindTrails study helps us learn how
+                        to bring treatments to people in their own home. Together, we can help lift the heavy burden of anxiety.</p>
+
+                    <div id="footer" th:include="fragment/email :: footerFragment"/>
+
+                </td>
+            </tr>
+        </table>
+        <p style="margin-top:0"></p>
+    </div>
+    </body>
+</html>

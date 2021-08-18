@@ -39,7 +39,7 @@ public class SpanishEmailService extends EmailServiceImpl implements EmailServic
         events.add(new Email("risingScore", "MindTrails Alert! Participant Score Is Rising"));
 
         events.add(new Email("resetPass", "reset.subject"));
-        events.add(new Email("giftCard", "reset.gift"));
+        events.add(new Email("giftCard", "gift.subject"));
         events.add(new Email("midSessionStop", "stop.subject"));
 
         // Bonus feature emails that come at the end of a session.
