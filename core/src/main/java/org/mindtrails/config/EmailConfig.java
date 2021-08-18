@@ -52,7 +52,9 @@ public class EmailConfig {
         Properties properties = new Properties();
         properties.setProperty("mail.transport.protocol", "smtp");
         properties.setProperty("mail.smtp.auth", auth);
+        properties.setProperty("mail.smtp.starttls.required", "true");
         properties.setProperty("mail.smtp.starttls.enable", "true");
+        properties.setProperty("mail.smtp.ssl.protocols", "TLSv1.2");
         properties.setProperty("mail.debug", "false");
         return properties;
     }

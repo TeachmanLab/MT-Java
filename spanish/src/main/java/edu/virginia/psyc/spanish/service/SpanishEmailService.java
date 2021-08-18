@@ -65,6 +65,14 @@ public class SpanishEmailService extends EmailServiceImpl implements EmailServic
         events.add(new MarkInactiveEvent("markInactive", null, core_sessions,
                 21, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY));
 
+        // Check that all the emails exist, and set this on the Email object.
+        for(ScheduledEvent event: events) {
+            if (event instanceof Email) {
+                event.setTemplateExists(this.emailTemplateExists(event.getType()));
+            }
+        }
+
+
         return events;
     }
 
