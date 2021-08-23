@@ -18,6 +18,7 @@
 
         <div class="row">
             <div class="col-md-8">
+                <br></br>
                 <div style="text-align:right">
                     Step <b><span id="stepnum">1</span></b> of <b><span id="totalsteps"></span></b>
                 </div>
@@ -29,7 +30,7 @@
             <div class="wizard">
                 <div class="col-md-8">
                     <ul id="steptabs" class="nav nav-tabs" role="tablist" style="display:none;">
-                        <li role="presentation">
+                        <li role="presentation" class="active">
                             <a href="#consent-whatismt" data-toggle="tab" aria-controls="consent-whatismt" role="tab" title="What is MindTrails" />
                         </li>
                         <li role="presentation">
@@ -56,7 +57,7 @@
                     </ul>
 
                     <div class="tab-content">
-                        <div class="tab-pane" role="tabpanel" id="consent-whatismt">
+                        <div class="tab-pane active" role="tabpanel" id="consent-whatismt">
                             <ul class="list-inline pull-right">
                                 <li><button type="button" class="btn btn-primary next-step">Next</button></li>
                             </ul>
@@ -220,7 +221,10 @@
 
                             <u>Principal Investigator:</u>
                             <p>Prof. Bethany Teachman, Department of Psychology, Millmont Building, 1023 Millmont St, Rm 234, University of Virginia, Charlottesville, VA 22903. Telephone: (434) 924-0676; Email: <a href="mailto:bteachman@virginia.edu">bteachman@virginia.edu</a></p>
-                        </div>
+                            <br></br>
+                            <p>You have reached the end of this consent agreement. Press this button to print a full copy:</p>
+                            <span><button onclick="window.print();">Print</button></span>
+                            </div>
 
                         <div class="tab-pane" role="tabpanel" id="consent-create">
                             <ul class="list-inline pull-right">
