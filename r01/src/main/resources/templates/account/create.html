@@ -17,15 +17,11 @@
     <div class="container">
 
         <div class="row">
-            <div class="col-md-4">
-                <div style="text-align:left">
+            <div class="col-md-8">
+                <div style="text-align:right">
                     Step <b><span id="stepnum">1</span></b> of <b><span id="totalsteps"></span></b>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div style="text-align:right">
-                    <span class="pull-right"><button onclick="window.print();return false">Print</button></span>
-                </div>
+                <br></br>
             </div>
         </div>
 
@@ -33,14 +29,11 @@
             <div class="wizard">
                 <div class="col-md-8">
                     <ul id="steptabs" class="nav nav-tabs" role="tablist" style="display:none;">
-                        <li role="presentation" class="active">
-                            <a href="#consent-whatismt" data-toggle="tab" aria-controls="consent-whatismt" role="tab" title="What is Calm Thinking" />
+                        <li role="presentation">
+                            <a href="#consent-whatismt" data-toggle="tab" aria-controls="consent-whatismt" role="tab" title="What is MindTrails" />
                         </li>
                         <li role="presentation">
                             <a href="#consent-tasks" data-toggle="tab" aria-controls="consent-tasks" role="tab" title="Tasks" />
-                        </li>
-                        <li th:if="${giftcardsEnabled}" role="presentation">
-                            <a href="#consent-earnings" data-toggle="tab" aria-controls="consent-earnings" role="tab" title="Earnings" />
                         </li>
                         <li role="presentation">
                             <a href="#consent-benefits" data-toggle="tab" aria-controls="consent-benefits" role="tab" title="Benefits" />
@@ -49,7 +42,10 @@
                             <a href="#consent-stop" data-toggle="tab" aria-controls="consent-stop" role="tab" title="Stop" />
                         </li>
                         <li role="presentation">
-                            <a href="#consent-privacy" data-toggle="tab" aria-controls="consent-privacy" role="tab" title="Privacy" />
+                            <a href="#consent-privacy1" data-toggle="tab" aria-controls="consent-privacy1" role="tab" title="Privacy 1" />
+                        </li>
+                        <li role="presentation">
+                            <a href="#consent-privacy2" data-toggle="tab" aria-controls="consent-privacy2" role="tab" title="Privacy 2" />
                         </li>
                         <li role="presentation">
                             <a href="#consent-contact" data-toggle="tab" aria-controls="consent-contact" role="tab" title="Contact" />
@@ -58,113 +54,98 @@
                             <a href="#consent-create" data-toggle="tab" aria-controls="consent-create" role="tab" title="Create" />
                         </li>
                     </ul>
+
                     <div class="tab-content">
-                        <div class="tab-pane active" role="tabpanel" id="consent-whatismt">
-                            <p><b><h3>What is the Calm Thinking Study?</h3></b></p>
-                            <p>The purpose of this study is to investigate a new, experimental anxiety reduction program called
-                                Calm Thinking. The program consists of the following parts:</p>
-                            <ul style="padding-right: 10px">
-                                <li>&nbsp;&nbsp;One initial assessment</li>
-                                <li>&nbsp;&nbsp;Training sessions 1-5 (with additional assessments following Sessions 3 and 5)</li>
-                                <li>&nbsp;&nbsp;One follow-up assessment</li></ul>
-
-                            <p> The program runs over the course of five weeks (one training session per week) with a two-month
-                                follow-up assessment. Each of the assessments and training sessions will take approximately 20 minutes to complete.
-
-                            </p>
+                        <div class="tab-pane" role="tabpanel" id="consent-whatismt">
                             <ul class="list-inline pull-right">
                                 <li><button type="button" class="btn btn-primary next-step">Next</button></li>
                             </ul>
-                        </div>
-                        <div class="tab-pane" role="tabpanel" id="consent-tasks">
-                            <p><b><h3>What will I be asked to do?</h3></b></p>
-                            <p>The <b>assessments</b> consist of a number of questionnaires about your thoughts and mood, your background,
-                                and personal mental health history. You will be asked to complete four assessment parts total:
-                                prior to session 1, after sessions 3 and 5, and two months following completion of session 5.
-                            </p>
-
-                            <p> In the <b>training sessions</b>, you will be presented with one of a few different training programs
-                                designed to shift how you think about situations. You may be asked to read information about anxiety
-                                problems and their treatment, and answer questions, or read brief stories and complete word fragments,
-                                by filling in one or more missing letters in a word. We are testing which program most effectively reduces anxiety.
-                            </p>
-
-                            <p> Although our prediction of which training program will be most effective is based on previous work
-                                in the laboratory, it is important to compare the effects of each program in the real world
-                                before drawing any conclusions. In psychology research, a common way to compare programs is to randomly assign each
-                                participant to one of the training versions.</p>
-
-                            <!--<p> If you get randomly assigned to a program that we do not think will be the strongest one, you will have the
-                                opportunity to complete the program that we expect to be most effective <i>after</i> you finish the study.
-                                In other words, EVERYBODY will eventually get the chance to try the program that we expect will be most effective.
-                            </p>
                             <br></br>
-                            <p><b><h3>What else should I know about participating?</h3></b></p>
+                            <p><b><h3>What is the MindTrails Study?</h3></b></p>
+                            <br></br>
+                            <p>The purpose of this study is to investigate a 5-week experimental anxiety reduction program called MindTrails.
+                                The program consists of the following parts:</p>
+                            <ul style="padding-right: 10px">
+                                <li>&nbsp;&nbsp;An initial set of questionnaires</li>
+                                <li>&nbsp;&nbsp;5 weekly training sessions (with a set of questionnaires after sessions 3 and 5)</li>
+                                <li>&nbsp;&nbsp;A set of questionnaires 2 months after you finish the training</li></ul>
 
-                            <p> Some participants may be asked to work briefly with a support coach via phone, email, and/or texts,
-                            to discuss your progress in the study. After an initial call – which would occur shortly after Training
-                            Session 1 – your weekly phone contact with the coach will be brief (typically 2-10 minutes). The coach
-                            will not be providing therapy, but can address questions, support your work, and help troubleshoot any
-                            issues that that come up when interacting with the online training program. </p>-->
+                            <p>Each of the assessments and training sessions will take approximately 20 minutes to complete.</p>
+                            <br></br>
+                            <br></br>
+                        </div>
 
-                            <p>At the end of the study, you will receive more details about the study’s rationale and design. You will also
-                                receive feedback about the progress you made during the program. </p>
+                        <div class="tab-pane" role="tabpanel" id="consent-tasks">
                             <ul class="list-inline pull-right">
                                 <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
                                 <li><button type="button" class="btn btn-primary next-step">Next</button></li>
                             </ul>
+                            <br></br>
+                            <p><b><h3>What will I be asked to do?</h3></b></p>
+                            <br></br>
+                            <b>Assessments</b>
+                            <p>You will be asked to complete questionnaires about your thoughts, mood, background, and personal mental health history.</p>
+
+                            <br></br>
+                            <b>Training</b>
+                            <p>You will be presented with one of our training programs designed to shift how you think about situations.
+                                You may be asked to read brief stories about situations that often produce anxiety and fill in missing letters to complete words or read information about anxiety problems and their treatment.</p>
+
+                            <br></br>
+                            <p>If you get randomly assigned to a program that we do not think will be the strongest one, you will have the opportunity to complete the program that we expect to be most effective after you finish the study.
+                                In other words, EVERYBODY will eventually get the chance to try the program that we expect will be most effective.
+                                In psychology research, a common way to compare programs is to randomly assign each participant to one of the training versions.</p>
+
+                            <p>At the end of the study, you will receive more details about the study’s rationale and design. You will also receive feedback about the progress you made during the program!</p>
                         </div>
-                        <div th:if="${giftcardsEnabled}" class="tab-pane" role="tabpanel" id="consent-earnings">
 
-                            <p><b><h3>How much will I earn by participating?</h3></b></p>
-                            <p> You will be eligible to receive a $5 electronic gift card for completing the initial assessment
-                                and the assessments following Training Sessions 3 and 5. For completing the follow-up
-                                assessment, you will be eligible to receive a $10 electronic gift card. Participants will be
-                                eligible to receive up to $25 in gift cards (note that values from awarded gift cards can be combined).</p>
-
-                            <p> Each gift card will be sent via email within 2 business days of being awarded. The cards are submitted
-                                through Tango Card, an e-gift cards service through which you can choose from top name-brands
-                                like Amazon, Starbucks, iTunes, Target, and many more options; or you can donate the value to a charity.</p>-->
-
-                            <ul class="list-inline pull-right">
-                                <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                                <li><button type="button" class="btn btn-primary next-step">Next</button></li>
-                            </ul>
-                        </div>
                         <div class="tab-pane" role="tabpanel" id="consent-benefits">
+                            <ul class="list-inline pull-right">
+                                <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
+                                <li><button type="button" class="btn btn-primary next-step">Next</button></li>
+                            </ul>
+
+                            <br></br>
                             <p><b><h3>Are there any benefits or risks to participating?</h3></b></p>
+                            <br></br>
 
-                            <p>There may be no direct benefits to you. Depending on the version of the training program that you complete,
-                                you may complete procedures that may help reduce symptoms of anxiety.</p>
+                            <p>For some people, completing the training program may help reduce symptoms of anxiety.
+                                However, there may be no direct benefits to you. For some people, being asked to answer questions about their thoughts and mood can be temporarily distressing, but most people experience minimal-to-no distress or do not feel distressed for long.</p>
 
-                            <p>For some participants, being asked to complete assessments about their thoughts and mood can be temporarily distressing;
-                                however, most people experience minimal-to-no distress or do not feel distressed for extended periods of time.</p>
-
-                            <p>Please note that MindTrails does not provide specific diagnostic or medical advice on our website,
-                                and we are limited in how we can respond to your personal requests.</p>
+                            <p>Please note that MindTrails does not provide specific diagnostic or medical advice on our website, and we are limited in how we can respond to your personal requests.</p>
 
                             <p><b>MindTrails is not able to offer financial compensation or to absorb the costs of treatment should you
                                 feel you have been injured as a result of participating in the MindTrails research study.</b></p>
+                            <br></br>
+                            <br></br>
+                        </div>
 
+                        <div class="tab-pane" role="tabpanel" id="consent-stop">
                             <ul class="list-inline pull-right">
                                 <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
                                 <li><button type="button" class="btn btn-primary next-step">Next</button></li>
                             </ul>
-                        </div>
-                        <div class="tab-pane" role="tabpanel" id="consent-stop">
+                            <br></br>
                             <p><b><h3>Can I stop at any time?</h3></b></p>
+                            <br></br>
 
                             <p>While we hope that you will complete the entire study, remember that participation in this study is
                                 voluntary, and you may end your individual session participation at any time by closing the study window.
-                                Further, your participation in this study has no bearing on your standing with other ongoing therapy or employers.
-                                Contact the team <a href="mailto:studyteam@mindtrails.org">here</a> if you have any questions about the study or to withdraw completely from the study.</p>
+                                Further, your participation in this study has no bearing on your standing with other ongoing therapy or employers.</p>
+
+                            <p>Contact the team <a href="mailto:studyteam@mindtrails.org">here</a> if you have any questions about the study or to withdraw completely from the study.</p>
+                            <br></br>
+                            <br></br>
+                        </div>
+
+                        <div class="tab-pane" role="tabpanel" id="consent-privacy1">
                             <ul class="list-inline pull-right">
                                 <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
                                 <li><button type="button" class="btn btn-primary next-step">Next</button></li>
                             </ul>
-                        </div>
-                        <div class="tab-pane" role="tabpanel" id="consent-privacy">
+                            <br></br>
                             <p><b><h3>What is the MindTrails Privacy Policy?</h3></b></p>
+                            <br></br>
 
                             <p>MindTrails uses the same secure hypertext transfer protocol (HTTPS) that banks and other commercial
                                 websites use to transfer credit card information in an encrypted format. This provides strong security
@@ -177,14 +158,19 @@
                             <br></br>
                             <p><u>Google Analytics</u></p>
 
-                            <p>MindTrails uses Google Analytics, a web analytics service by Google that tracks and reports website
-                                traffic. MindTrails uses this service to track device usage, navigation patterns, and referrals.
-                                While MindTrails can connect this data to other information you provide, we will not share any of
-                                your personal information with Google. The information that Google collects is anonymous in nature,
-                                and will not be personally identifiable. By participating in the Calm Thinking study, you consent to
-                                this information being collected by Google Analytics.</p>
+                            <p>MindTrails uses Google Analytics, a web analytics service by Google that tracks and reports website traffic.
+                                MindTrails uses this service to track device usage, navigation patterns, and referrals.
+                                While MindTrails can connect this data to other information you provide, <b>we will not share any of your personal information with Google.</b></p>
+                            </div>
 
-                            <br></br>
+                            <div class="tab-pane" role="tabpanel" id="consent-privacy2">
+                                <ul class="list-inline pull-right">
+                                    <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
+                                    <li><button type="button" class="btn btn-primary next-step">Next</button></li>
+                                </ul>
+                                <br></br>
+                                <p><b><h3>What is the MindTrails Privacy Policy?</h3></b></p>
+                                <br></br>
                             <p><u>National Institute of Mental Health Data Archive </u></p>
                             <p>Data from this study may be submitted to the National Institute of Mental Health Data Archive (NDA).
                                 The NDA is a data repository run by the National Institute of Mental Health (NIMH) that allows
@@ -212,36 +198,52 @@
                                 that was shared before you changed your mind. If you would like more information about NDA, this is
                                 available online at
                                 <a target="_new" href="https://data-archive.nimh.nih.gov/">https://data-archive.nimh.nih.gov/</a>.</p>
+                        </div>
+
+                        <div class="tab-pane" role="tabpanel" id="consent-contact">
                             <ul class="list-inline pull-right">
                                 <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
                                 <li><button type="button" class="btn btn-primary next-step">Next</button></li>
                             </ul>
-                        </div>
-                        <div class="tab-pane" role="tabpanel" id="consent-contact">
-                            <p><b><h3>Study Team Contact Info</h3></b></p>
+                            <br></br>
+                            <p><b><h3>Contact Information</h3></b></p>
+                            <br></br>
                             <p><b> To obtain more information about the study, ask questions about the research procedures,
-                                express concerns about your participation, or report illness, injury or other problems, please contact:
-                                Tonya Moon, Chair, Institutional Review Board for the Social and Behavioral Sciences, One Morton Dr.
+                                express concerns about your participation, or report illness, injury or other problems, please contact:</b></p>
+                            <p>Tonya Moon, Chair, Institutional Review Board for the Social and Behavioral Sciences, One Morton Dr.
                                 Suite 500, University of Virginia, P.O. Box 800392, Charlottesville, VA 22908-0392. Telephone: (434)
                                 924-5999; <a href="mailto:irbsbshelp@virginia.edu">irbsbshelp@virginia.edu</a>; Website:
-                                <a target="_new" href="www.virginia.edu/vprgs/irb">www.virginia.edu/vprgs/irb</a>.
-                            </b></p>
+                                <a target="_new" href="www.virginia.edu/vprgs/irb">www.virginia.edu/vprgs/irb</a>.</p>
+
+                            <p>IRB-SBS Protocol #: 2220</p>
+                            <br></br>
+
+                            <u>Principal Investigator:</u>
+                            <p>Prof. Bethany Teachman, Department of Psychology, Millmont Building, 1023 Millmont St, Rm 234, University of Virginia, Charlottesville, VA 22903. Telephone: (434) 924-0676; Email: <a href="mailto:bteachman@virginia.edu">bteachman@virginia.edu</a></p>
+                        </div>
+
+                        <div class="tab-pane" role="tabpanel" id="consent-create">
                             <ul class="list-inline pull-right">
                                 <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                                <li><button type="button" class="btn btn-primary next-step">Next</button></li>
                             </ul>
-                        </div>
-                        <div class="tab-pane" role="tabpanel" id="consent-create">
+                            <br></br>
                             <p><b><h3>Account Creation</h3></b></p>
+                            <br></br>
+
                             <p>Please use the form below to create your new account.</p>
                             <br></br>
                             <form th:replace="fragment/account :: create"/>
+
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <br></br>
+    <br></br>
+    <br></br>
 </section>
 
 <footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
