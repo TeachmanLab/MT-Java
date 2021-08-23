@@ -50,7 +50,7 @@ public class ParticipantCreateAdmin extends ParticipantUpdate {
     public boolean validParticipant(BindingResult bindingResult, ParticipantService participantService) {
 
         if(!over18) {
-            bindingResult.rejectValue("over18", "error.over18", "You must be over 18 to participate in this Study.");
+            bindingResult.rejectValue("over18", "error.over18", "You must be over 18 to participate in this study.");
         }
 
         if(participantService.findByEmail(email) != null) {

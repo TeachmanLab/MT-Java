@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org"><!--<![endif]-->
+
+<head th:include="fragment/common :: headerFragment" />
+
+<body>
+<section id="header" class="clearfix" th:include="fragment/common :: topFragment" />
+<section th:include="fragment/common :: titleBar (title='Consent Agreement for Study Participants')" />
+
+<section id="content" class="clearfix">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-8">
+                <br></br>
+                <div style="text-align:right">
+                    Step <b><span id="stepnum">1</span></b> of <b><span id="totalsteps"></span></b>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="wizard">
+                <div class="col-md-8">
+                    <ul id="steptabs" class="nav nav-tabs" role="tablist" style="display:none;">
+                        <li role="presentation">
+                            <a href="#consent-whatismt" data-toggle="tab" aria-controls="consent-whatismt" role="tab" title="What is MindTrails" />
+                        </li>
+                        <li role="presentation">
+                            <a href="#consent-tasks" data-toggle="tab" aria-controls="consent-tasks" role="tab" title="Tasks" />
+                        </li>
+                        <li role="presentation">
+                            <a href="#consent-benefits" data-toggle="tab" aria-controls="consent-benefits" role="tab" title="Benefits" />
+                        </li>
+                        <li role="presentation">
+                            <a href="#consent-stop" data-toggle="tab" aria-controls="consent-stop" role="tab" title="Stop" />
+                        </li>
+                        <li role="presentation">
+                            <a href="#consent-privacy" data-toggle="tab" aria-controls="consent-privacy" role="tab" title="Privacy" />
+                        </li>
+                        <li role="presentation">
+                            <a href="#consent-contact" data-toggle="tab" aria-controls="consent-contact" role="tab" title="Contact" />
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div class="tab-pane" role="tabpanel" id="consent-whatismt">
+                            <p><b><h3>What is the MindTrails Study?</h3></b></p>
+                            <br></br>
+                            <p>The purpose of this study is to investigate a 5-week experimental anxiety reduction program called MindTrails.
+                                The program consists of the following parts:</p>
+                            <ul style="padding-right: 10px">
+                                <li>&nbsp;&nbsp;An initial set of questionnaires</li>
+                                <li>&nbsp;&nbsp;5 weekly training sessions (with a set of questionnaires after sessions 3 and 5)</li>
+                                <li>&nbsp;&nbsp;A set of questionnaires 2 months after you finish the training</li></ul>
+
+                            <p>Each of the assessments and training sessions will take approximately 20 minutes to complete.</p>
+                            <ul class="list-inline pull-right">
+                                <li><button type="button" class="btn btn-primary next-step">Next</button></li>
+                            </ul>
+                        </div>
+
+                        <div class="tab-pane" role="tabpanel" id="consent-tasks">
+                            <p><b><h3>What will I be asked to do?</h3></b></p>
+                            <br></br>
+                            <b>Assessments</b>
+                            <p>You will be asked to complete questionnaires about your thoughts, mood, background, and personal mental health history.</p>
+
+                            <br></br>
+                            <b>Training</b>
+                            <p>You will be presented with one of our training programs designed to shift how you think about situations.
+                               You may be asked to read brief stories about situations that often produce anxiety and fill in missing letters to complete words or read information about anxiety problems and their treatment.</p>
+
+                            <br></br>
+                            <p>If you get randomly assigned to a program that we do not think will be the strongest one, you will have the opportunity to complete the program that we expect to be most effective after you finish the study.
+                               In other words, EVERYBODY will eventually get the chance to try the program that we expect will be most effective.
+                               In psychology research, a common way to compare programs is to randomly assign each participant to one of the training versions.</p>
+
+                            <p>At the end of the study, you will receive more details about the study’s rationale and design. You will also receive feedback about the progress you made during the program!</p>
+                            <ul class="list-inline pull-right">
+                                <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
+                                <li><button type="button" class="btn btn-primary next-step">Next</button></li>
+                            </ul>
+                        </div>
+
+                        <div class="tab-pane" role="tabpanel" id="consent-benefits">
+                            <p><b><h3>Are there any benefits or risks to participating?</h3></b></p>
+                            <br></br>
+
+                            <p>For some people, completing the training program may help reduce symptoms of anxiety.
+                               However, there may be no direct benefits to you. For some people, being asked to answer questions about their thoughts and mood can be temporarily distressing, but most people experience minimal-to-no distress or do not feel distressed for long.</p>
+
+                            <p>Please note that MindTrails does not provide specific diagnostic or medical advice on our website, and we are limited in how we can respond to your personal requests.</p>
+
+                            <p><b>MindTrails is not able to offer financial compensation or to absorb the costs of treatment should you
+                                feel you have been injured as a result of participating in the MindTrails research study.</b></p>
+
+                            <ul class="list-inline pull-right">
+                                <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
+                                <li><button type="button" class="btn btn-primary next-step">Next</button></li>
+                            </ul>
+                        </div>
+
+                        <div class="tab-pane" role="tabpanel" id="consent-stop">
+                            <p><b><h3>Can I stop at any time?</h3></b></p>
+                            <br></br>
+
+                            <p>While we hope that you will complete the entire study, remember that participation in this study is
+                                voluntary, and you may end your individual session participation at any time by closing the study window.
+                                Further, your participation in this study has no bearing on your standing with other ongoing therapy or employers.</p>
+
+                            <p>Contact the team <a href="mailto:studyteam@mindtrails.org">here</a> if you have any questions about the study or to withdraw completely from the study.</p>
+
+                            <ul class="list-inline pull-right">
+                                <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
+                                <li><button type="button" class="btn btn-primary next-step">Next</button></li>
+                            </ul>
+                        </div>
+
+                        <div class="tab-pane" role="tabpanel" id="consent-privacy">
+                            <p><b><h3>What is the MindTrails Privacy Policy?</h3></b></p>
+                            <br></br>
+
+                            <p>MindTrails uses the same secure hypertext transfer protocol (HTTPS) that banks and other commercial
+                                websites use to transfer credit card information in an encrypted format. This provides strong security
+                                for data transfer to and from our website, though privacy is necessarily limited by the security
+                                of the technology that is being used. To view the entire privacy policy in a separate page,
+                                please <a th:href="@{/public/privacy}" target="_blank">click here</a>.</p>
+
+                            <p>Please note that completing the study in a public place where others might view your screen, and use
+                                of open networks or free Wi-Fi can increase the chance for loss of privacy.</p>
+                            <br></br>
+                            <p><u>Google Analytics</u></p>
+
+                            <p>MindTrails uses Google Analytics, a web analytics service by Google that tracks and reports website traffic.
+                               MindTrails uses this service to track device usage, navigation patterns, and referrals.
+                               While MindTrails can connect this data to other information you provide, <b>we will not share any of your personal information with Google.</b></p>
+
+                            <br></br>
+                            <p><u>National Institute of Mental Health Data Archive </u></p>
+                            <p>Data from this study may be submitted to the National Institute of Mental Health Data Archive (NDA).
+                                The NDA is a data repository run by the National Institute of Mental Health (NIMH) that allows
+                                researchers studying mental health and substance use to collect and share deidentified information
+                                with each other. A data repository is a large database where information from many studies is
+                                stored and managed. Deidentified information means that all personal information about research
+                                participants such as name, address, and phone number is removed and replaced with a code number.
+                                With an easier way to share, researchers hope to learn new and important things about mental
+                                illnesses more quickly than before.</p>
+
+                            <p>During and after the study, the researchers will send deidentified information about your health and
+                                behavior to NDA. Other researchers nationwide can then file an application with the NIMH to
+                                obtain access to your deidentified study data for research purposes. Experts at the NIMH who know
+                                how to protect health and science information will look at every request carefully to minimize
+                                risks to your privacy.</p>
+
+                            <p>You may not benefit directly from allowing your information to be shared with NDA. The information
+                                provided to NDA may help researchers find better treatments. NIMH will also report to Congress and
+                                on its web site about the different studies that researchers are conducting using NDA data. However,
+                                you will not be contacted directly about the data you contributed to NDA. </p>
+
+                            <p>You may decide now or later that you do not want to share your information using NDA. If so, contact
+                                us at <a href="mailto:studyteam@mindtrails.org">studyteam@mindtrails.org</a>, and we will tell NDA,
+                                which can stop sharing the research information. Please note that NDA cannot take back information
+                                that was shared before you changed your mind. If you would like more information about NDA, this is
+                                available online at
+                                <a target="_new" href="https://data-archive.nimh.nih.gov/">https://data-archive.nimh.nih.gov/</a>.</p>
+                            <ul class="list-inline pull-right">
+                                <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
+                                <li><button type="button" class="btn btn-primary next-step">Next</button></li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane" role="tabpanel" id="consent-contact">
+                            <p><b><h3>Contact Information</h3></b></p>
+                            <br></br>
+                            <p><b> To obtain more information about the study, ask questions about the research procedures,
+                                express concerns about your participation, or report illness, injury or other problems, please contact:</b></p>
+                            <p>Tonya Moon, Chair, Institutional Review Board for the Social and Behavioral Sciences, One Morton Dr.
+                                Suite 500, University of Virginia, P.O. Box 800392, Charlottesville, VA 22908-0392. Telephone: (434)
+                                924-5999; <a href="mailto:irbsbshelp@virginia.edu">irbsbshelp@virginia.edu</a>; Website:
+                                <a target="_new" href="www.virginia.edu/vprgs/irb">www.virginia.edu/vprgs/irb</a>.</p>
+
+                            <p>IRB-SBS Protocol #: 2220</p>
+                            <br></br>
+
+                            <u>Principal Investigator:</u>
+                            <p>Prof. Bethany Teachman, Department of Psychology, Millmont Building, 1023 Millmont St, Rm 234, University of Virginia, Charlottesville, VA 22903. Telephone: (434) 924-0676; Email: <a href="mailto:bteachman@virginia.edu">bteachman@virginia.edu</a></p>
+
+                            <ul class="list-inline pull-right">
+                                <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
+                                <li><button type="button" class="btn btn-primary next-step">Next</button></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br></br>
+    <br></br>
+    <br></br>
+</section>
+
+<footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
+<section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
+<div th:include="fragment/common :: scripts"/>
+
+</body>
+</html>
