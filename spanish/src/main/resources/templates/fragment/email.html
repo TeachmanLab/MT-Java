@@ -27,26 +27,18 @@
         <p  th:text="#{email.footer.title}"  style="margin:2px 0 0 0; font-style: italic">Project Director</p>
         <p  th:text="#{email.footer.team}"  style="margin:10px 0 0 0; ">and the MindTrails team</p>
 
-        <p th:if="${giftCards}" style="margin-top:40px">
-            <img style="float:left; padding: 10px;" th:src="${url} + '/images/gift_card_sm.png'" alt="" border="none"/>
-            <span th:text="#{email.footer.p1}">
-            P.S. As a reminder, there are five training sessions total, and each one is a little different.
-            You will receive an $5 electronic gift card for completing each of the first three assessments: the initial assessment,
-            and the assessments following Training Sessions 3 and 5. You will receive a bonus $10 electronic gift card for completing the follow-up assessment.
-            </span>
-        </p>
+        <p style="margin-top:40px; font-size:.9em; text-align:left; border-top: 1px solid black; padding-top: 4px" >
+            <span th:text="#{email.footer.p1}">To make sure you receive our emails, please add our email address
+                (mindtrails@virginia.edu) to your list of contacts. By adding us to your contacts, you ensure all
+                our emails don't end up in your spam folder.</span></p>
 
-        <p style="margin-top:20px; font-size:.9em; text-align:left; padding-top: 4px" >
-            <span th:text="#{email.footer.p2.a}">To make sure you receive our emails, please add our email address (</span><span th:text="${respondTo}"></span>)
-            <span th:text="#{email.footer.p2.b}">to your list of contacts. By adding us to your contacts, you ensure all our emails don't end up in your spam folder.</span></p>
-
-        <p th:text="#{email.footer.p3}" style="margin-top:40px; font-size:.9em; text-align:left; border-top: 1px solid black; padding-top: 4px" >
+        <p th:text="#{email.footer.p2}">
             Please note that email is not a secure form of communication and should not be used to discuss any
             confidential matters, including personal health information, given that its confidentiality cannot be assured.</p>
 
-        <p th:text="#{email.footer.p4}" style="margin-top:20px; font-size:.9em; text-align:left; padding-top: 4px" >You received this email because you signed up to participate in the MindTrails study. You
+        <p th:text="#{email.footer.p3}">You received this email because you signed up to participate in the MindTrails study. You
             can manage your contact preferences, or exit the study at any time by visiting your
-            <a th:text="#{email.footer.account}" th:href="${url + '/account'}">Account Settings.</a></p>
+            <a th:text="#{email.footer.link}" th:href="${url + '/account'}">Account Settings</a>.</p>
     </div>
 
 
