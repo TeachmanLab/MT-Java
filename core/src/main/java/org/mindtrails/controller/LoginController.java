@@ -68,12 +68,8 @@ public class LoginController {
     private ImportService importService;
 
     @RequestMapping(value="/", method = RequestMethod.GET)
-    public String printWelcome(Principal principal, HttpSession session, Model model,
-                               @RequestHeader(value = "referer", required = false) final String referer,
-                               @RequestParam(name="cp", defaultValue = "unknown", required = false) String campaign) {
+    public String printWelcome(Principal principal, HttpSession session, Model model) {
 
-        session.setAttribute("referer", referer);
-        session.setAttribute("campaign", campaign);
 
         Authentication auth = (Authentication) principal;
         // Show the Index / Login page if the user is not logged in

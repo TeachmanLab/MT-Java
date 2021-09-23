@@ -11,9 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.ConstraintViolation;
@@ -21,7 +19,6 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 
@@ -56,7 +53,14 @@ public class EligibleController extends BaseController {
 
 
     @RequestMapping("public/eligibility")
-    public String showEligibility(ModelMap model) {
+    public String showEligibility(ModelMap model,
+                                  HttpSession session,
+                                  @RequestHeader(value = "referer", required = false) final String referer,
+                                  @RequestParam(name="cp", required = false) String campaign) {
+
+        session.setAttribute("referer", referer);
+        session.setAttribute("campaign", campaign);
+
         // Template will set a difference form action if this variable is set to true.
         OA oa = new OA();
         model.addAttribute("model", oa);
