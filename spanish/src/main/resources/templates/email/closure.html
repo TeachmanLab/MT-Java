@@ -16,9 +16,9 @@
                 <p th:text="#{closure.p2}" style="margin-top:5px">We haven't heard from you for 3 weeks, so we have now
                     closed your account in the study.</p>
 
-                <span th:text="#{closure.p3}" style="margin-top:5px">Thank you for your participation in the study. Please click on this
+                <p><span th:text="#{closure.p3}" style="margin-top:5px">Thank you for your participation in the study. Please click on this
                     link to learn more about the study and what we were investigating:</span>
-                    <a th:text="#{closure.link}" href="/session" th:href="${url} + '/calm/account/debriefing'" style="color: #637580ff; text-decoration: none; font-weight: bold">MindTrails Debriefing</a>
+                    <a th:text="#{closure.link}" href="/session" th:href="${url} + '/spanish/account/debriefing'" style="color: #637580ff; text-decoration: none; font-weight: bold">MindTrails Debriefing</a>.</p>
 
                 <!--<p style="margin-top:5px">It helps us a great deal to learn why someone chooses not to
                     complete the study. Please complete this brief survey to let us
@@ -27,9 +27,9 @@
 
                         <span th:if="${giftCards}">After the survey, you will be rewarded a $5 gift card.</span> </p>
                     -->
-                <span th:text="#{closure.p4}" style="margin-top:5px">As always, please let us know if you have any concerns about your
+                <p><span th:text="#{closure.p4}" style="margin-top:5px">As always, please let us know if you have any concerns about your
                     participation that we can address. You can contact the study team
-                    at</span> <a th:text="#{closure.email}" href="mailto:studyteam@mindtrails.org">studyteam@mindtrails.org</a>.
+                    at</span> <a th:text="#{closure.email}" href="mailto:studyteam@mindtrails.org">studyteam@mindtrails.org</a>.</p>
 
                 <p th:text="#{closure.p5}" style="margin-top:5px">Thank you for your participation in the study and we hope you're
                     having a good week.</p>

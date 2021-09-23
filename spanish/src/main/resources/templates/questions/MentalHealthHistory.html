@@ -39,8 +39,8 @@
         <div class="radio">
             <label class="question"> <input id="template_other" onchange="sub('template_other');spec('template_other');"
                                             type="checkbox"
-                                            name="{{radio_name}}"
-                                            value="Other"/> Other (please specify):&nbsp;&nbsp;
+                                            th:text="#{other_specify}"
+                                            value="Other"/> &nbsp;&nbsp;
                 <input id="template_other_spec" type="text" name="other_{{radio_name}}" value="N/A"/> </label>
         </div>
     </div>
@@ -48,8 +48,8 @@
         <br/>
         <br/>
         <div class="radio">
-            <label class="question"><input type="checkbox" name="{{radio_name}}" value="555"
-                                           onchange="disableSection(this)"/> Prefer not to answer
+            <label class="question"><input type="checkbox" value="555" th:text="#{prefer_not_to_answer}"
+                                           onchange="disableSection(this)"/>
             </label>
         </div>
         <br/>
@@ -322,8 +322,8 @@
                                 </option>
                                 <option th:text="#{mentalhealthhistory.helpful2}"> 2</option>
                                 <option th:text="#{mentalhealthhistory.helpful3}"> 3</option>
-                                <option th:text="#{mentalhealthhistory.heplful4}"> 4 (Somewhat helpful)</option>
-                                <option th:text="#{mentalhealthhistory.heplful5}"> 5</option>
+                                <option th:text="#{mentalhealthhistory.helpful4}"> 4 (Somewhat helpful)</option>
+                                <option th:text="#{mentalhealthhistory.helpful5}"> 5</option>
                                 <option th:text="#{mentalhealthhistory.helpful6}"> 6</option>
                                 <option value="7" th:text="#{mentalhealthhistory.helpful7}"> 7 (Extremely helpful)
                                 </option>
