@@ -6,6 +6,7 @@ import org.mindtrails.domain.*;
 import org.mindtrails.domain.Scheduled.Email;
 import org.mindtrails.domain.Scheduled.ScheduledEvent;
 import org.mindtrails.domain.Scheduled.ScheduledEventComparator;
+import org.mindtrails.domain.Scheduled.TextMessage;
 import org.mindtrails.domain.forms.ParticipantCreate;
 import org.mindtrails.domain.forms.ParticipantCreateAdmin;
 import org.mindtrails.domain.forms.ParticipantUpdateAdmin;
@@ -56,6 +57,10 @@ public class AdminController extends BaseController {
 
     @Autowired
     private EmailService emailService;
+
+    @Autowired
+    private TwilioService twilioService;
+
 
     @Autowired
     private ScheduledEventService scheduledEventService;
@@ -296,6 +301,22 @@ public class AdminController extends BaseController {
         }
         return "redirect:/admin/listEvents";
     }
+
+    @ExportMode
+    @RequestMapping(value="/sendText/{type}")
+    public String sendText(ModelMap model, Principal principal,
+                            @PathVariable("type") String type) throws Exception {
+        Participant p = participantService.get(principal);
+        List<ScheduledEvent> types = twilioService.messageTypes();
+        for(ScheduledEvent t : types) {
+            if(t.getType().equals(type)) {
+                TextMessage tm = (TextMessage)t;
+                twilioService.sendMessage(tm, p);
+           }
+        }
+        return "redirect:/admin/listEvents";
+    }
+
 
     @RequestMapping(value="/listSessions", method=RequestMethod.GET)
     public String listSessions(ModelMap model, Principal principal) {

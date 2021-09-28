@@ -39,10 +39,8 @@
               <td><p th:text="${event.eventType}"></p></td>
               <td>
                   <a th:if="${event.eventType.toString().equals('EMAIL')}" th:href="@{'/admin/sendEmail/' + ${event.type}}" th:text="${event.type}"/>
-                  <span th:if="${event.eventType.toString().equals('TEXT')}">
-                      <span th:text="${event.type}"/>
-                      <span th:if="${event.onlyIfNoEmails}"> (if email disabled)</span>
-                  </span>
+
+                  <a th:if="${event.eventType.toString().equals('TEXT')}" th:href="@{'/admin/sendText/' + ${event.type}}" th:text="${event.type}"/>
               </td>
               <td><p th:text="${event.getDescription()}"></p></td>
               <td th:style="${event.templateExists==false} ? 'color: red'"><p th:if="${event.templateExists==false}">Email Template is missing</p></td>
