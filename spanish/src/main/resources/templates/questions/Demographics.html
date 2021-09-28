@@ -41,14 +41,14 @@
                             identity?</label><br/><br/>
                             <select required="true" th:field="*{gender}">
                                 <option value="" th:text="#{please_select_one}">Please select one</option>
-                                <option value="Female" th:text="#{demographics.female}">Female</option>
-                                <option value="Male" th:text="#{demographics.male}">Male</option>
+                                <option value="Female" th:text="#{demographics.female}">Woman</option>
+                                <option value="Male" th:text="#{demographics.male}">Man</option>
                                 <option value="Transgender Female" th:text="#{demographics.trans_female}">Transgender
-                                    Female
+                                    Woman
                                 </option>
-                                <option value="Transgender Male" th:text="#{demographics.trans_male}">Transgender Male
+                                <option value="Transgender Male" th:text="#{demographics.trans_male}">Transgender Man
                                 </option>
-                                <option value="Other" th:text="#{other}">Other</option>
+                                <option value="Other" th:text="#{demographics.other}">Another identity</option>
                                 <option value="555" th:text="#{prefer_not_to_answer}">Prefer not to answer</option>
                             </select>
                         </div>
