@@ -564,21 +564,16 @@
 <link rel="stylesheet" media="screen"
       th:href="@{/bower/bootstrap-datepicker/dist/css/bootstrap-datepicker.standalone.css}"/>
 <script type="text/javascript" th:src="@{/bower/bootstrap-datepicker/dist/js/bootstrap-datepicker.js}"></script>
+<script type="text/javascript" th:src="@{/bower/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js}" charset="UTF-8"></script>
 
+<script th:inline="javascript">
+    /*<![CDATA[*/
 
-<script type="text/javascript">
     $(document).ready(function () {
-        $('.input-group.date').datepicker({});
-        console.log("Set up datepicker.")
-
-        /* $('#form').on('submit', function(e) {
-             if($('#datepicker').val()) {
-                var date = new Date($("#datepicker").val() + ' ' + $("#timepicker").val());
-                console.log(date.toISOString());
-                $('#returnDate').val(date.toISOString());
-            }
-        }) */
+        var language = /*[[${#locale.language}]]*/ 'en';
+        $('.input-group.date').datepicker({language: language});
     });
+    /*]]>*/
 
     function testCovidCheck(id) {
         if (document.getElementById(id).checked) {
