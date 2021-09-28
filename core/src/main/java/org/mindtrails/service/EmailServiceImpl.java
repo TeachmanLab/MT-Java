@@ -148,7 +148,7 @@ public class EmailServiceImpl implements EmailService {
             final String htmlContent = this.templateEngine.process("email/" + email.getType(),
                     email.getContext());
             MimeBodyPart htmlBodyPart = new MimeBodyPart(); //4
-            htmlBodyPart.setContent(htmlContent, "text/html"); //5
+            htmlBodyPart.setContent(htmlContent, "text/html; charset=UTF-8"); //5
             multipart.addBodyPart(htmlBodyPart); // 6
 
             // Add the calendar invite, if the email has a date.
