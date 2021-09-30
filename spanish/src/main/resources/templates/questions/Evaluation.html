@@ -41,17 +41,17 @@
                     <div class="radio">
                         <label class="question"><input th:text="#{evaluation.smartphone}"
                                 type="checkbox"
-                                name="devices" value="smartphone"/></label>
+                                name="devices" value="smartphone"/>Smartphone</label>
                     </div>
                     <div class="radio">
                         <label class="question"><input th:text="#{evaluation.computer}"
                                 type="checkbox"
-                                name="devices" value="computer"/></label>
+                                name="devices" value="computer"/>Computer</label>
                     </div>
                     <div class="radio">
                         <label class="question"><input th:text="#{evaluation.tablet}"
                                 type="checkbox"
-                                name="devices" value="tablet"/></label>
+                                name="devices" value="tablet"/>Tablet</label>
                     </div>
                 </div>
             </div>
@@ -194,35 +194,33 @@
                     <div class="radio">
                         <label class="question"> <input th:text="#{evaluation.home}"
                                 type="checkbox"
-                                name="places" value="home"/> &nbsp;&nbsp;</label>
+                                name="places" value="home"/>At home</label>
                     </div>
                     <div class="radio">
                         <label class="question"> <input th:text="#{evaluation.work}"
                                 type="checkbox"
-                                name="places" value="work"/> &nbsp;&nbsp;</label>
+                                name="places" value="work"/>At work</label>
                     </div>
                     <div class="radio">
                         <label class="question"> <input th:text="#{evaluation.publicPlace}"
                                 type="checkbox"
-                                name="places" value="publicPlace"/> &nbsp;&nbsp; </label>
+                                name="places" value="publicPlace"/>At a public space, such as a library, coffee shop, or restaurant</label>
                     </div>
                     <div class="radio">
                         <label class="question"> <input th:text="#{evaluation.commute}"
                                 type="checkbox"
-                                name="places" value="commute"/> &nbsp;&nbsp;
-                        </label>
+                                name="places" value="commute"/>While commuting/travelling (e.g., on the train to work)</label>
                     </div>
                     <div class="radio">
                         <label class="question"> <input th:text="#{evaluation.vacation}"
                                 type="checkbox"
-                                name="places" value="vacation"/> &nbsp;&nbsp;</label>
+                                name="places" value="vacation"/>On vacation</label>
                     </div>
                     <div class="radio">
                         <label class="question"> <input id="places_other"
                                                         onchange="sub('places_other');spec('places_other');"
                                                         type="checkbox" name="pronouns"
-                                                        value="other" th:text="#{other_specify}">
-                            Other (please specify):
+                                                        value="other" th:text="#{other_specify}">Other (please specify):
                             </input>&nbsp;&nbsp;<input id="places_other_spec" type="text" name="otherPlace" value="N/A"/>
                         </label>
                     </div>
@@ -253,45 +251,45 @@
                     <div class="radio">
                         <label class="question"> <input th:text="#{evaluation.computerBrowser}"
                                 type="checkbox"
-                                name="preferredPlatform" value="computerBrowser"/> &nbsp;&nbsp;</label>
+                                name="preferredPlatform" value="computerBrowser"/>Desktop or laptop computer via an Internet browser (e.g., Chrome, Firefox, Safari)</label>
                     </div>
                     <div class="radio">
                         <label class="question"> <input th:text="#{evaluation.smartphoneBrowser}"
                                 type="checkbox"
-                                name="preferredPlatform" value="smartphoneBrowser"/> &nbsp;&nbsp;</label>
+                                name="preferredPlatform" value="smartphoneBrowser"/>Smartphone or tablet via an Internet browser (e.g., Chrome, Firefox, Safari)</label>
                     </div>
                     <div class="radio">
                         <label class="question"> <input th:text="#{evaluation.app}"
                                 type="checkbox"
-                                name="preferredPlatform" value="app"/> &nbsp;&nbsp;</label>
+                                name="preferredPlatform" value="app"/>Smartphone or tablet via an app</label>
                     </div>
                     <div class="radio">
                         <label class="question"> <input th:text="#{evaluation.call}"
                                 type="checkbox"
-                                name="preferredPlatform" value="call"/> &nbsp;&nbsp;</label>
+                                name="preferredPlatform" value="call"/>Telephone call</label>
                     </div>
                     <div class="radio">
                         <label class="question"> <input th:text="#{evaluation.video}"
                                 type="checkbox"
-                                name="preferredPlatform" value="video"/> &nbsp;&nbsp;</label>
+                                name="preferredPlatform" value="video"/>Video conferencing (on any device)</label>
                     </div>
                     <div class="radio">
                         <label class="question"> <input th:text="#{evaluation.email}"
                                 type="checkbox"
-                                name="preferredPlatform" value="email"/> &nbsp;&nbsp;</label>
+                                name="preferredPlatform" value="email"/>Email (on any device)</label>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <br/>
-                    <br/>
-                    <div class="radio">
-                            <label class="question"><input th:text="#{evaluation.none}" type="checkbox" name="preferredPlatform" value="none"
-                                                           onchange="disableSection(this)"/> &nbsp;&nbsp;
-                            </label>
-                        <br/>
-                        <br/>
-                        <label class="question"><input th:text="#{prefer_not_to_answer}" type="checkbox" name="preferredPlatform" value="555"
-                                                       onchange="disableSection(this)"/> &nbsp;&nbsp;
+                            <br/>
+                            <br/>
+                            <div class="radio">
+                                <label class="question"><input th:text="#{evaluation.none}" type="checkbox" name="preferredPlatform" value="none"
+                                                               onchange="disableSection(this)"/>I do not want to use technology to receive health interventions
+                                </label>
+                                <br/>
+                                <br/>
+                                <label class="question"><input th:text="#{prefer_not_to_answer}" type="checkbox" name="preferredPlatform" value="555"
+                                                       onchange="disableSection(this)"/>Prefer not to answer
                         </label>
                     </div>
                     <br/>
