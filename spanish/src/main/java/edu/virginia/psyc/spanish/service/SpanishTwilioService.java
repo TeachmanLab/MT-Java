@@ -52,19 +52,19 @@ public class SpanishTwilioService extends TwilioServiceImpl implements TwilioSer
                 SpanishStudy.SECOND_SESSION);
 
         messages.add(new TextMessage("7day",
-                "text.day7",
+                "text.7day",
                 null, core_sessions, 7, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY, false));
 
         messages.add(new TextMessage("10day",
-                "text.day10",
+                "text.10day",
                 null, core_sessions, 10, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY, false));
 
         messages.add(new TextMessage("14day",
-                "text.day14",
+                "text.14day",
                 null, core_sessions, 14, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY, false));
 
         messages.add(new TextMessage("18day",
-                "text.day18",
+                "text.18day",
                 null, core_sessions, 18, ScheduledEvent.SCHEDULE_TYPE.INACTIVITY, false));
 
 //        messages.add(new TextMessage("21day",
