@@ -51,8 +51,8 @@
                 </div>
                 <div class="col-sm-10">
                     <label class="col-sm-10">
-                        <input class="inline-checkbox" type="checkbox" id="over18" name="over18" value="true" th:text="#{dass.age1}">
-                        I am at least age 18*</input><br/>
+                        <input class="inline-checkbox" type="checkbox" id="over18" name="over18" value="true"></input>
+                        <span th:text="#{dass.age1}"> I am at least age 18*</span><br/>
                         <span th:text="#{dass.age2}">(* If based in Nebraska, I am at least age 19; if based in Puerto Rico, I am at least age 21.</span><br/>
                         <span th:text="#{dass.age3}">See</span>
                         <a th:href="@{/public/disclaimer#item8}"><span th:text="#{dass.link}">Terms and Conditions > Age of Consent</span></a>.)
