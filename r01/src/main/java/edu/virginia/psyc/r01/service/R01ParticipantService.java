@@ -2,14 +2,13 @@ package edu.virginia.psyc.r01.service;
 
 import edu.virginia.psyc.r01.domain.R01Study;
 import edu.virginia.psyc.r01.persistence.*;
-import org.mindtrails.domain.Conditions.ConditionAssignment;
 import org.mindtrails.domain.Conditions.NoNewConditionException;
-import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.Conditions.RandomCondition;
+import org.mindtrails.domain.Conditions.RandomConditionRepository;
+import org.mindtrails.domain.Participant;
 import org.mindtrails.domain.RestExceptions.MissingEligibilityException;
 import org.mindtrails.domain.Study;
 import org.mindtrails.persistence.ParticipantRepository;
-import org.mindtrails.domain.Conditions.RandomConditionRepository;
 import org.mindtrails.service.ParticipantService;
 import org.mindtrails.service.ParticipantServiceImpl;
 import org.mindtrails.service.TangoService;
@@ -241,6 +240,13 @@ public class R01ParticipantService extends ParticipantServiceImpl implements Par
         List<OA> oa_list = oaRepository.findBySessionId(session.getId());
         if(oa_list.size() < 1) {
             throw new MissingEligibilityException();
+        }
+
+        // Check for a campaign setting in th session,  if it is 'huntington', set the condition to be trainingEd
+        String campaign = (String)session.getAttribute("campaign");
+
+        if (campaign != null && campaign.equals("huntington")) {
+            p.getStudy().setConditioning(R01Study.CONDITION.TRAINING_ED.name());
         }
 
         save(p);
