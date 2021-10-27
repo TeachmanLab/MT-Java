@@ -22,7 +22,7 @@ import java.util.stream.Stream;
 @DiscriminatorValue("SPANISH")
 public class SpanishStudy extends BaseStudy {
 
-    public enum CONDITION {ENGLISH, SPANISH, SPANISH_FLUENT}
+    public enum CONDITION {ENGLISH_BILINGUAL, SPANISH_DOMINANT, SPANISH_BILINGUAL}
     public static Map<String, CONDITION> conditionMappings = new HashMap<String, CONDITION>();
 
     public enum SESSION { firstSession, secondSession }
@@ -38,9 +38,9 @@ public class SpanishStudy extends BaseStudy {
     public SpanishStudy() {
         this.currentSession = FIRST_SESSION;
 
-        conditionMappings.put("2AOM8dDBOJ", CONDITION.ENGLISH);
-        conditionMappings.put("DSDvBmGcYE", CONDITION.SPANISH);
-        conditionMappings.put("WtQgTY7a1w", CONDITION.SPANISH_FLUENT);
+        conditionMappings.put("2AOM8dDBOJ", CONDITION.ENGLISH_BILINGUAL);
+        conditionMappings.put("DSDvBmGcYE", CONDITION.SPANISH_DOMINANT);
+        conditionMappings.put("WtQgTY7a1w", CONDITION.SPANISH_BILINGUAL);
     }
 
     public SpanishStudy(String currentSession, int taskIndex, Date lastSessionDate, List<TaskLog> taskLogs, boolean receiveGiftCards) {
