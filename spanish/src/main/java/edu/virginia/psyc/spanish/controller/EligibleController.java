@@ -103,7 +103,7 @@ public class EligibleController extends BaseController {
     private void updateLanguage(SpanishStudy.CONDITION condition) {
 
         Locale locale = Locale.US;
-        if(condition != SpanishStudy.CONDITION.ENGLISH) {
+        if(condition != SpanishStudy.CONDITION.ENGLISH_BILINGUAL) {
             locale = new Locale("es");
         }
         localeResolver.setLocale(request, response, locale);

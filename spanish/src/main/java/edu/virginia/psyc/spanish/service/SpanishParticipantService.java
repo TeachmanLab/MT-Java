@@ -127,7 +127,7 @@ public class SpanishParticipantService extends ParticipantServiceImpl implements
         p.getStudy().setReceiveGiftCards(tangoService.getEnabled());
 
         // Update the participants language based on the condition.
-        if(condition == SpanishStudy.CONDITION.ENGLISH.toString()) {
+        if(condition == SpanishStudy.CONDITION.ENGLISH_BILINGUAL.toString()) {
             locale = new Locale("en");
         } else {
             locale = new Locale("es");
