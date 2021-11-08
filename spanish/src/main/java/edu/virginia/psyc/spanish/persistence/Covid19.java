@@ -46,10 +46,6 @@ public class Covid19 extends LinkedQuestionnaireData {
     @NotNull
     private Integer productivity;
     @NotNull
-    private Integer focus;
-    @NotNull
-    private Integer exercise;
-    @NotNull
     private Integer family;
     @NotNull
     private Integer partners;
@@ -61,66 +57,28 @@ public class Covid19 extends LinkedQuestionnaireData {
     private Integer events;
 
     // Partially in MT Spanish
-    // 3. Please indicate how much you agree with the following statements:
+    // 2. Please indicate how much you agree with the following statements:
 
     @NotNull
-    @MeasureField(order = 1, desc = "I am worried about my COVID-19 risk.", group = "risk")
+    @MeasureField(desc = "I am worried about my COVID-19 risk.")
     private Integer worry;
-    @NotNull
-    @MeasureField(order = 2, desc = "I can control whether I get COVID-19.", group = "risk")
-    private Integer control;
 
     // 3. Based on criteria from the Center for Disease Control, are you at high risk for serious illness following infection of COVID-19?
 
     @NotNull
     private Integer highRisk;
 
-    @NotNull
-    private Integer diagnosis;
-
-    @NotNull
-    private Integer testCovid;
-
-    private Integer testCovidResult;
-
-    private Date testCovidDate;
-
-    private Integer testCovidDateNoAnswer;
-
-
-    @NotNull
-    private Integer testAntibody;
-
-    private Integer testAntibodyResult;
-
-    private Date testAntibodyDate;
-
-    private Integer testAntibodyDateNoAnswer;
-
-
-    @NotNull
-    private Integer covidKnow;
-
-    @NotNull
-    private Integer symptoms;
-
-    private Date symptomsDate;
-
-    private Integer symptomsDateNoAnswer;
-
-
     @Override
     public Map<Integer, String> getScale(String group) {
         Map<Integer, String> tmpScale = new TreeMap<>();
-        switch (group) {
-            case ("risk"):
-                tmpScale.put(1, "covid19.very_little");
-                tmpScale.put(2, "x");
-                tmpScale.put(3, "covid19.somewhat");
-                tmpScale.put(4, "x");
-                tmpScale.put(5, "covid19.very_much");
-                break;
-        }
-                return Collections.unmodifiableMap(tmpScale);
-        }
+        tmpScale.put(1, "covid19.very_little");
+        tmpScale.put(2, "x");
+        tmpScale.put(3, "covid19.somewhat");
+        tmpScale.put(4, "x");
+        tmpScale.put(5, "covid19.very_much");
+        return Collections.unmodifiableMap(tmpScale);
+
     }
+        }
+
+
