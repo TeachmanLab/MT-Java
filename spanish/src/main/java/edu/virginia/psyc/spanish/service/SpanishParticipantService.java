@@ -147,6 +147,21 @@ public class SpanishParticipantService extends ParticipantServiceImpl implements
             throw new MissingEligibilityException();
         }
 
+
+        // Check campaign field to assign condition to participant, 'enb' is the English Bilingual group,
+        // 'esb' is the Spanish Bilingual group, 'esd' is the Spanish Dominant group.
+        String campaign = (String)session.getAttribute("campaign");
+
+        if (campaign != null && campaign.startsWith("enb")) {
+                p.getStudy().setConditioning(SpanishStudy.CONDITION.ENGLISH_BILINGUAL.name());
+             if (campaign.startsWith("esb")) {
+                p.getStudy().setConditioning(SpanishStudy.CONDITION.SPANISH_BILINGUAL.name());
+             if (campaign.startsWith("esd")) {
+                p.getStudy().setConditioning(SpanishStudy.CONDITION.SPANISH_DOMINANT.name());
+             }
+          }
+        }
+
         save(p);
         SpanishStudy study = (SpanishStudy) p.getStudy();
 
