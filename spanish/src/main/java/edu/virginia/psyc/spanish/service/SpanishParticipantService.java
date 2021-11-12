@@ -115,19 +115,34 @@ public class SpanishParticipantService extends ParticipantServiceImpl implements
     @Override
     public void saveNew(Participant p, HttpSession session) throws MissingEligibilityException {
 
-        // Get the condition from the session.
-        String condition = (String)session.getAttribute("condition");
         Locale locale;
 
-        // Set the participants condition based on the session attribute.
-        p.getStudy().setConditioning(condition);
+        // Check campaign field to assign condition to participant, 'enb' is the English Bilingual group,
+        // 'esb' is the Spanish Bilingual group, 'esd' is the Spanish Dominant group.
+        String campaign = (String)session.getAttribute("campaign");
 
-        // All Spanish Participants should recieve gift cards if they are available.
+        if (campaign != null) {
+            if(campaign.startsWith("enb")){
+                p.getStudy().setConditioning(SpanishStudy.CONDITION.ENGLISH_BILINGUAL.name());
+            } else if (campaign.startsWith("esb")) {
+                p.getStudy().setConditioning(SpanishStudy.CONDITION.SPANISH_BILINGUAL.name());
+            } else if (campaign.startsWith("esd")) {
+                p.getStudy().setConditioning(SpanishStudy.CONDITION.SPANISH_DOMINANT.name());
+            } else {
+                // Do not allow participants to progress without a valid condition.
+                throw new MissingEligibilityException();
+            }
+        } else {
+            // Do not allow participants to progress without a valid condition.
+            throw new MissingEligibilityException();
+        }
+
+        // All Spanish Participants should receive gift cards if they are available.
         p.setReceiveGiftCards(tangoService.getEnabled());
         p.getStudy().setReceiveGiftCards(tangoService.getEnabled());
 
         // Update the participants language based on the condition.
-        if(condition == SpanishStudy.CONDITION.ENGLISH_BILINGUAL.toString()) {
+        if(p.getStudy().getConditioning().equals(SpanishStudy.CONDITION.ENGLISH_BILINGUAL.toString())) {
             locale = new Locale("en");
         } else {
             locale = new Locale("es");
@@ -145,21 +160,6 @@ public class SpanishParticipantService extends ParticipantServiceImpl implements
         List<OA> oa_list = oaRepository.findBySessionId(session.getId());
         if(oa_list.size() < 1) {
             throw new MissingEligibilityException();
-        }
-
-
-        // Check campaign field to assign condition to participant, 'enb' is the English Bilingual group,
-        // 'esb' is the Spanish Bilingual group, 'esd' is the Spanish Dominant group.
-        String campaign = (String)session.getAttribute("campaign");
-
-        if (campaign != null && campaign.startsWith("enb")) {
-                p.getStudy().setConditioning(SpanishStudy.CONDITION.ENGLISH_BILINGUAL.name());
-             if (campaign.startsWith("esb")) {
-                p.getStudy().setConditioning(SpanishStudy.CONDITION.SPANISH_BILINGUAL.name());
-             if (campaign.startsWith("esd")) {
-                p.getStudy().setConditioning(SpanishStudy.CONDITION.SPANISH_DOMINANT.name());
-             }
-          }
         }
 
         save(p);
