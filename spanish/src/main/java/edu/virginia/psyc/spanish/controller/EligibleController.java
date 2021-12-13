@@ -72,22 +72,23 @@ public class EligibleController extends BaseController {
     @RequestMapping("public/eligibility")
     public String showEligibility(ModelMap model,
                                   HttpSession session,
-                                  final @RequestParam(value = "condition", required = false) String conditionCode) {
+                                  final @RequestParam(value = "cp", required = false) String campaign) {
 
-        if (conditionCode == null || conditionCode.length() == 0) {
+        if (campaign == null || campaign.length() == 0) {
             return "inviteOnly";
         }
 
         // Check if one of the randomization conditions
         // Protects against someone trying to join study without being randomized
-        boolean isAllowableCondition = SpanishStudy.conditionMappings.containsKey(conditionCode);
+        boolean isAllowableCondition = SpanishStudy.conditionMappings.containsKey(campaign);
         if (!isAllowableCondition) {
             return "inviteOnly";
         } else {
             // store condition as session attribute then
             // continue into the eligibility process.
-            SpanishStudy.CONDITION condition = SpanishStudy.conditionMappings.get(conditionCode);
+            SpanishStudy.CONDITION condition = SpanishStudy.conditionMappings.get(campaign);
             session.setAttribute("condition", condition.name());
+            session.setAttribute("cp", campaign);
 
             // Use the condition to set the language
             updateLanguage(condition);

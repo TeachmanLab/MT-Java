@@ -38,9 +38,9 @@ public class SpanishStudy extends BaseStudy {
     public SpanishStudy() {
         this.currentSession = FIRST_SESSION;
 
-        conditionMappings.put("2AOM8dDBOJ", CONDITION.ENGLISH_BILINGUAL);
-        conditionMappings.put("DSDvBmGcYE", CONDITION.SPANISH_DOMINANT);
-        conditionMappings.put("WtQgTY7a1w", CONDITION.SPANISH_BILINGUAL);
+        conditionMappings.put("enb", CONDITION.ENGLISH_BILINGUAL);
+        conditionMappings.put("esd", CONDITION.SPANISH_DOMINANT);
+        conditionMappings.put("esb", CONDITION.SPANISH_BILINGUAL);
     }
 
     public SpanishStudy(String currentSession, int taskIndex, Date lastSessionDate, List<TaskLog> taskLogs, boolean receiveGiftCards) {
