@@ -78,15 +78,20 @@ public class EligibleController extends BaseController {
             return "inviteOnly";
         }
 
+        // Strip the first three characters of the campaign off, this will be our
+        // condition.
+        String condition_code = campaign.trim().substring(0,3);
+
+
         // Check if one of the randomization conditions
         // Protects against someone trying to join study without being randomized
-        boolean isAllowableCondition = SpanishStudy.conditionMappings.containsKey(campaign);
+        boolean isAllowableCondition = SpanishStudy.conditionMappings.containsKey(condition_code);
         if (!isAllowableCondition) {
             return "inviteOnly";
         } else {
             // store condition as session attribute then
             // continue into the eligibility process.
-            SpanishStudy.CONDITION condition = SpanishStudy.conditionMappings.get(campaign);
+            SpanishStudy.CONDITION condition = SpanishStudy.conditionMappings.get(condition_code);
             session.setAttribute("condition", condition.name());
             session.setAttribute("cp", campaign);
 

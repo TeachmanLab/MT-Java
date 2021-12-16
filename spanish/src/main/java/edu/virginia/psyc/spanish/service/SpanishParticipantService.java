@@ -119,23 +119,8 @@ public class SpanishParticipantService extends ParticipantServiceImpl implements
 
         // Check campaign field to assign condition to participant, 'enb' is the English Bilingual group,
         // 'esb' is the Spanish Bilingual group, 'esd' is the Spanish Dominant group.
-        String campaign = (String)session.getAttribute("campaign");
-
-        if (campaign != null) {
-            if(campaign.startsWith("enb")){
-                p.getStudy().setConditioning(SpanishStudy.CONDITION.ENGLISH_BILINGUAL.name());
-            } else if (campaign.startsWith("esb")) {
-                p.getStudy().setConditioning(SpanishStudy.CONDITION.SPANISH_BILINGUAL.name());
-            } else if (campaign.startsWith("esd")) {
-                p.getStudy().setConditioning(SpanishStudy.CONDITION.SPANISH_DOMINANT.name());
-            } else {
-                // Do not allow participants to progress without a valid condition.
-                throw new MissingEligibilityException();
-            }
-        } else {
-            // Do not allow participants to progress without a valid condition.
-            throw new MissingEligibilityException();
-        }
+        String condition = (String)session.getAttribute("condition");
+        p.getStudy().setConditioning(condition);
 
         // All Spanish Participants should receive gift cards if they are available.
         p.setReceiveGiftCards(tangoService.getEnabled());
