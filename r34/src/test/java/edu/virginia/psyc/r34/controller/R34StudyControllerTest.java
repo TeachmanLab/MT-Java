@@ -47,7 +47,7 @@ public class R34StudyControllerTest extends BaseControllerTest {
                 .andExpect(status().is3xxRedirection());
 
         Participant p2 = participantRepository.findOne(p.getId());
-        assertEquals("FIFTY_FIFTY", ((R34Study)p2.getStudy()).getConditioning().toString());
+        assertEquals("FIFTY_FIFTY", p2.getStudy().getConditioning());
         assertEquals("NEUTRAL", ((R34Study)p2.getStudy()).getPrime().toString());
 
     }

@@ -11,7 +11,7 @@ import javax.validation.ConstraintValidatorContext;
 public class PhoneValidator implements ConstraintValidator<Phone, HasPhone> {
 
     private Phone phone;
-    private static PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
+    private static final PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
 
     @Override
     public void initialize(Phone phone) {

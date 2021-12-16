@@ -19,7 +19,7 @@ public interface TwilioService {
      * @param textMessage
      * @param participant
      */
-    public void sendMessage(TextMessage textMessage, Participant participant);
+    void sendMessage(TextMessage textMessage, Participant participant);
 
 
     /**
@@ -27,11 +27,11 @@ public interface TwilioService {
      *
      * @return
      */
-    public List<ScheduledEvent> messageTypes();
+    List<ScheduledEvent> messageTypes();
 
 
     /**
      * Redact the phone number from a string - useful for logging.
      */
-    public String redactPhone(String message);
+    String redactPhone(String message);
 }

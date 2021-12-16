@@ -60,7 +60,7 @@ public class EligibleController extends BaseController {
     private LocaleResolver localeResolver;
 
 
-    private Validator validator;
+    private final Validator validator;
 
     public EligibleController() {
         super();

@@ -42,7 +42,7 @@ public class ScaleCount {
             this.uniqueIDCount = Long.valueOf(uniqueID.size());
             this.pairs.add(new countMap("Unique Participant No.", Long.valueOf(this.uniqueIDCount), Long.valueOf(0)));
             for (Session session : this.sessionList) {
-                if (!session.getName().toLowerCase().equals("complete")) {
+                if (!session.getName().equalsIgnoreCase("complete")) {
                     List<LinkedQuestionnaireData> content = ((QuestionnaireRepository) rep).findDistinctByParticipantInAndSession(realAccount, session.getName());
                     Long everything = Long.valueOf(content.size());
                     HashSet<Long> uniqueBySession = new HashSet<>();
@@ -54,7 +54,7 @@ public class ScaleCount {
         }
         if (this.uniqueIDCount == null) {
             this.uniqueIDCount = Long.valueOf(-1);
-        };
+        }
 
     }
 

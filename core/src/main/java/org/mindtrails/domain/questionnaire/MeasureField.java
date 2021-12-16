@@ -9,9 +9,9 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD) //can use on fields only.
 public @interface MeasureField {
-    public String desc();
-    public String group() default "";
-    public String groupDesc() default "";
-    public int order() default 0;
-    public String prefNotAns() default "";
+    String desc();
+    String group() default "";
+    String groupDesc() default "";
+    int order() default 0;
+    String prefNotAns() default "";
 }

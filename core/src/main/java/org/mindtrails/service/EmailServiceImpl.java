@@ -294,8 +294,7 @@ public class EmailServiceImpl implements EmailService {
                                         session.getName())) return false;
         if (session.midSession()) {
             LocalDateTime lastTaskDate = LocalDateTime.ofInstant(study.getLastTaskDate().toInstant(), ZoneId.systemDefault());
-            if (LocalDateTime.now().minusHours(3).isAfter(lastTaskDate))
-                return true;
+            return LocalDateTime.now().minusHours(3).isAfter(lastTaskDate);
         }
         return false;
     }

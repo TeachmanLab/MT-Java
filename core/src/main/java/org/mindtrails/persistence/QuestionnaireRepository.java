@@ -14,9 +14,9 @@ import java.util.List;
 @NoRepositoryBean
 public interface QuestionnaireRepository<T extends QuestionnaireData>
         extends JpaRepository<T, Long> {
-    public List<T> findByIdGreaterThan(long id);
+    List<T> findByIdGreaterThan(long id);
 
-    public List<T> findByDateGreaterThan(Date date);
+    List<T> findByDateGreaterThan(Date date);
 
     List<T> findDistinctByParticipantIn(List<Participant> participants);
 

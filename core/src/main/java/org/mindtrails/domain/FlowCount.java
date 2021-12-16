@@ -38,8 +38,8 @@ public class FlowCount {
         this.pairs.add(new countMap("Intent to treat",this.ittCount,duplicated));
         this.sessionList = study.getSessions();
         for (Session session: this.sessionList) {
-            if (!session.getName().toLowerCase().equals("complete")) {
-                if (session.getName().toLowerCase().equals("pretest")||session.getName().toLowerCase().equals("postfollowup")) {
+            if (!session.getName().equalsIgnoreCase("complete")) {
+                if (session.getName().equalsIgnoreCase("pretest")|| session.getName().equalsIgnoreCase("postfollowup")) {
                     this.pairs.add(new countMap("Completed " + session.getName(), Long.valueOf(taskLogRepository.findDistinctByStudyInAndSessionNameAndTaskName(realStudies,session.getName(), "SESSION_COMPLETE").size()),duplicated));
                 } else {
                     this.pairs.add(new countMap("Completed " + session.getName(), Long.valueOf(taskLogRepository.findDistinctByStudyInAndSessionNameAndTaskName(realStudies,session.getName(), "JsPsychTrial").size()),duplicated));

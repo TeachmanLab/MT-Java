@@ -146,7 +146,7 @@ jsPsych.plugins["button-response-correct"] = (function () {
             if (response.rt_firstReact == -1) {
                 response.rt_firstReact = rt
             }
-            ;
+
             response.rt = rt;
 
             // If the response is not correct, force them to pause.
@@ -216,7 +216,7 @@ jsPsych.plugins["button-response-correct"] = (function () {
 
             // move on to the next trial
             jsPsych.finishTrial(trial_data);
-        };
+        }
 
         // start timing
         start_time = Date.now();

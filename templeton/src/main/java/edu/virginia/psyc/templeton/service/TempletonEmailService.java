@@ -20,11 +20,11 @@ import java.util.List;
  */
 @Service
 public class TempletonEmailService extends EmailServiceImpl implements EmailService{
-    private String RISING_SCORE = "risingScore";
-    private String FIRST_SESSION = "SESSION1";
-    private String SECOND_SESSION = "SESSION2";
-    private String THIRD_SESSION = "SESSION3";
-    private String FOURTH_SESSION = "SESSION4";
+    private final String RISING_SCORE = "risingScore";
+    private final String FIRST_SESSION = "SESSION1";
+    private final String SECOND_SESSION = "SESSION2";
+    private final String THIRD_SESSION = "SESSION3";
+    private final String FOURTH_SESSION = "SESSION4";
 
     @Override
     public List<ScheduledEvent> emailTypes() {
@@ -49,13 +49,13 @@ public class TempletonEmailService extends EmailServiceImpl implements EmailServ
     public void sendSessionCompletedEmail(Participant participant) {
         Session currentSession = participant.getStudy().getCurrentSession();
         Email email = null;
-        if (currentSession.getName().equals(TempletonStudy.FIRST_SESSION.toString())) {
+        if (currentSession.getName().equals(TempletonStudy.FIRST_SESSION)) {
             email = new Email("SESSION1","Bonus feature from the MindTrails team");
-        } else if (currentSession.getName().equals(TempletonStudy.SECOND_SESSION.toString())) {
+        } else if (currentSession.getName().equals(TempletonStudy.SECOND_SESSION)) {
             email = new Email("SESSION2","Bonus feature from the MindTrails team");
-        } else if (currentSession.getName().equals(TempletonStudy.THIRD_SESSION.toString())) {
+        } else if (currentSession.getName().equals(TempletonStudy.THIRD_SESSION)) {
             email = new Email("SESSION3","Bonus feature from the MindTrails team");
-        } else if (currentSession.getName().equals(TempletonStudy.FOURTH_SESSION.toString())) {
+        } else if (currentSession.getName().equals(TempletonStudy.FOURTH_SESSION)) {
             email = new Email("SESSION4","Bonus feature from the MindTrails team");
         }
         if (email != null) {

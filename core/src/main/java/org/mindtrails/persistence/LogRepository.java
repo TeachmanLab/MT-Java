@@ -13,5 +13,5 @@ import java.util.List;
 @NoRepositoryBean
 public interface LogRepository<T extends MindTrailsLog> extends JpaRepository<T, Long> {
 
-    public List<T> findByDateSentGreaterThan(Date date);
+    List<T> findByDateSentGreaterThan(Date date);
 }

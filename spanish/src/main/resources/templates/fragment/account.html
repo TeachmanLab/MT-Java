@@ -245,13 +245,134 @@
     <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&amp;render=explicit" async="true"
             defer="true"></script>
     <br></br>
+    <div class="form-group row" >
+        <div class="col-sm-2"></div>
+        <div class="custom-control col-sm-10" id="g-signature"></div>
+
+    </div>
+    <input type="hidden" th:field="*{singatureResponse}"  id="singatureResponse" name="singatureResponse" path="signatureResponse" enctype="multipart/form-data"/>
+    <div class="form-row mb-3">
+        <label class="control-label col-sm-2" for="singatureResponse" th:text="#{consent.p8m}">Signature Verification</label>
+        <div class="wrapper mb-3">
+            <canvas id="signature-pad" class="signature-pad" width="400" height="200"   >
+            </canvas>
+
+        </div>
+    </div>
+
+    <div class="form-row mb-3">
+        <button id="save">Submit</button>
+        <span id="error-input" class="error"></span>
+        <button id="clear">Clear</button>
+    </div>
+
+    <script th:inline="javascript" src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script th:inline="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script th:inline="javascript" src="js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
+    <script th:inline="javascript" src="js/bootstrap-datepicker.js"></script>
+<!--    <script type="text/javascript" th:inline="javascript" >-->
+
+<!--            /*<![CDATA[*/-->
+<!-- var signaturePad = new SignaturePad(document.getElementById('signature-pad'), {-->
+<!--  backgroundColor: 'rgba(255, 255, 255, 0)',-->
+<!--  penColor: 'rgb(0, 0, 0)'-->
+<!--});-->
+
+<!--var saveButton = document.getElementById('save');-->
+<!--var cancelButton = document.getElementById('clear');-->
+
+<!--saveButton.addEventListener('click', function (event) {-->
+<!--  var data = signaturePad.toDataURL('image/png');-->
+<!--document.getElementById('singatureResponse').value = data;-->
+<!--$("#signatureResponse").value(data);-->
+<!--// Send data to server instead...-->
+<!--});-->
+
+<!--cancelButton.addEventListener('click', function (event) {-->
+<!--  signaturePad.clear();-->
+
+<!--});-->
+<!-- document.getElementById('singatureResponse').value = data;-->
+<!--$("#signatureResponse").value(data);-->
+
+
+<!--             /*]]>*/-->
+<!--          </script>-->
+
+<!--    <script type="text/javascript" th:inline="javascript">-->
+<!--        /*<![CDATA[*/-->
+<!--        var signaturePad = new SignaturePad(document.getElementById("signature-pad"), {-->
+<!--          backgroundColor: 'rgba(255, 255, 255, 0)',-->
+<!--          penColor: 'rgb(0, 0, 0)'-->
+<!--    });-->
+<!--         var saveButton = document.querySelector('.btn-save');-->
+<!--         var clearButton = document.querySelector('[data-action=clear]');-->
+<!--         saveButton.addEventListener('click', function (e) {-->
+<!--        document.querySelector('[name=signature_data]').value = signaturePad.toDataURL('image/png', 100);-->
+<!--    });-->
+<!--    clearButton.addEventListener('click', function () {-->
+<!--        signaturePad.clear();-->
+<!--    });-->
+<!--     var data = signaturePad.toDataURL('image/png');-->
+
+<!--        /*]]>*/-->
+<!--    </script>-->
+
+
 
     <span th:text="#{consent.p8k}"><b>By clicking the button below you are indicating that you have read the informed consent statement above and agree to participate.</b></span>
     <br></br>
 
     <div style="text-align: center;">
-        <button th:text="#{consent.p8l}">Give Consent and Create Account</button>
+        <button id="consent-btn" th:text="#{consent.p8l}">Give Consent and Create Account</button>
     </div>
+    <script type="text/javascript" th:inline="javascript" >
+
+
+    /*<![CDATA[*/
+         var signaturePad = new SignaturePad(document.getElementById('signature-pad'), {
+          backgroundColor: 'rgba(255, 255, 255, 0)',
+          penColor: 'rgb(0, 0, 0)'
+         });
+
+         var saveButton = document.getElementById('consent-btn');
+         var cancelButton = document.getElementById('clear');
+         var submitButton = document.getElementById('save');
+         saveButton.addEventListener('click', function (event) {
+         var errorMsg = document.querySelector("#error-input");
+
+          if( signaturePad.isEmpty()) {
+                errorMsg.innerHTML = "Please Verify by signing first";
+                errorMsg.classList.remove("hide");
+          }
+           var data = signaturePad.toDataURL('image/png');
+           document.getElementById('singatureResponse').value = data;
+           $("#signatureResponse").value(data);
+
+         });
+       var errorMsg = document.querySelector("#error-input");
+
+    submitButton.addEventListener('click', function (event) {
+
+
+        var errorMsg = document.querySelector("#error-input");
+
+          if( signaturePad.isEmpty()) {
+                errorMsg.innerHTML = "Please Verify by signing first";
+                errorMsg.classList.remove("hide");
+          }
+            });
+         cancelButton.addEventListener('click', function (event) {
+           signaturePad.clear();
+
+         });
+         document.getElementById('singatureResponse').value = data;
+         $("#signatureResponse").value(data);
+
+
+             /*]]>*/
+          </script>
 </form>
 
 <section id="themeSelection" class="clearfix" th:fragment="themeSelection">

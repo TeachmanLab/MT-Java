@@ -26,7 +26,7 @@ public class ErrorLog extends MindTrailsLog {
     private String errorMessage;
     private String requestedUrl;
 
-    public ErrorLog() {};
+    public ErrorLog() {}
 
     public ErrorLog(Participant participant, String requestedUrl, Exception e) {
         this.participant = participant;

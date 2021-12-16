@@ -88,7 +88,7 @@ public class userstats {
                 currentCondition = this.conditionList.get(Integer.parseInt(conditioning));
             } else {
                 currentCondition = conditioning;
-            };
+            }
             Key csCondition=new Key(currentSessionName,currentCondition);
             this.conditionSessionMap.put(csCondition,this.conditionSessionMap.get(csCondition)+1);
 

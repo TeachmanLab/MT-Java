@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ExportModeAspect {
 
-    private ImportService importService;
+    private final ImportService importService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ExportModeAspect.class);
 

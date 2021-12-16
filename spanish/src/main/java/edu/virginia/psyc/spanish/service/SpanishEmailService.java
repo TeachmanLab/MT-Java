@@ -28,7 +28,7 @@ public class SpanishEmailService extends EmailServiceImpl implements EmailServic
     @Autowired
     protected MessageSource messageSource;
 
-    private String RISING_SCORE = "risingScore";
+    private final String RISING_SCORE = "risingScore";
 
     @Override
     public List<ScheduledEvent> emailTypes() {

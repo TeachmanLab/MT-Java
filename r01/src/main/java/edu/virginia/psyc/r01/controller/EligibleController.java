@@ -46,7 +46,7 @@ public class EligibleController extends BaseController {
     private ParticipantService participantService;
 
 
-    private Validator validator;
+    private final Validator validator;
 
     public EligibleController() {
         super();

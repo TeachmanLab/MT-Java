@@ -79,8 +79,7 @@ public class Session {
     public boolean midSession() {
         int completed = 0;
         for(Task t : tasks) if(t.isComplete()) completed++;
-        if(completed > 0 && completed < tasks.size()) return true;
-        else return false;
+        return completed > 0 && completed < tasks.size();
     }
 
     /**

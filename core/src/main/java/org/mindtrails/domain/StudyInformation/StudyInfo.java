@@ -19,7 +19,7 @@ public class StudyInfo {
     private String name;
     private List<SessionInfo> sessions = new ArrayList<>();
 
-    public StudyInfo(){};
+    public StudyInfo(){}
 
     public StudyInfo(Study study) {
         BeanUtils.copyProperties(study, this);

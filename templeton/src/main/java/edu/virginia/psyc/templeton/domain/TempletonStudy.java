@@ -110,7 +110,7 @@ public class TempletonStudy extends BaseStudy {
                 map.put("question","yes_no");
                 map.put("lettersToRemove",1);
         }
-        map.put("conditioning", this.conditioning.toString());
+        map.put("conditioning", this.conditioning);
         return map;
     }
 

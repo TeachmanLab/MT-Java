@@ -25,7 +25,7 @@ public class EmailLog extends MindTrailsLog {
     private String exception = "";
     private String session;
 
-    public EmailLog() {};
+    public EmailLog() {}
 
     public EmailLog(Email email) {
         this.participant = email.getParticipant();

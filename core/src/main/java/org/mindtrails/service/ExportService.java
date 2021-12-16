@@ -74,8 +74,7 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
     }
 
     public boolean disableAdditionalFormSubmissions() {
-        if(totalDeleteableRecords() > maxRecords) return true;
-        return false;
+        return totalDeleteableRecords() > maxRecords;
     }
 
     public long minutesSinceLastExport() {
@@ -167,7 +166,7 @@ public class ExportService implements ApplicationListener<ContextRefreshedEvent>
             if (name.toLowerCase().startsWith("participant")) return Participant.class;
         }
         for (  Class<?> domainType : repositories) {
-            if (domainType.getSimpleName().toLowerCase().equals(name.toLowerCase())) {
+            if (domainType.getSimpleName().equalsIgnoreCase(name)) {
                 return domainType;
             }
         }

@@ -117,10 +117,7 @@ public class KaiserParticipantService extends ParticipantServiceImpl implements 
         // Safeguard in case someone finds the original account creation path, account/create
         // This will kick them back into the AccountController, which is set to redirect to the eligibilityCheck,
         // which simply produces an error for the Kaiser study.
-        if (session.getAttribute("condition") == null) {
-            return false;
-        }
-        return true; 
+        return session.getAttribute("condition") != null;
     }
 
     @Override

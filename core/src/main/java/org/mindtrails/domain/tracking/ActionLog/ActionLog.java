@@ -40,7 +40,7 @@ public class ActionLog implements hasParticipant {
     @JsonProperty("participant")
     protected Participant participant;
 
-    public ActionLog() {};
+    public ActionLog() {}
 
     public ActionLog(Action action, String studyName, String sessionName,
                      String taskName, Participant participant) {
@@ -51,7 +51,7 @@ public class ActionLog implements hasParticipant {
         this.latency = action.getLatency();
         this.date = new Date();
         this.participant = participant;
-    };
+    }
 }
 
 

@@ -18,12 +18,10 @@ public class HelpSeekingValidator implements ConstraintValidator<ValidHelpSeekin
     public boolean isValid (HelpSeeking hs,
                             ConstraintValidatorContext context) {
 
-        if(hs.isMorePerson() || hs.isLessPerson() ||
+        return hs.isMorePerson() || hs.isLessPerson() ||
                 hs.isMoreMeds() || hs.isLessMeds() ||
                 hs.isMoreApps() || hs.isLessApps() ||
                 hs.isNoChange() || hs.isOtherChange() ||
-                hs.isNoAnswer()) return true;
-        else
-            return false;
+                hs.isNoAnswer();
     }
 }

@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface ActionLogRepository extends JpaRepository<ActionLog, Long> {
 
-    public List findByDateGreaterThan(Date date);
+    List findByDateGreaterThan(Date date);
     Long countByDateAfter(Date date);
 
 

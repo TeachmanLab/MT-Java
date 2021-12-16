@@ -48,7 +48,8 @@ public class TaskLog implements Comparable<TaskLog>, HasStudy {
     private String userAgent;  // detailed information about the users device / browser, hard to parse.
 
 
-    public TaskLog() {};
+    public TaskLog() {}
+
     public TaskLog(Study study, double timeOnTask, Device device, String userAgent) {
         this.study = study;
         this.sessionName = study.getCurrentSession().getName();

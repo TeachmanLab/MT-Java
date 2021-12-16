@@ -106,7 +106,7 @@ jsPsych.plugins["sentence-reveal"] = (function () {
             if (response.rt_firstReact = -1) {
                 response.rt_firstReact = rt
             }
-            ;
+
 
             document.querySelector('#jspsych-sentence-reveal-btngroup').style.visibility = 'hidden';
 

@@ -45,6 +45,6 @@ public class JsPsychTrial extends LinkedQuestionnaireData {
 
     public JsPsychTrial() {
 
-    };
+    }
 
 }

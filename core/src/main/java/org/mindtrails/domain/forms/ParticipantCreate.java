@@ -6,7 +6,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.mindtrails.domain.recaptcha.RecaptchaForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -21,5 +23,9 @@ public class ParticipantCreate extends ParticipantCreateAdmin implements Recaptc
     @NotEmpty(message = "Please complete the Captcha challenge.")
     @NotNull(message = "Please complete the Captcha challenge.")
     private String recaptchaResponse;
+
+    @Transient
+    //Can I use NotEmpty or NotNull here or does it require a validator for that specifically? TODO
+    private MultipartFile singatureResponse;
 
 }

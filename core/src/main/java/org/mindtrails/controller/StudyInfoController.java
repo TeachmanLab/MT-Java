@@ -23,9 +23,9 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/study")
 public class StudyInfoController {
 
-    private ParticipantService participantService;
+    private final ParticipantService participantService;
 
-    private ExportService exportService;
+    private final ExportService exportService;
 
     @Autowired
     public StudyInfoController(ParticipantService participantService, ExportService exportService) {

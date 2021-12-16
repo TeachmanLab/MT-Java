@@ -35,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class CreateAccountControllerTest extends BaseControllerTest {
 
-    private static String PASSWD = "1234!@#$qwerQWER";
+    private static final String PASSWD = "1234!@#$qwerQWER";
 
     @Autowired
     protected ParticipantRepository participantRepository;

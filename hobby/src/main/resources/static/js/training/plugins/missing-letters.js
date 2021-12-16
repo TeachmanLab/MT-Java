@@ -99,7 +99,7 @@ jsPsych.plugins["missing-letters"] = (function () {
             if (response.rt_firstReact == -1) {
                 response.rt_firstReact = rt
             }
-            ;
+
             response.rt = rt;
 
             if (missing_letters[letter_index] != choice) {
@@ -124,7 +124,7 @@ jsPsych.plugins["missing-letters"] = (function () {
                     letter_index++;
                     pause_click = false;
                     show_letter_options(missing_letters[letter_index]);
-                    return;
+
                 } else {
                     end_trial();
                 }
@@ -153,7 +153,7 @@ jsPsych.plugins["missing-letters"] = (function () {
 
             // move on to the next trial
             jsPsych.finishTrial(trial_data);
-        };
+        }
 
 
         // start timing

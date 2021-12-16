@@ -20,7 +20,7 @@ import java.io.IOException;
 @RequestMapping("/data")
 public class TrialController {
 
-    private TrialRepository trialRepository;
+    private final TrialRepository trialRepository;
 
     /**
      * Spring automatically configures this object.

@@ -6,6 +6,7 @@ import org.mindtrails.service.ParticipantService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -23,6 +24,7 @@ public class ParticipantCreateAdmin extends ParticipantUpdate {
 
     private boolean over18;
     private boolean admin;
+    private MultipartFile signatureResponse;
     private boolean coaching;
     private Participant coachedBy;
     private boolean active = true;
@@ -67,11 +69,15 @@ public class ParticipantCreateAdmin extends ParticipantUpdate {
         if(admin && password.length() < 20) {
             bindingResult.rejectValue("password", "error.passwordAdmin", "Admin users must have a password of at least 20 characters.");
         }
-
+        if (signatureResponse == null){
+            LOG.error("Signature not provided.");
+            return false;
+        }
         if (bindingResult.hasErrors()) {
             LOG.error("Invalid participant:" + bindingResult.getAllErrors());
             return false;
         }
+
         return true;
     }
 

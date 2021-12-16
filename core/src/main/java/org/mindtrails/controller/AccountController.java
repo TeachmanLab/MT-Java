@@ -27,14 +27,19 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.support.StringMultipartFileEditor;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.springframework.http.MediaType;
+
 
 /**
  * Created with IntelliJ IDEA.
@@ -74,6 +79,7 @@ public class AccountController extends BaseController {
     @InitBinder("participantForm")
     public void initBinder(WebDataBinder binder) {
         binder.addValidators(recaptchaFormValidator);
+        binder.registerCustomEditor(MultipartFile.class, new StringMultipartFileEditor());
     }
 
 
@@ -104,9 +110,12 @@ public class AccountController extends BaseController {
                                        @ModelAttribute("participantForm") @Valid ParticipantCreate participantCreate,
                                        final BindingResult bindingResult,
                                        HttpSession session
-    ) {
+    ) throws IOException {
 
         Participant participant;
+        MultipartFile signatureResponse = participantCreate.getSingatureResponse();
+
+        byte[]   byteArr = signatureResponse.getBytes();
 
         if(!participantCreate.validParticipant(bindingResult, participantService)) {
             LOG.error("Invalid participant:" + bindingResult.getAllErrors());
@@ -120,6 +129,8 @@ public class AccountController extends BaseController {
         participant.setVerificationCode(new VerificationCode(participant));
         participant.setReference((String)session.getAttribute("referer"));
         participant.setCampaign((String)session.getAttribute("campaign"));
+        participant.setSignature(byteArr);
+//        session.setAttribute("campaign", "enb");
 
         // Be sure to call saveNew rather than save, allowing
         // any data associated with the session to get
@@ -342,6 +353,10 @@ public class AccountController extends BaseController {
          }
     }
 
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, value = "/info/uploadSignature")
+    public void uploadSignature(@ModelAttribute("signatureResponse") MultipartFile signature) throws Exception {
+        System.out.println("file uploaded");
+    }
     @ExportMode
     @RequestMapping(value="updateCardCountry",method=RequestMethod.POST)
     public String updateCardCountry( ModelMap model, Principal principal, @RequestParam String country) {

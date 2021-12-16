@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ImportModeAspect {
 
-    private ImportService importService;
+    private final ImportService importService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ImportModeAspect.class);
 

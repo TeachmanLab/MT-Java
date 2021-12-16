@@ -70,7 +70,7 @@ public class ExpectancyControllerTest extends BaseControllerTest {
 
     @Test
     public void testGetFormContainsCustomParameters() throws Exception {
-        ((TempletonStudy) participant.getStudy()).setCurrentSession(TempletonStudy.SECOND_SESSION.toString());
+        ((TempletonStudy) participant.getStudy()).setCurrentSession(TempletonStudy.SECOND_SESSION);
         participantRepository.save(participant);
 
         MvcResult result = mockMvc.perform(get("/questions/ExpectancyBias")

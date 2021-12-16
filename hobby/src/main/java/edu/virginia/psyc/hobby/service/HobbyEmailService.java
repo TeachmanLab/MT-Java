@@ -19,8 +19,8 @@ import java.util.List;
  */
 @Service
 public class HobbyEmailService extends EmailServiceImpl implements EmailService{
-    private String FIRST_SESSION = "SESSION1";
-    private String SECOND_SESSION = "SESSION2";
+    private final String FIRST_SESSION = "SESSION1";
+    private final String SECOND_SESSION = "SESSION2";
 
     @Override
     public List<ScheduledEvent> emailTypes() {
@@ -34,9 +34,9 @@ public class HobbyEmailService extends EmailServiceImpl implements EmailService{
     public void sendSessionCompletedEmail(Participant participant) {
         Session currentSession = participant.getStudy().getCurrentSession();
         Email email = null;
-        if (currentSession.getName().equals(HobbyStudy.FIRST_SESSION.toString())) {
+        if (currentSession.getName().equals(HobbyStudy.FIRST_SESSION)) {
             email = new Email("SESSION1","Bonus feature from the MindTrails team");
-        } else if (currentSession.getName().equals(HobbyStudy.SECOND_SESSION.toString())) {
+        } else if (currentSession.getName().equals(HobbyStudy.SECOND_SESSION)) {
             email = new Email("SESSION2","Bonus feature from the MindTrails team");
         }
         if (email != null) {

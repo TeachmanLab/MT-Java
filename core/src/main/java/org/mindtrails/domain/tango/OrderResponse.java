@@ -44,7 +44,7 @@ public class OrderResponse {
     @JsonIgnore
     public String getLink() {
         return this.getReward().redemptionUrl();
-    };
+    }
 
     @JsonIgnore
     public float getAmount() {

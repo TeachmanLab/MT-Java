@@ -203,11 +203,7 @@ public class ScheduledEventService {
         // The time today when we should send a text message. (typically around 5pm)
         DateTime timeToSend = new DateTime(DateTimeZone.forID(participant.getTimezone()))
                 .withTime(notifyHour, notifyMinute, 0, 0);
-        if(interval.contains(timeToSend)) {
-            return true;
-        } else {
-            return false;
-        }
+        return interval.contains(timeToSend);
     }
 
 

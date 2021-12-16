@@ -927,7 +927,7 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
             ],
             customize: function () {
                 this.layout[0].media.html = '<div class="results"><p style="font-size: 24px; text-align:center">' + vivid_text + '</p>' + '<p style="font-size: 20px; text-align:center" > Press the spacebar to continue </p></div>';
-                ;
+
             },
             interactions: [
                 // What to do when different events occur.
@@ -1036,5 +1036,5 @@ define(['pipAPI', 'pipScorer', scriptFile], function (APIConstructor, Scorer, Se
     API.addSequence(Sequence.sequence);
     return API.script;
 
-});
+})
 /* don't forget to close the define wrapper */

@@ -48,9 +48,9 @@ public class Demographics extends LinkedQuestionnaireData {
 
 
     public String calculateSegmentation() {
-        if(this.getGender().toLowerCase().equals("male")) {
+        if(this.getGender().equalsIgnoreCase("male")) {
             return "male";
-        } else if (this.getGender().toLowerCase().equals("female")) {
+        } else if (this.getGender().equalsIgnoreCase("female")) {
             return "female";
         } else {
             // Randomly assign all other gender responses to male or female.

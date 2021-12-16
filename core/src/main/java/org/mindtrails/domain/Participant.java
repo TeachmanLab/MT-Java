@@ -99,6 +99,10 @@ public class Participant implements UserDetails, HasStudy {
     @JsonIgnore
     protected List<Participant> coachees = new ArrayList<>();
 
+    //to store the signature file
+    @Lob
+    protected byte[] signature;
+
 
     // IMPORTANT: Automatic email notifications start failing when
     // these relationships are setup with a FetchType.LAZY. Please

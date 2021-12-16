@@ -313,7 +313,7 @@ public class EmailServiceImplTest {
         String calText = calendar.toString();
         assertTrue(calText.contains("2018"));
         System.out.println(calendar);
-        System.out.println(((VEvent) calendar.getComponents().get(0)).getProperties().getProperties("DTSTART").get(0));
+        System.out.println(calendar.getComponents().get(0).getProperties().getProperties("DTSTART").get(0));
         assertNotNull(((VEvent) calendar.getComponents().get(0)).getStartDate());  // should be 30 minutes
         assertNotNull(((VEvent) calendar.getComponents().get(0)).getEndDate());  // should be 30 minutes
     }

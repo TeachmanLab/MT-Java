@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 public class ExpectancyBiasTest {
 
 
-    private ExpectancyBias bias = new ExpectancyBias();
+    private final ExpectancyBias bias = new ExpectancyBias();
 
     @Before
     public void setupAllSevens(){

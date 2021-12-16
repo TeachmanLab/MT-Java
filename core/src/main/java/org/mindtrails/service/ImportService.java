@@ -111,11 +111,11 @@ public class ImportService {
     }
 
     public boolean isExporting() {
-        return this.mode.trim().toLowerCase().equals("export");
+        return this.mode.trim().equalsIgnoreCase("export");
     }
 
     public boolean isImporting() {
-        return this.mode.trim().toLowerCase().equals("import");
+        return this.mode.trim().equalsIgnoreCase("import");
     }
 
 
@@ -144,7 +144,7 @@ public class ImportService {
                     restTemplate.exchange(uri, HttpMethod.GET, request,
                             new ParameterizedTypeReference<List<Scale>>() {
                             });
-;            List<Scale> scales = responseEntity.getBody();
+            List<Scale> scales = responseEntity.getBody();
             // do a bit of reordering, as we have to import study first, then participant, then
             // everything else.
             moveScaleToTopOfList(scales, "ParticipantExport");
@@ -204,7 +204,7 @@ public class ImportService {
             if(!this.deleteable(scale) || !deleteMode) return;
 
             HttpEntity<String> request = new HttpEntity<String>(headers());
-            URI uri = URI.create(url + "/api/export/" + scale + '/' + Long.toString(id));
+            URI uri = URI.create(url + "/api/export/" + scale + '/' + id);
             restTemplate.exchange(uri, HttpMethod.DELETE, request, new ParameterizedTypeReference<String>() {
             });
         } catch (HttpClientErrorException | NullPointerException e) {

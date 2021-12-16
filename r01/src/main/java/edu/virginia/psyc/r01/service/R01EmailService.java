@@ -21,7 +21,7 @@ import java.util.List;
 @Service
 public class R01EmailService extends EmailServiceImpl implements EmailService{
 
-    private String RISING_SCORE = "risingScore";
+    private final String RISING_SCORE = "risingScore";
 
     @Override
     public List<ScheduledEvent> emailTypes() {

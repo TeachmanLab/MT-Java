@@ -34,7 +34,7 @@ public class GiftLog extends MindTrailsLog {
     private String tangoItemId;
 
 
-    public GiftLog() {};
+    public GiftLog() {}
 
     public GiftLog(Participant participant, String sessionName, double amount, double dollarAmount, Item item) {
         this.participant = participant;

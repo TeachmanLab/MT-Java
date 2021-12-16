@@ -23,7 +23,7 @@ public class MissingDataLog extends MindTrailsLog {
     private long tableID;
     private String missingDate;
 
-    public MissingDataLog() {};
+    public MissingDataLog() {}
 
     public MissingDataLog(Participant participant, String scale, String columns,
                           long tableID, String missingDate) {

@@ -78,7 +78,7 @@ jsPsych.plugins["sentence-reveal"] = (function () {
             var rt = end_time - start_time;
             response.button.push(choice);
             response.rt = rt;
-            if(response.rt_firstReact = -1) {response.rt_firstReact = rt};
+            if(response.rt_firstReact = -1) {response.rt_firstReact = rt}
 
             $('#jspsych-sentence-reveal-btngroup').hide();
 

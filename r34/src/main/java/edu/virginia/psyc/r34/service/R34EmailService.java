@@ -29,15 +29,15 @@ public class R34EmailService extends EmailServiceImpl implements EmailService {
 
     private static final Logger LOG = LoggerFactory.getLogger(R34EmailService.class);
 
-    private String RISING_SCORE = "risingScore";
+    private final String RISING_SCORE = "risingScore";
 
 
-    private String SESSION1 = "SESSION1";
-    private String SESSION2 = "SESSION2";
-    private String SESSION3 = "SESSION3";
-    private String SESSION4 = "SESSION$";
-    private String SESSION5 = "SESSION5";
-    private String SESSION6 = "SESSION6";
+    private final String SESSION1 = "SESSION1";
+    private final String SESSION2 = "SESSION2";
+    private final String SESSION3 = "SESSION3";
+    private final String SESSION4 = "SESSION$";
+    private final String SESSION5 = "SESSION5";
+    private final String SESSION6 = "SESSION6";
 
 
     @Override

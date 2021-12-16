@@ -81,7 +81,7 @@ jsPsych.plugins["missing-letters"] = (function () {
             var rt = end_time - start_time;
             if(response.button != "") response.button += ",";
             response.button += choice;
-            if(response.rt_firstReact == -1) {response.rt_firstReact = rt};
+            if(response.rt_firstReact == -1) {response.rt_firstReact = rt}
             response.rt = rt;
 
             if (missing_letters[letter_index] != choice) {
@@ -140,7 +140,7 @@ jsPsych.plugins["missing-letters"] = (function () {
 
             // move on to the next trial
             jsPsych.finishTrial(trial_data);
-        };
+        }
 
 
         // start timing

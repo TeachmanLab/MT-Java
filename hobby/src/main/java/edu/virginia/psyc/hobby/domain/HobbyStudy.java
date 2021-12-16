@@ -22,7 +22,7 @@ import java.util.Map;
 public class HobbyStudy extends BaseStudy {
 
 
-    public enum SESSION {firstSession, secondSession, thirdSession, fourthSession, fifthSession, sixthSession};
+    public enum SESSION {firstSession, secondSession, thirdSession, fourthSession, fifthSession, sixthSession}
 
     public static final String FIRST_SESSION = "firstSession";
     public static final String SECOND_SESSION = "secondSession";

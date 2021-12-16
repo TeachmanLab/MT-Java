@@ -50,7 +50,7 @@ public interface EmailService {
      * by the admin interface to provide links so custom email messages
      * can be sent out.
      */
-    public List<ScheduledEvent> emailTypes();
+    List<ScheduledEvent> emailTypes();
 
         /**
          * Sends an exame email message to an administrator, so they can see what the
