@@ -28,6 +28,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import org.springframework.web.multipart.support.StringMultipartFileEditor;
 
 import javax.mail.MessagingException;
@@ -80,6 +81,7 @@ public class AccountController extends BaseController {
     public void initBinder(WebDataBinder binder) {
         binder.addValidators(recaptchaFormValidator);
         binder.registerCustomEditor(MultipartFile.class, new StringMultipartFileEditor());
+        binder.registerCustomEditor(byte[].class, new ByteArrayMultipartFileEditor());
     }
 
 
@@ -113,15 +115,16 @@ public class AccountController extends BaseController {
     ) throws IOException {
 
         Participant participant;
-        MultipartFile signatureResponse = participantCreate.getSingatureResponse();
+        String signatureResponse = participantCreate.getSignatureResponse();
 
-        byte[]   byteArr = signatureResponse.getBytes();
+        byte[]   signatureResponseBytes = signatureResponse.getBytes();
 
-        if(!participantCreate.validParticipant(bindingResult, participantService)) {
+        if(!participantCreate.validParticipant(bindingResult, participantService, signatureResponse)) {
             LOG.error("Invalid participant:" + bindingResult.getAllErrors());
             addAttributesForCreateParticipantForm(model);
             return ("account/create");
         }
+
 
         participant = participantService.create();
         participantCreate.updateParticipant(participant);
@@ -129,8 +132,7 @@ public class AccountController extends BaseController {
         participant.setVerificationCode(new VerificationCode(participant));
         participant.setReference((String)session.getAttribute("referer"));
         participant.setCampaign((String)session.getAttribute("campaign"));
-        participant.setSignature(byteArr);
-//        session.setAttribute("campaign", "enb");
+        participant.setSignature(signatureResponseBytes);
 
         // Be sure to call saveNew rather than save, allowing
         // any data associated with the session to get

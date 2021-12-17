@@ -339,29 +339,73 @@
          var saveButton = document.getElementById('consent-btn');
          var cancelButton = document.getElementById('clear');
          var submitButton = document.getElementById('save');
-         saveButton.addEventListener('click', function (event) {
          var errorMsg = document.querySelector("#error-input");
+         var errorExists = false;
 
-          if( signaturePad.isEmpty()) {
-                errorMsg.innerHTML = "Please Verify by signing first";
-                errorMsg.classList.remove("hide");
-          }
-           var data = signaturePad.toDataURL('image/png');
-           document.getElementById('singatureResponse').value = data;
-           $("#signatureResponse").value(data);
+         saveButton.addEventListener('click', function (event) {
+
+
+
+
+
+<!--            if( signaturePad.isEmpty()){-->
+<!--              if (errorExists == false){-->
+<!--                $( "#signature-pad" ).append( "<div id="sig-error">A signature is required</div>" );-->
+<!--                errorExists = true;-->
+<!--              }-->
+<!--            }else if( !signaturePad.isEmpty()) {-->
+<!--              if (errorExists == true){-->
+<!--                $('#sig-error').remove();-->
+<!--              }-->
+<!--             -->
+<!--            }-->
+
+                            var data = signaturePad.toDataURL('image/png');
+                            if (signaturePad.isEmpty()) {
+                            data = "empty"
+                            }
+                            document.getElementById('singatureResponse').value = data;
+
+
+
+
+<!--          if( signaturePad.isEmpty()) {-->
+<!--                errorMsg.innerHTML = "Please Verify by signing first";-->
+<!--                errorMsg.classList.remove("hide");-->
+<!--          }else {-->
+<!--                errorMsg.classList.add("hide");-->
+<!--          }-->
+
+
 
          });
+
+         $('#participantForm').submit(function(e) {
+
+                   if(!signaturePad.isEmpty()){
+
+                          var data = signaturePad.toDataURL('image/png');
+                            document.getElementById('singatureResponse').value = data;
+                            <!--           $("#signatureResponse").value(data);-->
+                   }
+                   else{
+                       alert("Validation failed");
+                        errorMsg.innerHTML = "Please Verify by signing first";
+                        errorMsg.classList.remove("hide");
+                        e.preventDefault();
+                   }
+            });
        var errorMsg = document.querySelector("#error-input");
 
     submitButton.addEventListener('click', function (event) {
 
-
-        var errorMsg = document.querySelector("#error-input");
-
           if( signaturePad.isEmpty()) {
                 errorMsg.innerHTML = "Please Verify by signing first";
                 errorMsg.classList.remove("hide");
+          } else {
+                errorMsg.classList.add("hide");
           }
+
             });
          cancelButton.addEventListener('click', function (event) {
            signaturePad.clear();

@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.Objects;
 
 /**
  * For updating a participant.
@@ -24,7 +25,6 @@ public class ParticipantCreateAdmin extends ParticipantUpdate {
 
     private boolean over18;
     private boolean admin;
-    private MultipartFile signatureResponse;
     private boolean coaching;
     private Participant coachedBy;
     private boolean active = true;
@@ -69,9 +69,36 @@ public class ParticipantCreateAdmin extends ParticipantUpdate {
         if(admin && password.length() < 20) {
             bindingResult.rejectValue("password", "error.passwordAdmin", "Admin users must have a password of at least 20 characters.");
         }
-        if (signatureResponse == null){
-            LOG.error("Signature not provided.");
+        if (bindingResult.hasErrors()) {
+            LOG.error("Invalid participant:" + bindingResult.getAllErrors());
             return false;
+        }
+
+        return true;
+    }
+    public boolean validParticipant(BindingResult bindingResult, ParticipantService participantService, String signatureResponseBytes) {
+
+        if(!over18) {
+            bindingResult.rejectValue("over18", "error.over18", "You must be over 18 to participate in this Study.");
+        }
+
+        if(participantService.findByEmail(email) != null) {
+            bindingResult.rejectValue("email", "error.emailExists", "This email already exists.");
+        }
+        if(null != phone && !phone.isEmpty() && !participantService.findByPhone(formatPhone(phone)).isEmpty()) {
+            bindingResult.rejectValue("phone", "error.phoneExists", "This phone number is already linked to an account.");
+        }
+
+        if(!password.equals(passwordAgain)) {
+            bindingResult.rejectValue("password", "error.passwordMatch", "Passwords do not match.");
+        }
+
+        if(admin && password.length() < 20) {
+            bindingResult.rejectValue("password", "error.passwordAdmin", "Admin users must have a password of at least 20 characters.");
+        }
+        if (Objects.equals(signatureResponseBytes, "empty")){
+            LOG.error("Signature Empty" + bindingResult.getAllErrors());
+            bindingResult.rejectValue("signature", "error.noSignature", "A signature is required.");
         }
         if (bindingResult.hasErrors()) {
             LOG.error("Invalid participant:" + bindingResult.getAllErrors());
@@ -80,7 +107,6 @@ public class ParticipantCreateAdmin extends ParticipantUpdate {
 
         return true;
     }
-
     @Override
     public void fromParticipant(Participant p) {
         super.fromParticipant(p);

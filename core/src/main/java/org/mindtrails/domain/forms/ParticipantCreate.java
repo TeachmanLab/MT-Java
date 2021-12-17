@@ -24,8 +24,16 @@ public class ParticipantCreate extends ParticipantCreateAdmin implements Recaptc
     @NotNull(message = "Please complete the Captcha challenge.")
     private String recaptchaResponse;
 
+    public String getSignatureResponse() {
+        return signatureResponse;
+    }
+
+    public void setSignatureResponse(String signatureResponse) {
+        this.signatureResponse = signatureResponse;
+    }
+
     @Transient
     //Can I use NotEmpty or NotNull here or does it require a validator for that specifically? TODO
-    private MultipartFile singatureResponse;
+    private String signatureResponse;
 
 }

@@ -7,5 +7,4 @@ public interface RecaptchaForm {
 
     String getRecaptchaResponse();
     void setRecaptchaResponse(String response);
-
 }
