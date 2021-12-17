@@ -24,6 +24,20 @@ public class ParticipantCreate extends ParticipantCreateAdmin implements Recaptc
     @NotNull(message = "Please complete the Captcha challenge.")
     private String recaptchaResponse;
 
+    @Transient
+    private String signatureResponse;
+
+    @Transient
+    private String signatureState;
+
+    public String getRecaptchaResponse() {
+        return recaptchaResponse;
+    }
+
+    public void setRecaptchaResponse(String recaptchaResponse) {
+        this.recaptchaResponse = recaptchaResponse;
+    }
+
     public String getSignatureResponse() {
         return signatureResponse;
     }
@@ -32,8 +46,13 @@ public class ParticipantCreate extends ParticipantCreateAdmin implements Recaptc
         this.signatureResponse = signatureResponse;
     }
 
-    @Transient
-    //Can I use NotEmpty or NotNull here or does it require a validator for that specifically? TODO
-    private String signatureResponse;
+    public String getSignatureState() {
+        return signatureState;
+    }
+
+    public void setSignatureState(String signatureState) {
+        this.signatureState = signatureState;
+    }
+
 
 }

@@ -7,4 +7,7 @@ public interface RecaptchaForm {
 
     String getRecaptchaResponse();
     void setRecaptchaResponse(String response);
+    String getSignatureResponse() ;
+    void setSignatureResponse(String signatureResponse);
+
 }

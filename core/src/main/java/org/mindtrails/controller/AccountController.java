@@ -118,8 +118,8 @@ public class AccountController extends BaseController {
         String signatureResponse = participantCreate.getSignatureResponse();
 
         byte[]   signatureResponseBytes = signatureResponse.getBytes();
-
-        if(!participantCreate.validParticipant(bindingResult, participantService, signatureResponse)) {
+        String signatureState = participantCreate.getSignatureState();
+        if(!participantCreate.validParticipant(bindingResult, participantService, signatureState)) {
             LOG.error("Invalid participant:" + bindingResult.getAllErrors());
             addAttributesForCreateParticipantForm(model);
             return ("account/create");

@@ -76,7 +76,7 @@ public class ParticipantCreateAdmin extends ParticipantUpdate {
 
         return true;
     }
-    public boolean validParticipant(BindingResult bindingResult, ParticipantService participantService, String signatureResponseBytes) {
+    public boolean validParticipant(BindingResult bindingResult, ParticipantService participantService, String signatureState) {
 
         if(!over18) {
             bindingResult.rejectValue("over18", "error.over18", "You must be over 18 to participate in this Study.");
@@ -96,7 +96,7 @@ public class ParticipantCreateAdmin extends ParticipantUpdate {
         if(admin && password.length() < 20) {
             bindingResult.rejectValue("password", "error.passwordAdmin", "Admin users must have a password of at least 20 characters.");
         }
-        if (Objects.equals(signatureResponseBytes, "empty")){
+        if (Objects.equals(signatureState, "empty")){
             LOG.error("Signature Empty" + bindingResult.getAllErrors());
             bindingResult.rejectValue("signature", "error.noSignature", "A signature is required.");
         }
