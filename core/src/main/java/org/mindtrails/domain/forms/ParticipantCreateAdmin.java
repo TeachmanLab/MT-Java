@@ -98,7 +98,7 @@ public class ParticipantCreateAdmin extends ParticipantUpdate {
         }
         if (Objects.equals(signatureState, "empty")){
             LOG.error("Signature Empty" + bindingResult.getAllErrors());
-            bindingResult.rejectValue("signature", "error.noSignature", "A signature is required.");
+            bindingResult.rejectValue("signatureResponse", "error.signature", "A signature is required.");
         }
         if (bindingResult.hasErrors()) {
             LOG.error("Invalid participant:" + bindingResult.getAllErrors());
