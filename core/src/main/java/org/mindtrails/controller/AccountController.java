@@ -116,7 +116,7 @@ public class AccountController extends BaseController {
 
         Participant participant;
         String signatureResponse = participantCreate.getSignatureResponse();
-
+        String printedName = participantCreate.getPrintedName();
         byte[]   signatureResponseBytes = signatureResponse.getBytes();
         String signatureState = participantCreate.getSignatureState();
         if(!participantCreate.validParticipant(bindingResult, participantService, signatureState)) {
@@ -133,7 +133,7 @@ public class AccountController extends BaseController {
         participant.setReference((String)session.getAttribute("referer"));
         participant.setCampaign((String)session.getAttribute("campaign"));
         participant.setSignature(signatureResponseBytes);
-
+        participant.setPrintedName(printedName);
         // Be sure to call saveNew rather than save, allowing
         // any data associated with the session to get
         // captured.  If this is in the importService mode, then we need to allow

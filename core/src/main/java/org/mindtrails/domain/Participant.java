@@ -49,6 +49,7 @@ public class Participant implements UserDetails, HasStudy {
     @Column(unique = true)
     protected String email;
     protected String phone;
+    protected String printedName;
     protected boolean admin;
     protected boolean coaching;
     protected boolean testAccount;

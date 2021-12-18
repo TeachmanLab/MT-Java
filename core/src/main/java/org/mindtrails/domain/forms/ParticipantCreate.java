@@ -30,6 +30,8 @@ public class ParticipantCreate extends ParticipantCreateAdmin implements Recaptc
     @Transient
     private String signatureState;
 
+    private String printedName;
+
     public String getRecaptchaResponse() {
         return recaptchaResponse;
     }
