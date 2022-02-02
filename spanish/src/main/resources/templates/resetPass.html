@@ -18,7 +18,7 @@
             <div class="col-md-8">
     <h2 class="page-title" th:text="#{forgot.title}">Reset Your Password</h2>
 
-    <div th:if="${forgot.invalidEmail}" th:text="#{invalidEmail}" class="alert alert-error">
+    <div th:if="${invalidEmail}" th:text="#{forgot.invalidEmail}" class="alert alert-error">
         Sorry, we have no account with that email address in our system.
     </div>
     <p th:text="#{forgot.text}">Enter the email address you used to create your account on MindTrails and click on the 'Reset Password' button.
@@ -30,7 +30,7 @@
             <input type="text" id="email" name="email"/>
         </p>
         <br/>
-        <button th:text="#{reset}">Reset Password</button>
+        <button th:text="#{forgot.button}">Reset Password</button>
     </form>
 </div>
         </div>
