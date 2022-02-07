@@ -40,11 +40,11 @@
                         <div><label class="question">What is your gender identity?<br/><br/>
                             <select required="true" th:field="*{gender}">
                             <option value="">Please select one</option>
-                            <option value="Female">Female</option>
-                            <option value="Male">Male</option>
-                            <option value="Transgender Female">Transgender Female</option>
-                                <option value="Transgender Male">Transgender Male</option>
-                            <option value="Other">Other</option>
+                            <option value="Female">Woman</option>
+                            <option value="Male">Man</option>
+                            <option value="Transgender Female">Transgender Woman</option>
+                            <option value="Transgender Male">Transgender Man</option>
+                            <option value="Other">Another identity</option>
                             <option value="555">Prefer not to answer</option>
                         </select> </label>
                         </div>
@@ -77,31 +77,31 @@
                                         &nbsp;&nbsp;American Indian/Alaska Native</label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input type="checkbox" th:field="*{race}" value="East Asian"/> &nbsp;&nbsp;East Asian</label>
+                                    <label> <input type="checkbox" th:field="*{race}" value="East Asian"/> East Asian</label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input type="checkbox" th:field="*{race}" value="South Asian"/> &nbsp;&nbsp;South Asian</label>
+                                    <label> <input type="checkbox" th:field="*{race}" value="South Asian"/> South Asian</label>
                                 </div>
                                 <div class="radio">
                                     <label> <input type="checkbox" th:field="*{race}"
-                                                   value="Native Hawaiian/Pacific Islander"/> &nbsp;&nbsp;Native Hawaiian/Pacific
+                                                   value="Native Hawaiian/Pacific Islander"/> Native Hawaiian/Pacific
                                         Islander</label>
                                 </div>
                                 <div class="radio">
                                     <label> <input type="checkbox" th:field="*{race}" value="Black/African origin"/>
-                                        &nbsp;&nbsp;Black/African origin</label>
+                                        Black/African origin</label>
                                 </div>
                                 <div class="radio">
                                     <label> <input type="checkbox" th:field="*{race}" value="White/European origin"/>
-                                        &nbsp;&nbsp;White/European origin</label>
+                                        White/European origin</label>
                                 </div>
                                 <div class="radio">
-                                    <label> <input type="checkbox" th:field="*{race}" value="Other or Unknown"/> &nbsp;&nbsp;Other or
+                                    <label> <input type="checkbox" th:field="*{race}" value="Other or Unknown"/> Other or
                                         Unknown</label>
                                 </div>
                                 <div class="radio">
                                     <label class="question"><input type="checkbox" th:field="*{race}" value="555"
-                                                                   onchange="disableSection(this)"/> &nbsp;&nbsp;Prefer not to
+                                                                   onchange="disableSection(this)"/> Prefer not to
                                         answer
                                     </label>
                             </div>
