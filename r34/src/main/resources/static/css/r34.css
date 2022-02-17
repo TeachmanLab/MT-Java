@@ -72,7 +72,7 @@ h2 {font-size:1.45em; color:#00ACE4; font-weight:bold }
 /**
   For the main landing page for participants
 **/
-div.sessionSection{  padding: 20px 0px; align-content: center text-align: center;}
+div.sessionSection{  padding: 20px 0px; align-content: center; text-align: center;}
 div.sessionSection .col-md-4 { padding: 0 0 0 100px; }
 div.sessionSection .col-md-8 { padding: 0 100px 0 100px; }
 

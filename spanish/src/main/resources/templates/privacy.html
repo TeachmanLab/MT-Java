@@ -7,7 +7,10 @@
 <!--<![endif]-->
 <head th:include="fragment/common :: headerFragment" />
 <body>
-<section id="header" class="clearfix" th:include="fragment/common :: topFragment" />
+
+<li th:if="${participant}">
+    <section id="header" class="clearfix" th:include="fragment/common :: topFragment" />
+</li>
 <section th:include="fragment/common :: titleBar (title=#{privacy.title})"/>
 
 <!-- content starts
@@ -158,7 +161,9 @@
 
                 <!-- footer starts
                 ================================================== -->
+<li th:if="${participant}">
 <footer id="footer" class="clearfix" th:include="fragment/common :: footer" />
+</li>
 
 <!-- copyright starts
 ================================================== -->
