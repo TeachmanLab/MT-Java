@@ -274,7 +274,7 @@
 
     <div class="alert">
         <span th:text="#{consent.signature}" class="closebtn" style="padding-left:15%" onclick="this.parentElement.style.display='none';">&times;</span>
-        Please draw your signature above
+<!--        Please draw your signature above-->
     </div>
 
 
@@ -340,6 +340,7 @@
             });
          cancelButton.addEventListener('click', function (event) {
            signaturePad.clear();
+           return false;
          });
 <!--         document.getElementById('singatureResponse').value = data;-->
 <!--         $("#signatureResponse").value(data);-->

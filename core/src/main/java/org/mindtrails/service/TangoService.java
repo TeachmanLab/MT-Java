@@ -118,7 +118,7 @@ public class TangoService {
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<String> request = new HttpEntity<String>(headers());
         URI uri = URI.create(url + "/accounts/" + accountId);
-        LOGGER.info("Calling url:" + uri.toString());
+        LOGGER.info("Calling url:" + uri);
         ResponseEntity<Account> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, request, Account.class);
         try {
             Account response = responseEntity.getBody();
@@ -136,7 +136,7 @@ public class TangoService {
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<String> request = new HttpEntity<String>(headers());
         URI uri = URI.create(url + "/catalogs");
-        LOGGER.info("Calling url:" + uri.toString());
+        LOGGER.info("Calling url:" + uri);
         ResponseEntity<Catalog> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, request, Catalog.class);
         try {
             Catalog catalog = responseEntity.getBody();
