@@ -17,6 +17,7 @@ description = 'MindTrails - Spanish Study'
 war {
     baseName = 'spanish'
     version =  '0.0.1'
+    archiveName 'spanish.war'
 }
 
 configurations {
