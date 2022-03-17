@@ -27,14 +27,20 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
+import org.springframework.web.multipart.support.StringMultipartFileEditor;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.springframework.http.MediaType;
+
 
 /**
  * Created with IntelliJ IDEA.
@@ -74,6 +80,8 @@ public class AccountController extends BaseController {
     @InitBinder("participantForm")
     public void initBinder(WebDataBinder binder) {
         binder.addValidators(recaptchaFormValidator);
+        binder.registerCustomEditor(MultipartFile.class, new StringMultipartFileEditor());
+        binder.registerCustomEditor(byte[].class, new ByteArrayMultipartFileEditor());
     }
 
 
@@ -104,15 +112,19 @@ public class AccountController extends BaseController {
                                        @ModelAttribute("participantForm") @Valid ParticipantCreate participantCreate,
                                        final BindingResult bindingResult,
                                        HttpSession session
-    ) {
+    ) throws IOException {
 
         Participant participant;
-
-        if(!participantCreate.validParticipant(bindingResult, participantService)) {
+        String signatureResponse = participantCreate.getSignatureResponse();
+        String printedName = participantCreate.getPrintedName();
+        byte[]   signatureResponseBytes = signatureResponse.getBytes();
+        String signatureState = participantCreate.getSignatureState();
+        if(!participantCreate.validParticipant(bindingResult, participantService, signatureState)) {
             LOG.error("Invalid participant:" + bindingResult.getAllErrors());
             addAttributesForCreateParticipantForm(model);
             return ("account/create");
         }
+
 
         participant = participantService.create();
         participantCreate.updateParticipant(participant);
@@ -120,7 +132,8 @@ public class AccountController extends BaseController {
         participant.setVerificationCode(new VerificationCode(participant));
         participant.setReference((String)session.getAttribute("referer"));
         participant.setCampaign((String)session.getAttribute("campaign"));
-
+        participant.setSignature(signatureResponseBytes);
+        participant.setPrintedName(printedName);
         // Be sure to call saveNew rather than save, allowing
         // any data associated with the session to get
         // captured.  If this is in the importService mode, then we need to allow
@@ -186,7 +199,7 @@ public class AccountController extends BaseController {
         return "redirect:/session";
     }
 
-//when a duplicated phone number is detected
+    //when a duplicated phone number is detected
     @RequestMapping("changePhone")
     public String showPhone(ModelMap model, Principal principal) {
         Participant p=participantService.get(principal);
@@ -208,21 +221,21 @@ public class AccountController extends BaseController {
     @RequestMapping(value="updateChangePhone",method=RequestMethod.POST)
     public String updatePhone( ModelMap model, Principal principal, String phone) {
         Participant p=participantService.get(principal);
-            if(p.getPhone().equals(phone) || participantService.findByPhone(formatPhone(phone)).isEmpty()){
-                p.updatePhone(formatPhone(phone));
-                sendNewVerificationCode(p);
-                return "redirect:/account/verification";
-            }
-            else{
-                return "redirect:/account/changePhone";
+        if(p.getPhone().equals(phone) || participantService.findByPhone(formatPhone(phone)).isEmpty()){
+            p.updatePhone(formatPhone(phone));
+            sendNewVerificationCode(p);
+            return "redirect:/account/verification";
+        }
+        else{
+            return "redirect:/account/changePhone";
 
-            }
+        }
     }
 
 
 
 
-//when the user enter a wrong or invalid (>1h) verification code
+    //when the user enter a wrong or invalid (>1h) verification code
     @RequestMapping("wrongCode")
     public String showwrongcode(ModelMap model, Principal principal) {
         //ParticipantUpdate update = new ParticipantUpdate();
@@ -268,15 +281,15 @@ public class AccountController extends BaseController {
         }
         else if( sub.equals("subPhone") ){
 
-           if(participantService.findByPhone(formatPhone(phone)).isEmpty()||formatPhone(phone).equals(p.getPhone())){
+            if(participantService.findByPhone(formatPhone(phone)).isEmpty()||formatPhone(phone).equals(p.getPhone())){
                 p.updatePhone(formatPhone(phone));
                 sendNewVerificationCode(p);
                 return "redirect:/account/verification";
             }
             else{
-               model.addAttribute("invalidPhone", true);
-               return "account/wrongCode";
-           }
+                model.addAttribute("invalidPhone", true);
+                return "account/wrongCode";
+            }
         }
         else {
 
@@ -285,7 +298,7 @@ public class AccountController extends BaseController {
 
     }
 
-  //when an account is verified
+    //when an account is verified
     @RequestMapping(value="/verified",method= RequestMethod.GET)
     public String verified(){
         return "account/verified";
@@ -331,17 +344,21 @@ public class AccountController extends BaseController {
         if(p.isVerified()){
             return "redirect:/account/verified";
         }
-         if (code.equals(verifycode)&&p.getVerificationCode().valid()) {
-             p.setVerified(true);
-             p.setReceiveGiftCards(true);
-             participantService.save(p);
-             return "redirect:/account/verified";
-         }
-         else {
-             return "redirect:/account/wrongCode";
-         }
+        if (code.equals(verifycode)&&p.getVerificationCode().valid()) {
+            p.setVerified(true);
+            p.setReceiveGiftCards(true);
+            participantService.save(p);
+            return "redirect:/account/verified";
+        }
+        else {
+            return "redirect:/account/wrongCode";
+        }
     }
 
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, value = "/info/uploadSignature")
+    public void uploadSignature(@ModelAttribute("signatureResponse") MultipartFile signature) throws Exception {
+        System.out.println("file uploaded");
+    }
     @ExportMode
     @RequestMapping(value="updateCardCountry",method=RequestMethod.POST)
     public String updateCardCountry( ModelMap model, Principal principal, @RequestParam String country) {

@@ -3,12 +3,12 @@
 
 <form name="f" class="form-horizontal" th:action="@{/account/create}" method="post" th:object="${participantForm}"
       th:fragment="create">
-        <ul>
-            <li th:each="err : ${#fields.errors('*')}" th:text="${err}" class="alert-error">
-                Input is incorrect
-            </li>
-        </ul>
-        <div class="spacer-20px"></div>
+    <ul>
+        <li th:each="err : ${#fields.errors('*')}" th:text="${err}" class="alert-error">
+            Input is incorrect
+        </li>
+    </ul>
+    <div class="spacer-20px"></div>
 
     <div th:fragment="editable">
 
@@ -67,7 +67,7 @@
                 <div id="result">
                     <input type="hidden" name="phone" id="hidden_phone" th:field="*{phone}" th:errorclass="error" th:readonly="${verified}" required="true"/>
 
-                <input   name="phone_control" id="phone" type="tel" th:readonly="${verified}" required="true"/>
+                    <input   name="phone_control" id="phone" type="tel" th:readonly="${verified}" required="true"/>
                     <br/>
                     <span class="note" th:if="${verified}">
                        Your phone number has been verified &mdash; please <a href="mailto:studyteam@mindtrails.org">contact the study team</a> if you wish to change your phone number.
@@ -246,12 +246,100 @@
             defer="true"></script>
     <br></br>
 
+    <div class="form-group row">
+        <label class="control-label col-sm-2" for="printedName" th:text="#{consent.p8n}">Printed Name</label>
+        <div class="col-sm-10">
+            <input class="form-control" type="text" id="printedName" name="printedName" th:errorclass="error" required="true"
+                   th:field="*{printedName}"/>
+        </div>
+    </div>
+
+    <div class="form-group row" >
+        <div class="col-sm-2"></div>
+        <div class="custom-control col-sm-10" id="g-signature"></div>
+
+    </div>
+    <input type="hidden" th:field="*{signatureResponse}"  id="signatureResponse" name="signatureResponse" path="signatureResponse" enctype="multipart/form-data"  th:errorclass="error"/>
+    <div class="form-row mb-3">
+        <label class="control-label col-sm-2" for="signatureResponse" th:text="#{consent.p8m}">Signature</label>
+        <div class="wrapper mb-3 border border-trbl border-round ">
+            <canvas id="signature-pad" class="signature-pad" style="border: 1px solid black;">
+            </canvas>
+            <span >
+
+                <button class="button" id="clear" style="margin-left:5%;  width: 120px;max-width: 110%;" th:text="#{consent.p8o}">Clear Signature</button>
+            </span>
+        </div>
+    </div>
+
+    <div class="alert">
+        <span th:text="#{consent.signature}" class="closebtn" style="padding-left:15%" onclick="this.parentElement.style.display='none';">&times;</span>
+        <!--        Please draw your signature above-->
+    </div>
+
+
+    <input type="hidden" th:field="*{signatureState}"  id="signatureState" name="signatureState" path="signatureState" />
+
+    <script th:inline="javascript" src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script th:inline="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script th:inline="javascript" src="js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
+    <script th:inline="javascript" src="js/bootstrap-datepicker.js"></script>
+
     <span th:text="#{consent.p8k}"><b>By clicking the button below you are indicating that you have read the informed consent statement above and agree to participate.</b></span>
     <br></br>
 
     <div style="text-align: center;">
-        <button th:text="#{consent.p8l}">Give Consent and Create Account</button>
+        <button id="consent-btn" th:text="#{consent.p8l}">Give Consent and Create Account</button>
     </div>
+    <script type="text/javascript" th:inline="javascript" >
+
+
+    /*<![CDATA[*/
+         var canvas = document.getElementById('signature-pad');
+         var signaturePad = new SignaturePad(canvas, {
+          backgroundColor: 'rgba(255, 255, 255, 1)',
+          penColor: 'rgb(0, 0, 0)'
+         });
+
+         var saveButton = document.getElementById('consent-btn');
+         var cancelButton = document.getElementById('clear');
+         var submitButton = document.getElementById('save');
+         var errorMsg = document.querySelector("#error-input");
+         var errorExists = false;
+
+         saveButton.addEventListener('click', function (event) {
+
+
+
+            var data = signaturePad.toDataURL('image/png');
+            if (signaturePad.isEmpty()) {
+            document.getElementById('signatureState').value = "empty"
+            } else {
+                document.getElementById('signatureState').value = "full"
+            }
+            document.getElementById('signatureResponse').value = data;
+
+         });
+       var errorMsg = document.querySelector("#error-input");
+
+    submitButton.addEventListener('click', function (event) {
+
+          if( signaturePad.isEmpty()) {
+                errorMsg.innerHTML = "Please Verify by signing first";
+                errorMsg.classList.remove("hide");
+          } else {
+                errorMsg.classList.add("hide");
+          }
+
+            });
+         cancelButton.addEventListener('click', function (event) {
+           signaturePad.clear();
+           return false;
+         });
+          </script>
+
+
 </form>
 
 <section id="themeSelection" class="clearfix" th:fragment="themeSelection">
