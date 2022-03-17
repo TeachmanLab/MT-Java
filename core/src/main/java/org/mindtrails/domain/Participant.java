@@ -50,6 +50,7 @@ public class Participant implements UserDetails, HasStudy {
     protected String email;
     protected String phone;
     protected boolean admin;
+    protected String printedName;
     protected boolean coaching;
     protected boolean testAccount;
     protected String password;
@@ -98,6 +99,10 @@ public class Participant implements UserDetails, HasStudy {
     @OneToMany(mappedBy="coachedBy")
     @JsonIgnore
     protected List<Participant> coachees = new ArrayList<>();
+
+    //to store the signature file
+    @Lob
+    protected byte[] signature;
 
 
     // IMPORTANT: Automatic email notifications start failing when
