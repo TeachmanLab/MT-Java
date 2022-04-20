@@ -390,10 +390,10 @@ condition-->
                     <br/>
                     <br/>
                     <div class="radio">
-                            <label class="question"><input type="checkbox" name="preferredPlatform" value="none"
-                                                           onchange="disableSection(this)"/> &nbsp;&nbsp;I do not want to use technology to receive
-                                health interventions
-                            </label>
+                        <label class="question"><input type="checkbox" name="preferredPlatform" value="none"
+                                                       onchange="disableSection(this)"/> &nbsp;&nbsp;I do not want to use technology to receive
+                            health interventions
+                        </label>
                         <br/>
                         <br/>
                         <label class="question"><input type="checkbox" name="preferredPlatform" value="555"
@@ -406,7 +406,32 @@ condition-->
             </div>
         </div>
 
-        <!--               <div class="container section">
+        <div class="container section">
+            <div class="row">
+            <div class="col-md-10">
+            <p><b> Would you like to provide feedback about your experience using MindTrails (e.g., ways the program has been helpful or ways we can improve the program)? </b></p>
+            </div>
+                </div>
+                <br/>
+            <textarea name="testimonial" rows="4" cols="75" required="false"/>
+                <br/>
+                <br/>
+                <div class="row">
+                    <div class="col-md-10">
+                <p><b>Do we have your permission to use all or part of the feedback you provided as a de-identified participant testimonial (e.g., as part of the MindTrails program, or in newsletters or other promotional materials)? If so, neither your name nor any other identifying information would be used.</b></p>
+                <div class="radio">
+                            <label class="radio"> <input type="radio" name="testimonial_approve" required="false" value="1"/>Yes</label>
+                        </div>
+                        <div class="radio">
+                            <label class="radio"> <input type="radio" name="testimonial_approve" required="false" value="0"/>No</label>
+                        </div>
+            </div>
+            </div>
+            </div>
+
+ <!--  Note: This section features questions related to the telecoaching component in MindTrails.
+
+    <div class="container section">
     <div class="row header">
         <div class="col-md-8 statement"><p><b>Did you receive telecoaching during the program?</b></p></div>
     </div>
@@ -568,14 +593,14 @@ condition-->
             <br/>
         </div>
     </div>
-</div>-->
+</div>
 
 <div class="container section" id="otherCoaching" style="display: none">
     <label class="question"> Is there anything else you’d like to tell us about your coaching
         experience?</label>
     <br/>
     <textarea name="otherCoaching" rows="6" cols="50"/>
-</div>
+</div>-->
 
 <div style="text-align:center">
     <button type="submit"> Continue</button>
