@@ -6,9 +6,11 @@ import org.mindtrails.service.ParticipantService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.Objects;
 
 /**
  * For updating a participant.
@@ -67,14 +69,44 @@ public class ParticipantCreateAdmin extends ParticipantUpdate {
         if(admin && password.length() < 20) {
             bindingResult.rejectValue("password", "error.passwordAdmin", "Admin users must have a password of at least 20 characters.");
         }
-
         if (bindingResult.hasErrors()) {
             LOG.error("Invalid participant:" + bindingResult.getAllErrors());
             return false;
         }
+
         return true;
     }
+    public boolean validParticipant(BindingResult bindingResult, ParticipantService participantService, String signatureState) {
 
+        if(!over18) {
+            bindingResult.rejectValue("over18", "error.over18", "You must be over 18 to participate in this Study.");
+        }
+
+        if(participantService.findByEmail(email) != null) {
+            bindingResult.rejectValue("email", "error.emailExists", "This email already exists.");
+        }
+        if(null != phone && !phone.isEmpty() && !participantService.findByPhone(formatPhone(phone)).isEmpty()) {
+            bindingResult.rejectValue("phone", "error.phoneExists", "This phone number is already linked to an account.");
+        }
+
+        if(!password.equals(passwordAgain)) {
+            bindingResult.rejectValue("password", "error.passwordMatch", "Passwords do not match.");
+        }
+
+        if(admin && password.length() < 20) {
+            bindingResult.rejectValue("password", "error.passwordAdmin", "Admin users must have a password of at least 20 characters.");
+        }
+        if (Objects.equals(signatureState, "empty")){
+            LOG.error("Signature Empty" + bindingResult.getAllErrors());
+            bindingResult.rejectValue("signatureResponse", "error.signature", "A signature is required.");
+        }
+        if (bindingResult.hasErrors()) {
+            LOG.error("Invalid participant:" + bindingResult.getAllErrors());
+            return false;
+        }
+
+        return true;
+    }
     @Override
     public void fromParticipant(Participant p) {
         super.fromParticipant(p);
