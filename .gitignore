@@ -20,3 +20,5 @@ docs/
 **/application.properties
 **/angular
 *.war
+spanish/src/main/resources/application.properties.example
+spanish/src/main/resources/application.properties.exampl

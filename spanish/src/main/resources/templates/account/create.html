@@ -22,7 +22,7 @@
         <div class="row">
             <div class="col-md-8">
 
-                <p><b><h3 th:text="#{consent.heading1}">What is the MindTrails Study?</h3></b></p>
+                <p><h3 th:text="#{consent.heading1}"><b>What is the MindTrails Study?</b></h3></p>
 
                 <p th:text="#{consent.p1a}"> The purpose of this study is to investigate a 2-week experimental anxiety reduction program called
                     MindTrails. The program consists of the following parts:</p>
@@ -37,7 +37,7 @@
 
                 <br></br>
 
-                <p><b><h3 th:text="#{consent.heading2}">What will I be asked to do?</h3></b></p>
+                <p><h3 th:text="#{consent.heading2}"><b>What will I be asked to do?</b></h3></p>
 
                 <span th:text="#{consent.p2a}"><b> Assessments </b></span>
                 <p th:text="#{consent.p2b}"> You will be asked to complete questionnaires about your thoughts, mood, background, and personal mental health history.</p>
@@ -49,7 +49,7 @@
                 <p th:text="#{consent.p2e}"> At the end of the study, you will receive more details about the study's rationale and design.</p>
                 <br></br>
 
-                <p><b><h3 th:text="#{consent.heading3}">Is there a payment for completing the study?</h3></b></p>
+                <p><h3 th:text="#{consent.heading3}"><b>Is there a payment for completing the study?</b></h3></p>
 
                 <p th:text="#{consent.p3}">After completing the study (i.e., finishing two training sessions and two sets of questionnaires), you
                     will receive a $20 electronic gift card. The gift card will be sent via email within 2 business days of being awarded. The cards are
@@ -57,7 +57,7 @@
                     Target, and many more options; or you can donate the value to a charity.</p>
                 <br></br>
 
-                <p><b><h3 th:text="#{consent.heading4}">Are there any benefits or risks to participating?</h3></b></p>
+                <p><h3 th:text="#{consent.heading4}"><b>Are there any benefits or risks to participating?</b></h3></p>
 
                 <p th:text="#{consent.p4a}">For some people, completing the training program may help reduce symptoms of anxiety. However, there may be no
                     direct benefits to you. For some people, being asked to answer questions about their thoughts and mood can be temporarily distressing, but most
@@ -70,7 +70,7 @@
                     have been injured as a result of participating in the MindTrails research study.</p>
                 <br></br>
 
-                    <p><b><h3 th:text="#{consent.heading5}">Can I stop at any time?</h3></b></p>
+                    <p><h3 th:text="#{consent.heading5}"><b>Can I stop at any time?</b></h3></p>
 
                     <span th:text="#{consent.p5a}">While we hope that you will complete the entire study, </span>
                     <span th:text="#{consent.p5b}"><b>participation in this study is voluntary</b></span><span th:text="#{consent.p5c}">, and you may end your individual session participation at any time by closing the study window.
@@ -79,7 +79,7 @@
                 <br></br>
                 <br></br>
 
-                <p><b><h3 th:text="#{consent.heading6}">What is the MindTrails Privacy Policy?</h3></b></p>
+                <p><h3 th:text="#{consent.heading6}"><b>What is the MindTrails Privacy Policy?</b></h3></p>
 
                 <span th:text="#{consent.p6a}">MindTrails uses the same secure hypertext transfer protocol (HTTPS) that banks and other commercial websites use
                     to transfer credit card information in an encrypted format. This provides strong security for data transfer to and from our website, though
@@ -113,7 +113,7 @@
                     and identifying information are never connected to the data they provide.</p>
                 <br></br>
 
-                <p><b><h3 th:text="#{consent.heading7}">Study Team Contact Info</h3></b></p>
+                <p><h3 th:text="#{consent.heading7}"><b>Study Team Contact Info</b></h3></p>
 
                 <p th:text="#{consent.p7a}"><b>To obtain more information about the study, ask questions about the research procedures,
                     express concerns about your participation, or report illness, injury or other problems, please
@@ -138,18 +138,31 @@
                 <br></br>
                 <br></br>
 
+                <div class="tab-pane" role="tabpanel" id="consent-create">
+                    <ul class="list-inline pull-right">
+                        <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
+                    </ul>
+                    <br></br>
+                    <p><h3><b>Account Creation</b></h3></p>
 
-                <form th:replace="fragment/account :: create"/>
+                    <br></br>
+
+                    <p>Please use the form below to create your new account.</p>
+                    <br></br>
+                    <form th:replace="fragment/account :: create"/>
+
+                </div>
 
             </div>
+        </div>
     </div>
-    </div>
-
 </section>
 
 <footer id="footer" class="clearfix" th:include="fragment/common :: footer"/>
 <section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
 <div th:include="fragment/common :: scripts"/>
+
+
 
 </body>
 </html>
