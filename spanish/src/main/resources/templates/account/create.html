@@ -39,10 +39,10 @@
 
                 <p><h3 th:text="#{consent.heading2}"><b>What will I be asked to do?</b></h3></p>
 
-                <span th:text="#{consent.p2a}"><b> Assessments </b></span>
+                <u><span th:text="#{consent.p2a}"> Assessments </span></u>
                 <p th:text="#{consent.p2b}"> You will be asked to complete questionnaires about your thoughts, mood, background, and personal mental health history.</p>
 
-                <span th:text="#{consent.p2c}"><b> Training </b></span>
+                <u><span th:text="#{consent.p2c}"> Training </span></u>
                 <p th:text="#{consent.p2d}"> You will be presented with a training program designed to shift how you think about situations. You will be
                     asked to read brief stories about situations that often produce anxiety and fill in missing letters to complete words.</p>
 
@@ -87,8 +87,9 @@
                     place where others might view your screen, and use of open networks or free Wi-Fi can increase the chance for loss of privacy.</span>
                 <span th:text="#{consent.p6b}">Please note that completing the study in a public place where others might view your screen, and use of open networks
                     or free Wi-Fi can increase the chance for loss of privacy.</span>
-                <span th:text="#{consent.p6c}">To view the entire privacy policy in a separate page, please click</span>
-                <a th:href="@{/public/privacy}" th:text="#{consent.p6d}">here</a>.
+                <span th:text="#{consent.p6c}">To view the entire privacy policy in a separate page, please click </span>
+                <div class="popup"><a th:href="@{/spanish/public/privacy}" th:text="#{consent.p6d}">here</a></div>.
+
                 <br></br>
                 <br></br>
                 <p><u>Google Analytics</u></p>
@@ -101,7 +102,7 @@
                     this information being collected by Google Analytics.</p>
                 <br></br>
 
-                <u><p th:text="#{consent.p6f}">Data Sharing</p></u>
+                <u><span th:text="#{consent.p6f}">Data Sharing</span></u>
 
                 <p th:text="#{consent.p6g}"> We wish to share de-identified data from this protocol online. Many funding agencies and journal outlets
                     encourage researchers to make data available to other researchers online. This is becoming a common practice
@@ -115,9 +116,9 @@
 
                 <p><h3 th:text="#{consent.heading7}"><b>Study Team Contact Info</b></h3></p>
 
-                <p th:text="#{consent.p7a}"><b>To obtain more information about the study, ask questions about the research procedures,
+                <b><p th:text="#{consent.p7a}">To obtain more information about the study, ask questions about the research procedures,
                     express concerns about your participation, or report illness, injury or other problems, please
-                    contact:</b></p>
+                    contact:</p></b>
 
                 <span style="margin-left:50px">Tonya Moon, Chair, Institutional Review Board for the Social and Behavioral
                     Sciences, One Morton Dr. Suite 500, University of Virginia, P.O. Box 800392, Charlottesville, VA 22908-0392.</span>
@@ -127,26 +128,21 @@
                 <br></br>
                 <br></br>
 
-                <span> IRB-SBS </span><span th:text="#{consent.p7e}">Protocol #: 4117</span>
+                <u><span> IRB-SBS </span></u><u><span th:text="#{consent.p7e}">Protocol #</span></u>:<span> 4117</span>
                 <br></br>
                 <br></br>
 
-                <span style="margin-left:50px" th:text="#{consent.p7f}">Principal Investigator:</span>
-                <span th:text="#{consent.p7g}">Prof. Bethany Teachman</span><span>, Department of Psychology, Millmont Building, 1023 Millmont St, Rm 234, University of Virginia, Charlottesville, VA 22903.</span>
+                <u><span th:text="#{consent.p7f}">Principal Investigator</span></u>
+                <span th:text="#{consent.p7g}">: Prof. Bethany Teachman</span><span>, Department of Psychology, Millmont Building, 1023 Millmont St, Rm 234, University of Virginia, Charlottesville, VA 22903.</span>
                 <span th:text="#{consent.p7b}">Telephone:</span> (434) 924-0676; <span th:text="#{consent.p7c}">Email:</span> <a href="mailto:bteachman@virginia.edu">bteachman@virginia.edu</a>.
                 <br></br>
                 <br></br>
                 <br></br>
 
                 <div class="tab-pane" role="tabpanel" id="consent-create">
-                    <ul class="list-inline pull-right">
-                        <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                    </ul>
-                    <br></br>
+
                     <p><h3><b>Account Creation</b></h3></p>
-
                     <br></br>
-
                     <p>Please use the form below to create your new account.</p>
                     <br></br>
                     <form th:replace="fragment/account :: create"/>
@@ -162,7 +158,21 @@
 <section id="copyright" class="clearfix" th:include="fragment/common :: copyright"/>
 <div th:include="fragment/common :: scripts"/>
 
+<script type="text/javascript">
+    window.addEventListener("load", function(){
+        setTimeout(
+            function open(event){
+                document.querySelector(".popup").style.display = "block";
+            },
+            2000
+        )
+    });
 
+
+    document.querySelector("#close").addEventListener("click", function(){
+        document.querySelector(".popup").style.display = "none";
+    });
+</script>
 
 </body>
 </html>

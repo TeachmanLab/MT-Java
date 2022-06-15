@@ -488,8 +488,8 @@
         <div class="container section" id="ask_why_no_help" style="display:none">
             <div class="row">
                 <div class="col-md-10">
-                    <p><b th:text="#{mentalhealthhistory.why_no_help}">There are many reasons people do not get help. Why are you not getting mental health
-                        treatment? Please select all that apply.</b></p>
+                    <p><b th:text="#{mentalhealthhistory.why_no_help}">There are many reasons people do not get help. Why are you not getting mental health treatment aside from this program?
+                        Please select all that apply.</b></p>
                 </div>
             </div>
             <div id="why_no_help_section"></div>
@@ -539,6 +539,10 @@
                         },
                         {
                             "desc": /*[[#{mentalhealthhistory.no_time}]]*/"I don’t have time",
+                            "name": "no_time"
+                        },
+                        {
+                            "desc": /*[[#{mentalhealthhistory.culture}]]*/"I don’t think I can find care that would fit with my cultural background",
                             "name": "no_time"
                         },
                         {
