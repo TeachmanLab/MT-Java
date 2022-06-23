@@ -43,6 +43,7 @@
                 <p th:text="#{consent.p2b}"> You will be asked to complete questionnaires about your thoughts, mood, background, and personal mental health history.</p>
 
                 <u><span th:text="#{consent.p2c}"> Training </span></u>
+
                 <p th:text="#{consent.p2d}"> You will be presented with a training program designed to shift how you think about situations. You will be
                     asked to read brief stories about situations that often produce anxiety and fill in missing letters to complete words.</p>
 
@@ -87,8 +88,7 @@
                     place where others might view your screen, and use of open networks or free Wi-Fi can increase the chance for loss of privacy.</span>
                 <span th:text="#{consent.p6b}">Please note that completing the study in a public place where others might view your screen, and use of open networks
                     or free Wi-Fi can increase the chance for loss of privacy.</span>
-                <span th:text="#{consent.p6c}">To view the entire privacy policy in a separate page, please click </span>
-                <div class="popup"><a th:href="@{/spanish/public/privacy}" th:text="#{consent.p6d}">here</a></div>.
+                <span th:text="#{consent.p6c}">To view the entire privacy policy in a separate page, please click </span><a class="popup" th:href="@{/spanish/public/privacy}" th:text="#{consent.p6d}">here</a>.
 
                 <br></br>
                 <br></br>
@@ -128,7 +128,7 @@
                 <br></br>
                 <br></br>
 
-                <u><span> IRB-SBS </span></u><u><span th:text="#{consent.p7e}">Protocol #</span></u>:<span> 4117</span>
+                <u><span th:text="#{consent.p7e}">IRB-SBS Protocol Number</span></u><span>: 4117</span>
                 <br></br>
                 <br></br>
 
@@ -142,7 +142,6 @@
                 <div class="tab-pane" role="tabpanel" id="consent-create">
 
                     <p><h3><b>Account Creation</b></h3></p>
-                    <br></br>
                     <p>Please use the form below to create your new account.</p>
                     <br></br>
                     <form th:replace="fragment/account :: create"/>
