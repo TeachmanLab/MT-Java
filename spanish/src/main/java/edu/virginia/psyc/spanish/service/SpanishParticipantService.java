@@ -58,6 +58,8 @@ public class SpanishParticipantService extends ParticipantServiceImpl implements
     public Participant create() {
         Participant p = new Participant();
         SpanishStudy study = new SpanishStudy();
+        p.setReceiveGiftCards(tangoService.getEnabled());
+        study.setReceiveGiftCards(tangoService.getEnabled());
         p.setStudy(study);
         return p;
     }

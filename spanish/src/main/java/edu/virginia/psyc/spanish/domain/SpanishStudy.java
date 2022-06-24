@@ -103,7 +103,7 @@ public class SpanishStudy extends BaseStudy {
         sessions.add(session1);
 
 
-        session2 = new Session(SECOND_SESSION, "level2", 0, 5);
+        session2 = new Session(SECOND_SESSION, "level2", 20, 5);
         session2.setIndex(2);
         session2.addTask(new Task("Affect","Current Feelings, Pre", "pre", Task.TYPE.questions, 0));
         session2.addTask(new Task("2", "Training Session 2", Task.TYPE.angular, 20));

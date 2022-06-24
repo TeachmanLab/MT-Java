@@ -22,7 +22,7 @@ public class Covid19 extends LinkedQuestionnaireData {
     @Override
     public Map<String, String> getGroupDescriptions() {
         Map<String, String> desc = new TreeMap<>();
-        desc.put("risk", "covid19.risk");
+        desc.put("x", "covid19.risk");
         return Collections.unmodifiableMap(desc);
     }
 
@@ -60,7 +60,7 @@ public class Covid19 extends LinkedQuestionnaireData {
     // 2. Please indicate how much you agree with the following statements:
 
     @NotNull
-    @MeasureField(order = 1, desc = "I am worried about my COVID-19 risk.", group = "risk")
+    @MeasureField(order = 1, desc = "covid19.worry", group = "risk")
     private Integer worry;
 
     // 3. Based on criteria from the Center for Disease Control, are you at high risk for serious illness following infection of COVID-19?
