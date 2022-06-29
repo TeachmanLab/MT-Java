@@ -20,15 +20,15 @@
                 <img th:src="@{/images/map-arrow-orange.png}" alt="icon" class="icon-small-bg"/>
             </div>
             <div class="col-md-8">
-                <h2 th:text="${verification.title}" class="page-title heading-icon">Verify Your Phone Number</h2>
-                <span th:text="${verification.p3a}">The code you entered was</span> <b><span th:text="${verification.p3b}">incorrect</span></b>.
-                <span th:text="${verification.p3c}">You can re-enter your phone number here:</span>
+                <h2 th:text="#{verification.title}" class="page-title heading-icon">Verify Your Phone Number</h2>
+                <span th:text="#{verification.p3a}">The code you entered was</span> <b><span th:text="#{verification.p3b}">incorrect</span></b>.
+                <span th:text="#{verification.p3c}">You can re-enter your phone number here:</span>
                 <br></br>
                 <form action="#" th:action="@{/account/updateWrongCode}"  th:object="${participant}"  method="post">
                     <br></br>
                     <div class="row">
                         <div th:if="${invalidPhone}" class="alert alert-success">
-                            <span th:text="${verification.p4}">This phone number already exists, please use another one.</span>
+                            <span th:text="#{verification.invalid}">This phone number already exists, please use another one.</span>
                         </div>
                         <div class="col-md-8">
                             <div class="row">
@@ -71,11 +71,11 @@
 
 
 
-                        <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" th:text="${verification.error}">Phone Error</span>
+                        <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" th:text="#{verification.error}">Phone Error</span>
                                 </div>
                             </div>
                             <div class="row" style="padding-left: 15px;">
-                                <span class="pull-left" th:text="${verification.send}">
+                                <span class="pull-left" th:text="#{verification.send}">
                                     <button id="subPhone" type="submit" name="sub" value="subPhone" >Send</button></span>
                             </div>
                         </div>
@@ -84,9 +84,9 @@
                     <div class="row">
                         <div class="col-md-8">
                             <div class="row" style="padding-left: 15px;">
-                                <span th:text="${verification.p5}">Or you can re-enter your verification code:&nbsp;&nbsp;</span>
+                                <span th:text="#{verification.p5}">Or you can re-enter your verification code:&nbsp;&nbsp;</span>
                                 <input class="input-lg" style="font-size:30px;" id="verifycode" type="text" maxlength="6" size="2" name="verifycode"/></div>
-                                <div class="row" style="padding-left: 15px;"><span th:text="${verification.verify}" class="pull-left">
+                                <div class="row" style="padding-left: 15px;"><span th:text="#{verification.verify}" class="pull-left">
                                     <button id="subCode" type="submit" disabled="disabled" name="sub" value="subCode">Verify</button></span>
                             </div>
                         </div>
