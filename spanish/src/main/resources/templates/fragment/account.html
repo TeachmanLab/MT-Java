@@ -1,4 +1,7 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+
+<html class="not-ie" lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <body>
 
 <form name="f" class="form-horizontal" th:action="@{/account/create}" method="post" th:object="${participantForm}" th:fragment="create">
@@ -306,7 +309,7 @@
 
          var saveButton = document.getElementById('consent-btn');
          var cancelButton = document.getElementById('clear');
-         var submitButton = document.getElementById('save');
+
          var errorMsg = document.querySelector("#error-input");
          var errorExists = false;
 
@@ -322,16 +325,6 @@
          });
        var errorMsg = document.querySelector("#error-input");
 
-    submitButton.addEventListener('click', function (event) {
-
-          if( signaturePad.isEmpty()) {
-                errorMsg.innerHTML = "Please Verify by signing first";
-                errorMsg.classList.remove("hide");
-          } else {
-                errorMsg.classList.add("hide");
-          }
-
-            });
          cancelButton.addEventListener('click', function (event) {
            signaturePad.clear();
            return false;

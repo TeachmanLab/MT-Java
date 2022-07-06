@@ -15,7 +15,7 @@
     <!-- Google Analytics -->
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-77944674-7"></script>
-    <script th:unless="${participant}" th:inline="javascript">
+    <script type="text/javascript" th:unless="${participant}" th:inline="javascript">
         window.dataLayer = window.dataLayer || [];
 
         function gtag() {
@@ -26,7 +26,7 @@
         gtag('config', 'UA-77944674-7');
     </script>
 
-    <script th:if="${participant}" th:inline="javascript">
+    <script type="text/javascript" th:if="${participant}" th:inline="javascript">
         window.dataLayer = window.dataLayer || [];
 
         function gtag() {
@@ -86,7 +86,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-77944674-7"></script>
 
-    <script th:unless="${participant}" th:inline="javascript">
+    <script type="text/javascript" th:unless="${participant}" th:inline="javascript">
         window.dataLayer = window.dataLayer || [];
 
         function gtag() {
@@ -97,7 +97,7 @@
         gtag('config', 'UA-77944674-7');
     </script>
 
-    <script th:if="${participant}" th:inline="javascript">
+    <script type="text/javascript" th:if="${participant}" th:inline="javascript">
         window.dataLayer = window.dataLayer || [];
 
         function gtag() {
@@ -512,7 +512,7 @@
 
 <!--If you need to include javascript at the end of the page.  -->
 <div id="scripts" th:fragment="scripts">
-    <script  th:inline="javascript">
+    <script  type="text/javascript" th:inline="javascript">
         $(document).ready(function () {
 
             // Use Jquery-Validate plugin to validate all forms.
