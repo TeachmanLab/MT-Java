@@ -135,7 +135,7 @@ public class DASS21_AS extends LinkedQuestionnaireData {
     }
 
     public boolean eligible() {
-        return(this.over18.equals("true") && this.score() > 10 );
+        return(this.over18.equals("true") && this.score() >= 0 );
     }
 
 
