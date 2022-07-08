@@ -270,15 +270,12 @@
         <div class="wrapper mb-3 border border-trbl border-round ">
             <canvas id="signature-pad" class="signature-pad" style="border: 1px solid black;">
             </canvas>
-            <span >
-
-                <button class="button" id="clear" style="margin-left:5%;  width: 120px;max-width: 110%;" th:text="#{consent.p8o}">Clear Signature</button>
-            </span>
+                <button class="button" id="clear" style="margin-left: 5%; font-size: 10px; width: 120px; max-width: 110%;" th:text="#{consent.p8o}">Clear Signature</button>
         </div>
     </div>
 
     <div class="alert">
-        <span th:text="#{consent.signature}" class="closebtn" style="padding-left:15%" onclick="this.parentElement.style.display='none';">&times;</span>
+        <span th:text="#{consent.signature}" class="closebtn" onclick="this.parentElement.style.display='none';">Please draw your signature in the box above.</span>
         <!--        Please draw your signature above-->
     </div>
 

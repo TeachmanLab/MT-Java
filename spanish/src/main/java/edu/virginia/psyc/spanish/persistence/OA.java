@@ -81,7 +81,7 @@ public class OA extends LinkedQuestionnaireData implements Comparable<OA> {
     }
 
     public boolean eligible() {
-        return(this.score() >= 6 );
+        return(this.score() >= 0 );
     }
 
 

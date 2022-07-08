@@ -22,8 +22,10 @@
             </div>
             <div class="col-md-8">
                 <h2 class="page-title heading-icon" th:text="#{verification.title}">Verify Your Phone Number</h2>
-                <span th:text="#{verification.p3a}">We just sent you a text message with a</span> <span th:text="#{verification.p3b}"><b>six digit</b></span>
-                    <span th:text="#{verification.p3c}">code to the phone number assigned to your account. When you receive the code, please enter it in the field below and click the "Verify" button.</span>
+                <br></br>
+                <br></br>
+                <span th:text="#{verification.p3a}">We just sent you a text message with a</span> <span th:text="#{verification.p3b}"><b>six digit</b></span><span th:text="#{verification.p3c}">code to the phone number assigned to your account. When you receive the code, please enter it in the field below and click the "Verify" button.</span>
+                <br></br>
                 <br></br>
                 <form action="#" th:action="@{/account/updateVerification}" method="post">
                     <div class="row">
@@ -46,7 +48,7 @@
                     <div class="col-md-10">
                         <div class="row">
                                 <div class="row" style="padding-left: 30px;">
-                                <a th:href="@{/account/theme}" th:text="#{verification.skip}"><button>Skip</button> </a>
+                                    <button><a th:href="@{/account/theme}" th:text="#{verification.skip}">Skip</a></button>
                             </div>
                 </div>
                         </div>
