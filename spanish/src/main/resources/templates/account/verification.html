@@ -22,9 +22,7 @@
             </div>
             <div class="col-md-8">
                 <h2 class="page-title heading-icon" th:text="#{verification.title}">Verify Your Phone Number</h2>
-                <br></br>
-                <br></br>
-                <span th:text="#{verification.p3a}">We just sent you a text message with a</span> <span th:text="#{verification.p3b}"><b>six digit</b></span><span th:text="#{verification.p3c}">code to the phone number assigned to your account. When you receive the code, please enter it in the field below and click the "Verify" button.</span>
+                <span th:text="#{verification.p3a}">We just sent you a text message with a</span> <b><span th:text="#{verification.p3b}">six digit</span></b> <span th:text="#{verification.p3c}">code to the phone number assigned to your account. When you receive the code, please enter it in the field below and click the "Verify" button.</span>
                 <br></br>
                 <br></br>
                 <form action="#" th:action="@{/account/updateVerification}" method="post">
@@ -32,6 +30,7 @@
                         <div class="col-md-8">
                             <div class="row" style="padding-left: 15px;"><input class="input-lg" style="font-size:25px;" id="verifycode" type="text" maxlength="6" size="4"
                                                                                    name="verifycode"/></div>
+                            <br></br>
                             <div class="row" style="padding-left: 15px;"><span class="pull-left"><button id="subCode" type="submit"
                                                                                       disabled="disabled" th:text="#{verification.verify}">Verify</button>
                             </span>
@@ -41,7 +40,6 @@
                         </div>
                     </div>
                 </form>
-                <br></br>
                 <br></br>
 
                 <div class="row">
