@@ -88,20 +88,15 @@
                                 <div class="row" style="padding-left: 15px;"><span th:text="#{verification.verify}" class="pull-left">
                                     <button id="subCode" type="submit" disabled="disabled" name="sub" value="subCode">Verify</button></span>
                             </div>
+                            <br></br>
+                        <div class="row" style="padding-left: 15px;">
+                            <a th:href="@{/account/theme}">
+                                <button type="submit" name="skip">Skip</button> </a>
                         </div>
                     </div>
+                    </div>
                 </form>
-                    <div class="row">
-                        <div class="col-md-12">
-                                <div class="row" style="padding-left: 15px;">
-                                    <br></br>
-                                </div>
-                                <div class="row" style="padding-left: 15px;">
-                                    <a th:href="@{/account/theme}">
-                                        <button type="submit" name="skip">Skip</button> </a>
-                                </div>
-                            </div>
-                        </div>
+
 
                     </div>
                 </div>
