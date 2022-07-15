@@ -130,7 +130,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .successHandler(localeHandler)
                         .and()
                     .logout()
-                        .permitAll();
+                    .logoutSuccessHandler(new CustomLogoutSuccessHandler())
+                    .invalidateHttpSession(true)
+                    .permitAll();
         }
     }
 }

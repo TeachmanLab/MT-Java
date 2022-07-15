@@ -348,7 +348,7 @@
                             <li><a th:href="@{/account}" th:text="#{header.settings}">Account Settings</a></li>
                             <li><a th:href="@{/account/changePass}" th:text="#{header.change}">Change Password</a></li>
                             <li><a th:href="@{/account/exitStudyConfirm}" th:text="#{header.exit}">Exit the Study</a></li>
-                            <li><a th:href="@{/logout}" th:text="#{header.logout}">Logout</a></li>
+                            <li><a th:href="@{/logout(lang=${participant.getLanguage()})}" th:text="#{header.logout}">Logout</a></li>
                         </ul>
                     </li>
 
