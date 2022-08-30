@@ -125,7 +125,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .and() //Login Form configuration for all others
                     .formLogin()
                         .defaultSuccessUrl("/session")
-                        .loginPage("/")
+                        .loginPage("/login")
                         .permitAll()
                         .successHandler(localeHandler)
                         .and()
