@@ -143,8 +143,8 @@
 
                 <div class="tab-pane" role="tabpanel" id="consent-create">
 
-                    <p><h3><b>Account Creation</b></h3></p>
-                    <p>Please use the form below to create your new account.</p>
+                    <p><h3 th:text="#{consent.heading8}"><b>Account Creation</b></h3></p>
+                    <p th:text="#{consent.form}">Please use the form below to create your new account.</p>
                     <br></br>
                     <form th:replace="fragment/account :: create"/>
 

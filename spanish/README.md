@@ -1,7 +1,6 @@
 
 # Setup for Kaiser Development
-This documentation assumes you have followed the directions in the Main readme file. 
-
+This documentation assumes you have followed the directions in the Main readme file.
 ## Database setup
 You will need to create new databases for running and testing in Spanish Study.  From a Mysql
 prompt or console with full administrative access, run the following commands.  This assumes

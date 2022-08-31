@@ -10,6 +10,7 @@ import org.mindtrails.domain.forms.validation.HasPhone;
 import org.mindtrails.domain.forms.validation.Phone;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 /**
@@ -18,12 +19,15 @@ import javax.validation.constraints.Size;
 @Data
 @Phone(message="Please enter a valid phone number.")
 public class ParticipantUpdate implements HasPhone {
+    public static final String EMAIL_REGEX = "^(.+)@(\\S+)$";
+    public static final String EMAIL_MESSAGE = "Please enter a valid email.";
 
     @Size(min=2, max=100, message="Please provide a name of at least 3 characters.")
     protected String fullName;
 
     @Email
     @NotNull
+    @Pattern(regexp=EMAIL_REGEX, message = EMAIL_MESSAGE)
     protected String email;
 
     protected String phone;
