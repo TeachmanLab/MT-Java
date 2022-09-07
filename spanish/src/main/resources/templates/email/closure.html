@@ -18,7 +18,10 @@
 
                 <p><span th:text="#{closure.p3}" style="margin-top:5px">Thank you for your participation in the study. Please click on this
                     link to learn more about the study and what we were investigating:</span>
-                    <a th:text="#{closure.link}" href="/session" th:href="${url} + '/spanish/account/debriefing'" style="color: #637580ff; text-decoration: none; font-weight: bold">MindTrails Debriefing</a>.</p>
+
+                    <span th:if="${participant.study.getConditioning().contains('SPANISH')}"><a th:href="${url} + '/account/debriefing?lang=es'" style="color: #637580ff; text-decoration: none; font-weight: bold"><button style="border-radius: 5px; background:#F77D38; border-top:#F99A65; border-left:#F99A65; border-bottom:#B36B42; border-right:#B36B42;text-decoration: none; font-size:20px; margin:10px 0px; padding: 15px; font-weight: 700; color: #fff" th:text="#{closure.link}">MindTrails Debriefing</button></a></span>
+                    <span th:if="${participant.study.getConditioning().contains('ENGLISH')}"><a th:href="${url} + '/account/debriefing?lang=en'" style="color: #637580ff; text-decoration: none; font-weight: bold"><button style="border-radius: 5px; background:#F77D38; border-top:#F99A65; border-left:#F99A65; border-bottom:#B36B42; border-right:#B36B42;text-decoration: none; font-size:20px; margin:10px 0px; padding: 15px; font-weight: 700; color: #fff" th:text="#{closure.link}">MindTrails Debriefing</button></a>.</span>
+                </p>
 
                 <!--<p style="margin-top:5px">It helps us a great deal to learn why someone chooses not to
                     complete the study. Please complete this brief survey to let us

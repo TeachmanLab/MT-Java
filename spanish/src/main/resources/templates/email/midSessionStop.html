@@ -23,7 +23,12 @@
 
                     <p style="margin-top:5px">
                         <span th:text="#{stop.p4}">We greatly appreciate your participation and want to encourage you to complete the
-                            session as soon as you are able. You can login to your MindTrails account when you are ready: </span> <a th:text="#{stop.link}" href="https://mindtrails.virginia.edu/calm/login">MindTrails account</a>.</p>
+                            session as soon as you are able. You can login to your MindTrails account when you are ready: </span>
+                    <div style="margin:auto; width:100px">
+                        <span th:if="${participant.study.getConditioning().contains('SPANISH')}"><a th:href="${url} + '/?lang=es'" th:text="#{stop.link}">MindTrails account</a>.</span>
+                        <span th:if="${participant.study.getConditioning().contains('ENGLISH')}"><a th:href="${url} + '/?lang=en'" th:text="#{stop.link}">MindTrails account</a>.</span>
+                    </div>
+                    </p>
 
                     <p th:text="#{stop.p5}" style="margin-top:5px">Your ongoing participation in the MindTrails study helps us learn how
                         to bring treatments to people in their own home. Together, we can help lift the heavy burden of anxiety.</p>

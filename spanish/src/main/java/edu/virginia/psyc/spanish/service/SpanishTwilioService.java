@@ -28,9 +28,9 @@ public class SpanishTwilioService extends TwilioServiceImpl implements TwilioSer
     public void sendMessage(TextMessage textMessage, Participant participant)  {
 
         String content = translate(textMessage.getContent(), participant);
-        content = content + " " + this.serverUrl + "/login";
+        content = content + " " + this.serverUrl + "/?lang=en";
         if(participant.getStudy().getConditioning().contains("SPANISH")) {
-            content = content + "?lang=es";
+            content = content + "/?lang=es";
         }
         textMessage.setContent(content);
 

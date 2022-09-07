@@ -1088,6 +1088,8 @@
 
                         <br/>
 
+                        <!-- Removed 'PtpReason' and 'PtpReasonOther' from MT Spanish as pps will be recruited directly in this study
+
                         <div><label class="question" th:text="#{demographics.how_learn}"> How did you learn about MindTrails?</label><br/><br/>
                             <select th:field="*{PtpReason}" required="true">
                                 <option value="" th:text="#{please_select_one}">Please select one</option>
@@ -1141,8 +1143,9 @@
                                     $("#PtpReasonOtherInput").prop('required', false);
                                 }
                             });
+                            -->
 
-
+                        <script>
                             $(document).ready(function () {
                                 $('#form').validate({
                                     rules: {

@@ -32,10 +32,6 @@ public class Demographics extends LinkedQuestionnaireData {
     @NotNull
     private String Income;
     @NotNull
-    private String PtpReason;
-    @NotNull
-    private String PtpReasonOther;
-    @NotNull
     private String Gender;
 
     @ElementCollection
