@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.Locale;
+
 @Controller
 public class SpanishStudyController extends BaseController {
 
@@ -41,8 +43,17 @@ public class SpanishStudyController extends BaseController {
                               @PathVariable("id") long id,
                               @ModelAttribute(FORM_NAME) SpanishStudyForm form) {
 
+        Locale locale;
         Participant p = participantRepository.findOne(id);
         form.updateStudy((SpanishStudy) p.getStudy());
+
+        if(p.getStudy().getConditioning().equals(SpanishStudy.CONDITION.ENGLISH_BILINGUAL.toString())) {
+            locale = new Locale("en");
+        } else {
+            locale = new Locale("es");
+        }
+        p.setLanguage(locale.toString());
+
         participantService.save(p);
         return "redirect:/admin";
     }
